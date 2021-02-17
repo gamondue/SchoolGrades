@@ -126,7 +126,7 @@
             // 
             this.btnDraw.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDraw.BackColor = System.Drawing.Color.Transparent;
-            this.btnDraw.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDraw.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnDraw.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnDraw.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnDraw.Location = new System.Drawing.Point(847, 338);
@@ -146,7 +146,7 @@
             this.butComeOn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.butComeOn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
             this.butComeOn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
-            this.butComeOn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.butComeOn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.butComeOn.ForeColor = System.Drawing.Color.DarkBlue;
             this.butComeOn.Location = new System.Drawing.Point(954, 338);
             this.butComeOn.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -202,11 +202,11 @@
             this.toolTip1.SetToolTip(this.txtMinuteStartAlarm, "Minuti per allarme prima della fine");
             this.txtMinuteStartAlarm.Leave += new System.EventHandler(this.LessonAlarmChanged);
             // 
-            // txtVindicationFactor
+            // txtRevengeFactor
             // 
             this.txtRevengeFactor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRevengeFactor.Location = new System.Drawing.Point(912, 488);
-            this.txtRevengeFactor.Name = "txtVindicationFactor";
+            this.txtRevengeFactor.Name = "txtRevengeFactor";
             this.txtRevengeFactor.ReadOnly = true;
             this.txtRevengeFactor.Size = new System.Drawing.Size(36, 24);
             this.txtRevengeFactor.TabIndex = 144;
@@ -217,7 +217,7 @@
             // 
             this.btnCheckNone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCheckNone.BackColor = System.Drawing.Color.Transparent;
-            this.btnCheckNone.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCheckNone.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnCheckNone.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnCheckNone.Location = new System.Drawing.Point(723, 595);
             this.btnCheckNone.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -261,7 +261,7 @@
             this.chkNomeVisibile.AutoSize = true;
             this.chkNomeVisibile.Checked = true;
             this.chkNomeVisibile.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkNomeVisibile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkNomeVisibile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.chkNomeVisibile.ForeColor = System.Drawing.Color.DarkBlue;
             this.chkNomeVisibile.Location = new System.Drawing.Point(240, 67);
             this.chkNomeVisibile.Name = "chkNomeVisibile";
@@ -277,7 +277,7 @@
             this.chkFotoVisibile.AutoSize = true;
             this.chkFotoVisibile.Checked = true;
             this.chkFotoVisibile.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkFotoVisibile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkFotoVisibile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.chkFotoVisibile.ForeColor = System.Drawing.Color.DarkBlue;
             this.chkFotoVisibile.Location = new System.Drawing.Point(240, 92);
             this.chkFotoVisibile.Name = "chkFotoVisibile";
@@ -293,7 +293,7 @@
             this.chkStudentsListVisible.AutoSize = true;
             this.chkStudentsListVisible.Checked = true;
             this.chkStudentsListVisible.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkStudentsListVisible.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkStudentsListVisible.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.chkStudentsListVisible.ForeColor = System.Drawing.Color.DarkBlue;
             this.chkStudentsListVisible.Location = new System.Drawing.Point(240, 117);
             this.chkStudentsListVisible.Name = "chkStudentsListVisible";
@@ -322,7 +322,7 @@
             this.TxtPathImages.ForeColor = System.Drawing.Color.DarkBlue;
             this.TxtPathImages.Location = new System.Drawing.Point(8, 142);
             this.TxtPathImages.Name = "TxtPathImages";
-            this.TxtPathImages.Size = new System.Drawing.Size(656, 24);
+            this.TxtPathImages.Size = new System.Drawing.Size(671, 24);
             this.TxtPathImages.TabIndex = 20;
             this.toolTip1.SetToolTip(this.TxtPathImages, "Cartella in cui trovare l\'immagine casuale (click per aprire un file nella cartel" +
         "la) ");
@@ -334,7 +334,7 @@
             // 
             this.btnPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPath.ForeColor = System.Drawing.Color.Black;
-            this.btnPath.Location = new System.Drawing.Point(670, 140);
+            this.btnPath.Location = new System.Drawing.Point(685, 140);
             this.btnPath.Name = "btnPath";
             this.btnPath.Size = new System.Drawing.Size(34, 27);
             this.btnPath.TabIndex = 67;
@@ -347,7 +347,7 @@
             // 
             this.BtnShowRandomImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnShowRandomImage.BackColor = System.Drawing.Color.Transparent;
-            this.BtnShowRandomImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnShowRandomImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.BtnShowRandomImage.ForeColor = System.Drawing.Color.DarkBlue;
             this.BtnShowRandomImage.Location = new System.Drawing.Point(723, 128);
             this.BtnShowRandomImage.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -445,7 +445,7 @@
             // 
             this.BtnSetup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnSetup.BackColor = System.Drawing.Color.Transparent;
-            this.BtnSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.BtnSetup.ForeColor = System.Drawing.Color.DarkBlue;
             this.BtnSetup.Location = new System.Drawing.Point(711, 5);
             this.BtnSetup.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -461,7 +461,7 @@
             // 
             this.btnStudentsGradesSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnStudentsGradesSummary.BackColor = System.Drawing.Color.Transparent;
-            this.btnStudentsGradesSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStudentsGradesSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnStudentsGradesSummary.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnStudentsGradesSummary.Location = new System.Drawing.Point(954, 594);
             this.btnStudentsGradesSummary.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -480,7 +480,7 @@
             this.btnOldestGrade.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnOldestGrade.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
             this.btnOldestGrade.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
-            this.btnOldestGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOldestGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnOldestGrade.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnOldestGrade.Location = new System.Drawing.Point(954, 466);
             this.btnOldestGrade.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -496,7 +496,7 @@
             // 
             this.cmbGradeType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbGradeType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbGradeType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbGradeType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmbGradeType.ForeColor = System.Drawing.Color.DarkBlue;
             this.cmbGradeType.FormattingEnabled = true;
             this.cmbGradeType.Items.AddRange(new object[] {
@@ -517,7 +517,7 @@
             // 
             this.btnLessonsTopics.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnLessonsTopics.BackColor = System.Drawing.Color.Transparent;
-            this.btnLessonsTopics.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLessonsTopics.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnLessonsTopics.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnLessonsTopics.Location = new System.Drawing.Point(847, 655);
             this.btnLessonsTopics.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -547,7 +547,7 @@
             // 
             this.btnTopicsDone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTopicsDone.BackColor = System.Drawing.Color.Transparent;
-            this.btnTopicsDone.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTopicsDone.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnTopicsDone.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnTopicsDone.Location = new System.Drawing.Point(847, 530);
             this.btnTopicsDone.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -575,7 +575,7 @@
             // 
             this.btnQuestion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnQuestion.BackColor = System.Drawing.Color.Transparent;
-            this.btnQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnQuestion.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnQuestion.Location = new System.Drawing.Point(847, 402);
             this.btnQuestion.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -604,7 +604,7 @@
             // 
             this.btnMakeGroups.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMakeGroups.BackColor = System.Drawing.Color.Transparent;
-            this.btnMakeGroups.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMakeGroups.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnMakeGroups.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnMakeGroups.Location = new System.Drawing.Point(597, 72);
             this.btnMakeGroups.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -620,7 +620,7 @@
             // 
             this.BtnLessonTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnLessonTime.BackColor = System.Drawing.Color.Transparent;
-            this.BtnLessonTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnLessonTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.BtnLessonTime.ForeColor = System.Drawing.Color.DarkBlue;
             this.BtnLessonTime.Location = new System.Drawing.Point(597, 5);
             this.BtnLessonTime.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -636,7 +636,7 @@
             // 
             this.btnVindicationFactorPlus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnVindicationFactorPlus.BackColor = System.Drawing.Color.Transparent;
-            this.btnVindicationFactorPlus.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVindicationFactorPlus.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnVindicationFactorPlus.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnVindicationFactorPlus.Location = new System.Drawing.Point(847, 466);
             this.btnVindicationFactorPlus.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -652,7 +652,7 @@
             // 
             this.btnVindicationFactorMinus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnVindicationFactorMinus.BackColor = System.Drawing.Color.Transparent;
-            this.btnVindicationFactorMinus.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVindicationFactorMinus.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnVindicationFactorMinus.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnVindicationFactorMinus.Location = new System.Drawing.Point(847, 493);
             this.btnVindicationFactorMinus.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -668,7 +668,7 @@
             // 
             this.btnCheckToggle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCheckToggle.BackColor = System.Drawing.Color.Transparent;
-            this.btnCheckToggle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCheckToggle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnCheckToggle.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnCheckToggle.Location = new System.Drawing.Point(723, 403);
             this.btnCheckToggle.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -696,7 +696,7 @@
             // 
             this.btnCheckRevenge.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCheckRevenge.BackColor = System.Drawing.Color.Transparent;
-            this.btnCheckRevenge.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCheckRevenge.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnCheckRevenge.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnCheckRevenge.Location = new System.Drawing.Point(723, 467);
             this.btnCheckRevenge.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -760,7 +760,7 @@
             // 
             this.btnClassesGradesSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClassesGradesSummary.BackColor = System.Drawing.Color.Transparent;
-            this.btnClassesGradesSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClassesGradesSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnClassesGradesSummary.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnClassesGradesSummary.Location = new System.Drawing.Point(847, 594);
             this.btnClassesGradesSummary.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -776,7 +776,7 @@
             // 
             this.btnCheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCheckAll.BackColor = System.Drawing.Color.Transparent;
-            this.btnCheckAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCheckAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnCheckAll.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnCheckAll.Location = new System.Drawing.Point(723, 656);
             this.btnCheckAll.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -792,7 +792,7 @@
             // 
             this.btnCheckNoGrade.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCheckNoGrade.BackColor = System.Drawing.Color.Transparent;
-            this.btnCheckNoGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCheckNoGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnCheckNoGrade.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnCheckNoGrade.Location = new System.Drawing.Point(723, 531);
             this.btnCheckNoGrade.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -811,14 +811,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lstNames.BackColor = System.Drawing.Color.PowderBlue;
             this.lstNames.ColumnWidth = 350;
-            this.lstNames.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstNames.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lstNames.ForeColor = System.Drawing.Color.DarkBlue;
             this.lstNames.HorizontalScrollbar = true;
             this.lstNames.Location = new System.Drawing.Point(8, 222);
             this.lstNames.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.lstNames.MultiColumn = true;
             this.lstNames.Name = "lstNames";
-            this.lstNames.Size = new System.Drawing.Size(711, 466);
+            this.lstNames.Size = new System.Drawing.Size(711, 487);
             this.lstNames.TabIndex = 26;
             this.toolTip1.SetToolTip(this.lstNames, "Nomi degli allievi della classe. ");
             this.lstNames.UseCompatibleTextRendering = true;
@@ -830,9 +830,9 @@
             // lblDatabaseFile
             // 
             this.lblDatabaseFile.AutoSize = true;
-            this.lblDatabaseFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDatabaseFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblDatabaseFile.ForeColor = System.Drawing.Color.Red;
-            this.lblDatabaseFile.Location = new System.Drawing.Point(221, 0);
+            this.lblDatabaseFile.Location = new System.Drawing.Point(216, 0);
             this.lblDatabaseFile.Name = "lblDatabaseFile";
             this.lblDatabaseFile.Size = new System.Drawing.Size(94, 13);
             this.lblDatabaseFile.TabIndex = 111;
@@ -844,7 +844,7 @@
             // 
             this.btnYearTopics.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnYearTopics.BackColor = System.Drawing.Color.Transparent;
-            this.btnYearTopics.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnYearTopics.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnYearTopics.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnYearTopics.Location = new System.Drawing.Point(954, 530);
             this.btnYearTopics.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
@@ -876,7 +876,7 @@
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
             this.label5.Enabled = false;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label5.ForeColor = System.Drawing.Color.DarkBlue;
             this.label5.Location = new System.Drawing.Point(639, 223);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -928,7 +928,7 @@
             // btnStartColorTimer
             // 
             this.btnStartColorTimer.BackColor = System.Drawing.Color.Transparent;
-            this.btnStartColorTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStartColorTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnStartColorTimer.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnStartColorTimer.Location = new System.Drawing.Point(216, 27);
             this.btnStartColorTimer.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -955,7 +955,7 @@
             // btnStartBarTimer
             // 
             this.btnStartBarTimer.BackColor = System.Drawing.Color.Transparent;
-            this.btnStartBarTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStartBarTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnStartBarTimer.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnStartBarTimer.Location = new System.Drawing.Point(297, 27);
             this.btnStartBarTimer.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -991,13 +991,13 @@
             this.toolTip1.SetToolTip(this.chkGivenFolder, "Estrazione fra le immmagini che stanno sotto la cartella data");
             this.chkGivenFolder.UseVisualStyleBackColor = true;
             // 
-            // picBackgroundRunning
+            // picBackgroundSaveRunning
             // 
             this.picBackgroundSaveRunning.BackColor = System.Drawing.Color.DarkGray;
             this.picBackgroundSaveRunning.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.picBackgroundSaveRunning.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picBackgroundSaveRunning.Location = new System.Drawing.Point(25, 127);
-            this.picBackgroundSaveRunning.Name = "picBackgroundRunning";
+            this.picBackgroundSaveRunning.Name = "picBackgroundSaveRunning";
             this.picBackgroundSaveRunning.Size = new System.Drawing.Size(30, 14);
             this.picBackgroundSaveRunning.TabIndex = 171;
             this.picBackgroundSaveRunning.TabStop = false;
@@ -1030,7 +1030,7 @@
             // 
             this.btnStudentsNotes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnStudentsNotes.BackColor = System.Drawing.Color.Transparent;
-            this.btnStudentsNotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStudentsNotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnStudentsNotes.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnStudentsNotes.Location = new System.Drawing.Point(953, 655);
             this.btnStudentsNotes.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -1058,7 +1058,7 @@
             this.lblStudentChosen.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblStudentChosen.BackColor = System.Drawing.Color.Transparent;
-            this.lblStudentChosen.Font = new System.Drawing.Font("Arial Black", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStudentChosen.Font = new System.Drawing.Font("Arial Black", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblStudentChosen.ForeColor = System.Drawing.Color.DarkBlue;
             this.lblStudentChosen.Location = new System.Drawing.Point(8, 222);
             this.lblStudentChosen.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
@@ -1119,7 +1119,7 @@
             // 
             this.btnAssess.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAssess.BackColor = System.Drawing.Color.Transparent;
-            this.btnAssess.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAssess.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnAssess.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnAssess.Location = new System.Drawing.Point(954, 402);
             this.btnAssess.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -1231,7 +1231,7 @@
             "60"});
             this.lstTimeInterval.Location = new System.Drawing.Point(168, 28);
             this.lstTimeInterval.Name = "lstTimeInterval";
-            this.lstTimeInterval.Size = new System.Drawing.Size(46, 94);
+            this.lstTimeInterval.Size = new System.Drawing.Size(46, 112);
             this.lstTimeInterval.TabIndex = 166;
             this.lstTimeInterval.SelectedIndexChanged += new System.EventHandler(this.lstTimeInterval_SelectedIndexChanged);
             this.lstTimeInterval.DoubleClick += new System.EventHandler(this.lstTimeInterval_DoubleClick);
@@ -1239,7 +1239,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label2.Location = new System.Drawing.Point(16, 111);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(48, 13);
@@ -1249,7 +1249,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label7.Location = new System.Drawing.Point(11, 65);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(58, 13);
@@ -1331,7 +1331,7 @@
             this.Controls.Add(this.btnCheckAll);
             this.Controls.Add(this.lblStudentChosen);
             this.Controls.Add(this.picStudent);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.Color.DarkBlue;
             this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

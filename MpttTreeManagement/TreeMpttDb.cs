@@ -12,7 +12,9 @@ namespace gamon.TreeMptt
     internal class TreeMpttDb
     {
         DbAndBusiness db = new DbAndBusiness(); 
-        string dbName = Commons.PathAndFileDatabase; 
+        string dbName = Commons.PathAndFileDatabase;
+
+        public bool BackgroundCanStillSaveTopicsTree = true; // !!!! vedere se serve !!!!
 
         // TODO: finish to encapsulate in this class all the code to access the DBMS with TreeMptt
         internal void SaveTopicsTreeToDb(List<Topic> ListTopicsAfter, List<Topic> ListTopicsDeleted,
@@ -30,8 +32,8 @@ namespace gamon.TreeMptt
                             " WHERE IdTopic =" + t.Id +
                             ";";
                     cmd.ExecuteNonQuery();
-                    //if (!BackgroundCanStillSaveTopicsTree)
-                    //    break;
+                    if (!BackgroundCanStillSaveTopicsTree)
+                        break;
                 }
                 foreach (Topic t in ListTopicsAfter)
                 {
@@ -44,7 +46,6 @@ namespace gamon.TreeMptt
                         || MustSaveLeftAndRight &&
                             (t.LeftNodeNew != t.LeftNodeOld || t.RightNodeNew != t.RightNodeOld)
                         )
-                    //if (true)
                     {
                         if (t.Id != null && t.Id > 1)
                         {
@@ -55,15 +56,15 @@ namespace gamon.TreeMptt
                             db.InsertTopic(t);
                         }
                     }
-                    //if (!BackgroundCanStillSaveTopicsTree)
-                    //    break;
+                    if (!BackgroundCanStillSaveTopicsTree)
+                        break;
                 }
                 cmd.Dispose();
             }
             // Left-Right status left on "inconsistent" if we were NOT saving leftNode and rightNode
             // or if we quit this method breaking the loops. 
-            //if (MustSaveLeftAndRight && BackgroundCanStillSaveTopicsTree)
-                SetLeftRightConsistent(true); // !!!! da togliere !!!!
+            if (MustSaveLeftAndRight && BackgroundCanStillSaveTopicsTree)
+                SetLeftRightConsistent(true); 
         }
         internal void SetLeftRightConsistent(bool SetConsistent)
         {
