@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolGrades", "SchoolGrades\SchoolGrades.csproj", "{BB81531E-DAB6-4214-B98A-4EB1E27B4C34}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedItems", "SharedItems\SharedItems.shproj", "{A5DC5853-0EB8-493E-804D-D596D841AA2D}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DbClasses", "DbClasses\DbClasses.shproj", "{12E573A5-7ED8-4EE0-8A9E-E8304DE4CD86}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "MpttTreeManagement", "MpttTreeManagement\MpttTreeManagement.shproj", "{AEA6904A-A8B6-4602-8946-03DF79CBBD30}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		DbClasses\DbClasses.projitems*{12e573a5-7ed8-4ee0-8a9e-e8304de4cd86}*SharedItemsImports = 13
+		SharedItems\SharedItems.projitems*{a5dc5853-0eb8-493e-804d-d596d841aa2d}*SharedItemsImports = 13
+		MpttTreeManagement\MpttTreeManagement.projitems*{aea6904a-a8b6-4602-8946-03df79cbbd30}*SharedItemsImports = 13
+		DbClasses\DbClasses.projitems*{bb81531e-dab6-4214-b98a-4eb1e27b4c34}*SharedItemsImports = 5
+		MpttTreeManagement\MpttTreeManagement.projitems*{bb81531e-dab6-4214-b98a-4eb1e27b4c34}*SharedItemsImports = 5
+		SharedItems\SharedItems.projitems*{bb81531e-dab6-4214-b98a-4eb1e27b4c34}*SharedItemsImports = 5
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB81531E-DAB6-4214-B98A-4EB1E27B4C34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB81531E-DAB6-4214-B98A-4EB1E27B4C34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB81531E-DAB6-4214-B98A-4EB1E27B4C34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB81531E-DAB6-4214-B98A-4EB1E27B4C34}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {65769141-F154-4DBE-8CFE-B123C23A4A78}
+	EndGlobalSection
+EndGlobal
