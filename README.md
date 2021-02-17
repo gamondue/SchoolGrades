@@ -1,5 +1,6 @@
 # SchoolGrades
-SchoolGrades manages the daily life in the classroom of a teacher, with particular attention to evaluation and tracking of topics.
+SchoolGrades manages the daily life of a teacher in the classroom, with particular attention to evaluation and tracking of topics. 
+It is useful also to the student, to know his grades, the questions he answered and the topics covered by the teacher during his teaching. 
 
 SchoolGrades currently has no documentation. Contribution to documentation is welcome and encouraged.
 
