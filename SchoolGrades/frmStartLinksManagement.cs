@@ -92,9 +92,9 @@ namespace SchoolGrades
                     string link = (string)row["startLink"];
                     Class clickedClass = db.GetClassById((int)row["idClass"]); 
                     if (link.Substring(0, 4) == "http" || link.Contains(".exe"))
-                        System.Diagnostics.Process.Start(link);
+                        Commons.ProcessStartLink(link);
                     else
-                        System.Diagnostics.Process.Start(clickedClass.PathRestrictedApplication + "\\" + link);
+                        Commons.ProcessStartLink(clickedClass.PathRestrictedApplication + "\\" + link);
                 }
                 catch (Exception ex)
                 {
@@ -140,9 +140,9 @@ namespace SchoolGrades
             try
             {
                 if (TxtStartLink.Text.Substring(0, 4) == "http")
-                    System.Diagnostics.Process.Start(TxtStartLink.Text);
+                    Commons.ProcessStartLink(TxtStartLink.Text);
                 else
-                    System.Diagnostics.Process.Start(currentClass.PathRestrictedApplication + "\\" + TxtStartLink.Text);
+                    Commons.ProcessStartLink(currentClass.PathRestrictedApplication + "\\" + TxtStartLink.Text);
             }
             catch
             {
@@ -182,7 +182,7 @@ namespace SchoolGrades
 
         private void TxtPathStartLink_DoubleClick(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(TxtPathStartLink.Text);
+            Commons.ProcessStartLink(TxtPathStartLink.Text);
         }
 
         private void BtnPathRetrictedApplication_Click(object sender, EventArgs e)

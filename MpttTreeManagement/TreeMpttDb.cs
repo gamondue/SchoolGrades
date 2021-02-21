@@ -14,8 +14,6 @@ namespace gamon.TreeMptt
         DbAndBusiness db = new DbAndBusiness(); 
         string dbName = Commons.PathAndFileDatabase;
 
-        public bool BackgroundCanStillSaveTopicsTree = true; // !!!! vedere se serve !!!!
-
         // TODO: finish to encapsulate in this class all the code to access the DBMS with TreeMptt
         internal void SaveTopicsTreeToDb(List<Topic> ListTopicsAfter, List<Topic> ListTopicsDeleted,
             bool MustSaveLeftAndRight)
@@ -24,7 +22,7 @@ namespace gamon.TreeMptt
             {
                 DbCommand cmd = conn.CreateCommand();
 
-                SetLeftRightConsistent(false);
+                SaveLeftRightConsistent(false);
 
                 foreach (Topic t in ListTopicsDeleted)
                 {
@@ -32,7 +30,7 @@ namespace gamon.TreeMptt
                             " WHERE IdTopic =" + t.Id +
                             ";";
                     cmd.ExecuteNonQuery();
-                    if (!BackgroundCanStillSaveTopicsTree)
+                    if (!Commons.BackgroundCanStillSaveTopicsTree)
                         break;
                 }
                 foreach (Topic t in ListTopicsAfter)
@@ -56,17 +54,17 @@ namespace gamon.TreeMptt
                             db.InsertTopic(t);
                         }
                     }
-                    if (!BackgroundCanStillSaveTopicsTree)
+                    if (!Commons.BackgroundCanStillSaveTopicsTree)
                         break;
                 }
                 cmd.Dispose();
             }
             // Left-Right status left on "inconsistent" if we were NOT saving leftNode and rightNode
             // or if we quit this method breaking the loops. 
-            if (MustSaveLeftAndRight && BackgroundCanStillSaveTopicsTree)
-                SetLeftRightConsistent(true); 
+            if (MustSaveLeftAndRight && Commons.BackgroundCanStillSaveTopicsTree)
+                SaveLeftRightConsistent(true); 
         }
-        internal void SetLeftRightConsistent(bool SetConsistent)
+        internal void SaveLeftRightConsistent(bool SetConsistent)
         {
             using (DbConnection conn = db.Connect(dbName))
             {
@@ -157,17 +155,23 @@ namespace gamon.TreeMptt
             List<Topic> firstNodes = GetTopicsRoots();
             // traverse the tree in list from database, numbering according to Modified Preorder Tree Traversal algorithm
             // if the numbers of right or left nodes are different from those written in the database, then update the database
+
             // recursive call that does all: 
             int nodeCount = 0;
-            SetRightAndLeftInOneLevel(firstNodes[0], ref nodeCount); // recursive function 
+            // recursive function starts from just one root node
+            SetRightAndLeftInOneLevel(firstNodes[0], ref nodeCount); 
             // since the initial node has not been read from the database, 
             // then we save left and right anyway 
             UdpateTopicMptt(firstNodes[0].Id, 0, nodeCount);
             // restore status of "consistent" flag
-            SetLeftRightConsistent(true);
+           SaveLeftRightConsistent(true);
         }
         private void SetRightAndLeftInOneLevel(Topic ParentNode, ref int NodeCount)
         {
+            // if requested externally by setting BackgroundCanStillSaveTopicsTree to false, 
+            // abort tree update by exiting method 
+            if (!Commons.BackgroundCanStillSaveTopicsTree)
+                return; 
             // visits all the childrens of CurrentNode in the Treeview. 
             // with the Modified Tree Traversal algorithm 
             // calculates Right and Left node and update the database in case they are different

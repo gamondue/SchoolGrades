@@ -2548,6 +2548,31 @@ namespace SchoolGrades.DbClasses
             return images;
         }
 
+        internal List<string> GetCaptionsOfThisImage(string FileName)
+        {
+            List<string> captions = new List<string>();
+
+            DbDataReader dRead;
+            DbCommand cmd;
+            using (DbConnection conn = Connect(dbName))
+            {
+                cmd = conn.CreateCommand();
+                string query;
+                query = "SELECT Caption FROM Images" +
+                        " WHERE imagePath LIKE '%" + FileName + "%'";
+                query += ";";
+                cmd.CommandText = query;
+                dRead = cmd.ExecuteReader();
+                while (dRead.Read())
+                {
+                    captions.Add((string)dRead["Caption"]);
+                }
+                cmd.Dispose();
+                dRead.Dispose();
+            }
+            return captions;
+        }
+
         internal void BackupAllStudentsDataTsv()
         {
             BackupTableTsv("Students");

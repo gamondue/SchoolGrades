@@ -215,7 +215,7 @@ namespace SchoolGrades
         }
         private void btnOpenConfigurationFolder_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(Commons.PathConfig);
+            Commons.ProcessStartLink(Commons.PathConfig);
         }
 
         private void BtnUseDemo_Click(object sender, EventArgs e)
@@ -240,7 +240,7 @@ namespace SchoolGrades
 
         private void TxtPaths_DoubleClick(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(((TextBox)sender).Text);
+            Commons.ProcessStartLink(((TextBox)sender).Text);
         }
 
         private void TxtFileDatabase_TextChanged(object sender, EventArgs e)

@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Threading;
 using System.Drawing;
 using SchoolGrades.DbClasses;
+using gamon.TreeMptt;
 
 namespace SchoolGrades
 {
@@ -39,6 +40,16 @@ namespace SchoolGrades
         //public static string PathDocuments = PathExe + "\\SchoolGrades\\Docs";
         public static string PathDocuments = PathExe + "\\Docs";
 
+        // wait time before saving 
+        public static int BackgroundThreadSleepSeconds = 60 * 60 * 24; // 1 day: Mpttsaving is effectiveley TEMPORARILY excluded 
+        // public static int BackgroundThreadSleepSeconds = 4 * 60;
+        // enable Mptt backgroud saving of Left anf Right pointers 
+        public static bool BackgroundCanStillSaveTopicsTree = true;
+        // Tree object for concurrent saving 
+        internal static TreeMptt SaveTreeMptt;
+        // Thread that concurrently saves the Topics tree
+        internal static Thread SaveThreadBackground; 
+
         public static bool SaveBackupWhenExiting; 
 
         public static string IdSchool = "FOIS01100L";
@@ -55,10 +66,21 @@ namespace SchoolGrades
         internal static List<Question> QuestionsAlreadyMadeThisTime = new List<Question>();
 
         private static Color ColorNoSubject = Color.PowderBlue;
-        internal static PictureBox globalPicLed;
 
         public static bool IsTimerLessonActive { get; internal set; }
 
+        internal static PictureBox globalPicLed;
+        internal static void SwitchPicLedOn(bool SetLedLit)
+        {
+            // lights on or off the PictureBox used as an Activity LED 
+            globalPicLed.Invoke(new Action(() =>
+            {
+                if (SetLedLit)
+                    globalPicLed.BackColor = Color.Red;           // LED lit
+                else
+                    globalPicLed.BackColor = Color.DarkGray;      // LED off
+            }));
+        }
         internal static string CalculateSHA1(string File)
         {
             try
@@ -80,7 +102,6 @@ namespace SchoolGrades
                 return ErrorLog("ERRORE in calcolo SHA1: " + ex.Message, false);
             }
         }
-
         internal static string ErrorLog(string Error, bool UseMessageBox)
         {
             if (isLogging)
@@ -117,7 +138,6 @@ namespace SchoolGrades
 
             return Error;
         }
-
         internal static string ConvertStringToFilename(string SubmittedName, bool SubstituteSpaces)
         {
             string s = SubmittedName;
@@ -290,10 +310,12 @@ namespace SchoolGrades
             {
                 try
                 {
+                    string startLink;
                     if (link.Substring(0, 4) == "http" || link.Contains(".exe"))
-                        System.Diagnostics.Process.Start(link);
+                        startLink = link;
                     else
-                        System.Diagnostics.Process.Start(Class.PathRestrictedApplication + "\\" + link);
+                        startLink = Class.PathRestrictedApplication + "\\" + link;
+                    Commons.ProcessStartLink(startLink); 
                 }
                 catch
                 {
@@ -301,8 +323,17 @@ namespace SchoolGrades
                 }
             }
         }
-
-        internal static void SaveCurrentValuesOfAllControls(Control ParentControl, ref string PathAndFile)
+        internal static void ProcessStartLink(string Link)
+        {
+            new System.Diagnostics.Process
+            {
+                StartInfo = new System.Diagnostics.ProcessStartInfo(Link)
+                {
+                    UseShellExecute = true
+                }
+            }.Start();
+        }
+    internal static void SaveCurrentValuesOfAllControls(Control ParentControl, ref string PathAndFile)
         {
             string fileContent = ""; 
             if (ParentControl.Controls.Count > 0)

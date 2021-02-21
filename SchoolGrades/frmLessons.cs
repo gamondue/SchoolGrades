@@ -155,12 +155,9 @@ namespace SchoolGrades
 
         private void btnSaveTree_Click(object sender, EventArgs e)
         {
-            ////////topicTreeMptt.UpdateLeftAndRightInDatabaseTreeMptt(); // !!!! TEMPORARY !!!!
             topicTreeMptt.SaveTreeFromTreeViewControlByParent();
-            // MessageBox.Show("Salvataggio in due passaggi: primo salvataggio fatto\r\n(il secondo procede in background e si può interrompere chiudendo il programma)");
             MessageBox.Show("Salvataggio fatto");
         }
-
         // !!!! TODO: this should stay into the TTMPT tree class !!!!
         private void txtTopicName_TextChanged(object sender, EventArgs e)
         {
@@ -202,7 +199,6 @@ namespace SchoolGrades
                 }
             }
         }
-
         private string ImportSubtreeFromTextBox(string TextFromClipboard)
         {
             if (TextFromClipboard == "")
@@ -213,7 +209,6 @@ namespace SchoolGrades
             topicTreeMptt.ImportFreeMindSubtreeUnderNode(TextFromClipboard, trwTopics.SelectedNode); 
             return TextFromClipboard;
         }
-
         private void ExportSubtreeToClipboard()
         {
             if (trwTopics.SelectedNode == null)
@@ -377,10 +372,10 @@ namespace SchoolGrades
                 try
                 {
                     if (link.Substring(0, 4) == "http")
-                        System.Diagnostics.Process.Start(link);
+                        Commons.ProcessStartLink(link);
                     else
-                        //System.Diagnostics.Process.Start(Commons.PathStartLinks + "\\" + link);
-                        System.Diagnostics.Process.Start(currentClass.PathRestrictedApplication + "\\" + link);
+                        //Commons.ProcessStartLink(Commons.PathStartLinks + "\\" + link);
+                        Commons.ProcessStartLink(currentClass.PathRestrictedApplication + "\\" + link);
                 }
                 catch
                 {
@@ -415,7 +410,7 @@ namespace SchoolGrades
                 string fileName = Commons.PathImages + "\\" + listImages[indexImages].RelativePathAndFilename;
                 if (File.Exists(fileName))
                 {
-                    System.Diagnostics.Process.Start(fileName);
+                    Commons.ProcessStartLink(fileName);
                 }
                 else
                 {
@@ -687,7 +682,7 @@ namespace SchoolGrades
                 "\\Lessons\\" + currentSchoolSubject.IdSchoolSubject;
             try
             {
-                System.Diagnostics.Process.Start(folder);
+                Commons.ProcessStartLink(folder);
             }
             catch
             {
