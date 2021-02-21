@@ -1,0 +1,8 @@
+Cancellare le prime righe, fino ai commenti della prima tabella
+Cancellare le ultime righe dalla fine della ultima CREATE TABLE 
+Cancellare "IF NOT EXISTS "
+Cancellare "\r\nENGINE = InnoDB" (con ricerca estesa mantenere il ; !) 
+Togliere i commenti cercando con espressione regolare:  
+ COMMENT.*,
+Sostituire con: 
+,

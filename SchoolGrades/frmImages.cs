@@ -104,7 +104,7 @@ namespace SchoolGrades
                 Console.Beep(); 
             }; 
             //db.GetLessonsImages(currentLesson);
-            txtCaption.Text = currentImage.Caption; 
+            //txtCaption.Text = currentImage.Caption; 
         }
 
         private void txtPathImportImage_TextChanged(object sender, EventArgs e)
@@ -115,7 +115,8 @@ namespace SchoolGrades
         private void txtPathImportImage_DoubleClick(object sender, EventArgs e)
         {
             if(txtPathImportImage.Text != "")
-                System.Diagnostics.Process.Start(txtPathImportImage.Text);
+                Commons.ProcessStartLink(txtPathImportImage.Text);
+
         }
 
         private void btnPathImportImage_Click(object sender, EventArgs e)
@@ -141,12 +142,17 @@ namespace SchoolGrades
             if (openFileDialog1.FileName != "")
             {
                 picImage.Load(openFileDialog1.FileName);
-                txtCaption.Text = ""; 
+                List<string> captions = db.GetCaptionsOfThisImage(txtFileImportImage.Text); 
+                if (captions.Count > 0)
+                    txtCaption.Text = captions[captions.Count -1];
+                else 
+                    txtCaption.Text = "";
             }
         }
 
         private void btnAddImage_Click(object sender, EventArgs e)
         {
+            int previousIndex = DgwLessonsImages.CurrentRow.Index; 
             if (txtFileImportImage.Text != "")
             {
                 string sourcePathAndFileName = txtPathImportImage.Text + "\\" + 
@@ -157,6 +163,8 @@ namespace SchoolGrades
                 if (txtPathImportImage.Text.Contains(Commons.PathImages))
                 {
                     // chosen file is inside the images path 
+                    // does not copy and rename the file
+                    // this spares HDD space on teachers' machine 
                     justLinkFileToLesson(sourcePathAndFileName);
                 }
                 else
@@ -164,13 +172,14 @@ namespace SchoolGrades
                     // chosen file is outside the images path 
                     copyFileToImagesAndLinkToLessons(sourcePathAndFileName);
                 }
+                DgwLessonsImages.Rows[previousIndex].Selected = true; 
             }
         }
 
         private void justLinkFileToLesson(string sourcePathAndFileName)
         {
             DbClasses.Image currentImage = db.FindImageWithGivenFile(sourcePathAndFileName);
-            // if the image thal reference to the file isn't anymore in the database 
+            // if the image that reference to the file isn't anymore in the database 
             // create a new image that references to this file 
             // (eg. if the lesson has been deleted from the database together with its images, but 
             // the file is (somehow) still there) 
@@ -261,7 +270,7 @@ namespace SchoolGrades
 
         private void picImage_DoubleClick(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(Commons.PathImages + "\\" + 
+            Commons.ProcessStartLink(Commons.PathImages + "\\" + 
                 currentImage.RelativePathAndFilename);
         }
 
@@ -299,7 +308,7 @@ namespace SchoolGrades
         {
             string directory = Commons.PathImages + "\\" + txtSubFolderStorage.Text;
             if (txtSubFolderStorage.Text != "" && Directory.Exists(directory))
-                System.Diagnostics.Process.Start(directory);
+                Commons.ProcessStartLink(directory);
             else
                 Console.Beep(); 
         }
@@ -355,10 +364,15 @@ namespace SchoolGrades
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            int localIndex = DgwLessonsImages.SelectedRows[0].Index; 
             currentImage.Caption = txtCaption.Text;
             db.SaveImage(currentImage);
             // refresh images in grid
             DgwLessonsImages.DataSource = db.GetLessonsImages(currentLesson);
+            indexImages = localIndex; 
+            currentImage = ((List<DbClasses.Image>)DgwLessonsImages.DataSource)[localIndex];
+            LoadImage();
+            DgwLessonsImages.Rows[indexImages].Selected = true;
         }
 
         private void txtFileImportImage_TextChanged(object sender, EventArgs e)
@@ -428,15 +442,21 @@ namespace SchoolGrades
         {
             if (e.RowIndex > -1)
             {
-                DgwLessonsImages.Rows[e.RowIndex].Selected = true;
-                indexImages = e.RowIndex; 
+                //DgwLessonsImages.Rows[e.RowIndex].Selected = true;
+                //currentImage = ((List<DbClasses.Image>)DgwLessonsImages.DataSource)[e.RowIndex];
+                //LoadImage();
+                //txtCaption.Text = currentImage.Caption;
+                ////indexImages = e.RowIndex;
             }
         }
 
         private void DgwLessonsImages_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
+            DgwLessonsImages.Rows[e.RowIndex].Selected = true;
             currentImage = ((List<DbClasses.Image>)DgwLessonsImages.DataSource)[e.RowIndex];
             LoadImage();
+            txtCaption.Text = currentImage.Caption;
+            //indexImages = e.RowIndex;
         }
 
         private void BtnNextImage_Click(object sender, EventArgs e)

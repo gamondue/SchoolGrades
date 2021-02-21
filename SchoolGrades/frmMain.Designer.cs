@@ -996,7 +996,7 @@
             this.picBackgroundSaveRunning.BackColor = System.Drawing.Color.DarkGray;
             this.picBackgroundSaveRunning.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.picBackgroundSaveRunning.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picBackgroundSaveRunning.Location = new System.Drawing.Point(25, 127);
+            this.picBackgroundSaveRunning.Location = new System.Drawing.Point(25, 124);
             this.picBackgroundSaveRunning.Name = "picBackgroundSaveRunning";
             this.picBackgroundSaveRunning.Size = new System.Drawing.Size(30, 14);
             this.picBackgroundSaveRunning.TabIndex = 171;
@@ -1045,7 +1045,7 @@
             // txtIdClass
             // 
             this.txtIdClass.ForeColor = System.Drawing.Color.DarkBlue;
-            this.txtIdClass.Location = new System.Drawing.Point(17, 79);
+            this.txtIdClass.Location = new System.Drawing.Point(17, 77);
             this.txtIdClass.Name = "txtIdClass";
             this.txtIdClass.Size = new System.Drawing.Size(46, 24);
             this.txtIdClass.TabIndex = 177;
@@ -1240,7 +1240,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(16, 111);
+            this.label2.Location = new System.Drawing.Point(16, 107);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(48, 13);
             this.label2.TabIndex = 172;
@@ -1250,7 +1250,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(11, 65);
+            this.label7.Location = new System.Drawing.Point(11, 64);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(58, 13);
             this.label7.TabIndex = 178;

@@ -43,9 +43,6 @@ namespace gamon.TreeMptt
         System.Windows.Forms.DragDropEffects typeOfDragAndDrop;
 
         // parameters for saving the Mptt tree concurrently 
-        public Thread BackgroundSaveThread; // every instance of this class has its background thread 
-        public int BackgroundThreadSleepSeconds = 4 * 60;
-        public static PictureBox picLed;
         // variable that can be set from the external to stop the background 
         // task that saves the nodes' tree as a Mptt tree
         // ??????????????? variable must be static because it is called by another instance if this class ?????????
@@ -93,7 +90,7 @@ namespace gamon.TreeMptt
         ////private bool mustSaveTreeAsMptt;
         ////public bool MustSaveTreeAsMptt { get => mustSaveTreeAsMptt; private set => mustSaveTreeAsMptt = value; }
 
-        public static bool IsCurrentlySavingTreeMptt { get => isSavingTreeMptt; set => isSavingTreeMptt = value; }
+        public static bool IsThreadSavingTreeMptt { get => isSavingTreeMptt; set => isSavingTreeMptt = value; }
 
         // enum to be used yet
         enum TypeOfSearch
@@ -123,30 +120,27 @@ namespace gamon.TreeMptt
             txtTopicsSearchString = TxtTopicsDigest;
             txtCodTopic = TxtCodTopic;
 
-            // hook the events
-            treeView.AfterLabelEdit += TreeView_AfterLabelEdit;
-            treeView.AfterCheck += TreeView_AfterCheck;
-            treeView.AfterSelect += TreeView_AfterSelect;
-            treeView.Click += TreeView_Click;
-            treeView.KeyDown += TreeView_KeyDown;
-            txtNodeName.Leave += TxtNodeName_Leave;
+            if (treeView != null)
+            {
+                // hook the events
+                treeView.AfterLabelEdit += TreeView_AfterLabelEdit;
+                treeView.AfterCheck += TreeView_AfterCheck;
+                treeView.AfterSelect += TreeView_AfterSelect;
+                treeView.Click += TreeView_Click;
+                treeView.KeyDown += TreeView_KeyDown;
+                txtNodeName.Leave += TxtNodeName_Leave;
 
-            // for drag & drop 
-            treeView.AllowDrop = true;
-            treeView.ItemDrag += TreeView_ItemDrag;
-            treeView.DragDrop += TreeView_DragDrop;
-            treeView.DragEnter += TreeView_DragEnter;
-            treeView.DragLeave += TreeView_DragLeave;
-            // for object that will be dragged:
-            //////TrwTopics.MouseDown += (sender, args) => DoDragDrop(TheSampleLabel.Text, DragDropEffects.Copy);
-
-            picLed = LedPictureBox;
+                // for drag & drop 
+                treeView.AllowDrop = true;
+                treeView.ItemDrag += TreeView_ItemDrag;
+                treeView.DragDrop += TreeView_DragDrop;
+                treeView.DragEnter += TreeView_DragEnter;
+                treeView.DragLeave += TreeView_DragLeave;
+                // for object that will be dragged:
+                //////TrwTopics.MouseDown += (sender, args) => DoDragDrop(TheSampleLabel.Text, DragDropEffects.Copy);
+            }
 
             typeOfDragAndDrop = TypeOfDragAndDrop;
-
-            // create and start the background saving thread
-            ////////BackgroundSaveThread = new Thread(SaveTreeFromListMpttBackground);
-            ////////BackgroundSaveThread.Start(); 
         }
         internal void GetAllNodesOfSubtree(TreeNode NodeStart, List<TreeNode> List) // (passes List for recursion) 
         {
@@ -171,15 +165,6 @@ namespace gamon.TreeMptt
                 // load by parentNode value
                 listItemsBefore = dbMptt.GetTopicsByParent(); // this is quite unuseful..
                 AddNodesToTreeViewByParent();
-                // since the tree's leftNode and rightNode properties are inconsistent
-                // we start in the background a Mptt memorization. 
-                // This operation can be interrupted with no harm 
-                // Even if interrupted, most of the work done by this thread 
-                // in the backgroud is retained and will not be redone in its following execution 
-                //BackgroundThread = new Thread(SaveTreeFromTreeViewControl);
-                // !!!!!!!!!! background saving temporarily excluded !!!!!!!!! CHECK AND RESTORE !!!!!!!!!!!!!!
-                ////////MustSaveTreeAsMptt = true; // uses leftNode and rightNode references 
-                ////////Commons.BackgroundThread.Start();
             }
             treeView.Nodes[0].Expand();
         }
@@ -336,87 +321,65 @@ namespace gamon.TreeMptt
         }
         internal void SaveMpttBackground()
         {
-            //// start a loop that finishes when we want to close the thread
-            //while (BackgroundThreadCanRun)
-            //{
-            //    // waits BackgroundThreadSleepTime seconds 
-            //    Thread.Sleep(BackgroundThreadSleepSeconds * 1000); // ???? alla fine ????
-
-            //    // check if RightNode & LeftNode are already consistent, if they are, this task 
-            //    // has nothing to do 
-            //    if (!dbMptt.AreLeftAndRightConsistent())
-            //    {
-            //        // if they aren't, starts a loop that, if runs to end, updates all the
-            //        // RightNode & LeftNode pointers. This loops reads nodes from the database,
-            //        // NOT from the TreeView control and can be aborted by an external program 
-
-            //        SwitchLedOn(true);
-            //        // Read list of topics from database
-            //        List<Topic> list = dbMptt.GetTopicsByParent();
-
-            //        // save the nodes that have changed any field, except RightNode & Left Node (optional) 
-            //        // (saving RightNode & Left Node changes would be too slow, so it will be made in a 
-            //        // background Thread) 
-            //        // update of the database
-            //        // save the items' rightNode and leftNode in the database
-            //        //// usare quysto nome oer questo pmetotdo !!!!                  db.SaveLeftAndRightToDbMptt(listItemsAfter, listItemsDeleted, MustSaveTreeAsMptt);
-
-            //        int nodeCount = 1;
-            //        // update the
-            //        // save the items in the database (modified nodes will be saved 
-            //        // according to the difference between old and new values, new 
-            //        // nodes are empty, so they will save. Left and Right will be 
-            //        // saved according to the last parameter of the function) 
-            //        // save the nodes that have changed data or parent node
-            //        // if mustSaveTreeAsMptt is set, salve also topics that have changed rightNode or leftNode
-            //        dbMptt.SaveLeftAndRightToDbMptt(list);
-
-            //        if (!mustSaveTreeAsMptt)
-            //        {
-            //            // Update listTopicsBefore by taking it from the treeview 
-            //            nodeCount = 1;
-            //            listTopicsBefore.Clear();
-            //            GenerateNewListOfNodes(treeView.Nodes[0], ref nodeCount, ref listTopicsBefore); // recursive function
-            //                                                                                            // copy New fields in Old  
-            //            foreach (Topic t in listTopicsBefore)
-            //            {
-            //                t.ChildNumberOld = t.ChildNumberNew;
-            //                t.ParentNodeOld = t.ParentNodeNew;
-            //            }
-            //        }
-
-            //        if (mustSaveTreeAsMptt)
-            //        {
-            //            IsCurrentlySavingTreeMptt = false;
-            //            foreach (Topic t in listTopicsBefore)
-            //            {
-            //                t.LeftNodeOld = t.LeftNodeNew;
-            //                t.RightNodeOld = t.RightNodeNew;
-            //            }
-            //        }
-            //        try
-            //        {
-            //            // "lights off" the PictureBox used as an Activity LED 
-            //            if (picLedLocal != null)
-            //            {
-            //                picLedLocal.BackColor = Color.DarkGray;
-            //            };
-            //        }
-            //        catch { }
-            //        SwitchLedOn(false);
-            //    }
-            //}
-        }
-        private void SwitchLedOn(bool SetLedLit)
-        {
-            // lights on or off the PictureBox used as an Activity LED 
-            picLed.Invoke(new Action(() =>
+            // Starts a loop that finishes when we want to close the thread.
+            // Closing will be fired from external, by resetting to false BackgroundCanStillSaveTopicsTree
+            while (Commons.BackgroundCanStillSaveTopicsTree)
             {
-                if (SetLedLit)
-                    picLed.BackColor = Color.Red;           // LED lit
-                else
-                    picLed.BackColor = Color.DarkGray;      // LED off
-            }));
+                // waits BackgroundThreadSleepTime seconds, watching periodically if it must exit
+                DateTime endTime = DateTime.Now.AddSeconds(Commons.BackgroundThreadSleepSeconds);
+                while (DateTime.Now < endTime)
+                {
+                    if (!BackgroundCanStillSaveItemsTree)
+                        return;
+                    Thread.Sleep(1000);
+                }
+                // check if RightNode & LeftNode are already consistent, if they are, this task 
+                // has nothing to do, so we will wait 
+                if (!dbMptt.AreLeftAndRightConsistent())
+                {
+                    // if they aren't, start the update of all the RightNode & LeftNode pointers. 
+                    // This code reads nodes from the database, NOT from the TreeView control 
+                    // and can be aborted by an external program by setting BackgroundCanStillSaveItemsTree
+                    // to false 
+                    Commons.SwitchPicLedOn(true);
+                    // Read list of topics from database
+                    //List<Topic> list = dbMptt.GetTopicsByParent();
+
+                    // save the nodes that have changed any field, except RightNode & Left Node (optional) 
+                    // (saving RightNode & Left Node changes would be too slow, so it will be made in a 
+                    // background Thread) 
+                    // update of the database
+                    // save the items' rightNode and leftNode in the database
+
+                    // update the items in the database (modified nodes will be saved 
+                    // according to the difference between old and new values, new 
+                    // nodes are empty, so they will save. Left and Right will be 
+                    // saved according to the last parameter of the function) 
+                    // save the nodes that have changed data or parent node
+                    // if mustSaveTreeAsMptt is set, salve also topics that have changed rightNode or leftNode
+                    dbMptt.SaveLeftAndRightToDbMptt();
+                    //int nodeCount = 1;
+                    //List<Topic> listTopicsBefore = new List<Topic>();
+
+                    //foreach (Topic t in listTopicsBefore)
+                    //{
+                    //    t.ChildNumberOld = t.ChildNumberNew;
+                    //    t.ParentNodeOld = t.ParentNodeNew;
+                    //}
+
+                    //IsThreadSavingTreeMptt = false;
+                    //foreach (Topic t in listTopicsBefore)
+                    //{
+                    //    t.LeftNodeOld = t.LeftNodeNew;
+                    //    t.RightNodeOld = t.RightNodeNew;
+                    //}
+
+                    if (BackgroundCanStillSaveItemsTree)
+                        dbMptt.SaveLeftRightConsistent(true); 
+
+                    Commons.SwitchPicLedOn(false);
+                }
+            }
         }
         internal void SaveTreeFromTreeViewControlByParent()
         {
@@ -424,13 +387,12 @@ namespace gamon.TreeMptt
             // (shorter operation) 
 
             // if a background process is saving the tree, we stop it
-            // TODO !!!! PUT THIS CODE BACK !!!!
-            //////////if (IsCurrentlySavingTreeMptt)
-            //////////{
-            //////////    BackgroundCanStillSaveItemsTree = false;
-            //////////    // we wait for the saving Thread to finish
-            //////////    BackgroundSaveThread.Join(); // ??????
-            //////////}
+            if (IsThreadSavingTreeMptt)
+            {
+                BackgroundCanStillSaveItemsTree = false;
+                // we wait for the saving Thread to finish
+                Commons.SaveThreadBackground.Join(); 
+            }
             // save the nodes that have changed any field, except RightNode & Left Node (optional) 
             // (saving RightNode & Left Node changes would be too slow, 
             // so it is done in the background Thread, that we will restart at the end of this method
@@ -441,9 +403,9 @@ namespace gamon.TreeMptt
             // now in listTopicsAfter we have the list of all current nodes, with correct 
             // "new" and "old" pointers (included Left and Right) 
 
-            // find deleted topics. Time after they will be deleted from database
+            // find deleted topics. After they will be deleted from database
             listItemsDeleted = new List<Topic>();
-            // ???? this is expensive! We can do better !!!!! (manage deletion list directly on delete from the treeview)
+            // ???? this is expensive! We can do better !!!!! (TODO !!!! manage deletion list directly on delete from the treeview)
             foreach (Topic tOld in listItemsBefore)
             {
                 if (FindNodeRecursivelyById(treeView.Nodes[0], tOld) == null)
@@ -460,45 +422,30 @@ namespace gamon.TreeMptt
             // save the items in the database (modified nodes will be saved 
             // according to the difference between old and new values, new 
             // nodes are empty, so they will save. Left and Right will be 
-            // saved according to the last parameter of the function) 
-            // save the nodes that have changed data or parent node
-            // if mustSaveTreeAsMptt is set, salve also topics that have changed rightNode or leftNode
+            // saved by a concurrent Thread, so here the third parameter is false
             
-            // !!!!!!!!!!!!!!!!!!!!! THIS ONE SPOILS THE TREE !!!!!!!!!!!!!!
             dbMptt.SaveTopicsTreeToDb(listItemsAfter, listItemsDeleted, false);
 
-            
-            
-            
-            
-            //if (!mustSaveTreeAsMptt)
-            //{
             // Update listTopicsBefore by taking it from the treeview 
             nodeCount = 1;
-                listItemsBefore.Clear();
-               dbMptt.GenerateNewListOfNodesFromTreeViewControl(treeView.Nodes[0], ref nodeCount, ref listItemsBefore); // recursive function
-                // copy New fields in Old  
-                foreach (Topic t in listItemsBefore)
-                {
-                    t.ChildNumberOld = t.ChildNumberNew;
-                    t.ParentNodeOld = t.ParentNodeNew;
-                }
-            //}
-
-            //if (mustSaveTreeAsMptt)
-            //{
-            //    IsCurrentlySavingTreeMptt = false;
-            //    foreach (Topic t in listItemsBefore)
-            //    {
-            //        t.LeftNodeOld = t.LeftNodeNew;
-            //        t.RightNodeOld = t.RightNodeNew;
-            //    }
-            //}
+            listItemsBefore.Clear();
+            // recursive function
+            dbMptt.GenerateNewListOfNodesFromTreeViewControl(treeView.Nodes[0], ref nodeCount, ref listItemsBefore); 
+            // copy New fields in Old  
+            foreach (Topic t in listItemsBefore)
+            {
+                t.ChildNumberOld = t.ChildNumberNew;
+                t.ParentNodeOld = t.ParentNodeNew;
+            }
             try
             {
-                SwitchLedOn(false); 
+                Commons.SwitchPicLedOn(false); 
             }
             catch { }
+            // restart the Thread 
+            // re-create and run Thread that concurrently saves the Topics tree
+            Commons.SaveThreadBackground = new Thread(Commons.SaveTreeMptt.SaveMpttBackground);
+            Commons.SaveThreadBackground.Start();
         }
         internal TreeNode AddNewNode(string Text)
         {
@@ -759,7 +706,7 @@ namespace gamon.TreeMptt
             Node.Expand(); 
             return;
         }
-        internal void SetNodeAsFoundById(int Id, Color? HighlightColor = null)
+        internal void ColorNodeAsFoundById(int Id, Color? HighlightColor = null)
         {
             Color highlightColor = HighlightColor ?? colorOfFoundItem;
             TreeNode f = FindItemById(Id);
@@ -792,6 +739,11 @@ namespace gamon.TreeMptt
                     ex.Message, true);
             }
         }
+        internal void DeleteNodeClick()
+        {
+            TreeNode te = treeView.SelectedNode;
+            te.Parent.Nodes.Remove(te);
+        }
         internal void checkGeneralKeysForTopicsTree(KeyEventArgs e, string ToFind)
         {
             if (e.KeyCode == Keys.F3)
@@ -800,11 +752,6 @@ namespace gamon.TreeMptt
             {
                 SaveTreeFromTreeViewControlByParent();
             }
-        }
-        internal void DeleteNodeClick()
-        {
-            TreeNode te = treeView.SelectedNode;
-            te.Parent.Nodes.Remove(te);
         }
         private string JustSomeNodesOfPath(string Path)
         {

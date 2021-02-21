@@ -466,7 +466,7 @@ namespace SchoolGrades
             {
                 if (e.ColumnIndex == 6) // column of the path; opens the folder with that path 
                 {
-                    System.Diagnostics.Process.Start(DgwClass.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                    Commons.ProcessStartLink(DgwClass.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
                 }
             }
         }

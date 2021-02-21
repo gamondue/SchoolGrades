@@ -75,7 +75,7 @@ namespace SchoolGrades
             }
             string imagesFolder = db.CreateOneClassOnlyDatabase(currentClass);
             if (imagesFolder != "")
-                System.Diagnostics.Process.Start(imagesFolder);
+                Commons.ProcessStartLink(imagesFolder);
             else
                 MessageBox.Show("Cartella del database della classe non trovata"); 
             //MessageBox.Show("Fatto"); 

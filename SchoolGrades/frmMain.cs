@@ -7,6 +7,7 @@ using System.Threading;
 using gamon;
 using System.Diagnostics;
 using SchoolGrades.DbClasses;
+using gamon.TreeMptt;
 
 namespace SchoolGrades
 {
@@ -139,7 +140,12 @@ namespace SchoolGrades
             string file = Commons.PathLogs + @"\frmMain_parameters.txt";
             Commons.RestoreCurrentValuesOfAllControls(this, file);
 
-            txtNStudents.Text = ""; 
+            txtNStudents.Text = "";
+
+            // start Thread that concurrently saves the Topics tree
+            Commons.SaveTreeMptt = new TreeMptt(null, null, null, null, null, null, picBackgroundSaveRunning);
+            Commons.SaveThreadBackground= new Thread(Commons.SaveTreeMptt.SaveMpttBackground);
+            Commons.SaveThreadBackground.Start(); 
         }
         static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
@@ -451,7 +457,7 @@ namespace SchoolGrades
             }
             if (filesInFolder.Count > 0)
             {
-                Process.Start(filesInFolder[indexImage]);
+                Commons.ProcessStartLink(filesInFolder[indexImage]);
                 indexImage++;
             }
             else
@@ -997,7 +1003,6 @@ namespace SchoolGrades
         }
         private void cmbSchoolSubject_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //////////Commons.CurrentSchoolSubject = (SchoolSubject)cmbSchoolSubject.SelectedItem;
             currentSubject = (SchoolSubject)cmbSchoolSubject.SelectedItem;
             if (currentSubject.Name == null)
                 currentSubject = null;
@@ -1097,7 +1102,7 @@ namespace SchoolGrades
         {
             try
             {
-                System.Diagnostics.Process.Start(TxtPathImages.Text);
+                Commons.ProcessStartLink(TxtPathImages.Text);
             }
             catch (Exception er)
             {
@@ -1301,7 +1306,7 @@ namespace SchoolGrades
                 previous = t;
             }
             TextFile.StringToFile(Commons.PathDatabase + "\\" + filename, f, false);
-            Process.Start(Commons.PathDatabase + "\\" + filename);
+            Commons.ProcessStartLink(Commons.PathDatabase + "\\" + filename);
             MessageBox.Show("Creato il file " + filename);
         }
         private void ChkEnableEndLessonWarning_CheckedChanged(object sender, EventArgs e)
