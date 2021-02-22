@@ -144,8 +144,8 @@ namespace SchoolGrades
 
             // start Thread that concurrently saves the Topics tree
             Commons.SaveTreeMptt = new TreeMptt(null, null, null, null, null, null, picBackgroundSaveRunning);
-            Commons.SaveThreadBackground= new Thread(Commons.SaveTreeMptt.SaveMpttBackground);
-            Commons.SaveThreadBackground.Start(); 
+            Commons.BackgroundSaveThread= new Thread(Commons.SaveTreeMptt.SaveMpttBackground);
+            Commons.BackgroundSaveThread.Start(); 
         }
         static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
@@ -1201,10 +1201,13 @@ namespace SchoolGrades
             string file = Commons.PathLogs + @"\frmMain_parameters.txt";
             Commons.SaveCurrentValuesOfAllControls(this, ref file);
             SaveStudentsOfClassIfEligibleHasChanged();
-            // if a save of the database with Mptt is running, close it 
-            ////////////if (TreeMptt.IsCurrentlySavingTreeMptt)
-            ////////////    .BackgroundCanStillSaveTopicsTree = false;
-
+            // if a save of the database with Mptt is running, we close it 
+            if (Commons.BackgroundSaveThread.IsAlive)
+            {
+                Commons.BackgroundCanStillSaveTopicsTree = false;
+                // we wait for the saving Thread to finish
+                Commons.BackgroundSaveThread.Join(2 * 60000);
+            }
             // save in the log folder a copy of the database, if enabled 
             if (Commons.SaveBackupWhenExiting)
             { 

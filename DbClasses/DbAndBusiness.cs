@@ -3861,50 +3861,66 @@ namespace SchoolGrades.DbClasses
             // node numbering according to Modified Preorder Tree Traversal algorithm
             return ((int)RightNode - (int)LeftNode - 1) / 2;
         }
-        internal void UpdateTopic(Topic t)
+        internal void UpdateTopic(Topic t, DbConnection conn)
         {
-            using (DbConnection conn = Connect(dbName))
+            bool leaveConnectionOpen = true;
+            if (conn == null)
             {
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "UPDATE Topics" +
-                    " SET" +
-                    " name='" + SqlVal.SqlString(t.Name) + "'" +
-                    ",desc='" + SqlVal.SqlString(t.Desc) + "'" +
-                    ",parentNode=" + t.ParentNodeNew +
-                    ",leftNode=" + t.LeftNodeNew +
-                    ",rightNode=" + t.RightNodeNew +
-                    ",childNumber=" + t.ChildNumberNew +
-                    " WHERE idTopic=" + t.Id +
-                    ";";
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
+                conn = Connect(dbName);
+                leaveConnectionOpen = false;
+            }
+            DbCommand cmd = conn.CreateCommand();
+            cmd.CommandText = "UPDATE Topics" +
+                " SET" +
+                " name='" + SqlVal.SqlString(t.Name) + "'" +
+                ",desc='" + SqlVal.SqlString(t.Desc) + "'" +
+                ",parentNode=" + t.ParentNodeNew +
+                ",leftNode=" + t.LeftNodeNew +
+                ",rightNode=" + t.RightNodeNew +
+                ",childNumber=" + t.ChildNumberNew +
+                " WHERE idTopic=" + t.Id +
+                ";";
+            cmd.ExecuteNonQuery();
+            cmd.Dispose();
+            if (!leaveConnectionOpen)
+            {
+                conn.Close();
+                conn.Dispose();
             }
         }
-        internal void InsertTopic(Topic t)
+        internal void InsertTopic(Topic t, DbConnection Conn)
         {
             if (t.Id == null || t.Id == 0)
             {
-                using (DbConnection conn = Connect(dbName))
+                bool leaveConnectionOpen = true;
+                if (Conn == null)
                 {
-                    DbCommand cmd = conn.CreateCommand();
+                    Conn = Connect(dbName);
+                    leaveConnectionOpen = false;
+                }
+                DbCommand cmd = Conn.CreateCommand();
 
-                    cmd.CommandText = "SELECT MAX(IdTopic) FROM Topics;";
-                    var temp = cmd.ExecuteScalar();
-                    if (!(temp is DBNull))
-                        t.Id = Convert.ToInt32(temp) + 1;
-                    cmd.CommandText = "INSERT INTO Topics" +
-                        " (idTopic,name,desc,leftNode,rightNode,parentNode,childNumber)" +
-                        " Values (" +
-                        t.Id.ToString() +
-                        ",'" + SqlVal.SqlString(t.Name) + "'" +
-                        ",'" + SqlVal.SqlString(t.Desc) + "'" +
-                        "," + t.LeftNodeNew + "" +
-                        "," + t.RightNodeNew + "" +
-                        "," + t.ParentNodeNew + "" +
-                        "," + t.ChildNumberNew + "" +
-                        ");";
-                    cmd.ExecuteNonQuery();
-                    cmd.Dispose();
+                cmd.CommandText = "SELECT MAX(IdTopic) FROM Topics;";
+                var temp = cmd.ExecuteScalar();
+                if (!(temp is DBNull))
+                    t.Id = Convert.ToInt32(temp) + 1;
+                cmd.CommandText = "INSERT INTO Topics" +
+                    " (idTopic,name,desc,leftNode,rightNode,parentNode,childNumber)" +
+                    " Values (" +
+                    t.Id.ToString() +
+                    ",'" + SqlVal.SqlString(t.Name) + "'" +
+                    ",'" + SqlVal.SqlString(t.Desc) + "'" +
+                    "," + t.LeftNodeNew + "" +
+                    "," + t.RightNodeNew + "" +
+                    "," + t.ParentNodeNew + "" +
+                    "," + t.ChildNumberNew + "" +
+                    ");";
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+                if (!leaveConnectionOpen)
+                {
+                    Conn.Close();
+                    Conn.Dispose();
                 }
             }
         }
@@ -4995,7 +5011,6 @@ namespace SchoolGrades.DbClasses
                 cmd.Dispose();
             }
         }
-
         #endregion
     }
 }
