@@ -15,7 +15,8 @@ namespace gamon.TreeMptt
         string dbName = Commons.PathAndFileDatabase;
 
         // TODO: finish to encapsulate in this class all the code to access the DBMS with TreeMptt
-        internal void SaveTopicsTreeToDb(List<Topic> ListTopicsAfter, List<Topic> ListTopicsDeleted,
+
+        internal void SaveTreeToDb(List<Topic> ListTopicsAfter, List<Topic> ListTopicsDeleted,
             bool MustSaveLeftAndRight)
         {
             using (DbConnection conn = db.Connect(dbName))
@@ -24,14 +25,17 @@ namespace gamon.TreeMptt
 
                 SaveLeftRightConsistent(false);
 
-                foreach (Topic t in ListTopicsDeleted)
+                if (ListTopicsDeleted != null)
                 {
-                    cmd.CommandText = "DELETE FROM Topics" +
-                            " WHERE IdTopic =" + t.Id +
-                            ";";
-                    cmd.ExecuteNonQuery();
-                    if (!Commons.BackgroundCanStillSaveTopicsTree)
-                        break;
+                    foreach (Topic t in ListTopicsDeleted)
+                    {
+                        cmd.CommandText = "DELETE FROM Topics" +
+                                " WHERE IdTopic =" + t.Id +
+                                ";";
+                        cmd.ExecuteNonQuery();
+                        if (!Commons.BackgroundCanStillSaveTopicsTree)
+                            return;
+                    }
                 }
                 foreach (Topic t in ListTopicsAfter)
                 {
@@ -249,7 +253,9 @@ namespace gamon.TreeMptt
             DbConnection Connection = db.Connect(dbName);
             GetAllChildren(ParentNode, Level, Connection);
             Connection.Close();
-            Connection.Dispose(); 
+            Connection.Dispose();
+            //if (!Commons.BackgroundCanStillSaveTopicsTree)
+            //    return; 
         }
         internal void GenerateNewListOfNodesFromTreeViewControl(TreeNode CurrentNode, ref int nodeCount,
             ref List<Topic> generatedList) // the 2 ref parameters must be passed for recursion
@@ -319,6 +325,8 @@ namespace gamon.TreeMptt
                 n.Text = t.Name;
                 ParentNode.Nodes.Add(n);
                 GetAllChildren(n, Level++, Connection);
+                if (!Commons.BackgroundCanStillSaveTopicsTree)
+                    return;
             }
         }
         internal List<Topic> GetTopicChildsByParent(Topic ParentTopic, DbConnection Connection)

@@ -81,10 +81,8 @@ namespace SchoolGrades
             {
                 //dtpLessonDate.Visible = false; 
             }
-
             // load data in datagrids
             RefreshUI();
-
             //topicTreeMptt = new TopicTreeMptt(listTopicsBefore, trwTopics,
             topicTreeMptt = new gamon.TreeMptt.TreeMptt(trwTopics,
                 txtTopicName, txtTopicDescription, txtTopicFind, TxtTopicsDigestAndSearch,

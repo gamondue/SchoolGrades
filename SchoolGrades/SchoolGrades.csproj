@@ -15,7 +15,7 @@
 First version published on GitHub with GPL v.2 licence (source is not public yet). 
 Versions with numbers under 0.50 are previous distributions, made with .Net Framework.</PackageReleaseNotes>
     <PackageIcon>gamon LegoLogo decentrato trasparente 256x256.ico</PackageIcon>
-    <ApplicationIcon>D:\Develop\Git\ProgrammiScuola\gamon LegoLogo decentrato trasparente 256x256.ico</ApplicationIcon>
+    <ApplicationIcon>gamon LegoLogo decentrato trasparente 256x256.ico</ApplicationIcon>
   </PropertyGroup>
 
   <Import Project="..\SharedItems\SharedItems.projitems" Label="Shared" />
