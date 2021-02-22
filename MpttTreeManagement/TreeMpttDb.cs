@@ -51,11 +51,11 @@ namespace gamon.TreeMptt
                     {
                         if (t.Id != null && t.Id > 1)
                         {
-                            db.UpdateTopic(t);
+                            db.UpdateTopic(t, conn);
                         }
                         else
                         {
-                            db.InsertTopic(t);
+                            db.InsertTopic(t, conn);
                         }
                     }
                     if (!Commons.BackgroundCanStillSaveTopicsTree)

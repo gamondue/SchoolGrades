@@ -436,7 +436,7 @@ namespace gamon.TreeMptt
             {
                 Commons.BackgroundCanStillSaveTopicsTree = false;
                 // we wait for the saving Thread to finish
-                Commons.SaveThreadBackground.Join();
+                Commons.BackgroundSaveThread.Join(2 * 60000);
             }
             // save the nodes that have changed any field, except RightNode & Left Node (optional) 
             // (saving RightNode & Left Node changes would be too slow, 
@@ -488,9 +488,9 @@ namespace gamon.TreeMptt
             }
             catch { }
             // restart the Thread 
-            // re-create and run Thread that concurrently saves the Topics tree
-            Commons.SaveThreadBackground = new Thread(Commons.SaveTreeMptt.SaveMpttBackground);
-            Commons.SaveThreadBackground.Start();
+            // re-create and run the Thread that concurrently saves the Topics tree
+            Commons.BackgroundSaveThread = new Thread(Commons.SaveTreeMptt.SaveMpttBackground);
+            Commons.BackgroundSaveThread.Start();
         }
         internal TreeNode AddNewNode(string Text)
         {
@@ -1020,10 +1020,13 @@ namespace gamon.TreeMptt
                         previousTopic = stack.Pop();
                         while (currentTopic.RightNodeOld > previousTopic.RightNodeOld)
                         {
-                            previousTopic = stack.Pop();
-                            // less indentation 
-                            currentIndentation =
-                                currentIndentation.Substring(0, currentIndentation.Length - 1);
+                            if (stack.Count > 0)
+                            { 
+                                previousTopic = stack.Pop();
+                                // less indentation 
+                                currentIndentation =
+                                    currentIndentation.Substring(0, currentIndentation.Length - 1);
+                            }
                         };
                         file += currentIndentation + currentTopic.Name + "\t" +
                             currentTopic.Desc;

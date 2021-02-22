@@ -41,15 +41,15 @@ namespace SchoolGrades
         public static string PathDocuments = PathExe + "\\Docs";
 
         // wait time before saving 
-        public static int BackgroundThreadSleepSeconds = 20; // 
+        //public static int BackgroundThreadSleepSeconds = 20; // 
         //public static int BackgroundThreadSleepSeconds = 60 * 60 * 24; // 1 day: Mpttsaving is effectiveley TEMPORARILY excluded 
-        // public static int BackgroundThreadSleepSeconds = 4 * 60;
+        public static int BackgroundThreadSleepSeconds = 5 * 60;
         // enable Mptt backgroud saving of Left anf Right pointers 
         public static bool BackgroundCanStillSaveTopicsTree = true;
         // Tree object for concurrent saving 
         internal static TreeMptt SaveTreeMptt;
         // Thread that concurrently saves the Topics tree
-        internal static Thread SaveThreadBackground; 
+        internal static Thread BackgroundSaveThread; 
 
         public static bool SaveBackupWhenExiting; 
 

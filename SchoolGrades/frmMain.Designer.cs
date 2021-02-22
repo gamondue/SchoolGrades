@@ -237,7 +237,7 @@
             this.lstClasses.ItemHeight = 18;
             this.lstClasses.Location = new System.Drawing.Point(86, 4);
             this.lstClasses.Name = "lstClasses";
-            this.lstClasses.Size = new System.Drawing.Size(76, 112);
+            this.lstClasses.Size = new System.Drawing.Size(76, 130);
             this.lstClasses.TabIndex = 46;
             this.lstClasses.TabStop = false;
             this.toolTip1.SetToolTip(this.lstClasses, "Classi dell\'anno scolastico selezionato");
