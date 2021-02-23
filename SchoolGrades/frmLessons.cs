@@ -98,7 +98,7 @@ namespace SchoolGrades
                 TopicsToCheck, ref dummy, ref dummy2);
 
             // gets the images associated with this lesson
-            listImages = db.GetLessonsImages(currentLesson);
+            listImages = db.GetLessonsImagesList(currentLesson);
             // shows the first image
             if (listImages != null && listImages.Count > 0)
                 try
@@ -428,7 +428,7 @@ namespace SchoolGrades
             frmImages fi = new frmImages(frmImages.ImagesFormType.NormalManagement
                 , currentLesson, currentClass, listImages, currentSchoolSubject);
             fi.ShowDialog();
-            listImages = db.GetLessonsImages(currentLesson);
+            listImages = db.GetLessonsImagesList(currentLesson);
             indexImages = 0;
             if (listImages.Count > 0)
             {
@@ -624,7 +624,7 @@ namespace SchoolGrades
                         TopicsToCheck, ref dummy, ref dummy2);
 
                     // gets the images associated with this lesson
-                    listImages = db.GetLessonsImages(currentLesson);
+                    listImages = db.GetLessonsImagesList(currentLesson);
                     // shows the fist image
                     if (listImages.Count > 0)
                         try

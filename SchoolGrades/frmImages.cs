@@ -141,21 +141,28 @@ namespace SchoolGrades
             }
             if (openFileDialog1.FileName != "")
             {
-                picImage.Load(openFileDialog1.FileName);
-                List<string> captions = db.GetCaptionsOfThisImage(txtFileImportImage.Text); 
-                if (captions.Count > 0)
-                    txtCaption.Text = captions[captions.Count -1];
-                else 
-                    txtCaption.Text = "";
+                try
+                {
+                    picImage.Load(openFileDialog1.FileName);
+                    List<string> captions = db.GetCaptionsOfThisImage(txtFileImportImage.Text);
+                    if (captions.Count > 0)
+                        txtCaption.Text = captions[captions.Count - 1];
+                    else
+                        txtCaption.Text = "";
+                }
+                catch
+                {
+                    MessageBox.Show("Immagine non caricata.\nFormato non supportato?"); 
+                }
             }
         }
 
         private void btnAddImage_Click(object sender, EventArgs e)
         {
-            int previousIndex = DgwLessonsImages.CurrentRow.Index; 
             if (txtFileImportImage.Text != "")
             {
-                string sourcePathAndFileName = txtPathImportImage.Text + "\\" + 
+                string caption = txtCaption.Text;
+                string sourcePathAndFileName = txtPathImportImage.Text + "\\" +
                     txtFileImportImage.Text;
                 // if the chosen file is already in the image path, the program
                 // will avoid copying it under the image path and will link to the 
@@ -172,7 +179,19 @@ namespace SchoolGrades
                     // chosen file is outside the images path 
                     copyFileToImagesAndLinkToLessons(sourcePathAndFileName);
                 }
-                DgwLessonsImages.Rows[previousIndex].Selected = true; 
+                // goto the last (the one just added) 
+                indexImages = DgwLessonsImages.Rows.Count - 1;
+                try
+                {
+                    picImage.Load(sourcePathAndFileName);
+                }
+                catch
+                {
+                    Console.Beep();
+                };
+                DgwLessonsImages.Rows[indexImages].Selected = false;
+                DgwLessonsImages.Rows[indexImages].Selected = true;
+                txtCaption.Text = caption;
             }
         }
 
@@ -196,7 +215,7 @@ namespace SchoolGrades
             }
             db.LinkOneImage(currentImage, currentLesson);
             // refresh images in grid
-            DgwLessonsImages.DataSource = db.GetLessonsImages(currentLesson);
+            DgwLessonsImages.DataSource = db.GetLessonsImagesList(currentLesson);
         }
 
         private void copyFileToImagesAndLinkToLessons(string sourcePathAndFileName)
@@ -260,7 +279,7 @@ namespace SchoolGrades
             currentImage.IdImage = 0; // to force creation of a new record
             db.LinkOneImage(currentImage, currentLesson);
             // refresh images in grid
-            DgwLessonsImages.DataSource = db.GetLessonsImages(currentLesson);
+            DgwLessonsImages.DataSource = db.GetLessonsImagesList(currentLesson);
         }
 
         private void picImage_Click(object sender, EventArgs e)
@@ -344,7 +363,7 @@ namespace SchoolGrades
             }
             else
                 db.RemoveImageFromLesson(currentLesson, currentImage, false);
-            DgwLessonsImages.DataSource = db.GetLessonsImages(currentLesson);
+            DgwLessonsImages.DataSource = db.GetLessonsImagesList(currentLesson);
             try
             {
                 currentImage = ((List<DbClasses.Image>)DgwLessonsImages.DataSource)[0];
@@ -364,22 +383,18 @@ namespace SchoolGrades
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            int localIndex = DgwLessonsImages.SelectedRows[0].Index; 
+            int localIndex = DgwLessonsImages.SelectedRows[0].Index;
             currentImage.Caption = txtCaption.Text;
             db.SaveImage(currentImage);
             // refresh images in grid
-            DgwLessonsImages.DataSource = db.GetLessonsImages(currentLesson);
-            indexImages = localIndex; 
+            DgwLessonsImages.DataSource = db.GetLessonsImagesList(currentLesson);
+            indexImages = localIndex;
             currentImage = ((List<DbClasses.Image>)DgwLessonsImages.DataSource)[localIndex];
             LoadImage();
-            DgwLessonsImages.Rows[indexImages].Selected = true;
+            txtCaption.Text = currentImage.Caption; 
+            DgwLessonsImages.Rows[localIndex].Selected = false;
+            DgwLessonsImages.Rows[localIndex].Selected = true;
         }
-
-        private void txtFileImportImage_TextChanged(object sender, EventArgs e)
-        {
-            txtFileImportImage.Text = Commons.ConvertStringToFilename(txtFileImportImage.Text, false); 
-        }
-
         private void PreviousImage()
         {
             if (listImages.Count > 0)
