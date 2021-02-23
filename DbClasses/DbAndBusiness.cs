@@ -4313,7 +4313,7 @@ namespace SchoolGrades.DbClasses
             }
             return topicsOfTheLesson;
         }
-        internal List<Image> GetLessonsImages(Lesson Lesson)
+        internal List<Image> GetLessonsImagesList(Lesson Lesson)
         {
             if (Lesson.IdLesson == null)
                 return null;
