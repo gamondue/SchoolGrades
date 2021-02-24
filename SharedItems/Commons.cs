@@ -156,7 +156,6 @@ namespace SchoolGrades
                 s = s.Replace(' ', '-');
             return s;
         }
-
         internal static DateTime NextWeekSameDay(DateTime from, DayOfWeek dayOfWeek)
         {
             int start = (int)from.DayOfWeek;
@@ -165,7 +164,6 @@ namespace SchoolGrades
                 target += 7;
             return from.AddDays(target - start);
         }
-
         internal static void ReadConfigFile()
         {
             string[] dati = null;
@@ -304,7 +302,6 @@ namespace SchoolGrades
             }
             return sum;
         }
-
         internal static void StartLinks(Class Class, List<string> LinksOfClass)
         {
             foreach (string link in LinksOfClass)
@@ -396,7 +393,6 @@ namespace SchoolGrades
                 Console.Beep(200, 300); 
             }
         }
-
         private static void RestoreControlsValuesOfLevel(Control ParentControl, string[,] NamesAndValues, ref int Index)
         { 
             // recursive function! 

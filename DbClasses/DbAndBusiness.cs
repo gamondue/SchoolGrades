@@ -295,12 +295,10 @@ namespace SchoolGrades.DbClasses
             connection.Open();
             return connection;
         }
-
         internal int? UpdateAnnotationGroup(StudentAnnotation currentAnnotation, Student currentStudent)
         {
             throw new NotImplementedException();
         }
-
         internal void EraseStudentsPhoto(int? IdStudent, string SchoolYear)
         {
             using (DbConnection conn = Connect(dbName))
@@ -314,7 +312,6 @@ namespace SchoolGrades.DbClasses
                 cmd.Dispose();
             }
         }
-
         internal int CreateClass(string ClassAbbreviation, string ClassDescription, string SchoolYear,
             string IdSchool)
         {
