@@ -34,6 +34,25 @@ namespace SchoolGrades.DbClasses
             dbName = Commons.PathAndFileDatabase;
         }
 
+        internal bool IsUserAllowed(User CredentialsFromUser)
+        {
+            User CredentialsFromDatabase = ReadCredentialsFromDatabase(CredentialsFromUser);
+            return (CredentialsFromDatabase.Password == CredentialsFromUser.Password
+                && CredentialsFromDatabase.Username == CredentialsFromUser.Username); 
+        }
+
+        private User ReadCredentialsFromDatabase(User CredentialsFromUser)
+        {
+            User u = new User("ugo","pina");
+            return u; 
+        }
+
+        private User WriteCredentialsToDatabase(User CredentialsFromUser)
+        {
+            User u = new User("ugo", "pina");
+            return u;
+        }
+
         public DbAndBusiness(string PathAndFile)
         {
             if (!System.IO.File.Exists(PathAndFile))
