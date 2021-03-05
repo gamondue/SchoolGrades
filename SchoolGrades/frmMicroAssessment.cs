@@ -194,27 +194,31 @@ namespace SchoolGrades
                     currentQuestion.IdQuestion = 0; 
                 }
             }
-            int codParent = 0;
-            int.TryParse(txtIdMacroGrade.Text, out codParent);
-            if (codParent == 0)
+            int keyParent = 0;
+            int.TryParse(txtIdMacroGrade.Text, out keyParent);
+            if (keyParent == 0)
             {
                 MessageBox.Show("Prima di assegnare voti parziali, generare un nuovo voto complessivo\n" +
                     "(\"Nuovo voto\")");
                 return;  
             }
-
+            Grade gradeParent = db.GetGrade(keyParent); 
             if (txtIdMacroGrade.Text != "" && (DgwQuestions.Rows.Count == 0))
             {
-                if (MessageBox.Show("La macrovalutazione indicata è chiusa." +
-                    "\nVuoi riaprirla per poter aggiungere questa nuova microvalutazione?",
-                    "Attenzione", MessageBoxButtons.YesNo, MessageBoxIcon.Information,
-                    MessageBoxDefaultButton.Button2)
-                     == DialogResult.Yes)
+                if (gradeParent.Value > 0)
                 {
-                    db.DeleteValueOfGrade(int.Parse(txtIdMacroGrade.Text));
-                    ShowStudentsDataAndAverages();
+                    if (MessageBox.Show("La macrovalutazione indicata è chiusa." +
+                        "\nVuoi riaprirla per poter aggiungere questa nuova microvalutazione?",
+                        "Attenzione", MessageBoxButtons.YesNo, MessageBoxIcon.Information,
+                        MessageBoxDefaultButton.Button2)
+                         == DialogResult.Yes)
+                    {
+                        // 
+                        db.DeleteValueOfGrade(int.Parse(txtIdMacroGrade.Text));
+                        ShowStudentsDataAndAverages();
+                    }
+                    return;
                 }
-                return;
             }
             if (!GradeAndWeightExist())
                 return;
