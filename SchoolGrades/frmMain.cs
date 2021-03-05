@@ -30,7 +30,10 @@ namespace SchoolGrades
         Student currentStudent;
         Question currentQuestion;
         GradeType currentGradeType;
-        Class currentClass; 
+        Class currentClass;
+
+        Random random = new Random(); 
+
 
         System.Media.SoundPlayer suonatore = new System.Media.SoundPlayer();
         public Student CurrentStudent
@@ -156,11 +159,9 @@ namespace SchoolGrades
         {
             Commons.ErrorLog(sender.GetType().Name + " " + (e.ExceptionObject as Exception).Message +
               (e.ExceptionObject as Exception).StackTrace, true);
-            //Debug.WriteLine((e.ExceptionObject as Exception).Message);
         }
         private void btnComeOn_Click(object sender, EventArgs e)
         {
-            //if (!saveDone()) return;
             if (currentClass != null)
             {
                 picStudent.Image = null;
@@ -183,7 +184,6 @@ namespace SchoolGrades
                     Console.Beep(220, suspenceDelay);
                 }
             }
-
             if (currentClass.CurrentStudent != null)
             {
                 loadStudentsData(currentClass.CurrentStudent);
@@ -198,10 +198,9 @@ namespace SchoolGrades
             if (chkStudentsListVisible.Checked)
                 loadPicture(Student);
             chkStudentsListVisible.Checked = false;
-
             lblStudentChosen.Text = Student.ToString();
-
             txtRevengeFactor.Text = Student.RevengeFactorCounter.ToString();
+            txtIdStudent.Text = Student.IdStudent.ToString();
         }
         // Draw
         private void btnDrawOrSort_Click(object sender, EventArgs e)
@@ -358,7 +357,6 @@ namespace SchoolGrades
             currentStudent = currentClass.CurrentStudent;
             currentStudent.SchoolYear = currentClass.SchoolYear;
             loadStudentsData(currentStudent);
-            TxtIdStudent.Text = currentStudent.IdStudent.ToString();
             lstNames.Visible = false;
         }
         private void chkNomeVisibile_CheckedChanged(object sender, EventArgs e)
@@ -423,6 +421,8 @@ namespace SchoolGrades
         SchoolSubject lastSubject = new SchoolSubject();
         List<string> filesInFolder = new List<string>();
         int indexImage = 0;
+        private DateTime nextPopUpQuestionTime;
+
         private void BtnShowRandomImage_Click(object sender, EventArgs e)
         {
             if (filesInFolder.Count == 0 || currentClass != lastClass || currentSubject != lastSubject 
@@ -1198,6 +1198,10 @@ namespace SchoolGrades
         }
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
+            timerLesson.Stop(); 
+            timerPopUp.Stop();
+            timerQuestion.Stop();
+
             string file = Commons.PathLogs + @"\frmMain_parameters.txt";
             Commons.SaveCurrentValuesOfAllControls(this, ref file);
             SaveStudentsOfClassIfEligibleHasChanged();
@@ -1485,6 +1489,67 @@ namespace SchoolGrades
             {
                 frmAnnotationsAboutStudents f = new frmAnnotationsAboutStudents(chosenStudents, CmbSchoolYear.Text);
                 f.Show();
+            }
+        }
+
+        private void chkPopUpQuestionsEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            timerPopUp.Interval = 1;
+            timerPopUp.Enabled = chkPopUpQuestionsEnabled.Checked;
+            if (timerPopUp.Enabled)
+            {
+                SetNewPopUpOfQuestion(); 
+            }
+        }
+
+        private void SetNewPopUpOfQuestion()
+        {
+            int PopUpQuestionCentralTime;
+            int.TryParse(txtPopUpQuestionCentralTime.Text, out PopUpQuestionCentralTime);
+            double displacementTime = PopUpQuestionCentralTime * 0.1;
+            double minutesToTheNextQuestion = PopUpQuestionCentralTime - random.NextDouble() * 
+                PopUpQuestionCentralTime * displacementTime/ 2; 
+            nextPopUpQuestionTime = DateTime.Now.AddMinutes(minutesToTheNextQuestion);
+            timerPopUp.Enabled = true;
+        }
+
+        private void timerPopUp_Tick(object sender, EventArgs e)
+        {
+            if (nextPopUpQuestionTime < DateTime.Now)
+            {
+                timerPopUp.Enabled = false;
+                if (currentClass == null)
+                {
+                    Console.Beep(1000, 500);
+                    SetNewPopUpOfQuestion();
+                    return;
+                }
+                if (eligiblesList.Count > 0)
+                {
+                    if (indexCurrentDrawn < eligiblesList.Count)
+                    {
+                        Console.Beep(400, 800);
+                        // make a question to a random student
+                        btnComeOn_Click(null, null);
+                        chkFotoVisibile.Checked = true;
+                        btnAssess_Click(null, null);
+                        // prepare for the next popup question 
+                        SetNewPopUpOfQuestion();
+                        return; 
+                    }
+                    else
+                    {
+                        Console.Beep(2000, 500);
+                        SetNewPopUpOfQuestion();
+                        return;
+                    }
+                }
+                else
+                {
+                    Console.Beep(3000, 500);
+                    SetNewPopUpOfQuestion();
+                    return;
+                }
             }
         }
     }

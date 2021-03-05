@@ -67,8 +67,6 @@ namespace gamon.TreeMptt
         private Color colorOfHighlightedItem = Color.Khaki;
         private Color colorOfFoundItem = Color.Lime;
 
-        bool nonSavedModifications = false;
-
         bool clearBackColorOnClick = true;
         public bool ClearBackColorOnClick { get => clearBackColorOnClick; set => clearBackColorOnClick = value; }
 
