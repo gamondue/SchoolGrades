@@ -113,7 +113,7 @@ namespace SchoolGrades
 
             while (!System.IO.File.Exists(Commons.PathAndFileDatabase))
             {
-                MessageBox.Show("Configurazione del programma.\r\nSe necessario sistemare le cartelle (si possono anche lasciare così), poi scegliere il file di dati .sqlite e premere 'Salva configurazione'");
+                MessageBox.Show("Configurazione del PROGRAMMA.\r\nSe necessario sistemare le cartelle (si possono anche lasciare cosï¿½), poi scegliere il file di dati .sqlite e premere 'Salva configurazione'");
                 FrmSetup f = new FrmSetup();
                 f.ShowDialog();
                 //return; 
@@ -259,7 +259,7 @@ namespace SchoolGrades
             currentGradeType = ((GradeType)cmbGradeType.SelectedItem);
             if (currentGradeType.IdGradeTypeParent == "")
             {
-                MessageBox.Show("Con il tipo di valutazione scelto non si può fare la media.\r\n " +
+                MessageBox.Show("Con il tipo di valutazione scelto non si puï¿½ fare la media.\r\n " +
                     "Selezionare un tipo di valutazione corretto");
                 return;
             }
@@ -958,7 +958,7 @@ namespace SchoolGrades
             // (I PRIMI DEVONO ESSERE QUELLI CON IL NON NULL) 
             if (trovato == null)
             {
-                MessageBox.Show("Allievo con voticino più vecchio non trovato");
+                MessageBox.Show("Allievo con voticino piï¿½ vecchio non trovato");
                 return;
             }
             currentClass.CurrentStudent = trovato;
