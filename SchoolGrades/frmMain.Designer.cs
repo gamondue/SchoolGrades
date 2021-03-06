@@ -892,12 +892,12 @@
             this.toolTip1.SetToolTip(this.label5, "Media pesata di tutti i microvoti visualizzati. Salvata nel voto complessivo. Si " +
         "può modificare. ");
             // 
-            // TxtIdStudent
+            // txtIdStudent
             // 
             this.txtIdStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtIdStudent.Location = new System.Drawing.Point(642, 241);
             this.txtIdStudent.Margin = new System.Windows.Forms.Padding(4);
-            this.txtIdStudent.Name = "TxtIdStudent";
+            this.txtIdStudent.Name = "txtIdStudent";
             this.txtIdStudent.ReadOnly = true;
             this.txtIdStudent.Size = new System.Drawing.Size(77, 24);
             this.txtIdStudent.TabIndex = 162;
