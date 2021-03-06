@@ -113,7 +113,7 @@ namespace SchoolGrades
 
             while (!System.IO.File.Exists(Commons.PathAndFileDatabase))
             {
-                MessageBox.Show("Configurazione del programma.\r\nSe necessario sistemare le cartelle (si possono anche lasciare così), poi scegliere il file di dati .sqlite e premere 'Salva configurazione'");
+                MessageBox.Show("Configurazione del PROGRAMMA.\r\nSe necessario sistemare le cartelle (si possono anche lasciare così), poi scegliere il file di dati .sqlite e premere 'Salva configurazione'");
                 FrmSetup f = new FrmSetup();
                 f.ShowDialog();
                 //return; 
