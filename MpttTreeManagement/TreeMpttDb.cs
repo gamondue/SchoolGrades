@@ -42,8 +42,13 @@ namespace gamon.TreeMptt
                     // this cures a behaviour of the program, not proper functioning on root node's parent node
                     if (t.ParentNodeNew < 0)
                         t.ParentNodeNew = 0;
+                    bool changed;
+                    if (t.Changed == null)
+                        changed = false;
+                    else
+                        changed = (bool)t.Changed; 
                     // update modified nodes 
-                    if ((bool)t.Changed
+                    if (changed
                         || t.ParentNodeNew != t.ParentNodeOld || t.ChildNumberNew != t.ChildNumberOld
                         || MustSaveLeftAndRight &&
                             (t.LeftNodeNew != t.LeftNodeOld || t.RightNodeNew != t.RightNodeOld)
@@ -260,8 +265,6 @@ namespace gamon.TreeMptt
         internal void GenerateNewListOfNodesFromTreeViewControl(TreeNode CurrentNode, ref int nodeCount,
             ref List<Topic> generatedList) // the 2 ref parameters must be passed for recursion
         {
-            // 
-
             // visits all the childrens of CurrentNode in the Treeview. 
             // with the Modified Tree Traversal algorithm 
 
