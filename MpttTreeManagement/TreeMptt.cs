@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Drawing;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
@@ -160,7 +158,6 @@ namespace gamon.TreeMptt
             }
             shownTreeView.Nodes[0].Expand();
         }
-
         internal void AddNodesToTreeViewWithMptt()
         {
             shownTreeView.Nodes.Clear();
@@ -202,6 +199,22 @@ namespace gamon.TreeMptt
                     }
                 }
             }
+        }
+        internal string ExportSubtreeToText(Topic InitialNode)
+        {
+            string tree = CreateTextTreeOfDescendants
+                (InitialNode.LeftNodeOld, InitialNode.RightNodeOld, false);
+            return tree; 
+        }
+        public void ImportSubtreeFromText(string TextFromClipboard)
+        {
+            if (TextFromClipboard == "")
+            {
+                Console.Beep();
+                //return "";
+            }
+            ImportFreeMindSubtreeUnderNode(TextFromClipboard, TreeView.SelectedNode);
+            //return TextFromClipboard;
         }
         internal void AddNodesToTreeViewByParent(TreeView CurrentTreeView)
         {
@@ -302,7 +315,6 @@ namespace gamon.TreeMptt
             }
             return null;
         }
-
         internal void SaveTreeFromScratch()
         {
             int nodeCount = 1;
@@ -590,6 +602,7 @@ namespace gamon.TreeMptt
         {
             string indentator;
             string[] subTopics = Regex.Split(TextWithSubtree, "\r\n");
+            
             if (TextWithSubtree.Contains("    "))
             {
                 indentator = "    ";
@@ -616,12 +629,13 @@ namespace gamon.TreeMptt
 
                 if (fields[nIndentators] != "")
                 {
-                    // store temporarily the level no in field Parent node ID 
+                    // store temporarily the level number in field Parent node ID 
                     // (not used for other in this phase)
-                    t.ParentNodeNew = nIndentators;  // it is the level count 
+                    t.ParentNodeNew = nIndentators;  // here this is the level count 
                     t.Name = fields[nIndentators++];
                     //if (nIndentators < fields.Length && fields[nIndentators] != "")
-                    //    t.Desc = fields[nIndentators];
+                    //    t.Desc = fields[nIndentators];  // with FreeMind we shouldn't have Descriptions
+
                     ListTopics.Add(t);
                 }
             }
@@ -634,33 +648,33 @@ namespace gamon.TreeMptt
             try
             {
                 // fill the treeview adding the list's items to the tag property of each node
-                TreeNode n = new TreeNode();
+                TreeNode node = new TreeNode();
                 int startNodeIndex;
                 if (ParentNodeOfImportedSubtree == null)
                 {
                     // remakes the tree from scratch
                     shownTreeView.Nodes.Clear();
-                    n = new TreeNode(ListToImport[0].Name);
-                    n.Tag = ListToImport[0];
-                    shownTreeView.Nodes.Add(n);
+                    node = new TreeNode(ListToImport[0].Name);
+                    node.Tag = ListToImport[0];
+                    shownTreeView.Nodes.Add(node);
                     startNodeIndex = 1;
                 }
                 else
                 {
                     // add to passed node the list of those we have to add 
-                    n = ParentNodeOfImportedSubtree;
+                    node = ParentNodeOfImportedSubtree;
                     startNodeIndex = 0;
                 }
 
                 int level = 0;
-                TreeNode previousNode = n;
+                TreeNode previousNode = node;
                 Stack<TreeNode> stack = new Stack<TreeNode>();
                 for (int i = startNodeIndex; i < ListToImport.Count; i++)
                 {
                     Topic t = ListToImport[i];
                     TreeNode currentNode = new TreeNode(t.Name);
                     currentNode.Tag = t;
-                    n.Tag = t;
+                    node.Tag = t;
                     // just in this part of the code ParentNodeNew contains the level of indentation of each tree node
                     if (level < t.ParentNodeNew)
                     {
@@ -690,7 +704,7 @@ namespace gamon.TreeMptt
                 // since the program adds the last node's Topic also to the first, 
                 // (we don't understand why..) we repair by re-associating the Topic
                 // of the first node to its Tag 
-                n.Tag = ListToImport[0];
+                node.Tag = ListToImport[0];
                 // adjust the first node of imported subtree 
             }
             catch (Exception e)
@@ -971,9 +985,16 @@ namespace gamon.TreeMptt
         }
         private void TxtNodeName_Leave(object sender, EventArgs e)
         {
-            Topic t = (Topic)(TreeView.SelectedNode.Tag);
-            t.Name = txtNodeName.Text;
-            TreeView.SelectedNode.Text = txtNodeName.Text;
+            try
+            {
+                Topic t = (Topic)(TreeView.SelectedNode.Tag);
+                t.Name = txtNodeName.Text;
+                TreeView.SelectedNode.Text = txtNodeName.Text;
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
         #endregion
         internal string CreateTextTreeOfDescendants(int? LeftNode, int? RightNode, bool? IncludeTopicsIds)

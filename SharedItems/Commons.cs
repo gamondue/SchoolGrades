@@ -326,15 +326,22 @@ namespace SchoolGrades
         }
         internal static void ProcessStartLink(string Link)
         {
-            new System.Diagnostics.Process
+            try
             {
-                StartInfo = new System.Diagnostics.ProcessStartInfo(Link)
+                new System.Diagnostics.Process
                 {
-                    UseShellExecute = true
-                }
-            }.Start();
+                    StartInfo = new System.Diagnostics.ProcessStartInfo(Link)
+                    {
+                        UseShellExecute = true
+                    }
+                }.Start();
+            }
+            catch (Exception ex)
+            {
+                Console.Beep(); 
+            }
         }
-    internal static void SaveCurrentValuesOfAllControls(Control ParentControl, ref string PathAndFile)
+        internal static void SaveCurrentValuesOfAllControls(Control ParentControl, ref string PathAndFile)
         {
             string fileContent = ""; 
             if (ParentControl.Controls.Count > 0)
