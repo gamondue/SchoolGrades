@@ -8,6 +8,7 @@ using gamon;
 using System.Windows.Forms;
 using SchoolGrades.DbClasses;
 using System.Diagnostics;
+using DbClasses;
 
 namespace SchoolGrades.DbClasses
 {
@@ -32,6 +33,24 @@ namespace SchoolGrades.DbClasses
                 //throw new FileNotFoundException(err);
             }
             dbName = Commons.PathAndFileDatabase;
+        }
+
+        internal User GetUser(string Username)
+        {
+            User u = new User(); 
+
+            string onlyUser = "pippo";
+            string onlyPassword = "pluto";
+            if (Username == onlyUser)
+            {
+                u.Username = onlyUser;
+                u.Password = onlyPassword; 
+            }
+            else
+            {
+                u = null;
+            }
+            return u;
         }
 
         public DbAndBusiness(string PathAndFile)
