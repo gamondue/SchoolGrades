@@ -1552,5 +1552,11 @@ namespace SchoolGrades
                 }
             }
         }
+
+        private void btnRandomNumber_Click(object sender, EventArgs e)
+        {
+            frmRandom f = new frmRandom();
+            f.Show(); 
+        }
     }
 }
