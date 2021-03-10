@@ -1,4 +1,4 @@
-﻿
+
 namespace SchoolGrades
 {
     partial class frmLogin
