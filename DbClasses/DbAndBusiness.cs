@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using SchoolGrades.DbClasses;
 using System.Diagnostics;
 using DbClasses;
+using System.Security.Cryptography;
 
 namespace SchoolGrades.DbClasses
 {
@@ -34,8 +35,7 @@ namespace SchoolGrades.DbClasses
             }
             dbName = Commons.PathAndFileDatabase;
         }
-
-        internal User GetUser(string Username)
+                internal User GetUser(string Username)
         {
             User u = new User(); 
 
@@ -50,6 +50,33 @@ namespace SchoolGrades.DbClasses
             {
                 u = null;
             }
+            return u;
+        }
+
+        internal bool IsUserAllowed(User CredentialsFromUser)
+        {
+            User CredentialsFromDatabase = ReadCredentialsFromDatabase(CredentialsFromUser);
+            return (CredentialsFromDatabase.Password == calculateHash(CredentialsFromUser.Password)
+                && CredentialsFromDatabase.Username == CredentialsFromUser.Username); 
+        }
+
+        private string calculateHash(string ClearTextPassword)
+        {
+            // https://www.mattepuffo.com/blog/articolo/2496-calcolo-hash-sha256-in-csharp.html
+            SHA256 hash = SHA256.Create();
+
+            return null; 
+        }
+
+        private User ReadCredentialsFromDatabase(User CredentialsFromUser)
+        {
+            User u = new User("ugo","pina");
+            return u; 
+        }
+
+        private User WriteCredentialsToDatabase(User CredentialsFromUser)
+        {
+            User u = new User("ugo", "pina");
             return u;
         }
 
@@ -314,12 +341,10 @@ namespace SchoolGrades.DbClasses
             connection.Open();
             return connection;
         }
-
         internal int? UpdateAnnotationGroup(StudentAnnotation currentAnnotation, Student currentStudent)
         {
             throw new NotImplementedException();
         }
-
         internal void EraseStudentsPhoto(int? IdStudent, string SchoolYear)
         {
             using (DbConnection conn = Connect(dbName))
@@ -333,7 +358,6 @@ namespace SchoolGrades.DbClasses
                 cmd.Dispose();
             }
         }
-
         internal int CreateClass(string ClassAbbreviation, string ClassDescription, string SchoolYear,
             string IdSchool)
         {
