@@ -8,6 +8,7 @@ using gamon;
 using System.Windows.Forms;
 using SchoolGrades.DbClasses;
 using System.Diagnostics;
+using System.Security.Cryptography;
 
 namespace SchoolGrades.DbClasses
 {
@@ -37,8 +38,16 @@ namespace SchoolGrades.DbClasses
         internal bool IsUserAllowed(User CredentialsFromUser)
         {
             User CredentialsFromDatabase = ReadCredentialsFromDatabase(CredentialsFromUser);
-            return (CredentialsFromDatabase.Password == CredentialsFromUser.Password
+            return (CredentialsFromDatabase.Password == calculateHash(CredentialsFromUser.Password)
                 && CredentialsFromDatabase.Username == CredentialsFromUser.Username); 
+        }
+
+        private string calculateHash(string ClearTextPassword)
+        {
+            // https://www.mattepuffo.com/blog/articolo/2496-calcolo-hash-sha256-in-csharp.html
+            SHA256 hash = SHA256.Create();
+
+            return null; 
         }
 
         private User ReadCredentialsFromDatabase(User CredentialsFromUser)

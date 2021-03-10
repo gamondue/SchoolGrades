@@ -30,5 +30,10 @@ namespace SchoolGrades
         {
             return db.IsUserAllowed(new User(Username, Password)); 
         }
+
+        private void frmLogin_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
