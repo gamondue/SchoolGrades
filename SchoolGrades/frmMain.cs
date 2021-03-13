@@ -17,6 +17,7 @@ namespace SchoolGrades
         public int indexCurrentDrawn = 0;
 
         DbAndBusiness db; // must be instantiated after the reading of config file. 
+        BusinessLayer.BusinessLayer bl; // must be instantiated after the reading of config file.
 
         public List<Student> currentStudentsList;
         public List<Student> eligiblesList = new List<Student>();
@@ -120,6 +121,7 @@ namespace SchoolGrades
             }
 
             db = new DbAndBusiness();
+            bl = new BusinessLayer.BusinessLayer();
 
             school = db.GetSchool(Commons.IdSchool);
             if (school == null)

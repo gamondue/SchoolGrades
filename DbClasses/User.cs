@@ -23,6 +23,8 @@ namespace SchoolGrades.DbClasses
         public string FirstName { get => firstName; set => firstName = value; }
         public string Email { get => email; set => email = value; }
         public DateTime? CreationTime { get => create_time; set => create_time = value; }
+        public DateTime? LastChange { get; internal set; }
+        public DateTime? LastPasswordChange { get; internal set; }
         public string Salt { get => salt; set => salt = value; }
         public int? IdUserCategory { get => idUserCategory; set => idUserCategory = value; }
 
