@@ -15,7 +15,7 @@ namespace SchoolGrades
         }
         private void frmLogin_Load(object sender, EventArgs e)
         {
-            Commons.ReadConfigFile();
+             Commons.ReadConfigFile();
 
             while (!System.IO.File.Exists(Commons.PathAndFileDatabase))
             {
@@ -26,6 +26,23 @@ namespace SchoolGrades
             }
             db = new DbAndBusiness(); 
             bl = new BusinessLayer.BusinessLayer();
+
+            //// test examples
+            //User u;
+            //u = new User("pippo", "pluto");
+            ////u = new User("pina", "pluto");
+            ////u = new User("ugo", "pina");
+            //bl.CreateUser(u);
+            //u.Password = "mariangela";
+            //bl.ChangePassword(u);
+
+            //u.FirstName = "Ugo";
+            //u.LastName = "Fantozzi";
+            //u.Email = "u.fantozzi@megaditta.com"; 
+            //u.Description = "Inferiore Rag. Ugo Fantozzi";
+            //bl.UpdateUser(u);
+
+            //User u1 = bl.GetUser("ugo");
         }
         private void btnOk_Click(object sender, EventArgs e)
         {
@@ -33,14 +50,14 @@ namespace SchoolGrades
                 txtPassword.Text))
             {
                 frmMain f = new frmMain();
-                f.Show();
                 this.Hide();
+                f.ShowDialog(); 
             }
             else
             {
                 MessageBox.Show("Digitare credenziali corrette!");
-                this.Close();
             }
+            this.Close();
         }
     }
 }

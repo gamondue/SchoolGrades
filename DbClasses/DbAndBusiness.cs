@@ -6,7 +6,6 @@ using System.IO;
 using System.Collections.Generic;
 using gamon;
 using System.Windows.Forms;
-using SchoolGrades.DataLayer; 
 
 namespace SchoolGrades.DbClasses
 {

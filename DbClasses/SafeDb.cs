@@ -25,7 +25,7 @@ namespace SchoolGrades.DbClasses
             }
         }
 
-        internal static string SafeString(DbDataReader r, int FieldNumber)
+        internal static string? SafeString(DbDataReader r, int FieldNumber)
         {
             try
             {
@@ -37,8 +37,10 @@ namespace SchoolGrades.DbClasses
             }
         }
 
-        internal static string SafeString(object Field)
+        internal static string? SafeString(object Field)
         {
+            if (Field == null)
+                return null; 
             try
             {
                 return Field.ToString().Trim();

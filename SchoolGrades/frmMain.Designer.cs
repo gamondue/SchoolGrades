@@ -915,7 +915,7 @@
             this.btnTemporary.Name = "btnTemporary";
             this.btnTemporary.Size = new System.Drawing.Size(91, 54);
             this.btnTemporary.TabIndex = 164;
-            this.btnTemporary.Text = "TEMP";
+            this.btnTemporary.Text = "Test";
             this.toolTip1.SetToolTip(this.btnTemporary, "Lancio dei link e programmi legati alla classe");
             this.btnTemporary.UseVisualStyleBackColor = false;
             this.btnTemporary.Click += new System.EventHandler(this.btnTemporary_Click);
