@@ -24,6 +24,10 @@ Versions with numbers under 0.50 are previous distributions, made with .Net Fram
 
   <Import Project="..\DbClasses\DbClasses.projitems" Label="Shared" />
 
+  <Import Project="..\DataLayer\DataLayer.projitems" Label="Shared" />
+
+  <Import Project="..\BusinessLayer\BusinessLayer.projitems" Label="Shared" />
+
   <ItemGroup>
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.113.7" />
   </ItemGroup>

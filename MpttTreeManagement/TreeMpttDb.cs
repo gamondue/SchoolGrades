@@ -6,12 +6,15 @@ using System.Linq;
 using System.Windows.Forms;
 using SchoolGrades;
 using SchoolGrades.DbClasses;
+using SchoolGrades.DataLayer;
 
 namespace gamon.TreeMptt
 {
     internal class TreeMpttDb
     {
-        DbAndBusiness db = new DbAndBusiness(); 
+        DbAndBusiness db = new DbAndBusiness();
+        DataLayer dl = new DataLayer(); 
+
         string dbName = Commons.PathAndFileDatabase;
 
         // TODO: finish to encapsulate in this class all the code to access the DBMS with TreeMptt
@@ -19,7 +22,7 @@ namespace gamon.TreeMptt
         internal void SaveTreeToDb(List<Topic> ListTopicsAfter, List<Topic> ListTopicsDeleted,
             bool MustSaveLeftAndRight)
         {
-            using (DbConnection conn = db.Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
 
@@ -75,7 +78,7 @@ namespace gamon.TreeMptt
         }
         internal void SaveLeftRightConsistent(bool SetConsistent)
         {
-            using (DbConnection conn = db.Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "UPDATE Flags" +
@@ -86,7 +89,7 @@ namespace gamon.TreeMptt
         }
         internal bool AreLeftAndRightConsistent()
         {
-            using (DbConnection conn = db.Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 try
                 {
@@ -113,7 +116,7 @@ namespace gamon.TreeMptt
             // node numbering according to Modified Preorder Tree Traversal algorithm
             // ("descending" phase)
             List<Topic> l = new List<Topic>();
-            using (DbConnection conn = db.Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 string query = "SELECT *" +
@@ -138,7 +141,7 @@ namespace gamon.TreeMptt
         {
             // node order according to siblings' order (parentNode and childNumber)
             List<Topic> l = new List<Topic>();
-            using (DbConnection conn = db.Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 string query = "SELECT *" +
@@ -212,7 +215,7 @@ namespace gamon.TreeMptt
         {
             // !!!! TODO: keep the connection open !!!!
             // updates only left & right; the rest of the record remains the same
-            using (DbConnection conn = db.Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "UPDATE Topics" +
@@ -232,7 +235,7 @@ namespace gamon.TreeMptt
             // this program treats only one root because with MPTT having more than one root 
             // would complicate the database 
             List<Topic> lt = new List<Topic>();
-            using (DbConnection conn = db.Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 string query = "SELECT *" +
@@ -255,7 +258,7 @@ namespace gamon.TreeMptt
         }
         internal void AddChildrenNodesToTreeViewFromDatabase(TreeNode ParentNode, int Level)
         {
-            DbConnection Connection = db.Connect(dbName);
+            DbConnection Connection = dl.Connect();
             GetAllChildren(ParentNode, Level, Connection);
             Connection.Close();
             Connection.Dispose();
@@ -338,7 +341,7 @@ namespace gamon.TreeMptt
             if (Connection == null)
             {
                 locallyOpened = true;
-                Connection = db.Connect(dbName);
+                Connection = dl.Connect();
             }
             List<Topic> lt = new List<Topic>();
             DbCommand cmd = Connection.CreateCommand();
@@ -370,7 +373,7 @@ namespace gamon.TreeMptt
                 return null;
             }
             List<Topic> l = new List<Topic>();
-            using (DbConnection conn = db.Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 string query = "SELECT *" +
@@ -407,7 +410,7 @@ namespace gamon.TreeMptt
             string t;
             if (idTopic == 0)
                 return null;
-            using (DbConnection conn = db.Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
@@ -425,7 +428,7 @@ namespace gamon.TreeMptt
         internal List<Topic> FindTopicsLike(string SearchText)
         {
             List<Topic> found = new List<Topic>();
-            using (DbConnection conn = db.Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();

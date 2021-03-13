@@ -7,20 +7,24 @@ namespace SchoolGrades.DbClasses
     class User
     {
         string username;
-        string lastName;
         string firstName;
+        string lastName;
+        string password;
         string description;
         string email;
-        string password;
-        DateTime create_time;
+        DateTime? create_time;
         string salt;
-        int idUserCategory;
+        int? idUserCategory;
 
         public string Username { get => username; set => username = value; }
         public string LastName { get => lastName; set => lastName = value; }
         public string Password { get => password; set => password = value; }
         public string Description { get => description; set => description = value; }
+        public string FirstName { get => firstName; set => firstName = value; }
+        public string Email { get => email; set => email = value; }
+        public DateTime? CreationTime { get => create_time; set => create_time = value; }
         public string Salt { get => salt; set => salt = value; }
+        public int? IdUserCategory { get => idUserCategory; set => idUserCategory = value; }
 
         public User(string Username, string Password)
         {
