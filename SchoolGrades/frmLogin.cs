@@ -1,4 +1,4 @@
-using SchoolGrades.DbClasses;
+﻿using SchoolGrades.DbClasses;
 using System;
 using System.Windows.Forms;
 
@@ -19,7 +19,7 @@ namespace SchoolGrades
 
             while (!System.IO.File.Exists(Commons.PathAndFileDatabase))
             {
-                MessageBox.Show("Configurazione del programma.\r\nSe necessario sistemare le cartelle (si possono anche lasciare cos�), poi scegliere il file di dati .sqlite e premere 'Salva configurazione'");
+                MessageBox.Show("Configurazione del programma.\r\nSe necessario sistemare le cartelle (si possono anche lasciare così), poi scegliere il file di dati .sqlite e premere 'Salva configurazione'");
                 FrmSetup f = new FrmSetup();
                 f.ShowDialog();
                 //return; 
@@ -29,8 +29,7 @@ namespace SchoolGrades
         }
         private void btnOk_Click(object sender, EventArgs e)
         {
-            if (bl.UserHasLoginPermission(txtUsername.Text, 
-                txtPassword.Text))
+            if (bl.IsUserAllowed(new User(txtUsername.Text, txtPassword.Text)))
             {
                 frmMain f = new frmMain();
                 f.Show();
@@ -41,6 +40,13 @@ namespace SchoolGrades
                 MessageBox.Show("Digitare credenziali corrette!");
                 this.Close();
             }
+        }
+
+        private void btnChangePassword_Click(object sender, EventArgs e)
+        {
+            frmChangePassword frmChangePassword = new frmChangePassword();
+            frmChangePassword.Show();
+            this.Hide();
         }
     }
 }

@@ -89,8 +89,7 @@ namespace SchoolGrades.DataLayer
         }
         internal User GetUserFromRow(DbDataReader dRead)
         {
-            User u = new User(SafeDb.SafeString(dRead["username"]),
-                SafeDb.SafeString(dRead["password"]));
+            User u = new User(SafeDb.SafeString(dRead["username"]), SafeDb.SafeString(dRead["password"]));
             u.LastName = SafeDb.SafeString(dRead["lastName"]);
             u.FirstName = SafeDb.SafeString(dRead["firstName"]);
             u.Salt = SafeDb.SafeString(dRead["salt"]);
