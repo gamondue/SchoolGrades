@@ -29,8 +29,8 @@ namespace SchoolGrades
         }
         private void btnOk_Click(object sender, EventArgs e)
         {
-            if (bl.UserHasLoginPermission(txtUsername.Text, 
-                txtPassword.Text))
+            if (bl.IsUserAllowed(new User(txtUsername.Text, 
+                txtPassword.Text)))
             {
                 frmMain f = new frmMain();
                 f.Show();
@@ -41,6 +41,12 @@ namespace SchoolGrades
                 MessageBox.Show("Digitare credenziali corrette!");
                 this.Close();
             }
+        }
+
+        private void btnChangePassword_Click(object sender, EventArgs e)
+        {
+            frmChangePassword f = new frmChangePassword();
+            f.Show();
         }
     }
 }
