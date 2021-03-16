@@ -3062,6 +3062,12 @@ namespace SchoolGrades.DbClasses
                     " (SELECT idLesson from Lessons);";
                 cmd.ExecuteNonQuery();
 
+                // erase all the users
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "DELETE FROM Users" +
+                    ";";
+                cmd.ExecuteNonQuery();
+
                 // copy all the students' photo files that aren't already there or that have a newer date 
                 string query = "SELECT StudentsPhotos.photoPath" +
                 " FROM StudentsPhotos" +
@@ -3140,7 +3146,6 @@ namespace SchoolGrades.DbClasses
             // ???? StudentsTestsStudentsTests serve ???? se non serve, eliminare
             return Class.PathRestrictedApplication;
         }
-
         internal string CreateDemoDatabase(Class Class1, Class Class2)
         {
             DbCommand cmd;
@@ -3348,6 +3353,12 @@ namespace SchoolGrades.DbClasses
                 cmd.CommandText = query;
                 cmd.ExecuteNonQuery();
 
+                // erase all the users
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "DELETE FROM Users" +
+                    ";";
+                cmd.ExecuteNonQuery();
+
                 // rename every student left in the database according to the names found in the pictures' filenames
                 RenameStudentsNamesFromPictures(Class1, conn);
                 RenameStudentsNamesFromPictures(Class2, conn);
@@ -3373,7 +3384,91 @@ namespace SchoolGrades.DbClasses
             }
             return newDatabaseFullName;
         }
+        internal string NewDatabase()
+        {
+            DbCommand cmd;
 
+            string newDatabasePathName = Commons.PathDatabase;
+            if (!Directory.Exists(newDatabasePathName))
+                Directory.CreateDirectory(newDatabasePathName);
+
+            string newDatabaseFullName = newDatabasePathName +
+                "\\SchoolGradesNew.sqlite";
+
+            if (File.Exists(newDatabaseFullName))
+            {
+                if (System.Windows.Forms.MessageBox.Show("Il file " + newDatabaseFullName + " esiste già." +
+                    "\nDevo re-inizializzarlo (Sì) o non creare il database (No)?", "",
+                    System.Windows.Forms.MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    File.Delete(newDatabaseFullName);
+                }
+                else
+                    return "";
+            }
+            File.Copy(Commons.PathAndFileDatabase, newDatabaseFullName);
+
+            // local instance of a DataLayer to operate on a second database 
+            DataLayer.DataLayer newDatabaseDl = new DataLayer.DataLayer(newDatabaseFullName);
+
+            // erase all the data on all the tables
+            using (DbConnection conn = newDatabaseDl.Connect()) // connect to the new database, just copied
+            {
+                cmd = conn.CreateCommand();
+
+                // erase all the answers to questions
+                cmd.CommandText = "DELETE FROM Answers;" +
+                "DELETE FROM Students;" +
+                "DELETE FROM SchoolYears;" +
+                "DELETE FROM Schools;" +
+                "DELETE FROM Classes;" +
+                "DELETE FROM QuestionTypes;" +
+                "DELETE FROM Topics;" +
+                "DELETE FROM Subjects;" +
+                "DELETE FROM SchoolSubjects;" +
+                "DELETE FROM Images;" +
+                "DELETE FROM Questions;" +
+                "DELETE FROM Answers;" +
+                "DELETE FROM TestTypes;" +
+                "DELETE FROM Tests;" +
+                "DELETE FROM Classes_Tests;" +
+                "DELETE FROM Tags;" +
+                "DELETE FROM Tests_Tags;" +
+                "DELETE FROM Tests_Questions;" +
+                "DELETE FROM Questions_Tags;" +
+                "DELETE FROM Answers_Questions;" +
+                "DELETE FROM Classes_SchoolSubjects;" +
+                "DELETE FROM GradeCategories;" +
+                "DELETE FROM GradeTypes;" +
+                "DELETE FROM Grades;" +
+                "DELETE FROM Students_GradeTypes;" +
+                "DELETE FROM SchoolPeriodTypes;" +
+                "DELETE FROM SchoolPeriods;" +
+                "DELETE FROM StudentsAnswers;" +
+                "DELETE FROM StudentsQuestions;" +
+                "DELETE FROM StudentsTests;" +
+                "DELETE FROM StudentsPhotos;" +
+                "DELETE FROM StudentsTests_StudentsPhotos;" +
+                "DELETE FROM StudentsPhotos_Students;" +
+                "DELETE FROM Classes_Students;" +
+                "DELETE FROM Lessons;" +
+                "DELETE FROM Lessons_Topics;" +
+                "DELETE FROM Lessons_Images;" +
+                "DELETE FROM Classes_StartLinks;" +
+                "DELETE FROM Flags;" +
+                "DELETE FROM usersCategories;" +
+                "DELETE FROM Users;"; 
+                cmd.ExecuteNonQuery();
+
+                // compact the database 
+                cmd.CommandText = "VACUUM;";
+                cmd.ExecuteNonQuery();
+
+                cmd.Dispose();
+            }
+            return newDatabaseFullName;
+        }
         private void ChangeImagesPath(Class Class, DbConnection conn)
         {
             DbDataReader dRead;

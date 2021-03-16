@@ -35,7 +35,6 @@ namespace SchoolGrades
 
         Random random = new Random(); 
 
-
         System.Media.SoundPlayer suonatore = new System.Media.SoundPlayer();
         public Student CurrentStudent
         {
@@ -72,7 +71,7 @@ namespace SchoolGrades
         public frmMain()
         {
             InitializeComponent();
-
+            
             this.Text += " v. " + version;
 
             // first default year in the "years" combo
@@ -98,6 +97,9 @@ namespace SchoolGrades
         }
         private void frmMain_Load(object sender, EventArgs e)
         {
+            if (!File.Exists(Commons.PathAndFileDatabase))
+                return;
+
             timerQuestion.Interval = 250;
             
             //#if DEBUG
@@ -110,16 +112,6 @@ namespace SchoolGrades
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             btnTemporary.Visible = false; 
 #endif
-            Commons.ReadConfigFile();
-
-            while (!System.IO.File.Exists(Commons.PathAndFileDatabase))
-            {
-                MessageBox.Show("Configurazione del programma.\r\nSe necessario sistemare le cartelle (si possono anche lasciare così), poi scegliere il file di dati .sqlite e premere 'Salva configurazione'");
-                FrmSetup f = new FrmSetup();
-                f.ShowDialog();
-                //return; 
-            }
-
             db = new DbAndBusiness();
             bl = new BusinessLayer.BusinessLayer();
 
@@ -944,7 +936,7 @@ namespace SchoolGrades
                 ((GradeType)(cmbGradeType.SelectedItem)), currentSubject);
             //if (dalPiuVecchio.Count < StudentsList.Count)
             //{
-            //    MessageBox.Show("ATTENZIONE: almeno un allievo non ha neppure un votocino!");
+            //    MessageBox.Show("ATTENZIONE: almeno un allievo non ha neppure un voticino!");
             //}
             Student trovato = null;
             int keyFirst = fromOldest[0].Key;
@@ -956,8 +948,6 @@ namespace SchoolGrades
                     break;
                 }
             }
-            // !!!! TODO VERIFICARE COME VA SE CI SONO NULL E NON NULL 
-            // (I PRIMI DEVONO ESSERE QUELLI CON IL NON NULL) 
             if (trovato == null)
             {
                 MessageBox.Show("Allievo con voticino più vecchio non trovato");
@@ -1200,6 +1190,9 @@ namespace SchoolGrades
         }
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (!File.Exists(Commons.PathAndFileDatabase))
+                return;
+
             timerLesson.Stop(); 
             timerPopUp.Stop();
             timerQuestion.Stop();
