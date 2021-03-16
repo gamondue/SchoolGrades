@@ -1444,17 +1444,19 @@ namespace SchoolGrades
         {
             ToggleTimerBar(txtTimeInterval.Text); 
         }
-        private void StartColorTimer()
+        private void StartColorTimer(bool SoundEffectsInTimer)
         {
             double t =  double.Parse(txtTimeInterval.Text);
-            ColorTimer ft = new ColorTimer(t /60, t /60);
+            ColorTimer ft = new ColorTimer(t /60, t /60, SoundEffectsInTimer);
             if (currentStudent != null)
+            {
                 ft.FormCaption = ft.FormCaption.Replace("gamon", currentStudent.LastName);
+            }
             ft.Show();
         }
         private void btnStartColorTimer_Click(object sender, EventArgs e)
         {
-            StartColorTimer(); 
+            StartColorTimer(chkSoundsInColorTimer.Checked); 
         }
         private void btnMosaic_Click(object sender, EventArgs e)
         {
@@ -1559,6 +1561,11 @@ namespace SchoolGrades
         {
             frmRandom f = new frmRandom();
             f.Show(); 
+        }
+
+        private void chkSoundsInColorTimer_CheckedChanged(object sender, EventArgs e)
+        {
+            //MessageBox.Show("Chiudere la finestra timer a colori per cambiare lo stato dei suoni"); 
         }
     }
 }
