@@ -27,6 +27,7 @@ namespace SchoolGrades.DbClasses
         public DateTime? LastPasswordChange { get; internal set; }
         public string Salt { get => salt; set => salt = value; }
         public int? IdUserCategory { get => idUserCategory; set => idUserCategory = value; }
+        public bool? IsEnabled { get; internal set; }
 
         public User(string Username, string Password)
         {

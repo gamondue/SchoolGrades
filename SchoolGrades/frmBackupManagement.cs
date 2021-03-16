@@ -265,7 +265,9 @@ namespace SchoolGrades
 
         private void BtnNewDatabase_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Da fare!"); 
+            //MessageBox.Show("Da fare!"); 
+            db.NewDatabase();
+            MessageBox.Show("Creato nuovo database SchoolGradesNew.sqlite"); 
         }
-     }
+    }
 }

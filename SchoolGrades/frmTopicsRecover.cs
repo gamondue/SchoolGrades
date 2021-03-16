@@ -31,7 +31,7 @@ namespace SchoolGrades
 
         private void frmTopicsRecover_Load(object sender, EventArgs e)
         {
-            Commons.ReadConfigFile();
+            // Commons.ReadConfigFile();
             txtPathNewDatabase.Text = Commons.PathDatabase;
             txtPathOldDatabase.Text = Commons.PathDatabase;
             txtFileNewDatabase.Text = Commons.FileDatabase;

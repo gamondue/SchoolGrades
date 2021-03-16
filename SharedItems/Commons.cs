@@ -9,6 +9,7 @@ using System.Threading;
 using System.Drawing;
 using SchoolGrades.DbClasses;
 using gamon.TreeMptt;
+using System.Diagnostics;
 
 namespace SchoolGrades
 {
@@ -17,7 +18,9 @@ namespace SchoolGrades
         // program's default path and files. Overridden by the config file "schgrd.cfg", when it exists
         public static string PathUser = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
         public static string PathAndFileExe = System.Reflection.Assembly.GetExecutingAssembly().CodeBase.Substring(8);
-        public static string PathExe = System.IO.Path.GetDirectoryName(PathAndFileExe);
+        //public static string PathExe = System.IO.Path.GetDirectoryName(PathAndFileExe);
+        public static string PathExe = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName); 
+
 
         public static string PathConfig = PathUser + "\\SchoolGrades\\Config";
         public static string PathAndFileConfig = PathConfig + "\\schgrd.cfg";
