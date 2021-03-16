@@ -46,11 +46,26 @@ namespace gamon
 
         private int lastFormSize;
 
+        bool playSoundEffects;
         public string FormCaption { get => this.Text; set => this.Text = value; }
+        public bool PlaySoundEffects {
+            get 
+            {
+                return playSoundEffects; 
+            }
+            set
+            {
+                playSoundEffects = value;
+                chkSoundsInColorTimer.Checked = value;
+            }
+        }
 
-        public ColorTimer(double SecondsFirst, double SecondsSecond)
+
+        public ColorTimer(double SecondsFirst, double SecondsSecond, bool SoundEffectsInTimer)
         {
             InitializeComponent();
+
+            PlaySoundEffects = SoundEffectsInTimer; 
             timeTotalSeconds = Convert.ToSingle(txtIntervalNext.Text);
             secondsFirst = SecondsFirst;
             secondsSecond = SecondsSecond;
@@ -87,7 +102,7 @@ namespace gamon
         {
             try
             {
-                VerificaComandiEsterni();
+                VerifyExternalCommands();
 
                 timeLeftSeconds = Convert.ToSingle(txtCountDown.Text);
                 timeLeftSeconds -= timer1.Interval / 1000;
@@ -130,16 +145,21 @@ namespace gamon
 
                 if (timeLeftSeconds < timeTotalSeconds * 0.2 * 60.0 && !alarmClock)
                 {
-                    suonatore.SoundLocation = ".\\La Sveglia.wav";
-                    suonatore.Play();
+                    if (PlaySoundEffects)
+                    {
+                        suonatore.SoundLocation = ".\\La Sveglia.wav";
+                        suonatore.Play();
+                    }
                     alarmClock = true;
                 }
 
                 if (timeLeftSeconds < 1)
                 {
-                    suonatore.SoundLocation = ".\\Il silenzio.wav";
-                    suonatore.Play();
-
+                    if (PlaySoundEffects)
+                    {
+                        suonatore.SoundLocation = ".\\Il silenzio.wav";
+                        suonatore.Play();
+                    }
                     txtCountDown.Text = Convert.ToString(timeTotalSeconds * 60);
                     alarmClock = false;
 
@@ -150,7 +170,7 @@ namespace gamon
             }
             catch { }
         }
-        private void VerificaComandiEsterni()
+        private void VerifyExternalCommands()
         {
             if (oggettoRicevitore != null)
             {
@@ -424,6 +444,11 @@ namespace gamon
                     }
                 }
             }
+        }
+
+        private void chkSoundsInColorTimer_CheckedChanged(object sender, EventArgs e)
+        {
+            playSoundEffects = chkSoundsInColorTimer.Checked; 
         }
     }
 }
