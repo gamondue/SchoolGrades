@@ -350,7 +350,7 @@ namespace SchoolGrades.DbClasses
             q.IdQuestion = SafeDb.SafeInt(Row["IdQuestion"]);
             q.IdQuestionType = SafeDb.SafeString(Row["IdQuestionType"]);
             q.IdSchoolSubject = SafeDb.SafeString(Row["IdSchoolSubject"]);
-            q.IdSubject = SafeDb.SafeInt(Row["IdSubject"]);
+            //q.IdSubject = SafeDb.SafeInt(Row["IdSubject"]);
             q.IdTopic = SafeDb.SafeInt(Row["IdTopic"]);
             q.Image = SafeDb.SafeString(Row["Image"]);
             q.Text = SafeDb.SafeString(Row["Text"]);
@@ -1997,7 +1997,7 @@ namespace SchoolGrades.DbClasses
                 cmd.CommandText = "UPDATE Questions " +
                     "SET idQuestionType='" + SqlVal.SqlString(Question.IdQuestionType) + "' " +
                      ", idSchoolSubject='" + SqlVal.SqlString(Question.IdSchoolSubject) + "' " +
-                     ", idSubject=" + Question.IdSubject + " " +
+                     //", idSubject=" + Question.IdSubject + " " +
                      ", idSchoolSubject='" + Question.IdSchoolSubject + "'" +
                      ", idTopic=" + Question.IdTopic + " " +
                      ", duration=" + Question.Duration + " " +
@@ -2039,8 +2039,9 @@ namespace SchoolGrades.DbClasses
         }
 
         /// <summary>
-        /// gets the questions regarding the topics made to the class that 
-        /// haven't been made to the student yet
+        /// gets the questions regarding the topics taught to the class that 
+        /// haven't been made to the student yet. 
+        /// Includes also the questions tha do not have a topic 
         /// </summary>
         /// <param name="Class"></param>
         /// <param name="Student"></param>
@@ -2053,6 +2054,18 @@ namespace SchoolGrades.DbClasses
         {
             List<Question> lq = new List<Question>();
             string filteredQuestions;
+
+            // first part of the query: selection of the interesting fields in Questions
+            string query = "SELECT Questions.IdQuestion,Questions.text,Questions.idSchoolSubject,Questions.idQuestionType" +
+                ",Questions.weight,Questions.duration,Questions.difficulty,Questions.image,Questions.idTopic" +
+                " FROM Questions";
+            // add the WHERE clauses
+            // if the search string is present, then it must be in the searched field 
+            if (SearchString != "")
+            {
+                query += " WHERE Questions.text LIKE('%" + SqlVal.SqlString(SearchString) + "%')" +
+                    "AND (";
+            }
             if (Subject != null)
                 filteredQuestions = MakeStringForFilteredQuestionsQuery(Tags, Subject.IdSchoolSubject, IdQuestionType,
                     Topic, QueryManyTopics, TagsAnd);
@@ -2087,18 +2100,22 @@ namespace SchoolGrades.DbClasses
                 // PART of the final query that extracts the Ids of the questions already made 
                 questionsTopicsMade = " Questions.idQuestion IN(" + questionsTopicsMade + ")";
             }
-            // first part of the query: selection of the interesting fields in Questions
-            string query = "SELECT Questions.IdQuestion,Questions.text,Questions.idSchoolSubject,Questions.idQuestionType" +
-                ",Questions.weight,Questions.duration,Questions.difficulty,Questions.image,Questions.idTopic" +
-                " FROM Questions";
+
             if (questionsAlreadyMade != "")
             {
                 // take only questions already made 
-                query += " WHERE Questions.idQuestion NOT IN(" + questionsAlreadyMade + ")";
+                if (SearchString == "")
+                {
+                    query += " WHERE Questions.idQuestion NOT IN(" + questionsAlreadyMade + ")";
+                }
+                else
+                {
+                    query += " Questions.idQuestion NOT IN(" + questionsAlreadyMade + ")";
+                }
             }
             if (filteredQuestions != "")
             {
-                if (questionsAlreadyMade != "")
+                if (questionsAlreadyMade != "" || SearchString != "")
                 {
                     query += " AND Questions.idQuestion IN(" + filteredQuestions + ")";
                 }
@@ -2107,17 +2124,10 @@ namespace SchoolGrades.DbClasses
                     query += " WHERE Questions.idQuestion IN(" + filteredQuestions + ")";
                 }
             }
+            query += " OR Questions.idSchoolSubject IS NULL OR Questions.idSchoolSubject = ''";
             if (SearchString != "")
-            {
-                if (questionsAlreadyMade != "" || filteredQuestions != "")
-                {
-                    query += " AND Questions.text LIKE('%" + SqlVal.SqlString(SearchString) + "%')";
-                }
-                else
-                {
-                    query += " WHERE Questions.text LIKE('%" + SqlVal.SqlString(SearchString) + "%')";
-                }
-            }
+                query += ")"; 
+
             query += " ORDER BY Questions.weight;";
 
             using (DbConnection conn = dl.Connect())

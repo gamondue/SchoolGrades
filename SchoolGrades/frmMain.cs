@@ -151,8 +151,16 @@ namespace SchoolGrades
         }
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            Commons.ErrorLog(sender.GetType().Name + " " + (e.ExceptionObject as Exception).Message +
-              (e.ExceptionObject as Exception).StackTrace, true);
+            if (sender != null)
+            {
+                Commons.ErrorLog(sender.GetType().Name + " " + (e.ExceptionObject as Exception).Message +
+                    (e.ExceptionObject as Exception).StackTrace, true);
+            }
+            else
+            {
+                Commons.ErrorLog((e.ExceptionObject as Exception).Message +
+                    (e.ExceptionObject as Exception).StackTrace, true);
+            }
         }
         private void btnComeOn_Click(object sender, EventArgs e)
         {
