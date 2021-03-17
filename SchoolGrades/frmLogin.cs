@@ -20,10 +20,10 @@ namespace SchoolGrades
 
             //// test examples
             User u;
-            u = new User("pippo", "pluto");
-            ////u = new User("pina", "pluto");
-            ////u = new User("ugo", "pina");
-            bl.CreateUser(u);
+            //u = new User("pippo", "pluto");
+            //u = new User("pina", "pluto");
+            u = new User("ugo", "pina");
+            //bl.CreateUser(u);
             u.Password = "mariangela";
             bl.ChangePassword(u);
 
