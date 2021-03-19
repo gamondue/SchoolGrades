@@ -23,17 +23,17 @@ namespace SchoolGrades
             u = new User("pippo", "pluto");
             ////u = new User("pina", "pluto");
             ////u = new User("ugo", "pina");
-            bl.CreateUser(u);
+            //bl.CreateUser(u);
             u.Password = "mariangela";
-            bl.ChangePassword(u);
+            //bl.ChangePassword(u);
 
             u.FirstName = "Ugo";
             u.LastName = "Fantozzi";
             u.Email = "u.fantozzi@megaditta.com";
             u.Description = "Inferiore Rag. Ugo Fantozzi";
-            bl.UpdateUser(u);
+            //bl.UpdateUser(u);
 
-            User u1 = bl.GetUser("ugo");
+            //User u1 = bl.GetUser("ugo");
         }
         private void btnOk_Click(object sender, EventArgs e)
         {
@@ -48,7 +48,19 @@ namespace SchoolGrades
             {
                 MessageBox.Show("Digitare credenziali corrette!");
             }
-            this.Close();
+            
+        }
+
+        private void btnChangePassword_Click(object sender, EventArgs e)
+        {
+            FrmChangePassword f = new FrmChangePassword();
+            f.Show();
+        }
+
+        private void btnRegister_Click(object sender, EventArgs e)
+        {
+            FrmRegisterUser f = new FrmRegisterUser();
+            f.Show();
         }
     }
 }

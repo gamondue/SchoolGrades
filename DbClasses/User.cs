@@ -34,5 +34,15 @@ namespace SchoolGrades.DbClasses
             this.username = Username;
             this.password = Password;
         }
+
+        public User(string Username, string Password,string FirstName,string LastName,string Email,string Description)
+        {
+            this.username = Username;
+            this.password = Password;
+            this.firstName = FirstName;
+            this.lastName = LastName;
+            this.email = Email;
+            this.description = Description;
+        }
     }
 }

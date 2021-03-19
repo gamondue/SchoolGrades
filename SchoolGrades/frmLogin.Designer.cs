@@ -35,6 +35,7 @@ namespace SchoolGrades
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnChangePassword = new System.Windows.Forms.Button();
+            this.btnRegister = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtUsername
@@ -88,18 +89,31 @@ namespace SchoolGrades
             // btnChangePassword
             // 
             this.btnChangePassword.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnChangePassword.Location = new System.Drawing.Point(170, 149);
+            this.btnChangePassword.Location = new System.Drawing.Point(93, 149);
             this.btnChangePassword.Name = "btnChangePassword";
-            this.btnChangePassword.Size = new System.Drawing.Size(75, 39);
+            this.btnChangePassword.Size = new System.Drawing.Size(71, 39);
             this.btnChangePassword.TabIndex = 5;
             this.btnChangePassword.Text = "Cambia";
             this.btnChangePassword.UseVisualStyleBackColor = true;
+            this.btnChangePassword.Click += new System.EventHandler(this.btnChangePassword_Click);
+            // 
+            // btnRegister
+            // 
+            this.btnRegister.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnRegister.Location = new System.Drawing.Point(170, 149);
+            this.btnRegister.Name = "btnRegister";
+            this.btnRegister.Size = new System.Drawing.Size(75, 39);
+            this.btnRegister.TabIndex = 6;
+            this.btnRegister.Text = "Registra";
+            this.btnRegister.UseVisualStyleBackColor = true;
+            this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
             // 
             // frmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(257, 200);
+            this.Controls.Add(this.btnRegister);
             this.Controls.Add(this.btnChangePassword);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -122,5 +136,6 @@ namespace SchoolGrades
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnChangePassword;
+        private System.Windows.Forms.Button btnRegister;
     }
 }
