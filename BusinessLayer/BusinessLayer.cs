@@ -14,7 +14,8 @@ namespace SchoolGrades.BusinessLayer
     /// </summary>
     internal class BusinessLayer
     {
-        DataLayer.DataLayer dl = new DataLayer.DataLayer();
+        // create the next after the program that is usung this has read the configuration file 
+        DataLayer.DataLayer dl = new DataLayer.DataLayer(); // must be instantiated after reading config file! 
 
         #region users' management.
         internal User GetUser(string Username)
@@ -38,6 +39,12 @@ namespace SchoolGrades.BusinessLayer
 
             return (CalculateHash(CredentialsFromDatabase.Password) == CalculateHash(CredentialsFromUser.Password) && CredentialsFromDatabase.Username == CredentialsFromUser.Username);
         }
+
+        internal void UpdateUser(User User)
+        {
+            dl.UpdateUser(User); 
+        }
+
         internal void ChangePassword(User User)
         {
             dl.ChangePassword(User); 

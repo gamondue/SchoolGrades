@@ -78,10 +78,8 @@ namespace SchoolGrades.DataLayer
                 cmd = new SQLiteCommand(query);
                 cmd.Connection = conn;
                 DbDataReader dRead = cmd.ExecuteReader();
-                while (dRead.Read())
-                {
-                    t = GetUserFromRow(dRead);
-                }
+                dRead.Read(); 
+                t = GetUserFromRow(dRead);
                 dRead.Dispose();
                 cmd.Dispose();
             }
@@ -89,7 +87,8 @@ namespace SchoolGrades.DataLayer
         }
         internal User GetUserFromRow(DbDataReader dRead)
         {
-            User u = new User(SafeDb.SafeString(dRead["username"]), SafeDb.SafeString(dRead["password"]));
+            User u = new User(SafeDb.SafeString(dRead["username"]),
+                SafeDb.SafeString(dRead["password"]));
             u.LastName = SafeDb.SafeString(dRead["lastName"]);
             u.FirstName = SafeDb.SafeString(dRead["firstName"]);
             u.Salt = SafeDb.SafeString(dRead["salt"]);
@@ -100,11 +99,64 @@ namespace SchoolGrades.DataLayer
         }
         internal void ChangePassword(User User)
         {
-            throw new NotImplementedException();
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE Users" +
+                    " Set" +
+                    " password='" + SqlVal.SqlString(User.Password) + "'," +
+                    " lastPasswordChange=" + SqlVal.SqlDate(DateTime.Now) + "" +
+                    " WHERE username='" + User.Username + "'" +
+                ";";
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
         }
         internal void CreateUser(User User)
         {
-            throw new NotImplementedException();
+            using (DbConnection conn = Connect())
+            {
+                // check if username is existing
+                DbCommand cmd = conn.CreateCommand();
+                // !!!! TODO !!!!
+
+                // create row in table 
+                string? now = SqlVal.SqlDate(DateTime.Now);
+                cmd.CommandText = "INSERT INTO Users " +
+                "(username, lastName, firstName, email," +
+                "password,creationTime,lastChange,lastPasswordChange,salt,idUserCategory)" +
+                "Values " +
+                "('" + SqlVal.SqlString(User.Username) + "','" + SqlVal.SqlString(User.LastName) + "','" + SqlVal.SqlString(User.FirstName) + "','" +
+                SqlVal.SqlString(User.Email) + "','" + SqlVal.SqlString(User.Password) + "'," +
+                now + "," + now + "," + now + ",'" + SqlVal.SqlString(User.Salt) + "','" + 
+                User.IdUserCategory + "'" +
+                ");";
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+        }
+        internal void UpdateUser(User User)
+        {
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE Users" +
+                    " Set" +
+                    " lastName='" + SqlVal.SqlString(User.LastName) + "'," +
+                    " firstName='" + SqlVal.SqlString(User.FirstName) + "'," +
+                    " email='" + SqlVal.SqlString(User.Email) + "'," +
+                    " description='" + SqlVal.SqlString(User.Description) + "'," +
+                    //" password=" + SqlVal.SqlString(User.Password) + "'," +
+                    //" creationTime=" + SqlVal.SqlDate(User.CreationTime)  + "," +
+                    " lastChange=" + SqlVal.SqlDate(DateTime.Now) + "," +
+                    //" lastPasswordChange=" + SqlVal.SqlDate(DateTime.Now) + "," +
+                    " salt='" + SqlVal.SqlString(User.Salt) + "'," +
+                    " idUserCategory=" + SqlVal.SqlInt(User.IdUserCategory) +
+                    " WHERE username='" + User.Username + "'" +
+                ";";
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
         }
     }
 }
