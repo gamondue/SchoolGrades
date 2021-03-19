@@ -75,7 +75,7 @@
             // txtMicroGrade
             // 
             this.txtMicroGrade.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMicroGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMicroGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.txtMicroGrade.Location = new System.Drawing.Point(929, 270);
             this.txtMicroGrade.Margin = new System.Windows.Forms.Padding(4);
             this.txtMicroGrade.Name = "txtMicroGrade";
@@ -119,7 +119,7 @@
             // 
             this.lblGrade.AutoSize = true;
             this.lblGrade.Enabled = false;
-            this.lblGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblGrade.ForeColor = System.Drawing.Color.DarkBlue;
             this.lblGrade.Location = new System.Drawing.Point(10, 270);
             this.lblGrade.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -133,7 +133,7 @@
             // 
             this.lblWeight.AutoSize = true;
             this.lblWeight.Enabled = false;
-            this.lblWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblWeight.ForeColor = System.Drawing.Color.DarkBlue;
             this.lblWeight.Location = new System.Drawing.Point(10, 217);
             this.lblWeight.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -147,7 +147,7 @@
             // 
             this.btnSaveMicroGrade.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSaveMicroGrade.BackColor = System.Drawing.Color.Transparent;
-            this.btnSaveMicroGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveMicroGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnSaveMicroGrade.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnSaveMicroGrade.Location = new System.Drawing.Point(944, 151);
             this.btnSaveMicroGrade.Margin = new System.Windows.Forms.Padding(6);
@@ -162,7 +162,7 @@
             // txtMicroGradeWeight
             // 
             this.txtMicroGradeWeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMicroGradeWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMicroGradeWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.txtMicroGradeWeight.Location = new System.Drawing.Point(929, 217);
             this.txtMicroGradeWeight.Margin = new System.Windows.Forms.Padding(4);
             this.txtMicroGradeWeight.Name = "txtMicroGradeWeight";
@@ -175,7 +175,7 @@
             // txtAverageMicroQuestions
             // 
             this.txtAverageMicroQuestions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtAverageMicroQuestions.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAverageMicroQuestions.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.txtAverageMicroQuestions.Location = new System.Drawing.Point(929, 387);
             this.txtAverageMicroQuestions.Margin = new System.Windows.Forms.Padding(4);
             this.txtAverageMicroQuestions.Name = "txtAverageMicroQuestions";
@@ -189,7 +189,7 @@
             // 
             this.btnNewMacroGrade.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnNewMacroGrade.BackColor = System.Drawing.Color.Transparent;
-            this.btnNewMacroGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNewMacroGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnNewMacroGrade.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnNewMacroGrade.Location = new System.Drawing.Point(944, 647);
             this.btnNewMacroGrade.Margin = new System.Windows.Forms.Padding(6);
@@ -206,7 +206,7 @@
             // 
             this.btnSaveMacroGrade.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSaveMacroGrade.BackColor = System.Drawing.Color.Transparent;
-            this.btnSaveMacroGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveMacroGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnSaveMacroGrade.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnSaveMacroGrade.Location = new System.Drawing.Point(944, 576);
             this.btnSaveMacroGrade.Margin = new System.Windows.Forms.Padding(6);
@@ -221,7 +221,7 @@
             // txtWeightsSum
             // 
             this.txtWeightsSum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtWeightsSum.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtWeightsSum.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.txtWeightsSum.Location = new System.Drawing.Point(929, 447);
             this.txtWeightsSum.Margin = new System.Windows.Forms.Padding(4);
             this.txtWeightsSum.Name = "txtWeightsSum";
@@ -236,7 +236,7 @@
             this.lblAverageMicroQuestions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblAverageMicroQuestions.AutoSize = true;
             this.lblAverageMicroQuestions.Enabled = false;
-            this.lblAverageMicroQuestions.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAverageMicroQuestions.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblAverageMicroQuestions.ForeColor = System.Drawing.Color.DarkBlue;
             this.lblAverageMicroQuestions.Location = new System.Drawing.Point(927, 368);
             this.lblAverageMicroQuestions.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -252,7 +252,7 @@
             this.lblWeightsSum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblWeightsSum.AutoSize = true;
             this.lblWeightsSum.Enabled = false;
-            this.lblWeightsSum.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWeightsSum.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblWeightsSum.ForeColor = System.Drawing.Color.DarkBlue;
             this.lblWeightsSum.Location = new System.Drawing.Point(927, 428);
             this.lblWeightsSum.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -281,7 +281,7 @@
             this.lblStudent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblStudent.BackColor = System.Drawing.Color.Transparent;
-            this.lblStudent.Font = new System.Drawing.Font("Arial Black", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStudent.Font = new System.Drawing.Font("Arial Black", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblStudent.ForeColor = System.Drawing.Color.DarkBlue;
             this.lblStudent.Location = new System.Drawing.Point(89, 12);
             this.lblStudent.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
@@ -296,7 +296,7 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Enabled = false;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label3.ForeColor = System.Drawing.Color.DarkBlue;
             this.label3.Location = new System.Drawing.Point(927, 318);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -308,6 +308,8 @@
             // 
             // TxtQuestionText
             // 
+            this.TxtQuestionText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.TxtQuestionText.Location = new System.Drawing.Point(10, 77);
             this.TxtQuestionText.Margin = new System.Windows.Forms.Padding(4);
             this.TxtQuestionText.Multiline = true;
@@ -322,7 +324,7 @@
             // 
             this.btnQuestionChoose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnQuestionChoose.BackColor = System.Drawing.Color.Transparent;
-            this.btnQuestionChoose.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnQuestionChoose.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnQuestionChoose.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnQuestionChoose.Location = new System.Drawing.Point(972, 83);
             this.btnQuestionChoose.Margin = new System.Windows.Forms.Padding(6);
@@ -339,7 +341,7 @@
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.Enabled = false;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label4.ForeColor = System.Drawing.Color.DarkBlue;
             this.label4.Location = new System.Drawing.Point(927, 488);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -352,7 +354,7 @@
             // txtMacroGradeWeight
             // 
             this.txtMacroGradeWeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMacroGradeWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMacroGradeWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.txtMacroGradeWeight.Location = new System.Drawing.Point(929, 507);
             this.txtMacroGradeWeight.Margin = new System.Windows.Forms.Padding(4);
             this.txtMacroGradeWeight.Name = "txtMacroGradeWeight";
@@ -373,6 +375,8 @@
             // 
             // txtGradeTypeParent
             // 
+            this.txtGradeTypeParent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtGradeTypeParent.Location = new System.Drawing.Point(471, 172);
             this.txtGradeTypeParent.Margin = new System.Windows.Forms.Padding(4);
             this.txtGradeTypeParent.Multiline = true;
@@ -385,7 +389,7 @@
             // 
             this.lblGradeType.AutoSize = true;
             this.lblGradeType.Enabled = false;
-            this.lblGradeType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGradeType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblGradeType.ForeColor = System.Drawing.Color.DarkBlue;
             this.lblGradeType.Location = new System.Drawing.Point(7, 153);
             this.lblGradeType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -398,7 +402,7 @@
             // 
             this.lblGradeTypeParent.AutoSize = true;
             this.lblGradeTypeParent.Enabled = false;
-            this.lblGradeTypeParent.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGradeTypeParent.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblGradeTypeParent.ForeColor = System.Drawing.Color.DarkBlue;
             this.lblGradeTypeParent.Location = new System.Drawing.Point(471, 153);
             this.lblGradeTypeParent.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -412,7 +416,7 @@
             this.lblSchoolSubject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSchoolSubject.AutoSize = true;
             this.lblSchoolSubject.Enabled = false;
-            this.lblSchoolSubject.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSchoolSubject.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblSchoolSubject.ForeColor = System.Drawing.Color.DarkBlue;
             this.lblSchoolSubject.Location = new System.Drawing.Point(910, 16);
             this.lblSchoolSubject.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -436,7 +440,7 @@
             // 
             this.btnEraseMicroGrade.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEraseMicroGrade.BackColor = System.Drawing.Color.Transparent;
-            this.btnEraseMicroGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEraseMicroGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnEraseMicroGrade.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnEraseMicroGrade.Location = new System.Drawing.Point(863, 318);
             this.btnEraseMicroGrade.Margin = new System.Windows.Forms.Padding(6);
@@ -452,7 +456,7 @@
             // 
             this.btnFlushQuestion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFlushQuestion.BackColor = System.Drawing.Color.Transparent;
-            this.btnFlushQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFlushQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnFlushQuestion.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnFlushQuestion.Location = new System.Drawing.Point(929, 83);
             this.btnFlushQuestion.Margin = new System.Windows.Forms.Padding(6);
@@ -468,7 +472,7 @@
             // 
             this.BtnSaveGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnSaveGrid.BackColor = System.Drawing.Color.Transparent;
-            this.BtnSaveGrid.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSaveGrid.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.BtnSaveGrid.ForeColor = System.Drawing.Color.DarkBlue;
             this.BtnSaveGrid.Location = new System.Drawing.Point(863, 367);
             this.BtnSaveGrid.Margin = new System.Windows.Forms.Padding(6);
@@ -498,7 +502,7 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Enabled = false;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label1.ForeColor = System.Drawing.Color.DarkBlue;
             this.label1.Location = new System.Drawing.Point(833, 16);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -538,7 +542,7 @@
             this.lblLessonTime.BackColor = System.Drawing.Color.Transparent;
             this.lblLessonTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblLessonTime.Enabled = false;
-            this.lblLessonTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLessonTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblLessonTime.ForeColor = System.Drawing.Color.DarkBlue;
             this.lblLessonTime.Location = new System.Drawing.Point(836, 60);
             this.lblLessonTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -596,7 +600,7 @@
             this.Controls.Add(this.trkbWeight);
             this.Controls.Add(this.lblGrade);
             this.Controls.Add(this.lblWeight);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmMicroAssessment";

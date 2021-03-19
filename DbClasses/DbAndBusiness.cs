@@ -1613,6 +1613,7 @@ namespace SchoolGrades.DbClasses
                     " AND Grades.idGradeParent = Parents.idGrade" +
                     " AND (Parents.value = 0 OR Parents.value is NULL)" + 
                     " ORDER BY Grades.timestamp;";
+
                 DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
                 DataSet DSet = new DataSet("OpenMicroGrades");
                 DAdapt.Fill(DSet);
@@ -2124,7 +2125,7 @@ namespace SchoolGrades.DbClasses
                     query += " WHERE Questions.idQuestion IN(" + filteredQuestions + ")";
                 }
             }
-            query += " OR Questions.idSchoolSubject IS NULL OR Questions.idSchoolSubject = ''";
+            query += " OR Questions.idTopic IS NULL OR Questions.idTopic = ''";
             if (SearchString != "")
                 query += ")"; 
 
