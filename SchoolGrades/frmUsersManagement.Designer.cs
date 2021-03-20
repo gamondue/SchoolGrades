@@ -29,25 +29,25 @@ namespace SchoolGrades
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lstUsers = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // listBox1
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 20;
-            this.listBox1.Location = new System.Drawing.Point(29, 33);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(150, 484);
-            this.listBox1.TabIndex = 0;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.lstUsers.FormattingEnabled = true;
+            this.lstUsers.ItemHeight = 20;
+            this.lstUsers.Location = new System.Drawing.Point(29, 33);
+            this.lstUsers.Name = "listBox1";
+            this.lstUsers.Size = new System.Drawing.Size(150, 484);
+            this.lstUsers.TabIndex = 0;
+            this.lstUsers.SelectedIndexChanged += new System.EventHandler(this.lstUsers_SelectedIndexChanged);
             // 
             // frmUsersManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(980, 551);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.lstUsers);
             this.Name = "frmUsersManagement";
             this.Text = "frmUsersManagement";
             this.Load += new System.EventHandler(this.frmUsersManagement_Load);
@@ -57,6 +57,6 @@ namespace SchoolGrades
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lstUsers;
     }
 }
