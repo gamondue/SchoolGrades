@@ -18,7 +18,7 @@ namespace SchoolGrades
             db = new DbAndBusiness(); 
             bl = new BusinessLayer.BusinessLayer();
 
-            //// test examples
+            // test examples
             User u;
             u = new User("pippo", "pluto");
             //u = new User("pina", "pluto");

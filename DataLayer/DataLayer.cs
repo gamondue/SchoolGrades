@@ -25,12 +25,6 @@ namespace SchoolGrades.DataLayer
             }
             dbName = Commons.PathAndFileDatabase;
         }
-
-        internal List<User> GetAllUsers()
-        {
-            throw new NotImplementedException();
-        }
-
         public DataLayer(string PathAndFile)
         {
             if (!System.IO.File.Exists(PathAndFile))
@@ -91,6 +85,27 @@ namespace SchoolGrades.DataLayer
                 cmd.Dispose();
             }
             return t;
+        }
+        internal List<User> GetAllUsers()
+        {
+            List<User> l = new List<User>(); 
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                string query = "SELECT *" +
+                    " FROM Users";
+                cmd = new SQLiteCommand(query);
+                cmd.Connection = conn;
+                DbDataReader dRead = cmd.ExecuteReader();
+                while (dRead.Read())
+                {
+                    User u = GetUserFromRow(dRead);
+                    l.Add(u); 
+                }
+                dRead.Dispose();
+                cmd.Dispose();
+            }
+            return l;
         }
         private User GetUserFromRow(DbDataReader dRead)
         {

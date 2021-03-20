@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using SchoolGrades.BusinessLayer;
 using SchoolGrades.DbClasses;
 
 namespace SchoolGrades
 {
     public partial class frmUsersManagement : Form
     {
-        BusinessLayer.BusinessLayer bl = new BusinessLayer.BusinessLayer(); 
+        BusinessLayer.BusinessLayer bl = new BusinessLayer.BusinessLayer();
+
+        List<User> listOfAllUsers; 
 
         public frmUsersManagement()
         {
@@ -21,12 +18,13 @@ namespace SchoolGrades
 
         private void frmUsersManagement_Load(object sender, EventArgs e)
         {
-            listBox1.DataSource = bl.GetAllUsers(); 
+            listOfAllUsers = bl.GetAllUsers(); 
+            lstUsers.DataSource = listOfAllUsers; 
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void lstUsers_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UserControl currentUser = (User)listBox1[listBox1.SelectedIndex]; 
+            User currentUser = (User)(listOfAllUsers[lstUsers.SelectedIndex]); 
         }
     }
 }

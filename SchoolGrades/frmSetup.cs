@@ -255,7 +255,9 @@ namespace SchoolGrades
 
         private void btnUsersManagement_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Parte da fare"); 
+            MessageBox.Show("Form da completare!");
+            frmUsersManagement f = new frmUsersManagement();
+            f.Show(); 
         }
     }
 }
