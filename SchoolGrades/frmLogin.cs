@@ -1,6 +1,8 @@
 using SchoolGrades.DbClasses;
 using System;
 using System.Windows.Forms;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace SchoolGrades
 {
@@ -20,9 +22,9 @@ namespace SchoolGrades
 
             //// test examples
             User u;
-            u = new User("pippo", "pluto");
+            ////u = new User("pippo", "pluto");
             ////u = new User("pina", "pluto");
-            ////u = new User("ugo", "pina");
+            u = new User("ugo", "pina");
             bl.CreateUser(u);
             u.Password = "mariangela";
             bl.ChangePassword(u);
@@ -37,7 +39,7 @@ namespace SchoolGrades
         }
         private void btnOk_Click(object sender, EventArgs e)
         {
-            if (bl.UserHasLoginPermission(txtUsername.Text, 
+            if (bl.UserHasLoginPermission(txtUsername.Text,
                 txtPassword.Text))
             {
                 frmMain f = new frmMain();
