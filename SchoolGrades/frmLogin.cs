@@ -1,9 +1,12 @@
 using SchoolGrades.DbClasses;
 using System;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows.Forms;
 
 namespace SchoolGrades
 {
+
     public partial class frmLogin : Form
     {
         DbAndBusiness db; // must instatiate after config file reading
@@ -18,13 +21,14 @@ namespace SchoolGrades
             db = new DbAndBusiness(); 
             bl = new BusinessLayer.BusinessLayer();
 
-            //// test examples
+            
             User u;
-            u = new User("pippo", "pluto");
-            ////u = new User("pina", "pluto");
-            ////u = new User("ugo", "pina");
+            //u = new User("pippo", "pluto");
+            //u = new User("pina", "pluto");
+            u = new User("ugo", "pina");
             bl.CreateUser(u);
             u.Password = "mariangela";
+            u.Password = Criptazione(u.Password); //criptazione
             bl.ChangePassword(u);
 
             u.FirstName = "Ugo";
@@ -35,11 +39,26 @@ namespace SchoolGrades
 
             User u1 = bl.GetUser("ugo");
         }
+
+        private string Criptazione(string password)
+        {
+            using (SHA256 hash = SHA256.Create())
+            {
+                byte[] bytes = hash.ComputeHash(Encoding.UTF8.GetBytes(password));
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
+        }
         private void btnOk_Click(object sender, EventArgs e)
         {
             if (bl.UserHasLoginPermission(txtUsername.Text, 
-                txtPassword.Text))
+                Criptazione(txtPassword.Text)))
             {
+                
                 frmMain f = new frmMain();
                 this.Hide();
                 f.ShowDialog(); 
@@ -50,5 +69,7 @@ namespace SchoolGrades
             }
             this.Close();
         }
+
+
     }
 }
