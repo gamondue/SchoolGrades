@@ -5,6 +5,7 @@ using System.Text;
 using SchoolGrades.DataLayer;
 using SchoolGrades.DbClasses;
 
+
 namespace SchoolGrades.BusinessLayer
 {
     /// <summary>
@@ -24,6 +25,9 @@ namespace SchoolGrades.BusinessLayer
         internal bool UserHasLoginPermission(string Username, string Password)
         {
             User uFromDb = GetUser(Username);
+
+            Password = CalculateHash(Password);
+            uFromDb.Password = CalculateHash(uFromDb.Password); //aggiunta cifratura
 
             if (uFromDb != null && Username == uFromDb.Username && Password == uFromDb.Password)
                 return true;
@@ -61,11 +65,13 @@ namespace SchoolGrades.BusinessLayer
             return u;
         }
         private string CalculateHash(string ClearTextPassword)
-        {
-            // https://www.mattepuffo.com/blog/articolo/2496-calcolo-hash-sha256-in-csharp.html
+        { 
             SHA256 hash = SHA256.Create();
-            // !!!! TODO !!!!
-            return null;
+            byte[] bytes = hash.ComputeHash(Encoding.UTF8.GetBytes(ClearTextPassword));
+            StringBuilder hashConverted = new StringBuilder();
+            for (int i = 0; i < bytes.Length; i++)
+                hashConverted.Append(bytes[i].ToString("x2"));
+            return hashConverted.ToString();
         }
         #endregion
     }

@@ -28,7 +28,7 @@ namespace SchoolGrades
             u = new User("ugo", "pina");
             bl.CreateUser(u);
             u.Password = "mariangela";
-            u.Password = Criptazione(u.Password); //criptazione
+            //u.Password = Criptazione(u.Password); //criptazione
             bl.ChangePassword(u);
 
             u.FirstName = "Ugo";
@@ -40,23 +40,24 @@ namespace SchoolGrades
             User u1 = bl.GetUser("ugo");
         }
 
-        private string Criptazione(string password)
-        {
-            using (SHA256 hash = SHA256.Create())
-            {
-                byte[] bytes = hash.ComputeHash(Encoding.UTF8.GetBytes(password));
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    builder.Append(bytes[i].ToString("x2"));
-                }
-                return builder.ToString();
-            }
-        }
+        //private string Criptazione(string password)
+        //{
+        //    using (SHA256 hash = SHA256.Create())
+        //    {
+        //        byte[] bytes = hash.ComputeHash(Encoding.UTF8.GetBytes(password));
+        //        StringBuilder builder = new StringBuilder();
+        //        for (int i = 0; i < bytes.Length; i++)
+        //        {
+        //            builder.Append(bytes[i].ToString("x2"));
+        //        }
+        //        return builder.ToString();
+        //    }
+        //}
+
         private void btnOk_Click(object sender, EventArgs e)
         {
             if (bl.UserHasLoginPermission(txtUsername.Text, 
-                Criptazione(txtPassword.Text)))
+                txtPassword.Text))
             {
                 
                 frmMain f = new frmMain();
