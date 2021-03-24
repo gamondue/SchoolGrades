@@ -1,5 +1,6 @@
 ﻿using SchoolGrades.DbClasses;
 using System;
+using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SQLite;
 
@@ -24,6 +25,12 @@ namespace SchoolGrades.DataLayer
             }
             dbName = Commons.PathAndFileDatabase;
         }
+
+        internal List<User> GetAllUsers()
+        {
+            throw new NotImplementedException();
+        }
+
         public DataLayer(string PathAndFile)
         {
             if (!System.IO.File.Exists(PathAndFile))

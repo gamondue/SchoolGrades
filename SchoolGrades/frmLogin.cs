@@ -23,7 +23,8 @@ namespace SchoolGrades
             //u = new User("pippo", "pluto");
             //u = new User("pina", "pluto");
             u = new User("ugo", "pina");
-            //bl.CreateUser(u);
+            if(u==null)
+                bl.CreateUser(u);
             u.Password = "mariangela";
             bl.ChangePassword(u);
 
