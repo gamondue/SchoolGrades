@@ -35,7 +35,7 @@ namespace SchoolGrades
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.txtLastName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnChangePassword = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lstUser
@@ -82,14 +82,14 @@ namespace SchoolGrades
             this.label1.TabIndex = 3;
             this.label1.Text = "Cognome";
             // 
-            // button1
+            // btnChangePassword
             // 
-            this.button1.Location = new System.Drawing.Point(292, 180);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 46);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Salva";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnChangePassword.Location = new System.Drawing.Point(232, 310);
+            this.btnChangePassword.Name = "btnChangePassword";
+            this.btnChangePassword.Size = new System.Drawing.Size(154, 46);
+            this.btnChangePassword.TabIndex = 4;
+            this.btnChangePassword.Text = "Cambia Password";
+            this.btnChangePassword.UseVisualStyleBackColor = true;
             // 
             // frmUserManagement
             // 
@@ -97,7 +97,7 @@ namespace SchoolGrades
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(800, 372);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnChangePassword);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtLastName);
             this.Controls.Add(this.btnSave);
@@ -119,6 +119,6 @@ namespace SchoolGrades
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.TextBox txtLastName;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnChangePassword;
     }
 }

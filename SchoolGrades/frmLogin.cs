@@ -15,15 +15,16 @@ namespace SchoolGrades
         }
         private void frmLogin_Load(object sender, EventArgs e)
         {
-            db = new DbAndBusiness(); 
+            db = new DbAndBusiness();
             bl = new BusinessLayer.BusinessLayer();
 
             //// test examples
             User u;
-            u = new User("pippo", "pluto");
-            ////u = new User("pina", "pluto");
-            ////u = new User("ugo", "pina");
-            bl.CreateUser(u);
+            //u = new User("pippo", "pluto");
+            //u = new User("pina", "pluto");
+            u = new User("ugo", "pina");
+            if (u == null)
+                bl.CreateUser(u);
             u.Password = "mariangela";
             bl.ChangePassword(u);
 
@@ -32,7 +33,6 @@ namespace SchoolGrades
             u.Email = "u.fantozzi@megaditta.com";
             u.Description = "Inferiore Rag. Ugo Fantozzi";
             bl.UpdateUser(u);
-
             User u1 = bl.GetUser("ugo");
         }
         private void btnOk_Click(object sender, EventArgs e)
