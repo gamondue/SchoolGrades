@@ -141,7 +141,7 @@ namespace SchoolGrades.DataLayer
                     " salt='" + SqlVal.SqlString(User.Salt) + "'" +
                     " WHERE username='" + User.Username + "'" +
                 ";";
-                cmd.ExecuteNonQuery();
+                //cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
         }
@@ -164,7 +164,7 @@ namespace SchoolGrades.DataLayer
                 now + "," + now + "," + now + ",'" + SqlVal.SqlString(User.Salt) + "','" +
                 User.IdUserCategory + "', TRUE" + 
                 ");";
-                cmd.ExecuteNonQuery();
+                //cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
         }
@@ -188,7 +188,7 @@ namespace SchoolGrades.DataLayer
                     " idUserCategory=" + SqlVal.SqlInt(User.IdUserCategory) +
                     " WHERE username='" + User.Username + "'" +
                 ";";
-                cmd.ExecuteNonQuery();
+                //cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
         }
