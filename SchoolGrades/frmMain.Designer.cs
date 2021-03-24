@@ -121,6 +121,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.timerPopUp = new System.Windows.Forms.Timer(this.components);
+            this.chkSoundsInColorTimer = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.picBackgroundSaveRunning)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picStudent)).BeginInit();
             this.grpSorts.SuspendLayout();
@@ -269,7 +270,7 @@
             this.chkNomeVisibile.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkNomeVisibile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.chkNomeVisibile.ForeColor = System.Drawing.Color.DarkBlue;
-            this.chkNomeVisibile.Location = new System.Drawing.Point(240, 67);
+            this.chkNomeVisibile.Location = new System.Drawing.Point(297, 66);
             this.chkNomeVisibile.Name = "chkNomeVisibile";
             this.chkNomeVisibile.Size = new System.Drawing.Size(128, 22);
             this.chkNomeVisibile.TabIndex = 14;
@@ -285,7 +286,7 @@
             this.chkFotoVisibile.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkFotoVisibile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.chkFotoVisibile.ForeColor = System.Drawing.Color.DarkBlue;
-            this.chkFotoVisibile.Location = new System.Drawing.Point(240, 92);
+            this.chkFotoVisibile.Location = new System.Drawing.Point(297, 91);
             this.chkFotoVisibile.Name = "chkFotoVisibile";
             this.chkFotoVisibile.Size = new System.Drawing.Size(118, 22);
             this.chkFotoVisibile.TabIndex = 16;
@@ -301,7 +302,7 @@
             this.chkStudentsListVisible.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkStudentsListVisible.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.chkStudentsListVisible.ForeColor = System.Drawing.Color.DarkBlue;
-            this.chkStudentsListVisible.Location = new System.Drawing.Point(240, 117);
+            this.chkStudentsListVisible.Location = new System.Drawing.Point(297, 116);
             this.chkStudentsListVisible.Name = "chkStudentsListVisible";
             this.chkStudentsListVisible.Size = new System.Drawing.Size(119, 22);
             this.chkStudentsListVisible.TabIndex = 18;
@@ -1330,12 +1331,29 @@
             // 
             this.timerPopUp.Tick += new System.EventHandler(this.timerPopUp_Tick);
             // 
+            // chkSoundsInColorTimer
+            // 
+            this.chkSoundsInColorTimer.AutoSize = true;
+            this.chkSoundsInColorTimer.Checked = true;
+            this.chkSoundsInColorTimer.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSoundsInColorTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.chkSoundsInColorTimer.ForeColor = System.Drawing.Color.DarkBlue;
+            this.chkSoundsInColorTimer.Location = new System.Drawing.Point(217, 66);
+            this.chkSoundsInColorTimer.Name = "chkSoundsInColorTimer";
+            this.chkSoundsInColorTimer.Size = new System.Drawing.Size(70, 22);
+            this.chkSoundsInColorTimer.TabIndex = 184;
+            this.chkSoundsInColorTimer.Text = "Suoni";
+            this.toolTip1.SetToolTip(this.chkSoundsInColorTimer, "Esegue i suoni nel timer a colori");
+            this.chkSoundsInColorTimer.UseVisualStyleBackColor = true;
+            this.chkSoundsInColorTimer.CheckedChanged += new System.EventHandler(this.chkSoundsInColorTimer_CheckedChanged);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(1069, 741);
+            this.Controls.Add(this.chkSoundsInColorTimer);
             this.Controls.Add(this.btnTemporary);
             this.Controls.Add(this.btnRandomNumber);
             this.Controls.Add(this.label9);
@@ -1526,6 +1544,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Timer timerPopUp;
         private System.Windows.Forms.Button btnRandomNumber;
+        private System.Windows.Forms.CheckBox chkSoundsInColorTimer;
     }
 }
 

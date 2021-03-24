@@ -4,16 +4,16 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
-    <Version>0.50.6</Version>
+    <Version>0.51.0.1</Version>
     <Authors>Ing. Gabriele Monti - Forlì - Italia</Authors>
     <Copyright>Ing. Gabriele Monti - Forlì - Italia</Copyright>
     <PackageLicenseExpression>GPLv2</PackageLicenseExpression>
     <Description>SchoolGrades manages the daily life of a teacher in the classroom, with emphasis to evaluations and tracking of topics.</Description>
     <RepositoryType>Source code repository</RepositoryType>
     <RepositoryUrl>https://github.com/gamondue/SchoolGrades</RepositoryUrl>
-    <PackageReleaseNotes>First .Net Core version. Version number of .Net Core code starts from 0.50. 
-First version published on GitHub with GPL v.2 licence (source is not public yet). 
-Versions with numbers under 0.50 are previous distributions, made with .Net Framework.</PackageReleaseNotes>
+    <PackageReleaseNotes>SchoolGrades. .Net Core version. Version number of .Net Core code starts from 0.50. 
+Published on GitHub with GPL v.2 licence. 
+Versions with numbers under 0.50 are previous version, not distributed, made with .Net Framework.</PackageReleaseNotes>
     <PackageIcon>gamon LegoLogo decentrato trasparente 256x256.ico</PackageIcon>
     <ApplicationIcon>gamon LegoLogo decentrato trasparente 256x256.ico</ApplicationIcon>
   </PropertyGroup>

@@ -252,5 +252,10 @@ namespace SchoolGrades
         {
 
         }
+
+        private void btnUsersManagement_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Parte da fare"); 
+        }
     }
 }

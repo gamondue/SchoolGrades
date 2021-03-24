@@ -15,6 +15,7 @@ namespace SchoolGrades
         }
         private void frmLogin_Load(object sender, EventArgs e)
         {
+<<<<<<< HEAD
              Commons.ReadConfigFile();
 
             while (!System.IO.File.Exists(Commons.PathAndFileDatabase))
@@ -24,6 +25,8 @@ namespace SchoolGrades
                 f.ShowDialog();
                 //return; 
             }
+=======
+>>>>>>> a92616a2261fcdb1351af42c3ec9049a895cf798
             db = new DbAndBusiness(); 
             bl = new BusinessLayer.BusinessLayer();
 
@@ -31,14 +34,14 @@ namespace SchoolGrades
             //User u;
             //u = new User("pippo", "pluto");
             ////u = new User("pina", "pluto");
-            ////u = new User("ugo", "pina");
-            //bl.CreateUser(u);
+            //////u = new User("ugo", "pina");
+            ////bl.CreateUser(u);
             //u.Password = "mariangela";
             //bl.ChangePassword(u);
 
             //u.FirstName = "Ugo";
             //u.LastName = "Fantozzi";
-            //u.Email = "u.fantozzi@megaditta.com"; 
+            //u.Email = "u.fantozzi@megaditta.com";
             //u.Description = "Inferiore Rag. Ugo Fantozzi";
             //bl.UpdateUser(u);
 

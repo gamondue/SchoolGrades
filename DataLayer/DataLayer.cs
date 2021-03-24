@@ -44,6 +44,7 @@ namespace SchoolGrades.DataLayer
             //set { nomeEPathDatabase = value; }
         }
         #endregion
+
         public DbConnection Connect()
         {
             DbConnection connection;
@@ -66,6 +67,7 @@ namespace SchoolGrades.DataLayer
             connection.Open();
             return connection;
         }
+
         internal User GetUser(string Username)
         {
             User t = new User(Username, "");
@@ -87,16 +89,26 @@ namespace SchoolGrades.DataLayer
         }
         internal User GetUserFromRow(DbDataReader dRead)
         {
-            User u = new User(SafeDb.SafeString(dRead["username"]),
-                SafeDb.SafeString(dRead["password"]));
-            u.LastName = SafeDb.SafeString(dRead["lastName"]);
-            u.FirstName = SafeDb.SafeString(dRead["firstName"]);
-            u.Salt = SafeDb.SafeString(dRead["salt"]);
-            u.IdUserCategory = SafeDb.SafeInt(dRead["idUserCategory"]); 
-            u.CreationTime = SafeDb.SafeDateTime(dRead["creationTime"]);
-
+            User u = null;
+            if (dRead.HasRows)
+            {
+                u = new User(SafeDb.SafeString(dRead["username"]),
+                    SafeDb.SafeString(dRead["password"]));
+                u.Description = SafeDb.SafeString(dRead["description"]);
+                u.LastName = SafeDb.SafeString(dRead["lastName"]);
+                u.FirstName = SafeDb.SafeString(dRead["firstName"]);
+                u.Email = SafeDb.SafeString(dRead["email"]);
+                //u.Password = SafeDb.SafeString(dRead["password"]);
+                u.LastChange = SafeDb.SafeDateTime(dRead["lastChange"]);
+                u.LastPasswordChange = SafeDb.SafeDateTime(dRead["lastPasswordChange"]);
+                u.CreationTime = SafeDb.SafeDateTime(dRead["creationTime"]);
+                u.Salt = SafeDb.SafeString(dRead["salt"]);
+                u.IdUserCategory = SafeDb.SafeInt(dRead["idUserCategory"]);
+                u.IsEnabled = SafeDb.SafeBool(dRead["isEnabled"]);
+            }
             return u;
         }
+        
         internal void ChangePassword(User User)
         {
             using (DbConnection conn = Connect())
@@ -105,7 +117,8 @@ namespace SchoolGrades.DataLayer
                 cmd.CommandText = "UPDATE Users" +
                     " Set" +
                     " password='" + SqlVal.SqlString(User.Password) + "'," +
-                    " lastPasswordChange=" + SqlVal.SqlDate(DateTime.Now) + "" +
+                    " lastPasswordChange=" + SqlVal.SqlDate(DateTime.Now) + "," +
+                    " salt='" + SqlVal.SqlString(User.Salt) + "'" +
                     " WHERE username='" + User.Username + "'" +
                 ";";
                 cmd.ExecuteNonQuery();
@@ -124,12 +137,12 @@ namespace SchoolGrades.DataLayer
                 string? now = SqlVal.SqlDate(DateTime.Now);
                 cmd.CommandText = "INSERT INTO Users " +
                 "(username, lastName, firstName, email," +
-                "password,creationTime,lastChange,lastPasswordChange,salt,idUserCategory)" +
+                "password,creationTime,lastChange,lastPasswordChange,salt,idUserCategory,isEnabled)" +
                 "Values " +
                 "('" + SqlVal.SqlString(User.Username) + "','" + SqlVal.SqlString(User.LastName) + "','" + SqlVal.SqlString(User.FirstName) + "','" +
                 SqlVal.SqlString(User.Email) + "','" + SqlVal.SqlString(User.Password) + "'," +
-                now + "," + now + "," + now + ",'" + SqlVal.SqlString(User.Salt) + "','" + 
-                User.IdUserCategory + "'" +
+                now + "," + now + "," + now + ",'" + SqlVal.SqlString(User.Salt) + "','" +
+                User.IdUserCategory + "', TRUE" + 
                 ");";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
@@ -142,15 +155,16 @@ namespace SchoolGrades.DataLayer
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "UPDATE Users" +
                     " Set" +
+                    " description='" + SqlVal.SqlString(User.Description) + "'," +
                     " lastName='" + SqlVal.SqlString(User.LastName) + "'," +
                     " firstName='" + SqlVal.SqlString(User.FirstName) + "'," +
                     " email='" + SqlVal.SqlString(User.Email) + "'," +
-                    " description='" + SqlVal.SqlString(User.Description) + "'," +
                     //" password=" + SqlVal.SqlString(User.Password) + "'," +
-                    //" creationTime=" + SqlVal.SqlDate(User.CreationTime)  + "," +
                     " lastChange=" + SqlVal.SqlDate(DateTime.Now) + "," +
                     //" lastPasswordChange=" + SqlVal.SqlDate(DateTime.Now) + "," +
+                    //" creationTime=" + SqlVal.SqlDate(User.CreationTime)  + "," +
                     " salt='" + SqlVal.SqlString(User.Salt) + "'," +
+                    " isEnabled=" + SqlVal.SqlBool(User.IsEnabled) +
                     " idUserCategory=" + SqlVal.SqlInt(User.IdUserCategory) +
                     " WHERE username='" + User.Username + "'" +
                 ";";

@@ -332,7 +332,6 @@ namespace SchoolGrades
 
             tagsList = Commons.LastTagsChosen;
 
-            //currentQuestion.idSubject = 
             //currentQuestion.idTopic = currentQuestion.idQuestion;
             //currentQuestion.image
             currentQuestion.Text = txtQuestionText.Text; 
