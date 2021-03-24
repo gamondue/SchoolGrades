@@ -34,5 +34,10 @@ namespace SchoolGrades.DbClasses
             this.username = Username;
             this.password = Password;
         }
+
+        public override string ToString()
+        {
+            return Username + "; " + Description;
+        }
     }
 }
