@@ -22,7 +22,6 @@ namespace SchoolGrades.BusinessLayer
         {
             return dl.GetUser(Username);
         }
-
         internal bool UserHasLoginPermission(string Username, string Password)
         {
             User uFromDb = GetUser(Username);

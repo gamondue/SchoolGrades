@@ -1,5 +1,6 @@
 ﻿using SchoolGrades.DbClasses;
 using System;
+using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SQLite;
 
@@ -87,7 +88,28 @@ namespace SchoolGrades.DataLayer
             }
             return t;
         }
-        internal User GetUserFromRow(DbDataReader dRead)
+        internal List<User> GetAllUsers()
+        {
+            List<User> l = new List<User>(); 
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                string query = "SELECT *" +
+                    " FROM Users";
+                cmd = new SQLiteCommand(query);
+                cmd.Connection = conn;
+                DbDataReader dRead = cmd.ExecuteReader();
+                while (dRead.Read())
+                {
+                    User u = GetUserFromRow(dRead);
+                    l.Add(u); 
+                }
+                dRead.Dispose();
+                cmd.Dispose();
+            }
+            return l;
+        }
+        private User GetUserFromRow(DbDataReader dRead)
         {
             User u = null;
             if (dRead.HasRows)
