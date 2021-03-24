@@ -462,7 +462,7 @@
             this.BtnSetup.Text = "Setup";
             this.toolTip1.SetToolTip(this.BtnSetup, "Finestra opzioni di configurazione");
             this.BtnSetup.UseVisualStyleBackColor = false;
-            this.BtnSetup.Click += new System.EventHandler(this.BtnSetup_Click);
+            this.BtnSetup.Click += new System.EventHandler(this.btnSetup_Click);
             // 
             // btnStudentsGradesSummary
             // 
