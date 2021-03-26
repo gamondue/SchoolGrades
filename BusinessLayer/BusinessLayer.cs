@@ -22,6 +22,7 @@ namespace SchoolGrades.BusinessLayer
         {
             return dl.GetUser(Username);
         }
+
         internal bool UserHasLoginPermission(string Username, string Password)
         {
             User uFromDb = GetUser(Username);
@@ -55,13 +56,11 @@ namespace SchoolGrades.BusinessLayer
         private User ReadCredentialsFromDatabase(User CredentialsFromUser)
         {
             User u = new User("ugo", "pina");
-            // !!!! TODO !!!!
             return u;
         }
         private User WriteCredentialsToDatabase(User CredentialsFromUser)
         {
             User u = new User(CredentialsFromUser.Username, CredentialsFromUser.Password);
-            // !!!! TODO !!!!
             return u;
         }
         private string CalculateHash(string ClearTextPassword)

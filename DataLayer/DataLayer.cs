@@ -1,6 +1,7 @@
 ﻿using SchoolGrades.DbClasses;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.Data.SQLite;
 
@@ -46,6 +47,17 @@ namespace SchoolGrades.DataLayer
         }
         #endregion
 
+        public DataTable ConnectGrid(string query)
+        {
+            SQLiteConnection con = new SQLiteConnection("Data Source=" + dbName + ";version=3;new=False;datetimeformat=CurrentCulture");
+            con.Open();
+            SQLiteCommand cmd = new SQLiteCommand(query, con);
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            return dt;
+        }
+
         public DbConnection Connect()
         {
             DbConnection connection;
@@ -81,16 +93,17 @@ namespace SchoolGrades.DataLayer
                 cmd = new SQLiteCommand(query);
                 cmd.Connection = conn;
                 DbDataReader dRead = cmd.ExecuteReader();
-                dRead.Read(); 
+                dRead.Read();
                 t = GetUserFromRow(dRead);
                 dRead.Dispose();
                 cmd.Dispose();
             }
             return t;
         }
+
         internal List<User> GetAllUsers()
         {
-            List<User> l = new List<User>(); 
+            List<User> l = new List<User>();
             using (DbConnection conn = Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
@@ -102,13 +115,14 @@ namespace SchoolGrades.DataLayer
                 while (dRead.Read())
                 {
                     User u = GetUserFromRow(dRead);
-                    l.Add(u); 
+                    l.Add(u);
                 }
                 dRead.Dispose();
                 cmd.Dispose();
             }
             return l;
         }
+
         private User GetUserFromRow(DbDataReader dRead)
         {
             User u = null;
@@ -130,7 +144,7 @@ namespace SchoolGrades.DataLayer
             }
             return u;
         }
-        
+
         internal void ChangePassword(User User)
         {
             using (DbConnection conn = Connect())
@@ -164,12 +178,13 @@ namespace SchoolGrades.DataLayer
                 "('" + SqlVal.SqlString(User.Username) + "','" + SqlVal.SqlString(User.LastName) + "','" + SqlVal.SqlString(User.FirstName) + "','" +
                 SqlVal.SqlString(User.Email) + "','" + SqlVal.SqlString(User.Password) + "'," +
                 now + "," + now + "," + now + ",'" + SqlVal.SqlString(User.Salt) + "','" +
-                User.IdUserCategory + "', TRUE" + 
+                User.IdUserCategory + "', TRUE" +
                 ");";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
         }
+
         internal void UpdateUser(User User)
         {
             using (DbConnection conn = Connect())

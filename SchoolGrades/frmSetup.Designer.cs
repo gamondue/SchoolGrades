@@ -71,7 +71,7 @@
             // 
             this.btnTabelle.Location = new System.Drawing.Point(8, 12);
             this.btnTabelle.Name = "btnTabelle";
-            this.btnTabelle.Size = new System.Drawing.Size(96, 50);
+            this.btnTabelle.Size = new System.Drawing.Size(96, 59);
             this.btnTabelle.TabIndex = 0;
             this.btnTabelle.Text = "Gestione tabelle";
             this.btnTabelle.UseVisualStyleBackColor = true;
@@ -81,7 +81,7 @@
             // 
             this.btnClassi.Location = new System.Drawing.Point(110, 12);
             this.btnClassi.Name = "btnClassi";
-            this.btnClassi.Size = new System.Drawing.Size(96, 50);
+            this.btnClassi.Size = new System.Drawing.Size(96, 59);
             this.btnClassi.TabIndex = 1;
             this.btnClassi.Text = "Gestione classi";
             this.btnClassi.UseVisualStyleBackColor = true;
@@ -91,7 +91,7 @@
             // 
             this.btnBackupManagement.Location = new System.Drawing.Point(212, 12);
             this.btnBackupManagement.Name = "btnBackupManagement";
-            this.btnBackupManagement.Size = new System.Drawing.Size(96, 50);
+            this.btnBackupManagement.Size = new System.Drawing.Size(96, 59);
             this.btnBackupManagement.TabIndex = 2;
             this.btnBackupManagement.Text = "Backup e, gen. file";
             this.btnBackupManagement.UseVisualStyleBackColor = true;
@@ -103,7 +103,7 @@
             this.TxtFileDatabase.Location = new System.Drawing.Point(8, 153);
             this.TxtFileDatabase.Margin = new System.Windows.Forms.Padding(4);
             this.TxtFileDatabase.Name = "TxtFileDatabase";
-            this.TxtFileDatabase.Size = new System.Drawing.Size(537, 24);
+            this.TxtFileDatabase.Size = new System.Drawing.Size(537, 28);
             this.TxtFileDatabase.TabIndex = 2;
             this.TxtFileDatabase.TextChanged += new System.EventHandler(this.TxtFileDatabase_TextChanged);
             this.TxtFileDatabase.DoubleClick += new System.EventHandler(this.TxtPaths_DoubleClick);
@@ -128,7 +128,7 @@
             this.TxtPathImages.Location = new System.Drawing.Point(8, 203);
             this.TxtPathImages.Margin = new System.Windows.Forms.Padding(4);
             this.TxtPathImages.Name = "TxtPathImages";
-            this.TxtPathImages.Size = new System.Drawing.Size(762, 24);
+            this.TxtPathImages.Size = new System.Drawing.Size(762, 28);
             this.TxtPathImages.TabIndex = 15;
             this.TxtPathImages.TextChanged += new System.EventHandler(this.TxtPathImages_TextChanged);
             this.TxtPathImages.DoubleClick += new System.EventHandler(this.TxtPaths_DoubleClick);
@@ -164,7 +164,7 @@
             this.TxtPathStartLinks.Location = new System.Drawing.Point(8, 309);
             this.TxtPathStartLinks.Margin = new System.Windows.Forms.Padding(4);
             this.TxtPathStartLinks.Name = "TxtPathStartLinks";
-            this.TxtPathStartLinks.Size = new System.Drawing.Size(762, 24);
+            this.TxtPathStartLinks.Size = new System.Drawing.Size(762, 28);
             this.TxtPathStartLinks.TabIndex = 2;
             this.TxtPathStartLinks.Visible = false;
             this.TxtPathStartLinks.TextChanged += new System.EventHandler(this.TxtPathStartLinks_TextChanged);
@@ -190,7 +190,7 @@
             this.lblFileDatabase.AutoSize = true;
             this.lblFileDatabase.Location = new System.Drawing.Point(5, 132);
             this.lblFileDatabase.Name = "lblFileDatabase";
-            this.lblFileDatabase.Size = new System.Drawing.Size(81, 18);
+            this.lblFileDatabase.Size = new System.Drawing.Size(106, 24);
             this.lblFileDatabase.TabIndex = 93;
             this.lblFileDatabase.Text = "File dei dati";
             // 
@@ -199,7 +199,7 @@
             this.lblPathDatabase.AutoSize = true;
             this.lblPathDatabase.Location = new System.Drawing.Point(5, 74);
             this.lblPathDatabase.Name = "lblPathDatabase";
-            this.lblPathDatabase.Size = new System.Drawing.Size(108, 18);
+            this.lblPathDatabase.Size = new System.Drawing.Size(137, 24);
             this.lblPathDatabase.TabIndex = 96;
             this.lblPathDatabase.Text = "Cartella dei dati";
             // 
@@ -209,7 +209,7 @@
             this.TxtPathDatabase.Location = new System.Drawing.Point(8, 95);
             this.TxtPathDatabase.Margin = new System.Windows.Forms.Padding(4);
             this.TxtPathDatabase.Name = "TxtPathDatabase";
-            this.TxtPathDatabase.Size = new System.Drawing.Size(762, 24);
+            this.TxtPathDatabase.Size = new System.Drawing.Size(762, 28);
             this.TxtPathDatabase.TabIndex = 94;
             this.TxtPathDatabase.TextChanged += new System.EventHandler(this.TxtPathDatabase_TextChanged);
             this.TxtPathDatabase.DoubleClick += new System.EventHandler(this.TxtPaths_DoubleClick);
@@ -233,7 +233,7 @@
             this.lblPathImages.AutoSize = true;
             this.lblPathImages.Location = new System.Drawing.Point(5, 181);
             this.lblPathImages.Name = "lblPathImages";
-            this.lblPathImages.Size = new System.Drawing.Size(155, 18);
+            this.lblPathImages.Size = new System.Drawing.Size(199, 24);
             this.lblPathImages.TabIndex = 97;
             this.lblPathImages.Text = "Cartella delle immagini";
             // 
@@ -242,7 +242,7 @@
             this.lblPathStartLink.AutoSize = true;
             this.lblPathStartLink.Location = new System.Drawing.Point(5, 287);
             this.lblPathStartLink.Name = "lblPathStartLink";
-            this.lblPathStartLink.Size = new System.Drawing.Size(151, 18);
+            this.lblPathStartLink.Size = new System.Drawing.Size(189, 24);
             this.lblPathStartLink.TabIndex = 98;
             this.lblPathStartLink.Text = "Cartella degli start link";
             this.lblPathStartLink.Visible = false;
@@ -251,7 +251,7 @@
             // 
             this.btnTopicsManagement.Location = new System.Drawing.Point(314, 12);
             this.btnTopicsManagement.Name = "btnTopicsManagement";
-            this.btnTopicsManagement.Size = new System.Drawing.Size(96, 50);
+            this.btnTopicsManagement.Size = new System.Drawing.Size(96, 59);
             this.btnTopicsManagement.TabIndex = 99;
             this.btnTopicsManagement.Text = "Gestione argomenti";
             this.btnTopicsManagement.UseVisualStyleBackColor = true;
@@ -261,7 +261,7 @@
             // 
             this.btnTagsManagement.Location = new System.Drawing.Point(416, 12);
             this.btnTagsManagement.Name = "btnTagsManagement";
-            this.btnTagsManagement.Size = new System.Drawing.Size(96, 50);
+            this.btnTagsManagement.Size = new System.Drawing.Size(96, 59);
             this.btnTagsManagement.TabIndex = 100;
             this.btnTagsManagement.Text = "Gestione tag";
             this.btnTagsManagement.UseVisualStyleBackColor = true;
@@ -271,7 +271,7 @@
             // 
             this.btnStartLinksManagenet.Location = new System.Drawing.Point(622, 12);
             this.btnStartLinksManagenet.Name = "btnStartLinksManagenet";
-            this.btnStartLinksManagenet.Size = new System.Drawing.Size(98, 50);
+            this.btnStartLinksManagenet.Size = new System.Drawing.Size(98, 59);
             this.btnStartLinksManagenet.TabIndex = 101;
             this.btnStartLinksManagenet.Text = "Gestione start links";
             this.btnStartLinksManagenet.UseVisualStyleBackColor = true;
@@ -281,7 +281,7 @@
             // 
             this.btnQuestionManagement.Location = new System.Drawing.Point(518, 12);
             this.btnQuestionManagement.Name = "btnQuestionManagement";
-            this.btnQuestionManagement.Size = new System.Drawing.Size(98, 50);
+            this.btnQuestionManagement.Size = new System.Drawing.Size(98, 59);
             this.btnQuestionManagement.TabIndex = 102;
             this.btnQuestionManagement.Text = "Gestione domande";
             this.btnQuestionManagement.UseVisualStyleBackColor = true;
@@ -291,7 +291,7 @@
             // 
             this.btnTestManagement.Location = new System.Drawing.Point(726, 12);
             this.btnTestManagement.Name = "btnTestManagement";
-            this.btnTestManagement.Size = new System.Drawing.Size(98, 50);
+            this.btnTestManagement.Size = new System.Drawing.Size(98, 59);
             this.btnTestManagement.TabIndex = 103;
             this.btnTestManagement.Text = "Gestione prove";
             this.btnTestManagement.UseVisualStyleBackColor = true;
@@ -301,7 +301,7 @@
             // 
             this.btnRecoverTopics.Location = new System.Drawing.Point(830, 12);
             this.btnRecoverTopics.Name = "btnRecoverTopics";
-            this.btnRecoverTopics.Size = new System.Drawing.Size(98, 50);
+            this.btnRecoverTopics.Size = new System.Drawing.Size(98, 59);
             this.btnRecoverTopics.TabIndex = 104;
             this.btnRecoverTopics.Text = "Recover argomenti";
             this.btnRecoverTopics.UseVisualStyleBackColor = true;
@@ -313,7 +313,7 @@
             this.TxtPathDocuments.Location = new System.Drawing.Point(8, 258);
             this.TxtPathDocuments.Margin = new System.Windows.Forms.Padding(4);
             this.TxtPathDocuments.Name = "TxtPathDocuments";
-            this.TxtPathDocuments.Size = new System.Drawing.Size(762, 24);
+            this.TxtPathDocuments.Size = new System.Drawing.Size(762, 28);
             this.TxtPathDocuments.TabIndex = 105;
             this.TxtPathDocuments.TextChanged += new System.EventHandler(this.TxtPathDocuments_TextChanged);
             this.TxtPathDocuments.DoubleClick += new System.EventHandler(this.TxtPaths_DoubleClick);
@@ -337,7 +337,7 @@
             this.lblPathDocuments.AutoSize = true;
             this.lblPathDocuments.Location = new System.Drawing.Point(5, 236);
             this.lblPathDocuments.Name = "lblPathDocuments";
-            this.lblPathDocuments.Size = new System.Drawing.Size(154, 18);
+            this.lblPathDocuments.Size = new System.Drawing.Size(197, 24);
             this.lblPathDocuments.TabIndex = 107;
             this.lblPathDocuments.Text = "Cartella dei documenti";
             // 
@@ -368,7 +368,7 @@
             // 
             this.btnSchoolSubjectManagement.Location = new System.Drawing.Point(1035, 12);
             this.btnSchoolSubjectManagement.Name = "btnSchoolSubjectManagement";
-            this.btnSchoolSubjectManagement.Size = new System.Drawing.Size(98, 50);
+            this.btnSchoolSubjectManagement.Size = new System.Drawing.Size(98, 59);
             this.btnSchoolSubjectManagement.TabIndex = 110;
             this.btnSchoolSubjectManagement.Text = "Gestione materie";
             this.btnSchoolSubjectManagement.UseVisualStyleBackColor = true;
@@ -389,9 +389,9 @@
             // 
             this.chkAskPassword.AutoSize = true;
             this.chkAskPassword.Enabled = false;
-            this.chkAskPassword.Location = new System.Drawing.Point(859, 86);
+            this.chkAskPassword.Location = new System.Drawing.Point(843, 82);
             this.chkAskPassword.Name = "chkAskPassword";
-            this.chkAskPassword.Size = new System.Drawing.Size(152, 22);
+            this.chkAskPassword.Size = new System.Drawing.Size(191, 28);
             this.chkAskPassword.TabIndex = 112;
             this.chkAskPassword.Text = "Chiedi la password";
             this.toolTip1.SetToolTip(this.chkAskPassword, "Se abilitato il programma chiede una password per entrare");
@@ -402,7 +402,7 @@
             this.chkSaveBackup.AutoSize = true;
             this.chkSaveBackup.Location = new System.Drawing.Point(618, 152);
             this.chkSaveBackup.Name = "chkSaveBackup";
-            this.chkSaveBackup.Size = new System.Drawing.Size(213, 22);
+            this.chkSaveBackup.Size = new System.Drawing.Size(268, 28);
             this.chkSaveBackup.TabIndex = 113;
             this.chkSaveBackup.Text = "Salva database alla chiusura";
             this.toolTip1.SetToolTip(this.chkSaveBackup, "Se abilitato il programma chiede una password per entrare");
@@ -412,7 +412,7 @@
             // 
             this.btnUsersManagement.Location = new System.Drawing.Point(934, 12);
             this.btnUsersManagement.Name = "btnUsersManagement";
-            this.btnUsersManagement.Size = new System.Drawing.Size(98, 50);
+            this.btnUsersManagement.Size = new System.Drawing.Size(98, 59);
             this.btnUsersManagement.TabIndex = 114;
             this.btnUsersManagement.Text = "Gestione Utenti";
             this.btnUsersManagement.UseVisualStyleBackColor = true;
@@ -420,7 +420,7 @@
             // 
             // FrmSetup
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(1145, 348);

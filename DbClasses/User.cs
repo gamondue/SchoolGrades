@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SchoolGrades.DbClasses
 {
-    class User
+    public class User
     {
         string username;
         string firstName;
@@ -15,6 +15,8 @@ namespace SchoolGrades.DbClasses
         DateTime? create_time;
         string salt;
         int? idUserCategory;
+        //int idUserCategory;
+        string? imageUrl;
 
         public string Username { get => username; set => username = value; }
         public string LastName { get => lastName; set => lastName = value; }
@@ -28,8 +30,12 @@ namespace SchoolGrades.DbClasses
         public DateTime? LastPasswordChange { get; internal set; }
         public string Salt { get => salt; set => salt = value; }
         public int? IdUserCategory { get => idUserCategory; set => idUserCategory = value; }
+        //public int IdUserCategory { get => idUserCategory; set => idUserCategory = value; }
         public bool? IsEnabled { get; internal set; }
         public int IdUserType { get => idUserType; set => idUserType = value; }
+        public string ImageUrl { get => imageUrl; set => imageUrl = value; }
+
+        public User() { }
 
         public User(string Username, string Password)
         {

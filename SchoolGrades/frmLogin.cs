@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace SchoolGrades
 {
-    public partial class frmLogin : Form
+    public partial class frmLogin : MetroFramework.Forms.MetroForm
     {
         DbAndBusiness db; // must instatiate after config file reading
         BusinessLayer.BusinessLayer bl; // must instatiate after config file reading
@@ -15,19 +15,7 @@ namespace SchoolGrades
         }
         private void frmLogin_Load(object sender, EventArgs e)
         {
-<<<<<<< HEAD
-             Commons.ReadConfigFile();
-
-            while (!System.IO.File.Exists(Commons.PathAndFileDatabase))
-            {
-                MessageBox.Show("Configurazione del programma.\r\nSe necessario sistemare le cartelle (si possono anche lasciare così), poi scegliere il file di dati .sqlite e premere 'Salva configurazione'");
-                FrmSetup f = new FrmSetup();
-                f.ShowDialog();
-                //return; 
-            }
-=======
->>>>>>> a92616a2261fcdb1351af42c3ec9049a895cf798
-            db = new DbAndBusiness(); 
+            db = new DbAndBusiness();
             bl = new BusinessLayer.BusinessLayer();
 
             // test examples
@@ -47,22 +35,35 @@ namespace SchoolGrades
 
             User u1 = bl.GetUser("ugo");
         }
-        private void btnOk_Click(object sender, EventArgs e)
+
+        private void btnOk_Click_1(object sender, EventArgs e)
         {
             if (bl.IsUserAllowed(new User(txtUsername.Text, txtPassword.Text)))
             {
                 frmMain f = new frmMain();
                 this.Hide();
-                f.ShowDialog(); 
+                f.ShowDialog();
             }
             else
             {
                 MessageBox.Show("Digitare credenziali corrette!");
             }
             this.Close();
+            //if (bl.UserHasLoginPermission(txtUsername.Text,
+            //   txtPassword.Text))
+            //{
+            //    frmMain f = new frmMain();
+            //    this.Hide();
+            //    f.ShowDialog();
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Digitare credenziali corrette!");
+            //}
+            //this.Close();
         }
 
-        private void btnChangePassword_Click(object sender, EventArgs e)
+        private void btnChangePassword_Click_1(object sender, EventArgs e)
         {
             frmChangePassword frmChangePassword = new frmChangePassword();
             frmChangePassword.Show();

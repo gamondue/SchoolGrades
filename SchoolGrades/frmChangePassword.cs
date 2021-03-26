@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace SchoolGrades
 {
-    public partial class frmChangePassword : Form
+    public partial class frmChangePassword : MetroFramework.Forms.MetroForm
     {
         DbAndBusiness db = new DbAndBusiness(); // must instatiate after config file reading
         BusinessLayer.BusinessLayer bl = new BusinessLayer.BusinessLayer(); // must instatiate after config file reading
@@ -19,7 +19,7 @@ namespace SchoolGrades
             InitializeComponent();
         }
 
-        private void btnChangeNewPassword_Click(object sender, EventArgs e)
+        private void btnChangeNewPassword_Click_1(object sender, EventArgs e)
         {
             // !!!! TODO !!!! Controlla validità user e old passw.
             if (bl.IsUserAllowed(new User(txtChangedUsername.Text, txtOldPassword.Text)))

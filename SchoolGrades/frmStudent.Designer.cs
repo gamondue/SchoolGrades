@@ -74,7 +74,7 @@
             this.lblBirthPlace.AutoSize = true;
             this.lblBirthPlace.Location = new System.Drawing.Point(5, 111);
             this.lblBirthPlace.Name = "lblBirthPlace";
-            this.lblBirthPlace.Size = new System.Drawing.Size(114, 18);
+            this.lblBirthPlace.Size = new System.Drawing.Size(140, 24);
             this.lblBirthPlace.TabIndex = 148;
             this.lblBirthPlace.Text = "Posto di nascita";
             // 
@@ -85,7 +85,7 @@
             this.lblOrigin.Location = new System.Drawing.Point(419, 141);
             this.lblOrigin.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblOrigin.Name = "lblOrigin";
-            this.lblOrigin.Size = new System.Drawing.Size(90, 18);
+            this.lblOrigin.Size = new System.Drawing.Size(115, 24);
             this.lblOrigin.TabIndex = 146;
             this.lblOrigin.Text = "Provenienza";
             // 
@@ -96,7 +96,7 @@
             this.lblBirthDate.Location = new System.Drawing.Point(300, 111);
             this.lblBirthDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblBirthDate.Name = "lblBirthDate";
-            this.lblBirthDate.Size = new System.Drawing.Size(105, 18);
+            this.lblBirthDate.Size = new System.Drawing.Size(130, 24);
             this.lblBirthDate.TabIndex = 144;
             this.lblBirthDate.Text = "Data di nascita";
             // 
@@ -107,7 +107,7 @@
             this.lblStudentCode.Location = new System.Drawing.Point(5, 7);
             this.lblStudentCode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblStudentCode.Name = "lblStudentCode";
-            this.lblStudentCode.Size = new System.Drawing.Size(85, 18);
+            this.lblStudentCode.Size = new System.Drawing.Size(108, 24);
             this.lblStudentCode.TabIndex = 142;
             this.lblStudentCode.Text = "Cod. allievo";
             // 
@@ -116,7 +116,7 @@
             this.txtIdStudent.Enabled = false;
             this.txtIdStudent.Location = new System.Drawing.Point(5, 29);
             this.txtIdStudent.Name = "txtIdStudent";
-            this.txtIdStudent.Size = new System.Drawing.Size(100, 24);
+            this.txtIdStudent.Size = new System.Drawing.Size(100, 28);
             this.txtIdStudent.TabIndex = 141;
             this.txtIdStudent.TabStop = false;
             this.txtIdStudent.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -128,7 +128,7 @@
             this.lblLastName.Location = new System.Drawing.Point(112, 7);
             this.lblLastName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblLastName.Name = "lblLastName";
-            this.lblLastName.Size = new System.Drawing.Size(74, 18);
+            this.lblLastName.Size = new System.Drawing.Size(94, 24);
             this.lblLastName.TabIndex = 140;
             this.lblLastName.Text = "Cognome";
             // 
@@ -139,7 +139,7 @@
             this.lblEmail.Location = new System.Drawing.Point(5, 63);
             this.lblEmail.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(43, 18);
+            this.lblEmail.Size = new System.Drawing.Size(55, 24);
             this.lblEmail.TabIndex = 137;
             this.lblEmail.Text = "email";
             // 
@@ -150,7 +150,7 @@
             this.lblFirstName.Location = new System.Drawing.Point(300, 7);
             this.lblFirstName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblFirstName.Name = "lblFirstName";
-            this.lblFirstName.Size = new System.Drawing.Size(49, 18);
+            this.lblFirstName.Size = new System.Drawing.Size(62, 24);
             this.lblFirstName.TabIndex = 136;
             this.lblFirstName.Text = "Nome";
             // 
@@ -159,7 +159,7 @@
             this.lblResidence.AutoSize = true;
             this.lblResidence.Location = new System.Drawing.Point(300, 63);
             this.lblResidence.Name = "lblResidence";
-            this.lblResidence.Size = new System.Drawing.Size(78, 18);
+            this.lblResidence.Size = new System.Drawing.Size(99, 24);
             this.lblResidence.TabIndex = 135;
             this.lblResidence.Text = "Residenza";
             // 
@@ -179,7 +179,7 @@
             this.lblExistingSameName.AutoSize = true;
             this.lblExistingSameName.Location = new System.Drawing.Point(5, 188);
             this.lblExistingSameName.Name = "lblExistingSameName";
-            this.lblExistingSameName.Size = new System.Drawing.Size(88, 18);
+            this.lblExistingSameName.Size = new System.Drawing.Size(112, 24);
             this.lblExistingSameName.TabIndex = 133;
             this.lblExistingSameName.Text = "Allievi trovati";
             // 
@@ -195,6 +195,7 @@
             this.dgwSearchedStudents.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgwSearchedStudents.Location = new System.Drawing.Point(5, 213);
             this.dgwSearchedStudents.Name = "dgwSearchedStudents";
+            this.dgwSearchedStudents.RowHeadersWidth = 51;
             this.dgwSearchedStudents.Size = new System.Drawing.Size(292, 187);
             this.dgwSearchedStudents.TabIndex = 132;
             this.dgwSearchedStudents.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwSearchedStudents_CellClick);
@@ -237,49 +238,49 @@
             // 
             this.txtEmail.Location = new System.Drawing.Point(5, 85);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(292, 24);
+            this.txtEmail.Size = new System.Drawing.Size(292, 28);
             this.txtEmail.TabIndex = 3;
             // 
             // txtBirthPlace
             // 
             this.txtBirthPlace.Location = new System.Drawing.Point(5, 132);
             this.txtBirthPlace.Name = "txtBirthPlace";
-            this.txtBirthPlace.Size = new System.Drawing.Size(292, 24);
+            this.txtBirthPlace.Size = new System.Drawing.Size(292, 28);
             this.txtBirthPlace.TabIndex = 5;
             // 
             // txtBirthDate
             // 
             this.txtBirthDate.Location = new System.Drawing.Point(303, 132);
             this.txtBirthDate.Name = "txtBirthDate";
-            this.txtBirthDate.Size = new System.Drawing.Size(100, 24);
+            this.txtBirthDate.Size = new System.Drawing.Size(100, 28);
             this.txtBirthDate.TabIndex = 6;
             // 
             // txtOrigin
             // 
             this.txtOrigin.Location = new System.Drawing.Point(5, 162);
             this.txtOrigin.Name = "txtOrigin";
-            this.txtOrigin.Size = new System.Drawing.Size(504, 24);
+            this.txtOrigin.Size = new System.Drawing.Size(504, 28);
             this.txtOrigin.TabIndex = 7;
             // 
             // txtResidence
             // 
             this.txtResidence.Location = new System.Drawing.Point(303, 85);
             this.txtResidence.Name = "txtResidence";
-            this.txtResidence.Size = new System.Drawing.Size(206, 24);
+            this.txtResidence.Size = new System.Drawing.Size(206, 28);
             this.txtResidence.TabIndex = 4;
             // 
             // txtFirstName
             // 
             this.txtFirstName.Location = new System.Drawing.Point(303, 29);
             this.txtFirstName.Name = "txtFirstName";
-            this.txtFirstName.Size = new System.Drawing.Size(206, 24);
+            this.txtFirstName.Size = new System.Drawing.Size(206, 28);
             this.txtFirstName.TabIndex = 2;
             // 
             // txtLastName
             // 
             this.txtLastName.Location = new System.Drawing.Point(115, 29);
             this.txtLastName.Name = "txtLastName";
-            this.txtLastName.Size = new System.Drawing.Size(182, 24);
+            this.txtLastName.Size = new System.Drawing.Size(182, 28);
             this.txtLastName.TabIndex = 1;
             // 
             // chkDisabled
@@ -287,7 +288,7 @@
             this.chkDisabled.AutoSize = true;
             this.chkDisabled.Location = new System.Drawing.Point(303, 188);
             this.chkDisabled.Name = "chkDisabled";
-            this.chkDisabled.Size = new System.Drawing.Size(99, 22);
+            this.chkDisabled.Size = new System.Drawing.Size(120, 28);
             this.chkDisabled.TabIndex = 155;
             this.chkDisabled.Text = "Disabilitato";
             this.chkDisabled.UseVisualStyleBackColor = true;
@@ -297,7 +298,7 @@
             this.btnFindStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFindStudent.Location = new System.Drawing.Point(317, 260);
             this.btnFindStudent.Name = "btnFindStudent";
-            this.btnFindStudent.Size = new System.Drawing.Size(91, 47);
+            this.btnFindStudent.Size = new System.Drawing.Size(91, 45);
             this.btnFindStudent.TabIndex = 156;
             this.btnFindStudent.Text = "Ricerca";
             this.btnFindStudent.UseVisualStyleBackColor = true;
@@ -305,7 +306,7 @@
             // 
             // frmStudent
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(754, 407);
@@ -334,7 +335,7 @@
             this.Controls.Add(this.lblResidence);
             this.Controls.Add(this.lblExistingSameName);
             this.Controls.Add(this.dgwSearchedStudents);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.Color.DarkBlue;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
