@@ -49,34 +49,14 @@ namespace SchoolGrades
 
         private void mtDeleteUser_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void mtUpdateUser_Click(object sender, EventArgs e)
-        {
-            //User newUser = new User();
-            //newUser.Username = txtUsername.Text;
-            //newUser.Password = txtPassword.Text;
-            //newUser.Email = txtEmail.Text;
-            //newUser.Description = txtDescription.Text;
-            //newUser.FirstName = txtName.Text;
-            //newUser.LastName = txtSurname.Text;
-            //int id;
-            //int? val = Int32.TryParse(txtIdCategory.Text, out id) ? Int32.Parse(txtIdCategory.Text) : (int?)null;
-            //newUser.Salt = txtIdSalt.Text;
-            //dl.CreateUser(newUser);
-            // TODO: AGGIORNARE LA GRID
-            //listOfAllUsers = dl.GetAllUsers();
-            //lstUsers.DataSource = listOfAllUsers;
-            MessageBox.Show("User create succesfully!", "Add user form", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //listOfAllUsers = dl.GetAllUsers();
-            //lstUsers.DataSource = listOfAllUsers;
+            this.grdUsers.Rows.RemoveAt(1);
+            this.grdUsers.Rows.Remove(this.grdUsers.CurrentRow);
         }
 
         private void mtRefresh_Click(object sender, EventArgs e)
         {
-            listOfAllUsers = dl.GetAllUsers();
-            grdUsers.DataSource = listOfAllUsers;
+            grdUsers.Columns.Clear();
+            LoadGridViewData();
         }
 
         private void mtSave_Click(object sender, EventArgs e)
@@ -85,8 +65,7 @@ namespace SchoolGrades
             {
                 if(MessageBox.Show("Do you want to save the changes?","Saving all",MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    // !!! TODO !!!
-                    
+                    // TODO
                 }
             }catch(Exception ex)
             {
@@ -94,13 +73,24 @@ namespace SchoolGrades
             }
         }
 
-        public void LoadGridViewData()
+        internal int? GridRows()
+        {
+            return grdUsers.Rows.Count;
+        }
+        internal int? GridColumns()
+        {
+            return grdUsers.Columns.Count;
+        }
+
+        internal void LoadGridViewData()
         {
             try
             {
                 grdUsers.DataSource = null;
                 grdUsers.Columns.Clear();
-                grdUsers.DataSource = dl.GetAllUsers();
+                listOfAllUsers = dl.GetAllUsers();
+                grdUsers.DataSource = listOfAllUsers;
+                
                 DataGridViewButtonColumn bc = new DataGridViewButtonColumn();
                 bc.HeaderText = "Action";
                 bc.Text = "Details";
@@ -115,26 +105,13 @@ namespace SchoolGrades
             }
         }
 
-        private void grdUsers_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            //if(e.ColumnIndex == 6 && e.RowIndex >= 0)
-            //{
-            //    int stdId = int.Parse(grdUsers.Rows[e.RowIndex].Cells[0].Value.ToString());
-            //    UserDetails userDetails = new UserDetails(stdId, this);
-            //    userDetails.StartPosition = FormStartPosition.Manual;
-
-            //    Rectangle pos = Screen.PrimaryScreen.Bounds;
-            //    userDetails.StartPosition = new Point(pos.Width - userDetails.Width);
-            //    userDetails.ShowDialog();
-            //}
-        }
-
         private void grdUsers_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
-            if(e.ColumnIndex ==6 && e.RowIndex >= 0)
+            if(e.ColumnIndex == 14 && e.RowIndex >= 0)
             {
-                int stdId = int.Parse(grdUsers.Rows[e.RowIndex].Cells[0].Value.ToString());
-                UserDetails userDetails = new UserDetails();
+                //int stdId = int.Parse(grdUsers.Rows[e.RowIndex].Cells[0].Value.ToString()); // cambiare a seconda di cosa vogliamo leggere
+                string stdId = grdUsers.Rows[e.RowIndex].Cells[0].Value.ToString();
+                UserDetails userDetails = new UserDetails(stdId, this);
                 userDetails.StartPosition = FormStartPosition.Manual;
 
                 Rectangle pos = Screen.PrimaryScreen.Bounds;
@@ -143,18 +120,5 @@ namespace SchoolGrades
             }
         }
 
-        private void grdUsers_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == 6 && e.RowIndex >= 0)
-            {
-                int stdId = int.Parse(grdUsers.Rows[e.RowIndex].Cells[0].Value.ToString());
-                UserDetails userDetails = new UserDetails();
-                userDetails.StartPosition = FormStartPosition.Manual;
-
-                Rectangle pos = Screen.PrimaryScreen.Bounds;
-                userDetails.Location = new Point(pos.Width - userDetails.Width);
-                userDetails.ShowDialog();
-            }
-        }
     }
 }

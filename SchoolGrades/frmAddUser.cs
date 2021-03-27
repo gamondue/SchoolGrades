@@ -45,8 +45,8 @@ namespace SchoolGrades
                 newUser.Description = txtDescription.Text;
                 newUser.FirstName = txtName.Text;
                 newUser.LastName = txtSurname.Text;
-                int id;
-                int? val = Int32.TryParse(txtIdCategory.Text, out id) ? Int32.Parse(txtIdCategory.Text) : (int?)null;
+                frmUsersManagement frmUsersManagement = new frmUsersManagement();
+                newUser.IdUserCategory = frmUsersManagement.GridRows() + 2;
                 newUser.Salt = txtIdSalt.Text;
                 newUser.Password = bl.CalculateHash(txtPassword.Text);
                 dl.CreateUser(newUser);

@@ -565,37 +565,6 @@ namespace SchoolGrades.DbClasses
             return Student.IdStudent;
         }
 
-        internal int? SaveUser(User user, DbConnection conn)
-        {
-            bool leaveConnectionOpen = true;
-            if (conn == null)
-            {
-                conn = dl.Connect();
-                leaveConnectionOpen = false;
-            }
-            DbCommand cmd = conn.CreateCommand();
-            cmd.CommandText = "UPDATE Users " +
-                "SET" +
-                " username=" + user.Username +
-                ",lastName='" + SqlVal.SqlString(user.LastName) + "'" +
-                ",firstName='" + SqlVal.SqlString(user.FirstName) + "'" +
-                ",email='" + SqlVal.SqlString(user.Email) + "'" +
-                ",password='" + SqlVal.SqlString(user.Password) + "'" +
-                //",creationTime='" + SqlVal.SqlString(user.CreationTime) + "'" +
-                ",salt='" + SqlVal.SqlString(user.Salt) + "'" +
-                ",idUserCategory'" + SqlVal.SqlString(user.IdUserCategory.ToString()) + "'" +
-                " WHERE idStudent = " + user.IdUserCategory.ToString() +
-                ";";
-            cmd.ExecuteNonQuery();
-            cmd.Dispose();
-            if (!leaveConnectionOpen)
-            {
-                conn.Close();
-                conn.Dispose();
-            }
-            return user.IdUserCategory;
-        }
-
         internal Student GetStudent(int? IdStudent)
         {
             Student s = new Student();

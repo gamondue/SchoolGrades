@@ -22,7 +22,10 @@ namespace SchoolGrades.BusinessLayer
         {
             return dl.GetUser(Username);
         }
-
+        internal List<User> GetAllUsers()
+        {
+            return dl.GetAllUsers();
+        }
         internal bool UserHasLoginPermission(string Username, string Password)
         {
             User uFromDb = GetUser(Username);
@@ -42,15 +45,18 @@ namespace SchoolGrades.BusinessLayer
 
         internal void UpdateUser(User User)
         {
+            User.Password = CalculateHash(User.Password);
             dl.UpdateUser(User); 
         }
 
         internal void ChangePassword(User User)
         {
+            User.Password = CalculateHash(User.Password);
             dl.ChangePassword(User); 
         }
         internal void CreateUser(User User)
         {
+            User.Password = CalculateHash(User.Password);
             dl.CreateUser(User); 
         }
         private User ReadCredentialsFromDatabase(User CredentialsFromUser)

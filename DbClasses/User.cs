@@ -16,7 +16,7 @@ namespace SchoolGrades.DbClasses
         string salt;
         int? idUserCategory;
         //int idUserCategory;
-        string? imageUrl;
+        string imageUrl;
 
         public string Username { get => username; set => username = value; }
         public string LastName { get => lastName; set => lastName = value; }

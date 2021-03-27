@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SQLite;
+using System.Linq;
 
 namespace SchoolGrades.DataLayer
 {
@@ -122,7 +123,25 @@ namespace SchoolGrades.DataLayer
             }
             return l;
         }
+        #region Ovveride di getuser. (prova)
+        internal DataTable GetUserByUserId(string id)
+        {
+            string query = "SELECT * FROM Users where Username = " + id;
+            return ExecuteQuery(query);
+        }
 
+        public DataTable ExecuteQuery(string query)
+        {
+            SQLiteConnection con = new SQLiteConnection("Data Source = " + dbName + ";version=3;new=False;datetimeformat=CurrentCulture");
+            con.Open();
+            SQLiteCommand cmd = new SQLiteCommand(query, con);
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
+
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            return dt;
+        }
+        #endregion
         private User GetUserFromRow(DbDataReader dRead)
         {
             User u = null;
@@ -165,7 +184,15 @@ namespace SchoolGrades.DataLayer
         {
             using (DbConnection conn = Connect())
             {
-                // check if username is existing
+                List<User> nUser = new List<User>();
+                nUser = GetAllUsers();
+                foreach(User user in nUser)
+                {
+                    if (nUser.Equals(user.Username))
+                    {
+                        throw new Exception("Username already exists.");
+                    }
+                }
                 DbCommand cmd = conn.CreateCommand();
                 // !!!! TODO !!!!
 
@@ -175,10 +202,14 @@ namespace SchoolGrades.DataLayer
                 "(username, lastName, firstName, email," +
                 "password,creationTime,lastChange,lastPasswordChange,salt,idUserCategory,isEnabled)" +
                 "Values " +
-                "('" + SqlVal.SqlString(User.Username) + "','" + SqlVal.SqlString(User.LastName) + "','" + SqlVal.SqlString(User.FirstName) + "','" +
-                SqlVal.SqlString(User.Email) + "','" + SqlVal.SqlString(User.Password) + "'," +
-                now + "," + now + "," + now + ",'" + SqlVal.SqlString(User.Salt) + "','" +
-                User.IdUserCategory + "', TRUE" +
+                "('" + SqlVal.SqlString(User.Username) + "','" + 
+                SqlVal.SqlString(User.LastName) + "','" + 
+                SqlVal.SqlString(User.FirstName) + "','" +
+                SqlVal.SqlString(User.Email) + "','" + 
+                SqlVal.SqlString(User.Password) + "'," +
+                now + "," + now + "," + now + ",'" + 
+                SqlVal.SqlString(User.Salt) + "','" +
+                SqlVal.SqlString(User.IdUserCategory.ToString()) + "', TRUE" +
                 ");";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
@@ -209,5 +240,30 @@ namespace SchoolGrades.DataLayer
                 cmd.Dispose();
             }
         }
+        internal void UpdateUserOverride(string username, string lastname, string firstname, string password, string email, string description, DateTime last, DateTime lastpassw, DateTime creation, string salt, bool isenabled, int idusercateogry)
+        {
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE Users" +
+                    " Set" +
+                    " description='" + SqlVal.SqlString(description) + "'," +
+                    " lastName='" + SqlVal.SqlString(lastname) + "'," +
+                    " firstName='" + SqlVal.SqlString(firstname) + "'," +
+                    " email='" + SqlVal.SqlString(email) + "'," +
+                    " password=" + SqlVal.SqlString(password) + "'," +
+                    " lastChange=" + SqlVal.SqlDate(last) + "," +
+                    " lastPasswordChange=" + SqlVal.SqlDate(lastpassw) + "," +
+                    " creationTime=" + SqlVal.SqlDate(creation) + "," +
+                    " salt='" + SqlVal.SqlString(salt) + "'," +
+                    " isEnabled=" + SqlVal.SqlBool(isenabled) +
+                    " idUserCategory=" + SqlVal.SqlInt(idusercateogry) +
+                    " WHERE username='" + username + "'" +
+                ";";
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+        }
+
     }
 }

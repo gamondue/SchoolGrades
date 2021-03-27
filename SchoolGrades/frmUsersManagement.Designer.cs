@@ -89,7 +89,6 @@ namespace SchoolGrades
             this.grdUsers.Size = new System.Drawing.Size(934, 392);
             this.grdUsers.TabIndex = 4;
             this.grdUsers.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdUsers_CellClick_1);
-            this.grdUsers.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdUsers_CellContentClick);
             // 
             // mtSave
             // 

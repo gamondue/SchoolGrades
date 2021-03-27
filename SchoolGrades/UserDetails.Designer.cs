@@ -225,6 +225,7 @@ namespace SchoolGrades
             this.Name = "UserDetails";
             this.Text = "User details";
             this.TextAlign = MetroFramework.Forms.MetroFormTextAlign.Center;
+            this.Load += new System.EventHandler(this.UserDetails_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
