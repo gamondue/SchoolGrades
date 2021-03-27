@@ -37,8 +37,7 @@ namespace SchoolGrades
         }
         private void btnOk_Click(object sender, EventArgs e)
         {
-            if (bl.UserHasLoginPermission(txtUsername.Text, 
-                txtPassword.Text))
+            if (bl.UserHasLoginPermission(txtUsername.Text, txtPassword.Text, bl.CalculateHash(txtPassword.Text)))
             {
                 frmMain f = new frmMain();
                 this.Hide();
