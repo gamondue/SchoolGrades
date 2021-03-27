@@ -26,5 +26,7 @@ namespace SchoolGrades
         {
             User currentUser = (User)(listOfAllUsers[lstUsers.SelectedIndex]); 
         }
+
+        
     }
 }
