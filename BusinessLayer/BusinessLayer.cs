@@ -13,7 +13,7 @@ namespace SchoolGrades.BusinessLayer
     /// </summary>
     internal class BusinessLayer
     {
-        // create the next after the program that is usung this has read the configuration file 
+        // create the next after the program that is using this has read the configuration file 
         DataLayer.DataLayer dl = new DataLayer.DataLayer(); // must be instantiated after reading config file! 
 
         //Campi di classe per modifica informazioni utente
@@ -42,6 +42,10 @@ namespace SchoolGrades.BusinessLayer
             _descriptionUtente = description;
             _firstNameUtente = firstName;
             _lastNameUtente = lastName;
+        }
+        internal BusinessLayer()
+        {
+            
         }
 
         #region Serie di proprietà per cambiare le varie informazioni dell'utente
@@ -202,7 +206,7 @@ namespace SchoolGrades.BusinessLayer
             User u = new User(CredentialsFromUser.Username, CredentialsFromUser.Password);
             return u;
         }
-        private string CalculateHash(string ClearTextPassword)
+        internal string CalculateHash(string ClearTextPassword)
         {
             // https://www.mattepuffo.com/blog/articolo/2496-calcolo-hash-sha256-in-csharp.html
 

@@ -31,8 +31,22 @@ namespace SchoolGrades.DbClasses
 
         public User(string Username, string Password)
         {
+            if ((Username == null) || (Password == null))
+                throw new Exception("Username o password non accettabile");
             this.username = Username;
             this.password = Password;
+        }
+
+        public User(string Username, string Password, string Description, string LastName, string FirstName, string Email)
+        {
+            if ((Username == null) || (Password == null) || (Description == null) || (LastName == null) || (FirstName == null) || (Email == null))
+                throw new Exception("Informazioni ricevute non accettabili");
+            this.username = Username;
+            this.password = Password;
+            this.description = Description;
+            this.lastName = LastName;
+            this.firstName = FirstName;
+            this.Email = Email;
         }
     }
 }
