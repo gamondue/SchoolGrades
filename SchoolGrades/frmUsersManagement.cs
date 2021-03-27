@@ -25,6 +25,7 @@ namespace SchoolGrades
         private void lstUsers_SelectedIndexChanged(object sender, EventArgs e)
         {
             User currentUser = (User)(listOfAllUsers[lstUsers.SelectedIndex]); 
+            //non so farlo lmao lololooloolol
         }
     }
 }
