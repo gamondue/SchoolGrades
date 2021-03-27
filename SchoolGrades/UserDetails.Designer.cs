@@ -175,6 +175,7 @@ namespace SchoolGrades
             this.btnSaveUser.UseCustomForeColor = true;
             this.btnSaveUser.UseSelectable = true;
             this.btnSaveUser.UseVisualStyleBackColor = false;
+            this.btnSaveUser.Click += new System.EventHandler(this.btnSaveUser_Click);
             // 
             // btnCancel
             // 
@@ -189,6 +190,7 @@ namespace SchoolGrades
             this.btnCancel.UseCustomForeColor = true;
             this.btnCancel.UseSelectable = true;
             this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // lblUpdatingUser
             // 

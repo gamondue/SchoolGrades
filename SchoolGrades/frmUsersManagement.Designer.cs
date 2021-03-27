@@ -34,7 +34,6 @@ namespace SchoolGrades
             this.mtRefresh = new MetroFramework.Controls.MetroTile();
             this.grdUsers = new System.Windows.Forms.DataGridView();
             this.mtSave = new MetroFramework.Controls.MetroTile();
-            this.mtUpdateUser = new MetroFramework.Controls.MetroTile();
             ((System.ComponentModel.ISupportInitialize)(this.grdUsers)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,7 +54,7 @@ namespace SchoolGrades
             // mtDeleteUser
             // 
             this.mtDeleteUser.ActiveControl = null;
-            this.mtDeleteUser.BackColor = System.Drawing.Color.RosyBrown;
+            this.mtDeleteUser.BackColor = System.Drawing.Color.Green;
             this.mtDeleteUser.Location = new System.Drawing.Point(137, 63);
             this.mtDeleteUser.Name = "mtDeleteUser";
             this.mtDeleteUser.Size = new System.Drawing.Size(113, 67);
@@ -70,7 +69,7 @@ namespace SchoolGrades
             // 
             this.mtRefresh.ActiveControl = null;
             this.mtRefresh.BackColor = System.Drawing.Color.Red;
-            this.mtRefresh.Location = new System.Drawing.Point(370, 63);
+            this.mtRefresh.Location = new System.Drawing.Point(256, 63);
             this.mtRefresh.Name = "mtRefresh";
             this.mtRefresh.Size = new System.Drawing.Size(102, 67);
             this.mtRefresh.TabIndex = 3;
@@ -89,13 +88,14 @@ namespace SchoolGrades
             this.grdUsers.RowTemplate.Height = 29;
             this.grdUsers.Size = new System.Drawing.Size(934, 392);
             this.grdUsers.TabIndex = 4;
-            this.grdUsers.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdUsers_CellClick);
+            this.grdUsers.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdUsers_CellClick_1);
+            this.grdUsers.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdUsers_CellContentClick);
             // 
             // mtSave
             // 
             this.mtSave.ActiveControl = null;
             this.mtSave.BackColor = System.Drawing.Color.Blue;
-            this.mtSave.Location = new System.Drawing.Point(478, 63);
+            this.mtSave.Location = new System.Drawing.Point(364, 63);
             this.mtSave.Name = "mtSave";
             this.mtSave.Size = new System.Drawing.Size(107, 67);
             this.mtSave.TabIndex = 5;
@@ -105,20 +105,6 @@ namespace SchoolGrades
             this.mtSave.UseVisualStyleBackColor = false;
             this.mtSave.Click += new System.EventHandler(this.mtSave_Click);
             // 
-            // mtUpdateUser
-            // 
-            this.mtUpdateUser.ActiveControl = null;
-            this.mtUpdateUser.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.mtUpdateUser.Location = new System.Drawing.Point(256, 63);
-            this.mtUpdateUser.Name = "mtUpdateUser";
-            this.mtUpdateUser.Size = new System.Drawing.Size(108, 67);
-            this.mtUpdateUser.TabIndex = 2;
-            this.mtUpdateUser.Text = "Update user";
-            this.mtUpdateUser.UseCustomBackColor = true;
-            this.mtUpdateUser.UseSelectable = true;
-            this.mtUpdateUser.UseVisualStyleBackColor = false;
-            this.mtUpdateUser.Click += new System.EventHandler(this.mtUpdateUser_Click);
-            // 
             // frmUsersManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -127,7 +113,6 @@ namespace SchoolGrades
             this.Controls.Add(this.mtSave);
             this.Controls.Add(this.grdUsers);
             this.Controls.Add(this.mtRefresh);
-            this.Controls.Add(this.mtUpdateUser);
             this.Controls.Add(this.mtDeleteUser);
             this.Controls.Add(this.mtAddUser);
             this.Name = "frmUsersManagement";
@@ -146,6 +131,5 @@ namespace SchoolGrades
         private MetroFramework.Controls.MetroTile mtRefresh;
         private System.Windows.Forms.DataGridView grdUsers;
         private MetroFramework.Controls.MetroTile mtSave;
-        private MetroFramework.Controls.MetroTile mtUpdateUser;
     }
 }

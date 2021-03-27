@@ -35,9 +35,9 @@ namespace SchoolGrades.BusinessLayer
 
         internal bool IsUserAllowed(User CredentialsFromUser)
         {
-            User CredentialsFromDatabase = ReadCredentialsFromDatabase(CredentialsFromUser);
+            User CredentialsFromDatabase = GetUser(CredentialsFromUser.Username);
 
-            return (CalculateHash(CredentialsFromDatabase.Password) == CalculateHash(CredentialsFromUser.Password) && CredentialsFromDatabase.Username == CredentialsFromUser.Username);
+            return ((CredentialsFromDatabase.Password) == CalculateHash(CredentialsFromUser.Password) && CredentialsFromDatabase.Username == CredentialsFromUser.Username);
         }
 
         internal void UpdateUser(User User)
@@ -63,7 +63,7 @@ namespace SchoolGrades.BusinessLayer
             User u = new User(CredentialsFromUser.Username, CredentialsFromUser.Password);
             return u;
         }
-        private string CalculateHash(string ClearTextPassword)
+        internal string CalculateHash(string ClearTextPassword)
         {
             using (SHA256 hash = SHA256.Create())
             {

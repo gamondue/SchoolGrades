@@ -36,6 +36,7 @@ namespace SchoolGrades
             this.label3 = new System.Windows.Forms.Label();
             this.txtNewPassword = new System.Windows.Forms.TextBox();
             this.btnChangeNewPassword = new MetroFramework.Controls.MetroButton();
+            this.btnCancel = new MetroFramework.Controls.MetroButton();
             this.SuspendLayout();
             // 
             // label2
@@ -100,7 +101,7 @@ namespace SchoolGrades
             // btnChangeNewPassword
             // 
             this.btnChangeNewPassword.BackColor = System.Drawing.Color.DodgerBlue;
-            this.btnChangeNewPassword.Location = new System.Drawing.Point(121, 320);
+            this.btnChangeNewPassword.Location = new System.Drawing.Point(198, 318);
             this.btnChangeNewPassword.Name = "btnChangeNewPassword";
             this.btnChangeNewPassword.Size = new System.Drawing.Size(113, 40);
             this.btnChangeNewPassword.TabIndex = 15;
@@ -110,11 +111,25 @@ namespace SchoolGrades
             this.btnChangeNewPassword.UseVisualStyleBackColor = false;
             this.btnChangeNewPassword.Click += new System.EventHandler(this.btnChangeNewPassword_Click_1);
             // 
+            // btnCancel
+            // 
+            this.btnCancel.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnCancel.Location = new System.Drawing.Point(41, 318);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(113, 40);
+            this.btnCancel.TabIndex = 16;
+            this.btnCancel.Text = "cancel";
+            this.btnCancel.UseCustomBackColor = true;
+            this.btnCancel.UseSelectable = true;
+            this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
             // frmChangePassword
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(370, 372);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnChangeNewPassword);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtNewPassword);
@@ -138,5 +153,6 @@ namespace SchoolGrades
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtNewPassword;
         private MetroFramework.Controls.MetroButton btnChangeNewPassword;
+        private MetroFramework.Controls.MetroButton btnCancel;
     }
 }

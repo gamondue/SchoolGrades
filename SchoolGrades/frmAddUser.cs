@@ -48,11 +48,9 @@ namespace SchoolGrades
                 int id;
                 int? val = Int32.TryParse(txtIdCategory.Text, out id) ? Int32.Parse(txtIdCategory.Text) : (int?)null;
                 newUser.Salt = txtIdSalt.Text;
+                newUser.Password = bl.CalculateHash(txtPassword.Text);
                 dl.CreateUser(newUser);
-                // TODO: AGGIORNARE LA GRID
-                //listOfAllUsers = dl.GetAllUsers();
-                //lstUsers.DataSource = listOfAllUsers;
-                MessageBox.Show("User create succesfully!", "Add user form", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("User create succesfully!", "Add user form", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -73,18 +71,18 @@ namespace SchoolGrades
 
         private void btnBrowseImage_Click(object sender, EventArgs e)
         {
-            //using (OpenFileDialog ofd = new OpenFileDialog() { Filter = "JPEG|*.jpg|PNG|*.png", ValidateNames = true })
-            //{
-            //    if(ofd.ShowDialog() == DialogResult.OK)
-            //    {
-            //        pictureBox1.Image = System.Drawing.Image.FromFile(ofd.FileName);
-            //        // BIND SOURCE: Student obj = studentBindingSource.Current as Student;
-            //        User obj = 
+        //    using (OpenFileDialog ofd = new OpenFileDialog() { Filter = "JPEG|*.jpg|PNG|*.png", ValidateNames = true })
+        //    {
+        //        if (ofd.ShowDialog() == DialogResult.OK)
+        //        {
+        //            pictureBox1.Image = System.Drawing.Image.FromFile(ofd.FileName);
+        //            // BIND SOURCE: Student obj = studentBindingSource.Current as Student;
+        //            User obj = 
 
-            //        if (obj != null)
-            //            object.ImageUrl = ofd.FileName;
-            //    }
-            //}
+        //            if (obj != null)
+        //                obj.ImageUrl = ofd.FileName;
+        //        }
+        //    }
         }
     }
 }

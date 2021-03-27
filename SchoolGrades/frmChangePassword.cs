@@ -21,15 +21,11 @@ namespace SchoolGrades
 
         private void btnChangeNewPassword_Click_1(object sender, EventArgs e)
         {
-            // !!!! TODO !!!! Controlla validità user e old passw.
             if (bl.IsUserAllowed(new User(txtChangedUsername.Text, txtOldPassword.Text)))
             {
                 // Crea nuovo user.
                 User newUser = new User(txtChangedUsername.Text, txtNewPassword.Text);
-
-                // !!!! TODO !!!! Sovrascrivere nel database il nuovo utente.
                 bl.ChangePassword(newUser);
-
                 frmMain f = new frmMain();
                 f.Show();
                 this.Hide();
@@ -39,7 +35,13 @@ namespace SchoolGrades
                 MessageBox.Show("impossibile cambiare password!");
                 this.Close();
             }
-            // Scrivere nel DataBase le nuove credenziali.
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            frmLogin frmLogin = new frmLogin();
+            frmLogin.Show();
+            this.Hide();
         }
     }
 }
