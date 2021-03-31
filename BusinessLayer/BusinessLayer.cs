@@ -31,7 +31,7 @@ namespace SchoolGrades.BusinessLayer
         {
             User uFromDb = GetUser(Username);
 
-            if (uFromDb != null && Username == uFromDb.Username && Password == uFromDb.Password)
+            if (uFromDb != null && Username == uFromDb.Username && Password == uFromDb.Password && uFromDb.IsEnabled == true)
                 return true;
             else
                 return false;

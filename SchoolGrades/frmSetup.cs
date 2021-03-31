@@ -255,7 +255,8 @@ namespace SchoolGrades
 
         private void btnUsersManagement_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Parte da fare"); 
+            //ho inserito la finestra di gestione utenti
+            new frmUserManagement().Show(); 
         }
     }
 }
