@@ -25,28 +25,6 @@ namespace SchoolGrades.DataLayer
             }
             dbName = Commons.PathAndFileDatabase;
         }
-        internal List<User> GetAllUsers()
-        {
-            List<User> l = new List<User>();
-            using (DbConnection conn = Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                string query = "SELECT *" +
-                    " FROM Users";
-                cmd = new SQLiteCommand(query);
-                cmd.Connection = conn;
-                DbDataReader dRead = cmd.ExecuteReader();
-                while (dRead.Read())
-                {
-                    User u = GetUserFromRow(dRead);
-                    l.Add(u);
-                }
-                dRead.Dispose();
-                cmd.Dispose();
-            }
-            return l;
-        }
-
         public DataLayer(string PathAndFile)
         {
             if (!System.IO.File.Exists(PathAndFile))
@@ -108,7 +86,28 @@ namespace SchoolGrades.DataLayer
             }
             return t;
         }
-        internal User GetUserFromRow(DbDataReader dRead)
+        internal List<User> GetAllUsers()
+        {
+            List<User> l = new List<User>(); 
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                string query = "SELECT *" +
+                    " FROM Users";
+                cmd = new SQLiteCommand(query);
+                cmd.Connection = conn;
+                DbDataReader dRead = cmd.ExecuteReader();
+                while (dRead.Read())
+                {
+                    User u = GetUserFromRow(dRead);
+                    l.Add(u); 
+                }
+                dRead.Dispose();
+                cmd.Dispose();
+            }
+            return l;
+        }
+        private User GetUserFromRow(DbDataReader dRead)
         {
             User u = null; 
             if (dRead.HasRows)
@@ -149,7 +148,7 @@ namespace SchoolGrades.DataLayer
         {
             using (DbConnection conn = Connect())
             {
-                // check if username is existing
+                // check if username is existing. If exists, return null
                 DbCommand cmd = conn.CreateCommand();
                 // !!!! TODO !!!!
 

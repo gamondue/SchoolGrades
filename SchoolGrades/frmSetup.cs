@@ -19,10 +19,10 @@ namespace SchoolGrades
         private void frmSetup_Load(object sender, EventArgs e)
         {
             Commons.ReadConfigFile();
-            TxtPathImages.Text = Commons.PathImages;
-            TxtPathStartLinks.Text = Commons.PathStartLinks; // not longer used
             TxtPathDatabase.Text = Commons.PathDatabase;
             TxtFileDatabase.Text = Commons.FileDatabase;
+            TxtPathImages.Text = Commons.PathImages;
+            TxtPathStartLinks.Text = Commons.PathStartLinks; // not longer used
             Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.FileDatabase;
             TxtPathDocuments.Text = Commons.PathDocuments;
             chkSaveBackup.Checked = Commons.SaveBackupWhenExiting; 
@@ -74,7 +74,7 @@ namespace SchoolGrades
             WriteConfigFile();
         }
 
-        private void WriteConfigFile()
+        internal void WriteConfigFile()
         {
             string[] dati = new string[6];
             try
@@ -255,7 +255,9 @@ namespace SchoolGrades
 
         private void btnUsersManagement_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Parte da fare"); 
+            MessageBox.Show("Form da completare!");
+            frmUsersManagement f = new frmUsersManagement();
+            f.Show(); 
         }
     }
 }

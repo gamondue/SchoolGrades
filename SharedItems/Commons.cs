@@ -21,17 +21,16 @@ namespace SchoolGrades
         //public static string PathExe = System.IO.Path.GetDirectoryName(PathAndFileExe);
         public static string PathExe = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName); 
 
-
         public static string PathConfig = PathUser + "\\SchoolGrades\\Config";
         public static string PathAndFileConfig = PathConfig + "\\schgrd.cfg";
         public static string CompanyPrefix = "gamon-";
         public static string PathLogs = PathUser + "\\SchoolGrades\\Logs";
         public static string PathAndFileLogText = PathLogs + "\\" + CompanyPrefix + "Errori.txt";
 
-        public static string FileDatabase = "SchoolGrades.sqlite";
+        public static string FileDatabase = "SchoolGrades_DEMO.sqlite";
         //public static string PathDatabase = PathUser + "\\SchoolGrades\\Data";
         public static string PathDatabase = PathExe + "\\Data";
-        public static string PathAndFileDatabase; // read with Commons.ReadConfigFile()! 
+        public static string PathAndFileDatabase = PathDatabase + FileDatabase; // if will be read with Commons.ReadConfigFile()! 
 
         //public static string PathStartLink = PathUser + "\\SchoolGrades\\";
         public static string PathStartLinks = PathExe; 
