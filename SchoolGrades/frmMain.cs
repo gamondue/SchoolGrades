@@ -900,7 +900,7 @@ namespace SchoolGrades
             }
             return indexInList;
         }
-        private void BtnSetup_Click(object sender, EventArgs e)
+        private void btnSetup_Click(object sender, EventArgs e)
         {
             // save current students because can be used by setup windows
             SaveStudentsOfClassIfEligibleHasChanged();
