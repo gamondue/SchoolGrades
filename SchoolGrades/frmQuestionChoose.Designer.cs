@@ -178,7 +178,7 @@
             this.txtTopic.Location = new System.Drawing.Point(102, 27);
             this.txtTopic.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtTopic.Name = "txtTopic";
-            this.txtTopic.Size = new System.Drawing.Size(694, 24);
+            this.txtTopic.Size = new System.Drawing.Size(705, 24);
             this.txtTopic.TabIndex = 0;
             // 
             // grpQuestions
@@ -450,7 +450,7 @@
             this.cmbQuestionTypes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbQuestionTypes.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmbQuestionTypes.FormattingEnabled = true;
-            this.cmbQuestionTypes.Location = new System.Drawing.Point(253, 27);
+            this.cmbQuestionTypes.Location = new System.Drawing.Point(246, 27);
             this.cmbQuestionTypes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbQuestionTypes.Name = "cmbQuestionTypes";
             this.cmbQuestionTypes.Size = new System.Drawing.Size(233, 26);
@@ -479,7 +479,7 @@
             // lblQuestionType
             // 
             this.lblQuestionType.AutoSize = true;
-            this.lblQuestionType.Location = new System.Drawing.Point(250, 6);
+            this.lblQuestionType.Location = new System.Drawing.Point(243, 6);
             this.lblQuestionType.Name = "lblQuestionType";
             this.lblQuestionType.Size = new System.Drawing.Size(103, 18);
             this.lblQuestionType.TabIndex = 7;
@@ -538,17 +538,17 @@
             // 
             this.txtSearchText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSearchText.Location = new System.Drawing.Point(509, 28);
+            this.txtSearchText.Location = new System.Drawing.Point(485, 28);
             this.txtSearchText.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtSearchText.Name = "txtSearchText";
-            this.txtSearchText.Size = new System.Drawing.Size(349, 24);
+            this.txtSearchText.Size = new System.Drawing.Size(337, 24);
             this.txtSearchText.TabIndex = 7;
             this.txtSearchText.TextChanged += new System.EventHandler(this.txtSearchText_TextChanged);
             // 
             // lblSearchText
             // 
             this.lblSearchText.AutoSize = true;
-            this.lblSearchText.Location = new System.Drawing.Point(506, 6);
+            this.lblSearchText.Location = new System.Drawing.Point(482, 5);
             this.lblSearchText.Name = "lblSearchText";
             this.lblSearchText.Size = new System.Drawing.Size(128, 18);
             this.lblSearchText.TabIndex = 105;

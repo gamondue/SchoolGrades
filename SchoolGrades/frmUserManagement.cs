@@ -31,14 +31,20 @@ namespace SchoolGrades
             currentUser = (User)sender;
             FromClassToUi(); 
         }
-
         private void btnSave_Click(object sender, EventArgs e)
         {
             FromUiToClass(); 
             bl.UpdateUser(currentUser); 
         }
         /// <summary>
-        /// Read the Class User from UI
+        /// Read UI's controls's content from the currentUser User object's properties
+        /// </summary>
+        private void FromClassToUi()
+        {
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// Read the currentUser User object properties from the UI's controls
         /// </summary>
         private void FromUiToClass()
         {
