@@ -71,7 +71,10 @@ namespace SchoolGrades
         public frmMain()
         {
             InitializeComponent();
-            
+
+            db = new DbAndBusiness();
+            bl = new BusinessLayer.BusinessLayer();
+
             this.Text += " v. " + version;
 
             // first default year in the "years" combo
@@ -112,9 +115,6 @@ namespace SchoolGrades
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             btnTemporary.Visible = false; 
 #endif
-            db = new DbAndBusiness();
-            bl = new BusinessLayer.BusinessLayer();
-
             school = db.GetSchool(Commons.IdSchool);
             if (school == null)
                 return;
