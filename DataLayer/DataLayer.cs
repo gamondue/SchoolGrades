@@ -89,6 +89,7 @@ namespace SchoolGrades.DataLayer
             connection.Open();
             return connection;
         }
+
         internal User GetUser(string Username)
         {
             User t = new User(Username, "");
@@ -151,21 +152,24 @@ namespace SchoolGrades.DataLayer
             {
                 // check if username is existing
                 DbCommand cmd = conn.CreateCommand();
-                // !!!! TODO !!!!
 
-                // create row in table 
-                string? now = SqlVal.SqlDate(DateTime.Now);
-                cmd.CommandText = "INSERT INTO Users " +
-                "(username, lastName, firstName, email," +
-                "password,creationTime,lastChange,lastPasswordChange,salt,idUserCategory,isEnabled)" +
-                "Values " +
-                "('" + SqlVal.SqlString(User.Username) + "','" + SqlVal.SqlString(User.LastName) + "','" + SqlVal.SqlString(User.FirstName) + "','" +
-                SqlVal.SqlString(User.Email) + "','" + SqlVal.SqlString(User.Password) + "'," +
-                now + "," + now + "," + now + ",'" + SqlVal.SqlString(User.Salt) + "','" +
-                User.IdUserCategory + "', TRUE" + 
-                ");";
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
+                if (!(GetUser(User.Username) is User))
+                {
+                    // create row in table 
+                    string? now = SqlVal.SqlDate(DateTime.Now);
+                    cmd.CommandText = "INSERT INTO Users " +
+                    "(username, lastName, firstName, email," +
+                    "password,creationTime,lastChange,lastPasswordChange,salt,idUserCategory,isEnabled)" +
+                    "Values " +
+                    "('" + SqlVal.SqlString(User.Username) + "','" + SqlVal.SqlString(User.LastName) + "','" + SqlVal.SqlString(User.FirstName) + "','" +
+                    SqlVal.SqlString(User.Email) + "','" + SqlVal.SqlString(User.Password) + "'," +
+                    now + "," + now + "," + now + ",'" + SqlVal.SqlString(User.Salt) + "','" +
+                    User.IdUserCategory + "', TRUE" +
+                    ");";
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                }
+                
             }
         }
         internal void UpdateUser(User User)
