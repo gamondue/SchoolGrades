@@ -15,7 +15,6 @@ namespace SchoolGrades.DbClasses
         DateTime? create_time;
         string salt;
         int? idUserCategory;
-        public static int NUserCreated;
 
         public string Username { get => username; set => username = value; }
         public string LastName { get => lastName; set => lastName = value; }
@@ -34,6 +33,7 @@ namespace SchoolGrades.DbClasses
         {
             this.username = Username;
             this.password = Password;
+            IsEnabled = false;
         }
 
         public override string ToString()

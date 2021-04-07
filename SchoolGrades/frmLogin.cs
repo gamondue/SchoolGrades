@@ -50,5 +50,10 @@ namespace SchoolGrades
             }
             this.Close();
         }
+
+        private void btnOpenUserManagement_Click(object sender, EventArgs e)
+        {
+            new frmUserManagement().ShowDialog();
+        }
     }
 }

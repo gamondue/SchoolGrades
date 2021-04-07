@@ -50,6 +50,8 @@ namespace SchoolGrades
             this.label7 = new System.Windows.Forms.Label();
             this.txtIDUserCategory = new System.Windows.Forms.TextBox();
             this.btnCreate = new System.Windows.Forms.Button();
+            this.btnChange = new System.Windows.Forms.Button();
+            this.checkBoxEnabled = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // lstUser
@@ -65,7 +67,7 @@ namespace SchoolGrades
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(442, 288);
+            this.btnSave.Location = new System.Drawing.Point(441, 290);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(116, 46);
             this.btnSave.TabIndex = 13;
@@ -184,7 +186,7 @@ namespace SchoolGrades
             // 
             // btnCreateUser
             // 
-            this.btnCreateUser.Location = new System.Drawing.Point(319, 288);
+            this.btnCreateUser.Location = new System.Drawing.Point(318, 290);
             this.btnCreateUser.Name = "btnCreateUser";
             this.btnCreateUser.Size = new System.Drawing.Size(116, 46);
             this.btnCreateUser.TabIndex = 15;
@@ -194,12 +196,13 @@ namespace SchoolGrades
             // 
             // btnChangePassword
             // 
-            this.btnChangePassword.Location = new System.Drawing.Point(564, 288);
+            this.btnChangePassword.Location = new System.Drawing.Point(563, 290);
             this.btnChangePassword.Name = "btnChangePassword";
             this.btnChangePassword.Size = new System.Drawing.Size(138, 46);
             this.btnChangePassword.TabIndex = 17;
             this.btnChangePassword.Text = "Cambia password";
             this.btnChangePassword.UseVisualStyleBackColor = true;
+            this.btnChangePassword.Click += new System.EventHandler(this.btnChangePassword_Click);
             // 
             // label7
             // 
@@ -231,12 +234,37 @@ namespace SchoolGrades
             this.btnCreate.Visible = false;
             this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
             // 
+            // btnChange
+            // 
+            this.btnChange.Enabled = false;
+            this.btnChange.Location = new System.Drawing.Point(687, 210);
+            this.btnChange.Name = "btnChange";
+            this.btnChange.Size = new System.Drawing.Size(86, 30);
+            this.btnChange.TabIndex = 20;
+            this.btnChange.Text = "Cambia";
+            this.btnChange.UseVisualStyleBackColor = true;
+            this.btnChange.Visible = false;
+            this.btnChange.Click += new System.EventHandler(this.btnChange_Click);
+            // 
+            // checkBoxEnabled
+            // 
+            this.checkBoxEnabled.AutoSize = true;
+            this.checkBoxEnabled.Enabled = false;
+            this.checkBoxEnabled.Location = new System.Drawing.Point(318, 245);
+            this.checkBoxEnabled.Name = "checkBoxEnabled";
+            this.checkBoxEnabled.Size = new System.Drawing.Size(86, 24);
+            this.checkBoxEnabled.TabIndex = 21;
+            this.checkBoxEnabled.Text = "Abilitato";
+            this.checkBoxEnabled.UseVisualStyleBackColor = true;
+            // 
             // frmUserManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(800, 372);
+            this.Controls.Add(this.checkBoxEnabled);
+            this.Controls.Add(this.btnChange);
             this.Controls.Add(this.btnCreate);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.txtIDUserCategory);
@@ -288,5 +316,7 @@ namespace SchoolGrades
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtIDUserCategory;
         private System.Windows.Forms.Button btnCreate;
+        private System.Windows.Forms.Button btnChange;
+        private System.Windows.Forms.CheckBox checkBoxEnabled;
     }
 }

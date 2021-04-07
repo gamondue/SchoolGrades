@@ -20,10 +20,14 @@ namespace SchoolGrades
         private void frmUserManagement_Load(object sender, EventArgs e)
         {
             // starts when the calling program calls Show()
-            if(lstUser.Items.Count==0)
+            if(lstUser.Items.Count==0 || lstUser.SelectedItem == null)
                 lstUser.DataSource = bl.GetAllUsers();
-
+            if (lstUser.SelectedItem == null)
+                AbilitaOrDisabilitaTxtBox(false);
+            else
+                AbilitaOrDisabilitaTxtBox(true);
         }
+
         private void lstUser_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentUser = (User)lstUser.SelectedItem;
@@ -32,6 +36,10 @@ namespace SchoolGrades
             btnCreateUser.Enabled = true;
             txtUsername.ReadOnly = true;
             txtPassword.ReadOnly = true;
+            if (currentUser.IsEnabled == true)
+                checkBoxEnabled.Checked = true;
+            else
+                checkBoxEnabled.Checked = false;
         }
 
         private void FromClassToUi()
@@ -44,15 +52,6 @@ namespace SchoolGrades
             txtEmail.Text = currentUser.Email;
             txtIDUserCategory.Text = currentUser.IdUserCategory.ToString();
         }
-
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            FromUiToClass(); 
-            bl.UpdateUser(currentUser); 
-        }
-        /// <summary>
-        /// Read the Class User from UI
-        /// </summary>
         private void FromUiToClass()
         {
             currentUser.LastName = txtLastName.Text;
@@ -62,12 +61,29 @@ namespace SchoolGrades
             currentUser.Email = txtEmail.Text;
             currentUser.CreationTime = DateTime.Now;
             currentUser.Description = txtDescription.Text;
-            currentUser.IdUserCategory = User.NUserCreated++;
+            currentUser.IdUserCategory = lstUser.SelectedIndex;
+            if (checkBoxEnabled.Checked)
+                currentUser.IsEnabled = true;
+            else
+                currentUser.IsEnabled = false;
         }
-
+        /// <summary>
+        /// Read the Class User from UI
+        /// </summary>
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            FromUiToClass();
+            if (checkBoxEnabled.Checked)
+                currentUser.IsEnabled = true;
+            else
+                currentUser.IsEnabled = false;
+            bl.UpdateUser(currentUser);
+            lstUser.DataSource = bl.GetAllUsers();
+        }
         private void btnCreateUser_Click(object sender, EventArgs e)
         {
             SvuotaCampi();
+            AbilitaOrDisabilitaTxtBox(true);
             btnCreate.Visible = true;
             txtUsername.ReadOnly = false;
             txtPassword.ReadOnly = false;
@@ -75,6 +91,55 @@ namespace SchoolGrades
             btnSave.Enabled = false;
             btnChangePassword.Enabled = false;
         }
+        private void btnCreate_Click(object sender, EventArgs e)
+        {
+            btnCreate.Visible = false;
+            User u = new User(string.Empty, string.Empty);
+            currentUser = u;
+            FromUiToClass();
+            bl.CreateUser(currentUser);
+            if (checkBoxEnabled.Checked)
+                currentUser.IsEnabled = true;
+            else
+                currentUser.IsEnabled = false;
+            bl.UpdateUser(currentUser);
+            btnCreateUser.Enabled = true;
+            btnSave.Enabled = true;
+            btnChangePassword.Enabled = true;
+            lstUser.DataSource = bl.GetAllUsers();
+        }
+        private void txtMenu_TextChanged(object sender, EventArgs e)
+        {
+            ControlloCampi();
+        }
+        private void btnChangePassword_Click(object sender, EventArgs e)
+        {
+            AbilitaOrDisabilitaTxtBox(false);
+            btnCreateUser.Enabled = false;
+            btnSave.Enabled = false;
+            btnChangePassword.Enabled = false;
+            txtPassword.Enabled = true;
+            txtPassword.ReadOnly = false;
+            btnChange.Visible = true;
+            btnChange.Enabled = true;
+        }
+        private void btnChange_Click(object sender, EventArgs e)
+        {
+            btnChange.Visible = false;
+            User u = new User(string.Empty, string.Empty);
+            currentUser = u;
+            FromUiToClass();
+            currentUser.Password = txtPassword.Text;
+            bl.ChangePassword(currentUser);
+            btnCreateUser.Enabled = true;
+            btnSave.Enabled = true;
+            btnChangePassword.Enabled = true;
+            lstUser.DataSource = bl.GetAllUsers();
+            AbilitaOrDisabilitaTxtBox(true);
+            txtPassword.ReadOnly = true;
+        }
+
+        //metodi aggiuntivi
         private void SvuotaCampi()
         {
             txtLastName.Text = string.Empty;
@@ -87,7 +152,7 @@ namespace SchoolGrades
         }
         private void ControlloCampi()
         {
-            if(txtLastName.Text!=string.Empty &&
+            if (txtLastName.Text != string.Empty &&
                 txtFirstName.Text != string.Empty &&
                 txtDescription.Text != string.Empty &&
                 txtUsername.Text != string.Empty &&
@@ -97,23 +162,16 @@ namespace SchoolGrades
             else
                 btnCreate.Enabled = false;
         }
-
-        private void txtMenu_TextChanged(object sender, EventArgs e)
+        private void AbilitaOrDisabilitaTxtBox(bool p)
         {
-            ControlloCampi();
-        }
-
-        private void btnCreate_Click(object sender, EventArgs e)
-        {
-            btnCreate.Visible = false;
-            User u = new User(string.Empty, string.Empty);
-            currentUser = u;
-            FromUiToClass();
-            bl.CreateUser(currentUser);
-            btnCreateUser.Enabled = true;
-            btnSave.Enabled = true;
-            btnChangePassword.Enabled = true;
-            lstUser.DataSource = bl.GetAllUsers();
+            txtLastName.Enabled = p;
+            txtFirstName.Enabled = p;
+            txtDescription.Enabled = p;
+            txtEmail.Enabled = p;
+            txtUsername.Enabled = p;
+            txtPassword.Enabled = p;
+            txtIDUserCategory.Enabled = p;
+            checkBoxEnabled.Enabled = p;
         }
 
     }
