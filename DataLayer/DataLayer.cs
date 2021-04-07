@@ -28,7 +28,24 @@ namespace SchoolGrades.DataLayer
 
         internal List<User> GetAllUsers()
         {
-            throw new NotImplementedException();
+            List<User> l = new List<User>();
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                string query = "SELECT *" +
+                    " FROM Users";
+                cmd = new SQLiteCommand(query);
+                cmd.Connection = conn;
+                DbDataReader dRead = cmd.ExecuteReader();
+                while (dRead.Read())
+                {
+                    User u = GetUserFromRow(dRead);
+                    l.Add(u);
+                }
+                dRead.Dispose();
+                cmd.Dispose();
+            }
+            return l;
         }
 
         public DataLayer(string PathAndFile)

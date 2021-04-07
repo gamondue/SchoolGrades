@@ -12,6 +12,7 @@ namespace SchoolGrades.DbClasses
         string password;
         string description;
         string email;
+        bool enable = true;
         DateTime? create_time;
         string salt;
         int? idUserCategory;

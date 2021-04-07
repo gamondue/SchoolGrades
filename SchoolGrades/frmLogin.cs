@@ -11,7 +11,8 @@ namespace SchoolGrades
     {
         DbAndBusiness db; // must instatiate after config file reading
         BusinessLayer.BusinessLayer bl; // must instatiate after config file reading
-        
+        User u;
+
         public frmLogin()
         {
             InitializeComponent();
@@ -22,7 +23,7 @@ namespace SchoolGrades
             bl = new BusinessLayer.BusinessLayer();
 
             
-            User u;
+
             //u = new User("pippo", "pluto");
             //u = new User("pina", "pluto");
             u = new User("ugo", "pina");
@@ -57,7 +58,7 @@ namespace SchoolGrades
         private void btnOk_Click(object sender, EventArgs e)
         {
             if (bl.UserHasLoginPermission(txtUsername.Text, 
-                txtPassword.Text))
+                txtPassword.Text) && bl.IsUserAllowed(u) == true)
             {
                 
                 frmMain f = new frmMain();
@@ -71,6 +72,9 @@ namespace SchoolGrades
             this.Close();
         }
 
+        private void btnChangePassword_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }
