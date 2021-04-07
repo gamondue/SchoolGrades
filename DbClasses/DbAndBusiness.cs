@@ -1399,6 +1399,7 @@ namespace SchoolGrades.DbClasses
                 " ORDER BY abbreviation" +
                 ";";
                 cmd = conn.CreateCommand();
+
                 cmd.CommandText = query; 
                 dRead = cmd.ExecuteReader();
                 // fill the combo with this year's classes

@@ -5,6 +5,7 @@ using System.Text;
 using SchoolGrades.DataLayer;
 using SchoolGrades.DbClasses;
 
+
 namespace SchoolGrades.BusinessLayer
 {
     /// <summary>
@@ -16,6 +17,11 @@ namespace SchoolGrades.BusinessLayer
         // create the next after the program that is usung this has read the configuration file 
         DataLayer.DataLayer dl = new DataLayer.DataLayer(); // must be instantiated after reading config file! 
 
+        internal List<User> GetAllUsers()
+        {
+            return dl.GetAllUsers();
+        }
+
         #region users' management
         internal User GetUser(string Username)
         {
@@ -24,6 +30,9 @@ namespace SchoolGrades.BusinessLayer
         internal bool UserHasLoginPermission(string Username, string Password)
         {
             User uFromDb = GetUser(Username);
+
+            Password = CalculateHash(Password);
+            uFromDb.Password = CalculateHash(uFromDb.Password);
 
             if (uFromDb != null && Username == uFromDb.Username && Password == uFromDb.Password)
                 return true;
@@ -39,16 +48,16 @@ namespace SchoolGrades.BusinessLayer
 
         internal void UpdateUser(User User)
         {
-            dl.UpdateUser(User); 
+            dl.UpdateUser(User);
         }
 
         internal void ChangePassword(User User)
         {
-            dl.ChangePassword(User); 
+            dl.ChangePassword(User);
         }
         internal void CreateUser(User User)
         {
-            dl.CreateUser(User); 
+            dl.CreateUser(User);
         }
         private User ReadCredentialsFromDatabase(User CredentialsFromUser)
         {
@@ -62,10 +71,12 @@ namespace SchoolGrades.BusinessLayer
         }
         private string CalculateHash(string ClearTextPassword)
         {
-            // https://www.mattepuffo.com/blog/articolo/2496-calcolo-hash-sha256-in-csharp.html
             SHA256 hash = SHA256.Create();
-            // !!!! TODO !!!!
-            return null;
+            byte[] bytes = hash.ComputeHash(Encoding.UTF8.GetBytes(ClearTextPassword));
+            StringBuilder hashConverted = new StringBuilder();
+            for (int i = 0; i < bytes.Length; i++)
+                hashConverted.Append(bytes[i].ToString("x2"));
+            return hashConverted.ToString();
         }
         #endregion
     }

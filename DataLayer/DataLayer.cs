@@ -1,5 +1,6 @@
 ﻿using SchoolGrades.DbClasses;
 using System;
+using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SQLite;
 
@@ -24,6 +25,7 @@ namespace SchoolGrades.DataLayer
             }
             dbName = Commons.PathAndFileDatabase;
         }
+
         public DataLayer(string PathAndFile)
         {
             if (!System.IO.File.Exists(PathAndFile))
@@ -34,6 +36,29 @@ namespace SchoolGrades.DataLayer
             }
             dbName = PathAndFile;
         }
+
+        internal List<User> GetAllUsers()
+        {
+            List<User> l = new List<User>();
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                string query = "SELECT *" +
+                    " FROM Users";
+                cmd = new SQLiteCommand(query);
+                cmd.Connection = conn;
+                DbDataReader dRead = cmd.ExecuteReader();
+                while (dRead.Read())
+                {
+                    User u = GetUserFromRow(dRead);
+                    l.Add(u);
+                }
+                dRead.Dispose();
+                cmd.Dispose();
+            }
+            return l;
+        }
+
         #endregion
 
         #region properties
@@ -91,7 +116,7 @@ namespace SchoolGrades.DataLayer
             if (dRead.HasRows)
             {
                 u = new User(SafeDb.SafeString(dRead["username"]),
-                    SafeDb.SafeString(dRead["password"]));
+                SafeDb.SafeString(dRead["password"]));
                 u.Description = SafeDb.SafeString(dRead["description"]);
                 u.LastName = SafeDb.SafeString(dRead["lastName"]);
                 u.FirstName = SafeDb.SafeString(dRead["firstName"]);
@@ -118,7 +143,7 @@ namespace SchoolGrades.DataLayer
                     " salt='" + SqlVal.SqlString(User.Salt) + "'" +
                     " WHERE username='" + User.Username + "'" +
                 ";";
-                cmd.ExecuteNonQuery();
+                //cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
         }
@@ -141,7 +166,7 @@ namespace SchoolGrades.DataLayer
                 now + "," + now + "," + now + ",'" + SqlVal.SqlString(User.Salt) + "','" +
                 User.IdUserCategory + "', TRUE" + 
                 ");";
-                cmd.ExecuteNonQuery();
+                //cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
         }
@@ -165,7 +190,7 @@ namespace SchoolGrades.DataLayer
                     " idUserCategory=" + SqlVal.SqlInt(User.IdUserCategory) +
                     " WHERE username='" + User.Username + "'" +
                 ";";
-                cmd.ExecuteNonQuery();
+                //cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
         }
