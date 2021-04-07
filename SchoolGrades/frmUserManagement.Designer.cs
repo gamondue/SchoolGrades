@@ -51,6 +51,7 @@ namespace SchoolGrades
             this.txtId = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.checkBoxAbilitato = new System.Windows.Forms.CheckBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lstUser
@@ -66,6 +67,7 @@ namespace SchoolGrades
             // 
             // btnSave
             // 
+            this.btnSave.Enabled = false;
             this.btnSave.Location = new System.Drawing.Point(151, 310);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 46);
@@ -216,12 +218,22 @@ namespace SchoolGrades
             this.checkBoxAbilitato.UseVisualStyleBackColor = true;
             this.checkBoxAbilitato.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(-18, -81);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(50, 20);
+            this.label8.TabIndex = 22;
+            this.label8.Text = "label8";
+            // 
             // frmUserManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(956, 372);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.checkBoxAbilitato);
             this.Controls.Add(this.txtId);
             this.Controls.Add(this.label7);
@@ -271,5 +283,6 @@ namespace SchoolGrades
         private System.Windows.Forms.TextBox txtId;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.CheckBox checkBoxAbilitato;
+        private System.Windows.Forms.Label label8;
     }
 }

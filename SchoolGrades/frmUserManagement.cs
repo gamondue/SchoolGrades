@@ -12,7 +12,7 @@ namespace SchoolGrades
     public partial class frmUserManagement : Form
     {
         User currentUser;
-        bool isChangingIndex = false;
+        bool isChangingIndex = true;
         SchoolGrades.BusinessLayer.BusinessLayer bl = new BusinessLayer.BusinessLayer(); 
 
         public frmUserManagement()
@@ -28,9 +28,9 @@ namespace SchoolGrades
         }
         private void lstUser_SelectedIndexChanged(object sender, EventArgs e)
         {
+            isChangingIndex = true;
             currentUser = lst[lstUser.SelectedIndex];
             FromClassToUi();
-            isChangingIndex = true;
         }
 
         private void FromClassToUi()
