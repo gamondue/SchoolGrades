@@ -96,7 +96,7 @@ namespace SchoolGrades
             cmbSchoolSubject.DataSource = listSubjects;
         }
         private void frmMain_Load(object sender, EventArgs e)
-        {
+        { 
             if (!File.Exists(Commons.PathAndFileDatabase))
                 return;
 

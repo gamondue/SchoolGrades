@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SQLite;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace SchoolGrades.DataLayer
 {
@@ -174,23 +176,35 @@ namespace SchoolGrades.DataLayer
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "UPDATE Users" +
-                    " Set" +
-                    " description='" + SqlVal.SqlString(User.Description) + "'," +
-                    " lastName='" + SqlVal.SqlString(User.LastName) + "'," +
-                    " firstName='" + SqlVal.SqlString(User.FirstName) + "'," +
-                    " email='" + SqlVal.SqlString(User.Email) + "'," +
-                    //" password=" + SqlVal.SqlString(User.Password) + "'," +
-                    " lastChange=" + SqlVal.SqlDate(DateTime.Now) + "," +
-                    //" lastPasswordChange=" + SqlVal.SqlDate(DateTime.Now) + "," +
-                    //" creationTime=" + SqlVal.SqlDate(User.CreationTime)  + "," +
-                    " salt='" + SqlVal.SqlString(User.Salt) + "'," +
-                    " isEnabled=" + SqlVal.SqlBool(User.IsEnabled) +
-                    " idUserCategory=" + SqlVal.SqlInt(User.IdUserCategory) +
-                    " WHERE username='" + User.Username + "'" +
-                ";";
+                   " Set" +
+                   " description='" + SqlVal.SqlString(User.Description) + "'," +
+                   " lastName='" + SqlVal.SqlString(User.LastName) + "'," +
+                   " firstName='" + SqlVal.SqlString(User.FirstName) + "'," +
+                   " email='" + SqlVal.SqlString(User.Email) + "'," +
+                   //" password=" + SqlVal.SqlString(User.Password) + "'," +
+                   " lastChange=" + SqlVal.SqlDate(DateTime.Now) + "," +
+                   //" lastPasswordChange=" + SqlVal.SqlDate(DateTime.Now) + "," +
+                   //" creationTime=" + SqlVal.SqlDate(User.CreationTime)  + "," +
+                   " salt='" + SqlVal.SqlString(User.Salt) + "'," +
+                   " isEnabled=" + SqlVal.SqlBool(User.IsEnabled) + "," +
+                   " idUserCategory=" + SqlVal.SqlInt(User.IdUserCategory) +
+                   " WHERE username='" + User.Username + "'" +
+               ";";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
+        }
+        private string CalculateHash(string ClearTextPassword)
+        {
+            // https://www.mattepuffo.com/blog/articolo/2496-calcolo-hash-sha256-in-csharp.html
+            SHA256 hash = SHA256.Create();
+            byte[] bytes = hash.ComputeHash(Encoding.UTF8.GetBytes(ClearTextPassword));
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                builder.Append(bytes[i].ToString("x2"));
+            }
+            return builder.ToString();
         }
     }
 }
