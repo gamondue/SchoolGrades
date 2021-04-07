@@ -34,7 +34,7 @@ namespace SchoolGrades
                 }
             }
             //Application.Run(new frmLogin());
-            Application.Run(new frmMain());
+            Application.Run(new FrmSetup());
         }
     }
 }
