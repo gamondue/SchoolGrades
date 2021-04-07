@@ -1,5 +1,6 @@
 ﻿using SchoolGrades.DbClasses;
 using System;
+using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SQLite;
 
@@ -144,6 +145,28 @@ namespace SchoolGrades.DataLayer
                 //cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
+        }
+
+        internal List<User> GetAllUsers(User User)
+        {
+            List<User> l = new List<User>();
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                string query = "SELECT *" +
+                    " FROM Users";
+                cmd = new SQLiteCommand(query);
+                cmd.Connection = conn;
+                DbDataReader dRead = cmd.ExecuteReader();
+                while (dRead.Read())
+                {
+                    User u = GetUserFromRow(dRead);
+                    l.Add(u);
+                }
+                dRead.Dispose();
+                cmd.Dispose();
+            }
+            return l;
         }
         internal void UpdateUser(User User)
         {

@@ -24,9 +24,15 @@ namespace SchoolGrades.BusinessLayer
         internal bool UserHasLoginPermission(string Username, string Password)
         {
             User uFromDb = GetUser(Username);
+
             Password = CalculateHash(Password);
+            if (uFromDb == null)
+            {
+                return false;
+            }
             uFromDb.Password = CalculateHash(uFromDb.Password);
-            if (uFromDb != null && Username == uFromDb.Username && Password == uFromDb.Password)
+            
+            if (Username == uFromDb.Username && Password == uFromDb.Password)
                 return true;
             else
                 return false;
@@ -41,6 +47,11 @@ namespace SchoolGrades.BusinessLayer
         internal void UpdateUser(User User)
         {
             dl.UpdateUser(User); 
+        }
+
+        internal List<User> GetAllUsers(User User)
+        {
+            return dl.GetAllUsers(User);
         }
 
         internal void ChangePassword(User User)
