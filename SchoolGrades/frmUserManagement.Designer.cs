@@ -48,6 +48,9 @@ namespace SchoolGrades
             this.chkIsUserEnabled = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtID = new System.Windows.Forms.TextBox();
+            this.btnCrea = new System.Windows.Forms.Button();
+            this.btnChangePass = new System.Windows.Forms.Button();
+            this.btnConfermaPass = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ListaUtenti
@@ -81,7 +84,6 @@ namespace SchoolGrades
             // 
             this.txtLastName.Location = new System.Drawing.Point(44, 39);
             this.txtLastName.Name = "txtLastName";
-            this.txtLastName.ReadOnly = true;
             this.txtLastName.Size = new System.Drawing.Size(100, 27);
             this.txtLastName.TabIndex = 2;
             // 
@@ -107,7 +109,6 @@ namespace SchoolGrades
             // 
             this.txtName.Location = new System.Drawing.Point(181, 39);
             this.txtName.Name = "txtName";
-            this.txtName.ReadOnly = true;
             this.txtName.Size = new System.Drawing.Size(100, 27);
             this.txtName.TabIndex = 5;
             // 
@@ -140,6 +141,7 @@ namespace SchoolGrades
             // 
             this.txtUsername.Location = new System.Drawing.Point(44, 104);
             this.txtUsername.Name = "txtUsername";
+            this.txtUsername.ReadOnly = true;
             this.txtUsername.Size = new System.Drawing.Size(474, 27);
             this.txtUsername.TabIndex = 9;
             // 
@@ -170,9 +172,11 @@ namespace SchoolGrades
             // 
             // txtPass
             // 
+            this.txtPass.Enabled = false;
             this.txtPass.Location = new System.Drawing.Point(44, 210);
             this.txtPass.Name = "txtPass";
             this.txtPass.PasswordChar = '*';
+            this.txtPass.ReadOnly = true;
             this.txtPass.Size = new System.Drawing.Size(237, 27);
             this.txtPass.TabIndex = 13;
             // 
@@ -199,8 +203,40 @@ namespace SchoolGrades
             // 
             this.txtID.Location = new System.Drawing.Point(43, 263);
             this.txtID.Name = "txtID";
+            this.txtID.ReadOnly = true;
             this.txtID.Size = new System.Drawing.Size(151, 27);
             this.txtID.TabIndex = 16;
+            // 
+            // btnCrea
+            // 
+            this.btnCrea.Location = new System.Drawing.Point(434, 314);
+            this.btnCrea.Name = "btnCrea";
+            this.btnCrea.Size = new System.Drawing.Size(110, 46);
+            this.btnCrea.TabIndex = 17;
+            this.btnCrea.Text = "Crea Nuovo";
+            this.btnCrea.UseVisualStyleBackColor = true;
+            this.btnCrea.Click += new System.EventHandler(this.btnCrea_Click);
+            // 
+            // btnChangePass
+            // 
+            this.btnChangePass.Location = new System.Drawing.Point(125, 314);
+            this.btnChangePass.Name = "btnChangePass";
+            this.btnChangePass.Size = new System.Drawing.Size(150, 46);
+            this.btnChangePass.TabIndex = 18;
+            this.btnChangePass.Text = "Cambia Password";
+            this.btnChangePass.UseVisualStyleBackColor = true;
+            this.btnChangePass.Click += new System.EventHandler(this.btnChangePass_Click);
+            // 
+            // btnConfermaPass
+            // 
+            this.btnConfermaPass.Enabled = false;
+            this.btnConfermaPass.Location = new System.Drawing.Point(281, 314);
+            this.btnConfermaPass.Name = "btnConfermaPass";
+            this.btnConfermaPass.Size = new System.Drawing.Size(147, 46);
+            this.btnConfermaPass.TabIndex = 19;
+            this.btnConfermaPass.Text = "Conferma Password";
+            this.btnConfermaPass.UseVisualStyleBackColor = true;
+            this.btnConfermaPass.Click += new System.EventHandler(this.btnConfermaPass_Click);
             // 
             // frmUserManagement
             // 
@@ -208,6 +244,9 @@ namespace SchoolGrades
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(1030, 372);
+            this.Controls.Add(this.btnConfermaPass);
+            this.Controls.Add(this.btnChangePass);
+            this.Controls.Add(this.btnCrea);
             this.Controls.Add(this.txtID);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.chkIsUserEnabled);
@@ -255,5 +294,8 @@ namespace SchoolGrades
         private System.Windows.Forms.CheckBox chkIsUserEnabled;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtID;
+        private System.Windows.Forms.Button btnCrea;
+        private System.Windows.Forms.Button btnChangePass;
+        private System.Windows.Forms.Button btnConfermaPass;
     }
 }

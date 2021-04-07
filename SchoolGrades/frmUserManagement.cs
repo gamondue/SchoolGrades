@@ -19,11 +19,20 @@ namespace SchoolGrades
         {
             InitializeComponent();
         }
+
+        private void CaricaLista()
+        {
+            listaUtenti = bl.GetAllUsers();
+            ListaUtenti.DataSource = bl.GetAllUsers();
+        }
         private void frmUserManagement_Load(object sender, EventArgs e)
         {
             // starts when the calling program calls Show()
-            listaUtenti = bl.GetAllUsers();
-            ListaUtenti.DataSource = listaUtenti;
+            if (bl.GetAllUsers().Count == 0)
+            {
+                currentUser = new User("", "");
+            }
+            CaricaLista();
         }
         private void lstUser_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -53,7 +62,9 @@ namespace SchoolGrades
         private void btnSave_Click(object sender, EventArgs e)
         {
             FromUiToClass(); 
-            bl.UpdateUser(currentUser); 
+            bl.UpdateUser(currentUser);
+            listaUtenti[ListaUtenti.SelectedIndex] = currentUser;
+            CaricaLista();
         }
         /// <summary>
         /// Read the Class User from UI
@@ -72,6 +83,49 @@ namespace SchoolGrades
                 currentUser.IsEnabled = true;
             }
             currentUser.IdUserCategory = Convert.ToInt32(txtID.Text);
+        }
+
+        private void btnCrea_Click(object sender, EventArgs e)
+        {
+            bool utenteCreato = false;
+            frmCreateNewUser frmNew = new frmCreateNewUser();
+            frmNew.Show();
+            if (utenteCreato)
+            {
+                CaricaLista();
+            }
+        }
+
+        private void EnableDisable(bool abilita)
+        {
+            txtName.Enabled = abilita;
+            txtLastName.Enabled = abilita;
+            txtUsername.Enabled = abilita;
+            txtID.Enabled = abilita;
+            txtEmail.Enabled = abilita;
+            txtDescription.Enabled = abilita;
+            btnCrea.Enabled = abilita;
+            btnSave.Enabled = abilita;
+            btnChangePass.Enabled = abilita;
+        }
+
+        private void btnChangePass_Click(object sender, EventArgs e)
+        {
+            EnableDisable(false);
+            txtPass.Focus();
+            txtPass.Enabled = true;
+            txtPass.ReadOnly = false;
+            btnConfermaPass.Enabled = true;
+        }
+
+        private void btnConfermaPass_Click(object sender, EventArgs e)
+        {
+            FromUiToClass();
+            currentUser.Password = txtPass.Text;
+            bl.ChangePassword(currentUser);
+            EnableDisable(true);
+            txtPass.Enabled = false;
+            btnConfermaPass.Enabled = false;
         }
     }
 }
