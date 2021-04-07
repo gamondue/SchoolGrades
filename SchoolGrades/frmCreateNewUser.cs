@@ -46,6 +46,8 @@ namespace SchoolGrades
                 user.Email = txtEmail.Text;
                 bl.CreateUser(user);
                 bl.UpdateUser(user);
+                frmUserManagement frm = new frmUserManagement();
+                frm.Show();
                 Close();
             }
             else

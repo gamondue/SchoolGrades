@@ -31,6 +31,13 @@ namespace SchoolGrades
             if (bl.GetAllUsers().Count == 0)
             {
                 currentUser = new User("", "");
+                btnSave.Enabled = false;
+                btnChangePass.Enabled = false;
+            }
+            else
+            {
+                btnSave.Enabled = true;
+                btnChangePass.Enabled = true;
             }
             CaricaLista();
         }
@@ -87,13 +94,9 @@ namespace SchoolGrades
 
         private void btnCrea_Click(object sender, EventArgs e)
         {
-            bool utenteCreato = false;
             frmCreateNewUser frmNew = new frmCreateNewUser();
             frmNew.Show();
-            if (utenteCreato)
-            {
-                CaricaLista();
-            }
+            Close();
         }
 
         private void EnableDisable(bool abilita)
