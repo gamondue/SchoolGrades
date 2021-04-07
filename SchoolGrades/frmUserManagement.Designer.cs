@@ -52,6 +52,8 @@ namespace SchoolGrades
             this.btnCreate = new System.Windows.Forms.Button();
             this.btnChange = new System.Windows.Forms.Button();
             this.checkBoxEnabled = new System.Windows.Forms.CheckBox();
+            this.lblPasswordConfirm = new System.Windows.Forms.Label();
+            this.txtPasswordConfirm = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lstUser
@@ -61,16 +63,16 @@ namespace SchoolGrades
             this.lstUser.ItemHeight = 20;
             this.lstUser.Location = new System.Drawing.Point(12, 12);
             this.lstUser.Name = "lstUser";
-            this.lstUser.Size = new System.Drawing.Size(257, 324);
+            this.lstUser.Size = new System.Drawing.Size(257, 344);
             this.lstUser.TabIndex = 0;
             this.lstUser.SelectedIndexChanged += new System.EventHandler(this.lstUser_SelectedIndexChanged);
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(441, 290);
+            this.btnSave.Location = new System.Drawing.Point(441, 310);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(116, 46);
-            this.btnSave.TabIndex = 13;
+            this.btnSave.TabIndex = 14;
             this.btnSave.Text = "Salva";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -186,7 +188,7 @@ namespace SchoolGrades
             // 
             // btnCreateUser
             // 
-            this.btnCreateUser.Location = new System.Drawing.Point(318, 290);
+            this.btnCreateUser.Location = new System.Drawing.Point(318, 310);
             this.btnCreateUser.Name = "btnCreateUser";
             this.btnCreateUser.Size = new System.Drawing.Size(116, 46);
             this.btnCreateUser.TabIndex = 15;
@@ -196,7 +198,7 @@ namespace SchoolGrades
             // 
             // btnChangePassword
             // 
-            this.btnChangePassword.Location = new System.Drawing.Point(563, 290);
+            this.btnChangePassword.Location = new System.Drawing.Point(563, 310);
             this.btnChangePassword.Name = "btnChangePassword";
             this.btnChangePassword.Size = new System.Drawing.Size(138, 46);
             this.btnChangePassword.TabIndex = 17;
@@ -219,7 +221,7 @@ namespace SchoolGrades
             this.txtIDUserCategory.Name = "txtIDUserCategory";
             this.txtIDUserCategory.ReadOnly = true;
             this.txtIDUserCategory.Size = new System.Drawing.Size(116, 27);
-            this.txtIDUserCategory.TabIndex = 19;
+            this.txtIDUserCategory.TabIndex = 100;
             this.txtIDUserCategory.TextChanged += new System.EventHandler(this.txtMenu_TextChanged);
             // 
             // btnCreate
@@ -250,12 +252,31 @@ namespace SchoolGrades
             // 
             this.checkBoxEnabled.AutoSize = true;
             this.checkBoxEnabled.Enabled = false;
-            this.checkBoxEnabled.Location = new System.Drawing.Point(318, 245);
+            this.checkBoxEnabled.Location = new System.Drawing.Point(687, 267);
             this.checkBoxEnabled.Name = "checkBoxEnabled";
             this.checkBoxEnabled.Size = new System.Drawing.Size(86, 24);
-            this.checkBoxEnabled.TabIndex = 21;
+            this.checkBoxEnabled.TabIndex = 13;
             this.checkBoxEnabled.Text = "Abilitato";
             this.checkBoxEnabled.UseVisualStyleBackColor = true;
+            // 
+            // lblPasswordConfirm
+            // 
+            this.lblPasswordConfirm.AutoSize = true;
+            this.lblPasswordConfirm.Location = new System.Drawing.Point(318, 241);
+            this.lblPasswordConfirm.Name = "lblPasswordConfirm";
+            this.lblPasswordConfirm.Size = new System.Drawing.Size(141, 20);
+            this.lblPasswordConfirm.TabIndex = 22;
+            this.lblPasswordConfirm.Text = "Conferma password";
+            this.lblPasswordConfirm.Visible = false;
+            // 
+            // txtPasswordConfirm
+            // 
+            this.txtPasswordConfirm.Location = new System.Drawing.Point(318, 264);
+            this.txtPasswordConfirm.Name = "txtPasswordConfirm";
+            this.txtPasswordConfirm.Size = new System.Drawing.Size(239, 27);
+            this.txtPasswordConfirm.TabIndex = 12;
+            this.txtPasswordConfirm.Visible = false;
+            this.txtPasswordConfirm.TextChanged += new System.EventHandler(this.txtMenu_TextChanged);
             // 
             // frmUserManagement
             // 
@@ -263,6 +284,8 @@ namespace SchoolGrades
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(800, 372);
+            this.Controls.Add(this.lblPasswordConfirm);
+            this.Controls.Add(this.txtPasswordConfirm);
             this.Controls.Add(this.checkBoxEnabled);
             this.Controls.Add(this.btnChange);
             this.Controls.Add(this.btnCreate);
@@ -286,6 +309,7 @@ namespace SchoolGrades
             this.Controls.Add(this.lstUser);
             this.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.Color.DarkBlue;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "frmUserManagement";
             this.Text = "Gestione utenti";
             this.Load += new System.EventHandler(this.frmUserManagement_Load);
@@ -318,5 +342,7 @@ namespace SchoolGrades
         private System.Windows.Forms.Button btnCreate;
         private System.Windows.Forms.Button btnChange;
         private System.Windows.Forms.CheckBox checkBoxEnabled;
+        private System.Windows.Forms.Label lblPasswordConfirm;
+        private System.Windows.Forms.TextBox txtPasswordConfirm;
     }
 }
