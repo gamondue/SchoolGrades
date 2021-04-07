@@ -31,6 +31,9 @@ namespace SchoolGrades.BusinessLayer
         {
             User uFromDb = GetUser(Username);
 
+            Password = CalculateHash(Password);
+            uFromDb.Password = CalculateHash(uFromDb.Password);
+
             if (uFromDb != null && Username == uFromDb.Username && Password == uFromDb.Password)
                 return true;
             else
@@ -59,20 +62,25 @@ namespace SchoolGrades.BusinessLayer
         }
         private User ReadCredentialsFromDatabase(User CredentialsFromUser)
         {
-            User u = new User("ugo", "pina");
+            User u = new User("admin", "1234");
             return u;
         }
         private User WriteCredentialsToDatabase(User CredentialsFromUser)
         {
-            User u = new User("ugo", "pina");
+            User u = new User("admin", "1234");
+            dl.CreateUser(u);
             return u;
         }
         private string CalculateHash(string ClearTextPassword)
         {
-            // https://www.mattepuffo.com/blog/articolo/2496-calcolo-hash-sha256-in-csharp.html
             SHA256 hash = SHA256.Create();
-            // !!!! TODO !!!!
-            return null;
+            byte[] bytes = hash.ComputeHash(Encoding.UTF8.GetBytes(ClearTextPassword));
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                builder.Append(bytes[i].ToString("x2"));
+            }
+            return builder.ToString();
         }
         #endregion
     }

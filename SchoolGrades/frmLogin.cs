@@ -15,25 +15,8 @@ namespace SchoolGrades
         }
         private void frmLogin_Load(object sender, EventArgs e)
         {
-            db = new DbAndBusiness(); 
             bl = new BusinessLayer.BusinessLayer();
-
-            //// test examples
-            User u;
-            u = new User("pippo", "pluto");
-            ////u = new User("pina", "pluto");
-            ////u = new User("ugo", "pina");
-            bl.CreateUser(u);
-            u.Password = "mariangela";
-            bl.ChangePassword(u);
-
-            u.FirstName = "Ugo";
-            u.LastName = "Fantozzi";
-            u.Email = "u.fantozzi@megaditta.com";
-            u.Description = "Inferiore Rag. Ugo Fantozzi";
-            bl.UpdateUser(u);
-
-            User u1 = bl.GetUser("ugo");
+            //username = admin password = 1234
         }
         private void btnOk_Click(object sender, EventArgs e)
         {
@@ -48,7 +31,18 @@ namespace SchoolGrades
             {
                 MessageBox.Show("Digitare credenziali corrette!");
             }
-            this.Close();
+        }
+
+        private void btnChangePassword_Click(object sender, EventArgs e)
+        {
+            //if (bl.UserHasLoginPermission(txtUsername.Text, txtPassword.Text))
+            //{
+                frmUserManagement f = new frmUserManagement();
+                this.Hide();
+                f.ShowDialog();
+            //}
+            //else
+            //    MessageBox.Show("Digitare credenziali corrette!");
         }
     }
 }
