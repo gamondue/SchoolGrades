@@ -1,4 +1,4 @@
-﻿
+﻿using System;
 namespace SchoolGrades
 {
     partial class frmUsersManagement
