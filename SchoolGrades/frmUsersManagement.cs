@@ -26,5 +26,19 @@ namespace SchoolGrades
         {
             User currentUser = (User)(listOfAllUsers[lstUsers.SelectedIndex]); 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string username = textBox1.Text;
+            string password = textBox2.Text;
+            User nu = new User(username, password);
+            listOfAllUsers.Add(nu);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string username = textBox1.Text;
+            string password = textBox2.Text;
+        }
     }
 }
