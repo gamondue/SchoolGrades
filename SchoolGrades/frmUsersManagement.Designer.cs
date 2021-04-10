@@ -37,6 +37,7 @@ namespace SchoolGrades
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lstUsers
@@ -52,7 +53,7 @@ namespace SchoolGrades
             // 
             // txtModificaNome
             // 
-            this.txtModificaNome.Location = new System.Drawing.Point(335, 43);
+            this.txtModificaNome.Location = new System.Drawing.Point(231, 43);
             this.txtModificaNome.Name = "txtModificaNome";
             this.txtModificaNome.Size = new System.Drawing.Size(207, 23);
             this.txtModificaNome.TabIndex = 1;
@@ -60,7 +61,7 @@ namespace SchoolGrades
             // 
             // btnModifica
             // 
-            this.btnModifica.Location = new System.Drawing.Point(335, 366);
+            this.btnModifica.Location = new System.Drawing.Point(231, 366);
             this.btnModifica.Name = "btnModifica";
             this.btnModifica.Size = new System.Drawing.Size(115, 23);
             this.btnModifica.TabIndex = 2;
@@ -71,7 +72,7 @@ namespace SchoolGrades
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(335, 25);
+            this.label1.Location = new System.Drawing.Point(231, 25);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 15);
             this.label1.TabIndex = 3;
@@ -79,7 +80,7 @@ namespace SchoolGrades
             // 
             // txtModificaPassword
             // 
-            this.txtModificaPassword.Location = new System.Drawing.Point(335, 90);
+            this.txtModificaPassword.Location = new System.Drawing.Point(231, 134);
             this.txtModificaPassword.Name = "txtModificaPassword";
             this.txtModificaPassword.Size = new System.Drawing.Size(207, 23);
             this.txtModificaPassword.TabIndex = 4;
@@ -87,7 +88,7 @@ namespace SchoolGrades
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(335, 69);
+            this.label2.Location = new System.Drawing.Point(231, 113);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(57, 15);
             this.label2.TabIndex = 5;
@@ -96,23 +97,33 @@ namespace SchoolGrades
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(335, 120);
+            this.label3.Location = new System.Drawing.Point(231, 120);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(0, 15);
             this.label3.TabIndex = 6;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(335, 139);
+            this.textBox2.Location = new System.Drawing.Point(231, 87);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(207, 23);
             this.textBox2.TabIndex = 7;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(231, 69);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(60, 15);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Cognome";
             // 
             // frmUsersManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(858, 413);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -140,5 +151,6 @@ namespace SchoolGrades
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label4;
     }
 }

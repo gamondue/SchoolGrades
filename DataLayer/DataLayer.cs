@@ -128,6 +128,7 @@ namespace SchoolGrades.DataLayer
             }
             return u;
         }
+
         internal void ChangePassword(User User)
         {
             using (DbConnection conn = Connect())

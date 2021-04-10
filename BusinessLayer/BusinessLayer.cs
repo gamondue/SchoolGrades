@@ -21,16 +21,15 @@ namespace SchoolGrades.BusinessLayer
         {
             return dl.GetUser(Username);
         }
-        
-        //internal bool UserHasLoginPermission(string Username, string Password)
-        //{
-        //    User uFromDb = GetUser(Username);
 
-        //    if (uFromDb != null && Username == uFromDb.Username && Password == uFromDb.Password)
-        //        return true;
-        //    else
-        //        return false;
-        //}
+        internal bool UserHasLoginPermission(string Username, string Password)
+        {
+            User uFromDb = GetUser(Username);
+            if (uFromDb != null && Username == uFromDb.Username && Password == uFromDb.Password && uFromDb.IsEnabled == true)
+                return true;
+            else
+                return false;
+        }
 
         internal bool IsUserAllowed(User CredentialsFromUser)
         {
@@ -68,7 +67,6 @@ namespace SchoolGrades.BusinessLayer
                 {
                     builder.Append(bytes[i].ToString("x2"));
                 }
-                // MessageBox.Show(builder.ToString());
                 return builder.ToString();
             }
         }
