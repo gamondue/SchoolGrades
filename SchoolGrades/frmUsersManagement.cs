@@ -24,8 +24,21 @@ namespace SchoolGrades
 
         private void lstUsers_SelectedIndexChanged(object sender, EventArgs e)
         {
-            User currentUser = (User)(listOfAllUsers[lstUsers.SelectedIndex]); 
-            //non so farlo lmao lololooloolol
+            User currentUser = (User)(listOfAllUsers[lstUsers.SelectedIndex]);
+        }
+
+        private void LogIn_Click(object sender, EventArgs e)
+        {
+            string user = textBox1.Text;
+            string pass = textBox2.Text;
+        }
+
+        private void SignUp_Click(object sender, EventArgs e)
+        {
+            string user = textBox1.Text;
+            string pass = textBox2.Text;
+            User newUser = new User(user, pass);
+            listOfAllUsers.Add(newUser);
         }
     }
 }
