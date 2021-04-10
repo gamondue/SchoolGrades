@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using SchoolGrades.DbClasses;
@@ -10,8 +11,7 @@ namespace SchoolGrades
     {
         BusinessLayer.BusinessLayer bl = new BusinessLayer.BusinessLayer();
         DataLayer.DataLayer dl = new DataLayer.DataLayer();
-
-        List<User> listOfAllUsers = new List<User>(); 
+        BindingList<User> listOfAllusers;
 
         public frmUsersManagement()
         {
@@ -22,21 +22,12 @@ namespace SchoolGrades
         {
             try
             {
-                grdUsers.DataSource = listOfAllUsers;
                 LoadGridViewData();
             }
             catch(Exception ex)
             {
                 MessageBox.Show("Errore nel caricamento del form Users managment:\n" + ex.Message,"Users management",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
-
-            //listOfAllUsers = dl.GetAllUsers(); 
-            //lstUsers.DataSource = listOfAllUsers; 
-        }
-
-        private void lstUsers_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //User currentUser = (User)(listOfAllUsers[lstUsers.SelectedIndex]); 
         }
 
         private void mtAddUser_Click(object sender, EventArgs e)
@@ -49,8 +40,13 @@ namespace SchoolGrades
 
         private void mtDeleteUser_Click(object sender, EventArgs e)
         {
-            this.grdUsers.Rows.RemoveAt(1);
-            this.grdUsers.Rows.Remove(this.grdUsers.CurrentRow);
+            if (grdUsers.SelectedRows == null)
+            {
+                MessageBox.Show("Nessun utente selezionato da eliminare. ", "Elimina utente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            grdUsers.Rows.RemoveAt(grdUsers.SelectedRows[0].Index);
+            //listOfAllusers.RemoveAt(grdUsers.SelectedRows[0].Index);
         }
 
         private void mtRefresh_Click(object sender, EventArgs e)
@@ -65,7 +61,7 @@ namespace SchoolGrades
             {
                 if(MessageBox.Show("Do you want to save the changes?","Saving all",MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    // TODO
+                    grdUsers.DataSource = listOfAllusers;
                 }
             }catch(Exception ex)
             {
@@ -88,9 +84,9 @@ namespace SchoolGrades
             {
                 grdUsers.DataSource = null;
                 grdUsers.Columns.Clear();
-                listOfAllUsers = dl.GetAllUsers();
-                grdUsers.DataSource = listOfAllUsers;
-                
+                listOfAllusers = new BindingList<User>(dl.GetAllUsers());
+                grdUsers.DataSource = listOfAllusers;
+
                 DataGridViewButtonColumn bc = new DataGridViewButtonColumn();
                 bc.HeaderText = "Action";
                 bc.Text = "Details";

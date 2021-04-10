@@ -123,6 +123,7 @@ namespace SchoolGrades.DataLayer
             }
             return l;
         }
+
         #region Ovveride di getuser. (prova)
         internal DataTable GetUserByUserId(string id)
         {
@@ -142,6 +143,7 @@ namespace SchoolGrades.DataLayer
             return dt;
         }
         #endregion
+
         private User GetUserFromRow(DbDataReader dRead)
         {
             User u = null;
@@ -154,7 +156,7 @@ namespace SchoolGrades.DataLayer
                 u.FirstName = SafeDb.SafeString(dRead["firstName"]);
                 u.Email = SafeDb.SafeString(dRead["email"]);
                 //u.Password = SafeDb.SafeString(dRead["password"]);
-                u.LastChange = SafeDb.SafeDateTime(dRead["lastChange"]);
+                //u.LastChange = SafeDb.SafeDateTime(dRead["lastChange"]);
                 u.LastPasswordChange = SafeDb.SafeDateTime(dRead["lastPasswordChange"]);
                 u.CreationTime = SafeDb.SafeDateTime(dRead["creationTime"]);
                 u.Salt = SafeDb.SafeString(dRead["salt"]);
@@ -240,6 +242,8 @@ namespace SchoolGrades.DataLayer
                 cmd.Dispose();
             }
         }
+
+        #region Override updateUser con parameters (Prova).
         internal void UpdateUserOverride(string username, string lastname, string firstname, string password, string email, string description, DateTime last, DateTime lastpassw, DateTime creation, string salt, bool isenabled, int idusercateogry)
         {
             using (DbConnection conn = Connect())
@@ -264,6 +268,7 @@ namespace SchoolGrades.DataLayer
                 cmd.Dispose();
             }
         }
+        #endregion
 
     }
 }
