@@ -9,6 +9,7 @@ namespace SchoolGrades.DataLayer
     /// <summary>
     /// Data Access Layer: abstracts the access to dbms using to transfer data 
     /// DbClasses and ADO db classes (ADO should be avoided, if possible) 
+    /// test
     /// </summary>
     internal class DataLayer
     {
