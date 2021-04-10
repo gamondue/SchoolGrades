@@ -32,6 +32,7 @@ namespace SchoolGrades
             this.lstUsers = new System.Windows.Forms.ListBox();
             this.btnModifica = new System.Windows.Forms.Button();
             this.grbUpdates = new System.Windows.Forms.GroupBox();
+            this.btnConfirmCreation = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.txtNewPw = new System.Windows.Forms.TextBox();
@@ -72,6 +73,7 @@ namespace SchoolGrades
             // 
             // grbUpdates
             // 
+            this.grbUpdates.Controls.Add(this.btnConfirmCreation);
             this.grbUpdates.Controls.Add(this.btnSave);
             this.grbUpdates.Controls.Add(this.label6);
             this.grbUpdates.Controls.Add(this.txtNewPw);
@@ -92,9 +94,19 @@ namespace SchoolGrades
             this.grbUpdates.TabStop = false;
             this.grbUpdates.Visible = false;
             // 
+            // btnConfirmCreation
+            // 
+            this.btnConfirmCreation.Location = new System.Drawing.Point(250, 274);
+            this.btnConfirmCreation.Name = "btnConfirmCreation";
+            this.btnConfirmCreation.Size = new System.Drawing.Size(109, 30);
+            this.btnConfirmCreation.TabIndex = 13;
+            this.btnConfirmCreation.Text = "Confirm Creation";
+            this.btnConfirmCreation.UseVisualStyleBackColor = true;
+            this.btnConfirmCreation.Click += new System.EventHandler(this.btnConfirmCreation_Click);
+            // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(164, 274);
+            this.btnSave.Location = new System.Drawing.Point(81, 274);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(94, 30);
             this.btnSave.TabIndex = 12;
@@ -247,5 +259,6 @@ namespace SchoolGrades
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnNewUser;
+        private System.Windows.Forms.Button btnConfirmCreation;
     }
 }

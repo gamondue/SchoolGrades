@@ -82,7 +82,7 @@ namespace SchoolGrades.BusinessLayer
                 }
                 return builder.ToString();
             }
-            return null;
+            //return null;
         }
         #endregion
     }
