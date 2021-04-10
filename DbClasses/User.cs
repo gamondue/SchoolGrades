@@ -14,6 +14,7 @@ namespace SchoolGrades.DbClasses
         string email;
         DateTime? create_time;
         string salt;
+        BusinessLayer.BusinessLayer bl = new BusinessLayer.BusinessLayer();
         int? idUserCategory;
 
         public string Username { get => username; set => username = value; }
@@ -34,7 +35,7 @@ namespace SchoolGrades.DbClasses
         public User(string Username, string Password)
         {
             this.username = Username;
-            this.password = Password;
+            this.password = bl.CalculateHash(Password);
         }
 
         public override string ToString()

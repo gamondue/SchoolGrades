@@ -24,20 +24,49 @@ namespace SchoolGrades
 
         private void lstUsers_SelectedIndexChanged(object sender, EventArgs e)
         {
-            User currentUser = (User)(listOfAllUsers[lstUsers.SelectedIndex]);
-            txtUtente.Text = currentUser.Username;
-            txtPass.Text = currentUser.Password;
-            txtMail.Text = currentUser.Email;
-            lblDescrizione.Text = "Descrizione : " + currentUser.Description;
+            if(lstUsers.SelectedIndex != -1)
+            {
+                btnCambiaCredenziali.Enabled = true;
+                User currentUser = (User)(listOfAllUsers[lstUsers.SelectedIndex]);
+                txtUtente.Text = currentUser.Username;
+                txtPass.Text = currentUser.Password;
+                txtMail.Text = currentUser.Email;
+                lblDescrizione.Text = "Descrizione : " + currentUser.Description;
+            }
+            else
+            {
+                btnCambiaCredenziali.Enabled = false;
+            }
+            
         }
 
         private void btnCambiaCredenziali_Click(object sender, EventArgs e)
         {
-            //not completed yet.
             User currentUser = (User)(listOfAllUsers[lstUsers.SelectedIndex]);
             User newUser = new User(txtUtente.Text, txtPass.Text);
-            newUser.Email = currentUser.Email;
-            // bisogna applicare i cambiamenti al DB.
+            newUser.Email = txtMail.Text;
+            newUser.Description = currentUser.Description;
+            newUser.CreationTime = currentUser.CreationTime;
+            newUser.IdUserType = currentUser.IdUserType;
+            newUser.IdUserCategory = currentUser.IdUserCategory;
+            newUser.FirstName = currentUser.LastName;
+            newUser.LastName = currentUser.LastName;
+            bl.UpdateUser(newUser);
+        }
+
+        private void btnCreaUtente_Click(object sender, EventArgs e)
+        {
+            User newUser = new User(txtNewUser.Text, txtNewPass.Text);
+            newUser.Email = txtNewMail.Text;
+            newUser.Description = txtDescription.Text;
+            newUser.CreationTime = DateTime.Now;
+            newUser.IdUserType = 0;
+            newUser.IdUserCategory = listOfAllUsers.Count+1;
+            newUser.FirstName = txtName.Text;
+            newUser.LastName = txtSurname.Text;
+            bl.CreateUser(newUser);
+            listOfAllUsers = bl.GetAllUsers();
+            lstUsers.DataSource = listOfAllUsers;
         }
     }
 }

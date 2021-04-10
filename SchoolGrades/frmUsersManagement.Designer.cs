@@ -38,6 +38,19 @@ namespace SchoolGrades
             this.txtMail = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.lblDescrizione = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtNewUser = new System.Windows.Forms.TextBox();
+            this.txtNewPass = new System.Windows.Forms.TextBox();
+            this.txtNewMail = new System.Windows.Forms.TextBox();
+            this.txtName = new System.Windows.Forms.TextBox();
+            this.txtSurname = new System.Windows.Forms.TextBox();
+            this.txtDescription = new System.Windows.Forms.TextBox();
+            this.btnCreaUtente = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lstUsers
@@ -55,7 +68,7 @@ namespace SchoolGrades
             // 
             this.txtUtente.Location = new System.Drawing.Point(481, 26);
             this.txtUtente.Name = "txtUtente";
-            this.txtUtente.Size = new System.Drawing.Size(317, 23);
+            this.txtUtente.Size = new System.Drawing.Size(316, 23);
             this.txtUtente.TabIndex = 1;
             // 
             // label1
@@ -80,14 +93,14 @@ namespace SchoolGrades
             // 
             this.txtPass.Location = new System.Drawing.Point(481, 56);
             this.txtPass.Name = "txtPass";
-            this.txtPass.Size = new System.Drawing.Size(317, 23);
+            this.txtPass.Size = new System.Drawing.Size(316, 23);
             this.txtPass.TabIndex = 4;
             // 
             // btnCambiaCredenziali
             // 
             this.btnCambiaCredenziali.Location = new System.Drawing.Point(383, 143);
             this.btnCambiaCredenziali.Name = "btnCambiaCredenziali";
-            this.btnCambiaCredenziali.Size = new System.Drawing.Size(415, 23);
+            this.btnCambiaCredenziali.Size = new System.Drawing.Size(414, 23);
             this.btnCambiaCredenziali.TabIndex = 5;
             this.btnCambiaCredenziali.Text = "cambia credenziali";
             this.btnCambiaCredenziali.UseVisualStyleBackColor = true;
@@ -97,7 +110,7 @@ namespace SchoolGrades
             // 
             this.txtMail.Location = new System.Drawing.Point(481, 85);
             this.txtMail.Name = "txtMail";
-            this.txtMail.Size = new System.Drawing.Size(317, 23);
+            this.txtMail.Size = new System.Drawing.Size(316, 23);
             this.txtMail.TabIndex = 6;
             // 
             // label3
@@ -118,11 +131,130 @@ namespace SchoolGrades
             this.lblDescrizione.TabIndex = 9;
             this.lblDescrizione.Text = "Descrizione:";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(383, 198);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(60, 15);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Username";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(383, 267);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(57, 15);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Password";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(383, 341);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(41, 15);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "E-Mail";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(624, 198);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(40, 15);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Nome";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(624, 267);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(60, 15);
+            this.label8.TabIndex = 14;
+            this.label8.Text = "Cognome";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(624, 337);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(67, 15);
+            this.label9.TabIndex = 15;
+            this.label9.Text = "Descrizione";
+            // 
+            // txtNewUser
+            // 
+            this.txtNewUser.Location = new System.Drawing.Point(462, 194);
+            this.txtNewUser.Name = "txtNewUser";
+            this.txtNewUser.Size = new System.Drawing.Size(100, 23);
+            this.txtNewUser.TabIndex = 16;
+            // 
+            // txtNewPass
+            // 
+            this.txtNewPass.Location = new System.Drawing.Point(462, 263);
+            this.txtNewPass.Name = "txtNewPass";
+            this.txtNewPass.Size = new System.Drawing.Size(100, 23);
+            this.txtNewPass.TabIndex = 17;
+            // 
+            // txtNewMail
+            // 
+            this.txtNewMail.Location = new System.Drawing.Point(462, 337);
+            this.txtNewMail.Name = "txtNewMail";
+            this.txtNewMail.Size = new System.Drawing.Size(100, 23);
+            this.txtNewMail.TabIndex = 18;
+            // 
+            // txtName
+            // 
+            this.txtName.Location = new System.Drawing.Point(697, 194);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(100, 23);
+            this.txtName.TabIndex = 19;
+            // 
+            // txtSurname
+            // 
+            this.txtSurname.Location = new System.Drawing.Point(697, 263);
+            this.txtSurname.Name = "txtSurname";
+            this.txtSurname.Size = new System.Drawing.Size(100, 23);
+            this.txtSurname.TabIndex = 20;
+            // 
+            // txtDescription
+            // 
+            this.txtDescription.Location = new System.Drawing.Point(697, 333);
+            this.txtDescription.Name = "txtDescription";
+            this.txtDescription.Size = new System.Drawing.Size(100, 23);
+            this.txtDescription.TabIndex = 21;
+            // 
+            // btnCreaUtente
+            // 
+            this.btnCreaUtente.Location = new System.Drawing.Point(378, 366);
+            this.btnCreaUtente.Name = "btnCreaUtente";
+            this.btnCreaUtente.Size = new System.Drawing.Size(419, 23);
+            this.btnCreaUtente.TabIndex = 22;
+            this.btnCreaUtente.Text = "Crea Utente";
+            this.btnCreaUtente.UseVisualStyleBackColor = true;
+            this.btnCreaUtente.Click += new System.EventHandler(this.btnCreaUtente_Click);
+            // 
             // frmUsersManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(859, 418);
+            this.ClientSize = new System.Drawing.Size(881, 436);
+            this.Controls.Add(this.btnCreaUtente);
+            this.Controls.Add(this.txtDescription);
+            this.Controls.Add(this.txtSurname);
+            this.Controls.Add(this.txtName);
+            this.Controls.Add(this.txtNewMail);
+            this.Controls.Add(this.txtNewPass);
+            this.Controls.Add(this.txtNewUser);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.lblDescrizione);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtMail);
@@ -152,5 +284,18 @@ namespace SchoolGrades
         private System.Windows.Forms.TextBox txtMail;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblDescrizione;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txtNewUser;
+        private System.Windows.Forms.TextBox txtNewPass;
+        private System.Windows.Forms.TextBox txtNewMail;
+        private System.Windows.Forms.TextBox txtName;
+        private System.Windows.Forms.TextBox txtSurname;
+        private System.Windows.Forms.TextBox txtDescription;
+        private System.Windows.Forms.Button btnCreaUtente;
     }
 }
