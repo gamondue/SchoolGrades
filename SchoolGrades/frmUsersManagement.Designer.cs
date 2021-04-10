@@ -31,9 +31,10 @@ namespace SchoolGrades
         {
             this.lstUsers = new System.Windows.Forms.ListBox();
             this.grbUpdates = new System.Windows.Forms.GroupBox();
+            this.cbxShow = new System.Windows.Forms.CheckBox();
+            this.txtPassword = new System.Windows.Forms.TextBox();
             this.btnCreate = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
-            this.rtxtPassword = new System.Windows.Forms.RichTextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.txtFirstName = new System.Windows.Forms.TextBox();
@@ -47,6 +48,7 @@ namespace SchoolGrades
             this.label1 = new System.Windows.Forms.Label();
             this.btnModify = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
+            this.btnDeleteSelctedUser = new System.Windows.Forms.Button();
             this.grbUpdates.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,7 +56,7 @@ namespace SchoolGrades
             // 
             this.lstUsers.FormattingEnabled = true;
             this.lstUsers.ItemHeight = 20;
-            this.lstUsers.Location = new System.Drawing.Point(580, 47);
+            this.lstUsers.Location = new System.Drawing.Point(580, 23);
             this.lstUsers.Name = "lstUsers";
             this.lstUsers.Size = new System.Drawing.Size(290, 484);
             this.lstUsers.TabIndex = 0;
@@ -62,9 +64,10 @@ namespace SchoolGrades
             // 
             // grbUpdates
             // 
+            this.grbUpdates.Controls.Add(this.cbxShow);
+            this.grbUpdates.Controls.Add(this.txtPassword);
             this.grbUpdates.Controls.Add(this.btnCreate);
             this.grbUpdates.Controls.Add(this.btnUpdate);
-            this.grbUpdates.Controls.Add(this.rtxtPassword);
             this.grbUpdates.Controls.Add(this.label6);
             this.grbUpdates.Controls.Add(this.txtEmail);
             this.grbUpdates.Controls.Add(this.txtFirstName);
@@ -82,6 +85,24 @@ namespace SchoolGrades
             this.grbUpdates.TabIndex = 4;
             this.grbUpdates.TabStop = false;
             this.grbUpdates.Text = "Updates";
+            // 
+            // cbxShow
+            // 
+            this.cbxShow.AutoSize = true;
+            this.cbxShow.Location = new System.Drawing.Point(331, 340);
+            this.cbxShow.Name = "cbxShow";
+            this.cbxShow.Size = new System.Drawing.Size(67, 24);
+            this.cbxShow.TabIndex = 16;
+            this.cbxShow.Text = "Show";
+            this.cbxShow.UseVisualStyleBackColor = true;
+            this.cbxShow.CheckedChanged += new System.EventHandler(this.cbxShow_CheckedChanged);
+            // 
+            // txtPassword
+            // 
+            this.txtPassword.Location = new System.Drawing.Point(120, 337);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.Size = new System.Drawing.Size(205, 27);
+            this.txtPassword.TabIndex = 15;
             // 
             // btnCreate
             // 
@@ -102,14 +123,6 @@ namespace SchoolGrades
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
-            // 
-            // rtxtPassword
-            // 
-            this.rtxtPassword.Location = new System.Drawing.Point(120, 344);
-            this.rtxtPassword.Name = "rtxtPassword";
-            this.rtxtPassword.Size = new System.Drawing.Size(205, 29);
-            this.rtxtPassword.TabIndex = 12;
-            this.rtxtPassword.Text = "";
             // 
             // label6
             // 
@@ -214,21 +227,33 @@ namespace SchoolGrades
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(580, 17);
+            this.label7.Location = new System.Drawing.Point(580, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(47, 20);
             this.label7.TabIndex = 5;
             this.label7.Text = "Users:";
+            // 
+            // btnDeleteSelctedUser
+            // 
+            this.btnDeleteSelctedUser.Location = new System.Drawing.Point(580, 513);
+            this.btnDeleteSelctedUser.Name = "btnDeleteSelctedUser";
+            this.btnDeleteSelctedUser.Size = new System.Drawing.Size(290, 29);
+            this.btnDeleteSelctedUser.TabIndex = 6;
+            this.btnDeleteSelctedUser.Text = "Delete Selected User";
+            this.btnDeleteSelctedUser.UseVisualStyleBackColor = true;
+            this.btnDeleteSelctedUser.Click += new System.EventHandler(this.btnDeleteSelctedUser_Click);
             // 
             // frmUsersManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(980, 551);
+            this.Controls.Add(this.btnDeleteSelctedUser);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.grbUpdates);
             this.Controls.Add(this.btnModify);
             this.Controls.Add(this.lstUsers);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "frmUsersManagement";
             this.Text = "frmUsersManagement";
             this.Load += new System.EventHandler(this.frmUsersManagement_Load);
@@ -245,7 +270,6 @@ namespace SchoolGrades
         private System.Windows.Forms.GroupBox grbUpdates;
         private System.Windows.Forms.Button btnCreate;
         private System.Windows.Forms.Button btnUpdate;
-        private System.Windows.Forms.RichTextBox rtxtPassword;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.TextBox txtFirstName;
@@ -259,5 +283,8 @@ namespace SchoolGrades
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnModify;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txtPassword;
+        private System.Windows.Forms.CheckBox cbxShow;
+        private System.Windows.Forms.Button btnDeleteSelctedUser;
     }
 }

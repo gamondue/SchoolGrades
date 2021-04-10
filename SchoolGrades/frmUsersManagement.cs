@@ -1,7 +1,7 @@
-﻿using System;
+﻿using SchoolGrades.DbClasses;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using SchoolGrades.DbClasses;
 
 namespace SchoolGrades
 {
@@ -15,17 +15,18 @@ namespace SchoolGrades
         {
             InitializeComponent();
             grbUpdates.Visible = false;
+            txtPassword.UseSystemPasswordChar = true;
         }
 
         private void frmUsersManagement_Load(object sender, EventArgs e)
         {
-            listOfAllUsers = bl.GetAllUsers(); 
-            lstUsers.DataSource = listOfAllUsers; 
+            listOfAllUsers = bl.GetAllUsers();
+            lstUsers.DataSource = listOfAllUsers;
         }
 
         private void lstUsers_SelectedIndexChanged(object sender, EventArgs e)
         {
-            currentUser = (listOfAllUsers[lstUsers.SelectedIndex]); 
+            currentUser = (listOfAllUsers[lstUsers.SelectedIndex]);
         }
 
         private void btnModify_Click(object sender, EventArgs e)
@@ -42,9 +43,9 @@ namespace SchoolGrades
             {
                 if (txtUsername.Text.Length < 1)
                     throw new Exception("The new utent must contains an username!");
-                if (rtxtPassword.Text.Length < 6)
+                if (txtPassword.Text.Length < 6)
                     throw new Exception("Password must contains min 6 characters.");
-                User newUser = new User(txtUsername.Text, rtxtPassword.Text);
+                User newUser = new User(txtUsername.Text, txtPassword.Text);
 
                 if (txtLastName.Text.Length > 1)
                     newUser.LastName = txtLastName.Text;
@@ -55,11 +56,13 @@ namespace SchoolGrades
                 if (txtFirstName.Text.Length > 1)
                     newUser.FirstName = txtFirstName.Text;
 
+                listOfAllUsers.Add(newUser);
                 bl.CreateUser(newUser);
+
             }
             catch (Exception ex)
             {
-                MessageBox.Show("There is problem!" + ex.Message,
+                MessageBox.Show("There is a problem!" + ex.Message,
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -80,10 +83,13 @@ namespace SchoolGrades
                     currentUser.Email = txtEmail.Text;
                 if (txtFirstName.Text.Length > 1)
                     currentUser.FirstName = txtFirstName.Text;
-                if (rtxtPassword.Text.Length < 6)
+                if (txtPassword.Text.Length < 6)
+                {
+                    txtPassword.Focus();
                     throw new Exception("Password must contains min 6 characters.");
+                }
 
-                currentUser.Password = rtxtPassword.Text;
+                currentUser.Password = txtPassword.Text;
 
                 bl.ChangePassword(currentUser);
                 bl.UpdateUser(currentUser);
@@ -93,6 +99,38 @@ namespace SchoolGrades
                 MessageBox.Show("There is problem!" + ex.Message,
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void cbxShow_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbxShow.Checked)
+            {
+                txtPassword.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                txtPassword.UseSystemPasswordChar = true;
+            }
+        }
+
+        private void btnDeleteSelctedUser_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Da implementare", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // Maybe usando GetUser(username) ?
+            //try
+            //{
+            //    if (lstUsers.SelectedIndex < 0)
+            //        throw new Exception("No user selected!");
+
+            //    string userToDelete = lstUsers.SelectedItem.ToString();
+
+
+            //}
+            //catch(Exception ex)
+            //{
+            //    MessageBox.Show("There is problem!" + ex.Message,
+            //         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
     }
 }
