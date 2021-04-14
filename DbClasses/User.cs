@@ -33,11 +33,13 @@ namespace SchoolGrades.DbClasses
         {
             this.username = Username;
             this.password = Password;
+            IsEnabled = false;
         }
 
         public override string ToString()
         {
             return Username +";" + Description;
         }
+        
     }
 }

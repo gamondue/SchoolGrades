@@ -34,7 +34,7 @@ namespace SchoolGrades
             this.btnOk = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.btnChangePassword = new System.Windows.Forms.Button();
+            this.btnOpenUserManagement = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtUsername
@@ -85,27 +85,29 @@ namespace SchoolGrades
             this.label2.TabIndex = 4;
             this.label2.Text = "Password";
             // 
-            // btnChangePassword
+            // btnOpenUserManagement
             // 
-            this.btnChangePassword.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnChangePassword.Location = new System.Drawing.Point(170, 149);
-            this.btnChangePassword.Name = "btnChangePassword";
-            this.btnChangePassword.Size = new System.Drawing.Size(75, 39);
-            this.btnChangePassword.TabIndex = 5;
-            this.btnChangePassword.Text = "Cambia";
-            this.btnChangePassword.UseVisualStyleBackColor = true;
+            this.btnOpenUserManagement.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnOpenUserManagement.Location = new System.Drawing.Point(136, 149);
+            this.btnOpenUserManagement.Name = "btnOpenUserManagement";
+            this.btnOpenUserManagement.Size = new System.Drawing.Size(109, 39);
+            this.btnOpenUserManagement.TabIndex = 5;
+            this.btnOpenUserManagement.Text = "Impostazioni";
+            this.btnOpenUserManagement.UseVisualStyleBackColor = true;
+            this.btnOpenUserManagement.Click += new System.EventHandler(this.btnOpenUserManagement_Click);
             // 
             // frmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(257, 200);
-            this.Controls.Add(this.btnChangePassword);
+            this.Controls.Add(this.btnOpenUserManagement);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtUsername);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "frmLogin";
             this.Text = "Login";
             this.Load += new System.EventHandler(this.frmLogin_Load);
@@ -121,6 +123,6 @@ namespace SchoolGrades
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button btnChangePassword;
+        private System.Windows.Forms.Button btnOpenUserManagement;
     }
 }

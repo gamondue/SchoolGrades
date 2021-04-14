@@ -15,15 +15,16 @@ namespace SchoolGrades
         }
         private void frmLogin_Load(object sender, EventArgs e)
         {
-            db = new DbAndBusiness(); 
+            db = new DbAndBusiness();
             bl = new BusinessLayer.BusinessLayer();
 
             //// test examples
             User u;
-            u = new User("pippo", "pluto");
-            ////u = new User("pina", "pluto");
-            ////u = new User("ugo", "pina");
-            bl.CreateUser(u);
+            //u = new User("pippo", "pluto");
+            //u = new User("pina", "pluto");
+            u = new User("ugo", "pina");
+            if (u == null)
+                bl.CreateUser(u);
             u.Password = "mariangela";
             bl.ChangePassword(u);
 
@@ -32,7 +33,6 @@ namespace SchoolGrades
             u.Email = "u.fantozzi@megaditta.com";
             u.Description = "Inferiore Rag. Ugo Fantozzi";
             bl.UpdateUser(u);
-
             User u1 = bl.GetUser("ugo");
         }
         private void btnOk_Click(object sender, EventArgs e)
@@ -42,13 +42,22 @@ namespace SchoolGrades
             {
                 frmMain f = new frmMain();
                 this.Hide();
-                f.ShowDialog(); 
+                f.ShowDialog();
+                this.Close();
             }
             else
             {
                 MessageBox.Show("Digitare credenziali corrette!");
+                txtUsername.Clear();
+                txtPassword.Clear();
+                txtUsername.Focus();
             }
-            this.Close();
+            //this.Close();
+        }
+
+        private void btnOpenUserManagement_Click(object sender, EventArgs e)
+        {
+            new frmUserManagement().ShowDialog();
         }
     }
 }
