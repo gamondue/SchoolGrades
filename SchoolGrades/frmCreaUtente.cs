@@ -32,9 +32,10 @@ namespace SchoolGrades
             else
             {
                 lblErrore.Visible = false;
+                currentUser.CreationTime = DateTime.Now;
                 FromUiToClass();
                 bl.CreateUser(currentUser);
-                currentUser.CreationTime = DateTime.Now;
+                //bl.UpdateUser(currentUser);
                 this.Hide();
                 this.Close();
             }

@@ -19,23 +19,39 @@ namespace SchoolGrades
         {
             InitializeComponent();
         }
-        List<User> listaUtenti = new List<User>();
+        static List<User> listaUtenti = new List<User>();
         private void frmUserManagement_Load(object sender, EventArgs e)
         {
             // starts when the calling program calls Show()
             listaUtenti = bl.GetAllUsers();
-            lstUser.DataSource = listaUtenti;       
+            lstUser.DataSource = listaUtenti;
             if (lstUser.Items.Count == 0)
             {
-                currentUser = new User("","");
+                currentUser = new User("", "");
+            }
+            else
+            {
+                lstUser.SelectedItem = 0;
+                lblCambiamentoCorretto.Visible = false;
+                currentUser = listaUtenti[lstUser.SelectedIndex];
+                IdUtente = lstUser.SelectedIndex;
+                if (currentUser.IsEnabled == true)
+                {
+                    btnDisabilita.Text = "Disabilita";
+                }
+                else
+                    btnDisabilita.Text = "Abilita";
+                FromClassToUi();
+                btnChangePassword.Enabled = true;
             }
         }
         private void lstUser_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
         private void lstUser_DoubleClick(object sender, EventArgs e)
-        {           
+        {
+            lblCambiamentoCorretto.Visible = false;
             currentUser = listaUtenti[lstUser.SelectedIndex];
             IdUtente = lstUser.SelectedIndex;
             if (currentUser.IsEnabled == true)
@@ -45,6 +61,7 @@ namespace SchoolGrades
             else
                 btnDisabilita.Text = "Abilita";
             FromClassToUi();
+            btnChangePassword.Enabled = true;
         }
         private void FromClassToUi()
         {
@@ -58,6 +75,7 @@ namespace SchoolGrades
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            lblCambiamentoCorretto.Visible = false;
             FromUiToClass();
             listaUtenti[lstUser.SelectedIndex] = currentUser;
             lstUser.DataSource = listaUtenti;
@@ -73,24 +91,27 @@ namespace SchoolGrades
             currentUser.Email = txtEmail.Text;
             currentUser.Description = txtDescription.Text;
             currentUser.Username = txtUsername.Text;
-            
         }
 
         private void btnChangePassword_Click(object sender, EventArgs e)
         {
-            new frmGestionePassword().Show();
+            lblCambiamentoCorretto.Visible = false;
+            txtNuovaPassword.ReadOnly = false;
+            txtVecchiaPassword.ReadOnly = false;
+            btnConferma.Enabled = true;
         }
 
         private void btnNuovo_Click(object sender, EventArgs e)
         {
+            lblCambiamentoCorretto.Visible = false;
             new frmCreaUtente().Show();
             FromUiToClass();
             lstUser.DataSource = bl.GetAllUsers();
-            
+            listaUtenti = bl.GetAllUsers();
         }
-
         private void btnDisabilita_Click(object sender, EventArgs e)
         {
+            lblCambiamentoCorretto.Visible = false;
             if (currentUser.IsEnabled == true)
             {
                 currentUser.IsEnabled = false;
@@ -101,7 +122,28 @@ namespace SchoolGrades
                 currentUser.IsEnabled = true;
                 btnDisabilita.Text = "Disabilita";
             }
-            
+            bl.UpdateUser(currentUser);
+        }
+
+        private void btnConferma_Click(object sender, EventArgs e)
+        {
+            if (currentUser.Password != txtVecchiaPassword.Text)
+            {
+                lblErrore.Visible = true;
+                lblCambiamentoCorretto.Visible = false;
+            }
+            else
+            {
+                lblErrore.Visible = false;
+                currentUser.Password = txtNuovaPassword.Text;
+                bl.ChangePassword(currentUser);
+                txtNuovaPassword.ReadOnly = true;
+                txtVecchiaPassword.ReadOnly = true;
+                btnConferma.Enabled = false;
+                lblCambiamentoCorretto.Visible = true;
+            }
+            txtVecchiaPassword.Text = "";
+            txtNuovaPassword.Text = "";
         }
     }
 }

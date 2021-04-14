@@ -22,7 +22,7 @@ namespace SchoolGrades
         private void btnOk_Click(object sender, EventArgs e)
         {
             if (bl.UserHasLoginPermission(txtUsername.Text,
-                txtPassword.Text))
+                txtPassword.Text) &&bl.GetUser(txtUsername.Text).IsEnabled==true)
             {
                 frmMain f = new frmMain();
                 this.Hide();
@@ -30,9 +30,10 @@ namespace SchoolGrades
             }
             else
             {
-                MessageBox.Show("Digitare credenziali corrette!");
+                MessageBox.Show("Le credenziali inserite sono scorrette ");
             }
-            this.Close();
+            txtPassword.Text = "";
+            txtUsername.Text = "";
         }
 
         private void btnCambia_Click(object sender, EventArgs e)
