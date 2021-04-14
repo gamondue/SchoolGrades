@@ -42,13 +42,17 @@ namespace SchoolGrades
             {
                 frmMain f = new frmMain();
                 this.Hide();
-                f.ShowDialog(); 
+                f.ShowDialog();
+                this.Close();
             }
             else
             {
                 MessageBox.Show("Digitare credenziali corrette!");
+                txtUsername.Clear();
+                txtPassword.Clear();
+                txtUsername.Focus();
             }
-            this.Close();
+            //this.Close();
         }
 
         private void btnOpenUserManagement_Click(object sender, EventArgs e)

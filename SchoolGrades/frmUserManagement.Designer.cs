@@ -48,12 +48,12 @@ namespace SchoolGrades
             this.btnCreateUser = new System.Windows.Forms.Button();
             this.btnChangePassword = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
-            this.txtIDUserCategory = new System.Windows.Forms.TextBox();
             this.btnCreate = new System.Windows.Forms.Button();
             this.btnChange = new System.Windows.Forms.Button();
             this.checkBoxEnabled = new System.Windows.Forms.CheckBox();
             this.lblPasswordConfirm = new System.Windows.Forms.Label();
             this.txtPasswordConfirm = new System.Windows.Forms.TextBox();
+            this.txtIDUserCategory = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lstUser
@@ -132,6 +132,7 @@ namespace SchoolGrades
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(239, 27);
             this.txtPassword.TabIndex = 11;
+            this.txtPassword.UseSystemPasswordChar = true;
             this.txtPassword.TextChanged += new System.EventHandler(this.txtMenu_TextChanged);
             // 
             // label4
@@ -215,15 +216,6 @@ namespace SchoolGrades
             this.label7.TabIndex = 18;
             this.label7.Text = "ID";
             // 
-            // txtIDUserCategory
-            // 
-            this.txtIDUserCategory.Location = new System.Drawing.Point(595, 159);
-            this.txtIDUserCategory.Name = "txtIDUserCategory";
-            this.txtIDUserCategory.ReadOnly = true;
-            this.txtIDUserCategory.Size = new System.Drawing.Size(116, 27);
-            this.txtIDUserCategory.TabIndex = 100;
-            this.txtIDUserCategory.TextChanged += new System.EventHandler(this.txtMenu_TextChanged);
-            // 
             // btnCreate
             // 
             this.btnCreate.Enabled = false;
@@ -275,8 +267,19 @@ namespace SchoolGrades
             this.txtPasswordConfirm.Name = "txtPasswordConfirm";
             this.txtPasswordConfirm.Size = new System.Drawing.Size(239, 27);
             this.txtPasswordConfirm.TabIndex = 12;
+            this.txtPasswordConfirm.UseSystemPasswordChar = true;
             this.txtPasswordConfirm.Visible = false;
             this.txtPasswordConfirm.TextChanged += new System.EventHandler(this.txtMenu_TextChanged);
+            // 
+            // txtIDUserCategory
+            // 
+            this.txtIDUserCategory.AutoSize = true;
+            this.txtIDUserCategory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtIDUserCategory.Location = new System.Drawing.Point(595, 162);
+            this.txtIDUserCategory.Name = "txtIDUserCategory";
+            this.txtIDUserCategory.Size = new System.Drawing.Size(2, 22);
+            this.txtIDUserCategory.TabIndex = 101;
+            this.txtIDUserCategory.TextChanged += new System.EventHandler(this.txtMenu_TextChanged);
             // 
             // frmUserManagement
             // 
@@ -284,13 +287,13 @@ namespace SchoolGrades
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(800, 372);
+            this.Controls.Add(this.txtIDUserCategory);
             this.Controls.Add(this.lblPasswordConfirm);
             this.Controls.Add(this.txtPasswordConfirm);
             this.Controls.Add(this.checkBoxEnabled);
             this.Controls.Add(this.btnChange);
             this.Controls.Add(this.btnCreate);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.txtIDUserCategory);
             this.Controls.Add(this.btnChangePassword);
             this.Controls.Add(this.btnCreateUser);
             this.Controls.Add(this.label6);
@@ -338,11 +341,11 @@ namespace SchoolGrades
         private System.Windows.Forms.Button btnCreateUser;
         private System.Windows.Forms.Button btnChangePassword;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtIDUserCategory;
         private System.Windows.Forms.Button btnCreate;
         private System.Windows.Forms.Button btnChange;
         private System.Windows.Forms.CheckBox checkBoxEnabled;
         private System.Windows.Forms.Label lblPasswordConfirm;
         private System.Windows.Forms.TextBox txtPasswordConfirm;
+        private System.Windows.Forms.Label txtIDUserCategory;
     }
 }
