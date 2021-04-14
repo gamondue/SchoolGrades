@@ -31,8 +31,11 @@ namespace SchoolGrades.BusinessLayer
         {
             User uFromDb = GetUser(Username);
 
-            Password = CalculateHash(Password);
-            uFromDb.Password = CalculateHash(uFromDb.Password);
+            if(uFromDb != null)
+            {
+                Password = CalculateHash(Password);
+                uFromDb.Password = CalculateHash(uFromDb.Password);
+            }
 
             if (uFromDb != null && Username == uFromDb.Username && Password == uFromDb.Password)
                 return true;

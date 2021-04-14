@@ -133,6 +133,7 @@ namespace SchoolGrades
             // 
             this.txtUsername.Location = new System.Drawing.Point(257, 36);
             this.txtUsername.Name = "txtUsername";
+            this.txtUsername.ReadOnly = true;
             this.txtUsername.Size = new System.Drawing.Size(100, 27);
             this.txtUsername.TabIndex = 7;
             // 

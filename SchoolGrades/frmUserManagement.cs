@@ -23,23 +23,18 @@ namespace SchoolGrades
         private void frmUserManagement_Load(object sender, EventArgs e)
         {
             // starts when the calling program calls Show()
-            foreach(User user in bl.GetAllUsers())
-            {
-                lstUser.Items.Add(user.Username);
-            }
- 
+            WindowLoad();
         }
         private void lstUser_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string changedUser = sender.ToString();
-            changedUser = changedUser.Substring(changedUser.LastIndexOf(' '));
+            string changedUser = lstUser.Items[lstUser.SelectedIndex].ToString();
             currentUser = bl.GetUser(changedUser);
             FromClassToUi();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            FromUiToClass(); 
+            FromUiToClass();
             bl.UpdateUser(currentUser); 
         }
 
@@ -75,6 +70,7 @@ namespace SchoolGrades
                     newUser.FirstName = txtFirstName.Text;
 
                 bl.CreateUser(newUser);
+                WindowLoad();
             }
             catch (Exception ex)
             {
@@ -88,18 +84,13 @@ namespace SchoolGrades
         /// </summary>
         private void FromUiToClass()
         {
-            if (txtUsername.Text.Length > 1)
-                currentUser.Username = txtUsername.Text;
-            if (txtLastName.Text.Length > 1)
-                currentUser.LastName = txtLastName.Text;
-            if (txtDescription.Text.Length > 1)
-                currentUser.Username = txtDescription.Text;
-            if (txtEmail.Text.Length > 1)
-                currentUser.Email = txtEmail.Text;
-            if (txtFirstName.Text.Length > 1)
-                currentUser.FirstName = txtFirstName.Text;
-
-            currentUser.Password = txtPassword.Text;
+            currentUser.Username = txtUsername.Text;
+            currentUser.LastName = txtLastName.Text;
+            currentUser.Description = txtDescription.Text;
+            currentUser.Email = txtEmail.Text;
+            currentUser.FirstName = txtFirstName.Text;
+            if (txtPassword.Text.Length > 0)
+                currentUser.Password = txtPassword.Text;
 
             bl.ChangePassword(currentUser);
             bl.UpdateUser(currentUser);
@@ -112,6 +103,24 @@ namespace SchoolGrades
             txtUsername.Text = currentUser.Username;
             txtEmail.Text = currentUser.Email;
             txtDescription.Text = currentUser.Description;
+            if (currentUser.IsEnabled == true)
+            {
+                btnDisable.Enabled = true;
+                btnEnable.Enabled = false;
+            }
+            else
+            {
+                btnDisable.Enabled = false;
+                btnEnable.Enabled = true;
+            }
+        }
+
+        private void WindowLoad()
+        {
+            foreach (User user in bl.GetAllUsers())
+            {
+                lstUser.Items.Add(user.Username);
+            }
         }
     }
 }

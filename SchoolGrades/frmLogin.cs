@@ -16,7 +16,10 @@ namespace SchoolGrades
         private void frmLogin_Load(object sender, EventArgs e)
         {
             bl = new BusinessLayer.BusinessLayer();
-            //username = admin password = 1234
+            User u = new User("admin", "1234");
+            bl.CreateUser(u);
+            u.IdUserCategory = 1;
+            bl.UpdateUser(u);
         }
         private void btnOk_Click(object sender, EventArgs e)
         {
@@ -24,8 +27,8 @@ namespace SchoolGrades
                 txtPassword.Text))
             {
                 frmMain f = new frmMain();
+                f.Show();
                 this.Hide();
-                f.ShowDialog(); 
             }
             else
             {
@@ -35,14 +38,14 @@ namespace SchoolGrades
 
         private void btnChangePassword_Click(object sender, EventArgs e)
         {
-            //if (bl.UserHasLoginPermission(txtUsername.Text, txtPassword.Text))
-            //{
+            if (bl.UserHasLoginPermission(txtUsername.Text, txtPassword.Text))
+            {
                 frmUserManagement f = new frmUserManagement();
+                f.Show();
                 this.Hide();
-                f.ShowDialog();
-            //}
-            //else
-            //    MessageBox.Show("Digitare credenziali corrette!");
+            }
+            else
+                MessageBox.Show("Digitare credenziali corrette!");
         }
     }
 }
