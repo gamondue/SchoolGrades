@@ -182,9 +182,9 @@ namespace SchoolGrades.DataLayer
                     //" password=" + SqlVal.SqlString(User.Password) + "'," +
                     " lastChange=" + SqlVal.SqlDate(DateTime.Now) + "," +
                     //" lastPasswordChange=" + SqlVal.SqlDate(DateTime.Now) + "," +
-                    //" creationTime=" + SqlVal.SqlDate(User.CreationTime)  + "," +
+                    //" creationTime=" + SqlVal.SqlDate(User.CreationTime) + "," +
                     " salt='" + SqlVal.SqlString(User.Salt) + "'," +
-                    " isEnabled=" + SqlVal.SqlBool(User.IsEnabled) +
+                    " isEnabled=" + SqlVal.SqlBool(User.IsEnabled) +","+
                     " idUserCategory=" + SqlVal.SqlInt(User.IdUserCategory) +
                     " WHERE username='" + User.Username + "'" +
                 ";";

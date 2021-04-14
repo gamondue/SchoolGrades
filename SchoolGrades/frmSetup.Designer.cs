@@ -271,7 +271,7 @@
             // 
             this.btnStartLinksManagenet.Location = new System.Drawing.Point(622, 12);
             this.btnStartLinksManagenet.Name = "btnStartLinksManagenet";
-            this.btnStartLinksManagenet.Size = new System.Drawing.Size(98, 50);
+            this.btnStartLinksManagenet.Size = new System.Drawing.Size(98, 64);
             this.btnStartLinksManagenet.TabIndex = 101;
             this.btnStartLinksManagenet.Text = "Gestione start links";
             this.btnStartLinksManagenet.UseVisualStyleBackColor = true;
@@ -291,7 +291,7 @@
             // 
             this.btnTestManagement.Location = new System.Drawing.Point(726, 12);
             this.btnTestManagement.Name = "btnTestManagement";
-            this.btnTestManagement.Size = new System.Drawing.Size(98, 50);
+            this.btnTestManagement.Size = new System.Drawing.Size(98, 68);
             this.btnTestManagement.TabIndex = 103;
             this.btnTestManagement.Text = "Gestione prove";
             this.btnTestManagement.UseVisualStyleBackColor = true;
@@ -301,7 +301,7 @@
             // 
             this.btnRecoverTopics.Location = new System.Drawing.Point(830, 12);
             this.btnRecoverTopics.Name = "btnRecoverTopics";
-            this.btnRecoverTopics.Size = new System.Drawing.Size(98, 50);
+            this.btnRecoverTopics.Size = new System.Drawing.Size(98, 68);
             this.btnRecoverTopics.TabIndex = 104;
             this.btnRecoverTopics.Text = "Recover argomenti";
             this.btnRecoverTopics.UseVisualStyleBackColor = true;
@@ -368,7 +368,7 @@
             // 
             this.btnSchoolSubjectManagement.Location = new System.Drawing.Point(1035, 12);
             this.btnSchoolSubjectManagement.Name = "btnSchoolSubjectManagement";
-            this.btnSchoolSubjectManagement.Size = new System.Drawing.Size(98, 50);
+            this.btnSchoolSubjectManagement.Size = new System.Drawing.Size(98, 64);
             this.btnSchoolSubjectManagement.TabIndex = 110;
             this.btnSchoolSubjectManagement.Text = "Gestione materie";
             this.btnSchoolSubjectManagement.UseVisualStyleBackColor = true;
@@ -413,7 +413,7 @@
             // 
             this.btnUsersManagement.Location = new System.Drawing.Point(934, 12);
             this.btnUsersManagement.Name = "btnUsersManagement";
-            this.btnUsersManagement.Size = new System.Drawing.Size(98, 50);
+            this.btnUsersManagement.Size = new System.Drawing.Size(98, 68);
             this.btnUsersManagement.TabIndex = 114;
             this.btnUsersManagement.Text = "Gestione Utenti";
             this.btnUsersManagement.UseVisualStyleBackColor = true;
