@@ -52,6 +52,7 @@ namespace SchoolGrades
             this.label7 = new System.Windows.Forms.Label();
             this.checkBoxAbilitato = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.labelSpiegazione = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lstUser
@@ -227,12 +228,23 @@ namespace SchoolGrades
             this.label8.TabIndex = 22;
             this.label8.Text = "label8";
             // 
+            // labelSpiegazione
+            // 
+            this.labelSpiegazione.AutoSize = true;
+            this.labelSpiegazione.Location = new System.Drawing.Point(512, 145);
+            this.labelSpiegazione.Name = "labelSpiegazione";
+            this.labelSpiegazione.Size = new System.Drawing.Size(353, 40);
+            this.labelSpiegazione.TabIndex = 23;
+            this.labelSpiegazione.Text = "*Per creare un nuovo utente cambiare lo username,\ninserire i campi necessari e cl" +
+    "iccare sul bottone Crea";
+            // 
             // frmUserManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(956, 372);
+            this.Controls.Add(this.labelSpiegazione);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.checkBoxAbilitato);
             this.Controls.Add(this.txtId);
@@ -284,5 +296,6 @@ namespace SchoolGrades
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.CheckBox checkBoxAbilitato;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label labelSpiegazione;
     }
 }

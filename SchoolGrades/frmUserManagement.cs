@@ -80,7 +80,7 @@ namespace SchoolGrades
                 txtFirstName.Text = "";
                 txtLastName.Text = "";
                 txtPassword.Text = "";
-                txtEmail.Text = "";
+                txtEmail.Text = "@ispascalcomandini.it";
                 txtDescrizione.Text = "";
                 checkBoxAbilitato.Checked = false;
             }
@@ -111,8 +111,11 @@ namespace SchoolGrades
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            currentUser.IsEnabled = checkBoxAbilitato.Checked;
-            bl.UpdateUser(currentUser);
+            if(currentUser != null)
+            {
+                currentUser.IsEnabled = checkBoxAbilitato.Checked;
+                bl.UpdateUser(currentUser);
+            }
         }
     }
 }
