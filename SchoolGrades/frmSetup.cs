@@ -252,5 +252,11 @@ namespace SchoolGrades
         {
 
         }
+
+        private void btnUsersManagement_Click(object sender, EventArgs e)
+        {
+            frmUserManagement frm = new frmUserManagement();
+            frm.Show();
+        }
     }
 }
