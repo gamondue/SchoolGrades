@@ -37,7 +37,7 @@ namespace SchoolGrades.DbClasses
 
         public override string ToString()
         {
-            return Username +";" + Description;
+            return Username + ";" + Description;
         }
     }
 }
