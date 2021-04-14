@@ -13,13 +13,14 @@ namespace SchoolGrades
     {
         int IdUtente;
         User currentUser;
-        SchoolGrades.BusinessLayer.BusinessLayer bl = new BusinessLayer.BusinessLayer();
+        internal static SchoolGrades.BusinessLayer.BusinessLayer bl = new BusinessLayer.BusinessLayer();
+        static List<User> listaUtenti = new List<User>();
 
         public frmUserManagement()
         {
             InitializeComponent();
+            txtFirstName.Focus();
         }
-        static List<User> listaUtenti = new List<User>();
         private void frmUserManagement_Load(object sender, EventArgs e)
         {
             // starts when the calling program calls Show()
@@ -31,8 +32,7 @@ namespace SchoolGrades
             }
             else
             {
-                lstUser.SelectedItem = 0;
-                lblCambiamentoCorretto.Visible = false;
+                lstUser.SelectedIndex = 0;
                 currentUser = listaUtenti[lstUser.SelectedIndex];
                 IdUtente = lstUser.SelectedIndex;
                 if (currentUser.IsEnabled == true)
@@ -42,7 +42,6 @@ namespace SchoolGrades
                 else
                     btnDisabilita.Text = "Abilita";
                 FromClassToUi();
-                btnChangePassword.Enabled = true;
             }
         }
         private void lstUser_SelectedIndexChanged(object sender, EventArgs e)
@@ -61,7 +60,6 @@ namespace SchoolGrades
             else
                 btnDisabilita.Text = "Abilita";
             FromClassToUi();
-            btnChangePassword.Enabled = true;
         }
         private void FromClassToUi()
         {
@@ -79,6 +77,7 @@ namespace SchoolGrades
             FromUiToClass();
             listaUtenti[lstUser.SelectedIndex] = currentUser;
             lstUser.DataSource = listaUtenti;
+            currentUser.LastChange = DateTime.Now;
             bl.UpdateUser(currentUser);
         }
         /// <summary>
@@ -91,6 +90,7 @@ namespace SchoolGrades
             currentUser.Email = txtEmail.Text;
             currentUser.Description = txtDescription.Text;
             currentUser.Username = txtUsername.Text;
+            currentUser.IdUserCategory = IdUtente;
         }
 
         private void btnChangePassword_Click(object sender, EventArgs e)
@@ -104,11 +104,13 @@ namespace SchoolGrades
         private void btnNuovo_Click(object sender, EventArgs e)
         {
             lblCambiamentoCorretto.Visible = false;
-            new frmCreaUtente().Show();
+            frmCreaUtente f = new frmCreaUtente();
+            f.Show();
+            this.Close();
             FromUiToClass();
             lstUser.DataSource = bl.GetAllUsers();
-            listaUtenti = bl.GetAllUsers();
         }
+
         private void btnDisabilita_Click(object sender, EventArgs e)
         {
             lblCambiamentoCorretto.Visible = false;
@@ -141,6 +143,7 @@ namespace SchoolGrades
                 txtVecchiaPassword.ReadOnly = true;
                 btnConferma.Enabled = false;
                 lblCambiamentoCorretto.Visible = true;
+                currentUser.LastPasswordChange = DateTime.Now;
             }
             txtVecchiaPassword.Text = "";
             txtNuovaPassword.Text = "";

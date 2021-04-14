@@ -12,7 +12,7 @@ namespace SchoolGrades
     public partial class frmCreaUtente : Form
     {
         User currentUser;
-        SchoolGrades.BusinessLayer.BusinessLayer bl = new BusinessLayer.BusinessLayer();
+
         public frmCreaUtente()
         {
             InitializeComponent();
@@ -32,12 +32,14 @@ namespace SchoolGrades
             else
             {
                 lblErrore.Visible = false;
-                currentUser.CreationTime = DateTime.Now;
                 FromUiToClass();
-                bl.CreateUser(currentUser);
-                //bl.UpdateUser(currentUser);
+                currentUser.CreationTime = DateTime.Now;
+                frmUserManagement.bl.CreateUser(currentUser);
+                frmUserManagement.bl.UpdateUser(currentUser);
                 this.Hide();
                 this.Close();
+                frmUserManagement s = new frmUserManagement();
+                s.Show();
             }
         }
         private void FromUiToClass()
@@ -48,6 +50,7 @@ namespace SchoolGrades
             currentUser.Description = txtDescription.Text;
             currentUser.Username = txtUsername.Text;
             currentUser.Password = txtConfermaPassword.Text;
+            currentUser.IsEnabled = true;
         }
     }
 }

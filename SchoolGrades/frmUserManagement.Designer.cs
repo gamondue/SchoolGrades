@@ -61,10 +61,10 @@ namespace SchoolGrades
             // 
             this.lstUser.ForeColor = System.Drawing.Color.DarkBlue;
             this.lstUser.FormattingEnabled = true;
-            this.lstUser.ItemHeight = 20;
+            this.lstUser.ItemHeight = 25;
             this.lstUser.Location = new System.Drawing.Point(12, 12);
             this.lstUser.Name = "lstUser";
-            this.lstUser.Size = new System.Drawing.Size(158, 324);
+            this.lstUser.Size = new System.Drawing.Size(158, 304);
             this.lstUser.TabIndex = 0;
             this.lstUser.SelectedIndexChanged += new System.EventHandler(this.lstUser_SelectedIndexChanged);
             this.lstUser.DoubleClick += new System.EventHandler(this.lstUser_DoubleClick);
@@ -89,7 +89,7 @@ namespace SchoolGrades
             // 
             this.txtLastName.Location = new System.Drawing.Point(207, 222);
             this.txtLastName.Name = "txtLastName";
-            this.txtLastName.Size = new System.Drawing.Size(176, 27);
+            this.txtLastName.Size = new System.Drawing.Size(176, 32);
             this.txtLastName.TabIndex = 2;
             // 
             // label1
@@ -97,13 +97,12 @@ namespace SchoolGrades
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(207, 194);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(74, 20);
+            this.label1.Size = new System.Drawing.Size(94, 25);
             this.label1.TabIndex = 3;
             this.label1.Text = "Cognome";
             // 
             // btnChangePassword
             // 
-            this.btnChangePassword.Enabled = false;
             this.btnChangePassword.Location = new System.Drawing.Point(207, 294);
             this.btnChangePassword.Name = "btnChangePassword";
             this.btnChangePassword.Size = new System.Drawing.Size(199, 46);
@@ -116,14 +115,14 @@ namespace SchoolGrades
             // 
             this.txtFirstName.Location = new System.Drawing.Point(207, 146);
             this.txtFirstName.Name = "txtFirstName";
-            this.txtFirstName.Size = new System.Drawing.Size(176, 27);
+            this.txtFirstName.Size = new System.Drawing.Size(176, 32);
             this.txtFirstName.TabIndex = 5;
             // 
             // txtDescription
             // 
             this.txtDescription.Location = new System.Drawing.Point(426, 222);
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(317, 27);
+            this.txtDescription.Size = new System.Drawing.Size(317, 32);
             this.txtDescription.TabIndex = 6;
             // 
             // label2
@@ -131,7 +130,7 @@ namespace SchoolGrades
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(207, 107);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(50, 20);
+            this.label2.Size = new System.Drawing.Size(63, 25);
             this.label2.TabIndex = 7;
             this.label2.Text = "Nome";
             // 
@@ -140,7 +139,7 @@ namespace SchoolGrades
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(426, 194);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(85, 20);
+            this.label3.Size = new System.Drawing.Size(108, 25);
             this.label3.TabIndex = 8;
             this.label3.Text = "Description";
             // 
@@ -149,7 +148,7 @@ namespace SchoolGrades
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(426, 107);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(46, 20);
+            this.label5.Size = new System.Drawing.Size(58, 25);
             this.label5.TabIndex = 11;
             this.label5.Text = "Email";
             // 
@@ -157,7 +156,7 @@ namespace SchoolGrades
             // 
             this.txtEmail.Location = new System.Drawing.Point(426, 135);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(317, 27);
+            this.txtEmail.Size = new System.Drawing.Size(317, 32);
             this.txtEmail.TabIndex = 12;
             // 
             // label6
@@ -165,7 +164,7 @@ namespace SchoolGrades
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(207, 31);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(75, 20);
+            this.label6.Size = new System.Drawing.Size(97, 25);
             this.label6.TabIndex = 13;
             this.label6.Text = "Username";
             // 
@@ -174,7 +173,7 @@ namespace SchoolGrades
             this.txtUsername.Location = new System.Drawing.Point(207, 59);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.ReadOnly = true;
-            this.txtUsername.Size = new System.Drawing.Size(176, 27);
+            this.txtUsername.Size = new System.Drawing.Size(176, 32);
             this.txtUsername.TabIndex = 14;
             // 
             // btnNuovo
@@ -192,7 +191,7 @@ namespace SchoolGrades
             this.txtId.Location = new System.Drawing.Point(426, 59);
             this.txtId.Name = "txtId";
             this.txtId.ReadOnly = true;
-            this.txtId.Size = new System.Drawing.Size(63, 27);
+            this.txtId.Size = new System.Drawing.Size(63, 32);
             this.txtId.TabIndex = 17;
             // 
             // label8
@@ -200,7 +199,7 @@ namespace SchoolGrades
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(442, 31);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(24, 20);
+            this.label8.Size = new System.Drawing.Size(30, 25);
             this.label8.TabIndex = 18;
             this.label8.Text = "ID";
             // 
@@ -220,7 +219,7 @@ namespace SchoolGrades
             this.lblCambiamentoCorretto.ForeColor = System.Drawing.Color.Green;
             this.lblCambiamentoCorretto.Location = new System.Drawing.Point(904, 10);
             this.lblCambiamentoCorretto.Name = "lblCambiamentoCorretto";
-            this.lblCambiamentoCorretto.Size = new System.Drawing.Size(294, 20);
+            this.lblCambiamentoCorretto.Size = new System.Drawing.Size(373, 25);
             this.lblCambiamentoCorretto.TabIndex = 26;
             this.lblCambiamentoCorretto.Text = "La password è stata cambiata con successo";
             this.lblCambiamentoCorretto.Visible = false;
@@ -231,7 +230,7 @@ namespace SchoolGrades
             this.lblErrore.ForeColor = System.Drawing.Color.Red;
             this.lblErrore.Location = new System.Drawing.Point(975, 314);
             this.lblErrore.Name = "lblErrore";
-            this.lblErrore.Size = new System.Drawing.Size(199, 20);
+            this.lblErrore.Size = new System.Drawing.Size(254, 25);
             this.lblErrore.TabIndex = 25;
             this.lblErrore.Text = "La vecchia password è errata";
             this.lblErrore.Visible = false;
@@ -252,7 +251,7 @@ namespace SchoolGrades
             this.txtVecchiaPassword.Location = new System.Drawing.Point(904, 85);
             this.txtVecchiaPassword.Name = "txtVecchiaPassword";
             this.txtVecchiaPassword.ReadOnly = true;
-            this.txtVecchiaPassword.Size = new System.Drawing.Size(327, 27);
+            this.txtVecchiaPassword.Size = new System.Drawing.Size(327, 32);
             this.txtVecchiaPassword.TabIndex = 23;
             this.txtVecchiaPassword.UseSystemPasswordChar = true;
             // 
@@ -261,7 +260,7 @@ namespace SchoolGrades
             this.txtNuovaPassword.Location = new System.Drawing.Point(904, 185);
             this.txtNuovaPassword.Name = "txtNuovaPassword";
             this.txtNuovaPassword.ReadOnly = true;
-            this.txtNuovaPassword.Size = new System.Drawing.Size(327, 27);
+            this.txtNuovaPassword.Size = new System.Drawing.Size(327, 32);
             this.txtNuovaPassword.TabIndex = 22;
             this.txtNuovaPassword.UseSystemPasswordChar = true;
             // 
@@ -270,7 +269,7 @@ namespace SchoolGrades
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(985, 57);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(126, 20);
+            this.label9.Size = new System.Drawing.Size(162, 25);
             this.label9.TabIndex = 21;
             this.label9.Text = "Vecchia password";
             // 
@@ -279,13 +278,13 @@ namespace SchoolGrades
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(995, 157);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(119, 20);
+            this.label10.Size = new System.Drawing.Size(152, 25);
             this.label10.TabIndex = 20;
             this.label10.Text = "Nuova password";
             // 
             // frmUserManagement
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(1328, 372);

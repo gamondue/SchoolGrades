@@ -33,8 +33,8 @@ namespace SchoolGrades
                     return;
                 }
             }
-            //Application.Run(new frmLogin());
-            Application.Run(new FrmSetup());
+            Application.Run(new frmLogin());
+            //Application.Run(new FrmSetup());
         }
     }
 }
