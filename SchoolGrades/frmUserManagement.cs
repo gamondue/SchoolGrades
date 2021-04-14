@@ -31,7 +31,7 @@ namespace SchoolGrades
         private void lstUser_SelectedIndexChanged(object sender, EventArgs e)
         {
             lstUser.DataSource = bl.GetAllUsers();
-            currentUser = (User)sender;
+            users[lstUser.SelectedIndex]=currentUser;
             FromClassToUi(); 
         }
 
@@ -45,7 +45,10 @@ namespace SchoolGrades
         /// </summary>
         private void FromUiToClass()
         {
-            currentUser.LastName = txtLastName.Text; 
+            currentUser.LastName = txtLastName.Text;
+            currentUser.FirstName = txtFirstName.Text;
+            currentUser.Email = txtEmail.Text;
+            currentUser.Description = txtDescription.Text;
             throw new NotImplementedException();
         }
 
@@ -55,6 +58,15 @@ namespace SchoolGrades
             txtLastName.Text = currentUser.LastName;
             txtEmail.Text = currentUser.Email;
             txtDescription.Text = currentUser.Description;
+            throw new NotImplementedException();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true)
+                currentUser.IsEnabled = true;
+            else
+                currentUser.IsEnabled = false;
         }
     }
 }
