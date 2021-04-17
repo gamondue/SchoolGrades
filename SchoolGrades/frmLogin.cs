@@ -8,7 +8,7 @@ namespace SchoolGrades
     {
         DbAndBusiness db; // must instatiate after config file reading
         BusinessLayer.BusinessLayer bl; // must instatiate after config file reading
-        
+        User User = new User();
         public frmLogin()
         {
             InitializeComponent();
@@ -38,7 +38,9 @@ namespace SchoolGrades
 
         private void btnOk_Click_1(object sender, EventArgs e)
         {
-            if (bl.IsUserAllowed(new User(txtUsername.Text, txtPassword.Text)))
+            User.Username = txtUsername.Text;
+            User.Password = txtPassword.Text;
+            if (bl.IsUserAllowed(User))
             {
                 frmMain f = new frmMain();
                 this.Hide();
@@ -48,6 +50,11 @@ namespace SchoolGrades
             {
                 MessageBox.Show("Digitare credenziali corrette!");
             }
+        }
+
+        internal User GetUser()
+        {
+            return User;
         }
 
         private void btnChangePassword_Click_1(object sender, EventArgs e)
