@@ -18,20 +18,15 @@ namespace SchoolGrades
 
         private void frmUsersManagement_Load(object sender, EventArgs e)
         {
-            lstUsers.DataSource = listOfAllUsers; 
+            lstUser.DataSource = listOfAllUsers; 
         }
 
         private void lstUsers_SelectedIndexChanged(object sender, EventArgs e)
         {
-            User currentUser = (User)(listOfAllUsers[lstUsers.SelectedIndex]);
+            User currentUser = (User)(listOfAllUsers[lstUser.SelectedIndex]);
         }
 
-        private void btnModifica_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtModificaNome_TextChanged(object sender, EventArgs e)
+        private void btnUpdate_Click(object sender, EventArgs e)
         {
 
         }
