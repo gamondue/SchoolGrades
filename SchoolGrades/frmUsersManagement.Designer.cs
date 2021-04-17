@@ -31,6 +31,7 @@ namespace SchoolGrades
         {
             this.lstUsers = new System.Windows.Forms.ListBox();
             this.grbUpdates = new System.Windows.Forms.GroupBox();
+            this.btnChangePassword = new System.Windows.Forms.Button();
             this.cbxShow = new System.Windows.Forms.CheckBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.btnCreate = new System.Windows.Forms.Button();
@@ -48,7 +49,7 @@ namespace SchoolGrades
             this.label1 = new System.Windows.Forms.Label();
             this.btnModify = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
-            this.btnDeleteSelctedUser = new System.Windows.Forms.Button();
+            this.btnClearForm = new System.Windows.Forms.Button();
             this.grbUpdates.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,6 +65,7 @@ namespace SchoolGrades
             // 
             // grbUpdates
             // 
+            this.grbUpdates.Controls.Add(this.btnChangePassword);
             this.grbUpdates.Controls.Add(this.cbxShow);
             this.grbUpdates.Controls.Add(this.txtPassword);
             this.grbUpdates.Controls.Add(this.btnCreate);
@@ -79,6 +81,7 @@ namespace SchoolGrades
             this.grbUpdates.Controls.Add(this.label2);
             this.grbUpdates.Controls.Add(this.txtUsername);
             this.grbUpdates.Controls.Add(this.label1);
+            this.grbUpdates.ForeColor = System.Drawing.Color.Blue;
             this.grbUpdates.Location = new System.Drawing.Point(21, 47);
             this.grbUpdates.Name = "grbUpdates";
             this.grbUpdates.Size = new System.Drawing.Size(451, 457);
@@ -86,9 +89,20 @@ namespace SchoolGrades
             this.grbUpdates.TabStop = false;
             this.grbUpdates.Text = "Updates";
             // 
+            // btnChangePassword
+            // 
+            this.btnChangePassword.Location = new System.Drawing.Point(145, 410);
+            this.btnChangePassword.Name = "btnChangePassword";
+            this.btnChangePassword.Size = new System.Drawing.Size(155, 29);
+            this.btnChangePassword.TabIndex = 17;
+            this.btnChangePassword.Text = "Change Password";
+            this.btnChangePassword.UseVisualStyleBackColor = true;
+            this.btnChangePassword.Click += new System.EventHandler(this.btnChangePassword_Click);
+            // 
             // cbxShow
             // 
             this.cbxShow.AutoSize = true;
+            this.cbxShow.ForeColor = System.Drawing.Color.Blue;
             this.cbxShow.Location = new System.Drawing.Point(331, 340);
             this.cbxShow.Name = "cbxShow";
             this.cbxShow.Size = new System.Drawing.Size(67, 24);
@@ -116,6 +130,7 @@ namespace SchoolGrades
             // 
             // btnUpdate
             // 
+            this.btnUpdate.ForeColor = System.Drawing.Color.Blue;
             this.btnUpdate.Location = new System.Drawing.Point(338, 410);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(94, 29);
@@ -127,6 +142,7 @@ namespace SchoolGrades
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.Blue;
             this.label6.Location = new System.Drawing.Point(24, 344);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(84, 20);
@@ -150,6 +166,7 @@ namespace SchoolGrades
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.Blue;
             this.label5.Location = new System.Drawing.Point(24, 299);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(91, 20);
@@ -159,6 +176,7 @@ namespace SchoolGrades
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.Blue;
             this.label4.Location = new System.Drawing.Point(24, 258);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(60, 20);
@@ -176,6 +194,7 @@ namespace SchoolGrades
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.Blue;
             this.label3.Location = new System.Drawing.Point(24, 118);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(99, 20);
@@ -192,6 +211,7 @@ namespace SchoolGrades
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.Blue;
             this.label2.Location = new System.Drawing.Point(24, 76);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(90, 20);
@@ -208,6 +228,7 @@ namespace SchoolGrades
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.Blue;
             this.label1.Location = new System.Drawing.Point(24, 33);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(89, 20);
@@ -216,6 +237,7 @@ namespace SchoolGrades
             // 
             // btnModify
             // 
+            this.btnModify.ForeColor = System.Drawing.Color.Blue;
             this.btnModify.Location = new System.Drawing.Point(378, 13);
             this.btnModify.Name = "btnModify";
             this.btnModify.Size = new System.Drawing.Size(94, 29);
@@ -227,28 +249,31 @@ namespace SchoolGrades
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.ForeColor = System.Drawing.Color.Blue;
             this.label7.Location = new System.Drawing.Point(580, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(47, 20);
             this.label7.TabIndex = 5;
             this.label7.Text = "Users:";
             // 
-            // btnDeleteSelctedUser
+            // btnClearForm
             // 
-            this.btnDeleteSelctedUser.Location = new System.Drawing.Point(580, 513);
-            this.btnDeleteSelctedUser.Name = "btnDeleteSelctedUser";
-            this.btnDeleteSelctedUser.Size = new System.Drawing.Size(290, 29);
-            this.btnDeleteSelctedUser.TabIndex = 6;
-            this.btnDeleteSelctedUser.Text = "Delete Selected User";
-            this.btnDeleteSelctedUser.UseVisualStyleBackColor = true;
-            this.btnDeleteSelctedUser.Click += new System.EventHandler(this.btnDeleteSelctedUser_Click);
+            this.btnClearForm.ForeColor = System.Drawing.Color.Blue;
+            this.btnClearForm.Location = new System.Drawing.Point(27, 13);
+            this.btnClearForm.Name = "btnClearForm";
+            this.btnClearForm.Size = new System.Drawing.Size(94, 29);
+            this.btnClearForm.TabIndex = 6;
+            this.btnClearForm.Text = "Clear form";
+            this.btnClearForm.UseVisualStyleBackColor = true;
+            this.btnClearForm.Click += new System.EventHandler(this.btnClearForm_Click);
             // 
             // frmUsersManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(980, 551);
-            this.Controls.Add(this.btnDeleteSelctedUser);
+            this.Controls.Add(this.btnClearForm);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.grbUpdates);
             this.Controls.Add(this.btnModify);
@@ -285,6 +310,7 @@ namespace SchoolGrades
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.CheckBox cbxShow;
-        private System.Windows.Forms.Button btnDeleteSelctedUser;
+        private System.Windows.Forms.Button btnChangePassword;
+        private System.Windows.Forms.Button btnClearForm;
     }
 }
