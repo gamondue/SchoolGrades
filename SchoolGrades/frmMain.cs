@@ -1091,7 +1091,7 @@ namespace SchoolGrades
             // clone the list of students present to the lesson 
             // by using the constructor with parameters, that CLONES! 
             List<Student> groupsList = new List<Student>(eligiblesList);
-            frmGroups f = new frmGroups(groupsList, currentClass);
+            frmGroups f = new frmGroups(groupsList, currentClass, currentSubject, currentGradeType);
             f.Show();
         }
         private void txtPathImages_TextChanged(object sender, EventArgs e)

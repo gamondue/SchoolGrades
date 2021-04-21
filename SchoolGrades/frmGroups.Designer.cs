@@ -133,7 +133,6 @@
             // rdbGroupsBestGradesTogether
             // 
             this.rdbGroupsBestGradesTogether.AutoSize = true;
-            this.rdbGroupsBestGradesTogether.Enabled = false;
             this.rdbGroupsBestGradesTogether.Location = new System.Drawing.Point(6, 43);
             this.rdbGroupsBestGradesTogether.Name = "rdbGroupsBestGradesTogether";
             this.rdbGroupsBestGradesTogether.Size = new System.Drawing.Size(128, 22);
@@ -204,7 +203,7 @@
             this.Controls.Add(this.txtClass);
             this.Controls.Add(this.btnCreateFileGroups);
             this.Controls.Add(this.txtGroups);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.Color.DarkBlue;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);

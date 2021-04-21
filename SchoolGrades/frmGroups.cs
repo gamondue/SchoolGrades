@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using SchoolGrades.DbClasses;
+using System.Data;
 
 namespace SchoolGrades
 {
@@ -13,15 +14,46 @@ namespace SchoolGrades
         List<Student> listGroups;
         int nStudentsPerGroup;
         private int nGroups;
+        DbAndBusiness db;
 
         Class schoolClass;
+        SchoolSubject schoolSubject;
+        GradeType schoolGrade;
+        SchoolPeriod schoolPeriod;
 
-        public frmGroups(List<Student> GroupsList, Class Class)
+        internal struct StudentAndGrade
+        {
+            public string lastName;
+            public string firstName;
+            public double grade;
+
+            public StudentAndGrade(string lastName, string firstName, double grade)
+            {
+                this.lastName = lastName;
+                this.firstName = firstName;
+                this.grade = grade;
+            }
+        }
+
+        public frmGroups(List<Student> GroupsList, Class Class, SchoolSubject subject, GradeType grade)
         {
             InitializeComponent();
 
             listGroups = GroupsList;
             schoolClass = Class;
+            schoolSubject = subject;
+            schoolGrade = grade;
+            db = new DbAndBusiness(Commons.PathAndFileDatabase);
+
+            List<SchoolPeriod> listPeriods = db.GetSchoolPeriods(Class.SchoolYear);
+            foreach (SchoolPeriod sp in listPeriods)
+            {
+                if (sp.DateFinish > DateTime.Now && sp.DateStart < DateTime.Now
+                    && sp.IdSchoolPeriodType == "P")
+                {
+                    schoolPeriod = sp;
+                }
+            }
         }
 
         private void frmGroups_Load(object sender, EventArgs e)
@@ -41,6 +73,15 @@ namespace SchoolGrades
 
         private void btnCreateGroups_Click(object sender, EventArgs e)
         {
+            DataTable tb = db.GetGradesWeightedAveragesOfClass(schoolClass, schoolGrade.IdGradeType, schoolSubject.IdSchoolSubject, (DateTime)schoolPeriod.DateStart, (DateTime)schoolPeriod.DateFinish);
+            List<StudentAndGrade> listStudents = new List<StudentAndGrade>();
+            foreach (DataRow row in tb.Rows)
+                listStudents.Add(new StudentAndGrade(row.ItemArray[2].ToString(), row.ItemArray[3].ToString(), (double)row.ItemArray[4]));
+
+            listStudents.Sort((firstGrade, secondGrade) => firstGrade.grade.CompareTo(secondGrade.grade));
+            listStudents.Reverse();
+
+
             if (rbdGroupsRandom.Checked)
             {
                 Commons.ShuffleList(listGroups);
