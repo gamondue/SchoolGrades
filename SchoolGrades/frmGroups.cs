@@ -36,6 +36,7 @@ namespace SchoolGrades
                 "Groups_" + schoolClass.Abbreviation + "_" + schoolClass.SchoolYear +
                 ".txt";
             TextFile.StringToFile(fileName, txtGroups.Text, false);
+            Commons.ProcessStartLink(fileName);
         }
 
         private void btnCreateGroups_Click(object sender, EventArgs e)
