@@ -12,4 +12,4 @@ SchoolGrades is written in C# with Windows Forms in .Net Core.
 
 Currently (spring 2021) the program and GitHub are used as an exercitation from some of my classes at school, so many of the pull requests are only intrumental to the school's exercitations.
 
-Ciao Luca Prova 
+Guppo 1 - 4H
