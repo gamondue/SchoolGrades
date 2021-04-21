@@ -63,10 +63,9 @@ namespace SchoolGrades
         /// <returns></returns>
         private string CalculateHash(string ClearTextPassword)
         {
-            // https://www.mattepuffo.com/blog/articolo/2496-calcolo-hash-sha256-in-csharp.html
             SHA256 hash = SHA256.Create();
-            // !!!! TODO !!!!
-            return null;
+            byte[] bytes = hash.ComputeHash(UTF8Encoding.UTF8.GetBytes(ClearTextPassword));
+            return bytes.ToString();
         }
     }
 }
