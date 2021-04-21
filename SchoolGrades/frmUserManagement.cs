@@ -12,13 +12,13 @@ namespace SchoolGrades
     public partial class frmUserManagement : Form
     {
         User currentUser;
-        SchoolGrades.BusinessLayer.BusinessLayer bl = new BusinessLayer.BusinessLayer(); 
+        BusinessLayer blUser; 
 
         public frmUserManagement()
         {
             InitializeComponent();
 
-
+            blUser = new BusinessLayer(Commons.PathAndFileDatabase);
         }
         private void frmUserManagement_Load(object sender, EventArgs e)
         {
@@ -27,14 +27,14 @@ namespace SchoolGrades
         }
         private void lstUser_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lstUser.DataSource = bl.GetAllUsers();
+            lstUser.DataSource = blUser.GetAllUsers();
             currentUser = (User)sender;
             FromClassToUi(); 
         }
         private void btnSave_Click(object sender, EventArgs e)
         {
             FromUiToClass(); 
-            bl.UpdateUser(currentUser); 
+            blUser.UpdateUser(currentUser); 
         }
         /// <summary>
         /// Read UI's controls's content from the currentUser User object's properties

@@ -11,38 +11,28 @@ namespace SchoolGrades.DbClasses
 {
     /// <summary>
     /// This class plays both the roles of Business ad Data Layer and 
-    /// should be separated! Work is in progress into the shared projects
-    /// BusinessLayer and DataLayer
+    /// Should be separated! Work is (slowly) in progress into the shared projects
+    /// BusinessLayer and DataLayer. 
     /// </summary>
     public class DbAndBusiness
     {
-        DataLayer.DataLayer dl = new DataLayer.DataLayer();
-        //private string dbName;
+        DataLayer.DataLayer dl;
+        private string dbName;
+
+        public string DatabaseName { get => dbName; }
 
         #region constructors
-        public DbAndBusiness()
-        {
-            dl = new DataLayer.DataLayer();
-
-            //if (!System.IO.File.Exists(Commons.PathAndFileDatabase))
-            //{
-            //    string err = @"[" + Commons.PathAndFileDatabase + " not in the current nor in the dev directory]";
-            //    Commons.ErrorLog(err, true);
-            //    //throw new FileNotFoundException(err);
-            //}
-            //dbName = Commons.PathAndFileDatabase;
-        }
         public DbAndBusiness(string PathAndFile)
         {
-            dl = new DataLayer.DataLayer(PathAndFile);
+            dl = new DataLayer.DataLayer(PathAndFile); 
 
-            //if (!System.IO.File.Exists(PathAndFile))
-            //{
-            //    string err = @"[" + PathAndFile + " not in the current nor in the dev directory]";
-            //    Commons.ErrorLog(err, true);
-            //    throw new FileNotFoundException(err);
-            //}
-            //dbName = PathAndFile;
+            if (!System.IO.File.Exists(PathAndFile))
+            {
+                string err = @"[" + PathAndFile + " not in the current nor in the dev directory]";
+                Commons.ErrorLog(err, true);
+                throw new FileNotFoundException(err);
+            }
+            dbName = PathAndFile;
         }
         #endregion
         internal DataTable GetGradesOfStudent(Student Student, string SchoolYear,
@@ -3153,8 +3143,6 @@ namespace SchoolGrades.DbClasses
 
                 cmd.Dispose();
             }
-            // ???? Students_GradeTypes serve ???? se non serve, eliminare
-            // ???? StudentsTestsStudentsTests serve ???? se non serve, eliminare
             return Class.PathRestrictedApplication;
         }
         internal string CreateDemoDatabase(Class Class1, Class Class2)

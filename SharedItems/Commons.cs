@@ -48,6 +48,7 @@ namespace SchoolGrades
         public static int BackgroundThreadSleepSeconds = 5 * 60;
         // enable Mptt backgroud saving of Left anf Right pointers 
         public static bool BackgroundCanStillSaveTopicsTree = true;
+        public static object LockBackgroundCanStillSaveTopicsTree = new object(); 
         // Tree object for concurrent saving 
         internal static TreeMptt SaveTreeMptt;
         // Thread that concurrently saves the Topics tree

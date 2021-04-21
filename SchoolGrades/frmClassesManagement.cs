@@ -13,7 +13,7 @@ namespace SchoolGrades
     public partial class FrmClassesManagement : Form
     {
     	// TODO !!!! put an option for separator in import files 
-        DbAndBusiness db = new DbAndBusiness();
+        DbAndBusiness db;
 
         DataSet dsClass;
         DataTable dtClass;
@@ -25,6 +25,8 @@ namespace SchoolGrades
         public FrmClassesManagement()
         {
             InitializeComponent();
+
+            db = new DbAndBusiness(Commons.PathAndFileDatabase);
         }
 
         private void FrmClassesManagement_Load(object sender, EventArgs e)
