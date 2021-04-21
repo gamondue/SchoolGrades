@@ -17,7 +17,7 @@ namespace SchoolGrades
         public int indexCurrentDrawn = 0;
 
         DbAndBusiness db; // must be instantiated after the reading of config file. 
-        BusinessLayer.BusinessLayer bl; // must be instantiated after the reading of config file.
+        BusinessLayer blu; // must be instantiated after the reading of config file.
 
         public List<Student> currentStudentsList;
         public List<Student> eligiblesList = new List<Student>();
@@ -72,8 +72,8 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
-            db = new DbAndBusiness();
-            bl = new BusinessLayer.BusinessLayer();
+            db = new DbAndBusiness(Commons.PathAndFileDatabase);
+            blu = new BusinessLayer(db.DatabaseName);
 
             this.Text += " v. " + version;
 
@@ -140,7 +140,7 @@ namespace SchoolGrades
             txtNStudents.Text = "";
 
             // start Thread that concurrently saves the Topics tree
-            Commons.SaveTreeMptt = new TreeMptt(null, null, null, null, null, null, picBackgroundSaveRunning);
+            Commons.SaveTreeMptt = new TreeMptt(db, null, null, null, null, null, null, picBackgroundSaveRunning);
             Commons.BackgroundSaveThread= new Thread(Commons.SaveTreeMptt.SaveMpttBackground);
             Commons.BackgroundSaveThread.Start(); 
         }
@@ -1211,9 +1211,13 @@ namespace SchoolGrades
             // if a save of the database with Mptt is running, we close it 
             if (Commons.BackgroundSaveThread.IsAlive)
             {
-                Commons.BackgroundCanStillSaveTopicsTree = false;
+                // locks a concurrent modification of Commons.BackgroundCanStillSaveTopicsTree 
+                lock (Commons.LockBackgroundCanStillSaveTopicsTree)
+                {
+                    Commons.BackgroundCanStillSaveTopicsTree = false;
+                }
                 // we wait for the saving Thread to finish
-                Commons.BackgroundSaveThread.Join(2 * 60000);
+                Commons.BackgroundSaveThread.Join(30000);  // enormous timeout just for big problems
             }
             // save in the log folder a copy of the database, if enabled 
             if (Commons.SaveBackupWhenExiting)

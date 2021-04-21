@@ -21,8 +21,8 @@ namespace SchoolGrades
         private Lesson currentLesson;
         private Class currentClass;
         private DbClasses.Image currentImage; 
-        private SchoolSubject currentSubject; 
-        DbAndBusiness db = new DbAndBusiness();
+        private SchoolSubject currentSubject;
+        DbAndBusiness db; 
 
         ImagesFormType type;
         private string lessonImagesPath;
@@ -38,6 +38,7 @@ namespace SchoolGrades
             List<SchoolGrades.DbClasses.Image> Images, SchoolSubject Subject)
         {
             InitializeComponent();
+            db = new DbAndBusiness(Commons.PathAndFileDatabase);
 
             listImages = Images;
             currentLesson = Lesson;

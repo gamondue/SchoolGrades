@@ -11,14 +11,15 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DbClasses", "DbClasses\DbCl
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "MpttTreeManagement", "MpttTreeManagement\MpttTreeManagement.shproj", "{AEA6904A-A8B6-4602-8946-03DF79CBBD30}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "BusinessLayer", "BusinessLayer\BusinessLayer.shproj", "{D714997F-4823-4FC7-8DBE-6B43AFE6EE33}"
-EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DataLayer", "DataLayer\DataLayer.shproj", "{2447D414-6DDB-4193-BD6D-FD70165B57BE}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "BusinessLayer", "BusinessLayer\BusinessLayer.shproj", "{737A759A-6C1F-4BD7-A682-390C8B018712}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		DbClasses\DbClasses.projitems*{12e573a5-7ed8-4ee0-8a9e-e8304de4cd86}*SharedItemsImports = 13
 		DataLayer\DataLayer.projitems*{2447d414-6ddb-4193-bd6d-fd70165b57be}*SharedItemsImports = 13
+		BusinessLayer\BusinessLayer.projitems*{737a759a-6c1f-4bd7-a682-390c8b018712}*SharedItemsImports = 13
 		SharedItems\SharedItems.projitems*{a5dc5853-0eb8-493e-804d-d596d841aa2d}*SharedItemsImports = 13
 		MpttTreeManagement\MpttTreeManagement.projitems*{aea6904a-a8b6-4602-8946-03df79cbbd30}*SharedItemsImports = 13
 		BusinessLayer\BusinessLayer.projitems*{bb81531e-dab6-4214-b98a-4eb1e27b4c34}*SharedItemsImports = 5
@@ -26,7 +27,6 @@ Global
 		DbClasses\DbClasses.projitems*{bb81531e-dab6-4214-b98a-4eb1e27b4c34}*SharedItemsImports = 5
 		MpttTreeManagement\MpttTreeManagement.projitems*{bb81531e-dab6-4214-b98a-4eb1e27b4c34}*SharedItemsImports = 5
 		SharedItems\SharedItems.projitems*{bb81531e-dab6-4214-b98a-4eb1e27b4c34}*SharedItemsImports = 5
-		BusinessLayer\BusinessLayer.projitems*{d714997f-4823-4fc7-8dbe-6b43afe6ee33}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

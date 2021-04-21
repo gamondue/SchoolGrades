@@ -4,18 +4,19 @@ using System.Security.Cryptography;
 using System.Text;
 using SchoolGrades.DataLayer;
 using SchoolGrades.DbClasses;
-
-namespace SchoolGrades.BusinessLayer
+/// <summary>
+/// Business Layer: implements the business rules of the program indipendently from 
+/// the User's Interface
+/// Porting code from DbAndBusinness class and classes within BusinessLayer is work in progress 
+/// </summary>
+namespace SchoolGrades
 {
     /// <summary>
-    /// Business Layer: implements the business rules of the program indipendently from 
-    /// the User's Interface 
+    /// Incapsulates the business rules for users' management
+    /// part of the class that contains the code for managing users
     /// </summary>
-    internal class BusinessLayer
+    internal partial class BusinessLayer
     {
-        // create the next after the program that is usung this has read the configuration file 
-        DataLayer.DataLayer dl = new DataLayer.DataLayer(); // must be instantiated after reading config file! 
-
         #region users' management
         internal void CreateUser(User User)
         {

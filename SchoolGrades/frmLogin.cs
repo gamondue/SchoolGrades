@@ -7,7 +7,7 @@ namespace SchoolGrades
     public partial class frmLogin : Form
     {
         DbAndBusiness db; // must instatiate after config file reading
-        BusinessLayer.BusinessLayer bl; // must instatiate after config file reading
+        BusinessLayer bl; // must instatiate after config file reading
         
         public frmLogin()
         {
@@ -15,8 +15,8 @@ namespace SchoolGrades
         }
         private void frmLogin_Load(object sender, EventArgs e)
         {
-            db = new DbAndBusiness(); 
-            bl = new BusinessLayer.BusinessLayer();
+            db = new DbAndBusiness(Commons.PathAndFileDatabase); 
+            bl = new BusinessLayer(db.DatabaseName);
 
             // test examples
             User u;

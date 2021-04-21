@@ -13,7 +13,7 @@ namespace SchoolGrades
 {
     public partial class frmTag : Form
     {
-        DbAndBusiness db = new DbAndBusiness();
+        DbAndBusiness db;
         List<Tag> listTags;
         internal Tag currentTag = new Tag();
         bool isDialog;
@@ -22,6 +22,8 @@ namespace SchoolGrades
         public frmTag(bool IsDialog)
         {
             InitializeComponent();
+
+            db = new DbAndBusiness(Commons.PathAndFileDatabase);
             isDialog = IsDialog;
             if (isDialog)
             {
