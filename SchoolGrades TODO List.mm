@@ -1,6 +1,7 @@
-<map version="1.1.0">
+<map version="1.0.1">
 <!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->
-<node CREATED="1618386869688" ID="ID_261834248" MODIFIED="1618387018053" TEXT="SchoolGrades TODO List">
+<node CREATED="1618386869688" ID="ID_261834248" MODIFIED="1618988532556" TEXT="SchoolGrades TODO List">
+<font NAME="Calibri" SIZE="12"/>
 <node CREATED="1618386981521" ID="ID_1576365496" MODIFIED="1618386987749" POSITION="right" TEXT="Win Forms">
 <node CREATED="1618387605464" ID="ID_1795820825" MODIFIED="1618387621068" TEXT="Function&apos;s addition">
 <node CREATED="1618967553805" ID="ID_1293967759" MODIFIED="1618967559144" TEXT="Test questionnary"/>
