@@ -30,7 +30,7 @@ namespace SchoolGrades
 
         private void btnModifica_Click(object sender, EventArgs e)
         {
-            grbUpdates.Visible = true;
+            grbUpdates.Enabled = true;
             btnConfirmCreation.Enabled = false;
         }
 
@@ -50,7 +50,7 @@ namespace SchoolGrades
                     currentUser.FirstName = txtNewFirst.Text;
                 if (txtNewPw.Text.Length != 0)
                     if (txtNewPw.Text.Length < 7)
-                        throw new ArgumentException("The password must have at least 7 characters.");
+                        throw new ArgumentException("La password deve avere almeno 7 caratteri.");
                     else
                     {
                         currentUser.Password = txtNewPw.Text;
@@ -58,19 +58,20 @@ namespace SchoolGrades
                     }
 
                 bl.UpdateUser(currentUser);
-                grbUpdates.Visible = false;
-                lstUsers.SelectedIndex.ToString().Replace(lstUsers.SelectedIndex.ToString(), currentUser.Username);
+                listOfAllUsers = bl.GetAllUsers();
+                lstUsers.DataSource = listOfAllUsers;
+                grbUpdates.Enabled = false;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("A problem has occured:\n" + ex.Message, "ERROR", MessageBoxButtons.OK,
+                MessageBox.Show("Si è verificato un problema:\n" + ex.Message, "ERRORE", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
         }
 
         private void btnNewUser_Click(object sender, EventArgs e)
         {
-            grbUpdates.Visible = true;
+            grbUpdates.Enabled = true;
             btnSave.Enabled = false;
             btnModifica.Enabled = false;
         }
@@ -84,7 +85,7 @@ namespace SchoolGrades
                 if (txtNewUsername.Text.Length != 0)
                     newUser.Username = txtNewUsername.Text;
                 else
-                    throw new ArgumentException("The new user must have a username!");
+                    throw new ArgumentException("Il nuovo utente deve avere un username!");
                 if (txtNewLN.Text.Length != 0)
                     newUser.LastName = txtNewLN.Text;
                 if (rTxtNewDescription.Text.Length != 0)
@@ -95,20 +96,27 @@ namespace SchoolGrades
                     newUser.FirstName = txtNewFirst.Text;
                 if (txtNewPw.Text.Length != 0)
                     if (txtNewPw.Text.Length < 7)
-                        throw new ArgumentException("The password must have at least 7 characters.");
+                        throw new ArgumentException("La password deve avere almeno 7 caratteri.");
                     else
                         newUser.Password = txtNewPw.Text;
                 else
-                    throw new ArgumentException("The new user must have a password!");
+                    throw new ArgumentException("Il nuovo utente deve avere una password!");
 
                 bl.CreateUser(newUser);
-                listOfAllUsers.Add(newUser);
+                listOfAllUsers = bl.GetAllUsers();
+                lstUsers.DataSource = listOfAllUsers;
+                grbUpdates.Enabled = false;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("A problem has occured:\n" + ex.Message, "ERROR", MessageBoxButtons.OK,
+                MessageBox.Show("Si è verificato un problema:\n" + ex.Message, "ERROR", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
         }
+
+        //private void ShowInfo(ListBox l)
+        //{
+        //    User u = (User)l.SelectedIndex;
+        //}
     }
 }

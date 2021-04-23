@@ -63,7 +63,7 @@ namespace SchoolGrades
             // 
             // btnModifica
             // 
-            this.btnModifica.Location = new System.Drawing.Point(414, 46);
+            this.btnModifica.Location = new System.Drawing.Point(449, 46);
             this.btnModifica.Name = "btnModifica";
             this.btnModifica.Size = new System.Drawing.Size(97, 39);
             this.btnModifica.TabIndex = 1;
@@ -87,12 +87,12 @@ namespace SchoolGrades
             this.grbUpdates.Controls.Add(this.label2);
             this.grbUpdates.Controls.Add(this.txtNewUsername);
             this.grbUpdates.Controls.Add(this.label1);
+            this.grbUpdates.Enabled = false;
             this.grbUpdates.Location = new System.Drawing.Point(250, 91);
             this.grbUpdates.Name = "grbUpdates";
             this.grbUpdates.Size = new System.Drawing.Size(409, 310);
             this.grbUpdates.TabIndex = 2;
             this.grbUpdates.TabStop = false;
-            this.grbUpdates.Visible = false;
             // 
             // btnConfirmCreation
             // 
@@ -213,9 +213,9 @@ namespace SchoolGrades
             // 
             // btnNewUser
             // 
-            this.btnNewUser.Location = new System.Drawing.Point(220, 25);
+            this.btnNewUser.Location = new System.Drawing.Point(331, 46);
             this.btnNewUser.Name = "btnNewUser";
-            this.btnNewUser.Size = new System.Drawing.Size(75, 30);
+            this.btnNewUser.Size = new System.Drawing.Size(80, 39);
             this.btnNewUser.TabIndex = 3;
             this.btnNewUser.Text = "Create User";
             this.btnNewUser.UseVisualStyleBackColor = true;
@@ -225,7 +225,7 @@ namespace SchoolGrades
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(811, 413);
+            this.ClientSize = new System.Drawing.Size(816, 422);
             this.Controls.Add(this.btnNewUser);
             this.Controls.Add(this.grbUpdates);
             this.Controls.Add(this.btnModifica);
