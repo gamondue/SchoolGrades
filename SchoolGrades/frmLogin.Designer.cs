@@ -99,6 +99,7 @@ namespace SchoolGrades
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(257, 200);
             this.Controls.Add(this.btnChangePassword);
             this.Controls.Add(this.label2);

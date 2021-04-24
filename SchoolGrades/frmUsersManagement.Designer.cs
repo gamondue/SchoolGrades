@@ -44,6 +44,15 @@ namespace SchoolGrades
             this.label6 = new System.Windows.Forms.Label();
             this.btnModifyUser = new System.Windows.Forms.Button();
             this.btnNewUser = new System.Windows.Forms.Button();
+            this.btnChangePassword = new System.Windows.Forms.Button();
+            this.txtLastPasswordChange = new System.Windows.Forms.TextBox();
+            this.txtCreationTime = new System.Windows.Forms.TextBox();
+            this.txtLastModify = new System.Windows.Forms.TextBox();
+            this.txtIdUserCategory = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lstUsers
@@ -53,7 +62,7 @@ namespace SchoolGrades
             this.lstUsers.Location = new System.Drawing.Point(12, 11);
             this.lstUsers.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lstUsers.Name = "lstUsers";
-            this.lstUsers.Size = new System.Drawing.Size(352, 394);
+            this.lstUsers.Size = new System.Drawing.Size(352, 514);
             this.lstUsers.TabIndex = 0;
             this.lstUsers.SelectedIndexChanged += new System.EventHandler(this.lstUsers_SelectedIndexChanged);
             // 
@@ -170,18 +179,18 @@ namespace SchoolGrades
             // btnModifyUser
             // 
             this.btnModifyUser.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnModifyUser.Location = new System.Drawing.Point(672, 356);
+            this.btnModifyUser.Location = new System.Drawing.Point(672, 486);
             this.btnModifyUser.Name = "btnModifyUser";
             this.btnModifyUser.Size = new System.Drawing.Size(86, 39);
             this.btnModifyUser.TabIndex = 13;
-            this.btnModifyUser.Text = "Modify";
+            this.btnModifyUser.Text = "Update";
             this.btnModifyUser.UseVisualStyleBackColor = true;
             this.btnModifyUser.Click += new System.EventHandler(this.btnModifyUser_Click);
             // 
             // btnNewUser
             // 
             this.btnNewUser.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnNewUser.Location = new System.Drawing.Point(580, 356);
+            this.btnNewUser.Location = new System.Drawing.Point(580, 486);
             this.btnNewUser.Name = "btnNewUser";
             this.btnNewUser.Size = new System.Drawing.Size(86, 39);
             this.btnNewUser.TabIndex = 14;
@@ -189,11 +198,108 @@ namespace SchoolGrades
             this.btnNewUser.UseVisualStyleBackColor = true;
             this.btnNewUser.Click += new System.EventHandler(this.btnNewUser_Click);
             // 
+            // btnChangePassword
+            // 
+            this.btnChangePassword.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnChangePassword.Location = new System.Drawing.Point(428, 486);
+            this.btnChangePassword.Name = "btnChangePassword";
+            this.btnChangePassword.Size = new System.Drawing.Size(146, 39);
+            this.btnChangePassword.TabIndex = 15;
+            this.btnChangePassword.Text = "Modify password";
+            this.btnChangePassword.UseVisualStyleBackColor = true;
+            this.btnChangePassword.Click += new System.EventHandler(this.btnChangePassword_Click);
+            // 
+            // txtLastPasswordChange
+            // 
+            this.txtLastPasswordChange.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtLastPasswordChange.Location = new System.Drawing.Point(394, 445);
+            this.txtLastPasswordChange.Name = "txtLastPasswordChange";
+            this.txtLastPasswordChange.ReadOnly = true;
+            this.txtLastPasswordChange.Size = new System.Drawing.Size(192, 33);
+            this.txtLastPasswordChange.TabIndex = 16;
+            // 
+            // txtCreationTime
+            // 
+            this.txtCreationTime.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtCreationTime.Location = new System.Drawing.Point(394, 381);
+            this.txtCreationTime.Name = "txtCreationTime";
+            this.txtCreationTime.ReadOnly = true;
+            this.txtCreationTime.Size = new System.Drawing.Size(178, 33);
+            this.txtCreationTime.TabIndex = 17;
+            // 
+            // txtLastModify
+            // 
+            this.txtLastModify.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtLastModify.Location = new System.Drawing.Point(580, 381);
+            this.txtLastModify.Name = "txtLastModify";
+            this.txtLastModify.ReadOnly = true;
+            this.txtLastModify.Size = new System.Drawing.Size(178, 33);
+            this.txtLastModify.TabIndex = 18;
+            // 
+            // txtIdUserCategory
+            // 
+            this.txtIdUserCategory.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtIdUserCategory.Location = new System.Drawing.Point(597, 445);
+            this.txtIdUserCategory.Name = "txtIdUserCategory";
+            this.txtIdUserCategory.ReadOnly = true;
+            this.txtIdUserCategory.Size = new System.Drawing.Size(161, 33);
+            this.txtIdUserCategory.TabIndex = 19;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label7.Location = new System.Drawing.Point(394, 417);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(197, 25);
+            this.label7.TabIndex = 20;
+            this.label7.Text = "Last password change";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label8.Location = new System.Drawing.Point(394, 353);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(99, 25);
+            this.label8.TabIndex = 21;
+            this.label8.Text = "Created at";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label9.Location = new System.Drawing.Point(580, 353);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(125, 25);
+            this.label9.TabIndex = 22;
+            this.label9.Text = "Last modified";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label10.Location = new System.Drawing.Point(597, 417);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(142, 25);
+            this.label10.TabIndex = 23;
+            this.label10.Text = "IdUserCategory";
+            // 
             // frmUsersManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(779, 421);
+            this.BackColor = System.Drawing.Color.PowderBlue;
+            this.ClientSize = new System.Drawing.Size(772, 536);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.txtIdUserCategory);
+            this.Controls.Add(this.txtLastModify);
+            this.Controls.Add(this.txtCreationTime);
+            this.Controls.Add(this.txtLastPasswordChange);
+            this.Controls.Add(this.btnChangePassword);
             this.Controls.Add(this.btnNewUser);
             this.Controls.Add(this.btnModifyUser);
             this.Controls.Add(this.label6);
@@ -209,6 +315,7 @@ namespace SchoolGrades
             this.Controls.Add(this.txtLastName);
             this.Controls.Add(this.txtFirstName);
             this.Controls.Add(this.lstUsers);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "frmUsersManagement";
             this.Text = "Users Management";
@@ -235,5 +342,14 @@ namespace SchoolGrades
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnModifyUser;
         private System.Windows.Forms.Button btnNewUser;
+        private System.Windows.Forms.Button btnChangePassword;
+        private System.Windows.Forms.TextBox txtLastPasswordChange;
+        private System.Windows.Forms.TextBox txtCreationTime;
+        private System.Windows.Forms.TextBox txtLastModify;
+        private System.Windows.Forms.TextBox txtIdUserCategory;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
     }
 }

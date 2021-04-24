@@ -32,7 +32,6 @@ namespace SchoolGrades
             {
                 MessageBox.Show("Digitare credenziali corrette!");
             }
-            this.Close();
         }
     }
 }
