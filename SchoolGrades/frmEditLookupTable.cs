@@ -14,15 +14,13 @@ namespace SchoolGrades
 {
     public partial class frmEditLookupTable : Form
     {
-        DbAndBusiness db;
+        DbAndBusiness db = new DbAndBusiness();
         private string table;
         private string idTable;
 
         public frmEditLookupTable(string Table, string IdTable)
         {
             InitializeComponent();
-
-            db = new DbAndBusiness(Commons.PathAndFileDatabase);
 
             table = Table;
             idTable = IdTable; 

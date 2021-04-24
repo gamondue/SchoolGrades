@@ -8,14 +8,13 @@ namespace SchoolGrades
 {
     public partial class FrmSchoolSubjectManagement : Form
     {
-        DbAndBusiness db;
+        DbAndBusiness db = new DbAndBusiness();
         SchoolSubject currentSubject;
         List<SchoolSubject> subjectList;  
 
         public FrmSchoolSubjectManagement()
         {
             InitializeComponent();
-            db = new DbAndBusiness(Commons.PathAndFileDatabase);
         }
 
         private void frmSchoolSubjectManagement_Load(object sender, EventArgs e)

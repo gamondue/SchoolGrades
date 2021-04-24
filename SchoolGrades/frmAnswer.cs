@@ -14,14 +14,12 @@ namespace SchoolGrades
 {
     public partial class frmAnswer : Form
     {
-        DbAndBusiness db;
+        DbAndBusiness db = new DbAndBusiness();
         internal Answer currentAnswer = new Answer();
 
         public frmAnswer()
         {
             InitializeComponent();
-
-            db = new DbAndBusiness(Commons.PathAndFileDatabase); 
         }
 
         public frmAnswer(Answer Answer)

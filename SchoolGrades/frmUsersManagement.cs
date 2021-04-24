@@ -7,14 +7,13 @@ namespace SchoolGrades
 {
     public partial class frmUsersManagement : Form
     {
-        BusinessLayer bl;
+        BusinessLayer.BusinessLayer bl = new BusinessLayer.BusinessLayer();
 
         List<User> listOfAllUsers; 
 
         public frmUsersManagement()
         {
             InitializeComponent();
-            bl = new BusinessLayer(Commons.PathAndFileDatabase);
         }
 
         private void frmUsersManagement_Load(object sender, EventArgs e)
@@ -26,6 +25,24 @@ namespace SchoolGrades
         private void lstUsers_SelectedIndexChanged(object sender, EventArgs e)
         {
             User currentUser = (User)(listOfAllUsers[lstUsers.SelectedIndex]); 
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                User u = new User(textBoxNome.Text, textBoxCognome.Text, textBoxEmail.Text) ;
+               
+            }
+            catch
+            {
+
+            }
         }
     }
 }

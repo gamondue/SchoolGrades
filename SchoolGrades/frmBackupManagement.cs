@@ -13,8 +13,8 @@ namespace SchoolGrades
 {
     public partial class frmBackupManagement : Form
     {
-        DbAndBusiness db;
-        TreeMptt topicTreeMptt; 
+        DbAndBusiness db = new DbAndBusiness();
+        TreeMptt topicTreeMptt = new TreeMptt(null, null, null, null, null, null, null, DragDropEffects.None); 
 
         private string schoolYear;
         Class currentClass;
@@ -22,11 +22,6 @@ namespace SchoolGrades
         public frmBackupManagement()
         {
             InitializeComponent();
-
-            DbAndBusiness db = new DbAndBusiness(Commons.PathAndFileDatabase);
-            TreeMpttDb dbMptt = new TreeMpttDb(db);
-
-            topicTreeMptt = new TreeMptt(db, null, null, null, null, null, null, null, DragDropEffects.None);
         }
 
         private void frmBackupManagement_Load(object sender, EventArgs e)

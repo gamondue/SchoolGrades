@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "SchoolGrades": {
+      "commandName": "Project"
+    },
+    "Utente": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\Kaliremo\\Desktop\\Fork\\SchoolGrades\\SchoolGrades"
+    }
+  }
+}

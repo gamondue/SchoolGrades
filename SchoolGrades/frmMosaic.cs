@@ -13,7 +13,7 @@ namespace SchoolGrades
 {
     public partial class frmMosaic : Form
     {
-        DbAndBusiness db;
+        DbAndBusiness db = new DbAndBusiness();
 
         Class currentClass; 
         List<Student> currentStudents;
@@ -22,7 +22,6 @@ namespace SchoolGrades
         public frmMosaic(SchoolGrades.DbClasses.Class Class)
         {
             InitializeComponent();
-            db = new DbAndBusiness(Commons.PathAndFileDatabase);
             currentClass = Class;
             currentStudents = db.GetStudentsOfClassList(Commons.IdSchool,
                 currentClass.SchoolYear, currentClass.Abbreviation, false);

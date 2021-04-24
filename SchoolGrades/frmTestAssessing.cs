@@ -20,13 +20,11 @@ namespace SchoolGrades
         List<StudentsAnswer> currentStudentsAnswers;
         //List<Control> Answers = new List<Control>; 
 
-        DbAndBusiness db;
+        DbAndBusiness db = new DbAndBusiness();
 
         public frmTestAssessing()
         {
             InitializeComponent();
-
-            db = new DbAndBusiness(Commons.PathAndFileDatabase);
         }
 
         private void frmTestGrades_Load(object sender, EventArgs e)

@@ -29,14 +29,12 @@ namespace SchoolGrades
         Grade currentGrade = new Grade();
         internal Grade CurrentGrade { get => currentGrade; set => currentGrade = value; }
 
-        DbAndBusiness db;
+        DbAndBusiness db = new DbAndBusiness();
 
         internal frmMicroAssessment(frmMain CallingForm, Class Class, Student Student,  
             GradeType GradeType, SchoolSubject Subject, Question Question)
         {
             InitializeComponent();
-         
-            db = new DbAndBusiness(Commons.PathAndFileDatabase);
 
             callingForm = CallingForm; 
             currentClass = Class; 

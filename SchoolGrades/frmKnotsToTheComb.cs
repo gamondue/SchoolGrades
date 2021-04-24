@@ -13,7 +13,7 @@ namespace SchoolGrades
 {
     public partial class frmKnotsToTheComb : Form
     {
-        DbAndBusiness db; 
+        DbAndBusiness db = new DbAndBusiness();
         private Question chosenQuestion = new Question();
         private frmMicroAssessment grandparentForm; 
 
@@ -30,7 +30,6 @@ namespace SchoolGrades
         public frmKnotsToTheComb(frmMicroAssessment GrandparentForm, int? IdStudent, SchoolSubject SchoolSubject, string Year)
         {
             InitializeComponent();
-            db = new DbAndBusiness(Commons.PathAndFileDatabase);
 
             currentStudent = db.GetStudent(IdStudent);
             lblStudent.Text = currentStudent.LastName + " " + currentStudent.FirstName; 
