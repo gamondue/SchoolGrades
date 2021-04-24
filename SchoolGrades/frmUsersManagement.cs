@@ -44,12 +44,12 @@ namespace SchoolGrades
         {
             try
             {
-                if (txtUsername.Text.Length > 1)
-                    currentUser.Username = txtUsername.Text;
+                if (txtUsername.Text.Length > 1)  
+                    currentUser.Username = txtUsername.Text;    // Username non può essere aggiornato.
                 if (txtLastName.Text.Length > 1)
                     currentUser.LastName = txtLastName.Text;
                 if (rtxtDescription.Text.Length > 1)
-                    currentUser.Username = rtxtDescription.Text;
+                    currentUser.Description = rtxtDescription.Text;
                 if (txtEmail.Text.Length > 1)
                     currentUser.Email = txtEmail.Text;
                 if (txtFirstName.Text.Length > 1)
@@ -57,6 +57,10 @@ namespace SchoolGrades
                 currentUser.LastChange = DateTime.Now;
                 currentUser.Password = txtPassword.Text;
                 bl.UpdateUser(currentUser);
+                MessageBox.Show("", "User updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                listOfAllUsers = bl.GetAllUsers();
+                lstUsers.DataSource = listOfAllUsers;
             }
             catch (Exception ex)
             {
@@ -93,10 +97,11 @@ namespace SchoolGrades
                     newUser.FirstName = txtFirstName.Text;
 
                 listOfAllUsers.Add(newUser);
+                newUser.CreationTime = DateTime.Now;
+
                 bl.CreateUser(newUser);
 
                 MessageBox.Show("", "User created", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                newUser.CreationTime = DateTime.Now;
                 listOfAllUsers = bl.GetAllUsers();
                 lstUsers.DataSource = listOfAllUsers;
                 ClearForm();
@@ -153,8 +158,7 @@ namespace SchoolGrades
             }
             catch (Exception ex)
             {
-                MessageBox.Show("There is a problem!" + ex.Message,
-             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There is a problem!" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
