@@ -28,7 +28,7 @@ namespace SchoolGrades.BusinessLayer
         internal bool UserHasLoginPermission(string Username, string Password)
         {
             User uFromDb = GetUser(Username);
-
+            Password = CalculateHash(Password);            
             if (uFromDb != null && Username == uFromDb.Username && Password == uFromDb.Password)
                 return true;
             else
@@ -53,6 +53,10 @@ namespace SchoolGrades.BusinessLayer
         internal void CreateUser(User User)
         {
             dl.CreateUser(User); 
+        }
+        internal void RemoveUser(User User)
+        {
+            dl.RemoveUser(User);
         }
         private User ReadCredentialsFromDatabase(User CredentialsFromUser)
         {

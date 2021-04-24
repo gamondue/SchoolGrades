@@ -51,6 +51,7 @@ namespace SchoolGrades
             this.txtSurname = new System.Windows.Forms.TextBox();
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.btnCreaUtente = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lstUsers
@@ -66,7 +67,7 @@ namespace SchoolGrades
             // 
             // txtUtente
             // 
-            this.txtUtente.Location = new System.Drawing.Point(481, 26);
+            this.txtUtente.Location = new System.Drawing.Point(498, 25);
             this.txtUtente.Name = "txtUtente";
             this.txtUtente.Size = new System.Drawing.Size(316, 23);
             this.txtUtente.TabIndex = 1;
@@ -83,15 +84,15 @@ namespace SchoolGrades
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(383, 59);
+            this.label2.Location = new System.Drawing.Point(383, 64);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(92, 15);
+            this.label2.Size = new System.Drawing.Size(109, 15);
             this.label2.TabIndex = 3;
-            this.label2.Text = "password(md5):";
+            this.label2.Text = "password(SHA256):";
             // 
             // txtPass
             // 
-            this.txtPass.Location = new System.Drawing.Point(481, 56);
+            this.txtPass.Location = new System.Drawing.Point(498, 56);
             this.txtPass.Name = "txtPass";
             this.txtPass.Size = new System.Drawing.Size(316, 23);
             this.txtPass.TabIndex = 4;
@@ -100,7 +101,7 @@ namespace SchoolGrades
             // 
             this.btnCambiaCredenziali.Location = new System.Drawing.Point(383, 143);
             this.btnCambiaCredenziali.Name = "btnCambiaCredenziali";
-            this.btnCambiaCredenziali.Size = new System.Drawing.Size(414, 23);
+            this.btnCambiaCredenziali.Size = new System.Drawing.Size(431, 23);
             this.btnCambiaCredenziali.TabIndex = 5;
             this.btnCambiaCredenziali.Text = "cambia credenziali";
             this.btnCambiaCredenziali.UseVisualStyleBackColor = true;
@@ -108,7 +109,7 @@ namespace SchoolGrades
             // 
             // txtMail
             // 
-            this.txtMail.Location = new System.Drawing.Point(481, 85);
+            this.txtMail.Location = new System.Drawing.Point(498, 85);
             this.txtMail.Name = "txtMail";
             this.txtMail.Size = new System.Drawing.Size(316, 23);
             this.txtMail.TabIndex = 6;
@@ -161,7 +162,7 @@ namespace SchoolGrades
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(624, 198);
+            this.label7.Location = new System.Drawing.Point(642, 197);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(40, 15);
             this.label7.TabIndex = 13;
@@ -170,7 +171,7 @@ namespace SchoolGrades
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(624, 267);
+            this.label8.Location = new System.Drawing.Point(642, 266);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(60, 15);
             this.label8.TabIndex = 14;
@@ -179,7 +180,7 @@ namespace SchoolGrades
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(624, 337);
+            this.label9.Location = new System.Drawing.Point(642, 336);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(67, 15);
             this.label9.TabIndex = 15;
@@ -208,40 +209,51 @@ namespace SchoolGrades
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(697, 194);
+            this.txtName.Location = new System.Drawing.Point(715, 193);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(100, 23);
+            this.txtName.Size = new System.Drawing.Size(99, 23);
             this.txtName.TabIndex = 19;
             // 
             // txtSurname
             // 
-            this.txtSurname.Location = new System.Drawing.Point(697, 263);
+            this.txtSurname.Location = new System.Drawing.Point(715, 262);
             this.txtSurname.Name = "txtSurname";
-            this.txtSurname.Size = new System.Drawing.Size(100, 23);
+            this.txtSurname.Size = new System.Drawing.Size(99, 23);
             this.txtSurname.TabIndex = 20;
             // 
             // txtDescription
             // 
-            this.txtDescription.Location = new System.Drawing.Point(697, 333);
+            this.txtDescription.Location = new System.Drawing.Point(715, 332);
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(100, 23);
+            this.txtDescription.Size = new System.Drawing.Size(99, 23);
             this.txtDescription.TabIndex = 21;
             // 
             // btnCreaUtente
             // 
-            this.btnCreaUtente.Location = new System.Drawing.Point(378, 366);
+            this.btnCreaUtente.Location = new System.Drawing.Point(383, 366);
             this.btnCreaUtente.Name = "btnCreaUtente";
-            this.btnCreaUtente.Size = new System.Drawing.Size(419, 23);
+            this.btnCreaUtente.Size = new System.Drawing.Size(431, 23);
             this.btnCreaUtente.TabIndex = 22;
             this.btnCreaUtente.Text = "Crea Utente";
             this.btnCreaUtente.UseVisualStyleBackColor = true;
             this.btnCreaUtente.Click += new System.EventHandler(this.btnCreaUtente_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(25, 394);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(104, 30);
+            this.button1.TabIndex = 23;
+            this.button1.Text = "Rimuovi Utente";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // frmUsersManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(881, 436);
+            this.ClientSize = new System.Drawing.Size(910, 436);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnCreaUtente);
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.txtSurname);
@@ -266,7 +278,7 @@ namespace SchoolGrades
             this.Controls.Add(this.lstUsers);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "frmUsersManagement";
-            this.Text = "Gestione Utenti";
+            this.Text = "Rimuovi Utente";
             this.Load += new System.EventHandler(this.frmUsersManagement_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -297,5 +309,6 @@ namespace SchoolGrades
         private System.Windows.Forms.TextBox txtSurname;
         private System.Windows.Forms.TextBox txtDescription;
         private System.Windows.Forms.Button btnCreaUtente;
+        private System.Windows.Forms.Button button1;
     }
 }

@@ -50,7 +50,7 @@ namespace SchoolGrades
             newUser.IdUserType = currentUser.IdUserType;
             newUser.IdUserCategory = currentUser.IdUserCategory;
             newUser.FirstName = currentUser.LastName;
-            newUser.LastName = currentUser.LastName;
+            newUser.LastName = currentUser.LastName;          
             bl.UpdateUser(newUser);
         }
 
@@ -67,6 +67,12 @@ namespace SchoolGrades
             bl.CreateUser(newUser);
             listOfAllUsers = bl.GetAllUsers();
             lstUsers.DataSource = listOfAllUsers;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            User currentUser = (User)(listOfAllUsers[lstUsers.SelectedIndex]);
+            bl.RemoveUser(currentUser);
         }
     }
 }

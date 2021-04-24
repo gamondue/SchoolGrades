@@ -68,6 +68,24 @@ namespace SchoolGrades.DataLayer
             connection.Open();
             return connection;
         }
+
+        internal void RemoveUser(User User)
+        {
+            //DELETE FROM Users WHERE username='" + User.Username + "';";;
+            using (DbConnection conn = Connect())
+            {
+                //TO FINISH
+                DbCommand cmd = conn.CreateCommand();
+                string query = "DELETE " +
+                    "FROM Users " +
+                    "Where username='" + User.Username + "';";
+                cmd = new SQLiteCommand(query);
+                cmd.Connection = conn;
+                cmd.ExecuteNonQuery();
+            }
+            return;
+        }
+
         internal User GetUser(string Username)
         {
             User t = new User(Username, "");
@@ -119,7 +137,7 @@ namespace SchoolGrades.DataLayer
                 u.LastName = SafeDb.SafeString(dRead["lastName"]);
                 u.FirstName = SafeDb.SafeString(dRead["firstName"]);
                 u.Email = SafeDb.SafeString(dRead["email"]);
-                //u.Password = SafeDb.SafeString(dRead["password"]);
+                u.Password = SafeDb.SafeString(dRead["password"]);
                 u.LastChange = SafeDb.SafeDateTime(dRead["lastChange"]);
                 u.LastPasswordChange = SafeDb.SafeDateTime(dRead["lastPasswordChange"]);
                 u.CreationTime = SafeDb.SafeDateTime(dRead["creationTime"]);
@@ -157,12 +175,12 @@ namespace SchoolGrades.DataLayer
                 string? now = SqlVal.SqlDate(DateTime.Now);
                 cmd.CommandText = "INSERT INTO Users " +
                 "(username, lastName, firstName, email," +
-                "password,creationTime,lastChange,lastPasswordChange,salt,idUserCategory,isEnabled)" +
+                "password,creationTime,lastChange,lastPasswordChange,salt,idUserCategory,Description,isEnabled)" +
                 "Values " +
                 "('" + SqlVal.SqlString(User.Username) + "','" + SqlVal.SqlString(User.LastName) + "','" + SqlVal.SqlString(User.FirstName) + "','" +
                 SqlVal.SqlString(User.Email) + "','" + SqlVal.SqlString(User.Password) + "'," +
                 now + "," + now + "," + now + ",'" + SqlVal.SqlString(User.Salt) + "','" +
-                User.IdUserCategory + "', TRUE" + 
+                User.IdUserCategory +"','"+SqlVal.SqlString(User.Description)+ "', TRUE" + 
                 ");";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();

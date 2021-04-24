@@ -27,14 +27,15 @@ namespace SchoolGrades
                     "poi scegliere il file di dati .sqlite e premere 'Salva configurazione'", "SchoolGrades", MessageBoxButtons.OK,MessageBoxIcon.Information);
                 FrmSetup f = new FrmSetup();
                 f.ShowDialog();
+                
                 if (!File.Exists(Commons.PathAndFileDatabase))
                 {
                     MessageBox.Show("Configurare il programma!", "SchoolGrades", MessageBoxButtons.OK, MessageBoxIcon.Error); 
                     return;
                 }
             }
-            //Application.Run(new frmLogin());
-            Application.Run(new frmMain());
+            Application.Run(new frmLogin());
+            //Application.Run(new FrmSetup());
         }
     }
 }

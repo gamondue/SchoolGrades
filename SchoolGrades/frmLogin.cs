@@ -19,21 +19,7 @@ namespace SchoolGrades
             bl = new BusinessLayer.BusinessLayer();
 
             // test examples
-            User u;
-            u = new User("pippo", "pluto");
-            //u = new User("pina", "pluto");
-            ////u = new User("ugo", "pina");
-            //bl.CreateUser(u);
-            u.Password = "mariangela";
-            bl.ChangePassword(u);
-
-            u.FirstName = "Ugo";
-            u.LastName = "Fantozzi";
-            u.Email = "u.fantozzi@megaditta.com";
-            u.Description = "Inferiore Rag. Ugo Fantozzi";
-            bl.UpdateUser(u);
-
-            User u1 = bl.GetUser("ugo");
+            
         }
         private void btnOk_Click(object sender, EventArgs e)
         {
@@ -49,6 +35,11 @@ namespace SchoolGrades
                 MessageBox.Show("Digitare credenziali corrette!");
             }
             this.Close();
+        }
+
+        private void btnChangePassword_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Non implementato!");
         }
     }
 }
