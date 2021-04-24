@@ -37,6 +37,8 @@ namespace SchoolGrades.DbClasses
             this.password = Password;
         }
 
+        public User() { }
+
         public override string ToString()
         {
             return Username + ": "+ Description;

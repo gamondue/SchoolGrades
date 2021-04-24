@@ -8,6 +8,7 @@ namespace SchoolGrades
     public partial class frmUsersManagement : Form
     {
         BusinessLayer.BusinessLayer bl = new BusinessLayer.BusinessLayer();
+        User currentUser;
 
         List<User> listOfAllUsers; 
 
@@ -24,7 +25,116 @@ namespace SchoolGrades
 
         private void lstUsers_SelectedIndexChanged(object sender, EventArgs e)
         {
-            User currentUser = (User)(listOfAllUsers[lstUsers.SelectedIndex]); 
+            currentUser = listOfAllUsers[lstUsers.SelectedIndex];
+            ShowInfo();
+        }
+
+        private void btnModifica_Click(object sender, EventArgs e)
+        {
+            grbUpdates.Enabled = true;
+            btnConfirmCreation.Enabled = false;
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (txtNewUsername.Text.Length != 0)
+                    currentUser.Username = txtNewUsername.Text;
+                if (txtNewLN.Text.Length != 0)
+                    currentUser.LastName = txtNewLN.Text;
+                if (rTxtNewDescription.Text.Length != 0)
+                    currentUser.Description = rTxtNewDescription.Text;
+                if (txtNewEmail.Text.Length != 0)
+                    currentUser.Email = txtNewEmail.Text;
+                if (txtNewFirst.Text.Length != 0)
+                    currentUser.FirstName = txtNewFirst.Text;
+                if (txtNewPw.Text.Length != 0)
+                    if (txtNewPw.Text.Length < 7)
+                        throw new ArgumentException("La password deve avere almeno 7 caratteri.");
+                    else
+                    {
+                        currentUser.Password = txtNewPw.Text;
+                        bl.ChangePassword(currentUser);
+                    }
+
+                bl.UpdateUser(currentUser);
+                listOfAllUsers = bl.GetAllUsers();
+                grbUpdates.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Si è verificato un problema:\n" + ex.Message, "ERRORE", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnNewUser_Click(object sender, EventArgs e)
+        {
+            grbUpdates.Enabled = true;
+            btnSave.Enabled = false;
+            btnModifica.Enabled = false;
+            txtNewUsername.Text = "";
+            txtNewFirst.Text = "";
+            txtNewLN.Text = "";
+            txtNewPw.Text = "";
+            txtNewEmail.Text = "";
+            rTxtNewDescription.Text = "";
+        }
+
+        private void btnConfirmCreation_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                User newUser = new User();
+
+                if (txtNewUsername.Text.Length != 0)
+                    newUser.Username = txtNewUsername.Text;
+                else
+                    throw new ArgumentException("Il nuovo utente deve avere un username!");
+                if (txtNewLN.Text.Length != 0)
+                    newUser.LastName = txtNewLN.Text;
+                if (rTxtNewDescription.Text.Length != 0)
+                    newUser.Description = rTxtNewDescription.Text;
+                if (txtNewEmail.Text.Length != 0)
+                    newUser.Email = txtNewEmail.Text;
+                if (txtNewFirst.Text.Length != 0)
+                    newUser.FirstName = txtNewFirst.Text;
+                if (txtNewPw.Text.Length != 0)
+                    if (txtNewPw.Text.Length < 7)
+                        throw new ArgumentException("La password deve avere almeno 7 caratteri.");
+                    else
+                        newUser.Password = txtNewPw.Text;
+                else
+                    throw new ArgumentException("Il nuovo utente deve avere una password!");
+
+                bl.CreateUser(newUser);
+                listOfAllUsers.Add(newUser);
+                listOfAllUsers = bl.GetAllUsers();
+                lstUsers.DataSource = listOfAllUsers;
+                grbUpdates.Enabled = false;
+                btnModifica.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Si è verificato un problema:\n" + ex.Message, "ERROR", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void ShowInfo()
+        {
+            txtNewUsername.Text = currentUser.Username;
+            txtNewFirst.Text = currentUser.FirstName;
+            txtNewLN.Text = currentUser.LastName;
+            txtNewPw.Text = currentUser.Password;
+            txtNewEmail.Text = currentUser.Email;
+            rTxtNewDescription.Text = currentUser.Description;
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
