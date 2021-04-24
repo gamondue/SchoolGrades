@@ -48,7 +48,15 @@ namespace SchoolGrades
             {
                 MessageBox.Show("Digitare credenziali corrette!");
             }
-            this.Close();
+            return;
+        }
+
+        private void btnChangePassword_Click(object sender, EventArgs e)
+        {
+
+            frmUsersManagement p = new frmUsersManagement();
+            this.Hide();
+            p.ShowDialog();
         }
     }
 }
