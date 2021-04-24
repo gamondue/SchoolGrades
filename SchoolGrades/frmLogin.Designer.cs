@@ -94,6 +94,7 @@ namespace SchoolGrades
             this.btnChangePassword.TabIndex = 5;
             this.btnChangePassword.Text = "Cambia";
             this.btnChangePassword.UseVisualStyleBackColor = true;
+            this.btnChangePassword.Click += new System.EventHandler(this.btnChangePassword_Click);
             // 
             // frmLogin
             // 
