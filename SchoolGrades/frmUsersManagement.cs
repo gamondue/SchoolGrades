@@ -25,7 +25,8 @@ namespace SchoolGrades
 
         private void lstUsers_SelectedIndexChanged(object sender, EventArgs e)
         {
-            currentUser = listOfAllUsers[lstUsers.SelectedIndex]; 
+            currentUser = listOfAllUsers[lstUsers.SelectedIndex];
+            ShowInfo();
         }
 
         private void btnModifica_Click(object sender, EventArgs e)
@@ -59,7 +60,6 @@ namespace SchoolGrades
 
                 bl.UpdateUser(currentUser);
                 listOfAllUsers = bl.GetAllUsers();
-                lstUsers.DataSource = listOfAllUsers;
                 grbUpdates.Enabled = false;
             }
             catch (Exception ex)
@@ -74,6 +74,12 @@ namespace SchoolGrades
             grbUpdates.Enabled = true;
             btnSave.Enabled = false;
             btnModifica.Enabled = false;
+            txtNewUsername.Text = "";
+            txtNewFirst.Text = "";
+            txtNewLN.Text = "";
+            txtNewPw.Text = "";
+            txtNewEmail.Text = "";
+            rTxtNewDescription.Text = "";
         }
 
         private void btnConfirmCreation_Click(object sender, EventArgs e)
@@ -103,9 +109,11 @@ namespace SchoolGrades
                     throw new ArgumentException("Il nuovo utente deve avere una password!");
 
                 bl.CreateUser(newUser);
+                listOfAllUsers.Add(newUser);
                 listOfAllUsers = bl.GetAllUsers();
                 lstUsers.DataSource = listOfAllUsers;
                 grbUpdates.Enabled = false;
+                btnModifica.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -114,9 +122,19 @@ namespace SchoolGrades
             }
         }
 
-        //private void ShowInfo(ListBox l)
-        //{
-        //    User u = (User)l.SelectedIndex;
-        //}
+        private void ShowInfo()
+        {
+            txtNewUsername.Text = currentUser.Username;
+            txtNewFirst.Text = currentUser.FirstName;
+            txtNewLN.Text = currentUser.LastName;
+            txtNewPw.Text = currentUser.Password;
+            txtNewEmail.Text = currentUser.Email;
+            rTxtNewDescription.Text = currentUser.Description;
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

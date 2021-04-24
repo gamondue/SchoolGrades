@@ -175,24 +175,31 @@ namespace SchoolGrades.DataLayer
         {
             using (DbConnection conn = Connect())
             {
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "UPDATE Users" +
-                    " Set" +
-                    " description='" + SqlVal.SqlString(User.Description) + "'," +
-                    " lastName='" + SqlVal.SqlString(User.LastName) + "'," +
-                    " firstName='" + SqlVal.SqlString(User.FirstName) + "'," +
-                    " email='" + SqlVal.SqlString(User.Email) + "'," +
-                    //" password=" + SqlVal.SqlString(User.Password) + "'," +
-                    " lastChange=" + SqlVal.SqlDate(DateTime.Now) + "," +
-                    //" lastPasswordChange=" + SqlVal.SqlDate(DateTime.Now) + "," +
-                    //" creationTime=" + SqlVal.SqlDate(User.CreationTime)  + "," +
-                    " salt='" + SqlVal.SqlString(User.Salt) + "'," +
-                    " isEnabled=" + SqlVal.SqlBool(User.IsEnabled) +
-                    " idUserCategory=" + SqlVal.SqlInt(User.IdUserCategory) +
-                    " WHERE username='" + User.Username + "'" +
-                ";";
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
+                try
+                {
+                    DbCommand cmd = conn.CreateCommand();
+                    cmd.CommandText = "UPDATE Users" +
+                        " Set" +
+                        " description='" + SqlVal.SqlString(User.Description) + "'," +
+                        " lastName='" + SqlVal.SqlString(User.LastName) + "'," +
+                        " firstName='" + SqlVal.SqlString(User.FirstName) + "'," +
+                        " email='" + SqlVal.SqlString(User.Email) + "'," +
+                        //" password=" + SqlVal.SqlString(User.Password) + "'," +
+                        " lastChange=" + SqlVal.SqlDate(DateTime.Now) + "," +
+                        //" lastPasswordChange=" + SqlVal.SqlDate(DateTime.Now) + "," +
+                        //" creationTime=" + SqlVal.SqlDate(User.CreationTime)  + "," +
+                        " salt='" + SqlVal.SqlString(User.Salt) + "'," +
+                        " isEnabled=" + SqlVal.SqlBool(User.IsEnabled) +
+                        " idUserCategory=" + SqlVal.SqlInt(User.IdUserCategory) +
+                        " WHERE username='" + User.Username + "'" +
+                    ";";
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
             }
         }
     }

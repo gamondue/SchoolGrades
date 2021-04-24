@@ -36,17 +36,18 @@ namespace SchoolGrades
             this.btnSave = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.txtNewPw = new System.Windows.Forms.TextBox();
-            this.txtNewFirst = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.rTxtNewDescription = new System.Windows.Forms.RichTextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.txtNewEmail = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.txtNewLN = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.txtNewFirst = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.txtNewUsername = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnNewUser = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
+            this.rTxtNewDescription = new System.Windows.Forms.TextBox();
             this.grbUpdates.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,9 +64,11 @@ namespace SchoolGrades
             // 
             // btnModifica
             // 
+            this.btnModifica.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnModifica.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnModifica.Location = new System.Drawing.Point(449, 46);
             this.btnModifica.Name = "btnModifica";
-            this.btnModifica.Size = new System.Drawing.Size(97, 39);
+            this.btnModifica.Size = new System.Drawing.Size(147, 39);
             this.btnModifica.TabIndex = 1;
             this.btnModifica.Text = "Change user\'s dates";
             this.btnModifica.UseVisualStyleBackColor = true;
@@ -73,18 +76,18 @@ namespace SchoolGrades
             // 
             // grbUpdates
             // 
+            this.grbUpdates.Controls.Add(this.rTxtNewDescription);
             this.grbUpdates.Controls.Add(this.btnConfirmCreation);
             this.grbUpdates.Controls.Add(this.btnSave);
             this.grbUpdates.Controls.Add(this.label6);
             this.grbUpdates.Controls.Add(this.txtNewPw);
-            this.grbUpdates.Controls.Add(this.txtNewFirst);
-            this.grbUpdates.Controls.Add(this.label5);
-            this.grbUpdates.Controls.Add(this.rTxtNewDescription);
-            this.grbUpdates.Controls.Add(this.label4);
             this.grbUpdates.Controls.Add(this.txtNewEmail);
-            this.grbUpdates.Controls.Add(this.label3);
+            this.grbUpdates.Controls.Add(this.label4);
             this.grbUpdates.Controls.Add(this.txtNewLN);
             this.grbUpdates.Controls.Add(this.label2);
+            this.grbUpdates.Controls.Add(this.txtNewFirst);
+            this.grbUpdates.Controls.Add(this.label5);
+            this.grbUpdates.Controls.Add(this.label3);
             this.grbUpdates.Controls.Add(this.txtNewUsername);
             this.grbUpdates.Controls.Add(this.label1);
             this.grbUpdates.Enabled = false;
@@ -96,6 +99,7 @@ namespace SchoolGrades
             // 
             // btnConfirmCreation
             // 
+            this.btnConfirmCreation.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnConfirmCreation.Location = new System.Drawing.Point(250, 274);
             this.btnConfirmCreation.Name = "btnConfirmCreation";
             this.btnConfirmCreation.Size = new System.Drawing.Size(109, 30);
@@ -106,6 +110,7 @@ namespace SchoolGrades
             // 
             // btnSave
             // 
+            this.btnSave.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnSave.Location = new System.Drawing.Point(81, 274);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(94, 30);
@@ -117,7 +122,7 @@ namespace SchoolGrades
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(218, 233);
+            this.label6.Location = new System.Drawing.Point(218, 29);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(60, 15);
             this.label6.TabIndex = 11;
@@ -125,63 +130,30 @@ namespace SchoolGrades
             // 
             // txtNewPw
             // 
-            this.txtNewPw.Location = new System.Drawing.Point(284, 227);
+            this.txtNewPw.Location = new System.Drawing.Point(284, 26);
             this.txtNewPw.Name = "txtNewPw";
             this.txtNewPw.Size = new System.Drawing.Size(100, 23);
             this.txtNewPw.TabIndex = 10;
             // 
-            // txtNewFirst
+            // txtNewEmail
             // 
-            this.txtNewFirst.Location = new System.Drawing.Point(75, 233);
-            this.txtNewFirst.Name = "txtNewFirst";
-            this.txtNewFirst.Size = new System.Drawing.Size(100, 23);
-            this.txtNewFirst.TabIndex = 9;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(7, 236);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(67, 15);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "First Name:";
-            // 
-            // rTxtNewDescription
-            // 
-            this.rTxtNewDescription.Location = new System.Drawing.Point(75, 85);
-            this.rTxtNewDescription.Name = "rTxtNewDescription";
-            this.rTxtNewDescription.Size = new System.Drawing.Size(131, 120);
-            this.rTxtNewDescription.TabIndex = 7;
-            this.rTxtNewDescription.Text = "";
+            this.txtNewEmail.Location = new System.Drawing.Point(284, 136);
+            this.txtNewEmail.Name = "txtNewEmail";
+            this.txtNewEmail.Size = new System.Drawing.Size(100, 23);
+            this.txtNewEmail.TabIndex = 5;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(234, 88);
+            this.label4.Location = new System.Drawing.Point(234, 139);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(44, 15);
             this.label4.TabIndex = 6;
             this.label4.Text = "E-Mail:";
             // 
-            // txtNewEmail
-            // 
-            this.txtNewEmail.Location = new System.Drawing.Point(284, 85);
-            this.txtNewEmail.Name = "txtNewEmail";
-            this.txtNewEmail.Size = new System.Drawing.Size(100, 23);
-            this.txtNewEmail.TabIndex = 5;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 88);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(66, 15);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Desciption:";
-            // 
             // txtNewLN
             // 
-            this.txtNewLN.Location = new System.Drawing.Point(284, 26);
+            this.txtNewLN.Location = new System.Drawing.Point(284, 84);
             this.txtNewLN.Name = "txtNewLN";
             this.txtNewLN.Size = new System.Drawing.Size(100, 23);
             this.txtNewLN.TabIndex = 3;
@@ -189,11 +161,36 @@ namespace SchoolGrades
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(212, 29);
+            this.label2.Location = new System.Drawing.Point(212, 87);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 15);
             this.label2.TabIndex = 2;
             this.label2.Text = "Last Name:";
+            // 
+            // txtNewFirst
+            // 
+            this.txtNewFirst.Location = new System.Drawing.Point(75, 84);
+            this.txtNewFirst.Name = "txtNewFirst";
+            this.txtNewFirst.Size = new System.Drawing.Size(100, 23);
+            this.txtNewFirst.TabIndex = 9;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(7, 87);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(67, 15);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "First Name:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 139);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(70, 15);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Description:";
             // 
             // txtNewUsername
             // 
@@ -213,19 +210,41 @@ namespace SchoolGrades
             // 
             // btnNewUser
             // 
+            this.btnNewUser.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnNewUser.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnNewUser.Location = new System.Drawing.Point(331, 46);
             this.btnNewUser.Name = "btnNewUser";
-            this.btnNewUser.Size = new System.Drawing.Size(80, 39);
+            this.btnNewUser.Size = new System.Drawing.Size(94, 39);
             this.btnNewUser.TabIndex = 3;
             this.btnNewUser.Text = "Create User";
             this.btnNewUser.UseVisualStyleBackColor = true;
             this.btnNewUser.Click += new System.EventHandler(this.btnNewUser_Click);
             // 
+            // btnClose
+            // 
+            this.btnClose.Location = new System.Drawing.Point(706, 378);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(81, 32);
+            this.btnClose.TabIndex = 4;
+            this.btnClose.Text = "Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // rTxtNewDescription
+            // 
+            this.rTxtNewDescription.Location = new System.Drawing.Point(75, 136);
+            this.rTxtNewDescription.Multiline = true;
+            this.rTxtNewDescription.Name = "rTxtNewDescription";
+            this.rTxtNewDescription.Size = new System.Drawing.Size(100, 48);
+            this.rTxtNewDescription.TabIndex = 14;
+            // 
             // frmUsersManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(816, 422);
+            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnNewUser);
             this.Controls.Add(this.grbUpdates);
             this.Controls.Add(this.btnModifica);
@@ -252,7 +271,6 @@ namespace SchoolGrades
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtNewLN;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RichTextBox rTxtNewDescription;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtNewPw;
         private System.Windows.Forms.TextBox txtNewFirst;
@@ -260,5 +278,7 @@ namespace SchoolGrades
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnNewUser;
         private System.Windows.Forms.Button btnConfirmCreation;
+        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.TextBox rTxtNewDescription;
     }
 }
