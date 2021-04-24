@@ -10,8 +10,8 @@ namespace SchoolGrades
 {
     public partial class frmQuestionChoose : Form
     {
-        DbAndBusiness db;
-        TreeMpttDb dbMptt; 
+        DbAndBusiness db = new DbAndBusiness();
+        TreeMpttDb dbMptt = new TreeMpttDb(); 
 
         //SchoolSubject subj = new SchoolSubject();
 
@@ -35,9 +35,6 @@ namespace SchoolGrades
             SchoolSubject SchoolSubject, Class Class, Student Student = null, Question Question = null)
         {
             InitializeComponent();
-
-            DbAndBusiness db = new DbAndBusiness(Commons.PathAndFileDatabase);
-            TreeMpttDb dbMptt = new TreeMpttDb(db);
 
             this.ParentForm = ParentForm; 
             // fills the lookup tables' combos

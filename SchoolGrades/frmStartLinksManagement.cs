@@ -10,7 +10,7 @@ namespace SchoolGrades
     {
         // TODO management of year and classes of year with combo.  
 
-        DbAndBusiness db;
+        DbAndBusiness db = new DbAndBusiness();
 
         string year;
         private int? currentIdStartLink;
@@ -19,8 +19,6 @@ namespace SchoolGrades
         public frmStartLinksManagement(Class CurrentClass)
         {
             InitializeComponent();
-
-            db = new DbAndBusiness(Commons.PathAndFileDatabase);
 
             currentClass = CurrentClass; 
         }

@@ -14,7 +14,7 @@ namespace SchoolGrades
 {
     public partial class frmNewYear : Form
     {
-        DbAndBusiness db;
+        DbAndBusiness db = new DbAndBusiness();
 
         string idStartYear;
         private School currentSchool;
@@ -29,8 +29,6 @@ namespace SchoolGrades
         public frmNewYear(string IdStartYear)
         {
             InitializeComponent();
-
-            db = new DbAndBusiness(Commons.PathAndFileDatabase);
 
             idStartYear = IdStartYear;
         }

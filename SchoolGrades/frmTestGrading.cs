@@ -13,7 +13,7 @@ namespace SchoolGrades
 {
     public partial class frmTestGrading : Form
     {
-        DbAndBusiness db; 
+        DbAndBusiness db = new DbAndBusiness();
 
         Test currentTest;
         Class currentClass;
@@ -23,7 +23,6 @@ namespace SchoolGrades
         public frmTestGrading()
         {
             InitializeComponent();
-            db = new DbAndBusiness(Commons.PathAndFileDatabase);
         }
 
         private void frmTestAssessment_Load(object sender, EventArgs e)

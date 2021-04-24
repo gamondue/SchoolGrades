@@ -8,7 +8,7 @@ namespace SchoolGrades
 {
     public partial class frmTopicChooseByPeriod : Form
     {
-        DbAndBusiness db;
+        DbAndBusiness db = new DbAndBusiness();
         private Class currentClass;
         private SchoolSubject currentSubject;
 
@@ -27,7 +27,6 @@ namespace SchoolGrades
             Class Class, SchoolSubject Subject)
         {
             InitializeComponent();
-            db = new DbAndBusiness(Commons.PathAndFileDatabase);
 
             currentClass = Class;
             currentSubject = Subject;

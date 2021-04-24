@@ -19,10 +19,10 @@ namespace SchoolGrades
         private void frmSetup_Load(object sender, EventArgs e)
         {
             Commons.ReadConfigFile();
-            TxtPathDatabase.Text = Commons.PathDatabase;
-            TxtFileDatabase.Text = Commons.FileDatabase;
             TxtPathImages.Text = Commons.PathImages;
             TxtPathStartLinks.Text = Commons.PathStartLinks; // not longer used
+            TxtPathDatabase.Text = Commons.PathDatabase;
+            TxtFileDatabase.Text = Commons.FileDatabase;
             Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.FileDatabase;
             TxtPathDocuments.Text = Commons.PathDocuments;
             chkSaveBackup.Checked = Commons.SaveBackupWhenExiting; 
@@ -74,7 +74,7 @@ namespace SchoolGrades
             WriteConfigFile();
         }
 
-        internal void WriteConfigFile()
+        private void WriteConfigFile()
         {
             string[] dati = new string[6];
             try

@@ -17,7 +17,7 @@ namespace SchoolGrades
         public int indexCurrentDrawn = 0;
 
         DbAndBusiness db; // must be instantiated after the reading of config file. 
-        BusinessLayer blu; // must be instantiated after the reading of config file.
+        BusinessLayer.BusinessLayer bl; // must be instantiated after the reading of config file.
 
         public List<Student> currentStudentsList;
         public List<Student> eligiblesList = new List<Student>();
@@ -71,10 +71,7 @@ namespace SchoolGrades
         public frmMain()
         {
             InitializeComponent();
-
-            db = new DbAndBusiness(Commons.PathAndFileDatabase);
-            blu = new BusinessLayer(db.DatabaseName);
-
+            
             this.Text += " v. " + version;
 
             // first default year in the "years" combo
@@ -115,6 +112,9 @@ namespace SchoolGrades
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             btnTemporary.Visible = false; 
 #endif
+            db = new DbAndBusiness();
+            bl = new BusinessLayer.BusinessLayer();
+
             school = db.GetSchool(Commons.IdSchool);
             if (school == null)
                 return;
@@ -140,7 +140,7 @@ namespace SchoolGrades
             txtNStudents.Text = "";
 
             // start Thread that concurrently saves the Topics tree
-            Commons.SaveTreeMptt = new TreeMptt(db, null, null, null, null, null, null, picBackgroundSaveRunning);
+            Commons.SaveTreeMptt = new TreeMptt(null, null, null, null, null, null, picBackgroundSaveRunning);
             Commons.BackgroundSaveThread= new Thread(Commons.SaveTreeMptt.SaveMpttBackground);
             Commons.BackgroundSaveThread.Start(); 
         }
@@ -900,7 +900,7 @@ namespace SchoolGrades
             }
             return indexInList;
         }
-        private void btnSetup_Click(object sender, EventArgs e)
+        private void BtnSetup_Click(object sender, EventArgs e)
         {
             // save current students because can be used by setup windows
             SaveStudentsOfClassIfEligibleHasChanged();
@@ -1211,13 +1211,9 @@ namespace SchoolGrades
             // if a save of the database with Mptt is running, we close it 
             if (Commons.BackgroundSaveThread.IsAlive)
             {
-                // locks a concurrent modification of Commons.BackgroundCanStillSaveTopicsTree 
-                lock (Commons.LockBackgroundCanStillSaveTopicsTree)
-                {
-                    Commons.BackgroundCanStillSaveTopicsTree = false;
-                }
+                Commons.BackgroundCanStillSaveTopicsTree = false;
                 // we wait for the saving Thread to finish
-                Commons.BackgroundSaveThread.Join(30000);  // enormous timeout just for big problems
+                Commons.BackgroundSaveThread.Join(2 * 60000);
             }
             // save in the log folder a copy of the database, if enabled 
             if (Commons.SaveBackupWhenExiting)

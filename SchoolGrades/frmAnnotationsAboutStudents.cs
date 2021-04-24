@@ -7,7 +7,7 @@ namespace SchoolGrades
 {
     public partial class frmAnnotationsAboutStudents : Form
     {
-        DbAndBusiness db;
+        DbAndBusiness db = new DbAndBusiness();
         private string idSchoolYear;
         private StudentAnnotation currentAnnotation;
         private List<Student> chosenStudents;
@@ -22,8 +22,6 @@ namespace SchoolGrades
         public frmAnnotationsAboutStudents(List<Student> ChosenStudents, string IdSchoolYear)
         {
             InitializeComponent();
-
-            db = new DbAndBusiness(db.DatabaseName); 
 
             idSchoolYear = IdSchoolYear; 
             this.chosenStudents = ChosenStudents;

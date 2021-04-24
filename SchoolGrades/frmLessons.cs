@@ -19,7 +19,7 @@ namespace SchoolGrades
 
         Class currentClass;
 
-        DbAndBusiness db;
+        DbAndBusiness db = new DbAndBusiness();
 
         List<Topic> listTopicsBefore;
 
@@ -35,8 +35,6 @@ namespace SchoolGrades
         public frmLessons(Class CurrentClass, SchoolSubject SchoolSubject, bool ReadOnly)
         {
             InitializeComponent();
-
-            db = new DbAndBusiness(Commons.PathAndFileDatabase); 
 
             currentClass = CurrentClass;
             currentLesson.IdClass = currentClass.IdClass;
@@ -86,7 +84,7 @@ namespace SchoolGrades
             // load data in datagrids
             RefreshUI();
             //topicTreeMptt = new TopicTreeMptt(listTopicsBefore, trwTopics,
-            topicTreeMptt = new gamon.TreeMptt.TreeMptt(db, trwTopics,
+            topicTreeMptt = new gamon.TreeMptt.TreeMptt(trwTopics,
                 txtTopicName, txtTopicDescription, txtTopicFind, TxtTopicsDigestAndSearch,
                 null, Commons.globalPicLed, DragDropEffects.Copy);
             topicTreeMptt.AddNodesToTreeviewByBestMethod();

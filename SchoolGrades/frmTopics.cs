@@ -12,7 +12,7 @@ namespace SchoolGrades
 {
     public partial class frmTopics : Form
     {
-        DbAndBusiness db;
+        DbAndBusiness db = new DbAndBusiness();
 
         gamon.TreeMptt.TreeMptt topicTreeMptt;
 
@@ -42,8 +42,6 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
-            db = new DbAndBusiness(Commons.PathAndFileDatabase);
-
             currentSubject = Subject;
             currentClass = Class; 
             formType = FormType;
@@ -53,7 +51,7 @@ namespace SchoolGrades
         private void frmTopic_Load(object sender, EventArgs e)
         {
             //topicTreeMptt = new TopicTreeMptt(listTopicsInternal, trwTopics,
-            topicTreeMptt = new TreeMptt(db, trwTopics,
+            topicTreeMptt = new TreeMptt(trwTopics,
                 txtTopicName, txtDescription, txtFind, null, null,
                 Commons.globalPicLed, DragDropEffects.Copy);
 

@@ -13,14 +13,13 @@ namespace SchoolGrades
 {
     public partial class frmTestManagement : Form
     {
-        DbAndBusiness db;
+        DbAndBusiness db = new DbAndBusiness();
         List<Test> listTests = new List<Test>();
         Test currentTest; 
 
         public frmTestManagement()
         {
             InitializeComponent();
-            db = new DbAndBusiness(Commons.PathAndFileDatabase);
         }
 
         private void frmTest_Load(object sender, EventArgs e)
