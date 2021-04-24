@@ -81,6 +81,9 @@
             this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.picSameNodeChangedPosition = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btnTemporary = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btnBeheaded = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -105,7 +108,7 @@
             // 
             // txtPathNewDatabase
             // 
-            this.txtPathNewDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPathNewDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtPathNewDatabase.Location = new System.Drawing.Point(13, 31);
             this.txtPathNewDatabase.Margin = new System.Windows.Forms.Padding(4);
             this.txtPathNewDatabase.Name = "txtPathNewDatabase";
@@ -115,7 +118,7 @@
             // btnPathNewDatabase
             // 
             this.btnPathNewDatabase.BackColor = System.Drawing.Color.Transparent;
-            this.btnPathNewDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPathNewDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnPathNewDatabase.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnPathNewDatabase.Location = new System.Drawing.Point(785, 22);
             this.btnPathNewDatabase.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
@@ -137,7 +140,7 @@
             // 
             // txtFileNewDatabase
             // 
-            this.txtFileNewDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFileNewDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtFileNewDatabase.Location = new System.Drawing.Point(851, 31);
             this.txtFileNewDatabase.Margin = new System.Windows.Forms.Padding(4);
             this.txtFileNewDatabase.Name = "txtFileNewDatabase";
@@ -147,7 +150,7 @@
             // btnFileNewDatabase
             // 
             this.btnFileNewDatabase.BackColor = System.Drawing.Color.Transparent;
-            this.btnFileNewDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFileNewDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnFileNewDatabase.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnFileNewDatabase.Location = new System.Drawing.Point(1205, 22);
             this.btnFileNewDatabase.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
@@ -173,7 +176,7 @@
             // 
             // txtPathOldDatabase
             // 
-            this.txtPathOldDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPathOldDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtPathOldDatabase.Location = new System.Drawing.Point(12, 89);
             this.txtPathOldDatabase.Margin = new System.Windows.Forms.Padding(4);
             this.txtPathOldDatabase.Name = "txtPathOldDatabase";
@@ -183,7 +186,7 @@
             // btnPathOldDatabase
             // 
             this.btnPathOldDatabase.BackColor = System.Drawing.Color.Transparent;
-            this.btnPathOldDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPathOldDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnPathOldDatabase.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnPathOldDatabase.Location = new System.Drawing.Point(784, 80);
             this.btnPathOldDatabase.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
@@ -205,7 +208,7 @@
             // 
             // txtFileOldDatabase
             // 
-            this.txtFileOldDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFileOldDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtFileOldDatabase.Location = new System.Drawing.Point(850, 89);
             this.txtFileOldDatabase.Margin = new System.Windows.Forms.Padding(4);
             this.txtFileOldDatabase.Name = "txtFileOldDatabase";
@@ -215,7 +218,7 @@
             // btnFileOldDatabase
             // 
             this.btnFileOldDatabase.BackColor = System.Drawing.Color.Transparent;
-            this.btnFileOldDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFileOldDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnFileOldDatabase.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnFileOldDatabase.Location = new System.Drawing.Point(1204, 80);
             this.btnFileOldDatabase.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
@@ -230,7 +233,7 @@
             // 
             this.btnRecover.Location = new System.Drawing.Point(12, 120);
             this.btnRecover.Name = "btnRecover";
-            this.btnRecover.Size = new System.Drawing.Size(75, 46);
+            this.btnRecover.Size = new System.Drawing.Size(66, 46);
             this.btnRecover.TabIndex = 126;
             this.btnRecover.Text = "Importa";
             this.btnRecover.UseVisualStyleBackColor = true;
@@ -239,7 +242,7 @@
             // chkCheckChangesSameId
             // 
             this.chkCheckChangesSameId.AutoSize = true;
-            this.chkCheckChangesSameId.Location = new System.Drawing.Point(124, 144);
+            this.chkCheckChangesSameId.Location = new System.Drawing.Point(158, 144);
             this.chkCheckChangesSameId.Name = "chkCheckChangesSameId";
             this.chkCheckChangesSameId.Size = new System.Drawing.Size(246, 22);
             this.chkCheckChangesSameId.TabIndex = 127;
@@ -251,7 +254,7 @@
             this.chkErasedId.AutoSize = true;
             this.chkErasedId.Checked = true;
             this.chkErasedId.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkErasedId.Location = new System.Drawing.Point(124, 120);
+            this.chkErasedId.Location = new System.Drawing.Point(158, 120);
             this.chkErasedId.Name = "chkErasedId";
             this.chkErasedId.Size = new System.Drawing.Size(209, 22);
             this.chkErasedId.TabIndex = 128;
@@ -279,8 +282,8 @@
             // trwNewTopics
             // 
             this.trwNewTopics.AllowDrop = true;
-            this.trwNewTopics.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.trwNewTopics.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trwNewTopics.Location = new System.Drawing.Point(3, 39);
             this.trwNewTopics.Name = "trwNewTopics";
@@ -290,19 +293,19 @@
             // trwOldTopics
             // 
             this.trwOldTopics.AllowDrop = true;
-            this.trwOldTopics.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.trwOldTopics.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.trwOldTopics.Location = new System.Drawing.Point(3, 37);
+            this.trwOldTopics.Location = new System.Drawing.Point(3, 40);
             this.trwOldTopics.Name = "trwOldTopics";
             this.trwOldTopics.Size = new System.Drawing.Size(572, 292);
             this.trwOldTopics.TabIndex = 134;
             // 
             // txtNewTopicName
             // 
-            this.txtNewTopicName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.txtNewTopicName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNewTopicName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNewTopicName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtNewTopicName.Location = new System.Drawing.Point(3, 335);
             this.txtNewTopicName.Multiline = true;
             this.txtNewTopicName.Name = "txtNewTopicName";
@@ -311,9 +314,9 @@
             // 
             // txtOldTopicName
             // 
-            this.txtOldTopicName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.txtOldTopicName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtOldTopicName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtOldTopicName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtOldTopicName.Location = new System.Drawing.Point(3, 335);
             this.txtOldTopicName.Multiline = true;
             this.txtOldTopicName.Name = "txtOldTopicName";
@@ -322,7 +325,7 @@
             // 
             // txtCodOldTopic
             // 
-            this.txtCodOldTopic.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCodOldTopic.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtCodOldTopic.Location = new System.Drawing.Point(254, 9);
             this.txtCodOldTopic.Margin = new System.Windows.Forms.Padding(4);
             this.txtCodOldTopic.Name = "txtCodOldTopic";
@@ -332,7 +335,7 @@
             // 
             // txtCodNewTopic
             // 
-            this.txtCodNewTopic.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCodNewTopic.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtCodNewTopic.Location = new System.Drawing.Point(252, 8);
             this.txtCodNewTopic.Margin = new System.Windows.Forms.Padding(4);
             this.txtCodNewTopic.Name = "txtCodNewTopic";
@@ -371,8 +374,8 @@
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.Location = new System.Drawing.Point(13, 172);
             this.splitContainer1.Name = "splitContainer1";
@@ -414,9 +417,9 @@
             // 
             // txtSearchNew
             // 
-            this.txtSearchNew.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.txtSearchNew.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSearchNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearchNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtSearchNew.Location = new System.Drawing.Point(445, 8);
             this.txtSearchNew.Margin = new System.Windows.Forms.Padding(4);
             this.txtSearchNew.Name = "txtSearchNew";
@@ -426,7 +429,7 @@
             // 
             // txtNewDescription
             // 
-            this.txtNewDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.txtNewDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNewDescription.Location = new System.Drawing.Point(3, 373);
             this.txtNewDescription.Multiline = true;
@@ -446,9 +449,9 @@
             // 
             // txtSearchOld
             // 
-            this.txtSearchOld.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.txtSearchOld.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSearchOld.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearchOld.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtSearchOld.Location = new System.Drawing.Point(441, 8);
             this.txtSearchOld.Margin = new System.Windows.Forms.Padding(4);
             this.txtSearchOld.Name = "txtSearchOld";
@@ -458,7 +461,7 @@
             // 
             // txtOldDescription
             // 
-            this.txtOldDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.txtOldDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtOldDescription.Location = new System.Drawing.Point(3, 373);
             this.txtOldDescription.Multiline = true;
@@ -629,12 +632,50 @@
             this.picSameNodeChangedPosition.TabIndex = 157;
             this.picSameNodeChangedPosition.TabStop = false;
             // 
+            // btnTemporary
+            // 
+            this.btnTemporary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTemporary.BackColor = System.Drawing.Color.Red;
+            this.btnTemporary.ForeColor = System.Drawing.Color.Yellow;
+            this.btnTemporary.Location = new System.Drawing.Point(644, 120);
+            this.btnTemporary.Name = "btnTemporary";
+            this.btnTemporary.Size = new System.Drawing.Size(270, 50);
+            this.btnTemporary.TabIndex = 165;
+            this.btnTemporary.Text = "Danger area. Backup before saving in this window!";
+            this.toolTip1.SetToolTip(this.btnTemporary, "Lancio dei link e programmi legati alla classe");
+            this.btnTemporary.UseVisualStyleBackColor = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label3.Location = new System.Drawing.Point(391, 136);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(121, 15);
+            this.label3.TabIndex = 166;
+            this.label3.Text = "Drag destra->sinistra";
+            // 
+            // btnBeheaded
+            // 
+            this.btnBeheaded.Location = new System.Drawing.Point(84, 120);
+            this.btnBeheaded.Name = "btnBeheaded";
+            this.btnBeheaded.Size = new System.Drawing.Size(68, 46);
+            this.btnBeheaded.TabIndex = 167;
+            this.btnBeheaded.Text = "No padre";
+            this.toolTip1.SetToolTip(this.btnBeheaded, "Mostra i nodi dell\'albero che non hanno padre");
+            this.btnBeheaded.UseCompatibleTextRendering = true;
+            this.btnBeheaded.UseVisualStyleBackColor = true;
+            this.btnBeheaded.Click += new System.EventHandler(this.btnBeheaded_Click);
+            // 
             // frmTopicsRecover
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(1266, 652);
+            this.Controls.Add(this.btnBeheaded);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.btnTemporary);
             this.Controls.Add(this.checkBox6);
             this.Controls.Add(this.picSameNodeChangedPosition);
             this.Controls.Add(this.checkBox5);
@@ -667,12 +708,13 @@
             this.Controls.Add(this.lblFileDatabase);
             this.Controls.Add(this.txtFileNewDatabase);
             this.Controls.Add(this.btnFileNewDatabase);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.Color.DarkBlue;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmTopicsRecover";
             this.Text = "Recupera argomenti";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmTopicsRecover_FormClosing);
             this.Load += new System.EventHandler(this.frmTopicsRecover_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
@@ -745,5 +787,8 @@
         private System.Windows.Forms.CheckBox checkBox6;
         private System.Windows.Forms.PictureBox picSameNodeChangedPosition;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button btnTemporary;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnBeheaded;
     }
 }

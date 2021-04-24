@@ -7,13 +7,14 @@ namespace SchoolGrades
 {
     public partial class frmUsersManagement : Form
     {
-        BusinessLayer.BusinessLayer bl = new BusinessLayer.BusinessLayer();
+        BusinessLayer bl;
 
         List<User> listOfAllUsers; 
 
         public frmUsersManagement()
         {
             InitializeComponent();
+            bl = new BusinessLayer(Commons.PathAndFileDatabase);
         }
 
         private void frmUsersManagement_Load(object sender, EventArgs e)
