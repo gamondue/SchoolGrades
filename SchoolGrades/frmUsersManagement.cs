@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -89,7 +89,6 @@ namespace SchoolGrades
                 grdUsers.Columns.Clear();
                 listOfAllusers = new BindingList<User>(dl.GetAllUsers());
                 grdUsers.DataSource = listOfAllusers;
-
                 DataGridViewButtonColumn bc = new DataGridViewButtonColumn();
                 bc.HeaderText = "Action";
                 bc.Text = "Details";
@@ -118,6 +117,5 @@ namespace SchoolGrades
                 userDetails.ShowDialog();
             }
         }
-
     }
 }

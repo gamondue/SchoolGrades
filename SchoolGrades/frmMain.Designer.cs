@@ -176,7 +176,7 @@
             this.txtMinuteStartLesson.ForeColor = System.Drawing.Color.DarkBlue;
             this.txtMinuteStartLesson.Location = new System.Drawing.Point(543, 8);
             this.txtMinuteStartLesson.Name = "txtMinuteStartLesson";
-            this.txtMinuteStartLesson.Size = new System.Drawing.Size(46, 29);
+            this.txtMinuteStartLesson.Size = new System.Drawing.Size(46, 24);
             this.txtMinuteStartLesson.TabIndex = 139;
             this.txtMinuteStartLesson.Text = "0";
             this.txtMinuteStartLesson.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -189,7 +189,7 @@
             this.txtDurationLesson.ForeColor = System.Drawing.Color.DarkBlue;
             this.txtDurationLesson.Location = new System.Drawing.Point(543, 33);
             this.txtDurationLesson.Name = "txtDurationLesson";
-            this.txtDurationLesson.Size = new System.Drawing.Size(46, 29);
+            this.txtDurationLesson.Size = new System.Drawing.Size(46, 24);
             this.txtDurationLesson.TabIndex = 140;
             this.txtDurationLesson.Text = "45";
             this.txtDurationLesson.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -202,7 +202,7 @@
             this.txtMinuteStartAlarm.ForeColor = System.Drawing.Color.DarkBlue;
             this.txtMinuteStartAlarm.Location = new System.Drawing.Point(543, 58);
             this.txtMinuteStartAlarm.Name = "txtMinuteStartAlarm";
-            this.txtMinuteStartAlarm.Size = new System.Drawing.Size(46, 29);
+            this.txtMinuteStartAlarm.Size = new System.Drawing.Size(46, 24);
             this.txtMinuteStartAlarm.TabIndex = 141;
             this.txtMinuteStartAlarm.Text = "1";
             this.txtMinuteStartAlarm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -215,7 +215,7 @@
             this.txtRevengeFactor.Location = new System.Drawing.Point(912, 511);
             this.txtRevengeFactor.Name = "txtRevengeFactor";
             this.txtRevengeFactor.ReadOnly = true;
-            this.txtRevengeFactor.Size = new System.Drawing.Size(36, 29);
+            this.txtRevengeFactor.Size = new System.Drawing.Size(36, 24);
             this.txtRevengeFactor.TabIndex = 144;
             this.txtRevengeFactor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.toolTip1.SetToolTip(this.txtRevengeFactor, "Fattore di vendetta dell\'allievo corrente");
@@ -241,10 +241,10 @@
             this.lstClasses.BackColor = System.Drawing.Color.PowderBlue;
             this.lstClasses.ForeColor = System.Drawing.Color.DarkBlue;
             this.lstClasses.FormattingEnabled = true;
-            this.lstClasses.ItemHeight = 24;
+            this.lstClasses.ItemHeight = 18;
             this.lstClasses.Location = new System.Drawing.Point(86, 4);
             this.lstClasses.Name = "lstClasses";
-            this.lstClasses.Size = new System.Drawing.Size(76, 124);
+            this.lstClasses.Size = new System.Drawing.Size(76, 112);
             this.lstClasses.TabIndex = 46;
             this.lstClasses.TabStop = false;
             this.toolTip1.SetToolTip(this.lstClasses, "Classi dell\'anno scolastico selezionato");
@@ -272,7 +272,7 @@
             this.chkNomeVisibile.ForeColor = System.Drawing.Color.DarkBlue;
             this.chkNomeVisibile.Location = new System.Drawing.Point(297, 66);
             this.chkNomeVisibile.Name = "chkNomeVisibile";
-            this.chkNomeVisibile.Size = new System.Drawing.Size(158, 28);
+            this.chkNomeVisibile.Size = new System.Drawing.Size(128, 22);
             this.chkNomeVisibile.TabIndex = 14;
             this.chkNomeVisibile.Text = "Nome visibile";
             this.toolTip1.SetToolTip(this.chkNomeVisibile, "Visualizza il nome dell\'allievo");
@@ -288,7 +288,7 @@
             this.chkFotoVisibile.ForeColor = System.Drawing.Color.DarkBlue;
             this.chkFotoVisibile.Location = new System.Drawing.Point(297, 91);
             this.chkFotoVisibile.Name = "chkFotoVisibile";
-            this.chkFotoVisibile.Size = new System.Drawing.Size(144, 28);
+            this.chkFotoVisibile.Size = new System.Drawing.Size(118, 22);
             this.chkFotoVisibile.TabIndex = 16;
             this.chkFotoVisibile.Text = "Foto visibile";
             this.toolTip1.SetToolTip(this.chkFotoVisibile, "Visualizza la foto dell\'allievo");
@@ -304,7 +304,7 @@
             this.chkStudentsListVisible.ForeColor = System.Drawing.Color.DarkBlue;
             this.chkStudentsListVisible.Location = new System.Drawing.Point(297, 116);
             this.chkStudentsListVisible.Name = "chkStudentsListVisible";
-            this.chkStudentsListVisible.Size = new System.Drawing.Size(144, 28);
+            this.chkStudentsListVisible.Size = new System.Drawing.Size(119, 22);
             this.chkStudentsListVisible.TabIndex = 18;
             this.chkStudentsListVisible.Text = "Lista visibile";
             this.toolTip1.SetToolTip(this.chkStudentsListVisible, "Visualizza l\'elenco degli allievi della classe");
@@ -317,7 +317,7 @@
             this.CmbSchoolYear.FormattingEnabled = true;
             this.CmbSchoolYear.Location = new System.Drawing.Point(4, 28);
             this.CmbSchoolYear.Name = "CmbSchoolYear";
-            this.CmbSchoolYear.Size = new System.Drawing.Size(72, 32);
+            this.CmbSchoolYear.Size = new System.Drawing.Size(72, 26);
             this.CmbSchoolYear.TabIndex = 62;
             this.toolTip1.SetToolTip(this.CmbSchoolYear, "Anno scolastico senza \"-\"");
             this.CmbSchoolYear.SelectedIndexChanged += new System.EventHandler(this.cmbSchoolYear_SelectedIndexChanged);
@@ -329,7 +329,7 @@
             this.TxtPathImages.ForeColor = System.Drawing.Color.DarkBlue;
             this.TxtPathImages.Location = new System.Drawing.Point(8, 142);
             this.TxtPathImages.Name = "TxtPathImages";
-            this.TxtPathImages.Size = new System.Drawing.Size(671, 29);
+            this.TxtPathImages.Size = new System.Drawing.Size(671, 24);
             this.TxtPathImages.TabIndex = 20;
             this.toolTip1.SetToolTip(this.TxtPathImages, "Cartella in cui trovare l\'immagine casuale (click per aprire un file nella cartel" +
         "la) ");
@@ -371,7 +371,7 @@
             this.rdbDrawByRevengeFactor.AutoSize = true;
             this.rdbDrawByRevengeFactor.Location = new System.Drawing.Point(6, 152);
             this.rdbDrawByRevengeFactor.Name = "rdbDrawByRevengeFactor";
-            this.rdbDrawByRevengeFactor.Size = new System.Drawing.Size(212, 28);
+            this.rdbDrawByRevengeFactor.Size = new System.Drawing.Size(169, 22);
             this.rdbDrawByRevengeFactor.TabIndex = 6;
             this.rdbDrawByRevengeFactor.Text = "Tremenda vendetta";
             this.toolTip1.SetToolTip(this.rdbDrawByRevengeFactor, "Sorteggio con probabilità più alta per maggiori fattori di vendetta");
@@ -384,7 +384,7 @@
             this.rdbDrawByOldestFirst.Enabled = false;
             this.rdbDrawByOldestFirst.Location = new System.Drawing.Point(6, 86);
             this.rdbDrawByOldestFirst.Name = "rdbDrawByOldestFirst";
-            this.rdbDrawByOldestFirst.Size = new System.Drawing.Size(189, 28);
+            this.rdbDrawByOldestFirst.Size = new System.Drawing.Size(155, 22);
             this.rdbDrawByOldestFirst.TabIndex = 4;
             this.rdbDrawByOldestFirst.Text = "Prima voti vecchi";
             this.toolTip1.SetToolTip(this.rdbDrawByOldestFirst, "Ordinamento con prima i voti più vecchi del tipo selezionato");
@@ -395,7 +395,7 @@
             this.rdbDrawNoOfGrades.AutoSize = true;
             this.rdbDrawNoOfGrades.Location = new System.Drawing.Point(6, 64);
             this.rdbDrawNoOfGrades.Name = "rdbDrawNoOfGrades";
-            this.rdbDrawNoOfGrades.Size = new System.Drawing.Size(144, 28);
+            this.rdbDrawNoOfGrades.Size = new System.Drawing.Size(118, 22);
             this.rdbDrawNoOfGrades.TabIndex = 5;
             this.rdbDrawNoOfGrades.Text = "Numero voti";
             this.toolTip1.SetToolTip(this.rdbDrawNoOfGrades, "Ordinamento in base al numero dei voti del tipo selezionato");
@@ -407,7 +407,7 @@
             this.rdbDrawLowGradesFirst.Enabled = false;
             this.rdbDrawLowGradesFirst.Location = new System.Drawing.Point(6, 130);
             this.rdbDrawLowGradesFirst.Name = "rdbDrawLowGradesFirst";
-            this.rdbDrawLowGradesFirst.Size = new System.Drawing.Size(176, 28);
+            this.rdbDrawLowGradesFirst.Size = new System.Drawing.Size(147, 22);
             this.rdbDrawLowGradesFirst.TabIndex = 3;
             this.rdbDrawLowGradesFirst.Text = "Prima voti bassi";
             this.toolTip1.SetToolTip(this.rdbDrawLowGradesFirst, "Ordinamento per voto descrescente");
@@ -418,7 +418,7 @@
             this.rdbSortByAlphbetical.AutoSize = true;
             this.rdbSortByAlphbetical.Location = new System.Drawing.Point(6, 108);
             this.rdbSortByAlphbetical.Name = "rdbSortByAlphbetical";
-            this.rdbSortByAlphbetical.Size = new System.Drawing.Size(123, 28);
+            this.rdbSortByAlphbetical.Size = new System.Drawing.Size(100, 22);
             this.rdbSortByAlphbetical.TabIndex = 2;
             this.rdbSortByAlphbetical.Text = "Alfabetico";
             this.toolTip1.SetToolTip(this.rdbSortByAlphbetical, "Ordinamento alfabetico");
@@ -429,7 +429,7 @@
             this.rdbDrawByWeightsSum.AutoSize = true;
             this.rdbDrawByWeightsSum.Location = new System.Drawing.Point(6, 42);
             this.rdbDrawByWeightsSum.Name = "rdbDrawByWeightsSum";
-            this.rdbDrawByWeightsSum.Size = new System.Drawing.Size(207, 28);
+            this.rdbDrawByWeightsSum.Size = new System.Drawing.Size(171, 22);
             this.rdbDrawByWeightsSum.TabIndex = 1;
             this.rdbDrawByWeightsSum.Text = "Peso totale dei voti";
             this.toolTip1.SetToolTip(this.rdbDrawByWeightsSum, "Ordinamento secondo il peso totale del tipo di voto selezionato");
@@ -441,7 +441,7 @@
             this.rdbDrawEqualProbability.Checked = true;
             this.rdbDrawEqualProbability.Location = new System.Drawing.Point(6, 20);
             this.rdbDrawEqualProbability.Name = "rdbDrawEqualProbability";
-            this.rdbDrawEqualProbability.Size = new System.Drawing.Size(192, 28);
+            this.rdbDrawEqualProbability.Size = new System.Drawing.Size(155, 22);
             this.rdbDrawEqualProbability.TabIndex = 0;
             this.rdbDrawEqualProbability.TabStop = true;
             this.rdbDrawEqualProbability.Text = "Probabilità uguali";
@@ -515,7 +515,7 @@
             this.cmbGradeType.Location = new System.Drawing.Point(820, 246);
             this.cmbGradeType.Margin = new System.Windows.Forms.Padding(4);
             this.cmbGradeType.Name = "cmbGradeType";
-            this.cmbGradeType.Size = new System.Drawing.Size(239, 33);
+            this.cmbGradeType.Size = new System.Drawing.Size(239, 28);
             this.cmbGradeType.TabIndex = 96;
             this.toolTip1.SetToolTip(this.cmbGradeType, "Scelta del tipo di voto");
             this.cmbGradeType.SelectedIndexChanged += new System.EventHandler(this.cmbGradeType_SelectedIndexChanged);
@@ -545,7 +545,7 @@
             this.cmbSchoolSubject.FormattingEnabled = true;
             this.cmbSchoolSubject.Location = new System.Drawing.Point(820, 300);
             this.cmbSchoolSubject.Name = "cmbSchoolSubject";
-            this.cmbSchoolSubject.Size = new System.Drawing.Size(239, 32);
+            this.cmbSchoolSubject.Size = new System.Drawing.Size(239, 26);
             this.cmbSchoolSubject.TabIndex = 108;
             this.toolTip1.SetToolTip(this.cmbSchoolSubject, "Scelta materia");
             this.cmbSchoolSubject.SelectedIndexChanged += new System.EventHandler(this.cmbSchoolSubject_SelectedIndexChanged);
@@ -601,7 +601,7 @@
             this.txtQuestion.Location = new System.Drawing.Point(8, 193);
             this.txtQuestion.Name = "txtQuestion";
             this.txtQuestion.ReadOnly = true;
-            this.txtQuestion.Size = new System.Drawing.Size(711, 29);
+            this.txtQuestion.Size = new System.Drawing.Size(711, 24);
             this.txtQuestion.TabIndex = 134;
             this.toolTip1.SetToolTip(this.txtQuestion, "Testo della domanda corrente");
             this.txtQuestion.TextChanged += new System.EventHandler(this.txtQuestion_TextChanged);
@@ -691,9 +691,9 @@
             // 
             this.chkSuspence.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkSuspence.AutoSize = true;
-            this.chkSuspence.Location = new System.Drawing.Point(936, 223);
+            this.chkSuspence.Location = new System.Drawing.Point(960, 223);
             this.chkSuspence.Name = "chkSuspence";
-            this.chkSuspence.Size = new System.Drawing.Size(123, 28);
+            this.chkSuspence.Size = new System.Drawing.Size(99, 22);
             this.chkSuspence.TabIndex = 147;
             this.chkSuspence.Text = "suspence";
             this.toolTip1.SetToolTip(this.chkSuspence, "Aspetta un po\' prima di estrarre, suonando una musica");
@@ -722,7 +722,7 @@
             this.lblVindicationFactor.ForeColor = System.Drawing.Color.DarkBlue;
             this.lblVindicationFactor.Location = new System.Drawing.Point(912, 491);
             this.lblVindicationFactor.Name = "lblVindicationFactor";
-            this.lblVindicationFactor.Size = new System.Drawing.Size(49, 24);
+            this.lblVindicationFactor.Size = new System.Drawing.Size(38, 18);
             this.lblVindicationFactor.TabIndex = 145;
             this.lblVindicationFactor.Text = "F.V.";
             this.toolTip1.SetToolTip(this.lblVindicationFactor, "Fattore di vendetta dell\'allievo corrente");
@@ -734,7 +734,7 @@
             this.label1.ForeColor = System.Drawing.Color.DarkBlue;
             this.label1.Location = new System.Drawing.Point(423, 11);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(128, 24);
+            this.label1.Size = new System.Drawing.Size(104, 18);
             this.label1.TabIndex = 149;
             this.label1.Text = "Minuto inizio";
             this.toolTip1.SetToolTip(this.label1, "Minuto di  inizio della lezione");
@@ -746,7 +746,7 @@
             this.label3.ForeColor = System.Drawing.Color.DarkBlue;
             this.label3.Location = new System.Drawing.Point(423, 36);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(130, 24);
+            this.label3.Size = new System.Drawing.Size(105, 18);
             this.label3.TabIndex = 150;
             this.label3.Text = "Minuti durata";
             this.toolTip1.SetToolTip(this.label3, "Minuti di durata della lezione");
@@ -758,7 +758,7 @@
             this.label4.ForeColor = System.Drawing.Color.DarkBlue;
             this.label4.Location = new System.Drawing.Point(423, 61);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(148, 24);
+            this.label4.Size = new System.Drawing.Size(118, 18);
             this.label4.TabIndex = 151;
             this.label4.Text = "Anticipo minuti";
             this.toolTip1.SetToolTip(this.label4, "Minuti di anticipo dell\'allarme rispetto a fine lezione ");
@@ -825,7 +825,7 @@
             this.lstNames.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.lstNames.MultiColumn = true;
             this.lstNames.Name = "lstNames";
-            this.lstNames.Size = new System.Drawing.Size(711, 504);
+            this.lstNames.Size = new System.Drawing.Size(711, 487);
             this.lstNames.TabIndex = 26;
             this.toolTip1.SetToolTip(this.lstNames, "Nomi degli allievi della classe. ");
             this.lstNames.UseCompatibleTextRendering = true;
@@ -841,7 +841,7 @@
             this.lblDatabaseFile.ForeColor = System.Drawing.Color.Red;
             this.lblDatabaseFile.Location = new System.Drawing.Point(216, 0);
             this.lblDatabaseFile.Name = "lblDatabaseFile";
-            this.lblDatabaseFile.Size = new System.Drawing.Size(120, 17);
+            this.lblDatabaseFile.Size = new System.Drawing.Size(94, 13);
             this.lblDatabaseFile.TabIndex = 111;
             this.lblDatabaseFile.Text = "lblDatabaseFile";
             this.toolTip1.SetToolTip(this.lblDatabaseFile, "Nome del file del database. ");
@@ -869,9 +869,9 @@
             this.ChkActivateLessonClock.AutoSize = true;
             this.ChkActivateLessonClock.Checked = true;
             this.ChkActivateLessonClock.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ChkActivateLessonClock.Location = new System.Drawing.Point(388, 92);
+            this.ChkActivateLessonClock.Location = new System.Drawing.Point(423, 92);
             this.ChkActivateLessonClock.Name = "ChkActivateLessonClock";
-            this.ChkActivateLessonClock.Size = new System.Drawing.Size(189, 28);
+            this.ChkActivateLessonClock.Size = new System.Drawing.Size(154, 22);
             this.ChkActivateLessonClock.TabIndex = 159;
             this.ChkActivateLessonClock.Text = "orologio lezione ";
             this.toolTip1.SetToolTip(this.ChkActivateLessonClock, "Abilita orologio a colori per bottone lezione");
@@ -888,7 +888,7 @@
             this.label5.Location = new System.Drawing.Point(639, 223);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(74, 18);
+            this.label5.Size = new System.Drawing.Size(65, 15);
             this.label5.TabIndex = 163;
             this.label5.Text = "Id allievo";
             this.toolTip1.SetToolTip(this.label5, "Media pesata di tutti i microvoti visualizzati. Salvata nel voto complessivo. Si " +
@@ -901,7 +901,7 @@
             this.txtIdStudent.Margin = new System.Windows.Forms.Padding(4);
             this.txtIdStudent.Name = "txtIdStudent";
             this.txtIdStudent.ReadOnly = true;
-            this.txtIdStudent.Size = new System.Drawing.Size(77, 29);
+            this.txtIdStudent.Size = new System.Drawing.Size(77, 24);
             this.txtIdStudent.TabIndex = 162;
             this.txtIdStudent.TabStop = false;
             this.txtIdStudent.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -926,7 +926,7 @@
             this.txtTimeInterval.ForeColor = System.Drawing.Color.DarkBlue;
             this.txtTimeInterval.Location = new System.Drawing.Point(168, 4);
             this.txtTimeInterval.Name = "txtTimeInterval";
-            this.txtTimeInterval.Size = new System.Drawing.Size(46, 29);
+            this.txtTimeInterval.Size = new System.Drawing.Size(46, 24);
             this.txtTimeInterval.TabIndex = 168;
             this.txtTimeInterval.Text = "0";
             this.txtTimeInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -981,7 +981,7 @@
             this.chkLessonsPictures.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkLessonsPictures.Location = new System.Drawing.Point(5, 19);
             this.chkLessonsPictures.Name = "chkLessonsPictures";
-            this.chkLessonsPictures.Size = new System.Drawing.Size(93, 28);
+            this.chkLessonsPictures.Size = new System.Drawing.Size(76, 22);
             this.chkLessonsPictures.TabIndex = 10;
             this.chkLessonsPictures.Text = "lezioni";
             this.toolTip1.SetToolTip(this.chkLessonsPictures, "Estrazione fra  le immagini mostrate durante le lezioni");
@@ -992,7 +992,7 @@
             this.chkGivenFolder.AutoSize = true;
             this.chkGivenFolder.Location = new System.Drawing.Point(5, 41);
             this.chkGivenFolder.Name = "chkGivenFolder";
-            this.chkGivenFolder.Size = new System.Drawing.Size(99, 28);
+            this.chkGivenFolder.Size = new System.Drawing.Size(82, 22);
             this.chkGivenFolder.TabIndex = 174;
             this.chkGivenFolder.Text = "cartella";
             this.toolTip1.SetToolTip(this.chkGivenFolder, "Estrazione fra le immmagini che stanno sotto la cartella data");
@@ -1016,7 +1016,7 @@
             this.txtNStudents.ForeColor = System.Drawing.Color.DarkBlue;
             this.txtNStudents.Location = new System.Drawing.Point(745, 394);
             this.txtNStudents.Name = "txtNStudents";
-            this.txtNStudents.Size = new System.Drawing.Size(46, 29);
+            this.txtNStudents.Size = new System.Drawing.Size(46, 24);
             this.txtNStudents.TabIndex = 174;
             this.txtNStudents.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.toolTip1.SetToolTip(this.txtNStudents, "Minuti per allarme prima della fine");
@@ -1028,7 +1028,7 @@
             this.label6.ForeColor = System.Drawing.Color.DarkBlue;
             this.label6.Location = new System.Drawing.Point(736, 373);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(84, 24);
+            this.label6.Size = new System.Drawing.Size(65, 18);
             this.label6.TabIndex = 175;
             this.label6.Text = "n.Allievi";
             this.toolTip1.SetToolTip(this.label6, "Minuto di  inizio della lezione");
@@ -1054,7 +1054,7 @@
             this.txtIdClass.ForeColor = System.Drawing.Color.DarkBlue;
             this.txtIdClass.Location = new System.Drawing.Point(17, 77);
             this.txtIdClass.Name = "txtIdClass";
-            this.txtIdClass.Size = new System.Drawing.Size(46, 29);
+            this.txtIdClass.Size = new System.Drawing.Size(46, 24);
             this.txtIdClass.TabIndex = 177;
             this.txtIdClass.Text = "0";
             this.txtIdClass.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -1064,9 +1064,9 @@
             // 
             this.chkPopUpQuestionsEnabled.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkPopUpQuestionsEnabled.AutoSize = true;
-            this.chkPopUpQuestionsEnabled.Location = new System.Drawing.Point(779, 338);
+            this.chkPopUpQuestionsEnabled.Location = new System.Drawing.Point(822, 338);
             this.chkPopUpQuestionsEnabled.Name = "chkPopUpQuestionsEnabled";
-            this.chkPopUpQuestionsEnabled.Size = new System.Drawing.Size(210, 28);
+            this.chkPopUpQuestionsEnabled.Size = new System.Drawing.Size(167, 22);
             this.chkPopUpQuestionsEnabled.TabIndex = 179;
             this.chkPopUpQuestionsEnabled.Text = "Domande \"pop up\"";
             this.toolTip1.SetToolTip(this.chkPopUpQuestionsEnabled, "Aspetta un po\' prima di estrarre, suonando una musica");
@@ -1080,7 +1080,7 @@
             this.txtPopUpQuestionCentralTime.ForeColor = System.Drawing.Color.DarkBlue;
             this.txtPopUpQuestionCentralTime.Location = new System.Drawing.Point(992, 342);
             this.txtPopUpQuestionCentralTime.Name = "txtPopUpQuestionCentralTime";
-            this.txtPopUpQuestionCentralTime.Size = new System.Drawing.Size(46, 24);
+            this.txtPopUpQuestionCentralTime.Size = new System.Drawing.Size(46, 21);
             this.txtPopUpQuestionCentralTime.TabIndex = 181;
             this.txtPopUpQuestionCentralTime.Text = "7";
             this.txtPopUpQuestionCentralTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -1111,7 +1111,7 @@
             this.chkSoundsInColorTimer.ForeColor = System.Drawing.Color.DarkBlue;
             this.chkSoundsInColorTimer.Location = new System.Drawing.Point(217, 66);
             this.chkSoundsInColorTimer.Name = "chkSoundsInColorTimer";
-            this.chkSoundsInColorTimer.Size = new System.Drawing.Size(86, 28);
+            this.chkSoundsInColorTimer.Size = new System.Drawing.Size(70, 22);
             this.chkSoundsInColorTimer.TabIndex = 184;
             this.chkSoundsInColorTimer.Text = "Suoni";
             this.toolTip1.SetToolTip(this.chkSoundsInColorTimer, "Esegue i suoni nel timer a colori");
@@ -1139,7 +1139,7 @@
             this.lblCodYear.ForeColor = System.Drawing.Color.DarkBlue;
             this.lblCodYear.Location = new System.Drawing.Point(-1, 5);
             this.lblCodYear.Name = "lblCodYear";
-            this.lblCodYear.Size = new System.Drawing.Size(104, 24);
+            this.lblCodYear.Size = new System.Drawing.Size(82, 18);
             this.lblCodYear.TabIndex = 48;
             this.lblCodYear.Text = "Cod.Anno";
             // 
@@ -1202,7 +1202,7 @@
             this.lblSchoolSubject.ForeColor = System.Drawing.Color.DarkBlue;
             this.lblSchoolSubject.Location = new System.Drawing.Point(819, 279);
             this.lblSchoolSubject.Name = "lblSchoolSubject";
-            this.lblSchoolSubject.Size = new System.Drawing.Size(78, 24);
+            this.lblSchoolSubject.Size = new System.Drawing.Size(64, 18);
             this.lblSchoolSubject.TabIndex = 109;
             this.lblSchoolSubject.Text = "Materia";
             // 
@@ -1213,7 +1213,7 @@
             this.lblGradeType.ForeColor = System.Drawing.Color.DarkBlue;
             this.lblGradeType.Location = new System.Drawing.Point(817, 224);
             this.lblGradeType.Name = "lblGradeType";
-            this.lblGradeType.Size = new System.Drawing.Size(163, 24);
+            this.lblGradeType.Size = new System.Drawing.Size(131, 18);
             this.lblGradeType.TabIndex = 110;
             this.lblGradeType.Text = "Tipo valutazione";
             // 
@@ -1227,9 +1227,9 @@
             this.ChkEnableEndLessonWarning.AutoSize = true;
             this.ChkEnableEndLessonWarning.Checked = true;
             this.ChkEnableEndLessonWarning.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ChkEnableEndLessonWarning.Location = new System.Drawing.Point(382, 117);
+            this.ChkEnableEndLessonWarning.Location = new System.Drawing.Point(423, 117);
             this.ChkEnableEndLessonWarning.Name = "ChkEnableEndLessonWarning";
-            this.ChkEnableEndLessonWarning.Size = new System.Drawing.Size(214, 28);
+            this.ChkEnableEndLessonWarning.Size = new System.Drawing.Size(173, 22);
             this.ChkEnableEndLessonWarning.TabIndex = 158;
             this.ChkEnableEndLessonWarning.Text = "allarme fine lezione";
             this.ChkEnableEndLessonWarning.UseVisualStyleBackColor = true;
@@ -1265,7 +1265,7 @@
             this.rdbMustSort.AutoSize = true;
             this.rdbMustSort.Location = new System.Drawing.Point(112, 9);
             this.rdbMustSort.Name = "rdbMustSort";
-            this.rdbMustSort.Size = new System.Drawing.Size(117, 28);
+            this.rdbMustSort.Size = new System.Drawing.Size(95, 22);
             this.rdbMustSort.TabIndex = 1;
             this.rdbMustSort.Text = "Ordinam.";
             this.rdbMustSort.UseVisualStyleBackColor = true;
@@ -1276,7 +1276,7 @@
             this.rdbMustDraw.Checked = true;
             this.rdbMustDraw.Location = new System.Drawing.Point(6, 9);
             this.rdbMustDraw.Name = "rdbMustDraw";
-            this.rdbMustDraw.Size = new System.Drawing.Size(121, 28);
+            this.rdbMustDraw.Size = new System.Drawing.Size(99, 22);
             this.rdbMustDraw.TabIndex = 0;
             this.rdbMustDraw.TabStop = true;
             this.rdbMustDraw.Text = "Sorteggio";
@@ -1286,7 +1286,7 @@
             // 
             this.lstTimeInterval.ForeColor = System.Drawing.Color.DarkBlue;
             this.lstTimeInterval.FormattingEnabled = true;
-            this.lstTimeInterval.ItemHeight = 24;
+            this.lstTimeInterval.ItemHeight = 18;
             this.lstTimeInterval.Items.AddRange(new object[] {
             "5",
             "10",
@@ -1296,7 +1296,7 @@
             "60"});
             this.lstTimeInterval.Location = new System.Drawing.Point(168, 28);
             this.lstTimeInterval.Name = "lstTimeInterval";
-            this.lstTimeInterval.Size = new System.Drawing.Size(46, 100);
+            this.lstTimeInterval.Size = new System.Drawing.Size(46, 94);
             this.lstTimeInterval.TabIndex = 166;
             this.lstTimeInterval.SelectedIndexChanged += new System.EventHandler(this.lstTimeInterval_SelectedIndexChanged);
             this.lstTimeInterval.DoubleClick += new System.EventHandler(this.lstTimeInterval_DoubleClick);
@@ -1307,7 +1307,7 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label2.Location = new System.Drawing.Point(16, 107);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(60, 17);
+            this.label2.Size = new System.Drawing.Size(48, 13);
             this.label2.TabIndex = 172;
             this.label2.Text = "salv.db";
             // 
@@ -1317,7 +1317,7 @@
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label7.Location = new System.Drawing.Point(11, 64);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(72, 17);
+            this.label7.Size = new System.Drawing.Size(58, 13);
             this.label7.TabIndex = 178;
             this.label7.Text = "Id classe";
             // 
@@ -1328,7 +1328,7 @@
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label8.Location = new System.Drawing.Point(995, 326);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(52, 17);
+            this.label8.Size = new System.Drawing.Size(41, 13);
             this.label8.TabIndex = 180;
             this.label8.Text = "tempo";
             // 
@@ -1339,7 +1339,7 @@
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label9.Location = new System.Drawing.Point(1039, 346);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(33, 17);
+            this.label9.Size = new System.Drawing.Size(26, 13);
             this.label9.TabIndex = 182;
             this.label9.Text = "min";
             // 
@@ -1349,7 +1349,7 @@
             // 
             // frmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(1069, 741);

@@ -45,8 +45,10 @@ namespace SchoolGrades
         {
             try
             {
+
                 User user = new User(txtUsername.Text,txtPassword.Text);
                 DataTable dt = dl.GetUserByUserId(user.Username); // userId
+
                 if(dt.Rows.Count > 0)
                 {
                     txtUsername.Text = dt.Rows[0]["Username"].ToString();
@@ -68,6 +70,7 @@ namespace SchoolGrades
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message,"User detail",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                return;
             }
         }
     }
