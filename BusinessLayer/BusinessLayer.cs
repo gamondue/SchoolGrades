@@ -10,7 +10,8 @@ namespace SchoolGrades.BusinessLayer
 {
     /// <summary>
     /// Business Layer: implements the business rules of the program indipendently from 
-    /// the User's Interface 
+    /// the User's Interface
+    /// Bucci Jacopo 4L
     /// </summary>
     internal class BusinessLayer
     {

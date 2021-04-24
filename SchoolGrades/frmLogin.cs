@@ -33,7 +33,7 @@ namespace SchoolGrades
             u.LastName = "Fantozzi";
             u.Email = "u.fantozzi@megaditta.com";
             u.Description = "Inferiore Rag. Ugo Fantozzi";
-            bl.UpdateUser(u);
+            //bl.UpdateUser(u);
 
             User u1 = bl.GetUser("ugo");
         }
