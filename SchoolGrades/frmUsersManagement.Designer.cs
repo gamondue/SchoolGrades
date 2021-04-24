@@ -32,15 +32,20 @@ namespace SchoolGrades
             this.lstUser = new System.Windows.Forms.ListBox();
             this.txtName = new System.Windows.Forms.TextBox();
             this.btnUpdate = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblName = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblPassword = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txtSurname = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblSurname = new System.Windows.Forms.Label();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.lblEmail = new System.Windows.Forms.Label();
             this.btnCreate = new System.Windows.Forms.Button();
+            this.lblDescription = new System.Windows.Forms.Label();
+            this.txtDescription = new System.Windows.Forms.TextBox();
+            this.lblUsername = new System.Windows.Forms.Label();
+            this.txtUsername = new System.Windows.Forms.TextBox();
+            this.btnDelete = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lstUser
@@ -56,7 +61,7 @@ namespace SchoolGrades
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(231, 43);
+            this.txtName.Location = new System.Drawing.Point(232, 88);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(207, 23);
             this.txtName.TabIndex = 1;
@@ -71,30 +76,30 @@ namespace SchoolGrades
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
-            // label1
+            // lblName
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(231, 25);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(39, 15);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Name";
+            this.lblName.AutoSize = true;
+            this.lblName.Location = new System.Drawing.Point(232, 70);
+            this.lblName.Name = "lblName";
+            this.lblName.Size = new System.Drawing.Size(40, 15);
+            this.lblName.TabIndex = 3;
+            this.lblName.Text = "Nome";
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(231, 134);
+            this.txtPassword.Location = new System.Drawing.Point(232, 179);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(207, 23);
             this.txtPassword.TabIndex = 4;
             // 
-            // label2
+            // lblPassword
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(231, 113);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(57, 15);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Password";
+            this.lblPassword.AutoSize = true;
+            this.lblPassword.Location = new System.Drawing.Point(232, 158);
+            this.lblPassword.Name = "lblPassword";
+            this.lblPassword.Size = new System.Drawing.Size(57, 15);
+            this.lblPassword.TabIndex = 5;
+            this.lblPassword.Text = "Password";
             // 
             // label3
             // 
@@ -106,23 +111,23 @@ namespace SchoolGrades
             // 
             // txtSurname
             // 
-            this.txtSurname.Location = new System.Drawing.Point(231, 87);
+            this.txtSurname.Location = new System.Drawing.Point(232, 132);
             this.txtSurname.Name = "txtSurname";
             this.txtSurname.Size = new System.Drawing.Size(207, 23);
             this.txtSurname.TabIndex = 7;
             // 
-            // label4
+            // lblSurname
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(231, 69);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(54, 15);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "Surname";
+            this.lblSurname.AutoSize = true;
+            this.lblSurname.Location = new System.Drawing.Point(232, 114);
+            this.lblSurname.Name = "lblSurname";
+            this.lblSurname.Size = new System.Drawing.Size(60, 15);
+            this.lblSurname.TabIndex = 8;
+            this.lblSurname.Text = "Cognome";
             // 
             // txtEmail
             // 
-            this.txtEmail.Location = new System.Drawing.Point(231, 182);
+            this.txtEmail.Location = new System.Drawing.Point(232, 227);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(207, 23);
             this.txtEmail.TabIndex = 9;
@@ -130,7 +135,7 @@ namespace SchoolGrades
             // lblEmail
             // 
             this.lblEmail.AutoSize = true;
-            this.lblEmail.Location = new System.Drawing.Point(232, 164);
+            this.lblEmail.Location = new System.Drawing.Point(233, 209);
             this.lblEmail.Name = "lblEmail";
             this.lblEmail.Size = new System.Drawing.Size(36, 15);
             this.lblEmail.TabIndex = 10;
@@ -138,31 +143,79 @@ namespace SchoolGrades
             // 
             // btnCreate
             // 
-            this.btnCreate.Location = new System.Drawing.Point(464, 366);
+            this.btnCreate.Location = new System.Drawing.Point(374, 366);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(114, 23);
             this.btnCreate.TabIndex = 11;
             this.btnCreate.Text = "Crea";
             this.btnCreate.UseVisualStyleBackColor = true;
+            this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
+            // 
+            // lblDescription
+            // 
+            this.lblDescription.AutoSize = true;
+            this.lblDescription.Location = new System.Drawing.Point(233, 257);
+            this.lblDescription.Name = "lblDescription";
+            this.lblDescription.Size = new System.Drawing.Size(67, 15);
+            this.lblDescription.TabIndex = 12;
+            this.lblDescription.Text = "Descrizione";
+            // 
+            // txtDescription
+            // 
+            this.txtDescription.Location = new System.Drawing.Point(232, 276);
+            this.txtDescription.Name = "txtDescription";
+            this.txtDescription.Size = new System.Drawing.Size(207, 23);
+            this.txtDescription.TabIndex = 13;
+            // 
+            // lblUsername
+            // 
+            this.lblUsername.AutoSize = true;
+            this.lblUsername.Location = new System.Drawing.Point(232, 25);
+            this.lblUsername.Name = "lblUsername";
+            this.lblUsername.Size = new System.Drawing.Size(60, 15);
+            this.lblUsername.TabIndex = 14;
+            this.lblUsername.Text = "Username";
+            // 
+            // txtUsername
+            // 
+            this.txtUsername.Location = new System.Drawing.Point(232, 44);
+            this.txtUsername.Name = "txtUsername";
+            this.txtUsername.Size = new System.Drawing.Size(206, 23);
+            this.txtUsername.TabIndex = 15;
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(532, 366);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(113, 23);
+            this.btnDelete.TabIndex = 16;
+            this.btnDelete.Text = "Elimina";
+            this.btnDelete.UseVisualStyleBackColor = true;
             // 
             // frmUsersManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Turquoise;
+            this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(858, 413);
+            this.Controls.Add(this.btnDelete);
+            this.Controls.Add(this.txtUsername);
+            this.Controls.Add(this.lblUsername);
+            this.Controls.Add(this.txtDescription);
+            this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.btnCreate);
             this.Controls.Add(this.lblEmail);
             this.Controls.Add(this.txtEmail);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.lblSurname);
             this.Controls.Add(this.txtSurname);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblPassword);
             this.Controls.Add(this.txtPassword);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblName);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.lstUser);
+            this.ForeColor = System.Drawing.Color.DarkBlue;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "frmUsersManagement";
             this.Text = "frmUsersManagement";
@@ -177,14 +230,19 @@ namespace SchoolGrades
         private System.Windows.Forms.ListBox lstUser;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Button btnUpdate;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.TextBox txtPassword;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtSurname;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblSurname;
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Label lblEmail;
         private System.Windows.Forms.Button btnCreate;
+        private System.Windows.Forms.Label lblDescription;
+        private System.Windows.Forms.TextBox txtDescription;
+        private System.Windows.Forms.Label lblUsername;
+        private System.Windows.Forms.TextBox txtUsername;
+        private System.Windows.Forms.Button btnDelete;
     }
 }
