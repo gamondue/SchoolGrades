@@ -1,9 +1,8 @@
-﻿using System;
+﻿using SchoolGrades.DbClasses;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
-using SchoolGrades.DataLayer;
-using SchoolGrades.DbClasses;
+using System.Windows.Forms;
 
 namespace SchoolGrades.BusinessLayer
 {
@@ -23,12 +22,14 @@ namespace SchoolGrades.BusinessLayer
         }
         internal List<User> GetAllUsers()
         {
-            return dl.GetAllUsers(); 
+            return dl.GetAllUsers();
         }
         internal bool UserHasLoginPermission(string Username, string Password)
         {
             User uFromDb = GetUser(Username);
-
+            Password = CalculateHash(Password);
+            uFromDb.Password = CalculateHash(uFromDb.Password);
+            MessageBox.Show("Password: " + uFromDb.Password, "INFO", MessageBoxButtons.OK, MessageBoxIcon.Information);
             if (uFromDb != null && Username == uFromDb.Username && Password == uFromDb.Password)
                 return true;
             else
@@ -43,16 +44,16 @@ namespace SchoolGrades.BusinessLayer
 
         internal void UpdateUser(User User)
         {
-            dl.UpdateUser(User); 
+            dl.UpdateUser(User);
         }
 
         internal void ChangePassword(User User)
         {
-            dl.ChangePassword(User); 
+            dl.ChangePassword(User);
         }
         internal void CreateUser(User User)
         {
-            dl.CreateUser(User); 
+            dl.CreateUser(User);
         }
         private User ReadCredentialsFromDatabase(User CredentialsFromUser)
         {
@@ -67,9 +68,16 @@ namespace SchoolGrades.BusinessLayer
         private string CalculateHash(string ClearTextPassword)
         {
             // https://www.mattepuffo.com/blog/articolo/2496-calcolo-hash-sha256-in-csharp.html
-            SHA256 hash = SHA256.Create();
-            // !!!! TODO !!!!
-            return null;
+            using (SHA256 hash = SHA256.Create())
+            {
+                byte[] bytes = hash.ComputeHash(Encoding.UTF8.GetBytes(ClearTextPassword));
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
         }
         #endregion
     }

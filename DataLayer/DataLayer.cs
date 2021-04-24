@@ -114,17 +114,21 @@ namespace SchoolGrades.DataLayer
             {
                 u = new User(SafeDb.SafeString(dRead["username"]),
                     SafeDb.SafeString(dRead["password"]));
-                u.Description = SafeDb.SafeString(dRead["description"]);
+                if (u.Description != null)
+                    u.Description = SafeDb.SafeString(dRead["description"]);
                 u.LastName = SafeDb.SafeString(dRead["lastName"]);
                 u.FirstName = SafeDb.SafeString(dRead["firstName"]);
                 u.Email = SafeDb.SafeString(dRead["email"]);
                 //u.Password = SafeDb.SafeString(dRead["password"]);
-                u.LastChange = SafeDb.SafeDateTime(dRead["lastChange"]);
-                u.LastPasswordChange = SafeDb.SafeDateTime(dRead["lastPasswordChange"]);
+                if (u.LastChange != null)
+                    u.LastChange = SafeDb.SafeDateTime(dRead["lastChange"]);
+                if (u.LastPasswordChange != null)
+                    u.LastPasswordChange = SafeDb.SafeDateTime(dRead["lastPasswordChange"]);
                 u.CreationTime = SafeDb.SafeDateTime(dRead["creationTime"]);
                 u.Salt = SafeDb.SafeString(dRead["salt"]);
                 u.IdUserCategory = SafeDb.SafeInt(dRead["idUserCategory"]);
-                u.IsEnabled = SafeDb.SafeBool(dRead["isEnabled"]);
+                if (u.IsEnabled != null)
+                    u.IsEnabled = SafeDb.SafeBool(dRead["isEnabled"]);
             }
             return u;
         }
