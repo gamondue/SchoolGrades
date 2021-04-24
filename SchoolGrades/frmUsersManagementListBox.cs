@@ -7,9 +7,9 @@ namespace SchoolGrades
 {
     public partial class frmUsersManagementListBox : MetroFramework.Forms.MetroForm
     {
-        BusinessLayer.BusinessLayer bl = new BusinessLayer.BusinessLayer();
+        BusinessLayer bl = new BusinessLayer(Commons.PathAndFileDatabase);
         List<User> listOfAllUsers;
-        DataLayer.DataLayer dl = new DataLayer.DataLayer();
+        DataLayer.DataLayer dl = new DataLayer.DataLayer(Commons.PathAndFileDatabase);
         
         public frmUsersManagementListBox()
         {

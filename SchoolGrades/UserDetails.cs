@@ -11,9 +11,7 @@ namespace SchoolGrades
 {
     public partial class UserDetails : MetroFramework.Forms.MetroForm
     {
-        BusinessLayer.BusinessLayer bl = new BusinessLayer.BusinessLayer();
-        DataLayer.DataLayer dl = new DataLayer.DataLayer();
-
+        DataLayer.DataLayer dl = new DataLayer.DataLayer("");
         string userId = null;
         frmUsersManagement home = null;
 
@@ -47,7 +45,7 @@ namespace SchoolGrades
         {
             try
             {
-                User user = new User();
+                User user = new User(txtUsername.Text,txtPassword.Text);
                 DataTable dt = dl.GetUserByUserId(user.Username); // userId
                 if(dt.Rows.Count > 0)
                 {

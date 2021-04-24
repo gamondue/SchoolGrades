@@ -21,17 +21,16 @@ namespace SchoolGrades
         //public static string PathExe = System.IO.Path.GetDirectoryName(PathAndFileExe);
         public static string PathExe = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName); 
 
-
         public static string PathConfig = PathUser + "\\SchoolGrades\\Config";
         public static string PathAndFileConfig = PathConfig + "\\schgrd.cfg";
         public static string CompanyPrefix = "gamon-";
         public static string PathLogs = PathUser + "\\SchoolGrades\\Logs";
         public static string PathAndFileLogText = PathLogs + "\\" + CompanyPrefix + "Errori.txt";
 
-        public static string FileDatabase = "SchoolGrades.sqlite";
+        public static string FileDatabase = "SchoolGrades_DEMO.sqlite";
         //public static string PathDatabase = PathUser + "\\SchoolGrades\\Data";
         public static string PathDatabase = PathExe + "\\Data";
-        public static string PathAndFileDatabase; // read with Commons.ReadConfigFile()! 
+        public static string PathAndFileDatabase = PathDatabase + "\\" + FileDatabase; // if will be read with Commons.ReadConfigFile()! 
 
         //public static string PathStartLink = PathUser + "\\SchoolGrades\\";
         public static string PathStartLinks = PathExe; 
@@ -49,6 +48,7 @@ namespace SchoolGrades
         public static int BackgroundThreadSleepSeconds = 5 * 60;
         // enable Mptt backgroud saving of Left anf Right pointers 
         public static bool BackgroundCanStillSaveTopicsTree = true;
+        public static object LockBackgroundCanStillSaveTopicsTree = new object(); 
         // Tree object for concurrent saving 
         internal static TreeMptt SaveTreeMptt;
         // Thread that concurrently saves the Topics tree
@@ -167,7 +167,7 @@ namespace SchoolGrades
                 target += 7;
             return from.AddDays(target - start);
         }
-        internal static void ReadConfigFile()
+        internal static bool ReadConfigFile()
         {
             string[] dati = null;
             try
@@ -185,20 +185,25 @@ namespace SchoolGrades
                     Commons.PathDatabase = dati[3];
                     Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.FileDatabase;
                     Commons.PathDocuments = dati[4];
-                    
-                    // we try the next to avoid stopping the program whe a new config file, 
+                    // we try the next to avoid stopping the program whem we have a new config file, 
                     // with another field will show up. You have to add some data in.config file. 
                     try
                     {
                         Commons.SaveBackupWhenExiting = bool.Parse(dati[5]);
+                        return true;
                     }
-                    catch { }
+                    catch 
+                    {
+                        return false; 
+                    }
                 }
             }
             catch
             {
                 // if error do nothing. the rest of the code will generate the default data
+                return false;
             }
+            return false; 
         }
         public static object CloneObject(object o)
         {

@@ -9,13 +9,14 @@ namespace SchoolGrades
 {
     public partial class frmUsersManagement : MetroFramework.Forms.MetroForm
     {
-        BusinessLayer.BusinessLayer bl = new BusinessLayer.BusinessLayer();
-        DataLayer.DataLayer dl = new DataLayer.DataLayer();
+        BusinessLayer bl = new BusinessLayer(Commons.PathAndFileDatabase);
         BindingList<User> listOfAllusers;
+        DataLayer.DataLayer dl = new DataLayer.DataLayer(Commons.PathAndFileDatabase);
 
         public frmUsersManagement()
         {
             InitializeComponent();
+            bl = new BusinessLayer(Commons.PathAndFileDatabase);
         }
 
         private void frmUsersManagement_Load(object sender, EventArgs e)
@@ -46,6 +47,7 @@ namespace SchoolGrades
                 return;
             }
             grdUsers.Rows.RemoveAt(grdUsers.SelectedRows[0].Index);
+            // dl.RemoveUser((User)grdUsers.Rows);
             //listOfAllusers.RemoveAt(grdUsers.SelectedRows[0].Index);
         }
 
@@ -63,7 +65,8 @@ namespace SchoolGrades
                 {
                     grdUsers.DataSource = listOfAllusers;
                 }
-            }catch(Exception ex)
+            }
+            catch(Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message, "Saving all", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }

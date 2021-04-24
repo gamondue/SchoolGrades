@@ -6,18 +6,17 @@ using System.Windows.Forms;
 using SchoolGrades.DataLayer;
 using SchoolGrades.DbClasses;
 
-namespace SchoolGrades.BusinessLayer
+namespace SchoolGrades
 {
     /// <summary>
     /// Business Layer: implements the business rules of the program indipendently from 
     /// the User's Interface 
     /// </summary>
-    internal class BusinessLayer
+    internal partial class BusinessLayer
     {
         // create the next after the program that is usung this has read the configuration file 
-        DataLayer.DataLayer dl = new DataLayer.DataLayer(); // must be instantiated after reading config file! 
 
-        #region users' management.
+        #region users' management
         internal User GetUser(string Username)
         {
             return dl.GetUser(Username);
@@ -26,7 +25,18 @@ namespace SchoolGrades.BusinessLayer
         {
             return dl.GetAllUsers();
         }
-        internal bool UserHasLoginPermission(string Username, string Password)
+        internal void UpdateUser(User User)
+        {
+            User.Password = CalculateHash(User.Password);
+            // possible filter on user 
+            dl.UpdateUser(User);
+        }
+        internal void ChangePassword(User User)
+        {
+            User.Password = CalculateHash(User.Password);
+            dl.ChangePassword(User);
+        }
+        internal bool HasUserLoginPermission(string Username, string Password)
         {
             User uFromDb = GetUser(Username);
 
@@ -35,25 +45,13 @@ namespace SchoolGrades.BusinessLayer
             else
                 return false;
         }
-
         internal bool IsUserAllowed(User CredentialsFromUser)
         {
             User CredentialsFromDatabase = GetUser(CredentialsFromUser.Username);
-
-            return ((CredentialsFromDatabase.Password) == CalculateHash(CredentialsFromUser.Password) && CredentialsFromDatabase.Username == CredentialsFromUser.Username);
+            return (CredentialsFromDatabase.Password == CalculateHash(CredentialsFromUser.Password)
+                && CredentialsFromDatabase.Username == CredentialsFromUser.Username);
         }
 
-        internal void UpdateUser(User User)
-        {
-            User.Password = CalculateHash(User.Password);
-            dl.UpdateUser(User); 
-        }
-
-        internal void ChangePassword(User User)
-        {
-            User.Password = CalculateHash(User.Password);
-            dl.ChangePassword(User); 
-        }
         internal void CreateUser(User User)
         {
             User.Password = CalculateHash(User.Password);
@@ -66,7 +64,7 @@ namespace SchoolGrades.BusinessLayer
         }
         private User WriteCredentialsToDatabase(User CredentialsFromUser)
         {
-            User u = new User(CredentialsFromUser.Username, CredentialsFromUser.Password);
+            User u = new User("ugo", "pina");
             return u;
         }
         internal string CalculateHash(string ClearTextPassword)
@@ -82,6 +80,7 @@ namespace SchoolGrades.BusinessLayer
                 return builder.ToString();
             }
         }
+        
         #endregion
     }
 }

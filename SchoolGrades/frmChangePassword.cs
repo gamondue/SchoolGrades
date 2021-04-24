@@ -11,8 +11,8 @@ namespace SchoolGrades
 {
     public partial class frmChangePassword : MetroFramework.Forms.MetroForm
     {
-        DbAndBusiness db = new DbAndBusiness(); // must instatiate after config file reading
-        BusinessLayer.BusinessLayer bl = new BusinessLayer.BusinessLayer(); // must instatiate after config file reading
+        DbAndBusiness db = new DbAndBusiness(Commons.PathAndFileDatabase); // must instatiate after config file reading
+        BusinessLayer bl = new BusinessLayer(Commons.PathAndFileDatabase); // must instatiate after config file reading
 
         public frmChangePassword()
         {

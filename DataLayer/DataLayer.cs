@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SQLite;
-using System.Linq;
+using System.Diagnostics;
 
 namespace SchoolGrades.DataLayer
 {
@@ -17,16 +17,16 @@ namespace SchoolGrades.DataLayer
         private string dbName;
 
         #region constructors
-        public DataLayer()
-        {
-            if (!System.IO.File.Exists(Commons.PathAndFileDatabase))
-            {
-                string err = @"[" + Commons.PathAndFileDatabase + " not in the current nor in the dev directory]";
-                Commons.ErrorLog(err, true);
-                //throw new System.IO.FileNotFoundException(err);
-            }
-            dbName = Commons.PathAndFileDatabase;
-        }
+        //public DataLayer()
+        //{
+        //    if (!System.IO.File.Exists(Commons.PathAndFileDatabase))
+        //    {
+        //        string err = @"[" + Commons.PathAndFileDatabase + " not in the current nor in the dev directory]";
+        //        Commons.ErrorLog(err, true);
+        //        //throw new System.IO.FileNotFoundException(err);
+        //    }
+        //    dbName = Commons.PathAndFileDatabase;
+        //}
         public DataLayer(string PathAndFile)
         {
             if (!System.IO.File.Exists(PathAndFile))
@@ -65,20 +65,20 @@ namespace SchoolGrades.DataLayer
             try
             {
                 connection = new SQLiteConnection("Data Source=" + dbName +
-                                ";version=3;new=False;datetimeformat=CurrentCulture");
-                ////////#if DEBUG
-                ////////                // Get call stack
-                ////////                StackTrace stackTrace = new StackTrace();
-                ////////                // Get calling method name
-                ////////                Commons.ErrorLog("Connect Method in: " + stackTrace.GetFrame(1).GetMethod().Name, false);
-                ////////#endif
+                ";version=3;new=False;datetimeformat=CurrentCulture");
+                connection.Open();
             }
             catch (Exception ex)
             {
+#if DEBUG
+                //Get call stack
+                StackTrace stackTrace = new StackTrace();
+                //Log calling method name
+                Commons.ErrorLog("Connect Method in: " + stackTrace.GetFrame(1).GetMethod().Name, false);
+#endif
                 Commons.ErrorLog("Error connecting to the database: " + ex.Message + "\r\nFile SQLIte>: " + dbName + " " + "\n", true);
                 connection = null;
             }
-            connection.Open();
             return connection;
         }
 
@@ -186,15 +186,7 @@ namespace SchoolGrades.DataLayer
         {
             using (DbConnection conn = Connect())
             {
-                List<User> nUser = new List<User>();
-                nUser = GetAllUsers();
-                foreach(User user in nUser)
-                {
-                    if (nUser.Equals(user.Username))
-                    {
-                        throw new Exception("Username already exists.");
-                    }
-                }
+                // check if username is existing
                 DbCommand cmd = conn.CreateCommand();
                 // !!!! TODO !!!!
 
@@ -240,6 +232,20 @@ namespace SchoolGrades.DataLayer
                 ";";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
+            }
+        }
+
+        internal void RemoveUser(User user)
+        {
+            using (DbConnection con = Connect())
+            {
+                DbCommand cmd = con.CreateCommand();
+                string query = "DELETE " + 
+                    "FROM Users " + 
+                    "Where username='" + user.Username + "';";
+                cmd = new SQLiteCommand(query);
+                cmd.Connection = con;
+                cmd.ExecuteNonQuery();
             }
         }
 

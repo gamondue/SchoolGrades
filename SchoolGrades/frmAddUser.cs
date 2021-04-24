@@ -13,8 +13,8 @@ namespace SchoolGrades
 {
     public partial class frmAddUser : MetroFramework.Forms.MetroForm
     {
-        BusinessLayer.BusinessLayer bl = new BusinessLayer.BusinessLayer();
-        DataLayer.DataLayer dl = new DataLayer.DataLayer();
+        BusinessLayer bl = new BusinessLayer(Commons.PathAndFileDatabase);
+        DataLayer.DataLayer dl = new DataLayer.DataLayer(Commons.PathAndFileDatabase);
 
         public frmAddUser()
         {
@@ -25,6 +25,11 @@ namespace SchoolGrades
         {
             try
             {
+                //for(int i = 0; i < bl.GetAllUsers().Count; i++)
+                //{
+                //    if(txtUsername.Text == bl.GetAllUsers[i])
+                //        throw new Exception("Username non valido");
+                //}
                 if (txtUsername.Text.Length == 0)
                     throw new Exception("Username non valido");
                 else if (txtPassword.Text.Length == 0)
@@ -38,7 +43,7 @@ namespace SchoolGrades
                 else if (txtDescription.Text.Length == 0)
                     throw new Exception("Descrizione non valida");
                 
-                User newUser = new User();
+                User newUser = new User(txtUsername.Text,txtPassword.Text);
                 newUser.Username = txtUsername.Text;
                 newUser.Password = txtPassword.Text;
                 newUser.Email = txtEmail.Text;
