@@ -71,7 +71,7 @@
             // 
             this.btnTabelle.Location = new System.Drawing.Point(8, 12);
             this.btnTabelle.Name = "btnTabelle";
-            this.btnTabelle.Size = new System.Drawing.Size(96, 50);
+            this.btnTabelle.Size = new System.Drawing.Size(96, 59);
             this.btnTabelle.TabIndex = 0;
             this.btnTabelle.Text = "Gestione tabelle";
             this.btnTabelle.UseVisualStyleBackColor = true;
@@ -81,7 +81,7 @@
             // 
             this.btnClassi.Location = new System.Drawing.Point(110, 12);
             this.btnClassi.Name = "btnClassi";
-            this.btnClassi.Size = new System.Drawing.Size(96, 50);
+            this.btnClassi.Size = new System.Drawing.Size(96, 59);
             this.btnClassi.TabIndex = 1;
             this.btnClassi.Text = "Gestione classi";
             this.btnClassi.UseVisualStyleBackColor = true;
@@ -91,7 +91,7 @@
             // 
             this.btnBackupManagement.Location = new System.Drawing.Point(212, 12);
             this.btnBackupManagement.Name = "btnBackupManagement";
-            this.btnBackupManagement.Size = new System.Drawing.Size(96, 50);
+            this.btnBackupManagement.Size = new System.Drawing.Size(96, 59);
             this.btnBackupManagement.TabIndex = 2;
             this.btnBackupManagement.Text = "Backup e, gen. file";
             this.btnBackupManagement.UseVisualStyleBackColor = true;
@@ -251,7 +251,7 @@
             // 
             this.btnTopicsManagement.Location = new System.Drawing.Point(314, 12);
             this.btnTopicsManagement.Name = "btnTopicsManagement";
-            this.btnTopicsManagement.Size = new System.Drawing.Size(96, 50);
+            this.btnTopicsManagement.Size = new System.Drawing.Size(96, 59);
             this.btnTopicsManagement.TabIndex = 99;
             this.btnTopicsManagement.Text = "Gestione argomenti";
             this.btnTopicsManagement.UseVisualStyleBackColor = true;
@@ -261,7 +261,7 @@
             // 
             this.btnTagsManagement.Location = new System.Drawing.Point(416, 12);
             this.btnTagsManagement.Name = "btnTagsManagement";
-            this.btnTagsManagement.Size = new System.Drawing.Size(96, 50);
+            this.btnTagsManagement.Size = new System.Drawing.Size(96, 59);
             this.btnTagsManagement.TabIndex = 100;
             this.btnTagsManagement.Text = "Gestione tag";
             this.btnTagsManagement.UseVisualStyleBackColor = true;
@@ -271,7 +271,7 @@
             // 
             this.btnStartLinksManagenet.Location = new System.Drawing.Point(622, 12);
             this.btnStartLinksManagenet.Name = "btnStartLinksManagenet";
-            this.btnStartLinksManagenet.Size = new System.Drawing.Size(98, 50);
+            this.btnStartLinksManagenet.Size = new System.Drawing.Size(98, 59);
             this.btnStartLinksManagenet.TabIndex = 101;
             this.btnStartLinksManagenet.Text = "Gestione start links";
             this.btnStartLinksManagenet.UseVisualStyleBackColor = true;
@@ -281,7 +281,7 @@
             // 
             this.btnQuestionManagement.Location = new System.Drawing.Point(518, 12);
             this.btnQuestionManagement.Name = "btnQuestionManagement";
-            this.btnQuestionManagement.Size = new System.Drawing.Size(98, 50);
+            this.btnQuestionManagement.Size = new System.Drawing.Size(98, 59);
             this.btnQuestionManagement.TabIndex = 102;
             this.btnQuestionManagement.Text = "Gestione domande";
             this.btnQuestionManagement.UseVisualStyleBackColor = true;
@@ -291,7 +291,7 @@
             // 
             this.btnTestManagement.Location = new System.Drawing.Point(726, 12);
             this.btnTestManagement.Name = "btnTestManagement";
-            this.btnTestManagement.Size = new System.Drawing.Size(98, 50);
+            this.btnTestManagement.Size = new System.Drawing.Size(98, 59);
             this.btnTestManagement.TabIndex = 103;
             this.btnTestManagement.Text = "Gestione prove";
             this.btnTestManagement.UseVisualStyleBackColor = true;
@@ -301,7 +301,7 @@
             // 
             this.btnRecoverTopics.Location = new System.Drawing.Point(830, 12);
             this.btnRecoverTopics.Name = "btnRecoverTopics";
-            this.btnRecoverTopics.Size = new System.Drawing.Size(98, 50);
+            this.btnRecoverTopics.Size = new System.Drawing.Size(98, 59);
             this.btnRecoverTopics.TabIndex = 104;
             this.btnRecoverTopics.Text = "Recover argomenti";
             this.btnRecoverTopics.UseVisualStyleBackColor = true;
@@ -368,7 +368,7 @@
             // 
             this.btnSchoolSubjectManagement.Location = new System.Drawing.Point(1035, 12);
             this.btnSchoolSubjectManagement.Name = "btnSchoolSubjectManagement";
-            this.btnSchoolSubjectManagement.Size = new System.Drawing.Size(98, 50);
+            this.btnSchoolSubjectManagement.Size = new System.Drawing.Size(98, 59);
             this.btnSchoolSubjectManagement.TabIndex = 110;
             this.btnSchoolSubjectManagement.Text = "Gestione materie";
             this.btnSchoolSubjectManagement.UseVisualStyleBackColor = true;
@@ -389,7 +389,7 @@
             // 
             this.chkAskPassword.AutoSize = true;
             this.chkAskPassword.Enabled = false;
-            this.chkAskPassword.Location = new System.Drawing.Point(859, 86);
+            this.chkAskPassword.Location = new System.Drawing.Point(843, 82);
             this.chkAskPassword.Name = "chkAskPassword";
             this.chkAskPassword.Size = new System.Drawing.Size(152, 22);
             this.chkAskPassword.TabIndex = 112;
@@ -412,7 +412,7 @@
             // 
             this.btnUsersManagement.Location = new System.Drawing.Point(934, 12);
             this.btnUsersManagement.Name = "btnUsersManagement";
-            this.btnUsersManagement.Size = new System.Drawing.Size(98, 50);
+            this.btnUsersManagement.Size = new System.Drawing.Size(98, 59);
             this.btnUsersManagement.TabIndex = 114;
             this.btnUsersManagement.Text = "Gestione Utenti";
             this.btnUsersManagement.UseVisualStyleBackColor = true;

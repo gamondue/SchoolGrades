@@ -2,41 +2,38 @@
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
+using System.Windows.Forms;
 using SchoolGrades.DataLayer;
 using SchoolGrades.DbClasses;
-/// <summary>
-/// Business Layer: implements the business rules of the program indipendently from 
-/// the User's Interface
-/// Porting code from DbAndBusinness class and classes within BusinessLayer is work in progress 
-/// </summary>
+
 namespace SchoolGrades
 {
     /// <summary>
-    /// Incapsulates the business rules for users' management
-    /// part of the class that contains the code for managing users
+    /// Business Layer: implements the business rules of the program indipendently from 
+    /// the User's Interface 
     /// </summary>
     internal partial class BusinessLayer
     {
+        // create the next after the program that is usung this has read the configuration file 
+
         #region users' management
-        internal void CreateUser(User User)
-        {
-            dl.CreateUser(User);
-        }
         internal User GetUser(string Username)
         {
             return dl.GetUser(Username);
         }
         internal List<User> GetAllUsers()
         {
-            return dl.GetAllUsers(); 
+            return dl.GetAllUsers();
         }
         internal void UpdateUser(User User)
         {
+            User.Password = CalculateHash(User.Password);
             // possible filter on user 
             dl.UpdateUser(User);
         }
         internal void ChangePassword(User User)
         {
+            User.Password = CalculateHash(User.Password);
             dl.ChangePassword(User);
         }
         internal bool HasUserLoginPermission(string Username, string Password)
@@ -48,25 +45,41 @@ namespace SchoolGrades
             else
                 return false;
         }
-        internal bool IsUserAllowedToLogin(User CredentialsFromUser)
+        internal bool IsUserAllowed(User CredentialsFromUser)
         {
             User CredentialsFromDatabase = GetUser(CredentialsFromUser.Username);
-            return (CredentialsFromDatabase.Password == CalculateHash(CredentialsFromUser.Password)
-                && CredentialsFromDatabase.Username == CredentialsFromUser.Username);
+            return (CredentialsFromDatabase.Password == CalculateHash(CredentialsFromUser.Password) && CredentialsFromDatabase.Username == CredentialsFromUser.Username);
         }
-        #endregion
-        /// <summary>
-        /// Calculates a SHA256 hash of the string passed and returns it as a ???? base64 ???? string
-        /// !!!! TODO Function to be done and moved to the Functions class !!!!
-        /// </summary>
-        /// <param name="ClearTextPassword"></param>
-        /// <returns></returns>
-        private string CalculateHash(string ClearTextPassword)
+
+        internal void CreateUser(User User)
         {
-            // https://www.mattepuffo.com/blog/articolo/2496-calcolo-hash-sha256-in-csharp.html
-            SHA256 hash = SHA256.Create();
-            // !!!! TODO !!!!
-            return null;
+            User.Password = CalculateHash(User.Password);
+            dl.CreateUser(User); 
         }
+        private User ReadCredentialsFromDatabase(User CredentialsFromUser)
+        {
+            User u = new User("ugo", "pina");
+            return u;
+        }
+        private User WriteCredentialsToDatabase(User CredentialsFromUser)
+        {
+            User u = new User("ugo", "pina");
+            return u;
+        }
+        internal string CalculateHash(string ClearTextPassword)
+        {
+            using (SHA256 hash = SHA256.Create())
+            {
+                byte[] bytes = hash.ComputeHash(Encoding.UTF8.GetBytes(ClearTextPassword));
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
+        }
+        
+        #endregion
     }
 }

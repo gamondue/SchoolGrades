@@ -1,6 +1,7 @@
 ﻿using SchoolGrades.DbClasses;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.Data.SQLite;
 using System.Diagnostics;
@@ -46,6 +47,18 @@ namespace SchoolGrades.DataLayer
             //set { nomeEPathDatabase = value; }
         }
         #endregion
+
+        public DataTable ConnectGrid(string query)
+        {
+            SQLiteConnection con = new SQLiteConnection("Data Source=" + dbName + ";version=3;new=False;datetimeformat=CurrentCulture");
+            con.Open();
+            SQLiteCommand cmd = new SQLiteCommand(query, con);
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            return dt;
+        }
+
         public DbConnection Connect()
         {
             DbConnection connection;
@@ -68,6 +81,7 @@ namespace SchoolGrades.DataLayer
             }
             return connection;
         }
+
         internal User GetUser(string Username)
         {
             User t = new User(Username, "");
@@ -80,16 +94,17 @@ namespace SchoolGrades.DataLayer
                 cmd = new SQLiteCommand(query);
                 cmd.Connection = conn;
                 DbDataReader dRead = cmd.ExecuteReader();
-                dRead.Read(); 
+                dRead.Read();
                 t = GetUserFromRow(dRead);
                 dRead.Dispose();
                 cmd.Dispose();
             }
             return t;
         }
+
         internal List<User> GetAllUsers()
         {
-            List<User> l = new List<User>(); 
+            List<User> l = new List<User>();
             using (DbConnection conn = Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
@@ -101,16 +116,37 @@ namespace SchoolGrades.DataLayer
                 while (dRead.Read())
                 {
                     User u = GetUserFromRow(dRead);
-                    l.Add(u); 
+                    l.Add(u);
                 }
                 dRead.Dispose();
                 cmd.Dispose();
             }
             return l;
         }
+
+        #region Ovveride di getuser. (prova)
+        internal DataTable GetUserByUserId(string id)
+        {
+            string query = "SELECT * FROM Users where Username = " + id;
+            return ExecuteQuery(query);
+        }
+
+        public DataTable ExecuteQuery(string query)
+        {
+            SQLiteConnection con = new SQLiteConnection("Data Source = " + dbName + ";version=3;new=False;datetimeformat=CurrentCulture");
+            con.Open();
+            SQLiteCommand cmd = new SQLiteCommand(query, con);
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
+
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            return dt;
+        }
+        #endregion
+
         private User GetUserFromRow(DbDataReader dRead)
         {
-            User u = null; 
+            User u = null;
             if (dRead.HasRows)
             {
                 u = new User(SafeDb.SafeString(dRead["username"]),
@@ -120,7 +156,7 @@ namespace SchoolGrades.DataLayer
                 u.FirstName = SafeDb.SafeString(dRead["firstName"]);
                 u.Email = SafeDb.SafeString(dRead["email"]);
                 //u.Password = SafeDb.SafeString(dRead["password"]);
-                u.LastChange = SafeDb.SafeDateTime(dRead["lastChange"]);
+                //u.LastChange = SafeDb.SafeDateTime(dRead["lastChange"]);
                 u.LastPasswordChange = SafeDb.SafeDateTime(dRead["lastPasswordChange"]);
                 u.CreationTime = SafeDb.SafeDateTime(dRead["creationTime"]);
                 u.Salt = SafeDb.SafeString(dRead["salt"]);
@@ -129,6 +165,7 @@ namespace SchoolGrades.DataLayer
             }
             return u;
         }
+
         internal void ChangePassword(User User)
         {
             using (DbConnection conn = Connect())
@@ -149,7 +186,7 @@ namespace SchoolGrades.DataLayer
         {
             using (DbConnection conn = Connect())
             {
-                // check if username is existing. If exists, return null
+                // check if username is existing
                 DbCommand cmd = conn.CreateCommand();
                 // !!!! TODO !!!!
 
@@ -159,15 +196,20 @@ namespace SchoolGrades.DataLayer
                 "(username, lastName, firstName, email," +
                 "password,creationTime,lastChange,lastPasswordChange,salt,idUserCategory,isEnabled)" +
                 "Values " +
-                "('" + SqlVal.SqlString(User.Username) + "','" + SqlVal.SqlString(User.LastName) + "','" + SqlVal.SqlString(User.FirstName) + "','" +
-                SqlVal.SqlString(User.Email) + "','" + SqlVal.SqlString(User.Password) + "'," +
-                now + "," + now + "," + now + ",'" + SqlVal.SqlString(User.Salt) + "','" +
-                User.IdUserCategory + "', TRUE" + 
+                "('" + SqlVal.SqlString(User.Username) + "','" + 
+                SqlVal.SqlString(User.LastName) + "','" + 
+                SqlVal.SqlString(User.FirstName) + "','" +
+                SqlVal.SqlString(User.Email) + "','" + 
+                SqlVal.SqlString(User.Password) + "'," +
+                now + "," + now + "," + now + ",'" + 
+                SqlVal.SqlString(User.Salt) + "','" +
+                SqlVal.SqlString(User.IdUserCategory.ToString()) + "', TRUE" +
                 ");";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
         }
+
         internal void UpdateUser(User User)
         {
             using (DbConnection conn = Connect())
@@ -192,5 +234,47 @@ namespace SchoolGrades.DataLayer
                 cmd.Dispose();
             }
         }
+
+        internal void RemoveUser(User user)
+        {
+            using (DbConnection con = Connect())
+            {
+                DbCommand cmd = con.CreateCommand();
+                string query = "DELETE " + 
+                    "FROM Users " + 
+                    "Where username='" + user.Username + "';";
+                cmd = new SQLiteCommand(query);
+                cmd.Connection = con;
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        #region Override updateUser con parameters (Prova).
+        internal void UpdateUserOverride(string username, string lastname, string firstname, string password, string email, string description, DateTime last, DateTime lastpassw, DateTime creation, string salt, bool isenabled, int idusercateogry)
+        {
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE Users" +
+                    " Set" +
+                    " description='" + SqlVal.SqlString(description) + "'," +
+                    " lastName='" + SqlVal.SqlString(lastname) + "'," +
+                    " firstName='" + SqlVal.SqlString(firstname) + "'," +
+                    " email='" + SqlVal.SqlString(email) + "'," +
+                    " password=" + SqlVal.SqlString(password) + "'," +
+                    " lastChange=" + SqlVal.SqlDate(last) + "," +
+                    " lastPasswordChange=" + SqlVal.SqlDate(lastpassw) + "," +
+                    " creationTime=" + SqlVal.SqlDate(creation) + "," +
+                    " salt='" + SqlVal.SqlString(salt) + "'," +
+                    " isEnabled=" + SqlVal.SqlBool(isenabled) +
+                    " idUserCategory=" + SqlVal.SqlInt(idusercateogry) +
+                    " WHERE username='" + username + "'" +
+                ";";
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+        }
+        #endregion
+
     }
 }

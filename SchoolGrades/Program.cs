@@ -23,34 +23,18 @@ namespace SchoolGrades
             // read configuration file or run configuration 
             if (!Commons.ReadConfigFile())
             {
-                // config file is unexistent or broken 
-                if (Commons.PathAndFileDatabase.Contains("DEMO") && File.Exists(Commons.PathAndFileDatabase))
+                MessageBox.Show("Configurazione del programma.\r\nSistemare le cartelle con il percorso dei file (in particalore la cartella che contiene il database), " +
+                    "poi scegliere il file di dati .sqlite e premere 'Salva configurazione'", "SchoolGrades", MessageBoxButtons.OK,MessageBoxIcon.Information);
+                FrmSetup f = new FrmSetup();
+                f.ShowDialog();
+                if (!File.Exists(Commons.PathAndFileDatabase))
                 {
-                    // if demo database exists, save the configuration program with demo file 
-                    WriteConfigFile();
-                }
-                else
-                {
-                    // we don't want the demo file or it doesn't exist. Let's ask the user 
-                    MessageBox.Show("Configurazione del programma.\r\nSistemare le cartelle con il percorso dei file (in particolare la cartella che contiene il database), " +
-                        "poi scegliere il file di dati .sqlite e premere 'Salva configurazione'", "SchoolGrades", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    FrmSetup f = new FrmSetup();
-                    f.ShowDialog();
-                    if (!File.Exists(Commons.PathAndFileDatabase))
-                    {
-                        MessageBox.Show("Configurare il programma!", "SchoolGrades", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
+                    MessageBox.Show("Configurare il programma!", "SchoolGrades", MessageBoxButtons.OK, MessageBoxIcon.Error); 
+                    return;
                 }
             }
-            else
-            {
-                // config file has been read 
-                // di nothing
-            }
-
             //Application.Run(new frmLogin());
-            Application.Run(new frmMain());
+            Application.Run(new frmLogin());
         }
         private static void WriteConfigFile()
         {

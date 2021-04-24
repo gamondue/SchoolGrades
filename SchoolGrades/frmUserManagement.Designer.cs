@@ -44,10 +44,10 @@ namespace SchoolGrades
             // 
             this.lstUser.ForeColor = System.Drawing.Color.DarkBlue;
             this.lstUser.FormattingEnabled = true;
-            this.lstUser.ItemHeight = 20;
+            this.lstUser.ItemHeight = 25;
             this.lstUser.Location = new System.Drawing.Point(12, 12);
             this.lstUser.Name = "lstUser";
-            this.lstUser.Size = new System.Drawing.Size(120, 344);
+            this.lstUser.Size = new System.Drawing.Size(120, 329);
             this.lstUser.TabIndex = 0;
             this.lstUser.SelectedIndexChanged += new System.EventHandler(this.lstUser_SelectedIndexChanged);
             // 
@@ -72,7 +72,7 @@ namespace SchoolGrades
             this.txtLastName.Location = new System.Drawing.Point(151, 36);
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.ReadOnly = true;
-            this.txtLastName.Size = new System.Drawing.Size(100, 27);
+            this.txtLastName.Size = new System.Drawing.Size(100, 32);
             this.txtLastName.TabIndex = 2;
             // 
             // label1
@@ -80,7 +80,7 @@ namespace SchoolGrades
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(151, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(74, 20);
+            this.label1.Size = new System.Drawing.Size(94, 25);
             this.label1.TabIndex = 3;
             this.label1.Text = "Cognome";
             // 
@@ -113,7 +113,7 @@ namespace SchoolGrades
             // 
             // frmUserManagement
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(800, 372);

@@ -99,6 +99,7 @@
             this.chkPopUpQuestionsEnabled = new System.Windows.Forms.CheckBox();
             this.txtPopUpQuestionCentralTime = new System.Windows.Forms.TextBox();
             this.btnRandomNumber = new System.Windows.Forms.Button();
+            this.chkSoundsInColorTimer = new System.Windows.Forms.CheckBox();
             this.lblStudentChosen = new System.Windows.Forms.Label();
             this.lblCodYear = new System.Windows.Forms.Label();
             this.timerQuestion = new System.Windows.Forms.Timer(this.components);
@@ -121,7 +122,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.timerPopUp = new System.Windows.Forms.Timer(this.components);
-            this.chkSoundsInColorTimer = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.picBackgroundSaveRunning)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picStudent)).BeginInit();
             this.grpSorts.SuspendLayout();
@@ -244,7 +244,7 @@
             this.lstClasses.ItemHeight = 18;
             this.lstClasses.Location = new System.Drawing.Point(86, 4);
             this.lstClasses.Name = "lstClasses";
-            this.lstClasses.Size = new System.Drawing.Size(76, 130);
+            this.lstClasses.Size = new System.Drawing.Size(76, 112);
             this.lstClasses.TabIndex = 46;
             this.lstClasses.TabStop = false;
             this.toolTip1.SetToolTip(this.lstClasses, "Classi dell\'anno scolastico selezionato");
@@ -825,7 +825,7 @@
             this.lstNames.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.lstNames.MultiColumn = true;
             this.lstNames.Name = "lstNames";
-            this.lstNames.Size = new System.Drawing.Size(711, 508);
+            this.lstNames.Size = new System.Drawing.Size(711, 487);
             this.lstNames.TabIndex = 26;
             this.toolTip1.SetToolTip(this.lstNames, "Nomi degli allievi della classe. ");
             this.lstNames.UseCompatibleTextRendering = true;
@@ -1102,6 +1102,22 @@
             this.btnRandomNumber.UseVisualStyleBackColor = false;
             this.btnRandomNumber.Click += new System.EventHandler(this.btnRandomNumber_Click);
             // 
+            // chkSoundsInColorTimer
+            // 
+            this.chkSoundsInColorTimer.AutoSize = true;
+            this.chkSoundsInColorTimer.Checked = true;
+            this.chkSoundsInColorTimer.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSoundsInColorTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.chkSoundsInColorTimer.ForeColor = System.Drawing.Color.DarkBlue;
+            this.chkSoundsInColorTimer.Location = new System.Drawing.Point(217, 66);
+            this.chkSoundsInColorTimer.Name = "chkSoundsInColorTimer";
+            this.chkSoundsInColorTimer.Size = new System.Drawing.Size(70, 22);
+            this.chkSoundsInColorTimer.TabIndex = 184;
+            this.chkSoundsInColorTimer.Text = "Suoni";
+            this.toolTip1.SetToolTip(this.chkSoundsInColorTimer, "Esegue i suoni nel timer a colori");
+            this.chkSoundsInColorTimer.UseVisualStyleBackColor = true;
+            this.chkSoundsInColorTimer.CheckedChanged += new System.EventHandler(this.chkSoundsInColorTimer_CheckedChanged);
+            // 
             // lblStudentChosen
             // 
             this.lblStudentChosen.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -1280,7 +1296,7 @@
             "60"});
             this.lstTimeInterval.Location = new System.Drawing.Point(168, 28);
             this.lstTimeInterval.Name = "lstTimeInterval";
-            this.lstTimeInterval.Size = new System.Drawing.Size(46, 112);
+            this.lstTimeInterval.Size = new System.Drawing.Size(46, 94);
             this.lstTimeInterval.TabIndex = 166;
             this.lstTimeInterval.SelectedIndexChanged += new System.EventHandler(this.lstTimeInterval_SelectedIndexChanged);
             this.lstTimeInterval.DoubleClick += new System.EventHandler(this.lstTimeInterval_DoubleClick);
@@ -1330,22 +1346,6 @@
             // timerPopUp
             // 
             this.timerPopUp.Tick += new System.EventHandler(this.timerPopUp_Tick);
-            // 
-            // chkSoundsInColorTimer
-            // 
-            this.chkSoundsInColorTimer.AutoSize = true;
-            this.chkSoundsInColorTimer.Checked = true;
-            this.chkSoundsInColorTimer.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSoundsInColorTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.chkSoundsInColorTimer.ForeColor = System.Drawing.Color.DarkBlue;
-            this.chkSoundsInColorTimer.Location = new System.Drawing.Point(217, 66);
-            this.chkSoundsInColorTimer.Name = "chkSoundsInColorTimer";
-            this.chkSoundsInColorTimer.Size = new System.Drawing.Size(70, 22);
-            this.chkSoundsInColorTimer.TabIndex = 184;
-            this.chkSoundsInColorTimer.Text = "Suoni";
-            this.toolTip1.SetToolTip(this.chkSoundsInColorTimer, "Esegue i suoni nel timer a colori");
-            this.chkSoundsInColorTimer.UseVisualStyleBackColor = true;
-            this.chkSoundsInColorTimer.CheckedChanged += new System.EventHandler(this.chkSoundsInColorTimer_CheckedChanged);
             // 
             // frmMain
             // 
