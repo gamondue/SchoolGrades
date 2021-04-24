@@ -118,7 +118,7 @@
             // 
             this.BtnNewDatabase.Location = new System.Drawing.Point(192, 23);
             this.BtnNewDatabase.Name = "BtnNewDatabase";
-            this.BtnNewDatabase.Size = new System.Drawing.Size(98, 63);
+            this.BtnNewDatabase.Size = new System.Drawing.Size(98, 69);
             this.BtnNewDatabase.TabIndex = 81;
             this.BtnNewDatabase.Text = "Nuovo database (da zero)";
             this.toolTip1.SetToolTip(this.BtnNewDatabase, "Database nuovo per cominciare dall\'inizio");
@@ -187,9 +187,9 @@
             // 
             // btnSaveDatabaseFile
             // 
-            this.btnSaveDatabaseFile.Location = new System.Drawing.Point(333, 434);
+            this.btnSaveDatabaseFile.Location = new System.Drawing.Point(333, 451);
             this.btnSaveDatabaseFile.Name = "btnSaveDatabaseFile";
-            this.btnSaveDatabaseFile.Size = new System.Drawing.Size(98, 67);
+            this.btnSaveDatabaseFile.Size = new System.Drawing.Size(98, 50);
             this.btnSaveDatabaseFile.TabIndex = 72;
             this.btnSaveDatabaseFile.Text = "Salva file database";
             this.toolTip1.SetToolTip(this.btnSaveDatabaseFile, "Copia il file del database con la data attuale nel nome");
@@ -271,9 +271,9 @@
             // 
             // btnCompactDatabase
             // 
-            this.btnCompactDatabase.Location = new System.Drawing.Point(333, 380);
+            this.btnCompactDatabase.Location = new System.Drawing.Point(333, 390);
             this.btnCompactDatabase.Name = "btnCompactDatabase";
-            this.btnCompactDatabase.Size = new System.Drawing.Size(98, 60);
+            this.btnCompactDatabase.Size = new System.Drawing.Size(98, 48);
             this.btnCompactDatabase.TabIndex = 80;
             this.btnCompactDatabase.Text = "Compatta database";
             this.toolTip1.SetToolTip(this.btnCompactDatabase, "Rende più piccolo il file SqLite del database");
@@ -315,7 +315,7 @@
             this.Controls.Add(this.btnRestoreTables);
             this.Controls.Add(this.grpOnlyOneClass);
             this.Controls.Add(this.btnBackupTables);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.Color.DarkBlue;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);

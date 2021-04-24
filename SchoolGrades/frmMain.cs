@@ -17,6 +17,7 @@ namespace SchoolGrades
         public int indexCurrentDrawn = 0;
 
         DbAndBusiness db; // must be instantiated after the reading of config file. 
+        BusinessLayer.BusinessLayer bl; // must be instantiated after the reading of config file.
 
         public List<Student> currentStudentsList;
         public List<Student> eligiblesList = new List<Student>();
@@ -33,7 +34,6 @@ namespace SchoolGrades
         Class currentClass;
 
         Random random = new Random(); 
-
 
         System.Media.SoundPlayer suonatore = new System.Media.SoundPlayer();
         public Student CurrentStudent
@@ -71,7 +71,7 @@ namespace SchoolGrades
         public frmMain()
         {
             InitializeComponent();
-
+            
             this.Text += " v. " + version;
 
             // first default year in the "years" combo
@@ -97,6 +97,9 @@ namespace SchoolGrades
         }
         private void frmMain_Load(object sender, EventArgs e)
         {
+            if (!File.Exists(Commons.PathAndFileDatabase))
+                return;
+
             timerQuestion.Interval = 250;
             
             //#if DEBUG
@@ -109,17 +112,8 @@ namespace SchoolGrades
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             btnTemporary.Visible = false; 
 #endif
-            Commons.ReadConfigFile();
-
-            while (!System.IO.File.Exists(Commons.PathAndFileDatabase))
-            {
-                MessageBox.Show("Configurazione del programma.\r\nSe necessario sistemare le cartelle (si possono anche lasciare così), poi scegliere il file di dati .sqlite e premere 'Salva configurazione'");
-                FrmSetup f = new FrmSetup();
-                f.ShowDialog();
-                //return; 
-            }
-
             db = new DbAndBusiness();
+            bl = new BusinessLayer.BusinessLayer();
 
             school = db.GetSchool(Commons.IdSchool);
             if (school == null)
@@ -157,8 +151,16 @@ namespace SchoolGrades
         }
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            Commons.ErrorLog(sender.GetType().Name + " " + (e.ExceptionObject as Exception).Message +
-              (e.ExceptionObject as Exception).StackTrace, true);
+            if (sender != null)
+            {
+                Commons.ErrorLog(sender.GetType().Name + " " + (e.ExceptionObject as Exception).Message +
+                    (e.ExceptionObject as Exception).StackTrace, true);
+            }
+            else
+            {
+                Commons.ErrorLog((e.ExceptionObject as Exception).Message +
+                    (e.ExceptionObject as Exception).StackTrace, true);
+            }
         }
         private void btnComeOn_Click(object sender, EventArgs e)
         {
@@ -942,7 +944,7 @@ namespace SchoolGrades
                 ((GradeType)(cmbGradeType.SelectedItem)), currentSubject);
             //if (dalPiuVecchio.Count < StudentsList.Count)
             //{
-            //    MessageBox.Show("ATTENZIONE: almeno un allievo non ha neppure un votocino!");
+            //    MessageBox.Show("ATTENZIONE: almeno un allievo non ha neppure un voticino!");
             //}
             Student trovato = null;
             int keyFirst = fromOldest[0].Key;
@@ -954,8 +956,6 @@ namespace SchoolGrades
                     break;
                 }
             }
-            // !!!! TODO VERIFICARE COME VA SE CI SONO NULL E NON NULL 
-            // (I PRIMI DEVONO ESSERE QUELLI CON IL NON NULL) 
             if (trovato == null)
             {
                 MessageBox.Show("Allievo con voticino più vecchio non trovato");
@@ -1198,6 +1198,9 @@ namespace SchoolGrades
         }
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (!File.Exists(Commons.PathAndFileDatabase))
+                return;
+
             timerLesson.Stop(); 
             timerPopUp.Stop();
             timerQuestion.Stop();
@@ -1442,17 +1445,19 @@ namespace SchoolGrades
         {
             ToggleTimerBar(txtTimeInterval.Text); 
         }
-        private void StartColorTimer()
+        private void StartColorTimer(bool SoundEffectsInTimer)
         {
             double t =  double.Parse(txtTimeInterval.Text);
-            ColorTimer ft = new ColorTimer(t /60, t /60);
+            ColorTimer ft = new ColorTimer(t /60, t /60, SoundEffectsInTimer);
             if (currentStudent != null)
+            {
                 ft.FormCaption = ft.FormCaption.Replace("gamon", currentStudent.LastName);
+            }
             ft.Show();
         }
         private void btnStartColorTimer_Click(object sender, EventArgs e)
         {
-            StartColorTimer(); 
+            StartColorTimer(chkSoundsInColorTimer.Checked); 
         }
         private void btnMosaic_Click(object sender, EventArgs e)
         {
@@ -1551,6 +1556,17 @@ namespace SchoolGrades
                     return;
                 }
             }
+        }
+
+        private void btnRandomNumber_Click(object sender, EventArgs e)
+        {
+            frmRandom f = new frmRandom();
+            f.Show(); 
+        }
+
+        private void chkSoundsInColorTimer_CheckedChanged(object sender, EventArgs e)
+        {
+            //MessageBox.Show("Chiudere la finestra timer a colori per cambiare lo stato dei suoni"); 
         }
     }
 }

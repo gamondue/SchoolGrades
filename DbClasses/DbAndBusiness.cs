@@ -6,81 +6,51 @@ using System.IO;
 using System.Collections.Generic;
 using gamon;
 using System.Windows.Forms;
-using SchoolGrades.DbClasses;
-using System.Diagnostics;
 
 namespace SchoolGrades.DbClasses
 {
     /// <summary>
-    /// Data Access Layer che astrae l'accesso ai dati attraverso il dbms
+    /// This class plays both the roles of Business ad Data Layer and 
+    /// should be separated! Work is in progress into the shared projects
+    /// BusinessLayer and DataLayer
     /// </summary>
     public class DbAndBusiness
     {
-        private string dbName;
+        DataLayer.DataLayer dl = new DataLayer.DataLayer();
+        //private string dbName;
 
-        private bool saveTreeAsMptt = true;
-
-        public bool SaveTreeAsMptt { get => saveTreeAsMptt; }
-
-        #region costruttori
+        #region constructors
         public DbAndBusiness()
         {
-            if (!System.IO.File.Exists(Commons.PathAndFileDatabase))
-            {
-                string err = @"[" + Commons.PathAndFileDatabase + " not in the current nor in the dev directory]";
-                Commons.ErrorLog(err, true);
-                //throw new FileNotFoundException(err);
-            }
-            dbName = Commons.PathAndFileDatabase;
-        }
+            dl = new DataLayer.DataLayer();
 
+            //if (!System.IO.File.Exists(Commons.PathAndFileDatabase))
+            //{
+            //    string err = @"[" + Commons.PathAndFileDatabase + " not in the current nor in the dev directory]";
+            //    Commons.ErrorLog(err, true);
+            //    //throw new FileNotFoundException(err);
+            //}
+            //dbName = Commons.PathAndFileDatabase;
+        }
         public DbAndBusiness(string PathAndFile)
         {
-            if (!System.IO.File.Exists(PathAndFile))
-            {
-                string err = @"[" + PathAndFile + " not in the current nor in the dev directory]";
-                Commons.ErrorLog(err, true);
-                throw new FileNotFoundException(err);
-            }
-            dbName = PathAndFile;
-        }
+            dl = new DataLayer.DataLayer(PathAndFile);
 
-        internal void FixQuestionInGrade(int? IdGrade)
-        {
-            using (DbConnection conn = Connect(dbName))
-            {
-                DbCommand cmd = conn.CreateCommand();
-
-                cmd.CommandText = "UPDATE Grades" +
-                           " Set" +
-                           " isFixed=TRUE" +
-                           " WHERE idGrade=" + IdGrade +
-                           ";";
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
-            }
-
+            //if (!System.IO.File.Exists(PathAndFile))
+            //{
+            //    string err = @"[" + PathAndFile + " not in the current nor in the dev directory]";
+            //    Commons.ErrorLog(err, true);
+            //    throw new FileNotFoundException(err);
+            //}
+            //dbName = PathAndFile;
         }
         #endregion
-
-        #region proprietà
-
-        public string NomeEPathDatabase
-        {
-            /// TODO: mettere il codice per diversi database
-            get { return dbName; }
-            //set { nomeEPathDatabase = value; }
-        }
-
-        #endregion
-
-
         internal DataTable GetGradesOfStudent(Student Student, string SchoolYear,
             string IdGradeType, string IdSchoolSubject,
             DateTime DateFrom, DateTime DateTo)
         {
             DataTable t;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 string query = "SELECT Grades.idGrade,datetime(Grades.timeStamp), Students.idStudent," +
                 "lastName,firstName," +
@@ -110,10 +80,25 @@ namespace SchoolGrades.DbClasses
             }
             return t;
         }
+        internal void FixQuestionInGrade(int? IdGrade)
+        {
+            using (DbConnection conn = dl.Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
 
+                cmd.CommandText = "UPDATE Grades" +
+                           " Set" +
+                           " isFixed=TRUE" +
+                           " WHERE idGrade=" + IdGrade +
+                           ";";
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+
+        }
         internal void RemoveQuestionFromTest(int? IdQuestion, int? IdTest)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM Tests_Questions " +
@@ -134,7 +119,7 @@ namespace SchoolGrades.DbClasses
         internal void UpdatePathStartLinkOfClass(Class currentClass, string text)
         {
             // !!!! currently not used, because pathStartLink field does not exist yet in the database !!!!
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
 
@@ -152,7 +137,7 @@ namespace SchoolGrades.DbClasses
             string IdGradeType, string IdSchoolSubject, DateTime DateFrom, DateTime DateTo)
         {
             DataTable t;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 // find the macro grade type of the micro grade
                 // TODO take it from a Grade passed as parameter 
@@ -215,7 +200,7 @@ namespace SchoolGrades.DbClasses
 
         internal void DeleteValueOfGrade(int IdGrade)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
 
@@ -231,7 +216,7 @@ namespace SchoolGrades.DbClasses
 
         internal void ToggleDisableOneStudent(int? idStudent)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
 
@@ -260,7 +245,7 @@ namespace SchoolGrades.DbClasses
 
         internal void CompactDatabase()
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 // compact the database 
@@ -273,37 +258,13 @@ namespace SchoolGrades.DbClasses
         #endregion
 
         #region Metodi specifici per questo programma
-        public DbConnection Connect(string DbName)
-        {
-            DbConnection connection;
-            try
-            {
-                connection = new SQLiteConnection("Data Source=" + DbName +
-                                ";version=3;new=False;datetimeformat=CurrentCulture");
-////////#if DEBUG
-////////                // Get call stack
-////////                StackTrace stackTrace = new StackTrace();
-////////                // Get calling method name
-////////                Commons.ErrorLog("Connect Method in: " + stackTrace.GetFrame(1).GetMethod().Name, false);
-////////#endif
-            }
-            catch (Exception ex)
-            {
-                Commons.ErrorLog("Error connecting to the database: " + ex.Message + "\r\nFile SQLIte>: " + DbName + " " + "\n", true);
-                connection = null;
-            }
-            connection.Open();
-            return connection;
-        }
-
         internal int? UpdateAnnotationGroup(StudentAnnotation currentAnnotation, Student currentStudent)
         {
             throw new NotImplementedException();
         }
-
         internal void EraseStudentsPhoto(int? IdStudent, string SchoolYear)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn =dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM StudentsPhotos_Students" +
@@ -314,13 +275,12 @@ namespace SchoolGrades.DbClasses
                 cmd.Dispose();
             }
         }
-
         internal int CreateClass(string ClassAbbreviation, string ClassDescription, string SchoolYear,
             string IdSchool)
         {
             // trova una chiave da assegnare alla nuova classe
             int idClass = NextKey("Classes", "idClass");
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 // creazione della classe nella tabella delle classi (soltanto quella) 
@@ -356,7 +316,7 @@ namespace SchoolGrades.DbClasses
             double Threshold)
         {
             DataTable t;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DataAdapter dAdapt;
                 DataSet dSet = new DataSet();
@@ -390,7 +350,7 @@ namespace SchoolGrades.DbClasses
             q.IdQuestion = SafeDb.SafeInt(Row["IdQuestion"]);
             q.IdQuestionType = SafeDb.SafeString(Row["IdQuestionType"]);
             q.IdSchoolSubject = SafeDb.SafeString(Row["IdSchoolSubject"]);
-            q.IdSubject = SafeDb.SafeInt(Row["IdSubject"]);
+            //q.IdSubject = SafeDb.SafeInt(Row["IdSubject"]);
             q.IdTopic = SafeDb.SafeInt(Row["IdTopic"]);
             q.Image = SafeDb.SafeString(Row["Image"]);
             q.Text = SafeDb.SafeString(Row["Text"]);
@@ -404,7 +364,7 @@ namespace SchoolGrades.DbClasses
 
         internal string GetFilePhoto(int? IdStudent, string SchoolYear)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 string query = "SELECT StudentsPhotos.photoPath" +
@@ -430,7 +390,7 @@ namespace SchoolGrades.DbClasses
 
         internal void AddLinkToOldPhoto(int? IdStudent, string IdPreviousSchoolYear, string IdNextSchoolYear)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 // get the code of the previous photo
                 DbCommand cmd = conn.CreateCommand();
@@ -460,7 +420,7 @@ namespace SchoolGrades.DbClasses
         {
             // trova una chiave da assegnare al nuovo studente
             int codiceStudente = NextKey("Students", "idStudent");
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "INSERT INTO Students " +
@@ -487,7 +447,7 @@ namespace SchoolGrades.DbClasses
             // trova una chiave da assegnare al nuovo studente
             int idStudent = NextKey("Students", "idStudent");
             Student.IdStudent = idStudent;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "INSERT INTO Students " +
@@ -511,7 +471,7 @@ namespace SchoolGrades.DbClasses
 
         internal bool IsTopicAlreadyTaught(Topic Topic)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "SELECT idLesson" +
@@ -534,7 +494,7 @@ namespace SchoolGrades.DbClasses
 
         internal string SaveSubject(SchoolSubject Subject)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 if (Subject.OldId != "" && Subject.OldId != null)
@@ -574,7 +534,7 @@ namespace SchoolGrades.DbClasses
             bool leaveConnectionOpen = true;
             if (conn == null)
             {
-                conn = Connect(dbName);
+                conn = dl.Connect();
                 leaveConnectionOpen = false;
             }
             DbCommand cmd = conn.CreateCommand();
@@ -608,7 +568,7 @@ namespace SchoolGrades.DbClasses
         internal Student GetStudent(int? IdStudent)
         {
             Student s = new Student();
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
@@ -647,7 +607,7 @@ namespace SchoolGrades.DbClasses
         internal DataTable GetStudentsSameName(string LastName, string FirstName)
         {
             DataTable t;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DataAdapter dAdapt;
                 DataSet dSet = new DataSet();
@@ -673,7 +633,7 @@ namespace SchoolGrades.DbClasses
         internal DataTable FindStudentsLike(string LastName, string FirstName)
         {
             DataTable t;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DataAdapter dAdapt;
                 DataSet dSet = new DataSet();
@@ -711,7 +671,7 @@ namespace SchoolGrades.DbClasses
 
         internal void PutStudentInClass(int? IdStudent, int? IdClass)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 // add student to the class
                 DbCommand cmd = conn.CreateCommand();
@@ -762,7 +722,7 @@ namespace SchoolGrades.DbClasses
 
             // trova la chiave per la prossima foto 
             int codiceFoto = NextKey("StudentsPhotos", "idStudentsPhoto");
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
 
@@ -801,7 +761,7 @@ namespace SchoolGrades.DbClasses
 
             // finds a key for the new class
             int idClass = NextKey("Classes", "idClass");
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "INSERT INTO Classes " +
@@ -875,7 +835,7 @@ namespace SchoolGrades.DbClasses
         private int NextKey(string Table, string Id)
         {
             int nextId;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "SELECT MAX(" + Id + ") FROM " + Table + ";";
@@ -896,7 +856,7 @@ namespace SchoolGrades.DbClasses
         internal DataTable GetClassTable(int? idClass)
         {
             DataTable t;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DataAdapter dAdapter;
                 DataSet dSet = new DataSet();
@@ -917,7 +877,7 @@ namespace SchoolGrades.DbClasses
             DbDataReader dRead;
             DbCommand cmd;
             Class c = null;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 string query = "SELECT *" +
                     " FROM Classes" +
@@ -941,7 +901,7 @@ namespace SchoolGrades.DbClasses
         internal DataTable GetClassDataTable(string IdSchool, string IdSchoolYear, string ClassAbbreviation)
         {
             DataTable t;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DataAdapter dAdapter;
                 DataSet dSet = new DataSet();
@@ -967,7 +927,7 @@ namespace SchoolGrades.DbClasses
         internal Class GetClass(string IdSchool, string IdSchoolYear, string ClassAbbreviation)
         {
             Class c = new Class();
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
@@ -1006,7 +966,7 @@ namespace SchoolGrades.DbClasses
 
             if (conn == null)
             {
-                conn = Connect(dbName);
+                conn = dl.Connect();
                 leaveConnectionOpen = false;
             }
             DbDataReader dRead;
@@ -1035,7 +995,7 @@ namespace SchoolGrades.DbClasses
         internal Class GetClassOfStudent(string IdSchool, string SchoolYearCode, Student Student)
         {
             Class c = new Class();
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
@@ -1078,10 +1038,10 @@ namespace SchoolGrades.DbClasses
             //bool leaveConnectionOpen = true;
             //if (conn == null)
             //{
-            //    conn = Connect(dbName);
+            //    conn = dl.Connect();
             //    leaveConnectionOpen = false;
             //}
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 string query = "UPDATE Classes" +
@@ -1107,7 +1067,7 @@ namespace SchoolGrades.DbClasses
             DbDataReader dRead;
             DbCommand cmd;
             List<Student> ls = new List<Student>();
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 string query = "SELECT registerNumber, Classes.idSchoolYear, " +
                                "Classes.abbreviation, Classes.idClass, Classes.idSchool, " +
@@ -1145,7 +1105,7 @@ namespace SchoolGrades.DbClasses
             DbCommand cmd = null;
             try
             {
-                using (DbConnection conn = Connect(dbName))
+                using (DbConnection conn = dl.Connect())
                 {
                     cmd = conn.CreateCommand();
                     if (IdStartLink != null && IdStartLink != 0)
@@ -1187,7 +1147,7 @@ namespace SchoolGrades.DbClasses
 
         internal void DeleteStartLink(Nullable<int> IdStartLink)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM Classes_StartLinks" +
@@ -1201,7 +1161,7 @@ namespace SchoolGrades.DbClasses
         internal DataTable GetAllStartLinks(string Year, int? IdClass)
         {
             DataTable t;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 string query = "SELECT Classes.idSchoolYear,Classes.abbreviation,Classes.idClass," +
                     "Classes_StartLinks.startLink, Classes_StartLinks.desc,Classes_StartLinks.idStartLink" +
@@ -1234,7 +1194,7 @@ namespace SchoolGrades.DbClasses
             List<string> listOfLinks = new List<string>();
             DbDataReader dRead;
             DbCommand cmd;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 cmd = conn.CreateCommand();
                 cmd.CommandText = "SELECT *" +
@@ -1255,7 +1215,7 @@ namespace SchoolGrades.DbClasses
         internal Grade GetGrade(int? IdGrade)
         {
             Grade g = null;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
@@ -1293,7 +1253,7 @@ namespace SchoolGrades.DbClasses
 
         internal void GetGradeAndStudent(Grade Grade, Student Student)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
@@ -1316,7 +1276,7 @@ namespace SchoolGrades.DbClasses
 
         internal void EraseGrade(int? KeyGrade)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM Grades" +
@@ -1333,7 +1293,7 @@ namespace SchoolGrades.DbClasses
 
             DbDataReader dRead;
             DbCommand cmd;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 string query = "SELECT Classes_Students.idStudent" +
                 " FROM Classes_Students" +
@@ -1368,7 +1328,7 @@ namespace SchoolGrades.DbClasses
             DbDataReader dRead;
             DbCommand cmd;
             Grade g = new Grade();
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 cmd = conn.CreateCommand();
                 cmd.CommandText = "SELECT Grades.* FROM Grades" +
@@ -1399,7 +1359,7 @@ namespace SchoolGrades.DbClasses
             DbDataReader dRead;
             DbCommand cmd;
             List<Grade> ls = new List<Grade>();
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 string query = "SELECT Grades.idStudent, Count(*) as nGrades FROM Grades," +
                     "Grades AS Parents,Classes_Students" +
@@ -1431,7 +1391,7 @@ namespace SchoolGrades.DbClasses
             List<Class> lc = new List<Class>();
 
             // Execute the query
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 string query = "SELECT Classes.* " +
                 " FROM Classes" +
@@ -1462,7 +1422,7 @@ namespace SchoolGrades.DbClasses
              DateTime DateFrom, DateTime DateTo)
         {
             DataTable t;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 string query = "SELECT Grades.idGrade,datetime(Grades.timeStamp),Students.idStudent," +
                 "lastName,firstName," +
@@ -1497,7 +1457,7 @@ namespace SchoolGrades.DbClasses
             GradeType GradeType, SchoolSubject SchoolSubject)
         {
             List<Couple> couples = new List<Couple>();
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
@@ -1548,7 +1508,7 @@ namespace SchoolGrades.DbClasses
             string IdGradeType, string IdSchoolSubject, DateTime DateFrom, DateTime DateTo)
         {
             DataTable t;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 string query = "SELECT Grades.idGrade,Students.idStudent,lastName,firstName" +
                 ",SUM(weight)/100 AS 'GradesFraction', 1 - SUM(weight)/100 AS LeftToCloseAssesments" +
@@ -1582,7 +1542,7 @@ namespace SchoolGrades.DbClasses
             string IdSchoolSubject, DateTime DateFrom, DateTime DateTo)
         {
             DataTable t;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 string query = "SELECT Grades.idGrade, Students.idStudent,lastName,firstName," +
                 " SUM(Grades.value * Grades.weight)/SUM(Grades.weight) AS 'Weighted average'" +
@@ -1624,7 +1584,7 @@ namespace SchoolGrades.DbClasses
         internal DataTable GetMicroGradesOfStudentWithMacroOpen(int? IdStudent, string IdSchoolYear,
             string IdGradeType, string IdSchoolSubject)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 // find the macro grade type of the micro grade
                 // TODO take it from a Grade passed as parameter 
@@ -1653,6 +1613,7 @@ namespace SchoolGrades.DbClasses
                     " AND Grades.idGradeParent = Parents.idGrade" +
                     " AND (Parents.value = 0 OR Parents.value is NULL)" + 
                     " ORDER BY Grades.timestamp;";
+
                 DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
                 DataSet DSet = new DataSet("OpenMicroGrades");
                 DAdapt.Fill(DSet);
@@ -1675,7 +1636,7 @@ namespace SchoolGrades.DbClasses
             string IdGradeType, string IdSchoolSubject)
         {
             DataTable t;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 string query = "SELECT idGrade, idStudent, value, idSchoolSubject," +
                     "weight, cncFactor, idSchoolYear, datetime(timestamp), idGradeType, " +
@@ -1703,7 +1664,7 @@ namespace SchoolGrades.DbClasses
         internal int CreateMacroGrade(ref Grade Grade, Student Student, string IdMicroGradeType)
         {
             int key = NextKey("Grades", "idGrade");
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 // find the type of the macro grade of this micrograde
@@ -1737,7 +1698,7 @@ namespace SchoolGrades.DbClasses
 
         internal int? SaveMicroGrade(Grade Grade)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 // create a new micro assessment in grades table
@@ -1809,7 +1770,7 @@ namespace SchoolGrades.DbClasses
             string IdSchoolSubject)
         {
             // !!!! TODO !!!! pass a Grade and save all the fields of a grade 
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 // creazione del macrovoto nella tabella dei voti  
@@ -1831,7 +1792,7 @@ namespace SchoolGrades.DbClasses
         internal double GetDefaultWeightOfGradeType(string IdGradeType)
         {
             double d;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "SELECT defaultWeight " +
@@ -1846,7 +1807,7 @@ namespace SchoolGrades.DbClasses
         internal DataTable GetSubGradesOfGrade(int? IdGrade)
         {
             DataTable t;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 string query = "SELECT datetime(Grades.timestamp),Questions.text,Grades.value," +
                     " Grades.weight,Grades.cncFactor,Grades.idGradeParent" +
@@ -1868,7 +1829,7 @@ namespace SchoolGrades.DbClasses
 
         internal void CloneGrade(DataRow Riga)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 // mette peso 0 nel voto precedente  
@@ -1912,7 +1873,7 @@ namespace SchoolGrades.DbClasses
             // trova una chiave da assegnare alla nuova domanda
             Question q = new Question();
             q.IdQuestion = NextKey("Questions", "idQuestion");
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 string imageSenzaHome = q.Image;
                 DbCommand cmd = conn.CreateCommand();
@@ -1933,7 +1894,7 @@ namespace SchoolGrades.DbClasses
             DbDataReader dRead;
             DbCommand cmd;
             string query;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 query = "SELECT * FROM SchoolSubjects" +
                     " WHERE IdSchoolSubject='" + IdSchoolSubject + "'";
@@ -1968,7 +1929,7 @@ namespace SchoolGrades.DbClasses
             DbCommand cmd;
             string query;
 
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 query = "SELECT * FROM SchoolSubjects";
                 cmd = new SQLiteCommand(query);
@@ -2000,7 +1961,7 @@ namespace SchoolGrades.DbClasses
                 question.Text = ""; 
                 return question;
             }
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
@@ -2030,14 +1991,14 @@ namespace SchoolGrades.DbClasses
 
         internal void SaveQuestion(Question Question)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 string imageNoHome = Question.Image;
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "UPDATE Questions " +
                     "SET idQuestionType='" + SqlVal.SqlString(Question.IdQuestionType) + "' " +
                      ", idSchoolSubject='" + SqlVal.SqlString(Question.IdSchoolSubject) + "' " +
-                     ", idSubject=" + Question.IdSubject + " " +
+                     //", idSubject=" + Question.IdSubject + " " +
                      ", idSchoolSubject='" + Question.IdSchoolSubject + "'" +
                      ", idTopic=" + Question.IdTopic + " " +
                      ", duration=" + Question.Duration + " " +
@@ -2066,7 +2027,7 @@ namespace SchoolGrades.DbClasses
                             " WHERE Questions.IdQuestion IN(" + subquery + ")" +
                             " ORDER BY Questions.IdQuestion;";
             DataSet DSet;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
                 DSet = new DataSet("FilteredQuestions");
@@ -2079,8 +2040,9 @@ namespace SchoolGrades.DbClasses
         }
 
         /// <summary>
-        /// gets the questions regarding the topics made to the class that 
-        /// haven't been made to the student yet
+        /// gets the questions regarding the topics taught to the class that 
+        /// haven't been made to the student yet. 
+        /// Includes also the questions tha do not have a topic 
         /// </summary>
         /// <param name="Class"></param>
         /// <param name="Student"></param>
@@ -2093,6 +2055,18 @@ namespace SchoolGrades.DbClasses
         {
             List<Question> lq = new List<Question>();
             string filteredQuestions;
+
+            // first part of the query: selection of the interesting fields in Questions
+            string query = "SELECT Questions.IdQuestion,Questions.text,Questions.idSchoolSubject,Questions.idQuestionType" +
+                ",Questions.weight,Questions.duration,Questions.difficulty,Questions.image,Questions.idTopic" +
+                " FROM Questions";
+            // add the WHERE clauses
+            // if the search string is present, then it must be in the searched field 
+            if (SearchString != "")
+            {
+                query += " WHERE Questions.text LIKE('%" + SqlVal.SqlString(SearchString) + "%')" +
+                    "AND (";
+            }
             if (Subject != null)
                 filteredQuestions = MakeStringForFilteredQuestionsQuery(Tags, Subject.IdSchoolSubject, IdQuestionType,
                     Topic, QueryManyTopics, TagsAnd);
@@ -2127,18 +2101,22 @@ namespace SchoolGrades.DbClasses
                 // PART of the final query that extracts the Ids of the questions already made 
                 questionsTopicsMade = " Questions.idQuestion IN(" + questionsTopicsMade + ")";
             }
-            // first part of the query: selection of the interesting fields in Questions
-            string query = "SELECT Questions.IdQuestion,Questions.text,Questions.idSchoolSubject,Questions.idQuestionType" +
-                ",Questions.weight,Questions.duration,Questions.difficulty,Questions.image,Questions.idTopic" +
-                " FROM Questions";
+
             if (questionsAlreadyMade != "")
             {
                 // take only questions already made 
-                query += " WHERE Questions.idQuestion NOT IN(" + questionsAlreadyMade + ")";
+                if (SearchString == "")
+                {
+                    query += " WHERE Questions.idQuestion NOT IN(" + questionsAlreadyMade + ")";
+                }
+                else
+                {
+                    query += " Questions.idQuestion NOT IN(" + questionsAlreadyMade + ")";
+                }
             }
             if (filteredQuestions != "")
             {
-                if (questionsAlreadyMade != "")
+                if (questionsAlreadyMade != "" || SearchString != "")
                 {
                     query += " AND Questions.idQuestion IN(" + filteredQuestions + ")";
                 }
@@ -2147,20 +2125,13 @@ namespace SchoolGrades.DbClasses
                     query += " WHERE Questions.idQuestion IN(" + filteredQuestions + ")";
                 }
             }
+            query += " OR Questions.idTopic IS NULL OR Questions.idTopic = ''";
             if (SearchString != "")
-            {
-                if (questionsAlreadyMade != "" || filteredQuestions != "")
-                {
-                    query += " AND Questions.text LIKE('%" + SqlVal.SqlString(SearchString) + "%')";
-                }
-                else
-                {
-                    query += " WHERE Questions.text LIKE('%" + SqlVal.SqlString(SearchString) + "%')";
-                }
-            }
+                query += ")"; 
+
             query += " ORDER BY Questions.weight;";
 
-            using (DbConnection conn = Connect(Commons.PathAndFileDatabase))
+            using (DbConnection conn = dl.Connect())
             {
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
@@ -2268,7 +2239,7 @@ namespace SchoolGrades.DbClasses
 
         internal void GetLookupTable(string Table, ref DataSet DSet, ref DataAdapter DAdapt)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 string query = "SELECT * FROM " + Table + ";";
                 DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
@@ -2302,7 +2273,7 @@ namespace SchoolGrades.DbClasses
                     " VALUES ('" + sId + "','" + Row["name"] + "','" + Row["desc"] + "'" +
                 ");";
             }
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = query;
@@ -2318,7 +2289,7 @@ namespace SchoolGrades.DbClasses
             DbCommand cmd;
             List<Tag> TagList = new List<Tag>();
 
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 string query = "SELECT *" +
                     " FROM Tags" +
@@ -2346,7 +2317,7 @@ namespace SchoolGrades.DbClasses
         {
             // trova una chiave da assegnare alla nuova domanda
             CurrentTag.IdTag = NextKey("Tags", "IdTag");
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "INSERT INTO Tags " +
@@ -2363,7 +2334,7 @@ namespace SchoolGrades.DbClasses
 
         internal void SaveTag(Tag CurrentTag)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "UPDATE Tags " +
@@ -2382,7 +2353,7 @@ namespace SchoolGrades.DbClasses
             DbDataReader dRead;
             DbCommand cmd;
             List<Tag> l = new List<Tag>();
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 string query = "SELECT * " +
                     " FROM Questions_Tags, Tags" +
@@ -2409,7 +2380,7 @@ namespace SchoolGrades.DbClasses
 
         internal void AddTagToQuestion(int? IdQuestion, int? IdTag)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "INSERT INTO Questions_Tags " +
@@ -2423,7 +2394,7 @@ namespace SchoolGrades.DbClasses
         }
         internal void AddAnswerToQuestion(int? idQuestion, int? idAnswer)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "UPDATE Answers" +
@@ -2439,7 +2410,7 @@ namespace SchoolGrades.DbClasses
         {
             // trova una chiave da assegnare alla nuova domanda
             int codice = NextKey("Answers", "idAnswer");
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "INSERT INTO Answers" +
@@ -2460,7 +2431,7 @@ namespace SchoolGrades.DbClasses
         }
         internal void SaveAnswer(Answer currentAnswer)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "UPDATE Answers" +
@@ -2483,7 +2454,7 @@ namespace SchoolGrades.DbClasses
             List<Answer> l = new List<Answer>();
             DbDataReader dRead;
             DbCommand cmd;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 string query = "SELECT *" +
                     " FROM Answers" +
@@ -2518,7 +2489,7 @@ namespace SchoolGrades.DbClasses
 
             DbDataReader dRead;
             DbCommand cmd;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 cmd = conn.CreateCommand();
                 string query;
@@ -2554,7 +2525,7 @@ namespace SchoolGrades.DbClasses
 
             DbDataReader dRead;
             DbCommand cmd;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 cmd = conn.CreateCommand();
                 string query;
@@ -2615,7 +2586,7 @@ namespace SchoolGrades.DbClasses
             DbCommand cmd;
             string fileContent = "";
 
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 string query = "SELECT *" +
                     " FROM " + TableName + " ";
@@ -2668,7 +2639,7 @@ namespace SchoolGrades.DbClasses
             string query = "SELECT *" +
                     " FROM " + TableName + ";";
 
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 dAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
                 dSet = new DataSet("GetTable");
@@ -2694,7 +2665,7 @@ namespace SchoolGrades.DbClasses
                 "\\" + TableName + ".tsv");
             if (dati is null)
                 return;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 if (EraseBefore)
@@ -2816,7 +2787,7 @@ namespace SchoolGrades.DbClasses
             t = dSet.Tables[0];
             if (t.Rows.Count == 0)
                 return;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd;
                 cmd = conn.CreateCommand();
@@ -2879,7 +2850,7 @@ namespace SchoolGrades.DbClasses
 
         internal void DeleteOneStudentFromClass(int? IdDeletingStudent, int? IdClass)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM Classes_Students" +
@@ -2893,7 +2864,7 @@ namespace SchoolGrades.DbClasses
 
         internal void EraseAllStudentsOfAClass(Class Class)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 // erase all the info in tables linked to student
 
@@ -2958,7 +2929,7 @@ namespace SchoolGrades.DbClasses
         internal void EraseClassFromClasses(Class Class)
         {
             //EraseAllStudentsOfAClass(Class); 
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 // delete all the references in link table between students and classes
                 DbCommand cmd = conn.CreateCommand();
@@ -2997,11 +2968,15 @@ namespace SchoolGrades.DbClasses
                 Commons.FileDatabase;
             File.Copy(Commons.PathAndFileDatabase, newDatabaseFullName);
 
+            // open a local connection to database 
+            DataLayer.DataLayer newDatabaseDl = new DataLayer.DataLayer(newDatabaseFullName); 
+
             // erase all the data of the students of other classes
-            using (DbConnection conn = Connect(newDatabaseFullName))
+            using (DbConnection conn = newDatabaseDl.Connect())
             {
-                // erase all the other classes
                 DbCommand cmd = conn.CreateCommand();
+
+                // erase all the other classes
                 cmd.CommandText = "DELETE FROM Classes" +
                 " WHERE idClass<>" + Class.IdClass + ";";
                 cmd.ExecuteNonQuery();
@@ -3044,6 +3019,13 @@ namespace SchoolGrades.DbClasses
                 cmd.CommandText = "DELETE FROM StudentsPhotos_Students" +
                     " WHERE idStudent NOT IN" +
                     " (SELECT idStudent FROM Classes_Students);";
+                cmd.ExecuteNonQuery();
+
+                // erase all the annotations of other classes
+                cmd.CommandText = "DELETE FROM StudentsAnnotations" +
+                    " WHERE idStudent NOT IN" +
+                    " (SELECT idStudent FROM Classes_Students)" + 
+                    ";";
                 cmd.ExecuteNonQuery();
 
                 // erase all the photos of other classes' students
@@ -3089,6 +3071,12 @@ namespace SchoolGrades.DbClasses
                 cmd.CommandText = "DELETE FROM Lessons_Topics" +
                     " WHERE idLesson NOT IN" +
                     " (SELECT idLesson from Lessons);";
+                cmd.ExecuteNonQuery();
+
+                // erase all the users
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "DELETE FROM Users" +
+                    ";";
                 cmd.ExecuteNonQuery();
 
                 // copy all the students' photo files that aren't already there or that have a newer date 
@@ -3169,12 +3157,9 @@ namespace SchoolGrades.DbClasses
             // ???? StudentsTestsStudentsTests serve ???? se non serve, eliminare
             return Class.PathRestrictedApplication;
         }
-
         internal string CreateDemoDatabase(Class Class1, Class Class2)
         {
-            string query;
             DbCommand cmd;
-            DbDataReader dReader;
 
             string newDatabasePathName = Commons.PathDatabase;
             if (!Directory.Exists(newDatabasePathName))
@@ -3182,10 +3167,11 @@ namespace SchoolGrades.DbClasses
 
             string newDatabaseFullName = newDatabasePathName +
                 "\\Demo_SchoolGrades_" + Class1.SchoolYear + "_" + DateTime.Now.Date.ToString("yy-MM-dd") + ".sqlite";
+
             if (File.Exists(newDatabaseFullName))
             {
                 if (System.Windows.Forms.MessageBox.Show("Il file " + newDatabaseFullName + " esiste già." +
-                    "\nDevo sovrascriverlo (Sì) o non creare il database (No)?", "",
+                    "\nDevo re-inizializzarlo (Sì) o non creare il database (No)?", "",
                     System.Windows.Forms.MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question) == DialogResult.Yes)
                 {
@@ -3197,42 +3183,47 @@ namespace SchoolGrades.DbClasses
             }
             File.Copy(Commons.PathAndFileDatabase, newDatabaseFullName);
 
+            // local instance of a DataLayer to operate on a second database 
+            DataLayer.DataLayer newDatabaseDl = new DataLayer.DataLayer(newDatabaseFullName);
+
             // erase all the data of the students of other classes
-            using (DbConnection conn = Connect(newDatabaseFullName)) // connect to the new database, just copied
+            using (DbConnection conn = newDatabaseDl.Connect()) // connect to the new database, just copied
             {
-                // erase all the other classes
                 cmd = conn.CreateCommand();
+
+                // erase all the other classes
                 cmd.CommandText = "DELETE FROM Classes" +
                 " WHERE idClass<>" + Class1.IdClass +
                 " AND idClass<>" + Class2.IdClass + ";";
                 cmd.ExecuteNonQuery();
 
                 // erase all the lessons of other classes
-                cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM Lessons" +
                     " WHERE idClass<>" + Class1.IdClass +
                     " AND idClass<>" + Class2.IdClass + ";";
                 cmd.ExecuteNonQuery();
 
                 // erase all the students of other classes from the link table
-                cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM Classes_Students" +
                  " WHERE idClass<>" + Class1.IdClass +
                  " AND idClass<>" + Class2.IdClass + ";";
                 cmd.ExecuteNonQuery();
 
                 // erase all the students of other classes 
-                cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM Students" +
                     " WHERE idStudent NOT IN" +
                     " (SELECT idStudent FROM Classes_Students" +
-                     " WHERE idClass<>" + Class1.IdClass +
-                     " OR idClass<>" + Class2.IdClass +
-                ");";
+                    " WHERE idClass<>" + Class1.IdClass +
+                    " OR idClass<>" + Class2.IdClass +
+                    ");";
+                cmd.ExecuteNonQuery();
+
+                // erase all the annotation, of all classes
+                cmd.CommandText = "DELETE FROM StudentsAnnotations" +
+                    ";";
                 cmd.ExecuteNonQuery();
 
                 // erase all the StartLinks of other classes
-                cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM Classes_StartLinks" +
                     " WHERE idClass<>" + Class1.IdClass +
                     " AND idClass<>" + Class2.IdClass +
@@ -3240,7 +3231,6 @@ namespace SchoolGrades.DbClasses
                 cmd.ExecuteNonQuery();
 
                 // erase all the grades of other classes' students
-                cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM Grades" +
                     " WHERE idStudent NOT IN" +
                     " (SELECT idStudent FROM Classes_Students" +
@@ -3250,7 +3240,6 @@ namespace SchoolGrades.DbClasses
                 cmd.ExecuteNonQuery();
 
                 // erase all the links to photos of other classes' students
-                cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM StudentsPhotos_Students" +
                     " WHERE idStudent NOT IN" +
                     " (SELECT idStudent FROM Classes_Students" +
@@ -3260,7 +3249,6 @@ namespace SchoolGrades.DbClasses
                 cmd.ExecuteNonQuery();
 
                 // erase all the photos of other classes' students
-                cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM StudentsPhotos WHERE StudentsPhotos.idStudentsPhoto NOT IN" +
                     "(SELECT StudentsPhotos_Students.idStudentsPhoto" +
                     " FROM StudentsPhotos, StudentsPhotos_Students, Classes_Students" +
@@ -3272,7 +3260,6 @@ namespace SchoolGrades.DbClasses
                 cmd.ExecuteNonQuery();
 
                 // erase all the images of other classes
-                cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM Images WHERE Images.idImage NOT IN" +
                     "(SELECT DISTINCT Lessons_Images.idImage" +
                     " FROM Images, Lessons_Images, Lessons" +
@@ -3282,8 +3269,8 @@ namespace SchoolGrades.DbClasses
                     " OR Lessons.idClass=" + Class2.IdClass + ")" +
                     ");";
                 cmd.ExecuteNonQuery();
+
                 //erase all links to the images of other classes
-                cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM Lessons_Images WHERE Lessons_Images.idImage NOT IN" +
                     "(SELECT DISTINCT Lessons_Images.idImage" +
                     " FROM Images, Lessons_Images, Lessons" +
@@ -3306,7 +3293,6 @@ namespace SchoolGrades.DbClasses
 
                 // erase all the answers  of the students of the other classes
                 // !! StudentsAnswers currently not used !!
-                cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM StudentsAnswers" +
                 " WHERE idStudent NOT IN" +
                 " (SELECT idStudent FROM Classes_Students" +
@@ -3316,7 +3302,6 @@ namespace SchoolGrades.DbClasses
 
                 // erase all the tests of students of the other classes
                 // !! StudentsTests currently not used !!
-                cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM StudentsTests" +
                 " WHERE idStudent NOT IN" +
                 " (SELECT idStudent FROM Classes_Students" +
@@ -3326,7 +3311,6 @@ namespace SchoolGrades.DbClasses
                 cmd.ExecuteNonQuery();
 
                 // erase all the topics of other classes' lessons
-                cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM Lessons_Topics" +
                     " WHERE idLesson NOT IN" +
                     " (SELECT idLesson from Lessons" +
@@ -3343,7 +3327,21 @@ namespace SchoolGrades.DbClasses
                 // Class1.SchoolYear = // !!!! shift the data to the destination school year, to be done when year's shifting will be managed!!!!
                 Class1.IdSchool = Commons.IdSchool;
                 Class1.UriWebApp = ""; // ???? decide what to put here ????
-                SaveClass(Class1);
+
+                // SaveClass Class1;
+                string query = "UPDATE Classes" +
+                    " SET" +
+                    " idClass=" + Class1.IdClass + "" +
+                    ",idSchoolYear='" + SqlVal.SqlString(Class1.SchoolYear) + "'" +
+                    ",idSchool='" + SqlVal.SqlString(Class1.IdSchool) + "'" +
+                    ",abbreviation='" + SqlVal.SqlString(Class1.Abbreviation) + "'" +
+                    ",desc='" + SqlVal.SqlString(Class1.Description) + "'" +
+                    ",uriWebApp='" + Class1.UriWebApp + "'" +
+                    ",pathRestrictedApplication='" + SqlVal.SqlString(Class1.PathRestrictedApplication) + "'" +
+                    " WHERE idClass=" + Class1.IdClass +
+                    ";";
+                cmd.CommandText = query;
+                cmd.ExecuteNonQuery();
 
                 Class2.Abbreviation = "DEMO2";
                 Class2.Description = "SchoolGrades demo class 2";
@@ -3351,7 +3349,26 @@ namespace SchoolGrades.DbClasses
                 // Class2.SchoolYear = !!!! shift the data to the destination school year !!!!
                 Class2.IdSchool = Commons.IdSchool;
                 Class2.UriWebApp = ""; // ???? decide what to put here ????
-                SaveClass(Class2);
+                // SaveClass Class2;
+                query = "UPDATE Classes" +
+                    " SET" +
+                    " idClass=" + Class2.IdClass + "" +
+                    ",idSchoolYear='" + SqlVal.SqlString(Class2.SchoolYear) + "'" +
+                    ",idSchool='" + SqlVal.SqlString(Class2.IdSchool) + "'" +
+                    ",abbreviation='" + SqlVal.SqlString(Class2.Abbreviation) + "'" +
+                    ",desc='" + SqlVal.SqlString(Class2.Description) + "'" +
+                    ",uriWebApp='" + Class2.UriWebApp + "'" +
+                    ",pathRestrictedApplication='" + SqlVal.SqlString(Class2.PathRestrictedApplication) + "'" +
+                    " WHERE idClass=" + Class2.IdClass +
+                    ";";
+                cmd.CommandText = query;
+                cmd.ExecuteNonQuery();
+
+                // erase all the users
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "DELETE FROM Users" +
+                    ";";
+                cmd.ExecuteNonQuery();
 
                 // rename every student left in the database according to the names found in the pictures' filenames
                 RenameStudentsNamesFromPictures(Class1, conn);
@@ -3378,7 +3395,91 @@ namespace SchoolGrades.DbClasses
             }
             return newDatabaseFullName;
         }
+        internal string NewDatabase()
+        {
+            DbCommand cmd;
 
+            string newDatabasePathName = Commons.PathDatabase;
+            if (!Directory.Exists(newDatabasePathName))
+                Directory.CreateDirectory(newDatabasePathName);
+
+            string newDatabaseFullName = newDatabasePathName +
+                "\\SchoolGradesNew.sqlite";
+
+            if (File.Exists(newDatabaseFullName))
+            {
+                if (System.Windows.Forms.MessageBox.Show("Il file " + newDatabaseFullName + " esiste già." +
+                    "\nDevo re-inizializzarlo (Sì) o non creare il database (No)?", "",
+                    System.Windows.Forms.MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    File.Delete(newDatabaseFullName);
+                }
+                else
+                    return "";
+            }
+            File.Copy(Commons.PathAndFileDatabase, newDatabaseFullName);
+
+            // local instance of a DataLayer to operate on a second database 
+            DataLayer.DataLayer newDatabaseDl = new DataLayer.DataLayer(newDatabaseFullName);
+
+            // erase all the data on all the tables
+            using (DbConnection conn = newDatabaseDl.Connect()) // connect to the new database, just copied
+            {
+                cmd = conn.CreateCommand();
+
+                // erase all the answers to questions
+                cmd.CommandText = "DELETE FROM Answers;" +
+                "DELETE FROM Students;" +
+                "DELETE FROM SchoolYears;" +
+                "DELETE FROM Schools;" +
+                "DELETE FROM Classes;" +
+                "DELETE FROM QuestionTypes;" +
+                "DELETE FROM Topics;" +
+                "DELETE FROM Subjects;" +
+                "DELETE FROM SchoolSubjects;" +
+                "DELETE FROM Images;" +
+                "DELETE FROM Questions;" +
+                "DELETE FROM Answers;" +
+                "DELETE FROM TestTypes;" +
+                "DELETE FROM Tests;" +
+                "DELETE FROM Classes_Tests;" +
+                "DELETE FROM Tags;" +
+                "DELETE FROM Tests_Tags;" +
+                "DELETE FROM Tests_Questions;" +
+                "DELETE FROM Questions_Tags;" +
+                "DELETE FROM Answers_Questions;" +
+                "DELETE FROM Classes_SchoolSubjects;" +
+                "DELETE FROM GradeCategories;" +
+                "DELETE FROM GradeTypes;" +
+                "DELETE FROM Grades;" +
+                "DELETE FROM Students_GradeTypes;" +
+                "DELETE FROM SchoolPeriodTypes;" +
+                "DELETE FROM SchoolPeriods;" +
+                "DELETE FROM StudentsAnswers;" +
+                "DELETE FROM StudentsQuestions;" +
+                "DELETE FROM StudentsTests;" +
+                "DELETE FROM StudentsPhotos;" +
+                "DELETE FROM StudentsTests_StudentsPhotos;" +
+                "DELETE FROM StudentsPhotos_Students;" +
+                "DELETE FROM Classes_Students;" +
+                "DELETE FROM Lessons;" +
+                "DELETE FROM Lessons_Topics;" +
+                "DELETE FROM Lessons_Images;" +
+                "DELETE FROM Classes_StartLinks;" +
+                "DELETE FROM Flags;" +
+                "DELETE FROM usersCategories;" +
+                "DELETE FROM Users;"; 
+                cmd.ExecuteNonQuery();
+
+                // compact the database 
+                cmd.CommandText = "VACUUM;";
+                cmd.ExecuteNonQuery();
+
+                cmd.Dispose();
+            }
+            return newDatabaseFullName;
+        }
         private void ChangeImagesPath(Class Class, DbConnection conn)
         {
             DbDataReader dRead;
@@ -3598,7 +3699,7 @@ namespace SchoolGrades.DbClasses
         internal int CreateNewTopic(Topic NewTopic)
         {
             int nextId;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 nextId = NextKey("Topics", "idTopic");
 
@@ -3620,7 +3721,7 @@ namespace SchoolGrades.DbClasses
         }
         internal void EraseAllTopics()
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {   // erase all the topics
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM Topics;";
@@ -3654,7 +3755,7 @@ namespace SchoolGrades.DbClasses
         internal Topic GetTopicById(int? idTopic)
         {
             Topic t = new Topic();
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 string query = "SELECT *" +
@@ -3675,7 +3776,7 @@ namespace SchoolGrades.DbClasses
         internal List<Topic> GetTopics()
         {
             List<Topic> lt = new List<Topic>();
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 string query = "SELECT *" +
@@ -3699,7 +3800,7 @@ namespace SchoolGrades.DbClasses
         {
             // node numbering according to Modified Preorder Tree Traversal algorithm
             List<Topic> l = new List<Topic>();
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 // find descendant topics that aren't done  
                 DbCommand cmd = conn.CreateCommand();
@@ -3734,7 +3835,7 @@ namespace SchoolGrades.DbClasses
             List<Topic> l = new List<Topic>();
             if (Class == null)
                 return l;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 // find descendant topics that are done  
                 DbCommand cmd = conn.CreateCommand();
@@ -3768,7 +3869,7 @@ namespace SchoolGrades.DbClasses
         {
             // node order according to Modified Preorder Tree Traversal algorithm
             List<Topic> l = new List<Topic>();
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 // find topics that are done in a lesson of given class about and given subject 
                 DbCommand cmd = conn.CreateCommand();
@@ -3800,7 +3901,7 @@ namespace SchoolGrades.DbClasses
             DateTime DateFrom, DateTime DateTo)
         {
             List<Topic> lt = new List<Topic>();
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DateTo = DateTo.AddDays(1); // add one day for lesson after 0 and to midnight 
                 DbCommand cmd = conn.CreateCommand();
@@ -3866,7 +3967,7 @@ namespace SchoolGrades.DbClasses
             bool leaveConnectionOpen = true;
             if (conn == null)
             {
-                conn = Connect(dbName);
+                conn = dl.Connect();
                 leaveConnectionOpen = false;
             }
             DbCommand cmd = conn.CreateCommand();
@@ -3895,7 +3996,7 @@ namespace SchoolGrades.DbClasses
                 bool leaveConnectionOpen = true;
                 if (Conn == null)
                 {
-                    Conn = Connect(dbName);
+                    Conn = dl.Connect();
                     leaveConnectionOpen = false;
                 }
                 DbCommand cmd = Conn.CreateCommand();
@@ -3927,7 +4028,7 @@ namespace SchoolGrades.DbClasses
         internal void SaveTopicsFromScratch(List<Topic> ListTopics)
         {
             ////////BackgroundCanStillSaveTopicsTree = true;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM Topics;";
@@ -3962,7 +4063,7 @@ namespace SchoolGrades.DbClasses
         internal GradeType GetGradeType(string IdGradeType)
         {
             GradeType gt = null;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
@@ -3996,7 +4097,7 @@ namespace SchoolGrades.DbClasses
         internal List<GradeType> GetListGradeTypes()
         {
             List<GradeType> lg = new List<GradeType>();
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
@@ -4022,7 +4123,7 @@ namespace SchoolGrades.DbClasses
                 qt.IdQuestionType = "";
                 l.Add(qt);
             }
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
@@ -4046,7 +4147,7 @@ namespace SchoolGrades.DbClasses
         internal int NewLesson(Lesson Lesson)
         {
             int key;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 key = NextKey("Lessons", "idLesson");
                 Lesson.IdLesson = key;
@@ -4071,7 +4172,7 @@ namespace SchoolGrades.DbClasses
         }
         internal void SaveLesson(Lesson Lesson)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd = conn.CreateCommand();
@@ -4092,7 +4193,7 @@ namespace SchoolGrades.DbClasses
         internal object GetTopicsOfOneLessonOfClass(Class Class, Lesson Lesson)
         {
             DataTable t;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DataAdapter dAdapt;
                 DataSet dSet = new DataSet();
@@ -4119,7 +4220,7 @@ namespace SchoolGrades.DbClasses
         internal DataTable GetLessonsOfClass(Class Class, Lesson Lesson)
         {
             DataTable t;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DataAdapter dAdapt;
                 DataSet dSet = new DataSet();
@@ -4142,7 +4243,7 @@ namespace SchoolGrades.DbClasses
         }
         internal Lesson GetLastLesson(Lesson CurrentLesson)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 List<Couple> couples = new List<Couple>();
                 DbDataReader dRead;
@@ -4176,7 +4277,7 @@ namespace SchoolGrades.DbClasses
             DateTime Date)
         {
             Lesson less = new Lesson();
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
@@ -4206,7 +4307,7 @@ namespace SchoolGrades.DbClasses
         }
         internal void EraseLesson(int? IdLesson, bool AlsoEraseImageFiles)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 // erase existing links topic-lesson
                 DbCommand cmd = conn.CreateCommand();
@@ -4244,7 +4345,7 @@ namespace SchoolGrades.DbClasses
         }
         internal void SaveTopicsOfLesson(int? IdLesson, List<Topic> topicsOfTheLesson)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 // erase existing links topic-lesson
                 DbCommand cmd = conn.CreateCommand();
@@ -4291,7 +4392,7 @@ namespace SchoolGrades.DbClasses
             }
             // order by ensures that the order of the result is the order of insertion 
             // in the database (that was the same of the tree traversal) 
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 DbDataReader dRead;
@@ -4320,7 +4421,7 @@ namespace SchoolGrades.DbClasses
 
             List<Image> imagesOfTheLesson = new List<Image>();
 
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 DbDataReader dRead;
@@ -4354,7 +4455,7 @@ namespace SchoolGrades.DbClasses
         /// <returns></returns>
         internal int? LinkOneImage(Image Image, Lesson Lesson)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 string query;
@@ -4385,7 +4486,7 @@ namespace SchoolGrades.DbClasses
         internal void RemoveImageFromLesson(Lesson Lesson, Image Image,
             bool AlsoEraseImageFile)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 string query;
@@ -4422,7 +4523,7 @@ namespace SchoolGrades.DbClasses
 
         internal void SaveImage(Image Image)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 string query;
@@ -4441,7 +4542,7 @@ namespace SchoolGrades.DbClasses
         internal Image FindImageWithGivenFile(string PathAndFileNameOfImage)
         {
             Image i = new Image();
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 DbDataReader dRead;
@@ -4466,7 +4567,7 @@ namespace SchoolGrades.DbClasses
         internal List<SchoolPeriod> GetSchoolPeriodsOfDate(DateTime Date)
         {
             List<SchoolPeriod> l = new List<SchoolPeriod>();
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
@@ -4489,7 +4590,7 @@ namespace SchoolGrades.DbClasses
         internal List<SchoolPeriod> GetSchoolPeriods(string IdSchoolYear)
         {
             List<SchoolPeriod> l = new List<SchoolPeriod>();
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
@@ -4540,7 +4641,7 @@ namespace SchoolGrades.DbClasses
         internal Test GetTest(int? IdTest)
         {
             Test t = new Test();
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
@@ -4560,7 +4661,7 @@ namespace SchoolGrades.DbClasses
         internal List<Test> GetTests()
         {
             List<Test> list = new List<Test>();
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
@@ -4582,7 +4683,7 @@ namespace SchoolGrades.DbClasses
 
         internal void SaveTest(Test TestToSave)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 if (TestToSave.IdTest == 0 || TestToSave.IdTest == null)
@@ -4617,7 +4718,7 @@ namespace SchoolGrades.DbClasses
         internal List<Question> GetAllQuestionsOfATest(int? IdTest)
         {
             List<Question> lq = new List<Question>();
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "SELECT *" +
@@ -4638,7 +4739,7 @@ namespace SchoolGrades.DbClasses
         }
         internal void AddQuestionToTest(Test Test, Question Question)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 // get the code of the previous photo
                 DbCommand cmd = conn.CreateCommand();
@@ -4660,7 +4761,7 @@ namespace SchoolGrades.DbClasses
                 MessageBox.Show("Scegliere un allievo");
                 return; 
             }
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 // find if an answer has already been given
@@ -4699,7 +4800,7 @@ namespace SchoolGrades.DbClasses
         private int? StudentHasAnswered(int? IdAnswer, int? IdTest, int? IdStudent)
         {
             int? key;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 string query = "SELECT idStudentsAnswer" +
@@ -4718,7 +4819,7 @@ namespace SchoolGrades.DbClasses
             int? IdStudent, int? IdQuestion, int? IdTest)
         {
             List<StudentsAnswer> list = new List<StudentsAnswer>(); 
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 string query = "SELECT *" +
@@ -4760,7 +4861,7 @@ namespace SchoolGrades.DbClasses
         internal List<Student> GetAllStudentsThatAnsweredToATest(Test Test, Class Class)
         {
             List<Student> list = new List<Student>();
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 string query = "SELECT DISTINCT StudentsAnswers.IdStudent" +
@@ -4786,7 +4887,7 @@ namespace SchoolGrades.DbClasses
         internal List<Answer> GetAllCorrectAnswersToThisQuestionOfThisTest(int? IdQuestion, int? IdTest)
         {
             List<Answer> list = new List<Answer>();
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
@@ -4830,7 +4931,7 @@ namespace SchoolGrades.DbClasses
             if (currentStudent == null)
                 return null; 
             List<StudentAnnotation> la = new List<StudentAnnotation>();
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
@@ -4869,7 +4970,7 @@ namespace SchoolGrades.DbClasses
 
         internal int? SaveAnnotation(StudentAnnotation Annotation, Student s)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 string query = "";
@@ -4925,7 +5026,7 @@ namespace SchoolGrades.DbClasses
             if (IdAnnotation == null)
                 return null; 
             a = new StudentAnnotation();
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
@@ -4946,7 +5047,7 @@ namespace SchoolGrades.DbClasses
             DateTime DateFrom, DateTime DateTo)
         {
             DataTable t;
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 // find the macro grade type of the micro grade
                 DbCommand cmd = conn.CreateCommand();
@@ -4987,7 +5088,7 @@ namespace SchoolGrades.DbClasses
 
         internal void EraseAnnotationById(int? IdAnnotation)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM StudentsAnnotations" +
@@ -5000,7 +5101,7 @@ namespace SchoolGrades.DbClasses
 
         internal void EraseAnnotationByText(string AnnotationText, Student Student)
         {
-            using (DbConnection conn = Connect(dbName))
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM StudentsAnnotations" +

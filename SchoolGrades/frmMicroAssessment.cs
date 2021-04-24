@@ -341,7 +341,6 @@ namespace SchoolGrades
                 MessageBox.Show("Questo voticino non ha un voto che lo comprende.\r\tCreare un voto."); 
             }
         }
-
         private void btnQuestionChoose_Click(object sender, EventArgs e)
         {
             //frmQuestionChoose choice = new frmQuestionChoose(currentSchoolSubject,

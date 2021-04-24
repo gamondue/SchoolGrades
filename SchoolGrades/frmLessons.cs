@@ -172,14 +172,12 @@ namespace SchoolGrades
             }
             // if the text is multiline and at the beginning of the new line there is 
             // an indentation: ask to import a subtree, if yes then create subtree
-            // !!!! TODO fix behaviour !!!!
             if (!txtTopicName.Text.Contains("\r\n")
                 && !(txtTopicName.Text.Contains("    ") || txtTopicName.Text.Contains("\t"))
                 )
             {
                 Topic t = (Topic)(trwTopics.SelectedNode.Tag);
                 t.Name = txtTopicName.Text;
-                //trwTopics.SelectedNode.Text = txtTopicName.Text; // this is slow; done just at the end of the editing
                 t.Changed = true;
             }
             else
@@ -189,7 +187,10 @@ namespace SchoolGrades
                     MessageBoxDefaultButton.Button1)
                     == DialogResult.Yes)
                 {
-                    trwTopics.SelectedNode.Text = ImportSubtreeFromTextBox(txtTopicName.Text);
+                    topicTreeMptt.ImportSubtreeFromText(txtTopicName.Text);
+                    int positionOfTab = txtTopicName.Text.IndexOf("\r\n");
+                    trwTopics.SelectedNode.Text = txtTopicName.Text.Substring(0, positionOfTab);
+                    ((Topic)(trwTopics.SelectedNode.Tag)).Name = txtTopicName.Text.Substring(0, positionOfTab);
                 }
                 else
                 {
@@ -197,28 +198,19 @@ namespace SchoolGrades
                 }
             }
         }
-        private string ImportSubtreeFromTextBox(string TextFromClipboard)
-        {
-            if (TextFromClipboard == "")
-            {
-                Console.Beep(); 
-                return "";
-            }
-            topicTreeMptt.ImportFreeMindSubtreeUnderNode(TextFromClipboard, trwTopics.SelectedNode); 
-            return TextFromClipboard;
-        }
+
         private void ExportSubtreeToClipboard()
         {
-            if (trwTopics.SelectedNode == null)
+            if (topicTreeMptt.TreeView.SelectedNode.Tag == null)
             {
                 MessageBox.Show("Scegliere un argomento.\r\n" +
                     "Verranno messi in clipboard gli argomenti dell'albero sotto l'argomento scelto");
                 return;
             }
+            string tree = null;
+            Topic InitialNode = (Topic)topicTreeMptt.TreeView.SelectedNode.Tag;
 
-            Topic initial = ((Topic)trwTopics.SelectedNode.Tag);
-            string tree = topicTreeMptt.CreateTextTreeOfDescendants
-                (initial.LeftNodeOld, initial.RightNodeOld, false); 
+            topicTreeMptt.ExportSubtreeToText(InitialNode); 
 
             Clipboard.SetText(tree);
 
