@@ -35,6 +35,7 @@ namespace SchoolGrades
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnChangePassword = new System.Windows.Forms.Button();
+            this.lblName = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtUsername
@@ -95,11 +96,21 @@ namespace SchoolGrades
             this.btnChangePassword.Text = "Cambia";
             this.btnChangePassword.UseVisualStyleBackColor = true;
             // 
+            // lblName
+            // 
+            this.lblName.AutoSize = true;
+            this.lblName.Location = new System.Drawing.Point(13, 195);
+            this.lblName.Name = "lblName";
+            this.lblName.Size = new System.Drawing.Size(91, 15);
+            this.lblName.TabIndex = 6;
+            this.lblName.Text = "Bucci Jacopo 4L";
+            // 
             // frmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(257, 200);
+            this.ClientSize = new System.Drawing.Size(268, 229);
+            this.Controls.Add(this.lblName);
             this.Controls.Add(this.btnChangePassword);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -122,5 +133,6 @@ namespace SchoolGrades
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnChangePassword;
+        private System.Windows.Forms.Label lblName;
     }
 }

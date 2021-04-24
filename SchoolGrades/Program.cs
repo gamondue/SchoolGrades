@@ -11,6 +11,7 @@ namespace SchoolGrades
     {
         /// <summary>
         ///  The main entry point for the application.
+        ///  Bucci Jacopo 4L
         /// </summary>
         [STAThread]
         static void Main()

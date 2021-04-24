@@ -24,6 +24,8 @@ namespace SchoolGrades
             //u = new User("pina", "pluto");
             ////u = new User("ugo", "pina");
             //bl.CreateUser(u);
+            if (u == null)
+                bl.CreateUser(u);
             u.Password = "mariangela";
             bl.ChangePassword(u);
 
@@ -31,7 +33,7 @@ namespace SchoolGrades
             u.LastName = "Fantozzi";
             u.Email = "u.fantozzi@megaditta.com";
             u.Description = "Inferiore Rag. Ugo Fantozzi";
-            bl.UpdateUser(u);
+            //bl.UpdateUser(u);
 
             User u1 = bl.GetUser("ugo");
         }
