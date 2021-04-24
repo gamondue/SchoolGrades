@@ -84,7 +84,6 @@ namespace SchoolGrades.DbClasses
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
-
         }
         internal void RemoveQuestionFromTest(int? IdQuestion, int? IdTest)
         {
