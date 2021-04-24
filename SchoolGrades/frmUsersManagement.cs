@@ -24,21 +24,53 @@ namespace SchoolGrades
 
         private void lstUsers_SelectedIndexChanged(object sender, EventArgs e)
         {
-            User currentUser = (User)(listOfAllUsers[lstUsers.SelectedIndex]); 
+            if (lstUsers.SelectedIndex != -1)
+            {
+                btnMod.Enabled = true;
+                User currentUser = (User)(listOfAllUsers[lstUsers.SelectedIndex]);
+                txtUsername.Text = currentUser.Username;
+                txtPassword.Text = currentUser.Password;
+                txtEmail.Text = currentUser.Email;
+                lblDescription.Text = "Descrizione : " + currentUser.Description;
+            }
+            else
+            {
+                btnMod.Enabled = false;
+            }
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string username = textBox1.Text;
-            string password = textBox2.Text;
-            User nu = new User(username, password);
-            listOfAllUsers.Add(nu);
+            User newUser = new User(txtNewUsername.Text, txtNewPassword.Text);
+            newUser.Email = txtNewEmail.Text;
+            newUser.Description = txtNewDescription.Text;
+            newUser.CreationTime = DateTime.Now;
+            newUser.IdUserType = 0;
+            newUser.IdUserCategory = listOfAllUsers.Count + 1;
+            newUser.FirstName = txtNewName.Text;
+            newUser.LastName = txtNewLastName.Text;
+            bl.CreateUser(newUser);
+            listOfAllUsers = bl.GetAllUsers();
+            lstUsers.DataSource = listOfAllUsers;
+           
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string username = textBox1.Text;
-            string password = textBox2.Text;
+            User currentUser = (User)(listOfAllUsers[lstUsers.SelectedIndex]);
+            User newUser = new User();
+            newUser.Email = txtEmail.Text;
+            newUser.Description = currentUser.Description;
+            newUser.CreationTime = currentUser.CreationTime;
+            newUser.IdUserType = currentUser.IdUserType;
+            newUser.IdUserCategory = currentUser.IdUserCategory;
+            newUser.FirstName = currentUser.LastName;
+            newUser.LastName = currentUser.LastName;
+            bl.UpdateUser(newUser);
+            listOfAllUsers = bl.GetAllUsers();
+            lstUsers.DataSource = listOfAllUsers;
         }
+
     }
 }

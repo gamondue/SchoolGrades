@@ -19,22 +19,22 @@ namespace SchoolGrades
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+
             // read configuration file or run configuration form 
             Commons.ReadConfigFile();
             if (!System.IO.File.Exists(Commons.PathAndFileDatabase))
             {
                 MessageBox.Show("Configurazione del programma.\r\nSistemare le cartelle con il percorso dei file (in particalore la cartella che contiene il database), " +
-                    "poi scegliere il file di dati .sqlite e premere 'Salva configurazione'", "SchoolGrades", MessageBoxButtons.OK,MessageBoxIcon.Information);
+                    "poi scegliere il file di dati .sqlite e premere 'Salva configurazione'", "SchoolGrades", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 FrmSetup f = new FrmSetup();
                 f.ShowDialog();
                 if (!File.Exists(Commons.PathAndFileDatabase))
                 {
-                    MessageBox.Show("Configurare il programma!", "SchoolGrades", MessageBoxButtons.OK, MessageBoxIcon.Error); 
+                    MessageBox.Show("Configurare il programma!", "SchoolGrades", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
             }
-            //Application.Run(new frmLogin());
-            Application.Run(new frmMain());
+            Application.Run(new frmLogin());
         }
     }
 }

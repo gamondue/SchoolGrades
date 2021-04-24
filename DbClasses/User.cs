@@ -6,6 +6,7 @@ namespace SchoolGrades.DbClasses
 {
     class User
     {
+        public User() { }
         string username;
         string firstName;
         string lastName;
@@ -15,6 +16,7 @@ namespace SchoolGrades.DbClasses
         DateTime? create_time;
         string salt;
         int? idUserCategory;
+        BusinessLayer.BusinessLayer bl = new BusinessLayer.BusinessLayer();
 
         public string Username { get => username; set => username = value; }
         public string LastName { get => lastName; set => lastName = value; }
