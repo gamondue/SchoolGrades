@@ -48,8 +48,7 @@ namespace SchoolGrades
         internal bool IsUserAllowed(User CredentialsFromUser)
         {
             User CredentialsFromDatabase = GetUser(CredentialsFromUser.Username);
-            return (CredentialsFromDatabase.Password == CalculateHash(CredentialsFromUser.Password)
-                && CredentialsFromDatabase.Username == CredentialsFromUser.Username);
+            return (CredentialsFromDatabase.Password == CalculateHash(CredentialsFromUser.Password) && CredentialsFromDatabase.Username == CredentialsFromUser.Username);
         }
 
         internal void CreateUser(User User)
