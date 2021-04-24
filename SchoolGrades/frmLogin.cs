@@ -50,5 +50,13 @@ namespace SchoolGrades
             }
             return;
         }
+
+        private void btnChangePassword_Click(object sender, EventArgs e)
+        {
+
+            frmUsersManagement p = new frmUsersManagement();
+            this.Hide();
+            p.ShowDialog();
+        }
     }
 }
