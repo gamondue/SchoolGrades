@@ -14,6 +14,8 @@ namespace SchoolGrades
     public partial class frmBackupManagement : Form
     {
         DbAndBusiness db;
+        BusinessLayer bl;
+
         TreeMptt topicTreeMptt; 
 
         private string schoolYear;
@@ -23,7 +25,9 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
-            DbAndBusiness db = new DbAndBusiness(Commons.PathAndFileDatabase);
+            db = new DbAndBusiness(Commons.PathAndFileDatabase);
+            bl = new BusinessLayer (Commons.PathAndFileDatabase);
+
             TreeMpttDb dbMptt = new TreeMpttDb(db);
 
             topicTreeMptt = new TreeMptt(db, null, null, null, null, null, null, null, DragDropEffects.None);
@@ -44,7 +48,7 @@ namespace SchoolGrades
 
             schoolYear = CmbSchoolYear.SelectedItem.ToString();
 
-            lstClasses.DataSource = db.GetClassesOfYear(Commons.IdSchool, schoolYear);
+            lstClasses.DataSource = bl.GetClassesOfYear(Commons.IdSchool, schoolYear);
         }
 
         private void btnBackupTables_Click(object sender, EventArgs e)
@@ -88,7 +92,7 @@ namespace SchoolGrades
 
         private void cmbSchoolYear_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lstClasses.DataSource = db.GetClassesOfYear(Commons.IdSchool, CmbSchoolYear.Text);
+            lstClasses.DataSource = bl.GetClassesOfYear(Commons.IdSchool, CmbSchoolYear.Text);
         }
 
         private void lstClasses_SelectedIndexChanged(object sender, EventArgs e)
@@ -259,10 +263,31 @@ namespace SchoolGrades
                 MessageBoxIcon.Question,
                 MessageBoxDefaultButton.Button2) != DialogResult.Yes)
                 return; 
-                ;
 
-            Class otherClass = (Class)lstClasses.Items[lstClasses.SelectedIndex - 1]; 
-            string fileDatabase = db.CreateDemoDatabase(currentClass, otherClass);
+            Class otherClass = (Class)lstClasses.Items[lstClasses.SelectedIndex - 1];
+
+            string newDatabasePathName = Commons.PathDatabase;
+            if (!Directory.Exists(newDatabasePathName))
+                Directory.CreateDirectory(newDatabasePathName);
+
+            string newDatabaseFullName = newDatabasePathName +
+                "\\Demo_SchoolGrades_" + currentClass.SchoolYear + "_" + DateTime.Now.Date.ToString("yy-MM-dd") + ".sqlite";
+
+            if (File.Exists(newDatabaseFullName))
+            {
+                if (System.Windows.Forms.MessageBox.Show("Il file " + newDatabaseFullName + " esiste già." +
+                    "\nDevo re-inizializzarlo (Sì) o non creare il database (No)?", "",
+                    System.Windows.Forms.MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    File.Delete(newDatabaseFullName);
+
+                }
+                else
+                    return;
+            }
+
+            string fileDatabase = db.CreateDemoDatabase(newDatabasePathName, currentClass, otherClass);
             MessageBox.Show("Creato il file " + fileDatabase + ", " +
                 "che contiene le due classi DEMO1 e DEMO2, con tutte le foto, " +
                 "le valutazioni e le immagini."); ; 
@@ -270,8 +295,28 @@ namespace SchoolGrades
 
         private void BtnNewDatabase_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show("Da fare!"); 
-            db.NewDatabase();
+            string newDatabasePathName = Commons.PathDatabase;
+            if (!Directory.Exists(newDatabasePathName))
+                Directory.CreateDirectory(newDatabasePathName);
+
+            string newDatabaseFullName = newDatabasePathName +
+                "\\SchoolGradesNew.sqlite";
+
+            if (File.Exists(newDatabaseFullName))
+            {
+                //!!!!TODO make the next code indipendent from UI!!!!
+                if (System.Windows.Forms.MessageBox.Show("Il file " + newDatabaseFullName + " esiste già." +
+                    "\nDevo re-inizializzarlo (Sì) o non creare il database (No)?", "",
+                    System.Windows.Forms.MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    File.Delete(newDatabaseFullName);
+                }
+                else
+                    return;
+            }
+
+            bl.NewDatabase(newDatabaseFullName);
             MessageBox.Show("Creato nuovo database SchoolGradesNew.sqlite"); 
         }
     }
