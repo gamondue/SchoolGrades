@@ -5,69 +5,10 @@ using System.Data.Common;
 using System.Data.SQLite;
 using System.Diagnostics;
 
-namespace SchoolGrades.DataLayer
+namespace SchoolGrades
 {
-    /// <summary>
-    /// Data Access Layer: abstracts the access to dbms using to transfer data 
-    /// DbClasses and ADO db classes (ADO should be avoided, if possible) 
-    /// </summary>
-    internal class DataLayer
+    internal partial class DataLayer
     {
-        private string dbName;
-
-        #region constructors
-        //public DataLayer()
-        //{
-        //    if (!System.IO.File.Exists(Commons.PathAndFileDatabase))
-        //    {
-        //        string err = @"[" + Commons.PathAndFileDatabase + " not in the current nor in the dev directory]";
-        //        Commons.ErrorLog(err, true);
-        //        //throw new System.IO.FileNotFoundException(err);
-        //    }
-        //    dbName = Commons.PathAndFileDatabase;
-        //}
-        public DataLayer(string PathAndFile)
-        {
-            if (!System.IO.File.Exists(PathAndFile))
-            {
-                string err = @"[" + PathAndFile + " not in the current nor in the dev directory]";
-                Commons.ErrorLog(err, true);
-                throw new System.IO.FileNotFoundException(err);
-            }
-            dbName = PathAndFile;
-        }
-        #endregion
-
-        #region properties
-
-        public string NameAndPathDatabase
-        {
-            get { return dbName; }
-            //set { nomeEPathDatabase = value; }
-        }
-        #endregion
-        public DbConnection Connect()
-        {
-            DbConnection connection;
-            try
-            {
-                connection = new SQLiteConnection("Data Source=" + dbName +
-                ";version=3;new=False;datetimeformat=CurrentCulture");
-                connection.Open();
-            }
-            catch (Exception ex)
-            {
-#if DEBUG
-                //Get call stack
-                StackTrace stackTrace = new StackTrace();
-                //Log calling method name
-                Commons.ErrorLog("Connect Method in: " + stackTrace.GetFrame(1).GetMethod().Name, false);
-#endif
-                Commons.ErrorLog("Error connecting to the database: " + ex.Message + "\r\nFile SQLIte>: " + dbName + " " + "\n", true);
-                connection = null;
-            }
-            return connection;
-        }
         internal User GetUser(string Username)
         {
             User t = new User(Username, "");
@@ -154,7 +95,7 @@ namespace SchoolGrades.DataLayer
                 // !!!! TODO !!!!
 
                 // create row in table 
-                string? now = SqlVal.SqlDate(DateTime.Now);
+                string now = SqlVal.SqlDate(DateTime.Now);
                 cmd.CommandText = "INSERT INTO Users " +
                 "(username, lastName, firstName, email," +
                 "password,creationTime,lastChange,lastPasswordChange,salt,idUserCategory,isEnabled)" +

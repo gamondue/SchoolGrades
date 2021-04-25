@@ -6,7 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using SchoolGrades;
 using SchoolGrades.DbClasses;
-using SchoolGrades.DataLayer;
+using SharedWinForms;
 
 namespace gamon.TreeMptt
 {
@@ -41,7 +41,7 @@ namespace gamon.TreeMptt
                                 " WHERE IdTopic =" + t.Id +
                                 ";";
                         cmd.ExecuteNonQuery();
-                        if (!Commons.BackgroundCanStillSaveTopicsTree)
+                        if (!CommonsWinForms.BackgroundCanStillSaveTopicsTree)
                             return;
                     }
                 }
@@ -71,14 +71,14 @@ namespace gamon.TreeMptt
                             db.InsertTopic(t, conn);
                         }
                     }
-                    if (!Commons.BackgroundCanStillSaveTopicsTree)
+                    if (!CommonsWinForms.BackgroundCanStillSaveTopicsTree)
                         break;
                 }
                 cmd.Dispose();
             }
             // Left-Right status left on "inconsistent" if we were NOT saving leftNode and rightNode
             // or if we quit this method breaking the loops. 
-            if (MustSaveLeftAndRight && Commons.BackgroundCanStillSaveTopicsTree)
+            if (MustSaveLeftAndRight && CommonsWinForms.BackgroundCanStillSaveTopicsTree)
                 SaveLeftRightConsistent(true); 
         }
         internal void SaveLeftRightConsistent(bool SetConsistent)
@@ -188,7 +188,7 @@ namespace gamon.TreeMptt
         {
             // if requested externally by setting BackgroundCanStillSaveTopicsTree to false, 
             // abort tree update by exiting method 
-            if (!Commons.BackgroundCanStillSaveTopicsTree)
+            if (!CommonsWinForms.BackgroundCanStillSaveTopicsTree)
                 return; 
             // visits all the childrens of CurrentNode in the Treeview. 
             // with the Modified Tree Traversal algorithm 
@@ -337,7 +337,7 @@ namespace gamon.TreeMptt
                 n.Text = t.Name;
                 ParentNode.Nodes.Add(n);
                 GetAllChildren(n, Level++, Connection);
-                if (!Commons.BackgroundCanStillSaveTopicsTree)
+                if (!CommonsWinForms.BackgroundCanStillSaveTopicsTree)
                     return;
             }
         }

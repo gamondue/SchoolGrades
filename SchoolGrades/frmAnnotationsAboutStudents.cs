@@ -1,4 +1,5 @@
 ﻿using SchoolGrades.DbClasses;
+using SharedWinForms;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -116,7 +117,7 @@ namespace SchoolGrades
             {
                 if (!SaveMany)
                 {
-                    if (!Commons.CheckIfStudentChosen(currentStudent))
+                    if (!CommonsWinForms.CheckIfStudentChosen(currentStudent))
                         return;
                     currentAnnotation.IdAnnotation = null;
                     currentAnnotation.IdAnnotation = db.SaveAnnotation(currentAnnotation, currentStudent);

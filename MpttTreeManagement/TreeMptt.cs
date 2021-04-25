@@ -6,6 +6,7 @@ using System.Threading;
 using System.Windows.Forms;
 using SchoolGrades;
 using SchoolGrades.DbClasses;
+using SharedWinForms;
 
 namespace gamon.TreeMptt
 {
@@ -345,13 +346,13 @@ namespace gamon.TreeMptt
         {
             // Starts a loop that finishes when we want to close the thread.
             // Closing will be fired from external, by resetting to false BackgroundCanStillSaveTopicsTree
-            while (Commons.BackgroundCanStillSaveTopicsTree)
+            while (CommonsWinForms.BackgroundCanStillSaveTopicsTree)
             {
                 // waits BackgroundThreadSleepTime seconds, watching periodically if it must exit
-                DateTime endTime = DateTime.Now.AddSeconds(Commons.BackgroundThreadSleepSeconds);
+                DateTime endTime = DateTime.Now.AddSeconds(CommonsWinForms.BackgroundThreadSleepSeconds);
                 while (DateTime.Now < endTime)
                 {
-                    if (!Commons.BackgroundCanStillSaveTopicsTree)
+                    if (!CommonsWinForms.BackgroundCanStillSaveTopicsTree)
                         // thread finishes! (main saving thread has started)
                         // when main thread has finished saving, it will start this thread once again
                         return; 
@@ -363,11 +364,11 @@ namespace gamon.TreeMptt
                 {
                     // start saving in background, signalling to the main program 
                     // locks a concurrent modification of Commons.BackgroundCanStillSaveTopicsTree 
-                    lock (Commons.LockBackgroundCanStillSaveTopicsTree)
+                    lock (CommonsWinForms.LockBackgroundCanStillSaveTopicsTree)
                     {
-                        Commons.BackgroundCanStillSaveTopicsTree = true;
+                        CommonsWinForms.BackgroundCanStillSaveTopicsTree = true;
                     }
-                    Commons.SwitchPicLedOn(true);
+                    CommonsWinForms.SwitchPicLedOn(true);
                     // read the tree by Parent into a new TreeView control
                     TreeView hiddenTree = new TreeView();
                     AddNodesToTreeViewByParent(hiddenTree);
@@ -380,9 +381,9 @@ namespace gamon.TreeMptt
                     // in this point delete list cannot have any entry
                     dbMptt.SaveTreeToDb(listNodes, null, true);
                     
-                    if (Commons.BackgroundCanStillSaveTopicsTree)
+                    if (CommonsWinForms.BackgroundCanStillSaveTopicsTree)
                         dbMptt.SaveLeftRightConsistent(true);
-                    Commons.SwitchPicLedOn(false);
+                    CommonsWinForms.SwitchPicLedOn(false);
                 }
             }
         }
@@ -484,13 +485,13 @@ namespace gamon.TreeMptt
             if (IsThreadSavingTreeMptt)
             {
                 // locks a concurrent modification of Commons.BackgroundCanStillSaveTopicsTree 
-                lock (Commons.LockBackgroundCanStillSaveTopicsTree)
+                lock (CommonsWinForms.LockBackgroundCanStillSaveTopicsTree)
                 {
-                    Commons.BackgroundCanStillSaveTopicsTree = false;
+                    CommonsWinForms.BackgroundCanStillSaveTopicsTree = false;
                 }
                 // we wait for the saving Thread to finish
                 // (it aborts in a point in which status is preserved)  
-                Commons.BackgroundSaveThread.Join(30000); // enormous timeout just for big problems
+                CommonsWinForms.BackgroundSaveThread.Join(30000); // enormous timeout just for big problems
             }
             // save the nodes that have changed any field, except RightNode & Left Node (optional) 
             // (saving RightNode & Left Node changes would be too slow, 
@@ -542,13 +543,13 @@ namespace gamon.TreeMptt
             }
             try
             {
-                Commons.SwitchPicLedOn(false);
+                CommonsWinForms.SwitchPicLedOn(false);
             }
             catch { }
             // restart the Thread 
             // re-create and run the Thread that concurrently saves the Topics tree
-            Commons.BackgroundSaveThread = new Thread(Commons.SaveTreeMptt.SaveMpttBackground);
-            Commons.BackgroundSaveThread.Start();
+            CommonsWinForms.BackgroundSaveThread = new Thread(CommonsWinForms.SaveTreeMptt.SaveMpttBackground);
+            CommonsWinForms.BackgroundSaveThread.Start();
         }
         internal TreeNode AddNewNode(string Text)
         {
@@ -758,8 +759,8 @@ namespace gamon.TreeMptt
             catch (Exception e)
             {
                 string errT = "Error in tree creation: " + e.Message;
-                Commons.ErrorLog("Error in tree creation", true);
-                //throw new Exception(errT);
+                Commons.ErrorLog(errT);
+                throw new Exception(errT);
             }
         }
         // recursively move through the treeview nodes
@@ -858,8 +859,10 @@ namespace gamon.TreeMptt
             }
             catch (Exception ex)
             {
-                Commons.ErrorLog("TopicTreeMptt|DeleteNode: Errore nella rimozione del nodo " +
-                    ex.Message, true);
+                string err = "TopicTreeMptt|DeleteNode: Errore nella rimozione del nodo " +
+                    ex.Message; 
+                Commons.ErrorLog(err);
+                throw new Exception(err);
             }
         }
         internal void DeleteNodeClick()
@@ -1068,13 +1071,13 @@ namespace gamon.TreeMptt
             string indentString = "\t";
             string currentIndentation = "";
             string file = "";
-            Stack<SchoolGrades.Topic> stack = new Stack<SchoolGrades.Topic>();
+            Stack<Topic> stack = new Stack<Topic>();
             //DbAndBusiness db = new  DbAndBusiness(); 
-            List<SchoolGrades.Topic> ListTopics = dbMptt.GetTopicsMpttFromDatabase(LeftNode, RightNode);
+            List<Topic> ListTopics = dbMptt.GetTopicsMpttFromDatabase(LeftNode, RightNode);
             if (ListTopics != null && ListTopics.Count > 0)
             {
                 // first node in file 
-                SchoolGrades.Topic previousTopic = ListTopics[0];
+                Topic previousTopic = ListTopics[0];
                 file += previousTopic.Name + "\t" + previousTopic.Desc;
                 if ((bool)IncludeTopicsIds)
                     file += "\t" + previousTopic.Id;
@@ -1084,7 +1087,7 @@ namespace gamon.TreeMptt
                 for (int i = 1; i < ListTopics.Count; i++)
                 {
                     // for every son topic of this 
-                    SchoolGrades.Topic currentTopic = ListTopics[i];
+                    Topic currentTopic = ListTopics[i];
                     if (currentTopic.RightNodeOld < previousTopic.RightNodeOld)
                     {
                         // if is in new level, adds the node to the next level

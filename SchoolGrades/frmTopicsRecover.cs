@@ -6,6 +6,8 @@ using System.Drawing;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
+using SchoolGrades.DbClasses;
+using SharedWinForms;
 
 namespace SchoolGrades
 {
@@ -40,7 +42,7 @@ namespace SchoolGrades
             DbAndBusiness dbNew = new DbAndBusiness(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
             treeNew = new TreeMptt(dbNew, trwNewTopics,
                 txtNewTopicName, txtNewDescription, txtSearchNew, null, txtCodNewTopic,
-                Commons.globalPicLed, DragDropEffects.Copy);
+                CommonsWinForms.globalPicLed, DragDropEffects.Copy);
             treeNew.Name = "treeNew"; 
             treeNew.AddNodesToTreeviewByBestMethod();
             treeNew.ClearBackColorOnClick = false;
@@ -79,7 +81,7 @@ namespace SchoolGrades
 
             treeNew = new TreeMptt(dbNew, trwNewTopics,
                 txtNewTopicName, txtNewDescription, null, null, txtCodNewTopic,
-                Commons.globalPicLed, DragDropEffects.Copy); 
+                CommonsWinForms.globalPicLed, DragDropEffects.Copy); 
             treeNew.AddNodesToTreeviewByBestMethod();
             treeNew.ClearBackColorOnClick = false;
         }
@@ -113,20 +115,20 @@ namespace SchoolGrades
 
             treeOld = new TreeMptt(dbOld, trwOldTopics,
                 txtOldTopicName, txtOldDescription, txtSearchOld, null, txtCodOldTopic,
-                Commons.globalPicLed, DragDropEffects.Copy);
+                CommonsWinForms.globalPicLed, DragDropEffects.Copy);
             treeOld.Name = "treeOld"; 
             treeOld.AddNodesToTreeviewByBestMethod();
             treeOld.ClearBackColorOnClick = false;
 
             // stop background saving thread when using this form so it will not interfere
             // locks a concurrent modification of Commons.BackgroundCanStillSaveTopicsTree 
-            lock (Commons.LockBackgroundCanStillSaveTopicsTree)
+            lock (CommonsWinForms.LockBackgroundCanStillSaveTopicsTree)
             {
-                Commons.BackgroundCanStillSaveTopicsTree = false;
+                CommonsWinForms.BackgroundCanStillSaveTopicsTree = false;
             }
             // we wait for the saving Thread to finish
             // (it aborts in a point in which status is preserved)  
-            Commons.BackgroundSaveThread.Join(30000); // enormous timeout just for big problems
+            CommonsWinForms.BackgroundSaveThread.Join(30000); // enormous timeout just for big problems
 
             highligthDifferences();
         }
@@ -330,13 +332,13 @@ namespace SchoolGrades
 
             // abort the background saving that was triggered by SaveTreeFromTreeViewControlByParent
             // locks a concurrent modification of Commons.BackgroundCanStillSaveTopicsTree 
-            lock (Commons.LockBackgroundCanStillSaveTopicsTree)
+            lock (CommonsWinForms.LockBackgroundCanStillSaveTopicsTree)
             {
-                Commons.BackgroundCanStillSaveTopicsTree = false;
+                CommonsWinForms.BackgroundCanStillSaveTopicsTree = false;
             }
             // we wait for the saving Thread to finish
             // (it aborts in a point in which status is preserved)  
-            Commons.BackgroundSaveThread.Join(30000); // enormous timeout just for big problems
+            CommonsWinForms.BackgroundSaveThread.Join(30000); // enormous timeout just for big problems
 
             MessageBox.Show("Fatto"); 
         }
@@ -348,8 +350,8 @@ namespace SchoolGrades
 
             // restart the Thread 
             // re-create and run the Thread that concurrently saves the Topics tree
-            Commons.BackgroundSaveThread = new Thread(Commons.SaveTreeMptt.SaveMpttBackground);
-            Commons.BackgroundSaveThread.Start();
+            CommonsWinForms.BackgroundSaveThread = new Thread(CommonsWinForms.SaveTreeMptt.SaveMpttBackground);
+            CommonsWinForms.BackgroundSaveThread.Start();
         }
 
         private void btnBeheaded_Click(object sender, EventArgs e)

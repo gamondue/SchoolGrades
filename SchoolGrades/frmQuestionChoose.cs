@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
-using gamon.TreeMptt; 
+using gamon.TreeMptt;
+using SharedWinForms;
 
 namespace SchoolGrades
 {
@@ -382,11 +383,11 @@ namespace SchoolGrades
         }
         private void BtnComb_Click(object sender, EventArgs e)
         {
-            if(!Commons.CheckIfStudentChosen(currentStudent))
+            if(!CommonsWinForms.CheckIfStudentChosen(currentStudent))
             {
                 return; 
             }
-            if (!Commons.CheckIfSubjectChosen(currentSubject))
+            if (!CommonsWinForms.CheckIfSubjectChosen(currentSubject))
             {
                 return;
             }
