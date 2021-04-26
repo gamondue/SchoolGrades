@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolGrades_WebForms", "Sc
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedWebForms", "SharedWebForms\SharedWebForms.shproj", "{CC542454-DECF-4224-9F6C-D5C86DE2105A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolGrades_Web", "SchoolGrades_Web\SchoolGrades_Web.csproj", "{F7969A71-AAB8-4EF7-BDAF-D8AD13DD794C}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		DbClasses\DbClasses.projitems*{12e573a5-7ed8-4ee0-8a9e-e8304de4cd86}*SharedItemsImports = 13
@@ -36,6 +38,11 @@ Global
 		MpttTreeManagement\MpttTreeManagement.projitems*{aea6904a-a8b6-4602-8946-03df79cbbd30}*SharedItemsImports = 13
 		SharedWinForms\SharedWinForms.projitems*{bdb76e62-3474-4529-b85d-2ebe40c7befb}*SharedItemsImports = 13
 		SharedWebForms\SharedWebForms.projitems*{cc542454-decf-4224-9f6c-d5c86de2105a}*SharedItemsImports = 13
+		BusinessLayer\BusinessLayer.projitems*{f7969a71-aab8-4ef7-bdaf-d8ad13dd794c}*SharedItemsImports = 4
+		DataLayer\DataLayer.projitems*{f7969a71-aab8-4ef7-bdaf-d8ad13dd794c}*SharedItemsImports = 4
+		DbClasses\DbClasses.projitems*{f7969a71-aab8-4ef7-bdaf-d8ad13dd794c}*SharedItemsImports = 4
+		SharedItems\SharedItems.projitems*{f7969a71-aab8-4ef7-bdaf-d8ad13dd794c}*SharedItemsImports = 4
+		SharedWebForms\SharedWebForms.projitems*{f7969a71-aab8-4ef7-bdaf-d8ad13dd794c}*SharedItemsImports = 4
 		BusinessLayer\BusinessLayer.projitems*{fac16d48-b7dd-4d68-ab4e-5c672e833a29}*SharedItemsImports = 4
 		DataLayer\DataLayer.projitems*{fac16d48-b7dd-4d68-ab4e-5c672e833a29}*SharedItemsImports = 4
 		DbClasses\DbClasses.projitems*{fac16d48-b7dd-4d68-ab4e-5c672e833a29}*SharedItemsImports = 4
@@ -55,6 +62,10 @@ Global
 		{FAC16D48-B7DD-4D68-AB4E-5C672E833A29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FAC16D48-B7DD-4D68-AB4E-5C672E833A29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FAC16D48-B7DD-4D68-AB4E-5C672E833A29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7969A71-AAB8-4EF7-BDAF-D8AD13DD794C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7969A71-AAB8-4EF7-BDAF-D8AD13DD794C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7969A71-AAB8-4EF7-BDAF-D8AD13DD794C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7969A71-AAB8-4EF7-BDAF-D8AD13DD794C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,38 +7,47 @@
 // </generato automaticamente>
 //------------------------------------------------------------------------------
 
-namespace SchoolGrades_WebForms
+namespace SchoolGrades_Web
 {
 
 
-    public partial class MessageBox
+    public partial class Default
     {
 
         /// <summary>
-        /// Controllo MessageBoxPage.
+        /// Controllo form1.
         /// </summary>
         /// <remarks>
         /// Campo generato automaticamente.
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm MessageBoxPage;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// Controllo lblMessage.
+        /// Controllo CmbSchoolYear.
         /// </summary>
         /// <remarks>
         /// Campo generato automaticamente.
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessage;
+        protected global::System.Web.UI.WebControls.DropDownList CmbSchoolYear;
 
         /// <summary>
-        /// Controllo btnOk.
+        /// Controllo cmbGradeType.
         /// </summary>
         /// <remarks>
         /// Campo generato automaticamente.
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnOk;
+        protected global::System.Web.UI.WebControls.DropDownList cmbGradeType;
+
+        /// <summary>
+        /// Controllo cmbSchoolSubject.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList cmbSchoolSubject;
     }
 }

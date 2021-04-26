@@ -53,11 +53,13 @@ namespace SchoolGrades_WebForms
                 }
                 else
                 {
-                    MessageBox messageBox = new MessageBox();
-                    // we don't want the demo file or it doesn't exist. Let's ask the user 
-                    messageBox.Show("Configurazione del programma.\r\n" +
+                    MessageBox messageBox = new MessageBox("Configurazione del programma.\r\n" +
                         "Sistemare le cartelle con il percorso dei file (in particolare la cartella che contiene il database), " +
                         "poi scegliere il file di dati .sqlite e premere 'Salva configurazione'", "SchoolGrades");
+                    // we don't want the demo file or it doesn't exist. Let's ask the user 
+                    //messageBox.Show("Configurazione del programma.\r\n" +
+                    //    "Sistemare le cartelle con il percorso dei file (in particolare la cartella che contiene il database), " +
+                    //    "poi scegliere il file di dati .sqlite e premere 'Salva configurazione'", "SchoolGrades");
                     Server.Transfer("Setup.aspx"); 
                     if (!File.Exists(Commons.PathAndFileDatabase))
                     {

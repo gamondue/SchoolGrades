@@ -76,9 +76,10 @@ namespace SharedWebForms
                 dati[2] = Commons.PathStartLinks;
                 dati[3] = Commons.PathDatabase;
                 dati[4] = Commons.PathDocuments;
-                MessageBox messageBox = new MessageBox();
-                messageBox.Show("File di configurazione salvato in " + Commons.PathAndFileConfig, 
+                MessageBox messageBox = new MessageBox("File di configurazione salvato in " + Commons.PathAndFileConfig,
                     "SchoolGrades prompt");
+                //messageBox.Show("File di configurazione salvato in " + Commons.PathAndFileConfig, 
+                //    "SchoolGrades prompt");
 #if DEBUG
                 TextFile.ArrayToFile(Commons.PathAndFileConfig + "_DEBUG", dati, false);
 #else
