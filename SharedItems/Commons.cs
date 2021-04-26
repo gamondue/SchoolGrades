@@ -102,46 +102,6 @@ namespace SchoolGrades
                 target += 7;
             return from.AddDays(target - start);
         }
-        internal static bool ReadConfigFile()
-        {
-            string[] dati = null;
-            try
-            {
-#if DEBUG
-                dati = TextFile.FileToArray(Commons.PathAndFileConfig + "_DEBUG");
-#else
-                dati = TextFile.FileToArray(Commons.PathAndFileConfig);
-#endif
-                if (dati != null)
-                { 
-                    Commons.FileDatabase = dati[0];
-                    Commons.PathImages = dati[1];
-                    Commons.PathStartLinks = dati[2]; // not longer used; left for compatibility of configuration file
-                    Commons.PathDatabase = dati[3];
-                    Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.FileDatabase;
-                    Commons.PathDocuments = dati[4];
-                    // we try the next to avoid stopping the program whem we have a new config file, 
-                    // with another field will show up. You have to add some data in.config file. 
-                    try
-                    {
-#if WINFORMS
-                        SharedWinForms.CommonsWinForms.SaveBackupWhenExiting = bool.Parse(dati[5]);
-#endif
-                        return true;
-                    }
-                    catch 
-                    {
-                        return false; 
-                    }
-                }
-            }
-            catch
-            {
-                // if error do nothing. the rest of the code will generate the default data
-                return false;
-            }
-            return false; 
-        }
         public static object CloneObject(object o)
         {
             // from https://stackoverflow.com/questions/4544657/duplicate-group-box

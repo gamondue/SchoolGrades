@@ -42,10 +42,8 @@ namespace SchoolGrades
             set => currentStudent = value;
         }
 
+        #region fields of the ColorTimer
         int ticksPassed;
-
-        string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-
         AForge.Imaging.RGB colRGB = new AForge.Imaging.RGB();
         AForge.Imaging.HSL colHSL = new AForge.Imaging.HSL();
 
@@ -57,7 +55,11 @@ namespace SchoolGrades
         float spanHue;          // Hue span to cover from start time to end
         float spanSaturation;   // Saturation to cover from start time to end
         float spanLuminance;    // differenza to cover from start time to end
+        #endregion
 
+        string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
+        #region fields of the lesson timer
         private DateTime thisLessonStartTime;
         private DateTime thisLessonEndTime;
         private float timeLessonMinutes;
@@ -66,14 +68,17 @@ namespace SchoolGrades
         private float ticksToMinutesFactor; // multiplicator from tens of microseconds to minutes
         private int minuteStart;
         private bool alarmNotFired = true;
+        #endregion
         private SchoolSubject currentSubject;
+
         private bool dataModified = false;
+
         public frmMain()
         {
             InitializeComponent();
 
             db = new DbAndBusiness(Commons.PathAndFileDatabase);
-            bl = new BusinessLayer(db.DatabaseName);
+            bl = new BusinessLayer(Commons.PathAndFileDatabase);
 
             this.Text += " v. " + version;
 

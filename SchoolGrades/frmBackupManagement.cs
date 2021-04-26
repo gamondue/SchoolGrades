@@ -316,7 +316,7 @@ namespace SchoolGrades
                     return;
             }
 
-            bl.NewDatabase(newDatabaseFullName);
+            bl.CreateNewDatabase(newDatabaseFullName);
             MessageBox.Show("Creato nuovo database SchoolGradesNew.sqlite"); 
         }
     }

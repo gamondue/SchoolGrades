@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SQLite;
 using System.Diagnostics;
-using System.Text;
 
 namespace SchoolGrades
 {
@@ -16,24 +14,20 @@ namespace SchoolGrades
         private string dbName;
 
         #region constructors
+        /// <summary>
+        /// Constructor of DataLayer classe that uses the default database of the program
+        /// Assumes that the file exists.
+        /// </summary>
         internal DataLayer()
         {
-            if (!System.IO.File.Exists(Commons.PathAndFileDatabase))
-            {
-                string err = @"[" + Commons.PathAndFileDatabase + " not in the current nor in the dev directory]";
-                Commons.ErrorLog(err);
-                throw new System.IO.FileNotFoundException(err);
-            }
             dbName = Commons.PathAndFileDatabase;
         }
+        /// <summary>
+        /// Constructor of DataLayer classe that get form putside the databases to use
+        /// Assumes that the file exists.
+        /// </summary>
         internal DataLayer(string PathAndFile)
         {
-            if (!System.IO.File.Exists(PathAndFile))
-            {
-                string err = @"[" + PathAndFile + " not in the current nor in the dev directory]";
-                Commons.ErrorLog(err);
-                throw new System.IO.FileNotFoundException(err);
-            }
             dbName = PathAndFile;
         }
         #endregion
@@ -66,7 +60,7 @@ namespace SchoolGrades
             }
             return connection;
         }
-        internal void NewDatabase()
+        internal void CreateNewDatabase()
         {
             DbCommand cmd;
             // erase all the data on all the tables

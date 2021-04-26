@@ -22,13 +22,13 @@ namespace SchoolGrades
             Application.SetCompatibleTextRenderingDefault(false);
 
             // read configuration file or run configuration 
-            if (!Commons.ReadConfigFile())
+            if (!CommonsWinForms.ReadConfigFile())
             {
                 // config file is unexistent or broken 
                 if (Commons.PathAndFileDatabase.Contains("DEMO") && File.Exists(Commons.PathAndFileDatabase))
                 {
                     // if demo database exists, save the configuration program with demo file 
-                    WriteConfigFile();
+                    CommonsWinForms.WriteConfigFile();
                 }
                 else
                 {
@@ -47,54 +47,11 @@ namespace SchoolGrades
             else
             {
                 // config file has been read 
-                // di nothing
+                // do nothing
             }
 
             //Application.Run(new frmLogin());
             Application.Run(new frmMain());
-        }
-        private static void WriteConfigFile()
-        {
-            string[] dati = new string[6];
-            try
-            {
-                if (!Directory.Exists(Commons.PathConfig))
-                    Directory.CreateDirectory(Commons.PathConfig);
-                if (!Directory.Exists(Commons.PathLogs))
-                    Directory.CreateDirectory(Commons.PathLogs);
-                if (!Directory.Exists(Commons.PathImages))
-                    Directory.CreateDirectory(Commons.PathImages);
-                if (!Directory.Exists(Commons.PathStartLinks))
-                    Directory.CreateDirectory(Commons.PathStartLinks);
-                if (!Directory.Exists(Commons.PathDatabase))
-                    Directory.CreateDirectory(Commons.PathDatabase);
-                if (!Directory.Exists(Commons.PathDocuments))
-                {
-                    if (Commons.PathDocuments != "")
-                        Directory.CreateDirectory(Commons.PathDocuments);
-                    else
-                        Commons.PathDocuments = ".";
-                }
-                dati[0] = Commons.FileDatabase;
-                dati[1] = Commons.PathImages;
-                dati[2] = Commons.PathStartLinks;
-                dati[3] = Commons.PathDatabase;
-                dati[4] = Commons.PathDocuments;
-                dati[5] = CommonsWinForms.SaveBackupWhenExiting.ToString();
-#if DEBUG
-                TextFile.ArrayToFile(Commons.PathAndFileConfig + "_DEBUG", dati, false);
-#else
-                TextFile.ArrayToFile(Commons.PathAndFileConfig, dati, false);
-#endif
-                MessageBox.Show("File di configurazione salvato in " + Commons.PathAndFileConfig);
-            }
-            catch (Exception e)
-            {
-                string err = @"[Error in program's directories] \r\n" + e.Message;
-                Commons.ErrorLog(err);
-                throw new FileNotFoundException(err);
-                //return;
-            }
         }
     }
 }

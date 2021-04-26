@@ -22,17 +22,22 @@ namespace SchoolGrades.DbClasses
         public string DatabaseName { get => dbName; }
 
         #region constructors
+        /// <summary>
+        /// Constructor of BusinessLayer class that uses the default database of the program
+        /// Controls if the file exists, 
+        /// </summary>
+        /// <param name="PathAndFile"></param>
         public DbAndBusiness(string PathAndFile)
         {
-            dl = new DataLayer(PathAndFile); 
-
             if (!System.IO.File.Exists(PathAndFile))
             {
                 string err = @"[" + PathAndFile + " not in the current nor in the dev directory]";
-                Commons.ErrorLog(err); 
-                throw new FileNotFoundException(err);
+                Commons.ErrorLog(err);
+                //throw new FileNotFoundException(err);
+                dbName = ""; 
+                return; // 
             }
-            dbName = PathAndFile;
+            dl = new DataLayer(PathAndFile);
         }
         #endregion
         internal DataTable GetGradesOfStudent(Student Student, string SchoolYear,
