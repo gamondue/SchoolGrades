@@ -79,7 +79,7 @@ namespace SchoolGrades
                 listStudents.Add(new StudentAndGrade(row.ItemArray[2].ToString(), row.ItemArray[3].ToString(), (double)row.ItemArray[4]));
 
             listStudents.Sort((firstGrade, secondGrade) => firstGrade.grade.CompareTo(secondGrade.grade));
-            listStudents.Reverse();
+            listStudents.Reverse(); //Lista studenti in ordine decrescente in base al voto
 
 
             if (rbdGroupsRandom.Checked)
@@ -88,11 +88,16 @@ namespace SchoolGrades
             }
             else if (rdbGroupsBestGradesTogether.Checked)
             {
-
+                //Aggiornare listGroups in modo che gli studenti siano in ordine per il voto (utilizzare listStudents per i voti)
+                //listGroups può anche non contenere tutti gli studenti di una classe
+                //Evitare di alterare listStudents
             }
             else if (rdbGradesBalanced.Checked)
             {
-
+                //Aggiornare listGroups in modo che gli studenti siano suddivisi, in base al valore nStudentsPerGroup, in gruppi bilanciati in base al voto(utilizzare listStudents per i voti)
+                //listGroups può anche non contenere tutti gli studenti di una classe. I gruppi si possono bilanciare raggruppando il primo e l'ultimo della lista, poi il secondo e il penultimo, ecc...
+                //Tenere conto del caso in cui il numero sia dispari
+                //Evitare di alterare listStudents
             }
             // create groups into groups array
             string[,] groups = new string[nStudentsPerGroup, nGroups];
