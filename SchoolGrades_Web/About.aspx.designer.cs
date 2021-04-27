@@ -8,9 +8,9 @@
 //------------------------------------------------------------------------------
 
 
-namespace SchoolGrades_WebForms
+namespace SchoolGrades_Web
 {
-    public partial class Setup
+    public partial class About
     {
 
         /// <summary>

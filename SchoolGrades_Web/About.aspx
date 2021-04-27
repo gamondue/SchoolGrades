@@ -1,7 +1,13 @@
-﻿<%@ Page Title="About" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="About.aspx.cs" Inherits="SchoolGrades_WebForms.About" %>
+﻿<%@ Page Title="About" Language="C#" AutoEventWireup="true" CodeBehind="About.aspx.cs" Inherits="SchoolGrades_Web.About" %>
 
-<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <h2><%: Title %>.</h2>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<body>
+    <h2>SchoolGrades_Web</h2>
     <h3>SchoolGrades manages the daily life of a teacher in the classroom, 
         with particular attention to evaluation and tracking of topics. 
         <br/>It is useful also to the student, to know his grades, the questions he answered and the topics covered by the teacher during his teaching..</h3>
@@ -13,4 +19,9 @@
     <br /> https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
     <br />SchoolGrades was started by Gabriele Monti (gamon), from Forlì, Italia.
 
-</asp:Content>
+    <form id="form1" runat="server">
+        <div>
+        </div>
+    </form>
+</body>
+</html>

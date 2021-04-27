@@ -10,9 +10,10 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            Anno <asp:DropDownList ID="CmbSchoolYear" type="text" value="School years" runat="server" OnClick=""/>
-            Tipo di valutazione <asp:DropDownList ID="cmbGradeType" type="text" value="Type of grade" runat="server" OnClick=""/>
+            Anno <asp:DropDownList ID="CmbSchoolYear" type="text" value="School years" runat="server" OnClick=""/> 
+            Tipo di valutazione <asp:DropDownList ID="cmbGradeType" type="text" value="Type of grade" runat="server" OnClick=""/> 
             Materia <asp:DropDownList ID="cmbSchoolSubject" type="text" value="School subject" runat="server" OnClick="" />  
+            <asp:Button ID="btnTest" Text="Test" BackColor="Red" ForeColor="Yellow" runat="server" OnClick="btnTest_Click" /> 
         </div>
     </form>
 </body>

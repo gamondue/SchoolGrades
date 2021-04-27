@@ -3,15 +3,46 @@ using SchoolGrades.DbClasses;
 using SharedWebForms;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 
 namespace SchoolGrades_Web
 {
     public partial class Default : System.Web.UI.Page
     {
+        Color colorGrade = Color.Red;
+        public int indexCurrentDrawn = 0;
+
+        DbAndBusiness db; // must be instantiated after the reading of config file. 
+        BusinessLayer bl; // must be instantiated after the reading of config file.
+
+        public List<Student> currentStudentsList;
+        public List<Student> eligiblesList = new List<Student>();
+
+        ////////List<frmLessons> listLessons = new List<frmLessons>();
+
+        School school;
+
+        private string schoolYear;
+
+        Student currentStudent;
+        Question currentQuestion;
+        GradeType currentGradeType;
+        Class currentClass;
+
+        Random random = new Random();
+
+        System.Media.SoundPlayer suonatore = new System.Media.SoundPlayer();
+        public Student CurrentStudent
+        {
+            get => currentStudent;
+            set => currentStudent = value;
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!this.IsPostBack)
             {
+                // read configuration file or run configuration 
                 if (!CommonsWebForms.ReadConfigFile())
                 {
                     // config file is unexistent or broken 
@@ -45,7 +76,12 @@ namespace SchoolGrades_Web
                 }
 
                 db = new DbAndBusiness(Commons.PathAndFileDatabase);
+                // !!!! TODO manage the case when the database couldn't be opened (db == null)
+                // if (db == null)
+
                 bl = new BusinessLayer(db.DatabaseName);
+                // !!!! TODO manage the case when the database couldn't be opened (bl == null)
+                // if (bl == null)
 
                 string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
                 this.Title += " v. " + version;
@@ -71,11 +107,16 @@ namespace SchoolGrades_Web
                 // fill the combo of grade types 
                 List<GradeType> ListGradeTypes = db.GetListGradeTypes();
                 cmbGradeType.DataSource = ListGradeTypes;
+                cmbGradeType.AutoPostBack = true; 
 
                 // fill the combo of School subjects
                 List<SchoolSubject> listSubjects = db.GetListSchoolSubjects(true);
                 cmbSchoolSubject.DataSource = listSubjects;
             }
+        }
+        internal void btnTest_Click()
+        {
+
         }
     }
 }
