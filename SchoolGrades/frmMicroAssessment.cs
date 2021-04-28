@@ -29,12 +29,14 @@ namespace SchoolGrades
         Grade currentGrade = new Grade();
         internal Grade CurrentGrade { get => currentGrade; set => currentGrade = value; }
 
-        DbAndBusiness db = new DbAndBusiness();
+        DbAndBusiness db;
 
         internal frmMicroAssessment(frmMain CallingForm, Class Class, Student Student,  
             GradeType GradeType, SchoolSubject Subject, Question Question)
         {
             InitializeComponent();
+         
+            db = new DbAndBusiness(Commons.PathAndFileDatabase);
 
             callingForm = CallingForm; 
             currentClass = Class; 
@@ -341,7 +343,6 @@ namespace SchoolGrades
                 MessageBox.Show("Questo voticino non ha un voto che lo comprende.\r\tCreare un voto."); 
             }
         }
-
         private void btnQuestionChoose_Click(object sender, EventArgs e)
         {
             //frmQuestionChoose choice = new frmQuestionChoose(currentSchoolSubject,

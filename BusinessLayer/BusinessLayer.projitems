@@ -3,12 +3,14 @@
   <PropertyGroup>
     <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
     <HasSharedItems>true</HasSharedItems>
-    <SharedGUID>d714997f-4823-4fc7-8dbe-6b43afe6ee33</SharedGUID>
+    <SharedGUID>737a759a-6c1f-4bd7-a682-390c8b018712</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>SchoolGrades.BusinessLayer</Import_RootNamespace>
+    <Import_RootNamespace>BusinessLayer</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)BusinessLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BL_ClassManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BL_ConstructorsAndGeneralMethods.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BL_UserManagement.cs" />
   </ItemGroup>
 </Project>

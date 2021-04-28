@@ -7,7 +7,7 @@ namespace SchoolGrades
     public partial class frmLogin : Form
     {
         DbAndBusiness db; // must instatiate after config file reading
-        BusinessLayer.BusinessLayer bl; // must instatiate after config file reading
+        BusinessLayer bl; // must instatiate after config file reading
         
         public frmLogin()
         {
@@ -15,15 +15,15 @@ namespace SchoolGrades
         }
         private void frmLogin_Load(object sender, EventArgs e)
         {
-            db = new DbAndBusiness(); 
-            bl = new BusinessLayer.BusinessLayer();
+            db = new DbAndBusiness(Commons.PathAndFileDatabase); 
+            bl = new BusinessLayer(db.DatabaseName);
 
-            //// test examples
+            // test examples
             User u;
             u = new User("pippo", "pluto");
-            ////u = new User("pina", "pluto");
+            //u = new User("pina", "pluto");
             ////u = new User("ugo", "pina");
-            bl.CreateUser(u);
+            //bl.CreateUser(u);
             u.Password = "mariangela";
             bl.ChangePassword(u);
 
@@ -37,7 +37,7 @@ namespace SchoolGrades
         }
         private void btnOk_Click(object sender, EventArgs e)
         {
-            if (bl.UserHasLoginPermission(txtUsername.Text, 
+            if (bl.HasUserLoginPermission(txtUsername.Text, 
                 txtPassword.Text))
             {
                 frmMain f = new frmMain();
@@ -49,11 +49,6 @@ namespace SchoolGrades
                 MessageBox.Show("Digitare credenziali corrette!");
             }
             this.Close();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

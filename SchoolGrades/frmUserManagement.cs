@@ -12,61 +12,44 @@ namespace SchoolGrades
     public partial class frmUserManagement : Form
     {
         User currentUser;
-        SchoolGrades.BusinessLayer.BusinessLayer bl = new BusinessLayer.BusinessLayer();
-        List<User> users;
+        BusinessLayer blUser; 
 
         public frmUserManagement()
         {
             InitializeComponent();
+
+            blUser = new BusinessLayer(Commons.PathAndFileDatabase);
         }
         private void frmUserManagement_Load(object sender, EventArgs e)
         {
-            users = bl.GetAllUsers();
-            foreach (User u in users)
-            {
-                lstUser.Items.Add(u);
-            }
+            // starts when the calling program calls Show()
  
         }
         private void lstUser_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lstUser.DataSource = bl.GetAllUsers();
-            users[lstUser.SelectedIndex]=currentUser;
+            lstUser.DataSource = blUser.GetAllUsers();
+            currentUser = (User)sender;
             FromClassToUi(); 
         }
-
         private void btnSave_Click(object sender, EventArgs e)
         {
             FromUiToClass(); 
-            bl.UpdateUser(currentUser); 
+            blUser.UpdateUser(currentUser); 
         }
         /// <summary>
-        /// Read the Class User from UI
+        /// Read UI's controls's content from the currentUser User object's properties
+        /// </summary>
+        private void FromClassToUi()
+        {
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// Read the currentUser User object properties from the UI's controls
         /// </summary>
         private void FromUiToClass()
         {
-            currentUser.LastName = txtLastName.Text;
-            currentUser.FirstName = txtFirstName.Text;
-            currentUser.Email = txtEmail.Text;
-            currentUser.Description = txtDescription.Text;
+            currentUser.LastName = txtLastName.Text; 
             throw new NotImplementedException();
-        }
-
-        private void FromClassToUi()
-        {
-            txtFirstName.Text = currentUser.FirstName;
-            txtLastName.Text = currentUser.LastName;
-            txtEmail.Text = currentUser.Email;
-            txtDescription.Text = currentUser.Description;
-            throw new NotImplementedException();
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox1.Checked == true)
-                currentUser.IsEnabled = true;
-            else
-                currentUser.IsEnabled = false;
         }
     }
 }

@@ -292,6 +292,8 @@
             // 
             // txtSchoolSubject
             // 
+            this.txtSchoolSubject.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSchoolSubject.Enabled = false;
             this.txtSchoolSubject.Location = new System.Drawing.Point(367, 43);
             this.txtSchoolSubject.Name = "txtSchoolSubject";
@@ -377,6 +379,8 @@
             // 
             // TxtLessonDesc
             // 
+            this.TxtLessonDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.TxtLessonDesc.Location = new System.Drawing.Point(232, 92);
             this.TxtLessonDesc.Multiline = true;
             this.TxtLessonDesc.Name = "TxtLessonDesc";
@@ -430,6 +434,7 @@
             // 
             // btnCopyNoteToClipboard
             // 
+            this.btnCopyNoteToClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCopyNoteToClipboard.Location = new System.Drawing.Point(673, 67);
             this.btnCopyNoteToClipboard.Name = "btnCopyNoteToClipboard";
             this.btnCopyNoteToClipboard.Size = new System.Drawing.Size(108, 25);
@@ -440,6 +445,7 @@
             // 
             // btnStartLinks
             // 
+            this.btnStartLinks.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnStartLinks.Location = new System.Drawing.Point(673, 18);
             this.btnStartLinks.Name = "btnStartLinks";
             this.btnStartLinks.Size = new System.Drawing.Size(108, 25);
@@ -639,6 +645,7 @@
             // 
             // lblLessonTime
             // 
+            this.lblLessonTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblLessonTime.BackColor = System.Drawing.Color.Transparent;
             this.lblLessonTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblLessonTime.Enabled = false;
@@ -658,6 +665,7 @@
             // 
             // btnLessonSave
             // 
+            this.btnLessonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnLessonSave.Location = new System.Drawing.Point(702, 101);
             this.btnLessonSave.Name = "btnLessonSave";
             this.btnLessonSave.Size = new System.Drawing.Size(78, 54);
@@ -668,6 +676,7 @@
             // 
             // BtnOpenImagesFolder
             // 
+            this.BtnOpenImagesFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnOpenImagesFolder.Location = new System.Drawing.Point(559, 18);
             this.BtnOpenImagesFolder.Name = "BtnOpenImagesFolder";
             this.BtnOpenImagesFolder.Size = new System.Drawing.Size(108, 25);
@@ -719,6 +728,7 @@
             // 
             // BtnSearchAmongTopics
             // 
+            this.BtnSearchAmongTopics.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnSearchAmongTopics.Location = new System.Drawing.Point(559, 67);
             this.BtnSearchAmongTopics.Name = "BtnSearchAmongTopics";
             this.BtnSearchAmongTopics.Size = new System.Drawing.Size(108, 25);

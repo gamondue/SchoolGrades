@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using SchoolGrades.DbClasses;
 using gamon.TreeMptt;
+using SharedWinForms;
 
 namespace SchoolGrades
 {
@@ -19,7 +20,7 @@ namespace SchoolGrades
 
         Class currentClass;
 
-        DbAndBusiness db = new DbAndBusiness();
+        DbAndBusiness db;
 
         List<Topic> listTopicsBefore;
 
@@ -29,12 +30,12 @@ namespace SchoolGrades
         private SchoolSubject currentSchoolSubject;
 
         bool isFormClosed = false;
-
         public bool IsFormClosed { get => isFormClosed; set => isFormClosed = value; }
-
         public frmLessons(Class CurrentClass, SchoolSubject SchoolSubject, bool ReadOnly)
         {
             InitializeComponent();
+
+            db = new DbAndBusiness(Commons.PathAndFileDatabase); 
 
             currentClass = CurrentClass;
             currentLesson.IdClass = currentClass.IdClass;
@@ -56,7 +57,6 @@ namespace SchoolGrades
                 this.Text += " (sola lettura)"; 
             }
         }
-
         private void frmLessons_Load(object sender, EventArgs e)
         {
             //txtLessonDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
@@ -84,9 +84,9 @@ namespace SchoolGrades
             // load data in datagrids
             RefreshUI();
             //topicTreeMptt = new TopicTreeMptt(listTopicsBefore, trwTopics,
-            topicTreeMptt = new gamon.TreeMptt.TreeMptt(trwTopics,
+            topicTreeMptt = new gamon.TreeMptt.TreeMptt(db, trwTopics,
                 txtTopicName, txtTopicDescription, txtTopicFind, TxtTopicsDigestAndSearch,
-                null, Commons.globalPicLed, DragDropEffects.Copy);
+                null, CommonsWinForms.globalPicLed, DragDropEffects.Copy);
             topicTreeMptt.AddNodesToTreeviewByBestMethod();
 
             // gets and checks the topics of the current lesson 
@@ -145,12 +145,10 @@ namespace SchoolGrades
             // set focus to the name textBox
             txtTopicName.Focus();
         }
-
         private void btnDelete_Click(object sender, EventArgs e)
         {
             topicTreeMptt.DeleteNode();
         }
-
         private void btnSaveTree_Click(object sender, EventArgs e)
         {
             topicTreeMptt.SaveTreeFromTreeViewControlByParent();

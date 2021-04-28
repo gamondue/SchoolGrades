@@ -389,14 +389,13 @@
             // 
             this.chkAskPassword.AutoSize = true;
             this.chkAskPassword.Enabled = false;
-            this.chkAskPassword.Location = new System.Drawing.Point(539, 72);
+            this.chkAskPassword.Location = new System.Drawing.Point(859, 86);
             this.chkAskPassword.Name = "chkAskPassword";
             this.chkAskPassword.Size = new System.Drawing.Size(152, 22);
             this.chkAskPassword.TabIndex = 112;
             this.chkAskPassword.Text = "Chiedi la password";
             this.toolTip1.SetToolTip(this.chkAskPassword, "Se abilitato il programma chiede una password per entrare");
             this.chkAskPassword.UseVisualStyleBackColor = true;
-            this.chkAskPassword.Visible = false;
             // 
             // chkSaveBackup
             // 
