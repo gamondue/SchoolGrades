@@ -3,32 +3,53 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolGrades", "SchoolGrades\SchoolGrades.csproj", "{BB81531E-DAB6-4214-B98A-4EB1E27B4C34}"
-EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedItems", "SharedItems\SharedItems.shproj", "{A5DC5853-0EB8-493E-804D-D596D841AA2D}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DbClasses", "DbClasses\DbClasses.shproj", "{12E573A5-7ED8-4EE0-8A9E-E8304DE4CD86}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "MpttTreeManagement", "MpttTreeManagement\MpttTreeManagement.shproj", "{AEA6904A-A8B6-4602-8946-03DF79CBBD30}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DataLayer", "DataLayer\DataLayer.shproj", "{2447D414-6DDB-4193-BD6D-FD70165B57BE}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "BusinessLayer", "BusinessLayer\BusinessLayer.shproj", "{737A759A-6C1F-4BD7-A682-390C8B018712}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedWinForms", "SharedWinForms\SharedWinForms.shproj", "{BDB76E62-3474-4529-B85D-2EBE40C7BEFB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolGrades", "SchoolGrades\SchoolGrades.csproj", "{14583D93-E4DD-4E30-8D6D-194727A795D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolGrades_WebForms", "SchoolGrades_WebForms\SchoolGrades_WebForms.csproj", "{FAC16D48-B7DD-4D68-AB4E-5C672E833A29}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		DbClasses\DbClasses.projitems*{12e573a5-7ed8-4ee0-8a9e-e8304de4cd86}*SharedItemsImports = 13
+		BusinessLayer\BusinessLayer.projitems*{14583d93-e4dd-4e30-8d6d-194727a795d3}*SharedItemsImports = 5
+		DataLayer\DataLayer.projitems*{14583d93-e4dd-4e30-8d6d-194727a795d3}*SharedItemsImports = 5
+		DbClasses\DbClasses.projitems*{14583d93-e4dd-4e30-8d6d-194727a795d3}*SharedItemsImports = 5
+		MpttTreeManagement\MpttTreeManagement.projitems*{14583d93-e4dd-4e30-8d6d-194727a795d3}*SharedItemsImports = 5
+		SharedItems\SharedItems.projitems*{14583d93-e4dd-4e30-8d6d-194727a795d3}*SharedItemsImports = 5
+		SharedWinForms\SharedWinForms.projitems*{14583d93-e4dd-4e30-8d6d-194727a795d3}*SharedItemsImports = 5
+		DataLayer\DataLayer.projitems*{2447d414-6ddb-4193-bd6d-fd70165b57be}*SharedItemsImports = 13
+		BusinessLayer\BusinessLayer.projitems*{737a759a-6c1f-4bd7-a682-390c8b018712}*SharedItemsImports = 13
 		SharedItems\SharedItems.projitems*{a5dc5853-0eb8-493e-804d-d596d841aa2d}*SharedItemsImports = 13
 		MpttTreeManagement\MpttTreeManagement.projitems*{aea6904a-a8b6-4602-8946-03df79cbbd30}*SharedItemsImports = 13
-		DbClasses\DbClasses.projitems*{bb81531e-dab6-4214-b98a-4eb1e27b4c34}*SharedItemsImports = 5
-		MpttTreeManagement\MpttTreeManagement.projitems*{bb81531e-dab6-4214-b98a-4eb1e27b4c34}*SharedItemsImports = 5
-		SharedItems\SharedItems.projitems*{bb81531e-dab6-4214-b98a-4eb1e27b4c34}*SharedItemsImports = 5
+		SharedWinForms\SharedWinForms.projitems*{bdb76e62-3474-4529-b85d-2ebe40c7befb}*SharedItemsImports = 13
+		DataLayer\DataLayer.projitems*{fac16d48-b7dd-4d68-ab4e-5c672e833a29}*SharedItemsImports = 4
+		DbClasses\DbClasses.projitems*{fac16d48-b7dd-4d68-ab4e-5c672e833a29}*SharedItemsImports = 4
+		SharedItems\SharedItems.projitems*{fac16d48-b7dd-4d68-ab4e-5c672e833a29}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BB81531E-DAB6-4214-B98A-4EB1E27B4C34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BB81531E-DAB6-4214-B98A-4EB1E27B4C34}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BB81531E-DAB6-4214-B98A-4EB1E27B4C34}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BB81531E-DAB6-4214-B98A-4EB1E27B4C34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14583D93-E4DD-4E30-8D6D-194727A795D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14583D93-E4DD-4E30-8D6D-194727A795D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14583D93-E4DD-4E30-8D6D-194727A795D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14583D93-E4DD-4E30-8D6D-194727A795D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAC16D48-B7DD-4D68-AB4E-5C672E833A29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAC16D48-B7DD-4D68-AB4E-5C672E833A29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAC16D48-B7DD-4D68-AB4E-5C672E833A29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAC16D48-B7DD-4D68-AB4E-5C672E833A29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

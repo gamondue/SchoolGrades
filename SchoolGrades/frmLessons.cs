@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using SchoolGrades.DbClasses;
 using gamon.TreeMptt;
+using SharedWinForms;
 
 namespace SchoolGrades
 {
@@ -19,7 +20,7 @@ namespace SchoolGrades
 
         Class currentClass;
 
-        DbAndBusiness db = new DbAndBusiness();
+        DbAndBusiness db;
 
         List<Topic> listTopicsBefore;
 
@@ -29,12 +30,12 @@ namespace SchoolGrades
         private SchoolSubject currentSchoolSubject;
 
         bool isFormClosed = false;
-
         public bool IsFormClosed { get => isFormClosed; set => isFormClosed = value; }
-
         public frmLessons(Class CurrentClass, SchoolSubject SchoolSubject, bool ReadOnly)
         {
             InitializeComponent();
+
+            db = new DbAndBusiness(Commons.PathAndFileDatabase); 
 
             currentClass = CurrentClass;
             currentLesson.IdClass = currentClass.IdClass;
@@ -56,7 +57,6 @@ namespace SchoolGrades
                 this.Text += " (sola lettura)"; 
             }
         }
-
         private void frmLessons_Load(object sender, EventArgs e)
         {
             //txtLessonDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
@@ -84,9 +84,9 @@ namespace SchoolGrades
             // load data in datagrids
             RefreshUI();
             //topicTreeMptt = new TopicTreeMptt(listTopicsBefore, trwTopics,
-            topicTreeMptt = new gamon.TreeMptt.TreeMptt(trwTopics,
+            topicTreeMptt = new gamon.TreeMptt.TreeMptt(db, trwTopics,
                 txtTopicName, txtTopicDescription, txtTopicFind, TxtTopicsDigestAndSearch,
-                null, Commons.globalPicLed, DragDropEffects.Copy);
+                null, CommonsWinForms.globalPicLed, DragDropEffects.Copy);
             topicTreeMptt.AddNodesToTreeviewByBestMethod();
 
             // gets and checks the topics of the current lesson 
@@ -145,12 +145,10 @@ namespace SchoolGrades
             // set focus to the name textBox
             txtTopicName.Focus();
         }
-
         private void btnDelete_Click(object sender, EventArgs e)
         {
             topicTreeMptt.DeleteNode();
         }
-
         private void btnSaveTree_Click(object sender, EventArgs e)
         {
             topicTreeMptt.SaveTreeFromTreeViewControlByParent();
@@ -172,14 +170,12 @@ namespace SchoolGrades
             }
             // if the text is multiline and at the beginning of the new line there is 
             // an indentation: ask to import a subtree, if yes then create subtree
-            // !!!! TODO fix behaviour !!!!
             if (!txtTopicName.Text.Contains("\r\n")
                 && !(txtTopicName.Text.Contains("    ") || txtTopicName.Text.Contains("\t"))
                 )
             {
                 Topic t = (Topic)(trwTopics.SelectedNode.Tag);
                 t.Name = txtTopicName.Text;
-                //trwTopics.SelectedNode.Text = txtTopicName.Text; // this is slow; done just at the end of the editing
                 t.Changed = true;
             }
             else
@@ -189,7 +185,10 @@ namespace SchoolGrades
                     MessageBoxDefaultButton.Button1)
                     == DialogResult.Yes)
                 {
-                    trwTopics.SelectedNode.Text = ImportSubtreeFromTextBox(txtTopicName.Text);
+                    topicTreeMptt.ImportSubtreeFromText(txtTopicName.Text);
+                    int positionOfTab = txtTopicName.Text.IndexOf("\r\n");
+                    trwTopics.SelectedNode.Text = txtTopicName.Text.Substring(0, positionOfTab);
+                    ((Topic)(trwTopics.SelectedNode.Tag)).Name = txtTopicName.Text.Substring(0, positionOfTab);
                 }
                 else
                 {
@@ -197,28 +196,19 @@ namespace SchoolGrades
                 }
             }
         }
-        private string ImportSubtreeFromTextBox(string TextFromClipboard)
-        {
-            if (TextFromClipboard == "")
-            {
-                Console.Beep(); 
-                return "";
-            }
-            topicTreeMptt.ImportFreeMindSubtreeUnderNode(TextFromClipboard, trwTopics.SelectedNode); 
-            return TextFromClipboard;
-        }
+
         private void ExportSubtreeToClipboard()
         {
-            if (trwTopics.SelectedNode == null)
+            if (topicTreeMptt.TreeView.SelectedNode.Tag == null)
             {
                 MessageBox.Show("Scegliere un argomento.\r\n" +
                     "Verranno messi in clipboard gli argomenti dell'albero sotto l'argomento scelto");
                 return;
             }
+            string tree = null;
+            Topic InitialNode = (Topic)topicTreeMptt.TreeView.SelectedNode.Tag;
 
-            Topic initial = ((Topic)trwTopics.SelectedNode.Tag);
-            string tree = topicTreeMptt.CreateTextTreeOfDescendants
-                (initial.LeftNodeOld, initial.RightNodeOld, false); 
+            topicTreeMptt.ExportSubtreeToText(InitialNode); 
 
             Clipboard.SetText(tree);
 

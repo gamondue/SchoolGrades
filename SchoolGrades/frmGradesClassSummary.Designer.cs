@@ -43,6 +43,8 @@
             this.rdbShowWeightedGrades = new System.Windows.Forms.RadioButton();
             this.rdbShowWeightsOnOpenGrades = new System.Windows.Forms.RadioButton();
             this.rdbMissing = new System.Windows.Forms.RadioButton();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtNStudents = new System.Windows.Forms.TextBox();
             this.lblSum = new System.Windows.Forms.Label();
             this.grpPeriodOfQuestionsTopics = new System.Windows.Forms.GroupBox();
             this.lblEnd = new System.Windows.Forms.Label();
@@ -53,8 +55,6 @@
             this.cmbSchoolPeriod = new System.Windows.Forms.ComboBox();
             this.btnSaveOnFile = new System.Windows.Forms.Button();
             this.grpChosenQuery = new System.Windows.Forms.GroupBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtNStudents = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgwGrades)).BeginInit();
             this.grpPeriodOfQuestionsTopics.SuspendLayout();
             this.grpChosenQuery.SuspendLayout();
@@ -65,9 +65,9 @@
             this.lblCurrentClass.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblCurrentClass.BackColor = System.Drawing.Color.Transparent;
-            this.lblCurrentClass.Font = new System.Drawing.Font("Arial Black", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentClass.Font = new System.Drawing.Font("Arial Black", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblCurrentClass.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblCurrentClass.Location = new System.Drawing.Point(295, 0);
+            this.lblCurrentClass.Location = new System.Drawing.Point(254, 3);
             this.lblCurrentClass.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblCurrentClass.Name = "lblCurrentClass";
             this.lblCurrentClass.Size = new System.Drawing.Size(555, 59);
@@ -78,9 +78,9 @@
             // lblSchoolSubject
             // 
             this.lblSchoolSubject.BackColor = System.Drawing.Color.Transparent;
-            this.lblSchoolSubject.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSchoolSubject.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblSchoolSubject.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblSchoolSubject.Location = new System.Drawing.Point(294, 98);
+            this.lblSchoolSubject.Location = new System.Drawing.Point(253, 101);
             this.lblSchoolSubject.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblSchoolSubject.Name = "lblSchoolSubject";
             this.lblSchoolSubject.Size = new System.Drawing.Size(244, 59);
@@ -90,7 +90,7 @@
             // 
             // cmbSchoolSubjects
             // 
-            this.cmbSchoolSubjects.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbSchoolSubjects.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmbSchoolSubjects.ForeColor = System.Drawing.Color.DarkBlue;
             this.cmbSchoolSubjects.FormattingEnabled = true;
             this.cmbSchoolSubjects.Items.AddRange(new object[] {
@@ -99,7 +99,7 @@
             "Scritti",
             "Pratici",
             "Scritto-grafici"});
-            this.cmbSchoolSubjects.Location = new System.Drawing.Point(558, 110);
+            this.cmbSchoolSubjects.Location = new System.Drawing.Point(517, 113);
             this.cmbSchoolSubjects.Margin = new System.Windows.Forms.Padding(4);
             this.cmbSchoolSubjects.Name = "cmbSchoolSubjects";
             this.cmbSchoolSubjects.Size = new System.Drawing.Size(288, 28);
@@ -109,9 +109,9 @@
             // label2
             // 
             this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label2.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label2.Location = new System.Drawing.Point(294, 51);
+            this.label2.Location = new System.Drawing.Point(253, 54);
             this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(244, 59);
@@ -121,7 +121,7 @@
             // 
             // cmbSummaryGradeType
             // 
-            this.cmbSummaryGradeType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbSummaryGradeType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmbSummaryGradeType.ForeColor = System.Drawing.Color.DarkBlue;
             this.cmbSummaryGradeType.FormattingEnabled = true;
             this.cmbSummaryGradeType.Items.AddRange(new object[] {
@@ -130,7 +130,7 @@
             "Scritti",
             "Pratici",
             "Scritto-grafici"});
-            this.cmbSummaryGradeType.Location = new System.Drawing.Point(558, 63);
+            this.cmbSummaryGradeType.Location = new System.Drawing.Point(517, 66);
             this.cmbSummaryGradeType.Margin = new System.Windows.Forms.Padding(4);
             this.cmbSummaryGradeType.Name = "cmbSummaryGradeType";
             this.cmbSummaryGradeType.Size = new System.Drawing.Size(288, 28);
@@ -139,7 +139,7 @@
             // 
             // txtMediaMicroDomande
             // 
-            this.txtMediaMicroDomande.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMediaMicroDomande.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.txtMediaMicroDomande.Location = new System.Drawing.Point(4, 175);
             this.txtMediaMicroDomande.Margin = new System.Windows.Forms.Padding(4);
             this.txtMediaMicroDomande.Name = "txtMediaMicroDomande";
@@ -235,6 +235,27 @@
             this.rdbMissing.CheckedChanged += new System.EventHandler(this.rdbMissing_CheckedChanged);
             this.rdbMissing.Click += new System.EventHandler(this.rdb_Click);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.DarkBlue;
+            this.label6.Location = new System.Drawing.Point(174, 164);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(61, 20);
+            this.label6.TabIndex = 177;
+            this.label6.Text = "n.Allievi";
+            this.toolTip1.SetToolTip(this.label6, "Minuto di  inizio della lezione");
+            // 
+            // txtNStudents
+            // 
+            this.txtNStudents.ForeColor = System.Drawing.Color.DarkBlue;
+            this.txtNStudents.Location = new System.Drawing.Point(183, 185);
+            this.txtNStudents.Name = "txtNStudents";
+            this.txtNStudents.Size = new System.Drawing.Size(46, 26);
+            this.txtNStudents.TabIndex = 176;
+            this.txtNStudents.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.toolTip1.SetToolTip(this.txtNStudents, "Minuti per allarme prima della fine");
+            // 
             // lblSum
             // 
             this.lblSum.AutoSize = true;
@@ -252,7 +273,7 @@
             this.grpPeriodOfQuestionsTopics.Controls.Add(this.dtpStartPeriod);
             this.grpPeriodOfQuestionsTopics.Controls.Add(this.rdbAmongPeriod);
             this.grpPeriodOfQuestionsTopics.Controls.Add(this.cmbSchoolPeriod);
-            this.grpPeriodOfQuestionsTopics.Location = new System.Drawing.Point(293, 151);
+            this.grpPeriodOfQuestionsTopics.Location = new System.Drawing.Point(252, 154);
             this.grpPeriodOfQuestionsTopics.Name = "grpPeriodOfQuestionsTopics";
             this.grpPeriodOfQuestionsTopics.Size = new System.Drawing.Size(557, 58);
             this.grpPeriodOfQuestionsTopics.TabIndex = 146;
@@ -328,7 +349,7 @@
             // 
             // btnSaveOnFile
             // 
-            this.btnSaveOnFile.Location = new System.Drawing.Point(210, 73);
+            this.btnSaveOnFile.Location = new System.Drawing.Point(169, 76);
             this.btnSaveOnFile.Name = "btnSaveOnFile";
             this.btnSaveOnFile.Size = new System.Drawing.Size(75, 71);
             this.btnSaveOnFile.TabIndex = 148;
@@ -349,29 +370,6 @@
             this.grpChosenQuery.TabIndex = 150;
             this.grpChosenQuery.TabStop = false;
             // 
-            // label6
-            // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.AutoSize = true;
-            this.label6.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label6.Location = new System.Drawing.Point(215, 161);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(61, 20);
-            this.label6.TabIndex = 177;
-            this.label6.Text = "n.Allievi";
-            this.toolTip1.SetToolTip(this.label6, "Minuto di  inizio della lezione");
-            // 
-            // txtNStudents
-            // 
-            this.txtNStudents.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNStudents.ForeColor = System.Drawing.Color.DarkBlue;
-            this.txtNStudents.Location = new System.Drawing.Point(224, 182);
-            this.txtNStudents.Name = "txtNStudents";
-            this.txtNStudents.Size = new System.Drawing.Size(46, 26);
-            this.txtNStudents.TabIndex = 176;
-            this.txtNStudents.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip1.SetToolTip(this.txtNStudents, "Minuti per allarme prima della fine");
-            // 
             // frmGradesClassSummary
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -391,7 +389,7 @@
             this.Controls.Add(this.cmbSummaryGradeType);
             this.Controls.Add(this.txtMediaMicroDomande);
             this.Controls.Add(this.lblCurrentClass);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.Color.DarkBlue;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);

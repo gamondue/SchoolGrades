@@ -1,4 +1,5 @@
 ﻿using SchoolGrades.DbClasses;
+using SharedWinForms;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -7,7 +8,7 @@ namespace SchoolGrades
 {
     public partial class frmAnnotationsAboutStudents : Form
     {
-        DbAndBusiness db = new DbAndBusiness();
+        DbAndBusiness db;
         private string idSchoolYear;
         private StudentAnnotation currentAnnotation;
         private List<Student> chosenStudents;
@@ -22,6 +23,8 @@ namespace SchoolGrades
         public frmAnnotationsAboutStudents(List<Student> ChosenStudents, string IdSchoolYear)
         {
             InitializeComponent();
+
+            db = new DbAndBusiness(db.DatabaseName); 
 
             idSchoolYear = IdSchoolYear; 
             this.chosenStudents = ChosenStudents;
@@ -114,7 +117,7 @@ namespace SchoolGrades
             {
                 if (!SaveMany)
                 {
-                    if (!Commons.CheckIfStudentChosen(currentStudent))
+                    if (!CommonsWinForms.CheckIfStudentChosen(currentStudent))
                         return;
                     currentAnnotation.IdAnnotation = null;
                     currentAnnotation.IdAnnotation = db.SaveAnnotation(currentAnnotation, currentStudent);
