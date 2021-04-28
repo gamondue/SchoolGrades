@@ -11,6 +11,7 @@ namespace SchoolGrades
         // TODO management of year and classes of year with combo.  
 
         DbAndBusiness db;
+        BusinessLayer bl;
 
         string year;
         private int? currentIdStartLink;
@@ -21,6 +22,7 @@ namespace SchoolGrades
             InitializeComponent();
 
             db = new DbAndBusiness(Commons.PathAndFileDatabase);
+            bl = new BusinessLayer(Commons.PathAndFileDatabase);
 
             currentClass = CurrentClass; 
         }
@@ -38,7 +40,7 @@ namespace SchoolGrades
             else
                 CmbSchoolYear.SelectedItem = CmbSchoolYear.Items[nAnni - 2];
 
-            CmbClasses.DataSource = db.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text,
+                CmbClasses.DataSource = bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text,
                 CmbSchoolYear.SelectedItem.ToString());
 
             refreshGrid();
@@ -171,7 +173,7 @@ namespace SchoolGrades
         private void CmbSchoolYear_SelectedIndexChanged(object sender, EventArgs e)
         {
             refreshGrid();
-            CmbClasses.DataSource = db.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text,
+            CmbClasses.DataSource = bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text,
                     CmbSchoolYear.SelectedItem.ToString());
             // TxtPathStartLink.Text = Commons.PathStartLinks;
             TxtPathStartLink.Text = currentClass.PathRestrictedApplication;

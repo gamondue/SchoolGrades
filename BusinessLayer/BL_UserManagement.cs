@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
-using SchoolGrades.DataLayer;
 using SchoolGrades.DbClasses;
 /// <summary>
 /// Business Layer: implements the business rules of the program indipendently from 

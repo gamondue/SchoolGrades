@@ -15,6 +15,7 @@ namespace SchoolGrades
     public partial class frmNewYear : Form
     {
         DbAndBusiness db;
+        BusinessLayer bl; 
 
         string idStartYear;
         private School currentSchool;
@@ -31,6 +32,7 @@ namespace SchoolGrades
             InitializeComponent();
 
             db = new DbAndBusiness(Commons.PathAndFileDatabase);
+            bl = new BusinessLayer(Commons.PathAndFileDatabase);
 
             idStartYear = IdStartYear;
         }
@@ -184,7 +186,7 @@ namespace SchoolGrades
 
             string idSchoolYear = CmbPresentSchoolYear.SelectedItem.ToString();
             CmbClasses.DataSource = null; 
-            CmbClasses.DataSource = db.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
+            CmbClasses.DataSource = bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
         }
 
         private void CmbClasses_SelectedIndexChanged(object sender, EventArgs e)

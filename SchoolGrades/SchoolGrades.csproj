@@ -16,6 +16,7 @@ Published on GitHub with GPL v.2 licence.
 Versions with numbers under 0.50 are previous version, not distributed, made with .Net Framework.</PackageReleaseNotes>
     <PackageIcon>gamon LegoLogo decentrato trasparente 256x256.ico</PackageIcon>
     <ApplicationIcon>gamon LegoLogo decentrato trasparente 256x256.ico</ApplicationIcon>
+    <DefineConstants>WINFORMS</DefineConstants>
   </PropertyGroup>
 
   <Import Project="..\SharedItems\SharedItems.projitems" Label="Shared" />
@@ -27,6 +28,8 @@ Versions with numbers under 0.50 are previous version, not distributed, made wit
   <Import Project="..\DataLayer\DataLayer.projitems" Label="Shared" />
 
   <Import Project="..\BusinessLayer\BusinessLayer.projitems" Label="Shared" />
+
+  <Import Project="..\SharedWinForms\SharedWinForms.projitems" Label="Shared" />
 
   <ItemGroup>
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.113.7" />
