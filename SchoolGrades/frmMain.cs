@@ -1088,6 +1088,11 @@ namespace SchoolGrades
                 MessageBox.Show("Nessun studente presente!");
                 return;
             }
+            if (cmbSchoolSubject.SelectedIndex == 0)
+            {
+                MessageBox.Show("Nessuna materia selezionata!");
+                return;
+            }
             // clone the list of students present to the lesson 
             // by using the constructor with parameters, that CLONES! 
             List<Student> groupsList = new List<Student>(eligiblesList);
