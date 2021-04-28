@@ -161,7 +161,6 @@
             this.dgwGrades.Margin = new System.Windows.Forms.Padding(4);
             this.dgwGrades.Name = "dgwGrades";
             this.dgwGrades.RowHeadersVisible = false;
-            this.dgwGrades.RowTemplate.Height = 24;
             this.dgwGrades.Size = new System.Drawing.Size(846, 500);
             this.dgwGrades.TabIndex = 108;
             this.dgwGrades.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwGrades_CellClick);

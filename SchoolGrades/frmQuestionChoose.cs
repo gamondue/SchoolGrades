@@ -37,8 +37,8 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
-            DbAndBusiness db = new DbAndBusiness(Commons.PathAndFileDatabase);
-            TreeMpttDb dbMptt = new TreeMpttDb(db);
+            db = new DbAndBusiness(Commons.PathAndFileDatabase);
+            dbMptt = new TreeMpttDb(db);
 
             this.ParentForm = ParentForm; 
             // fills the lookup tables' combos

@@ -234,8 +234,16 @@ namespace SchoolGrades
         private void dgwGrades_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
-            TxtIdStudent.Text = currentStudent.IdStudent.ToString();
+            //TxtIdStudent.Text = currentStudent.IdStudent.ToString();
+            if (e.RowIndex > -1)
+            {
+                dgwGrades.Rows[e.RowIndex].Selected = true;
+            }
 
+            if(dgwGrades.Rows[e.RowIndex].Selected == true)
+            {
+                dgwGrades.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            }
         }
     }
 }

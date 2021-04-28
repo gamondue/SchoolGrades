@@ -242,7 +242,14 @@ namespace SchoolGrades
 
         private void dgwGrades_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            if (e.RowIndex > 0)
+            {
+                dgwGrades.Rows[e.RowIndex].Selected = true;
+            }
+            if (dgwGrades.Rows[e.RowIndex].Selected == true)
+            {
+                dgwGrades.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            }
         }
 
         private void dgwGrades_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

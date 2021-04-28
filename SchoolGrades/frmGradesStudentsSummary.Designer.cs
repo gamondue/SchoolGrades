@@ -88,7 +88,6 @@
             this.dgwGrades.Location = new System.Drawing.Point(0, 159);
             this.dgwGrades.Margin = new System.Windows.Forms.Padding(4);
             this.dgwGrades.Name = "dgwGrades";
-            this.dgwGrades.RowTemplate.Height = 24;
             this.dgwGrades.Size = new System.Drawing.Size(845, 223);
             this.dgwGrades.TabIndex = 77;
             this.dgwGrades.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwGrades_CellContentClick);
@@ -99,7 +98,7 @@
             this.lblCurrentStudent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblCurrentStudent.BackColor = System.Drawing.Color.Transparent;
-            this.lblCurrentStudent.Font = new System.Drawing.Font("Arial Black", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentStudent.Font = new System.Drawing.Font("Arial Black", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblCurrentStudent.ForeColor = System.Drawing.Color.DarkBlue;
             this.lblCurrentStudent.Location = new System.Drawing.Point(7, 3);
             this.lblCurrentStudent.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
@@ -111,7 +110,7 @@
             // 
             // txtMediaMicroDomande
             // 
-            this.txtMediaMicroDomande.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMediaMicroDomande.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.txtMediaMicroDomande.Location = new System.Drawing.Point(5, 118);
             this.txtMediaMicroDomande.Margin = new System.Windows.Forms.Padding(4);
             this.txtMediaMicroDomande.Name = "txtMediaMicroDomande";
@@ -122,7 +121,7 @@
             // btnDettagliVoto
             // 
             this.btnDettagliVoto.BackColor = System.Drawing.Color.Transparent;
-            this.btnDettagliVoto.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDettagliVoto.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnDettagliVoto.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnDettagliVoto.Location = new System.Drawing.Point(745, 47);
             this.btnDettagliVoto.Margin = new System.Windows.Forms.Padding(6);
@@ -136,7 +135,7 @@
             // label2
             // 
             this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label2.ForeColor = System.Drawing.Color.DarkBlue;
             this.label2.Location = new System.Drawing.Point(158, 5);
             this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
@@ -151,7 +150,7 @@
             this.grpComplessivo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpComplessivo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grpComplessivo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.grpComplessivo.ForeColor = System.Drawing.Color.DarkBlue;
             this.grpComplessivo.Location = new System.Drawing.Point(3, 384);
             this.grpComplessivo.Margin = new System.Windows.Forms.Padding(4);
@@ -164,7 +163,7 @@
             // 
             // cmbSummaryGradeType
             // 
-            this.cmbSummaryGradeType.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbSummaryGradeType.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmbSummaryGradeType.ForeColor = System.Drawing.Color.DarkBlue;
             this.cmbSummaryGradeType.FormattingEnabled = true;
             this.cmbSummaryGradeType.Items.AddRange(new object[] {
@@ -183,7 +182,7 @@
             // lblSchoolSubject
             // 
             this.lblSchoolSubject.BackColor = System.Drawing.Color.Transparent;
-            this.lblSchoolSubject.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSchoolSubject.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblSchoolSubject.ForeColor = System.Drawing.Color.DarkBlue;
             this.lblSchoolSubject.Location = new System.Drawing.Point(156, 50);
             this.lblSchoolSubject.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
@@ -195,7 +194,7 @@
             // 
             // cmbSchoolSubjects
             // 
-            this.cmbSchoolSubjects.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbSchoolSubjects.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmbSchoolSubjects.ForeColor = System.Drawing.Color.DarkBlue;
             this.cmbSchoolSubjects.FormattingEnabled = true;
             this.cmbSchoolSubjects.Items.AddRange(new object[] {
@@ -352,7 +351,7 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Enabled = false;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label1.ForeColor = System.Drawing.Color.DarkBlue;
             this.label1.Location = new System.Drawing.Point(810, 7);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -386,7 +385,6 @@
             this.dgwNotes.Location = new System.Drawing.Point(0, 131);
             this.dgwNotes.Margin = new System.Windows.Forms.Padding(4);
             this.dgwNotes.Name = "dgwNotes";
-            this.dgwNotes.RowTemplate.Height = 24;
             this.dgwNotes.Size = new System.Drawing.Size(849, 103);
             this.dgwNotes.TabIndex = 157;
             // 
@@ -434,7 +432,7 @@
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnSave.Location = new System.Drawing.Point(433, 1);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(63, 37);
@@ -445,7 +443,7 @@
             // btnEraseAnnotation
             // 
             this.btnEraseAnnotation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEraseAnnotation.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEraseAnnotation.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnEraseAnnotation.Location = new System.Drawing.Point(367, 1);
             this.btnEraseAnnotation.Name = "btnEraseAnnotation";
             this.btnEraseAnnotation.Size = new System.Drawing.Size(63, 37);
@@ -456,7 +454,7 @@
             // btnAddAnnotation
             // 
             this.btnAddAnnotation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddAnnotation.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddAnnotation.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnAddAnnotation.Location = new System.Drawing.Point(301, 1);
             this.btnAddAnnotation.Name = "btnAddAnnotation";
             this.btnAddAnnotation.Size = new System.Drawing.Size(63, 37);
@@ -502,7 +500,7 @@
             // label5
             // 
             this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label5.ForeColor = System.Drawing.Color.DarkBlue;
             this.label5.Location = new System.Drawing.Point(-1, 0);
             this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
@@ -556,7 +554,7 @@
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.TxtIdStudent);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.Color.DarkBlue;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
