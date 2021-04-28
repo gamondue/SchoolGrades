@@ -179,9 +179,25 @@ namespace SchoolGrades.DbClasses
             fileContent += "\r\n";
             foreach (DataRow row in Table.Rows)
             {
+                int i = 0;
                 foreach (DataColumn col in Table.Columns)
                 {
-                    fileContent += row[col].ToString().Replace(",", ".") + '\t';
+                    if (i > 3)
+                    {
+                        if(row[col].ToString().Length > 4)
+                        {
+                            fileContent += row[col].ToString().Replace(",", ".").Substring(0,4) + '\t';
+                        }
+                        else
+                        {
+                            fileContent += row[col].ToString().Replace(",", ".") + '\t';
+                        }
+                    }
+                    else
+                    {
+                        fileContent += row[col].ToString().Replace(",", ".") + '\t';
+                    }
+                    i++;
                 }
                 fileContent += "\r\n";
             }
