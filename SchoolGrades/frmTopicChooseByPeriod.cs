@@ -70,18 +70,18 @@ namespace SchoolGrades
             //    dgwTopics.Columns[0].Visible = false;
 
             dgwTopics.Columns[0].Visible = true;
-            dgwTopics.Columns[1].Visible = false;
-            dgwTopics.Columns[2].Visible = false;
-            dgwTopics.Columns[3].Visible = false;
-            dgwTopics.Columns[4].Visible = false;
-            dgwTopics.Columns[5].Visible = false;
+            dgwTopics.Columns[1].Visible = false; //false
+            dgwTopics.Columns[2].Visible = false; //false
+            dgwTopics.Columns[3].Visible = false; //false
+            dgwTopics.Columns[4].Visible = false; //false
+            dgwTopics.Columns[5].Visible = true; //false
             dgwTopics.Columns[6].Visible = true;
             dgwTopics.Columns[7].Visible = true;
-            dgwTopics.Columns[8].Visible = false;
-            dgwTopics.Columns[9].Visible = false;
-            dgwTopics.Columns[10].Visible = false;
-            dgwTopics.Columns[11].Visible = false;
-            dgwTopics.Columns[12].Visible = false;
+            dgwTopics.Columns[8].Visible = true; //false
+            dgwTopics.Columns[9].Visible = true; //false
+            dgwTopics.Columns[10].Visible = true;//false
+            dgwTopics.Columns[11].Visible = true;//false
+            dgwTopics.Columns[12].Visible = true;//false
         }
 
         private void dgwTopics_CellContentClick(object sender, DataGridViewCellEventArgs e)

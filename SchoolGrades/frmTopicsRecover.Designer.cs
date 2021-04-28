@@ -82,8 +82,8 @@
             this.picSameNodeChangedPosition = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.btnTemporary = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
             this.btnBeheaded = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -645,16 +645,6 @@
             this.toolTip1.SetToolTip(this.btnTemporary, "Lancio dei link e programmi legati alla classe");
             this.btnTemporary.UseVisualStyleBackColor = false;
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(391, 136);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(121, 15);
-            this.label3.TabIndex = 166;
-            this.label3.Text = "Drag destra->sinistra";
-            // 
             // btnBeheaded
             // 
             this.btnBeheaded.Location = new System.Drawing.Point(84, 120);
@@ -666,6 +656,16 @@
             this.btnBeheaded.UseCompatibleTextRendering = true;
             this.btnBeheaded.UseVisualStyleBackColor = true;
             this.btnBeheaded.Click += new System.EventHandler(this.btnBeheaded_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label3.Location = new System.Drawing.Point(391, 136);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(121, 15);
+            this.label3.TabIndex = 166;
+            this.label3.Text = "Drag destra->sinistra";
             // 
             // frmTopicsRecover
             // 
