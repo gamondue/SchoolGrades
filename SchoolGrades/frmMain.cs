@@ -5,9 +5,9 @@ using System.IO;
 using System.Collections.Generic;
 using System.Threading;
 using gamon;
-using System.Diagnostics;
 using SchoolGrades.DbClasses;
 using gamon.TreeMptt;
+using SharedWinForms;
 
 namespace SchoolGrades
 {
@@ -17,6 +17,7 @@ namespace SchoolGrades
         public int indexCurrentDrawn = 0;
 
         DbAndBusiness db; // must be instantiated after the reading of config file. 
+        BusinessLayer bl; // must be instantiated after the reading of config file.
 
         public List<Student> currentStudentsList;
         public List<Student> eligiblesList = new List<Student>();
@@ -30,7 +31,9 @@ namespace SchoolGrades
         Student currentStudent;
         Question currentQuestion;
         GradeType currentGradeType;
-        Class currentClass; 
+        Class currentClass;
+
+        Random random = new Random(); 
 
         System.Media.SoundPlayer suonatore = new System.Media.SoundPlayer();
         public Student CurrentStudent
@@ -69,6 +72,9 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
+            db = new DbAndBusiness(Commons.PathAndFileDatabase);
+            bl = new BusinessLayer(db.DatabaseName);
+
             this.Text += " v. " + version;
 
             // first default year in the "years" combo
@@ -94,6 +100,9 @@ namespace SchoolGrades
         }
         private void frmMain_Load(object sender, EventArgs e)
         {
+            if (!File.Exists(Commons.PathAndFileDatabase))
+                return;
+
             timerQuestion.Interval = 250;
             
             //#if DEBUG
@@ -106,30 +115,18 @@ namespace SchoolGrades
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             btnTemporary.Visible = false; 
 #endif
-            Commons.ReadConfigFile();
-
-            while (!System.IO.File.Exists(Commons.PathAndFileDatabase))
-            {
-                MessageBox.Show("Configurazione del programma.\r\nSe necessario sistemare le cartelle (si possono anche lasciare così), poi scegliere il file di dati .sqlite e premere 'Salva configurazione'");
-                FrmSetup f = new FrmSetup();
-                f.ShowDialog();
-                //return; 
-            }
-
-            db = new DbAndBusiness();
-
             school = db.GetSchool(Commons.IdSchool);
             if (school == null)
                 return;
 
             schoolYear = CmbSchoolYear.SelectedItem.ToString();
 
-            lstClasses.DataSource = db.GetClassesOfYear(school.IdSchool, schoolYear);
+            lstClasses.DataSource = bl.GetClassesOfYear(school.IdSchool, schoolYear);
 
             if (lstClasses.DataSource == null)
                 return;
 
-            Commons.globalPicLed = picBackgroundSaveRunning;
+            CommonsWinForms.globalPicLed = picBackgroundSaveRunning;
 
             if (ChkActivateLessonClock.Checked)
             {
@@ -138,36 +135,48 @@ namespace SchoolGrades
             }
 
             string file = Commons.PathLogs + @"\frmMain_parameters.txt";
-            Commons.RestoreCurrentValuesOfAllControls(this, file);
+            CommonsWinForms.RestoreCurrentValuesOfAllControls(this, file);
 
             txtNStudents.Text = "";
 
             // start Thread that concurrently saves the Topics tree
-            Commons.SaveTreeMptt = new TreeMptt(null, null, null, null, null, null, picBackgroundSaveRunning);
-            Commons.BackgroundSaveThread= new Thread(Commons.SaveTreeMptt.SaveMpttBackground);
-            Commons.BackgroundSaveThread.Start(); 
+            CommonsWinForms.SaveTreeMptt = new TreeMptt(db, null, null, null, null, null, null, picBackgroundSaveRunning);
+            CommonsWinForms.BackgroundSaveThread= new Thread(CommonsWinForms.SaveTreeMptt.SaveMpttBackground);
+            CommonsWinForms.BackgroundSaveThread.Start(); 
         }
         static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
-            Commons.ErrorLog(sender.GetType().Name + " " + e.Exception.Message +
-                "\r\n" + e.Exception.StackTrace, true);
+            string err = sender.GetType().Name + " " + e.Exception.Message +
+                "\r\n" + e.Exception.StackTrace; 
+            Commons.ErrorLog(err);
+            throw new Exception(err);
         }
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            Commons.ErrorLog(sender.GetType().Name + " " + (e.ExceptionObject as Exception).Message +
-              (e.ExceptionObject as Exception).StackTrace, true);
-            //Debug.WriteLine((e.ExceptionObject as Exception).Message);
+            if (sender != null)
+            {
+                string err = sender.GetType().Name + " " + (e.ExceptionObject as Exception).Message +
+                    (e.ExceptionObject as Exception).StackTrace;
+                Commons.ErrorLog(err);
+                throw new Exception(err);
+            }
+            else
+            {
+                string err = (e.ExceptionObject as Exception).Message +
+                    (e.ExceptionObject as Exception).StackTrace;
+                Commons.ErrorLog(err);
+                throw new Exception(err);
+            }
         }
         private void btnComeOn_Click(object sender, EventArgs e)
         {
-            //if (!saveDone()) return;
             if (currentClass != null)
             {
                 picStudent.Image = null;
                 beBrave();
             }
             else
-            if (!Commons.CheckIfClassChosen(currentClass))
+            if (!CommonsWinForms.CheckIfClassChosen(currentClass))
                 return;
             if (chkSuspence.Checked)
             {
@@ -183,7 +192,6 @@ namespace SchoolGrades
                     Console.Beep(220, suspenceDelay);
                 }
             }
-
             if (currentClass.CurrentStudent != null)
             {
                 loadStudentsData(currentClass.CurrentStudent);
@@ -198,15 +206,14 @@ namespace SchoolGrades
             if (chkStudentsListVisible.Checked)
                 loadPicture(Student);
             chkStudentsListVisible.Checked = false;
-
             lblStudentChosen.Text = Student.ToString();
-
             txtRevengeFactor.Text = Student.RevengeFactorCounter.ToString();
+            txtIdStudent.Text = Student.IdStudent.ToString();
         }
         // Draw
         private void btnDrawOrSort_Click(object sender, EventArgs e)
         {
-            if (!Commons.CheckIfClassChosen(currentClass))
+            if (!CommonsWinForms.CheckIfClassChosen(currentClass))
             {
                 return;
             }
@@ -279,7 +286,7 @@ namespace SchoolGrades
         }
         private void btnCheckAll_Click(object sender, EventArgs e)
         {
-            if (!Commons.CheckIfClassChosen(currentClass))
+            if (!CommonsWinForms.CheckIfClassChosen(currentClass))
             {
                 return;
             }
@@ -288,7 +295,7 @@ namespace SchoolGrades
         }
         private void btnCheckToggle_Click(object sender, EventArgs e)
         {
-            if (!Commons.CheckIfClassChosen(currentClass))
+            if (!CommonsWinForms.CheckIfClassChosen(currentClass))
             {
                 return;
             }
@@ -297,7 +304,7 @@ namespace SchoolGrades
         }
         private void btnCheckNone_Click(object sender, EventArgs e)
         {
-            if (!Commons.CheckIfClassChosen(currentClass))
+            if (!CommonsWinForms.CheckIfClassChosen(currentClass))
             {
                 return;
             }
@@ -306,7 +313,7 @@ namespace SchoolGrades
         }
         private void btnCheckRevenge_Click(object sender, EventArgs e)
         {
-            if (!Commons.CheckIfClassChosen(currentClass))
+            if (!CommonsWinForms.CheckIfClassChosen(currentClass))
             {
                 return;
             }
@@ -315,7 +322,7 @@ namespace SchoolGrades
         }
         private void btnResults_Click(object sender, EventArgs e)
         {
-            if (!Commons.CheckIfClassChosen(currentClass))
+            if (!CommonsWinForms.CheckIfClassChosen(currentClass))
             {
                 return;
             }
@@ -348,7 +355,7 @@ namespace SchoolGrades
         }
         private void lstNomi_DoubleClick(object sender, EventArgs e)
         {
-            if (!Commons.CheckIfClassChosen(currentClass))
+            if (!CommonsWinForms.CheckIfClassChosen(currentClass))
             {
                 return;
             }
@@ -358,7 +365,6 @@ namespace SchoolGrades
             currentStudent = currentClass.CurrentStudent;
             currentStudent.SchoolYear = currentClass.SchoolYear;
             loadStudentsData(currentStudent);
-            TxtIdStudent.Text = currentStudent.IdStudent.ToString();
             lstNames.Visible = false;
         }
         private void chkNomeVisibile_CheckedChanged(object sender, EventArgs e)
@@ -423,6 +429,8 @@ namespace SchoolGrades
         SchoolSubject lastSubject = new SchoolSubject();
         List<string> filesInFolder = new List<string>();
         int indexImage = 0;
+        private DateTime nextPopUpQuestionTime;
+
         private void BtnShowRandomImage_Click(object sender, EventArgs e)
         {
             if (filesInFolder.Count == 0 || currentClass != lastClass || currentSubject != lastSubject 
@@ -439,9 +447,9 @@ namespace SchoolGrades
                 }
                 if (chkLessonsPictures.Checked)
                 {
-                    if (!Commons.CheckIfClassChosen(currentClass))
+                    if (!CommonsWinForms.CheckIfClassChosen(currentClass))
                         return;
-                    if (!Commons.CheckIfSubjectChosen(currentSubject))
+                    if (!CommonsWinForms.CheckIfSubjectChosen(currentSubject))
                         return;
                     //List<Image> lessonImages = db.GetAllImagesShownToAClassDuringLessons(currentClass, currentSubject);
                     List<DbClasses.Image> lessonImages = db.GetAllImagesShownToAClassDuringLessons(currentClass, currentSubject,
@@ -518,17 +526,17 @@ namespace SchoolGrades
             }
             else if (rdbDrawByWeightsSum.Checked)
             {
-                if (!Commons.CheckIfSubjectChosen(currentSubject))
+                if (!CommonsWinForms.CheckIfSubjectChosen(currentSubject))
                     return;
-                if (!Commons.CheckIfTypeOfAssessmentChosen(currentGradeType))
+                if (!CommonsWinForms.CheckIfTypeOfAssessmentChosen(currentGradeType))
                     return;
                 PrepareEligiblesByWeightSum();
             }
             else if (rdbDrawNoOfGrades.Checked)
             {
-                if (!Commons.CheckIfSubjectChosen(currentSubject))
+                if (!CommonsWinForms.CheckIfSubjectChosen(currentSubject))
                     return;
-                if (!Commons.CheckIfTypeOfAssessmentChosen(currentGradeType))
+                if (!CommonsWinForms.CheckIfTypeOfAssessmentChosen(currentGradeType))
                     return;
                 PrepareEligiblesByNumberOfGrades();
             }
@@ -898,7 +906,7 @@ namespace SchoolGrades
             }
             return indexInList;
         }
-        private void BtnSetup_Click(object sender, EventArgs e)
+        private void btnSetup_Click(object sender, EventArgs e)
         {
             // save current students because can be used by setup windows
             SaveStudentsOfClassIfEligibleHasChanged();
@@ -923,11 +931,11 @@ namespace SchoolGrades
             MessageBox.Show("Parte da finire");
             return; 
 
-            if (!Commons.CheckIfClassChosen(currentClass))
+            if (!CommonsWinForms.CheckIfClassChosen(currentClass))
                 return;
-            if (!Commons.CheckIfTypeOfAssessmentChosen(currentGradeType))
+            if (!CommonsWinForms.CheckIfTypeOfAssessmentChosen(currentGradeType))
                 return;
-            if (!Commons.CheckIfStudentChosen(currentStudent))
+            if (!CommonsWinForms.CheckIfStudentChosen(currentStudent))
                 return;
 
             // annotation applied to a single student
@@ -942,7 +950,7 @@ namespace SchoolGrades
                 ((GradeType)(cmbGradeType.SelectedItem)), currentSubject);
             //if (dalPiuVecchio.Count < StudentsList.Count)
             //{
-            //    MessageBox.Show("ATTENZIONE: almeno un allievo non ha neppure un votocino!");
+            //    MessageBox.Show("ATTENZIONE: almeno un allievo non ha neppure un voticino!");
             //}
             Student trovato = null;
             int keyFirst = fromOldest[0].Key;
@@ -954,8 +962,6 @@ namespace SchoolGrades
                     break;
                 }
             }
-            // !!!! TODO VERIFICARE COME VA SE CI SONO NULL E NON NULL 
-            // (I PRIMI DEVONO ESSERE QUELLI CON IL NON NULL) 
             if (trovato == null)
             {
                 MessageBox.Show("Allievo con voticino più vecchio non trovato");
@@ -970,9 +976,9 @@ namespace SchoolGrades
         }
         private void btnLessonsTopics_Click(object sender, EventArgs e)
         {
-            if (!Commons.CheckIfClassChosen(currentClass))
+            if (!CommonsWinForms.CheckIfClassChosen(currentClass))
                 return;
-            if (!Commons.CheckIfSubjectChosen(currentSubject))
+            if (!CommonsWinForms.CheckIfSubjectChosen(currentSubject))
                 return;
             // open read only the forms after the first. 
             if (listLessons.Count > 0)
@@ -1023,9 +1029,9 @@ namespace SchoolGrades
         }
         private void btnTopicsDone_Click(object sender, EventArgs e)
         {
-            if (!Commons.CheckIfClassChosen(currentClass))
+            if (!CommonsWinForms.CheckIfClassChosen(currentClass))
                 return;
-            if (!Commons.CheckIfSubjectChosen(currentSubject))
+            if (!CommonsWinForms.CheckIfSubjectChosen(currentSubject))
                 return;
             frmTopicChooseByPeriod frm = new frmTopicChooseByPeriod(
                 frmTopicChooseByPeriod.TopicChooseFormType.OpenTopicOnExit,
@@ -1034,7 +1040,7 @@ namespace SchoolGrades
         }
         private void btnStartLinks_Click(object sender, EventArgs e)
         {
-            if (!Commons.CheckIfClassChosen(currentClass))
+            if (!CommonsWinForms.CheckIfClassChosen(currentClass))
                 return;
             List<string> LinksOfClass = db.GetStartLinksOfClass(currentClass);
 
@@ -1042,7 +1048,7 @@ namespace SchoolGrades
         }
         private void btnQuestion_Click(object sender, EventArgs e)
         {
-            if (!Commons.CheckIfSubjectChosen(currentSubject))
+            if (!CommonsWinForms.CheckIfSubjectChosen(currentSubject))
                 return;
             frmQuestionChoose scelta = new frmQuestionChoose(null, currentSubject,
                 currentClass, currentStudent, CurrentQuestion);
@@ -1080,7 +1086,7 @@ namespace SchoolGrades
         }
         private void btnMakeGroups_Click(object sender, EventArgs e)
         {
-            if (!Commons.CheckIfClassChosen(currentClass))
+            if (!CommonsWinForms.CheckIfClassChosen(currentClass))
                 return;
             eligiblesList = FillListOfChecked(); 
             if (eligiblesList.Count == 0)
@@ -1198,18 +1204,29 @@ namespace SchoolGrades
         }
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (!File.Exists(Commons.PathAndFileDatabase))
+                return;
+
+            timerLesson.Stop(); 
+            timerPopUp.Stop();
+            timerQuestion.Stop();
+
             string file = Commons.PathLogs + @"\frmMain_parameters.txt";
-            Commons.SaveCurrentValuesOfAllControls(this, ref file);
+            CommonsWinForms.SaveCurrentValuesOfAllControls(this, ref file);
             SaveStudentsOfClassIfEligibleHasChanged();
             // if a save of the database with Mptt is running, we close it 
-            if (Commons.BackgroundSaveThread.IsAlive)
+            if (CommonsWinForms.BackgroundSaveThread.IsAlive)
             {
-                Commons.BackgroundCanStillSaveTopicsTree = false;
+                // locks a concurrent modification of Commons.BackgroundCanStillSaveTopicsTree 
+                lock (CommonsWinForms.LockBackgroundCanStillSaveTopicsTree)
+                {
+                    CommonsWinForms.BackgroundCanStillSaveTopicsTree = false;
+                }
                 // we wait for the saving Thread to finish
-                Commons.BackgroundSaveThread.Join(2 * 60000);
+                CommonsWinForms.BackgroundSaveThread.Join(30000);  // enormous timeout just for big problems
             }
             // save in the log folder a copy of the database, if enabled 
-            if (Commons.SaveBackupWhenExiting)
+            if (CommonsWinForms.SaveBackupWhenExiting)
             { 
                 File.Copy(Commons.PathAndFileDatabase,
                     Commons.PathLogs + "\\" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") +
@@ -1218,7 +1235,7 @@ namespace SchoolGrades
         }
         private void btnClassesGradesSummary_Click(object sender, EventArgs e)
         {
-            if (!Commons.CheckIfClassChosen(currentClass))
+            if (!CommonsWinForms.CheckIfClassChosen(currentClass))
             {
                 return;
             }
@@ -1229,11 +1246,11 @@ namespace SchoolGrades
         }
         private void btnCheckNoGrade_Click(object sender, EventArgs e)
         {
-            if (!Commons.CheckIfClassChosen(currentClass))
+            if (!CommonsWinForms.CheckIfClassChosen(currentClass))
             {
                 return;
             }
-            if (!Commons.CheckIfSubjectChosen(currentSubject))
+            if (!CommonsWinForms.CheckIfSubjectChosen(currentSubject))
             {
                 return;
             }
@@ -1242,11 +1259,11 @@ namespace SchoolGrades
         }
         private void btnYearTopics_Click(object sender, EventArgs e)
         {
-            if (!Commons.CheckIfClassChosen(currentClass))
+            if (!CommonsWinForms.CheckIfClassChosen(currentClass))
             {
                 return;
             }
-            if (!Commons.CheckIfSubjectChosen(currentSubject))
+            if (!CommonsWinForms.CheckIfSubjectChosen(currentSubject))
             {
                 return;
             }
@@ -1438,21 +1455,23 @@ namespace SchoolGrades
         {
             ToggleTimerBar(txtTimeInterval.Text); 
         }
-        private void StartColorTimer()
+        private void StartColorTimer(bool SoundEffectsInTimer)
         {
             double t =  double.Parse(txtTimeInterval.Text);
-            ColorTimer ft = new ColorTimer(t /60, t /60);
+            ColorTimer ft = new ColorTimer(t /60, t /60, SoundEffectsInTimer);
             if (currentStudent != null)
+            {
                 ft.FormCaption = ft.FormCaption.Replace("gamon", currentStudent.LastName);
+            }
             ft.Show();
         }
         private void btnStartColorTimer_Click(object sender, EventArgs e)
         {
-            StartColorTimer(); 
+            StartColorTimer(chkSoundsInColorTimer.Checked); 
         }
         private void btnMosaic_Click(object sender, EventArgs e)
         {
-            if (!Commons.CheckIfClassChosen(currentClass))
+            if (!CommonsWinForms.CheckIfClassChosen(currentClass))
                 return;
             frmMosaic f = new frmMosaic(currentClass);
             f.Show();
@@ -1463,9 +1482,9 @@ namespace SchoolGrades
         }
         private void btnStudentsNotes_Click(object sender, EventArgs e)
         {
-            if (!Commons.CheckIfClassChosen(currentClass))
+            if (!CommonsWinForms.CheckIfClassChosen(currentClass))
                 return;
-            if (!Commons.CheckIfTypeOfAssessmentChosen(currentGradeType))
+            if (!CommonsWinForms.CheckIfTypeOfAssessmentChosen(currentGradeType))
                 return;
             // annotation can be applied to a single student or to a whole list, based on the 
             // lstNames being visible or not 
@@ -1486,6 +1505,78 @@ namespace SchoolGrades
                 frmAnnotationsAboutStudents f = new frmAnnotationsAboutStudents(chosenStudents, CmbSchoolYear.Text);
                 f.Show();
             }
+        }
+
+        private void chkPopUpQuestionsEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            timerPopUp.Interval = 1;
+            timerPopUp.Enabled = chkPopUpQuestionsEnabled.Checked;
+            if (timerPopUp.Enabled)
+            {
+                SetNewPopUpOfQuestion(); 
+            }
+        }
+
+        private void SetNewPopUpOfQuestion()
+        {
+            int PopUpQuestionCentralTime;
+            int.TryParse(txtPopUpQuestionCentralTime.Text, out PopUpQuestionCentralTime);
+            double displacementTime = PopUpQuestionCentralTime * 0.1;
+            double minutesToTheNextQuestion = PopUpQuestionCentralTime - random.NextDouble() * 
+                PopUpQuestionCentralTime * displacementTime/ 2; 
+            nextPopUpQuestionTime = DateTime.Now.AddMinutes(minutesToTheNextQuestion);
+            timerPopUp.Enabled = true;
+        }
+
+        private void timerPopUp_Tick(object sender, EventArgs e)
+        {
+            if (nextPopUpQuestionTime < DateTime.Now)
+            {
+                timerPopUp.Enabled = false;
+                if (currentClass == null)
+                {
+                    Console.Beep(1000, 500);
+                    SetNewPopUpOfQuestion();
+                    return;
+                }
+                if (eligiblesList.Count > 0)
+                {
+                    if (indexCurrentDrawn < eligiblesList.Count)
+                    {
+                        Console.Beep(400, 800);
+                        // make a question to a random student
+                        btnComeOn_Click(null, null);
+                        chkFotoVisibile.Checked = true;
+                        btnAssess_Click(null, null);
+                        // prepare for the next popup question 
+                        SetNewPopUpOfQuestion();
+                        return; 
+                    }
+                    else
+                    {
+                        Console.Beep(2000, 500);
+                        SetNewPopUpOfQuestion();
+                        return;
+                    }
+                }
+                else
+                {
+                    Console.Beep(3000, 500);
+                    SetNewPopUpOfQuestion();
+                    return;
+                }
+            }
+        }
+
+        private void btnRandomNumber_Click(object sender, EventArgs e)
+        {
+            frmRandom f = new frmRandom();
+            f.Show(); 
+        }
+
+        private void chkSoundsInColorTimer_CheckedChanged(object sender, EventArgs e)
+        {
+            //MessageBox.Show("Chiudere la finestra timer a colori per cambiare lo stato dei suoni"); 
         }
     }
 }

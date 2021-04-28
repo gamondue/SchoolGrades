@@ -6,7 +6,7 @@
     <SharedGUID>12e573a5-7ed8-4ee0-8a9e-e8304de4cd86</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>DbClasses</Import_RootNamespace>
+    <Import_RootNamespace>SchoolGrades.DbClasses</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Answer.cs" />
@@ -29,5 +29,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)StudentsAnswer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tag.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Test.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Topic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)User.cs" />
   </ItemGroup>
 </Project>

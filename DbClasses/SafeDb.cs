@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Common;
-using System.Text;
-using System.Windows.Forms;
 
 namespace SchoolGrades.DbClasses
 {
@@ -39,6 +36,8 @@ namespace SchoolGrades.DbClasses
 
         internal static string SafeString(object Field)
         {
+            if (Field == null)
+                return null; 
             try
             {
                 return Field.ToString().Trim();
@@ -131,16 +130,6 @@ namespace SchoolGrades.DbClasses
             }
             if (field is bool)
                 return (bool)field;
-            if (field is CheckState)
-            {
-                CheckState f = (CheckState)field;
-                if (f == CheckState.Checked)
-                    return true;
-                if (f == CheckState.Unchecked)
-                    return false;
-                if (f == CheckState.Indeterminate)
-                    return null;
-            }
             try
             {
                 string f = field.ToString();

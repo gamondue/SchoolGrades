@@ -6,13 +6,14 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using gamon.TreeMptt; 
+using gamon.TreeMptt;
+using SharedWinForms;
 
 namespace SchoolGrades
 {
     public partial class frmTopics : Form
     {
-        DbAndBusiness db = new DbAndBusiness();
+        DbAndBusiness db;
 
         gamon.TreeMptt.TreeMptt topicTreeMptt;
 
@@ -42,6 +43,8 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
+            db = new DbAndBusiness(Commons.PathAndFileDatabase);
+
             currentSubject = Subject;
             currentClass = Class; 
             formType = FormType;
@@ -51,9 +54,9 @@ namespace SchoolGrades
         private void frmTopic_Load(object sender, EventArgs e)
         {
             //topicTreeMptt = new TopicTreeMptt(listTopicsInternal, trwTopics,
-            topicTreeMptt = new TreeMptt(trwTopics,
+            topicTreeMptt = new TreeMptt(db, trwTopics,
                 txtTopicName, txtDescription, txtFind, null, null,
-                Commons.globalPicLed, DragDropEffects.Copy);
+                CommonsWinForms.globalPicLed, DragDropEffects.Copy);
 
             // list read from database 
             topicTreeMptt.AddNodesToTreeviewByBestMethod();

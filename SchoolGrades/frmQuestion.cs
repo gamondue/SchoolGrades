@@ -9,8 +9,8 @@ namespace SchoolGrades
 {
     public partial class frmQuestion : Form
     {
-        DbAndBusiness db = new DbAndBusiness();
-        TreeMpttDb dbMptt = new TreeMpttDb();
+        DbAndBusiness db; 
+        TreeMpttDb dbMptt; 
 
         internal Question currentQuestion = new Question();
         internal bool UserHasChosen; 
@@ -33,6 +33,9 @@ namespace SchoolGrades
             SchoolSubject Subject, Class Class, Topic Topic)
         {
             InitializeComponent();
+
+            DbAndBusiness db = new DbAndBusiness(Commons.PathAndFileDatabase);
+            TreeMpttDb dbMptt = new TreeMpttDb(db);
 
             // fills the lookup tables' combos
             List<QuestionType> listQuestions = db.GetListQuestionTypes(true);
@@ -332,7 +335,6 @@ namespace SchoolGrades
 
             tagsList = Commons.LastTagsChosen;
 
-            //currentQuestion.idSubject = 
             //currentQuestion.idTopic = currentQuestion.idQuestion;
             //currentQuestion.image
             currentQuestion.Text = txtQuestionText.Text; 

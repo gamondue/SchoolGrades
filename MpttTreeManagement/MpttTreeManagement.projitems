@@ -9,7 +9,6 @@
     <Import_RootNamespace>MpttTreeManagement</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Topic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TreeElement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TreeMptt.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TreeMpttDb.cs" />
