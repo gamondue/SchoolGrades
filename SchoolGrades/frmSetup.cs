@@ -1,5 +1,6 @@
 ﻿using gamon;
 using SchoolGrades.DbClasses;
+using SharedWinForms;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -25,7 +26,7 @@ namespace SchoolGrades
             TxtPathStartLinks.Text = Commons.PathStartLinks; // not longer used
             Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.FileDatabase;
             TxtPathDocuments.Text = Commons.PathDocuments;
-            chkSaveBackup.Checked = Commons.SaveBackupWhenExiting; 
+            chkSaveBackup.Checked = CommonsWinForms.SaveBackupWhenExiting; 
         }
 
         private void BtnTabelle_Click(object sender, EventArgs e)
@@ -108,8 +109,8 @@ namespace SchoolGrades
                 }
                 Commons.FileDatabase = dati[0] = TxtFileDatabase.Text;
 
-                Commons.SaveBackupWhenExiting = chkSaveBackup.Checked;
-                dati[5] = Commons.SaveBackupWhenExiting.ToString(); 
+                CommonsWinForms.SaveBackupWhenExiting = chkSaveBackup.Checked;
+                dati[5] = CommonsWinForms.SaveBackupWhenExiting.ToString(); 
 
                 Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.FileDatabase;
                 if(!File.Exists(Commons.PathAndFileDatabase))
@@ -124,9 +125,11 @@ namespace SchoolGrades
             }
             catch (Exception e)
             {
-                Commons.ErrorLog(e.Message, false);
-                return; 
+                string err = "WriteConfigFile(): " + e.Message;
+                Commons.ErrorLog(err);
+                throw new Exception(err);
                 //throw new FileNotFoundException(@"[Error in program's directories] \r\n" + e.Message);
+                //return;
             }
             //Application.Exit();
             NewDatabaseFile = true; 

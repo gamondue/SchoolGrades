@@ -1,4 +1,5 @@
 using gamon;
+using SharedWinForms;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -79,7 +80,7 @@ namespace SchoolGrades
                 dati[2] = Commons.PathStartLinks;
                 dati[3] = Commons.PathDatabase;
                 dati[4] = Commons.PathDocuments;
-                dati[5] = Commons.SaveBackupWhenExiting.ToString();
+                dati[5] = CommonsWinForms.SaveBackupWhenExiting.ToString();
 #if DEBUG
                 TextFile.ArrayToFile(Commons.PathAndFileConfig + "_DEBUG", dati, false);
 #else
@@ -89,9 +90,10 @@ namespace SchoolGrades
             }
             catch (Exception e)
             {
-                Commons.ErrorLog(e.Message, false);
-                return;
-                //throw new FileNotFoundException(@"[Error in program's directories] \r\n" + e.Message);
+                string err = @"[Error in program's directories] \r\n" + e.Message;
+                Commons.ErrorLog(err);
+                throw new FileNotFoundException(err);
+                //return;
             }
         }
     }

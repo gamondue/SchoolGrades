@@ -3,14 +3,13 @@
   <PropertyGroup>
     <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
     <HasSharedItems>true</HasSharedItems>
-    <SharedGUID>737a759a-6c1f-4bd7-a682-390c8b018712</SharedGUID>
+    <SharedGUID>bdb76e62-3474-4529-b85d-2ebe40c7befb</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>BusinessLayer</Import_RootNamespace>
+    <Import_RootNamespace>SharedWinForms</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)BL_ClassManagement.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)BL_ConstructorsAndGeneralMethods.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)BL_UserManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CommonsWinForms.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SafeDbWinForms.cs" />
   </ItemGroup>
 </Project>

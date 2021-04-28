@@ -14,6 +14,7 @@ namespace SchoolGrades
     {
     	// TODO !!!! put an option for separator in import files 
         DbAndBusiness db;
+        BusinessLayer bl; 
 
         DataSet dsClass;
         DataTable dtClass;
@@ -27,6 +28,7 @@ namespace SchoolGrades
             InitializeComponent();
 
             db = new DbAndBusiness(Commons.PathAndFileDatabase);
+            bl = new BusinessLayer(Commons.PathAndFileDatabase);
         }
 
         private void FrmClassesManagement_Load(object sender, EventArgs e)
@@ -46,7 +48,7 @@ namespace SchoolGrades
             else
                 CmbSchoolYear.SelectedItem = CmbSchoolYear.Items[nAnni - 2];
             idSchoolYear = CmbSchoolYear.SelectedItem.ToString();
-            CmbClasses.DataSource = db.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
+            CmbClasses.DataSource = bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
         }
 
         private void BtnImportStudentsOfClass_Click(object sender, EventArgs e)
@@ -139,7 +141,7 @@ namespace SchoolGrades
         private void CmbSchoolYear_SelectedIndexChanged(object sender, EventArgs e)
         {
             idSchoolYear = CmbSchoolYear.SelectedItem.ToString();
-            CmbClasses.DataSource = db.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
+            CmbClasses.DataSource = bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
         }
 
         private void BtnClassErase_Click(object sender, EventArgs e)
@@ -298,7 +300,7 @@ namespace SchoolGrades
             frmNewYear f = new frmNewYear(idSchoolYear);
             f.ShowDialog();
             CmbClasses.DataSource = null; 
-            CmbClasses.DataSource = db.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
+            CmbClasses.DataSource = bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
         }
 
         private void BtnStudentNew_Click(object sender, EventArgs e)
