@@ -110,7 +110,6 @@
             // rdbGradesBalanced
             // 
             this.rdbGradesBalanced.AutoSize = true;
-            this.rdbGradesBalanced.Enabled = false;
             this.rdbGradesBalanced.Location = new System.Drawing.Point(6, 64);
             this.rdbGradesBalanced.Name = "rdbGradesBalanced";
             this.rdbGradesBalanced.Size = new System.Drawing.Size(116, 22);

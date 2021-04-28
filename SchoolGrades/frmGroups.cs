@@ -94,17 +94,32 @@ namespace SchoolGrades
             }
             else if (rdbGradesBalanced.Checked)
             {
-                //Aggiornare listGroups in modo che gli studenti siano suddivisi, in base al valore nStudentsPerGroup, in gruppi bilanciati in base al voto(utilizzare listStudents per i voti)
-                //listGroups può anche non contenere tutti gli studenti di una classe. I gruppi si possono bilanciare raggruppando il primo e l'ultimo della lista, poi il secondo e il penultimo, ecc...
-                //Tenere conto del caso in cui il numero sia dispari
-                //Evitare di alterare listStudents
+                int lengthLista = listStudents.Count;
+                List<Student> listTempStudents = new List<Student>();
+                for (int i = 0, g = 0; g < lengthLista ; g++)
+                {
+                    for (int j = 0; j < listGroups.Count; j++)
+                    {
+                        if (listStudents[i].lastName == listGroups[j].LastName && listStudents[i].firstName == listGroups[j].FirstName)
+                        {
+                            listTempStudents.Add(listGroups[j]);
+                        }
+                    }
+                    listStudents.RemoveAt(i);
+                    
+                    if (i == 0)
+                        i = listStudents.Count - 1;
+                    else
+                        i = 0;
+                }
+                listGroups = listTempStudents;
             }
             // create groups into groups array
-            string[,] groups = new string[nStudentsPerGroup, nGroups];
+            string[,] groups = new string[nGroups, nStudentsPerGroup];
             int stud = 0;
-            for (int i = 0; i < nStudentsPerGroup; i++)
+            for (int i = 0; i < nGroups; i++)
             {
-                for (int j = 0; j < nGroups; j++)
+                for (int j = 0; j < nStudentsPerGroup; j++)
                 {
                     Student s = listGroups[stud];
                     groups[i, j] = s.LastName + " " + s.FirstName;
@@ -123,9 +138,9 @@ namespace SchoolGrades
                 int nStud = 1; 
                 for (int i = 0; i < nStudentsPerGroup; i++)
                 {
-                    if (groups[i, j] != null && groups[i, j] != " " && groups[i, j] != "  ")
+                    if (groups[j, i] != null && groups[j, i] != " " && groups[j, i] != "  ")
                     {
-                        groupsString += $"{nStud.ToString("00")} - {groups[i, j]} \r\n";
+                        groupsString += $"{nStud.ToString("00")} - {groups[j, i]} \r\n";
                         nStud++; 
                     }
                 }
