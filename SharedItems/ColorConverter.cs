@@ -20,7 +20,7 @@ namespace AForge.Imaging
 	public class RGB
 	{
 		/// <summary>
-		/// Index of red component
+		/// Index of red component.
 		/// </summary>
 		public const short R = 2;
 		/// <summary>
