@@ -181,7 +181,7 @@ namespace SchoolGrades.DbClasses
             {
                 foreach (DataColumn col in Table.Columns)
                 {
-                    fileContent += row[col].ToString() + '\t';
+                    fileContent += row[col].ToString().Replace(",", ".") + '\t';
                 }
                 fileContent += "\r\n";
             }
