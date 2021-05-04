@@ -10,6 +10,7 @@ namespace SchoolGrades
     public partial class frmGradesClassSummary : Form
     {
         DbAndBusiness db;
+        DataLayer dl;
         private Class currentClass;
         private GradeType currentGradeType;
         private SchoolSubject currentSubject;
@@ -21,6 +22,7 @@ namespace SchoolGrades
             InitializeComponent();
 
             db = new DbAndBusiness(Commons.PathAndFileDatabase);
+            dl = new DataLayer();
 
             currentClass = Class;
             currentGradeType = GradeType;
@@ -124,7 +126,7 @@ namespace SchoolGrades
                 }
                 else if (rdb == rdbShowWeightedGrades)
                 {
-                    dgwGrades.DataSource = db.GetGradesWeightedAveragesOfClass(currentClass,
+                    dgwGrades.DataSource = dl.GetGradesWeightedAveragesOfClass(currentClass,
                         ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                         ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
                         dtpStartPeriod.Value, dtpEndPeriod.Value
@@ -134,7 +136,7 @@ namespace SchoolGrades
                 }
                 else if (rdb == rdbShowWeightsOnOpenGrades)
                 {
-                    dgwGrades.DataSource = db.GetGradesWeightsOfClassOnOpenGrades(currentClass,
+                    dgwGrades.DataSource = dl.GetGradesWeightsOfClassOnOpenGrades(currentClass,
                         ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                         ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
                         dtpStartPeriod.Value, dtpEndPeriod.Value

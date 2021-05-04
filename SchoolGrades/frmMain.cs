@@ -18,6 +18,7 @@ namespace SchoolGrades
 
         DbAndBusiness db; // must be instantiated after the reading of config file. 
         BusinessLayer bl; // must be instantiated after the reading of config file.
+        DataLayer dl;
 
         public List<Student> currentStudentsList;
         public List<Student> eligiblesList = new List<Student>();
@@ -71,7 +72,7 @@ namespace SchoolGrades
         public frmMain()
         {
             InitializeComponent();
-
+            dl = new DataLayer();
             db = new DbAndBusiness(Commons.PathAndFileDatabase);
             bl = new BusinessLayer(db.DatabaseName);
 
@@ -946,7 +947,7 @@ namespace SchoolGrades
         private void btnOldestGrade_Click(object sender, EventArgs e)
         {
             // gets all the list, but we are interested only to the first, the oldest
-            List<Couple> fromOldest = db.GetGradesOldestInClass(currentClass,
+            List<Couple> fromOldest = dl.GetGradesOldestInClass(currentClass,
                 ((GradeType)(cmbGradeType.SelectedItem)), currentSubject);
             //if (dalPiuVecchio.Count < StudentsList.Count)
             //{

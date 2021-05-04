@@ -66,6 +66,28 @@ namespace SchoolGrades
             }
             return connection;
         }
+
+        internal int NextKey(string Table, string Id)
+        {
+            int nextId;
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT MAX(" + Id + ") FROM " + Table + ";";
+                var firstColumn = cmd.ExecuteScalar();
+                if (firstColumn != DBNull.Value)
+                {
+                    nextId = int.Parse(firstColumn.ToString()) + 1;
+                }
+                else
+                {
+                    nextId = 1;
+                }
+                cmd.Dispose();
+            }
+            return nextId;
+        }
+
         internal void NewDatabase()
         {
             DbCommand cmd;

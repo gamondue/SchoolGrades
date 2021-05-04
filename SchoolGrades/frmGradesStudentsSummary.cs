@@ -11,6 +11,7 @@ namespace SchoolGrades
     public partial class frmGradesStudentsSummary : Form
     {
         DbAndBusiness db;
+        DataLayer dl;
         private Student currentStudent;
         private string currentSchoolYear;
         private GradeType currentGradeType;
@@ -131,7 +132,7 @@ namespace SchoolGrades
                 {
                     if (rdbShowGrades.Checked)
                     {
-                        dgwGrades.DataSource = db.GetGradesOfStudent(currentStudent, currentSchoolYear,
+                        dgwGrades.DataSource = dl.GetGradesOfStudent(currentStudent, currentSchoolYear,
                             ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                             ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
                             dtpStartPeriod.Value, dtpEndPeriod.Value
@@ -161,7 +162,7 @@ namespace SchoolGrades
                     }
                     else if (rdbShowWeightedGrades.Checked)
                     {
-                        dgwGrades.DataSource = db.GetGradesWeightedAveragesOfStudent(currentStudent,
+                        dgwGrades.DataSource = dl.GetGradesWeightedAveragesOfStudent(currentStudent,
                             ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                             ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
                             dtpStartPeriod.Value, dtpEndPeriod.Value
@@ -171,7 +172,7 @@ namespace SchoolGrades
                     }
                     else if (rdbShowWeightsOnOpenGrades.Checked)
                     {
-                        dgwGrades.DataSource = db.GetGradesWeightsOfStudentOnOpenGrades(currentStudent,
+                        dgwGrades.DataSource = dl.GetGradesWeightsOfStudentOnOpenGrades(currentStudent,
                             ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                             ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
                             dtpStartPeriod.Value, dtpEndPeriod.Value
