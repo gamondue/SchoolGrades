@@ -13,7 +13,8 @@ namespace SchoolGrades
 {
     public partial class frmKnotsToTheComb : Form
     {
-        DbAndBusiness db; 
+        DbAndBusiness db;
+        DataLayer dl;
         private Question chosenQuestion = new Question();
         private frmMicroAssessment grandparentForm; 
 
@@ -30,8 +31,8 @@ namespace SchoolGrades
         public frmKnotsToTheComb(frmMicroAssessment GrandparentForm, int? IdStudent, SchoolSubject SchoolSubject, string Year)
         {
             InitializeComponent();
+            dl = new DataLayer();
             db = new DbAndBusiness(Commons.PathAndFileDatabase);
-
             currentStudent = db.GetStudent(IdStudent);
             lblStudent.Text = currentStudent.LastName + " " + currentStudent.FirstName; 
             currentIdSchoolYear = Year;
@@ -56,7 +57,7 @@ namespace SchoolGrades
 
         private void RefreshData()
         {
-            dgwQuestions.DataSource = db.GetUnfixedGrades(currentStudent, currentSubject.IdSchoolSubject, 60);
+            dgwQuestions.DataSource = dl.GetUnfixedGrades(currentStudent, currentSubject.IdSchoolSubject, 60);
         }
 
         private void DgwQuestions_CellContentClick(object sender, DataGridViewCellEventArgs e)

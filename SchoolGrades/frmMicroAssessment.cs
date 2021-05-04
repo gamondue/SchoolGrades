@@ -9,9 +9,9 @@ namespace SchoolGrades
     public partial class frmMicroAssessment : Form
     {
         private string currentYear;
-
         private int idQuestionParent;
         private string idGradeType;
+        DataLayer dl;
         private string idGradeTypeParent;
 
         frmMain callingForm;
@@ -35,9 +35,8 @@ namespace SchoolGrades
             GradeType GradeType, SchoolSubject Subject, Question Question)
         {
             InitializeComponent();
-         
             db = new DbAndBusiness(Commons.PathAndFileDatabase);
-
+            dl = new DataLayer();
             callingForm = CallingForm; 
             currentClass = Class; 
             currentStudent = Student;
@@ -204,7 +203,7 @@ namespace SchoolGrades
                     "(\"Nuovo voto\")");
                 return;  
             }
-            Grade gradeParent = db.GetGrade(keyParent); 
+            Grade gradeParent = dl.GetGrade(keyParent); 
             if (txtIdMacroGrade.Text != "" && (DgwQuestions.Rows.Count == 0))
             {
                 if (gradeParent.Value > 0)
@@ -228,7 +227,7 @@ namespace SchoolGrades
             // erase IdGrade to save a new record 
             currentGrade.IdGrade = null;
             currentGrade.Timestamp = DateTime.Now; 
-            currentGrade.IdGrade = db.SaveMicroGrade(currentGrade);
+            currentGrade.IdGrade = dl.SaveMicroGrade(currentGrade);
 
             // remember that this question has already been done 
             if (currentQuestion.IdQuestion != 0)
@@ -279,7 +278,7 @@ namespace SchoolGrades
             currentMacroGrade.IdSchoolSubject = currentSchoolSubject.IdSchoolSubject;
             currentMacroGrade.IdSchoolYear = currentYear;
 
-            idQuestionParent = db.CreateMacroGrade(ref currentMacroGrade 
+            idQuestionParent = dl.CreateMacroGrade(ref currentMacroGrade 
                 , currentStudent, idGradeType);
             txtIdMacroGrade.Text = idQuestionParent.ToString();
             txtIdMacroGrade.BackColor = Color.White;
@@ -416,7 +415,7 @@ namespace SchoolGrades
                 currentQuestion = new Question(); 
                 currentQuestion.IdQuestion = null;
             }
-            currentGrade = db.GetGrade(SafeDb.SafeInt(row["idGrade"]));
+            currentGrade = dl.GetGrade(SafeDb.SafeInt(row["idGrade"]));
 
             this.Refresh(); 
         }
@@ -464,7 +463,7 @@ namespace SchoolGrades
             DataRow row = ((DataTable) DgwQuestions.DataSource).Rows[DgwQuestions.SelectedRows[0].Index];
             ReadCurrentGradeAndQuestionFromGridRow(row);
             currentGrade = ReadUI(currentGrade); 
-            currentGrade.IdGrade = db.SaveMicroGrade(currentGrade);
+            currentGrade.IdGrade = dl.SaveMicroGrade(currentGrade);
             ShowStudentsDataAndAverages();
         }
 
