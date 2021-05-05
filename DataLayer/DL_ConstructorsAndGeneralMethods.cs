@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SchoolGrades.DbClasses;
+using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SQLite;
@@ -65,6 +66,18 @@ namespace SchoolGrades
                 connection = null;
             }
             return connection;
+        }
+
+        internal School GetSchool(string OfficialSchoolAbbreviation)
+        {
+            // !!!! TODO read school info from the database !!!!
+            School news = new School();
+            // the next should be a real integer id, 
+            news.IdSchool = Commons.IdSchool;
+            news.Name = "IS Pascal Comandini";
+            news.Desc = "Istituto Di Istruzione Superiore Pascal-Comandini, Cesena";
+            news.OfficialSchoolAbbreviation = Commons.IdSchool;
+            return news;
         }
 
         internal int NextKey(string Table, string Id)

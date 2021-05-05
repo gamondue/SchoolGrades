@@ -15,8 +15,8 @@ namespace SchoolGrades
     public partial class frmNewYear : Form
     {
         DbAndBusiness db;
-        BusinessLayer bl; 
-
+        BusinessLayer bl;
+        DataLayer dl;
         string idStartYear;
         private School currentSchool;
 
@@ -33,14 +33,14 @@ namespace SchoolGrades
 
             db = new DbAndBusiness(Commons.PathAndFileDatabase);
             bl = new BusinessLayer(Commons.PathAndFileDatabase);
-
+            dl = new DataLayer();
             idStartYear = IdStartYear;
         }
 
         private void frmNewYear_Load(object sender, EventArgs e)
         {
             // school data
-            currentSchool = db.GetSchool(TxtOfficialSchoolAbbreviation.Text);
+            currentSchool = dl.GetSchool(TxtOfficialSchoolAbbreviation.Text);
 
             // first default year in the "years" combo
             int anno = 2009;
@@ -81,7 +81,7 @@ namespace SchoolGrades
             {
                 dtClass = db.GetClassTable(c.IdClass);
 
-                DgwStudents.DataSource = db.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text,
+                DgwStudents.DataSource = dl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text,
                     CmbPresentSchoolYear.Text, CmbClasses.Text, true);
 
                 currentClass = (Class)CmbClasses.SelectedItem;
@@ -133,9 +133,9 @@ namespace SchoolGrades
                 {
                     studentDone++;
                     ((Student)r.DataBoundItem).RegisterNumber = studentDone.ToString(); 
-                    db.PutStudentInClass((int)r.Cells["idStudent"].Value, classCode);
+                    dl.PutStudentInClass((int)r.Cells["idStudent"].Value, classCode);
                     db.AddLinkToOldPhoto((int)r.Cells["idStudent"].Value, CmbPresentSchoolYear.Text, TxtSchoolYearNext.Text);
-                    db.SaveStudent((Student)r.DataBoundItem, null); 
+                    dl.SaveStudent((Student)r.DataBoundItem, null); 
                 }
             }
             MessageBox.Show("Creazione classe " + TxtClassNext.Text + " " + TxtSchoolYearNext.Text + " terminata");

@@ -11,6 +11,8 @@ namespace SchoolGrades
         Student currentStudent;
         private bool isDialog;
         DbAndBusiness db;
+        DataLayer dl;
+        BusinessLayer bl;
         internal bool UserHasChosen; //!!!!= false;
 
         public Student CurrentStudent { get => currentStudent; set => currentStudent = value; }
@@ -18,7 +20,8 @@ namespace SchoolGrades
         public frmStudent(Student Student, bool IsDialog)
         {
             InitializeComponent();
-
+            dl = new DataLayer();
+            bl = new BusinessLayer(Commons.PathAndFileDatabase);
             db = new DbAndBusiness(Commons.PathAndFileDatabase);
 
 
@@ -93,12 +96,12 @@ namespace SchoolGrades
             }
             if(txtIdStudent.Text =="" && currentStudent.IdStudent == 0)
             {   // creation
-                txtIdStudent.Text = db.CreateStudent(currentStudent).ToString();
+                txtIdStudent.Text = bl.CreateStudent(currentStudent).ToString();
             }
             else
             {
                 // modification 
-                db.SaveStudent(currentStudent, null);
+                dl.SaveStudent(currentStudent, null);
             }
         }
 
@@ -132,13 +135,13 @@ namespace SchoolGrades
 
         private void btnFindStudent_Click(object sender, EventArgs e)
         {
-            DataTable dt = db.FindStudentsLike(txtLastName.Text, txtFirstName.Text);
+            DataTable dt = dl.FindStudentsLike(txtLastName.Text, txtFirstName.Text);
             dgwSearchedStudents.DataSource = dt;
         }
 
         private void btnFindHomonym_Click(object sender, EventArgs e)
         {
-            DataTable dt = db.GetStudentsSameName(txtLastName.Text, txtFirstName.Text);
+            DataTable dt = dl.GetStudentsSameName(txtLastName.Text, txtFirstName.Text);
             dgwSearchedStudents.DataSource = dt;
         }
 
@@ -147,7 +150,7 @@ namespace SchoolGrades
             if (e.RowIndex > -1)
             {
                 int key = (int)((DataTable)(dgwSearchedStudents.DataSource)).Rows[e.RowIndex]["idStudent"];
-                Student s = db.GetStudent(key);
+                Student s = dl.GetStudent(key);
                 loadStudentData(s);
                 currentStudent = s;
             }
@@ -163,7 +166,7 @@ namespace SchoolGrades
             if (e.RowIndex > -1)
             {
                 int key = (int)((DataTable)(dgwSearchedStudents.DataSource)).Rows[e.RowIndex]["idStudent"];
-                Student s = db.GetStudent(key);
+                Student s = dl.GetStudent(key);
                 loadStudentData(s);
                 currentStudent = s;
             }
