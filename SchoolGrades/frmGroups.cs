@@ -68,7 +68,7 @@ namespace SchoolGrades
                 "Groups_" + schoolClass.Abbreviation + "_" + schoolClass.SchoolYear +
                 ".txt";
             TextFile.StringToFile(fileName, txtGroups.Text, false);
-            Commons.ProcessStartLink(fileName);
+            Commons.ProcessStartLink(Commons.PathDatabase);
         }
 
         private void btnCreateGroups_Click(object sender, EventArgs e)
@@ -80,7 +80,7 @@ namespace SchoolGrades
 
             listStudents.Sort((firstGrade, secondGrade) => firstGrade.grade.CompareTo(secondGrade.grade));
             listStudents.Reverse(); //Lista studenti in ordine decrescente in base al voto
-
+            List<Student> listTempStudents;
 
             if (rbdGroupsRandom.Checked)
             {
@@ -88,14 +88,26 @@ namespace SchoolGrades
             }
             else if (rdbGroupsBestGradesTogether.Checked)
             {
-                //Aggiornare listGroups in modo che gli studenti siano in ordine per il voto (utilizzare listStudents per i voti)
-                //listGroups può anche non contenere tutti gli studenti di una classe
-                //Evitare di alterare listStudents
+                listTempStudents = new List<Student>();
+
+                for (int i = 0; i < listStudents.Count; i++)
+                {
+                    for (int j = 0; j < listGroups.Count; j++)
+                    {
+                        if (listStudents[i].lastName == listGroups[j].LastName && listStudents[i].firstName == listGroups[j].FirstName)
+                        {
+                            listTempStudents.Add(listGroups[j]);
+                        }
+                    }
+
+                }
+                listGroups = listTempStudents;
             }
             else if (rdbGradesBalanced.Checked)
             {
                 int lengthLista = listStudents.Count;
-                List<Student> listTempStudents = new List<Student>();
+                listTempStudents = new List<Student>();
+               
                 for (int i = 0, g = 0; g < lengthLista ; g++)
                 {
                     for (int j = 0; j < listGroups.Count; j++)
