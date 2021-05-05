@@ -54,7 +54,7 @@ namespace SchoolGrades
             currentStudent = new Student();
             db.GetGradeAndStudent(currentGrade, currentStudent);
             currentYear = currentGrade.IdSchoolYear;
-            currentClass = db.GetClassOfStudent(Commons.IdSchool, currentYear, currentStudent);
+            currentClass = dl.GetClassOfStudent(Commons.IdSchool, currentYear, currentStudent);
             
             currentGradeType = dl.GetGradeType(currentGrade.IdGradeType);
 
@@ -80,7 +80,7 @@ namespace SchoolGrades
             if (currentGradeType.IdGradeTypeParent != null && currentGradeType.IdGradeTypeParent != "")
             {
                 // find the last macro grade of this student 
-                currentMacroGrade = db.LastGradeOfStudent(currentStudent, currentYear
+                currentMacroGrade = dl.LastGradeOfStudent(currentStudent, currentYear
                     , currentSchoolSubject, currentGradeType.IdGradeTypeParent);
                 // get grade type information of that last macro grade
                 GradeType gt = dl.GetGradeType(currentMacroGrade.IdGradeType);
@@ -215,7 +215,7 @@ namespace SchoolGrades
                          == DialogResult.Yes)
                     {
                         // 
-                        db.DeleteValueOfGrade(int.Parse(txtIdMacroGrade.Text));
+                        dl.DeleteValueOfGrade(int.Parse(txtIdMacroGrade.Text));
                         ShowStudentsDataAndAverages();
                     }
                     return;
@@ -331,7 +331,7 @@ namespace SchoolGrades
             }
             if (txtIdMacroGrade.Text != "")  // if we have a macrograde 
             {
-                db.SaveMacroGrade(currentStudent.IdStudent, (int?)int.Parse(txtIdMacroGrade.Text),
+                dl.SaveMacroGrade(currentStudent.IdStudent, (int?)int.Parse(txtIdMacroGrade.Text),
                     average, weight, currentYear, 
                     currentSchoolSubject.IdSchoolSubject);
                 //txtIdMacroGrade.Text = "";

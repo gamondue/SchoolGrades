@@ -30,6 +30,211 @@ namespace SchoolGrades
             return g;
         }
 
+        internal void SaveMacroGrade(int? IdStudent, int? IdParent,
+            double Grade, double Weight, string IdSchoolYear,
+            string IdSchoolSubject)
+        {
+            // !!!! TODO !!!! pass a Grade and save all the fields of a grade 
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                // creazione del macrovoto nella tabella dei voti  
+                cmd.CommandText = "UPDATE Grades " +
+                    "SET IdStudent=" + SqlVal.SqlInt(IdStudent) +
+                    ",value=" + SqlVal.SqlDouble(Grade) +
+                    ",weight=" + SqlVal.SqlDouble(Weight) +
+                    ",idSchoolYear='" + IdSchoolYear + "'" +
+                    ",idSchoolSubject='" + IdSchoolSubject +
+                    "',timestamp ='" + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss").Replace('.', ':') + "' " +
+                    "WHERE idGrade = " + IdParent +
+                    ";";
+                cmd.ExecuteNonQuery();
+
+                cmd.Dispose();
+            }
+        }
+
+        internal object GetWeightedAveragesOfStudent(Student currentStudent, string stringKey1, string stringKey2, DateTime value1, DateTime value2)
+        {
+            //throw new NotImplementedException();
+            return null;
+        }
+
+        internal DataTable GetGradesOfClass(Class Class,
+             string IdGradeType, string IdSchoolSubject,
+             DateTime DateFrom, DateTime DateTo)
+        {
+            DataTable t;
+            using (DbConnection conn = Connect())
+            {
+                string query = "SELECT Grades.idGrade,datetime(Grades.timeStamp),Students.idStudent," +
+                "lastName,firstName," +
+                "Grades.value AS 'grade',Grades.weight," +
+                "Grades.idGradeParent" +
+                " FROM Grades" +
+                " JOIN Students" +
+                " ON Students.idStudent=Grades.idStudent" +
+                " JOIN Classes_Students" +
+                " ON Classes_Students.idStudent=Students.idStudent" +
+                " WHERE Classes_Students.idClass =" + Class.IdClass +
+                " AND Grades.idSchoolYear='" + Class.SchoolYear + "'" +
+                " AND Grades.idGradeType = '" + IdGradeType + "'" +
+                " AND Grades.idSchoolSubject = '" + IdSchoolSubject + "'" +
+                " AND Grades.Value > 0" +
+                " AND Grades.Timestamp BETWEEN " + SqlVal.SqlDate(DateFrom) + " AND " + SqlVal.SqlDate(DateTo) +
+                " ORDER BY lastName, firstName, Students.idStudent, Grades.timestamp Desc;";
+
+                DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
+                DataSet DSet = new DataSet("ClosedMicroGrades");
+
+                DAdapt.Fill(DSet);
+                t = DSet.Tables[0];
+
+                DAdapt.Dispose();
+                DSet.Dispose();
+            }
+            return t;
+        }
+
+        /// <summary>
+        /// Gets the number of microquestions that haven't yet a global grade
+        /// </summary>
+        /// <param Name="id"></param>
+        /// <returns></returns>
+        internal List<Grade> CountNonClosedMicroGrades(Class Class, GradeType GradeType)
+        {
+            DbDataReader dRead;
+            DbCommand cmd;
+            List<Grade> ls = new List<Grade>();
+            using (DbConnection conn = Connect())
+            {
+                string query = "SELECT Grades.idStudent, Count(*) as nGrades FROM Grades," +
+                    "Grades AS Parents,Classes_Students" +
+                    " WHERE Classes_Students.idStudent = Grades.idStudent" +
+                    " AND Classes_Students.idClass =" + Class.IdClass.ToString() +
+                    " AND Grades.idGradeType = '" + GradeType.IdGradeType + "'" +
+                    " AND Parents.idGradeType = '" + GradeType.IdGradeTypeParent + "'" +
+                    " AND Grades.idGradeParent = Parents.idGrade" +
+                    " AND Parents.Value is null or Parents.Value = 0" +
+                    " GROUP BY Grades.idStudent;";
+                cmd = new SQLiteCommand(query);
+                dRead = cmd.ExecuteReader();
+                while (dRead.Read())
+                {
+                    Grade g = new Grade();
+                    g.IdStudent = (int)dRead["idStudent"];
+                    g.DummyInt = (int)dRead["nGrades"];
+                }
+                dRead.Dispose();
+                cmd.Dispose();
+            }
+            return ls;
+        }
+
+        internal Grade LastGradeOfStudent(Student Student, string IdSchoolYear,
+            SchoolSubject SchoolSubject, string IdGradeType)
+        {
+            DbDataReader dRead;
+            DbCommand cmd;
+            Grade g = new Grade();
+            using (DbConnection conn = Connect())
+            {
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT Grades.* FROM Grades" +
+                    " WHERE Grades.idStudent=" + Student.IdStudent.ToString() +
+                    " AND Grades.idSchoolSubject='" + SchoolSubject.IdSchoolSubject + "'" +
+                    " AND Grades.idGradeType='" + IdGradeType + "'" +
+                    " AND Grades.idSchoolYear='" + IdSchoolYear + "'" +
+                    " ORDER BY Grades.timestamp DESC;";
+                dRead = cmd.ExecuteReader();
+                while (dRead.Read())
+                {
+                    g = GetGradeFromRow(dRead);
+                    break; // just the first! 
+                }
+                dRead.Dispose();
+                cmd.Dispose();
+            }
+            return g;
+        }
+
+        internal void CloneGrade(DataRow Riga)
+        {
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                // mette peso 0 nel voto precedente  
+                cmd.CommandText = "UPDATE Grades " +
+                    " SET weight=0" +
+                    " WHERE idGrade = " + Riga["idGrade"] +
+                    ";";
+                cmd.ExecuteNonQuery();
+                // crea un nuovo voto copiato dalla riga passata
+                int codiceVoto = NextKey("Grades", "idGrade");
+
+                // aggiunge il voto copiato dalla riga passata
+                cmd.CommandText = "INSERT INTO Grades " +
+                "(idGrade,idStudent,value,weight,cncFactor,idGradeType,idGradeParent,idSchoolYear" +
+                ",timestamp,idQuestion) " +
+                "Values (" + codiceVoto + "," + Riga["idStudent"] + "," +
+                SqlVal.SqlDouble(Riga["value"]) + "," +
+                SqlVal.SqlDouble(Riga["weight"]) + ",'" +
+                SqlVal.SqlDouble(Riga["cncFactor"]) + ",'" +
+                Riga["idGradeType"] + "'," + Riga["idGradeParent"] + ",'" +
+                Riga["idSchoolYear"] + "','" +
+                System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss").Replace('.', ':') +
+                //"'," + riga["idQuestion"].ToString() + "" +
+                "',NULL" +
+                ");";
+                cmd.ExecuteNonQuery();
+
+                // aggiusta tutte le domande figlie
+                cmd.CommandText = "UPDATE Grades " +
+                    " SET idGradeParent=" + codiceVoto +
+                    " WHERE idGradeParent = " + Riga["idGrade"] +
+                    ";";
+                cmd.ExecuteNonQuery();
+
+                cmd.Dispose();
+            }
+        }
+
+        internal List<GradeType> GetListGradeTypes()
+        {
+            List<GradeType> lg = new List<GradeType>();
+            using (DbConnection conn = Connect())
+            {
+                DbDataReader dRead;
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT * FROM GradeTypes;";
+                dRead = cmd.ExecuteReader();
+                while (dRead.Read())
+                {
+                    GradeType gt = GetGradeTypeFromRow(dRead);
+                    lg.Add(gt);
+                }
+                dRead.Dispose();
+                cmd.Dispose();
+                return lg;
+            }
+        }
+
+        internal void DeleteValueOfGrade(int IdGrade)
+        {
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+
+                cmd.CommandText = "UPDATE Grades" +
+                           " Set" +
+                           " value=null" +
+                           " WHERE IdGrade=" + IdGrade +
+                           ";";
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+        }
+
         internal GradeType GetGradeTypeFromRow(DbDataReader Row)
         {
             if (Row.HasRows)

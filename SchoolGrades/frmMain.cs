@@ -92,7 +92,7 @@ namespace SchoolGrades
                 CmbSchoolYear.SelectedItem = CmbSchoolYear.Items[nYears - 2];
 
             // fill the combo of grade types 
-            List<GradeType> ListGradeTypes = db.GetListGradeTypes();
+            List<GradeType> ListGradeTypes = dl.GetListGradeTypes();
             cmbGradeType.DataSource = ListGradeTypes;
 
             // fill the combo of School subjects
@@ -638,7 +638,7 @@ namespace SchoolGrades
             // if you give grades to every element of the list, the students will 
             // have the same number of grades
             // find the number of microgrades for each student
-            List<Grade> gradesCounts = db.CountNonClosedMicroGrades(currentClass,
+            List<Grade> gradesCounts = dl.CountNonClosedMicroGrades(currentClass,
                 currentGradeType);
             if (lstNames.CheckedItems.Count != 0)
             {

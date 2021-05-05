@@ -55,7 +55,7 @@ namespace SchoolGrades
         private void BtnImportStudentsOfClass_Click(object sender, EventArgs e)
         {
             // give warning to avoid modifying existing class instead of making a new one
-            if (db.GetClass(currentSchool.IdSchool, idSchoolYear, CmbClasses.Text).Abbreviation != null)
+            if (dl.GetClass(currentSchool.IdSchool, idSchoolYear, CmbClasses.Text).Abbreviation != null)
             {
                 MessageBox.Show("Esiste già una classe con il nome \"" + CmbClasses.Text + "\" in questo anno!", "Avviso", 
                     MessageBoxButtons.OK);
@@ -81,12 +81,12 @@ namespace SchoolGrades
 
             if (!RdbPhotoUserChoosen.Checked)
             {
-                newClass.IdClass = db.CreateClassAndStudents(datiAllievi, CmbClasses.Text, TxtClassDescription.Text,
+                newClass.IdClass = dl.CreateClassAndStudents(datiAllievi, CmbClasses.Text, TxtClassDescription.Text,
                 CmbSchoolYear.Text, TxtOfficialSchoolAbbreviation.Text,RdbPhotoAlreadyPresent.Checked);
             }
             else
             {
-                idClass = db.CreateClass(CmbClasses.Text, TxtClassDescription.Text,
+                idClass = dl.CreateClass(CmbClasses.Text, TxtClassDescription.Text,
                     CmbSchoolYear.Text, TxtOfficialSchoolAbbreviation.Text);
                 for (int riga = 1; riga < datiAllievi.GetLength(0); riga++)
                 {
@@ -187,7 +187,7 @@ namespace SchoolGrades
 
         private void FillClassData(Class Class)
         {
-            dtClass = db.GetClassTable(Class.IdClass);
+            dtClass = dl.GetClassTable(Class.IdClass);
             DgwClass.DataSource = dtClass;
 
             //dgwAllievi.DataSource = db.GetClass(txtOfficialSchoolAbbreviation.Text, idSchoolYear, cmbClasses.Text);
@@ -353,7 +353,7 @@ namespace SchoolGrades
             c.UriWebApp = SafeDb.SafeString(dgr.Cells["uriWebApp"].Value);
             c.PathRestrictedApplication = SafeDb.SafeString(dgr.Cells["pathRestrictedApplication"].Value);
 
-            db.SaveClass(c);
+            dl.SaveClass(c);
             bl.SaveStudentsOfList((List<Student>) DgwStudents.DataSource, null);  
 
             FillClassData(c); 
@@ -369,7 +369,7 @@ namespace SchoolGrades
             string disablingStudent = (string)DgwStudents.SelectedRows[0].Cells["LastName"].Value +
                 " " + (string)DgwStudents.SelectedRows[0].Cells["FirstName"].Value;
             int IdDisablingStudent = (int)DgwStudents.SelectedRows[0].Cells["IdStudent"].Value;
-            db.ToggleDisableOneStudent(IdDisablingStudent);
+            dl.ToggleDisableOneStudent(IdDisablingStudent);
             DgwStudents.DataSource = dl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, 
                 idSchoolYear, CmbClasses.Text, true);
             string prompt = "Commutato lo stato di abilitazione dell'allievo " + disablingStudent;

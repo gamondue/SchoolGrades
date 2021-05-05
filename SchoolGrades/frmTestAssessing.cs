@@ -32,7 +32,7 @@ namespace SchoolGrades
         private void frmTestGrades_Load(object sender, EventArgs e)
         {
             currentTest = db.GetTest(1); //!!!!!!!!!!!!!!
-            currentClass = db.GetClass(Commons.IdSchool, "1920", "IFTS"); //!!!!!!!!!!!!!!
+            currentClass = dl.GetClass(Commons.IdSchool, "1920", "IFTS"); //!!!!!!!!!!!!!!
 
             RefreshUi();
         }
