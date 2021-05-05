@@ -347,6 +347,20 @@ namespace SchoolGrades
             return keys;
         }
 
+        internal void ToggleDisableOneStudent(int? idStudent)
+        {
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
 
+                cmd.CommandText = "UPDATE Students" +
+                           " Set" +
+                           " disabled = ~disabled" +
+                           " WHERE IdStudent =" + idStudent +
+                           ";";
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+        }
     }
 }

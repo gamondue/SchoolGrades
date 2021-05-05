@@ -29,7 +29,7 @@ namespace SchoolGrades
             currentSubject = Subject;
 
             // fill the combos of lookup tables
-            List<GradeType> listGradeTypes = db.GetListGradeTypes();
+            List<GradeType> listGradeTypes = dl.GetListGradeTypes();
             cmbSummaryGradeType.DisplayMember = "Name";
             cmbSummaryGradeType.ValueMember = "idGradeType";
             cmbSummaryGradeType.DataSource = listGradeTypes;
@@ -96,7 +96,7 @@ namespace SchoolGrades
                 }
                 if (rdb == rdbShowGrades)
                 {
-                    dgwGrades.DataSource = db.GetGradesOfClass(currentClass,
+                    dgwGrades.DataSource = dl.GetGradesOfClass(currentClass,
                         ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                         ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
                         dtpStartPeriod.Value, dtpEndPeriod.Value

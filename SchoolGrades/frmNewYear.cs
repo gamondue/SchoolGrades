@@ -79,7 +79,7 @@ namespace SchoolGrades
             Class c = (Class)CmbClasses.SelectedItem;
             if (c != null)
             {
-                dtClass = db.GetClassTable(c.IdClass);
+                dtClass = dl.GetClassTable(c.IdClass);
 
                 DgwStudents.DataSource = dl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text,
                     CmbPresentSchoolYear.Text, CmbClasses.Text, true);
@@ -122,7 +122,7 @@ namespace SchoolGrades
         private void BtnClassGenerate_Click(object sender, EventArgs e)
         {
             string classDescription = currentSchool.Desc + " " + TxtSchoolYearNext.Text + TxtClassNext.Text; 
-            int classCode = db.CreateClass((string)dtClass.Rows[0]["abbreviation"], classDescription, 
+            int classCode = dl.CreateClass((string)dtClass.Rows[0]["abbreviation"], classDescription, 
                 TxtSchoolYearNext.Text, TxtOfficialSchoolAbbreviation.Text);
 
             int studentDone = 0; 

@@ -46,7 +46,7 @@ namespace SchoolGrades
             lblSum.Text = "";
 
             // fill the combos of lookup tables
-            List<GradeType> listGrades = db.GetListGradeTypes();
+            List<GradeType> listGrades = dl.GetListGradeTypes();
             cmbSummaryGradeType.DisplayMember = "Name";
             cmbSummaryGradeType.ValueMember = "idGradeType";
             cmbSummaryGradeType.DataSource = listGrades;
@@ -113,7 +113,7 @@ namespace SchoolGrades
                     {
                         // crea un nuovo voto per ciascuna riga salvata
                         // il vecchio voto assume peso 0, il nuovo, lo stesso peso della riga precedente
-                        db.CloneGrade(riga);
+                        dl.CloneGrade(riga);
                     }
                 }
             }
@@ -142,7 +142,7 @@ namespace SchoolGrades
                     }
                     else if (rdbShowWeights.Checked)
                     {
-                        dgwGrades.DataSource = db.GetWeightedAveragesOfStudent(currentStudent,
+                        dgwGrades.DataSource = dl.GetWeightedAveragesOfStudent(currentStudent,
                             ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                             ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
                             dtpStartPeriod.Value, dtpEndPeriod.Value

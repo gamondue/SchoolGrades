@@ -1,6 +1,7 @@
 ﻿using SchoolGrades.DbClasses;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Text;
 
 namespace SchoolGrades
@@ -11,5 +12,7 @@ namespace SchoolGrades
         {
             return dl.GetClassesOfYear(IdSchool, SchoolYear); 
         }
+
+        
     }
 }

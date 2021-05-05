@@ -11,6 +11,7 @@ namespace SchoolGrades
         // TODO management of year and classes of year with combo.  
 
         DbAndBusiness db;
+        DataLayer dl;
         BusinessLayer bl;
 
         string year;
@@ -20,7 +21,7 @@ namespace SchoolGrades
         public frmStartLinksManagement(Class CurrentClass)
         {
             InitializeComponent();
-
+            dl = new DataLayer();
             db = new DbAndBusiness(Commons.PathAndFileDatabase);
             bl = new BusinessLayer(Commons.PathAndFileDatabase);
 
@@ -94,7 +95,7 @@ namespace SchoolGrades
                 try { 
                     DataRow row = ((DataTable)(DgwLinks.DataSource)).Rows[e.RowIndex];
                     string link = (string)row["startLink"];
-                    Class clickedClass = db.GetClassById((int)row["idClass"]); 
+                    Class clickedClass = dl.GetClassById((int)row["idClass"]); 
                     if (link.Substring(0, 4) == "http" || link.Contains(".exe"))
                         Commons.ProcessStartLink(link);
                     else
@@ -156,7 +157,7 @@ namespace SchoolGrades
 
         private void CmbClasses_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Class tempClass = db.GetClass(TxtOfficialSchoolAbbreviation.Text, 
+            Class tempClass = dl.GetClass(TxtOfficialSchoolAbbreviation.Text, 
                 CmbSchoolYear.Text, CmbClasses.SelectedItem.ToString());
             if (tempClass.IdClass != null && tempClass.IdClass != 0)
             {

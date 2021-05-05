@@ -13,7 +13,8 @@ namespace SchoolGrades
 {
     public partial class frmTestGrading : Form
     {
-        DbAndBusiness db; 
+        DbAndBusiness db;
+        DataLayer dl;
 
         Test currentTest;
         Class currentClass;
@@ -24,12 +25,13 @@ namespace SchoolGrades
         {
             InitializeComponent();
             db = new DbAndBusiness(Commons.PathAndFileDatabase);
+            dl = new DataLayer();
         }
 
         private void frmTestAssessment_Load(object sender, EventArgs e)
         {
             currentTest = db.GetTest(1); //!!!!!!!!!!!!!!
-            currentClass = db.GetClass(Commons.IdSchool, "1920", "IFTS"); //!!!!!!!!!!!!!!
+            currentClass = dl.GetClass(Commons.IdSchool, "1920", "IFTS"); //!!!!!!!!!!!!!!
 
             GradeTest(); 
             RefreshUi();
