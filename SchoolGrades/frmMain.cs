@@ -116,7 +116,7 @@ namespace SchoolGrades
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             btnTemporary.Visible = false; 
 #endif
-            school = db.GetSchool(Commons.IdSchool);
+            school = dl.GetSchool(Commons.IdSchool);
             if (school == null)
                 return;
 
@@ -498,7 +498,7 @@ namespace SchoolGrades
         {
             if (lstClasses.SelectedItem != null)
             {
-                currentStudentsList = db.GetStudentsOfClassList(school.OfficialSchoolAbbreviation, schoolYear,
+                currentStudentsList = dl.GetStudentsOfClassList(school.OfficialSchoolAbbreviation, schoolYear,
                     lstClasses.SelectedItem.ToString(), false);
                 eligiblesList.Clear();
 
@@ -596,7 +596,7 @@ namespace SchoolGrades
         {
             //find the number of grades of each student (beside the sum of the weights)
             List<Student> studentsAndWeights =
-                db.GetStudentsAndSumOfWeights(currentClass,
+                bl.GetStudentsAndSumOfWeights(currentClass,
                 currentGradeType, currentSubject,
                 DateTime.MinValue, DateTime.MaxValue); // TODO: put the dates of the current school period
 
@@ -674,7 +674,7 @@ namespace SchoolGrades
         {
             //find the sum of the weights of grades of each student
             List<Student> studentsAndWeights =
-                db.GetStudentsAndSumOfWeights(currentClass,
+                bl.GetStudentsAndSumOfWeights(currentClass,
                 currentGradeType, currentSubject,
                 DateTime.MinValue, DateTime.MaxValue); // TODO: put the dates of the current school period
             // find max of weights
@@ -733,14 +733,14 @@ namespace SchoolGrades
             // check if the Eligible field has changhed since when we read the students 
             dataModified = dataModified || CheckIfAnyEligibleHasChanged(); 
             if (currentStudentsList != null && dataModified)
-                db.SaveStudentsOfList(currentStudentsList, null);
+                bl.SaveStudentsOfList(currentStudentsList, null);
         }
         private bool CheckIfAnyEligibleHasChanged()
         {
             bool OneIsDifferent = false; 
             if (currentClass != null)
             {
-                List<Student> oldList = db.GetStudentsOfClassList(school.OfficialSchoolAbbreviation, schoolYear,
+                List<Student> oldList = dl.GetStudentsOfClassList(school.OfficialSchoolAbbreviation, schoolYear,
                         currentClass.Abbreviation, false);
                 if(currentStudentsList != null)
                 { 
@@ -803,7 +803,7 @@ namespace SchoolGrades
         }
         private void AllCheckNonGraded()
         {
-            List<int> nonGraded = db.GetIdStudentsNonGraded(currentClass, currentGradeType,
+            List<int> nonGraded = dl.GetIdStudentsNonGraded(currentClass, currentGradeType,
                 currentSubject);
             for (int i = 0; i < lstNames.Items.Count; i++)
             {
@@ -1161,7 +1161,7 @@ namespace SchoolGrades
             {
                 Student s = (Student)o;
                 s.RevengeFactorCounter++;
-                db.SaveStudent(s, null);
+                dl.SaveStudent(s, null);
             }
             lstClassi_DoubleClick(null, null);
         }
@@ -1182,7 +1182,7 @@ namespace SchoolGrades
                 s.RevengeFactorCounter--;
                 if (s.RevengeFactorCounter < 0)
                     s.RevengeFactorCounter = 0;
-                db.SaveStudent(s, null);
+                dl.SaveStudent(s, null);
             }
             lstClassi_DoubleClick(null, null);
         }

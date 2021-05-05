@@ -291,58 +291,58 @@ namespace SchoolGrades.DbClasses
             }
         }
 
-        internal int CreateStudentFromStringMatrix(string[,] StudentData, int? StudentRow)
-        {
-            // trova una chiave da assegnare al nuovo studente
-            int codiceStudente = dl.NextKey("Students", "idStudent");
-            using (DbConnection conn = dl.Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO Students " +
-                    "(idStudent, lastName, firstName, residence, origin, email," +
-                    //" birthDate," + // save also this field after SqlVal.SqlDate( will include the '', to better treat null values
-                    " birthPlace) " +
-                    "Values (" + codiceStudente + "," +
-                    "'" + SqlVal.SqlString(StudentData[(int)StudentRow, 1]) + "'," +
-                    "'" + SqlVal.SqlString(StudentData[(int)StudentRow, 2]) + "'," +
-                    "'" + SqlVal.SqlString(StudentData[(int)StudentRow, 3]) + "'," +
-                    "'" + SqlVal.SqlString(StudentData[(int)StudentRow, 4]) + "'," +
-                    "'" + SqlVal.SqlString(StudentData[(int)StudentRow, 5]) + "'," +
-                    //"'" + SqlVal.SqlDate(StudentData[(int)StudentRow, 6]) + "'," + // save also this field after SqlVal.SqlDate( will include the ''
-                    "'" + SqlVal.SqlString(StudentData[(int)StudentRow, 7]) + "'" +
-                    ");";
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
-            }
-            return codiceStudente;
-        }
+        //internal int CreateStudentFromStringMatrix(string[,] StudentData, int? StudentRow)
+        //{
+        //    // trova una chiave da assegnare al nuovo studente
+        //    int codiceStudente = dl.NextKey("Students", "idStudent");
+        //    using (DbConnection conn = dl.Connect())
+        //    {
+        //        DbCommand cmd = conn.CreateCommand();
+        //        cmd.CommandText = "INSERT INTO Students " +
+        //            "(idStudent, lastName, firstName, residence, origin, email," +
+        //            //" birthDate," + // save also this field after SqlVal.SqlDate( will include the '', to better treat null values
+        //            " birthPlace) " +
+        //            "Values (" + codiceStudente + "," +
+        //            "'" + SqlVal.SqlString(StudentData[(int)StudentRow, 1]) + "'," +
+        //            "'" + SqlVal.SqlString(StudentData[(int)StudentRow, 2]) + "'," +
+        //            "'" + SqlVal.SqlString(StudentData[(int)StudentRow, 3]) + "'," +
+        //            "'" + SqlVal.SqlString(StudentData[(int)StudentRow, 4]) + "'," +
+        //            "'" + SqlVal.SqlString(StudentData[(int)StudentRow, 5]) + "'," +
+        //            //"'" + SqlVal.SqlDate(StudentData[(int)StudentRow, 6]) + "'," + // save also this field after SqlVal.SqlDate( will include the ''
+        //            "'" + SqlVal.SqlString(StudentData[(int)StudentRow, 7]) + "'" +
+        //            ");";
+        //        cmd.ExecuteNonQuery();
+        //        cmd.Dispose();
+        //    }
+        //    return codiceStudente;
+        //}
 
-        internal int CreateStudent(Student Student)
-        {
-            // trova una chiave da assegnare al nuovo studente
-            int idStudent = dl.NextKey("Students", "idStudent");
-            Student.IdStudent = idStudent;
-            using (DbConnection conn = dl.Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO Students " +
-                    "(idStudent,lastName,firstName,residence,origin," +
-                    "email,birthDate,birthPlace,disabled) " +
-                    "Values ('" + Student.IdStudent + "','" +
-                    SqlVal.SqlString(Student.LastName) + "','" +
-                    SqlVal.SqlString(Student.FirstName) + "','" +
-                    SqlVal.SqlString(Student.Residence) + "','" +
-                    SqlVal.SqlString(Student.Origin) + "','" +
-                    SqlVal.SqlString(Student.Email) + "'," +
-                    SqlVal.SqlDate(Student.BirthDate.ToString()) + ",'" +
-                    SqlVal.SqlString(Student.BirthPlace) + "'," +
-                    "false" +
-                    ");";
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
-            }
-            return idStudent;
-        }
+        //internal int CreateStudent(Student Student)
+        //{
+        //    // trova una chiave da assegnare al nuovo studente
+        //    int idStudent = dl.NextKey("Students", "idStudent");
+        //    Student.IdStudent = idStudent;
+        //    using (DbConnection conn = dl.Connect())
+        //    {
+        //        DbCommand cmd = conn.CreateCommand();
+        //        cmd.CommandText = "INSERT INTO Students " +
+        //            "(idStudent,lastName,firstName,residence,origin," +
+        //            "email,birthDate,birthPlace,disabled) " +
+        //            "Values ('" + Student.IdStudent + "','" +
+        //            SqlVal.SqlString(Student.LastName) + "','" +
+        //            SqlVal.SqlString(Student.FirstName) + "','" +
+        //            SqlVal.SqlString(Student.Residence) + "','" +
+        //            SqlVal.SqlString(Student.Origin) + "','" +
+        //            SqlVal.SqlString(Student.Email) + "'," +
+        //            SqlVal.SqlDate(Student.BirthDate.ToString()) + ",'" +
+        //            SqlVal.SqlString(Student.BirthPlace) + "'," +
+        //            "false" +
+        //            ");";
+        //        cmd.ExecuteNonQuery();
+        //        cmd.Dispose();
+        //    }
+        //    return idStudent;
+        //}
 
         internal bool IsTopicAlreadyTaught(Topic Topic)
         {
@@ -396,174 +396,176 @@ namespace SchoolGrades.DbClasses
             return Subject.IdSchoolSubject;
         }
 
-        internal void SaveStudentsOfList(List<Student> studentsList, DbConnection conn)
-        {
-            foreach (Student s in studentsList)
-            {
-                SaveStudent(s, conn);
-            }
-        }
+        //internal void SaveStudentsOfList(List<Student> studentsList, DbConnection conn)
+        //{
+        //    foreach (Student s in studentsList)
+        //    {
+        //        SaveStudent(s, conn);
+        //    }
+        //}
 
-        internal int? SaveStudent(Student Student, DbConnection conn)
-        {
-            bool leaveConnectionOpen = true;
-            if (conn == null)
-            {
-                conn = dl.Connect();
-                leaveConnectionOpen = false;
-            }
-            DbCommand cmd = conn.CreateCommand();
-            cmd.CommandText = "UPDATE Students " +
-                "SET" +
-                " idStudent=" + Student.IdStudent +
-                ",lastName='" + SqlVal.SqlString(Student.LastName) + "'" +
-                ",firstName='" + SqlVal.SqlString(Student.FirstName) + "'" +
-                ",residence='" + SqlVal.SqlString(Student.Residence) + "'" +
-                ",birthDate=" + SqlVal.SqlDate(Student.BirthDate.ToString()) + "" +
-                ",email='" + SqlVal.SqlString(Student.Email) + "'" +
-                //",schoolyear='" + SqlVal.SqlString(Student.SchoolYear) + "'" +
-                ",drawable='" + SqlVal.SqlBool(Student.Eligible) + "'" +
-                ",origin='" + SqlVal.SqlString(Student.Origin) + "'" +
-                ",birthPlace='" + SqlVal.SqlString(Student.BirthPlace) + "'" +
-                ",drawable=" + SqlVal.SqlBool(Student.Eligible) + "" +
-                ",disabled=" + SqlVal.SqlBool(Student.Disabled) + "" +
-                ",VFCounter=" + Student.RevengeFactorCounter + "" +
-                " WHERE idStudent = " + Student.IdStudent +
-                ";";
-            cmd.ExecuteNonQuery();
-            cmd.Dispose();
-            if (!leaveConnectionOpen)
-            {
-                conn.Close();
-                conn.Dispose();
-            }
-            return Student.IdStudent;
-        }
+        //internal int? SaveStudent(Student Student, DbConnection conn)
+        //{
+        //    bool leaveConnectionOpen = true;
+        //    if (conn == null)
+        //    {
+        //        conn = dl.Connect();
+        //        leaveConnectionOpen = false;
+        //    }
+        //    DbCommand cmd = conn.CreateCommand();
+        //    cmd.CommandText = "UPDATE Students " +
+        //        "SET" +
+        //        " idStudent=" + Student.IdStudent +
+        //        ",lastName='" + SqlVal.SqlString(Student.LastName) + "'" +
+        //        ",firstName='" + SqlVal.SqlString(Student.FirstName) + "'" +
+        //        ",residence='" + SqlVal.SqlString(Student.Residence) + "'" +
+        //        ",birthDate=" + SqlVal.SqlDate(Student.BirthDate.ToString()) + "" +
+        //        ",email='" + SqlVal.SqlString(Student.Email) + "'" +
+        //        //",schoolyear='" + SqlVal.SqlString(Student.SchoolYear) + "'" +
+        //        ",drawable='" + SqlVal.SqlBool(Student.Eligible) + "'" +
+        //        ",origin='" + SqlVal.SqlString(Student.Origin) + "'" +
+        //        ",birthPlace='" + SqlVal.SqlString(Student.BirthPlace) + "'" +
+        //        ",drawable=" + SqlVal.SqlBool(Student.Eligible) + "" +
+        //        ",disabled=" + SqlVal.SqlBool(Student.Disabled) + "" +
+        //        ",VFCounter=" + Student.RevengeFactorCounter + "" +
+        //        " WHERE idStudent = " + Student.IdStudent +
+        //        ";";
+        //    cmd.ExecuteNonQuery();
+        //    cmd.Dispose();
+        //    if (!leaveConnectionOpen)
+        //    {
+        //        conn.Close();
+        //        conn.Dispose();
+        //    }
+        //    return Student.IdStudent;
+        //}
 
-        internal Student GetStudent(int? IdStudent)
-        {
-            Student s = new Student();
-            using (DbConnection conn = dl.Connect())
-            {
-                DbDataReader dRead;
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * " +
-                    "FROM Students " +
-                    "WHERE idStudent=" + IdStudent +
-                    ";";
-                dRead = cmd.ExecuteReader();
-                dRead.Read();
-                s = GetStudentFromRow(dRead);
-                dRead.Dispose();
-                cmd.Dispose();
-            }
-            return s;
-        }
+        //internal Student GetStudent(int? IdStudent)
+        //{
+        //    Student s = new Student();
+        //    using (DbConnection conn = dl.Connect())
+        //    {
+        //        DbDataReader dRead;
+        //        DbCommand cmd = conn.CreateCommand();
+        //        cmd.CommandText = "SELECT * " +
+        //            "FROM Students " +
+        //            "WHERE idStudent=" + IdStudent +
+        //            ";";
+        //        dRead = cmd.ExecuteReader();
+        //        dRead.Read();
+        //        s = GetStudentFromRow(dRead);
+        //        dRead.Dispose();
+        //        cmd.Dispose();
+        //    }
+        //    return s;
+        //}
 
-        private Student GetStudentFromRow(DbDataReader Row)
-        {
-            Student s = new Student();
-            s.IdStudent = (int)Row["IdStudent"];
-            s.LastName = SafeDb.SafeString(Row["LastName"]);
-            s.FirstName = SafeDb.SafeString(Row["FirstName"]);
-            s.Residence = SafeDb.SafeString(Row["Residence"]);
-            s.Origin = SafeDb.SafeString(Row["Origin"]);
-            s.Email = SafeDb.SafeString(Row["Email"]);
-            if (!(Row["birthDate"] is DBNull))
-                s.BirthDate = SafeDb.SafeDateTime(Row["birthDate"]);
-            s.BirthPlace = SafeDb.SafeString(Row["birthPlace"]);
-            s.Eligible = SafeDb.SafeBool(Row["drawable"]);
-            s.Disabled = SafeDb.SafeBool(Row["disabled"]);
-            s.RevengeFactorCounter = SafeDb.SafeInt(Row["VFCounter"]);
+        //private Student GetStudentFromRow(DbDataReader Row)
+        //{
+        //    Student s = new Student();
+        //    s.IdStudent = (int)Row["IdStudent"];
+        //    s.LastName = SafeDb.SafeString(Row["LastName"]);
+        //    s.FirstName = SafeDb.SafeString(Row["FirstName"]);
+        //    s.Residence = SafeDb.SafeString(Row["Residence"]);
+        //    s.Origin = SafeDb.SafeString(Row["Origin"]);
+        //    s.Email = SafeDb.SafeString(Row["Email"]);
+        //    if (!(Row["birthDate"] is DBNull))
+        //        s.BirthDate = SafeDb.SafeDateTime(Row["birthDate"]);
+        //    s.BirthPlace = SafeDb.SafeString(Row["birthPlace"]);
+        //    s.Eligible = SafeDb.SafeBool(Row["drawable"]);
+        //    s.Disabled = SafeDb.SafeBool(Row["disabled"]);
+        //    s.RevengeFactorCounter = SafeDb.SafeInt(Row["VFCounter"]);
 
-            return s; 
-        }
-        internal DataTable GetStudentsSameName(string LastName, string FirstName)
-        {
-            DataTable t;
-            using (DbConnection conn = dl.Connect())
-            {
-                DataAdapter dAdapt;
-                DataSet dSet = new DataSet();
-                string query = "SELECT Students.IdStudent, Students.lastName, Students.firstName," +
-                    " Classes.abbreviation, Classes.idSchoolYear" +
-                    " FROM Students" +
-                    " LEFT JOIN Classes_Students ON Students.idStudent = Classes_Students.idStudent " +
-                    " LEFT JOIN Classes ON Classes.idClass = Classes_Students.idClass " +
-                    " WHERE Students.lastName LIKE '%" + LastName + "%'" +
-                    " AND Students.firstName LIKE '%" + FirstName + "%'" +
-                    ";";
-                dAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                dSet = new DataSet("GetStudentsSameName");
-                dAdapt.Fill(dSet);
-                t = dSet.Tables[0];
+        //    return s; 
+        //}
 
-                dSet.Dispose();
-                dAdapt.Dispose();
-            }
-            return t;
-        }
-        internal DataTable FindStudentsLike(string LastName, string FirstName)
-        {
-            DataTable t;
-            using (DbConnection conn = dl.Connect())
-            {
-                DataAdapter dAdapt;
-                DataSet dSet = new DataSet();
-                string query = "SELECT Students.IdStudent, Students.lastName, Students.firstName," +
-                    " Classes.abbreviation, Classes.idSchoolYear" +
-                    " FROM Students" +
-                    " LEFT JOIN Classes_Students ON Students.idStudent = Classes_Students.idStudent " +
-                    " LEFT JOIN Classes ON Classes.idClass = Classes_Students.idClass ";
-                if (LastName != "" && LastName != null)
-                {
-                    query += "WHERE Students.lastName LIKE '%" + LastName + "%'";
-                    if (FirstName != "" && FirstName != null)
-                    {
-                        query += " AND Students.firstName LIKE '%" + FirstName + "%'";
-                    }
-                }
-                else
-                {
-                    if (FirstName != "" && FirstName != null)
-                    {
-                        query += " WHERE Students.firstName LIKE '%" + FirstName + "%'";
-                    }
-                }
-                query += ";";
-                dAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                dSet = new DataSet("GetStudentsSameName");
-                dAdapt.Fill(dSet);
-                t = dSet.Tables[0];
+        //internal DataTable GetStudentsSameName(string LastName, string FirstName)
+        //{
+        //    DataTable t;
+        //    using (DbConnection conn = dl.Connect())
+        //    {
+        //        DataAdapter dAdapt;
+        //        DataSet dSet = new DataSet();
+        //        string query = "SELECT Students.IdStudent, Students.lastName, Students.firstName," +
+        //            " Classes.abbreviation, Classes.idSchoolYear" +
+        //            " FROM Students" +
+        //            " LEFT JOIN Classes_Students ON Students.idStudent = Classes_Students.idStudent " +
+        //            " LEFT JOIN Classes ON Classes.idClass = Classes_Students.idClass " +
+        //            " WHERE Students.lastName LIKE '%" + LastName + "%'" +
+        //            " AND Students.firstName LIKE '%" + FirstName + "%'" +
+        //            ";";
+        //        dAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
+        //        dSet = new DataSet("GetStudentsSameName");
+        //        dAdapt.Fill(dSet);
+        //        t = dSet.Tables[0];
 
-                dSet.Dispose();
-                dAdapt.Dispose();
-            }
-            return t;
-        }
+        //        dSet.Dispose();
+        //        dAdapt.Dispose();
+        //    }
+        //    return t;
+        //}
 
-        internal void PutStudentInClass(int? IdStudent, int? IdClass)
-        {
-            using (DbConnection conn = dl.Connect())
-            {
-                // add student to the class
-                DbCommand cmd = conn.CreateCommand();
-                // check if already present
-                cmd.CommandText = "SELECT IdStudent FROM Classes_Students " +
-                    "WHERE idClass=" + IdClass + " AND idStudent=" + IdStudent + "" +
-                ";";
-                if (cmd.ExecuteScalar() == null)
-                {
-                    // add student to the class
-                    cmd.CommandText = "INSERT INTO Classes_Students " +
-                    "(idClass, idStudent) " +
-                    "Values ('" + IdClass + "'," + IdStudent + "" +
-                    ");";
-                }
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
-            }
-        }
+        //internal DataTable FindStudentsLike(string LastName, string FirstName)
+        //{
+        //    DataTable t;
+        //    using (DbConnection conn = dl.Connect())
+        //    {
+        //        DataAdapter dAdapt;
+        //        DataSet dSet = new DataSet();
+        //        string query = "SELECT Students.IdStudent, Students.lastName, Students.firstName," +
+        //            " Classes.abbreviation, Classes.idSchoolYear" +
+        //            " FROM Students" +
+        //            " LEFT JOIN Classes_Students ON Students.idStudent = Classes_Students.idStudent " +
+        //            " LEFT JOIN Classes ON Classes.idClass = Classes_Students.idClass ";
+        //        if (LastName != "" && LastName != null)
+        //        {
+        //            query += "WHERE Students.lastName LIKE '%" + LastName + "%'";
+        //            if (FirstName != "" && FirstName != null)
+        //            {
+        //                query += " AND Students.firstName LIKE '%" + FirstName + "%'";
+        //            }
+        //        }
+        //        else
+        //        {
+        //            if (FirstName != "" && FirstName != null)
+        //            {
+        //                query += " WHERE Students.firstName LIKE '%" + FirstName + "%'";
+        //            }
+        //        }
+        //        query += ";";
+        //        dAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
+        //        dSet = new DataSet("GetStudentsSameName");
+        //        dAdapt.Fill(dSet);
+        //        t = dSet.Tables[0];
+
+        //        dSet.Dispose();
+        //        dAdapt.Dispose();
+        //    }
+        //    return t;
+        //}
+
+        //internal void PutStudentInClass(int? IdStudent, int? IdClass)
+        //{
+        //    using (DbConnection conn = dl.Connect())
+        //    {
+        //        // add student to the class
+        //        DbCommand cmd = conn.CreateCommand();
+        //        // check if already present
+        //        cmd.CommandText = "SELECT IdStudent FROM Classes_Students " +
+        //            "WHERE idClass=" + IdClass + " AND idStudent=" + IdStudent + "" +
+        //        ";";
+        //        if (cmd.ExecuteScalar() == null)
+        //        {
+        //            // add student to the class
+        //            cmd.CommandText = "INSERT INTO Classes_Students " +
+        //            "(idClass, idStudent) " +
+        //            "Values ('" + IdClass + "'," + IdStudent + "" +
+        //            ");";
+        //        }
+        //        cmd.ExecuteNonQuery();
+        //        cmd.Dispose();
+        //    }
+        //}
 
         internal int CopyAndLinkOnePhoto(Student Student, Class Class, string PathAndFileName)
         {
@@ -803,45 +805,45 @@ namespace SchoolGrades.DbClasses
             }
             return c;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="IdClass">Id of the class to be searched</param>
-        /// <param name="conn">Connection already open on a database different from standard. 
-        /// If not null this connection is left open</param>
-        /// <returns>List of the </returns>
-        internal List<Student> GetStudentsOfClass(int? IdClass, DbConnection conn)
-        {
-            List<Student> l = new List<Student>();
-            bool leaveConnectionOpen = true;
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="IdClass">Id of the class to be searched</param>
+        ///// <param name="conn">Connection already open on a database different from standard. 
+        ///// If not null this connection is left open</param>
+        ///// <returns>List of the </returns>
+        //internal List<Student> GetStudentsOfClass(int? IdClass, DbConnection conn)
+        //{
+        //    List<Student> l = new List<Student>();
+        //    bool leaveConnectionOpen = true;
 
-            if (conn == null)
-            {
-                conn = dl.Connect();
-                leaveConnectionOpen = false;
-            }
-            DbDataReader dRead;
-            DbCommand cmd = conn.CreateCommand();
-            string query = "SELECT Students.*" +
-                " FROM Students" +
-                " JOIN Classes_Students ON Classes_Students.idStudent=Students.idStudent" +
-                " WHERE Classes_Students.idClass=" + IdClass +
-            ";";
-            cmd.CommandText = query;
-            dRead = cmd.ExecuteReader();
+        //    if (conn == null)
+        //    {
+        //        conn = dl.Connect();
+        //        leaveConnectionOpen = false;
+        //    }
+        //    DbDataReader dRead;
+        //    DbCommand cmd = conn.CreateCommand();
+        //    string query = "SELECT Students.*" +
+        //        " FROM Students" +
+        //        " JOIN Classes_Students ON Classes_Students.idStudent=Students.idStudent" +
+        //        " WHERE Classes_Students.idClass=" + IdClass +
+        //    ";";
+        //    cmd.CommandText = query;
+        //    dRead = cmd.ExecuteReader();
 
-            while (dRead.Read())
-            {
-                Student s = GetStudentFromRow(dRead);
-                l.Add(s);
-            }
-            if (!leaveConnectionOpen)
-            {
-                conn.Close();
-                conn.Dispose();
-            }
-            return l;
-        }
+        //    while (dRead.Read())
+        //    {
+        //        Student s = dl.GetStudentFromRow(dRead);
+        //        l.Add(s);
+        //    }
+        //    if (!leaveConnectionOpen)
+        //    {
+        //        conn.Close();
+        //        conn.Dispose();
+        //    }
+        //    return l;
+        //}
 
         internal Class GetClassOfStudent(string IdSchool, string SchoolYearCode, Student Student)
         {
@@ -912,43 +914,43 @@ namespace SchoolGrades.DbClasses
             }
         }
 
-        internal List<Student> GetStudentsOfClassList(string Scuola, string Anno,
-            string SiglaClasse, bool IncludeNonActiveStudents)
-        {
-            DbDataReader dRead;
-            DbCommand cmd;
-            List<Student> ls = new List<Student>();
-            using (DbConnection conn = dl.Connect())
-            {
-                string query = "SELECT registerNumber, Classes.idSchoolYear, " +
-                               "Classes.abbreviation, Classes.idClass, Classes.idSchool, " +
-                               "Students.*" +
-                " FROM Students" +
-                " JOIN Classes_Students ON Students.idStudent=Classes_Students.idStudent" +
-                " JOIN Classes ON Classes.idClass=Classes_Students.idClass" +
-                " WHERE Classes.idSchoolYear = '" + SqlVal.SqlString(Anno) + "'" +
-                " AND Classes.abbreviation = '" + SqlVal.SqlString(SiglaClasse) + "'";
-                if (!IncludeNonActiveStudents)
-                    query += " AND (Students.disabled = 0 OR Students.disabled IS NULL)";
-                if (Scuola != null && Scuola != "")
-                    query += " AND Classes.idSchool='" + Scuola + "'";
-                query += " ORDER BY Students.LastName, Students.FirstName";
-                query += ";";
-                cmd = conn.CreateCommand();
-                cmd.CommandText = query;
-                dRead = cmd.ExecuteReader();
-                while (dRead.Read())
-                {
-                    Student s = GetStudentFromRow(dRead);
-                    s.Class = (string)dRead["abbreviation"];
-                    s.IdClass = (int)dRead["idClass"];
-                    ls.Add(s);
-                }
-                dRead.Dispose();
-                cmd.Dispose();
-            }
-            return ls;
-        }
+        //internal List<Student> GetStudentsOfClassList(string Scuola, string Anno,
+        //    string SiglaClasse, bool IncludeNonActiveStudents)
+        //{
+        //    DbDataReader dRead;
+        //    DbCommand cmd;
+        //    List<Student> ls = new List<Student>();
+        //    using (DbConnection conn = dl.Connect())
+        //    {
+        //        string query = "SELECT registerNumber, Classes.idSchoolYear, " +
+        //                       "Classes.abbreviation, Classes.idClass, Classes.idSchool, " +
+        //                       "Students.*" +
+        //        " FROM Students" +
+        //        " JOIN Classes_Students ON Students.idStudent=Classes_Students.idStudent" +
+        //        " JOIN Classes ON Classes.idClass=Classes_Students.idClass" +
+        //        " WHERE Classes.idSchoolYear = '" + SqlVal.SqlString(Anno) + "'" +
+        //        " AND Classes.abbreviation = '" + SqlVal.SqlString(SiglaClasse) + "'";
+        //        if (!IncludeNonActiveStudents)
+        //            query += " AND (Students.disabled = 0 OR Students.disabled IS NULL)";
+        //        if (Scuola != null && Scuola != "")
+        //            query += " AND Classes.idSchool='" + Scuola + "'";
+        //        query += " ORDER BY Students.LastName, Students.FirstName";
+        //        query += ";";
+        //        cmd = conn.CreateCommand();
+        //        cmd.CommandText = query;
+        //        dRead = cmd.ExecuteReader();
+        //        while (dRead.Read())
+        //        {
+        //            Student s = dl.GetStudentFromRow(dRead);
+        //            s.Class = (string)dRead["abbreviation"];
+        //            s.IdClass = (int)dRead["idClass"];
+        //            ls.Add(s);
+        //        }
+        //        dRead.Dispose();
+        //        cmd.Dispose();
+        //    }
+        //    return ls;
+        //}
 
         internal int? SaveStartLink(int? IdStartLink, int? IdClass, string SchoolYear,
             string StartLink, string Desc)
@@ -1078,7 +1080,7 @@ namespace SchoolGrades.DbClasses
                 while (dRead.Read())
                 {
                     Grade = dl.GetGradeFromRow(dRead);
-                    Student = GetStudentFromRow(dRead);
+                    Student = dl.GetStudentFromRow(dRead);
                     break; // just the first! 
                 }
                 //dRead.Dispose();
@@ -1086,53 +1088,54 @@ namespace SchoolGrades.DbClasses
             }
         }
 
-        internal void EraseGrade(int? KeyGrade)
-        {
-            using (DbConnection conn = dl.Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "DELETE FROM Grades" +
-                    " WHERE idGrade=" + KeyGrade +
-                    ";";
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
-            }
-        }
-        internal List<int> GetIdStudentsNonGraded(Class Class,
-            GradeType GradeType, SchoolSubject SchoolSubject)
-        {
-            List<int> keys = new List<int>();
+        //internal void EraseGrade(int? KeyGrade)
+        //{
+        //    using (DbConnection conn = dl.Connect())
+        //    {
+        //        DbCommand cmd = conn.CreateCommand();
+        //        cmd.CommandText = "DELETE FROM Grades" +
+        //            " WHERE idGrade=" + KeyGrade +
+        //            ";";
+        //        cmd.ExecuteNonQuery();
+        //        cmd.Dispose();
+        //    }
+        //}
 
-            DbDataReader dRead;
-            DbCommand cmd;
-            using (DbConnection conn = dl.Connect())
-            {
-                string query = "SELECT Classes_Students.idStudent" +
-                " FROM Classes_Students" +
-                " WHERE Classes_Students.idClass=" + Class.IdClass +
-                " AND Classes_Students.idStudent NOT IN" +
-                "(" +
-                "SELECT DISTINCT Classes_Students.idStudent" +
-                " FROM Classes_Students" +
-                " LEFT JOIN Grades ON Classes_Students.idStudent = Grades.idStudent" +
-                " WHERE Classes_Students.idClass=" + Class.IdClass +
-                " AND Grades.idSchoolSubject='" + SchoolSubject.IdSchoolSubject + "'" +
-                " AND Grades.idGradeType='" + GradeType.IdGradeType + "'" +
-                " AND Grades.idSchoolYear='" + Class.SchoolYear + "'" +
-                ")" +
-                ";";
-                cmd = conn.CreateCommand();
-                cmd.CommandText = query; 
-                dRead = cmd.ExecuteReader();
-                while (dRead.Read())
-                {
-                    keys.Add((int)SafeDb.SafeInt(dRead["idStudent"]));
-                }
-                dRead.Dispose();
-                cmd.Dispose();
-            }
-            return keys;
-        }
+        //internal List<int> GetIdStudentsNonGraded(Class Class,
+        //    GradeType GradeType, SchoolSubject SchoolSubject)
+        //{
+        //    List<int> keys = new List<int>();
+
+        //    DbDataReader dRead;
+        //    DbCommand cmd;
+        //    using (DbConnection conn = dl.Connect())
+        //    {
+        //        string query = "SELECT Classes_Students.idStudent" +
+        //        " FROM Classes_Students" +
+        //        " WHERE Classes_Students.idClass=" + Class.IdClass +
+        //        " AND Classes_Students.idStudent NOT IN" +
+        //        "(" +
+        //        "SELECT DISTINCT Classes_Students.idStudent" +
+        //        " FROM Classes_Students" +
+        //        " LEFT JOIN Grades ON Classes_Students.idStudent = Grades.idStudent" +
+        //        " WHERE Classes_Students.idClass=" + Class.IdClass +
+        //        " AND Grades.idSchoolSubject='" + SchoolSubject.IdSchoolSubject + "'" +
+        //        " AND Grades.idGradeType='" + GradeType.IdGradeType + "'" +
+        //        " AND Grades.idSchoolYear='" + Class.SchoolYear + "'" +
+        //        ")" +
+        //        ";";
+        //        cmd = conn.CreateCommand();
+        //        cmd.CommandText = query; 
+        //        dRead = cmd.ExecuteReader();
+        //        while (dRead.Read())
+        //        {
+        //            keys.Add((int)SafeDb.SafeInt(dRead["idStudent"]));
+        //        }
+        //        dRead.Dispose();
+        //        cmd.Dispose();
+        //    }
+        //    return keys;
+        //}
 
         internal Grade LastGradeOfStudent(Student Student, string IdSchoolYear,
             SchoolSubject SchoolSubject, string IdGradeType)
@@ -1237,39 +1240,39 @@ namespace SchoolGrades.DbClasses
             return null;
         }
 
-        internal DataTable GetWeightedAveragesOfClass(Class Class,
-            string IdGradeType, string IdSchoolSubject, DateTime DateFrom, DateTime DateTo)
-        {
-            DataTable t;
-            using (DbConnection conn = dl.Connect())
-            {
-                string query = "SELECT Grades.idGrade,Students.idStudent,lastName,firstName" +
-                ",SUM(weight)/100 AS 'GradesFraction', 1 - SUM(weight)/100 AS LeftToCloseAssesments" +
-                ",COUNT() AS 'GradesCount'" +
-                " FROM Classes_Students" +
-                " LEFT JOIN Grades ON Students.idStudent=Grades.idStudent" +
-                " JOIN Students ON Classes_Students.idStudent=Students.idStudent" +
-                " WHERE Classes_Students.idClass =" + Class.IdClass +
-                " AND Grades.idSchoolYear='" + Class.SchoolYear + "'" +
-                " AND (Grades.idGradeType='" + IdGradeType + "'" +
-                " OR Grades.idGradeType IS NULL)" +
-                " AND Grades.idSchoolSubject='" + IdSchoolSubject + "'" +
-                " AND Grades.value IS NOT NULL AND Grades.value <> 0" +
-                " AND Grades.Timestamp BETWEEN " + SqlVal.SqlDate(DateFrom) + " AND " + SqlVal.SqlDate(DateTo) +
-                " GROUP BY Students.idStudent" +
-                " ORDER BY GradesFraction ASC, lastName, firstName, Students.idStudent;";
-                // !!!! TODO change the query to include at first rows also those students that have no grades !!!! 
-                DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                DataSet DSet = new DataSet("ClosedMicroGrades");
+        //internal DataTable GetWeightedAveragesOfClass(Class Class,
+        //    string IdGradeType, string IdSchoolSubject, DateTime DateFrom, DateTime DateTo)
+        //{
+        //    DataTable t;
+        //    using (DbConnection conn = dl.Connect())
+        //    {
+        //        string query = "SELECT Grades.idGrade,Students.idStudent,lastName,firstName" +
+        //        ",SUM(weight)/100 AS 'GradesFraction', 1 - SUM(weight)/100 AS LeftToCloseAssesments" +
+        //        ",COUNT() AS 'GradesCount'" +
+        //        " FROM Classes_Students" +
+        //        " LEFT JOIN Grades ON Students.idStudent=Grades.idStudent" +
+        //        " JOIN Students ON Classes_Students.idStudent=Students.idStudent" +
+        //        " WHERE Classes_Students.idClass =" + Class.IdClass +
+        //        " AND Grades.idSchoolYear='" + Class.SchoolYear + "'" +
+        //        " AND (Grades.idGradeType='" + IdGradeType + "'" +
+        //        " OR Grades.idGradeType IS NULL)" +
+        //        " AND Grades.idSchoolSubject='" + IdSchoolSubject + "'" +
+        //        " AND Grades.value IS NOT NULL AND Grades.value <> 0" +
+        //        " AND Grades.Timestamp BETWEEN " + SqlVal.SqlDate(DateFrom) + " AND " + SqlVal.SqlDate(DateTo) +
+        //        " GROUP BY Students.idStudent" +
+        //        " ORDER BY GradesFraction ASC, lastName, firstName, Students.idStudent;";
+        //        // !!!! TODO change the query to include at first rows also those students that have no grades !!!! 
+        //        DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
+        //        DataSet DSet = new DataSet("ClosedMicroGrades");
 
-                DAdapt.Fill(DSet);
-                t = DSet.Tables[0];
+        //        DAdapt.Fill(DSet);
+        //        t = DSet.Tables[0];
 
-                DAdapt.Dispose();
-                DSet.Dispose();
-            }
-            return t;
-        }
+        //        DAdapt.Dispose();
+        //        DSet.Dispose();
+        //    }
+        //    return t;
+        //}
 
         /// <summary>
         /// Gets all the grades of a students of a specified IdGradeType that are the sons 
@@ -1318,23 +1321,23 @@ namespace SchoolGrades.DbClasses
             }
         }
 
-        internal List<Student> GetStudentsAndSumOfWeights(Class Class,
-            GradeType GradeType, SchoolSubject SchoolSubject,
-            DateTime DateFrom, DateTime DateTo)
-        {
-            List<Student> ls = new List<Student>();
+        //internal List<Student> GetStudentsAndSumOfWeights(Class Class,
+        //    GradeType GradeType, SchoolSubject SchoolSubject,
+        //    DateTime DateFrom, DateTime DateTo)
+        //{
+        //    List<Student> ls = new List<Student>();
 
-            DataTable t = GetWeightedAveragesOfClass(Class, GradeType.IdGradeType,
-                SchoolSubject.IdSchoolSubject, DateFrom, DateTo);
-            foreach (DataRow row in t.Rows)
-            {
-                Student s = GetStudent((int)row["idStudent"]);
-                s.Sum = SafeDb.SafeDouble(row["GradesFraction"]);
-                s.DummyNumber = SafeDb.SafeDouble(row["GradesCount"]);
-                ls.Add(s);
-            }
-            return ls;
-        }
+        //    DataTable t = dl.GetWeightedAveragesOfClass(Class, GradeType.IdGradeType,
+        //        SchoolSubject.IdSchoolSubject, DateFrom, DateTo);
+        //    foreach (DataRow row in t.Rows)
+        //    {
+        //        Student s = dl.GetStudent((int)row["idStudent"]);
+        //        s.Sum = SafeDb.SafeDouble(row["GradesFraction"]);
+        //        s.DummyNumber = SafeDb.SafeDouble(row["GradesCount"]);
+        //        ls.Add(s);
+        //    }
+        //    return ls;
+        //}
 
         internal void SaveMacroGrade(int? IdStudent, int? IdParent,
             double Grade, double Weight, string IdSchoolYear,
@@ -2928,7 +2931,7 @@ namespace SchoolGrades.DbClasses
                 ChangeImagesPath(Class2, conn);
 
                 // randomly change all grades 
-                RandomizeGrades(conn);
+                dl.RandomizeGrades(conn);
 
                 // change the lesson dates to this school year (when we implement year shift!) 
                 // !!!! TODO !!!!
@@ -2995,7 +2998,7 @@ namespace SchoolGrades.DbClasses
         private void RenameStudentsNamesFromPictures(Class Class, DbConnection conn)
         {
             // get the "previous" students from database 
-            List<Student> StudentsInClass = GetStudentsOfClass(Class.IdClass, conn);
+            List<Student> StudentsInClass = dl.GetStudentsOfClass(Class.IdClass, conn);
 
             // rename the students' names according to the names found in the image files 
             string[] OriginalDemoPictures = Directory.GetFiles(Commons.PathImages + "\\DemoPictures\\");
@@ -3037,7 +3040,7 @@ namespace SchoolGrades.DbClasses
                 s.Origin = null;
                 s.SchoolYear = null;
                 s.Sum = 0;
-                SaveStudent(s, conn);
+                dl.SaveStudent(s, conn);
 
                 // save the image with standard name in the folder of the demo class
                 string fileExtension = Path.GetExtension(OriginalDemoPictures[pictureIndex]);
@@ -3112,54 +3115,9 @@ namespace SchoolGrades.DbClasses
             return (int?)cmd.ExecuteScalar();
         }
 
-        private void RandomizeGrades(DbConnection conn)
-        {
-            DbDataReader dRead;
-            DbCommand cmd = conn.CreateCommand();
-            cmd = conn.CreateCommand();
-            cmd.CommandText = "SELECT * FROM Grades" +
-                ";";
-            dRead = cmd.ExecuteReader();
-            Random rnd = new Random();
-            while (dRead.Read())
-            {
-                double? grade = SafeDb.SafeDouble(dRead["value"]);
-                int? id = SafeDb.SafeInt(dRead["IdGrade"]);
-                // add to the grade a random delta between -10 and +10 
-                if (grade > 0)
-                {
-                    grade = grade + rnd.NextDouble() * 20 - 10;
-                    if (grade < 10) grade = 10;
-                    if (grade > 100) grade = 100;
-                }
-                else
-                    grade = 0;
-                SaveGradeValue(id, grade, conn);
-            }
-            cmd.Dispose();
-        }
+        
 
-        private void SaveGradeValue(int? id, double? grade, DbConnection conn)
-        {
-            DbCommand cmd = conn.CreateCommand();
-            cmd.CommandText = "UPDATE Grades" +
-            " SET value=" + SqlVal.SqlDouble(grade) +
-            " WHERE idGrade=" + id +
-            ";";
-            cmd.ExecuteNonQuery();
-            cmd.Dispose();
-        }
-        internal School GetSchool(string OfficialSchoolAbbreviation)
-        {
-            // !!!! TODO read school info from the database !!!!
-            School news = new School();
-            // the next should be a real integer id, 
-            news.IdSchool = Commons.IdSchool; 
-            news.Name = "IS Pascal Comandini";
-            news.Desc = "Istituto Di Istruzione Superiore Pascal-Comandini, Cesena";
-            news.OfficialSchoolAbbreviation = Commons.IdSchool;
-            return news;
-        }
+       
         internal int CreateNewTopic(Topic NewTopic)
         {
             int nextId;
@@ -3524,39 +3482,8 @@ namespace SchoolGrades.DbClasses
                 cmd.Dispose();
             }
         }
-        internal GradeType GetGradeType(string IdGradeType)
-        {
-            GradeType gt = null;
-            using (DbConnection conn = dl.Connect())
-            {
-                DbDataReader dRead;
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM GradeTypes";
-                cmd.CommandText += " WHERE idGradeType ='" + IdGradeType + "'";
-                cmd.CommandText += ";";
-                dRead = cmd.ExecuteReader();
-                dRead.Read();
-                gt = GetGradeTypeFromRow(dRead);
-                dRead.Dispose();
-                cmd.Dispose();
-            }
-            return gt;
-        }
-        private GradeType GetGradeTypeFromRow(DbDataReader Row)
-        {
-            if (Row.HasRows)
-            {
-                GradeType gt = new GradeType();
-                gt.IdGradeType = (string)Row["idGradeType"];
-                gt.IdGradeTypeParent = SafeDb.SafeString(Row["IdGradeTypeParent"]);
-                gt.IdGradeCategory = (string)Row["IdGradeCategory"];
-                gt.Name = (string)Row["Name"];
-                gt.DefaultWeight = (double)Row["DefaultWeight"];
-                gt.Desc = (string)Row["Desc"];
-                return gt;
-            }
-            return null;
-        }
+       
+        
 
         internal List<GradeType> GetListGradeTypes()
         {
@@ -3569,7 +3496,7 @@ namespace SchoolGrades.DbClasses
                 dRead = cmd.ExecuteReader();
                 while (dRead.Read())
                 {
-                    GradeType gt = GetGradeTypeFromRow(dRead);
+                    GradeType gt = dl.GetGradeTypeFromRow(dRead);
                     lg.Add(gt);
                 }
                 dRead.Dispose();
@@ -4343,7 +4270,7 @@ namespace SchoolGrades.DbClasses
                 while (dRead.Read())
                 {
                     int? idStudent = SafeDb.SafeInt(dRead["idStudent"]);
-                    Student s = GetStudent(idStudent);
+                    Student s = dl.GetStudent(idStudent);
                     list.Add(s);
                 }
             }

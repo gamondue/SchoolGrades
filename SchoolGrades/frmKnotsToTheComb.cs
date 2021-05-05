@@ -33,7 +33,7 @@ namespace SchoolGrades
             InitializeComponent();
             dl = new DataLayer();
             db = new DbAndBusiness(Commons.PathAndFileDatabase);
-            currentStudent = db.GetStudent(IdStudent);
+            currentStudent = dl.GetStudent(IdStudent);
             lblStudent.Text = currentStudent.LastName + " " + currentStudent.FirstName; 
             currentIdSchoolYear = Year;
             currentSubject = SchoolSubject;

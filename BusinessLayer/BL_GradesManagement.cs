@@ -8,6 +8,9 @@ namespace SchoolGrades
 {
     internal partial class BusinessLayer
     {
-        
+        internal Grade GetGrade(int? IdGrade)
+        {
+            return dl.GetGrade(IdGrade);
+        }
     }
 }

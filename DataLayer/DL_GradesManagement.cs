@@ -30,6 +30,93 @@ namespace SchoolGrades
             return g;
         }
 
+        internal GradeType GetGradeTypeFromRow(DbDataReader Row)
+        {
+            if (Row.HasRows)
+            {
+                GradeType gt = new GradeType();
+                gt.IdGradeType = (string)Row["idGradeType"];
+                gt.IdGradeTypeParent = SafeDb.SafeString(Row["IdGradeTypeParent"]);
+                gt.IdGradeCategory = (string)Row["IdGradeCategory"];
+                gt.Name = (string)Row["Name"];
+                gt.DefaultWeight = (double)Row["DefaultWeight"];
+                gt.Desc = (string)Row["Desc"];
+                return gt;
+            }
+            return null;
+        }
+
+        internal GradeType GetGradeType(string IdGradeType)
+        {
+            GradeType gt = null;
+            using (DbConnection conn = Connect())
+            {
+                DbDataReader dRead;
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT * FROM GradeTypes";
+                cmd.CommandText += " WHERE idGradeType ='" + IdGradeType + "'";
+                cmd.CommandText += ";";
+                dRead = cmd.ExecuteReader();
+                dRead.Read();
+                gt = GetGradeTypeFromRow(dRead);
+                dRead.Dispose();
+                cmd.Dispose();
+            }
+            return gt;
+        }
+
+        internal void RandomizeGrades(DbConnection conn)
+        {
+            DbDataReader dRead;
+            DbCommand cmd = conn.CreateCommand();
+            cmd = conn.CreateCommand();
+            cmd.CommandText = "SELECT * FROM Grades" +
+                ";";
+            dRead = cmd.ExecuteReader();
+            Random rnd = new Random();
+            while (dRead.Read())
+            {
+                double? grade = SafeDb.SafeDouble(dRead["value"]);
+                int? id = SafeDb.SafeInt(dRead["IdGrade"]);
+                // add to the grade a random delta between -10 and +10 
+                if (grade > 0)
+                {
+                    grade = grade + rnd.NextDouble() * 20 - 10;
+                    if (grade < 10) grade = 10;
+                    if (grade > 100) grade = 100;
+                }
+                else
+                    grade = 0;
+                SaveGradeValue(id, grade, conn);
+            }
+            cmd.Dispose();
+        }
+
+        private void SaveGradeValue(int? id, double? grade, DbConnection conn)
+        {
+            DbCommand cmd = conn.CreateCommand();
+            cmd.CommandText = "UPDATE Grades" +
+            " SET value=" + SqlVal.SqlDouble(grade) +
+            " WHERE idGrade=" + id +
+            ";";
+            cmd.ExecuteNonQuery();
+            cmd.Dispose();
+        }
+        
+
+        internal void EraseGrade(int? KeyGrade)
+        {
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "DELETE FROM Grades" +
+                    " WHERE idGrade=" + KeyGrade +
+                    ";";
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+        }
+
         internal Grade GetGradeFromRow(DbDataReader Row)
         {
             Grade g = new Grade();

@@ -19,13 +19,13 @@ namespace SchoolGrades
         Question currentQuestion;
         List<StudentsAnswer> currentStudentsAnswers;
         //List<Control> Answers = new List<Control>; 
-
+        DataLayer dl;
         DbAndBusiness db;
 
         public frmTestAssessing()
         {
             InitializeComponent();
-
+            dl = new DataLayer();
             db = new DbAndBusiness(Commons.PathAndFileDatabase);
         }
 
@@ -40,7 +40,7 @@ namespace SchoolGrades
         private void RefreshUi()
         {
             dgwQuestions.DataSource = db.GetAllQuestionsOfATest(currentTest.IdTest);
-            dgwClassStudents.DataSource = db.GetStudentsOfClassList(Commons.IdSchool,
+            dgwClassStudents.DataSource = dl.GetStudentsOfClassList(Commons.IdSchool,
                 currentClass.SchoolYear, currentClass.Abbreviation, false);
         }
 

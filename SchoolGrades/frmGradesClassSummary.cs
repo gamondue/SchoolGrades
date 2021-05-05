@@ -106,7 +106,7 @@ namespace SchoolGrades
                 }
                 else if (rdb == rdbShowWeights)
                 {
-                    dgwGrades.DataSource = db.GetWeightedAveragesOfClass(currentClass,
+                    dgwGrades.DataSource = dl.GetWeightedAveragesOfClass(currentClass,
                         ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                         ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject ,
                         dtpStartPeriod.Value, dtpEndPeriod.Value

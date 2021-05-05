@@ -56,7 +56,7 @@ namespace SchoolGrades
             currentYear = currentGrade.IdSchoolYear;
             currentClass = db.GetClassOfStudent(Commons.IdSchool, currentYear, currentStudent);
             
-            currentGradeType = db.GetGradeType(currentGrade.IdGradeType);
+            currentGradeType = dl.GetGradeType(currentGrade.IdGradeType);
 
             currentSchoolSubject = db.GetSchoolSubject(currentGrade.IdSchoolSubject);
             currentQuestion = db.GetQuestionById(currentGrade.IdQuestion);
@@ -83,7 +83,7 @@ namespace SchoolGrades
                 currentMacroGrade = db.LastGradeOfStudent(currentStudent, currentYear
                     , currentSchoolSubject, currentGradeType.IdGradeTypeParent);
                 // get grade type information of that last macro grade
-                GradeType gt = db.GetGradeType(currentMacroGrade.IdGradeType);
+                GradeType gt = dl.GetGradeType(currentMacroGrade.IdGradeType);
                 if (gt != null)
                 {
                     txtGradeTypeParent.Text = gt.Name;
@@ -432,7 +432,7 @@ namespace SchoolGrades
                 return; 
             }
             DataGridViewRow row = (DgwQuestions.SelectedRows[0]);
-            db.EraseGrade(SafeDb.SafeInt(row.Cells["idGrade"].Value));
+            dl.EraseGrade(SafeDb.SafeInt(row.Cells["idGrade"].Value));
             ShowStudentsDataAndAverages();
         }
 

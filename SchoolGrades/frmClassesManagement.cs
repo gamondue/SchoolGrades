@@ -14,7 +14,8 @@ namespace SchoolGrades
     {
     	// TODO !!!! put an option for separator in import files 
         DbAndBusiness db;
-        BusinessLayer bl; 
+        BusinessLayer bl;
+        DataLayer dl;
 
         DataSet dsClass;
         DataTable dtClass;
@@ -26,7 +27,7 @@ namespace SchoolGrades
         public FrmClassesManagement()
         {
             InitializeComponent();
-
+            dl = new DataLayer();
             db = new DbAndBusiness(Commons.PathAndFileDatabase);
             bl = new BusinessLayer(Commons.PathAndFileDatabase);
         }
@@ -34,7 +35,7 @@ namespace SchoolGrades
         private void FrmClassesManagement_Load(object sender, EventArgs e)
         {
             // school data
-            currentSchool = db.GetSchool(TxtOfficialSchoolAbbreviation.Text);
+            currentSchool = dl.GetSchool(TxtOfficialSchoolAbbreviation.Text);
             // primo anno di default del combo con gli anni
             int anno = 2009;
 
@@ -89,10 +90,10 @@ namespace SchoolGrades
                     CmbSchoolYear.Text, TxtOfficialSchoolAbbreviation.Text);
                 for (int riga = 1; riga < datiAllievi.GetLength(0); riga++)
                 {
-                    int codiceStudente = db.CreateStudentFromStringMatrix(datiAllievi, riga);
+                    int codiceStudente = dl.CreateStudentFromStringMatrix(datiAllievi, riga);
                     if (codiceStudente > 0)
                     {
-                        db.PutStudentInClass(codiceStudente, idClass);
+                        dl.PutStudentInClass(codiceStudente, idClass);
                         if (rdbChooseStudentsPhotoWhileImporting.Checked)
                         {
                             using (OpenFileDialog dlg = new OpenFileDialog())
@@ -190,7 +191,7 @@ namespace SchoolGrades
             DgwClass.DataSource = dtClass;
 
             //dgwAllievi.DataSource = db.GetClass(txtOfficialSchoolAbbreviation.Text, idSchoolYear, cmbClasses.Text);
-            DgwStudents.DataSource = db.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, 
+            DgwStudents.DataSource = dl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, 
                 idSchoolYear, CmbClasses.Text, true);
             TxtClassDescription.Text = SafeDb.SafeString(DgwClass.Rows[DgwClass.CurrentRow.Index].Cells["desc"].Value);
             currentClass = (Class)CmbClasses.SelectedItem;
@@ -314,9 +315,9 @@ namespace SchoolGrades
             sf.ShowDialog();
             if (sf.UserHasChosen)
             {
-                db.PutStudentInClass(sf.CurrentStudent.IdStudent,
+                dl.PutStudentInClass(sf.CurrentStudent.IdStudent,
                     ((Class)(CmbClasses.SelectedItem)).IdClass);
-                DgwStudents.DataSource = db.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, 
+                DgwStudents.DataSource = dl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, 
                     idSchoolYear, CmbClasses.Text, false);
             }
         }
@@ -338,7 +339,7 @@ namespace SchoolGrades
             int IdDeletingStudent = (int)DgwStudents.SelectedRows[0].Cells["IdStudent"].Value;
             db.DeleteOneStudentFromClass(IdDeletingStudent,
                 ((Class)(CmbClasses.SelectedItem)).IdClass);
-            DgwStudents.DataSource = db.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, 
+            DgwStudents.DataSource = dl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, 
                 idSchoolYear, CmbClasses.Text, false);
         }
 
@@ -353,7 +354,7 @@ namespace SchoolGrades
             c.PathRestrictedApplication = SafeDb.SafeString(dgr.Cells["pathRestrictedApplication"].Value);
 
             db.SaveClass(c);
-            db.SaveStudentsOfList((List<Student>) DgwStudents.DataSource, null);  
+            bl.SaveStudentsOfList((List<Student>) DgwStudents.DataSource, null);  
 
             FillClassData(c); 
         }
@@ -369,7 +370,7 @@ namespace SchoolGrades
                 " " + (string)DgwStudents.SelectedRows[0].Cells["FirstName"].Value;
             int IdDisablingStudent = (int)DgwStudents.SelectedRows[0].Cells["IdStudent"].Value;
             db.ToggleDisableOneStudent(IdDisablingStudent);
-            DgwStudents.DataSource = db.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, 
+            DgwStudents.DataSource = dl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, 
                 idSchoolYear, CmbClasses.Text, true);
             string prompt = "Commutato lo stato di abilitazione dell'allievo " + disablingStudent;
             // !!!! dire in che stato è ora 
@@ -398,7 +399,7 @@ namespace SchoolGrades
             if (e.RowIndex > -1)
             {
                 DataGridViewCell c = DgwStudents.Rows[e.RowIndex].Cells["IdStudent"];
-                Student s = db.GetStudent((int)c.Value);
+                Student s = dl.GetStudent((int)c.Value);
                 s.SchoolYear = CmbSchoolYear.Text;
                 LoadPicture(s);
             }
@@ -433,7 +434,7 @@ namespace SchoolGrades
                 MessageBox.Show("Scegliere la classe per cui generare gli indirizzi email");
                 return;
             }
-            List<Student> list = db.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, CmbSchoolYear.Text,
+            List<Student> list = dl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, CmbSchoolYear.Text,
                 CmbClasses.SelectedItem.ToString(), false);
             string file = "";
             string pattern = TxtEmailGenerationPattern.Text;
@@ -483,7 +484,7 @@ namespace SchoolGrades
                 return; 
             }
             DataGridViewCell c = DgwStudents.SelectedRows[0].Cells["IdStudent"];
-            Student s = db.GetStudent((int)c.Value);
+            Student s = dl.GetStudent((int)c.Value);
             db.EraseStudentsPhoto((int)c.Value, CmbSchoolYear.Text);
             picStudent.Image = null; 
         }
@@ -534,7 +535,7 @@ namespace SchoolGrades
                 MessageBox.Show("Scegliere la classe per cui generare l'elenco su file");
                 return;
             }
-            List<Student> list = db.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, CmbSchoolYear.Text,
+            List<Student> list = dl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, CmbSchoolYear.Text,
                 CmbClasses.SelectedItem.ToString(), false);
             string file = "N.registro\tCognome\tNome\tData di nascita\tLuogo di nascita\temail\tComune residenza\tIdSchoolGrades\r\n";
             foreach (Student s in list)
