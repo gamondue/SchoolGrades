@@ -64,24 +64,20 @@ namespace SchoolGrades
                 dateFrom, dtpEndPeriod.Value);
 
             dgwTopics.DataSource = topicsDone;
-            //if (chkVisualizePath.Checked)
-            //    dgwTopics.Columns[0].Visible = true;
-            //else
-            //    dgwTopics.Columns[0].Visible = false;
 
-            dgwTopics.Columns[0].Visible = true;
-            dgwTopics.Columns[1].Visible = false; //false
-            dgwTopics.Columns[2].Visible = false; //false
-            dgwTopics.Columns[3].Visible = false; //false
-            dgwTopics.Columns[4].Visible = false; //false
-            dgwTopics.Columns[5].Visible = true; //false
-            dgwTopics.Columns[6].Visible = true;
-            dgwTopics.Columns[7].Visible = true;
-            dgwTopics.Columns[8].Visible = true; //false
-            dgwTopics.Columns[9].Visible = true; //false
-            dgwTopics.Columns[10].Visible = true;//false
-            dgwTopics.Columns[11].Visible = true;//false
-            dgwTopics.Columns[12].Visible = true;//false
+            dgwTopics.Columns[0].Visible = true; //true ID
+            dgwTopics.Columns[1].Visible = false; //false LeftNode
+            dgwTopics.Columns[2].Visible = false; //false RightNode
+            dgwTopics.Columns[3].Visible = false; //false LeftNodeView
+            dgwTopics.Columns[4].Visible = false; //false RightNodeView
+            dgwTopics.Columns[5].Visible = true; //true Name
+            dgwTopics.Columns[6].Visible = true; //Descriprion
+            dgwTopics.Columns[7].Visible = false; //ParentNodeOld
+            dgwTopics.Columns[8].Visible = false; //false ParentNodeNew
+            dgwTopics.Columns[9].Visible = false; //false ChildNumberOld
+            dgwTopics.Columns[10].Visible = false;//false ChildNumberNew
+            dgwTopics.Columns[11].Visible = false;//false Changed
+            dgwTopics.Columns[12].Visible = true;//true Date
         }
 
         private void dgwTopics_CellContentClick(object sender, DataGridViewCellEventArgs e)
