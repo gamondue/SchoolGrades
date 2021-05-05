@@ -93,6 +93,14 @@ namespace SchoolGrades
 
                 RefreshUi(); 
             }
+            if (e.RowIndex > 0)
+            {
+                dgwQuestions.Rows[e.RowIndex].Selected = true;
+            }
+            if (dgwQuestions.Rows[e.RowIndex].Selected == true)
+            {
+                dgwQuestions.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            }
         }
 
         private void btnAddQuestion_Click(object sender, EventArgs e)
@@ -138,6 +146,14 @@ namespace SchoolGrades
 
                 frmQuestion fq = new frmQuestion(frmQuestion.QuestionFormType.EditOneQuestion, chosenQuestion, null, null, null);
                 fq.Show();
+            }
+            if (e.RowIndex > 0)
+            {
+                dgwQuestions.Rows[e.RowIndex].Selected = true;
+            }
+            if (dgwQuestions.Rows[e.RowIndex].Selected == true)
+            {
+                dgwQuestions.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             }
         }
 

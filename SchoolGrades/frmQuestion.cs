@@ -69,6 +69,8 @@ namespace SchoolGrades
 
         private void frmQuestion_Load(object sender, EventArgs e)
         {
+            db = new DbAndBusiness(Commons.PathAndFileDatabase);
+            dbMptt = new TreeMpttDb(db);
             if (currentSubject != null && currentSubject.IdSchoolSubject != null && currentSubject.IdSchoolSubject != "")
             {
                 //string dummyId = currentSubject.IdSchoolSubject;              
@@ -217,18 +219,22 @@ namespace SchoolGrades
 
         private void dgwAnswers_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            Answer a = answersList[e.RowIndex];
-            frmAnswer f = new frmAnswer(a);
-            f.ShowDialog();
+            if (!(db is null))
+            {
+                Answer a = answersList[e.RowIndex];
+                frmAnswer f = new frmAnswer(a);
+                f.ShowDialog();
 
-            answersList = db.GetAnswersOfAQuestion(currentQuestion.IdQuestion);
-            dgwAnswers.DataSource = answersList;
+                answersList = db.GetAnswersOfAQuestion(currentQuestion.IdQuestion);
+                dgwAnswers.DataSource = answersList;
+            }
         }
 
         private void cmbSchoolSubject_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentQuestion.IdSchoolSubject = ((SchoolSubject)cmbSchoolSubject.SelectedItem).IdSchoolSubject;
-            currentSubject = db.GetSchoolSubject(currentQuestion.IdSchoolSubject);
+            if(!(db is null))
+                currentSubject = db.GetSchoolSubject(currentQuestion.IdSchoolSubject);
             ////////Color bgColor;
             ////////if (currentSubject != null)
             ////////{
@@ -380,6 +386,18 @@ namespace SchoolGrades
             txtWeight.BackColor = plainColor;
             txtQuestionText.BackColor = plainColor;
             txtTopic.BackColor = plainColor;
+        }
+
+        private void dgwAnswers_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > 0)
+            {
+                dgwAnswers.Rows[e.RowIndex].Selected = true;
+            }
+            if (dgwAnswers.Rows[e.RowIndex].Selected == true)
+            {
+                dgwAnswers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            }
         }
     }
 }

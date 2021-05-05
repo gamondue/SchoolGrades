@@ -50,6 +50,8 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
+            db = new DbAndBusiness(Commons.PathAndFileDatabase);
+
             // constructor for subgrades for a grade passed trough its id
             currentGrade.IdGrade = IdGrade;
             currentStudent = new Student();

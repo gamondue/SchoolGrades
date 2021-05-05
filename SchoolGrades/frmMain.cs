@@ -331,17 +331,24 @@ namespace SchoolGrades
         }
         private void loadPicture(Student Chosen)
         {
-            try
+            if(Chosen == null || currentStudent == null)
             {
-                string pictureFile = Commons.PathImages + "\\" +
-                db.GetFilePhoto(currentStudent.IdStudent, schoolYear);
-                picStudent.Image = System.Drawing.Image.FromFile(pictureFile);
+                MessageBox.Show("Errore", "Scegli studente");
             }
-            catch
+            else
             {
-                picStudent.Image = null;
-                Console.Beep();
-            }
+                try
+                {
+                    string pictureFile = Commons.PathImages + "\\" +
+                    db.GetFilePhoto(currentStudent.IdStudent, schoolYear);
+                    picStudent.Image = System.Drawing.Image.FromFile(pictureFile);
+                }
+                catch
+                {
+                    picStudent.Image = null;
+                    Console.Beep();
+                }
+            }    
         }
         private void timerQuestion_Tick(object sender, EventArgs e)
         {
