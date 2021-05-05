@@ -172,9 +172,15 @@ namespace SchoolGrades.DbClasses
         internal void SaveTableOnCvs(DataTable Table, string FileName)
         {
             string fileContent = "";
+            string fourthColName = string.Empty;
+            string fifthColName = string.Empty;
             foreach (DataColumn col in Table.Columns)
             {
                 fileContent += col.Caption + '\t';
+                if (col.Caption == "grade" || col.Caption == "GradesFraction" || col.Caption == "Weighted average")
+                    fourthColName = col.Caption;
+                if (col.Caption == "Weighted RMS" || col.Caption == "LeftToCloseAssesments" || col.Caption == "weight")
+                    fifthColName = col.Caption;
             }
             fileContent += "\r\n";
             foreach (DataRow row in Table.Rows)
@@ -184,7 +190,7 @@ namespace SchoolGrades.DbClasses
                 {
                     if (i > 3)
                     {
-                        if(row[col].ToString().Length > 4)
+                        if(row[col].ToString().Length > 4 && double.TryParse(row[col].ToString(), out double n))
                         {
                             fileContent += row[col].ToString().Replace(",", ".").Substring(0,4) + '\t';
                         }
@@ -201,6 +207,34 @@ namespace SchoolGrades.DbClasses
                 }
                 fileContent += "\r\n";
             }
+            double sumfourthColName = 0;
+            int contSumfourthColName = 0;
+            double sumfifthColName = 0;
+            int contSumfifthColName = 0;
+            foreach (DataColumn col in Table.Columns)
+            {
+                if(col.Caption == fourthColName)
+                {
+                    foreach(DataRow row in Table.Rows)
+                    {
+                        sumfourthColName += double.Parse(row[col].ToString());
+                        contSumfourthColName++;
+                    }
+                }
+                if (col.Caption == fifthColName)
+                {
+                    foreach (DataRow row in Table.Rows)
+                    {
+                        sumfifthColName += double.Parse(row[col].ToString());
+                        contSumfifthColName++;
+                    }
+                }
+            }
+            fileContent += "\r\n";
+            fileContent += fourthColName + " Sum:\t" + sumfourthColName.ToString().Replace(",", ".") + '\t' + "\r\n";
+            fileContent += fifthColName + " Sum:\t" + sumfifthColName.ToString().Replace(",", ".") + '\t' + "\r\n";
+            fileContent += "Average "+ fourthColName + " Sum:\t" + (sumfourthColName/contSumfourthColName).ToString().Replace(",", ".") + '\t' + "\r\n";
+            fileContent += "Average " + fifthColName + " Sum:\t" + (sumfifthColName/contSumfifthColName).ToString().Replace(",", ".") + '\t' + "\r\n";
             TextFile.StringToFile(FileName, fileContent, false);
         }
 
