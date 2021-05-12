@@ -14,6 +14,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)DL_ClassManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_ConstructorsAndGeneralMethods.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_GradesManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DL_ImageManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_LinkManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_StudentManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_UserManagement.cs" />
