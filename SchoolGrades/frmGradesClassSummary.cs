@@ -88,7 +88,7 @@ namespace SchoolGrades
             {
                 if (rdb == rdbMissing)
                 {
-                    dgwGrades.DataSource = db.GetStudentsWithNoMicrogrades(currentClass,
+                    dgwGrades.DataSource = dl.GetStudentsWithNoMicrogrades(currentClass,
                         ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                         ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
                         dtpStartPeriod.Value, dtpEndPeriod.Value

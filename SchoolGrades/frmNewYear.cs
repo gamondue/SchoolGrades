@@ -134,7 +134,7 @@ namespace SchoolGrades
                     studentDone++;
                     ((Student)r.DataBoundItem).RegisterNumber = studentDone.ToString(); 
                     dl.PutStudentInClass((int)r.Cells["idStudent"].Value, classCode);
-                    db.AddLinkToOldPhoto((int)r.Cells["idStudent"].Value, CmbPresentSchoolYear.Text, TxtSchoolYearNext.Text);
+                    dl.AddLinkToOldPhoto((int)r.Cells["idStudent"].Value, CmbPresentSchoolYear.Text, TxtSchoolYearNext.Text);
                     dl.SaveStudent((Student)r.DataBoundItem, null); 
                 }
             }

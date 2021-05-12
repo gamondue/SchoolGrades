@@ -108,7 +108,7 @@ namespace SchoolGrades
                                     s.IdStudent = codiceStudente;
                                     s.LastName = datiAllievi[riga, 1];
                                     s.FirstName = datiAllievi[riga, 2];
-                                    db.CopyAndLinkOnePhoto(s, newClass, dlg.FileName);
+                                    dl.CopyAndLinkOnePhoto(s, newClass, dlg.FileName);
                                 }
                             }
                         }
@@ -229,7 +229,7 @@ namespace SchoolGrades
                 if (openFileDialog.FileName != "" && !(dr == DialogResult.Cancel))
                 {
                     string fileToCopy = openFileDialog.FileName; 
-                    db.CopyAndLinkOnePhoto(s, currentClass, openFileDialog.FileName);
+                    dl.CopyAndLinkOnePhoto(s, currentClass, openFileDialog.FileName);
                     s.SchoolYear = CmbSchoolYear.Text; 
                     LoadPicture(s); 
                 }

@@ -66,22 +66,22 @@ namespace SchoolGrades.DbClasses
             }
         }
 
-        internal void UpdatePathStartLinkOfClass(Class currentClass, string text)
-        {
-            // !!!! currently not used, because pathStartLink field does not exist yet in the database !!!!
-            using (DbConnection conn = dl.Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
+        //internal void UpdatePathStartLinkOfClass(Class currentClass, string text)
+        //{
+        //    // !!!! currently not used, because pathStartLink field does not exist yet in the database !!!!
+        //    using (DbConnection conn = dl.Connect())
+        //    {
+        //        DbCommand cmd = conn.CreateCommand();
 
-                cmd.CommandText = "UPDATE Classes" +
-                           " Set" +
-                           " pathStartLink='" + text + "'" +
-                           " WHERE IdClass=" + currentClass.IdClass +
-                           ";";
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
-            }
-        }
+        //        cmd.CommandText = "UPDATE Classes" +
+        //                   " Set" +
+        //                   " pathStartLink='" + text + "'" +
+        //                   " WHERE IdClass=" + currentClass.IdClass +
+        //                   ";";
+        //        cmd.ExecuteNonQuery();
+        //        cmd.Dispose();
+        //    }
+        //}
 
         internal void SaveTableOnCvs(DataTable Table, string FileName)
         {
@@ -101,22 +101,6 @@ namespace SchoolGrades.DbClasses
             }
             TextFile.StringToFile(FileName, fileContent, false);
         }      
-
-        //internal void ToggleDisableOneStudent(int? idStudent)
-        //{
-        //    using (DbConnection conn = dl.Connect())
-        //    {
-        //        DbCommand cmd = conn.CreateCommand();
-
-        //        cmd.CommandText = "UPDATE Students" +
-        //                   " Set" +
-        //                   " disabled = ~disabled" +
-        //                   " WHERE IdStudent =" + idStudent +
-        //                   ";";
-        //        cmd.ExecuteNonQuery();
-        //        cmd.Dispose();
-        //    }
-        //}
 
         #region funzioni generali per i database
         public int nFieldDbDataReader(string NomeCampo, DbDataReader dr)
@@ -162,44 +146,7 @@ namespace SchoolGrades.DbClasses
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
-        }
-
-        //internal int CreateClass(string ClassAbbreviation, string ClassDescription, string SchoolYear,
-        //    string IdSchool)
-        //{
-        //    // trova una chiave da assegnare alla nuova classe
-        //    int idClass = dl.NextKey("Classes", "idClass");
-        //    using (DbConnection conn = dl.Connect())
-        //    {
-        //        DbCommand cmd = conn.CreateCommand();
-        //        // creazione della classe nella tabella delle classi (soltanto quella) 
-        //        cmd.CommandText = "INSERT INTO Classes " +
-        //            "(idClass, Desc, idSchoolYear, idSchool, abbreviation) " +
-        //            "Values (" + idClass + ",'" + SqlVal.SqlString(ClassDescription) + "','" +
-        //            SqlVal.SqlString(SchoolYear) + "','" + SqlVal.SqlString(IdSchool) + "','" +
-        //            SqlVal.SqlString(ClassAbbreviation) +
-        //            "');";
-        //        cmd.ExecuteNonQuery();
-
-        //        int nextId = dl.NextKey("Classes_StartLinks", "idStartLink");
-        //        cmd = conn.CreateCommand();
-        //        // create a link in StartLinks' link table
-        //        cmd.CommandText = "INSERT INTO Classes_StartLinks " +
-        //            "(idStartLink,idClass,startLink,desc)" +
-        //            " Values (" + nextId +
-        //            "," + idClass + ",'http://www.ingmonti.it','Test link'" +
-        //            ");";
-        //        cmd.ExecuteNonQuery();
-        //        cmd.Dispose();
-        //    }
-        //    // crea la cartella delle foto della classe, se non esiste
-        //    // if it doesn't exist, create the folder of classes student's images
-        //    if (!Directory.Exists(Commons.PathImages + "\\" + SchoolYear + ClassAbbreviation))
-        //    {
-        //        Directory.CreateDirectory(Commons.PathImages + "\\" + SchoolYear + ClassAbbreviation);
-        //    }
-        //    return idClass;
-        //}        
+        }    
 
         private Question GetQuestionFromRow(DbDataReader Row)
         {
@@ -248,85 +195,32 @@ namespace SchoolGrades.DbClasses
             }
         }
 
-        internal void AddLinkToOldPhoto(int? IdStudent, string IdPreviousSchoolYear, string IdNextSchoolYear)
-        {
-            using (DbConnection conn = dl.Connect())
-            {
-                // get the code of the previous photo
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT idStudentsPhoto" +
-                    " FROM StudentsPhotos_Students" +
-                    " WHERE idSchoolYear='" + IdPreviousSchoolYear + "'" +
-                    " AND StudentsPhotos_Students.idStudent = " + IdStudent + "; ";
-                int? idStudentsPhoto = (int?)cmd.ExecuteScalar();
-                if (idStudentsPhoto != null)
-                {
-                    // add link to old photo
-                    cmd = conn.CreateCommand();
-                    cmd.CommandText = "INSERT INTO StudentsPhotos_Students " +
-                    "(idStudent, idStudentsPhoto, idSchoolYear) " +
-                    "Values (" +
-                    "" + IdStudent + "" +
-                    "," + idStudentsPhoto + "" +
-                    ",'" + IdNextSchoolYear + "'" +
-                    ");";
-                    cmd.ExecuteNonQuery();
-                }
-                cmd.Dispose();
-            }
-        }
-
-        //internal int CreateStudentFromStringMatrix(string[,] StudentData, int? StudentRow)
+        //internal void AddLinkToOldPhoto(int? IdStudent, string IdPreviousSchoolYear, string IdNextSchoolYear)
         //{
-        //    // trova una chiave da assegnare al nuovo studente
-        //    int codiceStudente = dl.NextKey("Students", "idStudent");
         //    using (DbConnection conn = dl.Connect())
         //    {
+        //        // get the code of the previous photo
         //        DbCommand cmd = conn.CreateCommand();
-        //        cmd.CommandText = "INSERT INTO Students " +
-        //            "(idStudent, lastName, firstName, residence, origin, email," +
-        //            //" birthDate," + // save also this field after SqlVal.SqlDate( will include the '', to better treat null values
-        //            " birthPlace) " +
-        //            "Values (" + codiceStudente + "," +
-        //            "'" + SqlVal.SqlString(StudentData[(int)StudentRow, 1]) + "'," +
-        //            "'" + SqlVal.SqlString(StudentData[(int)StudentRow, 2]) + "'," +
-        //            "'" + SqlVal.SqlString(StudentData[(int)StudentRow, 3]) + "'," +
-        //            "'" + SqlVal.SqlString(StudentData[(int)StudentRow, 4]) + "'," +
-        //            "'" + SqlVal.SqlString(StudentData[(int)StudentRow, 5]) + "'," +
-        //            //"'" + SqlVal.SqlDate(StudentData[(int)StudentRow, 6]) + "'," + // save also this field after SqlVal.SqlDate( will include the ''
-        //            "'" + SqlVal.SqlString(StudentData[(int)StudentRow, 7]) + "'" +
+        //        cmd.CommandText = "SELECT idStudentsPhoto" +
+        //            " FROM StudentsPhotos_Students" +
+        //            " WHERE idSchoolYear='" + IdPreviousSchoolYear + "'" +
+        //            " AND StudentsPhotos_Students.idStudent = " + IdStudent + "; ";
+        //        int? idStudentsPhoto = (int?)cmd.ExecuteScalar();
+        //        if (idStudentsPhoto != null)
+        //        {
+        //            // add link to old photo
+        //            cmd = conn.CreateCommand();
+        //            cmd.CommandText = "INSERT INTO StudentsPhotos_Students " +
+        //            "(idStudent, idStudentsPhoto, idSchoolYear) " +
+        //            "Values (" +
+        //            "" + IdStudent + "" +
+        //            "," + idStudentsPhoto + "" +
+        //            ",'" + IdNextSchoolYear + "'" +
         //            ");";
-        //        cmd.ExecuteNonQuery();
+        //            cmd.ExecuteNonQuery();
+        //        }
         //        cmd.Dispose();
         //    }
-        //    return codiceStudente;
-        //}
-
-        //internal int CreateStudent(Student Student)
-        //{
-        //    // trova una chiave da assegnare al nuovo studente
-        //    int idStudent = dl.NextKey("Students", "idStudent");
-        //    Student.IdStudent = idStudent;
-        //    using (DbConnection conn = dl.Connect())
-        //    {
-        //        DbCommand cmd = conn.CreateCommand();
-        //        cmd.CommandText = "INSERT INTO Students " +
-        //            "(idStudent,lastName,firstName,residence,origin," +
-        //            "email,birthDate,birthPlace,disabled) " +
-        //            "Values ('" + Student.IdStudent + "','" +
-        //            SqlVal.SqlString(Student.LastName) + "','" +
-        //            SqlVal.SqlString(Student.FirstName) + "','" +
-        //            SqlVal.SqlString(Student.Residence) + "','" +
-        //            SqlVal.SqlString(Student.Origin) + "','" +
-        //            SqlVal.SqlString(Student.Email) + "'," +
-        //            SqlVal.SqlDate(Student.BirthDate.ToString()) + ",'" +
-        //            SqlVal.SqlString(Student.BirthPlace) + "'," +
-        //            "false" +
-        //            ");";
-        //        cmd.ExecuteNonQuery();
-        //        cmd.Dispose();
-        //    }
-        //    return idStudent;
         //}
 
         internal bool IsTopicAlreadyTaught(Topic Topic)
@@ -379,350 +273,6 @@ namespace SchoolGrades.DbClasses
                 cmd.Dispose();
             }
             return Subject.IdSchoolSubject;
-        }
-
-        internal int CopyAndLinkOnePhoto(Student Student, Class Class, string PathAndFileName)
-        {
-            if (!File.Exists(PathAndFileName))
-            {
-                throw new FileNotFoundException(@"[" + PathAndFileName + " not found.]");
-                //return 0;
-            }
-            if (File.Exists(PathAndFileName + "TEMP"))
-            {
-                File.Delete(PathAndFileName + "TEMP");
-            }
-            File.Copy(PathAndFileName, PathAndFileName + "TEMP");
-
-            string ext = Path.GetExtension(PathAndFileName);
-            string newFileName = Commons.PathImages + "\\" + Class.SchoolYear + Class.Abbreviation + "\\" +
-                Student.LastName + "_" + Student.FirstName + "_" + Class.Abbreviation + Class.SchoolYear + ext;
-            if (!Directory.Exists(Commons.PathImages + "\\" + Class.SchoolYear + Class.Abbreviation + "\\"))
-            {
-                Directory.CreateDirectory(Commons.PathImages + "\\" + Class.SchoolYear + Class.Abbreviation + "\\");
-            }
-            if (File.Exists(newFileName))
-            {
-                // !!!! TODO: resolve the problem of the lock that is still active here, 
-                // !!!! despite many attempts to free it !!!!
-                File.Delete(newFileName);
-            }
-            File.Move(PathAndFileName + "TEMP", newFileName);
-
-            // trova la chiave per la prossima foto 
-            int codiceFoto = dl.NextKey("StudentsPhotos", "idStudentsPhoto");
-            using (DbConnection conn = dl.Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-
-                // aggiunge la foto alle foto (cartella relativa, cui verrà aggiunta la path delle foto)
-                cmd.CommandText = "INSERT INTO StudentsPhotos " +
-                "(idStudentsPhoto, photoPath)" +
-                "Values " +
-                "('" + codiceFoto + "','" + SqlVal.SqlString(Class.SchoolYear) +
-                SqlVal.SqlString(Class.Abbreviation) + "\\" + SqlVal.SqlString(Student.LastName) + "_" + SqlVal.SqlString(Student.FirstName) +
-                "_" + SqlVal.SqlString(Class.Abbreviation) + SqlVal.SqlString(Class.SchoolYear) + ".jpg" +
-                "');";
-                cmd.ExecuteNonQuery();
-
-                // cancella tutti gli eventuali riferimenti nella tabella link delle foto ad altre foto nell'anno 
-                cmd.CommandText = "DELETE FROM StudentsPhotos_Students " +
-                    "WHERE idStudent=" + Student.IdStudent +
-                    " AND idSchoolYear='" + Class.SchoolYear + "'" +
-                    ";";
-                cmd.ExecuteNonQuery();
-                // aggiunge questa foto alla tabella link delle foto
-                cmd.CommandText = "INSERT INTO StudentsPhotos_Students " +
-                    "(idStudentsPhoto, idStudent, idSchoolYear) " +
-                    "Values (" + codiceFoto + "," + Student.IdStudent + ",'" + SqlVal.SqlString(Class.SchoolYear) +
-                    "');";
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
-            }
-            return codiceFoto;
-        }
-
-        //internal DataTable GetClassTable(int? idClass)
-        //{
-        //    DataTable t;
-        //    using (DbConnection conn = dl.Connect())
-        //    {
-        //        DataAdapter dAdapter;
-        //        DataSet dSet = new DataSet();
-
-        //        string query = "SELECT * FROM Classes" +
-        //        " WHERE Classes.idClass = " + idClass + ";";
-        //        dAdapter = new SQLiteDataAdapter(query, (System.Data.SQLite.SQLiteConnection)conn);
-        //        dAdapter.Fill(dSet);
-        //        t = dSet.Tables[0];
-        //        dAdapter.Dispose();
-        //        dSet.Dispose();
-        //    }
-        //    return t;
-        //}
-
-        //internal Class GetClassById(int? IdClass)
-        //{
-        //    DbDataReader dRead;
-        //    DbCommand cmd;
-        //    Class c = null;
-        //    using (DbConnection conn = dl.Connect())
-        //    {
-        //        string query = "SELECT *" +
-        //            " FROM Classes" +
-        //            " WHERE Classes.idClass=" + IdClass +
-        //            ";";
-        //        cmd = new SQLiteCommand(query);
-        //        dRead = cmd.ExecuteReader();
-        //        while (dRead.Read())
-        //        {
-        //            c = new Class(IdClass, SafeDb.SafeString(dRead["abbreviation"]), SafeDb.SafeString(dRead["idSchoolYear"]),
-        //                SafeDb.SafeString(dRead["idSchool"]));
-        //            c.PathRestrictedApplication = SafeDb.SafeString(dRead["pathRestrictedApplication"]);
-        //            c.UriWebApp = SafeDb.SafeString(dRead["uriWebApp"]);
-        //        }
-        //        dRead.Dispose();
-        //        cmd.Dispose();
-        //    }
-        //    return c;
-        //}
-
-        //internal DataTable GetClassDataTable(string IdSchool, string IdSchoolYear, string ClassAbbreviation)
-        //{
-        //    DataTable t;
-        //    using (DbConnection conn = dl.Connect())
-        //    {
-        //        DataAdapter dAdapter;
-        //        DataSet dSet = new DataSet();
-
-        //        string query = "SELECT DISTINCT registerNumber, Classes.idSchool, Classes.idSchoolYear, " +
-        //                        "Classes.abbreviation, Students.*" +
-        //        " FROM Students, Classes_Students, Classes" +
-        //        " WHERE Students.idStudent = Classes_Students.idStudent AND Classes.idClass = Classes_Students.idClass" +
-        //            " AND Classes.idSchool = '" + SqlVal.SqlString(IdSchool) + "' AND Classes.idSchoolYear = '" + SqlVal.SqlString(IdSchoolYear) +
-        //            "' AND Classes.abbreviation = '" + SqlVal.SqlString(ClassAbbreviation) +
-        //            "' ORDER BY Students.lastName, Students.firstName;";
-        //        dAdapter = new SQLiteDataAdapter(query,
-        //            (System.Data.SQLite.SQLiteConnection)conn);
-        //        dAdapter.Fill(dSet);
-        //        t = dSet.Tables[0];
-
-        //        dAdapter.Dispose();
-        //        dSet.Dispose();
-        //    }
-        //    return t;
-        //}
-
-        //internal Class GetClass(string IdSchool, string IdSchoolYear, string ClassAbbreviation)
-        //{
-        //    Class c = new Class();
-        //    using (DbConnection conn = dl.Connect())
-        //    {
-        //        DbDataReader dRead;
-        //        DbCommand cmd = conn.CreateCommand();
-        //        cmd = conn.CreateCommand();
-        //        string query = "SELECT Classes.*" +
-        //           " FROM Classes" +
-        //           " WHERE" +
-        //           " Classes.idSchoolYear = '" + SqlVal.SqlString(IdSchoolYear) + "'" +
-        //           " AND Classes.abbreviation = '" + SqlVal.SqlString(ClassAbbreviation) + "'";
-        //        if (IdSchool != null && IdSchool != "")
-        //            query += " AND Classes.idSchool = '" + SqlVal.SqlString(IdSchool) + "'";
-        //        query += ";";
-
-        //        cmd.CommandText = query;
-        //        dRead = cmd.ExecuteReader();
-
-        //        while (dRead.Read())
-        //        {
-        //            GetClassFromRow(c, dRead);
-        //            break; // just the first! 
-        //        }
-        //    }
-        //    return c;
-        //}
-
-        //internal Class GetClassOfStudent(string IdSchool, string SchoolYearCode, Student Student)
-        //{
-        //    Class c = new Class();
-        //    using (DbConnection conn = dl.Connect())
-        //    {
-        //        DbDataReader dRead;
-        //        DbCommand cmd = conn.CreateCommand();
-        //        cmd = conn.CreateCommand();
-        //        cmd.CommandText = "SELECT Classes.*" +
-        //           " FROM Classes" +
-        //           " JOIN Classes_Students ON Classes.idClass = Classes_Students.idClass" +
-        //           " JOIN Students ON Students.idStudent = Classes_Students.idStudent" +
-        //           " WHERE" +
-        //           " Classes.idSchool = '" + SqlVal.SqlString(IdSchool) + "'" +
-        //           " AND Classes.idSchoolYear = '" + SqlVal.SqlString(SchoolYearCode) + "'" +
-        //           " AND Students.IdStudent = " + Student.IdStudent +
-        //           ";";
-        //        dRead = cmd.ExecuteReader();
-
-        //        while (dRead.Read())
-        //        {
-        //            GetClassFromRow(c, dRead);
-        //            break; // just the first! 
-        //        }
-        //    }
-        //    return c;
-        //}
-
-        //private void GetClassFromRow(Class Class, DbDataReader Row)
-        //{
-        //    if (Class == null)
-        //        Class = new Class();
-        //    Class.IdClass = (int)Row["idClass"];
-        //    Class.Abbreviation = SafeDb.SafeString(Row["abbreviation"]);
-        //    Class.IdSchool = SafeDb.SafeString(Row["idSchool"]);
-        //    Class.PathRestrictedApplication = SafeDb.SafeString(Row["pathRestrictedApplication"]);
-        //    Class.SchoolYear = SafeDb.SafeString(Row["idSchoolYear"]);
-        //    Class.UriWebApp = SafeDb.SafeString(Row["uriWebApp"]);
-        //    Class.Description = SafeDb.SafeString(Row["desc"]);
-        //}
-
-        //internal void SaveClass(Class Class)
-        //{
-        //    //bool leaveConnectionOpen = true;
-        //    //if (conn == null)
-        //    //{
-        //    //    conn = dl.Connect();
-        //    //    leaveConnectionOpen = false;
-        //    //}
-        //    using (DbConnection conn = dl.Connect())
-        //    {
-        //        DbCommand cmd = conn.CreateCommand();
-        //        string query = "UPDATE Classes" +
-        //            " SET" +
-        //            " idClass=" + Class.IdClass + "" +
-        //            ",idSchoolYear='" + SqlVal.SqlString(Class.SchoolYear) + "'" +
-        //            ",idSchool='" + SqlVal.SqlString(Class.IdSchool) + "'" +
-        //            ",abbreviation='" + SqlVal.SqlString(Class.Abbreviation) + "'" +
-        //            ",desc='" + SqlVal.SqlString(Class.Description) + "'" +
-        //            ",uriWebApp='" + Class.UriWebApp + "'" +
-        //            ",pathRestrictedApplication='" + SqlVal.SqlString(Class.PathRestrictedApplication) + "'" +
-        //            " WHERE idClass=" + Class.IdClass +
-        //            ";";
-        //        cmd.CommandText = query;
-        //        cmd.ExecuteNonQuery();
-        //        cmd.Dispose();
-        //    }
-        //}
-
-
-        internal int? SaveStartLink(int? IdStartLink, int? IdClass, string SchoolYear,
-            string StartLink, string Desc)
-        {
-            DbCommand cmd = null;
-            try
-            {
-                using (DbConnection conn = dl.Connect())
-                {
-                    cmd = conn.CreateCommand();
-                    if (IdStartLink != null && IdStartLink != 0)
-                    {
-                        cmd.CommandText = "UPDATE Classes_StartLinks" +
-                            " SET" +
-                            " idStartLink=" + IdStartLink +
-                            ",idClass=" + IdClass + "" +
-                            ",startLink='" + SqlVal.SqlString(StartLink) + "'" +
-                            ",desc='" + SqlVal.SqlString(Desc) + "'" +
-                            " WHERE idStartLink=" + IdStartLink +
-                            ";";
-                    }
-                    else
-                    {
-                        IdStartLink = dl.NextKey("Classes_StartLinks", "IdStartLink");
-                        cmd.CommandText = "INSERT INTO Classes_StartLinks" +
-                            " (idStartLink,idClass,startLink,desc)" +
-                            " VALUES " +
-                            "(" +
-                            IdStartLink +
-                            "," + IdClass +
-                            ",'" + SqlVal.SqlString(StartLink) + "'" +
-                            ",'" + SqlVal.SqlString(Desc) + "'" +
-                            ");";
-                    }
-                    cmd.ExecuteNonQuery();
-                    cmd.Dispose();
-                }
-            }
-            catch (Exception ex)
-            {
-                Commons.ErrorLog("DbLayer.SaveStartLink: " + ex.Message);
-                IdStartLink = null;
-                cmd.Dispose();
-            }
-            return IdStartLink;
-        }
-
-        internal void DeleteStartLink(Nullable<int> IdStartLink)
-        {
-            using (DbConnection conn = dl.Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "DELETE FROM Classes_StartLinks" +
-                    " WHERE idStartLink=" + IdStartLink +
-                    ";";
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
-            }
-        }
-
-        internal DataTable GetAllStartLinks(string Year, int? IdClass)
-        {
-            DataTable t;
-            using (DbConnection conn = dl.Connect())
-            {
-                string query = "SELECT Classes.idSchoolYear,Classes.abbreviation,Classes.idClass," +
-                    "Classes_StartLinks.startLink, Classes_StartLinks.desc,Classes_StartLinks.idStartLink" +
-                    " FROM Classes" +
-                    " JOIN Classes_StartLinks ON Classes_StartLinks.idClass=Classes.idClass" +
-                    " WHERE Classes.idSchoolYear=" + Year;
-                if (IdClass != null && IdClass != 0)
-                    query += " AND Classes.idClass=" + IdClass;
-                query += " ORDER BY Classes.abbreviation" +
-                    ";";
-                DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                DataSet DSet = new DataSet("AllStartLinks");
-                try
-                {
-                    DAdapt.Fill(DSet);
-                    t = DSet.Tables[0];
-                }
-                catch
-                {
-                    t = null;
-                }
-                DAdapt.Dispose();
-                DSet.Dispose();
-            }
-            return t;
-        }
-
-        internal List<string> GetStartLinksOfClass(Class Class)
-        {
-            List<string> listOfLinks = new List<string>();
-            DbDataReader dRead;
-            DbCommand cmd;
-            using (DbConnection conn = dl.Connect())
-            {
-                cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT *" +
-                    " FROM Classes_StartLinks" +
-                    " WHERE idClass=" + Class.IdClass + "; ";
-                dRead = cmd.ExecuteReader();
-                while (dRead.Read())
-                {
-                    string item = (string)dRead["startLink"];
-                    listOfLinks.Add(item);
-                }
-                dRead.Dispose();
-                cmd.Dispose();
-            }
-            return listOfLinks;
         }
 
         internal void GetGradeAndStudent(Grade Grade, Student Student)
@@ -1361,62 +911,10 @@ namespace SchoolGrades.DbClasses
                 cmd.Dispose();
             }
         }
-        internal void AddAnswerToQuestion(int? idQuestion, int? idAnswer)
-        {
-            using (DbConnection conn = dl.Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "UPDATE Answers" +
-                    " SET idAnswer=" + idAnswer +
-                    " WHERE idQuestion =" + idQuestion +
-                    ";";
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
-            }
-        }
+        
 
-        internal int CreateAnswer(Answer currentAnswer)
-        {
-            // trova una chiave da assegnare alla nuova domanda
-            int codice = dl.NextKey("Answers", "idAnswer");
-            using (DbConnection conn = dl.Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO Answers" +
-                    " (idAnswer,idQuestion,showingOrder,text,errorCost,isCorrect,isOpenAnswer)" +
-                    " Values (" + codice +
-                    "," +  SqlVal.SqlInt(currentAnswer.IdQuestion) +
-                    "," +  SqlVal.SqlInt(currentAnswer.ShowingOrder) +
-                    ",'" + SqlVal.SqlString(currentAnswer.Text) + "'" +
-                    "," + SqlVal.SqlDouble(currentAnswer.ErrorCost) +
-                    "," + SqlVal.SqlBool(currentAnswer.IsCorrect) +
-                    "," + SqlVal.SqlBool(currentAnswer.IsOpenAnswer) +
-                    ");";
-                cmd.ExecuteNonQuery();
-
-                cmd.Dispose();
-            }
-            return codice;
-        }
-        internal void SaveAnswer(Answer currentAnswer)
-        {
-            using (DbConnection conn = dl.Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "UPDATE Answers" +
-                    " SET idAnswer=" + currentAnswer.IdAnswer + "," +
-                    " idQuestion=" + currentAnswer.IdQuestion + "," +
-                    " isCorrect='" + SqlVal.SqlBool(currentAnswer.IsCorrect) + "'," +
-                    " isOpenAnswer='" + SqlVal.SqlBool(currentAnswer.IsOpenAnswer) + "'," +
-                    " Text='" + SqlVal.SqlString(currentAnswer.Text) + "'," +
-                    " errorCost=" + SqlVal.SqlDouble(currentAnswer.ErrorCost.ToString()) + "" +
-                    " WHERE idAnswer = " + currentAnswer.IdAnswer +
-                    ";";
-                cmd.ExecuteNonQuery();
-
-                cmd.Dispose();
-            }
-        }
+        
+       
 
         internal List<Answer> GetAnswersOfAQuestion(int? idQuestion)
         {
@@ -3691,49 +3189,6 @@ namespace SchoolGrades.DbClasses
             return a;
         }
 
-        internal List<StudentAnnotation> AnnotationsAboutThisStudent(Student currentStudent, string IdSchoolYear, 
-            bool IncludeOnlyActiveAnnotations)
-        {
-            if (currentStudent == null)
-                return null; 
-            List<StudentAnnotation> la = new List<StudentAnnotation>();
-            using (DbConnection conn = dl.Connect())
-            {
-                DbDataReader dRead;
-                DbCommand cmd = conn.CreateCommand();
-                string query = "SELECT *" +
-                    " FROM StudentsAnnotations" +
-                    " WHERE StudentsAnnotations.idStudent=" + currentStudent.IdStudent;
-                if (IdSchoolYear != null && IdSchoolYear != "")
-                    query += " AND idSchoolYear=" + IdSchoolYear;
-                if (IncludeOnlyActiveAnnotations)
-                    query += " AND isActive=true";
-                query += " ORDER BY instantTaken DESC, instantClosed DESC";
-                query += ";";
-                cmd.CommandText = query;
-                dRead = cmd.ExecuteReader();
-                while (dRead.Read())
-                {
-                    StudentAnnotation a = GetAnnotationFromRow(dRead);
-                    la.Add(a);
-                }
-            }
-            return la;
-        }
-
-        private StudentAnnotation GetAnnotationFromRow(DbDataReader Row)
-        {
-            StudentAnnotation a = new StudentAnnotation();
-            a.IdAnnotation = SafeDb.SafeInt(Row["idAnnotation"]);
-            a.IdStudent = SafeDb.SafeInt(Row["idStudent"]);
-            a.IdSchoolYear = SafeDb.SafeString(Row["idSchoolYear"]);
-            a.Annotation = SafeDb.SafeString(Row["annotation"]);
-            a.InstantTaken = SafeDb.SafeDateTime(Row["instantTaken"]);
-            a.InstantClosed = SafeDb.SafeDateTime(Row["instantClosed"]);
-            a.IsActive = SafeDb.SafeBool(Row["isActive"]);
-            return a;
-        }
-
         internal int? SaveAnnotation(StudentAnnotation Annotation, Student s)
         {
             using (DbConnection conn = dl.Connect())
@@ -3803,81 +3258,13 @@ namespace SchoolGrades.DbClasses
                 cmd.CommandText = query;
                 dRead = cmd.ExecuteReader();
                 dRead.Read(); 
-                a = GetAnnotationFromRow(dRead);
+                a = dl.GetAnnotationFromRow(dRead);
                 cmd.Dispose(); 
             }
             return a;
         }
 
-        internal DataTable GetStudentsWithNoMicrogrades(Class Class, string IdGradeType, string IdSchoolSubject, 
-            DateTime DateFrom, DateTime DateTo)
-        {
-            DataTable t;
-            using (DbConnection conn = dl.Connect())
-            {
-                // find the macro grade type of the micro grade
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT idGradeTypeParent " +
-                    "FROM GradeTypes " +
-                    "WHERE idGradeType='" + IdGradeType + "'; ";
-                string idGradeTypeParent = (string)cmd.ExecuteScalar();
-
-                string query = "SELECT Students.idStudent, LastName, FirstName FROM Students" +
-                    " JOIN Classes_Students ON Students.idStudent=Classes_Students.idStudent" +
-                    " WHERE Students.idStudent NOT IN" +
-                    "(";
-                query += "SELECT DISTINCT Students.idStudent" +
-                " FROM Classes_Students" +
-                " LEFT JOIN Grades ON Students.idStudent=Grades.idStudent" +
-                " JOIN Students ON Classes_Students.idStudent=Students.idStudent" +
-                " WHERE Classes_Students.idClass =" + Class.IdClass +
-                " AND Grades.idSchoolYear='" + Class.SchoolYear + "'" +
-                " AND (Grades.idGradeType='" + IdGradeType + "'" +
-                " OR Grades.idGradeType IS NULL)" +
-                " AND Grades.idSchoolSubject='" + IdSchoolSubject + "'" +
-                " AND Grades.value IS NOT NULL AND Grades.value <> 0" +
-                " AND Grades.Timestamp BETWEEN " + SqlVal.SqlDate(DateFrom) + " AND " + SqlVal.SqlDate(DateTo) +
-                ")";
-                query += " AND Classes_Students.idClass=" + Class.IdClass;
-                query += ";";
-                DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                DataSet DSet = new DataSet("ClosedMicroGrades");
-
-                DAdapt.Fill(DSet);
-                t = DSet.Tables[0];
-
-                DAdapt.Dispose();
-                DSet.Dispose();
-            }
-            return t;
-        }
-
-        internal void EraseAnnotationById(int? IdAnnotation)
-        {
-            using (DbConnection conn = dl.Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "DELETE FROM StudentsAnnotations" +
-                    " WHERE idAnnotation=" + SqlVal.SqlInt(IdAnnotation) +
-                    ";";
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
-            }
-        }
-
-        internal void EraseAnnotationByText(string AnnotationText, Student Student)
-        {
-            using (DbConnection conn = dl.Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "DELETE FROM StudentsAnnotations" +
-                    " WHERE annotation='" + SqlVal.SqlString(AnnotationText) + "'" +
-                    " AND idStudent=" + SqlVal.SqlInt(Student.IdStudent) +
-                    ";";
-                    cmd.ExecuteNonQuery();
-                cmd.Dispose();
-            }
-        }
+        
         #endregion
     }
 }
