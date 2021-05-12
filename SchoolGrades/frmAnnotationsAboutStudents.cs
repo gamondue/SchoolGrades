@@ -121,14 +121,14 @@ namespace SchoolGrades
                     if (!CommonsWinForms.CheckIfStudentChosen(currentStudent))
                         return;
                     currentAnnotation.IdAnnotation = null;
-                    currentAnnotation.IdAnnotation = db.SaveAnnotation(currentAnnotation, currentStudent);
+                    currentAnnotation.IdAnnotation = dl.SaveAnnotation(currentAnnotation, currentStudent);
                 }
                 else
                 {
                     foreach (Student s in chosenStudents)
                     {
                         currentAnnotation.IdAnnotation = null;
-                        currentAnnotation.IdAnnotation = db.SaveAnnotation(currentAnnotation, s);
+                        currentAnnotation.IdAnnotation = dl.SaveAnnotation(currentAnnotation, s);
                     }
                 }
                 return;
@@ -137,7 +137,7 @@ namespace SchoolGrades
             {
                 // if IsActive has changed from what is in database then we change dates 
                 // according to the status 
-                if (db.GetAnnotation(currentAnnotation.IdAnnotation).IsActive != currentAnnotation.IsActive)
+                if (dl.GetAnnotation(currentAnnotation.IdAnnotation).IsActive != currentAnnotation.IsActive)
                 {
                     if (currentAnnotation.IsActive == true)
                     {
@@ -155,11 +155,11 @@ namespace SchoolGrades
                 {
                     foreach (Student s in chosenStudents)
                     {
-                        db.SaveAnnotation(currentAnnotation, s);
+                        dl.SaveAnnotation(currentAnnotation, s);
                     }
                 }
                 else
-                    db.SaveAnnotation(currentAnnotation, currentStudent);
+                    dl.SaveAnnotation(currentAnnotation, currentStudent);
             }
             RefreshUI(); 
         }
@@ -261,7 +261,7 @@ namespace SchoolGrades
                 return;
             }
             ReadUI();
-            currentAnnotation.IdAnnotation = db.SaveAnnotation(currentAnnotation, currentStudent);
+            currentAnnotation.IdAnnotation = dl.SaveAnnotation(currentAnnotation, currentStudent);
             RefreshUI();
         }
 
