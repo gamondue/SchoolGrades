@@ -36,6 +36,11 @@
             this.btnChoose = new System.Windows.Forms.Button();
             this.lblSchoolSubject = new System.Windows.Forms.Label();
             this.cmbSchoolSubject = new System.Windows.Forms.ComboBox();
+            this.lblEnd = new System.Windows.Forms.Label();
+            this.lblStart = new System.Windows.Forms.Label();
+            this.dtpEndPeriod = new System.Windows.Forms.DateTimePicker();
+            this.dtpStartPeriod = new System.Windows.Forms.DateTimePicker();
+            this.cmbSchoolPeriod = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgwQuestions)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,7 +61,7 @@
             this.lblStudent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblStudent.BackColor = System.Drawing.Color.Transparent;
-            this.lblStudent.Font = new System.Drawing.Font("Arial Black", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStudent.Font = new System.Drawing.Font("Arial Black", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblStudent.ForeColor = System.Drawing.Color.DarkBlue;
             this.lblStudent.Location = new System.Drawing.Point(233, 9);
             this.lblStudent.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
@@ -74,9 +79,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgwQuestions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgwQuestions.Location = new System.Drawing.Point(12, 130);
+            this.dgwQuestions.Location = new System.Drawing.Point(9, 161);
             this.dgwQuestions.Name = "dgwQuestions";
-            this.dgwQuestions.Size = new System.Drawing.Size(910, 349);
+            this.dgwQuestions.Size = new System.Drawing.Size(913, 317);
             this.dgwQuestions.TabIndex = 117;
             this.dgwQuestions.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgwQuestions_CellClick);
             this.dgwQuestions.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgwQuestions_CellContentClick);
@@ -124,12 +129,72 @@
             this.cmbSchoolSubject.TabIndex = 120;
             this.cmbSchoolSubject.SelectedIndexChanged += new System.EventHandler(this.cmbSchoolSubject_SelectedIndexChanged);
             // 
+            // lblEnd
+            // 
+            this.lblEnd.AutoSize = true;
+            this.lblEnd.Location = new System.Drawing.Point(178, 134);
+            this.lblEnd.Name = "lblEnd";
+            this.lblEnd.Size = new System.Drawing.Size(36, 18);
+            this.lblEnd.TabIndex = 162;
+            this.lblEnd.Text = "Fine";
+            // 
+            // lblStart
+            // 
+            this.lblStart.AutoSize = true;
+            this.lblStart.Location = new System.Drawing.Point(9, 134);
+            this.lblStart.Name = "lblStart";
+            this.lblStart.Size = new System.Drawing.Size(42, 18);
+            this.lblStart.TabIndex = 161;
+            this.lblStart.Text = "Inizio";
+            // 
+            // dtpEndPeriod
+            // 
+            this.dtpEndPeriod.CustomFormat = "yyyy-MM-dd";
+            this.dtpEndPeriod.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpEndPeriod.Location = new System.Drawing.Point(218, 131);
+            this.dtpEndPeriod.MinDate = new System.DateTime(1800, 1, 1, 0, 0, 0, 0);
+            this.dtpEndPeriod.Name = "dtpEndPeriod";
+            this.dtpEndPeriod.Size = new System.Drawing.Size(111, 24);
+            this.dtpEndPeriod.TabIndex = 160;
+            this.dtpEndPeriod.Value = new System.DateTime(2019, 6, 7, 0, 0, 0, 0);
+            // 
+            // dtpStartPeriod
+            // 
+            this.dtpStartPeriod.CustomFormat = "yyyy-MM-dd";
+            this.dtpStartPeriod.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpStartPeriod.Location = new System.Drawing.Point(61, 131);
+            this.dtpStartPeriod.MinDate = new System.DateTime(1800, 1, 1, 0, 0, 0, 0);
+            this.dtpStartPeriod.Name = "dtpStartPeriod";
+            this.dtpStartPeriod.Size = new System.Drawing.Size(111, 24);
+            this.dtpStartPeriod.TabIndex = 159;
+            this.dtpStartPeriod.Value = new System.DateTime(2019, 1, 24, 0, 0, 0, 0);
+            // 
+            // cmbSchoolPeriod
+            // 
+            this.cmbSchoolPeriod.FormattingEnabled = true;
+            this.cmbSchoolPeriod.Items.AddRange(new object[] {
+            "",
+            "Settimana",
+            "Mese",
+            "Anno scolastico",
+            "Da nuovo anno solare"});
+            this.cmbSchoolPeriod.Location = new System.Drawing.Point(340, 129);
+            this.cmbSchoolPeriod.Name = "cmbSchoolPeriod";
+            this.cmbSchoolPeriod.Size = new System.Drawing.Size(218, 26);
+            this.cmbSchoolPeriod.TabIndex = 158;
+            this.cmbSchoolPeriod.SelectedIndexChanged += new System.EventHandler(this.cmbSchoolPeriod_SelectedIndexChanged);
+            // 
             // frmKnotsToTheComb
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(932, 490);
+            this.Controls.Add(this.lblEnd);
+            this.Controls.Add(this.lblStart);
+            this.Controls.Add(this.dtpEndPeriod);
+            this.Controls.Add(this.dtpStartPeriod);
+            this.Controls.Add(this.cmbSchoolPeriod);
             this.Controls.Add(this.lblSchoolSubject);
             this.Controls.Add(this.cmbSchoolSubject);
             this.Controls.Add(this.btnChoose);
@@ -137,7 +202,7 @@
             this.Controls.Add(this.dgwQuestions);
             this.Controls.Add(this.txtQuestionText);
             this.Controls.Add(this.lblStudent);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.Color.DarkBlue;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -158,5 +223,10 @@
         private System.Windows.Forms.Button btnChoose;
         private System.Windows.Forms.Label lblSchoolSubject;
         private System.Windows.Forms.ComboBox cmbSchoolSubject;
+        private System.Windows.Forms.Label lblEnd;
+        private System.Windows.Forms.Label lblStart;
+        private System.Windows.Forms.DateTimePicker dtpEndPeriod;
+        private System.Windows.Forms.DateTimePicker dtpStartPeriod;
+        private System.Windows.Forms.ComboBox cmbSchoolPeriod;
     }
 }

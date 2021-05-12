@@ -138,12 +138,15 @@ namespace SchoolGrades
             DateTime dateFrom = dtpStartPeriod.Value;
             DateTime dateTo = dtpEndPeriod.Value;
             if (cmbStandardPeriod.Text == "")
-                dateFrom = Commons.DateNull; 
-            List<Question> l = db.GetFilteredQuestionsNotAsked(currentStudent, currentClass,
-                currentSubject, keyQuestionType, tagsList, currentTopic,
-                rdbManyTopics.Checked, rdbAnd.Checked, txtSearchText.Text, 
-                dateFrom, dateTo);
-            dgwQuestions.DataSource = l;
+                dateFrom = Commons.DateNull;
+            if (db != null)
+            {
+                List<Question> l = db.GetFilteredQuestionsNotAsked(currentStudent, currentClass,
+                    currentSubject, keyQuestionType, tagsList, currentTopic,
+                    rdbManyTopics.Checked, rdbAnd.Checked, txtSearchText.Text,
+                    dateFrom, dateTo);
+                dgwQuestions.DataSource = l;
+            }
         }
         private void btnRemoveTag_Click(object sender, EventArgs e)
         {

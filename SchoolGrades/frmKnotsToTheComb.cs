@@ -15,11 +15,14 @@ namespace SchoolGrades
     {
         DbAndBusiness db; 
         private Question chosenQuestion = new Question();
-        private frmMicroAssessment grandparentForm; 
+        private frmMicroAssessment grandparentForm;
+
 
         //private Class currentClass;
         private Student currentStudent;
         private SchoolSubject currentSubject;
+        private GradeType currentGradeType;
+        private SchoolPeriod currentSchoolPeriod;
         private string currentIdSchoolYear;
         private int currentIdGrade;
 
@@ -128,6 +131,37 @@ namespace SchoolGrades
         private void cmbSchoolSubject_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.BackColor = Commons.ColorFromNumber(currentSubject);
+        }
+
+        private void cmbSchoolPeriod_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            currentSchoolPeriod = (SchoolPeriod)(cmbSchoolPeriod.SelectedValue);
+            //CONTINUARE DA QUI GRUPPO 4
+            if(currentSchoolPeriod != null)
+            {
+                if (currentSchoolPeriod.IdSchoolPeriodType != "N")
+                {
+                    dtpStartPeriod.Value = (DateTime)currentSchoolPeriod.DateStart;
+                    dtpEndPeriod.Value = (DateTime)currentSchoolPeriod.DateFinish;
+                }
+                else if (currentSchoolPeriod.IdSchoolPeriod == "month")
+                {
+                    dtpStartPeriod.Value = DateTime.Now.AddMonths(-1);
+                    dtpEndPeriod.Value = DateTime.Now;
+                }
+                else if (currentSchoolPeriod.IdSchoolPeriod == "week")
+                {
+                    dtpStartPeriod.Value = DateTime.Now.AddDays(-7);
+                    dtpEndPeriod.Value = DateTime.Now;
+                }
+                else if (currentSchoolPeriod.IdSchoolPeriod == "year")
+                {
+                    dtpStartPeriod.Value = DateTime.Now.AddYears(-1);
+                    dtpEndPeriod.Value = DateTime.Now;
+                }
+                dgwQuestions.DataSource = db.GetGradesOfStudent(currentStudent, "2021", "Valutazione generica", ((SchoolSubject)(cmbSchoolSubject.SelectedItem)).IdSchoolSubject, dtpStartPeriod.Value, dtpEndPeriod.Value);
+
+            }
         }
     }
 }
