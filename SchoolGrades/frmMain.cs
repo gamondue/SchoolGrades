@@ -1236,9 +1236,10 @@ namespace SchoolGrades
         private void btnClassesGradesSummary_Click(object sender, EventArgs e)
         {
             if (!CommonsWinForms.CheckIfClassChosen(currentClass))
-            {
                 return;
-            }
+            else if (!CommonsWinForms.CheckIfSubjectChosen(currentSubject))
+                return;
+
             frmGradesClassSummary f;
             f = new frmGradesClassSummary(currentClass,
                 currentGradeType, currentSubject);
