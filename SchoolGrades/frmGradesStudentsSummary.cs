@@ -113,6 +113,7 @@ namespace SchoolGrades
                         // crea un nuovo voto per ciascuna riga salvata
                         // il vecchio voto assume peso 0, il nuovo, lo stesso peso della riga precedente
                         db.CloneGrade(riga);
+                        
                     }
                 }
             }

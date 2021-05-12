@@ -25,7 +25,7 @@ namespace SchoolGrades
         private Class currentClass;
         private Student currentStudent;
         private Question previousQuestion;
-
+        private SchoolPeriod currentSchoolPeriod;
         string keySubject, keyQuestionType;
 
         bool isLoading = true; 
@@ -70,7 +70,7 @@ namespace SchoolGrades
                 txtTopic.Text = dbMptt.GetTopicPath(previousQuestion.IdTopic);
                 txtTopicCode.Text = currentTopic.Id.ToString();
             }
-            cmbStandardPeriod.SelectedIndex = 4; // !! year !! TODO set with previous value 
+            cmbStandardPeriod.SelectedIndex=4; // !! year !! TODO set with previous value 
 
             isLoading = false;
             // if the query would include too many rows, don't do it 
@@ -130,7 +130,7 @@ namespace SchoolGrades
             else
                 keyQuestionType = ((QuestionType)cmbQuestionTypes.SelectedItem).IdQuestionType;
 
-            LoadDatagrids(keySubject, keyQuestionType); 
+            LoadDatagrids(keySubject, keyQuestionType);
         }
         private void LoadDatagrids(string keySubject, string keyQuestionType)
         {
@@ -139,7 +139,7 @@ namespace SchoolGrades
             DateTime dateFrom = dtpStartPeriod.Value;
             DateTime dateTo = dtpEndPeriod.Value;
             if (cmbStandardPeriod.Text == "")
-                dateFrom = Commons.DateNull; 
+                dateFrom = Commons.DateNull;
             List<Question> l = db.GetFilteredQuestionsNotAsked(currentStudent, currentClass,
                 currentSubject, keyQuestionType, tagsList, currentTopic,
                 rdbManyTopics.Checked, rdbAnd.Checked, txtSearchText.Text, 
@@ -300,36 +300,26 @@ namespace SchoolGrades
         }
         private void cmbStandardPeriod_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (cmbStandardPeriod.SelectedIndex)
+            currentSchoolPeriod = (SchoolPeriod)(cmbStandardPeriod.SelectedValue);
+            if (currentSchoolPeriod.IdSchoolPeriodType != "N")
             {
-                case 0:
-                    { // week
-                        dtpStartPeriod.Value = Commons.DateNull;
-                        break;
-                    }
-                case 1:
-                    { // week
-                        dtpStartPeriod.Value = dtpEndPeriod.Value.AddDays(-7);
-                        break;
-                    }
-                case 2:
-                    {  // month
-                        dtpStartPeriod.Value = dtpEndPeriod.Value.AddMonths(-1);
-                        break;
-                    }
-                case 3:
-                    {   // school year
-                        // TODO calculate automatically the beginning of the school year 
-                        // TODO and put in dtpStartPeriod
-                        dtpStartPeriod.Value = new DateTime(2018, 09, 1);
-                        break;
-                    }
-                case 4:
-                    {   // from the beginning of the solar year. 
-                        // TODO use the periods stores in SchoolPeriods table 
-                        dtpStartPeriod.Value = new DateTime(2019, 01, 01);
-                        break;
-                    }
+                dtpStartPeriod.Value = (DateTime)currentSchoolPeriod.DateStart;
+                dtpEndPeriod.Value = (DateTime)currentSchoolPeriod.DateFinish;
+            }
+            else if (currentSchoolPeriod.IdSchoolPeriod == "month")
+            {
+                dtpStartPeriod.Value = DateTime.Now.AddMonths(-1);
+                dtpEndPeriod.Value = DateTime.Now;
+            }
+            else if (currentSchoolPeriod.IdSchoolPeriod == "week")
+            {
+                dtpStartPeriod.Value = DateTime.Now.AddDays(-7);
+                dtpEndPeriod.Value = DateTime.Now;
+            }
+            else if (currentSchoolPeriod.IdSchoolPeriod == "year")
+            {
+                dtpStartPeriod.Value = DateTime.Now.AddYears(-1);
+                dtpEndPeriod.Value = DateTime.Now;
             }
             updateQuestions();
         }

@@ -1,7 +1,6 @@
 ﻿using SchoolGrades.DbClasses;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Windows.Forms;
 
 namespace SchoolGrades
@@ -11,7 +10,7 @@ namespace SchoolGrades
         DbAndBusiness db;
         private Class currentClass;
         private SchoolSubject currentSubject;
-
+        private SchoolPeriod currentSchoolPeriod;
         internal Topic TopicChosen { get; private set; }
 
         List<Topic> topicsDone;
@@ -33,7 +32,28 @@ namespace SchoolGrades
             currentSubject = Subject;
             formType = FormType;
             TopicChosen = new Topic(); 
-            TopicChosen.Id = 0; 
+            TopicChosen.Id = 0;
+
+            db = new DbAndBusiness(Commons.PathAndFileDatabase);
+
+            currentClass = Class;
+            currentSubject = Subject;
+
+            // fill the combos of lookup tables
+
+            List<SchoolPeriod> listPeriods = db.GetSchoolPeriods(Class.SchoolYear);
+            cmbStandardPeriod.DataSource = listPeriods;
+            // select the combo item of the partial period of the DateTime.Now
+            foreach (SchoolPeriod sp in listPeriods)
+            {
+                if (sp.DateFinish > DateTime.Now && sp.DateStart < DateTime.Now
+                    && sp.IdSchoolPeriodType == "P")
+                {
+                    cmbStandardPeriod.SelectedItem = sp;
+                }
+            }
+            currentClass = Class;
+            currentSubject = Subject;
         }
 
         private void frmTopicChooseByPeriod_Load(object sender, EventArgs e)
@@ -189,39 +209,38 @@ namespace SchoolGrades
 
         private void cmbStandardPeriod_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (cmbStandardPeriod.SelectedIndex)
+            currentSchoolPeriod = (SchoolPeriod)(cmbStandardPeriod.SelectedValue);
+            if (currentSchoolPeriod.IdSchoolPeriodType != "N")
             {
-                case 0:
-                    { // week
-                        dtpStartPeriod.Value = Commons.DateNull;
-                        break;
-                    }
-                case 1:
-                    { // week
-                        dtpStartPeriod.Value = dtpEndPeriod.Value.AddDays(-7);
-                        break;
-                    }
-                case 2:
-                    {  // month
-                        dtpStartPeriod.Value = dtpEndPeriod.Value.AddMonths(-1);
-                        break;
-                    }
-                case 3:
-                    {   // school year
-                        // TODO calculate automatically the beginning of the school year 
-                        // TODO and put in dtpStartPeriod
-                        dtpStartPeriod.Value = new DateTime(2018, 09, 1);
-                        break;
-                    }
-                case 4:
-                    {   // from the beginning of the solar year. 
-                        // TODO use the periods stores in SchoolPeriods table 
-                        dtpStartPeriod.Value = new DateTime(2019, 01, 01);
-                        break;
-                    }
+                dtpStartPeriod.Value = (DateTime)currentSchoolPeriod.DateStart;
+                dtpEndPeriod.Value = (DateTime)currentSchoolPeriod.DateFinish;
             }
-        }
+            else if (currentSchoolPeriod.IdSchoolPeriod == "month")
+            {
+                dtpStartPeriod.Value = DateTime.Now.AddMonths(-1);
+                dtpEndPeriod.Value = DateTime.Now;
+            }
+            else if (currentSchoolPeriod.IdSchoolPeriod == "week")
+            {
+                dtpStartPeriod.Value = DateTime.Now.AddDays(-7);
+                dtpEndPeriod.Value = DateTime.Now;
+            }
+            else if (currentSchoolPeriod.IdSchoolPeriod == "year")
+            {
+                dtpStartPeriod.Value = DateTime.Now.AddYears(-1);
+                dtpEndPeriod.Value = DateTime.Now;
+            }
+            DateTime dateFrom;
+            if (cmbStandardPeriod.Text == "")
+                dateFrom = Commons.DateNull;
+            else
+                dateFrom = dtpStartPeriod.Value;
+            topicsDone = db.GetTopicsDoneInPeriod(currentClass, currentSubject,
+                dateFrom, dtpEndPeriod.Value);
 
+            dgwTopics.DataSource = topicsDone;
+
+        }
         private void dgwTopics_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
@@ -231,3 +250,4 @@ namespace SchoolGrades
         }
     }
 }
+
