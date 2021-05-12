@@ -39,7 +39,7 @@ namespace SchoolGrades
 
         private void GradeTest()
         {
-            List<Student> studentsThatAnswered = db.GetAllStudentsThatAnsweredToATest(currentTest, currentClass);
+            List<Student> studentsThatAnswered = dl.GetAllStudentsThatAnsweredToATest(currentTest, currentClass);
             List<Question> allQuestions = db.GetAllQuestionsOfATest(currentTest.IdTest);
 
             dgwTestResults.Rows.Clear();        // !!!! erase when fully debugged //
@@ -54,7 +54,7 @@ namespace SchoolGrades
             // showing the correct answers and weights of the questions
             foreach (Question q in allQuestions)
             {
-                correctQuestionAnswers = db.GetAllCorrectAnswersToThisQuestionOfThisTest(
+                correctQuestionAnswers = dl.GetAllCorrectAnswersToThisQuestionOfThisTest(
                     q.IdQuestion, currentTest.IdTest);
 
                 GridAddData(gridRow, gridColumn, q.Text);
@@ -95,7 +95,7 @@ namespace SchoolGrades
                 // grading of students' answers
                 foreach (Question q in allQuestions)
                 {
-                    correctQuestionAnswers = db.GetAllCorrectAnswersToThisQuestionOfThisTest(
+                    correctQuestionAnswers = dl.GetAllCorrectAnswersToThisQuestionOfThisTest(
                         q.IdQuestion, currentTest.IdTest);
                     List<StudentsAnswer> studentsQuestionAnswers = db.GetAllAnswersOfAStudentToAQuestionOfThisTest(
                         s.IdStudent, q.IdQuestion, currentTest.IdTest);

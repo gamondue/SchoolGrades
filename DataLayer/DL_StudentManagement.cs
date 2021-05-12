@@ -78,6 +78,32 @@ namespace SchoolGrades
             return t;
         }
 
+        internal List<Student> GetAllStudentsThatAnsweredToATest(Test Test, Class Class)
+        {
+            List<Student> list = new List<Student>();
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                string query = "SELECT DISTINCT StudentsAnswers.IdStudent" +
+                    " FROM StudentsAnswers" +
+                    " JOIN Classes_Students ON StudentsAnswers.IdStudent=Classes_Students.IdStudent" +
+                    " JOIN Students ON Classes_Students.IdStudent=Students.IdStudent" +
+                    " WHERE StudentsAnswers.IdTest=" + Test.IdTest + "" +
+                    " AND Classes_Students.IdClass=" + Class.IdClass + "" +
+                    " ORDER BY Students.LastName, Students.FirstName, Students.IdStudent " +
+                    ";";
+                cmd.CommandText = query;
+                DbDataReader dRead = cmd.ExecuteReader();
+                while (dRead.Read())
+                {
+                    int? idStudent = SafeDb.SafeInt(dRead["idStudent"]);
+                    Student s = GetStudent(idStudent);
+                    list.Add(s);
+                }
+            }
+            return list;
+        }
+
         internal int CreateStudent(Student Student)
         {
             // trova una chiave da assegnare al nuovo studente

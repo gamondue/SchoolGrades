@@ -71,6 +71,7 @@ namespace SchoolGrades
             SiglaClasse, IncludeNonActiveStudents);
         }
 
+
         internal List<Student> GetStudentsAndSumOfWeights(Class Class,
             GradeType GradeType, SchoolSubject SchoolSubject,
             DateTime DateFrom, DateTime DateTo)

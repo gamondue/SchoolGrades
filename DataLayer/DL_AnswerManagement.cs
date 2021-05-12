@@ -23,6 +23,48 @@ namespace SchoolGrades
             }
         }
 
+        internal List<Answer> GetAllCorrectAnswersToThisQuestionOfThisTest(int? IdQuestion, int? IdTest)
+        {
+            List<Answer> list = new List<Answer>();
+            using (DbConnection conn = Connect())
+            {
+                DbDataReader dRead;
+                DbCommand cmd = conn.CreateCommand();
+                string query = "SELECT Answers.*" +
+                    " FROM Answers" +
+                    " JOIN Questions ON Questions.IdQuestion=Answers.IdQuestion" +
+                    " JOIN Tests_Questions ON Questions.IdQuestion=Tests_Questions.IdQuestion" +
+                    " WHERE Questions.IdQuestion=" + IdQuestion + "" +
+                    " AND Tests_Questions.IdTest=" + IdTest + "" +
+                    " ORDER BY idAnswer" +
+                    ";";
+                cmd.CommandText = query;
+                dRead = cmd.ExecuteReader();
+                while (dRead.Read())
+                {
+                    Answer a =  GetAnswerFromRow(dRead);
+                    list.Add(a);
+                }
+            }
+            return list;
+        }
+
+        internal Answer GetAnswerFromRow(DbDataReader Row)
+        {
+            Answer a = new Answer();
+            a.IdAnswer = SafeDb.SafeInt(Row["IdAnswer"]);
+            a.IdQuestion = SafeDb.SafeInt(Row["IdQuestion"]);
+            a.ShowingOrder = SafeDb.SafeInt(Row["ShowingOrder"]);
+            a.Text = SafeDb.SafeString(Row["Text"]);
+            a.ErrorCost = SafeDb.SafeInt(Row["ErrorCost"]);
+            a.IsCorrect = SafeDb.SafeBool(Row["IsCorrect"]);
+            a.IsOpenAnswer = SafeDb.SafeBool(Row["IsOpenAnswer"]);
+            a.IsMutex = SafeDb.SafeBool(Row["IsMutex"]);
+
+            return a;
+        }
+
+
         internal int CreateAnswer(Answer currentAnswer)
         {
             // trova una chiave da assegnare alla nuova domanda
