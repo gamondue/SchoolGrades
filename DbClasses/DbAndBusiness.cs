@@ -233,8 +233,17 @@ namespace SchoolGrades.DbClasses
             fileContent += "\r\n";
             fileContent += fourthColName + " Sum:\t" + sumfourthColName.ToString().Replace(",", ".") + '\t' + "\r\n";
             fileContent += fifthColName + " Sum:\t" + sumfifthColName.ToString().Replace(",", ".") + '\t' + "\r\n";
-            fileContent += "Average "+ fourthColName + " Sum:\t" + (sumfourthColName/contSumfourthColName).ToString().Replace(",", ".") + '\t' + "\r\n";
-            fileContent += "Average " + fifthColName + " Sum:\t" + (sumfifthColName/contSumfifthColName).ToString().Replace(",", ".") + '\t' + "\r\n";
+            string t1, t2;
+            if ((sumfourthColName / contSumfourthColName).ToString().Length > 4)
+                t1 = (sumfourthColName / contSumfourthColName).ToString().Replace(",", ".").Substring(0, 4);
+            else
+                t1 = (sumfourthColName / contSumfourthColName).ToString().Replace(",", ".");
+            if ((sumfifthColName / contSumfifthColName).ToString().Length > 4)
+                t2 = (sumfifthColName / contSumfifthColName).ToString().Replace(",", ".").Substring(0, 4);
+            else
+                t2 = (sumfifthColName / contSumfifthColName).ToString().Replace(",", ".");
+            fileContent += "Average "+ fourthColName + " Sum:\t" + t1 + '\t' + "\r\n";
+            fileContent += "Average " + fifthColName + " Sum:\t" + t2 + '\t' + "\r\n";
             TextFile.StringToFile(FileName, fileContent, false);
         }
 
