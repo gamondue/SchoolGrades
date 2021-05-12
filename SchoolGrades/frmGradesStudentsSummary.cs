@@ -61,7 +61,7 @@ namespace SchoolGrades
             List<SchoolPeriod> listPeriods = db.GetSchoolPeriods(currentSchoolYear);
             cmbSchoolPeriod.DataSource = listPeriods;
 
-            dgwNotes.DataSource = db.AnnotationsAboutThisStudent(currentStudent, currentSchoolYear,
+            dgwNotes.DataSource = dl.AnnotationsAboutThisStudent(currentStudent, currentSchoolYear,
                 chkAnnotationsShowActive.Checked);
 
             RefreshData();

@@ -19,6 +19,7 @@ namespace SchoolGrades
         Lesson currentLesson = new Lesson();
 
         Class currentClass;
+        DataLayer dl;
 
         DbAndBusiness db;
 
@@ -34,7 +35,7 @@ namespace SchoolGrades
         public frmLessons(Class CurrentClass, SchoolSubject SchoolSubject, bool ReadOnly)
         {
             InitializeComponent();
-
+            dl = new DataLayer();
             db = new DbAndBusiness(Commons.PathAndFileDatabase); 
 
             currentClass = CurrentClass;
@@ -354,7 +355,7 @@ namespace SchoolGrades
         }
         private void btnStartLinks_Click(object sender, EventArgs e)
         {
-            List<string> ll = db.GetStartLinksOfClass(currentClass); 
+            List<string> ll = dl.GetStartLinksOfClass(currentClass); 
             foreach(string link in ll)
             {
                 try

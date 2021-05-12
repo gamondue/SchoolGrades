@@ -1043,7 +1043,7 @@ namespace SchoolGrades
         {
             if (!CommonsWinForms.CheckIfClassChosen(currentClass))
                 return;
-            List<string> LinksOfClass = db.GetStartLinksOfClass(currentClass);
+            List<string> LinksOfClass = dl.GetStartLinksOfClass(currentClass);
 
             Commons.StartLinks(currentClass, LinksOfClass);
         }

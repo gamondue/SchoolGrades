@@ -9,9 +9,12 @@
     <Import_RootNamespace>SchoolGrades.DataLayer</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)DL_AnnotationManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DL_AnswerManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_ClassManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_ConstructorsAndGeneralMethods.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_GradesManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DL_LinkManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_StudentManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_UserManagement.cs" />
   </ItemGroup>

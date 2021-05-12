@@ -35,6 +35,49 @@ namespace SchoolGrades
             return codiceStudente;
         }
 
+        internal DataTable GetStudentsWithNoMicrogrades(Class Class, string IdGradeType, string IdSchoolSubject,
+            DateTime DateFrom, DateTime DateTo)
+        {
+            DataTable t;
+            using (DbConnection conn = Connect())
+            {
+                // find the macro grade type of the micro grade
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT idGradeTypeParent " +
+                    "FROM GradeTypes " +
+                    "WHERE idGradeType='" + IdGradeType + "'; ";
+                string idGradeTypeParent = (string)cmd.ExecuteScalar();
+
+                string query = "SELECT Students.idStudent, LastName, FirstName FROM Students" +
+                    " JOIN Classes_Students ON Students.idStudent=Classes_Students.idStudent" +
+                    " WHERE Students.idStudent NOT IN" +
+                    "(";
+                query += "SELECT DISTINCT Students.idStudent" +
+                " FROM Classes_Students" +
+                " LEFT JOIN Grades ON Students.idStudent=Grades.idStudent" +
+                " JOIN Students ON Classes_Students.idStudent=Students.idStudent" +
+                " WHERE Classes_Students.idClass =" + Class.IdClass +
+                " AND Grades.idSchoolYear='" + Class.SchoolYear + "'" +
+                " AND (Grades.idGradeType='" + IdGradeType + "'" +
+                " OR Grades.idGradeType IS NULL)" +
+                " AND Grades.idSchoolSubject='" + IdSchoolSubject + "'" +
+                " AND Grades.value IS NOT NULL AND Grades.value <> 0" +
+                " AND Grades.Timestamp BETWEEN " + SqlVal.SqlDate(DateFrom) + " AND " + SqlVal.SqlDate(DateTo) +
+                ")";
+                query += " AND Classes_Students.idClass=" + Class.IdClass;
+                query += ";";
+                DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
+                DataSet DSet = new DataSet("ClosedMicroGrades");
+
+                DAdapt.Fill(DSet);
+                t = DSet.Tables[0];
+
+                DAdapt.Dispose();
+                DSet.Dispose();
+            }
+            return t;
+        }
+
         internal int CreateStudent(Student Student)
         {
             // trova una chiave da assegnare al nuovo studente

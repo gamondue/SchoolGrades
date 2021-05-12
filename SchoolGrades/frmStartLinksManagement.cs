@@ -56,7 +56,7 @@ namespace SchoolGrades
 
         private void refreshGrid()
         {
-            DgwLinks.DataSource = db.GetAllStartLinks(CmbSchoolYear.Text.ToString()
+            DgwLinks.DataSource = dl.GetAllStartLinks(CmbSchoolYear.Text.ToString()
                 ,currentClass.IdClass);
         }
 
@@ -110,7 +110,7 @@ namespace SchoolGrades
 
         private void btnSaveLinks_Click(object sender, EventArgs e)
         {
-            db.SaveStartLink(currentIdStartLink, currentClass.IdClass, 
+            dl.SaveStartLink(currentIdStartLink, currentClass.IdClass, 
                 CmbSchoolYear.Text, TxtStartLink.Text, TxtLinkDescription.Text);
             refreshGrid();
         }
@@ -119,7 +119,7 @@ namespace SchoolGrades
         {
             if (currentClass.IdClass > 0)
                 //currentIdStartLink = db.CreateNewVoidStartLink(currentClass.IdClass);
-                currentIdStartLink = db.SaveStartLink(null, currentClass.IdClass, 
+                currentIdStartLink = dl.SaveStartLink(null, currentClass.IdClass, 
                     CmbSchoolYear.Text,TxtStartLink.Text, TxtLinkDescription.Text);
                     else
                         MessageBox.Show("Scegliere una classe");
@@ -129,7 +129,7 @@ namespace SchoolGrades
         private void btnRemoveLink_Click(object sender, EventArgs e)
         {
             if (currentClass.IdClass > 0)
-                db.DeleteStartLink(currentIdStartLink);
+                dl.DeleteStartLink(currentIdStartLink);
             else
                 MessageBox.Show("Scegliere un link da cancellare");
             refreshGrid();
@@ -207,7 +207,7 @@ namespace SchoolGrades
                     "Attenzione!", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 { 
                     TxtPathStartLink.Text = folderBrowserDialog1.SelectedPath;
-                    db.UpdatePathStartLinkOfClass(currentClass, TxtPathStartLink.Text); 
+                    dl.UpdatePathStartLinkOfClass(currentClass, TxtPathStartLink.Text); 
                 }
             } 
         }

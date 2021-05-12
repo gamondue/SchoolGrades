@@ -10,7 +10,8 @@ namespace SchoolGrades
     public partial class frmQuestion : Form
     {
         DbAndBusiness db; 
-        TreeMpttDb dbMptt; 
+        TreeMpttDb dbMptt;
+        DataLayer dl;
 
         internal Question currentQuestion = new Question();
         internal bool UserHasChosen; 
@@ -33,7 +34,7 @@ namespace SchoolGrades
             SchoolSubject Subject, Class Class, Topic Topic)
         {
             InitializeComponent();
-
+            dl = new DataLayer();
             DbAndBusiness db = new DbAndBusiness(Commons.PathAndFileDatabase);
             TreeMpttDb dbMptt = new TreeMpttDb(db);
 
@@ -128,7 +129,7 @@ namespace SchoolGrades
             a.ShowDialog();
             if (a.currentAnswer.IdAnswer > 0)
             {
-                db.AddAnswerToQuestion(currentQuestion.IdQuestion, a.currentAnswer.IdAnswer);
+                dl.AddAnswerToQuestion(currentQuestion.IdQuestion, a.currentAnswer.IdAnswer);
             }
 
             RefreshData();
