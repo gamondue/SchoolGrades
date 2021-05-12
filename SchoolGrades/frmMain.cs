@@ -453,7 +453,7 @@ namespace SchoolGrades
                     if (!CommonsWinForms.CheckIfSubjectChosen(currentSubject))
                         return;
                     //List<Image> lessonImages = db.GetAllImagesShownToAClassDuringLessons(currentClass, currentSubject);
-                    List<DbClasses.Image> lessonImages = db.GetAllImagesShownToAClassDuringLessons(currentClass, currentSubject,
+                    List<DbClasses.Image> lessonImages = dl.GetAllImagesShownToAClassDuringLessons(currentClass, currentSubject,
                         DateTime.Now.AddMonths(-8), DateTime.Now);
                     // add the path & filename of the files foud to the list of those that we can draw
                     foreach (DbClasses.Image i in lessonImages)
