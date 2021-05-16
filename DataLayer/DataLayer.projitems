@@ -10,5 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EraseClasses.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SchoolPeriodsManagement.cs" />
   </ItemGroup>
 </Project>

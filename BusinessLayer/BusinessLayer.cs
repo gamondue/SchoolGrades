@@ -43,12 +43,16 @@ namespace SchoolGrades.BusinessLayer
             _firstNameUtente = firstName;
             _lastNameUtente = lastName;
         }
+
+        /// <summary>
+        /// Metodo costruttore base del BusinessLayer
+        /// </summary>
         internal BusinessLayer()
         {
-            
         }
 
         #region Serie di proprietà per cambiare le varie informazioni dell'utente
+        //Proprietà per l'Username dell'utente
         internal string Username
         {
             get
@@ -61,6 +65,7 @@ namespace SchoolGrades.BusinessLayer
             }
         }
 
+        //Proprietà per la Password dell'utente
         internal string Password
         {
             get
@@ -73,6 +78,7 @@ namespace SchoolGrades.BusinessLayer
             }
         }
 
+        //Proprietà per il Nome dell'utente
         internal string FirstName
         {
             get
@@ -85,6 +91,7 @@ namespace SchoolGrades.BusinessLayer
             }
         }
 
+        //Proprietà per il Cognome dell'utente
         internal string LastName
         {
             get
@@ -97,6 +104,7 @@ namespace SchoolGrades.BusinessLayer
             }
         }
 
+        //Proprietà per la Descrizione dell'utente
         internal string Description
         {
             get
@@ -109,6 +117,7 @@ namespace SchoolGrades.BusinessLayer
             }
         }
 
+        //Proprietà per l'Email dell'utente
         internal string Email
         {
             get
@@ -126,8 +135,17 @@ namespace SchoolGrades.BusinessLayer
         {
             return dl.GetUser(Username);
         }
+
+        /// <summary>
+        /// Sostituzione dell'uso della password dell'utente con gli Hash. Permette di confrontare i dati dell'utente con quelli presente nell'oggetto Utente del programma
+        /// </summary>
+        /// <param name="Username">Username inserita dall'utente</param>
+        /// <param name="Password">Password inserita dall'utente</param>
+        /// <param name="HashCalcolato">Hash calcolato dal metodo CalculateHash</param>
+        /// <returns></returns>
         internal bool UserHasLoginPermission(string Username, string Password, string HashCalcolato)
         {
+            //Dichiarazione degli Hash di lavoro
             byte[] byteOrigine;
             byte[] byteNuovoHash;
             byte[] byteOrigineDaConfrontare;
@@ -136,12 +154,13 @@ namespace SchoolGrades.BusinessLayer
 
             User uFromDb = GetUser(Username);
 
+            //Associazione dati dell'Username con gli Hash dichiarati precedentemente
             byteOrigine = ASCIIEncoding.ASCII.GetBytes(Password);
             byteNuovoHash = new MD5CryptoServiceProvider().ComputeHash(byteOrigine);
             byteOrigineDaConfrontare = ASCIIEncoding.ASCII.GetBytes(HashCalcolato);
             byteHashDaConfrontare = new MD5CryptoServiceProvider().ComputeHash(byteOrigineDaConfrontare);
 
-            if (byteNuovoHash.Length == byteHashDaConfrontare.Length)
+            if (byteNuovoHash.Length == byteHashDaConfrontare.Length) //Se il vecchio Hash e il nuovo Hash sono uguali
             {
                 for (int i = 0; (i < byteNuovoHash.Length) && (byteNuovoHash[i] == byteHashDaConfrontare[i]); i++)
                 {
@@ -153,6 +172,7 @@ namespace SchoolGrades.BusinessLayer
 
             }
 
+            //Nel caso i dati dell'utente combacino con quelli degli hash viene restituito come risultato un booleano true
             if (uFromDb != null && Username == uFromDb.Username && hashEquivalenti == true)
             {
                 return true;
@@ -169,9 +189,14 @@ namespace SchoolGrades.BusinessLayer
                 && CredentialsFromDatabase.Username == CredentialsFromUser.Username);
         }
         #region Modifiche all'utente e alla password vengono automaticamente salvate nei campi di classe
+        /// <summary>
+        /// Aggiorna i dati presenti con quelli all'interno dell'oggetto Utente
+        /// </summary>
+        /// <param name="User">Utente con il quale aggiornare i dati correnti</param>
         internal void UpdateUser(User User)
         {
-            dl.UpdateUser(User);
+            dl.UpdateUser(User); //Aggiorna l'utente
+            //Sostituzione del valore di ogni campo di classe
             _usernameUtente = User.Username;
             _passwordUtente = User.Password;
             _emailUtente = User.Email;
@@ -180,14 +205,23 @@ namespace SchoolGrades.BusinessLayer
             _lastNameUtente = User.LastName;
         }
 
+        /// <summary>
+        /// Aggiorna la password dell'utente
+        /// </summary>
+        /// <param name="User">Oggetto Utente dal quale reperire la password</param>
         internal void ChangePassword(User User)
         {
-            dl.ChangePassword(User);
+            dl.ChangePassword(User); //Cambia la password dell'utente
             _passwordUtente = User.Password;
         }
+
+        /// <summary>
+        /// Crea un nuovo utente, assegnando ad ogni campo di classe il suo corrispettivo valore
+        /// </summary>
+        /// <param name="User"></param>
         internal void CreateUser(User User)
         {
-            dl.CreateUser(User);
+            dl.CreateUser(User); //Crea l'utente
             _usernameUtente = User.Username;
             _passwordUtente = User.Password;
             _emailUtente = User.Email;
@@ -206,6 +240,11 @@ namespace SchoolGrades.BusinessLayer
             User u = new User(CredentialsFromUser.Username, CredentialsFromUser.Password);
             return u;
         }
+        /// <summary>
+        /// Calcola l'Hash della password inserita utilizzando il metodo espresso nel link all'interno del metodo
+        /// </summary>
+        /// <param name="ClearTextPassword">Stringa di cui calcolare l'Hash</param>
+        /// <returns></returns>
         internal string CalculateHash(string ClearTextPassword)
         {
             // https://www.mattepuffo.com/blog/articolo/2496-calcolo-hash-sha256-in-csharp.html

@@ -2553,6 +2553,8 @@ namespace SchoolGrades.DbClasses
             BackupTableTsv("Grades");
         }
 
+        //-----------------RIPARTIRE DAL DI QUA-----------------
+
         internal void BackupAllStudentsDataXml()
         {
             BackupTableXml("Students");
@@ -2926,35 +2928,7 @@ namespace SchoolGrades.DbClasses
             }
         }
 
-        internal void EraseClassFromClasses(Class Class)
-        {
-            //EraseAllStudentsOfAClass(Class); 
-            using (DbConnection conn = dl.Connect())
-            {
-                // delete all the references in link table between students and classes
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "DELETE FROM Classes_Students" +
-                    " WHERE Classes_Students.idClass=" + Class.IdClass +
-                    ";";
-                cmd.ExecuteNonQuery();
-                // erase class from Classes_SchoolSubjects
-                cmd.CommandText = "DELETE FROM Classes_SchoolSubjects" +
-                    " WHERE Classes_SchoolSubjects.idClass=" + Class.IdClass +
-                    ";";
-                cmd.ExecuteNonQuery();
-                // erase class from Classes_Tests
-                cmd.CommandText = "DELETE FROM Classes_Tests" +
-                    " WHERE Classes_Tests.idClass=" + Class.IdClass +
-                    ";";
-                cmd.ExecuteNonQuery();
-                // erase class from table Classes 
-                cmd.CommandText = "DELETE FROM Classes" +
-                    " WHERE Classes.idClass=" + Class.IdClass +
-                    ";";
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
-            }
-        }
+        //RIMOSSO METODO EraseClassFromClasses
 
         internal string CreateOneClassOnlyDatabase(Class Class)
         {
@@ -3696,6 +3670,7 @@ namespace SchoolGrades.DbClasses
             news.OfficialSchoolAbbreviation = Commons.IdSchool;
             return news;
         }
+
         internal int CreateNewTopic(Topic NewTopic)
         {
             int nextId;
@@ -4564,67 +4539,10 @@ namespace SchoolGrades.DbClasses
             }
             return i;
         }
-        internal List<SchoolPeriod> GetSchoolPeriodsOfDate(DateTime Date)
-        {
-            List<SchoolPeriod> l = new List<SchoolPeriod>();
-            using (DbConnection conn = dl.Connect())
-            {
-                DbDataReader dRead;
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT *" +
-                    " FROM SchoolPeriods" +
-                    " WHERE " + SqlVal.SqlDate(Date) +
-                    " BETWEEN dateStart and dateFinish" +
-                    ";";
-                dRead = cmd.ExecuteReader();
 
-                while (dRead.Read())
-                {
-                    SchoolPeriod p = GetOneSchoolPeriodFromRow(dRead);
-                    l.Add(p);
-                }
-            }
-            return l;
-        }
+        //RIMOSSE TUTTE LE CLASSI SchoolPeriods
 
-        internal List<SchoolPeriod> GetSchoolPeriods(string IdSchoolYear)
-        {
-            List<SchoolPeriod> l = new List<SchoolPeriod>();
-            using (DbConnection conn = dl.Connect())
-            {
-                DbDataReader dRead;
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * " +
-                    "FROM SchoolPeriods " +
-                    "WHERE idSchoolYear=" + IdSchoolYear +
-                    " OR IdSchoolYear IS null OR IdSchoolYear=''" +
-                    ";";
-                dRead = cmd.ExecuteReader();
 
-                while (dRead.Read())
-                {
-                    SchoolPeriod p = GetOneSchoolPeriodFromRow(dRead);
-                    l.Add(p);
-                }
-            }
-            return l;
-        }
-
-        internal SchoolPeriod GetOneSchoolPeriodFromRow(DbDataReader Row)
-        {
-            SchoolPeriod p = new SchoolPeriod();
-            p.IdSchoolPeriodType = SafeDb.SafeString(Row["idSchoolPeriodType"]);
-            if (p.IdSchoolPeriodType != "N")
-            {
-                p.DateFinish = SafeDb.SafeDateTime(Row["dateFinish"]);
-                p.DateStart = SafeDb.SafeDateTime(Row["dateStart"]);
-            }
-            p.Name = SafeDb.SafeString(Row["name"]);
-            p.Desc = SafeDb.SafeString(Row["desc"]);
-            p.IdSchoolPeriod = SafeDb.SafeString(Row["idSchoolPeriod"]);
-            p.IdSchoolYear = SafeDb.SafeString(Row["idSchoolYear"]);
-            return p;
-        }
         internal Test GetTestFromRow(DbDataReader Row)
         {
             Test t = new Test();
