@@ -39,8 +39,8 @@ namespace SchoolGrades
             txtPathOldDatabase.Text = Commons.PathDatabase;
             txtFileNewDatabase.Text = Commons.FileDatabase;
 
-            DbAndBusiness dbNew = new DbAndBusiness(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
-            treeNew = new TreeMptt(dbNew, trwNewTopics,
+            string newTreeDatabase = txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text;
+            treeNew = new TreeMptt(newTreeDatabase, trwNewTopics,
                 txtNewTopicName, txtNewDescription, txtSearchNew, null, txtCodNewTopic,
                 CommonsWinForms.globalPicLed, DragDropEffects.Copy);
             treeNew.Name = "treeNew"; 
@@ -75,11 +75,8 @@ namespace SchoolGrades
                 txtFileNewDatabase.Text = Path.GetFileName(openFileDialog1.FileName);
                 txtPathNewDatabase.Text = Path.GetDirectoryName(openFileDialog1.FileName);
             }
-
-            dbNew = new DbAndBusiness(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
-            //List<Topic> lNew = dbNew.GetTopicsByParent();
-
-            treeNew = new TreeMptt(dbNew, trwNewTopics,
+            string newTreeBatabase = txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text;
+            treeNew = new TreeMptt(newTreeBatabase, trwNewTopics,
                 txtNewTopicName, txtNewDescription, null, null, txtCodNewTopic,
                 CommonsWinForms.globalPicLed, DragDropEffects.Copy); 
             treeNew.AddNodesToTreeviewByBestMethod();
@@ -110,10 +107,8 @@ namespace SchoolGrades
                 Console.Beep();
                 return;
             }
-            dbOld = new DbAndBusiness(
-                txtPathOldDatabase.Text + "\\" + txtFileOldDatabase.Text);
-
-            treeOld = new TreeMptt(dbOld, trwOldTopics,
+            string oldTreeBatabase = txtPathOldDatabase.Text + "\\" + txtFileOldDatabase.Text;
+            treeOld = new TreeMptt(oldTreeBatabase, trwOldTopics,
                 txtOldTopicName, txtOldDescription, txtSearchOld, null, txtCodOldTopic,
                 CommonsWinForms.globalPicLed, DragDropEffects.Copy);
             treeOld.Name = "treeOld"; 
@@ -239,7 +234,7 @@ namespace SchoolGrades
 
         private void btnRecover_Click(object sender, EventArgs e)
         {
-            DbAndBusiness dbNew = new DbAndBusiness( txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
+            DataLayer dbNew = new DataLayer( txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
             List<Topic> lNew = dbNew.GetTopics();
 
             if (txtFileOldDatabase.Text == "")
@@ -248,7 +243,7 @@ namespace SchoolGrades
                 return;
             }
 
-            DbAndBusiness dbOld = new DbAndBusiness( txtPathOldDatabase.Text + "\\" + txtFileOldDatabase.Text);
+            DataLayer dbOld = new DataLayer(txtPathOldDatabase.Text + "\\" + txtFileOldDatabase.Text);
             List<Topic> lOld = dbOld.GetTopics();
 
             int newIndex = 0;

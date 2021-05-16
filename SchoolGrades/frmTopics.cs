@@ -13,7 +13,7 @@ namespace SchoolGrades
 {
     public partial class frmTopics : Form
     {
-        DbAndBusiness db;
+        BusinessLayer bl;
 
         gamon.TreeMptt.TreeMptt topicTreeMptt;
 
@@ -43,7 +43,7 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
-            db = new DbAndBusiness(Commons.PathAndFileDatabase);
+            bl = new BusinessLayer(Commons.PathAndFileDatabase);
 
             currentSubject = Subject;
             currentClass = Class; 
@@ -53,8 +53,7 @@ namespace SchoolGrades
 
         private void frmTopic_Load(object sender, EventArgs e)
         {
-            //topicTreeMptt = new TopicTreeMptt(listTopicsInternal, trwTopics,
-            topicTreeMptt = new TreeMptt(db, trwTopics,
+            topicTreeMptt = new TreeMptt(Commons.PathAndFileDatabase, trwTopics,
                 txtTopicName, txtDescription, txtFind, null, null,
                 CommonsWinForms.globalPicLed, DragDropEffects.Copy);
 
@@ -67,7 +66,7 @@ namespace SchoolGrades
                     {
                         btnChoose.Visible = true; 
                         // highlists the topics done by the current class in the current subject
-                        List<Topic> listDone = db.GetTopicsDoneFromThisTopic(currentClass, 
+                        List<Topic> listDone = bl.GetTopicsDoneFromThisTopic(currentClass, 
                                 ((Topic)trwTopics.Nodes[0].Tag), currentSubject);
                         int dummy = 0; bool dummy2 = false;
                         topicTreeMptt.HighlightTopicsInList(trwTopics.Nodes[0],

@@ -140,7 +140,8 @@ namespace SchoolGrades
             txtNStudents.Text = "";
 
             // start Thread that concurrently saves the Topics tree
-            CommonsWinForms.SaveTreeMptt = new TreeMptt(db, null, null, null, null, null, null, picBackgroundSaveRunning);
+            CommonsWinForms.SaveTreeMptt = new TreeMptt(Commons.PathAndFileDatabase,
+                null, null, null, null, null, null, picBackgroundSaveRunning);
             CommonsWinForms.BackgroundSaveThread= new Thread(CommonsWinForms.SaveTreeMptt.SaveMpttBackground);
             CommonsWinForms.BackgroundSaveThread.Start(); 
         }
@@ -1042,7 +1043,7 @@ namespace SchoolGrades
         {
             if (!CommonsWinForms.CheckIfClassChosen(currentClass))
                 return;
-            List<string> LinksOfClass = db.GetStartLinksOfClass(currentClass);
+            List<string> LinksOfClass = bl.GetStartLinksOfClass(currentClass);
 
             Commons.StartLinks(currentClass, LinksOfClass);
         }
@@ -1271,61 +1272,8 @@ namespace SchoolGrades
                 "_" + currentClass.Abbreviation +
                 "_" + currentSubject.IdSchoolSubject + "_" +
                 "all-topics.txt";
-            List<Topic> lt = db.GetAllTopicsDoneInClassAndSubject(currentClass,
-                currentSubject);
-            string f = "";
-            string tabs = "";
-            Topic previous = new Topic();
-            previous.Id = -2;
-            string status = "s"; // start tab 
-            foreach (Topic t in lt)
-            {
-                // put a tab in front of descending nodes 
-                switch (status)
-                {
-                    case "s": // start tab
-                        {
-                            if (t.ParentNodeOld == previous.Id)
-                            {
-                                // is son of the previous
-                                tabs += "\t";
-                                status = "b"; // brothers
-                            }
-                            else
-                                tabs = "";
-                            break;
-                        }
-                    case "b": // brothers 
-                        {
-                            if (t.ParentNodeOld == previous.ParentNodeOld)
-                            {
-                                // another brother: do nothing
-                            }
-                            else if (t.ParentNodeOld == previous.Id)
-                            {
-                                // is son of the previous
-                                tabs += "\t";
-                                status = "b"; // brothers
-                            }
-                            else
-                            {   // non brothers & non son 
-                                tabs = "";
-                                status = "s"; // brothers
-                            }
-                            break;
-                        }
-                    case "u":
-                        {
-                            break;
-                        }
-                }
-                f += tabs + t.Name;
-                if (t.Desc != "")
-                    f += ": " + t.Desc;
-                f += "\r\n";
-                previous = t;
-            }
-            TextFile.StringToFile(Commons.PathDatabase + "\\" + filename, f, false);
+            string fileContent = bl.CreateFileAllTopicsOfTheClass(currentClass, currentSubject);
+            TextFile.StringToFile(Commons.PathDatabase + "\\" + filename, fileContent, false);
             Commons.ProcessStartLink(Commons.PathDatabase + "\\" + filename);
             MessageBox.Show("Creato il file " + filename);
         }

@@ -38,5 +38,27 @@ namespace SchoolGrades
             }
             return lc;
         }
+        internal List<string> GetStartLinksOfClass(Class Class)
+        {
+            List<string> listOfLinks = new List<string>();
+            DbDataReader dRead;
+            DbCommand cmd;
+            using (DbConnection conn = Connect())
+            {
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT *" +
+                    " FROM Classes_StartLinks" +
+                    " WHERE idClass=" + Class.IdClass + "; ";
+                dRead = cmd.ExecuteReader();
+                while (dRead.Read())
+                {
+                    string item = (string)dRead["startLink"];
+                    listOfLinks.Add(item);
+                }
+                dRead.Dispose();
+                cmd.Dispose();
+            }
+            return listOfLinks;
+        }
     }
 }

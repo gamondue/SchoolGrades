@@ -101,14 +101,16 @@ namespace gamon.TreeMptt
         //    TextBox TxtTopicsDigest, TextBox TxtCodTopic,
         //    PictureBox LedPictureBox,
         //    System.Windows.Forms.DragDropEffects TypeOfDragAndDrop = System.Windows.Forms.DragDropEffects.Move)
-        internal TreeMptt(DbAndBusiness DataAndBusinessLayer, TreeView TreeViewControl,
+        //internal TreeMptt(DbAndBusiness DataAndBusinessLayer, TreeView TreeViewControl,
+        internal TreeMptt(string Database, TreeView TreeViewControl,
             TextBox TxtNodeName, TextBox TxtNodeDescription, TextBox TxtTopicFind,
             TextBox TxtTopicsDigest, TextBox TxtCodTopic,
             PictureBox LedPictureBox,
             System.Windows.Forms.DragDropEffects TypeOfDragAndDrop = System.Windows.Forms.DragDropEffects.Move)
         {
-            db = DataAndBusinessLayer;
-            dbMptt = new TreeMpttDb(db);
+            //db = new DbAndBusiness(Commons.PathAndFileDatabase);
+            //db = DataAndBusinessLayer;
+            dbMptt = new TreeMpttDb(Database);
             
             shownTreeView = TreeViewControl;
             //listTopicsBefore = InitialListOfTopics;
@@ -325,11 +327,8 @@ namespace gamon.TreeMptt
         }
         internal void SaveTreeFromScratch()
         {
-            int nodeCount = 1;
             List<Topic> listTopicsAfter = new List<Topic>();
-            // recursive function
-            dbMptt.GenerateNewListOfNodesFromTreeViewControl(shownTreeView.Nodes[0], ref nodeCount, ref listTopicsAfter);
-            db.SaveTopicsFromScratch(listTopicsAfter);
+            dbMptt.SaveTreeFromScratch(shownTreeView.Nodes[0], listTopicsAfter); 
         }
         internal void UpdateLeftAndRightInDatabaseTreeMptt()
         {

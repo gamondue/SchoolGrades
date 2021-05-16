@@ -9,7 +9,8 @@ namespace SchoolGrades
 {
     public partial class frmQuestion : Form
     {
-        DbAndBusiness db; 
+        DbAndBusiness db;
+        BusinessLayer bl; 
         TreeMpttDb dbMptt; 
 
         internal Question currentQuestion = new Question();
@@ -34,8 +35,9 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
-            DbAndBusiness db = new DbAndBusiness(Commons.PathAndFileDatabase);
-            TreeMpttDb dbMptt = new TreeMpttDb(db);
+            db = new DbAndBusiness(Commons.PathAndFileDatabase);
+            bl = new BusinessLayer(Commons.PathAndFileDatabase);
+            dbMptt = new TreeMpttDb(Commons.PathAndFileDatabase);
 
             // fills the lookup tables' combos
             List<QuestionType> listQuestions = db.GetListQuestionTypes(true);
@@ -58,7 +60,7 @@ namespace SchoolGrades
             }
             if (Topic != null)
             {
-                currentTopic = db.GetTopicById(Topic.Id);
+                currentTopic = bl.GetTopicById(Topic.Id);
                 if (currentTopic.Id != 0)
                     txtTopic.Text = dbMptt.GetTopicPath(currentTopic.Id);
             }

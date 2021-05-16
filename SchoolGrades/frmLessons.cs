@@ -20,7 +20,7 @@ namespace SchoolGrades
 
         Class currentClass;
 
-        DbAndBusiness db;
+        BusinessLayer bl; 
 
         List<Topic> listTopicsBefore;
 
@@ -35,7 +35,7 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
-            db = new DbAndBusiness(Commons.PathAndFileDatabase); 
+            bl = new BusinessLayer(Commons.PathAndFileDatabase); 
 
             currentClass = CurrentClass;
             currentLesson.IdClass = currentClass.IdClass;
@@ -59,13 +59,14 @@ namespace SchoolGrades
         }
         private void frmLessons_Load(object sender, EventArgs e)
         {
+            
             //txtLessonDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
             dtpLessonDate.Value = new DateTime(1980, 01, 01);
 
             txtSchoolYear.Text = currentClass.SchoolYear;
             txtClass.Text = currentClass.Abbreviation;
 
-            Lesson dummyLesson = db.GetLastLesson(currentLesson);
+            Lesson dummyLesson = bl.GetLastLesson(currentLesson);
 
             if (dummyLesson.IdSchoolSubject != null)
             {
@@ -83,22 +84,20 @@ namespace SchoolGrades
             }
             // load data in datagrids
             RefreshUI();
-            //topicTreeMptt = new TopicTreeMptt(listTopicsBefore, trwTopics,
-            topicTreeMptt = new gamon.TreeMptt.TreeMptt(db, trwTopics,
+            topicTreeMptt = new gamon.TreeMptt.TreeMptt(Commons.PathAndFileDatabase, trwTopics,
                 txtTopicName, txtTopicDescription, txtTopicFind, TxtTopicsDigestAndSearch,
                 null, CommonsWinForms.globalPicLed, DragDropEffects.Copy);
             topicTreeMptt.AddNodesToTreeviewByBestMethod();
 
             // gets and checks the topics of the current lesson 
-            List<Topic> TopicsToCheck = new List<Topic>();
-            db.GetTopicsOfLesson(currentLesson.IdLesson, TopicsToCheck);
+            List<Topic> TopicsToCheck = bl.GetTopicsOfLesson(currentLesson.IdLesson);
             int dummy = 0;
             bool dummy2 = false;
             topicTreeMptt.CheckItemsInList(trwTopics.Nodes[0],
                 TopicsToCheck, ref dummy, ref dummy2);
 
             // gets the images associated with this lesson
-            listImages = db.GetLessonsImagesList(currentLesson);
+            listImages = bl.GetLessonsImagesList(currentLesson);
             // shows the first image
             if (listImages != null && listImages.Count > 0)
                 try
@@ -115,8 +114,8 @@ namespace SchoolGrades
 
         private void RefreshUI()
         {
-            DgwAllLessons.DataSource = db.GetLessonsOfClass(currentClass,
-                currentLesson);
+            DgwAllLessons.DataSource = bl.GetLessonsOfClass(currentClass,
+                currentLesson.IdSchoolSubject);
             DgwAllLessons.Columns[0].Visible = true;
             DgwAllLessons.Columns[1].Visible = true;
             DgwAllLessons.Columns[2].Visible = false;
@@ -124,14 +123,15 @@ namespace SchoolGrades
             DgwAllLessons.Columns[4].Visible = true;
             DgwAllLessons.Columns[5].Visible = false;
 
-            dgwOneLesson.DataSource = db.GetTopicsOfOneLessonOfClass(currentClass,
+            dgwOneLesson.DataSource = bl.GetTopicsOfOneLessonOfClass(currentClass,
                 currentLesson);
-            dgwOneLesson.Columns[0].Visible = false;
+            dgwOneLesson.Columns[0].Visible = true;
             dgwOneLesson.Columns[1].Visible = true;
             dgwOneLesson.Columns[2].Visible = true;
             dgwOneLesson.Columns[3].Visible = false;
             dgwOneLesson.Columns[4].Visible = false;
             dgwOneLesson.Columns[5].Visible = false;
+            dgwOneLesson.Columns[6].Visible = false;
         }
 
         private void btnFind_Click(object sender, EventArgs e)
@@ -264,7 +264,7 @@ namespace SchoolGrades
                     }
                 }
             }
-            Lesson l = db.GetLessonInDate(currentClass, currentSchoolSubject.IdSchoolSubject,
+            Lesson l = bl.GetLessonInDate(currentClass, currentSchoolSubject.IdSchoolSubject,
                 dtpLessonDate.Value); 
 
             if (l.IdLesson > 0)
@@ -280,7 +280,7 @@ namespace SchoolGrades
             currentLesson.IdClass = currentClass.IdClass;
             currentLesson.IdSchoolSubject = currentSchoolSubject.IdSchoolSubject;
             currentLesson.IdSchoolYear = txtSchoolYear.Text;
-            currentLesson.IdLesson = db.NewLesson(currentLesson);
+            currentLesson.IdLesson = bl.NewLesson(currentLesson);
             TxtLessonDesc.Text = "";
             txtLessonCode.Text = currentLesson.IdLesson.ToString();
             dtpLessonDate.Value = (DateTime)currentLesson.Date;
@@ -320,7 +320,7 @@ namespace SchoolGrades
             currentLesson.Note = TxtLessonDesc.Text;
             
             // save the lesson (the topics could have been changed)
-            db.SaveLesson(currentLesson);
+            bl.SaveLesson(currentLesson);
 
             // save the topics of the lesson
             // we find the checked items in treeviw, we start from the beginning 
@@ -328,7 +328,7 @@ namespace SchoolGrades
             int dummy = 0; 
             topicTreeMptt.FindCheckedItems(trwTopics.Nodes[0], 
                 topicsOfTheLesson, ref dummy);
-            db.SaveTopicsOfLesson(currentLesson.IdLesson, topicsOfTheLesson);
+            bl.SaveTopicsOfLesson(currentLesson.IdLesson, topicsOfTheLesson);
 
             //  refresh database data in grids 
             RefreshUI();
@@ -336,8 +336,7 @@ namespace SchoolGrades
             // reset check signs
             topicTreeMptt.UncheckAllItemsUnderNode(trwTopics.Nodes[0]);
             // restore current checksigns from database 
-            List<Topic> TopicsToCheck = new List<Topic>();
-            db.GetTopicsOfLesson(currentLesson.IdLesson, TopicsToCheck);
+            List<Topic> TopicsToCheck = bl.GetTopicsOfLesson(currentLesson.IdLesson);
             dummy = 0;
             bool dummy2 = false;
             topicTreeMptt.CheckItemsInList(trwTopics.Nodes[0],
@@ -354,7 +353,7 @@ namespace SchoolGrades
         }
         private void btnStartLinks_Click(object sender, EventArgs e)
         {
-            List<string> ll = db.GetStartLinksOfClass(currentClass); 
+            List<string> ll = bl.GetStartLinksOfClass(currentClass); 
             foreach(string link in ll)
             {
                 try
@@ -418,7 +417,7 @@ namespace SchoolGrades
             frmImages fi = new frmImages(frmImages.ImagesFormType.NormalManagement
                 , currentLesson, currentClass, listImages, currentSchoolSubject);
             fi.ShowDialog();
-            listImages = db.GetLessonsImagesList(currentLesson);
+            listImages = bl.GetLessonsImagesList(currentLesson);
             indexImages = 0;
             if (listImages.Count > 0)
             {
@@ -522,7 +521,7 @@ namespace SchoolGrades
                     return;
             }
             // !!!! nella query non c'è la classe. NON può funzionare !!!!
-            List<Topic> listNonDone = db.GetTopicsNotDoneFromThisTopic(currentClass,
+            List<Topic> listNonDone = bl.GetTopicsNotDoneFromThisTopic(currentClass,
                 ((Topic)trwTopics.SelectedNode.Tag), currentSchoolSubject);
             int dummy=0; bool dummy2=false; 
             topicTreeMptt.HighlightTopicsInList(trwTopics.Nodes[0],
@@ -538,7 +537,7 @@ namespace SchoolGrades
                 return;
             }
 
-            List<Topic> listDone = db.GetTopicsDoneFromThisTopic(currentClass,
+            List<Topic> listDone = bl.GetTopicsDoneFromThisTopic(currentClass,
                 ((Topic)trwTopics.SelectedNode.Tag), currentSchoolSubject);
             int dummy = 0; bool dummy2 = false;
             topicTreeMptt.HighlightTopicsInList(trwTopics.Nodes[0],
@@ -555,7 +554,7 @@ namespace SchoolGrades
                 return; 
             }
             // !! TODO !! add message box to ask for image files deletion
-            db.EraseLesson(int.Parse(txtLessonCode.Text), false);
+            bl.EraseLesson(int.Parse(txtLessonCode.Text), false);
             RefreshUI();
         }
         private void btnNext_Click(object sender, EventArgs e)
@@ -589,32 +588,24 @@ namespace SchoolGrades
                 DgwAllLessons.Rows[e.RowIndex].Selected = true;
 
                 TxtTopicsDigestAndSearch.Text = "";
-                DataRow row = ((DataTable)(DgwAllLessons.DataSource)).Rows[e.RowIndex];
-                if (currentLesson.IdLesson != (int)row["idLesson"])
+                currentLesson = ((List<Lesson>)(DgwAllLessons.DataSource))[e.RowIndex];
+                if (currentLesson.IdLesson != null)
                 {
-                    currentLesson.IdLesson = (int)row["idLesson"];
-                    currentLesson.Note = (string)row["note"];
-                    currentLesson.Date = (DateTime)row["date"];
-
                     TxtLessonDesc.Text = currentLesson.Note;
                     dtpLessonDate.Value = (DateTime)currentLesson.Date;
                     txtLessonCode.Text = currentLesson.IdLesson.ToString();
 
-                    dgwOneLesson.DataSource = db.GetTopicsOfOneLessonOfClass(currentClass,
+                    dgwOneLesson.DataSource = bl.GetTopicsOfOneLessonOfClass(currentClass,
                         currentLesson);
-
-                    topicTreeMptt.UncheckAllItemsUnderNode(trwTopics.Nodes[0]);
-
                     // gets and checks the topics of the current lesson 
-                    List<Topic> TopicsToCheck = new List<Topic>();
-                    db.GetTopicsOfLesson(currentLesson.IdLesson, TopicsToCheck);
+                    List<Topic> TopicsToCheck = bl.GetTopicsOfLesson(currentLesson.IdLesson);
                     int dummy = 0;
                     bool dummy2 = false;
-                    topicTreeMptt.CheckItemsInList(trwTopics.Nodes[0],
-                        TopicsToCheck, ref dummy, ref dummy2);
+                    ////////////////////////////////////topicTreeMptt.CheckItemsInList(trwTopics.Nodes[0],TopicsToCheck, ref dummy, ref dummy2);
+                    /// ^^ fix this, without this the topics done aren't checked ^^
 
                     // gets the images associated with this lesson
-                    listImages = db.GetLessonsImagesList(currentLesson);
+                    listImages = bl.GetLessonsImagesList(currentLesson);
                     // shows the fist image
                     if (listImages.Count > 0)
                         try
@@ -626,6 +617,8 @@ namespace SchoolGrades
                     {
                         picImage.Image = null;
                     }
+                    ///////////////////////////topicTreeMptt.UncheckAllItemsUnderNode(trwTopics.Nodes[0]);
+                    /// ^^ fix this, without this the topics done aren't checked ^^
                 }
             }
         }
@@ -663,7 +656,6 @@ namespace SchoolGrades
             }
 
         }
-
         private void BtnOpenImagesFolder_Click(object sender, EventArgs e)
         {
             string folder = Commons.PathImages + "\\" + currentClass.SchoolYear + currentClass.Abbreviation +

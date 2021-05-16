@@ -8,7 +8,7 @@ namespace SchoolGrades
 {
     public partial class frmTopicChooseByPeriod : Form
     {
-        DbAndBusiness db;
+        BusinessLayer bl;
         private Class currentClass;
         private SchoolSubject currentSubject;
 
@@ -27,7 +27,7 @@ namespace SchoolGrades
             Class Class, SchoolSubject Subject)
         {
             InitializeComponent();
-            db = new DbAndBusiness(Commons.PathAndFileDatabase);
+            bl = new BusinessLayer(Commons.PathAndFileDatabase);
 
             currentClass = Class;
             currentSubject = Subject;
@@ -60,7 +60,7 @@ namespace SchoolGrades
                 dateFrom = Commons.DateNull;
             else
                 dateFrom = dtpStartPeriod.Value; 
-            topicsDone = db.GetTopicsDoneInPeriod(currentClass, currentSubject,
+            topicsDone = bl.GetTopicsDoneInPeriod(currentClass, currentSubject,
                 dateFrom, dtpEndPeriod.Value);
 
             dgwTopics.DataSource = topicsDone;
@@ -123,7 +123,7 @@ namespace SchoolGrades
         {
             if (topicsDone == null)
             {
-                topicsDone = db.GetTopicsDoneInPeriod(currentClass, currentSubject,
+                topicsDone = bl.GetTopicsDoneInPeriod(currentClass, currentSubject,
                     dtpStartPeriod.Value, dtpEndPeriod.Value);
             }
             if (topicsDone.Count > 0)

@@ -12,6 +12,7 @@ namespace SchoolGrades
     public partial class frmQuestionChoose : Form
     {
         DbAndBusiness db;
+        BusinessLayer bl; 
         TreeMpttDb dbMptt; 
 
         //SchoolSubject subj = new SchoolSubject();
@@ -37,8 +38,9 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
-            DbAndBusiness db = new DbAndBusiness(Commons.PathAndFileDatabase);
-            TreeMpttDb dbMptt = new TreeMpttDb(db);
+            db = new DbAndBusiness(Commons.PathAndFileDatabase);
+            bl = new BusinessLayer(Commons.PathAndFileDatabase);
+            dbMptt = new TreeMpttDb(Commons.PathAndFileDatabase);
 
             this.ParentForm = ParentForm; 
             // fills the lookup tables' combos
@@ -57,7 +59,7 @@ namespace SchoolGrades
             currentStudent = Student;
             previousQuestion = Question;
             if (Question != null && Question.IdTopic != 0)
-                currentTopic = db.GetTopicById(Question.IdTopic); 
+                currentTopic = bl.GetTopicById(Question.IdTopic); 
         }
         private void frmQuestionChoose_Load(object sender, EventArgs e)
         {
@@ -360,7 +362,7 @@ namespace SchoolGrades
                 List<Question> ls = (List<Question>)(dgwQuestions.DataSource);
                 Question question = ls[e.RowIndex];
 
-                Topic topic = db.GetTopicById(question.IdTopic);
+                Topic topic = bl.GetTopicById(question.IdTopic);
 
                 SchoolSubject subject = db.GetSchoolSubject(question.IdSchoolSubject);
 
