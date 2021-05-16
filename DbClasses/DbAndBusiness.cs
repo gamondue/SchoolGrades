@@ -264,7 +264,7 @@ namespace SchoolGrades.DbClasses
         }
         internal void EraseStudentsPhoto(int? IdStudent, string SchoolYear)
         {
-            using (DbConnection conn =dl.Connect())
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM StudentsPhotos_Students" +
@@ -601,7 +601,7 @@ namespace SchoolGrades.DbClasses
             s.Disabled = SafeDb.SafeBool(Row["disabled"]);
             s.RevengeFactorCounter = SafeDb.SafeInt(Row["VFCounter"]);
 
-            return s; 
+            return s;
         }
 
         internal DataTable GetStudentsSameName(string LastName, string FirstName)
@@ -1224,7 +1224,7 @@ namespace SchoolGrades.DbClasses
                     " WHERE Grades.idGrade=" + IdGrade.ToString() +
                     ";";
                 dRead = cmd.ExecuteReader();
-                dRead.Read(); 
+                dRead.Read();
                 g = GetGradeFromRow(dRead);
                 dRead.Dispose();
                 cmd.Dispose();
@@ -1248,7 +1248,7 @@ namespace SchoolGrades.DbClasses
             g.CncFactor = SafeDb.SafeDouble(Row["cncFactor"]);
             g.IdSchoolYear = SafeDb.SafeString(Row["idSchoolYear"]);
             //g.DummyInt = (int)Row["dummyInt"]; 
-            return g; 
+            return g;
         }
 
         internal void GetGradeAndStudent(Grade Grade, Student Student)
@@ -1310,7 +1310,7 @@ namespace SchoolGrades.DbClasses
                 ")" +
                 ";";
                 cmd = conn.CreateCommand();
-                cmd.CommandText = query; 
+                cmd.CommandText = query;
                 dRead = cmd.ExecuteReader();
                 while (dRead.Read())
                 {
@@ -1399,7 +1399,7 @@ namespace SchoolGrades.DbClasses
                 " ORDER BY abbreviation" +
                 ";";
                 cmd = conn.CreateCommand();
-                cmd.CommandText = query; 
+                cmd.CommandText = query;
                 dRead = cmd.ExecuteReader();
                 // fill the combo with this year's classes
                 while (dRead.Read())
@@ -1611,7 +1611,7 @@ namespace SchoolGrades.DbClasses
                     " AND Grades.idSchoolSubject = '" + IdSchoolSubject + "'" +
                     " AND Parents.idGradeType = '" + idGradeTypeParent + "'" +
                     " AND Grades.idGradeParent = Parents.idGrade" +
-                    " AND (Parents.value = 0 OR Parents.value is NULL)" + 
+                    " AND (Parents.value = 0 OR Parents.value is NULL)" +
                     " ORDER BY Grades.timestamp;";
 
                 DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
@@ -1622,7 +1622,7 @@ namespace SchoolGrades.DbClasses
                 return DSet.Tables[0];
             }
         }
-         
+
         /// <summary>
         /// Gets all the grades of a students of a specified IdGradeType that are the sons 
         /// of another grade which has value NOT null AND NOT equal to zero
@@ -1702,7 +1702,7 @@ namespace SchoolGrades.DbClasses
             {
                 DbCommand cmd = conn.CreateCommand();
                 // create a new micro assessment in grades table
-                if (Grade == null || Grade.IdGrade == null|| Grade.IdGrade == 0)
+                if (Grade == null || Grade.IdGrade == null || Grade.IdGrade == 0)
                 {
                     Grade.IdGrade = NextKey("Grades", "idGrade");
                     cmd.CommandText = "INSERT INTO Grades " +
@@ -1710,14 +1710,14 @@ namespace SchoolGrades.DbClasses
                     "cncFactor,idSchoolYear, timestamp, idQuestion,idSchoolSubject) " +
                     "Values (" + Grade.IdGrade +
                     ",'" + SqlVal.SqlString(Grade.IdGradeType) + "'" +
-                    "," +  SqlVal.SqlInt(Grade.IdGradeParent.ToString()) + "" +
+                    "," + SqlVal.SqlInt(Grade.IdGradeParent.ToString()) + "" +
                     "," + Grade.IdStudent + "" +
                     "," + SqlVal.SqlDouble(Grade.Value) + "" +
                     "," + SqlVal.SqlDouble(Grade.Weight) + "" +
                     "," + SqlVal.SqlDouble(Grade.CncFactor) + "" +
                     ",'" + SqlVal.SqlString(Grade.IdSchoolYear) + "'" +
                     ",'" + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss").Replace('.', ':') + "'" +
-                    "," +  SqlVal.SqlInt(Grade.IdQuestion.ToString()) + "" +
+                    "," + SqlVal.SqlInt(Grade.IdQuestion.ToString()) + "" +
                     ",'" + Grade.IdSchoolSubject + "'" +
                     ");";
                 }
@@ -1725,13 +1725,13 @@ namespace SchoolGrades.DbClasses
                 {
                     cmd.CommandText = "UPDATE Grades " +
                     "SET" +
-                    " idGrade=" +  SqlVal.SqlInt(Grade.IdGrade.ToString()) + "" +
+                    " idGrade=" + SqlVal.SqlInt(Grade.IdGrade.ToString()) + "" +
                     ",idGradeType='" + SqlVal.SqlString(Grade.IdGradeType) + "'" +
-                    ",idGradeParent=" +  SqlVal.SqlInt(Grade.IdGradeParent.ToString()) + "" +
-                    ",idStudent=" +  SqlVal.SqlInt(Grade.IdStudent.ToString()) + "" +
+                    ",idGradeParent=" + SqlVal.SqlInt(Grade.IdGradeParent.ToString()) + "" +
+                    ",idStudent=" + SqlVal.SqlInt(Grade.IdStudent.ToString()) + "" +
                     ",idSchoolYear='" + SqlVal.SqlString(Grade.IdSchoolYear) + "'" +
                     ",timestamp='" + SqlVal.SqlString(((DateTime)Grade.Timestamp).ToString("yyyy-MM-dd HH:mm:ss")) + "'" +
-                    ",idQuestion='" +  SqlVal.SqlInt(Grade.IdQuestion.ToString()) + "'" +
+                    ",idQuestion='" + SqlVal.SqlInt(Grade.IdQuestion.ToString()) + "'" +
                     ",idSchoolSubject='" + SqlVal.SqlString(Grade.IdSchoolSubject) + "'" +
                     ",value=" + SqlVal.SqlDouble(Grade.Value) + "" +
                     ",weight=" + SqlVal.SqlDouble(Grade.Weight) + "" +
@@ -1777,7 +1777,7 @@ namespace SchoolGrades.DbClasses
                 cmd.CommandText = "UPDATE Grades " +
                     "SET IdStudent=" + SqlVal.SqlInt(IdStudent) +
                     ",value=" + SqlVal.SqlDouble(Grade) +
-                    ",weight=" + SqlVal.SqlDouble(Weight) + 
+                    ",weight=" + SqlVal.SqlDouble(Weight) +
                     ",idSchoolYear='" + IdSchoolYear + "'" +
                     ",idSchoolSubject='" + IdSchoolSubject +
                     "',timestamp ='" + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss").Replace('.', ':') + "' " +
@@ -1958,7 +1958,7 @@ namespace SchoolGrades.DbClasses
             if (IdQuestion == 0)
             {
                 question.IdQuestion = 0;
-                question.Text = ""; 
+                question.Text = "";
                 return question;
             }
             using (DbConnection conn = dl.Connect())
@@ -2127,7 +2127,7 @@ namespace SchoolGrades.DbClasses
             }
             query += " OR Questions.idTopic IS NULL OR Questions.idTopic = ''";
             if (SearchString != "")
-                query += ")"; 
+                query += ")";
 
             query += " ORDER BY Questions.weight;";
 
@@ -2416,8 +2416,8 @@ namespace SchoolGrades.DbClasses
                 cmd.CommandText = "INSERT INTO Answers" +
                     " (idAnswer,idQuestion,showingOrder,text,errorCost,isCorrect,isOpenAnswer)" +
                     " Values (" + codice +
-                    "," +  SqlVal.SqlInt(currentAnswer.IdQuestion) +
-                    "," +  SqlVal.SqlInt(currentAnswer.ShowingOrder) +
+                    "," + SqlVal.SqlInt(currentAnswer.IdQuestion) +
+                    "," + SqlVal.SqlInt(currentAnswer.ShowingOrder) +
                     ",'" + SqlVal.SqlString(currentAnswer.Text) + "'" +
                     "," + SqlVal.SqlDouble(currentAnswer.ErrorCost) +
                     "," + SqlVal.SqlBool(currentAnswer.IsCorrect) +
@@ -2969,7 +2969,7 @@ namespace SchoolGrades.DbClasses
             File.Copy(Commons.PathAndFileDatabase, newDatabaseFullName);
 
             // open a local connection to database 
-            DataLayer.DataLayer newDatabaseDl = new DataLayer.DataLayer(newDatabaseFullName); 
+            DataLayer.DataLayer newDatabaseDl = new DataLayer.DataLayer(newDatabaseFullName);
 
             // erase all the data of the students of other classes
             using (DbConnection conn = newDatabaseDl.Connect())
@@ -3024,7 +3024,7 @@ namespace SchoolGrades.DbClasses
                 // erase all the annotations of other classes
                 cmd.CommandText = "DELETE FROM StudentsAnnotations" +
                     " WHERE idStudent NOT IN" +
-                    " (SELECT idStudent FROM Classes_Students)" + 
+                    " (SELECT idStudent FROM Classes_Students)" +
                     ";";
                 cmd.ExecuteNonQuery();
 
@@ -3122,7 +3122,7 @@ namespace SchoolGrades.DbClasses
                     if (dReader["pathRestrictedApplication"] is DBNull)
                     {
                         Console.Beep();
-                        break; 
+                        break;
                     }
                     if (dReader["imagePath"] is DBNull)
                     {
@@ -3469,7 +3469,7 @@ namespace SchoolGrades.DbClasses
                 "DELETE FROM Classes_StartLinks;" +
                 "DELETE FROM Flags;" +
                 "DELETE FROM usersCategories;" +
-                "DELETE FROM Users;"; 
+                "DELETE FROM Users;";
                 cmd.ExecuteNonQuery();
 
                 // compact the database 
@@ -3647,772 +3647,17 @@ namespace SchoolGrades.DbClasses
                 ";";
             return (int?)cmd.ExecuteScalar();
         }
-
-        private void RandomizeGrades(DbConnection conn)
-        {
-            DbDataReader dRead;
-            DbCommand cmd = conn.CreateCommand();
-            cmd = conn.CreateCommand();
-            cmd.CommandText = "SELECT * FROM Grades" +
-                ";";
-            dRead = cmd.ExecuteReader();
-            Random rnd = new Random();
-            while (dRead.Read())
-            {
-                double? grade = SafeDb.SafeDouble(dRead["value"]);
-                int? id = SafeDb.SafeInt(dRead["IdGrade"]);
-                // add to the grade a random delta between -10 and +10 
-                if (grade > 0)
-                {
-                    grade = grade + rnd.NextDouble() * 20 - 10;
-                    if (grade < 10) grade = 10;
-                    if (grade > 100) grade = 100;
-                }
-                else
-                    grade = 0;
-                SaveGradeValue(id, grade, conn);
-            }
-            cmd.Dispose();
-        }
-
-        private void SaveGradeValue(int? id, double? grade, DbConnection conn)
-        {
-            DbCommand cmd = conn.CreateCommand();
-            cmd.CommandText = "UPDATE Grades" +
-            " SET value=" + SqlVal.SqlDouble(grade) +
-            " WHERE idGrade=" + id +
-            ";";
-            cmd.ExecuteNonQuery();
-            cmd.Dispose();
-        }
+        
         internal School GetSchool(string OfficialSchoolAbbreviation)
         {
             // !!!! TODO read school info from the database !!!!
             School news = new School();
             // the next should be a real integer id, 
-            news.IdSchool = Commons.IdSchool; 
+            news.IdSchool = Commons.IdSchool;
             news.Name = "IS Pascal Comandini";
             news.Desc = "Istituto Di Istruzione Superiore Pascal-Comandini, Cesena";
             news.OfficialSchoolAbbreviation = Commons.IdSchool;
             return news;
-        }
-        internal int CreateNewTopic(Topic NewTopic)
-        {
-            int nextId;
-            using (DbConnection conn = dl.Connect())
-            {
-                nextId = NextKey("Topics", "idTopic");
-
-                DbCommand cmd = conn.CreateCommand();
-                // aggiunge la foto alle foto (cartella relativa, cui verrà aggiunta la path delle foto)
-                cmd.CommandText = "INSERT INTO Topics " +
-                "(idTopic,name,desc,leftNode,rightNode,parentNode,childNumber)" +
-                "Values " +
-                "(" + nextId + ",'" + SqlVal.SqlString(NewTopic.Name) + "','" +
-                SqlVal.SqlString(NewTopic.Desc) + "'," +  SqlVal.SqlInt(NewTopic.LeftNodeNew.ToString()) + "," +
-                 SqlVal.SqlInt(NewTopic.RightNodeNew.ToString()) + "," +  SqlVal.SqlInt(NewTopic.ParentNodeNew.ToString()) +
-                "," + SqlVal.SqlInt(NewTopic.ChildNumberNew.ToString()) +
-                ");";
-                cmd.ExecuteNonQuery();
-
-                cmd.Dispose();
-            }
-            return nextId;
-        }
-        internal void EraseAllTopics()
-        {
-            using (DbConnection conn = dl.Connect())
-            {   // erase all the topics
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "DELETE FROM Topics;";
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
-            }
-        }
-        /// <summary>
-        /// Gets the record of the Topic from the database, 
-        /// </summary>
-        /// <param name="dRead"></param>
-        /// <returns></returns>
-        internal Topic GetTopicFromRow(DbDataReader dRead)
-        {
-            Topic t = new Topic();
-            t.Id = SafeDb.SafeInt(dRead["IdTopic"]);
-            t.Name = SafeDb.SafeString(dRead["name"]);
-            t.Desc = SafeDb.SafeString(dRead["desc"]);
-            t.LeftNodeOld = SafeDb.SafeInt(dRead["leftNode"]);
-            t.LeftNodeNew = -1;
-            t.RightNodeOld = SafeDb.SafeInt(dRead["rightNode"]);
-            t.RightNodeNew = -1;
-            t.ParentNodeOld = SafeDb.SafeInt(dRead["parentNode"]);
-            t.ParentNodeNew = -1;
-            t.ChildNumberOld = SafeDb.SafeInt(dRead["childNumber"]);
-            t.ChildNumberNew = -1;
-            t.Changed = false;
-
-            return t;
-        }
-        internal Topic GetTopicById(int? idTopic)
-        {
-            Topic t = new Topic();
-            using (DbConnection conn = dl.Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                string query = "SELECT *" +
-                    " FROM Topics" +
-                    " WHERE idTopic=" + idTopic;
-                cmd = new SQLiteCommand(query);
-                cmd.Connection = conn;
-                DbDataReader dRead = cmd.ExecuteReader();
-                while (dRead.Read())
-                {
-                    t = GetTopicFromRow(dRead);
-                }
-                dRead.Dispose();
-                cmd.Dispose();
-            }
-            return t;
-        }
-        internal List<Topic> GetTopics()
-        {
-            List<Topic> lt = new List<Topic>();
-            using (DbConnection conn = dl.Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                string query = "SELECT *" +
-                    " FROM Topics" +
-                    " ORDER BY IdTopic;";
-                cmd = new SQLiteCommand(query);
-                cmd.Connection = conn;
-                DbDataReader dRead = cmd.ExecuteReader();
-                while (dRead.Read())
-                {
-                    Topic t = GetTopicFromRow(dRead);
-                    lt.Add(t);
-                }
-                dRead.Dispose();
-                cmd.Dispose();
-            }
-            return lt;
-        }
-        internal List<Topic> GetTopicsNotDoneFromThisTopic(Class Class, Topic Topic,
-            SchoolSubject Subject)
-        {
-            // node numbering according to Modified Preorder Tree Traversal algorithm
-            List<Topic> l = new List<Topic>();
-            using (DbConnection conn = dl.Connect())
-            {
-                // find descendant topics that aren't done  
-                DbCommand cmd = conn.CreateCommand();
-                //!!!! TODO aggiustare la logica
-                string query = "SELECT *" +
-                    " FROM Topics" +
-                    " LEFT JOIN Lessons_Topics ON Lessons_Topics.idTopic = Topics.idTopic" +
-                    " JOIN Lessons ON Lessons_Topics.idLesson = Lessons.IdLesson" +
-                    " WHERE leftNode BETWEEN " + Topic.LeftNodeOld +
-                    " AND " + Topic.RightNodeOld +
-                    " AND Lessons_Topics.idLesson IS null" +
-                    " AND Lessons.idClass = " + Class.IdClass +
-                    " AND Lessons.idSchoolSubject ='" + Subject.IdSchoolSubject + "'" +
-                    " ORDER BY leftNode ASC;";
-                cmd = new SQLiteCommand(query);
-                cmd.Connection = conn;
-                DbDataReader dRead = cmd.ExecuteReader();
-                while (dRead.Read())
-                {
-                    Topic t = GetTopicFromRow(dRead);
-                    l.Add(t);
-                }
-                dRead.Dispose();
-                cmd.Dispose();
-            }
-            return l;
-        }
-        internal List<Topic> GetTopicsDoneFromThisTopic(Class Class, Topic StartTopic,
-            SchoolSubject Subject)
-        {
-            // node order according to Modified Preorder Tree Traversal algorithm
-            List<Topic> l = new List<Topic>();
-            if (Class == null)
-                return l;
-            using (DbConnection conn = dl.Connect())
-            {
-                // find descendant topics that are done  
-                DbCommand cmd = conn.CreateCommand();
-                string query = "SELECT *" +
-                    " FROM Topics" +
-                    " JOIN Lessons_Topics ON Lessons_Topics.idTopic = Topics.idTopic " +
-                    " JOIN Lessons ON Lessons_Topics.idLesson = Lessons.idLesson" +
-                    " WHERE leftNode BETWEEN " + StartTopic.LeftNodeOld +
-                    " AND " + StartTopic.RightNodeOld;
-                if (Class != null)
-                    query += " AND Lessons.idClass = " + Class.IdClass; 
-                if(Subject != null)
-                    query += " AND Lessons.idSchoolSubject ='" + Subject.IdSchoolSubject + "'" +
-                    " ORDER BY leftNode ASC;";
-                cmd = new SQLiteCommand(query);
-                cmd.Connection = conn;
-                DbDataReader dRead = cmd.ExecuteReader();
-                while (dRead.Read())
-                {
-                    Topic t = GetTopicFromRow(dRead);
-                    l.Add(t);
-                }
-                dRead.Dispose();
-                cmd.Dispose();
-            }
-            return l;
-        }
-        internal List<Topic> GetAllTopicsDoneInClassAndSubject(Class Class,
-            SchoolSubject Subject, 
-            DateTime DateStart = default(DateTime), DateTime DateFinish = default(DateTime))
-        {
-            // node order according to Modified Preorder Tree Traversal algorithm
-            List<Topic> l = new List<Topic>();
-            using (DbConnection conn = dl.Connect())
-            {
-                // find topics that are done in a lesson of given class about and given subject 
-                DbCommand cmd = conn.CreateCommand();
-                string query = "SELECT *" +
-                    " FROM Topics" +
-                    " JOIN Lessons_Topics ON Lessons_Topics.idTopic = Topics.idTopic " +
-                    " JOIN Lessons ON Lessons_Topics.idLesson = Lessons.idLesson" +
-                    " JOIN Classes ON Classes.idClass = Lessons.idClass" +
-                    " WHERE Lessons.idClass = " + Class.IdClass +
-                    " AND Lessons.idSchoolSubject ='" + Subject.IdSchoolSubject + "'";
-                if (DateStart != default(DateTime) && DateFinish != default(DateTime))
-                    query += " AND Lessons.date BETWEEN " +
-                    SqlVal.SqlDate(DateStart) + " AND " + SqlVal.SqlDate(DateFinish); 
-                    query += " ORDER BY Lessons.date ASC;";
-                cmd = new SQLiteCommand(query);
-                cmd.Connection = conn;
-                DbDataReader dRead = cmd.ExecuteReader();
-                while (dRead.Read())
-                {
-                    Topic t = GetTopicFromRow(dRead);
-                    l.Add(t);
-                }
-                dRead.Dispose();
-                cmd.Dispose();
-            }
-            return l;
-        }
-        internal List<Topic> GetTopicsDoneInPeriod(Class currentClass, SchoolSubject currentSubject,
-            DateTime DateFrom, DateTime DateTo)
-        {
-            List<Topic> lt = new List<Topic>();
-            using (DbConnection conn = dl.Connect())
-            {
-                DateTo = DateTo.AddDays(1); // add one day for lesson after 0 and to midnight 
-                DbCommand cmd = conn.CreateCommand();
-                string query = "SELECT Topics.idTopic,Topics.name,Topics.desc,Topics.LeftNode,Topics.RightNode," +
-                    "Topics.ParentNode, Topics.childNumber, Lessons.date,Lessons.idSchoolSubject" +
-                    " FROM Topics" +
-                    " JOIN Lessons_Topics ON Lessons_Topics.IdTopic=Topics.IdTopic" +
-                    " JOIN Lessons ON Lessons_Topics.IdLesson=Lessons.IdLesson" +
-                    " WHERE Lessons.IdClass=" + currentClass.IdClass +
-                    " AND Lessons.idSchoolSubject='" + currentSubject.IdSchoolSubject + "'";
-                if (DateFrom == Commons.DateNull)
-                {
-                    query += " AND (Lessons.Date BETWEEN '" + DateFrom.ToString("yyyy-MM-dd") + "'" +
-                        " AND '" + DateTo.ToString("yyyy-MM-dd") + "')";
-                }
-                query += " ORDER BY Lessons.date DESC" +
-                ";";
-                cmd = new SQLiteCommand(query);
-                cmd.Connection = conn;
-                DbDataReader dRead = cmd.ExecuteReader();
-                while (dRead.Read())
-                {
-                    Topic t = GetTopicFromRow(dRead);
-                    t.Id = (int)dRead["IdTopic"];
-                    t.Name = (string)dRead["name"];
-                    t.Desc = (string)dRead["desc"];
-                    //t.LeftNodeNew = -1;
-                    //t.RightNodeNew = -1;
-                    t.Date = (DateTime)dRead["date"]; // taken fron the Lessons table 
-
-                    // determine the path while still in the database
-                    // if we don't, determination from the outside would be too costly 
-                    query = "SELECT idTopic, name, desc, leftNode, rightNode" +
-                        " FROM Topics" +
-                        " WHERE leftNode <=" + t.LeftNodeOld +
-                        " AND rightNode >=" + t.RightNodeOld +
-                        " ORDER BY leftNode ASC;)";
-                    cmd = new SQLiteCommand(query);
-                    cmd.Connection = conn;
-                    DbDataReader dRead1 = cmd.ExecuteReader();
-                    string path = "";
-                    while (dRead1.Read())
-                    {
-                        path += ((string)dRead1["name"]).Trim() + "|";
-                    }
-                    //t.Path = path;
-                    t.Changed = false;
-                    lt.Add(t);
-                    dRead1.Dispose();
-                }
-                dRead.Dispose();
-                cmd.Dispose();
-            }
-            return lt;
-        }
-        internal int GetTopicDescendantsNumber(int? LeftNode, int? RightNode)
-        {
-            // node numbering according to Modified Preorder Tree Traversal algorithm
-            return ((int)RightNode - (int)LeftNode - 1) / 2;
-        }
-        internal void UpdateTopic(Topic t, DbConnection conn)
-        {
-            bool leaveConnectionOpen = true;
-            if (conn == null)
-            {
-                conn = dl.Connect();
-                leaveConnectionOpen = false;
-            }
-            DbCommand cmd = conn.CreateCommand();
-            cmd.CommandText = "UPDATE Topics" +
-                " SET" +
-                " name='" + SqlVal.SqlString(t.Name) + "'" +
-                ",desc='" + SqlVal.SqlString(t.Desc) + "'" +
-                ",parentNode=" + t.ParentNodeNew +
-                ",leftNode=" + t.LeftNodeNew +
-                ",rightNode=" + t.RightNodeNew +
-                ",childNumber=" + t.ChildNumberNew +
-                " WHERE idTopic=" + t.Id +
-                ";";
-            cmd.ExecuteNonQuery();
-            cmd.Dispose();
-            if (!leaveConnectionOpen)
-            {
-                conn.Close();
-                conn.Dispose();
-            }
-        }
-        internal void InsertTopic(Topic t, DbConnection Conn)
-        {
-            if (t.Id == null || t.Id == 0)
-            {
-                bool leaveConnectionOpen = true;
-                if (Conn == null)
-                {
-                    Conn = dl.Connect();
-                    leaveConnectionOpen = false;
-                }
-                DbCommand cmd = Conn.CreateCommand();
-
-                cmd.CommandText = "SELECT MAX(IdTopic) FROM Topics;";
-                var temp = cmd.ExecuteScalar();
-                if (!(temp is DBNull))
-                    t.Id = Convert.ToInt32(temp) + 1;
-                cmd.CommandText = "INSERT INTO Topics" +
-                    " (idTopic,name,desc,leftNode,rightNode,parentNode,childNumber)" +
-                    " Values (" +
-                    t.Id.ToString() +
-                    ",'" + SqlVal.SqlString(t.Name) + "'" +
-                    ",'" + SqlVal.SqlString(t.Desc) + "'" +
-                    "," + t.LeftNodeNew + "" +
-                    "," + t.RightNodeNew + "" +
-                    "," + t.ParentNodeNew + "" +
-                    "," + t.ChildNumberNew + "" +
-                    ");";
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
-                if (!leaveConnectionOpen)
-                {
-                    Conn.Close();
-                    Conn.Dispose();
-                }
-            }
-        }
-        internal void SaveTopicsFromScratch(List<Topic> ListTopics)
-        {
-            ////////BackgroundCanStillSaveTopicsTree = true;
-            using (DbConnection conn = dl.Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "DELETE FROM Topics;";
-                cmd.ExecuteNonQuery();
-                int key;
-                cmd.CommandText = "SELECT MAX(IdTopic) FROM Topics;";
-                var temp = cmd.ExecuteScalar();
-                if (temp is DBNull)
-                    key = 0;
-                else
-                    key = (int)temp;
-                foreach (Topic t in ListTopics)
-                {   // insert new nodes
-                    {
-                        cmd.CommandText = "INSERT INTO Topics" +
-                           " (idTopic,name,desc,parentNode,leftNode,rightNode,parentNode)" +
-                           " Values (" +
-                           (++key).ToString() +
-                            ",'" + SqlVal.SqlString(t.Name) + "'" +
-                            ",'" + SqlVal.SqlString(t.Desc) + "'" +
-                            "," + t.ParentNodeNew + "" +
-                            "," + t.LeftNodeNew + "" +
-                            "," + t.RightNodeNew + "" +
-                            "," + t.ParentNodeNew + "" +
-                            ");";
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-                cmd.Dispose();
-            }
-        }
-        internal GradeType GetGradeType(string IdGradeType)
-        {
-            GradeType gt = null;
-            using (DbConnection conn = dl.Connect())
-            {
-                DbDataReader dRead;
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM GradeTypes";
-                cmd.CommandText += " WHERE idGradeType ='" + IdGradeType + "'";
-                cmd.CommandText += ";";
-                dRead = cmd.ExecuteReader();
-                dRead.Read();
-                gt = GetGradeTypeFromRow(dRead);
-                dRead.Dispose();
-                cmd.Dispose();
-            }
-            return gt;
-        }
-        private GradeType GetGradeTypeFromRow(DbDataReader Row)
-        {
-            if (Row.HasRows)
-            {
-                GradeType gt = new GradeType();
-                gt.IdGradeType = (string)Row["idGradeType"];
-                gt.IdGradeTypeParent = SafeDb.SafeString(Row["IdGradeTypeParent"]);
-                gt.IdGradeCategory = (string)Row["IdGradeCategory"];
-                gt.Name = (string)Row["Name"];
-                gt.DefaultWeight = (double)Row["DefaultWeight"];
-                gt.Desc = (string)Row["Desc"];
-                return gt;
-            }
-            return null;
-        }
-
-        internal List<GradeType> GetListGradeTypes()
-        {
-            List<GradeType> lg = new List<GradeType>();
-            using (DbConnection conn = dl.Connect())
-            {
-                DbDataReader dRead;
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM GradeTypes;";
-                dRead = cmd.ExecuteReader();
-                while (dRead.Read())
-                {
-                    GradeType gt = GetGradeTypeFromRow(dRead);
-                    lg.Add(gt);
-                }
-                dRead.Dispose();
-                cmd.Dispose();
-                return lg;
-            }
-        }
-
-        internal List<QuestionType> GetListQuestionTypes(bool IncludeANullObject)
-        {
-            List<QuestionType> l = new List<QuestionType>();
-            if (IncludeANullObject)
-            {
-                QuestionType qt = new QuestionType();
-                qt.IdQuestionType = "";
-                l.Add(qt);
-            }
-            using (DbConnection conn = dl.Connect())
-            {
-                DbDataReader dRead;
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM QuestionTypes;";
-                dRead = cmd.ExecuteReader();
-                while (dRead.Read())
-                {
-                    QuestionType o = new QuestionType();
-                    o.Name = (string)dRead["Name"];
-                    o.IdQuestionType = (string)dRead["IdQuestionType"];
-                    o.Desc = (string)dRead["Desc"];
-                    o.IdQuestionType = (string)dRead["IdQuestionType"];
-                    l.Add(o);
-                }
-                dRead.Dispose();
-                cmd.Dispose();
-                return l;
-            }
-        }
-
-        internal int NewLesson(Lesson Lesson)
-        {
-            int key;
-            using (DbConnection conn = dl.Connect())
-            {
-                key = NextKey("Lessons", "idLesson");
-                Lesson.IdLesson = key;
-                // add new record to Lessons table
-                DbCommand cmd = conn.CreateCommand();
-                cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO Lessons" +
-                " (idLesson, date, idClass, idSchoolSubject, idSchoolYear, note) " +
-                "Values (" +
-                "" + Lesson.IdLesson + "" +
-                "," + SqlVal.SqlDate(Lesson.Date) + "" +
-                "," + Lesson.IdClass + "" +
-                ",'" + Lesson.IdSchoolSubject + "'" +
-                ",'" + Lesson.IdSchoolYear + "'" +
-                ",'" + SqlVal.SqlString(Lesson.Note) + "'" +
-                ");";
-                cmd.ExecuteNonQuery();
-
-                cmd.Dispose();
-            }
-            return key;
-        }
-        internal void SaveLesson(Lesson Lesson)
-        {
-            using (DbConnection conn = dl.Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                cmd = conn.CreateCommand();
-                cmd.CommandText = "UPDATE Lessons" +
-                " SET" +
-                " date=" + SqlVal.SqlDate(Lesson.Date) + "," +
-                " idClass=" + Lesson.IdClass + "," +
-                " idSchoolSubject='" + Lesson.IdSchoolSubject + "'," +
-                " idSchoolYear='" + Lesson.IdSchoolYear + "'," +
-                " note='" + SqlVal.SqlString(Lesson.Note) + "'" +
-                " WHERE idLesson=" + Lesson.IdLesson +
-                ";";
-                cmd.ExecuteNonQuery();
-
-                cmd.Dispose();
-            }
-        }
-        internal object GetTopicsOfOneLessonOfClass(Class Class, Lesson Lesson)
-        {
-            DataTable t;
-            using (DbConnection conn = dl.Connect())
-            {
-                DataAdapter dAdapt;
-                DataSet dSet = new DataSet();
-                string query = "SELECT Topics.* FROM Lessons" +
-                    " LEFT JOIN Lessons_Topics ON Lessons.IdLesson = Lessons_Topics.idLesson" +
-                    " LEFT JOIN Topics ON Topics.idTopic = Lessons_Topics.idTopic" +
-                    " WHERE idSchoolSubject='" + Lesson.IdSchoolSubject + "'" +
-                    " AND Lessons.idSchoolYear='" + Lesson.IdSchoolYear + "'" +
-                    " AND Lessons.idClass='" + Class.IdClass + "'" +
-                    " AND Lessons.idLesson='" + Lesson.IdLesson + "'" +
-                    //" GROUP BY Lessons.idLesson" +
-                    " ORDER BY Lessons.date DESC" +
-                    ";";
-                dAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                dSet = new DataSet("GetOnLessonOfClass");
-                dAdapt.Fill(dSet);
-                t = dSet.Tables[0];
-
-                dAdapt.Dispose();
-                dSet.Dispose();
-            }
-            return t;
-        }
-        internal DataTable GetLessonsOfClass(Class Class, Lesson Lesson)
-        {
-            DataTable t;
-            using (DbConnection conn = dl.Connect())
-            {
-                DataAdapter dAdapt;
-                DataSet dSet = new DataSet();
-                string query = "SELECT * FROM Lessons" +
-                    " WHERE idSchoolSubject='" + Lesson.IdSchoolSubject + "'" +
-                    " AND Lessons.idSchoolYear='" + Lesson.IdSchoolYear + "'" +
-                    " AND Lessons.idClass='" + Class.IdClass + "'" +
-                    //" GROUP BY Lessons.idLesson" +
-                    " ORDER BY Lessons.date DESC" +
-                    ";";
-                dAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                dSet = new DataSet("GetLessonsOfClass");
-                dAdapt.Fill(dSet);
-                t = dSet.Tables[0];
-
-                dAdapt.Dispose();
-                dSet.Dispose();
-            }
-            return t;
-        }
-        internal Lesson GetLastLesson(Lesson CurrentLesson)
-        {
-            using (DbConnection conn = dl.Connect())
-            {
-                List<Couple> couples = new List<Couple>();
-                DbDataReader dRead;
-                DbCommand cmd = conn.CreateCommand();
-                Lesson l;
-                string query;
-                query = "SELECT * FROM Lessons" +
-                        " WHERE idClass=" + CurrentLesson.IdClass.ToString() +
-                        " AND idSchoolSubject='" + CurrentLesson.IdSchoolSubject + "'" +
-                        " AND idSchoolYear='" + CurrentLesson.IdSchoolYear + "'" +
-                        " ORDER BY Date DESC LIMIT 1;";
-                cmd.CommandText = query;
-                dRead = cmd.ExecuteReader();
-                l = new Lesson();
-                while (dRead.Read())
-                {
-                    l.IdLesson = (int)dRead["idLesson"];
-                    l.Date = (DateTime)dRead["Date"];
-                    l.IdClass = (int)dRead["idClass"];
-                    l.IdSchoolSubject = (string)dRead["idSchoolSubject"];
-                    l.Note = (string)dRead["note"];
-
-                    break;
-                }
-                cmd.Dispose();
-                dRead.Dispose();
-                return l;
-            }
-        }
-        internal Lesson GetLessonInDate(Class Class, string IdSubject,
-            DateTime Date)
-        {
-            Lesson less = new Lesson();
-            using (DbConnection conn = dl.Connect())
-            {
-                DbDataReader dRead;
-                DbCommand cmd = conn.CreateCommand();
-                string query;
-                query = "SELECT * FROM Lessons" +
-                        " WHERE idClass=" + Class.IdClass.ToString() +
-                        " AND idSchoolSubject='" + IdSubject + "'" +
-                        " AND date BETWEEN " + SqlVal.SqlDate(Date.ToString("yyyy-MM-dd")) +
-                        " AND " + SqlVal.SqlDate(Date.AddDays(1).ToString("yyyy-MM-dd")) +
-                        " LIMIT 1;";
-                cmd.CommandText = query;
-                dRead = cmd.ExecuteReader();
-                while (dRead.Read())
-                {
-                    less.IdLesson = (int)dRead["idLesson"];
-                    less.Date = (DateTime)dRead["Date"];
-                    less.IdClass = (int)dRead["idClass"];
-                    less.IdSchoolSubject = (string)dRead["idSchoolSubject"];
-                    less.Note = (string)dRead["note"];
-
-                    break; // there should be only one record in the query result 
-                }
-                cmd.Dispose();
-                dRead.Dispose();
-            }
-            return less;
-        }
-        internal void EraseLesson(int? IdLesson, bool AlsoEraseImageFiles)
-        {
-            using (DbConnection conn = dl.Connect())
-            {
-                // erase existing links topic-lesson
-                DbCommand cmd = conn.CreateCommand();
-                string query = "DELETE FROM Lessons_Topics" +
-                        " WHERE idLesson=" + IdLesson.ToString() +
-                        ";";
-                cmd.CommandText = query;
-                cmd.ExecuteNonQuery();
-
-                // erase images' files if permitted
-                if (AlsoEraseImageFiles)
-                {
-                    // !! TODO !! find the images that aren't linked to another lesson and delete
-                    // the files if EraseImageFiles is set 
-                    throw new NotImplementedException();
-                }
-
-                // erase existing links images-lesson
-                cmd = conn.CreateCommand();
-                query = "DELETE FROM Lessons_Images" +
-                        " WHERE idLesson=" + IdLesson.ToString() +
-                        ";";
-                cmd.CommandText = query;
-                cmd.ExecuteNonQuery();
-
-                // erase the lesson's row from lessons
-                cmd = conn.CreateCommand();
-                query = "DELETE FROM Lessons" +
-                        " WHERE idLesson=" + IdLesson.ToString() +
-                        ";";
-                cmd.CommandText = query;
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
-            }
-        }
-        internal void SaveTopicsOfLesson(int? IdLesson, List<Topic> topicsOfTheLesson)
-        {
-            using (DbConnection conn = dl.Connect())
-            {
-                // erase existing links topic-lesson
-                DbCommand cmd = conn.CreateCommand();
-                string query = "DELETE FROM Lessons_Topics" +
-                        " WHERE idLesson=" + IdLesson.ToString() +
-                        ";";
-                cmd.CommandText = query;
-                cmd.ExecuteNonQuery();
-                int insertionOrder = 1;
-                foreach (Topic t in topicsOfTheLesson)
-                {
-                    // insert links topic-lesson, one at a time 
-                    cmd.CommandText = "INSERT INTO Lessons_Topics" +
-                    " (idLesson, idTopic, insertionOrder)" +
-                    " Values (" +
-                    "" + IdLesson + "" +
-                    "," + t.Id +
-                    "," + insertionOrder++ +
-                    ");";
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
-
-                    catch (Exception e)
-                    {
-                        {
-                            // if it isn't UNIQUE, then it is error (to cure!!!!)
-                            // but actually it doesn't matter too much, because
-                            // the lesson is already linked to the topic anyway.. 
-
-
-                        }
-                    }
-                }
-                cmd.Dispose();
-            }
-        }
-        internal List<Topic> GetTopicsOfLesson(int? IdLesson, List<Topic> topicsOfTheLesson)
-        {
-            if (IdLesson == null)
-            {
-                return null; 
-            }
-            // order by ensures that the order of the result is the order of insertion 
-            // in the database (that was the same of the tree traversal) 
-            using (DbConnection conn = dl.Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                DbDataReader dRead;
-                string query;
-                query = "SELECT * FROM Topics" +
-                        " JOIN Lessons_Topics ON Topics.idTopic=Lessons_Topics.idTopic" +
-                        " WHERE Lessons_Topics.idLesson=" + IdLesson +
-                        " ORDER BY insertionOrder" +
-                        ";";
-                cmd.CommandText = query;
-                dRead = cmd.ExecuteReader();
-                while (dRead.Read())
-                {
-                    Topic t = GetTopicFromRow(dRead);
-                    topicsOfTheLesson.Add(t);
-                }
-                cmd.Dispose();
-                dRead.Dispose();
-            }
-            return topicsOfTheLesson;
         }
         internal List<Image> GetLessonsImagesList(Lesson Lesson)
         {
@@ -4624,493 +3869,6 @@ namespace SchoolGrades.DbClasses
             p.IdSchoolPeriod = SafeDb.SafeString(Row["idSchoolPeriod"]);
             p.IdSchoolYear = SafeDb.SafeString(Row["idSchoolYear"]);
             return p;
-        }
-        internal Test GetTestFromRow(DbDataReader Row)
-        {
-            Test t = new Test();
-            t.IdTest = SafeDb.SafeInt(Row["idTest"]);
-            t.Name = SafeDb.SafeString(Row["name"]);
-            t.Desc = SafeDb.SafeString(Row["desc"]);
-            t.IdSchoolSubject = SafeDb.SafeString(Row["IdSchoolSubject"]);
-            t.IdTestType = SafeDb.SafeString(Row["IdTestType"]);
-            t.IdSchoolSubject = SafeDb.SafeString(Row["IdSchoolSubject"]);
-            t.IdTopic = SafeDb.SafeInt(Row["IdTopic"]);
-
-            return t;
-        }
-        internal Test GetTest(int? IdTest)
-        {
-            Test t = new Test();
-            using (DbConnection conn = dl.Connect())
-            {
-                DbDataReader dRead;
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * " +
-                    "FROM Tests " +
-                    "WHERE IdTest=" + IdTest +
-                    ";";
-                dRead = cmd.ExecuteReader();
-
-                while (dRead.Read())
-                {
-                    t = GetTestFromRow(dRead);
-                }
-            }
-            return t;
-        }
-        internal List<Test> GetTests()
-        {
-            List<Test> list = new List<Test>();
-            using (DbConnection conn = dl.Connect())
-            {
-                DbDataReader dRead;
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * " +
-                    "FROM Tests " +
-                    //"WHERE idSchoolYear=" + IdSchoolYear +
-                    //" OR IdSchoolYear IS null OR IdSchoolYear=''" +
-                    ";";
-                dRead = cmd.ExecuteReader();
-
-                while (dRead.Read())
-                {
-                    Test t = GetTestFromRow(dRead);
-                    list.Add(t);
-                }
-            }
-            return list;
-        }
-
-        internal void SaveTest(Test TestToSave)
-        {
-            using (DbConnection conn = dl.Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                if (TestToSave.IdTest == 0 || TestToSave.IdTest == null)
-                {   // create new record
-                    int nextId = NextKey("Tests", "idTest");
-
-                    cmd.CommandText = "INSERT INTO Tests " +
-                    "(idTest,name,desc,IdSchoolSubject,IdTestType,IdTopic" +
-                    ")" +
-                    "Values " +
-                    "(" + nextId + ",'" + SqlVal.SqlString(TestToSave.Name) + "','" +
-                    SqlVal.SqlString(TestToSave.Desc) + "','" + SqlVal.SqlString(TestToSave.IdSchoolSubject) + "'," +
-                     SqlVal.SqlInt(TestToSave.IdTestType) + "," +  SqlVal.SqlInt(TestToSave.IdTopic) +
-                    ");";
-                }
-                else
-                {   // update old record
-                    cmd.CommandText = "UPDATE Tests" +
-                    " SET name='" + SqlVal.SqlString(TestToSave.Name) + "'," +
-                    "desc='" + SqlVal.SqlString(TestToSave.Desc) + "'" +
-                    ",IdSchoolSubject=" + SqlVal.SqlString(TestToSave.IdSchoolSubject) +
-                    ",IdTestType=" +  SqlVal.SqlInt(TestToSave.IdTestType) +
-                    ",IdTopic=" +  SqlVal.SqlInt(TestToSave.IdTopic) +
-                    ")" +
-                    " WHERE idTest=" + TestToSave.IdTest +
-                    ";";
-                }
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
-            }
-        }
-        internal List<Question> GetAllQuestionsOfATest(int? IdTest)
-        {
-            List<Question> lq = new List<Question>();
-            using (DbConnection conn = dl.Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT *" +
-                    " FROM Questions" +
-                    " JOIN Tests_Questions ON Tests_Questions.IdQuestion=Questions.IdQuestion" +
-                    " WHERE Tests_Questions.idTest=" + IdTest +
-                    ";";
-                DbDataReader dRead;
-                dRead = cmd.ExecuteReader();
-
-                while (dRead.Read())
-                {
-                    Question q = GetQuestionFromRow(dRead);
-                    lq.Add(q);
-                }
-            }
-            return lq;
-        }
-        internal void AddQuestionToTest(Test Test, Question Question)
-        {
-            using (DbConnection conn = dl.Connect())
-            {
-                // get the code of the previous photo
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO Tests_Questions" +
-                    " (IdTest, IdQuestion)" +
-                    " Values" +
-                    " (" + Test.IdTest + "," + Question.IdQuestion + ")" +
-                    "; ";
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
-            }
-        }
-        internal void SaveStudentsAnswer(Student Student, Test Test, Answer Answer,
-            bool StudentsBoolAnswer, string StudentsTextAnswer)
-        {
-            // TODO put this UI matter into form's code 
-            if (Student == null)
-            {
-                MessageBox.Show("Scegliere un allievo");
-                return; 
-            }
-            using (DbConnection conn = dl.Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                // find if an answer has already been given
-                int? IdStudentsAnswer = StudentHasAnswered(Answer.IdAnswer, Test.IdTest, Student.IdStudent);
-                if (IdStudentsAnswer != null)
-                {   // update answer
-                    cmd.CommandText = "UPDATE StudentsAnswers" +
-                    " SET idStudent=" +  SqlVal.SqlInt(Student.IdStudent) + "," +
-                    "idAnswer=" +  SqlVal.SqlInt(Answer.IdAnswer) + "," +
-                    "studentsBoolAnswer=" + SqlVal.SqlBool(StudentsBoolAnswer) + "," +
-                    "studentsTextAnswer='" + SqlVal.SqlString(StudentsTextAnswer) + "'," +
-                    "IdTest=" +  SqlVal.SqlInt(Test.IdTest) +
-                    "" +
-                    " WHERE IdStudentsAnswer=" + Answer.IdAnswer +
-                    ";";
-                }
-                else
-                {   // create answer
-                    int nextId = NextKey("StudentsAnswers", "IdStudentsAnswer");
-
-                    cmd.CommandText = "INSERT INTO StudentsAnswers " +
-                    "(idStudentsAnswer,idStudent,idAnswer,studentsBoolAnswer," +
-                    "studentsTextAnswer,IdTest" +
-                    ")" +
-                    "Values " +
-                    "(" + nextId + "," +  SqlVal.SqlInt(Student.IdStudent) + "," +
-                     SqlVal.SqlInt(Answer.IdAnswer) + "," + SqlVal.SqlBool(StudentsBoolAnswer) + ",'" +
-                    SqlVal.SqlString(StudentsTextAnswer) + "'," +
-                     SqlVal.SqlInt(Test.IdTest) +
-                    ");";
-                }
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
-            }
-        }
-        private int? StudentHasAnswered(int? IdAnswer, int? IdTest, int? IdStudent)
-        {
-            int? key;
-            using (DbConnection conn = dl.Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                string query = "SELECT idStudentsAnswer" +
-                    " FROM StudentsAnswers" +
-                    " WHERE idStudent=" + IdStudent +
-                    " AND IdTest=" + IdTest + "" +
-                    " AND IdAnswer=" + IdAnswer + "" +
-                    ";";
-                cmd.CommandText = query;
-                //idStudentsAnswer cmd.ExecuteScalar() != null;
-                key = (int?)cmd.ExecuteScalar();
-            }
-            return key;
-        }
-        internal List<StudentsAnswer> GetAllAnswersOfAStudentToAQuestionOfThisTest(
-            int? IdStudent, int? IdQuestion, int? IdTest)
-        {
-            List<StudentsAnswer> list = new List<StudentsAnswer>(); 
-            using (DbConnection conn = dl.Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                string query = "SELECT *" +
-                    " FROM StudentsAnswers" +
-                    " JOIN Answers ON Answers.idAnswer = StudentsAnswers.idAnswer" +
-                    " JOIN Questions ON Questions.IdQuestion = Answers.IdQuestion" +
-                    " JOIN Tests_Questions ON Questions.IdQuestion = Tests_Questions.IdQuestion" +
-                    " WHERE StudentsAnswers.idStudent=" + IdStudent +
-                    " AND Questions.IdQuestion=" + IdQuestion + "" +
-                    " AND Tests_Questions.IdTest=" + IdTest + "" +
-                    ";";
-
-                cmd.CommandText = query;
-                DbDataReader dRead;
-                dRead = cmd.ExecuteReader();
-
-                while (dRead.Read())
-                {
-                    StudentsAnswer a = GetStudentsAnswerFromRow(dRead);
-                    list.Add(a);
-                }
-            }
-            return list;
-        }
-
-        private StudentsAnswer GetStudentsAnswerFromRow(DbDataReader Row)
-        {
-            StudentsAnswer a = new StudentsAnswer();
-            a.IdAnswer = SafeDb.SafeInt(Row["IdAnswer"]);
-            a.IdStudent = SafeDb.SafeInt(Row["IdStudent"]);
-            a.IdStudentsAnswer = SafeDb.SafeInt(Row["IdStudentsAnswer"]);
-            a.IdTest = SafeDb.SafeInt(Row["IdTest"]);
-            a.StudentsBoolAnswer = SafeDb.SafeBool(Row["StudentsBoolAnswer"]);
-            a.StudentsTextAnswer = SafeDb.SafeString(Row["StudentsTextAnswer"]);
-
-            return a;
-        }
-
-        internal List<Student> GetAllStudentsThatAnsweredToATest(Test Test, Class Class)
-        {
-            List<Student> list = new List<Student>();
-            using (DbConnection conn = dl.Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                string query = "SELECT DISTINCT StudentsAnswers.IdStudent" +
-                    " FROM StudentsAnswers" +
-                    " JOIN Classes_Students ON StudentsAnswers.IdStudent=Classes_Students.IdStudent" +
-                    " JOIN Students ON Classes_Students.IdStudent=Students.IdStudent" +
-                    " WHERE StudentsAnswers.IdTest=" + Test.IdTest + "" +
-                    " AND Classes_Students.IdClass=" + Class.IdClass + "" +
-                    " ORDER BY Students.LastName, Students.FirstName, Students.IdStudent " +
-                    ";";
-                cmd.CommandText = query;
-                DbDataReader dRead = cmd.ExecuteReader();
-                while (dRead.Read())
-                {
-                    int? idStudent = SafeDb.SafeInt(dRead["idStudent"]);
-                    Student s = GetStudent(idStudent);
-                    list.Add(s);
-                }
-            }
-            return list;
-        }
-       
-        internal List<Answer> GetAllCorrectAnswersToThisQuestionOfThisTest(int? IdQuestion, int? IdTest)
-        {
-            List<Answer> list = new List<Answer>();
-            using (DbConnection conn = dl.Connect())
-            {
-                DbDataReader dRead;
-                DbCommand cmd = conn.CreateCommand();
-                string query = "SELECT Answers.*" +
-                    " FROM Answers" +
-                    " JOIN Questions ON Questions.IdQuestion=Answers.IdQuestion" +
-                    " JOIN Tests_Questions ON Questions.IdQuestion=Tests_Questions.IdQuestion" +
-                    " WHERE Questions.IdQuestion=" + IdQuestion + "" +
-                    " AND Tests_Questions.IdTest=" + IdTest + "" +
-                    " ORDER BY idAnswer" +
-                    ";";
-                cmd.CommandText = query;
-                dRead = cmd.ExecuteReader();
-                while (dRead.Read())
-                {
-                    Answer a = GetAnswerFromRow(dRead);
-                    list.Add(a);
-                }
-            }
-            return list;
-        }
-        
-        internal Answer GetAnswerFromRow(DbDataReader Row)
-        {
-            Answer a = new Answer();
-            a.IdAnswer = SafeDb.SafeInt(Row["IdAnswer"]);
-            a.IdQuestion = SafeDb.SafeInt(Row["IdQuestion"]);
-            a.ShowingOrder = SafeDb.SafeInt(Row["ShowingOrder"]);
-            a.Text = SafeDb.SafeString(Row["Text"]);
-            a.ErrorCost = SafeDb.SafeInt(Row["ErrorCost"]);
-            a.IsCorrect = SafeDb.SafeBool(Row["IsCorrect"]);
-            a.IsOpenAnswer = SafeDb.SafeBool(Row["IsOpenAnswer"]);
-            a.IsMutex = SafeDb.SafeBool(Row["IsMutex"]);
-
-            return a;
-        }
-
-        internal List<StudentAnnotation> AnnotationsAboutThisStudent(Student currentStudent, string IdSchoolYear, 
-            bool IncludeOnlyActiveAnnotations)
-        {
-            if (currentStudent == null)
-                return null; 
-            List<StudentAnnotation> la = new List<StudentAnnotation>();
-            using (DbConnection conn = dl.Connect())
-            {
-                DbDataReader dRead;
-                DbCommand cmd = conn.CreateCommand();
-                string query = "SELECT *" +
-                    " FROM StudentsAnnotations" +
-                    " WHERE StudentsAnnotations.idStudent=" + currentStudent.IdStudent;
-                if (IdSchoolYear != null && IdSchoolYear != "")
-                    query += " AND idSchoolYear=" + IdSchoolYear;
-                if (IncludeOnlyActiveAnnotations)
-                    query += " AND isActive=true";
-                query += " ORDER BY instantTaken DESC, instantClosed DESC";
-                query += ";";
-                cmd.CommandText = query;
-                dRead = cmd.ExecuteReader();
-                while (dRead.Read())
-                {
-                    StudentAnnotation a = GetAnnotationFromRow(dRead);
-                    la.Add(a);
-                }
-            }
-            return la;
-        }
-
-        private StudentAnnotation GetAnnotationFromRow(DbDataReader Row)
-        {
-            StudentAnnotation a = new StudentAnnotation();
-            a.IdAnnotation = SafeDb.SafeInt(Row["idAnnotation"]);
-            a.IdStudent = SafeDb.SafeInt(Row["idStudent"]);
-            a.IdSchoolYear = SafeDb.SafeString(Row["idSchoolYear"]);
-            a.Annotation = SafeDb.SafeString(Row["annotation"]);
-            a.InstantTaken = SafeDb.SafeDateTime(Row["instantTaken"]);
-            a.InstantClosed = SafeDb.SafeDateTime(Row["instantClosed"]);
-            a.IsActive = SafeDb.SafeBool(Row["isActive"]);
-            return a;
-        }
-
-        internal int? SaveAnnotation(StudentAnnotation Annotation, Student s)
-        {
-            using (DbConnection conn = dl.Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                string query = "";
-                // find if an answer has already been given
-                if (Annotation.IdAnnotation != null && Annotation.IdAnnotation != 0)
-                {   // update answer
-                    query = "UPDATE StudentsAnnotations" +
-                    " SET" +
-                    " idStudent=" + SqlVal.SqlInt(s.IdStudent) + "," +
-                    " idSchoolYear='" + SqlVal.SqlString(Annotation.IdSchoolYear) + "'," +
-                    " instantTaken=" + SqlVal.SqlDate(Annotation.InstantTaken) + "," +
-                    " instantClosed=" + SqlVal.SqlDate(Annotation.InstantClosed) + "," +
-                    " isActive=" + SqlVal.SqlBool(Annotation.IsActive) + "," +
-                    " annotation='" + SqlVal.SqlString(Annotation.Annotation) + "'" +
-                    " WHERE idStudent=" +  SqlVal.SqlInt(s.IdStudent) +
-                    ";";
-                }
-                else
-                {
-                    Annotation.InstantTaken = DateTime.Now;
-                    Annotation.IsActive = true; 
-                    // create answer on database
-                    int? nextId = NextKey("StudentsAnnotations", "IdAnnotation");
-                    Annotation.IdAnnotation = nextId;
-
-                    query = "INSERT INTO StudentsAnnotations " +
-                    "(idAnnotation, idStudent, annotation,instantTaken," +
-                    "instantClosed,isActive";
-                    if (Annotation.IdSchoolYear != null && Annotation.IdSchoolYear != "")
-                        query += ",idSchoolYear";
-                    query += ")";
-                    query += " Values(";
-                    query += "" + SqlVal.SqlInt(Annotation.IdAnnotation) + ",";
-                    query += "" + SqlVal.SqlInt(s.IdStudent) + ",";
-                    query += "'" + SqlVal.SqlString(Annotation.Annotation) + "'";
-                    query += "," + SqlVal.SqlDate(Annotation.InstantTaken);
-                    query += "," + SqlVal.SqlDate(Annotation.InstantClosed);
-                    query += "," + SqlVal.SqlBool(Annotation.IsActive);
-                    if (Annotation.IdSchoolYear != null && Annotation.IdSchoolYear != "")
-                        query += ",'" + SqlVal.SqlString(Annotation.IdSchoolYear) + "'";
-                    query += ");";
-                }
-                cmd.CommandText = query; 
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
-            }
-            return Annotation.IdAnnotation; 
-        }
-
-        internal StudentAnnotation GetAnnotation(int? IdAnnotation)
-        {
-            StudentAnnotation a;
-            if (IdAnnotation == null)
-                return null; 
-            a = new StudentAnnotation();
-            using (DbConnection conn = dl.Connect())
-            {
-                DbDataReader dRead;
-                DbCommand cmd = conn.CreateCommand();
-                string query = "SELECT *" +
-                    " FROM StudentsAnnotations" +
-                    " WHERE IdAnnotation=" + IdAnnotation;
-                query += ";";
-                cmd.CommandText = query;
-                dRead = cmd.ExecuteReader();
-                dRead.Read(); 
-                a = GetAnnotationFromRow(dRead);
-                cmd.Dispose(); 
-            }
-            return a;
-        }
-
-        internal DataTable GetStudentsWithNoMicrogrades(Class Class, string IdGradeType, string IdSchoolSubject, 
-            DateTime DateFrom, DateTime DateTo)
-        {
-            DataTable t;
-            using (DbConnection conn = dl.Connect())
-            {
-                // find the macro grade type of the micro grade
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT idGradeTypeParent " +
-                    "FROM GradeTypes " +
-                    "WHERE idGradeType='" + IdGradeType + "'; ";
-                string idGradeTypeParent = (string)cmd.ExecuteScalar();
-
-                string query = "SELECT Students.idStudent, LastName, FirstName FROM Students" +
-                    " JOIN Classes_Students ON Students.idStudent=Classes_Students.idStudent" +
-                    " WHERE Students.idStudent NOT IN" +
-                    "(";
-                query += "SELECT DISTINCT Students.idStudent" +
-                " FROM Classes_Students" +
-                " LEFT JOIN Grades ON Students.idStudent=Grades.idStudent" +
-                " JOIN Students ON Classes_Students.idStudent=Students.idStudent" +
-                " WHERE Classes_Students.idClass =" + Class.IdClass +
-                " AND Grades.idSchoolYear='" + Class.SchoolYear + "'" +
-                " AND (Grades.idGradeType='" + IdGradeType + "'" +
-                " OR Grades.idGradeType IS NULL)" +
-                " AND Grades.idSchoolSubject='" + IdSchoolSubject + "'" +
-                " AND Grades.value IS NOT NULL AND Grades.value <> 0" +
-                " AND Grades.Timestamp BETWEEN " + SqlVal.SqlDate(DateFrom) + " AND " + SqlVal.SqlDate(DateTo) +
-                ")";
-                query += " AND Classes_Students.idClass=" + Class.IdClass;
-                query += ";";
-                DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                DataSet DSet = new DataSet("ClosedMicroGrades");
-
-                DAdapt.Fill(DSet);
-                t = DSet.Tables[0];
-
-                DAdapt.Dispose();
-                DSet.Dispose();
-            }
-            return t;
-        }
-
-        internal void EraseAnnotationById(int? IdAnnotation)
-        {
-            using (DbConnection conn = dl.Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "DELETE FROM StudentsAnnotations" +
-                    " WHERE idAnnotation=" + SqlVal.SqlInt(IdAnnotation) +
-                    ";";
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
-            }
-        }
-
-        internal void EraseAnnotationByText(string AnnotationText, Student Student)
-        {
-            using (DbConnection conn = dl.Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "DELETE FROM StudentsAnnotations" +
-                    " WHERE annotation='" + SqlVal.SqlString(AnnotationText) + "'" +
-                    " AND idStudent=" + SqlVal.SqlInt(Student.IdStudent) +
-                    ";";
-                    cmd.ExecuteNonQuery();
-                cmd.Dispose();
-            }
         }
         #endregion
     }
