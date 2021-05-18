@@ -9,6 +9,11 @@
     <Import_RootNamespace>SchoolGrades.DataLayer</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AnswerQuestionTagData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ClassesManage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ImageManage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StudentData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TableManage.cs" />
   </ItemGroup>
 </Project>
