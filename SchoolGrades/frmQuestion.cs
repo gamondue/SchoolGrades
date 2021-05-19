@@ -39,7 +39,7 @@ namespace SchoolGrades
             TreeMpttDb dbMptt = new TreeMpttDb(db);
 
             // fills the lookup tables' combos
-            List<QuestionType> listQuestions = db.GetListQuestionTypes(true);
+            List<QuestionType> listQuestions = dl.GetListQuestionTypes(true);
             cmbQuestionType.DisplayMember = "Name";
             cmbQuestionType.ValueMember = "idQuestionType";
             cmbQuestionType.DataSource = listQuestions;
@@ -55,11 +55,11 @@ namespace SchoolGrades
             formType = Type;
             if (formType == QuestionFormType.EditOneQuestion)
             {
-                currentQuestion = db.GetQuestionById(Question.IdQuestion);
+                currentQuestion = dl.GetQuestionById(Question.IdQuestion);
             }
             if (Topic != null)
             {
-                currentTopic = db.GetTopicById(Topic.Id);
+                currentTopic = dl.GetTopicById(Topic.Id);
                 if (currentTopic.Id != 0)
                     txtTopic.Text = dbMptt.GetTopicPath(currentTopic.Id);
             }
@@ -98,7 +98,7 @@ namespace SchoolGrades
             if (currentQuestion != null)
             {
                 if (currentQuestion.IdQuestion != 0)
-                    currentQuestion = db.GetQuestionById(currentQuestion.IdQuestion);
+                    currentQuestion = dl.GetQuestionById(currentQuestion.IdQuestion);
                 txtIdQuestion.Text = currentQuestion.IdQuestion.ToString();
                 txtQuestionText.Text = currentQuestion.Text;
                 txtQuestionImage.Text = currentQuestion.QuestionImage;
@@ -113,7 +113,7 @@ namespace SchoolGrades
                 if (currentTopic != null)
                     txtTopic.Text = dbMptt.GetTopicPath(currentTopic.Id);
                 
-                answersList = db.GetAnswersOfAQuestion(currentQuestion.IdQuestion);
+                answersList = dl.GetAnswersOfAQuestion(currentQuestion.IdQuestion);
                 dgwAnswers.DataSource = answersList;
             }else
             {
@@ -134,12 +134,12 @@ namespace SchoolGrades
 
             RefreshData();
 
-            List<Answer> answers = db.GetAnswersOfAQuestion(currentQuestion.IdQuestion); 
+            List<Answer> answers = dl.GetAnswersOfAQuestion(currentQuestion.IdQuestion); 
         }
 
         private void RefreshData()
         {
-            answersList = db.GetAnswersOfAQuestion(currentQuestion.IdQuestion);
+            answersList = dl.GetAnswersOfAQuestion(currentQuestion.IdQuestion);
             dgwAnswers.DataSource = answersList;
         }
 
@@ -222,7 +222,7 @@ namespace SchoolGrades
             frmAnswer f = new frmAnswer(a);
             f.ShowDialog();
 
-            answersList = db.GetAnswersOfAQuestion(currentQuestion.IdQuestion);
+            answersList = dl.GetAnswersOfAQuestion(currentQuestion.IdQuestion);
             dgwAnswers.DataSource = answersList;
         }
 
@@ -367,13 +367,13 @@ namespace SchoolGrades
             Color plainColor = Color.White;
             if (currentQuestion.IdQuestion == 0)
             {
-                Question q = db.CreateNewVoidQuestion();
+                Question q = dl.CreateNewVoidQuestion();
                 currentQuestion.IdQuestion = q.IdQuestion;
             }
             if (currentQuestion.IdTopic == 0 && currentTopic != null)
                 currentQuestion.IdTopic = currentTopic.Id;
 
-            db.SaveQuestion(currentQuestion);
+            dl.SaveQuestion(currentQuestion);
             txtQuestionText.BackColor = plainColor;
             txtIdQuestion.BackColor = plainColor;
             txtDifficulty.BackColor = plainColor;

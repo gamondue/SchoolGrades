@@ -39,7 +39,7 @@ namespace gamon.TreeMptt
         //DbAndBusiness db = new DbAndBusiness();
         DbAndBusiness db;
         TreeMpttDb dbMptt;
-
+        DataLayer dl;
         // identification of the Treeview control from which the drag starts
         int dragSourceControlHash; 
         System.Windows.Forms.DragDropEffects typeOfDragAndDrop;
@@ -109,7 +109,7 @@ namespace gamon.TreeMptt
         {
             db = DataAndBusinessLayer;
             dbMptt = new TreeMpttDb(db);
-            
+            dl = new DataLayer();
             shownTreeView = TreeViewControl;
             //listTopicsBefore = InitialListOfTopics;
 
@@ -329,7 +329,7 @@ namespace gamon.TreeMptt
             List<Topic> listTopicsAfter = new List<Topic>();
             // recursive function
             dbMptt.GenerateNewListOfNodesFromTreeViewControl(shownTreeView.Nodes[0], ref nodeCount, ref listTopicsAfter);
-            db.SaveTopicsFromScratch(listTopicsAfter);
+            dl.SaveTopicsFromScratch(listTopicsAfter);
         }
         internal void UpdateLeftAndRightInDatabaseTreeMptt()
         {

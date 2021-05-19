@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SQLite;
+using System.IO;
 
 namespace SchoolGrades
 {
@@ -427,6 +428,190 @@ namespace SchoolGrades
                            " disabled = ~disabled" +
                            " WHERE IdStudent =" + idStudent +
                            ";";
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+        }
+
+        private Nullable<int> GetStudentsPhotoId(int? idStudent, string schoolYear, DbConnection conn)
+        {
+            DbCommand cmd = conn.CreateCommand();
+            cmd.CommandText = "SELECT idStudentsPhoto FROM StudentsPhotos_Students " +
+                "WHERE idStudent=" + idStudent + " AND idSchoolYear=" + schoolYear + "" +
+                ";";
+            return (int?)cmd.ExecuteScalar();
+        }
+
+        private int? StudentHasAnswered(int? IdAnswer, int? IdTest, int? IdStudent)
+        {
+            int? key;
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                string query = "SELECT idStudentsAnswer" +
+                    " FROM StudentsAnswers" +
+                    " WHERE idStudent=" + IdStudent +
+                    " AND IdTest=" + IdTest + "" +
+                    " AND IdAnswer=" + IdAnswer + "" +
+                    ";";
+                cmd.CommandText = query;
+                //idStudentsAnswer cmd.ExecuteScalar() != null;
+                key = (int?)cmd.ExecuteScalar();
+            }
+            return key;
+        }
+        private void RenameStudentsNamesFromPictures(Class Class, DbConnection conn)
+        {
+            // get the "previous" students from database 
+            List<Student> StudentsInClass = GetStudentsOfClass(Class.IdClass, conn);
+
+            // rename the students' names according to the names found in the image files 
+            string[] OriginalDemoPictures = Directory.GetFiles(Commons.PathImages + "\\DemoPictures\\");
+            // start assigning the names from a random image
+            Random rnd = new Random();
+            int pictureIndex = rnd.Next(0, OriginalDemoPictures.Length - 1);
+            foreach (Student s in StudentsInClass)
+            {
+                string justFileName = Path.GetFileName(OriginalDemoPictures[pictureIndex]);
+                string fileWithNoExtension = justFileName.Substring(0, justFileName.LastIndexOf('.'));
+                string[] wordsInFileName = (Path.GetFileName(fileWithNoExtension)).Split(' ');
+                string lastName = "";
+                string firstName = "";
+                foreach (string word in wordsInFileName)
+                {
+                    if (word == word.ToUpper())
+                    {
+                        lastName += " " + word;
+                    }
+                    else
+                    {
+                        firstName += " " + word;
+                    }
+                }
+                lastName = lastName.Trim();
+                firstName = firstName.Trim();
+
+                s.LastName = lastName;
+                s.FirstName = firstName;
+                s.BirthDate = null;
+                s.BirthPlace = null;
+                s.Class = "";
+                s.Email = "";
+                s.IdClass = 0;
+                s.ArithmeticMean = 0;
+                s.RegisterNumber = null;
+                s.Residence = null;
+                s.RevengeFactorCounter = 0;
+                s.Origin = null;
+                s.SchoolYear = null;
+                s.Sum = 0;
+                SaveStudent(s, conn);
+
+                // save the image with standard name in the folder of the demo class
+                string fileExtension = Path.GetExtension(OriginalDemoPictures[pictureIndex]);
+                string folder = Commons.PathImages + "\\" + Class.SchoolYear + Class.Abbreviation + "\\";
+                string filename = s.LastName + "_" + s.FirstName + "_" + Class.Abbreviation + Class.SchoolYear + fileExtension;
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+                if (File.Exists(folder + filename))
+                {
+                    File.Delete(folder + filename);
+                }
+                File.Copy(OriginalDemoPictures[pictureIndex], folder + filename);
+
+                // change student pictures' paths in table StudentsPhotos
+                string relativePathAndFile = Class.SchoolYear + Class.Abbreviation + "\\" + filename;
+                int? idImage = GetStudentsPhotoId(s.IdStudent, Class.SchoolYear, conn);
+                SaveStudentsPhotosPath(idImage, relativePathAndFile, conn);
+
+                // copy all the lessons images files that aren't already there or that have a newer date 
+                string query = "SELECT Images.imagePath, Classes.pathRestrictedApplication" +
+                " FROM Images" +
+                    " JOIN Lessons_Images ON Lessons_Images.idImage=Images.idImage" +
+                    " JOIN Lessons ON Lessons_Images.idLesson=Lessons.idLesson" +
+                    " JOIN Classes ON Classes.idClass=Lessons.idClass" +
+                    " WHERE Lessons.idClass=" + Class.IdClass +
+                    ";";
+                DbCommand cmd = new SQLiteCommand(query);
+                cmd.Connection = conn;
+                DbDataReader dReader = cmd.ExecuteReader();
+                while (dReader.Read())
+                {
+                    //string destinationFile = (string)dReader["pathRestrictedApplication"] +
+                    //    "\\SchoolGrades\\" + "Images" + "\\" + (string)dReader["imagePath"];
+                    string filePart = (string)dReader["imagePath"];
+                    string partToReplace = filePart.Substring(0, filePart.IndexOf("\\"));
+                    filePart = filePart.Replace(partToReplace, Class.SchoolYear + Class.Abbreviation);
+                    string destinationFile = (string)Commons.PathImages + "\\" + filePart;
+
+                    if (!Directory.Exists(Path.GetDirectoryName(destinationFile)))
+                    {
+                        Directory.CreateDirectory(Path.GetDirectoryName(destinationFile));
+                    }
+                    if (!File.Exists(destinationFile) ||
+                        File.GetLastWriteTime(destinationFile)
+                        < File.GetLastWriteTime(Commons.PathImages + "\\" + (string)dReader["imagePath"]))
+                        // destination file not existing or older
+                        try
+                        {
+                            File.Copy(Commons.PathImages + "\\" + (string)dReader["imagePath"],
+                                destinationFile);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.Beep();
+                        }
+                }
+                dReader.Dispose();
+
+                if (++pictureIndex >= OriginalDemoPictures.Length)
+                    pictureIndex = 0;
+            }
+        }
+
+        internal void SaveStudentsAnswer(Student Student, Test Test, Answer Answer,
+            bool StudentsBoolAnswer, string StudentsTextAnswer)
+        {
+            // TODO put this UI matter into form's code 
+            //////////if (Student == null)
+            //////////{
+            //////////    MessageBox.Show("Scegliere un allievo");
+            //////////    return; 
+            //////////}
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                // find if an answer has already been given
+                int? IdStudentsAnswer = StudentHasAnswered(Answer.IdAnswer, Test.IdTest, Student.IdStudent);
+                if (IdStudentsAnswer != null)
+                {   // update answer
+                    cmd.CommandText = "UPDATE StudentsAnswers" +
+                    " SET idStudent=" + SqlVal.SqlInt(Student.IdStudent) + "," +
+                    "idAnswer=" + SqlVal.SqlInt(Answer.IdAnswer) + "," +
+                    "studentsBoolAnswer=" + SqlVal.SqlBool(StudentsBoolAnswer) + "," +
+                    "studentsTextAnswer='" + SqlVal.SqlString(StudentsTextAnswer) + "'," +
+                    "IdTest=" + SqlVal.SqlInt(Test.IdTest) +
+                    "" +
+                    " WHERE IdStudentsAnswer=" + Answer.IdAnswer +
+                    ";";
+                }
+                else
+                {   // create answer
+                    int nextId = NextKey("StudentsAnswers", "IdStudentsAnswer");
+
+                    cmd.CommandText = "INSERT INTO StudentsAnswers " +
+                    "(idStudentsAnswer,idStudent,idAnswer,studentsBoolAnswer," +
+                    "studentsTextAnswer,IdTest" +
+                    ")" +
+                    "Values " +
+                    "(" + nextId + "," + SqlVal.SqlInt(Student.IdStudent) + "," +
+                     SqlVal.SqlInt(Answer.IdAnswer) + "," + SqlVal.SqlBool(StudentsBoolAnswer) + ",'" +
+                    SqlVal.SqlString(StudentsTextAnswer) + "'," +
+                     SqlVal.SqlInt(Test.IdTest) +
+                    ");";
+                }
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
