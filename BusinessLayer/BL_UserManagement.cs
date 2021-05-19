@@ -64,7 +64,12 @@ namespace SchoolGrades
         {
             SHA256 hash = SHA256.Create();
             byte[] bytes = hash.ComputeHash(UTF8Encoding.UTF8.GetBytes(ClearTextPassword));
-            return bytes.ToString();
+            string risultato = string.Empty;
+            foreach(byte b in bytes)
+            {
+                risultato += b.ToString();
+            }
+            return risultato;
         }
     }
 }

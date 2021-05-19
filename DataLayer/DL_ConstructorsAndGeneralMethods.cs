@@ -71,6 +71,31 @@ namespace SchoolGrades
             return connection;
         }
 
+        public int nFieldDbDataReader(string NomeCampo, DbDataReader dr)
+        {
+            for (int i = 0; i < dr.FieldCount; i++)
+            {
+                if (dr.GetName(i) == NomeCampo)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        internal void CompactDatabase()
+        {
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                // compact the database 
+                cmd.CommandText = "VACUUM;";
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+            //Application.Exit();
+        }
+
         internal School GetSchool(string OfficialSchoolAbbreviation)
         {
             // !!!! TODO read school info from the database !!!!

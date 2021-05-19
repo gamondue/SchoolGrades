@@ -19,9 +19,7 @@ namespace SchoolGrades.DbClasses
         DataLayer dl;
         BusinessLayer bl;
         private string dbName;
-
         public string DatabaseName { get => dbName; }
-
         #region constructors
         public DbAndBusiness(string PathAndFile)
         {
@@ -35,40 +33,6 @@ namespace SchoolGrades.DbClasses
             }
             dbName = PathAndFile;
         }
-        #endregion
-
-        #region funzioni generali per i database
-        public int nFieldDbDataReader(string NomeCampo, DbDataReader dr)
-        {
-            for (int i = 0; i < dr.FieldCount; i++)
-            {
-                if (dr.GetName(i) == NomeCampo)
-                {
-                    return i;
-                }
-            }
-            return -1;
-        }
-
-        internal void CompactDatabase()
-        {
-            using (DbConnection conn = dl.Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                // compact the database 
-                cmd.CommandText = "VACUUM;";
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
-            }
-            //Application.Exit();
-        }
-        #endregion
-
-        #region Metodi specifici per questo programma
-        
-        
-
-        
         #endregion
     }
 }

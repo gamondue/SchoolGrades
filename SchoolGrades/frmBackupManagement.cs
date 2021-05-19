@@ -241,7 +241,7 @@ namespace SchoolGrades
 
         private void btnCompactDatabase_Click(object sender, EventArgs e)
         {
-            db.CompactDatabase();
+            dl.CompactDatabase();
             Application.Exit();
         }
 
