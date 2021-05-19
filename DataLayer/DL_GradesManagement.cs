@@ -54,6 +54,29 @@ namespace SchoolGrades
             }
         }
 
+        internal DataTable GetSubGradesOfGrade(int? IdGrade)
+        {
+            DataTable t;
+            using (DbConnection conn = Connect())
+            {
+                string query = "SELECT datetime(Grades.timestamp),Questions.text,Grades.value," +
+                    " Grades.weight,Grades.cncFactor,Grades.idGradeParent" +
+                    " FROM Grades" +
+                    " JOIN Questions ON Grades.idQuestion=Questions.idQuestion" +
+                    " WHERE Grades.idGradeParent =" + IdGrade +
+                    " ORDER BY Grades.timestamp;";
+
+                DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
+                DataSet DSet = new DataSet("OpenMicroGrades");
+                DAdapt.Fill(DSet);
+                t = DSet.Tables[0];
+
+                DAdapt.Dispose();
+                DSet.Dispose();
+            }
+            return t;
+        }
+
         internal object GetWeightedAveragesOfStudent(Student currentStudent, string stringKey1, string stringKey2, DateTime value1, DateTime value2)
         {
             //throw new NotImplementedException();

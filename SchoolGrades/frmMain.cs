@@ -1272,7 +1272,7 @@ namespace SchoolGrades
                 "_" + currentClass.Abbreviation +
                 "_" + currentSubject.IdSchoolSubject + "_" +
                 "all-topics.txt";
-            List<Topic> lt = db.GetAllTopicsDoneInClassAndSubject(currentClass,
+            List<Topic> lt = dl.GetAllTopicsDoneInClassAndSubject(currentClass,
                 currentSubject);
             string f = "";
             string tabs = "";

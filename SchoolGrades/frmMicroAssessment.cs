@@ -59,7 +59,7 @@ namespace SchoolGrades
             currentGradeType = dl.GetGradeType(currentGrade.IdGradeType);
 
             currentSchoolSubject = db.GetSchoolSubject(currentGrade.IdSchoolSubject);
-            currentQuestion = db.GetQuestionById(currentGrade.IdQuestion);
+            currentQuestion = dl.GetQuestionById(currentGrade.IdQuestion);
         }
 
         private void frmMicroAssessment_Load(object sender, EventArgs e)
@@ -408,7 +408,7 @@ namespace SchoolGrades
             int? Id = SafeDb.SafeInt(row["IdQuestion"]);
             if (Id != null)
             {
-                currentQuestion = db.GetQuestionById(SafeDb.SafeInt(row["IdQuestion"]));
+                currentQuestion = dl.GetQuestionById(SafeDb.SafeInt(row["IdQuestion"]));
             }
             else
             {

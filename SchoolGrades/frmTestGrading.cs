@@ -40,7 +40,7 @@ namespace SchoolGrades
         private void GradeTest()
         {
             List<Student> studentsThatAnswered = dl.GetAllStudentsThatAnsweredToATest(currentTest, currentClass);
-            List<Question> allQuestions = db.GetAllQuestionsOfATest(currentTest.IdTest);
+            List<Question> allQuestions = dl.GetAllQuestionsOfATest(currentTest.IdTest);
 
             dgwTestResults.Rows.Clear();        // !!!! erase when fully debugged //
             dgwTestResults.Columns.Clear();     // !!!! erase when fully debugged //
@@ -97,7 +97,7 @@ namespace SchoolGrades
                 {
                     correctQuestionAnswers = dl.GetAllCorrectAnswersToThisQuestionOfThisTest(
                         q.IdQuestion, currentTest.IdTest);
-                    List<StudentsAnswer> studentsQuestionAnswers = db.GetAllAnswersOfAStudentToAQuestionOfThisTest(
+                    List<StudentsAnswer> studentsQuestionAnswers = dl.GetAllAnswersOfAStudentToAQuestionOfThisTest(
                         s.IdStudent, q.IdQuestion, currentTest.IdTest);
 
                     int budgetOfQuestion = 100;

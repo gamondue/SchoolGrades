@@ -9,6 +9,8 @@
     <Import_RootNamespace>SchoolGrades.DataLayer</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)DL_LessonManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DL_QuestionManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_AnnotationManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_AnswerManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_ClassManagement.cs" />
@@ -17,6 +19,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)DL_ImageManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_LinkManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_StudentManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DL_TopicManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_UserManagement.cs" />
   </ItemGroup>
 </Project>

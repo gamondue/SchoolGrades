@@ -2,12 +2,56 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Data.SQLite;
 using System.Text;
 
 namespace SchoolGrades
 {
     internal partial class DataLayer
     {
+
+        internal StudentsAnswer GetStudentsAnswerFromRow(DbDataReader Row)
+        {
+            StudentsAnswer a = new StudentsAnswer();
+            a.IdAnswer = SafeDb.SafeInt(Row["IdAnswer"]);
+            a.IdStudent = SafeDb.SafeInt(Row["IdStudent"]);
+            a.IdStudentsAnswer = SafeDb.SafeInt(Row["IdStudentsAnswer"]);
+            a.IdTest = SafeDb.SafeInt(Row["IdTest"]);
+            a.StudentsBoolAnswer = SafeDb.SafeBool(Row["StudentsBoolAnswer"]);
+            a.StudentsTextAnswer = SafeDb.SafeString(Row["StudentsTextAnswer"]);
+
+            return a;
+        }
+
+        internal List<StudentsAnswer> GetAllAnswersOfAStudentToAQuestionOfThisTest(
+            int? IdStudent, int? IdQuestion, int? IdTest)
+        {
+            List<StudentsAnswer> list = new List<StudentsAnswer>();
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                string query = "SELECT *" +
+                    " FROM StudentsAnswers" +
+                    " JOIN Answers ON Answers.idAnswer = StudentsAnswers.idAnswer" +
+                    " JOIN Questions ON Questions.IdQuestion = Answers.IdQuestion" +
+                    " JOIN Tests_Questions ON Questions.IdQuestion = Tests_Questions.IdQuestion" +
+                    " WHERE StudentsAnswers.idStudent=" + IdStudent +
+                    " AND Questions.IdQuestion=" + IdQuestion + "" +
+                    " AND Tests_Questions.IdTest=" + IdTest + "" +
+                    ";";
+
+                cmd.CommandText = query;
+                DbDataReader dRead;
+                dRead = cmd.ExecuteReader();
+
+                while (dRead.Read())
+                {
+                    StudentsAnswer a = GetStudentsAnswerFromRow(dRead);
+                    list.Add(a);
+                }
+            }
+            return list;
+        }
 
         internal void AddAnswerToQuestion(int? idQuestion, int? idAnswer)
         {
@@ -109,5 +153,38 @@ namespace SchoolGrades
             }
         }
 
+        internal List<Answer> GetAnswersOfAQuestion(int? idQuestion)
+        {
+            List<Answer> l = new List<Answer>();
+            DbDataReader dRead;
+            DbCommand cmd;
+            using (DbConnection conn = Connect())
+            {
+                string query = "SELECT *" +
+                    " FROM Answers" +
+                    " WHERE idQuestion=" + idQuestion +
+                    " ORDER BY showingOrder;";
+                cmd = new SQLiteCommand(query);
+                cmd.Connection = conn;
+                dRead = cmd.ExecuteReader();
+                while (dRead.Read())
+                {
+                    Answer t = new Answer();
+                    t.IdAnswer = (int)dRead["idAnswer"];
+                    t.IdQuestion = (int)dRead["idQuestion"];
+                    t.ShowingOrder = (int)dRead["showingOrder"];
+                    t.Text = (string)dRead["text"];
+                    t.IdAnswer = (int)dRead["idAnswer"];
+                    t.ErrorCost = (int)dRead["errorCost"];
+                    t.IsCorrect = SafeDb.SafeBool(dRead["isCorrect"]);
+                    t.IsOpenAnswer = SafeDb.SafeBool(dRead["isOpenAnswer"]);
+
+                    l.Add(t);
+                }
+                dRead.Dispose();
+                cmd.Dispose();
+            }
+            return l;
+        }
     }
 }

@@ -115,7 +115,7 @@ namespace SchoolGrades
                 if (grandparentForm != null)
                 {
                     // form called by student's assessment form 
-                    grandparentForm.CurrentQuestion = db.GetQuestionById(key);
+                    grandparentForm.CurrentQuestion = dl.GetQuestionById(key);
                     grandparentForm.DisplayCurrentQuestion(); 
                 }
             }
