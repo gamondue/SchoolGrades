@@ -34,12 +34,12 @@ namespace SchoolGrades
             cmbSummaryGradeType.ValueMember = "idGradeType";
             cmbSummaryGradeType.DataSource = listGradeTypes;
 
-            List<SchoolSubject> listSubjects = db.GetListSchoolSubjects(false);
+            List<SchoolSubject> listSubjects = dl.GetListSchoolSubjects(false);
             cmbSchoolSubjects.DisplayMember = "Name";
             cmbSchoolSubjects.ValueMember = "idSchoolSubject";
             cmbSchoolSubjects.DataSource = listSubjects;
 
-            List<SchoolPeriod> listPeriods = db.GetSchoolPeriods(Class.SchoolYear);
+            List<SchoolPeriod> listPeriods = dl.GetSchoolPeriods(Class.SchoolYear);
             cmbSchoolPeriod.DataSource = listPeriods;
             // select the combo item of the partial period of the DateTime.Now
             foreach (SchoolPeriod sp in listPeriods)
@@ -234,7 +234,7 @@ namespace SchoolGrades
                 tipoTabella + "_" +
                 dtpStartPeriod.Value.ToString("yyyy.MM.dd_") + dtpEndPeriod.Value.ToString("yyyy.MM.dd") +
                 ".csv"; 
-            db.SaveTableOnCvs((DataTable)dgwGrades.DataSource, FileName);
+            dl.SaveTableOnCvs((DataTable)dgwGrades.DataSource, FileName);
             MessageBox.Show("Creato file: " + FileName);
         }
 

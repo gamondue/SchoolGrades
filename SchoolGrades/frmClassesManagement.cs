@@ -161,10 +161,10 @@ namespace SchoolGrades
             if (res == DialogResult.No)
             {
                 // eliminazione degli studenti della classe
-                db.EraseAllStudentsOfAClass(currentClass);
+                dl.EraseAllStudentsOfAClass(currentClass);
             }
             // eliminazione della classe 
-            db.EraseClassFromClasses(currentClass);
+            dl.EraseClassFromClasses(currentClass);
 
             this.Close(); 
         }
@@ -273,7 +273,7 @@ namespace SchoolGrades
             //}
             {
                 string filePathAndName = Commons.PathImages + "\\" +
-                    db.GetFilePhoto(StudentToLoad.IdStudent, StudentToLoad.SchoolYear);
+                    dl.GetFilePhoto(StudentToLoad.IdStudent, StudentToLoad.SchoolYear);
 
                 //string fileTemp = Path.GetDirectoryName(filePathAndName) + "\\" + temp + 
                 //    Path.GetExtension(filePathAndName);
@@ -337,7 +337,7 @@ namespace SchoolGrades
                 == DialogResult.No)
                 return;
             int IdDeletingStudent = (int)DgwStudents.SelectedRows[0].Cells["IdStudent"].Value;
-            db.DeleteOneStudentFromClass(IdDeletingStudent,
+            dl.DeleteOneStudentFromClass(IdDeletingStudent,
                 ((Class)(CmbClasses.SelectedItem)).IdClass);
             DgwStudents.DataSource = dl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, 
                 idSchoolYear, CmbClasses.Text, false);
@@ -485,7 +485,7 @@ namespace SchoolGrades
             }
             DataGridViewCell c = DgwStudents.SelectedRows[0].Cells["IdStudent"];
             Student s = dl.GetStudent((int)c.Value);
-            db.EraseStudentsPhoto((int)c.Value, CmbSchoolYear.Text);
+            dl.EraseStudentsPhoto((int)c.Value, CmbSchoolYear.Text);
             picStudent.Image = null; 
         }
         private void button15_Click(object sender, EventArgs e)

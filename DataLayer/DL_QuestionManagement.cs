@@ -105,6 +105,35 @@ namespace SchoolGrades
             return lq;
         }
 
+        internal void FixQuestionInGrade(int? IdGrade)
+        {
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+
+                cmd.CommandText = "UPDATE Grades" +
+                           " Set" +
+                           " isFixed=TRUE" +
+                           " WHERE idGrade=" + IdGrade +
+                           ";";
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+        }
+        internal void RemoveQuestionFromTest(int? IdQuestion, int? IdTest)
+        {
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "DELETE FROM Tests_Questions " +
+                    "WHERE IdQuestion=" + IdQuestion +
+                    " AND IdTest='" + IdTest + "'" +
+                    ";";
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+        }
+
         private Question GetQuestionFromRow(DbDataReader Row)
         {
             Question q = new Question();

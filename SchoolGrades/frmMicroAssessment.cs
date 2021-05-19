@@ -52,13 +52,13 @@ namespace SchoolGrades
             // constructor for subgrades for a grade passed trough its id
             currentGrade.IdGrade = IdGrade;
             currentStudent = new Student();
-            db.GetGradeAndStudent(currentGrade, currentStudent);
+            dl.GetGradeAndStudent(currentGrade, currentStudent);
             currentYear = currentGrade.IdSchoolYear;
             currentClass = dl.GetClassOfStudent(Commons.IdSchool, currentYear, currentStudent);
             
             currentGradeType = dl.GetGradeType(currentGrade.IdGradeType);
 
-            currentSchoolSubject = db.GetSchoolSubject(currentGrade.IdSchoolSubject);
+            currentSchoolSubject = dl.GetSchoolSubject(currentGrade.IdSchoolSubject);
             currentQuestion = dl.GetQuestionById(currentGrade.IdQuestion);
         }
 
@@ -113,7 +113,7 @@ namespace SchoolGrades
             try
             {
                 picStudent.Image = System.Drawing.Image.FromFile(Commons.PathImages + "\\" +
-                db.GetFilePhoto(currentStudent.IdStudent, currentYear));
+                dl.GetFilePhoto(currentStudent.IdStudent, currentYear));
             }
             catch
             {
@@ -133,7 +133,7 @@ namespace SchoolGrades
             txtMicroGradeWeight.Text = currentGrade.Weight.ToString();
             txtMicroGrade.Text = currentGrade.Value.ToString(); 
 
-            DataTable T = db.GetMicroGradesOfStudentWithMacroOpen(currentStudent.IdStudent, currentYear, currentGradeType.IdGradeType,
+            DataTable T = dl.GetMicroGradesOfStudentWithMacroOpen(currentStudent.IdStudent, currentYear, currentGradeType.IdGradeType,
                 currentSchoolSubject.IdSchoolSubject);
             // weighted sum
             DgwQuestions.DataSource = T;
@@ -157,7 +157,7 @@ namespace SchoolGrades
             double weightedAverage = weightedSum / sumOfWeights;
             txtAverageMicroQuestions.Text = weightedAverage.ToString("#.##");
 
-            double? defaultWeight = db.GetDefaultWeightOfGradeType(idGradeType);
+            double? defaultWeight = dl.GetDefaultWeightOfGradeType(idGradeType);
             if (txtMicroGradeWeight.Text == "")
             {
                 txtMicroGradeWeight.Text = defaultWeight.ToString();

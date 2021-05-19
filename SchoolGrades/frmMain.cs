@@ -96,7 +96,7 @@ namespace SchoolGrades
             cmbGradeType.DataSource = ListGradeTypes;
 
             // fill the combo of School subjects
-            List<SchoolSubject> listSubjects = db.GetListSchoolSubjects(true);
+            List<SchoolSubject> listSubjects = dl.GetListSchoolSubjects(true);
             cmbSchoolSubject.DataSource = listSubjects;
         }
         private void frmMain_Load(object sender, EventArgs e)
@@ -335,7 +335,7 @@ namespace SchoolGrades
             try
             {
                 string pictureFile = Commons.PathImages + "\\" +
-                db.GetFilePhoto(currentStudent.IdStudent, schoolYear);
+                dl.GetFilePhoto(currentStudent.IdStudent, schoolYear);
                 picStudent.Image = System.Drawing.Image.FromFile(pictureFile);
             }
             catch

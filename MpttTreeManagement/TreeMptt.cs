@@ -846,7 +846,7 @@ namespace gamon.TreeMptt
                 // if the topic has already been saved in the database, we have to ask for 
                 // confirmation if it has already been cheched in the past
                 if (((Topic)te.Tag).Id != null) 
-                    if (db.IsTopicAlreadyTaught((Topic)te.Tag))
+                    if (dl.IsTopicAlreadyTaught((Topic)te.Tag))
                     {
                         if (MessageBox.Show("Questo argomento è già stato fatto in qualche lezione\n" +
                             "Lo cancello lo stesso?", "Attenzione!", MessageBoxButtons.YesNo,

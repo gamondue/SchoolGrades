@@ -44,7 +44,7 @@ namespace SchoolGrades
             // fills the lookup tables' combos
             cmbSchoolSubject.DisplayMember = "Name";
             cmbSchoolSubject.ValueMember = "idSchoolSubject";
-            cmbSchoolSubject.DataSource = db.GetListSchoolSubjects(true);
+            cmbSchoolSubject.DataSource = dl.GetListSchoolSubjects(true);
 
             List<QuestionType> lq = dl.GetListQuestionTypes(true);
             cmbQuestionTypes.DisplayMember = "Name";
@@ -362,7 +362,7 @@ namespace SchoolGrades
 
                 Topic topic = dl.GetTopicById(question.IdTopic);
 
-                SchoolSubject subject = db.GetSchoolSubject(question.IdSchoolSubject);
+                SchoolSubject subject = dl.GetSchoolSubject(question.IdSchoolSubject);
 
                 frmQuestion frm = new frmQuestion(
                     frmQuestion.QuestionFormType.EditOneQuestion,

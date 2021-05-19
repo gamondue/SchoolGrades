@@ -29,7 +29,7 @@ namespace SchoolGrades
             currentTest = new Test();
 
             // !!!!!!!!!!!
-            currentTest = db.GetTest(1);
+            currentTest = dl.GetTest(1);
             // !!!!!!!!!!!
 
             List<QuestionType> lq = dl.GetListQuestionTypes(true);
@@ -49,13 +49,13 @@ namespace SchoolGrades
         private void btnSave_Click(object sender, EventArgs e)
         {
             ReadDataFromUI(); 
-            db.SaveTest(currentTest);
+            dl.SaveTest(currentTest);
             RefreshUi(); 
         }
 
         private void RefreshUi()
         {
-            dgwTests.DataSource = db.GetTests();
+            dgwTests.DataSource = dl.GetTests();
 
             txtIdTest.Text = currentTest.IdTest.ToString();
             txtTestName.Text = currentTest.Name;
@@ -152,7 +152,7 @@ namespace SchoolGrades
             int indexSelected = dgwQuestions.SelectedRows[0].Index;
             List <Question> l = (List<Question>)dgwQuestions.DataSource; 
             int? idQuestionToRemove = l[indexSelected].IdQuestion; 
-            db.RemoveQuestionFromTest(idQuestionToRemove, currentTest.IdTest);
+            dl.RemoveQuestionFromTest(idQuestionToRemove, currentTest.IdTest);
         }
     }
 }

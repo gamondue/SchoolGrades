@@ -38,6 +38,11 @@ namespace SchoolGrades
             return la;
         }
 
+        internal int? UpdateAnnotationGroup(StudentAnnotation currentAnnotation, Student currentStudent)
+        {
+            throw new NotImplementedException();
+        }
+
         internal void EraseAnnotationByText(string AnnotationText, Student Student)
         {
             using (DbConnection conn = Connect())
