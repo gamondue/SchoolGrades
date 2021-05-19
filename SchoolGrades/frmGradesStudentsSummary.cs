@@ -52,13 +52,13 @@ namespace SchoolGrades
             cmbSummaryGradeType.DataSource = listGrades;
             cmbSummaryGradeType.SelectedValue = currentGradeType.IdGradeType;
 
-            List<SchoolSubject> listSubjects = db.GetListSchoolSubjects(false);
+            List<SchoolSubject> listSubjects = dl.GetListSchoolSubjects(false);
             cmbSchoolSubjects.DisplayMember = "Name";
             cmbSchoolSubjects.ValueMember = "idGradeType";
             cmbSchoolSubjects.DataSource = listSubjects;
             cmbSchoolSubjects.SelectedValue = currentSchoolSubject.IdSchoolSubject;
 
-            List<SchoolPeriod> listPeriods = db.GetSchoolPeriods(currentSchoolYear);
+            List<SchoolPeriod> listPeriods = dl.GetSchoolPeriods(currentSchoolYear);
             cmbSchoolPeriod.DataSource = listPeriods;
 
             dgwNotes.DataSource = dl.AnnotationsAboutThisStudent(currentStudent, currentSchoolYear,
@@ -193,7 +193,7 @@ namespace SchoolGrades
                 return; 
             }
             string IdCurrentSubject = ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject;
-            int col = (int)db.GetSchoolSubject(IdCurrentSubject).Color;
+            int col = (int)dl.GetSchoolSubject(IdCurrentSubject).Color;
             Color bgColor = Color.FromArgb((col & 0xFF0000) >> 16, (col & 0xFF00) >> 8, col & 0xFF);
             this.BackColor = bgColor;
             RefreshData();

@@ -71,6 +71,46 @@ namespace SchoolGrades
             return captions;
         }
 
+        internal void EraseStudentsPhoto(int? IdStudent, string SchoolYear)
+        {
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "DELETE FROM StudentsPhotos_Students" +
+                    " WHERE idStudent=" + IdStudent +
+                    " AND idSchoolYear='" + SchoolYear + "'" +
+                    ";";
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+        }
+
+        internal string GetFilePhoto(int? IdStudent, string SchoolYear)
+        {
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                string query = "SELECT StudentsPhotos.photoPath" +
+                    " FROM StudentsPhotos_Students, StudentsPhotos" +
+                    " WHERE StudentsPhotos_Students.idStudentsPhoto = StudentsPhotos.idStudentsPhoto";
+                if (SchoolYear != null && SchoolYear != "")
+                    query += " AND StudentsPhotos_Students.idSchoolYear='" + SchoolYear + "'";
+                query += " AND StudentsPhotos_Students.idStudent = " + IdStudent + "; ";
+                string NamePath = null;
+                try
+                {
+                    cmd.CommandText = query;
+                    NamePath = (string)cmd.ExecuteScalar();
+                }
+                catch (Exception ex)
+                {
+
+                }
+                cmd.Dispose();
+                return NamePath;
+            }
+        }
+
         private void ChangeImagesPath(Class Class, DbConnection conn)
         {
             DbDataReader dRead;

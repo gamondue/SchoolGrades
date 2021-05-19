@@ -42,7 +42,7 @@ namespace SchoolGrades
             // fills the lookup tables' combos
             cmbSchoolSubject.DisplayMember = "Name";
             cmbSchoolSubject.ValueMember = "idSchoolSubject";
-            cmbSchoolSubject.DataSource = db.GetListSchoolSubjects(true);
+            cmbSchoolSubject.DataSource = dl.GetListSchoolSubjects(true);
 
             currentSubject = SchoolSubject; 
             ChosenQuestion = null; 
@@ -101,7 +101,7 @@ namespace SchoolGrades
             if (MessageBox.Show("La domanda '" + (string)r.Cells["Text"].Value + "' è stata riparata?","Riparazione domanda",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                db.FixQuestionInGrade(currentIdGrade);
+                dl.FixQuestionInGrade(currentIdGrade);
                 RefreshData(); 
             }
         }

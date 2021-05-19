@@ -144,6 +144,22 @@ namespace SchoolGrades
             }
             return lt;
         }
+
+        internal bool IsTopicAlreadyTaught(Topic Topic)
+        {
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT idLesson" +
+                    " FROM Lessons_Topics" +
+                    " WHERE idTopic=" + Topic.Id +
+                    " AND idTopic<>0" +
+                    " LIMIT 1; ";
+                var result = cmd.ExecuteScalar();
+                return (result != null);
+            }
+        }
+
         internal List<Topic> GetTopicsNotDoneFromThisTopic(Class Class, Topic Topic,
             SchoolSubject Subject)
         {

@@ -67,7 +67,7 @@ namespace SchoolGrades
             try
             {
                 picStudent.Image = System.Drawing.Image.FromFile(Commons.PathImages + "\\" +
-                    db.GetFilePhoto(StudentToLoad.IdStudent, StudentToLoad.SchoolYear));
+                    dl.GetFilePhoto(StudentToLoad.IdStudent, StudentToLoad.SchoolYear));
             }
             catch
             {

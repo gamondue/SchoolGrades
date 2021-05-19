@@ -84,7 +84,7 @@ namespace SchoolGrades
                 MessageBox.Show("Scegliere la classe da tenere nel database");
                 return; 
             }
-            string imagesFolder = db.CreateOneClassOnlyDatabase(currentClass);
+            string imagesFolder = dl.CreateOneClassOnlyDatabase(currentClass);
             if (imagesFolder != "")
                 Commons.ProcessStartLink(imagesFolder);
             else

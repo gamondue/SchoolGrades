@@ -54,6 +54,91 @@ namespace SchoolGrades
             }
         }
 
+        internal void GetGradeAndStudent(Grade Grade, Student Student)
+        {
+            using (DbConnection conn = Connect())
+            {
+                DbDataReader dRead;
+                DbCommand cmd = conn.CreateCommand();
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT Grades.*,Students.* FROM Grades" +
+                    " JOIN Students ON Grades.idStudent = Students.idStudent" +
+                    " WHERE Grades.idGrade=" + Grade.IdGrade.ToString() +
+                    ";";
+                dRead = cmd.ExecuteReader();
+                while (dRead.Read())
+                {
+                    Grade = GetGradeFromRow(dRead);
+                    Student = GetStudentFromRow(dRead);
+                    break; // just the first! 
+                }
+                //dRead.Dispose();
+                //cmd.Dispose();
+            }
+        }
+
+        internal double GetDefaultWeightOfGradeType(string IdGradeType)
+        {
+            double d;
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT defaultWeight " +
+                    "FROM GradeTypes " +
+                    "WHERE idGradeType='" + IdGradeType + "'; ";
+                d = (double)cmd.ExecuteScalar();
+                cmd.Dispose();
+            }
+            return d;
+        }
+
+        /// <summary>
+        /// Gets all the grades of a students of a specified IdGradeType that are the sons 
+        /// of another grade which has value greater than zero
+        /// </summary>
+        /// <param Name="IdStudent"></param> student's Id
+        internal DataTable GetMicroGradesOfStudentWithMacroOpen(int? IdStudent, string IdSchoolYear,
+            string IdGradeType, string IdSchoolSubject)
+        {
+            using (DbConnection conn = Connect())
+            {
+                // find the macro grade type of the micro grade
+                // TODO take it from a Grade passed as parameter 
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT idGradeTypeParent " +
+                    "FROM GradeTypes " +
+                    "WHERE idGradeType='" + IdGradeType + "'; ";
+                string idGradeTypeParent = (string)cmd.ExecuteScalar();
+
+                string query = "SELECT datetime(Grades.timestamp),Questions.text,Grades.value" +
+                    ",Grades.weight,Grades.IdGrade,Grades.idGradeParent,Grades.cncFactor" +
+                    ",Questions.IdQuestion,Questions.IdQuestionType,Grades.IdSchoolSubject" +
+                    ",Questions.IdTopic,Questions.Image,Questions.Duration,Questions.Difficulty" +
+                    ",Questions.*" +
+                    ",Grades.*" +
+                    " FROM Grades" +
+                    " JOIN Grades AS Parents" +
+                    " ON Grades.idGradeParent=Parents.idGrade" +
+                    " LEFT JOIN Questions" +
+                    " ON Grades.idQuestion=Questions.idQuestion" +
+                    " WHERE Grades.idStudent =" + IdStudent +
+                    " AND Grades.idSchoolYear='" + IdSchoolYear + "'" +
+                    " AND Grades.idGradeType = '" + IdGradeType + "'" +
+                    " AND Grades.idSchoolSubject = '" + IdSchoolSubject + "'" +
+                    " AND Parents.idGradeType = '" + idGradeTypeParent + "'" +
+                    " AND Grades.idGradeParent = Parents.idGrade" +
+                    " AND (Parents.value = 0 OR Parents.value is NULL)" +
+                    " ORDER BY Grades.timestamp;";
+
+                DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
+                DataSet DSet = new DataSet("OpenMicroGrades");
+                DAdapt.Fill(DSet);
+                DAdapt.Dispose();
+                DSet.Dispose();
+                return DSet.Tables[0];
+            }
+        }
+
         internal DataTable GetSubGradesOfGrade(int? IdGrade)
         {
             DataTable t;

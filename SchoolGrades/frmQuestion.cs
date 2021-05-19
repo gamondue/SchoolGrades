@@ -44,7 +44,7 @@ namespace SchoolGrades
             cmbQuestionType.ValueMember = "idQuestionType";
             cmbQuestionType.DataSource = listQuestions;
 
-            List<SchoolSubject> listSubjects = db.GetListSchoolSubjects(true);
+            List<SchoolSubject> listSubjects = dl.GetListSchoolSubjects(true);
             cmbSchoolSubject.DisplayMember = "Name";
             cmbSchoolSubject.ValueMember = "idSchoolSubject";
             cmbSchoolSubject.DataSource = listSubjects;
@@ -105,7 +105,7 @@ namespace SchoolGrades
                 txtDuration.Text = currentQuestion.Duration.ToString();
                 txtWeight.Text = currentQuestion.Weight.ToString();
                 txtDifficulty.Text = currentQuestion.Difficulty.ToString();
-                tagsList = db.TagsOfAQuestion(currentQuestion.IdQuestion);
+                tagsList = dl.TagsOfAQuestion(currentQuestion.IdQuestion);
                 lstTags.DataSource = tagsList;
                 Commons.LastTagsChosen = tagsList;
 
@@ -208,9 +208,9 @@ namespace SchoolGrades
             t.ShowDialog();
             if (t.haveChosen)
             {
-                db.AddTagToQuestion(currentQuestion.IdQuestion, t.currentTag.IdTag);
+                dl.AddTagToQuestion(currentQuestion.IdQuestion, t.currentTag.IdTag);
                 t.Dispose();
-                tagsList = db.TagsOfAQuestion(currentQuestion.IdQuestion);
+                tagsList = dl.TagsOfAQuestion(currentQuestion.IdQuestion);
                 lstTags.DataSource = tagsList;
                 Commons.LastTagsChosen = tagsList;
             }
@@ -229,7 +229,7 @@ namespace SchoolGrades
         private void cmbSchoolSubject_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentQuestion.IdSchoolSubject = ((SchoolSubject)cmbSchoolSubject.SelectedItem).IdSchoolSubject;
-            currentSubject = db.GetSchoolSubject(currentQuestion.IdSchoolSubject);
+            currentSubject = dl.GetSchoolSubject(currentQuestion.IdSchoolSubject);
             ////////Color bgColor;
             ////////if (currentSubject != null)
             ////////{
