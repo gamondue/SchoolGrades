@@ -12,8 +12,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)AnswerQuestionTagData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ClassesManage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GradeData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ImageData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ImageManage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LesonsData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SchoolData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StudentData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TableManage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestsData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TopicData.cs" />
   </ItemGroup>
 </Project>

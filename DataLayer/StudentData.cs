@@ -10,7 +10,7 @@ using SchoolGrades.DbClasses;
 
 namespace SchoolGrades.DataLayer
 {
-    //Cesare Colella, Francesco Citarella, Andrea Siboni, Riccardo Brunelli 4L
+    //Andrea Siboni, Francesco Citarella, Cesare Colella, Riccardo Brunelli 4L
 
     class StudentData
     {
@@ -307,6 +307,28 @@ namespace SchoolGrades.DataLayer
             return Student.IdStudent;
         }
 
+        private void SaveStudentsPhotosPath(int? id, string path, DbConnection conn)
+        {
+            if (id != null)
+            {
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE StudentsPhotos" +
+                " SET photoPath='" + SqlVal.SqlString(path) + "'" +
+                " WHERE idStudentsPhoto=" + id +
+                ";";
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+        }
+
+        private Nullable<int> GetStudentsPhotoId(int? idStudent, string schoolYear, DbConnection conn)
+        {
+            DbCommand cmd = conn.CreateCommand();
+            cmd.CommandText = "SELECT idStudentsPhoto FROM StudentsPhotos_Students " +
+                "WHERE idStudent=" + idStudent + " AND idSchoolYear=" + schoolYear + "" +
+                ";";
+            return (int?)cmd.ExecuteScalar();
+        }
 
 
         internal DataTable GetStudentsSameName(string LastName, string FirstName)
@@ -1449,6 +1471,580 @@ namespace SchoolGrades.DataLayer
                 cmd.Dispose();
             }
 
+        }
+
+
+
+        internal void BackupAllStudentsDataTsv()
+        {
+            BackupTableTsv("Students");
+            BackupTableTsv("StudentsPhotos");
+            BackupTableTsv("StudentsPhotos_Students");
+            BackupTableTsv("Classes_Students");
+            BackupTableTsv("Grades");
+        }
+
+        internal void BackupAllStudentsDataXml()
+        {
+            BackupTableXml("Students");
+            BackupTableXml("StudentsPhotos");
+            BackupTableXml("StudentsPhotos_Students");
+            BackupTableXml("Classes_Students");
+            BackupTableXml("Grades");
+        }
+
+        internal void RestoreAllStudentsDataTsv(bool MustErase)
+        {
+            RestoreTableTsv("Students", MustErase);
+            RestoreTableTsv("StudentsPhotos", MustErase);
+            RestoreTableTsv("StudentsPhotos_Students", MustErase);
+            RestoreTableTsv("Classes_Students", MustErase);
+            RestoreTableTsv("Grades", MustErase);
+        }
+
+        internal void RestoreAllStudentsDataXml(bool MustErase)
+        {
+            RestoreTableXml("Students", MustErase);
+            RestoreTableXml("StudentsPhotos", MustErase);
+            RestoreTableXml("StudentsPhotos_Students", MustErase);
+            RestoreTableXml("Classes_Students", MustErase);
+            RestoreTableXml("Grades", MustErase);
+        }
+
+
+        internal void BackupTableTsv(string TableName)
+        {
+            DbDataReader dRead;
+            DbCommand cmd;
+            string fileContent = "";
+
+            using (DbConnection conn = dl.Connect())
+            {
+                string query = "SELECT *" +
+                    " FROM " + TableName + " ";
+                cmd = new SQLiteCommand(query);
+                cmd.Connection = conn;
+                dRead = cmd.ExecuteReader();
+                int y = 0;
+                while (dRead.Read())
+                {
+                    // field names only in first row 
+                    if (y == 0)
+                    {
+                        string types = "";
+                        for (int i = 0; i < dRead.FieldCount; i++)
+                        {
+                            fileContent += "\"" + dRead.GetName(i) + "\"\t";
+                            types += "\"" + SafeDb.SafeString(dRead.GetDataTypeName(i)) + "\"\t";
+                        }
+                        fileContent = fileContent.Substring(0, fileContent.Length - 1) + "\r\n";
+                        fileContent += types.Substring(0, types.Length - 1) + "\r\n";
+                    }
+                    // field values
+                    string values = "";
+                    if (dRead.GetValue(0) != null)
+                    {
+                        Console.Write(dRead.GetValue(0));
+                        for (int i = 0; i < dRead.FieldCount; i++)
+                        {
+                            values += "\"" + SafeDb.SafeString(dRead.GetValue(i).ToString()) + "\"\t";
+                        }
+                        fileContent += values.Substring(0, values.Length - 1) + "\r\n";
+                    }
+                    else
+                    {
+
+                    }
+                    y++;
+                }
+                TextFile.StringToFile(Commons.PathDatabase + "\\" + TableName + ".tsv", fileContent, false);
+                dRead.Dispose();
+                cmd.Dispose();
+            }
+        }
+
+        internal void BackupTableXml(string TableName)
+        {
+            DataAdapter dAdapt;
+            DataSet dSet = new DataSet();
+            DataTable t;
+            string query = "SELECT *" +
+                    " FROM " + TableName + ";";
+
+            using (DbConnection conn = dl.Connect())
+            {
+                dAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
+                dSet = new DataSet("GetTable");
+                dAdapt.Fill(dSet);
+                t = dSet.Tables[0];
+
+                t.WriteXml(Commons.PathDatabase + "\\" + TableName + ".xml",
+                    XmlWriteMode.WriteSchema);
+
+                dAdapt.Dispose();
+                dSet.Dispose();
+            }
+        }
+
+        internal void RestoreTableTsv(string TableName, bool EraseBefore)
+        {
+            List<string> fieldNames;
+            List<string> fieldTypes = new List<string>();
+            //string[,] dati = FileDiTesto.FileInMatrice(Commons.PathDatabase +
+            //    "\\" + TableName + ".tsv", '\t',
+            //    out fieldsNames, out fieldTypes);
+            string dati = TextFile.FileToString(Commons.PathDatabase +
+                "\\" + TableName + ".tsv");
+            if (dati is null)
+                return;
+            using (DbConnection conn = dl.Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                if (EraseBefore)
+                {
+                    // first: erases existing rows in the table
+                    cmd.CommandText += "DELETE FROM " + TableName + ";";
+                    cmd.ExecuteNonQuery();
+                }
+                else
+                {
+                    throw new Exception("Append of table records to an existing table id not implemented yet");
+                    //return; 
+                }
+                string fieldsString = " (";
+                string valuesString;
+                int fieldsCount = 0;
+
+                int index = 0;
+                string fieldName = "";
+                while (index < dati.Length)
+                {
+                    // parse first line: field names
+                    fieldNames = new List<string>();
+                    do
+                    {
+                        if (dati[index++] != '\"')
+                            return; // error! 
+                        fieldName = "";
+                        while (dati[index] != '\"')
+                        {
+                            fieldName += dati[index++];
+                        }
+                        fieldNames.Add(fieldName);
+                        fieldsString += fieldName + ",";
+                        fieldsCount++;
+                        if (dati[++index] != '\t' && dati[index] != '\r')
+                            return; // ERROR!
+                    } while (dati[++index] != '\r');
+                    index++; // void line feed
+
+                    // parse second line: field types
+                    string fieldType = "";
+                    while (dati[index] != '\r')
+                    {
+                        while (dati[index] != '\"')
+                        {
+                            fieldType += dati[index++];
+                        }
+                        fieldTypes.Add(fieldType);
+                        fieldsString += fieldName + ",";
+                        fieldsCount++;
+                    }
+                    index++; // void line feed
+
+                    // parse the rest of the rows: values
+                    string fieldValue = "";
+                    while (dati[index] != '\r')
+                    {
+                        while (dati[index] != '\"')
+                        {
+                            fieldType += dati[index++];
+                        }
+                        fieldTypes.Add(fieldType);
+                        fieldsString += fieldName + ",";
+                        fieldsCount++;
+                    }
+                }
+                //for (int col = 0; col < dati.GetLength(1); col++)
+                //{
+                //    if (fieldNames[col] != "")
+                //    {
+                //        fieldsString += fieldNames[col] + ",";
+                //        fieldsCount++; 
+                //    }
+                //}
+                //fieldsString = fieldsString.Substring(0, fieldsString.Length - 1);
+                //fieldsString += ")";
+                //for (int row = 0; row < dati.GetLength(0); row++)
+                //{
+                //    valuesString = " Values (";
+                //    for (int col = 0; col < fieldsCount; col++)
+                //    {
+                //        if (fieldNames[col] != "")
+                //        {
+                //            if (fieldTypes[col].IndexOf("VARCHAR") >= 0)
+                //                valuesString += "'" + SqlVal.SqlString(dati[row, col]) + "',";
+                //            else if (fieldTypes[col].IndexOf("INT") >= 0)
+                //                valuesString +=  SqlVal.SqlInt(dati[row, col]) + ",";
+                //            else if (fieldTypes[col].IndexOf("REAL") >= 0)
+                //                valuesString += SqlFloat(dati[row, col]) + ",";
+                //            else if (fieldTypes[col].IndexOf("FLOAT") >= 0)
+                //                valuesString += SqlFloat(dati[row, col]) + ",";
+                //            else if (fieldTypes[col].IndexOf("DATE") >= 0)
+                //                valuesString += SqlVal.SqlDate(dati[row, col]) + ",";
+                //        }
+                //    }
+                //    valuesString = valuesString.Substring(0, valuesString.Length - 1);
+                //    valuesString += ")";
+                //    cmd.CommandText = "INSERT INTO " + TableName +
+                //                fieldsString +
+                //                valuesString;
+                //    //" WHERE " + fieldsNames[0] + "=";
+                //    //if (fieldTypes[0].IndexOf("VARCHAR") >= 0)
+                //    //    cmd.CommandText += "'" + StringSql(dati[row, 0]) + "'";
+                //    //else
+                //    //    cmd.CommandText += StringSql(dati[row, 0]);
+                //    cmd.CommandText += ";";
+                //    cmd.ExecuteNonQuery();
+                //}
+                //cmd.Dispose();
+            }
+        }
+
+        internal void RestoreTableXml(string TableName, bool EraseBefore)
+        {
+            DataSet dSet = new DataSet();
+            DataTable t = null;
+            dSet.ReadXml(Commons.PathDatabase + "\\" + TableName + ".xml", XmlReadMode.ReadSchema);
+            t = dSet.Tables[0];
+            if (t.Rows.Count == 0)
+                return;
+            using (DbConnection conn = dl.Connect())
+            {
+                DbCommand cmd;
+                cmd = conn.CreateCommand();
+                if (EraseBefore)
+                {
+                    cmd.CommandText = "DELETE FROM " + TableName + ";";
+                    cmd.ExecuteNonQuery();
+                }
+                cmd.CommandText = "INSERT INTO " + TableName + "(";
+                // column names
+                DataRow r = t.Rows[0];
+                foreach (DataColumn c in t.Columns)
+                {
+                    cmd.CommandText += c.ColumnName + ",";
+                }
+                cmd.CommandText = cmd.CommandText.Substring(0, cmd.CommandText.Length - 1);
+                cmd.CommandText += ")VALUES";
+                // row values
+                foreach (DataRow row in t.Rows)
+                {
+                    cmd.CommandText += "(";
+                    foreach (DataColumn c in t.Columns)
+                    {
+                        switch (Type.GetTypeCode(c.DataType))
+                        {
+                            case TypeCode.String:
+                            case TypeCode.Char:
+                                {
+                                    cmd.CommandText += "'" + SqlVal.SqlString(row[c.ColumnName].ToString()) + "',";
+                                    break;
+                                };
+                            case TypeCode.DateTime:
+                                {
+                                    DateTime? d = SafeDb.SafeDateTime(row[c.ColumnName]);
+                                    cmd.CommandText += "'" +
+                                        ((DateTime)(d)).ToString("yyyy-MM-dd_HH.mm.ss") + "',";
+                                    break;
+                                }
+                            default:
+                                {
+                                    if (!(row[c.ColumnName] is DBNull))
+                                        cmd.CommandText += row[c.ColumnName] + ",";
+                                    else
+                                        cmd.CommandText += "0,";
+                                    break;
+                                }
+                        }
+                    }
+                    cmd.CommandText = cmd.CommandText.Substring(0, cmd.CommandText.Length - 1);
+                    cmd.CommandText += "),";
+                }
+                cmd.CommandText = cmd.CommandText.Substring(0, cmd.CommandText.Length - 1);
+                cmd.CommandText += ";";
+                cmd.ExecuteNonQuery();
+                dSet.Dispose();
+                t.Dispose();
+                cmd.Dispose();
+            }
+        }
+
+
+        internal void DeleteOneStudentFromClass(int? IdDeletingStudent, int? IdClass)
+        {
+            using (DbConnection conn = dl.Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "DELETE FROM Classes_Students" +
+                    " WHERE Classes_Students.idClass=" + IdClass +
+                    " AND Classes_Students.idStudent=" + IdDeletingStudent.ToString() +
+                    ";";
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+        }
+
+        internal void EraseAllStudentsOfAClass(Class Class)
+        {
+            using (DbConnection conn = dl.Connect())
+            {
+                // erase all the info in tables linked to student
+
+                // erase all the grades of the students of the class 
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "DELETE FROM Grades WHERE idStudent IN" +
+                    "(SELECT Students.idStudent FROM Students" +
+                    " JOIN Classes_Students ON Students.idStudent = Classes_Students.idStudent" +
+                    " WHERE Classes_Students.idClass=" + Class.IdClass + ");";
+                cmd.ExecuteNonQuery();
+
+                // erase all the questions of the students of the class
+                cmd.CommandText = "DELETE FROM StudentsQuestions WHERE idStudent IN" +
+                    "(SELECT Students.idStudent FROM Students" +
+                    " JOIN Classes_Students ON Students.idStudent = Classes_Students.idStudent" +
+                    " WHERE Classes_Students.idClass=" + Class.IdClass + ");";
+                cmd.ExecuteNonQuery();
+
+                // erase all the answers of students of the class
+                cmd.CommandText = "DELETE FROM StudentsAnswers WHERE idStudent IN" +
+                    "(SELECT Students.idStudent FROM Students" +
+                    " JOIN Classes_Students ON Students.idStudent = Classes_Students.idStudent" +
+                    " WHERE Classes_Students.idClass=" + Class.IdClass + ");";
+                cmd.ExecuteNonQuery();
+
+                // erase all the tests of students of the class
+                cmd.CommandText = "DELETE FROM StudentsTests WHERE idStudent IN" +
+                    "(SELECT Students.idStudent FROM Students" +
+                    " JOIN Classes_Students ON Students.idStudent = Classes_Students.idStudent" +
+                    " WHERE Classes_Students.idClass=" + Class.IdClass + ");";
+                cmd.ExecuteNonQuery();
+
+                // delete all the photos of students of the class 
+                cmd.CommandText = "DELETE FROM StudentsPhotos WHERE StudentsPhotos.idStudentsPhoto IN" +
+                    "(SELECT StudentsPhotos_Students.idStudentsPhoto" +
+                    " FROM StudentsPhotos, StudentsPhotos_Students, Classes_Students" +
+                    " WHERE StudentsPhotos_Students.idStudent = Classes_Students.idStudent" +
+                    " AND StudentsPhotos.idStudentsPhoto = StudentsPhotos_Students.idStudentsPhoto" +
+                    " AND Classes_Students.idClass=" + Class.IdClass + ");";
+                cmd.ExecuteNonQuery();
+
+                // delete all the references in link table to photos of students of the class 
+                cmd.CommandText = "DELETE FROM StudentsPhotos_Students WHERE idStudent IN" +
+                    "(SELECT StudentsPhotos_Students.idStudent" +
+                    " FROM StudentsPhotos_Students, Classes_Students" +
+                    " WHERE StudentsPhotos_Students.idStudent = Classes_Students.idStudent" +
+                    " AND Classes_Students.idClass=" + Class.IdClass + ");";
+                cmd.ExecuteNonQuery();
+
+                // delete all the students in class
+                // AFTER THIS idStudent OF DELETED IN NOT AVAILABLE ANY LONGER 
+                cmd.CommandText = "DELETE FROM Students WHERE idStudent IN" +
+                    "(SELECT Students.idStudent FROM Students" +
+                    " JOIN Classes_Students ON Students.idStudent = Classes_Students.idStudent" +
+                    " WHERE Classes_Students.idClass=" + Class.IdClass + ");";
+                cmd.ExecuteNonQuery();
+
+                cmd.Dispose();
+            }
+        }
+
+        internal List<StudentAnnotation> AnnotationsAboutThisStudent(Student currentStudent, string IdSchoolYear,
+            bool IncludeOnlyActiveAnnotations)
+        {
+            if (currentStudent == null)
+                return null;
+            List<StudentAnnotation> la = new List<StudentAnnotation>();
+            using (DbConnection conn = dl.Connect())
+            {
+                DbDataReader dRead;
+                DbCommand cmd = conn.CreateCommand();
+                string query = "SELECT *" +
+                    " FROM StudentsAnnotations" +
+                    " WHERE StudentsAnnotations.idStudent=" + currentStudent.IdStudent;
+                if (IdSchoolYear != null && IdSchoolYear != "")
+                    query += " AND idSchoolYear=" + IdSchoolYear;
+                if (IncludeOnlyActiveAnnotations)
+                    query += " AND isActive=true";
+                query += " ORDER BY instantTaken DESC, instantClosed DESC";
+                query += ";";
+                cmd.CommandText = query;
+                dRead = cmd.ExecuteReader();
+                while (dRead.Read())
+                {
+                    StudentAnnotation a = GetAnnotationFromRow(dRead);
+                    la.Add(a);
+                }
+            }
+            return la;
+        }
+
+        private StudentAnnotation GetAnnotationFromRow(DbDataReader Row)
+        {
+            StudentAnnotation a = new StudentAnnotation();
+            a.IdAnnotation = SafeDb.SafeInt(Row["idAnnotation"]);
+            a.IdStudent = SafeDb.SafeInt(Row["idStudent"]);
+            a.IdSchoolYear = SafeDb.SafeString(Row["idSchoolYear"]);
+            a.Annotation = SafeDb.SafeString(Row["annotation"]);
+            a.InstantTaken = SafeDb.SafeDateTime(Row["instantTaken"]);
+            a.InstantClosed = SafeDb.SafeDateTime(Row["instantClosed"]);
+            a.IsActive = SafeDb.SafeBool(Row["isActive"]);
+            return a;
+        }
+
+        internal int? SaveAnnotation(StudentAnnotation Annotation, Student s)
+        {
+            using (DbConnection conn = dl.Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                string query = "";
+                // find if an answer has already been given
+                if (Annotation.IdAnnotation != null && Annotation.IdAnnotation != 0)
+                {   // update answer
+                    query = "UPDATE StudentsAnnotations" +
+                    " SET" +
+                    " idStudent=" + SqlVal.SqlInt(s.IdStudent) + "," +
+                    " idSchoolYear='" + SqlVal.SqlString(Annotation.IdSchoolYear) + "'," +
+                    " instantTaken=" + SqlVal.SqlDate(Annotation.InstantTaken) + "," +
+                    " instantClosed=" + SqlVal.SqlDate(Annotation.InstantClosed) + "," +
+                    " isActive=" + SqlVal.SqlBool(Annotation.IsActive) + "," +
+                    " annotation='" + SqlVal.SqlString(Annotation.Annotation) + "'" +
+                    " WHERE idStudent=" + SqlVal.SqlInt(s.IdStudent) +
+                    ";";
+                }
+                else
+                {
+                    Annotation.InstantTaken = DateTime.Now;
+                    Annotation.IsActive = true;
+                    // create answer on database
+                    int? nextId = NextKey("StudentsAnnotations", "IdAnnotation");
+                    Annotation.IdAnnotation = nextId;
+
+                    query = "INSERT INTO StudentsAnnotations " +
+                    "(idAnnotation, idStudent, annotation,instantTaken," +
+                    "instantClosed,isActive";
+                    if (Annotation.IdSchoolYear != null && Annotation.IdSchoolYear != "")
+                        query += ",idSchoolYear";
+                    query += ")";
+                    query += " Values(";
+                    query += "" + SqlVal.SqlInt(Annotation.IdAnnotation) + ",";
+                    query += "" + SqlVal.SqlInt(s.IdStudent) + ",";
+                    query += "'" + SqlVal.SqlString(Annotation.Annotation) + "'";
+                    query += "," + SqlVal.SqlDate(Annotation.InstantTaken);
+                    query += "," + SqlVal.SqlDate(Annotation.InstantClosed);
+                    query += "," + SqlVal.SqlBool(Annotation.IsActive);
+                    if (Annotation.IdSchoolYear != null && Annotation.IdSchoolYear != "")
+                        query += ",'" + SqlVal.SqlString(Annotation.IdSchoolYear) + "'";
+                    query += ");";
+                }
+                cmd.CommandText = query;
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+            return Annotation.IdAnnotation;
+        }
+
+        internal StudentAnnotation GetAnnotation(int? IdAnnotation)
+        {
+            StudentAnnotation a;
+            if (IdAnnotation == null)
+                return null;
+            a = new StudentAnnotation();
+            using (DbConnection conn = dl.Connect())
+            {
+                DbDataReader dRead;
+                DbCommand cmd = conn.CreateCommand();
+                string query = "SELECT *" +
+                    " FROM StudentsAnnotations" +
+                    " WHERE IdAnnotation=" + IdAnnotation;
+                query += ";";
+                cmd.CommandText = query;
+                dRead = cmd.ExecuteReader();
+                dRead.Read();
+                a = GetAnnotationFromRow(dRead);
+                cmd.Dispose();
+            }
+            return a;
+        }
+
+        internal DataTable GetStudentsWithNoMicrogrades(Class Class, string IdGradeType, string IdSchoolSubject,
+            DateTime DateFrom, DateTime DateTo)
+        {
+            DataTable t;
+            using (DbConnection conn = dl.Connect())
+            {
+                // find the macro grade type of the micro grade
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT idGradeTypeParent " +
+                    "FROM GradeTypes " +
+                    "WHERE idGradeType='" + IdGradeType + "'; ";
+                string idGradeTypeParent = (string)cmd.ExecuteScalar();
+
+                string query = "SELECT Students.idStudent, LastName, FirstName FROM Students" +
+                    " JOIN Classes_Students ON Students.idStudent=Classes_Students.idStudent" +
+                    " WHERE Students.idStudent NOT IN" +
+                    "(";
+                query += "SELECT DISTINCT Students.idStudent" +
+                " FROM Classes_Students" +
+                " LEFT JOIN Grades ON Students.idStudent=Grades.idStudent" +
+                " JOIN Students ON Classes_Students.idStudent=Students.idStudent" +
+                " WHERE Classes_Students.idClass =" + Class.IdClass +
+                " AND Grades.idSchoolYear='" + Class.SchoolYear + "'" +
+                " AND (Grades.idGradeType='" + IdGradeType + "'" +
+                " OR Grades.idGradeType IS NULL)" +
+                " AND Grades.idSchoolSubject='" + IdSchoolSubject + "'" +
+                " AND Grades.value IS NOT NULL AND Grades.value <> 0" +
+                " AND Grades.Timestamp BETWEEN " + SqlVal.SqlDate(DateFrom) + " AND " + SqlVal.SqlDate(DateTo) +
+                ")";
+                query += " AND Classes_Students.idClass=" + Class.IdClass;
+                query += ";";
+                DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
+                DataSet DSet = new DataSet("ClosedMicroGrades");
+
+                DAdapt.Fill(DSet);
+                t = DSet.Tables[0];
+
+                DAdapt.Dispose();
+                DSet.Dispose();
+            }
+            return t;
+        }
+
+        internal void EraseAnnotationById(int? IdAnnotation)
+        {
+            using (DbConnection conn = dl.Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "DELETE FROM StudentsAnnotations" +
+                    " WHERE idAnnotation=" + SqlVal.SqlInt(IdAnnotation) +
+                    ";";
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+        }
+
+        internal void EraseAnnotationByText(string AnnotationText, Student Student)
+        {
+            using (DbConnection conn = dl.Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "DELETE FROM StudentsAnnotations" +
+                    " WHERE annotation='" + SqlVal.SqlString(AnnotationText) + "'" +
+                    " AND idStudent=" + SqlVal.SqlInt(Student.IdStudent) +
+                    ";";
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
         }
 
     }

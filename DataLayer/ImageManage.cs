@@ -12,7 +12,7 @@ namespace SchoolGrades.DataLayer
 {
     class ImageManage
     {
-        //Cesare Colella, Francesco Citarella, Andrea Siboni, Riccardo Brunelli 4L
+        //Andrea Siboni, Francesco Citarella, Cesare Colella, Riccardo Brunelli 4L
 
         DataLayer dl = new DataLayer();
 

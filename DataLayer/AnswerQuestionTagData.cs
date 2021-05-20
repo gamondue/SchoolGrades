@@ -10,7 +10,7 @@ using SchoolGrades.DbClasses;
 
 namespace SchoolGrades.DataLayer
 {
-    //Cesare Colella, Francesco Citarella, Andrea Siboni, Riccardo Brunelli 4L
+    //Andrea Siboni, Francesco Citarella, Cesare Colella, Riccardo Brunelli 4L
 
     class AnswerQuestionTagData
     {
@@ -36,7 +36,35 @@ namespace SchoolGrades.DataLayer
             return nextId;
         }
 
-     
+        internal List<QuestionType> GetListQuestionTypes(bool IncludeANullObject)
+        {
+            List<QuestionType> l = new List<QuestionType>();
+            if (IncludeANullObject)
+            {
+                QuestionType qt = new QuestionType();
+                qt.IdQuestionType = "";
+                l.Add(qt);
+            }
+            using (DbConnection conn = dl.Connect())
+            {
+                DbDataReader dRead;
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT * FROM QuestionTypes;";
+                dRead = cmd.ExecuteReader();
+                while (dRead.Read())
+                {
+                    QuestionType o = new QuestionType();
+                    o.Name = (string)dRead["Name"];
+                    o.IdQuestionType = (string)dRead["IdQuestionType"];
+                    o.Desc = (string)dRead["Desc"];
+                    o.IdQuestionType = (string)dRead["IdQuestionType"];
+                    l.Add(o);
+                }
+                dRead.Dispose();
+                cmd.Dispose();
+                return l;
+            }
+        }
 
 
         internal void RemoveQuestionFromTest(int? IdQuestion, int? IdTest)
@@ -71,6 +99,258 @@ namespace SchoolGrades.DataLayer
             ////////q.IsFixed = SafeDb.SafeBool(Row["isFixed"]);
 
             return q;
+        }
+
+        internal List<Question> GetAllQuestionsOfATest(int? IdTest)
+        {
+            List<Question> lq = new List<Question>();
+            using (DbConnection conn = dl.Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT *" +
+                    " FROM Questions" +
+                    " JOIN Tests_Questions ON Tests_Questions.IdQuestion=Questions.IdQuestion" +
+                    " WHERE Tests_Questions.idTest=" + IdTest +
+                    ";";
+                DbDataReader dRead;
+                dRead = cmd.ExecuteReader();
+
+                while (dRead.Read())
+                {
+                    Question q = GetQuestionFromRow(dRead);
+                    lq.Add(q);
+                }
+            }
+            return lq;
+        }
+
+        internal void SaveStudentsAnswer(Student Student, Test Test, Answer Answer,
+            bool StudentsBoolAnswer, string StudentsTextAnswer)
+        {
+            // TODO put this UI matter into form's code 
+            if (Student == null)
+            {
+                MessageBox.Show("Scegliere un allievo");
+                return;
+            }
+            using (DbConnection conn = dl.Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                // find if an answer has already been given
+                int? IdStudentsAnswer = StudentHasAnswered(Answer.IdAnswer, Test.IdTest, Student.IdStudent);
+                if (IdStudentsAnswer != null)
+                {   // update answer
+                    cmd.CommandText = "UPDATE StudentsAnswers" +
+                    " SET idStudent=" + SqlVal.SqlInt(Student.IdStudent) + "," +
+                    "idAnswer=" + SqlVal.SqlInt(Answer.IdAnswer) + "," +
+                    "studentsBoolAnswer=" + SqlVal.SqlBool(StudentsBoolAnswer) + "," +
+                    "studentsTextAnswer='" + SqlVal.SqlString(StudentsTextAnswer) + "'," +
+                    "IdTest=" + SqlVal.SqlInt(Test.IdTest) +
+                    "" +
+                    " WHERE IdStudentsAnswer=" + Answer.IdAnswer +
+                    ";";
+                }
+                else
+                {   // create answer
+                    int nextId = NextKey("StudentsAnswers", "IdStudentsAnswer");
+
+                    cmd.CommandText = "INSERT INTO StudentsAnswers " +
+                    "(idStudentsAnswer,idStudent,idAnswer,studentsBoolAnswer," +
+                    "studentsTextAnswer,IdTest" +
+                    ")" +
+                    "Values " +
+                    "(" + nextId + "," + SqlVal.SqlInt(Student.IdStudent) + "," +
+                     SqlVal.SqlInt(Answer.IdAnswer) + "," + SqlVal.SqlBool(StudentsBoolAnswer) + ",'" +
+                    SqlVal.SqlString(StudentsTextAnswer) + "'," +
+                     SqlVal.SqlInt(Test.IdTest) +
+                    ");";
+                }
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+        }
+
+        private int? StudentHasAnswered(int? IdAnswer, int? IdTest, int? IdStudent)
+        {
+            int? key;
+            using (DbConnection conn = dl.Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                string query = "SELECT idStudentsAnswer" +
+                    " FROM StudentsAnswers" +
+                    " WHERE idStudent=" + IdStudent +
+                    " AND IdTest=" + IdTest + "" +
+                    " AND IdAnswer=" + IdAnswer + "" +
+                    ";";
+                cmd.CommandText = query;
+                //idStudentsAnswer cmd.ExecuteScalar() != null;
+                key = (int?)cmd.ExecuteScalar();
+            }
+            return key;
+        }
+        internal List<StudentsAnswer> GetAllAnswersOfAStudentToAQuestionOfThisTest(
+            int? IdStudent, int? IdQuestion, int? IdTest)
+        {
+            List<StudentsAnswer> list = new List<StudentsAnswer>();
+            using (DbConnection conn = dl.Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                string query = "SELECT *" +
+                    " FROM StudentsAnswers" +
+                    " JOIN Answers ON Answers.idAnswer = StudentsAnswers.idAnswer" +
+                    " JOIN Questions ON Questions.IdQuestion = Answers.IdQuestion" +
+                    " JOIN Tests_Questions ON Questions.IdQuestion = Tests_Questions.IdQuestion" +
+                    " WHERE StudentsAnswers.idStudent=" + IdStudent +
+                    " AND Questions.IdQuestion=" + IdQuestion + "" +
+                    " AND Tests_Questions.IdTest=" + IdTest + "" +
+                    ";";
+
+                cmd.CommandText = query;
+                DbDataReader dRead;
+                dRead = cmd.ExecuteReader();
+
+                while (dRead.Read())
+                {
+                    StudentsAnswer a = GetStudentsAnswerFromRow(dRead);
+                    list.Add(a);
+                }
+            }
+            return list;
+        }
+
+        private StudentsAnswer GetStudentsAnswerFromRow(DbDataReader Row)
+        {
+            StudentsAnswer a = new StudentsAnswer();
+            a.IdAnswer = SafeDb.SafeInt(Row["IdAnswer"]);
+            a.IdStudent = SafeDb.SafeInt(Row["IdStudent"]);
+            a.IdStudentsAnswer = SafeDb.SafeInt(Row["IdStudentsAnswer"]);
+            a.IdTest = SafeDb.SafeInt(Row["IdTest"]);
+            a.StudentsBoolAnswer = SafeDb.SafeBool(Row["StudentsBoolAnswer"]);
+            a.StudentsTextAnswer = SafeDb.SafeString(Row["StudentsTextAnswer"]);
+
+            return a;
+        }
+
+        internal List<Student> GetAllStudentsThatAnsweredToATest(Test Test, Class Class)
+        {
+            List<Student> list = new List<Student>();
+            using (DbConnection conn = dl.Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                string query = "SELECT DISTINCT StudentsAnswers.IdStudent" +
+                    " FROM StudentsAnswers" +
+                    " JOIN Classes_Students ON StudentsAnswers.IdStudent=Classes_Students.IdStudent" +
+                    " JOIN Students ON Classes_Students.IdStudent=Students.IdStudent" +
+                    " WHERE StudentsAnswers.IdTest=" + Test.IdTest + "" +
+                    " AND Classes_Students.IdClass=" + Class.IdClass + "" +
+                    " ORDER BY Students.LastName, Students.FirstName, Students.IdStudent " +
+                    ";";
+                cmd.CommandText = query;
+                DbDataReader dRead = cmd.ExecuteReader();
+                while (dRead.Read())
+                {
+                    int? idStudent = SafeDb.SafeInt(dRead["idStudent"]);
+                    Student s = GetStudent(idStudent);
+                    list.Add(s);
+                }
+            }
+            return list;
+        }
+
+        internal Student GetStudent(int? IdStudent)
+        {
+            Student s = new Student();
+            using (DbConnection conn = dl.Connect())
+            {
+                DbDataReader dRead;
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT * " +
+                    "FROM Students " +
+                    "WHERE idStudent=" + IdStudent +
+                    ";";
+                dRead = cmd.ExecuteReader();
+                dRead.Read();
+                s = GetStudentFromRow(dRead);
+                dRead.Dispose();
+                cmd.Dispose();
+            }
+            return s;
+        }
+
+        private Student GetStudentFromRow(DbDataReader Row)
+        {
+            Student s = new Student();
+            s.IdStudent = (int)Row["IdStudent"];
+            s.LastName = SafeDb.SafeString(Row["LastName"]);
+            s.FirstName = SafeDb.SafeString(Row["FirstName"]);
+            s.Residence = SafeDb.SafeString(Row["Residence"]);
+            s.Origin = SafeDb.SafeString(Row["Origin"]);
+            s.Email = SafeDb.SafeString(Row["Email"]);
+            if (!(Row["birthDate"] is DBNull))
+                s.BirthDate = SafeDb.SafeDateTime(Row["birthDate"]);
+            s.BirthPlace = SafeDb.SafeString(Row["birthPlace"]);
+            s.Eligible = SafeDb.SafeBool(Row["drawable"]);
+            s.Disabled = SafeDb.SafeBool(Row["disabled"]);
+            s.RevengeFactorCounter = SafeDb.SafeInt(Row["VFCounter"]);
+
+            return s;
+        }
+
+        internal List<Answer> GetAllCorrectAnswersToThisQuestionOfThisTest(int? IdQuestion, int? IdTest)
+        {
+            List<Answer> list = new List<Answer>();
+            using (DbConnection conn = dl.Connect())
+            {
+                DbDataReader dRead;
+                DbCommand cmd = conn.CreateCommand();
+                string query = "SELECT Answers.*" +
+                    " FROM Answers" +
+                    " JOIN Questions ON Questions.IdQuestion=Answers.IdQuestion" +
+                    " JOIN Tests_Questions ON Questions.IdQuestion=Tests_Questions.IdQuestion" +
+                    " WHERE Questions.IdQuestion=" + IdQuestion + "" +
+                    " AND Tests_Questions.IdTest=" + IdTest + "" +
+                    " ORDER BY idAnswer" +
+                    ";";
+                cmd.CommandText = query;
+                dRead = cmd.ExecuteReader();
+                while (dRead.Read())
+                {
+                    Answer a = GetAnswerFromRow(dRead);
+                    list.Add(a);
+                }
+            }
+            return list;
+        }
+
+        internal Answer GetAnswerFromRow(DbDataReader Row)
+        {
+            Answer a = new Answer();
+            a.IdAnswer = SafeDb.SafeInt(Row["IdAnswer"]);
+            a.IdQuestion = SafeDb.SafeInt(Row["IdQuestion"]);
+            a.ShowingOrder = SafeDb.SafeInt(Row["ShowingOrder"]);
+            a.Text = SafeDb.SafeString(Row["Text"]);
+            a.ErrorCost = SafeDb.SafeInt(Row["ErrorCost"]);
+            a.IsCorrect = SafeDb.SafeBool(Row["IsCorrect"]);
+            a.IsOpenAnswer = SafeDb.SafeBool(Row["IsOpenAnswer"]);
+            a.IsMutex = SafeDb.SafeBool(Row["IsMutex"]);
+
+            return a;
+        }
+
+        internal void AddQuestionToTest(Test Test, Question Question)
+        {
+            using (DbConnection conn = dl.Connect())
+            {
+                // get the code of the previous photo
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "INSERT INTO Tests_Questions" +
+                    " (IdTest, IdQuestion)" +
+                    " Values" +
+                    " (" + Test.IdTest + "," + Question.IdQuestion + ")" +
+                    "; ";
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
         }
 
 
