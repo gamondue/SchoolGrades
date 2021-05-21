@@ -8,6 +8,7 @@ using gamon;
 using SchoolGrades.DbClasses;
 using gamon.TreeMptt;
 using SharedWinForms;
+using System.Data;
 
 namespace SchoolGrades
 {
@@ -32,6 +33,7 @@ namespace SchoolGrades
         Question currentQuestion;
         GradeType currentGradeType;
         Class currentClass;
+        SchoolSubject currentSchoolSubject;
 
         Random random = new Random(); 
 
@@ -97,6 +99,9 @@ namespace SchoolGrades
             // fill the combo of School subjects
             List<SchoolSubject> listSubjects = db.GetListSchoolSubjects(true);
             cmbSchoolSubject.DataSource = listSubjects;
+
+            //txtPeso.Text = "";
+            txtPeso.Clear();
         }
         private void frmMain_Load(object sender, EventArgs e)
         {
@@ -104,6 +109,7 @@ namespace SchoolGrades
                 return;
 
             timerQuestion.Interval = 250;
+            //txtPeso.Text = "";
             
             //#if DEBUG
             lblDatabaseFile.Visible = true;
@@ -178,6 +184,22 @@ namespace SchoolGrades
             else
             if (!CommonsWinForms.CheckIfClassChosen(currentClass))
                 return;
+
+            currentSubject = (SchoolSubject)cmbSchoolSubject.SelectedItem;
+            DataTable T = db.GetMicroGradesOfStudentWithMacroOpen(currentClass.CurrentStudent.IdStudent, "2021", currentGradeType.IdGradeType,
+                currentSubject.IdSchoolSubject);
+
+            //DgwQuestions.DataSource = T;
+            double weightedSum = 0;
+            double sumOfWeights = 0;
+            foreach (DataRow riga in T.Rows)
+            {
+                weightedSum += (double)riga["value"] * (double)riga["weight"];
+                sumOfWeights += (double)riga["weight"];
+            }
+
+            txtPeso.Text = sumOfWeights.ToString() + "%";
+
             if (chkSuspence.Checked)
             {
                 int suspenceDelay = 4069; // in ms
@@ -1207,6 +1229,8 @@ namespace SchoolGrades
             if (!File.Exists(Commons.PathAndFileDatabase))
                 return;
 
+            txtPeso.Text = "";
+            txtPeso.Clear();
             timerLesson.Stop(); 
             timerPopUp.Stop();
             timerQuestion.Stop();

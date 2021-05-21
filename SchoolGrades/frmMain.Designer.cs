@@ -99,6 +99,8 @@
             this.chkPopUpQuestionsEnabled = new System.Windows.Forms.CheckBox();
             this.txtPopUpQuestionCentralTime = new System.Windows.Forms.TextBox();
             this.btnRandomNumber = new System.Windows.Forms.Button();
+            this.chkSoundsInColorTimer = new System.Windows.Forms.CheckBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.lblStudentChosen = new System.Windows.Forms.Label();
             this.lblCodYear = new System.Windows.Forms.Label();
             this.timerQuestion = new System.Windows.Forms.Timer(this.components);
@@ -121,7 +123,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.timerPopUp = new System.Windows.Forms.Timer(this.components);
-            this.chkSoundsInColorTimer = new System.Windows.Forms.CheckBox();
+            this.txtPeso = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.picBackgroundSaveRunning)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picStudent)).BeginInit();
             this.grpSorts.SuspendLayout();
@@ -825,7 +827,7 @@
             this.lstNames.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.lstNames.MultiColumn = true;
             this.lstNames.Name = "lstNames";
-            this.lstNames.Size = new System.Drawing.Size(711, 508);
+            this.lstNames.Size = new System.Drawing.Size(625, 508);
             this.lstNames.TabIndex = 26;
             this.toolTip1.SetToolTip(this.lstNames, "Nomi degli allievi della classe. ");
             this.lstNames.UseCompatibleTextRendering = true;
@@ -912,9 +914,9 @@
             this.btnTemporary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTemporary.BackColor = System.Drawing.Color.Red;
             this.btnTemporary.ForeColor = System.Drawing.Color.Yellow;
-            this.btnTemporary.Location = new System.Drawing.Point(563, 163);
+            this.btnTemporary.Location = new System.Drawing.Point(639, 342);
             this.btnTemporary.Name = "btnTemporary";
-            this.btnTemporary.Size = new System.Drawing.Size(91, 54);
+            this.btnTemporary.Size = new System.Drawing.Size(83, 54);
             this.btnTemporary.TabIndex = 164;
             this.btnTemporary.Text = "Test";
             this.toolTip1.SetToolTip(this.btnTemporary, "Lancio dei link e programmi legati alla classe");
@@ -1102,6 +1104,38 @@
             this.btnRandomNumber.UseVisualStyleBackColor = false;
             this.btnRandomNumber.Click += new System.EventHandler(this.btnRandomNumber_Click);
             // 
+            // chkSoundsInColorTimer
+            // 
+            this.chkSoundsInColorTimer.AutoSize = true;
+            this.chkSoundsInColorTimer.Checked = true;
+            this.chkSoundsInColorTimer.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSoundsInColorTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.chkSoundsInColorTimer.ForeColor = System.Drawing.Color.DarkBlue;
+            this.chkSoundsInColorTimer.Location = new System.Drawing.Point(217, 66);
+            this.chkSoundsInColorTimer.Name = "chkSoundsInColorTimer";
+            this.chkSoundsInColorTimer.Size = new System.Drawing.Size(70, 22);
+            this.chkSoundsInColorTimer.TabIndex = 184;
+            this.chkSoundsInColorTimer.Text = "Suoni";
+            this.toolTip1.SetToolTip(this.chkSoundsInColorTimer, "Esegue i suoni nel timer a colori");
+            this.chkSoundsInColorTimer.UseVisualStyleBackColor = true;
+            this.chkSoundsInColorTimer.CheckedChanged += new System.EventHandler(this.chkSoundsInColorTimer_CheckedChanged);
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.AutoSize = true;
+            this.label10.Enabled = false;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label10.ForeColor = System.Drawing.Color.DarkBlue;
+            this.label10.Location = new System.Drawing.Point(639, 282);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(65, 15);
+            this.label10.TabIndex = 186;
+            this.label10.Text = "Peso voti";
+            this.toolTip1.SetToolTip(this.label10, "Media pesata di tutti i microvoti visualizzati. Salvata nel voto complessivo. Si " +
+        "può modificare. ");
+            // 
             // lblStudentChosen
             // 
             this.lblStudentChosen.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -1139,7 +1173,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.picStudent.Location = new System.Drawing.Point(10, 222);
             this.picStudent.Name = "picStudent";
-            this.picStudent.Size = new System.Drawing.Size(709, 510);
+            this.picStudent.Size = new System.Drawing.Size(626, 510);
             this.picStudent.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picStudent.TabIndex = 52;
             this.picStudent.TabStop = false;
@@ -1331,21 +1365,13 @@
             // 
             this.timerPopUp.Tick += new System.EventHandler(this.timerPopUp_Tick);
             // 
-            // chkSoundsInColorTimer
+            // txtPeso
             // 
-            this.chkSoundsInColorTimer.AutoSize = true;
-            this.chkSoundsInColorTimer.Checked = true;
-            this.chkSoundsInColorTimer.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSoundsInColorTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.chkSoundsInColorTimer.ForeColor = System.Drawing.Color.DarkBlue;
-            this.chkSoundsInColorTimer.Location = new System.Drawing.Point(217, 66);
-            this.chkSoundsInColorTimer.Name = "chkSoundsInColorTimer";
-            this.chkSoundsInColorTimer.Size = new System.Drawing.Size(70, 22);
-            this.chkSoundsInColorTimer.TabIndex = 184;
-            this.chkSoundsInColorTimer.Text = "Suoni";
-            this.toolTip1.SetToolTip(this.chkSoundsInColorTimer, "Esegue i suoni nel timer a colori");
-            this.chkSoundsInColorTimer.UseVisualStyleBackColor = true;
-            this.chkSoundsInColorTimer.CheckedChanged += new System.EventHandler(this.chkSoundsInColorTimer_CheckedChanged);
+            this.txtPeso.Location = new System.Drawing.Point(642, 300);
+            this.txtPeso.Name = "txtPeso";
+            this.txtPeso.Size = new System.Drawing.Size(80, 24);
+            this.txtPeso.TabIndex = 185;
+            this.txtPeso.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // frmMain
             // 
@@ -1353,6 +1379,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(1069, 741);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.txtPeso);
             this.Controls.Add(this.chkSoundsInColorTimer);
             this.Controls.Add(this.btnTemporary);
             this.Controls.Add(this.btnRandomNumber);
@@ -1545,6 +1573,8 @@
         private System.Windows.Forms.Timer timerPopUp;
         private System.Windows.Forms.Button btnRandomNumber;
         private System.Windows.Forms.CheckBox chkSoundsInColorTimer;
+        private System.Windows.Forms.TextBox txtPeso;
+        private System.Windows.Forms.Label label10;
     }
 }
 
