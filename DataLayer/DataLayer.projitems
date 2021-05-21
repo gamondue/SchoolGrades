@@ -12,6 +12,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)DataBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Image.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Links.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Subject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Table.cs" />
   </ItemGroup>
 </Project>

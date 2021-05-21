@@ -1,12 +1,128 @@
 ﻿using System;
+using System.Data.Common;
+using System.Data;
+using System.Data.SQLite;
+using System.IO;
 using System.Collections.Generic;
-using System.Text;
+using gamon;
+using System.Windows.Forms;
+using SchoolGrades.DbClasses;
 
 namespace SchoolGrades.DataLayer
 {
     class Table
     {
         DataLayer dl = new DataLayer();
+
+        internal void SaveTableOnCvs(DataTable Table, string FileName)
+        {
+            string fileContent = "";
+            foreach (DataColumn col in Table.Columns)
+            {
+                fileContent += col.Caption + '\t';
+            }
+            fileContent += "\r\n";
+            foreach (DataRow row in Table.Rows)
+            {
+                foreach (DataColumn col in Table.Columns)
+                {
+                    fileContent += row[col].ToString() + '\t';
+                }
+                fileContent += "\r\n";
+            }
+            TextFile.StringToFile(FileName, fileContent, false);
+        }
+
+        internal DataTable GetClassTable(int? idClass)
+        {
+            DataTable t;
+            using (DbConnection conn = dl.Connect())
+            {
+                DataAdapter dAdapter;
+                DataSet dSet = new DataSet();
+
+                string query = "SELECT * FROM Classes" +
+                " WHERE Classes.idClass = " + idClass + ";";
+                dAdapter = new SQLiteDataAdapter(query, (System.Data.SQLite.SQLiteConnection)conn);
+                dAdapter.Fill(dSet);
+                t = dSet.Tables[0];
+                dAdapter.Dispose();
+                dSet.Dispose();
+            }
+            return t;
+        }
+
+        internal DataTable GetClassDataTable(string IdSchool, string IdSchoolYear, string ClassAbbreviation)
+        {
+            DataTable t;
+            using (DbConnection conn = dl.Connect())
+            {
+                DataAdapter dAdapter;
+                DataSet dSet = new DataSet();
+
+                string query = "SELECT DISTINCT registerNumber, Classes.idSchool, Classes.idSchoolYear, " +
+                                "Classes.abbreviation, Students.*" +
+                " FROM Students, Classes_Students, Classes" +
+                " WHERE Students.idStudent = Classes_Students.idStudent AND Classes.idClass = Classes_Students.idClass" +
+                    " AND Classes.idSchool = '" + SqlVal.SqlString(IdSchool) + "' AND Classes.idSchoolYear = '" + SqlVal.SqlString(IdSchoolYear) +
+                    "' AND Classes.abbreviation = '" + SqlVal.SqlString(ClassAbbreviation) +
+                    "' ORDER BY Students.lastName, Students.firstName;";
+                dAdapter = new SQLiteDataAdapter(query,
+                    (System.Data.SQLite.SQLiteConnection)conn);
+                dAdapter.Fill(dSet);
+                t = dSet.Tables[0];
+
+                dAdapter.Dispose();
+                dSet.Dispose();
+            }
+            return t;
+        }
+
+        internal void GetLookupTable(string Table, ref DataSet DSet, ref DataAdapter DAdapt)
+        {
+            using (DbConnection conn = dl.Connect())
+            {
+                string query = "SELECT * FROM " + Table + ";";
+                DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
+                DSet = new DataSet("OpenLookupTable");
+
+                DAdapt.Fill(DSet);
+                DAdapt.Dispose();
+                DSet.Dispose();
+            }
+        }
+
+        internal void CreateLookupTableRow(string Table, string IdTable, DataRow Row)
+        {
+            // !!!! TODO !!!! GENERALIZZARE A TABELLE CON NOMI DEI CAMPI ARBITRARI E FAR FUNZIONARE !!!!
+            string query;
+            try
+            {
+                // if key field is Integer, this works
+                int iId = (int)Row[0];
+                query = "INSERT INTO " + Table +
+                    " (" + IdTable + ", name, desc)" +
+                    " VALUES (" + iId + ",'" + Row["name"] + "','" + Row["desc"] + "'" +
+                ");";
+            }
+            catch
+            {
+                // if key field wasn't Integer, this other will work 
+                string sId = (string)Row[0];
+                query = "INSERT INTO " + Table +
+                    " (" + IdTable + ", name, desc)" +
+                    " VALUES ('" + sId + "','" + Row["name"] + "','" + Row["desc"] + "'" +
+                ");";
+            }
+            using (DbConnection conn = dl.Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = query;
+
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+        }
 
         internal void BackupTableTsv(string TableName)
         {
