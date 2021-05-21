@@ -27,7 +27,6 @@ namespace SchoolGrades.DataLayer
                 cmd.Dispose();
             }
         }
-
         internal void EraseAnnotationById(int? IdAnnotation)
         {
             using (DbConnection conn = dl.Connect())
@@ -40,7 +39,6 @@ namespace SchoolGrades.DataLayer
                 cmd.Dispose();
             }
         }
-
         internal StudentAnnotation GetAnnotation(int? IdAnnotation)
         {
             StudentAnnotation a;
@@ -75,7 +73,6 @@ namespace SchoolGrades.DataLayer
             a.IsActive = SafeDb.SafeBool(Row["isActive"]);
             return a;
         }
-
         internal int? SaveAnnotation(StudentAnnotation Annotation, Student s)
         {
             using (DbConnection conn = dl.Connect())
@@ -127,7 +124,6 @@ namespace SchoolGrades.DataLayer
             }
             return Annotation.IdAnnotation;
         }
-
         internal List<StudentAnnotation> AnnotationsAboutThisStudent(Student currentStudent, string IdSchoolYear,
             bool IncludeOnlyActiveAnnotations)
         {
@@ -157,7 +153,6 @@ namespace SchoolGrades.DataLayer
             }
             return la;
         }
-
         private int NextKey(string Table, string Id)
         {
             int nextId;
@@ -177,6 +172,10 @@ namespace SchoolGrades.DataLayer
                 cmd.Dispose();
             }
             return nextId;
+        }
+        internal int? UpdateAnnotationGroup(StudentAnnotation currentAnnotation, Student currentStudent)
+        {
+            throw new NotImplementedException();
         }
     }
 }
