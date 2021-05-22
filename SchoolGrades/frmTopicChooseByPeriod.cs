@@ -130,9 +130,13 @@ namespace SchoolGrades
                 Random r = new Random();
                 int index = r.Next(topicsDone.Count);
                 TopicChosen = topicsDone[index];
-                this.Close();
+                List<Topic> oneItemList = new List<Topic>();
+                oneItemList.Add(TopicChosen);
+                frmTopics t = new frmTopics(frmTopics.TopicsFormType.NormalDialog,
+                    oneItemList, currentClass, currentSubject);
+                t.ShowDialog();
+                t.Dispose();
             }
-            Console.Beep(); 
         }
 
         private void btnChoose_Click(object sender, EventArgs e)
