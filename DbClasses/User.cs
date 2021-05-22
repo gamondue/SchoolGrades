@@ -41,5 +41,10 @@ namespace SchoolGrades.DbClasses
         {
             return Username + ": "+ Description;
         }
+
+        public User()
+        {
+
+        }
     }
 }
