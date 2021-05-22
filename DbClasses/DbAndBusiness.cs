@@ -4961,5 +4961,10 @@ namespace SchoolGrades.DbClasses
             }
         }
         #endregion
+
+        public void PrendiPesoVoti()
+        {
+
+        }
     }
 }
