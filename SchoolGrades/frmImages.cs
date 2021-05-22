@@ -180,6 +180,7 @@ namespace SchoolGrades
                     copyFileToImagesAndLinkToLessons(sourcePathAndFileName);
                 }
                 // goto the last (the one just added) 
+                int oldIndex = indexImages;
                 indexImages = DgwLessonsImages.Rows.Count - 1;
                 try
                 {
@@ -189,7 +190,8 @@ namespace SchoolGrades
                 {
                     Console.Beep();
                 };
-                DgwLessonsImages.Rows[indexImages].Selected = false;
+                DgwLessonsImages.Rows[0].Selected = false;
+                DgwLessonsImages.Rows[oldIndex].Selected = false;
                 DgwLessonsImages.Rows[indexImages].Selected = true;
                 txtCaption.Text = caption;
             }
