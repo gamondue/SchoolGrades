@@ -101,6 +101,7 @@
             this.btnRandomNumber = new System.Windows.Forms.Button();
             this.chkSoundsInColorTimer = new System.Windows.Forms.CheckBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.lblStudentChosen = new System.Windows.Forms.Label();
             this.lblCodYear = new System.Windows.Forms.Label();
             this.timerQuestion = new System.Windows.Forms.Timer(this.components);
@@ -124,6 +125,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.timerPopUp = new System.Windows.Forms.Timer(this.components);
             this.txtPeso = new System.Windows.Forms.TextBox();
+            this.txtWeightedMedia = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.picBackgroundSaveRunning)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picStudent)).BeginInit();
             this.grpSorts.SuspendLayout();
@@ -152,6 +154,7 @@
             // 
             this.butComeOn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.butComeOn.BackColor = System.Drawing.Color.Transparent;
+            this.butComeOn.Enabled = false;
             this.butComeOn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.butComeOn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
             this.butComeOn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
@@ -914,7 +917,7 @@
             this.btnTemporary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTemporary.BackColor = System.Drawing.Color.Red;
             this.btnTemporary.ForeColor = System.Drawing.Color.Yellow;
-            this.btnTemporary.Location = new System.Drawing.Point(639, 342);
+            this.btnTemporary.Location = new System.Drawing.Point(639, 404);
             this.btnTemporary.Name = "btnTemporary";
             this.btnTemporary.Size = new System.Drawing.Size(83, 54);
             this.btnTemporary.TabIndex = 164;
@@ -1134,6 +1137,22 @@
             this.label10.TabIndex = 186;
             this.label10.Text = "Peso voti";
             this.toolTip1.SetToolTip(this.label10, "Media pesata di tutti i microvoti visualizzati. Salvata nel voto complessivo. Si " +
+        "può modificare. ");
+            // 
+            // label11
+            // 
+            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label11.AutoSize = true;
+            this.label11.Enabled = false;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label11.ForeColor = System.Drawing.Color.DarkBlue;
+            this.label11.Location = new System.Drawing.Point(639, 334);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(73, 30);
+            this.label11.TabIndex = 188;
+            this.label11.Text = "Media voti\r\npesati";
+            this.toolTip1.SetToolTip(this.label11, "Media pesata di tutti i microvoti visualizzati. Salvata nel voto complessivo. Si " +
         "può modificare. ");
             // 
             // lblStudentChosen
@@ -1373,12 +1392,22 @@
             this.txtPeso.TabIndex = 185;
             this.txtPeso.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // txtWeightedMedia
+            // 
+            this.txtWeightedMedia.Location = new System.Drawing.Point(642, 367);
+            this.txtWeightedMedia.Name = "txtWeightedMedia";
+            this.txtWeightedMedia.Size = new System.Drawing.Size(79, 24);
+            this.txtWeightedMedia.TabIndex = 187;
+            this.txtWeightedMedia.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(1069, 741);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.txtWeightedMedia);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.txtPeso);
             this.Controls.Add(this.chkSoundsInColorTimer);
@@ -1575,6 +1604,8 @@
         private System.Windows.Forms.CheckBox chkSoundsInColorTimer;
         private System.Windows.Forms.TextBox txtPeso;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox txtWeightedMedia;
+        private System.Windows.Forms.Label label11;
     }
 }
 

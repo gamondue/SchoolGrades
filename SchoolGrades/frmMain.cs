@@ -185,20 +185,30 @@ namespace SchoolGrades
             if (!CommonsWinForms.CheckIfClassChosen(currentClass))
                 return;
 
-            currentSubject = (SchoolSubject)cmbSchoolSubject.SelectedItem;
-            DataTable T = db.GetMicroGradesOfStudentWithMacroOpen(currentClass.CurrentStudent.IdStudent, "2021", currentGradeType.IdGradeType,
-                currentSubject.IdSchoolSubject);
-
-            //DgwQuestions.DataSource = T;
-            double weightedSum = 0;
-            double sumOfWeights = 0;
-            foreach (DataRow riga in T.Rows)
+            try
             {
-                weightedSum += (double)riga["value"] * (double)riga["weight"];
-                sumOfWeights += (double)riga["weight"];
-            }
+                currentSubject = (SchoolSubject)cmbSchoolSubject.SelectedItem;
+                DataTable T = db.GetMicroGradesOfStudentWithMacroOpen(currentClass.CurrentStudent.IdStudent, "2021", currentGradeType.IdGradeType,
+                    currentSubject.IdSchoolSubject);
 
-            txtPeso.Text = sumOfWeights.ToString() + "%";
+                //DgwQuestions.DataSource = T;
+                double weightedSum = 0;
+                double sumOfWeights = 0;
+                foreach (DataRow riga in T.Rows)
+                {
+                    //il valore di weightedSum non sembra esatto, ma comunque preso dal database
+                    weightedSum += (double)riga["value"] * (double)riga["weight"];
+
+                    sumOfWeights += (double)riga["weight"];
+                }
+
+                txtPeso.Text = sumOfWeights.ToString() + "%";
+                txtWeightedMedia.Text = weightedSum.ToString();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Errore: " + ex.Message, "ERRORE", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             if (chkSuspence.Checked)
             {
@@ -244,6 +254,7 @@ namespace SchoolGrades
                 DrawOrSort();
                 ListaVisibile = false;
                 chkStudentsListVisible.Checked = false;
+                butComeOn.Enabled = true;
             }
         }
         private List<Student> CreateRevengeList(List<Student> StudentList)
@@ -1231,6 +1242,8 @@ namespace SchoolGrades
 
             txtPeso.Text = "";
             txtPeso.Clear();
+            txtWeightedMedia.Text = "";
+            txtWeightedMedia.Clear();
             timerLesson.Stop(); 
             timerPopUp.Stop();
             timerQuestion.Stop();
