@@ -9,7 +9,7 @@ namespace SchoolGrades
 {
     public partial class frmGradesClassSummary : Form
     {
-        DbAndBusiness db = new DbAndBusiness();
+        DbAndBusiness db;
         private Class currentClass;
         private GradeType currentGradeType;
         private SchoolSubject currentSubject;
@@ -19,6 +19,8 @@ namespace SchoolGrades
             SchoolSubject Subject)
         {
             InitializeComponent();
+
+            db = new DbAndBusiness(Commons.PathAndFileDatabase);
 
             currentClass = Class;
             currentGradeType = GradeType;

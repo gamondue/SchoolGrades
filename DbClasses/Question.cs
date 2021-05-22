@@ -12,7 +12,7 @@ namespace SchoolGrades.DbClasses
         private double? weight = 0;
         private int? duration = 0;
         private int? idTopic = 0;
-        private int? idSubject = 0;
+        //private int? idSubject = 0;
         private string idSchoolSubject = "";
         private int? difficulty = 0;
         private string image = "";
@@ -24,7 +24,7 @@ namespace SchoolGrades.DbClasses
         public double? Weight { get => weight; set => weight = value; }
         public int? Duration { get => duration; set => duration = value; }
         public int? IdTopic { get => idTopic; set => idTopic = value; }
-        public int? IdSubject { get => idSubject; set => idSubject = value; }
+        //public int? IdSubject { get => idSubject; set => idSubject = value; }
         public string IdSchoolSubject { get => idSchoolSubject; set => idSchoolSubject = value; }
         public int? Difficulty { get => difficulty; set => difficulty = value; }
         public string Image { get => image; set => image = value; }

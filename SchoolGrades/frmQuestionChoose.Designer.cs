@@ -66,10 +66,10 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.LblLessonTime = new System.Windows.Forms.Label();
             this.btnComb = new System.Windows.Forms.Button();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.txtSearchText = new System.Windows.Forms.TextBox();
             this.lblSearchText = new System.Windows.Forms.Label();
             this.LessonTimer = new System.Windows.Forms.Timer(this.components);
-            this.btnSearch = new System.Windows.Forms.Button();
             this.grpTopic.SuspendLayout();
             this.grpQuestions.SuspendLayout();
             this.grpPeriodOfQuestionsTopics.SuspendLayout();
@@ -126,7 +126,7 @@
             // btnChooseByPeriod
             // 
             this.btnChooseByPeriod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnChooseByPeriod.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnChooseByPeriod.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnChooseByPeriod.Location = new System.Drawing.Point(948, 22);
             this.btnChooseByPeriod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnChooseByPeriod.Name = "btnChooseByPeriod";
@@ -178,7 +178,7 @@
             this.txtTopic.Location = new System.Drawing.Point(102, 27);
             this.txtTopic.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtTopic.Name = "txtTopic";
-            this.txtTopic.Size = new System.Drawing.Size(694, 24);
+            this.txtTopic.Size = new System.Drawing.Size(705, 24);
             this.txtTopic.TabIndex = 0;
             // 
             // grpQuestions
@@ -435,7 +435,7 @@
             // 
             // btnAddQuestion
             // 
-            this.btnAddQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnAddQuestion.Location = new System.Drawing.Point(6, 21);
             this.btnAddQuestion.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnAddQuestion.Name = "btnAddQuestion";
@@ -448,9 +448,9 @@
             // cmbQuestionTypes
             // 
             this.cmbQuestionTypes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbQuestionTypes.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbQuestionTypes.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmbQuestionTypes.FormattingEnabled = true;
-            this.cmbQuestionTypes.Location = new System.Drawing.Point(253, 27);
+            this.cmbQuestionTypes.Location = new System.Drawing.Point(246, 27);
             this.cmbQuestionTypes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbQuestionTypes.Name = "cmbQuestionTypes";
             this.cmbQuestionTypes.Size = new System.Drawing.Size(233, 26);
@@ -479,7 +479,7 @@
             // lblQuestionType
             // 
             this.lblQuestionType.AutoSize = true;
-            this.lblQuestionType.Location = new System.Drawing.Point(250, 6);
+            this.lblQuestionType.Location = new System.Drawing.Point(243, 6);
             this.lblQuestionType.Name = "lblQuestionType";
             this.lblQuestionType.Size = new System.Drawing.Size(103, 18);
             this.lblQuestionType.TabIndex = 7;
@@ -491,7 +491,7 @@
             this.LblLessonTime.BackColor = System.Drawing.Color.Transparent;
             this.LblLessonTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.LblLessonTime.Enabled = false;
-            this.LblLessonTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblLessonTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.LblLessonTime.ForeColor = System.Drawing.Color.DarkBlue;
             this.LblLessonTime.Location = new System.Drawing.Point(940, 126);
             this.LblLessonTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -505,7 +505,7 @@
             // 
             this.btnComb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnComb.BackColor = System.Drawing.Color.Transparent;
-            this.btnComb.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnComb.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnComb.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnComb.Location = new System.Drawing.Point(949, 21);
             this.btnComb.Margin = new System.Windows.Forms.Padding(6);
@@ -517,36 +517,11 @@
             this.btnComb.UseVisualStyleBackColor = false;
             this.btnComb.Click += new System.EventHandler(this.BtnComb_Click);
             // 
-            // txtSearchText
-            // 
-            this.txtSearchText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSearchText.Location = new System.Drawing.Point(509, 29);
-            this.txtSearchText.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtSearchText.Name = "txtSearchText";
-            this.txtSearchText.Size = new System.Drawing.Size(349, 24);
-            this.txtSearchText.TabIndex = 7;
-            this.txtSearchText.TextChanged += new System.EventHandler(this.txtSearchText_TextChanged);
-            // 
-            // lblSearchText
-            // 
-            this.lblSearchText.AutoSize = true;
-            this.lblSearchText.Location = new System.Drawing.Point(506, 6);
-            this.lblSearchText.Name = "lblSearchText";
-            this.lblSearchText.Size = new System.Drawing.Size(128, 18);
-            this.lblSearchText.TabIndex = 105;
-            this.lblSearchText.Text = "Testo da ricercare";
-            // 
-            // LessonTimer
-            // 
-            this.LessonTimer.Interval = 1000;
-            this.LessonTimer.Tick += new System.EventHandler(this.LessonTimer_Tick);
-            // 
             // btnSearch
             // 
             this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSearch.BackColor = System.Drawing.Color.Transparent;
-            this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnSearch.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnSearch.Location = new System.Drawing.Point(867, 21);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(6);
@@ -558,6 +533,31 @@
         "indicato");
             this.btnSearch.UseVisualStyleBackColor = false;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // txtSearchText
+            // 
+            this.txtSearchText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSearchText.Location = new System.Drawing.Point(485, 28);
+            this.txtSearchText.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtSearchText.Name = "txtSearchText";
+            this.txtSearchText.Size = new System.Drawing.Size(337, 24);
+            this.txtSearchText.TabIndex = 7;
+            this.txtSearchText.TextChanged += new System.EventHandler(this.txtSearchText_TextChanged);
+            // 
+            // lblSearchText
+            // 
+            this.lblSearchText.AutoSize = true;
+            this.lblSearchText.Location = new System.Drawing.Point(482, 5);
+            this.lblSearchText.Name = "lblSearchText";
+            this.lblSearchText.Size = new System.Drawing.Size(128, 18);
+            this.lblSearchText.TabIndex = 105;
+            this.lblSearchText.Text = "Testo da ricercare";
+            // 
+            // LessonTimer
+            // 
+            this.LessonTimer.Interval = 1000;
+            this.LessonTimer.Tick += new System.EventHandler(this.LessonTimer_Tick);
             // 
             // frmQuestionChoose
             // 
@@ -576,7 +576,7 @@
             this.Controls.Add(this.cmbSchoolSubject);
             this.Controls.Add(this.grpQuestions);
             this.Controls.Add(this.grpTopic);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.Color.DarkBlue;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);

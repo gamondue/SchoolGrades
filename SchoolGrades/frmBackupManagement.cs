@@ -13,8 +13,8 @@ namespace SchoolGrades
 {
     public partial class frmBackupManagement : Form
     {
-        DbAndBusiness db = new DbAndBusiness();
-        TreeMptt topicTreeMptt = new TreeMptt(null, null, null, null, null, null, null, DragDropEffects.None); 
+        DbAndBusiness db;
+        TreeMptt topicTreeMptt; 
 
         private string schoolYear;
         Class currentClass;
@@ -22,6 +22,11 @@ namespace SchoolGrades
         public frmBackupManagement()
         {
             InitializeComponent();
+
+            DbAndBusiness db = new DbAndBusiness(Commons.PathAndFileDatabase);
+            TreeMpttDb dbMptt = new TreeMpttDb(db);
+
+            topicTreeMptt = new TreeMptt(db, null, null, null, null, null, null, null, DragDropEffects.None);
         }
 
         private void frmBackupManagement_Load(object sender, EventArgs e)
@@ -265,7 +270,9 @@ namespace SchoolGrades
 
         private void BtnNewDatabase_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Da fare!"); 
+            //MessageBox.Show("Da fare!"); 
+            db.NewDatabase();
+            MessageBox.Show("Creato nuovo database SchoolGradesNew.sqlite"); 
         }
-     }
+    }
 }

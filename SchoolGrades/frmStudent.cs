@@ -10,7 +10,7 @@ namespace SchoolGrades
     {
         Student currentStudent;
         private bool isDialog;
-        DbAndBusiness db = new DbAndBusiness();
+        DbAndBusiness db;
         internal bool UserHasChosen; //!!!!= false;
 
         public Student CurrentStudent { get => currentStudent; set => currentStudent = value; }
@@ -18,6 +18,9 @@ namespace SchoolGrades
         public frmStudent(Student Student, bool IsDialog)
         {
             InitializeComponent();
+
+            db = new DbAndBusiness(Commons.PathAndFileDatabase);
+
 
             currentStudent = Student;
             isDialog = IsDialog; 

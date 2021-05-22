@@ -114,7 +114,7 @@
             // txtOfficialSchoolAbbreviation
             // 
             this.txtOfficialSchoolAbbreviation.Enabled = false;
-            this.txtOfficialSchoolAbbreviation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtOfficialSchoolAbbreviation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtOfficialSchoolAbbreviation.Location = new System.Drawing.Point(13, 43);
             this.txtOfficialSchoolAbbreviation.Margin = new System.Windows.Forms.Padding(4);
             this.txtOfficialSchoolAbbreviation.Name = "txtOfficialSchoolAbbreviation";
@@ -292,6 +292,8 @@
             // 
             // txtSchoolSubject
             // 
+            this.txtSchoolSubject.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSchoolSubject.Enabled = false;
             this.txtSchoolSubject.Location = new System.Drawing.Point(367, 43);
             this.txtSchoolSubject.Name = "txtSchoolSubject";
@@ -322,7 +324,7 @@
             // txtTopicFind
             // 
             this.txtTopicFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtTopicFind.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTopicFind.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtTopicFind.Location = new System.Drawing.Point(802, 163);
             this.txtTopicFind.Multiline = true;
             this.txtTopicFind.Name = "txtTopicFind";
@@ -344,7 +346,7 @@
             // 
             this.txtTopicName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtTopicName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTopicName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtTopicName.Location = new System.Drawing.Point(0, 359);
             this.txtTopicName.Multiline = true;
             this.txtTopicName.Name = "txtTopicName";
@@ -377,6 +379,8 @@
             // 
             // TxtLessonDesc
             // 
+            this.TxtLessonDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.TxtLessonDesc.Location = new System.Drawing.Point(232, 92);
             this.TxtLessonDesc.Multiline = true;
             this.TxtLessonDesc.Name = "TxtLessonDesc";
@@ -418,7 +422,7 @@
             // 
             this.TxtTopicsDigestAndSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TxtTopicsDigestAndSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtTopicsDigestAndSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.TxtTopicsDigestAndSearch.Location = new System.Drawing.Point(1, 0);
             this.TxtTopicsDigestAndSearch.Multiline = true;
             this.TxtTopicsDigestAndSearch.Name = "TxtTopicsDigestAndSearch";
@@ -430,6 +434,7 @@
             // 
             // btnCopyNoteToClipboard
             // 
+            this.btnCopyNoteToClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCopyNoteToClipboard.Location = new System.Drawing.Point(673, 67);
             this.btnCopyNoteToClipboard.Name = "btnCopyNoteToClipboard";
             this.btnCopyNoteToClipboard.Size = new System.Drawing.Size(108, 25);
@@ -440,6 +445,7 @@
             // 
             // btnStartLinks
             // 
+            this.btnStartLinks.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnStartLinks.Location = new System.Drawing.Point(673, 18);
             this.btnStartLinks.Name = "btnStartLinks";
             this.btnStartLinks.Size = new System.Drawing.Size(108, 25);
@@ -453,7 +459,7 @@
             this.txtTopicDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtTopicDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTopicDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtTopicDescription.Location = new System.Drawing.Point(0, 2);
             this.txtTopicDescription.Multiline = true;
             this.txtTopicDescription.Name = "txtTopicDescription";
@@ -565,7 +571,7 @@
             // 
             this.lblExplain.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblExplain.AutoSize = true;
-            this.lblExplain.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblExplain.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblExplain.Location = new System.Drawing.Point(3, 340);
             this.lblExplain.Name = "lblExplain";
             this.lblExplain.Size = new System.Drawing.Size(370, 13);
@@ -639,10 +645,11 @@
             // 
             // lblLessonTime
             // 
+            this.lblLessonTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblLessonTime.BackColor = System.Drawing.Color.Transparent;
             this.lblLessonTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblLessonTime.Enabled = false;
-            this.lblLessonTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLessonTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblLessonTime.ForeColor = System.Drawing.Color.DarkBlue;
             this.lblLessonTime.Location = new System.Drawing.Point(702, 161);
             this.lblLessonTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -658,6 +665,7 @@
             // 
             // btnLessonSave
             // 
+            this.btnLessonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnLessonSave.Location = new System.Drawing.Point(702, 101);
             this.btnLessonSave.Name = "btnLessonSave";
             this.btnLessonSave.Size = new System.Drawing.Size(78, 54);
@@ -668,6 +676,7 @@
             // 
             // BtnOpenImagesFolder
             // 
+            this.BtnOpenImagesFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnOpenImagesFolder.Location = new System.Drawing.Point(559, 18);
             this.BtnOpenImagesFolder.Name = "BtnOpenImagesFolder";
             this.BtnOpenImagesFolder.Size = new System.Drawing.Size(108, 25);
@@ -719,6 +728,7 @@
             // 
             // BtnSearchAmongTopics
             // 
+            this.BtnSearchAmongTopics.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnSearchAmongTopics.Location = new System.Drawing.Point(559, 67);
             this.BtnSearchAmongTopics.Name = "BtnSearchAmongTopics";
             this.BtnSearchAmongTopics.Size = new System.Drawing.Size(108, 25);
@@ -773,7 +783,7 @@
             this.Controls.Add(this.lblSchoolCode);
             this.Controls.Add(this.lblClassAbbreviation);
             this.Controls.Add(this.lblSchoolSubject);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.Color.DarkBlue;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;

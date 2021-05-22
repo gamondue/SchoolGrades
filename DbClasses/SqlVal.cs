@@ -75,6 +75,8 @@ namespace SchoolGrades.DbClasses
 
         public static string SqlBool(object Value)
         {
+            if (Value == null)
+                return null; 
             if ((bool)Value == false)
             {
                 return "0";

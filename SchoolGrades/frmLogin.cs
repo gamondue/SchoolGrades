@@ -4,62 +4,60 @@ using System.Windows.Forms;
 
 namespace SchoolGrades
 {
-    public partial class frmLogin : Form
+    public partial class frmLogin : MetroFramework.Forms.MetroForm
     {
         DbAndBusiness db; // must instatiate after config file reading
-        BusinessLayer.BusinessLayer bl; // must instatiate after config file reading
-        
+        BusinessLayer bl; // must instatiate after config file reading
+        User user;
         public frmLogin()
         {
             InitializeComponent();
         }
         private void frmLogin_Load(object sender, EventArgs e)
         {
-             Commons.ReadConfigFile();
+            db = new DbAndBusiness(Commons.PathAndFileDatabase); 
+            bl = new BusinessLayer(Commons.PathAndFileDatabase);
 
-            while (!System.IO.File.Exists(Commons.PathAndFileDatabase))
-            {
-                MessageBox.Show("Configurazione del programma.\r\nSe necessario sistemare le cartelle (si possono anche lasciare così), poi scegliere il file di dati .sqlite e premere 'Salva configurazione'");
-                FrmSetup f = new FrmSetup();
-                f.ShowDialog();
-                //return; 
-            }
-            db = new DbAndBusiness(); 
-            bl = new BusinessLayer.BusinessLayer();
-
-            //// test examples
-            //User u;
-            //u = new User("pippo", "pluto");
-            ////u = new User("pina", "pluto");
+            // test examples
+            User u;
+            u = new User("pippo", "pluto");
+            //u = new User("pina", "pluto");
             ////u = new User("ugo", "pina");
             //bl.CreateUser(u);
-            //u.Password = "mariangela";
-            //bl.ChangePassword(u);
+            u.Password = "mariangela";
+            bl.ChangePassword(u);
 
-            //u.FirstName = "Ugo";
-            //u.LastName = "Fantozzi";
-            //u.Email = "u.fantozzi@megaditta.com"; 
-            //u.Description = "Inferiore Rag. Ugo Fantozzi";
-            //bl.UpdateUser(u);
+            u.FirstName = "Ugo";
+            u.LastName = "Fantozzi";
+            u.Email = "u.fantozzi@megaditta.com";
+            u.Description = "Inferiore Rag. Ugo Fantozzi";
+            bl.UpdateUser(u);
 
-            //User u1 = bl.GetUser("ugo");
+            User u1 = bl.GetUser("ugo");
         }
-        private void btnOk_Click(object sender, EventArgs e)
+
+        private void btnOk_Click_1(object sender, EventArgs e)
         {
-            if (bl.IsUserAllowed(new User(txtUsername.Text, txtPassword.Text)))
+            user.Username = txtUsername.Text;
+            user.Password = txtPassword.Text;
+            if (bl.IsUserAllowed(user))
             {
                 frmMain f = new frmMain();
                 this.Hide();
-                f.ShowDialog(); 
+                f.ShowDialog();
             }
             else
             {
                 MessageBox.Show("Digitare credenziali corrette!");
             }
-            this.Close();
         }
 
-        private void btnChangePassword_Click(object sender, EventArgs e)
+        internal User GetUser()
+        {
+            return user;
+        }
+
+        private void btnChangePassword_Click_1(object sender, EventArgs e)
         {
             frmChangePassword frmChangePassword = new frmChangePassword();
             frmChangePassword.Show();

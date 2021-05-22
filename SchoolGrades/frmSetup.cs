@@ -8,7 +8,11 @@ namespace SchoolGrades
 {
     public partial class FrmSetup : Form
     {
+        BusinessLayer bl = new BusinessLayer(Commons.PathAndFileDatabase);
+        DataLayer.DataLayer dl = new DataLayer.DataLayer(Commons.PathAndFileDatabase);
+
         public bool NewDatabaseFile { get; private set; }
+        //User currentUserSalt = new User();
 
         public FrmSetup()
         {
@@ -19,10 +23,10 @@ namespace SchoolGrades
         private void frmSetup_Load(object sender, EventArgs e)
         {
             Commons.ReadConfigFile();
-            TxtPathImages.Text = Commons.PathImages;
-            TxtPathStartLinks.Text = Commons.PathStartLinks; // not longer used
             TxtPathDatabase.Text = Commons.PathDatabase;
             TxtFileDatabase.Text = Commons.FileDatabase;
+            TxtPathImages.Text = Commons.PathImages;
+            TxtPathStartLinks.Text = Commons.PathStartLinks; // not longer used
             Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.FileDatabase;
             TxtPathDocuments.Text = Commons.PathDocuments;
             chkSaveBackup.Checked = Commons.SaveBackupWhenExiting; 
@@ -74,7 +78,7 @@ namespace SchoolGrades
             WriteConfigFile();
         }
 
-        private void WriteConfigFile()
+        internal void WriteConfigFile()
         {
             string[] dati = new string[6];
             try
@@ -251,6 +255,31 @@ namespace SchoolGrades
         private void TxtPathStartLinks_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnUsersManagement_Click(object sender, EventArgs e)
+        {
+            //    frmLogin frmLogin = new frmLogin();
+            //    frmLogin.GetUser();
+            //    if (frmLogin.GetUser().Salt == "owner")
+            //    {
+            //        frmUsersManagement f = new frmUsersManagement();
+            //        f.Show();
+            //    }
+            //    else if(frmLogin.GetUser().Salt == "host")
+            //    {
+            //        MessageBox.Show("Sei un host, non puoi accedere al database degli utenti.", "Gestione utenti.",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            //        return;
+            //    }
+            //    else
+            //    {
+            //        frmUsersManagement f = new frmUsersManagement();
+            //        f.Show();
+            //    }
+            //frmUsersManagementListBox frmUsersManagementListBox = new frmUsersManagementListBox();
+            //frmUsersManagementListBox.Show();
+            frmUsersManagement frmUsersManagement = new frmUsersManagement();
+            frmUsersManagement.Show();
         }
     }
 }

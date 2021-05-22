@@ -1,0 +1,34 @@
+GROUP 7: DARGUI HAMZA, GARDINI PIETRO, PULGA LUCA
+
+OK
+--------------------------
+x tutti OK
+x OK
+x no OK
+X di OK
+cambio OK
+mosaico OK
+start OK
+numero OK
+sorteggio OK
+costretto OK
+
+TO FIX:
+-------------------------
+- immagine (non carica alcuna immagine)
+- scelta domanda (tutto nullreferenceobject)
+	un argomento
+		frmQuestionChoose
+			nullreferenceobject
+- carica immagine in lezioni (non carica, solo beep)
+- A NON, segna tutti gli argomenti
+- ARGOM ., value cannot benull	
+	frmlessons
+- ANNOTAZIONE: nullreferenceobject
+	frmANnotationsAbout
+- SETUP
+	TABELLE
+		DB&BUSINESS
+			' '
+- RIGHT VOTI
+	PARTE DA FINIRE

@@ -10,8 +10,8 @@ namespace SchoolGrades
 {
     public partial class frmQuestionChoose : Form
     {
-        DbAndBusiness db = new DbAndBusiness();
-        TreeMpttDb dbMptt = new TreeMpttDb(); 
+        DbAndBusiness db;
+        TreeMpttDb dbMptt; 
 
         //SchoolSubject subj = new SchoolSubject();
 
@@ -31,11 +31,13 @@ namespace SchoolGrades
 
         internal Question ChosenQuestion {get => chosenQuestion; set => chosenQuestion = value; }
         public frmMicroAssessment ParentForm { get; }
-
         internal frmQuestionChoose(frmMicroAssessment ParentForm,
             SchoolSubject SchoolSubject, Class Class, Student Student = null, Question Question = null)
         {
             InitializeComponent();
+
+            DbAndBusiness db = new DbAndBusiness(Commons.PathAndFileDatabase);
+            TreeMpttDb dbMptt = new TreeMpttDb(db);
 
             this.ParentForm = ParentForm; 
             // fills the lookup tables' combos
@@ -48,14 +50,14 @@ namespace SchoolGrades
             cmbQuestionTypes.ValueMember = "idQuestionType";
             cmbQuestionTypes.DataSource = lq;
 
-            currentSubject = SchoolSubject; 
+            //currentSubject = SchoolSubject; 
+            currentSubject = null; 
             currentClass = Class;
             currentStudent = Student;
             previousQuestion = Question;
             if (Question != null && Question.IdTopic != 0)
                 currentTopic = db.GetTopicById(Question.IdTopic); 
         }
-
         private void frmQuestionChoose_Load(object sender, EventArgs e)
         {
             cmbSchoolSubject.SelectedValue = "";
@@ -78,7 +80,6 @@ namespace SchoolGrades
             if (Commons.IsTimerLessonActive)
                 LessonTimer.Start();
         }
-
         private void btnAddQuestion_Click(object sender, EventArgs e)
         {
             Question q = new Question();
@@ -97,12 +98,11 @@ namespace SchoolGrades
             }
             updateQuestions();
         }
-
         private void btnCopyQuestion_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Function not implemented yet");
         }
-         private void btnAddTag_Click(object sender, EventArgs e)
+        private void btnAddTag_Click(object sender, EventArgs e)
         {
             frmTag t = new frmTag(true);
             t.ShowDialog();
@@ -115,7 +115,6 @@ namespace SchoolGrades
             }
             updateQuestions();
         }
-
         private void updateQuestions()
         {
             if (isLoading)
@@ -132,7 +131,6 @@ namespace SchoolGrades
 
             LoadDatagrids(keySubject, keyQuestionType); 
         }
-
         private void LoadDatagrids(string keySubject, string keyQuestionType)
         {
             //dgwQuestions.DataSource = db.GetFilteredQuestions(tagsList, keySubject,
@@ -147,7 +145,6 @@ namespace SchoolGrades
                 dateFrom, dateTo);
             dgwQuestions.DataSource = l;
         }
-
         private void btnRemoveTag_Click(object sender, EventArgs e)
         {
             if (lstTags.SelectedItem == null)
@@ -164,7 +161,6 @@ namespace SchoolGrades
             }
             updateQuestions();
         }
-
         private void cmbSchoolSubject_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentSubject = (SchoolSubject)cmbSchoolSubject.SelectedItem; // new SchoolSubject();
@@ -173,12 +169,10 @@ namespace SchoolGrades
 
             updateQuestions();
         }
-
         private void cmbQuestionType_SelectedIndexChanged(object sender, EventArgs e)
         {
             updateQuestions();
         }
-
         private void btnChoose_Click(object sender, EventArgs e)
         {
             if (dgwQuestions.SelectedRows.Count > 0)
@@ -194,7 +188,6 @@ namespace SchoolGrades
                 return;
             }
         }
-
         private void btnChooseTopic_Click(object sender, EventArgs e)
         {
             Topic chosenTopic = currentTopic;
@@ -214,7 +207,6 @@ namespace SchoolGrades
             }
             f.Dispose();
         }
-
         private void btnDontUseTopic_Click(object sender, EventArgs e)
         {
             currentTopic = null;
@@ -223,7 +215,6 @@ namespace SchoolGrades
 
             updateQuestions();
         }
-
         private void btnChooseByPeriod_Click(object sender, EventArgs e)
         {
             if (currentClass == null)
@@ -246,7 +237,6 @@ namespace SchoolGrades
             }
             f.Dispose();
         }
-
         private void btnRandomQuestion_Click(object sender, EventArgs e)
         {
             Random r = new Random();
@@ -299,17 +289,14 @@ namespace SchoolGrades
             }
             this.Close();
         }
-
         private void rdbOr_CheckedChanged(object sender, EventArgs e)
         {
             updateQuestions();
         }
-
         private void rdbOneTopic_CheckedChanged(object sender, EventArgs e)
         {
             updateQuestions();
         }
-
         private void cmbStandardPeriod_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (cmbStandardPeriod.SelectedIndex)
@@ -345,12 +332,10 @@ namespace SchoolGrades
             }
             updateQuestions();
         }
-
         private void dtpEndPeriod_ValueChanged(object sender, EventArgs e)
         {
 
         }
-
         private void txtSearchText_TextChanged(object sender, EventArgs e)
         {
             if (txtSearchText.Text.Length > 3)
@@ -386,18 +371,15 @@ namespace SchoolGrades
                 frmQuestionChoose_Load(null, null);
             }
         }
-
         private void LessonTimer_Tick(object sender, EventArgs e)
         {
             // TODO !!!! avoid this interrupt when the timer is disabled in main form !!!!
             LblLessonTime.BackColor = ((frmMain)Application.OpenForms[0]).CurrentLessonTimeColor;
         }
-
         private void btnSearch_Click(object sender, EventArgs e)
         {
             updateQuestions();
         }
-
         private void BtnComb_Click(object sender, EventArgs e)
         {
             if(!Commons.CheckIfStudentChosen(currentStudent))
