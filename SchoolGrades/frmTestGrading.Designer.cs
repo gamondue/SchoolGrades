@@ -49,7 +49,7 @@
             this.lblIdClass.AutoSize = true;
             this.lblIdClass.Location = new System.Drawing.Point(115, 4);
             this.lblIdClass.Name = "lblIdClass";
-            this.lblIdClass.Size = new System.Drawing.Size(105, 18);
+            this.lblIdClass.Size = new System.Drawing.Size(131, 24);
             this.lblIdClass.TabIndex = 7;
             this.lblIdClass.Text = "Codice Classe";
             // 
@@ -57,7 +57,7 @@
             // 
             this.textBox1.Location = new System.Drawing.Point(119, 25);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 24);
+            this.textBox1.Size = new System.Drawing.Size(100, 29);
             this.textBox1.TabIndex = 6;
             // 
             // label1
@@ -65,7 +65,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(3, 4);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(88, 18);
+            this.label1.Size = new System.Drawing.Size(111, 24);
             this.label1.TabIndex = 5;
             this.label1.Text = "Codice Test";
             // 
@@ -73,7 +73,7 @@
             // 
             this.txtIdTest.Location = new System.Drawing.Point(3, 25);
             this.txtIdTest.Name = "txtIdTest";
-            this.txtIdTest.Size = new System.Drawing.Size(100, 24);
+            this.txtIdTest.Size = new System.Drawing.Size(100, 29);
             this.txtIdTest.TabIndex = 4;
             // 
             // btnReport
@@ -92,7 +92,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(792, 4);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 18);
+            this.label2.Size = new System.Drawing.Size(65, 24);
             this.label2.TabIndex = 10;
             this.label2.Text = "C.N.C.";
             // 
@@ -101,7 +101,7 @@
             this.txtCnc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCnc.Location = new System.Drawing.Point(796, 25);
             this.txtCnc.Name = "txtCnc";
-            this.txtCnc.Size = new System.Drawing.Size(81, 24);
+            this.txtCnc.Size = new System.Drawing.Size(81, 29);
             this.txtCnc.TabIndex = 9;
             this.txtCnc.Text = "1";
             // 
@@ -126,6 +126,7 @@
             this.dgwTestResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgwTestResults.Location = new System.Drawing.Point(3, 55);
             this.dgwTestResults.Name = "dgwTestResults";
+            this.dgwTestResults.RowHeadersWidth = 51;
             this.dgwTestResults.RowTemplate.Height = 24;
             this.dgwTestResults.Size = new System.Drawing.Size(787, 439);
             this.dgwTestResults.TabIndex = 12;
@@ -141,12 +142,13 @@
             this.btnSave.TabIndex = 13;
             this.btnSave.Text = "Salva";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // txtCurrentCell
             // 
             this.txtCurrentCell.Location = new System.Drawing.Point(226, 25);
             this.txtCurrentCell.Name = "txtCurrentCell";
-            this.txtCurrentCell.Size = new System.Drawing.Size(564, 24);
+            this.txtCurrentCell.Size = new System.Drawing.Size(564, 29);
             this.txtCurrentCell.TabIndex = 14;
             // 
             // label3
@@ -154,7 +156,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(226, 4);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(238, 18);
+            this.label3.Size = new System.Drawing.Size(302, 24);
             this.label3.TabIndex = 15;
             this.label3.Text = "Valore cella (click per visualizzare) ";
             // 
@@ -162,7 +164,7 @@
             // 
             this.btnMakeFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMakeFile.Enabled = false;
-            this.btnMakeFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMakeFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnMakeFile.Location = new System.Drawing.Point(796, 312);
             this.btnMakeFile.Name = "btnMakeFile";
             this.btnMakeFile.Size = new System.Drawing.Size(81, 41);
@@ -173,7 +175,7 @@
             // 
             // frmTestGrading
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(885, 506);
@@ -190,7 +192,7 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtIdTest);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.Color.DarkBlue;
             this.Name = "frmTestGrading";
             this.Text = "Valutazione di una prova";

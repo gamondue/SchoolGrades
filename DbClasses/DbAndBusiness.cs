@@ -2231,7 +2231,7 @@ namespace SchoolGrades.DbClasses
         {
             using (DbConnection conn = dl.Connect())
             {
-                string query = "SELECT * FROM " + Table + ";";
+                string query = "SELECT * FROM '" + Table + "';";
                 DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
                 DSet = new DataSet("OpenLookupTable");
 

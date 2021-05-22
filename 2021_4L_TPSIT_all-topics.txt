@@ -1,0 +1,100 @@
+Corse
+	Race condition
+	la possibilità di inconsistenza: di almeno una delle variabili del programma
+	improbabile: non succede quasi mai
+inconsistenza in "saldo" di un conto bancario
+	tracciamento passo passo
+Threading
+	Classe Thread
+Name
+Interrupt
+	un device può chiedere alla CPU di far eseguire un sottoprogramma
+	è un sistema hardware che fa eseguire un metodo alla CPU
+		il metodo si chiama ISR
+			Interrupt Service Routine
+IRQ
+	è il filo del control bus che lancia la richiesta di interruzione alla CPU
+Sincronizzazione: Sincronizzazione dei processi concorrenti (o dei thread concorrenti )
+	darsi i turni "bene": per impedire sequenze di operazioni che possano generare inconsistenze (per impedire corse)
+	funzioni primitive
+		non interrompibili: non possono essere interrotte da nessun task (processo o thread) che usi la risorsa condivisa
+			da parte di chi?
+				di tutti i processi
+				dai task interessati: non possono essere interrotte da nessun task (processo o thread) che usi la risorsa condivisa
+Semafori: Variabili int che vengono lette e modificate in modo non interrompibile da funzioni primitive
+	primitive semafori: le primitive che si usano nei semafori
+		wait(): aspetta che il semaforo sia "verde", lo mette "rosso" ed esce
+		signal(): mette "verde" il semaforo ed esce
+Implementazione dei semafori
+Suspend()
+Resume()
+Blocco lock (<variabile oggetto>)
+	è parte del C#
+		non appartiene ad una libreria
+		non ha un namespace
+Implementazione dei semafori
+Semafori generalizzati
+	inizializzato a N
+		N è il numero di processi che possono entrare CONTEMPORANEAMENTE
+Blocco lock (<variabile oggetto>)
+	è parte del C#
+		non appartiene ad una libreria
+		non ha un namespace
+Classe Mutex
+Mutex <variabile semaforo> = new Mutex();
+Metodo WaitOne()
+	come la wait(s) di teoria
+Metodo ReleaseMutex()
+	come la signal(s) di teoria
+Blocco lock (<variabile oggetto>)
+	è parte del C#
+Deadlock
+	problema di "prenotazioni incrociate"
+	insorge nell'allocazione delle risorse
+	NON si risolve con le primitive di sincrozizzazione
+	"uno aspetta l'altro"
+si fermano PER SEMPRE!
+intermittente
+"Soluzioni"
+	Se il deadlock è improbabile
+		si rileva se c'è
+			dealock detection
+Se è probabile o troppo "costoso": un deadlock potrebbe fare danni molto gravi
+	algoritmi
+prenotare tutto prima: quando un processo chiede una risirsa,chiede anche tutte quelle che gli serviranno in futuro
+algoritmi più o meno sofisticati basati sulla teoria dei grafi
+Classe Semaphore
+	Classe SemaphoreSlim
+repository remoti
+	remoto = locale + protocolli di comunicazione
+con SHH
+con HTTPS
+comando git remote
+comando git clone
+	copia in locale TUTTO un repo remoto
+comando git push
+	spedisce sul remoto le modifiche fatte sul clone locale
+	con push "pubblico" le mie modifiche sul remoto
+comando git pull
+	copia in locale le modifiche fatte sul remoto
+	con pull ottengo le modifiche "degli altri"!
+conflitti fra le versioni
+	possibili nel momento del git pull
+comando git push
+	push = "spingi"
+	spedisce sul remoto le modifiche fatte sul clone locale
+	con push "pubblico" le mie modifiche sul remoto
+	funziona solo se l'utente ha il diritto di push su quel repository
+GitHub
+	clonazione di un repo
+		crea un collegamento sicuro, per adesso e per il futuro
+			HTTPS
+GitHub e il mio computer si scambiano dei certificati
+Fork
+	Crea un nuovo repo su GITHUB
+https://<username di chi ha fatto il fork>/<nome del repository originario>
+è un clone, ma è di chi fa il fork, per cui egli ha la possibilità di push
+	il push viene fatto su un ALTRO repo
+Pull request
+	richieste di mettere le modifiche del richiedente nel repo GitHub
+	GitHub "ricorda" il repo originario di un fork

@@ -56,16 +56,16 @@ namespace SchoolGrades
             User.Password = CalculateHash(User.Password);
             dl.CreateUser(User); 
         }
-        private User ReadCredentialsFromDatabase(User CredentialsFromUser)
-        {
-            User u = new User("ugo", "pina");
-            return u;
-        }
-        private User WriteCredentialsToDatabase(User CredentialsFromUser)
-        {
-            User u = new User("ugo", "pina");
-            return u;
-        }
+        //private User ReadCredentialsFromDatabase(User CredentialsFromUser)
+        //{
+        //    User u = new User("ugo", "pina");
+        //    return u;
+        //}
+        //private User WriteCredentialsToDatabase(User CredentialsFromUser)
+        //{
+        //    User u = new User("ugo", "pina");
+        //    return u;
+        //}
         internal string CalculateHash(string ClearTextPassword)
         {
             using (SHA256 hash = SHA256.Create())

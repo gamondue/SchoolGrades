@@ -96,9 +96,10 @@
             this.DgwLessonsImages.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
             this.DgwLessonsImages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DgwLessonsImages.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.DgwLessonsImages.Location = new System.Drawing.Point(0, 0);
+            this.DgwLessonsImages.Location = new System.Drawing.Point(-3, -93);
             this.DgwLessonsImages.Name = "DgwLessonsImages";
-            this.DgwLessonsImages.Size = new System.Drawing.Size(1221, 90);
+            this.DgwLessonsImages.RowHeadersWidth = 51;
+            this.DgwLessonsImages.Size = new System.Drawing.Size(1221, 183);
             this.DgwLessonsImages.TabIndex = 128;
             this.DgwLessonsImages.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgwLessonsImages_CellClick);
             this.DgwLessonsImages.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgwLessonsImages_CellContentClick);
@@ -124,7 +125,7 @@
             this.txtLessonDesc.Location = new System.Drawing.Point(285, 79);
             this.txtLessonDesc.Name = "txtLessonDesc";
             this.txtLessonDesc.ReadOnly = true;
-            this.txtLessonDesc.Size = new System.Drawing.Size(357, 24);
+            this.txtLessonDesc.Size = new System.Drawing.Size(357, 28);
             this.txtLessonDesc.TabIndex = 142;
             // 
             // txtSchoolSubject
@@ -133,7 +134,7 @@
             this.txtSchoolSubject.Location = new System.Drawing.Point(356, 30);
             this.txtSchoolSubject.Name = "txtSchoolSubject";
             this.txtSchoolSubject.ReadOnly = true;
-            this.txtSchoolSubject.Size = new System.Drawing.Size(286, 24);
+            this.txtSchoolSubject.Size = new System.Drawing.Size(286, 28);
             this.txtSchoolSubject.TabIndex = 141;
             // 
             // lblLessonDesc
@@ -143,7 +144,7 @@
             this.lblLessonDesc.Location = new System.Drawing.Point(282, 58);
             this.lblLessonDesc.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblLessonDesc.Name = "lblLessonDesc";
-            this.lblLessonDesc.Size = new System.Drawing.Size(170, 18);
+            this.lblLessonDesc.Size = new System.Drawing.Size(218, 24);
             this.lblLessonDesc.TabIndex = 140;
             this.lblLessonDesc.Text = "Annotazioni sulla lezione";
             // 
@@ -154,7 +155,7 @@
             this.lblLessonDate.Location = new System.Drawing.Point(105, 58);
             this.lblLessonDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblLessonDate.Name = "lblLessonDate";
-            this.lblLessonDate.Size = new System.Drawing.Size(39, 18);
+            this.lblLessonDate.Size = new System.Drawing.Size(47, 24);
             this.lblLessonDate.TabIndex = 139;
             this.lblLessonDate.Text = "Data";
             // 
@@ -165,7 +166,7 @@
             this.lblLessonCode.Location = new System.Drawing.Point(-1, 58);
             this.lblLessonCode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblLessonCode.Name = "lblLessonCode";
-            this.lblLessonCode.Size = new System.Drawing.Size(92, 18);
+            this.lblLessonCode.Size = new System.Drawing.Size(117, 24);
             this.lblLessonCode.TabIndex = 138;
             this.lblLessonCode.Text = "Cod.Lezione";
             // 
@@ -175,7 +176,7 @@
             this.txtLessonCode.Location = new System.Drawing.Point(2, 79);
             this.txtLessonCode.Name = "txtLessonCode";
             this.txtLessonCode.ReadOnly = true;
-            this.txtLessonCode.Size = new System.Drawing.Size(100, 24);
+            this.txtLessonCode.Size = new System.Drawing.Size(100, 28);
             this.txtLessonCode.TabIndex = 137;
             this.txtLessonCode.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -186,7 +187,7 @@
             this.lblSchoolYear.Location = new System.Drawing.Point(141, 9);
             this.lblSchoolYear.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSchoolYear.Name = "lblSchoolYear";
-            this.lblSchoolYear.Size = new System.Drawing.Size(84, 18);
+            this.lblSchoolYear.Size = new System.Drawing.Size(108, 24);
             this.lblSchoolYear.TabIndex = 136;
             this.lblSchoolYear.Text = "Anno Scol. ";
             // 
@@ -196,7 +197,7 @@
             this.txtSchoolYear.Location = new System.Drawing.Point(144, 30);
             this.txtSchoolYear.Name = "txtSchoolYear";
             this.txtSchoolYear.ReadOnly = true;
-            this.txtSchoolYear.Size = new System.Drawing.Size(100, 24);
+            this.txtSchoolYear.Size = new System.Drawing.Size(100, 28);
             this.txtSchoolYear.TabIndex = 135;
             // 
             // txtClass
@@ -205,7 +206,7 @@
             this.txtClass.Location = new System.Drawing.Point(250, 30);
             this.txtClass.Name = "txtClass";
             this.txtClass.ReadOnly = true;
-            this.txtClass.Size = new System.Drawing.Size(100, 24);
+            this.txtClass.Size = new System.Drawing.Size(100, 28);
             this.txtClass.TabIndex = 134;
             // 
             // txtOfficialSchoolAbbreviation
@@ -216,7 +217,7 @@
             this.txtOfficialSchoolAbbreviation.Margin = new System.Windows.Forms.Padding(4);
             this.txtOfficialSchoolAbbreviation.Name = "txtOfficialSchoolAbbreviation";
             this.txtOfficialSchoolAbbreviation.ReadOnly = true;
-            this.txtOfficialSchoolAbbreviation.Size = new System.Drawing.Size(135, 24);
+            this.txtOfficialSchoolAbbreviation.Size = new System.Drawing.Size(135, 28);
             this.txtOfficialSchoolAbbreviation.TabIndex = 133;
             this.txtOfficialSchoolAbbreviation.Text = "FOIS01100L";
             // 
@@ -227,7 +228,7 @@
             this.lblSchoolCode.Location = new System.Drawing.Point(-1, 9);
             this.lblSchoolCode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSchoolCode.Name = "lblSchoolCode";
-            this.lblSchoolCode.Size = new System.Drawing.Size(105, 18);
+            this.lblSchoolCode.Size = new System.Drawing.Size(133, 24);
             this.lblSchoolCode.TabIndex = 132;
             this.lblSchoolCode.Text = "Codice Scuola";
             // 
@@ -238,7 +239,7 @@
             this.lblClassAbbreviation.Location = new System.Drawing.Point(247, 9);
             this.lblClassAbbreviation.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblClassAbbreviation.Name = "lblClassAbbreviation";
-            this.lblClassAbbreviation.Size = new System.Drawing.Size(90, 18);
+            this.lblClassAbbreviation.Size = new System.Drawing.Size(112, 24);
             this.lblClassAbbreviation.TabIndex = 131;
             this.lblClassAbbreviation.Text = "Sigla Classe";
             // 
@@ -247,7 +248,7 @@
             this.lblSchoolSubject.AutoSize = true;
             this.lblSchoolSubject.Location = new System.Drawing.Point(353, 9);
             this.lblSchoolSubject.Name = "lblSchoolSubject";
-            this.lblSchoolSubject.Size = new System.Drawing.Size(57, 18);
+            this.lblSchoolSubject.Size = new System.Drawing.Size(71, 24);
             this.lblSchoolSubject.TabIndex = 130;
             this.lblSchoolSubject.Text = "Materia";
             // 
@@ -256,7 +257,7 @@
             this.txtLessonDate.Location = new System.Drawing.Point(108, 79);
             this.txtLessonDate.Name = "txtLessonDate";
             this.txtLessonDate.ReadOnly = true;
-            this.txtLessonDate.Size = new System.Drawing.Size(171, 24);
+            this.txtLessonDate.Size = new System.Drawing.Size(171, 28);
             this.txtLessonDate.TabIndex = 143;
             // 
             // txtPathImportImage
@@ -265,7 +266,7 @@
             this.txtPathImportImage.Location = new System.Drawing.Point(2, 130);
             this.txtPathImportImage.Margin = new System.Windows.Forms.Padding(4);
             this.txtPathImportImage.Name = "txtPathImportImage";
-            this.txtPathImportImage.Size = new System.Drawing.Size(640, 24);
+            this.txtPathImportImage.Size = new System.Drawing.Size(640, 28);
             this.txtPathImportImage.TabIndex = 146;
             this.txtPathImportImage.TextChanged += new System.EventHandler(this.txtPathImportImage_TextChanged);
             this.txtPathImportImage.DoubleClick += new System.EventHandler(this.txtPathImportImage_DoubleClick);
@@ -289,7 +290,7 @@
             this.lblFileImportName.AutoSize = true;
             this.lblFileImportName.Location = new System.Drawing.Point(-1, 158);
             this.lblFileImportName.Name = "lblFileImportName";
-            this.lblFileImportName.Size = new System.Drawing.Size(211, 18);
+            this.lblFileImportName.Size = new System.Drawing.Size(273, 24);
             this.lblFileImportName.TabIndex = 145;
             this.lblFileImportName.Text = "File dell\'immagine da importare";
             // 
@@ -299,7 +300,7 @@
             this.txtFileImportImage.Location = new System.Drawing.Point(2, 179);
             this.txtFileImportImage.Margin = new System.Windows.Forms.Padding(4);
             this.txtFileImportImage.Name = "txtFileImportImage";
-            this.txtFileImportImage.Size = new System.Drawing.Size(344, 24);
+            this.txtFileImportImage.Size = new System.Drawing.Size(344, 28);
             this.txtFileImportImage.TabIndex = 144;
             // 
             // lblPathDatabase
@@ -307,7 +308,7 @@
             this.lblPathDatabase.AutoSize = true;
             this.lblPathDatabase.Location = new System.Drawing.Point(-1, 108);
             this.lblPathDatabase.Name = "lblPathDatabase";
-            this.lblPathDatabase.Size = new System.Drawing.Size(216, 18);
+            this.lblPathDatabase.Size = new System.Drawing.Size(273, 24);
             this.lblPathDatabase.TabIndex = 148;
             this.lblPathDatabase.Text = "Cartella importazione immagine";
             // 
@@ -331,7 +332,7 @@
             this.rdbAutoRename.Checked = true;
             this.rdbAutoRename.Location = new System.Drawing.Point(420, 165);
             this.rdbAutoRename.Name = "rdbAutoRename";
-            this.rdbAutoRename.Size = new System.Drawing.Size(167, 22);
+            this.rdbAutoRename.Size = new System.Drawing.Size(207, 28);
             this.rdbAutoRename.TabIndex = 150;
             this.rdbAutoRename.TabStop = true;
             this.rdbAutoRename.Text = "Nome file automatico";
@@ -343,7 +344,7 @@
             this.rdbManualRename.AutoSize = true;
             this.rdbManualRename.Location = new System.Drawing.Point(420, 183);
             this.rdbManualRename.Name = "rdbManualRename";
-            this.rdbManualRename.Size = new System.Drawing.Size(137, 22);
+            this.rdbManualRename.Size = new System.Drawing.Size(169, 28);
             this.rdbManualRename.TabIndex = 151;
             this.rdbManualRename.Text = "Stesso nome file";
             this.rdbManualRename.UseVisualStyleBackColor = true;
@@ -375,7 +376,7 @@
             this.txtCaption.Location = new System.Drawing.Point(0, 292);
             this.txtCaption.Margin = new System.Windows.Forms.Padding(4);
             this.txtCaption.Name = "txtCaption";
-            this.txtCaption.Size = new System.Drawing.Size(1221, 24);
+            this.txtCaption.Size = new System.Drawing.Size(1221, 28);
             this.txtCaption.TabIndex = 153;
             // 
             // lblSubFolderStorage
@@ -383,7 +384,7 @@
             this.lblSubFolderStorage.AutoSize = true;
             this.lblSubFolderStorage.Location = new System.Drawing.Point(713, 108);
             this.lblSubFolderStorage.Name = "lblSubFolderStorage";
-            this.lblSubFolderStorage.Size = new System.Drawing.Size(274, 18);
+            this.lblSubFolderStorage.Size = new System.Drawing.Size(342, 24);
             this.lblSubFolderStorage.TabIndex = 155;
             this.lblSubFolderStorage.Text = "Sottocartella memorizzazione immagine";
             this.lblSubFolderStorage.Visible = false;
@@ -394,7 +395,7 @@
             this.txtSubFolderStorage.Location = new System.Drawing.Point(716, 130);
             this.txtSubFolderStorage.Margin = new System.Windows.Forms.Padding(4);
             this.txtSubFolderStorage.Name = "txtSubFolderStorage";
-            this.txtSubFolderStorage.Size = new System.Drawing.Size(440, 24);
+            this.txtSubFolderStorage.Size = new System.Drawing.Size(440, 28);
             this.txtSubFolderStorage.TabIndex = 154;
             this.txtSubFolderStorage.Visible = false;
             this.txtSubFolderStorage.TextChanged += new System.EventHandler(this.txtSubFolderStorage_TextChanged);
@@ -422,7 +423,7 @@
             this.chkMantainOldFileName.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkMantainOldFileName.Location = new System.Drawing.Point(883, 174);
             this.chkMantainOldFileName.Name = "chkMantainOldFileName";
-            this.chkMantainOldFileName.Size = new System.Drawing.Size(207, 22);
+            this.chkMantainOldFileName.Size = new System.Drawing.Size(262, 28);
             this.chkMantainOldFileName.TabIndex = 158;
             this.chkMantainOldFileName.Text = "conserva nome file vecchio";
             this.chkMantainOldFileName.UseVisualStyleBackColor = true;
@@ -514,9 +515,9 @@
             // lblEnd
             // 
             this.lblEnd.AutoSize = true;
-            this.lblEnd.Location = new System.Drawing.Point(188, 24);
+            this.lblEnd.Location = new System.Drawing.Point(176, 26);
             this.lblEnd.Name = "lblEnd";
-            this.lblEnd.Size = new System.Drawing.Size(36, 18);
+            this.lblEnd.Size = new System.Drawing.Size(48, 24);
             this.lblEnd.TabIndex = 157;
             this.lblEnd.Text = "Fine";
             // 
@@ -525,7 +526,7 @@
             this.lblStart.AutoSize = true;
             this.lblStart.Location = new System.Drawing.Point(6, 24);
             this.lblStart.Name = "lblStart";
-            this.lblStart.Size = new System.Drawing.Size(42, 18);
+            this.lblStart.Size = new System.Drawing.Size(53, 24);
             this.lblStart.TabIndex = 156;
             this.lblStart.Text = "Inizio";
             // 
@@ -536,7 +537,7 @@
             this.dtpEndPeriod.Location = new System.Drawing.Point(230, 22);
             this.dtpEndPeriod.MinDate = new System.DateTime(1800, 1, 1, 0, 0, 0, 0);
             this.dtpEndPeriod.Name = "dtpEndPeriod";
-            this.dtpEndPeriod.Size = new System.Drawing.Size(111, 24);
+            this.dtpEndPeriod.Size = new System.Drawing.Size(111, 28);
             this.dtpEndPeriod.TabIndex = 155;
             this.dtpEndPeriod.Value = new System.DateTime(2019, 6, 7, 0, 0, 0, 0);
             // 
@@ -547,7 +548,7 @@
             this.dtpStartPeriod.Location = new System.Drawing.Point(54, 21);
             this.dtpStartPeriod.MinDate = new System.DateTime(1800, 1, 1, 0, 0, 0, 0);
             this.dtpStartPeriod.Name = "dtpStartPeriod";
-            this.dtpStartPeriod.Size = new System.Drawing.Size(111, 24);
+            this.dtpStartPeriod.Size = new System.Drawing.Size(111, 28);
             this.dtpStartPeriod.TabIndex = 154;
             this.dtpStartPeriod.Value = new System.DateTime(2019, 1, 24, 0, 0, 0, 0);
             // 
@@ -557,7 +558,7 @@
             this.rdbAmongPeriod.Enabled = false;
             this.rdbAmongPeriod.Location = new System.Drawing.Point(6, 56);
             this.rdbAmongPeriod.Name = "rdbAmongPeriod";
-            this.rdbAmongPeriod.Size = new System.Drawing.Size(91, 22);
+            this.rdbAmongPeriod.Size = new System.Drawing.Size(116, 28);
             this.rdbAmongPeriod.TabIndex = 2;
             this.rdbAmongPeriod.Text = "in periodo";
             this.rdbAmongPeriod.UseVisualStyleBackColor = true;
@@ -574,7 +575,7 @@
             "Da nuovo anno solare"});
             this.cmbSchoolPeriod.Location = new System.Drawing.Point(123, 55);
             this.cmbSchoolPeriod.Name = "cmbSchoolPeriod";
-            this.cmbSchoolPeriod.Size = new System.Drawing.Size(218, 26);
+            this.cmbSchoolPeriod.Size = new System.Drawing.Size(218, 30);
             this.cmbSchoolPeriod.TabIndex = 153;
             // 
             // BtnPreviousImage
@@ -619,7 +620,7 @@
             // 
             // frmImages
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(1226, 632);

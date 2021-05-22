@@ -259,25 +259,27 @@ namespace SchoolGrades
 
         private void btnUsersManagement_Click(object sender, EventArgs e)
         {
-            frmLogin frmLogin = new frmLogin();
-            frmLogin.GetUser();
-            if (frmLogin.GetUser().Salt == "owner")
-            {
-                frmUsersManagement f = new frmUsersManagement();
-                f.Show();
-            }
-            else if(frmLogin.GetUser().Salt == "host")
-            {
-                MessageBox.Show("Sei un host, non puoi accedere al database degli utenti.", "Gestione utenti.",MessageBoxButtons.OK,MessageBoxIcon.Error);
-                return;
-            }
-            else
-            {
-                frmUsersManagement f = new frmUsersManagement();
-                f.Show();
-            }
+            //    frmLogin frmLogin = new frmLogin();
+            //    frmLogin.GetUser();
+            //    if (frmLogin.GetUser().Salt == "owner")
+            //    {
+            //        frmUsersManagement f = new frmUsersManagement();
+            //        f.Show();
+            //    }
+            //    else if(frmLogin.GetUser().Salt == "host")
+            //    {
+            //        MessageBox.Show("Sei un host, non puoi accedere al database degli utenti.", "Gestione utenti.",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            //        return;
+            //    }
+            //    else
+            //    {
+            //        frmUsersManagement f = new frmUsersManagement();
+            //        f.Show();
+            //    }
             //frmUsersManagementListBox frmUsersManagementListBox = new frmUsersManagementListBox();
             //frmUsersManagementListBox.Show();
+            frmUsersManagement frmUsersManagement = new frmUsersManagement();
+            frmUsersManagement.Show();
         }
     }
 }

@@ -922,8 +922,8 @@ namespace SchoolGrades
         }
         private void btnStudentsGradesSummary_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Parte da finire");
-            return; 
+            //MessageBox.Show("Parte da finire");
+            //return; 
 
             if (!Commons.CheckIfClassChosen(currentClass))
                 return;

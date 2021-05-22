@@ -34,7 +34,7 @@ namespace SchoolGrades
                 }
             }
             //Application.Run(new frmLogin());
-            Application.Run(new frmLogin());
+            Application.Run(new frmMain());
         }
         private static void WriteConfigFile()
         {
