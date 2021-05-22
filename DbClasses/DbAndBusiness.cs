@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace SchoolGrades.DbClasses
 {
-    //Andrea Siboni, Francesco Citarella, Cesare Colella, Riccardo Brunelli 4L
+    //Andrea Siboni, Francesco Citarella, Cesare Colella, Riccardo Brunelli 4°L
 
     /// <summary>
     /// This class plays both the roles of Business ad Data Layer and 

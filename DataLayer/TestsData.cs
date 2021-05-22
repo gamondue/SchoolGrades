@@ -10,7 +10,7 @@ using SchoolGrades.DbClasses;
 
 namespace SchoolGrades.DataLayer
 {
-    //Andrea Siboni, Francesco Citarella, Cesare Colella, Riccardo Brunelli 4L
+    //Andrea Siboni, Francesco Citarella, Cesare Colella, Riccardo Brunelli 4°L
     class TestsData
     {
         DataLayer dl = new DataLayer();
