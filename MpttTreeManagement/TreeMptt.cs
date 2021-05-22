@@ -1,11 +1,11 @@
-﻿using System;
+﻿using SchoolGrades;
+using SchoolGrades.DbClasses;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
-using SchoolGrades;
-using SchoolGrades.DbClasses;
 
 namespace gamon.TreeMptt
 {
@@ -204,7 +204,7 @@ namespace gamon.TreeMptt
         {
             string tree = CreateTextTreeOfDescendants
                 (InitialNode.LeftNodeOld, InitialNode.RightNodeOld, false);
-            return tree; 
+            return tree;
         }
         public void ImportSubtreeFromText(string TextFromClipboard)
         {
@@ -352,7 +352,7 @@ namespace gamon.TreeMptt
                 // has nothing to do, so we will wait 
                 if (!dbMptt.AreLeftAndRightConsistent())
                 {
-                    Commons.BackgroundCanStillSaveTopicsTree = true; 
+                    Commons.BackgroundCanStillSaveTopicsTree = true;
                     Commons.SwitchPicLedOn(true);
                     // read the tree by Parent into a new TreeView control
                     TreeView hiddenTree = new TreeView();
@@ -365,7 +365,7 @@ namespace gamon.TreeMptt
                     dbMptt.GenerateNewListOfNodesFromTreeViewControl(hiddenTree.Nodes[0], ref nodeCount, ref listNodes);
                     // in this point delete list cannot have any entry
                     dbMptt.SaveTreeToDb(listNodes, null, true);
-                    
+
                     if (Commons.BackgroundCanStillSaveTopicsTree)
                         dbMptt.SaveLeftRightConsistent(true);
                     Commons.SwitchPicLedOn(false);
@@ -507,7 +507,7 @@ namespace gamon.TreeMptt
             if (shownTreeView.SelectedNode == null)
             {
                 MessageBox.Show("Scegliere un nodo cui aggiungere un sottoalbero");
-                return null; 
+                return null;
             }
             Topic tParent = (Topic)(shownTreeView.SelectedNode.Tag);
             int? idParentNew = (int?)tParent.Id;
@@ -602,7 +602,7 @@ namespace gamon.TreeMptt
         {
             string indentator;
             string[] subTopics = Regex.Split(TextWithSubtree, "\r\n");
-            
+
             if (TextWithSubtree.Contains("    "))
             {
                 indentator = "    ";
@@ -736,7 +736,7 @@ namespace gamon.TreeMptt
         internal void HighlightTopicsInList(TreeNode startNode, List<Topic> ItemsToHighlight,
             ref int ListIndex, ref bool foundInThisBranch, Color? HighlightColor = null)
         {
-            Color highlightColor  = HighlightColor ?? colorOfHighlightedItem; 
+            Color highlightColor = HighlightColor ?? colorOfHighlightedItem;
 
             startNode.Collapse();
             // !! list must be given in Tree Traversal order !!
@@ -767,7 +767,7 @@ namespace gamon.TreeMptt
         {
             Color highlightColor = HighlightColor ?? colorOfHighlightedItem;
             Node.BackColor = highlightColor;
-            Node.Expand(); 
+            Node.Expand();
             return;
         }
         internal void ColorNodeAsFoundById(int Id, Color? HighlightColor = null)
@@ -775,7 +775,7 @@ namespace gamon.TreeMptt
             Color highlightColor = HighlightColor ?? colorOfFoundItem;
             TreeNode f = FindItemById(Id);
             f.BackColor = highlightColor;
-            f.Expand(); 
+            f.Expand();
             return;
         }
         internal void DeleteNode()
@@ -785,7 +785,7 @@ namespace gamon.TreeMptt
                 TreeNode te = shownTreeView.SelectedNode;
                 // if the topic has already been saved in the database, we have to ask for 
                 // confirmation if it has already been cheched in the past
-                if (((Topic)te.Tag).Id != null) 
+                if (((Topic)te.Tag).Id != null)
                     if (db.IsTopicAlreadyTaught((Topic)te.Tag))
                     {
                         if (MessageBox.Show("Questo argomento è già stato fatto in qualche lezione\n" +
@@ -974,7 +974,7 @@ namespace gamon.TreeMptt
                     Topic t = (Topic)e.Node.Tag;
                     string path = dbMptt.GetTopicPath(t.LeftNodeOld, t.RightNodeOld);
                     string stringToAdd = JustSomeNodesOfPath(path);
-                     txtTopicsSearchString.Text += stringToAdd;
+                    txtTopicsSearchString.Text += stringToAdd;
                 }
             }
         }
@@ -993,7 +993,7 @@ namespace gamon.TreeMptt
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show("We have an error." + ex.Message);
             }
         }
         #endregion
@@ -1003,13 +1003,13 @@ namespace gamon.TreeMptt
             string indentString = "\t";
             string currentIndentation = "";
             string file = "";
-            Stack<SchoolGrades.Topic> stack = new Stack<SchoolGrades.Topic>();
+            Stack<Topic> stack = new Stack<Topic>();
             //DbAndBusiness db = new  DbAndBusiness(); 
-            List<SchoolGrades.Topic> ListTopics = dbMptt.GetTopicsMpttFromDatabase(LeftNode, RightNode);
+            List<Topic> ListTopics = dbMptt.GetTopicsMpttFromDatabase(LeftNode, RightNode);
             if (ListTopics != null && ListTopics.Count > 0)
             {
                 // first node in file 
-                SchoolGrades.Topic previousTopic = ListTopics[0];
+                Topic previousTopic = ListTopics[0];
                 file += previousTopic.Name + "\t" + previousTopic.Desc;
                 if ((bool)IncludeTopicsIds)
                     file += "\t" + previousTopic.Id;
@@ -1019,7 +1019,7 @@ namespace gamon.TreeMptt
                 for (int i = 1; i < ListTopics.Count; i++)
                 {
                     // for every son topic of this 
-                    SchoolGrades.Topic currentTopic = ListTopics[i];
+                    Topic currentTopic = ListTopics[i];
                     if (currentTopic.RightNodeOld < previousTopic.RightNodeOld)
                     {
                         // if is in new level, adds the node to the next level
@@ -1040,7 +1040,7 @@ namespace gamon.TreeMptt
                         while (currentTopic.RightNodeOld > previousTopic.RightNodeOld)
                         {
                             if (stack.Count > 0)
-                            { 
+                            {
                                 previousTopic = stack.Pop();
                                 // less indentation 
                                 currentIndentation =

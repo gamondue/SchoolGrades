@@ -79,7 +79,7 @@ namespace SchoolGrades.DataLayer
                 cmd = new SQLiteCommand(query);
                 cmd.Connection = conn;
                 DbDataReader dRead = cmd.ExecuteReader();
-                dRead.Read(); 
+                dRead.Read();
                 t = GetUserFromRow(dRead);
                 dRead.Dispose();
                 cmd.Dispose();
@@ -88,7 +88,7 @@ namespace SchoolGrades.DataLayer
         }
         internal List<User> GetAllUsers()
         {
-            List<User> l = new List<User>(); 
+            List<User> l = new List<User>();
             using (DbConnection conn = Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
@@ -100,7 +100,7 @@ namespace SchoolGrades.DataLayer
                 while (dRead.Read())
                 {
                     User u = GetUserFromRow(dRead);
-                    l.Add(u); 
+                    l.Add(u);
                 }
                 dRead.Dispose();
                 cmd.Dispose();
@@ -109,7 +109,7 @@ namespace SchoolGrades.DataLayer
         }
         private User GetUserFromRow(DbDataReader dRead)
         {
-            User u = null; 
+            User u = null;
             if (dRead.HasRows)
             {
                 u = new User(SafeDb.SafeString(dRead["username"]),
@@ -157,7 +157,7 @@ namespace SchoolGrades.DataLayer
                 // !!!! TODO !!!!
 
                 // create row in table 
-                string? now = SqlVal.SqlDate(DateTime.Now);
+                string now = SqlVal.SqlDate(DateTime.Now);
                 cmd.CommandText = "INSERT INTO Users " +
                 "(username, lastName, firstName, email," +
                 "password,creationTime,lastChange,lastPasswordChange,salt,idUserCategory,isEnabled)" +
@@ -165,7 +165,7 @@ namespace SchoolGrades.DataLayer
                 "('" + SqlVal.SqlString(User.Username) + "','" + SqlVal.SqlString(User.LastName) + "','" + SqlVal.SqlString(User.FirstName) + "','" +
                 SqlVal.SqlString(User.Email) + "','" + SqlVal.SqlString(User.Password) + "'," +
                 now + "," + now + "," + now + ",'" + SqlVal.SqlString(User.Salt) + "','" +
-                User.IdUserCategory + "', TRUE" + 
+                User.IdUserCategory + "', TRUE" +
                 ");";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();

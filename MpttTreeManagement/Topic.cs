@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SchoolGrades
 {
@@ -8,7 +6,7 @@ namespace SchoolGrades
     {
         // Date field is not in the database, used by the code when it needs 
         // to associate a date to a topic:
-        public DateTime Date {get; internal set; }
+        public DateTime Date { get; internal set; }
 
     }
 }

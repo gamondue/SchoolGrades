@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SchoolGrades.DbClasses
 {
@@ -9,7 +7,7 @@ namespace SchoolGrades.DbClasses
         string residence;
         string origin;
         string email;
-        Nullable<DateTime> birthDate;
+        DateTime? birthDate;
         string birthPlace;
 
         public string RegisterNumber { get; set; }
@@ -26,7 +24,7 @@ namespace SchoolGrades.DbClasses
         public string Residence { get => residence; set => residence = value; }
         public string Origin { get => origin; set => origin = value; }
         public string Email { get => email; set => email = value; }
-        public Nullable<DateTime> BirthDate { get => birthDate; set => birthDate = (DateTime?) value; }
+        public DateTime? BirthDate { get => birthDate; set => birthDate = (DateTime?)value; }
         public string BirthPlace { get => birthPlace; set => birthPlace = value; }
         public int? RevengeFactorCounter { get; set; }  // revenge factor counter 
         public bool? Disabled { get; set; }

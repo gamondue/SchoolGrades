@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SchoolGrades.DbClasses
 {
@@ -9,9 +7,9 @@ namespace SchoolGrades.DbClasses
         int? idAnnotation;
         int? idStudent;
         string annotation;
-		string idSchoolYear;
-		DateTime? instantTaken;
-		DateTime? instantClosed;
+        string idSchoolYear;
+        DateTime? instantTaken;
+        DateTime? instantClosed;
 
         public int? IdAnnotation { get => idAnnotation; set => idAnnotation = value; }
         public string Annotation { get => annotation; set => annotation = value; }

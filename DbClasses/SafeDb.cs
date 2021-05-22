@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Common;
-using System.Text;
 using System.Windows.Forms;
 
 namespace SchoolGrades.DbClasses
@@ -25,7 +23,7 @@ namespace SchoolGrades.DbClasses
             }
         }
 
-        internal static string? SafeString(DbDataReader r, int FieldNumber)
+        internal static string SafeString(DbDataReader r, int FieldNumber)
         {
             try
             {
@@ -37,10 +35,10 @@ namespace SchoolGrades.DbClasses
             }
         }
 
-        internal static string? SafeString(object Field)
+        internal static string SafeString(object Field)
         {
             if (Field == null)
-                return null; 
+                return null;
             try
             {
                 return Field.ToString().Trim();
@@ -50,7 +48,7 @@ namespace SchoolGrades.DbClasses
                 return null;
             }
         }
-        
+
         internal static string SafeString(object Field, bool NullOnError)
         {
             try
@@ -66,7 +64,7 @@ namespace SchoolGrades.DbClasses
             }
         }
 
-        internal static Nullable<DateTime> SafeDateTime(object Field)
+        internal static DateTime? SafeDateTime(object Field)
         {
             try
             {
@@ -81,7 +79,7 @@ namespace SchoolGrades.DbClasses
             }
         }
 
-        internal static Nullable<DateTime> SafeDateTime(string Date)
+        internal static DateTime? SafeDateTime(string Date)
         {
             try
             {
@@ -93,7 +91,7 @@ namespace SchoolGrades.DbClasses
             }
         }
 
-        internal static Nullable<double> SafeDouble(string d)
+        internal static double? SafeDouble(string d)
         {
             try
             {
@@ -109,7 +107,7 @@ namespace SchoolGrades.DbClasses
         {
             try
             {
-                return Double.Parse(Value.ToString());
+                return double.Parse(Value.ToString());
             }
             catch
             {

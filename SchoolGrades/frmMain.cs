@@ -925,17 +925,17 @@ namespace SchoolGrades
             MessageBox.Show("Parte da finire");
             return; 
 
-            if (!Commons.CheckIfClassChosen(currentClass))
-                return;
-            if (!Commons.CheckIfTypeOfAssessmentChosen(currentGradeType))
-                return;
-            if (!Commons.CheckIfStudentChosen(currentStudent))
-                return;
+            //if (!Commons.CheckIfClassChosen(currentClass))
+            //    return;
+            //if (!Commons.CheckIfTypeOfAssessmentChosen(currentGradeType))
+            //    return;
+            //if (!Commons.CheckIfStudentChosen(currentStudent))
+            //    return;
 
             // annotation applied to a single student
-            frmGradesStudentsSummary f = new frmGradesStudentsSummary(currentStudent, CmbSchoolYear.Text,
-                currentGradeType, (SchoolSubject)cmbSchoolSubject.SelectedItem);
-            f.Show();
+            //frmGradesStudentsSummary f = new frmGradesStudentsSummary(currentStudent, CmbSchoolYear.Text,
+            //    currentGradeType, (SchoolSubject)cmbSchoolSubject.SelectedItem);
+            //f.Show();
         }
         private void btnOldestGrade_Click(object sender, EventArgs e)
         {
@@ -1106,8 +1106,7 @@ namespace SchoolGrades
             }
             catch (Exception er)
             {
-                //MessageBox.Show("Errore nell'aprire la cartella " + txtEdit.Text);
-                ////+ "\nErrore: " + er.ToString());
+                MessageBox.Show("Errore nell'aprire la cartella ", "\nErrore: " + er.ToString());
             }
         }
         private void txtPathImages_Click(object sender, EventArgs e)

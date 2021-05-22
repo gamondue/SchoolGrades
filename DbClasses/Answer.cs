@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SchoolGrades.DbClasses
+﻿namespace SchoolGrades.DbClasses
 {
     public class Answer
     {
         private int? idAnswer = 0;
         private int? idQuestion = 0;
-        private string text ="";
+        private string text = "";
         private int? errorCost = 100;
         private bool? isCorrect = false;
         private bool? isOpenAnswer = false;

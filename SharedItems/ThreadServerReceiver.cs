@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace gamon
 {
@@ -24,7 +20,7 @@ namespace gamon
         // costruttore con parametri obbligatori 
         public ThreadServerReceiver(string IpOrDns, int TcpPort, string Password)
         {
-            this.Ip = IpOrDns; 
+            this.Ip = IpOrDns;
             this.TcpPort = TcpPort;
             this.Password = Password;
         }
@@ -39,8 +35,8 @@ namespace gamon
             while (!finito)
             {
                 Comando = ServerTcp.Receive();
-                if (!ServerTcp.isError) RequestStop(); 
-                NuovoComando = true; 
+                if (!ServerTcp.isError) RequestStop();
+                NuovoComando = true;
             }
             Console.WriteLine("Terminazione corretta del ricevitore.");
         }

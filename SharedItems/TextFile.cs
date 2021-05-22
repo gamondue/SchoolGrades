@@ -1,7 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.IO;
+using System.Text;
 
 namespace gamon
 {
@@ -18,7 +17,7 @@ namespace gamon
         {
             if (!Directory.Exists(Path.GetDirectoryName(NomeFile)))
             {
-                Directory.CreateDirectory(Path.GetFullPath(NomeFile)); 
+                Directory.CreateDirectory(Path.GetFullPath(NomeFile));
             }
             //if(!File.Exists(NomeFile))
             //{
@@ -28,21 +27,21 @@ namespace gamon
             try
             {
                 //prova ad aprire il file
-                FileStream fsOut; 
+                FileStream fsOut;
                 if (appendi)
-                    fsOut = new FileStream(NomeFile, FileMode.Append, FileAccess.Write , FileShare.Read);
+                    fsOut = new FileStream(NomeFile, FileMode.Append, FileAccess.Write, FileShare.Read);
                 else
-                    fsOut = new FileStream(NomeFile, FileMode.Create, FileAccess.Write , FileShare.Read);
+                    fsOut = new FileStream(NomeFile, FileMode.Create, FileAccess.Write, FileShare.Read);
                 StreamWriter fOut = new StreamWriter(fsOut, fileEncoding);
                 return (fOut);
             }
-            catch (Exception e) 
+            catch (Exception)
             {	// il nome del file è sbagliato o non si riesce ad aprirlo
                 //Console.WriteLine("Non si riesce ad aprire il file. Provo a crearlo" + NomeFile + "\r\nErrore:" + e.Message);
                 Console.WriteLine("Non si riesce ad aprire il file. Provo a crearlo" + NomeFile);
                 // lo apro creandolo
                 FileStream fsOut = new FileStream(NomeFile, FileMode.Create, FileAccess.Write, FileShare.Read);
-                StreamWriter fOut = new StreamWriter(fsOut, fileEncoding); 
+                StreamWriter fOut = new StreamWriter(fsOut, fileEncoding);
 
                 return (fOut);
             }
@@ -79,8 +78,10 @@ namespace gamon
                 fileOut.Write(stringa);
                 fileOut.Close();
                 return true;
-            } catch {
-                return false; 
+            }
+            catch
+            {
+                return false;
             }
         }
         /// <summary>
@@ -91,8 +92,7 @@ namespace gamon
         public static string FileToString(string NomeFile)
         {
             // legge riga per riga in un array di stringhe un file di testo
-            int nLine = 0;
-            string stringaFile = "";
+            string stringaFile;
 
             try
             {
@@ -146,8 +146,10 @@ namespace gamon
                 fileOut.Close();
                 return true;
 
-            } catch (Exception e) {
-                return false ;
+            }
+            catch (Exception)
+            {
+                return false;
             }
         }
         /// <summary>
@@ -157,7 +159,6 @@ namespace gamon
         /// <returns>Vettore di stringhe nel quale è stato letto il conetnuto del file</returns>
         public static string[] FileToArray(string NomeFile)
         {
-            int nLine = 0;
             string[] stringaFile = new string[0];
 
             Array.Resize(ref stringaFile, 0);
@@ -169,7 +170,7 @@ namespace gamon
                 FileStream fsIn = new FileStream(NomeFile, FileMode.Open, FileAccess.Read, FileShare.Read);
                 StreamReader sr = new StreamReader(fsIn, fileEncoding, true);
 
-                nLine = 0;
+                int nLine = 0;
                 // lettura nell'array di tutte le righe del file
                 for (string Line = sr.ReadLine(); Line != null; Line = sr.ReadLine())
                 {
@@ -193,7 +194,7 @@ namespace gamon
 
         public static byte[] FileToByteArray(string NomeFile)
         {
-            byte[] buffer; 
+            byte[] buffer;
             try
             {
                 // prova ad aprire il file
@@ -229,7 +230,6 @@ namespace gamon
         /// <returns>Matrix di stringhe che contiene i dati</returns>
         public static string[,] FileToMatrix(string NomeFile, char Separatore)
         {
-            int nLine = 0;
             string[,] MatriceFile = new string[0, 0]; // inizializzazione fittizia, quella buona dopo
 
             try
@@ -258,7 +258,7 @@ namespace gamon
                 // riapertura del file per il riempimento della matrice
                 fsIn = new FileStream(NomeFile, FileMode.Open, FileAccess.Read, FileShare.Read);
                 sr = new StreamReader(fsIn, fileEncoding, true);
-                nLine = 0;
+                int nLine = 0;
                 // lettura nella matrice di tutte le righe del file
                 for (string Line = sr.ReadLine(); Line != null; Line = sr.ReadLine())
                 {
@@ -272,21 +272,21 @@ namespace gamon
                 // chiusura dello StreamReader
                 sr.Close();
             }
-            
-            catch (IOException e)
+
+            catch (IOException)
             {
-                    // copia il file perchè è locked
-                    System.IO.File.Copy(NomeFile, "temp"); 
-                    // ci riprovo con il file copiato
-                    string[,] campi = FileToMatrix("temp", Separatore);
-                    // cancello il file appena letto
-                    System.IO.File.Delete("temp");
-                     // restituisco quello che ho letto
-                    return campi;
-              }
+                // copia il file perchè è locked
+                File.Copy(NomeFile, "temp");
+                // ci riprovo con il file copiato
+                string[,] campi = FileToMatrix("temp", Separatore);
+                // cancello il file appena letto
+                File.Delete("temp");
+                // restituisco quello che ho letto
+                return campi;
+            }
 
             catch (Exception e)
-            {	
+            {
                 // guarda se non si può leggere perchè c'è un lock
                 Console.WriteLine(e.GetType().ToString());
                 {
@@ -334,7 +334,7 @@ namespace gamon
                 sr.Close();
 
                 // creazione della matrice
-                MatriceFile = new string[nRighe -1, nColonne];
+                MatriceFile = new string[nRighe - 1, nColonne];
 
                 // riapertura del file per il riempimento della matrice
                 fsIn = new FileStream(NomeFile, FileMode.Open, FileAccess.Read, FileShare.Read);
@@ -437,12 +437,12 @@ namespace gamon
                     Console.WriteLine("Il file " + NomeFile + " non è leggibile\r\nErrore:" + e.Message);
                 }
                 primaRiga = null;
-                secondaRiga = null; 
+                secondaRiga = null;
                 return (null);
             }
             return (MatriceFile);
         }
-        
+
         public static string[,] FileToMatrix(string NomeFile, string Separatore)
         {   // per prendere il primo carattere della stringa Separatore
             return FileToMatrix(NomeFile, Separatore[0]);

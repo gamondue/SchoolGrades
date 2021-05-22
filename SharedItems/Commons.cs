@@ -1,15 +1,15 @@
-﻿using System;
-using System.IO;
-using System.Security.Cryptography;
-using gamon;
-using System.Windows.Forms;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Threading;
-using System.Drawing;
-using SchoolGrades.DbClasses;
+﻿using gamon;
 using gamon.TreeMptt;
+using SchoolGrades.DbClasses;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Reflection;
+using System.Security.Cryptography;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace SchoolGrades
 {
@@ -19,7 +19,7 @@ namespace SchoolGrades
         public static string PathUser = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
         public static string PathAndFileExe = System.Reflection.Assembly.GetExecutingAssembly().CodeBase.Substring(8);
         //public static string PathExe = System.IO.Path.GetDirectoryName(PathAndFileExe);
-        public static string PathExe = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName); 
+        public static string PathExe = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
 
 
         public static string PathConfig = PathUser + "\\SchoolGrades\\Config";
@@ -34,10 +34,10 @@ namespace SchoolGrades
         public static string PathAndFileDatabase; // read with Commons.ReadConfigFile()! 
 
         //public static string PathStartLink = PathUser + "\\SchoolGrades\\";
-        public static string PathStartLinks = PathExe; 
+        public static string PathStartLinks = PathExe;
         //public static string PathImages = PathUser + "\\SchoolGrades\\Images";
         //public static string PathImages = PathExe + "\\SchoolGrades\\Images";
-        
+
         public static string PathImages = PathExe + "\\Images";
 
         //public static string PathDocuments = PathExe + "\\SchoolGrades\\Docs";
@@ -52,9 +52,9 @@ namespace SchoolGrades
         // Tree object for concurrent saving 
         internal static TreeMptt SaveTreeMptt;
         // Thread that concurrently saves the Topics tree
-        internal static Thread BackgroundSaveThread; 
+        internal static Thread BackgroundSaveThread;
 
-        public static bool SaveBackupWhenExiting; 
+        public static bool SaveBackupWhenExiting;
 
         public static string IdSchool = "FOIS01100L";
 
@@ -65,7 +65,7 @@ namespace SchoolGrades
         internal static List<Tag> LastTagsChosen;
 
         internal static bool isLogging = true;
-        internal static DateTime DateNull = new DateTime(1800,1,1);
+        internal static DateTime DateNull = new DateTime(1800, 1, 1);
 
         internal static List<Question> QuestionsAlreadyMadeThisTime = new List<Question>();
 
@@ -178,14 +178,14 @@ namespace SchoolGrades
                 dati = TextFile.FileToArray(Commons.PathAndFileConfig);
 #endif
                 if (dati != null)
-                { 
+                {
                     Commons.FileDatabase = dati[0];
                     Commons.PathImages = dati[1];
                     Commons.PathStartLinks = dati[2]; // not longer used; left for compatibility of configuration file
                     Commons.PathDatabase = dati[3];
                     Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.FileDatabase;
                     Commons.PathDocuments = dati[4];
-                    
+
                     // we try the next to avoid stopping the program whe a new config file, 
                     // with another field will show up. You have to add some data in.config file. 
                     try
@@ -252,11 +252,11 @@ namespace SchoolGrades
                 // determine the item to exchange with the first
                 // draw a random number less than the sum
                 double drawn = r.NextDouble() * sum;
-                int num = findIndexOfItemtoSwapWithFirst(drawn, p, List); 
+                int num = findIndexOfItemtoSwapWithFirst(drawn, p, List);
                 // exchange
                 Student tmp = List[p];
                 List[p] = List[num];
-                
+
                 List[num] = tmp;
             }
             // once again
@@ -282,26 +282,26 @@ namespace SchoolGrades
             }
         }
 
-        private static int findIndexOfItemtoSwapWithFirst(double drawn, 
+        private static int findIndexOfItemtoSwapWithFirst(double drawn,
             int IndexBeginFrom, List<Student> List)
         {
             double sumTillHere = 0;
-            int p = IndexBeginFrom; 
+            int p = IndexBeginFrom;
             for (; p < List.Count; p++)
             {
                 sumTillHere += (double)List[p].SortOrDrawCriterion;
                 if (drawn <= sumTillHere)
-                    break; 
+                    break;
             }
             return p;
         }
 
         private static double sumAllProbabilities(int IndexBeginFrom, List<Student> List)
         {
-            double sum = 0; 
+            double sum = 0;
             for (int p = IndexBeginFrom; p < List.Count; p++)
             {
-                sum += (double)List[p].SortOrDrawCriterion; 
+                sum += (double)List[p].SortOrDrawCriterion;
             }
             return sum;
         }
@@ -316,7 +316,7 @@ namespace SchoolGrades
                         startLink = link;
                     else
                         startLink = Class.PathRestrictedApplication + "\\" + link;
-                    Commons.ProcessStartLink(startLink); 
+                    Commons.ProcessStartLink(startLink);
                 }
                 catch
                 {
@@ -328,22 +328,22 @@ namespace SchoolGrades
         {
             try
             {
-                new System.Diagnostics.Process
+                new Process
                 {
-                    StartInfo = new System.Diagnostics.ProcessStartInfo(Link)
+                    StartInfo = new ProcessStartInfo(Link)
                     {
                         UseShellExecute = true
                     }
                 }.Start();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.Beep(); 
+                Console.Beep();
             }
         }
         internal static void SaveCurrentValuesOfAllControls(Control ParentControl, ref string PathAndFile)
         {
-            string fileContent = ""; 
+            string fileContent = "";
             if (ParentControl.Controls.Count > 0)
             {
                 SaveControlsValuesOfLevel(ParentControl, ref fileContent);
@@ -362,9 +362,9 @@ namespace SchoolGrades
                         // ADD here specific controls that you don't want to be saved
                         // make THE SAME in RestoreControlsValues()                            
                         c.Name != ""
-                        && !(c is Label) 
+                        && !(c is Label)
                         && !(c is Button)
-                        && !(c is GroupBox) 
+                        && !(c is GroupBox)
                         && !(c is PictureBox)
                     )
                     {
@@ -379,32 +379,32 @@ namespace SchoolGrades
                             NamesAndValues += c.Text;
                         //if (c is DataGridView)
                         //    SaveTableContent((DataGridView)c);
-                        NamesAndValues += "\n"; 
+                        NamesAndValues += "\n";
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     Console.Beep(200, 300);
                 }
-                SaveControlsValuesOfLevel(c, ref  NamesAndValues);
+                SaveControlsValuesOfLevel(c, ref NamesAndValues);
             }
         }
 
         internal static void RestoreCurrentValuesOfAllControls(Control ParentControl, string PathAndFile)
         {
-            try 
-            { 
-                string[,] NamesAndValues = TextFile.FileToMatrix(PathAndFile, '\t');
-                int index = 0; 
-                RestoreControlsValuesOfLevel(ParentControl, NamesAndValues, ref index); 
-            }
-            catch (Exception ex)
+            try
             {
-                Console.Beep(200, 300); 
+                string[,] NamesAndValues = TextFile.FileToMatrix(PathAndFile, '\t');
+                int index = 0;
+                RestoreControlsValuesOfLevel(ParentControl, NamesAndValues, ref index);
+            }
+            catch (Exception)
+            {
+                Console.Beep(200, 300);
             }
         }
         private static void RestoreControlsValuesOfLevel(Control ParentControl, string[,] NamesAndValues, ref int Index)
-        { 
+        {
             // recursive function! 
             // !!!! to fix !!!! reads only a few of the controls !!!! 
             foreach (Control c in ParentControl.Controls)
@@ -424,7 +424,7 @@ namespace SchoolGrades
                     // by doing nothing 
                     if (NamesAndValues[Index, 0] != c.Name)
                     {
-                        
+
                     }
                     else
                     {
@@ -510,7 +510,7 @@ namespace SchoolGrades
             {
                 Student max = List[i];
                 int indexMax = i;
-                for (int j = i + 1 ; j < List.Count; j++)
+                for (int j = i + 1; j < List.Count; j++)
                 {
                     if (List[j].SortOrDrawCriterion > max.SortOrDrawCriterion)
                     {
@@ -521,7 +521,7 @@ namespace SchoolGrades
                 // swap list elements
                 Student dummy = List[i];
                 List[i] = List[indexMax];
-                List[indexMax] = dummy; 
+                List[indexMax] = dummy;
             }
         }
 

@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace gamon.TreeMptt
+﻿namespace gamon.TreeMptt
 {
     class TreeNodeMptt<T>
     {
         // TODO use this Class to generalize the TreeViewMppt (also complete it..) 
         // a Generic tree node with Right and Left node pointers to support Modified Preorder Tree Traversal (MPTT) algorithm 
         int id;
-        int parentNode; 
+        int parentNode;
         int leftNodeOld;
         int leftNodeNew;
         int rightNodeOld;
@@ -25,5 +21,5 @@ namespace gamon.TreeMptt
         public string Name { get => name; set => name = value; }
         public string Desc { get => desc; set => desc = value; }
         public int ParentNode { get => parentNode; set => parentNode = value; }
-   }
+    }
 }

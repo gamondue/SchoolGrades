@@ -81,12 +81,12 @@ namespace gamon
             // 
             this.lblData.BackColor = System.Drawing.Color.White;
             this.lblData.Cursor = System.Windows.Forms.Cursors.Default;
-            this.lblData.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblData.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblData.ForeColor = System.Drawing.Color.Black;
-            this.lblData.Location = new System.Drawing.Point(253, 167);
+            this.lblData.Location = new System.Drawing.Point(354, 257);
             this.lblData.Name = "lblData";
             this.lblData.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lblData.Size = new System.Drawing.Size(261, 20);
+            this.lblData.Size = new System.Drawing.Size(366, 31);
             this.lblData.TabIndex = 16;
             this.lblData.Text = "lblData";
             this.lblData.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -96,12 +96,12 @@ namespace gamon
             // 
             this.lblAssemblyTitle.BackColor = System.Drawing.Color.White;
             this.lblAssemblyTitle.Cursor = System.Windows.Forms.Cursors.Default;
-            this.lblAssemblyTitle.Font = new System.Drawing.Font("Verdana", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAssemblyTitle.Font = new System.Drawing.Font("Verdana", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblAssemblyTitle.ForeColor = System.Drawing.Color.Black;
-            this.lblAssemblyTitle.Location = new System.Drawing.Point(253, 60);
+            this.lblAssemblyTitle.Location = new System.Drawing.Point(354, 92);
             this.lblAssemblyTitle.Name = "lblAssemblyTitle";
             this.lblAssemblyTitle.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lblAssemblyTitle.Size = new System.Drawing.Size(261, 38);
+            this.lblAssemblyTitle.Size = new System.Drawing.Size(366, 59);
             this.lblAssemblyTitle.TabIndex = 17;
             this.lblAssemblyTitle.Text = "lblAssemblyTitle";
             this.lblAssemblyTitle.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -110,12 +110,12 @@ namespace gamon
             // 
             this.lblVersione.BackColor = System.Drawing.Color.White;
             this.lblVersione.Cursor = System.Windows.Forms.Cursors.Default;
-            this.lblVersione.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVersione.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblVersione.ForeColor = System.Drawing.Color.Black;
-            this.lblVersione.Location = new System.Drawing.Point(247, 138);
+            this.lblVersione.Location = new System.Drawing.Point(346, 212);
             this.lblVersione.Name = "lblVersione";
             this.lblVersione.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lblVersione.Size = new System.Drawing.Size(273, 29);
+            this.lblVersione.Size = new System.Drawing.Size(382, 45);
             this.lblVersione.TabIndex = 11;
             this.lblVersione.Text = "Versione ";
             this.lblVersione.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -130,12 +130,12 @@ namespace gamon
             // 
             this.lblAssemblyDescription.BackColor = System.Drawing.Color.White;
             this.lblAssemblyDescription.Cursor = System.Windows.Forms.Cursors.Default;
-            this.lblAssemblyDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAssemblyDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblAssemblyDescription.ForeColor = System.Drawing.Color.Black;
-            this.lblAssemblyDescription.Location = new System.Drawing.Point(247, 98);
+            this.lblAssemblyDescription.Location = new System.Drawing.Point(346, 151);
             this.lblAssemblyDescription.Name = "lblAssemblyDescription";
             this.lblAssemblyDescription.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lblAssemblyDescription.Size = new System.Drawing.Size(273, 40);
+            this.lblAssemblyDescription.Size = new System.Drawing.Size(382, 61);
             this.lblAssemblyDescription.TabIndex = 10;
             this.lblAssemblyDescription.Text = "lblAssemblyDescription";
             this.lblAssemblyDescription.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -144,12 +144,12 @@ namespace gamon
             // 
             this.label1.BackColor = System.Drawing.Color.White;
             this.label1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(285, 187);
+            this.label1.Location = new System.Drawing.Point(399, 288);
             this.label1.Name = "label1";
             this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label1.Size = new System.Drawing.Size(199, 24);
+            this.label1.Size = new System.Drawing.Size(279, 37);
             this.label1.TabIndex = 23;
             this.label1.Text = "prof. Gabriele MONTI";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -158,12 +158,12 @@ namespace gamon
             // 
             this.label3.BackColor = System.Drawing.Color.White;
             this.label3.Cursor = System.Windows.Forms.Cursors.Default;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(264, 220);
+            this.label3.Location = new System.Drawing.Point(370, 338);
             this.label3.Name = "label3";
             this.label3.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label3.Size = new System.Drawing.Size(256, 21);
+            this.label3.Size = new System.Drawing.Size(358, 33);
             this.label3.TabIndex = 21;
             this.label3.Text = "ITT Pascal - Cesena";
             this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -182,21 +182,21 @@ namespace gamon
             this.panel1.Controls.Add(this.lblVersione);
             this.panel1.Controls.Add(this.lblAssemblyDescription);
             this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Location = new System.Drawing.Point(11, 12);
+            this.panel1.Location = new System.Drawing.Point(-99, -72);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(548, 312);
+            this.panel1.Size = new System.Drawing.Size(768, 480);
             this.panel1.TabIndex = 24;
             // 
             // label5
             // 
             this.label5.BackColor = System.Drawing.Color.White;
             this.label5.Cursor = System.Windows.Forms.Cursors.Default;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(291, 250);
+            this.label5.Location = new System.Drawing.Point(407, 385);
             this.label5.Name = "label5";
             this.label5.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label5.Size = new System.Drawing.Size(186, 21);
+            this.label5.Size = new System.Drawing.Size(261, 32);
             this.label5.TabIndex = 27;
             this.label5.Text = "ITALIA";
             this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -205,12 +205,12 @@ namespace gamon
             // 
             this.label4.BackColor = System.Drawing.Color.White;
             this.label4.Cursor = System.Windows.Forms.Cursors.Default;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(285, 280);
+            this.label4.Location = new System.Drawing.Point(399, 431);
             this.label4.Name = "label4";
             this.label4.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label4.Size = new System.Drawing.Size(199, 24);
+            this.label4.Size = new System.Drawing.Size(279, 37);
             this.label4.TabIndex = 26;
             this.label4.Text = "prof@ingmonti.it";
             this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -219,12 +219,12 @@ namespace gamon
             // 
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Cursor = System.Windows.Forms.Cursors.Default;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label2.Location = new System.Drawing.Point(4, 22);
+            this.label2.Location = new System.Drawing.Point(6, 34);
             this.label2.Name = "label2";
             this.label2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label2.Size = new System.Drawing.Size(535, 38);
+            this.label2.Size = new System.Drawing.Size(749, 58);
             this.label2.TabIndex = 25;
             this.label2.Text = "Questo programma è gratuito. L\'Autore non fornisce alcuna forma di garanzia, nè d" +
     "i funzionalità, nè di rispondenza alle esigenze dell\'utente.  ";
@@ -233,15 +233,15 @@ namespace gamon
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(-1, -1);
+            this.pictureBox1.Location = new System.Drawing.Point(-1, -2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(256, 256);
+            this.pictureBox1.Size = new System.Drawing.Size(358, 394);
             this.pictureBox1.TabIndex = 28;
             this.pictureBox1.TabStop = false;
             // 
             // frmAbout
             // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+            this.AutoScaleBaseSize = new System.Drawing.Size(7, 20);
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(570, 333);

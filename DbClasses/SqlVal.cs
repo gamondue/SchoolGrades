@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SchoolGrades.DbClasses
 {
@@ -14,7 +12,7 @@ namespace SchoolGrades.DbClasses
             if (Date == "")
                 return "null";
 
-            DateTime? d = System.DateTime.Parse(Date);
+            DateTime? d = DateTime.Parse(Date);
             return ("datetime('" + ((DateTime)d).ToString("yyyy-MM-dd HH:mm:ss").Replace('.', ':') + "')");
         }
 
@@ -23,7 +21,7 @@ namespace SchoolGrades.DbClasses
             if (Date != null)
                 return ("datetime('" + ((DateTime)Date).ToString("yyyy-MM-dd HH:mm:ss").Replace('.', ':') + "')");
             else
-                return "null"; 
+                return "null";
         }
 
         //public static string SqlVal.SqlDate(Hour(string Date)
@@ -76,7 +74,7 @@ namespace SchoolGrades.DbClasses
         public static string SqlBool(object Value)
         {
             if (Value == null)
-                return null; 
+                return null;
             if ((bool)Value == false)
             {
                 return "0";
@@ -94,7 +92,7 @@ namespace SchoolGrades.DbClasses
                 if (Number != null)
                     return double.Parse(Number).ToString().Replace(",", ".");
                 else
-                    return "null"; 
+                    return "null";
             }
             catch
             {
@@ -109,7 +107,7 @@ namespace SchoolGrades.DbClasses
                 if (Number != null)
                     return Number.ToString().Replace(",", ".");
                 else
-                    return "null"; 
+                    return "null";
             }
             catch
             {
@@ -136,7 +134,7 @@ namespace SchoolGrades.DbClasses
         {
             try
             {
-                if(Number != null)
+                if (Number != null)
                     return float.Parse(Number).ToString().Replace(",", ".");
                 else
                     return "null";
@@ -151,7 +149,7 @@ namespace SchoolGrades.DbClasses
         {
             try
             {
-                if(Number != null)
+                if (Number != null)
                     return int.Parse(Number).ToString();
                 else
                     return "null";

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SchoolGrades.DbClasses
+﻿namespace SchoolGrades.DbClasses
 {
     class Test
     {
@@ -12,6 +8,6 @@ namespace SchoolGrades.DbClasses
         //string idSubject;
         public string IdSchoolSubject;
         public int? IdTopic;
-        public string IdTestType; 
+        public string IdTestType;
     }
 }

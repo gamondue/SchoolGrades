@@ -10,8 +10,8 @@ namespace SchoolGrades
 {
     public partial class frmTopicsRecover : Form
     {
-        gamon.TreeMptt.TreeMptt treeNew;
-        gamon.TreeMptt.TreeMptt treeOld;
+        TreeMptt treeNew;
+        TreeMptt treeOld;
 
         DbAndBusiness dbNew;
         DbAndBusiness dbOld;
@@ -56,7 +56,7 @@ namespace SchoolGrades
         {
             folderBrowserDialog1.SelectedPath = txtPathNewDatabase.Text;
             DialogResult r = folderBrowserDialog1.ShowDialog();
-            if (r == System.Windows.Forms.DialogResult.OK)
+            if (r == DialogResult.OK)
             {
                 txtPathNewDatabase.Text = folderBrowserDialog1.SelectedPath;
             }
@@ -66,18 +66,18 @@ namespace SchoolGrades
         {
             openFileDialog1.InitialDirectory = txtPathNewDatabase.Text;
             DialogResult r = openFileDialog1.ShowDialog();
-            if (r == System.Windows.Forms.DialogResult.OK)
+            if (r == DialogResult.OK)
             {
                 txtFileNewDatabase.Text = Path.GetFileName(openFileDialog1.FileName);
                 txtPathNewDatabase.Text = Path.GetDirectoryName(openFileDialog1.FileName);
             }
 
-            dbNew = new DbAndBusiness( txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
+            dbNew = new DbAndBusiness(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
             //List<Topic> lNew = dbNew.GetTopicsByParent();
 
             treeNew = new TreeMptt(trwNewTopics,
                 txtNewTopicName, txtNewDescription, null, null, txtCodNewTopic,
-                Commons.globalPicLed, DragDropEffects.Copy); 
+                Commons.globalPicLed, DragDropEffects.Copy);
             treeNew.AddNodesToTreeviewByBestMethod();
             treeNew.ClearBackColorOnClick = false;
         }
@@ -86,7 +86,7 @@ namespace SchoolGrades
         {
             folderBrowserDialog1.SelectedPath = txtPathOldDatabase.Text;
             DialogResult r = folderBrowserDialog1.ShowDialog();
-            if (r == System.Windows.Forms.DialogResult.OK)
+            if (r == DialogResult.OK)
             {
                 txtPathOldDatabase.Text = folderBrowserDialog1.SelectedPath;
             }
@@ -96,7 +96,7 @@ namespace SchoolGrades
         {
             openFileDialog1.InitialDirectory = txtPathOldDatabase.Text;
             DialogResult r = openFileDialog1.ShowDialog();
-            if (r == System.Windows.Forms.DialogResult.OK)
+            if (r == DialogResult.OK)
             {
                 txtFileOldDatabase.Text = Path.GetFileName(openFileDialog1.FileName);
                 txtPathOldDatabase.Text = Path.GetDirectoryName(openFileDialog1.FileName);
@@ -122,21 +122,21 @@ namespace SchoolGrades
         {
             treeNew.ClearBackColor();
             treeOld.ClearBackColor();
-            List<System.Windows.Forms.TreeNode> nodesNew = new List<System.Windows.Forms.TreeNode>();
+            List<TreeNode> nodesNew = new List<TreeNode>();
             // recursively fill nodesNew
             treeNew.GetAllNodesOfSubtree(trwNewTopics.Nodes[0], nodesNew);
             // recursively fill nodesOld
-            List<System.Windows.Forms.TreeNode> nodesOld = new List<System.Windows.Forms.TreeNode>();
+            List<TreeNode> nodesOld = new List<TreeNode>();
             treeOld.GetAllNodesOfSubtree(trwOldTopics.Nodes[0], nodesOld);
 
             int indexScanNew = 0;
             int indexScanOld = 0;
-            System.Windows.Forms.TreeNode nodeNew;
-            System.Windows.Forms.TreeNode nodeOld;
+            TreeNode nodeNew;
+            TreeNode nodeOld;
             Topic topicNew;
             Topic topicOld;
 
-            while (indexScanNew < nodesNew.Count -1 && indexScanOld < nodesOld.Count - 1)
+            while (indexScanNew < nodesNew.Count - 1 && indexScanOld < nodesOld.Count - 1)
             {
                 nodeNew = nodesNew[indexScanNew];
                 nodeOld = nodesOld[indexScanOld];
@@ -162,12 +162,12 @@ namespace SchoolGrades
                     }
                     else if (topicNew.Desc == topicOld.Desc)
                     {
-                        if (topicNew.ParentNodeOld== topicOld.ParentNodeOld)
+                        if (topicNew.ParentNodeOld == topicOld.ParentNodeOld)
                         {
                             nodeNew.BackColor = colorSameDesc;
                             nodeOld.BackColor = colorSameDesc;
                         }
-                        else 
+                        else
                         {
                             nodeNew.BackColor = colorSameNodeChangedParent;
                             nodeOld.BackColor = colorSameNodeChangedParent;
@@ -200,12 +200,12 @@ namespace SchoolGrades
                         found = true;
                         break;
                     }
-                    indexSearchOld++; 
+                    indexSearchOld++;
                 }
                 if (found && indexScanNew < nodesNew.Count - 1)
                 {   // we found the current new node in old tree 
                     // we can go on with the scanning 
-                    indexScanOld = indexSearchOld; 
+                    indexScanOld = indexSearchOld;
                 }
                 else if (indexScanNew < nodesNew.Count - 1)
                 {
@@ -224,21 +224,21 @@ namespace SchoolGrades
 
         private void btnRecover_Click(object sender, EventArgs e)
         {
-            DbAndBusiness dbNew = new DbAndBusiness( txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
+            DbAndBusiness dbNew = new DbAndBusiness(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
             List<Topic> lNew = dbNew.GetTopics();
 
             if (txtFileOldDatabase.Text == "")
             {
-                Console.Beep(); 
+                Console.Beep();
                 return;
             }
 
-            DbAndBusiness dbOld = new DbAndBusiness( txtPathOldDatabase.Text + "\\" + txtFileOldDatabase.Text);
+            DbAndBusiness dbOld = new DbAndBusiness(txtPathOldDatabase.Text + "\\" + txtFileOldDatabase.Text);
             List<Topic> lOld = dbOld.GetTopics();
 
             int newIndex = 0;
-            bool newFinished = false; 
-            foreach(Topic tOld in lOld)
+            bool newFinished = false;
+            foreach (Topic tOld in lOld)
             {
                 Topic tNew = lNew[newIndex];
                 while (tNew.Id < tOld.Id && !newFinished)
@@ -281,7 +281,7 @@ namespace SchoolGrades
                     }
                 }
             }
-            this.Close(); 
+            Close();
         }
 
         private void btnCopyOldNew_Click(object sender, EventArgs e)
@@ -292,13 +292,13 @@ namespace SchoolGrades
             //TreeNode lastNode = trwOldTopics.Nodes[trwOldTopics.Nodes.Count - 1].
             //    Nodes[trwOldTopics.Nodes[trwOldTopics.Nodes.Count - 1].Nodes.Count - 1];
 
-            System.Windows.Forms.TreeNode selectedOldNode = trwOldTopics.SelectedNode;
+            //TreeNode selectedOldNode = trwOldTopics.SelectedNode;
             // Clone the old node and its siblings.
-            System.Windows.Forms.TreeNode clonedNode = (System.Windows.Forms.TreeNode)selectedOldNode.Clone();
+            //TreeNode clonedNode = (TreeNode)selectedOldNode.Clone();
 
             // Insert the cloned node at the index of the selected node.
             //trwNewTopics.Nodes.Insert(trwNewTopics.SelectedNode.Index, clonedNode);
-            trwNewTopics.SelectedNode.Nodes.Add(clonedNode);
+            //trwNewTopics.SelectedNode.Nodes.Add(clonedNode);
         }
 
         private void btnFindNew_Click(object sender, EventArgs e)
@@ -314,7 +314,7 @@ namespace SchoolGrades
         private void BtnSaveNewTree_Click(object sender, EventArgs e)
         {
             treeNew.SaveTreeFromTreeViewControlByParent();
-            MessageBox.Show("Fatto"); 
+            MessageBox.Show("Fatto");
         }
     }
 }

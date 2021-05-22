@@ -1,10 +1,10 @@
-﻿using System;
-using System.Data.Common;
+﻿using gamon;
+using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SQLite;
 using System.IO;
-using System.Collections.Generic;
-using gamon;
 using System.Windows.Forms;
 
 namespace SchoolGrades.DbClasses
@@ -264,7 +264,7 @@ namespace SchoolGrades.DbClasses
         }
         internal void EraseStudentsPhoto(int? IdStudent, string SchoolYear)
         {
-            using (DbConnection conn =dl.Connect())
+            using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM StudentsPhotos_Students" +
@@ -343,20 +343,22 @@ namespace SchoolGrades.DbClasses
 
         private Question GetQuestionFromRow(DbDataReader Row)
         {
-            Question q = new Question();
-            q.Difficulty = SafeDb.SafeInt(Row["Difficulty"]);
-            q.IdImage = SafeDb.SafeInt(Row["IdImage"]);
-            q.Duration = SafeDb.SafeInt(Row["Duration"]);
-            q.IdQuestion = SafeDb.SafeInt(Row["IdQuestion"]);
-            q.IdQuestionType = SafeDb.SafeString(Row["IdQuestionType"]);
-            q.IdSchoolSubject = SafeDb.SafeString(Row["IdSchoolSubject"]);
-            //q.IdSubject = SafeDb.SafeInt(Row["IdSubject"]);
-            q.IdTopic = SafeDb.SafeInt(Row["IdTopic"]);
-            q.Image = SafeDb.SafeString(Row["Image"]);
-            q.Text = SafeDb.SafeString(Row["Text"]);
-            q.Weight = SafeDb.SafeDouble(Row["Weight"]);
-            q.NRows = SafeDb.SafeInt(Row["nRows"]);
-            q.IsParamount = SafeDb.SafeInt(Row["isParamount"]);
+            Question q = new Question
+            {
+                Difficulty = SafeDb.SafeInt(Row["Difficulty"]),
+                IdImage = SafeDb.SafeInt(Row["IdImage"]),
+                Duration = SafeDb.SafeInt(Row["Duration"]),
+                IdQuestion = SafeDb.SafeInt(Row["IdQuestion"]),
+                IdQuestionType = SafeDb.SafeString(Row["IdQuestionType"]),
+                IdSchoolSubject = SafeDb.SafeString(Row["IdSchoolSubject"]),
+                //q.IdSubject = SafeDb.SafeInt(Row["IdSubject"]);
+                IdTopic = SafeDb.SafeInt(Row["IdTopic"]),
+                Image = SafeDb.SafeString(Row["Image"]),
+                Text = SafeDb.SafeString(Row["Text"]),
+                Weight = SafeDb.SafeDouble(Row["Weight"]),
+                NRows = SafeDb.SafeInt(Row["nRows"]),
+                IsParamount = SafeDb.SafeInt(Row["isParamount"])
+            };
             ////////q.IsFixed = SafeDb.SafeBool(Row["isFixed"]);
 
             return q;
@@ -381,7 +383,7 @@ namespace SchoolGrades.DbClasses
                 }
                 catch (Exception ex)
                 {
-
+                    MessageBox.Show("We have a problem." + ex.Message);
                 }
                 cmd.Dispose();
                 return NamePath;
@@ -601,7 +603,7 @@ namespace SchoolGrades.DbClasses
             s.Disabled = SafeDb.SafeBool(Row["disabled"]);
             s.RevengeFactorCounter = SafeDb.SafeInt(Row["VFCounter"]);
 
-            return s; 
+            return s;
         }
 
         internal DataTable GetStudentsSameName(string LastName, string FirstName)
@@ -914,7 +916,7 @@ namespace SchoolGrades.DbClasses
                     "' AND Classes.abbreviation = '" + SqlVal.SqlString(ClassAbbreviation) +
                     "' ORDER BY Students.lastName, Students.firstName;";
                 dAdapter = new SQLiteDataAdapter(query,
-                    (System.Data.SQLite.SQLiteConnection)conn);
+                    (SQLiteConnection)conn);
                 dAdapter.Fill(dSet);
                 t = dSet.Tables[0];
 
@@ -1224,7 +1226,7 @@ namespace SchoolGrades.DbClasses
                     " WHERE Grades.idGrade=" + IdGrade.ToString() +
                     ";";
                 dRead = cmd.ExecuteReader();
-                dRead.Read(); 
+                dRead.Read();
                 g = GetGradeFromRow(dRead);
                 dRead.Dispose();
                 cmd.Dispose();
@@ -1248,7 +1250,7 @@ namespace SchoolGrades.DbClasses
             g.CncFactor = SafeDb.SafeDouble(Row["cncFactor"]);
             g.IdSchoolYear = SafeDb.SafeString(Row["idSchoolYear"]);
             //g.DummyInt = (int)Row["dummyInt"]; 
-            return g; 
+            return g;
         }
 
         internal void GetGradeAndStudent(Grade Grade, Student Student)
@@ -1310,7 +1312,7 @@ namespace SchoolGrades.DbClasses
                 ")" +
                 ";";
                 cmd = conn.CreateCommand();
-                cmd.CommandText = query; 
+                cmd.CommandText = query;
                 dRead = cmd.ExecuteReader();
                 while (dRead.Read())
                 {
@@ -1399,7 +1401,7 @@ namespace SchoolGrades.DbClasses
                 " ORDER BY abbreviation" +
                 ";";
                 cmd = conn.CreateCommand();
-                cmd.CommandText = query; 
+                cmd.CommandText = query;
                 dRead = cmd.ExecuteReader();
                 // fill the combo with this year's classes
                 while (dRead.Read())
@@ -1611,7 +1613,7 @@ namespace SchoolGrades.DbClasses
                     " AND Grades.idSchoolSubject = '" + IdSchoolSubject + "'" +
                     " AND Parents.idGradeType = '" + idGradeTypeParent + "'" +
                     " AND Grades.idGradeParent = Parents.idGrade" +
-                    " AND (Parents.value = 0 OR Parents.value is NULL)" + 
+                    " AND (Parents.value = 0 OR Parents.value is NULL)" +
                     " ORDER BY Grades.timestamp;";
 
                 DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
@@ -1622,7 +1624,7 @@ namespace SchoolGrades.DbClasses
                 return DSet.Tables[0];
             }
         }
-         
+
         /// <summary>
         /// Gets all the grades of a students of a specified IdGradeType that are the sons 
         /// of another grade which has value NOT null AND NOT equal to zero
@@ -1702,7 +1704,7 @@ namespace SchoolGrades.DbClasses
             {
                 DbCommand cmd = conn.CreateCommand();
                 // create a new micro assessment in grades table
-                if (Grade == null || Grade.IdGrade == null|| Grade.IdGrade == 0)
+                if (Grade == null || Grade.IdGrade == null || Grade.IdGrade == 0)
                 {
                     Grade.IdGrade = NextKey("Grades", "idGrade");
                     cmd.CommandText = "INSERT INTO Grades " +
@@ -1710,14 +1712,14 @@ namespace SchoolGrades.DbClasses
                     "cncFactor,idSchoolYear, timestamp, idQuestion,idSchoolSubject) " +
                     "Values (" + Grade.IdGrade +
                     ",'" + SqlVal.SqlString(Grade.IdGradeType) + "'" +
-                    "," +  SqlVal.SqlInt(Grade.IdGradeParent.ToString()) + "" +
+                    "," + SqlVal.SqlInt(Grade.IdGradeParent.ToString()) + "" +
                     "," + Grade.IdStudent + "" +
                     "," + SqlVal.SqlDouble(Grade.Value) + "" +
                     "," + SqlVal.SqlDouble(Grade.Weight) + "" +
                     "," + SqlVal.SqlDouble(Grade.CncFactor) + "" +
                     ",'" + SqlVal.SqlString(Grade.IdSchoolYear) + "'" +
                     ",'" + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss").Replace('.', ':') + "'" +
-                    "," +  SqlVal.SqlInt(Grade.IdQuestion.ToString()) + "" +
+                    "," + SqlVal.SqlInt(Grade.IdQuestion.ToString()) + "" +
                     ",'" + Grade.IdSchoolSubject + "'" +
                     ");";
                 }
@@ -1725,13 +1727,13 @@ namespace SchoolGrades.DbClasses
                 {
                     cmd.CommandText = "UPDATE Grades " +
                     "SET" +
-                    " idGrade=" +  SqlVal.SqlInt(Grade.IdGrade.ToString()) + "" +
+                    " idGrade=" + SqlVal.SqlInt(Grade.IdGrade.ToString()) + "" +
                     ",idGradeType='" + SqlVal.SqlString(Grade.IdGradeType) + "'" +
-                    ",idGradeParent=" +  SqlVal.SqlInt(Grade.IdGradeParent.ToString()) + "" +
-                    ",idStudent=" +  SqlVal.SqlInt(Grade.IdStudent.ToString()) + "" +
+                    ",idGradeParent=" + SqlVal.SqlInt(Grade.IdGradeParent.ToString()) + "" +
+                    ",idStudent=" + SqlVal.SqlInt(Grade.IdStudent.ToString()) + "" +
                     ",idSchoolYear='" + SqlVal.SqlString(Grade.IdSchoolYear) + "'" +
                     ",timestamp='" + SqlVal.SqlString(((DateTime)Grade.Timestamp).ToString("yyyy-MM-dd HH:mm:ss")) + "'" +
-                    ",idQuestion='" +  SqlVal.SqlInt(Grade.IdQuestion.ToString()) + "'" +
+                    ",idQuestion='" + SqlVal.SqlInt(Grade.IdQuestion.ToString()) + "'" +
                     ",idSchoolSubject='" + SqlVal.SqlString(Grade.IdSchoolSubject) + "'" +
                     ",value=" + SqlVal.SqlDouble(Grade.Value) + "" +
                     ",weight=" + SqlVal.SqlDouble(Grade.Weight) + "" +
@@ -1777,7 +1779,7 @@ namespace SchoolGrades.DbClasses
                 cmd.CommandText = "UPDATE Grades " +
                     "SET IdStudent=" + SqlVal.SqlInt(IdStudent) +
                     ",value=" + SqlVal.SqlDouble(Grade) +
-                    ",weight=" + SqlVal.SqlDouble(Weight) + 
+                    ",weight=" + SqlVal.SqlDouble(Weight) +
                     ",idSchoolYear='" + IdSchoolYear + "'" +
                     ",idSchoolSubject='" + IdSchoolSubject +
                     "',timestamp ='" + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss").Replace('.', ':') + "' " +
@@ -1958,7 +1960,7 @@ namespace SchoolGrades.DbClasses
             if (IdQuestion == 0)
             {
                 question.IdQuestion = 0;
-                question.Text = ""; 
+                question.Text = "";
                 return question;
             }
             using (DbConnection conn = dl.Connect())
@@ -2127,7 +2129,7 @@ namespace SchoolGrades.DbClasses
             }
             query += " OR Questions.idTopic IS NULL OR Questions.idTopic = ''";
             if (SearchString != "")
-                query += ")"; 
+                query += ")";
 
             query += " ORDER BY Questions.weight;";
 
@@ -2416,8 +2418,8 @@ namespace SchoolGrades.DbClasses
                 cmd.CommandText = "INSERT INTO Answers" +
                     " (idAnswer,idQuestion,showingOrder,text,errorCost,isCorrect,isOpenAnswer)" +
                     " Values (" + codice +
-                    "," +  SqlVal.SqlInt(currentAnswer.IdQuestion) +
-                    "," +  SqlVal.SqlInt(currentAnswer.ShowingOrder) +
+                    "," + SqlVal.SqlInt(currentAnswer.IdQuestion) +
+                    "," + SqlVal.SqlInt(currentAnswer.ShowingOrder) +
                     ",'" + SqlVal.SqlString(currentAnswer.Text) + "'" +
                     "," + SqlVal.SqlDouble(currentAnswer.ErrorCost) +
                     "," + SqlVal.SqlBool(currentAnswer.IsCorrect) +
@@ -2680,7 +2682,7 @@ namespace SchoolGrades.DbClasses
                     //return; 
                 }
                 string fieldsString = " (";
-                string valuesString;
+                string valuesString = string.Empty;
                 int fieldsCount = 0;
 
                 int index = 0;
@@ -2721,7 +2723,7 @@ namespace SchoolGrades.DbClasses
                     index++; // void line feed
 
                     // parse the rest of the rows: values
-                    string fieldValue = "";
+                    string fieldValue = string.Empty;
                     while (dati[index] != '\r')
                     {
                         while (dati[index] != '\"')
@@ -2969,7 +2971,7 @@ namespace SchoolGrades.DbClasses
             File.Copy(Commons.PathAndFileDatabase, newDatabaseFullName);
 
             // open a local connection to database 
-            DataLayer.DataLayer newDatabaseDl = new DataLayer.DataLayer(newDatabaseFullName); 
+            DataLayer.DataLayer newDatabaseDl = new DataLayer.DataLayer(newDatabaseFullName);
 
             // erase all the data of the students of other classes
             using (DbConnection conn = newDatabaseDl.Connect())
@@ -3024,7 +3026,7 @@ namespace SchoolGrades.DbClasses
                 // erase all the annotations of other classes
                 cmd.CommandText = "DELETE FROM StudentsAnnotations" +
                     " WHERE idStudent NOT IN" +
-                    " (SELECT idStudent FROM Classes_Students)" + 
+                    " (SELECT idStudent FROM Classes_Students)" +
                     ";";
                 cmd.ExecuteNonQuery();
 
@@ -3122,7 +3124,7 @@ namespace SchoolGrades.DbClasses
                     if (dReader["pathRestrictedApplication"] is DBNull)
                     {
                         Console.Beep();
-                        break; 
+                        break;
                     }
                     if (dReader["imagePath"] is DBNull)
                     {
@@ -3469,7 +3471,7 @@ namespace SchoolGrades.DbClasses
                 "DELETE FROM Classes_StartLinks;" +
                 "DELETE FROM Flags;" +
                 "DELETE FROM usersCategories;" +
-                "DELETE FROM Users;"; 
+                "DELETE FROM Users;";
                 cmd.ExecuteNonQuery();
 
                 // compact the database 
@@ -3627,7 +3629,7 @@ namespace SchoolGrades.DbClasses
                             File.Copy(Commons.PathImages + "\\" + (string)dReader["imagePath"],
                                 destinationFile);
                         }
-                        catch (Exception ex)
+                        catch (Exception)
                         {
                             Console.Beep();
                         }
@@ -3690,7 +3692,7 @@ namespace SchoolGrades.DbClasses
             // !!!! TODO read school info from the database !!!!
             School news = new School();
             // the next should be a real integer id, 
-            news.IdSchool = Commons.IdSchool; 
+            news.IdSchool = Commons.IdSchool;
             news.Name = "IS Pascal Comandini";
             news.Desc = "Istituto Di Istruzione Superiore Pascal-Comandini, Cesena";
             news.OfficialSchoolAbbreviation = Commons.IdSchool;
@@ -3709,8 +3711,8 @@ namespace SchoolGrades.DbClasses
                 "(idTopic,name,desc,leftNode,rightNode,parentNode,childNumber)" +
                 "Values " +
                 "(" + nextId + ",'" + SqlVal.SqlString(NewTopic.Name) + "','" +
-                SqlVal.SqlString(NewTopic.Desc) + "'," +  SqlVal.SqlInt(NewTopic.LeftNodeNew.ToString()) + "," +
-                 SqlVal.SqlInt(NewTopic.RightNodeNew.ToString()) + "," +  SqlVal.SqlInt(NewTopic.ParentNodeNew.ToString()) +
+                SqlVal.SqlString(NewTopic.Desc) + "'," + SqlVal.SqlInt(NewTopic.LeftNodeNew.ToString()) + "," +
+                 SqlVal.SqlInt(NewTopic.RightNodeNew.ToString()) + "," + SqlVal.SqlInt(NewTopic.ParentNodeNew.ToString()) +
                 "," + SqlVal.SqlInt(NewTopic.ChildNumberNew.ToString()) +
                 ");";
                 cmd.ExecuteNonQuery();
@@ -3846,8 +3848,8 @@ namespace SchoolGrades.DbClasses
                     " WHERE leftNode BETWEEN " + StartTopic.LeftNodeOld +
                     " AND " + StartTopic.RightNodeOld;
                 if (Class != null)
-                    query += " AND Lessons.idClass = " + Class.IdClass; 
-                if(Subject != null)
+                    query += " AND Lessons.idClass = " + Class.IdClass;
+                if (Subject != null)
                     query += " AND Lessons.idSchoolSubject ='" + Subject.IdSchoolSubject + "'" +
                     " ORDER BY leftNode ASC;";
                 cmd = new SQLiteCommand(query);
@@ -3864,7 +3866,7 @@ namespace SchoolGrades.DbClasses
             return l;
         }
         internal List<Topic> GetAllTopicsDoneInClassAndSubject(Class Class,
-            SchoolSubject Subject, 
+            SchoolSubject Subject,
             DateTime DateStart = default(DateTime), DateTime DateFinish = default(DateTime))
         {
             // node order according to Modified Preorder Tree Traversal algorithm
@@ -3882,8 +3884,8 @@ namespace SchoolGrades.DbClasses
                     " AND Lessons.idSchoolSubject ='" + Subject.IdSchoolSubject + "'";
                 if (DateStart != default(DateTime) && DateFinish != default(DateTime))
                     query += " AND Lessons.date BETWEEN " +
-                    SqlVal.SqlDate(DateStart) + " AND " + SqlVal.SqlDate(DateFinish); 
-                    query += " ORDER BY Lessons.date ASC;";
+                    SqlVal.SqlDate(DateStart) + " AND " + SqlVal.SqlDate(DateFinish);
+                query += " ORDER BY Lessons.date ASC;";
                 cmd = new SQLiteCommand(query);
                 cmd.Connection = conn;
                 DbDataReader dRead = cmd.ExecuteReader();
@@ -4370,13 +4372,13 @@ namespace SchoolGrades.DbClasses
                         cmd.ExecuteNonQuery();
                     }
 
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         {
                             // if it isn't UNIQUE, then it is error (to cure!!!!)
                             // but actually it doesn't matter too much, because
                             // the lesson is already linked to the topic anyway.. 
-
+                            
 
                         }
                     }
@@ -4388,7 +4390,7 @@ namespace SchoolGrades.DbClasses
         {
             if (IdLesson == null)
             {
-                return null; 
+                return null;
             }
             // order by ensures that the order of the result is the order of insertion 
             // in the database (that was the same of the tree traversal) 
@@ -4696,7 +4698,7 @@ namespace SchoolGrades.DbClasses
                     "Values " +
                     "(" + nextId + ",'" + SqlVal.SqlString(TestToSave.Name) + "','" +
                     SqlVal.SqlString(TestToSave.Desc) + "','" + SqlVal.SqlString(TestToSave.IdSchoolSubject) + "'," +
-                     SqlVal.SqlInt(TestToSave.IdTestType) + "," +  SqlVal.SqlInt(TestToSave.IdTopic) +
+                     SqlVal.SqlInt(TestToSave.IdTestType) + "," + SqlVal.SqlInt(TestToSave.IdTopic) +
                     ");";
                 }
                 else
@@ -4705,8 +4707,8 @@ namespace SchoolGrades.DbClasses
                     " SET name='" + SqlVal.SqlString(TestToSave.Name) + "'," +
                     "desc='" + SqlVal.SqlString(TestToSave.Desc) + "'" +
                     ",IdSchoolSubject=" + SqlVal.SqlString(TestToSave.IdSchoolSubject) +
-                    ",IdTestType=" +  SqlVal.SqlInt(TestToSave.IdTestType) +
-                    ",IdTopic=" +  SqlVal.SqlInt(TestToSave.IdTopic) +
+                    ",IdTestType=" + SqlVal.SqlInt(TestToSave.IdTestType) +
+                    ",IdTopic=" + SqlVal.SqlInt(TestToSave.IdTopic) +
                     ")" +
                     " WHERE idTest=" + TestToSave.IdTest +
                     ";";
@@ -4759,7 +4761,7 @@ namespace SchoolGrades.DbClasses
             if (Student == null)
             {
                 MessageBox.Show("Scegliere un allievo");
-                return; 
+                return;
             }
             using (DbConnection conn = dl.Connect())
             {
@@ -4769,11 +4771,11 @@ namespace SchoolGrades.DbClasses
                 if (IdStudentsAnswer != null)
                 {   // update answer
                     cmd.CommandText = "UPDATE StudentsAnswers" +
-                    " SET idStudent=" +  SqlVal.SqlInt(Student.IdStudent) + "," +
-                    "idAnswer=" +  SqlVal.SqlInt(Answer.IdAnswer) + "," +
+                    " SET idStudent=" + SqlVal.SqlInt(Student.IdStudent) + "," +
+                    "idAnswer=" + SqlVal.SqlInt(Answer.IdAnswer) + "," +
                     "studentsBoolAnswer=" + SqlVal.SqlBool(StudentsBoolAnswer) + "," +
                     "studentsTextAnswer='" + SqlVal.SqlString(StudentsTextAnswer) + "'," +
-                    "IdTest=" +  SqlVal.SqlInt(Test.IdTest) +
+                    "IdTest=" + SqlVal.SqlInt(Test.IdTest) +
                     "" +
                     " WHERE IdStudentsAnswer=" + Answer.IdAnswer +
                     ";";
@@ -4787,7 +4789,7 @@ namespace SchoolGrades.DbClasses
                     "studentsTextAnswer,IdTest" +
                     ")" +
                     "Values " +
-                    "(" + nextId + "," +  SqlVal.SqlInt(Student.IdStudent) + "," +
+                    "(" + nextId + "," + SqlVal.SqlInt(Student.IdStudent) + "," +
                      SqlVal.SqlInt(Answer.IdAnswer) + "," + SqlVal.SqlBool(StudentsBoolAnswer) + ",'" +
                     SqlVal.SqlString(StudentsTextAnswer) + "'," +
                      SqlVal.SqlInt(Test.IdTest) +
@@ -4818,7 +4820,7 @@ namespace SchoolGrades.DbClasses
         internal List<StudentsAnswer> GetAllAnswersOfAStudentToAQuestionOfThisTest(
             int? IdStudent, int? IdQuestion, int? IdTest)
         {
-            List<StudentsAnswer> list = new List<StudentsAnswer>(); 
+            List<StudentsAnswer> list = new List<StudentsAnswer>();
             using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
@@ -4883,7 +4885,7 @@ namespace SchoolGrades.DbClasses
             }
             return list;
         }
-       
+
         internal List<Answer> GetAllCorrectAnswersToThisQuestionOfThisTest(int? IdQuestion, int? IdTest)
         {
             List<Answer> list = new List<Answer>();
@@ -4909,7 +4911,7 @@ namespace SchoolGrades.DbClasses
             }
             return list;
         }
-        
+
         internal Answer GetAnswerFromRow(DbDataReader Row)
         {
             Answer a = new Answer();
@@ -4925,11 +4927,11 @@ namespace SchoolGrades.DbClasses
             return a;
         }
 
-        internal List<StudentAnnotation> AnnotationsAboutThisStudent(Student currentStudent, string IdSchoolYear, 
+        internal List<StudentAnnotation> AnnotationsAboutThisStudent(Student currentStudent, string IdSchoolYear,
             bool IncludeOnlyActiveAnnotations)
         {
             if (currentStudent == null)
-                return null; 
+                return null;
             List<StudentAnnotation> la = new List<StudentAnnotation>();
             using (DbConnection conn = dl.Connect())
             {
@@ -4957,14 +4959,16 @@ namespace SchoolGrades.DbClasses
 
         private StudentAnnotation GetAnnotationFromRow(DbDataReader Row)
         {
-            StudentAnnotation a = new StudentAnnotation();
-            a.IdAnnotation = SafeDb.SafeInt(Row["idAnnotation"]);
-            a.IdStudent = SafeDb.SafeInt(Row["idStudent"]);
-            a.IdSchoolYear = SafeDb.SafeString(Row["idSchoolYear"]);
-            a.Annotation = SafeDb.SafeString(Row["annotation"]);
-            a.InstantTaken = SafeDb.SafeDateTime(Row["instantTaken"]);
-            a.InstantClosed = SafeDb.SafeDateTime(Row["instantClosed"]);
-            a.IsActive = SafeDb.SafeBool(Row["isActive"]);
+            StudentAnnotation a = new StudentAnnotation
+            {
+                IdAnnotation = SafeDb.SafeInt(Row["idAnnotation"]),
+                IdStudent = SafeDb.SafeInt(Row["idStudent"]),
+                IdSchoolYear = SafeDb.SafeString(Row["idSchoolYear"]),
+                Annotation = SafeDb.SafeString(Row["annotation"]),
+                InstantTaken = SafeDb.SafeDateTime(Row["instantTaken"]),
+                InstantClosed = SafeDb.SafeDateTime(Row["instantClosed"]),
+                IsActive = SafeDb.SafeBool(Row["isActive"])
+            };
             return a;
         }
 
@@ -4985,13 +4989,13 @@ namespace SchoolGrades.DbClasses
                     " instantClosed=" + SqlVal.SqlDate(Annotation.InstantClosed) + "," +
                     " isActive=" + SqlVal.SqlBool(Annotation.IsActive) + "," +
                     " annotation='" + SqlVal.SqlString(Annotation.Annotation) + "'" +
-                    " WHERE idStudent=" +  SqlVal.SqlInt(s.IdStudent) +
+                    " WHERE idStudent=" + SqlVal.SqlInt(s.IdStudent) +
                     ";";
                 }
                 else
                 {
                     Annotation.InstantTaken = DateTime.Now;
-                    Annotation.IsActive = true; 
+                    Annotation.IsActive = true;
                     // create answer on database
                     int? nextId = NextKey("StudentsAnnotations", "IdAnnotation");
                     Annotation.IdAnnotation = nextId;
@@ -5013,18 +5017,18 @@ namespace SchoolGrades.DbClasses
                         query += ",'" + SqlVal.SqlString(Annotation.IdSchoolYear) + "'";
                     query += ");";
                 }
-                cmd.CommandText = query; 
+                cmd.CommandText = query;
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
-            return Annotation.IdAnnotation; 
+            return Annotation.IdAnnotation;
         }
 
         internal StudentAnnotation GetAnnotation(int? IdAnnotation)
         {
             StudentAnnotation a;
             if (IdAnnotation == null)
-                return null; 
+                return null;
             a = new StudentAnnotation();
             using (DbConnection conn = dl.Connect())
             {
@@ -5036,14 +5040,14 @@ namespace SchoolGrades.DbClasses
                 query += ";";
                 cmd.CommandText = query;
                 dRead = cmd.ExecuteReader();
-                dRead.Read(); 
+                dRead.Read();
                 a = GetAnnotationFromRow(dRead);
-                cmd.Dispose(); 
+                cmd.Dispose();
             }
             return a;
         }
 
-        internal DataTable GetStudentsWithNoMicrogrades(Class Class, string IdGradeType, string IdSchoolSubject, 
+        internal DataTable GetStudentsWithNoMicrogrades(Class Class, string IdGradeType, string IdSchoolSubject,
             DateTime DateFrom, DateTime DateTo)
         {
             DataTable t;
@@ -5108,7 +5112,7 @@ namespace SchoolGrades.DbClasses
                     " WHERE annotation='" + SqlVal.SqlString(AnnotationText) + "'" +
                     " AND idStudent=" + SqlVal.SqlInt(Student.IdStudent) +
                     ";";
-                    cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
         }

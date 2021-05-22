@@ -1,19 +1,19 @@
-﻿using System;
+﻿using SchoolGrades;
+using SchoolGrades.DataLayer;
+using SchoolGrades.DbClasses;
+using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SQLite;
 using System.Linq;
 using System.Windows.Forms;
-using SchoolGrades;
-using SchoolGrades.DbClasses;
-using SchoolGrades.DataLayer;
 
 namespace gamon.TreeMptt
 {
     internal class TreeMpttDb
     {
         DbAndBusiness db = new DbAndBusiness();
-        DataLayer dl = new DataLayer(); 
+        DataLayer dl = new DataLayer();
 
         string dbName = Commons.PathAndFileDatabase;
 
@@ -49,7 +49,7 @@ namespace gamon.TreeMptt
                     if (t.Changed == null)
                         changed = false;
                     else
-                        changed = (bool)t.Changed; 
+                        changed = (bool)t.Changed;
                     // update modified nodes 
                     if (changed
                         || t.ParentNodeNew != t.ParentNodeOld || t.ChildNumberNew != t.ChildNumberOld
@@ -74,7 +74,7 @@ namespace gamon.TreeMptt
             // Left-Right status left on "inconsistent" if we were NOT saving leftNode and rightNode
             // or if we quit this method breaking the loops. 
             if (MustSaveLeftAndRight && Commons.BackgroundCanStillSaveTopicsTree)
-                SaveLeftRightConsistent(true); 
+                SaveLeftRightConsistent(true);
         }
         internal void SaveLeftRightConsistent(bool SetConsistent)
         {
@@ -171,34 +171,34 @@ namespace gamon.TreeMptt
             // recursive call that does all: 
             int nodeCount = 0;
             // recursive function starts from just one root node
-            SetRightAndLeftInOneLevel(firstNodes[0], ref nodeCount); 
+            SetRightAndLeftInOneLevel(firstNodes[0], ref nodeCount);
             // since the initial node has not been read from the database, 
             // then we save left and right anyway 
             UdpateTopicMptt(firstNodes[0].Id, 0, nodeCount);
             // restore status of "consistent" flag
-           SaveLeftRightConsistent(true);
+            SaveLeftRightConsistent(true);
         }
         private void SetRightAndLeftInOneLevel(Topic ParentNode, ref int NodeCount)
         {
             // if requested externally by setting BackgroundCanStillSaveTopicsTree to false, 
             // abort tree update by exiting method 
             if (!Commons.BackgroundCanStillSaveTopicsTree)
-                return; 
+                return;
             // visits all the childrens of CurrentNode in the Treeview. 
             // with the Modified Tree Traversal algorithm 
             // calculates Right and Left node and update the database in case they are different
             // ParentNode was taken from the database, NodeCount has been calculated here 
             bool isLeftDifferent = false;
-            int NewLeft = 0; 
+            int NewLeft = 0;
             if (ParentNode.LeftNodeNew != NodeCount++)
             {
                 isLeftDifferent = true;
-                NewLeft = NodeCount - 1; 
+                NewLeft = NodeCount - 1;
             }
             // find all son nodes of current node (list is ordered by childNumber) 
             // takes from the database, which could be unmodified 
             // !!!! TODO: keep the connection open !!!!
-            List<Topic> listChilds = GetTopicChildsByParent(ParentNode, null); 
+            List<Topic> listChilds = GetTopicChildsByParent(ParentNode, null);
             foreach (Topic sonNode in listChilds)  // list Childs are taken from the database 
             {
                 // recurse the function for every son node
@@ -347,7 +347,7 @@ namespace gamon.TreeMptt
             DbCommand cmd = Connection.CreateCommand();
             string query = "SELECT *" +
                 " FROM Topics" +
-                " WHERE parentNode=" + ParentTopic.Id + 
+                " WHERE parentNode=" + ParentTopic.Id +
                 " ORDER BY childNumber";
             cmd = new SQLiteCommand(query);
             cmd.Connection = Connection;

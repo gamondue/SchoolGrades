@@ -1,20 +1,20 @@
 using System;
-using System.Text;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 
 public class ServerTcp
 {
-    static TcpListener listener; 
-    static Socket socket; 
+    static TcpListener listener;
+    static Socket socket;
     static string password;
 
     public static bool isError = false;
-    public static bool isConnected = false; 
+    public static bool isConnected = false;
 
     internal static void Listen(string IpOrDns, int TcpPort, string Password)
     {
-        password = Password; 
+        password = Password;
         try
         {
             IPAddress ipAd = IPAddress.Parse(IpOrDns);
@@ -34,7 +34,7 @@ public class ServerTcp
         catch (Exception e)
         {
             Console.WriteLine("Error..... " + e.StackTrace);
-            throw e; 
+            throw e;
         }
     }
     internal static string Receive()
@@ -44,7 +44,7 @@ public class ServerTcp
             byte[] buffer = new byte[100];
             int k = socket.Receive(buffer);
             Console.WriteLine("Received...");
-            string str = ""; 
+            string str = "";
             for (int i = 0; i < k; i++)
                 str += Convert.ToChar(buffer[i]);
             return str;
@@ -61,10 +61,10 @@ public class ServerTcp
     {
         ASCIIEncoding asen = new ASCIIEncoding();
         socket.Send(asen.GetBytes("Stringa ricevuta"));
-	}
+    }
     internal static void Close()
     {
-        if(socket != null)
+        if (socket != null)
             socket.Close();
         if (listener != null)
             listener.Stop();

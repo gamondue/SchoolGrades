@@ -1,15 +1,14 @@
 using System;
 using System.IO;
-using System.Text;
-using System.Net.Sockets;
 using System.Net;
+using System.Net.Sockets;
+using System.Text;
 
 public class ClientTcp
 
 {
     static TcpClient tcpclnt;
     static Stream stream;
-    static string password;
 
     //internal static void Connect(string IpOrDns, int TcpPort, string Password)
     internal static void Connect(string IpOrDns, int TcpPort)
@@ -31,13 +30,14 @@ public class ClientTcp
         catch (Exception e)
         {
             Console.WriteLine("Error..... " + e.StackTrace);
-            throw; 
+            throw;
         }
     }
 
     internal static void Write(string Stringa)
     {
-        try { 
+        try
+        {
             ASCIIEncoding asen = new ASCIIEncoding();
             byte[] ba = asen.GetBytes(Stringa);
             Console.WriteLine("Transmitting.....");
@@ -51,7 +51,8 @@ public class ClientTcp
     }
     internal static string Read(string Stringa)
     {
-        try { 
+        try
+        {
             byte[] buffer = new byte[100];
             int k = stream.Read(buffer, 0, 100);
 

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SchoolGrades.DbClasses
 {
@@ -24,7 +22,7 @@ namespace SchoolGrades.DbClasses
 
         public override string ToString()
         {
-            return Name; 
+            return Name;
         }
     }
 }

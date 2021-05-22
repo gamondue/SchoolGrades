@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SchoolGrades.DbClasses
+﻿namespace SchoolGrades.DbClasses
 {
     public class SchoolSubject
     {
@@ -23,7 +19,7 @@ namespace SchoolGrades.DbClasses
             if (Name != null)
                 return Name;
             else
-                return ""; 
+                return "";
         }
     }
 }

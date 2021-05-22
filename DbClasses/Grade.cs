@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SchoolGrades.DbClasses
 {
@@ -17,7 +15,7 @@ namespace SchoolGrades.DbClasses
         private int? idGradeParent;
         private int? idQuestion;
         private string idSchoolSubject;
-        private int? dummyInt; 
+        private int? dummyInt;
 
         public int? IdGrade { get => idGrade; set => idGrade = value; }
         public int? IdStudent { get => idStudent; set => idStudent = value; }
@@ -37,14 +35,11 @@ namespace SchoolGrades.DbClasses
 
         public int? DummyInt { get => dummyInt; set => dummyInt = value; }
 
-        public Grade()
-        {
-            
-        }
+        public Grade() { }
 
-        public Grade (int? IdGrade)
+        public Grade(int? IdGrade)
         {
-            idGrade = IdGrade; 
+            idGrade = IdGrade;
         }
     }
 }

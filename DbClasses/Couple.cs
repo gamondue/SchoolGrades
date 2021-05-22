@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SchoolGrades.DbClasses
+﻿namespace SchoolGrades.DbClasses
 {
     class Couple
     {
         int key;
         object value;
-        private int v;
-        private DateTime dateTime;
+        //private int v;
+        //private DateTime dateTime;
 
         public Couple()
         {
