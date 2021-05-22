@@ -1,4 +1,5 @@
 ﻿using SchoolGrades.DbClasses;
+using SchoolGrades.DataLayer;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -12,7 +13,7 @@ namespace SchoolGrades
 {
     public partial class frmTopics : Form
     {
-        DbAndBusiness db = new DbAndBusiness();
+        TestLessonsTopicAndQuestionsData db = new TestLessonsTopicAndQuestionsData();
 
         gamon.TreeMptt.TreeMptt topicTreeMptt;
 

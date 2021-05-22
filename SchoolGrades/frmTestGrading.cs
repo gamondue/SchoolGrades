@@ -1,4 +1,5 @@
 ﻿using SchoolGrades.DbClasses;
+using SchoolGrades.DataLayer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,7 +14,7 @@ namespace SchoolGrades
 {
     public partial class frmTestGrading : Form
     {
-        DbAndBusiness db = new DbAndBusiness();
+        AnswersGradesAndStudentData ag = new AnswersGradesAndStudentData();
 
         Test currentTest;
         Class currentClass;
@@ -27,8 +28,8 @@ namespace SchoolGrades
 
         private void frmTestAssessment_Load(object sender, EventArgs e)
         {
-            currentTest = db.GetTest(1); //!!!!!!!!!!!!!!
-            currentClass = db.GetClass(Commons.IdSchool, "1920", "IFTS"); //!!!!!!!!!!!!!!
+            currentTest = ag.GetTest(1); //!!!!!!!!!!!!!!
+            currentClass = ag.GetClass(Commons.IdSchool, "1920", "IFTS"); //!!!!!!!!!!!!!!
 
             GradeTest(); 
             RefreshUi();
@@ -36,8 +37,8 @@ namespace SchoolGrades
 
         private void GradeTest()
         {
-            List<Student> studentsThatAnswered = db.GetAllStudentsThatAnsweredToATest(currentTest, currentClass);
-            List<Question> allQuestions = db.GetAllQuestionsOfATest(currentTest.IdTest);
+            List<Student> studentsThatAnswered = ag.GetAllStudentsThatAnsweredToATest(currentTest, currentClass);
+            List<Question> allQuestions = ag.GetAllQuestionsOfATest(currentTest.IdTest);
 
             dgwTestResults.Rows.Clear();        // !!!! erase when fully debugged //
             dgwTestResults.Columns.Clear();     // !!!! erase when fully debugged //
@@ -51,7 +52,7 @@ namespace SchoolGrades
             // showing the correct answers and weights of the questions
             foreach (Question q in allQuestions)
             {
-                correctQuestionAnswers = db.GetAllCorrectAnswersToThisQuestionOfThisTest(
+                correctQuestionAnswers = ag.GetAllCorrectAnswersToThisQuestionOfThisTest(
                     q.IdQuestion, currentTest.IdTest);
 
                 GridAddData(gridRow, gridColumn, q.Text);
@@ -92,9 +93,9 @@ namespace SchoolGrades
                 // grading of students' answers
                 foreach (Question q in allQuestions)
                 {
-                    correctQuestionAnswers = db.GetAllCorrectAnswersToThisQuestionOfThisTest(
+                    correctQuestionAnswers = ag.GetAllCorrectAnswersToThisQuestionOfThisTest(
                         q.IdQuestion, currentTest.IdTest);
-                    List<StudentsAnswer> studentsQuestionAnswers = db.GetAllAnswersOfAStudentToAQuestionOfThisTest(
+                    List<StudentsAnswer> studentsQuestionAnswers = ag.GetAllAnswersOfAStudentToAQuestionOfThisTest(
                         s.IdStudent, q.IdQuestion, currentTest.IdTest);
 
                     int budgetOfQuestion = 100;

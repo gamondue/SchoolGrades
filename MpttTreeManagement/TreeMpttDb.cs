@@ -12,7 +12,7 @@ namespace gamon.TreeMptt
 {
     internal class TreeMpttDb
     {
-        DbAndBusiness db = new DbAndBusiness();
+        TestLessonsTopicAndQuestionsData tl = new TestLessonsTopicAndQuestionsData();
         DataLayer dl = new DataLayer(); 
 
         string dbName = Commons.PathAndFileDatabase;
@@ -59,11 +59,11 @@ namespace gamon.TreeMptt
                     {
                         if (t.Id != null && t.Id > 1)
                         {
-                            db.UpdateTopic(t, conn);
+                            tl.UpdateTopic(t, conn);
                         }
                         else
                         {
-                            db.InsertTopic(t, conn);
+                            tl.InsertTopic(t, conn);
                         }
                     }
                     if (!Commons.BackgroundCanStillSaveTopicsTree)
@@ -129,7 +129,7 @@ namespace gamon.TreeMptt
                 DbDataReader dRead = cmd.ExecuteReader();
                 while (dRead.Read())
                 {
-                    Topic t = db.GetTopicFromRow(dRead);
+                    Topic t = tl.GetTopicFromRow(dRead);
                     l.Add(t);
                 }
                 dRead.Dispose();
@@ -152,7 +152,7 @@ namespace gamon.TreeMptt
                 DbDataReader dRead = cmd.ExecuteReader();
                 while (dRead.Read())
                 {
-                    Topic t = db.GetTopicFromRow(dRead);
+                    Topic t = tl.GetTopicFromRow(dRead);
                     l.Add(t);
                 }
                 dRead.Dispose();
@@ -248,7 +248,7 @@ namespace gamon.TreeMptt
 
                 while (dRead.Read())
                 {
-                    Topic t = db.GetTopicFromRow(dRead);
+                    Topic t = tl.GetTopicFromRow(dRead);
                     lt.Add(t);
                 }
                 dRead.Dispose();
@@ -281,7 +281,7 @@ namespace gamon.TreeMptt
                 // if CurrentNode is a new node, then we create it in the database, 
                 // so that it will have its Id. It will be saved with correct data 
                 // in the following because new and old values will differ 
-                ct.Id = db.CreateNewTopic(ct);
+                ct.Id = tl.CreateNewTopic(ct);
             }
             int brotherNo = 1;
             foreach (TreeNode sonNode in CurrentNode.Nodes)
@@ -354,7 +354,7 @@ namespace gamon.TreeMptt
             DbDataReader dRead = cmd.ExecuteReader();
             while (dRead.Read())
             {
-                Topic t = db.GetTopicFromRow(dRead);
+                Topic t = tl.GetTopicFromRow(dRead);
                 lt.Add(t);
             }
             dRead.Dispose();
@@ -386,7 +386,7 @@ namespace gamon.TreeMptt
                 DbDataReader dRead = cmd.ExecuteReader();
                 while (dRead.Read())
                 {
-                    Topic t = db.GetTopicFromRow(dRead);
+                    Topic t = tl.GetTopicFromRow(dRead);
                     l.Add(t);
                 }
                 dRead.Dispose();
@@ -437,7 +437,7 @@ namespace gamon.TreeMptt
                 dRead = cmd.ExecuteReader();
                 while (dRead.Read())
                 {
-                    Topic t = db.GetTopicFromRow(dRead);
+                    Topic t = tl.GetTopicFromRow(dRead);
                     found.Add(t);
                 }
                 dRead.Dispose();

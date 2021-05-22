@@ -11,6 +11,13 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AnnotationData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataLayer.cs" />
+    <Compile Include="..\DataLayer\TableClassesDataBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Image.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Links.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SchoolPeriodsManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Start.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Subject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tag.cs" />
     <Compile Include="..\DataLayer\TestLessonsTopicAndQuestionsData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AnswersGradesAndStudentData.cs" />
   </ItemGroup>

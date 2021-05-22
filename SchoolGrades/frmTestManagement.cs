@@ -1,4 +1,5 @@
 ﻿using SchoolGrades.DbClasses;
+using SchoolGrades.DataLayer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,7 +14,7 @@ namespace SchoolGrades
 {
     public partial class frmTestManagement : Form
     {
-        DbAndBusiness db = new DbAndBusiness();
+        TestLessonsTopicAndQuestionsData tl = new TestLessonsTopicAndQuestionsData();
         List<Test> listTests = new List<Test>();
         Test currentTest; 
 
@@ -27,10 +28,10 @@ namespace SchoolGrades
             currentTest = new Test();
 
             // !!!!!!!!!!!
-            currentTest = db.GetTest(1);
+            currentTest = tl.GetTest(1);
             // !!!!!!!!!!!
 
-            List<QuestionType> lq = db.GetListQuestionTypes(true);
+            List<QuestionType> lq = tl.GetListQuestionTypes(true);
             cmbQuestionTypes.DisplayMember = "Name";
             cmbQuestionTypes.ValueMember = "idQuestionType";
             cmbQuestionTypes.DataSource = lq;
@@ -47,13 +48,13 @@ namespace SchoolGrades
         private void btnSave_Click(object sender, EventArgs e)
         {
             ReadDataFromUI(); 
-            db.SaveTest(currentTest);
+            tl.SaveTest(currentTest);
             RefreshUi(); 
         }
 
         private void RefreshUi()
         {
-            dgwTests.DataSource = db.GetTests();
+            dgwTests.DataSource = tl.GetTests();
 
             txtIdTest.Text = currentTest.IdTest.ToString();
             txtTestName.Text = currentTest.Name;
@@ -61,7 +62,7 @@ namespace SchoolGrades
 
             if (currentTest.IdTest != 0)
             {
-                dgwQuestions.DataSource = db.GetAllQuestionsOfATest(currentTest.IdTest); 
+                dgwQuestions.DataSource = tl.GetAllQuestionsOfATest(currentTest.IdTest); 
             }
             // !!!! put the rest of the data !!!!
         }
@@ -102,7 +103,7 @@ namespace SchoolGrades
             scelta.ShowDialog();
             if (scelta.ChosenQuestion != null && scelta.ChosenQuestion.IdQuestion != 0)
             {
-                db.AddQuestionToTest(currentTest, scelta.ChosenQuestion);
+                tl.AddQuestionToTest(currentTest, scelta.ChosenQuestion);
             }
             scelta.Dispose();
         }
@@ -150,7 +151,7 @@ namespace SchoolGrades
             int indexSelected = dgwQuestions.SelectedRows[0].Index;
             List <Question> l = (List<Question>)dgwQuestions.DataSource; 
             int? idQuestionToRemove = l[indexSelected].IdQuestion; 
-            db.RemoveQuestionFromTest(idQuestionToRemove, currentTest.IdTest);
+            tl.RemoveQuestionFromTest(idQuestionToRemove, currentTest.IdTest);
         }
     }
 }

@@ -13,7 +13,11 @@ namespace SchoolGrades.DataLayer
     class TestLessonsTopicAndQuestionsData
     {
         DataLayer dl = new DataLayer();
-
+        public TestLessonsTopicAndQuestionsData() { }
+        public TestLessonsTopicAndQuestionsData(string PathAndFile)
+        {
+            dl = new DataLayer(PathAndFile);
+        }
         private int NextKey(string Table, string Id)
         {
             int nextId;

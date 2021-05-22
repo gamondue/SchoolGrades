@@ -1,4 +1,5 @@
 ﻿using SchoolGrades.DbClasses;
+using SchoolGrades.DataLayer;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,7 +9,7 @@ namespace SchoolGrades
 {
     public partial class frmTopicChooseByPeriod : Form
     {
-        DbAndBusiness db = new DbAndBusiness();
+        TestLessonsTopicAndQuestionsData tc = new TestLessonsTopicAndQuestionsData();
         private Class currentClass;
         private SchoolSubject currentSubject;
 
@@ -59,7 +60,7 @@ namespace SchoolGrades
                 dateFrom = Commons.DateNull;
             else
                 dateFrom = dtpStartPeriod.Value; 
-            topicsDone = db.GetTopicsDoneInPeriod(currentClass, currentSubject,
+            topicsDone = tc.GetTopicsDoneInPeriod(currentClass, currentSubject,
                 dateFrom, dtpEndPeriod.Value);
 
             dgwTopics.DataSource = topicsDone;
@@ -122,7 +123,7 @@ namespace SchoolGrades
         {
             if (topicsDone == null)
             {
-                topicsDone = db.GetTopicsDoneInPeriod(currentClass, currentSubject,
+                topicsDone = tc.GetTopicsDoneInPeriod(currentClass, currentSubject,
                     dtpStartPeriod.Value, dtpEndPeriod.Value);
             }
             if (topicsDone.Count > 0)

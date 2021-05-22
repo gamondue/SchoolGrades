@@ -1,4 +1,5 @@
 ﻿using SchoolGrades.DbClasses;
+using SchoolGrades.DataLayer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,7 +15,7 @@ namespace SchoolGrades
 {
     public partial class frmEditLookupTable : Form
     {
-        DbAndBusiness db = new DbAndBusiness();
+        TableClassesDataBase tc = new TableClassesDataBase();
         private string table;
         private string idTable;
 
@@ -31,7 +32,7 @@ namespace SchoolGrades
             this.Text += ". Tabella: " + table; 
             DataSet ds = null;
             DataAdapter da = null; 
-            db.GetLookupTable(table, ref ds, ref da);
+            tc.GetLookupTable(table, ref ds, ref da);
             dgwTable.DataSource = ds.Tables[0];
             da.Dispose(); 
         }

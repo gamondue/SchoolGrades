@@ -5,7 +5,8 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using SchoolGrades;
-using SchoolGrades.DbClasses;
+using SchoolGrades.DataLayer;
+using gamon;
 
 namespace gamon.TreeMptt
 {
@@ -35,7 +36,7 @@ namespace gamon.TreeMptt
 
         // !!!! TODO some more events of the TextBoxes should be encapsulated in this class 
 
-        DbAndBusiness db = new DbAndBusiness();
+        TestLessonsTopicAndQuestionsData tl = new TestLessonsTopicAndQuestionsData();
         TreeMpttDb dbMptt = new TreeMpttDb();
 
         System.Windows.Forms.DragDropEffects typeOfDragAndDrop;
@@ -321,7 +322,7 @@ namespace gamon.TreeMptt
             List<Topic> listTopicsAfter = new List<Topic>();
             // recursive function
             dbMptt.GenerateNewListOfNodesFromTreeViewControl(shownTreeView.Nodes[0], ref nodeCount, ref listTopicsAfter);
-            db.SaveTopicsFromScratch(listTopicsAfter);
+            tl.SaveTopicsFromScratch(listTopicsAfter);
         }
         internal void UpdateLeftAndRightInDatabaseTreeMptt()
         {
@@ -786,7 +787,7 @@ namespace gamon.TreeMptt
                 // if the topic has already been saved in the database, we have to ask for 
                 // confirmation if it has already been cheched in the past
                 if (((Topic)te.Tag).Id != null) 
-                    if (db.IsTopicAlreadyTaught((Topic)te.Tag))
+                    if (tl.IsTopicAlreadyTaught((Topic)te.Tag))
                     {
                         if (MessageBox.Show("Questo argomento è già stato fatto in qualche lezione\n" +
                             "Lo cancello lo stesso?", "Attenzione!", MessageBoxButtons.YesNo,

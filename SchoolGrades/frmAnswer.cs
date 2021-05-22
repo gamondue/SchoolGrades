@@ -8,13 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SchoolGrades.DbClasses;
+using SchoolGrades.DataLayer;
 
 namespace SchoolGrades
 {
     public partial class frmAnswer : Form
     {
-        DbAndBusiness db = new DbAndBusiness();
+        AnswersGradesAndStudentData ag = new AnswersGradesAndStudentData();
         internal Answer currentAnswer = new Answer();
 
         public frmAnswer()
@@ -85,15 +85,15 @@ namespace SchoolGrades
             }
             if (currentAnswer.IdAnswer == 0)
             {
-                currentAnswer.IdAnswer = db.CreateAnswer(currentAnswer);
+                currentAnswer.IdAnswer = ag.CreateAnswer(currentAnswer);
                 txtIdAnswer.Text = currentAnswer.IdAnswer.ToString(); 
             }
-            db.SaveAnswer(currentAnswer);
+            ag.SaveAnswer(currentAnswer);
         }
 
         private void btnChoose_Click(object sender, EventArgs e)
         {
-            db.SaveAnswer(currentAnswer);
+            ag.SaveAnswer(currentAnswer);
             this.Close(); 
         }
 

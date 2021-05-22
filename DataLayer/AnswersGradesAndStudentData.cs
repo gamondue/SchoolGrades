@@ -10,7 +10,7 @@ using SchoolGrades.DbClasses;
 
 namespace SchoolGrades.DataLayer
 {
-    class AnswersAndStudentData
+    class AnswersGradesAndStudentData
     {
         DataLayer dl = new DataLayer();
 

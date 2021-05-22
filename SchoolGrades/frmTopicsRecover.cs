@@ -1,5 +1,6 @@
 ﻿using gamon.TreeMptt;
 using SchoolGrades.DbClasses;
+using SchoolGrades.DataLayer;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -224,8 +225,8 @@ namespace SchoolGrades
 
         private void btnRecover_Click(object sender, EventArgs e)
         {
-            DbAndBusiness dbNew = new DbAndBusiness( txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
-            List<Topic> lNew = dbNew.GetTopics();
+            TestLessonsTopicAndQuestionsData tcNew = new TestLessonsTopicAndQuestionsData( txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
+            List<Topic> lNew = tcNew.GetTopics();
 
             if (txtFileOldDatabase.Text == "")
             {
@@ -233,8 +234,8 @@ namespace SchoolGrades
                 return;
             }
 
-            DbAndBusiness dbOld = new DbAndBusiness( txtPathOldDatabase.Text + "\\" + txtFileOldDatabase.Text);
-            List<Topic> lOld = dbOld.GetTopics();
+            TestLessonsTopicAndQuestionsData tcOld = new TestLessonsTopicAndQuestionsData( txtPathOldDatabase.Text + "\\" + txtFileOldDatabase.Text);
+            List<Topic> lOld = tcOld.GetTopics();
 
             int newIndex = 0;
             bool newFinished = false; 
@@ -262,7 +263,7 @@ namespace SchoolGrades
                                 "Sovrascrivere il nuovo record con il vecchio?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                             {
                                 // ???? should we save Left Right and Parent ????" 
-                                dbNew.UpdateTopic(tOld, null);
+                                tcNew.UpdateTopic(tOld, null);
                             }
                     }
                 }
@@ -276,7 +277,7 @@ namespace SchoolGrades
                             "Aggiungere il vecchio record nel nuovo database?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         {
                             // ???? should we save Left Right and Parent ????" 
-                            dbNew.InsertTopic(tOld, null);
+                            tcNew.InsertTopic(tOld, null);
                         }
                     }
                 }
