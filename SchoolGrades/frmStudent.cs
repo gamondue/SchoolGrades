@@ -11,12 +11,11 @@ namespace SchoolGrades
         Student currentStudent;
         private bool isDialog;
         DbAndBusiness db;
-        DataLayer dl;
+        DataLayer dl;  // this must be eradicated from here !!!! 
         BusinessLayer bl;
         internal bool UserHasChosen; //!!!!= false;
 
         public Student CurrentStudent { get => currentStudent; set => currentStudent = value; }
-
         public frmStudent(Student Student, bool IsDialog)
         {
             InitializeComponent();
@@ -24,11 +23,9 @@ namespace SchoolGrades
             bl = new BusinessLayer(Commons.PathAndFileDatabase);
             db = new DbAndBusiness(Commons.PathAndFileDatabase);
 
-
             currentStudent = Student;
             isDialog = IsDialog; 
         }
-
         private void frmStudent_Load(object sender, EventArgs e)
         {
             if(currentStudent != null)
@@ -44,7 +41,6 @@ namespace SchoolGrades
                 btnChoose.Visible = false; 
             }
         }
-
         private void loadStudentData(Student currentStudent)
         {
             txtIdStudent.Text = currentStudent.IdStudent.ToString();
@@ -60,8 +56,6 @@ namespace SchoolGrades
 
             loadPicture(currentStudent);
         }
-
-
         private void loadPicture(Student StudentToLoad)
         {
             try
@@ -74,7 +68,6 @@ namespace SchoolGrades
                 picStudent.Image = null;
             }
         }
-
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (currentStudent == null)
@@ -101,10 +94,9 @@ namespace SchoolGrades
             else
             {
                 // modification 
-                dl.SaveStudent(currentStudent, null);
+                bl.SaveStudent(currentStudent);
             }
         }
-
         private void btnNew_Click(object sender, EventArgs e)
         {
             txtIdStudent.Text = "";
@@ -119,7 +111,6 @@ namespace SchoolGrades
 
             picStudent.Image = null; 
         }
-
         private void btnChoose_Click(object sender, EventArgs e)
         {
             if (currentStudent != null && currentStudent.IdStudent > 0)
@@ -132,19 +123,16 @@ namespace SchoolGrades
                 MessageBox.Show("Salvare o scegliere lo studente"); 
             }
         }
-
         private void btnFindStudent_Click(object sender, EventArgs e)
         {
             DataTable dt = dl.FindStudentsLike(txtLastName.Text, txtFirstName.Text);
             dgwSearchedStudents.DataSource = dt;
         }
-
         private void btnFindHomonym_Click(object sender, EventArgs e)
         {
             DataTable dt = dl.GetStudentsSameName(txtLastName.Text, txtFirstName.Text);
             dgwSearchedStudents.DataSource = dt;
         }
-
         private void dgwSearchedStudents_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
@@ -155,12 +143,10 @@ namespace SchoolGrades
                 currentStudent = s;
             }
         }
-
         private void dgwSearchedStudents_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
-
         private void dgwSearchedStudents_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
@@ -170,6 +156,21 @@ namespace SchoolGrades
                 loadStudentData(s);
                 currentStudent = s;
             }
+        }
+        private void frmStudent_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            UserHasChosen = false;
+        }
+
+        private void btnExitWithoutChoosing_Click(object sender, EventArgs e)
+        {
+            UserHasChosen = false;
+            this.Close(); 
+        }
+
+        private void btnDeleteStudent_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("DA FARE!!"); 
         }
     }
 }

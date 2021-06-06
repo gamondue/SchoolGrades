@@ -82,7 +82,6 @@ namespace SchoolGrades
             }
             return -1;
         }
-
         internal void CompactDatabase()
         {
             using (DbConnection conn = Connect())
@@ -95,7 +94,6 @@ namespace SchoolGrades
             }
             //Application.Exit();
         }
-
         internal School GetSchool(string OfficialSchoolAbbreviation)
         {
             // !!!! TODO read school info from the database !!!!
@@ -107,7 +105,6 @@ namespace SchoolGrades
             news.OfficialSchoolAbbreviation = Commons.IdSchool;
             return news;
         }
-
         internal int NextKey(string Table, string Id)
         {
             int nextId;
@@ -128,7 +125,6 @@ namespace SchoolGrades
             }
             return nextId;
         }
-
         internal void NewDatabase()
         {
             DbCommand cmd;
@@ -188,7 +184,6 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-
         internal void BackupAllStudentsDataTsv()
         {
             BackupTableTsv("Students");
@@ -197,7 +192,6 @@ namespace SchoolGrades
             BackupTableTsv("Classes_Students");
             BackupTableTsv("Grades");
         }
-
         internal void BackupAllStudentsDataXml()
         {
             BackupTableXml("Students");
@@ -206,7 +200,6 @@ namespace SchoolGrades
             BackupTableXml("Classes_Students");
             BackupTableXml("Grades");
         }
-
         internal void RestoreAllStudentsDataTsv(bool MustErase)
         {
             RestoreTableTsv("Students", MustErase);
@@ -215,7 +208,6 @@ namespace SchoolGrades
             RestoreTableTsv("Classes_Students", MustErase);
             RestoreTableTsv("Grades", MustErase);
         }
-
         internal void RestoreAllStudentsDataXml(bool MustErase)
         {
             RestoreTableXml("Students", MustErase);
@@ -224,7 +216,6 @@ namespace SchoolGrades
             RestoreTableXml("Classes_Students", MustErase);
             RestoreTableXml("Grades", MustErase);
         }
-
         internal void BackupTableTsv(string TableName)
         {
             DbDataReader dRead;
@@ -275,7 +266,6 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-
         internal void BackupTableXml(string TableName)
         {
             DataAdapter dAdapt;
@@ -492,7 +482,6 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-
         internal string CreateDemoDatabase(string newDatabaseFullName, Class Class1, Class Class2)
         {
             DbCommand cmd;

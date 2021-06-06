@@ -821,7 +821,10 @@ namespace SchoolGrades
         }
         private void SetStudentEligible(int Index, bool? Drawable)
         {
-            lstNames.SetItemChecked(Index, (bool)Drawable);
+            if (Drawable != null)
+                lstNames.SetItemChecked(Index, (bool)Drawable);
+            else
+                lstNames.SetItemChecked(Index, false);
             currentStudentsList[Index].Eligible = Drawable;
         }
         private bool GetStudentDrawable(int Index)
@@ -1166,7 +1169,7 @@ namespace SchoolGrades
             {
                 Student s = (Student)o;
                 s.RevengeFactorCounter++;
-                dl.SaveStudent(s, null);
+                dl.UpdateStudent(s);
             }
             lstClassi_DoubleClick(null, null);
         }
@@ -1187,7 +1190,7 @@ namespace SchoolGrades
                 s.RevengeFactorCounter--;
                 if (s.RevengeFactorCounter < 0)
                     s.RevengeFactorCounter = 0;
-                dl.SaveStudent(s, null);
+                dl.UpdateStudent(s);
             }
             lstClassi_DoubleClick(null, null);
         }

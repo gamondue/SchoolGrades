@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmStudent));
             this.btnNew = new System.Windows.Forms.Button();
             this.lblBirthPlace = new System.Windows.Forms.Label();
@@ -54,6 +55,9 @@
             this.txtLastName = new System.Windows.Forms.TextBox();
             this.chkDisabled = new System.Windows.Forms.CheckBox();
             this.btnFindStudent = new System.Windows.Forms.Button();
+            this.btnExitWithoutChoosing = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btnDeleteStudent = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgwSearchedStudents)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picStudent)).BeginInit();
             this.SuspendLayout();
@@ -61,7 +65,7 @@
             // btnNew
             // 
             this.btnNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNew.Location = new System.Drawing.Point(414, 260);
+            this.btnNew.Location = new System.Drawing.Point(424, 242);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(91, 47);
             this.btnNew.TabIndex = 151;
@@ -166,7 +170,7 @@
             // btnFindHomonyms
             // 
             this.btnFindHomonyms.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFindHomonyms.Location = new System.Drawing.Point(317, 313);
+            this.btnFindHomonyms.Location = new System.Drawing.Point(327, 295);
             this.btnFindHomonyms.Name = "btnFindHomonyms";
             this.btnFindHomonyms.Size = new System.Drawing.Size(91, 47);
             this.btnFindHomonyms.TabIndex = 134;
@@ -204,7 +208,7 @@
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(552, 348);
+            this.btnSave.Location = new System.Drawing.Point(424, 295);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(91, 47);
             this.btnSave.TabIndex = 153;
@@ -295,7 +299,7 @@
             // btnFindStudent
             // 
             this.btnFindStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFindStudent.Location = new System.Drawing.Point(317, 260);
+            this.btnFindStudent.Location = new System.Drawing.Point(327, 242);
             this.btnFindStudent.Name = "btnFindStudent";
             this.btnFindStudent.Size = new System.Drawing.Size(91, 47);
             this.btnFindStudent.TabIndex = 156;
@@ -303,12 +307,37 @@
             this.btnFindStudent.UseVisualStyleBackColor = true;
             this.btnFindStudent.Click += new System.EventHandler(this.btnFindStudent_Click);
             // 
+            // btnExitWithoutChoosing
+            // 
+            this.btnExitWithoutChoosing.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExitWithoutChoosing.Location = new System.Drawing.Point(552, 348);
+            this.btnExitWithoutChoosing.Name = "btnExitWithoutChoosing";
+            this.btnExitWithoutChoosing.Size = new System.Drawing.Size(91, 47);
+            this.btnExitWithoutChoosing.TabIndex = 157;
+            this.btnExitWithoutChoosing.Text = "Esci senza scegliere";
+            this.toolTip1.SetToolTip(this.btnExitWithoutChoosing, "Esci dalla finestra senza scegliere questo studente");
+            this.btnExitWithoutChoosing.UseVisualStyleBackColor = true;
+            this.btnExitWithoutChoosing.Click += new System.EventHandler(this.btnExitWithoutChoosing_Click);
+            // 
+            // btnDeleteStudent
+            // 
+            this.btnDeleteStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeleteStudent.Location = new System.Drawing.Point(375, 348);
+            this.btnDeleteStudent.Name = "btnDeleteStudent";
+            this.btnDeleteStudent.Size = new System.Drawing.Size(91, 47);
+            this.btnDeleteStudent.TabIndex = 158;
+            this.btnDeleteStudent.Text = "Cancella";
+            this.btnDeleteStudent.UseVisualStyleBackColor = true;
+            this.btnDeleteStudent.Click += new System.EventHandler(this.btnDeleteStudent_Click);
+            // 
             // frmStudent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(754, 407);
+            this.Controls.Add(this.btnDeleteStudent);
+            this.Controls.Add(this.btnExitWithoutChoosing);
             this.Controls.Add(this.btnFindStudent);
             this.Controls.Add(this.chkDisabled);
             this.Controls.Add(this.txtLastName);
@@ -334,12 +363,14 @@
             this.Controls.Add(this.lblResidence);
             this.Controls.Add(this.lblExistingSameName);
             this.Controls.Add(this.dgwSearchedStudents);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.Color.DarkBlue;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmStudent";
             this.Text = "Gestione studenti";
+            this.toolTip1.SetToolTip(this, "Esci scegliendo l\'attuale studente");
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmStudent_FormClosing);
             this.Load += new System.EventHandler(this.frmStudent_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgwSearchedStudents)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picStudent)).EndInit();
@@ -375,5 +406,8 @@
         private System.Windows.Forms.TextBox txtLastName;
         private System.Windows.Forms.CheckBox chkDisabled;
         private System.Windows.Forms.Button btnFindStudent;
+        private System.Windows.Forms.Button btnExitWithoutChoosing;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button btnDeleteStudent;
     }
 }

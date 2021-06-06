@@ -15,7 +15,7 @@ namespace SchoolGrades
     	// TODO !!!! put an option for separator in import files 
         DbAndBusiness db;
         BusinessLayer bl;
-        DataLayer dl;
+        //DataLayer dl;
 
         DataSet dsClass;
         DataTable dtClass;
@@ -27,7 +27,7 @@ namespace SchoolGrades
         public FrmClassesManagement()
         {
             InitializeComponent();
-            dl = new DataLayer();
+            //dl = new DataLayer();
             db = new DbAndBusiness(Commons.PathAndFileDatabase);
             bl = new BusinessLayer(Commons.PathAndFileDatabase);
         }
@@ -35,7 +35,7 @@ namespace SchoolGrades
         private void FrmClassesManagement_Load(object sender, EventArgs e)
         {
             // school data
-            currentSchool = dl.GetSchool(TxtOfficialSchoolAbbreviation.Text);
+            currentSchool = bl.GetSchool(TxtOfficialSchoolAbbreviation.Text);
             // primo anno di default del combo con gli anni
             int anno = 2009;
 
@@ -55,7 +55,7 @@ namespace SchoolGrades
         private void BtnImportStudentsOfClass_Click(object sender, EventArgs e)
         {
             // give warning to avoid modifying existing class instead of making a new one
-            if (dl.GetClass(currentSchool.IdSchool, idSchoolYear, CmbClasses.Text).Abbreviation != null)
+            if (bl.GetClass(currentSchool.IdSchool, idSchoolYear, CmbClasses.Text).Abbreviation != null)
             {
                 MessageBox.Show("Esiste già una classe con il nome \"" + CmbClasses.Text + "\" in questo anno!", "Avviso", 
                     MessageBoxButtons.OK);
@@ -81,19 +81,19 @@ namespace SchoolGrades
 
             if (!RdbPhotoUserChoosen.Checked)
             {
-                newClass.IdClass = dl.CreateClassAndStudents(datiAllievi, CmbClasses.Text, TxtClassDescription.Text,
+                newClass.IdClass = bl.CreateClassAndStudents(datiAllievi, CmbClasses.Text, TxtClassDescription.Text,
                 CmbSchoolYear.Text, TxtOfficialSchoolAbbreviation.Text,RdbPhotoAlreadyPresent.Checked);
             }
             else
             {
-                idClass = dl.CreateClass(CmbClasses.Text, TxtClassDescription.Text,
+                idClass = bl.CreateClass(CmbClasses.Text, TxtClassDescription.Text,
                     CmbSchoolYear.Text, TxtOfficialSchoolAbbreviation.Text);
                 for (int riga = 1; riga < datiAllievi.GetLength(0); riga++)
                 {
-                    int codiceStudente = dl.CreateStudentFromStringMatrix(datiAllievi, riga);
+                    int codiceStudente = bl.CreateStudentFromStringMatrix(datiAllievi, riga);
                     if (codiceStudente > 0)
                     {
-                        dl.PutStudentInClass(codiceStudente, idClass);
+                        bl.PutStudentInClass(codiceStudente, idClass);
                         if (rdbChooseStudentsPhotoWhileImporting.Checked)
                         {
                             using (OpenFileDialog dlg = new OpenFileDialog())
@@ -108,7 +108,7 @@ namespace SchoolGrades
                                     s.IdStudent = codiceStudente;
                                     s.LastName = datiAllievi[riga, 1];
                                     s.FirstName = datiAllievi[riga, 2];
-                                    dl.CopyAndLinkOnePhoto(s, newClass, dlg.FileName);
+                                    bl.CopyAndLinkOnePhoto(s, newClass, dlg.FileName);
                                 }
                             }
                         }
@@ -161,10 +161,10 @@ namespace SchoolGrades
             if (res == DialogResult.No)
             {
                 // eliminazione degli studenti della classe
-                dl.EraseAllStudentsOfAClass(currentClass);
+                bl.EraseAllStudentsOfAClass(currentClass);
             }
             // eliminazione della classe 
-            dl.EraseClassFromClasses(currentClass);
+            bl.EraseClassFromClasses(currentClass);
 
             this.Close(); 
         }
@@ -187,11 +187,11 @@ namespace SchoolGrades
 
         private void FillClassData(Class Class)
         {
-            dtClass = dl.GetClassTable(Class.IdClass);
+            dtClass = bl.GetClassTable(Class.IdClass);
             DgwClass.DataSource = dtClass;
 
             //dgwAllievi.DataSource = db.GetClass(txtOfficialSchoolAbbreviation.Text, idSchoolYear, cmbClasses.Text);
-            DgwStudents.DataSource = dl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, 
+            DgwStudents.DataSource = bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, 
                 idSchoolYear, CmbClasses.Text, true);
             TxtClassDescription.Text = SafeDb.SafeString(DgwClass.Rows[DgwClass.CurrentRow.Index].Cells["desc"].Value);
             currentClass = (Class)CmbClasses.SelectedItem;
@@ -229,7 +229,7 @@ namespace SchoolGrades
                 if (openFileDialog.FileName != "" && !(dr == DialogResult.Cancel))
                 {
                     string fileToCopy = openFileDialog.FileName; 
-                    dl.CopyAndLinkOnePhoto(s, currentClass, openFileDialog.FileName);
+                    bl.CopyAndLinkOnePhoto(s, currentClass, openFileDialog.FileName);
                     s.SchoolYear = CmbSchoolYear.Text; 
                     LoadPicture(s); 
                 }
@@ -273,7 +273,7 @@ namespace SchoolGrades
             //}
             {
                 string filePathAndName = Commons.PathImages + "\\" +
-                    dl.GetFilePhoto(StudentToLoad.IdStudent, StudentToLoad.SchoolYear);
+                    bl.GetFilePhoto(StudentToLoad.IdStudent, StudentToLoad.SchoolYear);
 
                 //string fileTemp = Path.GetDirectoryName(filePathAndName) + "\\" + temp + 
                 //    Path.GetExtension(filePathAndName);
@@ -315,10 +315,14 @@ namespace SchoolGrades
             sf.ShowDialog();
             if (sf.UserHasChosen)
             {
-                dl.PutStudentInClass(sf.CurrentStudent.IdStudent,
+                bl.PutStudentInClass(sf.CurrentStudent.IdStudent,
                     ((Class)(CmbClasses.SelectedItem)).IdClass);
-                DgwStudents.DataSource = dl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, 
+                DgwStudents.DataSource = bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, 
                     idSchoolYear, CmbClasses.Text, false);
+            }
+            else
+            {
+                MessageBox.Show("Studente non aggiunto alla classe \n(premere 'Scegli' nella finestra appena chiusa)"); 
             }
         }
 
@@ -337,9 +341,9 @@ namespace SchoolGrades
                 == DialogResult.No)
                 return;
             int IdDeletingStudent = (int)DgwStudents.SelectedRows[0].Cells["IdStudent"].Value;
-            dl.DeleteOneStudentFromClass(IdDeletingStudent,
+            bl.DeleteOneStudentFromClass(IdDeletingStudent,
                 ((Class)(CmbClasses.SelectedItem)).IdClass);
-            DgwStudents.DataSource = dl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, 
+            DgwStudents.DataSource = bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, 
                 idSchoolYear, CmbClasses.Text, false);
         }
 
@@ -353,7 +357,7 @@ namespace SchoolGrades
             c.UriWebApp = SafeDb.SafeString(dgr.Cells["uriWebApp"].Value);
             c.PathRestrictedApplication = SafeDb.SafeString(dgr.Cells["pathRestrictedApplication"].Value);
 
-            dl.SaveClass(c);
+            bl.SaveClass(c);
             bl.SaveStudentsOfList((List<Student>) DgwStudents.DataSource, null);  
 
             FillClassData(c); 
@@ -369,8 +373,8 @@ namespace SchoolGrades
             string disablingStudent = (string)DgwStudents.SelectedRows[0].Cells["LastName"].Value +
                 " " + (string)DgwStudents.SelectedRows[0].Cells["FirstName"].Value;
             int IdDisablingStudent = (int)DgwStudents.SelectedRows[0].Cells["IdStudent"].Value;
-            dl.ToggleDisableOneStudent(IdDisablingStudent);
-            DgwStudents.DataSource = dl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, 
+            bl.ToggleDisableOneStudent(IdDisablingStudent);
+            DgwStudents.DataSource = bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, 
                 idSchoolYear, CmbClasses.Text, true);
             string prompt = "Commutato lo stato di abilitazione dell'allievo " + disablingStudent;
             // !!!! dire in che stato è ora 
@@ -399,7 +403,7 @@ namespace SchoolGrades
             if (e.RowIndex > -1)
             {
                 DataGridViewCell c = DgwStudents.Rows[e.RowIndex].Cells["IdStudent"];
-                Student s = dl.GetStudent((int)c.Value);
+                Student s = bl.GetStudent((int)c.Value);
                 s.SchoolYear = CmbSchoolYear.Text;
                 LoadPicture(s);
             }
@@ -434,7 +438,7 @@ namespace SchoolGrades
                 MessageBox.Show("Scegliere la classe per cui generare gli indirizzi email");
                 return;
             }
-            List<Student> list = dl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, CmbSchoolYear.Text,
+            List<Student> list = bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, CmbSchoolYear.Text,
                 CmbClasses.SelectedItem.ToString(), false);
             string file = "";
             string pattern = TxtEmailGenerationPattern.Text;
@@ -484,8 +488,8 @@ namespace SchoolGrades
                 return; 
             }
             DataGridViewCell c = DgwStudents.SelectedRows[0].Cells["IdStudent"];
-            Student s = dl.GetStudent((int)c.Value);
-            dl.EraseStudentsPhoto((int)c.Value, CmbSchoolYear.Text);
+            Student s = bl.GetStudent((int)c.Value);
+            bl.EraseStudentsPhoto((int)c.Value, CmbSchoolYear.Text);
             picStudent.Image = null; 
         }
         private void button15_Click(object sender, EventArgs e)
@@ -535,7 +539,7 @@ namespace SchoolGrades
                 MessageBox.Show("Scegliere la classe per cui generare l'elenco su file");
                 return;
             }
-            List<Student> list = dl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, CmbSchoolYear.Text,
+            List<Student> list = bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, CmbSchoolYear.Text,
                 CmbClasses.SelectedItem.ToString(), false);
             string file = "N.registro\tCognome\tNome\tData di nascita\tLuogo di nascita\temail\tComune residenza\tIdSchoolGrades\r\n";
             foreach (Student s in list)

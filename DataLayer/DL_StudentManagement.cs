@@ -78,7 +78,6 @@ namespace SchoolGrades
             }
             return t;
         }
-
         internal List<Student> GetAllStudentsThatAnsweredToATest(Test Test, Class Class)
         {
             List<Student> list = new List<Student>();
@@ -104,8 +103,14 @@ namespace SchoolGrades
             }
             return list;
         }
-
-        internal int CreateStudent(Student Student)
+        internal int? SaveStudent(Student Student)
+        {
+            if (Student.IdStudent != null)
+                return UpdateStudent(Student);
+            else
+                return CreateStudent(Student);
+        }
+        internal int? CreateStudent(Student Student)
         {
             // trova una chiave da assegnare al nuovo studente
             int idStudent = NextKey("Students", "idStudent");
@@ -131,16 +136,12 @@ namespace SchoolGrades
             }
             return idStudent;
         }
-
-        //internal void SaveStudentsOfList(List<Student> studentsList, DbConnection conn)
-        //{
-        //    foreach (Student s in studentsList)
-        //    {
-        //        SaveStudent(s, conn);
-        //    }
-        //}
-
-        internal int? SaveStudent(Student Student, DbConnection conn)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Student">The student we want to update</param>
+        /// <param name="conn">Optional connection that is used if present</param>
+        internal int? UpdateStudent(Student Student, DbConnection conn = null)
         {
             bool leaveConnectionOpen = true;
             if (conn == null)
@@ -158,12 +159,11 @@ namespace SchoolGrades
                 ",birthDate=" + SqlVal.SqlDate(Student.BirthDate.ToString()) + "" +
                 ",email='" + SqlVal.SqlString(Student.Email) + "'" +
                 //",schoolyear='" + SqlVal.SqlString(Student.SchoolYear) + "'" +
-                ",drawable='" + SqlVal.SqlBool(Student.Eligible) + "'" +
                 ",origin='" + SqlVal.SqlString(Student.Origin) + "'" +
                 ",birthPlace='" + SqlVal.SqlString(Student.BirthPlace) + "'" +
                 ",drawable=" + SqlVal.SqlBool(Student.Eligible) + "" +
                 ",disabled=" + SqlVal.SqlBool(Student.Disabled) + "" +
-                ",VFCounter=" + Student.RevengeFactorCounter + "" +
+                ",VFCounter=" + SqlVal.SqlInt(Student.RevengeFactorCounter) + "" +
                 " WHERE idStudent = " + Student.IdStudent +
                 ";";
             cmd.ExecuteNonQuery();
@@ -175,7 +175,13 @@ namespace SchoolGrades
             }
             return Student.IdStudent;
         }
-
+        //internal void SaveStudentsOfList(List<Student> studentsList, DbConnection conn)
+        //{
+        //    foreach (Student s in studentsList)
+        //    {
+        //        SaveStudent(s, conn);
+        //    }
+        //}
         internal Student GetStudent(int? IdStudent)
         {
             Student s = new Student();
@@ -505,7 +511,7 @@ namespace SchoolGrades
                 s.Origin = null;
                 s.SchoolYear = null;
                 s.Sum = 0;
-                SaveStudent(s, conn);
+                UpdateStudent(s, conn);
 
                 // save the image with standard name in the folder of the demo class
                 string fileExtension = Path.GetExtension(OriginalDemoPictures[pictureIndex]);

@@ -69,14 +69,14 @@ namespace SchoolGrades.DbClasses
                 //temp = "'" + temp + "'";
             }
             else
-                temp = "";
+                temp = "null";
             return temp;
         }
 
         public static string SqlBool(object Value)
         {
             if (Value == null)
-                return null; 
+                return "null"; 
             if ((bool)Value == false)
             {
                 return "0";

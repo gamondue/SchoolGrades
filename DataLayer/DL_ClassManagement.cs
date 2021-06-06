@@ -10,7 +10,6 @@ namespace SchoolGrades
 {
     internal partial class DataLayer
     {
-
         internal void DeleteOneStudentFromClass(int? IdDeletingStudent, int? IdClass)
         {
             using (DbConnection conn = Connect())
@@ -24,7 +23,6 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-
         internal void EraseAllStudentsOfAClass(Class Class)
         {
             using (DbConnection conn = Connect())
@@ -88,7 +86,6 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-
         internal void EraseClassFromClasses(Class Class)
         {
             //EraseAllStudentsOfAClass(Class); 
@@ -118,7 +115,6 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-
         internal string CreateOneClassOnlyDatabase(Class Class)
         {
             string newDatabasePathName = Class.PathRestrictedApplication + "\\SchoolGrades\\Data\\";
@@ -354,7 +350,6 @@ namespace SchoolGrades
             }
             return idClass;
         }
-
         internal int CreateClassAndStudents(string[,] StudentsData, string ClassAbbreviation,
                     string ClassDescription, string SchoolYear, string OfficialSchoolAbbreviation,
                     bool LinkPhoto)
@@ -398,7 +393,7 @@ namespace SchoolGrades
                         ");";
                     cmd.ExecuteNonQuery();
 
-                    // aggiunge lo studente alla classe
+                    // add the new student to the class
                     cmd.CommandText = "INSERT INTO Classes_Students " +
                         "(idClass, idStudent, registerNumber) " +
                         "Values ('" + idClass + "','" + idNextStudent + "','" + rigap1.ToString() + "'" +
@@ -432,7 +427,6 @@ namespace SchoolGrades
             }
             return idClass;
         }
-
         internal List<Class> GetClassesOfYear(string School, string Year)
         {
             DbDataReader dRead;
@@ -465,7 +459,6 @@ namespace SchoolGrades
             }
             return lc;
         }
-
         internal DataTable GetWeightedAveragesOfClass(Class Class,
             string IdGradeType, string IdSchoolSubject, DateTime DateFrom, DateTime DateTo)
         {
@@ -499,7 +492,6 @@ namespace SchoolGrades
             }
             return t;
         }
-
         internal DataTable GetClassTable(int? idClass)
         {
             DataTable t;
@@ -518,7 +510,6 @@ namespace SchoolGrades
             }
             return t;
         }
-
         internal Class GetClassById(int? IdClass)
         {
             DbDataReader dRead;
@@ -544,7 +535,6 @@ namespace SchoolGrades
             }
             return c;
         }
-
         internal DataTable GetClassDataTable(string IdSchool, string IdSchoolYear, string ClassAbbreviation)
         {
             DataTable t;
@@ -570,7 +560,6 @@ namespace SchoolGrades
             }
             return t;
         }
-
         internal Class GetClass(string IdSchool, string IdSchoolYear, string ClassAbbreviation)
         {
             Class c = new Class();
@@ -599,7 +588,6 @@ namespace SchoolGrades
             }
             return c;
         }
-
         internal Class GetClassOfStudent(string IdSchool, string SchoolYearCode, Student Student)
         {
             Class c = new Class();
@@ -627,7 +615,6 @@ namespace SchoolGrades
             }
             return c;
         }
-
         internal void SaveClass(Class Class)
         {
             //bool leaveConnectionOpen = true;
@@ -655,8 +642,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-
-        private void GetClassFromRow(Class Class, DbDataReader Row)
+        internal void GetClassFromRow(Class Class, DbDataReader Row)
         {
             if (Class == null)
                 Class = new Class();
