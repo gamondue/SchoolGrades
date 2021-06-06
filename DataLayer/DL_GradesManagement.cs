@@ -53,7 +53,6 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-
         internal void GetGradeAndStudent(Grade Grade, Student Student)
         {
             using (DbConnection conn = Connect())
@@ -239,7 +238,7 @@ namespace SchoolGrades
             return ls;
         }
 
-        internal Grade LastGradeOfStudent(Student Student, string IdSchoolYear,
+        internal Grade LastOpenGradeOfStudent(Student Student, string IdSchoolYear,
             SchoolSubject SchoolSubject, string IdGradeType)
         {
             DbDataReader dRead;
@@ -253,7 +252,9 @@ namespace SchoolGrades
                     " AND Grades.idSchoolSubject='" + SchoolSubject.IdSchoolSubject + "'" +
                     " AND Grades.idGradeType='" + IdGradeType + "'" +
                     " AND Grades.idSchoolYear='" + IdSchoolYear + "'" +
-                    " ORDER BY Grades.timestamp DESC;";
+                    " AND (Grades.value=0 OR Grades.value IS NULL)" +
+                    " ORDER BY Grades.idGrade DESC;";
+                // !!!! changed name from LastGradeOfStudent and query changed,that was WRONG, this change must be brought to every branch !!!!
                 dRead = cmd.ExecuteReader();
                 while (dRead.Read())
                 {

@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
@@ -141,7 +141,7 @@ namespace SchoolGrades
             txtNStudents.Text = "";
 
             // start Thread that concurrently saves the Topics tree
-            CommonsWinForms.SaveTreeMptt = new TreeMptt(db, null, null, null, null, null, null, picBackgroundSaveRunning);
+            CommonsWinForms.SaveTreeMptt = new TreeMptt(dl, null, null, null, null, null, null, picBackgroundSaveRunning);
             CommonsWinForms.BackgroundSaveThread= new Thread(CommonsWinForms.SaveTreeMptt.SaveMpttBackground);
             CommonsWinForms.BackgroundSaveThread.Start(); 
         }
@@ -268,7 +268,7 @@ namespace SchoolGrades
             currentGradeType = ((GradeType)cmbGradeType.SelectedItem);
             if (currentGradeType.IdGradeTypeParent == "")
             {
-                MessageBox.Show("Con il tipo di valutazione scelto non si può fare la media.\r\n " +
+                MessageBox.Show("Con il tipo di valutazione scelto non si puÃ² fare la media.\r\n " +
                     "Selezionare un tipo di valutazione corretto");
                 return;
             }
@@ -965,7 +965,7 @@ namespace SchoolGrades
             }
             if (trovato == null)
             {
-                MessageBox.Show("Allievo con voticino più vecchio non trovato");
+                MessageBox.Show("Allievo con voticino piÃ¹ vecchio non trovato");
                 return;
             }
             currentClass.CurrentStudent = trovato;
@@ -1268,67 +1268,23 @@ namespace SchoolGrades
             {
                 return;
             }
-            string filename = currentClass.SchoolYear +
+            string filenameNoExtension = currentClass.SchoolYear +
                 "_" + currentClass.Abbreviation +
                 "_" + currentSubject.IdSchoolSubject + "_" +
-                "all-topics.txt";
-            List<Topic> lt = dl.GetAllTopicsDoneInClassAndSubject(currentClass,
-                currentSubject);
-            string f = "";
-            string tabs = "";
-            Topic previous = new Topic();
-            previous.Id = -2;
-            string status = "s"; // start tab 
-            foreach (Topic t in lt)
+                "all-topics";
+            if (MessageBox.Show("Creare un file di testo normale (Sï¿½) od un file per Markdown (No)?",
+                "Tipo di file", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                // put a tab in front of descending nodes 
-                switch (status)
-                {
-                    case "s": // start tab
-                        {
-                            if (t.ParentNodeOld == previous.Id)
-                            {
-                                // is son of the previous
-                                tabs += "\t";
-                                status = "b"; // brothers
-                            }
-                            else
-                                tabs = "";
-                            break;
-                        }
-                    case "b": // brothers 
-                        {
-                            if (t.ParentNodeOld == previous.ParentNodeOld)
-                            {
-                                // another brother: do nothing
-                            }
-                            else if (t.ParentNodeOld == previous.Id)
-                            {
-                                // is son of the previous
-                                tabs += "\t";
-                                status = "b"; // brothers
-                            }
-                            else
-                            {   // non brothers & non son 
-                                tabs = "";
-                                status = "s"; // brothers
-                            }
-                            break;
-                        }
-                    case "u":
-                        {
-                            break;
-                        }
-                }
-                f += tabs + t.Name;
-                if (t.Desc != "")
-                    f += ": " + t.Desc;
-                f += "\r\n";
-                previous = t;
+                bl.CreateAllTopicsDoneFile(filenameNoExtension, currentClass, currentSubject, true);
+                Commons.ProcessStartLink(Commons.PathDatabase + "\\" + filenameNoExtension + ".txt");
+                MessageBox.Show("Creato il file " + filenameNoExtension + ".txt");
             }
-            TextFile.StringToFile(Commons.PathDatabase + "\\" + filename, f, false);
-            Commons.ProcessStartLink(Commons.PathDatabase + "\\" + filename);
-            MessageBox.Show("Creato il file " + filename);
+            else
+            {
+                bl.CreateAllTopicsDoneFile(filenameNoExtension, currentClass, currentSubject, false);
+                Commons.ProcessStartLink(Commons.PathDatabase + "\\" + filenameNoExtension + ".md");
+                MessageBox.Show("Creato il file " + filenameNoExtension + ".md");
+            }
         }
         private void ChkEnableEndLessonWarning_CheckedChanged(object sender, EventArgs e)
         {

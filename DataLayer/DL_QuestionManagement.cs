@@ -318,61 +318,61 @@ namespace SchoolGrades
             else
                 filteredQuestions = MakeStringForFilteredQuestionsQuery(Tags, "", IdQuestionType,
                     Topic, QueryManyTopics, TagsAnd);
-
+            // !!!! THIS PART MUST BE FIXED !!!!
             string questionsAlreadyMade = "";
-            if (Student != null)
-            {
-                questionsAlreadyMade = "SELECT Questions.idQuestion" +
-                    " FROM Questions" +
-                    " JOIN Grades ON Questions.idQuestion=Grades.idQuestion" +
-                    " JOIN Students ON Students.idStudent=Grades.IdStudent" +
-                    " WHERE Students.idStudent=" + Student.IdStudent +
-                    " AND Grades.idSchoolYear='" + Class.SchoolYear + "'";
-            }
-            string questionsTopicsMade = "";
-            if (Class != null && Subject != null)
-            {
-                // questions made to the class in every time ever 
-                questionsTopicsMade = "SELECT Questions.idQuestion" +
-                    " FROM Questions" +
-                    " JOIN Lessons_Topics ON Questions.idTopic=Lessons_Topics.idTopic" +
-                    " JOIN Lessons ON Lessons_Topics.idLesson=Lessons.idLesson" +
-                    " JOIN Classes ON Classes.idClass=Lessons.idClass" +
-                    " WHERE Classes.idClass=" + Class.IdClass +
-                    " AND (Questions.idSchoolSubject='" + Subject.IdSchoolSubject + "'" +
-                    " OR Questions.idSchoolSubject='' OR Questions.idSchoolSubject=NULL)";
-                if (DateFrom != Commons.DateNull)
-                    questionsTopicsMade += " AND (Lessons.Date BETWEEN " + SqlVal.SqlDate(DateFrom) + " AND " + SqlVal.SqlDate(DateTo) + ")";
-                // PART of the final query that extracts the Ids of the questions already made 
-                questionsTopicsMade = " Questions.idQuestion IN(" + questionsTopicsMade + ")";
-            }
+            //if (Student != null)
+            //{
+            //    questionsAlreadyMade = "SELECT Questions.idQuestion" +
+            //        " FROM Questions" +
+            //        " JOIN Grades ON Questions.idQuestion=Grades.idQuestion" +
+            //        " JOIN Students ON Students.idStudent=Grades.IdStudent" +
+            //        " WHERE Students.idStudent=" + Student.IdStudent +
+            //        " AND Grades.idSchoolYear='" + Class.SchoolYear + "'";
+            //}
+            //string questionsTopicsMade = "";
+            //if (Class != null && Subject != null)
+            //{
+            //    // questions made to the class in every time ever 
+            //    questionsTopicsMade = "SELECT Questions.idQuestion" +
+            //        " FROM Questions" +
+            //        " JOIN Lessons_Topics ON Questions.idTopic=Lessons_Topics.idTopic" +
+            //        " JOIN Lessons ON Lessons_Topics.idLesson=Lessons.idLesson" +
+            //        " JOIN Classes ON Classes.idClass=Lessons.idClass" +
+            //        " WHERE Classes.idClass=" + Class.IdClass +
+            //        " AND (Questions.idSchoolSubject='" + Subject.IdSchoolSubject + "'" +
+            //        " OR Questions.idSchoolSubject='' OR Questions.idSchoolSubject=NULL)";
+            //    if (DateFrom != Commons.DateNull)
+            //        questionsTopicsMade += " AND (Lessons.Date BETWEEN " + SqlVal.SqlDate(DateFrom) + " AND " + SqlVal.SqlDate(DateTo) + ")";
+            //    // PART of the final query that extracts the Ids of the questions already made 
+            //    questionsTopicsMade = " Questions.idQuestion IN(" + questionsTopicsMade + ")";
+            //}
 
-            if (questionsAlreadyMade != "")
-            {
-                // take only questions already made 
-                if (SearchString == "")
-                {
-                    query += " WHERE Questions.idQuestion NOT IN(" + questionsAlreadyMade + ")";
-                }
-                else
-                {
-                    query += " Questions.idQuestion NOT IN(" + questionsAlreadyMade + ")";
-                }
-            }
-            if (filteredQuestions != "")
-            {
-                if (questionsAlreadyMade != "" || SearchString != "")
-                {
-                    query += " AND Questions.idQuestion IN(" + filteredQuestions + ")";
-                }
-                else
-                {
-                    query += " WHERE Questions.idQuestion IN(" + filteredQuestions + ")";
-                }
-            }
-            query += " OR Questions.idTopic IS NULL OR Questions.idTopic = ''";
-            if (SearchString != "")
-                query += ")";
+            //if (questionsAlreadyMade != "")
+            //{
+            //    // take only questions already made 
+            //    if (SearchString == "")
+            //    {
+            //        query += " WHERE Questions.idQuestion NOT IN(" + questionsAlreadyMade + ")";
+            //    }
+            //    else
+            //    {
+            //        query += " Questions.idQuestion NOT IN(" + questionsAlreadyMade + ")";
+            //    }
+            //}
+            //if (filteredQuestions != "")
+            //{
+            //    if (questionsAlreadyMade != "" || SearchString != "")
+            //    {
+            //        query += " AND Questions.idQuestion IN(" + filteredQuestions + ")";
+            //    }
+            //    else
+            //    {
+            //        query += " WHERE Questions.idQuestion IN(" + filteredQuestions + ")";
+            //    }
+            //}
+            //query += " OR Questions.idTopic IS NULL OR Questions.idTopic = ''";
+            //if (SearchString != "")
+            //    query += ")";
 
             query += " ORDER BY Questions.weight;";
 

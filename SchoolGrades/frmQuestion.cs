@@ -9,7 +9,8 @@ namespace SchoolGrades
 {
     public partial class frmQuestion : Form
     {
-        DbAndBusiness db; 
+        //DbAndBusiness db;
+        BusinessLayer bl;
         TreeMpttDb dbMptt;
         DataLayer dl;
 
@@ -35,8 +36,8 @@ namespace SchoolGrades
         {
             InitializeComponent();
             dl = new DataLayer();
-            DbAndBusiness db = new DbAndBusiness(Commons.PathAndFileDatabase);
-            TreeMpttDb dbMptt = new TreeMpttDb(db);
+            //db = new DbAndBusiness(Commons.PathAndFileDatabase);
+            TreeMpttDb dbMptt = new TreeMpttDb(dl);
 
             // fills the lookup tables' combos
             List<QuestionType> listQuestions = dl.GetListQuestionTypes(true);

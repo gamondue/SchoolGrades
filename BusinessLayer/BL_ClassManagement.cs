@@ -12,7 +12,5 @@ namespace SchoolGrades
         {
             return dl.GetClassesOfYear(IdSchool, SchoolYear); 
         }
-
-        
     }
 }

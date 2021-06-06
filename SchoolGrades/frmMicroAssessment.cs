@@ -80,7 +80,7 @@ namespace SchoolGrades
             if (currentGradeType.IdGradeTypeParent != null && currentGradeType.IdGradeTypeParent != "")
             {
                 // find the last macro grade of this student 
-                currentMacroGrade = dl.LastGradeOfStudent(currentStudent, currentYear
+                currentMacroGrade = dl.LastOpenGradeOfStudent(currentStudent, currentYear
                     , currentSchoolSubject, currentGradeType.IdGradeTypeParent);
                 // get grade type information of that last macro grade
                 GradeType gt = dl.GetGradeType(currentMacroGrade.IdGradeType);
