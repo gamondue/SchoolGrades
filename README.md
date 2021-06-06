@@ -10,6 +10,4 @@ So, if anyone would like to be involved in the translation into English or anoth
 
 SchoolGrades is written in C# with Windows Forms in .Net Core. 
 
-Currently (spring 2021) the program and GitHub are used as an exercitation from some of my classes at school, so many of the pull requests are only intrumental to the school's exercitations.
-
-Guppo 1 - 4H
+Currently (spring 2021) the program and GitHub are used as an exercitation from some of my classes at school, so many of the pull requests are only instrumental to the school's exercitations.
