@@ -13,45 +13,37 @@ namespace SchoolGrades
         {
             return dl.CreateStudentFromStringMatrix(StudentData, StudentRow);
         }
-
-        internal int CreateStudent(Student Student)
+        internal int? CreateStudent(Student Student)
         {
             return dl.CreateStudent(Student);
         }
-
-        internal void SaveStudentsOfList(List<Student> studentsList, DbConnection conn)
+        internal void SaveStudentsOfList(List<Student> studentsList, DbConnection conn = null)
         {
             foreach (Student s in studentsList)
             {
                 SaveStudent(s, conn);
             }
         }
-
-        internal int? SaveStudent(Student Student, DbConnection conn)
+        internal int? SaveStudent(Student Student, DbConnection conn = null)
         {
-            return dl.SaveStudent(Student, conn);
+            return dl.UpdateStudent(Student, conn);
         }
-
         internal Student GetStudent(int? IdStudent)
         {
             return dl.GetStudent(IdStudent);
         }
-
         internal DataTable GetStudentsSameName(string LastName, string FirstName)
         {
             return GetStudentsSameName(LastName, FirstName);
         }
-
         internal DataTable FindStudentsLike(string LastName, string FirstName)
         {
             return dl.FindStudentsLike(LastName, FirstName);
         }
-
         internal void PutStudentInClass(int? IdStudent, int? IdClass)
         {
             dl.PutStudentInClass(IdStudent, IdClass);
         }
-
         /// <summary>
         /// 
         /// </summary>
@@ -63,15 +55,12 @@ namespace SchoolGrades
         {
             return dl.GetStudentsOfClass(IdClass, conn);
         }
-
         internal List<Student> GetStudentsOfClassList(string Scuola, string Anno,
             string SiglaClasse, bool IncludeNonActiveStudents)
         {
             return dl.GetStudentsOfClassList(Scuola, Anno,
             SiglaClasse, IncludeNonActiveStudents);
         }
-
-
         internal List<Student> GetStudentsAndSumOfWeights(Class Class,
             GradeType GradeType, SchoolSubject SchoolSubject,
             DateTime DateFrom, DateTime DateTo)
@@ -88,6 +77,18 @@ namespace SchoolGrades
                 ls.Add(s);
             }
             return ls;
+        }
+        internal void EraseStudentsPhoto(int IdStudent, string SchoolYear)
+        {
+            dl.EraseStudentsPhoto(IdStudent, SchoolYear); 
+        }
+        internal void ToggleDisableOneStudent(int IdDisablingStudent)
+        {
+            dl.ToggleDisableOneStudent(IdDisablingStudent);
+        }
+        internal string GetFilePhoto(int? IdStudent, string SchoolYear)
+        {
+            return dl.GetFilePhoto(IdStudent, SchoolYear);
         }
     }
 }

@@ -9,6 +9,6 @@ namespace SchoolGrades
 {
     internal partial class BusinessLayer
     {
-        
+
     }
 }

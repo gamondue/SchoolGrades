@@ -28,15 +28,19 @@ namespace SchoolGrades
         {
             dl = new DataLayer(PathAndFile);
         }
-        internal void NewDatabase(string newDatabasePathName)
+        internal void NewDatabase(string NewDatabasePathName)
         {
-            File.Copy(Commons.PathAndFileDatabase, newDatabasePathName);
+            File.Copy(Commons.PathAndFileDatabase, NewDatabasePathName);
 
             // local instance of a DataLayer to operate on a second database 
-            DataLayer newDatabaseDl = new DataLayer(newDatabasePathName);
+            DataLayer newDatabaseDl = new DataLayer(NewDatabasePathName);
 
             newDatabaseDl.NewDatabase(); 
             return;
+        }
+        internal School GetSchool(string OfficialSchoolAbbreviation)
+        {
+            return dl.GetSchool(OfficialSchoolAbbreviation);
         }
     }
 }
