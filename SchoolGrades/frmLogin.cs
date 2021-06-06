@@ -1,22 +1,22 @@
-using SchoolGrades.DbClasses;
+﻿using SchoolGrades.DbClasses;
 using System;
 using System.Windows.Forms;
 
 namespace SchoolGrades
 {
-    public partial class frmLogin : Form
+    public partial class frmLogin : MetroFramework.Forms.MetroForm
     {
         DbAndBusiness db; // must instatiate after config file reading
-        BusinessLayer.BusinessLayer bl; // must instatiate after config file reading
-        
+        BusinessLayer bl; // must instatiate after config file reading
+        User user;
         public frmLogin()
         {
             InitializeComponent();
         }
         private void frmLogin_Load(object sender, EventArgs e)
         {
-            db = new DbAndBusiness(); 
-            bl = new BusinessLayer.BusinessLayer();
+            db = new DbAndBusiness(Commons.PathAndFileDatabase); 
+            bl = new BusinessLayer(Commons.PathAndFileDatabase);
 
             // test examples
             User u;
@@ -35,20 +35,33 @@ namespace SchoolGrades
 
             User u1 = bl.GetUser("ugo");
         }
-        private void btnOk_Click(object sender, EventArgs e)
+
+        private void btnOk_Click_1(object sender, EventArgs e)
         {
-            if (bl.UserHasLoginPermission(txtUsername.Text, 
-                txtPassword.Text))
+            user.Username = txtUsername.Text;
+            user.Password = txtPassword.Text;
+            if (bl.IsUserAllowed(user))
             {
                 frmMain f = new frmMain();
                 this.Hide();
-                f.ShowDialog(); 
+                f.ShowDialog();
             }
             else
             {
                 MessageBox.Show("Digitare credenziali corrette!");
             }
-            this.Close();
+        }
+
+        internal User GetUser()
+        {
+            return user;
+        }
+
+        private void btnChangePassword_Click_1(object sender, EventArgs e)
+        {
+            frmChangePassword frmChangePassword = new frmChangePassword();
+            frmChangePassword.Show();
+            this.Hide();
         }
     }
 }

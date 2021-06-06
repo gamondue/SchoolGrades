@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace SchoolGrades
@@ -37,9 +38,10 @@ namespace SchoolGrades
             txtFileNewDatabase.Text = Commons.FileDatabase;
 
             DbAndBusiness dbNew = new DbAndBusiness(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
-            treeNew = new TreeMptt(trwNewTopics,
+            treeNew = new TreeMptt(dbNew, trwNewTopics,
                 txtNewTopicName, txtNewDescription, txtSearchNew, null, txtCodNewTopic,
                 Commons.globalPicLed, DragDropEffects.Copy);
+            treeNew.Name = "treeNew"; 
             treeNew.AddNodesToTreeviewByBestMethod();
             treeNew.ClearBackColorOnClick = false;
 
@@ -72,10 +74,10 @@ namespace SchoolGrades
                 txtPathNewDatabase.Text = Path.GetDirectoryName(openFileDialog1.FileName);
             }
 
-            dbNew = new DbAndBusiness( txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
+            dbNew = new DbAndBusiness(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
             //List<Topic> lNew = dbNew.GetTopicsByParent();
 
-            treeNew = new TreeMptt(trwNewTopics,
+            treeNew = new TreeMptt(dbNew, trwNewTopics,
                 txtNewTopicName, txtNewDescription, null, null, txtCodNewTopic,
                 Commons.globalPicLed, DragDropEffects.Copy); 
             treeNew.AddNodesToTreeviewByBestMethod();
@@ -109,11 +111,22 @@ namespace SchoolGrades
             dbOld = new DbAndBusiness(
                 txtPathOldDatabase.Text + "\\" + txtFileOldDatabase.Text);
 
-            treeOld = new TreeMptt(trwOldTopics,
+            treeOld = new TreeMptt(dbOld, trwOldTopics,
                 txtOldTopicName, txtOldDescription, txtSearchOld, null, txtCodOldTopic,
                 Commons.globalPicLed, DragDropEffects.Copy);
+            treeOld.Name = "treeOld"; 
             treeOld.AddNodesToTreeviewByBestMethod();
             treeOld.ClearBackColorOnClick = false;
+
+            // stop background saving thread when using this form so it will not interfere
+            // locks a concurrent modification of Commons.BackgroundCanStillSaveTopicsTree 
+            lock (Commons.LockBackgroundCanStillSaveTopicsTree)
+            {
+                Commons.BackgroundCanStillSaveTopicsTree = false;
+            }
+            // we wait for the saving Thread to finish
+            // (it aborts in a point in which status is preserved)  
+            Commons.BackgroundSaveThread.Join(30000); // enormous timeout just for big problems
 
             highligthDifferences();
         }
@@ -314,7 +327,35 @@ namespace SchoolGrades
         private void BtnSaveNewTree_Click(object sender, EventArgs e)
         {
             treeNew.SaveTreeFromTreeViewControlByParent();
+
+            // abort the background saving that was triggered by SaveTreeFromTreeViewControlByParent
+            // locks a concurrent modification of Commons.BackgroundCanStillSaveTopicsTree 
+            lock (Commons.LockBackgroundCanStillSaveTopicsTree)
+            {
+                Commons.BackgroundCanStillSaveTopicsTree = false;
+            }
+            // we wait for the saving Thread to finish
+            // (it aborts in a point in which status is preserved)  
+            Commons.BackgroundSaveThread.Join(30000); // enormous timeout just for big problems
+
             MessageBox.Show("Fatto"); 
+        }
+
+        private void frmTopicsRecover_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // when the form closes, we restart the background saving task
+            // that we have left off whe this form was open
+
+            // restart the Thread 
+            // re-create and run the Thread that concurrently saves the Topics tree
+            Commons.BackgroundSaveThread = new Thread(Commons.SaveTreeMptt.SaveMpttBackground);
+            Commons.BackgroundSaveThread.Start();
+        }
+
+        private void btnBeheaded_Click(object sender, EventArgs e)
+        {
+            treeNew.EraseTree();
+            treeOld.ShowAllBeheadedNodes();
         }
     }
 }

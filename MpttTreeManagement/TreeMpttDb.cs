@@ -12,11 +12,16 @@ namespace gamon.TreeMptt
 {
     internal class TreeMpttDb
     {
-        DbAndBusiness db = new DbAndBusiness();
-        DataLayer dl = new DataLayer(); 
+        DbAndBusiness db;
+        DataLayer dl; 
 
         string dbName = Commons.PathAndFileDatabase;
 
+        public TreeMpttDb(DbAndBusiness DatabaseAndBusinessLayer)
+        { 
+            db = DatabaseAndBusinessLayer;
+            dl = new DataLayer(DatabaseAndBusinessLayer.DatabaseName);
+        }
         // TODO: finish to encapsulate in this class all the code to access the DBMS with TreeMptt
 
         internal void SaveTreeToDb(List<Topic> ListTopicsAfter, List<Topic> ListTopicsDeleted,
@@ -78,6 +83,7 @@ namespace gamon.TreeMptt
         }
         internal void SaveLeftRightConsistent(bool SetConsistent)
         {
+            // SQL operation serial
             using (DbConnection conn = dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
