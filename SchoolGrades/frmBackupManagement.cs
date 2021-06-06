@@ -30,9 +30,9 @@ namespace SchoolGrades
             bl = new BusinessLayer (Commons.PathAndFileDatabase);
             dl = new DataLayer(Commons.PathAndFileDatabase);
 
-            TreeMpttDb dbMptt = new TreeMpttDb(db);
+            TreeMpttDb dbMptt = new TreeMpttDb(dl);
 
-            topicTreeMptt = new TreeMptt(db, null, null, null, null, null, null, null, DragDropEffects.None);
+            topicTreeMptt = new TreeMptt(dl, null, null, null, null, null, null, null, DragDropEffects.None);
         }
 
         private void frmBackupManagement_Load(object sender, EventArgs e)

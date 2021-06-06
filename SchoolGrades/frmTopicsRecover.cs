@@ -16,8 +16,8 @@ namespace SchoolGrades
         gamon.TreeMptt.TreeMptt treeNew;
         gamon.TreeMptt.TreeMptt treeOld;
 
-        DbAndBusiness dbNew;
-        DbAndBusiness dbOld;
+        //DbAndBusiness dbNew;
+        //DbAndBusiness dbOld;
         DataLayer dl;
 
         Color colorNewOnly = Color.LightBlue;
@@ -41,8 +41,8 @@ namespace SchoolGrades
             txtPathOldDatabase.Text = Commons.PathDatabase;
             txtFileNewDatabase.Text = Commons.FileDatabase;
 
-            DbAndBusiness dbNew = new DbAndBusiness(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
-            treeNew = new TreeMptt(dbNew, trwNewTopics,
+            DataLayer dlNew = new DataLayer(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
+            treeNew = new TreeMptt(dlNew, trwNewTopics,
                 txtNewTopicName, txtNewDescription, txtSearchNew, null, txtCodNewTopic,
                 CommonsWinForms.globalPicLed, DragDropEffects.Copy);
             treeNew.Name = "treeNew"; 
@@ -78,10 +78,10 @@ namespace SchoolGrades
                 txtPathNewDatabase.Text = Path.GetDirectoryName(openFileDialog1.FileName);
             }
 
-            dbNew = new DbAndBusiness(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
-            //List<Topic> lNew = dbNew.GetTopicsByParent();
+            DataLayer dlNew = new DataLayer(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
+            List<Topic> lNew = dlNew.GetTopicsByParent();
 
-            treeNew = new TreeMptt(dbNew, trwNewTopics,
+            treeNew = new TreeMptt(dlNew, trwNewTopics,
                 txtNewTopicName, txtNewDescription, null, null, txtCodNewTopic,
                 CommonsWinForms.globalPicLed, DragDropEffects.Copy); 
             treeNew.AddNodesToTreeviewByBestMethod();
@@ -112,10 +112,10 @@ namespace SchoolGrades
                 Console.Beep();
                 return;
             }
-            dbOld = new DbAndBusiness(
+            DataLayer dlOld = new DataLayer(
                 txtPathOldDatabase.Text + "\\" + txtFileOldDatabase.Text);
 
-            treeOld = new TreeMptt(dbOld, trwOldTopics,
+            treeOld = new TreeMptt(dlOld, trwOldTopics,
                 txtOldTopicName, txtOldDescription, txtSearchOld, null, txtCodOldTopic,
                 CommonsWinForms.globalPicLed, DragDropEffects.Copy);
             treeOld.Name = "treeOld"; 
@@ -241,8 +241,9 @@ namespace SchoolGrades
 
         private void btnRecover_Click(object sender, EventArgs e)
         {
-            DbAndBusiness dbNew = new DbAndBusiness( txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
-            List<Topic> lNew = dl.GetTopics();
+            //DbAndBusiness dbNew = new DbAndBusiness( txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
+            DataLayer dlNew = new DataLayer(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
+            List<Topic> lNew = dlNew.GetTopics();
 
             if (txtFileOldDatabase.Text == "")
             {
@@ -250,8 +251,10 @@ namespace SchoolGrades
                 return;
             }
 
-            DbAndBusiness dbOld = new DbAndBusiness( txtPathOldDatabase.Text + "\\" + txtFileOldDatabase.Text);
-            List<Topic> lOld = dl.GetTopics();
+            //DbAndBusiness dbOld = new DbAndBusiness( txtPathOldDatabase.Text + "\\" + txtFileOldDatabase.Text);
+            //List<Topic> lOld = dl.GetTopics();
+            DataLayer dlOld = new DataLayer(txtPathOldDatabase.Text + "\\" + txtFileOldDatabase.Text);
+            List<Topic> lOld = dlOld.GetTopics();
 
             int newIndex = 0;
             bool newFinished = false; 
@@ -279,7 +282,7 @@ namespace SchoolGrades
                                 "Sovrascrivere il nuovo record con il vecchio?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                             {
                                 // ???? should we save Left Right and Parent ????" 
-                                dl.UpdateTopic(tOld, null);
+                                dlNew.UpdateTopic(tOld, null);
                             }
                     }
                 }
@@ -293,7 +296,7 @@ namespace SchoolGrades
                             "Aggiungere il vecchio record nel nuovo database?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         {
                             // ???? should we save Left Right and Parent ????" 
-                            dl.InsertTopic(tOld, null);
+                            dlNew.InsertTopic(tOld, null);
                         }
                     }
                 }
@@ -317,17 +320,14 @@ namespace SchoolGrades
             //trwNewTopics.Nodes.Insert(trwNewTopics.SelectedNode.Index, clonedNode);
             trwNewTopics.SelectedNode.Nodes.Add(clonedNode);
         }
-
         private void btnFindNew_Click(object sender, EventArgs e)
         {
             treeNew.FindItem(txtSearchNew.Text);
         }
-
         private void btnFindOld_Click(object sender, EventArgs e)
         {
             treeOld.FindItem(txtSearchOld.Text);
         }
-
         private void BtnSaveNewTree_Click(object sender, EventArgs e)
         {
             treeNew.SaveTreeFromTreeViewControlByParent();

@@ -37,9 +37,9 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
-            DbAndBusiness db = new DbAndBusiness(Commons.PathAndFileDatabase);
-            TreeMpttDb dbMptt = new TreeMpttDb(db);
+            //db = new DbAndBusiness(Commons.PathAndFileDatabase);
             dl = new DataLayer();
+            dbMptt = new TreeMpttDb(dl);
             this.ParentForm = ParentForm; 
             // fills the lookup tables' combos
             cmbSchoolSubject.DisplayMember = "Name";
@@ -139,7 +139,11 @@ namespace SchoolGrades
             DateTime dateFrom = dtpStartPeriod.Value;
             DateTime dateTo = dtpEndPeriod.Value;
             if (cmbStandardPeriod.Text == "")
-                dateFrom = Commons.DateNull; 
+                dateFrom = Commons.DateNull;
+            if (currentSubject == null)
+                currentSubject = new SchoolSubject();
+            if (currentTopic == null)
+                currentTopic = new Topic();
             List<Question> l = dl.GetFilteredQuestionsNotAsked(currentStudent, currentClass,
                 currentSubject, keyQuestionType, tagsList, currentTopic,
                 rdbManyTopics.Checked, rdbAnd.Checked, txtSearchText.Text, 

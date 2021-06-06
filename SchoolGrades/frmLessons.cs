@@ -85,7 +85,7 @@ namespace SchoolGrades
             // load data in datagrids
             RefreshUI();
             //topicTreeMptt = new TopicTreeMptt(listTopicsBefore, trwTopics,
-            topicTreeMptt = new gamon.TreeMptt.TreeMptt(db, trwTopics,
+            topicTreeMptt = new gamon.TreeMptt.TreeMptt(dl, trwTopics,
                 txtTopicName, txtTopicDescription, txtTopicFind, TxtTopicsDigestAndSearch,
                 null, CommonsWinForms.globalPicLed, DragDropEffects.Copy);
             topicTreeMptt.AddNodesToTreeviewByBestMethod();
@@ -677,6 +677,11 @@ namespace SchoolGrades
             {
                 MessageBox.Show("La cartella non è stata ancora creata.\nIl programma la creerà automaticamente quando verrà salvata la prima immagine."); 
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Da fare!");
         }
     }
 }

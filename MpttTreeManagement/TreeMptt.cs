@@ -37,7 +37,7 @@ namespace gamon.TreeMptt
         // !!!! TODO some more events of the TextBoxes should be encapsulated in this class 
 
         //DbAndBusiness db = new DbAndBusiness();
-        DbAndBusiness db;
+        //DbAndBusiness dl;
         TreeMpttDb dbMptt;
         DataLayer dl;
         // identification of the Treeview control from which the drag starts
@@ -101,15 +101,14 @@ namespace gamon.TreeMptt
         //    TextBox TxtTopicsDigest, TextBox TxtCodTopic,
         //    PictureBox LedPictureBox,
         //    System.Windows.Forms.DragDropEffects TypeOfDragAndDrop = System.Windows.Forms.DragDropEffects.Move)
-        internal TreeMptt(DbAndBusiness DataAndBusinessLayer, TreeView TreeViewControl,
+        internal TreeMptt(DataLayer DataLayer, TreeView TreeViewControl,
             TextBox TxtNodeName, TextBox TxtNodeDescription, TextBox TxtTopicFind,
             TextBox TxtTopicsDigest, TextBox TxtCodTopic,
             PictureBox LedPictureBox,
             System.Windows.Forms.DragDropEffects TypeOfDragAndDrop = System.Windows.Forms.DragDropEffects.Move)
         {
-            db = DataAndBusinessLayer;
-            dbMptt = new TreeMpttDb(db);
             dl = new DataLayer();
+            dbMptt = new TreeMpttDb(dl);
             shownTreeView = TreeViewControl;
             //listTopicsBefore = InitialListOfTopics;
 
@@ -161,7 +160,7 @@ namespace gamon.TreeMptt
             else
             {
                 // load by parentNode value
-                listItemsBefore = dbMptt.GetTopicsByParent(); // this is quite unuseful..
+                listItemsBefore = dl.GetTopicsByParent(); // this is quite unuseful..
                 AddNodesToTreeViewByParent(shownTreeView);
             }
             shownTreeView.Nodes[0].Expand();
@@ -329,7 +328,7 @@ namespace gamon.TreeMptt
             List<Topic> listTopicsAfter = new List<Topic>();
             // recursive function
             dbMptt.GenerateNewListOfNodesFromTreeViewControl(shownTreeView.Nodes[0], ref nodeCount, ref listTopicsAfter);
-            dl.SaveTopicsFromScratch(listTopicsAfter);
+            dbMptt.SaveTopicsFromScratch(listTopicsAfter);
         }
         internal void UpdateLeftAndRightInDatabaseTreeMptt()
         {

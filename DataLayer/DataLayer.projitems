@@ -3,28 +3,28 @@
   <PropertyGroup>
     <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
     <HasSharedItems>true</HasSharedItems>
-    <SharedGUID>2447d414-6ddb-4193-bd6d-fd70165b57be</SharedGUID>
+    <SharedGUID>cb4baad0-ac1d-4a7b-a02f-47b386d77f34</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>SchoolGrades.DataLayer</Import_RootNamespace>
+    <Import_RootNamespace>DataLayer</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)DL_LessonManagement.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DL_PeriodManagement.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DL_QuestionManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_AnnotationManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_AnswerManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_ClassManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_ConstructorsAndGeneralMethods.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_GradesManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_ImageManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DL_LessonManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_LinkManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DL_PeriodManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DL_QuestionManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_StudentManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_SubjectManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_TableManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_TagManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_TestManagement.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DL_TopicManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DL_TopicsManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_UserManagement.cs" />
   </ItemGroup>
 </Project>

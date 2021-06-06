@@ -84,6 +84,7 @@
             this.rdbAndSearch = new System.Windows.Forms.RadioButton();
             this.rdbOrSearch = new System.Windows.Forms.RadioButton();
             this.BtnSearchAmongTopics = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.grpViewTopics.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgwOneLesson)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DgwAllLessons)).BeginInit();
@@ -381,7 +382,7 @@
             // 
             this.TxtLessonDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TxtLessonDesc.Location = new System.Drawing.Point(232, 92);
+            this.TxtLessonDesc.Location = new System.Drawing.Point(258, -161);
             this.TxtLessonDesc.Multiline = true;
             this.TxtLessonDesc.Name = "TxtLessonDesc";
             this.TxtLessonDesc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -562,7 +563,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trwTopics.CheckBoxes = true;
             this.trwTopics.LabelEdit = true;
-            this.trwTopics.Location = new System.Drawing.Point(0, 0);
+            this.trwTopics.Location = new System.Drawing.Point(736, -282);
             this.trwTopics.Name = "trwTopics";
             this.trwTopics.Size = new System.Drawing.Size(263, 337);
             this.trwTopics.TabIndex = 148;
@@ -737,12 +738,25 @@
             this.BtnSearchAmongTopics.UseVisualStyleBackColor = true;
             this.BtnSearchAmongTopics.Click += new System.EventHandler(this.BtnSearchAmongTopics_Click);
             // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.ForeColor = System.Drawing.Color.Red;
+            this.button1.Location = new System.Drawing.Point(444, 67);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(108, 25);
+            this.button1.TabIndex = 151;
+            this.button1.Text = "Export";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // frmLessons
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(945, 663);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnAddNode);
             this.Controls.Add(this.rdbOrSearch);
             this.Controls.Add(this.rdbAndSearch);
@@ -874,5 +888,6 @@
         private System.Windows.Forms.RadioButton rdbStringSearch;
         private System.Windows.Forms.RadioButton rdbAndSearch;
         private System.Windows.Forms.RadioButton rdbOrSearch;
+        private System.Windows.Forms.Button button1;
     }
 }

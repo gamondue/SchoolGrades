@@ -9,42 +9,6 @@ namespace SchoolGrades
 {
     internal partial class DataLayer
     {
-        internal void SaveTopicsFromScratch(List<Topic> ListTopics)
-        {
-            ////////BackgroundCanStillSaveTopicsTree = true;
-            using (DbConnection conn = Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "DELETE FROM Topics;";
-                cmd.ExecuteNonQuery();
-                int key;
-                cmd.CommandText = "SELECT MAX(IdTopic) FROM Topics;";
-                var temp = cmd.ExecuteScalar();
-                if (temp is DBNull)
-                    key = 0;
-                else
-                    key = (int)temp;
-                foreach (Topic t in ListTopics)
-                {   // insert new nodes
-                    {
-                        cmd.CommandText = "INSERT INTO Topics" +
-                           " (idTopic,name,desc,parentNode,leftNode,rightNode,parentNode)" +
-                           " Values (" +
-                           (++key).ToString() +
-                            ",'" + SqlVal.SqlString(t.Name) + "'" +
-                            ",'" + SqlVal.SqlString(t.Desc) + "'" +
-                            "," + t.ParentNodeNew + "" +
-                            "," + t.LeftNodeNew + "" +
-                            "," + t.RightNodeNew + "" +
-                            "," + t.ParentNodeNew + "" +
-                            ");";
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-                cmd.Dispose();
-            }
-        }
-
         internal int CreateNewTopic(Topic NewTopic)
         {
             int nextId;
@@ -389,6 +353,29 @@ namespace SchoolGrades
                     Conn.Dispose();
                 }
             }
+        }
+        internal List<Topic> GetTopicsByParent()
+        {
+            // node order according to siblings' order (parentNode and childNumber)
+            List<Topic> l = new List<Topic>();
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                string query = "SELECT *" +
+                    " FROM Topics" +
+                    " ORDER BY parentNode ASC, childNumber ASC;";
+                cmd = new SQLiteCommand(query);
+                cmd.Connection = conn;
+                DbDataReader dRead = cmd.ExecuteReader();
+                while (dRead.Read())
+                {
+                    Topic t = GetTopicFromRow(dRead);
+                    l.Add(t);
+                }
+                dRead.Dispose();
+                cmd.Dispose();
+            }
+            return l;
         }
     }
 }

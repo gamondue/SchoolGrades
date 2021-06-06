@@ -41,8 +41,8 @@ namespace SchoolGrades
             Class Class, SchoolSubject Subject)
         {
             InitializeComponent();
-            dl = new DataLayer();
             db = new DbAndBusiness(Commons.PathAndFileDatabase);
+            dl = new DataLayer();
 
             currentSubject = Subject;
             currentClass = Class; 
@@ -53,7 +53,7 @@ namespace SchoolGrades
         private void frmTopic_Load(object sender, EventArgs e)
         {
             //topicTreeMptt = new TopicTreeMptt(listTopicsInternal, trwTopics,
-            topicTreeMptt = new TreeMptt(db, trwTopics,
+            topicTreeMptt = new TreeMptt(dl, trwTopics,
                 txtTopicName, txtDescription, txtFind, null, null,
                 CommonsWinForms.globalPicLed, DragDropEffects.Copy);
 
