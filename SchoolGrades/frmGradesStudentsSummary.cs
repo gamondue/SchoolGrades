@@ -11,6 +11,7 @@ namespace SchoolGrades
     public partial class frmGradesStudentsSummary : Form
     {
         DbAndBusiness db;
+        DataLayer dl;
         private Student currentStudent;
         private string currentSchoolYear;
         private GradeType currentGradeType;
@@ -45,22 +46,22 @@ namespace SchoolGrades
             lblSum.Text = "";
 
             // fill the combos of lookup tables
-            List<GradeType> listGrades = db.GetListGradeTypes();
+            List<GradeType> listGrades = dl.GetListGradeTypes();
             cmbSummaryGradeType.DisplayMember = "Name";
             cmbSummaryGradeType.ValueMember = "idGradeType";
             cmbSummaryGradeType.DataSource = listGrades;
             cmbSummaryGradeType.SelectedValue = currentGradeType.IdGradeType;
 
-            List<SchoolSubject> listSubjects = db.GetListSchoolSubjects(false);
+            List<SchoolSubject> listSubjects = dl.GetListSchoolSubjects(false);
             cmbSchoolSubjects.DisplayMember = "Name";
             cmbSchoolSubjects.ValueMember = "idGradeType";
             cmbSchoolSubjects.DataSource = listSubjects;
             cmbSchoolSubjects.SelectedValue = currentSchoolSubject.IdSchoolSubject;
 
-            List<SchoolPeriod> listPeriods = db.GetSchoolPeriods(currentSchoolYear);
+            List<SchoolPeriod> listPeriods = dl.GetSchoolPeriods(currentSchoolYear);
             cmbSchoolPeriod.DataSource = listPeriods;
 
-            dgwNotes.DataSource = db.AnnotationsAboutThisStudent(currentStudent, currentSchoolYear,
+            dgwNotes.DataSource = dl.AnnotationsAboutThisStudent(currentStudent, currentSchoolYear,
                 chkAnnotationsShowActive.Checked);
 
             RefreshData();
@@ -112,7 +113,7 @@ namespace SchoolGrades
                     {
                         // crea un nuovo voto per ciascuna riga salvata
                         // il vecchio voto assume peso 0, il nuovo, lo stesso peso della riga precedente
-                        db.CloneGrade(riga);
+                        dl.CloneGrade(riga);
                     }
                 }
             }
@@ -131,7 +132,7 @@ namespace SchoolGrades
                 {
                     if (rdbShowGrades.Checked)
                     {
-                        dgwGrades.DataSource = db.GetGradesOfStudent(currentStudent, currentSchoolYear,
+                        dgwGrades.DataSource = dl.GetGradesOfStudent(currentStudent, currentSchoolYear,
                             ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                             ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
                             dtpStartPeriod.Value, dtpEndPeriod.Value
@@ -141,7 +142,7 @@ namespace SchoolGrades
                     }
                     else if (rdbShowWeights.Checked)
                     {
-                        dgwGrades.DataSource = db.GetWeightedAveragesOfStudent(currentStudent,
+                        dgwGrades.DataSource = dl.GetWeightedAveragesOfStudent(currentStudent,
                             ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                             ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
                             dtpStartPeriod.Value, dtpEndPeriod.Value
@@ -161,7 +162,7 @@ namespace SchoolGrades
                     }
                     else if (rdbShowWeightedGrades.Checked)
                     {
-                        dgwGrades.DataSource = db.GetGradesWeightedAveragesOfStudent(currentStudent,
+                        dgwGrades.DataSource = dl.GetGradesWeightedAveragesOfStudent(currentStudent,
                             ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                             ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
                             dtpStartPeriod.Value, dtpEndPeriod.Value
@@ -171,7 +172,7 @@ namespace SchoolGrades
                     }
                     else if (rdbShowWeightsOnOpenGrades.Checked)
                     {
-                        dgwGrades.DataSource = db.GetGradesWeightsOfStudentOnOpenGrades(currentStudent,
+                        dgwGrades.DataSource = dl.GetGradesWeightsOfStudentOnOpenGrades(currentStudent,
                             ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                             ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
                             dtpStartPeriod.Value, dtpEndPeriod.Value
@@ -192,7 +193,7 @@ namespace SchoolGrades
                 return; 
             }
             string IdCurrentSubject = ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject;
-            int col = (int)db.GetSchoolSubject(IdCurrentSubject).Color;
+            int col = (int)dl.GetSchoolSubject(IdCurrentSubject).Color;
             Color bgColor = Color.FromArgb((col & 0xFF0000) >> 16, (col & 0xFF00) >> 8, col & 0xFF);
             this.BackColor = bgColor;
             RefreshData();

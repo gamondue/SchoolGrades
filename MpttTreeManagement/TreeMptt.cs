@@ -39,7 +39,7 @@ namespace gamon.TreeMptt
         //DbAndBusiness db = new DbAndBusiness();
         DbAndBusiness db;
         TreeMpttDb dbMptt;
-
+        DataLayer dl;
         // identification of the Treeview control from which the drag starts
         int dragSourceControlHash; 
         System.Windows.Forms.DragDropEffects typeOfDragAndDrop;
@@ -109,7 +109,7 @@ namespace gamon.TreeMptt
         {
             db = DataAndBusinessLayer;
             dbMptt = new TreeMpttDb(db);
-            
+            dl = new DataLayer();
             shownTreeView = TreeViewControl;
             //listTopicsBefore = InitialListOfTopics;
 
@@ -329,7 +329,7 @@ namespace gamon.TreeMptt
             List<Topic> listTopicsAfter = new List<Topic>();
             // recursive function
             dbMptt.GenerateNewListOfNodesFromTreeViewControl(shownTreeView.Nodes[0], ref nodeCount, ref listTopicsAfter);
-            db.SaveTopicsFromScratch(listTopicsAfter);
+            dl.SaveTopicsFromScratch(listTopicsAfter);
         }
         internal void UpdateLeftAndRightInDatabaseTreeMptt()
         {
@@ -846,7 +846,7 @@ namespace gamon.TreeMptt
                 // if the topic has already been saved in the database, we have to ask for 
                 // confirmation if it has already been cheched in the past
                 if (((Topic)te.Tag).Id != null) 
-                    if (db.IsTopicAlreadyTaught((Topic)te.Tag))
+                    if (dl.IsTopicAlreadyTaught((Topic)te.Tag))
                     {
                         if (MessageBox.Show("Questo argomento è già stato fatto in qualche lezione\n" +
                             "Lo cancello lo stesso?", "Attenzione!", MessageBoxButtons.YesNo,

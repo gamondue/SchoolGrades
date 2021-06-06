@@ -8,11 +8,9 @@ namespace SchoolGrades
 {
     internal partial class BusinessLayer
     {
-        internal List<Class> GetClassesOfYear(string IdSchool, string SchoolYear)
+        internal Grade GetGrade(int? IdGrade)
         {
-            return dl.GetClassesOfYear(IdSchool, SchoolYear); 
+            return dl.GetGrade(IdGrade);
         }
-
-        
     }
 }

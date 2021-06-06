@@ -13,7 +13,8 @@ namespace SchoolGrades
 {
     public partial class frmKnotsToTheComb : Form
     {
-        DbAndBusiness db; 
+        DbAndBusiness db;
+        DataLayer dl;
         private Question chosenQuestion = new Question();
         private frmMicroAssessment grandparentForm; 
 
@@ -30,9 +31,9 @@ namespace SchoolGrades
         public frmKnotsToTheComb(frmMicroAssessment GrandparentForm, int? IdStudent, SchoolSubject SchoolSubject, string Year)
         {
             InitializeComponent();
+            dl = new DataLayer();
             db = new DbAndBusiness(Commons.PathAndFileDatabase);
-
-            currentStudent = db.GetStudent(IdStudent);
+            currentStudent = dl.GetStudent(IdStudent);
             lblStudent.Text = currentStudent.LastName + " " + currentStudent.FirstName; 
             currentIdSchoolYear = Year;
             currentSubject = SchoolSubject;
@@ -41,7 +42,7 @@ namespace SchoolGrades
             // fills the lookup tables' combos
             cmbSchoolSubject.DisplayMember = "Name";
             cmbSchoolSubject.ValueMember = "idSchoolSubject";
-            cmbSchoolSubject.DataSource = db.GetListSchoolSubjects(true);
+            cmbSchoolSubject.DataSource = dl.GetListSchoolSubjects(true);
 
             currentSubject = SchoolSubject; 
             ChosenQuestion = null; 
@@ -56,7 +57,7 @@ namespace SchoolGrades
 
         private void RefreshData()
         {
-            dgwQuestions.DataSource = db.GetUnfixedGrades(currentStudent, currentSubject.IdSchoolSubject, 60);
+            dgwQuestions.DataSource = dl.GetUnfixedGrades(currentStudent, currentSubject.IdSchoolSubject, 60);
         }
 
         private void DgwQuestions_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -100,7 +101,7 @@ namespace SchoolGrades
             if (MessageBox.Show("La domanda '" + (string)r.Cells["Text"].Value + "' è stata riparata?","Riparazione domanda",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                db.FixQuestionInGrade(currentIdGrade);
+                dl.FixQuestionInGrade(currentIdGrade);
                 RefreshData(); 
             }
         }
@@ -114,7 +115,7 @@ namespace SchoolGrades
                 if (grandparentForm != null)
                 {
                     // form called by student's assessment form 
-                    grandparentForm.CurrentQuestion = db.GetQuestionById(key);
+                    grandparentForm.CurrentQuestion = dl.GetQuestionById(key);
                     grandparentForm.DisplayCurrentQuestion(); 
                 }
             }

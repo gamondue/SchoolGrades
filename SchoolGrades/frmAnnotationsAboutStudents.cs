@@ -9,6 +9,7 @@ namespace SchoolGrades
     public partial class frmAnnotationsAboutStudents : Form
     {
         DbAndBusiness db;
+        DataLayer dl;
         private string idSchoolYear;
         private StudentAnnotation currentAnnotation;
         private List<Student> chosenStudents;
@@ -24,8 +25,8 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
-            db = new DbAndBusiness(db.DatabaseName); 
-
+            db = new DbAndBusiness(db.DatabaseName);
+            dl = new DataLayer();
             idSchoolYear = IdSchoolYear; 
             this.chosenStudents = ChosenStudents;
             dgwStudents.DataSource = ChosenStudents; 
@@ -50,7 +51,7 @@ namespace SchoolGrades
 
         private void RefreshUI()
         {
-            dgwNotes.DataSource = db.AnnotationsAboutThisStudent(currentStudent, yearUsed,
+            dgwNotes.DataSource = dl.AnnotationsAboutThisStudent(currentStudent, yearUsed,
                 chkAnnotationsShowActive.Checked);
         }
 
@@ -120,14 +121,14 @@ namespace SchoolGrades
                     if (!CommonsWinForms.CheckIfStudentChosen(currentStudent))
                         return;
                     currentAnnotation.IdAnnotation = null;
-                    currentAnnotation.IdAnnotation = db.SaveAnnotation(currentAnnotation, currentStudent);
+                    currentAnnotation.IdAnnotation = dl.SaveAnnotation(currentAnnotation, currentStudent);
                 }
                 else
                 {
                     foreach (Student s in chosenStudents)
                     {
                         currentAnnotation.IdAnnotation = null;
-                        currentAnnotation.IdAnnotation = db.SaveAnnotation(currentAnnotation, s);
+                        currentAnnotation.IdAnnotation = dl.SaveAnnotation(currentAnnotation, s);
                     }
                 }
                 return;
@@ -136,7 +137,7 @@ namespace SchoolGrades
             {
                 // if IsActive has changed from what is in database then we change dates 
                 // according to the status 
-                if (db.GetAnnotation(currentAnnotation.IdAnnotation).IsActive != currentAnnotation.IsActive)
+                if (dl.GetAnnotation(currentAnnotation.IdAnnotation).IsActive != currentAnnotation.IsActive)
                 {
                     if (currentAnnotation.IsActive == true)
                     {
@@ -154,11 +155,11 @@ namespace SchoolGrades
                 {
                     foreach (Student s in chosenStudents)
                     {
-                        db.SaveAnnotation(currentAnnotation, s);
+                        dl.SaveAnnotation(currentAnnotation, s);
                     }
                 }
                 else
-                    db.SaveAnnotation(currentAnnotation, currentStudent);
+                    dl.SaveAnnotation(currentAnnotation, currentStudent);
             }
             RefreshUI(); 
         }
@@ -167,7 +168,7 @@ namespace SchoolGrades
         {
             txtIdStudent.Text = currentStudent.IdStudent.ToString();
             lblCurrentStudent.Text = $"{currentStudent.LastName} {currentStudent.FirstName}";
-            dgwNotes.DataSource = db.AnnotationsAboutThisStudent(currentStudent,
+            dgwNotes.DataSource = dl.AnnotationsAboutThisStudent(currentStudent,
               yearUsed, chkAnnotationsShowActive.Checked);
         }
 
@@ -183,7 +184,7 @@ namespace SchoolGrades
                 txtSchoolYear.Enabled = true;
                 yearUsed = null;
             }
-            dgwNotes.DataSource = db.AnnotationsAboutThisStudent(currentStudent,
+            dgwNotes.DataSource = dl.AnnotationsAboutThisStudent(currentStudent,
                     yearUsed, chkAnnotationsShowActive.Checked);
         }
 
@@ -224,7 +225,7 @@ namespace SchoolGrades
             if (MessageBox.Show($"Sicuro di cancellare l'annotazione {currentAnnotation.IdAnnotation}, '{currentAnnotation.Annotation}'?",
                 "Attenzione", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
-                db.EraseAnnotationById(currentAnnotation.IdAnnotation);
+                dl.EraseAnnotationById(currentAnnotation.IdAnnotation);
                 RefreshUI();
             };
         }
@@ -241,7 +242,7 @@ namespace SchoolGrades
             {
                 foreach (Student s in chosenStudents)
                 {
-                    db.EraseAnnotationByText(txtAnnotation.Text, s);
+                    dl.EraseAnnotationByText(txtAnnotation.Text, s);
                 }
                 RefreshUI();
             };
@@ -260,7 +261,7 @@ namespace SchoolGrades
                 return;
             }
             ReadUI();
-            currentAnnotation.IdAnnotation = db.SaveAnnotation(currentAnnotation, currentStudent);
+            currentAnnotation.IdAnnotation = dl.SaveAnnotation(currentAnnotation, currentStudent);
             RefreshUI();
         }
 
@@ -300,7 +301,7 @@ namespace SchoolGrades
             {
                 txtIdStudent.Text = currentStudent.IdStudent.ToString();
                 lblCurrentStudent.Text = $"{currentStudent.LastName} {currentStudent.FirstName}";
-                dgwNotes.DataSource = db.AnnotationsAboutThisStudent(currentStudent,
+                dgwNotes.DataSource = dl.AnnotationsAboutThisStudent(currentStudent,
                   yearUsed, chkAnnotationsShowActive.Checked);
             }
             RefreshUI();

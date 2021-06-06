@@ -15,13 +15,14 @@ namespace SchoolGrades
     public partial class frmEditLookupTable : Form
     {
         DbAndBusiness db;
+        DataLayer dl;
         private string table;
         private string idTable;
 
         public frmEditLookupTable(string Table, string IdTable)
         {
             InitializeComponent();
-
+            dl = new DataLayer();
             db = new DbAndBusiness(Commons.PathAndFileDatabase);
 
             table = Table;
@@ -33,7 +34,7 @@ namespace SchoolGrades
             this.Text += ". Tabella: " + table; 
             DataSet ds = null;
             DataAdapter da = null; 
-            db.GetLookupTable(table, ref ds, ref da);
+            dl.GetLookupTable(table, ref ds, ref da);
             dgwTable.DataSource = ds.Tables[0];
             da.Dispose(); 
         }
