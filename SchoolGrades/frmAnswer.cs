@@ -15,12 +15,13 @@ namespace SchoolGrades
     public partial class frmAnswer : Form
     {
         DbAndBusiness db;
+        DataLayer dl;
         internal Answer currentAnswer = new Answer();
 
         public frmAnswer()
         {
             InitializeComponent();
-
+            dl = new DataLayer();
             db = new DbAndBusiness(Commons.PathAndFileDatabase); 
         }
 
@@ -87,15 +88,15 @@ namespace SchoolGrades
             }
             if (currentAnswer.IdAnswer == 0)
             {
-                currentAnswer.IdAnswer = db.CreateAnswer(currentAnswer);
+                currentAnswer.IdAnswer = dl.CreateAnswer(currentAnswer);
                 txtIdAnswer.Text = currentAnswer.IdAnswer.ToString(); 
             }
-            db.SaveAnswer(currentAnswer);
+            dl.SaveAnswer(currentAnswer);
         }
 
         private void btnChoose_Click(object sender, EventArgs e)
         {
-            db.SaveAnswer(currentAnswer);
+            dl.SaveAnswer(currentAnswer);
             this.Close(); 
         }
 

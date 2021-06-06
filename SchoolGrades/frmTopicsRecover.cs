@@ -18,6 +18,7 @@ namespace SchoolGrades
 
         DbAndBusiness dbNew;
         DbAndBusiness dbOld;
+        DataLayer dl;
 
         Color colorNewOnly = Color.LightBlue;
         Color colorOldOnly = Color.Orange;
@@ -30,6 +31,7 @@ namespace SchoolGrades
         public frmTopicsRecover()
         {
             InitializeComponent();
+            dl = new DataLayer();
         }
 
         private void frmTopicsRecover_Load(object sender, EventArgs e)
@@ -240,7 +242,7 @@ namespace SchoolGrades
         private void btnRecover_Click(object sender, EventArgs e)
         {
             DbAndBusiness dbNew = new DbAndBusiness( txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
-            List<Topic> lNew = dbNew.GetTopics();
+            List<Topic> lNew = dl.GetTopics();
 
             if (txtFileOldDatabase.Text == "")
             {
@@ -249,7 +251,7 @@ namespace SchoolGrades
             }
 
             DbAndBusiness dbOld = new DbAndBusiness( txtPathOldDatabase.Text + "\\" + txtFileOldDatabase.Text);
-            List<Topic> lOld = dbOld.GetTopics();
+            List<Topic> lOld = dl.GetTopics();
 
             int newIndex = 0;
             bool newFinished = false; 
@@ -277,7 +279,7 @@ namespace SchoolGrades
                                 "Sovrascrivere il nuovo record con il vecchio?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                             {
                                 // ???? should we save Left Right and Parent ????" 
-                                dbNew.UpdateTopic(tOld, null);
+                                dl.UpdateTopic(tOld, null);
                             }
                     }
                 }
@@ -291,7 +293,7 @@ namespace SchoolGrades
                             "Aggiungere il vecchio record nel nuovo database?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         {
                             // ???? should we save Left Right and Parent ????" 
-                            dbNew.InsertTopic(tOld, null);
+                            dl.InsertTopic(tOld, null);
                         }
                     }
                 }

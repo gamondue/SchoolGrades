@@ -19,28 +19,28 @@ namespace SchoolGrades
         Question currentQuestion;
         List<StudentsAnswer> currentStudentsAnswers;
         //List<Control> Answers = new List<Control>; 
-
+        DataLayer dl;
         DbAndBusiness db;
 
         public frmTestAssessing()
         {
             InitializeComponent();
-
+            dl = new DataLayer();
             db = new DbAndBusiness(Commons.PathAndFileDatabase);
         }
 
         private void frmTestGrades_Load(object sender, EventArgs e)
         {
-            currentTest = db.GetTest(1); //!!!!!!!!!!!!!!
-            currentClass = db.GetClass(Commons.IdSchool, "1920", "IFTS"); //!!!!!!!!!!!!!!
+            currentTest = dl.GetTest(1); //!!!!!!!!!!!!!!
+            currentClass = dl.GetClass(Commons.IdSchool, "1920", "IFTS"); //!!!!!!!!!!!!!!
 
             RefreshUi();
         }
 
         private void RefreshUi()
         {
-            dgwQuestions.DataSource = db.GetAllQuestionsOfATest(currentTest.IdTest);
-            dgwClassStudents.DataSource = db.GetStudentsOfClassList(Commons.IdSchool,
+            dgwQuestions.DataSource = dl.GetAllQuestionsOfATest(currentTest.IdTest);
+            dgwClassStudents.DataSource = dl.GetStudentsOfClassList(Commons.IdSchool,
                 currentClass.SchoolYear, currentClass.Abbreviation, false);
         }
 
@@ -59,7 +59,7 @@ namespace SchoolGrades
 
                 txtQuestion.Text = currentQuestion.Text;
 
-                List<Answer> listAnswers = db.GetAnswersOfAQuestion(currentQuestion.IdQuestion);
+                List<Answer> listAnswers = dl.GetAnswersOfAQuestion(currentQuestion.IdQuestion);
                 dgwAnswers.DataSource = listAnswers;
                 // erase all previous radio buttons in grpStudentsAnswers
                 grpStudentsAnswers.Visible = false;
@@ -122,7 +122,7 @@ namespace SchoolGrades
             if (currentStudent != null)
             {
                 txtStudent.Text = currentStudent.LastName + " " + currentStudent.FirstName;
-                List<StudentsAnswer> ans = db.GetAllAnswersOfAStudentToAQuestionOfThisTest(
+                List<StudentsAnswer> ans = dl.GetAllAnswersOfAStudentToAQuestionOfThisTest(
                     currentStudent.IdStudent, currentQuestion.IdQuestion, currentTest.IdTest);
                 if (grpStudentsAnswers.Controls.Count != ans.Count)
                 {
@@ -157,13 +157,13 @@ namespace SchoolGrades
                 if ((bool)currentQuestion.IsMutex)
                 {
                     RadioButton rb = (RadioButton)grpStudentsAnswers.Controls[i];
-                    db.SaveStudentsAnswer(currentStudent, currentTest, a,
+                    dl.SaveStudentsAnswer(currentStudent, currentTest, a,
                         rb.Checked, null);
                 }
                 else
                 {
                     CheckBox cb = (CheckBox)grpStudentsAnswers.Controls[i];
-                    db.SaveStudentsAnswer(currentStudent, currentTest, a,
+                    dl.SaveStudentsAnswer(currentStudent, currentTest, a,
                         cb.Checked, null);
                 }
             }
@@ -193,7 +193,7 @@ namespace SchoolGrades
                 List<Answer> ls = (List<Answer>)(dgwAnswers.DataSource);
                 Answer a = ls[e.RowIndex];
 
-                Question q = db.GetQuestionById(a.IdQuestion);
+                Question q = dl.GetQuestionById(a.IdQuestion);
                 frmQuestion fq = new frmQuestion(frmQuestion.QuestionFormType.EditOneQuestion,
                     q, null, null, null);
                 fq.Show();

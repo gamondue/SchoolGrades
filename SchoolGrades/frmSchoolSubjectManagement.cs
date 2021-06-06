@@ -9,6 +9,7 @@ namespace SchoolGrades
     public partial class FrmSchoolSubjectManagement : Form
     {
         DbAndBusiness db;
+        DataLayer dl;
         SchoolSubject currentSubject;
         List<SchoolSubject> subjectList;  
 
@@ -16,11 +17,12 @@ namespace SchoolGrades
         {
             InitializeComponent();
             db = new DbAndBusiness(Commons.PathAndFileDatabase);
+            dl = new DataLayer();
         }
 
         private void frmSchoolSubjectManagement_Load(object sender, EventArgs e)
         {
-            subjectList = db.GetListSchoolSubjects(false); 
+            subjectList = dl.GetListSchoolSubjects(false); 
             DgwSubjects.DataSource = subjectList; 
         }
 
@@ -52,7 +54,7 @@ namespace SchoolGrades
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            db.SaveSubjects(subjectList);
+            dl.SaveSubjects(subjectList);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -74,8 +76,8 @@ namespace SchoolGrades
             if (MessageBox.Show("Cancellare la materia " + currentSubject.Name, "", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
                 == DialogResult.Yes)
             {
-                db.SaveSubjects(subjectList); 
-                subjectList = db.GetListSchoolSubjects(false);
+                dl.SaveSubjects(subjectList); 
+                subjectList = dl.GetListSchoolSubjects(false);
                 DgwSubjects.DataSource = subjectList;
             }
         }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SchoolGrades.DbClasses
 {
-    class Grade
+    internal class Grade
     {
         private int? idGrade;
         private int? idStudent;

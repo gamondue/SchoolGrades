@@ -13,6 +13,7 @@ namespace SchoolGrades
 {
     public partial class frmTag : Form
     {
+        DataLayer dl;
         DbAndBusiness db;
         List<Tag> listTags;
         internal Tag currentTag = new Tag();
@@ -22,7 +23,7 @@ namespace SchoolGrades
         public frmTag(bool IsDialog)
         {
             InitializeComponent();
-
+            dl = new DataLayer();
             db = new DbAndBusiness(Commons.PathAndFileDatabase);
             isDialog = IsDialog;
             if (isDialog)
@@ -49,7 +50,7 @@ namespace SchoolGrades
             txtTag.Text = txtSearch.Text;
             if (txtSearch.Text.Length > 0)
             {
-                listTags = db.GetTagsContaining(txtSearch.Text);
+                listTags = dl.GetTagsContaining(txtSearch.Text);
                 dgwExistingTags.DataSource = listTags;
                 dgwExistingTags.Columns[0].Visible = false;
                 dgwExistingTags.Columns[2].Visible = false;
@@ -59,7 +60,7 @@ namespace SchoolGrades
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            db.SaveTag(currentTag);
+            dl.SaveTag(currentTag);
             btnChoose.Enabled = true; 
         }
 
@@ -75,7 +76,7 @@ namespace SchoolGrades
 
         private void btnNew_Click(object sender, EventArgs e)
         {
-            txtIdTag.Text = db.CreateNewTag(currentTag).ToString();
+            txtIdTag.Text = dl.CreateNewTag(currentTag).ToString();
             btnChoose.Enabled = false;
             btnSave.Enabled = true; 
         }

@@ -10,7 +10,8 @@ namespace SchoolGrades
     public partial class frmQuestion : Form
     {
         DbAndBusiness db; 
-        TreeMpttDb dbMptt; 
+        TreeMpttDb dbMptt;
+        DataLayer dl;
 
         internal Question currentQuestion = new Question();
         internal bool UserHasChosen; 
@@ -33,17 +34,17 @@ namespace SchoolGrades
             SchoolSubject Subject, Class Class, Topic Topic)
         {
             InitializeComponent();
-
+            dl = new DataLayer();
             DbAndBusiness db = new DbAndBusiness(Commons.PathAndFileDatabase);
             TreeMpttDb dbMptt = new TreeMpttDb(db);
 
             // fills the lookup tables' combos
-            List<QuestionType> listQuestions = db.GetListQuestionTypes(true);
+            List<QuestionType> listQuestions = dl.GetListQuestionTypes(true);
             cmbQuestionType.DisplayMember = "Name";
             cmbQuestionType.ValueMember = "idQuestionType";
             cmbQuestionType.DataSource = listQuestions;
 
-            List<SchoolSubject> listSubjects = db.GetListSchoolSubjects(true);
+            List<SchoolSubject> listSubjects = dl.GetListSchoolSubjects(true);
             cmbSchoolSubject.DisplayMember = "Name";
             cmbSchoolSubject.ValueMember = "idSchoolSubject";
             cmbSchoolSubject.DataSource = listSubjects;
@@ -54,11 +55,11 @@ namespace SchoolGrades
             formType = Type;
             if (formType == QuestionFormType.EditOneQuestion)
             {
-                currentQuestion = db.GetQuestionById(Question.IdQuestion);
+                currentQuestion = dl.GetQuestionById(Question.IdQuestion);
             }
             if (Topic != null)
             {
-                currentTopic = db.GetTopicById(Topic.Id);
+                currentTopic = dl.GetTopicById(Topic.Id);
                 if (currentTopic.Id != 0)
                     txtTopic.Text = dbMptt.GetTopicPath(currentTopic.Id);
             }
@@ -97,14 +98,14 @@ namespace SchoolGrades
             if (currentQuestion != null)
             {
                 if (currentQuestion.IdQuestion != 0)
-                    currentQuestion = db.GetQuestionById(currentQuestion.IdQuestion);
+                    currentQuestion = dl.GetQuestionById(currentQuestion.IdQuestion);
                 txtIdQuestion.Text = currentQuestion.IdQuestion.ToString();
                 txtQuestionText.Text = currentQuestion.Text;
                 txtQuestionImage.Text = currentQuestion.QuestionImage;
                 txtDuration.Text = currentQuestion.Duration.ToString();
                 txtWeight.Text = currentQuestion.Weight.ToString();
                 txtDifficulty.Text = currentQuestion.Difficulty.ToString();
-                tagsList = db.TagsOfAQuestion(currentQuestion.IdQuestion);
+                tagsList = dl.TagsOfAQuestion(currentQuestion.IdQuestion);
                 lstTags.DataSource = tagsList;
                 Commons.LastTagsChosen = tagsList;
 
@@ -112,7 +113,7 @@ namespace SchoolGrades
                 if (currentTopic != null)
                     txtTopic.Text = dbMptt.GetTopicPath(currentTopic.Id);
                 
-                answersList = db.GetAnswersOfAQuestion(currentQuestion.IdQuestion);
+                answersList = dl.GetAnswersOfAQuestion(currentQuestion.IdQuestion);
                 dgwAnswers.DataSource = answersList;
             }else
             {
@@ -128,17 +129,17 @@ namespace SchoolGrades
             a.ShowDialog();
             if (a.currentAnswer.IdAnswer > 0)
             {
-                db.AddAnswerToQuestion(currentQuestion.IdQuestion, a.currentAnswer.IdAnswer);
+                dl.AddAnswerToQuestion(currentQuestion.IdQuestion, a.currentAnswer.IdAnswer);
             }
 
             RefreshData();
 
-            List<Answer> answers = db.GetAnswersOfAQuestion(currentQuestion.IdQuestion); 
+            List<Answer> answers = dl.GetAnswersOfAQuestion(currentQuestion.IdQuestion); 
         }
 
         private void RefreshData()
         {
-            answersList = db.GetAnswersOfAQuestion(currentQuestion.IdQuestion);
+            answersList = dl.GetAnswersOfAQuestion(currentQuestion.IdQuestion);
             dgwAnswers.DataSource = answersList;
         }
 
@@ -207,9 +208,9 @@ namespace SchoolGrades
             t.ShowDialog();
             if (t.haveChosen)
             {
-                db.AddTagToQuestion(currentQuestion.IdQuestion, t.currentTag.IdTag);
+                dl.AddTagToQuestion(currentQuestion.IdQuestion, t.currentTag.IdTag);
                 t.Dispose();
-                tagsList = db.TagsOfAQuestion(currentQuestion.IdQuestion);
+                tagsList = dl.TagsOfAQuestion(currentQuestion.IdQuestion);
                 lstTags.DataSource = tagsList;
                 Commons.LastTagsChosen = tagsList;
             }
@@ -221,14 +222,14 @@ namespace SchoolGrades
             frmAnswer f = new frmAnswer(a);
             f.ShowDialog();
 
-            answersList = db.GetAnswersOfAQuestion(currentQuestion.IdQuestion);
+            answersList = dl.GetAnswersOfAQuestion(currentQuestion.IdQuestion);
             dgwAnswers.DataSource = answersList;
         }
 
         private void cmbSchoolSubject_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentQuestion.IdSchoolSubject = ((SchoolSubject)cmbSchoolSubject.SelectedItem).IdSchoolSubject;
-            currentSubject = db.GetSchoolSubject(currentQuestion.IdSchoolSubject);
+            currentSubject = dl.GetSchoolSubject(currentQuestion.IdSchoolSubject);
             ////////Color bgColor;
             ////////if (currentSubject != null)
             ////////{
@@ -366,13 +367,13 @@ namespace SchoolGrades
             Color plainColor = Color.White;
             if (currentQuestion.IdQuestion == 0)
             {
-                Question q = db.CreateNewVoidQuestion();
+                Question q = dl.CreateNewVoidQuestion();
                 currentQuestion.IdQuestion = q.IdQuestion;
             }
             if (currentQuestion.IdTopic == 0 && currentTopic != null)
                 currentQuestion.IdTopic = currentTopic.Id;
 
-            db.SaveQuestion(currentQuestion);
+            dl.SaveQuestion(currentQuestion);
             txtQuestionText.BackColor = plainColor;
             txtIdQuestion.BackColor = plainColor;
             txtDifficulty.BackColor = plainColor;

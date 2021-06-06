@@ -14,12 +14,11 @@ namespace SchoolGrades
     public partial class frmTopics : Form
     {
         DbAndBusiness db;
-
+        DataLayer dl;
         gamon.TreeMptt.TreeMptt topicTreeMptt;
 
         List<Topic> listTopicsInternal;
         List<Topic> listTopicsExternal;
-
         //Class currentClass; 
         SchoolSubject currentSubject;
         Class currentClass; 
@@ -42,7 +41,7 @@ namespace SchoolGrades
             Class Class, SchoolSubject Subject)
         {
             InitializeComponent();
-
+            dl = new DataLayer();
             db = new DbAndBusiness(Commons.PathAndFileDatabase);
 
             currentSubject = Subject;
@@ -67,7 +66,7 @@ namespace SchoolGrades
                     {
                         btnChoose.Visible = true; 
                         // highlists the topics done by the current class in the current subject
-                        List<Topic> listDone = db.GetTopicsDoneFromThisTopic(currentClass, 
+                        List<Topic> listDone = dl.GetTopicsDoneFromThisTopic(currentClass, 
                                 ((Topic)trwTopics.Nodes[0].Tag), currentSubject);
                         int dummy = 0; bool dummy2 = false;
                         topicTreeMptt.HighlightTopicsInList(trwTopics.Nodes[0],

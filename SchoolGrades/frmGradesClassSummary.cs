@@ -10,6 +10,7 @@ namespace SchoolGrades
     public partial class frmGradesClassSummary : Form
     {
         DbAndBusiness db;
+        DataLayer dl;
         private Class currentClass;
         private GradeType currentGradeType;
         private SchoolSubject currentSubject;
@@ -21,23 +22,24 @@ namespace SchoolGrades
             InitializeComponent();
 
             db = new DbAndBusiness(Commons.PathAndFileDatabase);
+            dl = new DataLayer();
 
             currentClass = Class;
             currentGradeType = GradeType;
             currentSubject = Subject;
 
             // fill the combos of lookup tables
-            List<GradeType> listGradeTypes = db.GetListGradeTypes();
+            List<GradeType> listGradeTypes = dl.GetListGradeTypes();
             cmbSummaryGradeType.DisplayMember = "Name";
             cmbSummaryGradeType.ValueMember = "idGradeType";
             cmbSummaryGradeType.DataSource = listGradeTypes;
 
-            List<SchoolSubject> listSubjects = db.GetListSchoolSubjects(false);
+            List<SchoolSubject> listSubjects = dl.GetListSchoolSubjects(false);
             cmbSchoolSubjects.DisplayMember = "Name";
             cmbSchoolSubjects.ValueMember = "idSchoolSubject";
             cmbSchoolSubjects.DataSource = listSubjects;
 
-            List<SchoolPeriod> listPeriods = db.GetSchoolPeriods(Class.SchoolYear);
+            List<SchoolPeriod> listPeriods = dl.GetSchoolPeriods(Class.SchoolYear);
             cmbSchoolPeriod.DataSource = listPeriods;
             // select the combo item of the partial period of the DateTime.Now
             foreach (SchoolPeriod sp in listPeriods)
@@ -86,7 +88,7 @@ namespace SchoolGrades
             {
                 if (rdb == rdbMissing)
                 {
-                    dgwGrades.DataSource = db.GetStudentsWithNoMicrogrades(currentClass,
+                    dgwGrades.DataSource = dl.GetStudentsWithNoMicrogrades(currentClass,
                         ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                         ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
                         dtpStartPeriod.Value, dtpEndPeriod.Value
@@ -94,7 +96,7 @@ namespace SchoolGrades
                 }
                 if (rdb == rdbShowGrades)
                 {
-                    dgwGrades.DataSource = db.GetGradesOfClass(currentClass,
+                    dgwGrades.DataSource = dl.GetGradesOfClass(currentClass,
                         ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                         ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
                         dtpStartPeriod.Value, dtpEndPeriod.Value
@@ -104,7 +106,7 @@ namespace SchoolGrades
                 }
                 else if (rdb == rdbShowWeights)
                 {
-                    dgwGrades.DataSource = db.GetWeightedAveragesOfClass(currentClass,
+                    dgwGrades.DataSource = dl.GetWeightedAveragesOfClass(currentClass,
                         ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                         ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject ,
                         dtpStartPeriod.Value, dtpEndPeriod.Value
@@ -124,7 +126,7 @@ namespace SchoolGrades
                 }
                 else if (rdb == rdbShowWeightedGrades)
                 {
-                    dgwGrades.DataSource = db.GetGradesWeightedAveragesOfClass(currentClass,
+                    dgwGrades.DataSource = dl.GetGradesWeightedAveragesOfClass(currentClass,
                         ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                         ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
                         dtpStartPeriod.Value, dtpEndPeriod.Value
@@ -134,7 +136,7 @@ namespace SchoolGrades
                 }
                 else if (rdb == rdbShowWeightsOnOpenGrades)
                 {
-                    dgwGrades.DataSource = db.GetGradesWeightsOfClassOnOpenGrades(currentClass,
+                    dgwGrades.DataSource = dl.GetGradesWeightsOfClassOnOpenGrades(currentClass,
                         ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                         ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
                         dtpStartPeriod.Value, dtpEndPeriod.Value
@@ -232,7 +234,7 @@ namespace SchoolGrades
                 tipoTabella + "_" +
                 dtpStartPeriod.Value.ToString("yyyy.MM.dd_") + dtpEndPeriod.Value.ToString("yyyy.MM.dd") +
                 ".csv"; 
-            db.SaveTableOnCvs((DataTable)dgwGrades.DataSource, FileName);
+            dl.SaveTableOnCvs((DataTable)dgwGrades.DataSource, FileName);
             MessageBox.Show("Creato file: " + FileName);
         }
 
