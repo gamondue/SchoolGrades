@@ -244,20 +244,17 @@ namespace SchoolGrades
 
         private void dgwGrades_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            dgwGrades.Rows[e.RowIndex].Selected = true;
         }
 
         private void dgwGrades_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            int IdQuestion;
             if (e.RowIndex > -1)
             {
-                //DataRow row = ((DataTable)(dgwGrades.DataSource)).Rows[e.RowIndex];
+                dgwGrades.Rows[e.RowIndex].Selected = true;
                 try
                 {
-                    IdQuestion = (int)dgwGrades.CurrentRow.Cells[0].Value;
-                    frmMicroAssessment fg = new frmMicroAssessment(IdQuestion);
-                    fg.Show();
+                    new frmMicroAssessment((int)dgwGrades.CurrentRow.Cells[0].Value).Show();
                 }
                 catch
                 {

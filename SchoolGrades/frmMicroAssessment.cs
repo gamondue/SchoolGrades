@@ -49,10 +49,13 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
-            // constructor for subgrades for a grade passed trough its id
+            db = new DbAndBusiness(Commons.PathAndFileDatabase);
+
             currentGrade.IdGrade = IdGrade;
+            
             currentStudent = new Student();
             dl.GetGradeAndStudent(currentGrade, currentStudent);
+            
             currentYear = currentGrade.IdSchoolYear;
             currentClass = dl.GetClassOfStudent(Commons.IdSchool, currentYear, currentStudent);
             
@@ -60,6 +63,12 @@ namespace SchoolGrades
 
             currentSchoolSubject = dl.GetSchoolSubject(currentGrade.IdSchoolSubject);
             currentQuestion = dl.GetQuestionById(currentGrade.IdQuestion);
+        }
+
+        private Student GetStudentByGradesId(ref Grade grade)
+        {
+            grade = db.GetGrade(grade.IdGrade);
+            return db.GetStudent(grade.IdStudent);
         }
 
         private void frmMicroAssessment_Load(object sender, EventArgs e)
