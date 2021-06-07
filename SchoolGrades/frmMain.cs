@@ -18,6 +18,7 @@ namespace SchoolGrades
 
         DbAndBusiness db; // must be instantiated after the reading of config file. 
         BusinessLayer bl; // must be instantiated after the reading of config file.
+        DataLayer dl;
 
         public List<Student> currentStudentsList;
         public List<Student> eligiblesList = new List<Student>();
@@ -71,7 +72,7 @@ namespace SchoolGrades
         public frmMain()
         {
             InitializeComponent();
-
+            dl = new DataLayer();
             db = new DbAndBusiness(Commons.PathAndFileDatabase);
             bl = new BusinessLayer(db.DatabaseName);
 
@@ -91,11 +92,11 @@ namespace SchoolGrades
                 CmbSchoolYear.SelectedItem = CmbSchoolYear.Items[nYears - 2];
 
             // fill the combo of grade types 
-            List<GradeType> ListGradeTypes = db.GetListGradeTypes();
+            List<GradeType> ListGradeTypes = dl.GetListGradeTypes();
             cmbGradeType.DataSource = ListGradeTypes;
 
             // fill the combo of School subjects
-            List<SchoolSubject> listSubjects = db.GetListSchoolSubjects(true);
+            List<SchoolSubject> listSubjects = dl.GetListSchoolSubjects(true);
             cmbSchoolSubject.DataSource = listSubjects;
         }
         private void frmMain_Load(object sender, EventArgs e)
@@ -115,7 +116,7 @@ namespace SchoolGrades
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             btnTemporary.Visible = false; 
 #endif
-            school = db.GetSchool(Commons.IdSchool);
+            school = dl.GetSchool(Commons.IdSchool);
             if (school == null)
                 return;
 
@@ -334,7 +335,7 @@ namespace SchoolGrades
             try
             {
                 string pictureFile = Commons.PathImages + "\\" +
-                db.GetFilePhoto(currentStudent.IdStudent, schoolYear);
+                dl.GetFilePhoto(currentStudent.IdStudent, schoolYear);
                 picStudent.Image = System.Drawing.Image.FromFile(pictureFile);
             }
             catch
@@ -452,7 +453,7 @@ namespace SchoolGrades
                     if (!CommonsWinForms.CheckIfSubjectChosen(currentSubject))
                         return;
                     //List<Image> lessonImages = db.GetAllImagesShownToAClassDuringLessons(currentClass, currentSubject);
-                    List<DbClasses.Image> lessonImages = db.GetAllImagesShownToAClassDuringLessons(currentClass, currentSubject,
+                    List<DbClasses.Image> lessonImages = dl.GetAllImagesShownToAClassDuringLessons(currentClass, currentSubject,
                         DateTime.Now.AddMonths(-8), DateTime.Now);
                     // add the path & filename of the files foud to the list of those that we can draw
                     foreach (DbClasses.Image i in lessonImages)
@@ -497,7 +498,7 @@ namespace SchoolGrades
         {
             if (lstClasses.SelectedItem != null)
             {
-                currentStudentsList = db.GetStudentsOfClassList(school.OfficialSchoolAbbreviation, schoolYear,
+                currentStudentsList = dl.GetStudentsOfClassList(school.OfficialSchoolAbbreviation, schoolYear,
                     lstClasses.SelectedItem.ToString(), false);
                 eligiblesList.Clear();
 
@@ -595,7 +596,7 @@ namespace SchoolGrades
         {
             //find the number of grades of each student (beside the sum of the weights)
             List<Student> studentsAndWeights =
-                db.GetStudentsAndSumOfWeights(currentClass,
+                bl.GetStudentsAndSumOfWeights(currentClass,
                 currentGradeType, currentSubject,
                 DateTime.MinValue, DateTime.MaxValue); // TODO: put the dates of the current school period
 
@@ -637,7 +638,7 @@ namespace SchoolGrades
             // if you give grades to every element of the list, the students will 
             // have the same number of grades
             // find the number of microgrades for each student
-            List<Grade> gradesCounts = db.CountNonClosedMicroGrades(currentClass,
+            List<Grade> gradesCounts = dl.CountNonClosedMicroGrades(currentClass,
                 currentGradeType);
             if (lstNames.CheckedItems.Count != 0)
             {
@@ -673,7 +674,7 @@ namespace SchoolGrades
         {
             //find the sum of the weights of grades of each student
             List<Student> studentsAndWeights =
-                db.GetStudentsAndSumOfWeights(currentClass,
+                bl.GetStudentsAndSumOfWeights(currentClass,
                 currentGradeType, currentSubject,
                 DateTime.MinValue, DateTime.MaxValue); // TODO: put the dates of the current school period
             // find max of weights
@@ -732,14 +733,14 @@ namespace SchoolGrades
             // check if the Eligible field has changhed since when we read the students 
             dataModified = dataModified || CheckIfAnyEligibleHasChanged(); 
             if (currentStudentsList != null && dataModified)
-                db.SaveStudentsOfList(currentStudentsList, null);
+                bl.SaveStudentsOfList(currentStudentsList, null);
         }
         private bool CheckIfAnyEligibleHasChanged()
         {
             bool OneIsDifferent = false; 
             if (currentClass != null)
             {
-                List<Student> oldList = db.GetStudentsOfClassList(school.OfficialSchoolAbbreviation, schoolYear,
+                List<Student> oldList = dl.GetStudentsOfClassList(school.OfficialSchoolAbbreviation, schoolYear,
                         currentClass.Abbreviation, false);
                 if(currentStudentsList != null)
                 { 
@@ -802,7 +803,7 @@ namespace SchoolGrades
         }
         private void AllCheckNonGraded()
         {
-            List<int> nonGraded = db.GetIdStudentsNonGraded(currentClass, currentGradeType,
+            List<int> nonGraded = dl.GetIdStudentsNonGraded(currentClass, currentGradeType,
                 currentSubject);
             for (int i = 0; i < lstNames.Items.Count; i++)
             {
@@ -946,7 +947,7 @@ namespace SchoolGrades
         private void btnOldestGrade_Click(object sender, EventArgs e)
         {
             // gets all the list, but we are interested only to the first, the oldest
-            List<Couple> fromOldest = db.GetGradesOldestInClass(currentClass,
+            List<Couple> fromOldest = dl.GetGradesOldestInClass(currentClass,
                 ((GradeType)(cmbGradeType.SelectedItem)), currentSubject);
             //if (dalPiuVecchio.Count < StudentsList.Count)
             //{
@@ -1042,7 +1043,7 @@ namespace SchoolGrades
         {
             if (!CommonsWinForms.CheckIfClassChosen(currentClass))
                 return;
-            List<string> LinksOfClass = db.GetStartLinksOfClass(currentClass);
+            List<string> LinksOfClass = dl.GetStartLinksOfClass(currentClass);
 
             Commons.StartLinks(currentClass, LinksOfClass);
         }
@@ -1094,10 +1095,15 @@ namespace SchoolGrades
                 MessageBox.Show("Nessun studente presente!");
                 return;
             }
+            if (cmbSchoolSubject.SelectedIndex == 0)
+            {
+                MessageBox.Show("Nessuna materia selezionata!");
+                return;
+            }
             // clone the list of students present to the lesson 
             // by using the constructor with parameters, that CLONES! 
             List<Student> groupsList = new List<Student>(eligiblesList);
-            frmGroups f = new frmGroups(groupsList, currentClass);
+            frmGroups f = new frmGroups(groupsList, currentClass, currentSubject, currentGradeType);
             f.Show();
         }
         private void txtPathImages_TextChanged(object sender, EventArgs e)
@@ -1160,7 +1166,7 @@ namespace SchoolGrades
             {
                 Student s = (Student)o;
                 s.RevengeFactorCounter++;
-                db.SaveStudent(s, null);
+                dl.SaveStudent(s, null);
             }
             lstClassi_DoubleClick(null, null);
         }
@@ -1181,7 +1187,7 @@ namespace SchoolGrades
                 s.RevengeFactorCounter--;
                 if (s.RevengeFactorCounter < 0)
                     s.RevengeFactorCounter = 0;
-                db.SaveStudent(s, null);
+                dl.SaveStudent(s, null);
             }
             lstClassi_DoubleClick(null, null);
         }
@@ -1272,7 +1278,7 @@ namespace SchoolGrades
                 "_" + currentClass.Abbreviation +
                 "_" + currentSubject.IdSchoolSubject + "_" +
                 "all-topics.txt";
-            List<Topic> lt = db.GetAllTopicsDoneInClassAndSubject(currentClass,
+            List<Topic> lt = dl.GetAllTopicsDoneInClassAndSubject(currentClass,
                 currentSubject);
             string f = "";
             string tabs = "";
