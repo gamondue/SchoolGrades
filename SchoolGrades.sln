@@ -9,38 +9,52 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DbClasses", "DbClasses\DbCl
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "MpttTreeManagement", "MpttTreeManagement\MpttTreeManagement.shproj", "{AEA6904A-A8B6-4602-8946-03DF79CBBD30}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DataLayer", "DataLayer\DataLayer.shproj", "{2447D414-6DDB-4193-BD6D-FD70165B57BE}"
+EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "BusinessLayer", "BusinessLayer\BusinessLayer.shproj", "{737A759A-6C1F-4BD7-A682-390C8B018712}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedWinForms", "SharedWinForms\SharedWinForms.shproj", "{BDB76E62-3474-4529-B85D-2EBE40C7BEFB}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DataLayer", "DataLayer\DataLayer.shproj", "{CB4BAAD0-AC1D-4A7B-A02F-47B386D77F34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolGrades", "SchoolGrades\SchoolGrades.csproj", "{14583D93-E4DD-4E30-8D6D-194727A795D3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolGrades", "SchoolGrades\SchoolGrades.csproj", "{ABAF6EE3-146A-4E5F-9586-806679363E2D}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedWebForms", "SharedWebForms\SharedWebForms.shproj", "{CC542454-DECF-4224-9F6C-D5C86DE2105A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolGrades_Web", "SchoolGrades_Web\SchoolGrades_Web.csproj", "{F7969A71-AAB8-4EF7-BDAF-D8AD13DD794C}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		DbClasses\DbClasses.projitems*{12e573a5-7ed8-4ee0-8a9e-e8304de4cd86}*SharedItemsImports = 13
+		BusinessLayer\BusinessLayer.projitems*{14583d93-e4dd-4e30-8d6d-194727a795d3}*SharedItemsImports = 5
+		DataLayer\DataLayer.projitems*{14583d93-e4dd-4e30-8d6d-194727a795d3}*SharedItemsImports = 5
+		DbClasses\DbClasses.projitems*{14583d93-e4dd-4e30-8d6d-194727a795d3}*SharedItemsImports = 5
+		MpttTreeManagement\MpttTreeManagement.projitems*{14583d93-e4dd-4e30-8d6d-194727a795d3}*SharedItemsImports = 5
+		SharedItems\SharedItems.projitems*{14583d93-e4dd-4e30-8d6d-194727a795d3}*SharedItemsImports = 5
+		SharedWinForms\SharedWinForms.projitems*{14583d93-e4dd-4e30-8d6d-194727a795d3}*SharedItemsImports = 5
+		DataLayer\DataLayer.projitems*{2447d414-6ddb-4193-bd6d-fd70165b57be}*SharedItemsImports = 13
 		BusinessLayer\BusinessLayer.projitems*{737a759a-6c1f-4bd7-a682-390c8b018712}*SharedItemsImports = 13
 		SharedItems\SharedItems.projitems*{a5dc5853-0eb8-493e-804d-d596d841aa2d}*SharedItemsImports = 13
-		BusinessLayer\BusinessLayer.projitems*{abaf6ee3-146a-4e5f-9586-806679363e2d}*SharedItemsImports = 5
-		DataLayer\DataLayer.projitems*{abaf6ee3-146a-4e5f-9586-806679363e2d}*SharedItemsImports = 5
-		DbClasses\DbClasses.projitems*{abaf6ee3-146a-4e5f-9586-806679363e2d}*SharedItemsImports = 5
-		MpttTreeManagement\MpttTreeManagement.projitems*{abaf6ee3-146a-4e5f-9586-806679363e2d}*SharedItemsImports = 5
-		SharedItems\SharedItems.projitems*{abaf6ee3-146a-4e5f-9586-806679363e2d}*SharedItemsImports = 5
-		SharedWinForms\SharedWinForms.projitems*{abaf6ee3-146a-4e5f-9586-806679363e2d}*SharedItemsImports = 5
 		MpttTreeManagement\MpttTreeManagement.projitems*{aea6904a-a8b6-4602-8946-03df79cbbd30}*SharedItemsImports = 13
 		SharedWinForms\SharedWinForms.projitems*{bdb76e62-3474-4529-b85d-2ebe40c7befb}*SharedItemsImports = 13
-		DataLayer\DataLayer.projitems*{cb4baad0-ac1d-4a7b-a02f-47b386d77f34}*SharedItemsImports = 13
+		SharedWebForms\SharedWebForms.projitems*{cc542454-decf-4224-9f6c-d5c86de2105a}*SharedItemsImports = 13
+		BusinessLayer\BusinessLayer.projitems*{f7969a71-aab8-4ef7-bdaf-d8ad13dd794c}*SharedItemsImports = 4
+		DataLayer\DataLayer.projitems*{f7969a71-aab8-4ef7-bdaf-d8ad13dd794c}*SharedItemsImports = 4
+		DbClasses\DbClasses.projitems*{f7969a71-aab8-4ef7-bdaf-d8ad13dd794c}*SharedItemsImports = 4
+		SharedItems\SharedItems.projitems*{f7969a71-aab8-4ef7-bdaf-d8ad13dd794c}*SharedItemsImports = 4
+		SharedWebForms\SharedWebForms.projitems*{f7969a71-aab8-4ef7-bdaf-d8ad13dd794c}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{ABAF6EE3-146A-4E5F-9586-806679363E2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ABAF6EE3-146A-4E5F-9586-806679363E2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ABAF6EE3-146A-4E5F-9586-806679363E2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ABAF6EE3-146A-4E5F-9586-806679363E2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14583D93-E4DD-4E30-8D6D-194727A795D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14583D93-E4DD-4E30-8D6D-194727A795D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14583D93-E4DD-4E30-8D6D-194727A795D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14583D93-E4DD-4E30-8D6D-194727A795D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7969A71-AAB8-4EF7-BDAF-D8AD13DD794C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7969A71-AAB8-4EF7-BDAF-D8AD13DD794C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7969A71-AAB8-4EF7-BDAF-D8AD13DD794C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7969A71-AAB8-4EF7-BDAF-D8AD13DD794C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

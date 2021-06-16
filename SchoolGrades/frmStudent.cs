@@ -125,34 +125,38 @@ namespace SchoolGrades
         }
         private void btnFindStudent_Click(object sender, EventArgs e)
         {
-            DataTable dt = dl.FindStudentsLike(txtLastName.Text, txtFirstName.Text);
+            DataTable dt = db.FindStudentsLike(txtLastName.Text, txtFirstName.Text);
             dgwSearchedStudents.DataSource = dt;
         }
+
         private void btnFindHomonym_Click(object sender, EventArgs e)
         {
-            DataTable dt = dl.GetStudentsSameName(txtLastName.Text, txtFirstName.Text);
+            DataTable dt = db.GetStudentsSameName(txtLastName.Text, txtFirstName.Text);
             dgwSearchedStudents.DataSource = dt;
         }
+
         private void dgwSearchedStudents_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
             {
                 int key = (int)((DataTable)(dgwSearchedStudents.DataSource)).Rows[e.RowIndex]["idStudent"];
-                Student s = dl.GetStudent(key);
+                Student s = db.GetStudent(key);
                 loadStudentData(s);
                 currentStudent = s;
             }
         }
+
         private void dgwSearchedStudents_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
+
         private void dgwSearchedStudents_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
             {
                 int key = (int)((DataTable)(dgwSearchedStudents.DataSource)).Rows[e.RowIndex]["idStudent"];
-                Student s = dl.GetStudent(key);
+                Student s = db.GetStudent(key);
                 loadStudentData(s);
                 currentStudent = s;
             }

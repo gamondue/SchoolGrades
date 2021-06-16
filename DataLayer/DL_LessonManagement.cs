@@ -1,48 +1,26 @@
-﻿using SchoolGrades.DbClasses;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data;
+using SchoolGrades.DbClasses;
 using System.Data.Common;
+using System.Data;
 using System.Data.SQLite;
-using System.Text;
 
 namespace SchoolGrades
 {
     internal partial class DataLayer
     {
-        internal List<Image> GetLessonsImagesList(Lesson Lesson)
+        internal Lesson GetLessonFromRow(DbDataReader dRead)
         {
-            if (Lesson.IdLesson == null)
-                return null;
+            Lesson l = new Lesson();
+            l.IdLesson = SafeDb.SafeInt(dRead["IdLesson"]);
+            l.Date = SafeDb.SafeDateTime(dRead["Date"]);
+            l.IdClass = SafeDb.SafeInt(dRead["IdClass"]);
+            l.IdSchoolSubject = SafeDb.SafeString(dRead["IdSchoolSubject"]);
+            l.IdSchoolYear = SafeDb.SafeString(dRead["IdSchoolYear"]);
+            l.Note = SafeDb.SafeString(dRead["Note"]);
 
-            List<Image> imagesOfTheLesson = new List<Image>();
-
-            using (DbConnection conn = Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                DbDataReader dRead;
-                string query;
-                query = "SELECT * FROM Images" +
-                        " JOIN Lessons_Images ON Images.idImage=Lessons_Images.idImage" +
-                        " WHERE Lessons_Images.idLesson=" + Lesson.IdLesson +
-                        ";";
-                cmd.CommandText = query;
-                dRead = cmd.ExecuteReader();
-                while (dRead.Read())
-                {
-                    Image i = new Image();
-                    i.IdImage = (int)dRead["IdImage"];
-                    i.Caption = (string)dRead["Caption"];
-                    i.RelativePathAndFilename = (string)dRead["ImagePath"];
-
-                    imagesOfTheLesson.Add(i);
-                }
-                cmd.Dispose();
-                dRead.Dispose();
-            }
-            return imagesOfTheLesson;
+            return l;
         }
-
         internal int NewLesson(Lesson Lesson)
         {
             int key;
@@ -89,7 +67,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal object GetTopicsOfOneLessonOfClass(Class Class, Lesson Lesson)
+        internal DataTable GetTopicsOfOneLessonOfClass(Class Class, Lesson Lesson)
         {
             DataTable t;
             using (DbConnection conn = Connect())
@@ -140,6 +118,37 @@ namespace SchoolGrades
             }
             return t;
         }
+        internal List<Lesson> GetLessonsOfClass(Class Class, string IdSchoolSubject, 
+            bool OrderByAscendingDate)
+        {
+            List<Lesson> lessons = new List<Lesson>();
+            using (DbConnection conn = Connect())
+            {
+                DbDataReader dRead;
+                DbCommand cmd = conn.CreateCommand();
+                Lesson l;
+                string query = "SELECT * FROM Lessons" +
+                    " WHERE idSchoolSubject='" + IdSchoolSubject + "'" +
+                    " AND Lessons.idClass='" + Class.IdClass + "'" +
+                    " ORDER BY Lessons.date";
+                if (OrderByAscendingDate)
+                    query += " ASC";
+                else
+                    query += " DESC";
+                query += ";";
+                cmd.CommandText = query;
+                dRead = cmd.ExecuteReader();
+                l = new Lesson();
+                while (dRead.Read())
+                {
+                    l = GetLessonFromRow(dRead);
+                    lessons.Add(l);
+                }
+                cmd.Dispose();
+                dRead.Dispose();
+            }
+            return lessons;
+        }
         internal Lesson GetLastLesson(Lesson CurrentLesson)
         {
             using (DbConnection conn = Connect())
@@ -159,12 +168,7 @@ namespace SchoolGrades
                 l = new Lesson();
                 while (dRead.Read())
                 {
-                    l.IdLesson = (int)dRead["idLesson"];
-                    l.Date = (DateTime)dRead["Date"];
-                    l.IdClass = (int)dRead["idClass"];
-                    l.IdSchoolSubject = (string)dRead["idSchoolSubject"];
-                    l.Note = (string)dRead["note"];
-
+                    l = GetLessonFromRow(dRead);
                     break;
                 }
                 cmd.Dispose();
@@ -175,7 +179,7 @@ namespace SchoolGrades
         internal Lesson GetLessonInDate(Class Class, string IdSubject,
             DateTime Date)
         {
-            Lesson less = new Lesson();
+            Lesson l = new Lesson();
             using (DbConnection conn = Connect())
             {
                 DbDataReader dRead;
@@ -191,20 +195,14 @@ namespace SchoolGrades
                 dRead = cmd.ExecuteReader();
                 while (dRead.Read())
                 {
-                    less.IdLesson = (int)dRead["idLesson"];
-                    less.Date = (DateTime)dRead["Date"];
-                    less.IdClass = (int)dRead["idClass"];
-                    less.IdSchoolSubject = (string)dRead["idSchoolSubject"];
-                    less.Note = (string)dRead["note"];
-
+                    l = GetLessonFromRow(dRead);
                     break; // there should be only one record in the query result 
                 }
                 cmd.Dispose();
                 dRead.Dispose();
             }
-            return less;
+            return l;
         }
-
         internal void EraseLesson(int? IdLesson, bool AlsoEraseImageFiles)
         {
             using (DbConnection conn = Connect())
@@ -242,6 +240,37 @@ namespace SchoolGrades
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
+        }
+        internal List<Topic> GetTopicsOfLesson(int? IdLesson)
+        {
+            List<Topic> topicsOfTheLesson = new List<Topic>();
+            if (IdLesson == null)
+            {
+                return null;
+            }
+            // order by ensures that the order of the result is the order of insertion 
+            // in the database (that was the same of the tree traversal) 
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                DbDataReader dRead;
+                string query;
+                query = "SELECT * FROM Topics" +
+                        " JOIN Lessons_Topics ON Topics.idTopic=Lessons_Topics.idTopic" +
+                        " WHERE Lessons_Topics.idLesson=" + IdLesson +
+                        " ORDER BY insertionOrder" +
+                        ";";
+                cmd.CommandText = query;
+                dRead = cmd.ExecuteReader();
+                while (dRead.Read())
+                {
+                    Topic t = GetTopicFromRow(dRead);
+                    topicsOfTheLesson.Add(t);
+                }
+                cmd.Dispose();
+                dRead.Dispose();
+            }
+            return topicsOfTheLesson;
         }
         internal void SaveTopicsOfLesson(int? IdLesson, List<Topic> topicsOfTheLesson)
         {
@@ -284,35 +313,107 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal List<Topic> GetTopicsOfLesson(int? IdLesson, List<Topic> topicsOfTheLesson)
+        internal List<Image> GetLessonsImagesList(Lesson Lesson)
         {
-            if (IdLesson == null)
-            {
+            if (Lesson.IdLesson == null)
                 return null;
-            }
-            // order by ensures that the order of the result is the order of insertion 
-            // in the database (that was the same of the tree traversal) 
+
+            List<Image> imagesOfTheLesson = new List<Image>();
+
             using (DbConnection conn = Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 DbDataReader dRead;
                 string query;
-                query = "SELECT * FROM Topics" +
-                        " JOIN Lessons_Topics ON Topics.idTopic=Lessons_Topics.idTopic" +
-                        " WHERE Lessons_Topics.idLesson=" + IdLesson +
-                        " ORDER BY insertionOrder" +
+                query = "SELECT * FROM Images" +
+                        " JOIN Lessons_Images ON Images.idImage=Lessons_Images.idImage" +
+                        " WHERE Lessons_Images.idLesson=" + Lesson.IdLesson +
                         ";";
                 cmd.CommandText = query;
                 dRead = cmd.ExecuteReader();
                 while (dRead.Read())
                 {
-                    Topic t = GetTopicFromRow(dRead);
-                    topicsOfTheLesson.Add(t);
+                    Image i = new Image();
+                    i.IdImage = (int)dRead["IdImage"];
+                    i.Caption = (string)dRead["Caption"];
+                    i.RelativePathAndFilename = (string)dRead["ImagePath"];
+
+                    imagesOfTheLesson.Add(i);
                 }
                 cmd.Dispose();
                 dRead.Dispose();
             }
-            return topicsOfTheLesson;
+            return imagesOfTheLesson;
+        }
+        /// <summary>
+        /// Creates a new Image in Images and links it to the lesson
+        /// If the image has an id != 0, it exists and is not created 
+        /// </summary>
+        /// <param name="Image"></param>
+        /// <param name="Lesson"></param>
+        /// <returns></returns>
+        internal int? LinkOneImageToLesson(Image Image, Lesson Lesson)
+        {
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                string query;
+                if (Image.IdImage == 0)
+                {
+                    Image.IdImage = NextKey("Images", "IdImage");
+                    query = "INSERT INTO Images" +
+                    " (idImage, imagePath, caption)" +
+                    " Values (" + Image.IdImage + ",'" +
+                    SqlVal.SqlString(Image.RelativePathAndFilename) + "','" +
+                    SqlVal.SqlString(Image.Caption) + "'" +
+                    ");";
+                    cmd.CommandText = query;
+                    cmd.ExecuteNonQuery();
+                }
+                query = "INSERT INTO Lessons_Images" +
+                    " (idImage, idLesson)" +
+                    " Values (" + Image.IdImage + "," + Lesson.IdLesson + "" +
+                    ");";
+                cmd.CommandText = query;
+                cmd.ExecuteNonQuery();
+
+                cmd.Dispose();
+            }
+            return Image.IdImage;
+        }
+        internal List<Topic> GetTopicsDoneInClassInPeriod(Class Class,
+            SchoolSubject Subject,
+            DateTime? DateStart, DateTime? DateFinish)
+        {
+            // node order according to Modified Preorder Tree Traversal algorithm
+            List<Topic> l = new List<Topic>();
+            using (DbConnection conn = Connect())
+            {
+                // find topics that are done in a lesson of given class about and given subject 
+                //DbCommand cmd = conn.CreateCommand();
+                string query = "SELECT *" +
+                    " FROM Topics" +
+                    " JOIN Lessons_Topics ON Lessons_Topics.idTopic = Topics.idTopic " +
+                    " JOIN Lessons ON Lessons_Topics.idLesson = Lessons.idLesson" +
+                    " JOIN Classes ON Classes.idClass = Lessons.idClass" +
+                    " WHERE Lessons.idClass = " + Class.IdClass +
+                    " AND Lessons.idSchoolSubject ='" + Subject.IdSchoolSubject + "'";
+                if (DateStart != null && DateFinish != null)
+                    query += " AND Lessons.date BETWEEN " +
+                    SqlVal.SqlDate(DateStart) + " AND " + SqlVal.SqlDate(DateFinish);
+                query += " ORDER BY Lessons.date ASC;";
+                DbCommand cmd = new SQLiteCommand(query);
+                cmd.Connection = conn;
+                DbDataReader dRead = cmd.ExecuteReader();
+                while (dRead.Read())
+                {
+                    Topic t = GetTopicFromRow(dRead);
+                    l.Add(t);
+                }
+                dRead.Dispose();
+                cmd.Dispose();
+            }
+            return l;
         }
     }
 }

@@ -23,7 +23,7 @@ namespace SchoolGrades
         private DbClasses.Image currentImage; 
         private SchoolSubject currentSubject;
         DbAndBusiness db;
-        DataLayer dl;
+        BusinessLayer bl; 
 
         ImagesFormType type;
         private string lessonImagesPath;
@@ -40,7 +40,8 @@ namespace SchoolGrades
         {
             InitializeComponent();
             db = new DbAndBusiness(Commons.PathAndFileDatabase);
-            dl = new DataLayer(Commons.PathAndFileDatabase);
+            bl = new BusinessLayer(Commons.PathAndFileDatabase);
+
             listImages = Images;
             currentLesson = Lesson;
             currentClass = Class;
@@ -94,8 +95,6 @@ namespace SchoolGrades
                 rdbAutoRename_CheckedChanged(null, null);
             }
         }
-
-
         private void LoadImage()
         {
             try
@@ -108,19 +107,16 @@ namespace SchoolGrades
             //db.GetLessonsImages(currentLesson);
             //txtCaption.Text = currentImage.Caption; 
         }
-
         private void txtPathImportImage_TextChanged(object sender, EventArgs e)
         {
 
         }
-
         private void txtPathImportImage_DoubleClick(object sender, EventArgs e)
         {
             if(txtPathImportImage.Text != "")
                 Commons.ProcessStartLink(txtPathImportImage.Text);
 
         }
-
         private void btnPathImportImage_Click(object sender, EventArgs e)
         {
             folderBrowserDialog1.SelectedPath = txtPathImportImage.Text;
@@ -130,7 +126,6 @@ namespace SchoolGrades
                 txtPathImportImage.Text = folderBrowserDialog1.SelectedPath;
             }
         }
-
         private void btnChooseFileImage_Click(object sender, EventArgs e)
         {
             openFileDialog1.FileName = ""; 
@@ -146,7 +141,7 @@ namespace SchoolGrades
                 try
                 {
                     picImage.Load(openFileDialog1.FileName);
-                    List<string> captions = dl.GetCaptionsOfThisImage(txtFileImportImage.Text);
+                    List<string> captions = db.GetCaptionsOfThisImage(txtFileImportImage.Text);
                     if (captions.Count > 0)
                         txtCaption.Text = captions[captions.Count - 1];
                     else
@@ -199,7 +194,7 @@ namespace SchoolGrades
 
         private void justLinkFileToLesson(string sourcePathAndFileName)
         {
-            DbClasses.Image currentImage = dl.FindImageWithGivenFile(sourcePathAndFileName);
+            DbClasses.Image currentImage = db.FindImageWithGivenFile(sourcePathAndFileName);
             // if the image that reference to the file isn't anymore in the database 
             // create a new image that references to this file 
             // (eg. if the lesson has been deleted from the database together with its images, but 
@@ -215,9 +210,9 @@ namespace SchoolGrades
             {
                 LoadImage(); 
             }
-            dl.LinkOneImage(currentImage, currentLesson);
+            bl.LinkOneImageToLesson(currentImage, currentLesson);
             // refresh images in grid
-            DgwLessonsImages.DataSource = dl.GetLessonsImagesList(currentLesson);
+            DgwLessonsImages.DataSource = bl.GetLessonsImagesList(currentLesson);
         }
 
         private void copyFileToImagesAndLinkToLessons(string sourcePathAndFileName)
@@ -279,9 +274,9 @@ namespace SchoolGrades
             //currentImage.IdImage = int.MaxValue; 
             currentImage.Caption = txtCaption.Text;
             currentImage.IdImage = 0; // to force creation of a new record
-            dl.LinkOneImage(currentImage, currentLesson);
+            bl.LinkOneImageToLesson(currentImage, currentLesson);
             // refresh images in grid
-            DgwLessonsImages.DataSource = dl.GetLessonsImagesList(currentLesson);
+            DgwLessonsImages.DataSource = bl.GetLessonsImagesList(currentLesson);
         }
 
         private void picImage_Click(object sender, EventArgs e)
@@ -361,11 +356,11 @@ namespace SchoolGrades
                 MessageBoxDefaultButton.Button2)
                 == DialogResult.Yes)
             {
-                dl.RemoveImageFromLesson(currentLesson, currentImage, true);
+                db.RemoveImageFromLesson(currentLesson, currentImage, true);
             }
             else
-                dl.RemoveImageFromLesson(currentLesson, currentImage, false);
-            DgwLessonsImages.DataSource = dl.GetLessonsImagesList(currentLesson);
+                db.RemoveImageFromLesson(currentLesson, currentImage, false);
+            DgwLessonsImages.DataSource = bl.GetLessonsImagesList(currentLesson);
             try
             {
                 currentImage = ((List<DbClasses.Image>)DgwLessonsImages.DataSource)[0];
@@ -387,9 +382,9 @@ namespace SchoolGrades
         {
             int localIndex = DgwLessonsImages.SelectedRows[0].Index;
             currentImage.Caption = txtCaption.Text;
-            dl.SaveImage(currentImage);
+            db.SaveImage(currentImage);
             // refresh images in grid
-            DgwLessonsImages.DataSource = dl.GetLessonsImagesList(currentLesson);
+            DgwLessonsImages.DataSource = bl.GetLessonsImagesList(currentLesson);
             indexImages = localIndex;
             currentImage = ((List<DbClasses.Image>)DgwLessonsImages.DataSource)[localIndex];
             LoadImage();

@@ -22,7 +22,7 @@ namespace SchoolGrades
             Application.SetCompatibleTextRenderingDefault(false);
 
             // read configuration file or run configuration 
-            if (!Commons.ReadConfigFile())
+            if (!CommonsWinForms.ReadConfigFile())
             {
                 // config file is unexistent or broken 
                 if (Commons.PathAndFileDatabase.Contains("DEMO") && File.Exists(Commons.PathAndFileDatabase))

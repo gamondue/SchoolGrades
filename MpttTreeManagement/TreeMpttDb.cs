@@ -143,6 +143,29 @@ namespace gamon.TreeMptt
             }
             return l;
         }
+        internal List<Topic> GetTopicsByParent()
+        {
+            // node order according to siblings' order (parentNode and childNumber)
+            List<Topic> l = new List<Topic>();
+            using (DbConnection conn = dl.Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                string query = "SELECT *" +
+                    " FROM Topics" +
+                    " ORDER BY parentNode ASC, childNumber ASC;";
+                cmd = new SQLiteCommand(query);
+                cmd.Connection = conn;
+                DbDataReader dRead = cmd.ExecuteReader();
+                while (dRead.Read())
+                {
+                    Topic t = dl.GetTopicFromRow(dRead);
+                    l.Add(t);
+                }
+                dRead.Dispose();
+                cmd.Dispose();
+            }
+            return l;
+        }
         internal void SaveLeftAndRightToDbMptt()
         {
             // read the first topic of the tree
@@ -302,6 +325,16 @@ namespace gamon.TreeMptt
             // right node management
             CurrentNode.RightNodeNew = nodeCount++;
         }
+
+        internal void SaveTreeFromScratch(TreeNode CurrentNode, List<Topic> generatedList)
+        {
+            // TODO !!!! this refactory of this function must be tested !!!!
+            int nodeCount = 1;
+            // recursive function
+            GenerateNewListOfNodesFromTreeViewControl(CurrentNode, ref nodeCount, ref generatedList);
+            dl.SaveTopicsFromScratch(generatedList);
+        }
+
         private void GetAllChildren(TreeNode ParentNode, int Level, DbConnection Connection)
         {
             // recursively retrieve all direct children of ParentNode  

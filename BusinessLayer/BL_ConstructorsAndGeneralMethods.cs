@@ -18,24 +18,32 @@ namespace SchoolGrades
         // create the next after the program that is using this has read the configuration file 
         DataLayer dl; // must be instantiated after reading config file! 
 
+        internal string NameAndPathDatabase { get; }
+
         /// <summary>
         /// Incapsulates the business rules for users' management
         /// part of the class that contains the constructors and the general methods
         /// </summary>
         ///  
-        /// // ???? maybe I should NOT pass this parameter, it is database dependant ????
+        /// // ???? maybe we should NOT pass this parameter, it is database dependant ????
         internal BusinessLayer(string PathAndFile) 
         {
             dl = new DataLayer(PathAndFile);
+            if (dl.NameAndPathDatabase == null)
+            {
+                this.NameAndPathDatabase = null;
+                return; 
+            }
+            this.NameAndPathDatabase = PathAndFile;
         }
-        internal void NewDatabase(string NewDatabasePathName)
+        internal void CreateNewDatabase(string NewDatabasePathName)
         {
             File.Copy(Commons.PathAndFileDatabase, NewDatabasePathName);
 
             // local instance of a DataLayer to operate on a second database 
             DataLayer newDatabaseDl = new DataLayer(NewDatabasePathName);
 
-            newDatabaseDl.NewDatabase(); 
+            newDatabaseDl.CreateNewDatabase(); 
             return;
         }
         internal School GetSchool(string OfficialSchoolAbbreviation)
