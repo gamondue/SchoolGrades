@@ -1,5 +1,4 @@
 ﻿using gamon;
-using SchoolGrades;
 using SchoolGrades.DbClasses;
 using System;
 using System.Collections.Generic;
@@ -75,6 +74,22 @@ namespace SchoolGrades
                 TextFile.StringToFile(Commons.PathDatabase + "\\" + Filename + ".txt", f, false);
             else
                 TextFile.StringToFile(Commons.PathDatabase + "\\" + Filename + ".md", f, false);
+        }
+        internal List<Topic> GetTopicsDoneFromThisTopic(Class currentClass, Topic tag, SchoolSubject currentSchoolSubject)
+        {
+            return dl.GetTopicsDoneFromThisTopic(currentClass, tag, currentSchoolSubject);
+        }
+        internal List<Topic> GetTopicsNotDoneFromThisTopic(Class currentClass, Topic tag, SchoolSubject currentSchoolSubject)
+        {
+            return dl.GetTopicsNotDoneFromThisTopic(currentClass, tag, currentSchoolSubject);
+        }
+        internal Topic GetTopicById(int? idTopic)
+        {
+            return dl.GetTopicById(idTopic);
+        }
+        internal List<Topic> GetTopicsDoneInPeriod(Class currentClass, SchoolSubject currentSubject, DateTime dateFrom, DateTime DateTo)
+        {
+            return dl.GetTopicsDoneInPeriod(currentClass, currentSubject, dateFrom, DateTo);
         }
     }
 }

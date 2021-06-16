@@ -1,4 +1,4 @@
-ï»¿using System;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
@@ -43,10 +43,10 @@ namespace SchoolGrades
             set => currentStudent = value;
         }
 
-        int ticksPassed;
-
         string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-
+        
+        #region fields of the ColorTimer
+        int ticksPassed;
         AForge.Imaging.RGB colRGB = new AForge.Imaging.RGB();
         AForge.Imaging.HSL colHSL = new AForge.Imaging.HSL();
 
@@ -58,7 +58,9 @@ namespace SchoolGrades
         float spanHue;          // Hue span to cover from start time to end
         float spanSaturation;   // Saturation to cover from start time to end
         float spanLuminance;    // differenza to cover from start time to end
+        #endregion
 
+        #region fields of the lesson timer
         private DateTime thisLessonStartTime;
         private DateTime thisLessonEndTime;
         private float timeLessonMinutes;
@@ -67,14 +69,18 @@ namespace SchoolGrades
         private float ticksToMinutesFactor; // multiplicator from tens of microseconds to minutes
         private int minuteStart;
         private bool alarmNotFired = true;
+        #endregion
         private SchoolSubject currentSubject;
+
         private bool dataModified = false;
+
         public frmMain()
         {
             InitializeComponent();
-            dl = new DataLayer();
+
             db = new DbAndBusiness(Commons.PathAndFileDatabase);
-            bl = new BusinessLayer(db.DatabaseName);
+            bl = new BusinessLayer(Commons.PathAndFileDatabase);
+            dl= new DataLayer(Commons.PathAndFileDatabase);
 
             this.Text += " v. " + version;
 
@@ -268,7 +274,7 @@ namespace SchoolGrades
             currentGradeType = ((GradeType)cmbGradeType.SelectedItem);
             if (currentGradeType.IdGradeTypeParent == "")
             {
-                MessageBox.Show("Con il tipo di valutazione scelto non si puÃ² fare la media.\r\n " +
+                MessageBox.Show("Con il tipo di valutazione scelto non si può fare la media.\r\n " +
                     "Selezionare un tipo di valutazione corretto");
                 return;
             }
@@ -968,7 +974,7 @@ namespace SchoolGrades
             }
             if (trovato == null)
             {
-                MessageBox.Show("Allievo con voticino piÃ¹ vecchio non trovato");
+                MessageBox.Show("Allievo con voticino più vecchio non trovato");
                 return;
             }
             currentClass.CurrentStudent = trovato;
@@ -1280,7 +1286,7 @@ namespace SchoolGrades
                 "_" + currentClass.Abbreviation +
                 "_" + currentSubject.IdSchoolSubject + "_" +
                 "all-topics";
-            if (MessageBox.Show("Creare un file di testo normale (Sï¿½) od un file per Markdown (No)?",
+            if (MessageBox.Show("Creare un file di testo normale (Sì) od un file per Markdown (No)?",
                 "Tipo di file", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 bl.CreateAllTopicsDoneFile(filenameNoExtension, currentClass, currentSubject, true);

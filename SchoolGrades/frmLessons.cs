@@ -91,8 +91,7 @@ namespace SchoolGrades
             topicTreeMptt.AddNodesToTreeviewByBestMethod();
 
             // gets and checks the topics of the current lesson 
-            List<Topic> TopicsToCheck = new List<Topic>();
-            dl.GetTopicsOfLesson(currentLesson.IdLesson, TopicsToCheck);
+            List<Topic> TopicsToCheck = dl.GetTopicsOfLesson(currentLesson.IdLesson);
             int dummy = 0;
             bool dummy2 = false;
             topicTreeMptt.CheckItemsInList(trwTopics.Nodes[0],
@@ -337,8 +336,7 @@ namespace SchoolGrades
             // reset check signs
             topicTreeMptt.UncheckAllItemsUnderNode(trwTopics.Nodes[0]);
             // restore current checksigns from database 
-            List<Topic> TopicsToCheck = new List<Topic>();
-            dl.GetTopicsOfLesson(currentLesson.IdLesson, TopicsToCheck);
+            List<Topic> TopicsToCheck = dl.GetTopicsOfLesson(currentLesson.IdLesson);
             dummy = 0;
             bool dummy2 = false;
             topicTreeMptt.CheckItemsInList(trwTopics.Nodes[0],
@@ -607,8 +605,7 @@ namespace SchoolGrades
                     topicTreeMptt.UncheckAllItemsUnderNode(trwTopics.Nodes[0]);
 
                     // gets and checks the topics of the current lesson 
-                    List<Topic> TopicsToCheck = new List<Topic>();
-                    dl.GetTopicsOfLesson(currentLesson.IdLesson, TopicsToCheck);
+                    List<Topic> TopicsToCheck = dl.GetTopicsOfLesson(currentLesson.IdLesson);
                     int dummy = 0;
                     bool dummy2 = false;
                     topicTreeMptt.CheckItemsInList(trwTopics.Nodes[0],

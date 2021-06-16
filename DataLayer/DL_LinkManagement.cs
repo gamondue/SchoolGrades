@@ -10,7 +10,6 @@ namespace SchoolGrades
 {
     internal partial class DataLayer
     {
-
         internal void UpdatePathStartLinkOfClass(Class currentClass, string text)
         {
             // !!!! currently not used, because pathStartLink field does not exist yet in the database !!!!
@@ -27,7 +26,6 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-
         internal void AddLinkToOldPhoto(int? IdStudent, string IdPreviousSchoolYear, string IdNextSchoolYear)
         {
             using (DbConnection conn = Connect())
@@ -55,7 +53,6 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-
         internal int CopyAndLinkOnePhoto(Student Student, Class Class, string PathAndFileName)
         {
             if (!File.Exists(PathAndFileName))
@@ -116,7 +113,6 @@ namespace SchoolGrades
             }
             return codiceFoto;
         }
-
         internal int? SaveStartLink(int? IdStartLink, int? IdClass, string SchoolYear,
             string StartLink, string Desc)
         {
@@ -162,7 +158,6 @@ namespace SchoolGrades
             }
             return IdStartLink;
         }
-
         internal void DeleteStartLink(Nullable<int> IdStartLink)
         {
             using (DbConnection conn = Connect())
@@ -175,7 +170,6 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-
         internal DataTable GetAllStartLinks(string Year, int? IdClass)
         {
             DataTable t;
@@ -206,7 +200,6 @@ namespace SchoolGrades
             }
             return t;
         }
-
         internal List<string> GetStartLinksOfClass(Class Class)
         {
             List<string> listOfLinks = new List<string>();

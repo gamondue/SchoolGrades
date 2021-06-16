@@ -3,12 +3,34 @@ using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SQLite;
-using System.Text;
 
 namespace SchoolGrades
 {
     internal partial class DataLayer
     {
+        /// <summary>
+        /// Gets the record of the Topic from the database, 
+        /// </summary>
+        /// <param name="dRead"></param>
+        /// <returns></returns>
+        internal Topic GetTopicFromRow(DbDataReader dRead)
+        {
+            Topic t = new Topic();
+            t.Id = SafeDb.SafeInt(dRead["IdTopic"]);
+            t.Name = SafeDb.SafeString(dRead["name"]);
+            t.Desc = SafeDb.SafeString(dRead["desc"]);
+            t.LeftNodeOld = SafeDb.SafeInt(dRead["leftNode"]);
+            t.LeftNodeNew = -1;
+            t.RightNodeOld = SafeDb.SafeInt(dRead["rightNode"]);
+            t.RightNodeNew = -1;
+            t.ParentNodeOld = SafeDb.SafeInt(dRead["parentNode"]);
+            t.ParentNodeNew = -1;
+            t.ChildNumberOld = SafeDb.SafeInt(dRead["childNumber"]);
+            t.ChildNumberNew = -1;
+            t.Changed = false;
+
+            return t;
+        }
         internal int CreateNewTopic(Topic NewTopic)
         {
             int nextId;
@@ -41,29 +63,6 @@ namespace SchoolGrades
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
-        }
-        /// <summary>
-        /// Gets the record of the Topic from the database, 
-        /// </summary>
-        /// <param name="dRead"></param>
-        /// <returns></returns>
-        internal Topic GetTopicFromRow(DbDataReader dRead)
-        {
-            Topic t = new Topic();
-            t.Id = SafeDb.SafeInt(dRead["IdTopic"]);
-            t.Name = SafeDb.SafeString(dRead["name"]);
-            t.Desc = SafeDb.SafeString(dRead["desc"]);
-            t.LeftNodeOld = SafeDb.SafeInt(dRead["leftNode"]);
-            t.LeftNodeNew = -1;
-            t.RightNodeOld = SafeDb.SafeInt(dRead["rightNode"]);
-            t.RightNodeNew = -1;
-            t.ParentNodeOld = SafeDb.SafeInt(dRead["parentNode"]);
-            t.ParentNodeNew = -1;
-            t.ChildNumberOld = SafeDb.SafeInt(dRead["childNumber"]);
-            t.ChildNumberNew = -1;
-            t.Changed = false;
-
-            return t;
         }
         internal Topic GetTopicById(int? idTopic)
         {
@@ -376,6 +375,41 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
             return l;
+        }
+
+        internal void SaveTopicsFromScratch(List<Topic> ListTopics)
+        {
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "DELETE FROM Topics;";
+                cmd.ExecuteNonQuery();
+                int key;
+                cmd.CommandText = "SELECT MAX(IdTopic) FROM Topics;";
+                var temp = cmd.ExecuteScalar();
+                if (temp is DBNull)
+                    key = 0;
+                else
+                    key = (int)temp;
+                foreach (Topic t in ListTopics)
+                {   // insert new nodes
+                    {
+                        cmd.CommandText = "INSERT INTO Topics" +
+                           " (idTopic,name,desc,parentNode,leftNode,rightNode,parentNode)" +
+                           " Values (" +
+                           (++key).ToString() +
+                            ",'" + SqlVal.SqlString(t.Name) + "'" +
+                            ",'" + SqlVal.SqlString(t.Desc) + "'" +
+                            "," + t.ParentNodeNew + "" +
+                            "," + t.LeftNodeNew + "" +
+                            "," + t.RightNodeNew + "" +
+                            "," + t.ParentNodeNew + "" +
+                            ");";
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                cmd.Dispose();
+            }
         }
     }
 }
