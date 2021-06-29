@@ -575,7 +575,7 @@ namespace SchoolGrades
         }
         private void LessonTimer_Tick(object sender, EventArgs e)
         {
-            lblLessonTime.BackColor = ((frmMain)Application.OpenForms[0]).CurrentLessonTimeColor;
+            lblLessonTime.BackColor = ((frmMain)Application.OpenForms[1]).CurrentLessonTimeColor;
         }
         private void DgwAllLessons_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
