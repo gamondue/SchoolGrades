@@ -370,7 +370,6 @@
             this.Name = "frmStudent";
             this.Text = "Gestione studenti";
             this.toolTip1.SetToolTip(this, "Esci scegliendo l\'attuale studente");
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmStudent_FormClosing);
             this.Load += new System.EventHandler(this.frmStudent_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgwSearchedStudents)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picStudent)).EndInit();

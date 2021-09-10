@@ -26,7 +26,6 @@ namespace gamon
         public Label label5;
         private PictureBox pictureBox1;
         private System.ComponentModel.IContainer components;
-
 		public frmAbout()
 		{
 			//
@@ -36,7 +35,6 @@ namespace gamon
 
 			// costruttore
 		}
-
 		/// <summary>
 		/// Pulire le risorse in uso.
 		/// </summary>
@@ -51,7 +49,6 @@ namespace gamon
 			}
 			base.Dispose( disposing );
 		}
-
 		#region Codice generato da Progettazione Windows Form
 		/// <summary>
 		/// Metodo necessario per il supporto della finestra di progettazione. Non modificare
@@ -263,7 +260,6 @@ namespace gamon
 
 		}
 		#endregion
-
 		private void frmAbout_Load(object sender, System.EventArgs e)
 		{
             lblAssemblyTitle.Text = System.Diagnostics.FileVersionInfo.GetVersionInfo
@@ -276,17 +272,15 @@ namespace gamon
             lblVersione.Text += version; 
             lblData.Text = Commons.DateCompiled().ToString();
 		}
-
 		private void frmAbout_Activated(object sender, System.EventArgs e)
 		{
 			Timer1.Enabled = false;
 			Timer1.Interval = 4000;
 			Timer1.Enabled = true;
 		}
-
 		private void Timer1_Tick(object sender, System.EventArgs e)
 		{
 			this.Close();
 		}
-	}
+    }
 }

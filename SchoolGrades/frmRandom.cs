@@ -27,5 +27,10 @@ namespace SchoolGrades
                 txtResult.BackColor = Color.Goldenrod;
             Clipboard.SetText(txtResult.Text); 
         }
+
+        private void frmRandom_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

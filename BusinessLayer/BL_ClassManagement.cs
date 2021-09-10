@@ -92,7 +92,7 @@ namespace SchoolGrades
             return dl.GetStartLinksOfClass(currentClass); 
         }
         internal int? CreateClassAndStudents(string[,] StudentsData, string ClassAbbreviation, string ClassDescription,
-    string SchoolYear, string OfficialSchoolAbbreviation, bool LinkPhoto)
+            string SchoolYear, string OfficialSchoolAbbreviation, bool LinkPhoto)
         {
             return dl.CreateClassAndStudents(StudentsData, ClassAbbreviation, ClassDescription,
                 SchoolYear, OfficialSchoolAbbreviation, LinkPhoto);
@@ -110,10 +110,9 @@ namespace SchoolGrades
         {
             return dl.CreateClass(ClassAbbreviation, ClassDescription, SchoolYear, IdSchool);
         }
-
         internal void DeleteOneStudentFromClass(int idDeletingStudent, int? idClass)
         {
-            throw new NotImplementedException();
+            dl.DeleteOneStudentFromClass(idDeletingStudent, idClass);
         }
         internal void EraseAllStudentsOfAClass(Class CurrentClass)
         {
@@ -131,6 +130,10 @@ namespace SchoolGrades
         internal void SaveClass(Class Class)
         {
             dl.SaveClass(Class);
+        }
+        internal Class GetClassById(int IdClass)
+        {
+            return dl.GetClassById(IdClass);
         }
     }
 }

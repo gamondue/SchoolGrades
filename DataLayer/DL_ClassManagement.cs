@@ -91,8 +91,15 @@ namespace SchoolGrades
             //EraseAllStudentsOfAClass(Class); 
             using (DbConnection conn = Connect())
             {
-                // delete all the references in link table between students and classes
                 DbCommand cmd = conn.CreateCommand();
+                // erase all the photos of the students of the class 
+                cmd.CommandText = "DELETE FROM StudentsPhotos_Students" +
+                    " WHERE IdStudent IN (" +
+                    "SELECT IdStudent FROM Classes_Students WHERE IdClass=" + Class.IdClass + ")" +
+                    " AND IdSchoolYear=" + Class.SchoolYear +
+                    ";";
+                cmd.ExecuteNonQuery();
+                // delete all the references in link table between students and classes
                 cmd.CommandText = "DELETE FROM Classes_Students" +
                     " WHERE Classes_Students.idClass=" + Class.IdClass +
                     ";";
@@ -325,10 +332,10 @@ namespace SchoolGrades
                 // creazione della classe nella tabella delle classi (soltanto quella) 
                 cmd.CommandText = "INSERT INTO Classes " +
                     "(idClass, Desc, idSchoolYear, idSchool, abbreviation) " +
-                    "Values (" + idClass + ",'" + SqlVal.SqlString(ClassDescription) + "','" +
-                    SqlVal.SqlString(SchoolYear) + "','" + SqlVal.SqlString(IdSchool) + "','" +
-                    SqlVal.SqlString(ClassAbbreviation) +
-                    "');";
+                    "Values (" + idClass + "," + SqlString(ClassDescription) + "," +
+                    SqlString(SchoolYear) + "," + SqlString(IdSchool) + "," +
+                    SqlString(ClassAbbreviation) +
+                    ");";
                 cmd.ExecuteNonQuery();
 
                 int nextId = NextKey("Classes_StartLinks", "idStartLink");
@@ -363,9 +370,9 @@ namespace SchoolGrades
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "INSERT INTO Classes " +
                     "(idClass, Desc, idSchoolYear, idSchool, abbreviation) " +
-                    "Values (" + idClass + ",'" + SqlVal.SqlString(ClassDescription) + "','" +
-                    SqlVal.SqlString(SchoolYear) + "','" + SqlVal.SqlString(OfficialSchoolAbbreviation) + "','" +
-                    SqlVal.SqlString(ClassAbbreviation) + "'" +
+                    "Values (" + idClass + "," + SqlString(ClassDescription) + "," +
+                    SqlString(SchoolYear) + "," + SqlString(OfficialSchoolAbbreviation) + "," +
+                    SqlString(ClassAbbreviation) + "" +
                     ");";
                 cmd.ExecuteNonQuery();
 
@@ -375,21 +382,21 @@ namespace SchoolGrades
                 int idNextPhoto = NextKey("StudentsPhotos", "idStudentsPhoto");
                 // add the student to the students' table 
                 // start from the second row of the file, first row is descriptions 
-                for (int riga = 1; riga < StudentsData.GetLength(0); riga++)
+                for (int row = 1; row < StudentsData.GetLength(0); row++)
                 {
-                    int rigap1 = riga + 1;
+                    int rigap1 = row + 1;
                     // create new student
                     cmd.CommandText = "INSERT INTO Students " +
                         "(idStudent, lastName, firstName, residence, origin, email, birthDate, birthPlace) " +
                         "Values (" +
-                        "'" + idNextStudent + "','" +
-                        SqlVal.SqlString(StudentsData[riga, 1]) + "','" +
-                        SqlVal.SqlString(StudentsData[riga, 2]) + "','" +
-                        SqlVal.SqlString(StudentsData[riga, 3]) + "','" +
-                        SqlVal.SqlString(StudentsData[riga, 4]) + "','" +
-                        SqlVal.SqlString(StudentsData[riga, 5]) + "'," +
-                        SqlVal.SqlDate(StudentsData[riga, 6]) + ",'" +
-                        SqlVal.SqlString(StudentsData[riga, 7]) + "'" +
+                        "" + idNextStudent + "," +
+                        SqlString(StudentsData[row, 1]) + "," +
+                        SqlString(StudentsData[row, 2]) + "," +
+                        SqlString(StudentsData[row, 3]) + "," +
+                        SqlString(StudentsData[row, 4]) + "," +
+                        SqlString(StudentsData[row, 5]) + "," +
+                        SqlDate(StudentsData[row, 6]) + "," +
+                        SqlString(StudentsData[row, 7]) + "" +
                         ");";
                     cmd.ExecuteNonQuery();
 
@@ -402,22 +409,21 @@ namespace SchoolGrades
 
                     if (LinkPhoto)
                     {
+                        string photoPath = SchoolYear + ClassAbbreviation + "\\" + StudentsData[row, 1] + "_" +
+                            StudentsData[row, 2] + "_" + ClassAbbreviation + SchoolYear + ".jpg";  // !! TODO here we should put the actual file extension!!
                         // aggiunge la foto alle foto
                         cmd.CommandText = "INSERT INTO StudentsPhotos " +
                             "(idStudentsPhoto, photoPath)" +
                             "Values " +
-                            "('" + idNextPhoto + "','" + SqlVal.SqlString(SchoolYear) +
-                            SqlVal.SqlString(ClassAbbreviation) + "\\" + SqlVal.SqlString(StudentsData[riga, 1]) + "_" +
-                            SqlVal.SqlString(StudentsData[riga, 2]) + "_" + SqlVal.SqlString(ClassAbbreviation) +
-                            SqlVal.SqlString(SchoolYear) + ".jpg" + // TODO mettere l'estensione del file che c'è effettivamente
-                            "');"; // relative path. Home path will be added at visualization time 
+                            "(" + idNextPhoto + "," + SqlString(photoPath) +
+                            ");"; // relative path. Home path will be added at visualization time 
                         cmd.ExecuteNonQuery();
 
                         // add the picture to the link table
                         cmd.CommandText = "INSERT INTO StudentsPhotos_Students " +
                             "(idStudentsPhoto, idStudent, idSchoolYear) " +
-                            "Values (" + idNextPhoto + "," + idNextStudent + ",'" + SqlVal.SqlString(SchoolYear) +
-                            "');";
+                            "Values (" + idNextPhoto + "," + idNextStudent + "," + SqlString(SchoolYear) +
+                            ");";
                         cmd.ExecuteNonQuery();
                         idNextPhoto++;
                     }
@@ -449,8 +455,8 @@ namespace SchoolGrades
                 {
                     Class c = new Class((int)dRead["idClass"],
                         (string)dRead["abbreviation"], Year, "dummy");
-                    c.UriWebApp = SafeDb.SafeString(dRead["UriWebApp"]);
-                    c.PathRestrictedApplication = SafeDb.SafeString(dRead["pathRestrictedApplication"]);
+                    c.UriWebApp = Safe.String(dRead["UriWebApp"]);
+                    c.PathRestrictedApplication = Safe.String(dRead["pathRestrictedApplication"]);
 
                     lc.Add(c);
                 }
@@ -477,7 +483,7 @@ namespace SchoolGrades
                 " OR Grades.idGradeType IS NULL)" +
                 " AND Grades.idSchoolSubject='" + IdSchoolSubject + "'" +
                 " AND Grades.value IS NOT NULL AND Grades.value <> 0" +
-                " AND Grades.Timestamp BETWEEN " + SqlVal.SqlDate(DateFrom) + " AND " + SqlVal.SqlDate(DateTo) +
+                " AND Grades.Timestamp BETWEEN " + SqlDate(DateFrom) + " AND " + SqlDate(DateTo) +
                 " GROUP BY Students.idStudent" +
                 " ORDER BY GradesFraction ASC, lastName, firstName, Students.idStudent;";
                 // !!!! TODO change the query to include at first rows also those students that have no grades !!!! 
@@ -525,10 +531,10 @@ namespace SchoolGrades
                 dRead = cmd.ExecuteReader();
                 while (dRead.Read())
                 {
-                    c = new Class(IdClass, SafeDb.SafeString(dRead["abbreviation"]), SafeDb.SafeString(dRead["idSchoolYear"]),
-                        SafeDb.SafeString(dRead["idSchool"]));
-                    c.PathRestrictedApplication = SafeDb.SafeString(dRead["pathRestrictedApplication"]);
-                    c.UriWebApp = SafeDb.SafeString(dRead["uriWebApp"]);
+                    c = new Class(IdClass, Safe.String(dRead["abbreviation"]), Safe.String(dRead["idSchoolYear"]),
+                        Safe.String(dRead["idSchool"]));
+                    c.PathRestrictedApplication = Safe.String(dRead["pathRestrictedApplication"]);
+                    c.UriWebApp = Safe.String(dRead["uriWebApp"]);
                 }
                 dRead.Dispose();
                 cmd.Dispose();
@@ -546,10 +552,10 @@ namespace SchoolGrades
                 string query = "SELECT DISTINCT registerNumber, Classes.idSchool, Classes.idSchoolYear, " +
                                 "Classes.abbreviation, Students.*" +
                 " FROM Students, Classes_Students, Classes" +
-                " WHERE Students.idStudent = Classes_Students.idStudent AND Classes.idClass = Classes_Students.idClass" +
-                    " AND Classes.idSchool = '" + SqlVal.SqlString(IdSchool) + "' AND Classes.idSchoolYear = '" + SqlVal.SqlString(IdSchoolYear) +
-                    "' AND Classes.abbreviation = '" + SqlVal.SqlString(ClassAbbreviation) +
-                    "' ORDER BY Students.lastName, Students.firstName;";
+                " WHERE Students.idStudent=Classes_Students.idStudent AND Classes.idClass = Classes_Students.idClass" +
+                    " AND Classes.idSchool=" + SqlString(IdSchool) + " AND Classes.idSchoolYear = " + SqlString(IdSchoolYear) +
+                    " AND Classes.abbreviation=" + SqlString(ClassAbbreviation) +
+                    " ORDER BY Students.lastName, Students.firstName;";
                 dAdapter = new SQLiteDataAdapter(query,
                     (System.Data.SQLite.SQLiteConnection)conn);
                 dAdapter.Fill(dSet);
@@ -571,10 +577,10 @@ namespace SchoolGrades
                 string query = "SELECT Classes.*" +
                    " FROM Classes" +
                    " WHERE" +
-                   " Classes.idSchoolYear = '" + SqlVal.SqlString(IdSchoolYear) + "'" +
-                   " AND Classes.abbreviation = '" + SqlVal.SqlString(ClassAbbreviation) + "'";
+                   " Classes.idSchoolYear=" + SqlString(IdSchoolYear) + 
+                   " AND Classes.abbreviation=" + SqlString(ClassAbbreviation);
                 if (IdSchool != null && IdSchool != "")
-                    query += " AND Classes.idSchool = '" + SqlVal.SqlString(IdSchool) + "'";
+                    query += " AND Classes.idSchool = " + SqlString(IdSchool);
                 query += ";";
 
                 cmd.CommandText = query;
@@ -601,8 +607,8 @@ namespace SchoolGrades
                    " JOIN Classes_Students ON Classes.idClass = Classes_Students.idClass" +
                    " JOIN Students ON Students.idStudent = Classes_Students.idStudent" +
                    " WHERE" +
-                   " Classes.idSchool = '" + SqlVal.SqlString(IdSchool) + "'" +
-                   " AND Classes.idSchoolYear = '" + SqlVal.SqlString(SchoolYearCode) + "'" +
+                   " Classes.idSchool = " + SqlString(IdSchool) + "" +
+                   " AND Classes.idSchoolYear = " + SqlString(SchoolYearCode) + "" +
                    " AND Students.IdStudent = " + Student.IdStudent +
                    ";";
                 dRead = cmd.ExecuteReader();
@@ -629,12 +635,12 @@ namespace SchoolGrades
                 string query = "UPDATE Classes" +
                     " SET" +
                     " idClass=" + Class.IdClass + "" +
-                    ",idSchoolYear='" + SqlVal.SqlString(Class.SchoolYear) + "'" +
-                    ",idSchool='" + SqlVal.SqlString(Class.IdSchool) + "'" +
-                    ",abbreviation='" + SqlVal.SqlString(Class.Abbreviation) + "'" +
-                    ",desc='" + SqlVal.SqlString(Class.Description) + "'" +
-                    ",uriWebApp='" + Class.UriWebApp + "'" +
-                    ",pathRestrictedApplication='" + SqlVal.SqlString(Class.PathRestrictedApplication) + "'" +
+                    ",idSchoolYear=" + SqlString(Class.SchoolYear) + "" +
+                    ",idSchool=" + SqlString(Class.IdSchool) + "" +
+                    ",abbreviation=" + SqlString(Class.Abbreviation) + "" +
+                    ",desc=" + SqlString(Class.Description) + "" +
+                    ",uriWebApp=" + SqlString(Class.UriWebApp) + "" +
+                    ",pathRestrictedApplication=" + SqlString(Class.PathRestrictedApplication) + "" +
                     " WHERE idClass=" + Class.IdClass +
                     ";";
                 cmd.CommandText = query;
@@ -647,12 +653,12 @@ namespace SchoolGrades
             if (Class == null)
                 Class = new Class();
             Class.IdClass = (int)Row["idClass"];
-            Class.Abbreviation = SafeDb.SafeString(Row["abbreviation"]);
-            Class.IdSchool = SafeDb.SafeString(Row["idSchool"]);
-            Class.PathRestrictedApplication = SafeDb.SafeString(Row["pathRestrictedApplication"]);
-            Class.SchoolYear = SafeDb.SafeString(Row["idSchoolYear"]);
-            Class.UriWebApp = SafeDb.SafeString(Row["uriWebApp"]);
-            Class.Description = SafeDb.SafeString(Row["desc"]);
+            Class.Abbreviation = Safe.String(Row["abbreviation"]);
+            Class.IdSchool = Safe.String(Row["idSchool"]);
+            Class.PathRestrictedApplication = Safe.String(Row["pathRestrictedApplication"]);
+            Class.SchoolYear = Safe.String(Row["idSchoolYear"]);
+            Class.UriWebApp = Safe.String(Row["uriWebApp"]);
+            Class.Description = Safe.String(Row["desc"]);
         }
     }
 }

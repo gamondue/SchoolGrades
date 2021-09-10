@@ -12,15 +12,13 @@ namespace gamon.TreeMptt
 {
     internal class TreeMpttDb
     {
-        //DbAndBusiness db;
         DataLayer dl; 
 
         string dbName = Commons.PathAndFileDatabase;
 
         public TreeMpttDb(DataLayer DataAccessLayer)
         { 
-            //db = DataAccessLayer;
-            dl = new DataLayer(Commons.PathAndFileDatabase);
+            dl = Commons.dl;
         }
         // TODO: finish to encapsulate in this class all the code to access the DBMS with TreeMptt
 
@@ -485,8 +483,8 @@ namespace gamon.TreeMptt
                            " (idTopic,name,desc,parentNode,leftNode,rightNode,parentNode)" +
                            " Values (" +
                            (++key).ToString() +
-                            ",'" + SqlVal.SqlString(t.Name) + "'" +
-                            ",'" + SqlVal.SqlString(t.Desc) + "'" +
+                            "," + dl.SqlString(t.Name) + "" +
+                            "," + dl.SqlString(t.Desc) + "" +
                             "," + t.ParentNodeNew + "" +
                             "," + t.LeftNodeNew + "" +
                             "," + t.RightNodeNew + "" +

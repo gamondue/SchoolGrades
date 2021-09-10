@@ -17,7 +17,7 @@ namespace SchoolGrades
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "SELECT *" +
                     " FROM SchoolPeriods" +
-                    " WHERE " + SqlVal.SqlDate(Date) +
+                    " WHERE " + SqlDate(Date) +
                     " BETWEEN dateStart and dateFinish" +
                     ";";
                 dRead = cmd.ExecuteReader();
@@ -57,16 +57,16 @@ namespace SchoolGrades
         internal SchoolPeriod GetOneSchoolPeriodFromRow(DbDataReader Row)
         {
             SchoolPeriod p = new SchoolPeriod();
-            p.IdSchoolPeriodType = SafeDb.SafeString(Row["idSchoolPeriodType"]);
+            p.IdSchoolPeriodType = Safe.String(Row["idSchoolPeriodType"]);
             if (p.IdSchoolPeriodType != "N")
             {
-                p.DateFinish = SafeDb.SafeDateTime(Row["dateFinish"]);
-                p.DateStart = SafeDb.SafeDateTime(Row["dateStart"]);
+                p.DateFinish = Safe.DateTime(Row["dateFinish"]);
+                p.DateStart = Safe.DateTime(Row["dateStart"]);
             }
-            p.Name = SafeDb.SafeString(Row["name"]);
-            p.Desc = SafeDb.SafeString(Row["desc"]);
-            p.IdSchoolPeriod = SafeDb.SafeString(Row["idSchoolPeriod"]);
-            p.IdSchoolYear = SafeDb.SafeString(Row["idSchoolYear"]);
+            p.Name = Safe.String(Row["name"]);
+            p.Desc = Safe.String(Row["desc"]);
+            p.IdSchoolPeriod = Safe.String(Row["idSchoolPeriod"]);
+            p.IdSchoolYear = Safe.String(Row["idSchoolYear"]);
             return p;
         }
     }

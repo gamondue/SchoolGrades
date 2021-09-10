@@ -118,6 +118,7 @@ namespace SchoolGrades
             this.ForeColor = System.Drawing.Color.DarkBlue;
             this.Name = "frmRandom";
             this.Text = "Numero casuale";
+            this.Load += new System.EventHandler(this.frmRandom_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

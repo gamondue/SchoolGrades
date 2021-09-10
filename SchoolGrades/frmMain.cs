@@ -16,10 +16,6 @@ namespace SchoolGrades
         Color colorGrade = Color.Red;
         public int indexCurrentDrawn = 0;
 
-        DbAndBusiness db; // must be instantiated after the reading of config file. 
-        BusinessLayer bl; // must be instantiated after the reading of config file.
-        DataLayer dl;
-
         public List<Student> currentStudentsList;
         public List<Student> eligiblesList = new List<Student>();
 
@@ -78,10 +74,6 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
-            db = new DbAndBusiness(Commons.PathAndFileDatabase);
-            bl = new BusinessLayer(Commons.PathAndFileDatabase);
-            dl= new DataLayer(Commons.PathAndFileDatabase);
-
             this.Text += " v. " + version;
 
             // first default year in the "years" combo
@@ -98,11 +90,11 @@ namespace SchoolGrades
                 CmbSchoolYear.SelectedItem = CmbSchoolYear.Items[nYears - 2];
 
             // fill the combo of grade types 
-            List<GradeType> ListGradeTypes = dl.GetListGradeTypes();
+            List<GradeType> ListGradeTypes = Commons.bl.GetListGradeTypes();
             cmbGradeType.DataSource = ListGradeTypes;
 
             // fill the combo of School subjects
-            List<SchoolSubject> listSubjects = dl.GetListSchoolSubjects(true);
+            List<SchoolSubject> listSubjects = Commons.bl.GetListSchoolSubjects(true);
             cmbSchoolSubject.DataSource = listSubjects;
         }
         private void frmMain_Load(object sender, EventArgs e)
@@ -122,13 +114,13 @@ namespace SchoolGrades
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             btnTemporary.Visible = false; 
 #endif
-            school = dl.GetSchool(Commons.IdSchool);
+            school = Commons.bl.GetSchool(Commons.IdSchool);
             if (school == null)
                 return;
 
             schoolYear = CmbSchoolYear.SelectedItem.ToString();
 
-            lstClasses.DataSource = bl.GetClassesOfYear(school.IdSchool, schoolYear);
+            lstClasses.DataSource = Commons.bl.GetClassesOfYear(school.IdSchool, schoolYear);
 
             if (lstClasses.DataSource == null)
                 return;
@@ -147,7 +139,7 @@ namespace SchoolGrades
             txtNStudents.Text = "";
 
             // start Thread that concurrently saves the Topics tree
-            CommonsWinForms.SaveTreeMptt = new TreeMptt(dl, null, null, null, null, null, null, picBackgroundSaveRunning);
+            CommonsWinForms.SaveTreeMptt = new TreeMptt(Commons.dl, null, null, null, null, null, null, picBackgroundSaveRunning);
             CommonsWinForms.BackgroundSaveThread= new Thread(CommonsWinForms.SaveTreeMptt.SaveMpttBackground);
             CommonsWinForms.BackgroundSaveThread.Start(); 
         }
@@ -327,21 +319,12 @@ namespace SchoolGrades
             if (lstNames.Visible)
                 AllCheckRevenge();
         }
-        private void btnResults_Click(object sender, EventArgs e)
-        {
-            if (!CommonsWinForms.CheckIfClassChosen(currentClass))
-            {
-                return;
-            }
-            frmClassifica o = new frmClassifica(currentClass, currentStudentsList);
-            o.Show();
-        }
         private void loadPicture(Student Chosen)
         {
             try
             {
                 string pictureFile = Commons.PathImages + "\\" +
-                dl.GetFilePhoto(currentStudent.IdStudent, schoolYear);
+                Commons.bl.GetFilePhoto(currentStudent.IdStudent, schoolYear);
                 picStudent.Image = System.Drawing.Image.FromFile(pictureFile);
             }
             catch
@@ -459,7 +442,7 @@ namespace SchoolGrades
                     if (!CommonsWinForms.CheckIfSubjectChosen(currentSubject))
                         return;
                     //List<Image> lessonImages = db.GetAllImagesShownToAClassDuringLessons(currentClass, currentSubject);
-                    List<DbClasses.Image> lessonImages = dl.GetAllImagesShownToAClassDuringLessons(currentClass, currentSubject,
+                    List<DbClasses.Image> lessonImages = Commons.bl.GetAllImagesShownToAClassDuringLessons(currentClass, currentSubject,
                         DateTime.Now.AddMonths(-8), DateTime.Now);
                     // add the path & filename of the files foud to the list of those that we can draw
                     foreach (DbClasses.Image i in lessonImages)
@@ -504,7 +487,7 @@ namespace SchoolGrades
         {
             if (lstClasses.SelectedItem != null)
             {
-                currentStudentsList = dl.GetStudentsOfClassList(school.OfficialSchoolAbbreviation, schoolYear,
+                currentStudentsList = Commons.bl.GetStudentsOfClassList(school.OfficialSchoolAbbreviation, schoolYear,
                     lstClasses.SelectedItem.ToString(), false);
                 eligiblesList.Clear();
 
@@ -602,7 +585,7 @@ namespace SchoolGrades
         {
             //find the number of grades of each student (beside the sum of the weights)
             List<Student> studentsAndWeights =
-                bl.GetStudentsAndSumOfWeights(currentClass,
+                Commons.bl.GetStudentsAndSumOfWeights(currentClass,
                 currentGradeType, currentSubject,
                 DateTime.MinValue, DateTime.MaxValue); // TODO: put the dates of the current school period
 
@@ -644,7 +627,7 @@ namespace SchoolGrades
             // if you give grades to every element of the list, the students will 
             // have the same number of grades
             // find the number of microgrades for each student
-            List<Grade> gradesCounts = dl.CountNonClosedMicroGrades(currentClass,
+            List<Grade> gradesCounts = Commons.bl.CountNonClosedMicroGrades(currentClass,
                 currentGradeType);
             if (lstNames.CheckedItems.Count != 0)
             {
@@ -680,7 +663,7 @@ namespace SchoolGrades
         {
             //find the sum of the weights of grades of each student
             List<Student> studentsAndWeights =
-                bl.GetStudentsAndSumOfWeights(currentClass,
+                Commons.bl.GetStudentsAndSumOfWeights(currentClass,
                 currentGradeType, currentSubject,
                 DateTime.MinValue, DateTime.MaxValue); // TODO: put the dates of the current school period
             // find max of weights
@@ -739,14 +722,14 @@ namespace SchoolGrades
             // check if the Eligible field has changhed since when we read the students 
             dataModified = dataModified || CheckIfAnyEligibleHasChanged(); 
             if (currentStudentsList != null && dataModified)
-                bl.SaveStudentsOfList(currentStudentsList, null);
+                Commons.bl.SaveStudentsOfList(currentStudentsList, null);
         }
         private bool CheckIfAnyEligibleHasChanged()
         {
             bool OneIsDifferent = false; 
             if (currentClass != null)
             {
-                List<Student> oldList = dl.GetStudentsOfClassList(school.OfficialSchoolAbbreviation, schoolYear,
+                List<Student> oldList = Commons.bl.GetStudentsOfClassList(school.OfficialSchoolAbbreviation, schoolYear,
                         currentClass.Abbreviation, false);
                 if(currentStudentsList != null)
                 { 
@@ -809,7 +792,7 @@ namespace SchoolGrades
         }
         private void AllCheckNonGraded()
         {
-            List<int> nonGraded = dl.GetIdStudentsNonGraded(currentClass, currentGradeType,
+            List<int> nonGraded = Commons.bl.GetIdStudentsNonGraded(currentClass, currentGradeType,
                 currentSubject);
             for (int i = 0; i < lstNames.Items.Count; i++)
             {
@@ -956,7 +939,7 @@ namespace SchoolGrades
         private void btnOldestGrade_Click(object sender, EventArgs e)
         {
             // gets all the list, but we are interested only to the first, the oldest
-            List<Couple> fromOldest = dl.GetGradesOldestInClass(currentClass,
+            List<Couple> fromOldest = Commons.bl.GetGradesOldestInClass(currentClass,
                 ((GradeType)(cmbGradeType.SelectedItem)), currentSubject);
             //if (dalPiuVecchio.Count < StudentsList.Count)
             //{
@@ -1052,7 +1035,7 @@ namespace SchoolGrades
         {
             if (!CommonsWinForms.CheckIfClassChosen(currentClass))
                 return;
-            List<string> LinksOfClass = dl.GetStartLinksOfClass(currentClass);
+            List<string> LinksOfClass = Commons.bl.GetStartLinksOfClass(currentClass);
 
             Commons.StartLinks(currentClass, LinksOfClass);
         }
@@ -1174,8 +1157,9 @@ namespace SchoolGrades
             foreach (object o in lstNames.CheckedItems)
             {
                 Student s = (Student)o;
+                if (s.RevengeFactorCounter == null) s.RevengeFactorCounter = 0;  
                 s.RevengeFactorCounter++;
-                dl.UpdateStudent(s);
+                Commons.bl.UpdateStudent(s);
             }
             lstClassi_DoubleClick(null, null);
         }
@@ -1193,10 +1177,11 @@ namespace SchoolGrades
             foreach (object o in lstNames.CheckedItems)
             {
                 Student s = (Student)o;
+                if (s.RevengeFactorCounter == null) s.RevengeFactorCounter = 0;
                 s.RevengeFactorCounter--;
                 if (s.RevengeFactorCounter < 0)
                     s.RevengeFactorCounter = 0;
-                dl.UpdateStudent(s);
+                Commons.bl.UpdateStudent(s);
             }
             lstClassi_DoubleClick(null, null);
         }
@@ -1289,13 +1274,13 @@ namespace SchoolGrades
             if (MessageBox.Show("Creare un file di testo normale (Sì) od un file per Markdown (No)?",
                 "Tipo di file", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                bl.CreateAllTopicsDoneFile(filenameNoExtension, currentClass, currentSubject, true);
+                Commons.bl.CreateAllTopicsDoneFile(filenameNoExtension, currentClass, currentSubject, true);
                 Commons.ProcessStartLink(Commons.PathDatabase + "\\" + filenameNoExtension + ".txt");
                 MessageBox.Show("Creato il file " + filenameNoExtension + ".txt");
             }
             else
             {
-                bl.CreateAllTopicsDoneFile(filenameNoExtension, currentClass, currentSubject, false);
+                Commons.bl.CreateAllTopicsDoneFile(filenameNoExtension, currentClass, currentSubject, false);
                 Commons.ProcessStartLink(Commons.PathDatabase + "\\" + filenameNoExtension + ".md");
                 MessageBox.Show("Creato il file " + filenameNoExtension + ".md");
             }

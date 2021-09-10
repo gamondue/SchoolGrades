@@ -11,13 +11,13 @@ namespace SchoolGrades
         internal Test GetTestFromRow(DbDataReader Row)
         {
             Test t = new Test();
-            t.IdTest = SafeDb.SafeInt(Row["idTest"]);
-            t.Name = SafeDb.SafeString(Row["name"]);
-            t.Desc = SafeDb.SafeString(Row["desc"]);
-            t.IdSchoolSubject = SafeDb.SafeString(Row["IdSchoolSubject"]);
-            t.IdTestType = SafeDb.SafeString(Row["IdTestType"]);
-            t.IdSchoolSubject = SafeDb.SafeString(Row["IdSchoolSubject"]);
-            t.IdTopic = SafeDb.SafeInt(Row["IdTopic"]);
+            t.IdTest = Safe.Int(Row["idTest"]);
+            t.Name = Safe.String(Row["name"]);
+            t.Desc = Safe.String(Row["desc"]);
+            t.IdSchoolSubject = Safe.String(Row["IdSchoolSubject"]);
+            t.IdTestType = Safe.String(Row["IdTestType"]);
+            t.IdSchoolSubject = Safe.String(Row["IdSchoolSubject"]);
+            t.IdTopic = Safe.Int(Row["IdTopic"]);
 
             return t;
         }
@@ -77,19 +77,19 @@ namespace SchoolGrades
                     "(idTest,name,desc,IdSchoolSubject,IdTestType,IdTopic" +
                     ")" +
                     "Values " +
-                    "(" + nextId + ",'" + SqlVal.SqlString(TestToSave.Name) + "','" +
-                    SqlVal.SqlString(TestToSave.Desc) + "','" + SqlVal.SqlString(TestToSave.IdSchoolSubject) + "'," +
-                     SqlVal.SqlInt(TestToSave.IdTestType) + "," + SqlVal.SqlInt(TestToSave.IdTopic) +
+                    "(" + nextId + "," + SqlString(TestToSave.Name) + "," +
+                    SqlString(TestToSave.Desc) + "," + SqlString(TestToSave.IdSchoolSubject) + "," +
+                     SqlInt(TestToSave.IdTestType) + "," + SqlInt(TestToSave.IdTopic) +
                     ");";
                 }
                 else
                 {   // update old record
                     cmd.CommandText = "UPDATE Tests" +
-                    " SET name='" + SqlVal.SqlString(TestToSave.Name) + "'," +
-                    "desc='" + SqlVal.SqlString(TestToSave.Desc) + "'" +
-                    ",IdSchoolSubject=" + SqlVal.SqlString(TestToSave.IdSchoolSubject) +
-                    ",IdTestType=" + SqlVal.SqlInt(TestToSave.IdTestType) +
-                    ",IdTopic=" + SqlVal.SqlInt(TestToSave.IdTopic) +
+                    " SET name=" + SqlString(TestToSave.Name) + "," +
+                    "desc=" + SqlString(TestToSave.Desc) + "" +
+                    ",IdSchoolSubject=" + SqlString(TestToSave.IdSchoolSubject) +
+                    ",IdTestType=" + SqlInt(TestToSave.IdTestType) +
+                    ",IdTopic=" + SqlInt(TestToSave.IdTopic) +
                     ")" +
                     " WHERE idTest=" + TestToSave.IdTest +
                     ";";

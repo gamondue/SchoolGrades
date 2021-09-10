@@ -25,17 +25,18 @@ namespace SchoolGrades
         /// </summary>
         internal DataLayer()
         {
-        	// ???? is next if useful ????
+            // ???? is next if() useful ????
             if (!System.IO.File.Exists(Commons.PathAndFileDatabase))
             {
                 string err = @"[" + Commons.PathAndFileDatabase + " not in the current nor in the dev directory]";
                 Commons.ErrorLog(err);
                 throw new System.IO.FileNotFoundException(err);
+
             }
             dbName = Commons.PathAndFileDatabase;
         }
         /// <summary>
-        /// Constructor of DataLayer classe that get form putside the databases to use
+        /// Constructor of DataLayer class that get from outside the databases to use
         /// Assumes that the file exists.
         /// </summary>
         internal DataLayer(string PathAndFile)
@@ -133,6 +134,27 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
             return nextId;
+        }
+        internal bool CheckKeyExistence
+            (string TableName, string KeyName, string KeyValue)
+        {
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT " + KeyName + " FROM " + TableName +
+                    " WHERE " + KeyName + "=" + SqlString(KeyValue) +
+                    ";";
+                var keyResult = cmd.ExecuteScalar();
+                cmd.Dispose();
+                if (keyResult != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
         internal void CreateNewDatabase()
         {
@@ -248,7 +270,7 @@ namespace SchoolGrades
                         for (int i = 0; i < dRead.FieldCount; i++)
                         {
                             fileContent += "\"" + dRead.GetName(i) + "\"\t";
-                            types += "\"" + SafeDb.SafeString(dRead.GetDataTypeName(i)) + "\"\t";
+                            types += "\"" + Safe.String(dRead.GetDataTypeName(i)) + "\"\t";
                         }
                         fileContent = fileContent.Substring(0, fileContent.Length - 1) + "\r\n";
                         fileContent += types.Substring(0, types.Length - 1) + "\r\n";
@@ -260,7 +282,7 @@ namespace SchoolGrades
                         Console.Write(dRead.GetValue(0));
                         for (int i = 0; i < dRead.FieldCount; i++)
                         {
-                            values += "\"" + SafeDb.SafeString(dRead.GetValue(i).ToString()) + "\"\t";
+                            values += "\"" + Safe.String(dRead.GetValue(i).ToString()) + "\"\t";
                         }
                         fileContent += values.Substring(0, values.Length - 1) + "\r\n";
                     }
@@ -395,15 +417,15 @@ namespace SchoolGrades
                 //        if (fieldNames[col] != "")
                 //        {
                 //            if (fieldTypes[col].IndexOf("VARCHAR") >= 0)
-                //                valuesString += "'" + SqlVal.SqlString(dati[row, col]) + "',";
+                //                valuesString += "" + SqlString(dati[row, col]) + ",";
                 //            else if (fieldTypes[col].IndexOf("INT") >= 0)
-                //                valuesString +=  SqlVal.SqlInt(dati[row, col]) + ",";
+                //                valuesString +=  SqlInt(dati[row, col]) + ",";
                 //            else if (fieldTypes[col].IndexOf("REAL") >= 0)
                 //                valuesString += SqlFloat(dati[row, col]) + ",";
                 //            else if (fieldTypes[col].IndexOf("FLOAT") >= 0)
                 //                valuesString += SqlFloat(dati[row, col]) + ",";
                 //            else if (fieldTypes[col].IndexOf("DATE") >= 0)
-                //                valuesString += SqlVal.SqlDate(dati[row, col]) + ",";
+                //                valuesString += SqlDate(dati[row, col]) + ",";
                 //        }
                 //    }
                 //    valuesString = valuesString.Substring(0, valuesString.Length - 1);
@@ -460,12 +482,12 @@ namespace SchoolGrades
                             case TypeCode.String:
                             case TypeCode.Char:
                                 {
-                                    cmd.CommandText += "'" + SqlVal.SqlString(row[c.ColumnName].ToString()) + "',";
+                                    cmd.CommandText += "" + SqlString(row[c.ColumnName].ToString()) + ",";
                                     break;
                                 };
                             case TypeCode.DateTime:
                                 {
-                                    DateTime? d = SafeDb.SafeDateTime(row[c.ColumnName]);
+                                    DateTime? d = Safe.DateTime(row[c.ColumnName]);
                                     cmd.CommandText += "'" +
                                         ((DateTime)(d)).ToString("yyyy-MM-dd_HH.mm.ss") + "',";
                                     break;
@@ -646,12 +668,12 @@ namespace SchoolGrades
                 string query = "UPDATE Classes" +
                     " SET" +
                     " idClass=" + Class1.IdClass + "" +
-                    ",idSchoolYear='" + SqlVal.SqlString(Class1.SchoolYear) + "'" +
-                    ",idSchool='" + SqlVal.SqlString(Class1.IdSchool) + "'" +
-                    ",abbreviation='" + SqlVal.SqlString(Class1.Abbreviation) + "'" +
-                    ",desc='" + SqlVal.SqlString(Class1.Description) + "'" +
-                    ",uriWebApp='" + Class1.UriWebApp + "'" +
-                    ",pathRestrictedApplication='" + SqlVal.SqlString(Class1.PathRestrictedApplication) + "'" +
+                    ",idSchoolYear=" + SqlString(Class1.SchoolYear) + "" +
+                    ",idSchool=" + SqlString(Class1.IdSchool) + "" +
+                    ",abbreviation=" + SqlString(Class1.Abbreviation) + "" +
+                    ",desc=" + SqlString(Class1.Description) + "" +
+                    ",uriWebApp=" + Class1.UriWebApp + "" +
+                    ",pathRestrictedApplication=" + SqlString(Class1.PathRestrictedApplication) + "" +
                     " WHERE idClass=" + Class1.IdClass +
                     ";";
                 cmd.CommandText = query;
@@ -667,12 +689,12 @@ namespace SchoolGrades
                 query = "UPDATE Classes" +
                     " SET" +
                     " idClass=" + Class2.IdClass + "" +
-                    ",idSchoolYear='" + SqlVal.SqlString(Class2.SchoolYear) + "'" +
-                    ",idSchool='" + SqlVal.SqlString(Class2.IdSchool) + "'" +
-                    ",abbreviation='" + SqlVal.SqlString(Class2.Abbreviation) + "'" +
-                    ",desc='" + SqlVal.SqlString(Class2.Description) + "'" +
-                    ",uriWebApp='" + Class2.UriWebApp + "'" +
-                    ",pathRestrictedApplication='" + SqlVal.SqlString(Class2.PathRestrictedApplication) + "'" +
+                    ",idSchoolYear=" + SqlString(Class2.SchoolYear) + "" +
+                    ",idSchool=" + SqlString(Class2.IdSchool) + "" +
+                    ",abbreviation=" + SqlString(Class2.Abbreviation) + "" +
+                    ",desc=" + SqlString(Class2.Description) + "" +
+                    ",uriWebApp=" + Class2.UriWebApp + "" +
+                    ",pathRestrictedApplication=" + SqlString(Class2.PathRestrictedApplication) + "" +
                     " WHERE idClass=" + Class2.IdClass +
                     ";";
                 cmd.CommandText = query;

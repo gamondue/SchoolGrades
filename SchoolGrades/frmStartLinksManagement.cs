@@ -10,10 +10,6 @@ namespace SchoolGrades
     {
         // TODO management of year and classes of year with combo.  
 
-        DbAndBusiness db;
-        DataLayer dl;
-        BusinessLayer bl;
-
         string year;
         private int? currentIdStartLink;
         private Class currentClass; 
@@ -21,9 +17,6 @@ namespace SchoolGrades
         public frmStartLinksManagement(Class CurrentClass)
         {
             InitializeComponent();
-            dl = new DataLayer();
-            db = new DbAndBusiness(Commons.PathAndFileDatabase);
-            bl = new BusinessLayer(Commons.PathAndFileDatabase);
 
             currentClass = CurrentClass; 
         }
@@ -41,7 +34,7 @@ namespace SchoolGrades
             else
                 CmbSchoolYear.SelectedItem = CmbSchoolYear.Items[nAnni - 2];
 
-                CmbClasses.DataSource = bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text,
+                CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text,
                 CmbSchoolYear.SelectedItem.ToString());
 
             refreshGrid();
@@ -56,7 +49,7 @@ namespace SchoolGrades
 
         private void refreshGrid()
         {
-            DgwLinks.DataSource = dl.GetAllStartLinks(CmbSchoolYear.Text.ToString()
+            DgwLinks.DataSource = Commons.bl.GetAllStartLinks(CmbSchoolYear.Text.ToString()
                 ,currentClass.IdClass);
         }
 
@@ -80,9 +73,9 @@ namespace SchoolGrades
                 DataRow row = ((DataTable)(DgwLinks.DataSource)).Rows[e.RowIndex];
                 CmbClasses.SelectedItem = (string)row["abbreviation"];
                 currentClass.Abbreviation = (string)row["abbreviation"];
-                TxtStartLink.Text = SafeDb.SafeString(row["startLink"]);
+                TxtStartLink.Text = Safe.String(row["startLink"]);
 
-                TxtLinkDescription.Text = SafeDb.SafeString(row["desc"]);
+                TxtLinkDescription.Text = Safe.String(row["desc"]);
                 currentIdStartLink = (int)row["idStartLink"];
                 currentClass.IdClass = (int)row["idClass"];
             }
@@ -95,7 +88,7 @@ namespace SchoolGrades
                 try { 
                     DataRow row = ((DataTable)(DgwLinks.DataSource)).Rows[e.RowIndex];
                     string link = (string)row["startLink"];
-                    Class clickedClass = dl.GetClassById((int)row["idClass"]); 
+                    Class clickedClass = Commons.bl.GetClassById((int)row["idClass"]); 
                     if (link.Substring(0, 4) == "http" || link.Contains(".exe"))
                         Commons.ProcessStartLink(link);
                     else
@@ -110,7 +103,7 @@ namespace SchoolGrades
 
         private void btnSaveLinks_Click(object sender, EventArgs e)
         {
-            dl.SaveStartLink(currentIdStartLink, currentClass.IdClass, 
+            Commons.bl.SaveStartLink(currentIdStartLink, currentClass.IdClass, 
                 CmbSchoolYear.Text, TxtStartLink.Text, TxtLinkDescription.Text);
             refreshGrid();
         }
@@ -119,8 +112,8 @@ namespace SchoolGrades
         {
             if (currentClass.IdClass > 0)
                 //currentIdStartLink = db.CreateNewVoidStartLink(currentClass.IdClass);
-                currentIdStartLink = dl.SaveStartLink(null, currentClass.IdClass, 
-                    CmbSchoolYear.Text,TxtStartLink.Text, TxtLinkDescription.Text);
+                currentIdStartLink = Commons.bl.SaveStartLink(null, currentClass.IdClass, 
+                    CmbSchoolYear.Text, TxtStartLink.Text, TxtLinkDescription.Text);
                     else
                         MessageBox.Show("Scegliere una classe");
             refreshGrid();
@@ -129,7 +122,7 @@ namespace SchoolGrades
         private void btnRemoveLink_Click(object sender, EventArgs e)
         {
             if (currentClass.IdClass > 0)
-                dl.DeleteStartLink(currentIdStartLink);
+                Commons.bl.DeleteStartLink(currentIdStartLink);
             else
                 MessageBox.Show("Scegliere un link da cancellare");
             refreshGrid();
@@ -157,7 +150,7 @@ namespace SchoolGrades
 
         private void CmbClasses_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Class tempClass = dl.GetClass(TxtOfficialSchoolAbbreviation.Text, 
+            Class tempClass = Commons.bl.GetClass(TxtOfficialSchoolAbbreviation.Text, 
                 CmbSchoolYear.Text, CmbClasses.SelectedItem.ToString());
             if (tempClass.IdClass != null && tempClass.IdClass != 0)
             {
@@ -174,7 +167,7 @@ namespace SchoolGrades
         private void CmbSchoolYear_SelectedIndexChanged(object sender, EventArgs e)
         {
             refreshGrid();
-            CmbClasses.DataSource = bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text,
+            CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text,
                     CmbSchoolYear.SelectedItem.ToString());
             // TxtPathStartLink.Text = Commons.PathStartLinks;
             TxtPathStartLink.Text = currentClass.PathRestrictedApplication;
@@ -207,11 +200,10 @@ namespace SchoolGrades
                     "Attenzione!", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 { 
                     TxtPathStartLink.Text = folderBrowserDialog1.SelectedPath;
-                    dl.UpdatePathStartLinkOfClass(currentClass, TxtPathStartLink.Text); 
+                    Commons.bl.UpdatePathStartLinkOfClass(currentClass, TxtPathStartLink.Text); 
                 }
             } 
         }
-
         private void BtnFileToLaunch_Click(object sender, EventArgs e)
         {
             string folderStartLinks = TxtPathStartLink.Text; 

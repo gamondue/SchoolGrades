@@ -14,34 +14,26 @@ namespace SchoolGrades
 {
     public partial class frmAnswer : Form
     {
-        DbAndBusiness db;
-        DataLayer dl;
         internal Answer currentAnswer = new Answer();
 
         public frmAnswer()
         {
             InitializeComponent();
-            dl = new DataLayer();
-            db = new DbAndBusiness(Commons.PathAndFileDatabase); 
         }
-
         public frmAnswer(Answer Answer)
         {
             InitializeComponent();
             currentAnswer = Answer;
         }
-
         public frmAnswer(int? IdQuestion)
         {
             InitializeComponent();
             this.currentAnswer.IdQuestion = IdQuestion;
         }
-
         private void frmAnswer_Load(object sender, EventArgs e)
         {
             LoadData();
         }
-
         private void LoadData()
         {
             txtIdAnswer.Text = currentAnswer.IdAnswer.ToString();
@@ -51,7 +43,6 @@ namespace SchoolGrades
             rdbIsOpenAnswer.Checked = (bool)currentAnswer.IsOpenAnswer;
             rdbIsCorrect.Checked = (bool)currentAnswer.IsCorrect; 
         }
-
         private void txtErrorCost_TextChanged(object sender, EventArgs e)
         {
             try
@@ -63,22 +54,18 @@ namespace SchoolGrades
                 currentAnswer.ErrorCost = 0; 
             }
         }
-
         private void txtText_TextChanged(object sender, EventArgs e)
         {
             currentAnswer.Text = txtText.Text; 
         }
-
         private void rdbIsOpenAnswer_CheckedChanged(object sender, EventArgs e)
         {
             currentAnswer.IsOpenAnswer = rdbIsOpenAnswer.Checked;
         }
-
         private void rdbIsCorrect_CheckedChanged(object sender, EventArgs e)
         {
             currentAnswer.IsCorrect = rdbIsCorrect.Checked; 
         }
-
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (currentAnswer.IdQuestion == 0)
@@ -88,18 +75,16 @@ namespace SchoolGrades
             }
             if (currentAnswer.IdAnswer == 0)
             {
-                currentAnswer.IdAnswer = dl.CreateAnswer(currentAnswer);
+                currentAnswer.IdAnswer = Commons.bl.CreateAnswer(currentAnswer);
                 txtIdAnswer.Text = currentAnswer.IdAnswer.ToString(); 
             }
-            dl.SaveAnswer(currentAnswer);
+            Commons.bl.SaveAnswer(currentAnswer);
         }
-
         private void btnChoose_Click(object sender, EventArgs e)
         {
-            dl.SaveAnswer(currentAnswer);
+            Commons.bl.SaveAnswer(currentAnswer);
             this.Close(); 
         }
-
         private void frmAnswer_FormClosing(object sender, FormClosingEventArgs e)
         {
             // id I close without having saved, I don't save! 

@@ -14,8 +14,6 @@ namespace SchoolGrades
         List<Student> listGroups;
         int nStudentsPerGroup;
         private int nGroups;
-        DbAndBusiness db;
-        DataLayer dl; 
 
         Class schoolClass;
         SchoolSubject schoolSubject;
@@ -44,10 +42,8 @@ namespace SchoolGrades
             schoolClass = Class;
             schoolSubject = subject;
             schoolGrade = grade;
-            db = new DbAndBusiness(Commons.PathAndFileDatabase);
-            dl = new DataLayer(Commons.PathAndFileDatabase);
 
-            List<SchoolPeriod> listPeriods = dl.GetSchoolPeriods(Class.SchoolYear);
+            List<SchoolPeriod> listPeriods = Commons.bl.GetSchoolPeriods(Class.SchoolYear);
             foreach (SchoolPeriod sp in listPeriods)
             {
                 if (sp.DateFinish > DateTime.Now && sp.DateStart < DateTime.Now
@@ -57,13 +53,11 @@ namespace SchoolGrades
                 }
             }
         }
-
         private void frmGroups_Load(object sender, EventArgs e)
         {
             txtTotalStudentsToGroup.Text = listGroups.Count.ToString();
             txtClass.Text = schoolClass.Abbreviation + " " + schoolClass.SchoolYear;
         }
-
         private void btnCreateFileGroups_Click(object sender, EventArgs e)
         {
             string fileName = Commons.PathDatabase + "\\" +
@@ -72,12 +66,12 @@ namespace SchoolGrades
             TextFile.StringToFile(fileName, txtGroups.Text, false);
             Commons.ProcessStartLink(Commons.PathDatabase);
         }
-
         private void btnCreateGroups_Click(object sender, EventArgs e)
         {
             // !!!! TODO number of element in group is unbalanced!
             // Balanced component option should use a better algorithm (current one doesn't make the best to balace groups). 
-            DataTable tb = dl.GetGradesWeightedAveragesOfClass(schoolClass, schoolGrade.IdGradeType, schoolSubject.IdSchoolSubject, (DateTime)schoolPeriod.DateStart, (DateTime)schoolPeriod.DateFinish);
+            DataTable tb = Commons.bl.GetGradesWeightedAveragesOfClass(schoolClass, schoolGrade.IdGradeType, 
+                schoolSubject.IdSchoolSubject, (DateTime)schoolPeriod.DateStart, (DateTime)schoolPeriod.DateFinish);
             List<StudentAndGrade> listStudents = new List<StudentAndGrade>();
             foreach (DataRow row in tb.Rows)
                 listStudents.Add(new StudentAndGrade(row.ItemArray[2].ToString(), row.ItemArray[3].ToString(), (double)row.ItemArray[4]));

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Security.Cryptography;
-using gamon;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Drawing;
@@ -12,32 +11,34 @@ namespace SchoolGrades
 {
     public static class Commons
     {
+        internal static BusinessLayer bl;
+        internal static DataLayer dl;
         // program's default path and files. Overridden by the config file "schgrd.cfg", when it exists
-        public static string PathUser = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-        public static string PathAndFileExe = System.Reflection.Assembly.GetExecutingAssembly().CodeBase.Substring(8);
-        //public static string PathExe = System.IO.Path.GetDirectoryName(PathAndFileExe);
-        public static string PathExe = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName); 
+        internal static string PathUser = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+        internal static string PathAndFileExe = System.Reflection.Assembly.GetExecutingAssembly().CodeBase.Substring(8);
+        //internal static string PathExe = System.IO.Path.GetDirectoryName(PathAndFileExe);
+        internal static string PathExe = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
 
-        public static string PathConfig = PathUser + "\\SchoolGrades\\Config";
-        public static string PathAndFileConfig = PathConfig + "\\schgrd.cfg";
-        public static string CompanyPrefix = "gamon-";
-        public static string PathLogs = PathUser + "\\SchoolGrades\\Logs";
-        public static string PathAndFileLogText = PathLogs + "\\" + CompanyPrefix + "Errori.txt";
+        internal static string PathConfig = PathUser + "\\SchoolGrades\\Config";
+        internal static string PathAndFileConfig = PathConfig + "\\schgrd.cfg";
+        internal static string CompanyPrefix = "gamon-";
+        internal static string PathLogs = PathUser + "\\SchoolGrades\\Logs";
+        internal static string PathAndFileLogText = PathLogs + "\\" + CompanyPrefix + "Errori.txt";
 
-        public static string FileDatabase = "SchoolGrades_DEMO.sqlite";
-        //public static string PathDatabase = PathUser + "\\SchoolGrades\\Data";
-        public static string PathDatabase = PathExe + "\\Data";
-        public static string PathAndFileDatabase = PathDatabase + "\\" + FileDatabase; // if will be read with ReadConfigFile()! 
+        internal static string FileDatabase = "SchoolGrades_DEMO.sqlite";
+        //internal static string PathDatabase = PathUser + "\\SchoolGrades\\Data";
+        internal static string PathDatabase = PathExe + "\\Data";
+        internal static string PathAndFileDatabase = PathDatabase + "\\" + FileDatabase; // if will be read with ReadConfigFile()! 
 
-        //public static string PathStartLink = PathUser + "\\SchoolGrades\\";
-        public static string PathStartLinks = PathExe; 
-        //public static string PathImages = PathUser + "\\SchoolGrades\\Images";
-        //public static string PathImages = PathExe + "\\SchoolGrades\\Images";
-        
-        public static string PathImages = PathExe + "\\Images";
+        //internal static string PathStartLink = PathUser + "\\SchoolGrades\\";
+        internal static string PathStartLinks = PathExe;
+        //internal static string PathImages = PathUser + "\\SchoolGrades\\Images";
+        //internal static string PathImages = PathExe + "\\SchoolGrades\\Images";
 
-        //public static string PathDocuments = PathExe + "\\SchoolGrades\\Docs";
-        public static string PathDocuments = PathExe + "\\Docs";
+        internal static string PathImages = PathExe + "\\Images";
+
+        //internal static string PathDocuments = PathExe + "\\SchoolGrades\\Docs";
+        internal static string PathDocuments = PathExe + "\\Docs";
 
         // variables to remember something between forms (Global) 
         // remember what was the last Topic chosen
@@ -52,10 +53,8 @@ namespace SchoolGrades
 
         private static Color ColorNoSubject = Color.PowderBlue;
 
-        public static string IdSchool = "FOIS01100L";
-
-        public static bool IsTimerLessonActive { get; internal set; }
-
+        internal static string IdSchool = "FOIS01100L";
+        internal static bool IsTimerLessonActive { get; set; }
         internal static string CalculateSHA1(string File)
         {
             try

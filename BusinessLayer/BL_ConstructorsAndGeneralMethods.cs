@@ -28,7 +28,7 @@ namespace SchoolGrades
         /// // ???? maybe we should NOT pass this parameter, it is database dependant ????
         internal BusinessLayer(string PathAndFile) 
         {
-            dl = new DataLayer(PathAndFile);
+            dl = Commons.dl;
             if (dl.NameAndPathDatabase == null)
             {
                 this.NameAndPathDatabase = null;
@@ -49,6 +49,18 @@ namespace SchoolGrades
         internal School GetSchool(string OfficialSchoolAbbreviation)
         {
             return dl.GetSchool(OfficialSchoolAbbreviation);
+        }
+        internal void CompactDatabase()
+        {
+            dl.CompactDatabase();
+        }
+        internal string CreateOneClassOnlyDatabase(Class currentClass)
+        {
+            return dl.CreateOneClassOnlyDatabase(currentClass);
+        }
+        internal string CreateDemoDatabase(string newDatabasePathName, Class currentClass, Class otherClass)
+        {
+            return dl.CreateDemoDatabase(newDatabasePathName, currentClass, otherClass);
         }
     }
 }

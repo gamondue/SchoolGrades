@@ -191,7 +191,7 @@
             this.txtDurationLesson.Name = "txtDurationLesson";
             this.txtDurationLesson.Size = new System.Drawing.Size(46, 24);
             this.txtDurationLesson.TabIndex = 140;
-            this.txtDurationLesson.Text = "45";
+            this.txtDurationLesson.Text = "60";
             this.txtDurationLesson.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.toolTip1.SetToolTip(this.txtDurationLesson, "Minuti durata lezione");
             this.txtDurationLesson.Leave += new System.EventHandler(this.LessonAlarmChanged);
@@ -204,7 +204,7 @@
             this.txtMinuteStartAlarm.Name = "txtMinuteStartAlarm";
             this.txtMinuteStartAlarm.Size = new System.Drawing.Size(46, 24);
             this.txtMinuteStartAlarm.TabIndex = 141;
-            this.txtMinuteStartAlarm.Text = "1";
+            this.txtMinuteStartAlarm.Text = "8";
             this.txtMinuteStartAlarm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.toolTip1.SetToolTip(this.txtMinuteStartAlarm, "Minuti per allarme prima della fine");
             this.txtMinuteStartAlarm.Leave += new System.EventHandler(this.LessonAlarmChanged);
@@ -871,9 +871,9 @@
             this.ChkActivateLessonClock.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ChkActivateLessonClock.Location = new System.Drawing.Point(423, 92);
             this.ChkActivateLessonClock.Name = "ChkActivateLessonClock";
-            this.ChkActivateLessonClock.Size = new System.Drawing.Size(154, 22);
+            this.ChkActivateLessonClock.Size = new System.Drawing.Size(157, 22);
             this.ChkActivateLessonClock.TabIndex = 159;
-            this.ChkActivateLessonClock.Text = "orologio lezione ";
+            this.ChkActivateLessonClock.Text = "Orologio lezione ";
             this.toolTip1.SetToolTip(this.ChkActivateLessonClock, "Abilita orologio a colori per bottone lezione");
             this.ChkActivateLessonClock.UseVisualStyleBackColor = true;
             this.ChkActivateLessonClock.CheckedChanged += new System.EventHandler(this.ChkActivateLessonClock_CheckedChanged);
@@ -917,7 +917,7 @@
             this.btnTemporary.Size = new System.Drawing.Size(91, 54);
             this.btnTemporary.TabIndex = 164;
             this.btnTemporary.Text = "Test";
-            this.toolTip1.SetToolTip(this.btnTemporary, "Lancio dei link e programmi legati alla classe");
+            this.toolTip1.SetToolTip(this.btnTemporary, "Bottone per test, visibile solo quando in debug");
             this.btnTemporary.UseVisualStyleBackColor = false;
             this.btnTemporary.Click += new System.EventHandler(this.btnTemporary_Click);
             // 
@@ -940,9 +940,9 @@
             this.btnStartColorTimer.Location = new System.Drawing.Point(216, 27);
             this.btnStartColorTimer.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnStartColorTimer.Name = "btnStartColorTimer";
-            this.btnStartColorTimer.Size = new System.Drawing.Size(71, 27);
+            this.btnStartColorTimer.Size = new System.Drawing.Size(74, 28);
             this.btnStartColorTimer.TabIndex = 169;
-            this.btnStartColorTimer.Text = "t.colori";
+            this.btnStartColorTimer.Text = "T.colori";
             this.toolTip1.SetToolTip(this.btnStartColorTimer, "Partenza di un cronometro a colori");
             this.btnStartColorTimer.UseVisualStyleBackColor = false;
             this.btnStartColorTimer.Click += new System.EventHandler(this.btnStartColorTimer_Click);
@@ -967,9 +967,9 @@
             this.btnStartBarTimer.Location = new System.Drawing.Point(297, 27);
             this.btnStartBarTimer.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnStartBarTimer.Name = "btnStartBarTimer";
-            this.btnStartBarTimer.Size = new System.Drawing.Size(71, 27);
+            this.btnStartBarTimer.Size = new System.Drawing.Size(74, 28);
             this.btnStartBarTimer.TabIndex = 173;
-            this.btnStartBarTimer.Text = "t.barra";
+            this.btnStartBarTimer.Text = "T.barra";
             this.toolTip1.SetToolTip(this.btnStartBarTimer, "Partenza di un cronometro a barra");
             this.btnStartBarTimer.UseVisualStyleBackColor = false;
             this.btnStartBarTimer.Click += new System.EventHandler(this.btnStartBarTimer_Click);
@@ -1229,9 +1229,9 @@
             this.ChkEnableEndLessonWarning.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ChkEnableEndLessonWarning.Location = new System.Drawing.Point(423, 117);
             this.ChkEnableEndLessonWarning.Name = "ChkEnableEndLessonWarning";
-            this.ChkEnableEndLessonWarning.Size = new System.Drawing.Size(173, 22);
+            this.ChkEnableEndLessonWarning.Size = new System.Drawing.Size(174, 22);
             this.ChkEnableEndLessonWarning.TabIndex = 158;
-            this.ChkEnableEndLessonWarning.Text = "allarme fine lezione";
+            this.ChkEnableEndLessonWarning.Text = "Allarme fine lezione";
             this.ChkEnableEndLessonWarning.UseVisualStyleBackColor = true;
             this.ChkEnableEndLessonWarning.CheckedChanged += new System.EventHandler(this.ChkEnableEndLessonWarning_CheckedChanged);
             // 

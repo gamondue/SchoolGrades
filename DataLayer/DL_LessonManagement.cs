@@ -12,12 +12,12 @@ namespace SchoolGrades
         internal Lesson GetLessonFromRow(DbDataReader dRead)
         {
             Lesson l = new Lesson();
-            l.IdLesson = SafeDb.SafeInt(dRead["IdLesson"]);
-            l.Date = SafeDb.SafeDateTime(dRead["Date"]);
-            l.IdClass = SafeDb.SafeInt(dRead["IdClass"]);
-            l.IdSchoolSubject = SafeDb.SafeString(dRead["IdSchoolSubject"]);
-            l.IdSchoolYear = SafeDb.SafeString(dRead["IdSchoolYear"]);
-            l.Note = SafeDb.SafeString(dRead["Note"]);
+            l.IdLesson = Safe.Int(dRead["IdLesson"]);
+            l.Date = Safe.DateTime(dRead["Date"]);
+            l.IdClass = Safe.Int(dRead["IdClass"]);
+            l.IdSchoolSubject = Safe.String(dRead["IdSchoolSubject"]);
+            l.IdSchoolYear = Safe.String(dRead["IdSchoolYear"]);
+            l.Note = Safe.String(dRead["Note"]);
 
             return l;
         }
@@ -35,11 +35,11 @@ namespace SchoolGrades
                 " (idLesson, date, idClass, idSchoolSubject, idSchoolYear, note) " +
                 "Values (" +
                 "" + Lesson.IdLesson + "" +
-                "," + SqlVal.SqlDate(Lesson.Date) + "" +
+                "," + SqlDate(Lesson.Date) + "" +
                 "," + Lesson.IdClass + "" +
                 ",'" + Lesson.IdSchoolSubject + "'" +
                 ",'" + Lesson.IdSchoolYear + "'" +
-                ",'" + SqlVal.SqlString(Lesson.Note) + "'" +
+                "," + SqlString(Lesson.Note) + "" +
                 ");";
                 cmd.ExecuteNonQuery();
 
@@ -55,11 +55,11 @@ namespace SchoolGrades
                 cmd = conn.CreateCommand();
                 cmd.CommandText = "UPDATE Lessons" +
                 " SET" +
-                " date=" + SqlVal.SqlDate(Lesson.Date) + "," +
+                " date=" + SqlDate(Lesson.Date) + "," +
                 " idClass=" + Lesson.IdClass + "," +
                 " idSchoolSubject='" + Lesson.IdSchoolSubject + "'," +
                 " idSchoolYear='" + Lesson.IdSchoolYear + "'," +
-                " note='" + SqlVal.SqlString(Lesson.Note) + "'" +
+                " note=" + SqlString(Lesson.Note) + 
                 " WHERE idLesson=" + Lesson.IdLesson +
                 ";";
                 cmd.ExecuteNonQuery();
@@ -188,8 +188,8 @@ namespace SchoolGrades
                 query = "SELECT * FROM Lessons" +
                         " WHERE idClass=" + Class.IdClass.ToString() +
                         " AND idSchoolSubject='" + IdSubject + "'" +
-                        " AND date BETWEEN " + SqlVal.SqlDate(Date.ToString("yyyy-MM-dd")) +
-                        " AND " + SqlVal.SqlDate(Date.AddDays(1).ToString("yyyy-MM-dd")) +
+                        " AND date BETWEEN " + SqlDate(Date.ToString("yyyy-MM-dd")) +
+                        " AND " + SqlDate(Date.AddDays(1).ToString("yyyy-MM-dd")) +
                         " LIMIT 1;";
                 cmd.CommandText = query;
                 dRead = cmd.ExecuteReader();
@@ -363,9 +363,9 @@ namespace SchoolGrades
                     Image.IdImage = NextKey("Images", "IdImage");
                     query = "INSERT INTO Images" +
                     " (idImage, imagePath, caption)" +
-                    " Values (" + Image.IdImage + ",'" +
-                    SqlVal.SqlString(Image.RelativePathAndFilename) + "','" +
-                    SqlVal.SqlString(Image.Caption) + "'" +
+                    " Values (" + Image.IdImage + "," +
+                    SqlString(Image.RelativePathAndFilename) + "," +
+                    SqlString(Image.Caption) + "" +
                     ");";
                     cmd.CommandText = query;
                     cmd.ExecuteNonQuery();
@@ -400,7 +400,7 @@ namespace SchoolGrades
                     " AND Lessons.idSchoolSubject ='" + Subject.IdSchoolSubject + "'";
                 if (DateStart != null && DateFinish != null)
                     query += " AND Lessons.date BETWEEN " +
-                    SqlVal.SqlDate(DateStart) + " AND " + SqlVal.SqlDate(DateFinish);
+                    SqlDate(DateStart) + " AND " + SqlDate(DateFinish);
                 query += " ORDER BY Lessons.date ASC;";
                 DbCommand cmd = new SQLiteCommand(query);
                 cmd.Connection = conn;

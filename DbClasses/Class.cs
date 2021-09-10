@@ -23,7 +23,7 @@ namespace SchoolGrades.DbClasses
         public string Abbreviation { get; internal set; }
         public int? IdClass { get; internal set; }
         public string PathRestrictedApplication { get => pathRestrictedApplication; set => pathRestrictedApplication = value; }
-        public object UriWebApp { get; internal set; } // field currently not used (relationship 1 to N of table ClassesStartlinks instead) 
+        public string UriWebApp { get; internal set; } // field currently not used (relationship 1 to N of table ClassesStartlinks instead) 
         public string Description { get; internal set; }
 
         private string pathRestrictedApplication;

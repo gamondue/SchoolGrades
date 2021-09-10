@@ -47,16 +47,16 @@ namespace SchoolGrades
             {
                 // if we have already added the SQL for tags, we don't need a where
                 if (Tags != null && Tags.Count > 0)
-                    query += " AND idSchoolSubject ='" + SqlVal.SqlString(IdSchoolSubject) + "'";
+                    query += " AND idSchoolSubject=" + SqlString(IdSchoolSubject);
                 else
-                    query += " WHERE idSchoolSubject ='" + SqlVal.SqlString(IdSchoolSubject) + "'";
+                    query += " WHERE idSchoolSubject=" + SqlString(IdSchoolSubject);
             }
             if (IdQuestionType != null && IdQuestionType != "")
             {
                 if (IdSchoolSubject != "" || Tags.Count > 0)
-                    query += " AND idQuestionType ='" + SqlVal.SqlString(IdQuestionType) + "'";
+                    query += " AND idQuestionType=" + SqlString(IdQuestionType);
                 else
-                    query += " WHERE idQuestionType ='" + SqlVal.SqlString(IdQuestionType) + "'";
+                    query += " WHERE idQuestionType=" + SqlString(IdQuestionType);
             }
             if (QuestionsTopic != null)
             {
@@ -127,7 +127,7 @@ namespace SchoolGrades
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM Tests_Questions " +
                     "WHERE IdQuestion=" + IdQuestion +
-                    " AND IdTest='" + IdTest + "'" +
+                    " AND IdTest=" + IdTest + 
                     ";";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
@@ -137,20 +137,20 @@ namespace SchoolGrades
         private Question GetQuestionFromRow(DbDataReader Row)
         {
             Question q = new Question();
-            q.Difficulty = SafeDb.SafeInt(Row["Difficulty"]);
-            q.IdImage = SafeDb.SafeInt(Row["IdImage"]);
-            q.Duration = SafeDb.SafeInt(Row["Duration"]);
-            q.IdQuestion = SafeDb.SafeInt(Row["IdQuestion"]);
-            q.IdQuestionType = SafeDb.SafeString(Row["IdQuestionType"]);
-            q.IdSchoolSubject = SafeDb.SafeString(Row["IdSchoolSubject"]);
-            //q.IdSubject = SafeDb.SafeInt(Row["IdSubject"]);
-            q.IdTopic = SafeDb.SafeInt(Row["IdTopic"]);
-            q.Image = SafeDb.SafeString(Row["Image"]);
-            q.Text = SafeDb.SafeString(Row["Text"]);
-            q.Weight = SafeDb.SafeDouble(Row["Weight"]);
-            q.NRows = SafeDb.SafeInt(Row["nRows"]);
-            q.IsParamount = SafeDb.SafeInt(Row["isParamount"]);
-            ////////q.IsFixed = SafeDb.SafeBool(Row["isFixed"]);
+            q.Difficulty = Safe.Int(Row["Difficulty"]);
+            q.IdImage = Safe.Int(Row["IdImage"]);
+            q.Duration = Safe.Int(Row["Duration"]);
+            q.IdQuestion = Safe.Int(Row["IdQuestion"]);
+            q.IdQuestionType = Safe.String(Row["IdQuestionType"]);
+            q.IdSchoolSubject = Safe.String(Row["IdSchoolSubject"]);
+            //q.IdSubject = Safe.SafeInt(Row["IdSubject"]);
+            q.IdTopic = Safe.Int(Row["IdTopic"]);
+            q.Image = Safe.String(Row["Image"]);
+            q.Text = Safe.String(Row["Text"]);
+            q.Weight = Safe.Double(Row["Weight"]);
+            q.NRows = Safe.Int(Row["nRows"]);
+            q.IsParamount = Safe.Int(Row["isParamount"]);
+            ////////q.IsFixed = Safe.SafeBool(Row["isFixed"]);
 
             return q;
         }
@@ -199,16 +199,16 @@ namespace SchoolGrades
                 string imageNoHome = Question.Image;
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "UPDATE Questions " +
-                    "SET idQuestionType='" + SqlVal.SqlString(Question.IdQuestionType) + "' " +
-                     ", idSchoolSubject='" + SqlVal.SqlString(Question.IdSchoolSubject) + "' " +
+                    "SET idQuestionType=" + SqlString(Question.IdQuestionType) + " " +
+                     ", idSchoolSubject=" + SqlString(Question.IdSchoolSubject) + " " +
                      //", idSubject=" + Question.IdSubject + " " +
                      ", idSchoolSubject='" + Question.IdSchoolSubject + "'" +
                      ", idTopic=" + Question.IdTopic + " " +
                      ", duration=" + Question.Duration + " " +
                      ", difficulty=" + Question.Difficulty + " " +
-                     ", text='" + SqlVal.SqlString(Question.Text) + "' " +
-                     ", image='" + SqlVal.SqlString(imageNoHome) + "' " +
-                     ", weight=" + SqlVal.SqlDouble(Question.Weight.ToString()) + " " +
+                     ", text=" + SqlString(Question.Text) + " " +
+                     ", image=" + SqlString(imageNoHome) + " " +
+                     ", weight=" + SqlDouble(Question.Weight.ToString()) + " " +
                     "WHERE idQuestion=" + Question.IdQuestion +
                     ";";
                 cmd.ExecuteNonQuery();
@@ -309,8 +309,7 @@ namespace SchoolGrades
             // if the search string is present, then it must be in the searched field 
             if (SearchString != "")
             {
-                query += " WHERE Questions.text LIKE('%" + SqlVal.SqlString(SearchString) + "%')" +
-                    "AND (";
+                query += " WHERE Questions.text LIKE '%" + SearchString + "%'"; 
             }
             if (Subject != null)
                 filteredQuestions = MakeStringForFilteredQuestionsQuery(Tags, Subject.IdSchoolSubject, IdQuestionType,
@@ -342,7 +341,7 @@ namespace SchoolGrades
             //        " AND (Questions.idSchoolSubject='" + Subject.IdSchoolSubject + "'" +
             //        " OR Questions.idSchoolSubject='' OR Questions.idSchoolSubject=NULL)";
             //    if (DateFrom != Commons.DateNull)
-            //        questionsTopicsMade += " AND (Lessons.Date BETWEEN " + SqlVal.SqlDate(DateFrom) + " AND " + SqlVal.SqlDate(DateTo) + ")";
+            //        questionsTopicsMade += " AND (Lessons.Date BETWEEN " + SqlDate(DateFrom) + " AND " + SqlDate(DateTo) + ")";
             //    // PART of the final query that extracts the Ids of the questions already made 
             //    questionsTopicsMade = " Questions.idQuestion IN(" + questionsTopicsMade + ")";
             //}

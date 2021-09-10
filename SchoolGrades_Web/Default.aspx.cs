@@ -13,9 +13,6 @@ namespace SchoolGrades_Web
         Color colorGrade = Color.Red;
         public int indexCurrentDrawn = 0;
 
-        DbAndBusiness db; // must be instantiated after the reading of config file. 
-        BusinessLayer bl; // must be instantiated after the reading of config file.
-
         public List<Student> currentStudentsList;
         public List<Student> eligiblesList = new List<Student>();
 
@@ -75,14 +72,6 @@ namespace SchoolGrades_Web
                     // do nothing
                 }
 
-                db = new DbAndBusiness(Commons.PathAndFileDatabase);
-                // !!!! TODO manage the case when the database couldn't be opened (db == null)
-                // if (db == null)
-
-                bl = new BusinessLayer(db.DatabaseName);
-                // !!!! TODO manage the case when the database couldn't be opened (bl == null)
-                // if (bl == null)
-
                 string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
                 this.Title += " v. " + version;
 
@@ -105,12 +94,12 @@ namespace SchoolGrades_Web
                 // !!!! TODO automatically select the current school year in the combo !!!!
 
                 // fill the combo of grade types 
-                List<GradeType> ListGradeTypes = db.GetListGradeTypes();
+                List<GradeType> ListGradeTypes = Commons.bl.GetListGradeTypes();
                 cmbGradeType.DataSource = ListGradeTypes;
                 cmbGradeType.AutoPostBack = true; 
 
                 // fill the combo of School subjects
-                List<SchoolSubject> listSubjects = db.GetListSchoolSubjects(true);
+                List<SchoolSubject> listSubjects = Commons.bl.GetListSchoolSubjects(true);
                 cmbSchoolSubject.DataSource = listSubjects;
             }
         }

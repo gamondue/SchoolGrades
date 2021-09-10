@@ -8,8 +8,6 @@ namespace SchoolGrades
 {
     public partial class frmAnnotationsAboutStudents : Form
     {
-        DbAndBusiness db;
-        DataLayer dl;
         private string idSchoolYear;
         private StudentAnnotation currentAnnotation;
         private List<Student> chosenStudents;
@@ -25,8 +23,6 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
-            db = new DbAndBusiness(db.DatabaseName);
-            dl = new DataLayer();
             idSchoolYear = IdSchoolYear; 
             this.chosenStudents = ChosenStudents;
             dgwStudents.DataSource = ChosenStudents; 
@@ -51,7 +47,7 @@ namespace SchoolGrades
 
         private void RefreshUI()
         {
-            dgwNotes.DataSource = dl.AnnotationsAboutThisStudent(currentStudent, yearUsed,
+            dgwNotes.DataSource = Commons.bl.AnnotationsAboutThisStudent(currentStudent, yearUsed,
                 chkAnnotationsShowActive.Checked);
         }
 
@@ -63,11 +59,11 @@ namespace SchoolGrades
             currentAnnotation.IsActive = chkCurrentAnnotationActive.Checked;
             currentAnnotation.IdSchoolYear = txtSchoolYear.Text;
             if (txtAnnotation.Text != "")
-                currentAnnotation.IdAnnotation = SafeDb.SafeInt(txtIdAnnotation.Text);
+                currentAnnotation.IdAnnotation = Safe.Int(txtIdAnnotation.Text);
             else
                 currentAnnotation.IdAnnotation = null;
             if (currentAnnotation.IdStudent != 0)
-                currentAnnotation.IdStudent = SafeDb.SafeInt(txtIdStudent.Text);
+                currentAnnotation.IdStudent = Safe.Int(txtIdStudent.Text);
             else
                 currentAnnotation.IdStudent = null;
             currentAnnotation.Annotation = txtAnnotation.Text;
@@ -121,14 +117,14 @@ namespace SchoolGrades
                     if (!CommonsWinForms.CheckIfStudentChosen(currentStudent))
                         return;
                     currentAnnotation.IdAnnotation = null;
-                    currentAnnotation.IdAnnotation = dl.SaveAnnotation(currentAnnotation, currentStudent);
+                    currentAnnotation.IdAnnotation = Commons.bl.SaveAnnotation(currentAnnotation, currentStudent);
                 }
                 else
                 {
                     foreach (Student s in chosenStudents)
                     {
                         currentAnnotation.IdAnnotation = null;
-                        currentAnnotation.IdAnnotation = dl.SaveAnnotation(currentAnnotation, s);
+                        currentAnnotation.IdAnnotation = Commons.bl.SaveAnnotation(currentAnnotation, s);
                     }
                 }
                 return;
@@ -137,7 +133,7 @@ namespace SchoolGrades
             {
                 // if IsActive has changed from what is in database then we change dates 
                 // according to the status 
-                if (dl.GetAnnotation(currentAnnotation.IdAnnotation).IsActive != currentAnnotation.IsActive)
+                if (Commons.bl.GetAnnotation(currentAnnotation.IdAnnotation).IsActive != currentAnnotation.IsActive)
                 {
                     if (currentAnnotation.IsActive == true)
                     {
@@ -155,11 +151,11 @@ namespace SchoolGrades
                 {
                     foreach (Student s in chosenStudents)
                     {
-                        dl.SaveAnnotation(currentAnnotation, s);
+                        Commons.bl.SaveAnnotation(currentAnnotation, s);
                     }
                 }
                 else
-                    dl.SaveAnnotation(currentAnnotation, currentStudent);
+                    Commons.bl.SaveAnnotation(currentAnnotation, currentStudent);
             }
             RefreshUI(); 
         }
@@ -168,7 +164,7 @@ namespace SchoolGrades
         {
             txtIdStudent.Text = currentStudent.IdStudent.ToString();
             lblCurrentStudent.Text = $"{currentStudent.LastName} {currentStudent.FirstName}";
-            dgwNotes.DataSource = dl.AnnotationsAboutThisStudent(currentStudent,
+            dgwNotes.DataSource = Commons.bl.AnnotationsAboutThisStudent(currentStudent,
               yearUsed, chkAnnotationsShowActive.Checked);
         }
 
@@ -184,7 +180,7 @@ namespace SchoolGrades
                 txtSchoolYear.Enabled = true;
                 yearUsed = null;
             }
-            dgwNotes.DataSource = dl.AnnotationsAboutThisStudent(currentStudent,
+            dgwNotes.DataSource = Commons.bl.AnnotationsAboutThisStudent(currentStudent,
                     yearUsed, chkAnnotationsShowActive.Checked);
         }
 
@@ -225,7 +221,7 @@ namespace SchoolGrades
             if (MessageBox.Show($"Sicuro di cancellare l'annotazione {currentAnnotation.IdAnnotation}, '{currentAnnotation.Annotation}'?",
                 "Attenzione", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
-                dl.EraseAnnotationById(currentAnnotation.IdAnnotation);
+                Commons.bl.EraseAnnotationById(currentAnnotation.IdAnnotation);
                 RefreshUI();
             };
         }
@@ -242,7 +238,7 @@ namespace SchoolGrades
             {
                 foreach (Student s in chosenStudents)
                 {
-                    dl.EraseAnnotationByText(txtAnnotation.Text, s);
+                    Commons.bl.EraseAnnotationByText(txtAnnotation.Text, s);
                 }
                 RefreshUI();
             };
@@ -261,7 +257,7 @@ namespace SchoolGrades
                 return;
             }
             ReadUI();
-            currentAnnotation.IdAnnotation = dl.SaveAnnotation(currentAnnotation, currentStudent);
+            currentAnnotation.IdAnnotation = Commons.bl.SaveAnnotation(currentAnnotation, currentStudent);
             RefreshUI();
         }
 
@@ -301,7 +297,7 @@ namespace SchoolGrades
             {
                 txtIdStudent.Text = currentStudent.IdStudent.ToString();
                 lblCurrentStudent.Text = $"{currentStudent.LastName} {currentStudent.FirstName}";
-                dgwNotes.DataSource = dl.AnnotationsAboutThisStudent(currentStudent,
+                dgwNotes.DataSource = Commons.bl.AnnotationsAboutThisStudent(currentStudent,
                   yearUsed, chkAnnotationsShowActive.Checked);
             }
             RefreshUI();

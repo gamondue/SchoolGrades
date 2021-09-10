@@ -8,8 +8,6 @@ namespace SchoolGrades
 {
     public partial class frmTopicChooseByPeriod : Form
     {
-        DbAndBusiness db;
-        DataLayer dl;
         private Class currentClass;
         private SchoolSubject currentSubject;
 
@@ -23,20 +21,18 @@ namespace SchoolGrades
             OpenTopicOnExit,
         }
         TopicChooseFormType formType;
-
         public frmTopicChooseByPeriod(TopicChooseFormType FormType, 
             Class Class, SchoolSubject Subject)
         {
             InitializeComponent();
-            db = new DbAndBusiness(Commons.PathAndFileDatabase);
-            dl = new DataLayer();
+            //db = new DbAndBusiness(Commons.PathAndFileDatabase);
+            //dl = new DataLayer();
             currentClass = Class;
             currentSubject = Subject;
             formType = FormType;
             TopicChosen = new Topic(); 
             TopicChosen.Id = 0; 
         }
-
         private void frmTopicChooseByPeriod_Load(object sender, EventArgs e)
         {
             if (currentSubject != null)
@@ -61,7 +57,7 @@ namespace SchoolGrades
                 dateFrom = Commons.DateNull;
             else
                 dateFrom = dtpStartPeriod.Value; 
-            topicsDone = dl.GetTopicsDoneInPeriod(currentClass, currentSubject,
+            topicsDone = Commons.bl.GetTopicsDoneInPeriod(currentClass, currentSubject,
                 dateFrom, dtpEndPeriod.Value);
 
             dgwTopics.DataSource = topicsDone;
@@ -124,7 +120,7 @@ namespace SchoolGrades
         {
             if (topicsDone == null)
             {
-                topicsDone = dl.GetTopicsDoneInPeriod(currentClass, currentSubject,
+                topicsDone = Commons.bl.GetTopicsDoneInPeriod(currentClass, currentSubject,
                     dtpStartPeriod.Value, dtpEndPeriod.Value);
             }
             if (topicsDone.Count > 0)

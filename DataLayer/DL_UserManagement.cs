@@ -54,19 +54,19 @@ namespace SchoolGrades
             User u = null; 
             if (dRead.HasRows)
             {
-                u = new User(SafeDb.SafeString(dRead["username"]),
-                    SafeDb.SafeString(dRead["password"]));
-                u.Description = SafeDb.SafeString(dRead["description"]);
-                u.LastName = SafeDb.SafeString(dRead["lastName"]);
-                u.FirstName = SafeDb.SafeString(dRead["firstName"]);
-                u.Email = SafeDb.SafeString(dRead["email"]);
-                //u.Password = SafeDb.SafeString(dRead["password"]);
-                u.LastChange = SafeDb.SafeDateTime(dRead["lastChange"]);
-                u.LastPasswordChange = SafeDb.SafeDateTime(dRead["lastPasswordChange"]);
-                u.CreationTime = SafeDb.SafeDateTime(dRead["creationTime"]);
-                u.Salt = SafeDb.SafeString(dRead["salt"]);
-                u.IdUserCategory = SafeDb.SafeInt(dRead["idUserCategory"]);
-                u.IsEnabled = SafeDb.SafeBool(dRead["isEnabled"]);
+                u = new User(Safe.String(dRead["username"]),
+                    Safe.String(dRead["password"]));
+                u.Description = Safe.String(dRead["description"]);
+                u.LastName = Safe.String(dRead["lastName"]);
+                u.FirstName = Safe.String(dRead["firstName"]);
+                u.Email = Safe.String(dRead["email"]);
+                //u.Password = Safe.SafeString(dRead["password"]);
+                u.LastChange = Safe.DateTime(dRead["lastChange"]);
+                u.LastPasswordChange = Safe.DateTime(dRead["lastPasswordChange"]);
+                u.CreationTime = Safe.DateTime(dRead["creationTime"]);
+                u.Salt = Safe.String(dRead["salt"]);
+                u.IdUserCategory = Safe.Int(dRead["idUserCategory"]);
+                u.IsEnabled = Safe.Bool(dRead["isEnabled"]);
             }
             return u;
         }
@@ -77,9 +77,9 @@ namespace SchoolGrades
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "UPDATE Users" +
                     " Set" +
-                    " password='" + SqlVal.SqlString(User.Password) + "'," +
-                    " lastPasswordChange=" + SqlVal.SqlDate(DateTime.Now) + "," +
-                    " salt='" + SqlVal.SqlString(User.Salt) + "'" +
+                    " password=" + SqlString(User.Password) + "," +
+                    " lastPasswordChange=" + SqlDate(DateTime.Now) + "," +
+                    " salt=" + SqlString(User.Salt) + "" +
                     " WHERE username='" + User.Username + "'" +
                 ";";
                 cmd.ExecuteNonQuery();
@@ -95,15 +95,15 @@ namespace SchoolGrades
                 // !!!! TODO !!!!
 
                 // create row in table 
-                string now = SqlVal.SqlDate(DateTime.Now);
+                string now = SqlDate(DateTime.Now);
                 cmd.CommandText = "INSERT INTO Users " +
                 "(username, lastName, firstName, email," +
                 "password,creationTime,lastChange,lastPasswordChange,salt,idUserCategory,isEnabled)" +
                 "Values " +
-                "('" + SqlVal.SqlString(User.Username) + "','" + SqlVal.SqlString(User.LastName) + "','" + SqlVal.SqlString(User.FirstName) + "','" +
-                SqlVal.SqlString(User.Email) + "','" + SqlVal.SqlString(User.Password) + "'," +
-                now + "," + now + "," + now + ",'" + SqlVal.SqlString(User.Salt) + "','" +
-                User.IdUserCategory + "', TRUE" + 
+                "(" + SqlString(User.Username) + "," + SqlString(User.LastName) + "," + SqlString(User.FirstName) + "," +
+                SqlString(User.Email) + "," + SqlString(User.Password) + "," +
+                now + "," + now + "," + now + "," + SqlString(User.Salt) + "," +
+                User.IdUserCategory + ", TRUE" + 
                 ");";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
@@ -116,17 +116,17 @@ namespace SchoolGrades
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "UPDATE Users" +
                     " Set" +
-                    " description='" + SqlVal.SqlString(User.Description) + "'," +
-                    " lastName='" + SqlVal.SqlString(User.LastName) + "'," +
-                    " firstName='" + SqlVal.SqlString(User.FirstName) + "'," +
-                    " email='" + SqlVal.SqlString(User.Email) + "'," +
-                    //" password=" + SqlVal.SqlString(User.Password) + "'," +
-                    " lastChange=" + SqlVal.SqlDate(DateTime.Now) + "," +
-                    //" lastPasswordChange=" + SqlVal.SqlDate(DateTime.Now) + "," +
-                    //" creationTime=" + SqlVal.SqlDate(User.CreationTime)  + "," +
-                    " salt='" + SqlVal.SqlString(User.Salt) + "'," +
-                    " isEnabled=" + SqlVal.SqlBool(User.IsEnabled) +
-                    " idUserCategory=" + SqlVal.SqlInt(User.IdUserCategory) +
+                    " description=" + SqlString(User.Description) + "," +
+                    " lastName=" + SqlString(User.LastName) + "," +
+                    " firstName=" + SqlString(User.FirstName) + "," +
+                    " email=" + SqlString(User.Email) + "," +
+                    //" password=" + SqlString(User.Password) + "," +
+                    " lastChange=" + SqlDate(DateTime.Now) + "," +
+                    //" lastPasswordChange=" + SqlDate(DateTime.Now) + "," +
+                    //" creationTime=" + SqlDate(User.CreationTime)  + "," +
+                    " salt=" + SqlString(User.Salt) + "," +
+                    " isEnabled=" + SqlBool(User.IsEnabled) +
+                    " idUserCategory=" + SqlInt(User.IdUserCategory) +
                     " WHERE username='" + User.Username + "'" +
                 ";";
                 cmd.ExecuteNonQuery();

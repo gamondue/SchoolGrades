@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Data.Common;
+using System.Collections.Generic;
+using System.Text;
 
-namespace SchoolGrades.DbClasses
+namespace SchoolGrades
 {
-
-    #region funzioni che prendono un campo di database e lo mettono nella destinazione senza inchiodarsi
-    /// <summary>
-    /// funzioni che prendono un campo di database e lo mettono nella destinazione senza inchiodarsi
-    /// </summary>
-    public static class SafeDb
+    internal static class Safe
     {
-        internal static int? SafeInt(object Value)
+        #region functions that take an object (eg. a database field) ad convert it in the destination type without giving errors
+        internal static int? Int(object Value)
         {
             try
             {
@@ -21,23 +18,10 @@ namespace SchoolGrades.DbClasses
                 return null;
             }
         }
-
-        internal static string SafeString(DbDataReader r, int FieldNumber)
-        {
-            try
-            {
-                return r.GetString(FieldNumber).Trim();
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        internal static string SafeString(object Field)
+        internal static string String(object Field)
         {
             if (Field == null)
-                return null; 
+                return null;
             try
             {
                 return Field.ToString().Trim();
@@ -47,8 +31,7 @@ namespace SchoolGrades.DbClasses
                 return null;
             }
         }
-        
-        internal static string SafeString(object Field, bool NullOnError)
+        internal static string String(object Field, bool NullOnError)
         {
             try
             {
@@ -62,8 +45,7 @@ namespace SchoolGrades.DbClasses
                     return "";
             }
         }
-
-        internal static Nullable<DateTime> SafeDateTime(object Field)
+        internal static Nullable<DateTime> DateTime(object Field)
         {
             try
             {
@@ -77,52 +59,47 @@ namespace SchoolGrades.DbClasses
                 return null;
             }
         }
-
-        internal static Nullable<DateTime> SafeDateTime(string Date)
+        internal static Nullable<DateTime> DateTime(string Date)
         {
             try
             {
-                return DateTime.Parse(Date);
+                return System.DateTime.Parse(Date);
             }
             catch
             {
                 return null;
             }
         }
-
-        internal static Nullable<double> SafeDouble(string d)
+        internal static Nullable<double> Double(string DoubleValue)
         {
             try
             {
-                return Convert.ToDouble(d);
+                return Convert.ToDouble(DoubleValue);
             }
             catch
             {
                 return null;
             }
         }
-
-        internal static double? SafeDouble(object Value)
+        internal static double? Double(object Value)
         {
             try
             {
-                return Double.Parse(Value.ToString());
+                return double.Parse(Value.ToString());
             }
             catch
             {
                 return null;
             }
         }
-
-        internal static bool? SafeBool(string field)
+        internal static bool? Bool(string field)
         {
             if (field == "" || field == "0")
                 return true;
             else
                 return false;
         }
-
-        internal static bool? SafeBool(object field)
+        internal static bool? Bool(object field)
         {
             if (field == null)
             {

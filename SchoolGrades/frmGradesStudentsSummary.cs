@@ -10,8 +10,6 @@ namespace SchoolGrades
 {
     public partial class frmGradesStudentsSummary : Form
     {
-        DbAndBusiness db;
-        DataLayer dl;
         private Student currentStudent;
         private string currentSchoolYear;
         private GradeType currentGradeType;
@@ -22,7 +20,6 @@ namespace SchoolGrades
             GradeType GradeType, SchoolSubject SchoolSubject)
         {
             InitializeComponent();
-            db = new  DbAndBusiness(Commons.PathAndFileDatabase);
             currentStudent = Student;
             currentSchoolYear = IdSchoolYear;
             currentGradeType = GradeType;
@@ -31,7 +28,6 @@ namespace SchoolGrades
             lblCurrentStudent.Text = $"{Student.LastName} {Student.FirstName}";
             currentAnnotation = new StudentAnnotation();
         }
-
         private void frmGradesStudentsSummary_Load(object sender, EventArgs e)
         {
             if (currentStudent == null)
@@ -46,32 +42,29 @@ namespace SchoolGrades
             lblSum.Text = "";
 
             // fill the combos of lookup tables
-            List<GradeType> listGrades = dl.GetListGradeTypes();
+            List<GradeType> listGrades = Commons.bl.GetListGradeTypes();
             cmbSummaryGradeType.DisplayMember = "Name";
             cmbSummaryGradeType.ValueMember = "idGradeType";
             cmbSummaryGradeType.DataSource = listGrades;
             cmbSummaryGradeType.SelectedValue = currentGradeType.IdGradeType;
 
-            List<SchoolSubject> listSubjects = dl.GetListSchoolSubjects(false);
+            List<SchoolSubject> listSubjects = Commons.bl.GetListSchoolSubjects(false);
             cmbSchoolSubjects.DisplayMember = "Name";
             cmbSchoolSubjects.ValueMember = "idGradeType";
             cmbSchoolSubjects.DataSource = listSubjects;
             cmbSchoolSubjects.SelectedValue = currentSchoolSubject.IdSchoolSubject;
 
-            List<SchoolPeriod> listPeriods = dl.GetSchoolPeriods(currentSchoolYear);
+            List<SchoolPeriod> listPeriods = Commons.bl.GetSchoolPeriods(currentSchoolYear);
             cmbSchoolPeriod.DataSource = listPeriods;
 
-            dgwNotes.DataSource = dl.AnnotationsAboutThisStudent(currentStudent, currentSchoolYear,
+            dgwNotes.DataSource = Commons.bl.AnnotationsAboutThisStudent(currentStudent, currentSchoolYear,
                 chkAnnotationsShowActive.Checked);
-
             RefreshData();
         }
-
         private void dgwVoti_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             CalculateWeightedAverage();
         }
-
         private void CalculateWeightedAverage()
         {
             if (dgwGrades.DataSource != null)
@@ -91,7 +84,6 @@ namespace SchoolGrades
                 txtMediaMicroDomande.Text = "";
             }
         }
-
         private void btnDettagliVoto_Click(object sender, EventArgs e)
         {
             DataRow riga = ((DataTable) dgwGrades.DataSource).Rows[dgwGrades.CurrentRow.Index]; 
@@ -99,7 +91,6 @@ namespace SchoolGrades
             frmMicroAssessment f = new frmMicroAssessment(idSelectedGrade);
             f.ShowDialog();
         }
-
         private void frmGradesSummary_FormClosing(object sender, FormClosingEventArgs e)
         {
             DataTable t = (DataTable)dgwGrades.DataSource;
@@ -113,17 +104,15 @@ namespace SchoolGrades
                     {
                         // crea un nuovo voto per ciascuna riga salvata
                         // il vecchio voto assume peso 0, il nuovo, lo stesso peso della riga precedente
-                        dl.CloneGrade(riga);
+                        Commons.bl.CloneGrade(riga);
                     }
                 }
             }
         }
-
         private void cmbTipoVotoRiepilogo_SelectedIndexChanged(object sender, EventArgs e)
         {
             RefreshData();
         }
-
         private void RefreshData()
         {
             if (cmbSummaryGradeType.SelectedItem != null && cmbSchoolSubjects.SelectedItem != null)
@@ -132,7 +121,7 @@ namespace SchoolGrades
                 {
                     if (rdbShowGrades.Checked)
                     {
-                        dgwGrades.DataSource = dl.GetGradesOfStudent(currentStudent, currentSchoolYear,
+                        dgwGrades.DataSource = Commons.bl.GetGradesOfStudent(currentStudent, currentSchoolYear,
                             ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                             ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
                             dtpStartPeriod.Value, dtpEndPeriod.Value
@@ -142,7 +131,7 @@ namespace SchoolGrades
                     }
                     else if (rdbShowWeights.Checked)
                     {
-                        dgwGrades.DataSource = dl.GetWeightedAveragesOfStudent(currentStudent,
+                        dgwGrades.DataSource = Commons.bl.GetWeightedAveragesOfStudent(currentStudent,
                             ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                             ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
                             dtpStartPeriod.Value, dtpEndPeriod.Value
@@ -162,7 +151,7 @@ namespace SchoolGrades
                     }
                     else if (rdbShowWeightedGrades.Checked)
                     {
-                        dgwGrades.DataSource = dl.GetGradesWeightedAveragesOfStudent(currentStudent,
+                        dgwGrades.DataSource = Commons.bl.GetGradesWeightedAveragesOfStudent(currentStudent,
                             ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                             ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
                             dtpStartPeriod.Value, dtpEndPeriod.Value
@@ -172,7 +161,7 @@ namespace SchoolGrades
                     }
                     else if (rdbShowWeightsOnOpenGrades.Checked)
                     {
-                        dgwGrades.DataSource = dl.GetGradesWeightsOfStudentOnOpenGrades(currentStudent,
+                        dgwGrades.DataSource = Commons.bl.GetGradesWeightsOfStudentOnOpenGrades(currentStudent,
                             ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                             ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
                             dtpStartPeriod.Value, dtpEndPeriod.Value
@@ -185,7 +174,6 @@ namespace SchoolGrades
                 }
             }
         }
-
         private void cmbSchoolSubjects_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbSchoolSubjects.SelectedItem == null)
@@ -193,32 +181,27 @@ namespace SchoolGrades
                 return; 
             }
             string IdCurrentSubject = ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject;
-            int col = (int)dl.GetSchoolSubject(IdCurrentSubject).Color;
+            int col = (int)Commons.bl.GetSchoolSubject(IdCurrentSubject).Color;
             Color bgColor = Color.FromArgb((col & 0xFF0000) >> 16, (col & 0xFF00) >> 8, col & 0xFF);
             this.BackColor = bgColor;
             RefreshData();
         }
-
         private void cmbSchoolPeriod_SelectedIndexChanged(object sender, EventArgs e)
         {
             RefreshData();
         }
-
         private void rdbShowGrades_CheckedChanged(object sender, EventArgs e)
         {
             RefreshData();
         }
-
         private void rdbShowWeightedGrades_CheckedChanged(object sender, EventArgs e)
         {
             txtMediaMicroDomande.Text = "";
         }
-
         private void rdbShowWeights_CheckedChanged(object sender, EventArgs e)
         {
             RefreshData(); 
         }
-
         private void setRowNumbers(DataGridView dgv)
         {
             foreach (DataGridViewRow row in dgv.Rows)
@@ -226,12 +209,10 @@ namespace SchoolGrades
                 row.HeaderCell.Value = (row.Index + 1).ToString();
             }
         }
-
         private void chkAnnotationsShowActive_CheckedChanged(object sender, EventArgs e)
         {
 
         }
-
         private void dgwGrades_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 

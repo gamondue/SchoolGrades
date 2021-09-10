@@ -14,16 +14,12 @@ namespace SchoolGrades
 {
     public partial class frmEditLookupTable : Form
     {
-        DbAndBusiness db;
-        DataLayer dl;
         private string table;
         private string idTable;
 
         public frmEditLookupTable(string Table, string IdTable)
         {
             InitializeComponent();
-            dl = new DataLayer();
-            db = new DbAndBusiness(Commons.PathAndFileDatabase);
 
             table = Table;
             idTable = IdTable; 
@@ -34,16 +30,14 @@ namespace SchoolGrades
             this.Text += ". Tabella: " + table; 
             DataSet ds = null;
             DataAdapter da = null; 
-            dl.GetLookupTable(table, ref ds, ref da);
+            Commons.bl.GetLookupTable(table, ref ds, ref da);
             dgwTable.DataSource = ds.Tables[0];
             da.Dispose(); 
         }
-
         private void frmEditLookupTable_FormClosing(object sender, FormClosingEventArgs e)
         {
 
         }
-
         private void BtnSalva_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Da aggiustare, NON salvato!"); 

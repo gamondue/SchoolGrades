@@ -19,7 +19,7 @@ namespace SchoolGrades
             {
                 string query = "SELECT *" +
                     " FROM Tags" +
-                    " WHERE Tag LIKE '%" + SqlVal.SqlString(Pattern) + "%'" +
+                    " WHERE Tag LIKE " + SqlString("%" + Pattern + "%") + "" +
                     ";";
                 cmd = new SQLiteCommand(query);
                 cmd.Connection = conn;
@@ -100,7 +100,6 @@ namespace SchoolGrades
                 dRead.Dispose();
                 cmd.Dispose();
             }
-
             return l;
         }
 

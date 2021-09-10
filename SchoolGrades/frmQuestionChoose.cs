@@ -11,9 +11,7 @@ namespace SchoolGrades
 {
     public partial class frmQuestionChoose : Form
     {
-        DbAndBusiness db;
         TreeMpttDb dbMptt;
-        DataLayer dl;
         //SchoolSubject subj = new SchoolSubject();
 
         List<Tag> tagsList = new List<Tag>();
@@ -37,16 +35,14 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
-            //db = new DbAndBusiness(Commons.PathAndFileDatabase);
-            dl = new DataLayer();
-            dbMptt = new TreeMpttDb(dl);
+            dbMptt = new TreeMpttDb(Commons.dl);
             this.ParentForm = ParentForm; 
             // fills the lookup tables' combos
             cmbSchoolSubject.DisplayMember = "Name";
             cmbSchoolSubject.ValueMember = "idSchoolSubject";
-            cmbSchoolSubject.DataSource = dl.GetListSchoolSubjects(true);
+            cmbSchoolSubject.DataSource = Commons.bl.GetListSchoolSubjects(true);
 
-            List<QuestionType> lq = dl.GetListQuestionTypes(true);
+            List<QuestionType> lq = Commons.bl.GetListQuestionTypes(true);
             cmbQuestionTypes.DisplayMember = "Name";
             cmbQuestionTypes.ValueMember = "idQuestionType";
             cmbQuestionTypes.DataSource = lq;
@@ -57,7 +53,7 @@ namespace SchoolGrades
             currentStudent = Student;
             previousQuestion = Question;
             if (Question != null && Question.IdTopic != 0)
-                currentTopic = dl.GetTopicById(Question.IdTopic); 
+                currentTopic = Commons.bl.GetTopicById(Question.IdTopic); 
         }
         private void frmQuestionChoose_Load(object sender, EventArgs e)
         {
@@ -144,7 +140,7 @@ namespace SchoolGrades
                 currentSubject = new SchoolSubject();
             if (currentTopic == null)
                 currentTopic = new Topic();
-            List<Question> l = dl.GetFilteredQuestionsNotAsked(currentStudent, currentClass,
+            List<Question> l = Commons.bl.GetFilteredQuestionsNotAsked(currentStudent, currentClass,
                 currentSubject, keyQuestionType, tagsList, currentTopic,
                 rdbManyTopics.Checked, rdbAnd.Checked, txtSearchText.Text, 
                 dateFrom, dateTo);
@@ -253,7 +249,7 @@ namespace SchoolGrades
             //}
             DateTime dateFrom = dtpStartPeriod.Value;
             DateTime dateTo = dtpEndPeriod.Value;
-            List<Question> listAskedInThisLesson = dl.GetFilteredQuestionsNotAsked
+            List<Question> listAskedInThisLesson = Commons.bl.GetFilteredQuestionsNotAsked
                 (currentStudent, currentClass,currentSubject,keyQuestionType,
                 tagsList, currentTopic,
                 rdbManyTopics.Checked, rdbAnd.Checked,
@@ -364,9 +360,9 @@ namespace SchoolGrades
                 List<Question> ls = (List<Question>)(dgwQuestions.DataSource);
                 Question question = ls[e.RowIndex];
 
-                Topic topic = dl.GetTopicById(question.IdTopic);
+                Topic topic = Commons.bl.GetTopicById(question.IdTopic);
 
-                SchoolSubject subject = dl.GetSchoolSubject(question.IdSchoolSubject);
+                SchoolSubject subject = Commons.bl.GetSchoolSubject(question.IdSchoolSubject);
 
                 frmQuestion frm = new frmQuestion(
                     frmQuestion.QuestionFormType.EditOneQuestion,

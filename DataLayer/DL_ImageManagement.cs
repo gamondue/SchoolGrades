@@ -27,7 +27,7 @@ namespace SchoolGrades
                         " AND Lessons.idSchoolSubject='" + Subject.IdSchoolSubject + "'";
                 if (DateStart != default(DateTime) && DateFinish != default(DateTime))
                     query += " AND Lessons.date BETWEEN " +
-                    SqlVal.SqlDate(DateStart) + " AND " + SqlVal.SqlDate(DateFinish);
+                    SqlDate(DateStart) + " AND " + SqlDate(DateFinish);
                 query += ";";
                 cmd.CommandText = query;
                 dRead = cmd.ExecuteReader();
@@ -126,8 +126,8 @@ namespace SchoolGrades
             string newFolder = Class.SchoolYear + Class.Abbreviation;
             while (dRead.Read())
             {
-                string path = SafeDb.SafeString(dRead["imagePath"]);
-                int? id = SafeDb.SafeInt(dRead["idImage"]);
+                string path = Safe.String(dRead["imagePath"]);
+                int? id = Safe.Int(dRead["idImage"]);
                 string partToReplace = path.Substring(0, path.IndexOf("\\"));
                 path = path.Replace(partToReplace, newFolder);
                 SaveImagePath(id, path, conn);
@@ -139,7 +139,7 @@ namespace SchoolGrades
         {
             DbCommand cmd = conn.CreateCommand();
             cmd.CommandText = "UPDATE Images" +
-            " SET imagePath='" + SqlVal.SqlString(path) + "'" +
+            " SET imagePath=" + SqlString(path) + "" +
             " WHERE idImage=" + id +
             ";";
             cmd.ExecuteNonQuery();
@@ -152,7 +152,7 @@ namespace SchoolGrades
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "UPDATE StudentsPhotos" +
-                " SET photoPath='" + SqlVal.SqlString(path) + "'" +
+                " SET photoPath=" + SqlString(path) + "" +
                 " WHERE idStudentsPhoto=" + id +
                 ";";
                 cmd.ExecuteNonQuery();
@@ -207,7 +207,7 @@ namespace SchoolGrades
                 DbCommand cmd = conn.CreateCommand();
                 string query;
                 query = "UPDATE Images" +
-                    " SET caption='" + SqlVal.SqlString(Image.Caption) + "'" +
+                    " SET caption=" + SqlString(Image.Caption) + "" +
                     " WHERE idImage=" +
                     Image.IdImage +
                     ";";
@@ -227,9 +227,9 @@ namespace SchoolGrades
                 DbDataReader dRead;
                 string query;
                 query = "SELECT * FROM Images" +
-                        " WHERE Images.imagePath='" +
-                        SqlVal.SqlString(PathAndFileNameOfImage.Remove(0, Commons.PathImages.Length + 1)) +
-                        "';";
+                        " WHERE Images.imagePath=" +
+                        SqlString(PathAndFileNameOfImage.Remove(0, Commons.PathImages.Length + 1)) +
+                        ";";
                 cmd.CommandText = query;
                 dRead = cmd.ExecuteReader();
                 dRead.Read(); // just one record ! 
@@ -262,9 +262,9 @@ namespace SchoolGrades
                     Image.IdImage = NextKey("Images", "IdImage");
                     query = "INSERT INTO Images" +
                     " (idImage, imagePath, caption)" +
-                    " Values (" + Image.IdImage + ",'" +
-                    SqlVal.SqlString(Image.RelativePathAndFilename) + "','" +
-                    SqlVal.SqlString(Image.Caption) + "'" +
+                    " Values (" + Image.IdImage + "," +
+                    SqlString(Image.RelativePathAndFilename) + "," +
+                    SqlString(Image.Caption) + "" +
                     ");";
                     cmd.CommandText = query;
                     cmd.ExecuteNonQuery();
