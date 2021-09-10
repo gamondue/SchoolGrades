@@ -23,8 +23,7 @@ namespace SchoolGrades
                 DSet.Dispose();
             }
         }
-
-        internal void SaveTableOnCvs(DataTable Table, string FileName)
+        internal void SaveTableOnCsv(DataTable Table, string FileName)
         {
             string fileContent = "";
             foreach (DataColumn col in Table.Columns)
@@ -42,7 +41,6 @@ namespace SchoolGrades
             }
             TextFile.StringToFile(FileName, fileContent, false);
         }
-
         internal void CreateLookupTableRow(string Table, string IdTable, DataRow Row)
         {
             // !!!! TODO !!!! GENERALIZZARE A TABELLE CON NOMI DEI CAMPI ARBITRARI E FAR FUNZIONARE !!!!

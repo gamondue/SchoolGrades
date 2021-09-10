@@ -19,7 +19,7 @@ namespace SchoolGrades.DbClasses
         public double? Sum { get; set; }     // modificare il programma per eliminarlo 
         public string SchoolYear { get; set; }
         public double? DummyNumber { get; set; }  // usewd by the program when it need fo associate a number to a student
-        public bool? Eligible { get; set; } // TODO: chenge the name of the database field from "drawable" to "eligible"
+        public bool? Eligible { get; set; } // TODO: change the name of the database field from "drawable" to "eligible"
         public int? IdStudent { get; set; }
         public int? IdClass { get; set; }
         public string Class { get; set; }
@@ -28,7 +28,7 @@ namespace SchoolGrades.DbClasses
         public string Email { get => email; set => email = value; }
         public Nullable<DateTime> BirthDate { get => birthDate; set => birthDate = (DateTime?) value; }
         public string BirthPlace { get => birthPlace; set => birthPlace = value; }
-        public int? RevengeFactorCounter { get; set; }  // revenge factor counter 
+        public int? RevengeFactorCounter { get; set; }  // revenge factor counter start from 0 
         public bool? Disabled { get; set; }
         public double? SortOrDrawCriterion { get; internal set; }
 

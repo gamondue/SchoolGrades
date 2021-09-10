@@ -40,9 +40,9 @@ namespace SchoolGrades
                 DbCommand cmd = conn.CreateCommand();
                 // creazione del macrovoto nella tabella dei voti  
                 cmd.CommandText = "UPDATE Grades " +
-                    "SET IdStudent=" + SqlVal.SqlInt(IdStudent) +
-                    ",value=" + SqlVal.SqlDouble(Grade) +
-                    ",weight=" + SqlVal.SqlDouble(Weight) +
+                    "SET IdStudent=" + SqlInt(IdStudent) +
+                    ",value=" + SqlDouble(Grade) +
+                    ",weight=" + SqlDouble(Weight) +
                     ",idSchoolYear='" + IdSchoolYear + "'" +
                     ",idSchoolSubject='" + IdSchoolSubject +
                     "',timestamp ='" + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss").Replace('.', ':') + "' " +
@@ -161,9 +161,9 @@ namespace SchoolGrades
             return t;
         }
 
-        internal object GetWeightedAveragesOfStudent(Student currentStudent, string stringKey1, string stringKey2, DateTime value1, DateTime value2)
+        internal object GetWeightedAveragesOfStudent(Student Student, string stringKey1, string stringKey2, DateTime value1, DateTime value2)
         {
-            //throw new NotImplementedException();
+            throw new NotImplementedException();
             return null;
         }
 
@@ -188,7 +188,7 @@ namespace SchoolGrades
                 " AND Grades.idGradeType = '" + IdGradeType + "'" +
                 " AND Grades.idSchoolSubject = '" + IdSchoolSubject + "'" +
                 " AND Grades.Value > 0" +
-                " AND Grades.Timestamp BETWEEN " + SqlVal.SqlDate(DateFrom) + " AND " + SqlVal.SqlDate(DateTo) +
+                " AND Grades.Timestamp BETWEEN " + SqlDate(DateFrom) + " AND " + SqlDate(DateTo) +
                 " ORDER BY lastName, firstName, Students.idStudent, Grades.timestamp Desc;";
 
                 DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
@@ -286,9 +286,9 @@ namespace SchoolGrades
                 "(idGrade,idStudent,value,weight,cncFactor,idGradeType,idGradeParent,idSchoolYear" +
                 ",timestamp,idQuestion) " +
                 "Values (" + codiceVoto + "," + Riga["idStudent"] + "," +
-                SqlVal.SqlDouble(Riga["value"]) + "," +
-                SqlVal.SqlDouble(Riga["weight"]) + ",'" +
-                SqlVal.SqlDouble(Riga["cncFactor"]) + ",'" +
+                SqlDouble(Riga["value"]) + "," +
+                SqlDouble(Riga["weight"]) + ",'" +
+                SqlDouble(Riga["cncFactor"]) + ",'" +
                 Riga["idGradeType"] + "'," + Riga["idGradeParent"] + ",'" +
                 Riga["idSchoolYear"] + "','" +
                 System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss").Replace('.', ':') +
@@ -307,7 +307,6 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-
         internal List<GradeType> GetListGradeTypes()
         {
             List<GradeType> lg = new List<GradeType>();
@@ -350,7 +349,7 @@ namespace SchoolGrades
             {
                 GradeType gt = new GradeType();
                 gt.IdGradeType = (string)Row["idGradeType"];
-                gt.IdGradeTypeParent = SafeDb.SafeString(Row["IdGradeTypeParent"]);
+                gt.IdGradeTypeParent = Safe.String(Row["IdGradeTypeParent"]);
                 gt.IdGradeCategory = (string)Row["IdGradeCategory"];
                 gt.Name = (string)Row["Name"];
                 gt.DefaultWeight = (double)Row["DefaultWeight"];
@@ -390,8 +389,8 @@ namespace SchoolGrades
             Random rnd = new Random();
             while (dRead.Read())
             {
-                double? grade = SafeDb.SafeDouble(dRead["value"]);
-                int? id = SafeDb.SafeInt(dRead["IdGrade"]);
+                double? grade = Safe.Double(dRead["value"]);
+                int? id = Safe.Int(dRead["IdGrade"]);
                 // add to the grade a random delta between -10 and +10 
                 if (grade > 0)
                 {
@@ -410,7 +409,7 @@ namespace SchoolGrades
         {
             DbCommand cmd = conn.CreateCommand();
             cmd.CommandText = "UPDATE Grades" +
-            " SET value=" + SqlVal.SqlDouble(grade) +
+            " SET value=" + SqlDouble(grade) +
             " WHERE idGrade=" + id +
             ";";
             cmd.ExecuteNonQuery();
@@ -435,21 +434,20 @@ namespace SchoolGrades
         {
             Grade g = new Grade();
             g.IdGrade = (int)Row["idGrade"];
-            g.IdGradeParent = SafeDb.SafeInt(Row["idGradeParent"]);
-            g.IdStudent = SafeDb.SafeInt(Row["idStudent"]);
-            g.IdGradeType = SafeDb.SafeString(Row["IdGradeType"]);
-            g.IdSchoolSubject = SafeDb.SafeString(Row["IdSchoolSubject"]);
-            //g.IdGradeTypeParent = SafeDb.SafeString(Row["idGradeTypeParent"]);
-            g.IdQuestion = SafeDb.SafeInt(Row["idQuestion"]);
+            g.IdGradeParent = Safe.Int(Row["idGradeParent"]);
+            g.IdStudent = Safe.Int(Row["idStudent"]);
+            g.IdGradeType = Safe.String(Row["IdGradeType"]);
+            g.IdSchoolSubject = Safe.String(Row["IdSchoolSubject"]);
+            //g.IdGradeTypeParent = Safe.SafeString(Row["idGradeTypeParent"]);
+            g.IdQuestion = Safe.Int(Row["idQuestion"]);
             g.Timestamp = (DateTime)Row["timestamp"];
-            g.Value = SafeDb.SafeDouble(Row["value"]);
-            g.Weight = SafeDb.SafeDouble(Row["weight"]);
-            g.CncFactor = SafeDb.SafeDouble(Row["cncFactor"]);
-            g.IdSchoolYear = SafeDb.SafeString(Row["idSchoolYear"]);
+            g.Value = Safe.Double(Row["value"]);
+            g.Weight = Safe.Double(Row["weight"]);
+            g.CncFactor = Safe.Double(Row["cncFactor"]);
+            g.IdSchoolYear = Safe.String(Row["idSchoolYear"]);
             //g.DummyInt = (int)Row["dummyInt"]; 
             return g;
         }
-
         internal DataTable GetGradesOfStudent(Student Student, string SchoolYear, string IdGradeType, string IdSchoolSubject,DateTime DateFrom, DateTime DateTo)
         {
             DataTable t;
@@ -469,7 +467,7 @@ namespace SchoolGrades
                 " AND Grades.idGradeType = '" + IdGradeType + "'" +
                 " AND Grades.idSchoolSubject = '" + IdSchoolSubject + "'" +
                 " AND Grades.Value > 0" +
-                " AND Grades.Timestamp BETWEEN " + SqlVal.SqlDate(DateFrom) + " AND " + SqlVal.SqlDate(DateTo) +
+                " AND Grades.Timestamp BETWEEN " + SqlDate(DateFrom) + " AND " + SqlDate(DateTo) +
                 " ORDER BY lastName, firstName, Students.idStudent, Grades.timestamp Desc;";
 
                 DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
@@ -488,7 +486,6 @@ namespace SchoolGrades
             throw new NotImplementedException();
 
         }
-
         internal DataTable GetGradesWeightedAveragesOfClass(Class Class, string IdGradeType,
             string IdSchoolSubject, DateTime DateFrom, DateTime DateTo)
         {
@@ -511,7 +508,7 @@ namespace SchoolGrades
                 " AND Grades.idGradeType = '" + IdGradeType + "'" +
                 " AND Grades.idSchoolSubject = '" + IdSchoolSubject + "'" +
                 " AND Grades.Value > 0" +
-                " AND Grades.Timestamp BETWEEN " + SqlVal.SqlDate(DateFrom) + " AND " + SqlVal.SqlDate(DateTo) +
+                " AND Grades.Timestamp BETWEEN " + SqlDate(DateFrom) + " AND " + SqlDate(DateTo) +
                 " GROUP BY Students.idStudent" +
                 " ORDER BY lastName, firstName, Students.idStudent;";
 
@@ -616,7 +613,7 @@ namespace SchoolGrades
                 "(idGrade,idStudent,idGradeType,weight,cncFactor,idSchoolYear,timestamp,idSchoolSubject) " +
                 "Values (" + key + "," + Student.IdStudent +
                 ",'" + IdMacroGrade + "'" +
-                "," + SqlVal.SqlDouble(weight) + "" +
+                "," + SqlDouble(weight) + "" +
                 ",0" +
                 ",'" + Grade.IdSchoolYear + "','" +
                 System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss").Replace('.', ':') + "'" +
@@ -642,15 +639,15 @@ namespace SchoolGrades
                     "(idGrade, idGradeType, idGradeParent, idStudent, value, weight, " +
                     "cncFactor,idSchoolYear, timestamp, idQuestion,idSchoolSubject) " +
                     "Values (" + Grade.IdGrade +
-                    ",'" + SqlVal.SqlString(Grade.IdGradeType) + "'" +
-                    "," + SqlVal.SqlInt(Grade.IdGradeParent.ToString()) + "" +
+                    "," + SqlString(Grade.IdGradeType) + "" +
+                    "," + SqlInt(Grade.IdGradeParent.ToString()) + "" +
                     "," + Grade.IdStudent + "" +
-                    "," + SqlVal.SqlDouble(Grade.Value) + "" +
-                    "," + SqlVal.SqlDouble(Grade.Weight) + "" +
-                    "," + SqlVal.SqlDouble(Grade.CncFactor) + "" +
-                    ",'" + SqlVal.SqlString(Grade.IdSchoolYear) + "'" +
-                    ",'" + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss").Replace('.', ':') + "'" +
-                    "," + SqlVal.SqlInt(Grade.IdQuestion.ToString()) + "" +
+                    "," + SqlDouble(Grade.Value) + "" +
+                    "," + SqlDouble(Grade.Weight) + "" +
+                    "," + SqlDouble(Grade.CncFactor) + "" +
+                    "," + SqlString(Grade.IdSchoolYear) + "" +
+                    "," + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss").Replace('.', ':') + "" +
+                    "," + SqlInt(Grade.IdQuestion.ToString()) + "" +
                     ",'" + Grade.IdSchoolSubject + "'" +
                     ");";
                 }
@@ -658,18 +655,18 @@ namespace SchoolGrades
                 {
                     cmd.CommandText = "UPDATE Grades " +
                     "SET" +
-                    " idGrade=" + SqlVal.SqlInt(Grade.IdGrade.ToString()) + "" +
-                    ",idGradeType='" + SqlVal.SqlString(Grade.IdGradeType) + "'" +
-                    ",idGradeParent=" + SqlVal.SqlInt(Grade.IdGradeParent.ToString()) + "" +
-                    ",idStudent=" + SqlVal.SqlInt(Grade.IdStudent.ToString()) + "" +
-                    ",idSchoolYear='" + SqlVal.SqlString(Grade.IdSchoolYear) + "'" +
-                    ",timestamp='" + SqlVal.SqlString(((DateTime)Grade.Timestamp).ToString("yyyy-MM-dd HH:mm:ss")) + "'" +
-                    ",idQuestion='" + SqlVal.SqlInt(Grade.IdQuestion.ToString()) + "'" +
-                    ",idSchoolSubject='" + SqlVal.SqlString(Grade.IdSchoolSubject) + "'" +
-                    ",value=" + SqlVal.SqlDouble(Grade.Value) + "" +
-                    ",weight=" + SqlVal.SqlDouble(Grade.Weight) + "" +
-                    ",cncFactor=" + SqlVal.SqlDouble(Grade.CncFactor) + "" +
-                    " WHERE idGrade=" + SqlVal.SqlInt(Grade.IdGrade.ToString()) +
+                    " idGrade=" + SqlInt(Grade.IdGrade.ToString()) + "" +
+                    ",idGradeType=" + SqlString(Grade.IdGradeType) + "" +
+                    ",idGradeParent=" + SqlInt(Grade.IdGradeParent.ToString()) + "" +
+                    ",idStudent=" + SqlInt(Grade.IdStudent.ToString()) + "" +
+                    ",idSchoolYear=" + SqlString(Grade.IdSchoolYear) + "" +
+                    ",timestamp=" + SqlString(((DateTime)Grade.Timestamp).ToString("yyyy-MM-dd HH:mm:ss")) + "" +
+                    ",idQuestion=" + SqlInt(Grade.IdQuestion.ToString()) + "" +
+                    ",idSchoolSubject=" + SqlString(Grade.IdSchoolSubject) + "" +
+                    ",value=" + SqlDouble(Grade.Value) + "" +
+                    ",weight=" + SqlDouble(Grade.Weight) + "" +
+                    ",cncFactor=" + SqlDouble(Grade.CncFactor) + "" +
+                    " WHERE idGrade=" + SqlInt(Grade.IdGrade.ToString()) +
                     ";";
                 }
 
@@ -679,12 +676,11 @@ namespace SchoolGrades
             }
             return Grade.IdGrade;
         }
-
-        internal object GetGradesWeightedAveragesOfStudent(Student currentStudent, string stringKey1, string stringKey2, DateTime value1, DateTime value2)
+        internal object GetGradesWeightedAveragesOfStudent(Student currentStudent, 
+            string stringKey1, string stringKey2, DateTime value1, DateTime value2)
         {
             throw new NotImplementedException();
         }
-
         internal List<Couple> GetGradesOldestInClass(Class Class,
             GradeType GradeType, SchoolSubject SchoolSubject)
         {
@@ -714,7 +710,7 @@ namespace SchoolGrades
                     DateTime now = System.DateTime.Now;
                     c.Key = (int)dRead["IdStudent"];
                     if (!dRead.IsDBNull(1))
-                        c.Value = SafeDb.SafeDateTime(dRead["InstantLastQuestion"]);
+                        c.Value = Safe.DateTime(dRead["InstantLastQuestion"]);
                     else
                         c.Value = now;
                     couples.Add(c);
@@ -724,7 +720,6 @@ namespace SchoolGrades
             }
             return couples;
         }
-
         internal DataTable GetGradesWeightsOfClassOnOpenGrades(Class Class,
             string IdGradeType, string IdSchoolSubject, DateTime DateFrom, DateTime DateTo)
         {
@@ -751,7 +746,7 @@ namespace SchoolGrades
                 " OR Grades.idGradeType IS NULL)" +
                 " AND Grades.idSchoolSubject='" + IdSchoolSubject + "'" +
                 " AND Grades.value IS NOT NULL AND Grades.value <> 0" +
-                " AND Grades.Timestamp BETWEEN " + SqlVal.SqlDate(DateFrom) + " AND " + SqlVal.SqlDate(DateTo) +
+                " AND Grades.Timestamp BETWEEN " + SqlDate(DateFrom) + " AND " + SqlDate(DateTo) +
                 " AND Parents.idGradeType = '" + idGradeTypeParent + "'" +
                 " AND Grades.idGradeParent = Parents.idGrade" +
                 " AND (Parents.Value is null or Parents.Value = 0)" +

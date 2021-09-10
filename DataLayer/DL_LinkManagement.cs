@@ -86,15 +86,14 @@ namespace SchoolGrades
             using (DbConnection conn = Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
-
+                string PathFileImage = Class.SchoolYear + Class.Abbreviation + "\\" +
+                    Student.LastName + "_" + Student.FirstName + "_" + Class.Abbreviation + Class.SchoolYear + ".jpg"; 
                 // aggiunge la foto alle foto (cartella relativa, cui verrà aggiunta la path delle foto)
                 cmd.CommandText = "INSERT INTO StudentsPhotos " +
                 "(idStudentsPhoto, photoPath)" +
                 "Values " +
-                "('" + codiceFoto + "','" + SqlVal.SqlString(Class.SchoolYear) +
-                SqlVal.SqlString(Class.Abbreviation) + "\\" + SqlVal.SqlString(Student.LastName) + "_" + SqlVal.SqlString(Student.FirstName) +
-                "_" + SqlVal.SqlString(Class.Abbreviation) + SqlVal.SqlString(Class.SchoolYear) + ".jpg" +
-                "');";
+                "('" + codiceFoto + "'," + SqlString(PathFileImage) +
+                ");";
                 cmd.ExecuteNonQuery();
 
                 // cancella tutti gli eventuali riferimenti nella tabella link delle foto ad altre foto nell'anno 
@@ -106,8 +105,8 @@ namespace SchoolGrades
                 // aggiunge questa foto alla tabella link delle foto
                 cmd.CommandText = "INSERT INTO StudentsPhotos_Students " +
                     "(idStudentsPhoto, idStudent, idSchoolYear) " +
-                    "Values (" + codiceFoto + "," + Student.IdStudent + ",'" + SqlVal.SqlString(Class.SchoolYear) +
-                    "');";
+                    "Values (" + codiceFoto + "," + Student.IdStudent + "," + SqlString(Class.SchoolYear) +
+                    ");";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
@@ -128,8 +127,8 @@ namespace SchoolGrades
                             " SET" +
                             " idStartLink=" + IdStartLink +
                             ",idClass=" + IdClass + "" +
-                            ",startLink='" + SqlVal.SqlString(StartLink) + "'" +
-                            ",desc='" + SqlVal.SqlString(Desc) + "'" +
+                            ",startLink=" + SqlString(StartLink) + "" +
+                            ",desc=" + SqlString(Desc) + "" +
                             " WHERE idStartLink=" + IdStartLink +
                             ";";
                     }
@@ -142,8 +141,8 @@ namespace SchoolGrades
                             "(" +
                             IdStartLink +
                             "," + IdClass +
-                            ",'" + SqlVal.SqlString(StartLink) + "'" +
-                            ",'" + SqlVal.SqlString(Desc) + "'" +
+                            "," + SqlString(StartLink) + "" +
+                            "," + SqlString(Desc) + "" +
                             ");";
                     }
                     cmd.ExecuteNonQuery();

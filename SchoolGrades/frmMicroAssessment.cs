@@ -11,7 +11,7 @@ namespace SchoolGrades
         private string currentYear;
         private int idQuestionParent;
         private string idGradeType;
-        DataLayer dl;
+        //BusinessLayer Commons.bl;
         private string idGradeTypeParent;
 
         frmMain callingForm;
@@ -29,14 +29,11 @@ namespace SchoolGrades
         Grade currentGrade = new Grade();
         internal Grade CurrentGrade { get => currentGrade; set => currentGrade = value; }
 
-        DbAndBusiness db;
-
         internal frmMicroAssessment(frmMain CallingForm, Class Class, Student Student,  
             GradeType GradeType, SchoolSubject Subject, Question Question)
         {
             InitializeComponent();
-            db = new DbAndBusiness(Commons.PathAndFileDatabase);
-            dl = new DataLayer();
+
             callingForm = CallingForm; 
             currentClass = Class; 
             currentStudent = Student;
@@ -52,14 +49,14 @@ namespace SchoolGrades
             // constructor for subgrades for a grade passed trough its id
             currentGrade.IdGrade = IdGrade;
             currentStudent = new Student();
-            dl.GetGradeAndStudent(currentGrade, currentStudent);
+            Commons.bl.GetGradeAndStudent(currentGrade, currentStudent);
             currentYear = currentGrade.IdSchoolYear;
-            currentClass = dl.GetClassOfStudent(Commons.IdSchool, currentYear, currentStudent);
+            currentClass = Commons.bl.GetClassOfStudent(Commons.IdSchool, currentYear, currentStudent);
             
-            currentGradeType = dl.GetGradeType(currentGrade.IdGradeType);
+            currentGradeType = Commons.bl.GetGradeType(currentGrade.IdGradeType);
 
-            currentSchoolSubject = dl.GetSchoolSubject(currentGrade.IdSchoolSubject);
-            currentQuestion = dl.GetQuestionById(currentGrade.IdQuestion);
+            currentSchoolSubject = Commons.bl.GetSchoolSubject(currentGrade.IdSchoolSubject);
+            currentQuestion = Commons.bl.GetQuestionById(currentGrade.IdQuestion);
         }
 
         private void frmMicroAssessment_Load(object sender, EventArgs e)
@@ -80,10 +77,10 @@ namespace SchoolGrades
             if (currentGradeType.IdGradeTypeParent != null && currentGradeType.IdGradeTypeParent != "")
             {
                 // find the last macro grade of this student 
-                currentMacroGrade = dl.LastOpenGradeOfStudent(currentStudent, currentYear
+                currentMacroGrade = Commons.bl.LastOpenGradeOfStudent(currentStudent, currentYear
                     , currentSchoolSubject, currentGradeType.IdGradeTypeParent);
                 // get grade type information of that last macro grade
-                GradeType gt = dl.GetGradeType(currentMacroGrade.IdGradeType);
+                GradeType gt = Commons.bl.GetGradeType(currentMacroGrade.IdGradeType);
                 if (gt != null)
                 {
                     txtGradeTypeParent.Text = gt.Name;
@@ -113,7 +110,7 @@ namespace SchoolGrades
             try
             {
                 picStudent.Image = System.Drawing.Image.FromFile(Commons.PathImages + "\\" +
-                dl.GetFilePhoto(currentStudent.IdStudent, currentYear));
+                Commons.bl.GetFilePhoto(currentStudent.IdStudent, currentYear));
             }
             catch
             {
@@ -133,7 +130,7 @@ namespace SchoolGrades
             txtMicroGradeWeight.Text = currentGrade.Weight.ToString();
             txtMicroGrade.Text = currentGrade.Value.ToString(); 
 
-            DataTable T = dl.GetMicroGradesOfStudentWithMacroOpen(currentStudent.IdStudent, currentYear, currentGradeType.IdGradeType,
+            DataTable T = Commons.bl.GetMicroGradesOfStudentWithMacroOpen(currentStudent.IdStudent, currentYear, currentGradeType.IdGradeType,
                 currentSchoolSubject.IdSchoolSubject);
             // weighted sum
             DgwQuestions.DataSource = T;
@@ -157,7 +154,7 @@ namespace SchoolGrades
             double weightedAverage = weightedSum / sumOfWeights;
             txtAverageMicroQuestions.Text = weightedAverage.ToString("#.##");
 
-            double? defaultWeight = dl.GetDefaultWeightOfGradeType(idGradeType);
+            double? defaultWeight = Commons.bl.GetDefaultWeightOfGradeType(idGradeType);
             if (txtMicroGradeWeight.Text == "")
             {
                 txtMicroGradeWeight.Text = defaultWeight.ToString();
@@ -203,7 +200,7 @@ namespace SchoolGrades
                     "(\"Nuovo voto\")");
                 return;  
             }
-            Grade gradeParent = dl.GetGrade(keyParent); 
+            Grade gradeParent = Commons.bl.GetGrade(keyParent); 
             if (txtIdMacroGrade.Text != "" && (DgwQuestions.Rows.Count == 0))
             {
                 if (gradeParent.Value > 0)
@@ -215,7 +212,7 @@ namespace SchoolGrades
                          == DialogResult.Yes)
                     {
                         // 
-                        dl.DeleteValueOfGrade(int.Parse(txtIdMacroGrade.Text));
+                        Commons.bl.DeleteValueOfGrade(int.Parse(txtIdMacroGrade.Text));
                         ShowStudentsDataAndAverages();
                     }
                     return;
@@ -227,7 +224,7 @@ namespace SchoolGrades
             // erase IdGrade to save a new record 
             currentGrade.IdGrade = null;
             currentGrade.Timestamp = DateTime.Now; 
-            currentGrade.IdGrade = dl.SaveMicroGrade(currentGrade);
+            currentGrade.IdGrade = Commons.bl.SaveMicroGrade(currentGrade);
 
             // remember that this question has already been done 
             if (currentQuestion.IdQuestion != 0)
@@ -278,7 +275,7 @@ namespace SchoolGrades
             currentMacroGrade.IdSchoolSubject = currentSchoolSubject.IdSchoolSubject;
             currentMacroGrade.IdSchoolYear = currentYear;
 
-            idQuestionParent = dl.CreateMacroGrade(ref currentMacroGrade 
+            idQuestionParent = Commons.bl.CreateMacroGrade(ref currentMacroGrade 
                 , currentStudent, idGradeType);
             txtIdMacroGrade.Text = idQuestionParent.ToString();
             txtIdMacroGrade.BackColor = Color.White;
@@ -331,7 +328,7 @@ namespace SchoolGrades
             }
             if (txtIdMacroGrade.Text != "")  // if we have a macrograde 
             {
-                dl.SaveMacroGrade(currentStudent.IdStudent, (int?)int.Parse(txtIdMacroGrade.Text),
+                Commons.bl.SaveMacroGrade(currentStudent.IdStudent, (int?)int.Parse(txtIdMacroGrade.Text),
                     average, weight, currentYear, 
                     currentSchoolSubject.IdSchoolSubject);
                 //txtIdMacroGrade.Text = "";
@@ -405,17 +402,17 @@ namespace SchoolGrades
 
         private void ReadCurrentGradeAndQuestionFromGridRow(DataRow row)
         {
-            int? Id = SafeDb.SafeInt(row["IdQuestion"]);
+            int? Id = Safe.Int(row["IdQuestion"]);
             if (Id != null)
             {
-                currentQuestion = dl.GetQuestionById(SafeDb.SafeInt(row["IdQuestion"]));
+                currentQuestion = Commons.bl.GetQuestionById(Safe.Int(row["IdQuestion"]));
             }
             else
             {
                 currentQuestion = new Question(); 
                 currentQuestion.IdQuestion = null;
             }
-            currentGrade = dl.GetGrade(SafeDb.SafeInt(row["idGrade"]));
+            currentGrade = Commons.bl.GetGrade(Safe.Int(row["idGrade"]));
 
             this.Refresh(); 
         }
@@ -432,7 +429,7 @@ namespace SchoolGrades
                 return; 
             }
             DataGridViewRow row = (DgwQuestions.SelectedRows[0]);
-            dl.EraseGrade(SafeDb.SafeInt(row.Cells["idGrade"].Value));
+            Commons.bl.EraseGrade(Safe.Int(row.Cells["idGrade"].Value));
             ShowStudentsDataAndAverages();
         }
 
@@ -463,7 +460,7 @@ namespace SchoolGrades
             DataRow row = ((DataTable) DgwQuestions.DataSource).Rows[DgwQuestions.SelectedRows[0].Index];
             ReadCurrentGradeAndQuestionFromGridRow(row);
             currentGrade = ReadUI(currentGrade); 
-            currentGrade.IdGrade = dl.SaveMicroGrade(currentGrade);
+            currentGrade.IdGrade = Commons.bl.SaveMicroGrade(currentGrade);
             ShowStudentsDataAndAverages();
         }
 

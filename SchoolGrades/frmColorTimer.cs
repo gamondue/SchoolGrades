@@ -5,7 +5,6 @@ using System.Threading;
 using gamon.gamon;
 
 namespace gamon
-
 {
     public partial class ColorTimer : Form
     {
@@ -178,7 +177,6 @@ namespace gamon
                 {
                     oggettoRicevitore.NuovoComando = false;
                     comandoAttuale = oggettoRicevitore.Comando;
-
                     // primo contatto dal client: deve essere la password
                     if (primoComando)
                     {

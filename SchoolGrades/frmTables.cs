@@ -27,5 +27,10 @@ namespace SchoolGrades
             if (table == "GradeCategories")
                 idTable = "idGradeCategory"; 
         }
+
+        private void frmTables_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

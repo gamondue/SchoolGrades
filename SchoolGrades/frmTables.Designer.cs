@@ -176,12 +176,13 @@
             this.Controls.Add(this.rdbGradeTypes);
             this.Controls.Add(this.rdbTestTypes);
             this.Controls.Add(this.rdbSchoolSubjects);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.Color.DarkBlue;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmTables";
             this.Text = "Tabelle";
+            this.Load += new System.EventHandler(this.frmTables_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

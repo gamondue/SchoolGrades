@@ -37,26 +37,23 @@ namespace SchoolGrades
             }
             return la;
         }
-
         internal int? UpdateAnnotationGroup(StudentAnnotation currentAnnotation, Student currentStudent)
         {
             throw new NotImplementedException();
         }
-
         internal void EraseAnnotationByText(string AnnotationText, Student Student)
         {
             using (DbConnection conn = Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM StudentsAnnotations" +
-                    " WHERE annotation='" + SqlVal.SqlString(AnnotationText) + "'" +
-                    " AND idStudent=" + SqlVal.SqlInt(Student.IdStudent) +
+                    " WHERE annotation=" + SqlString(AnnotationText) + "" +
+                    " AND idStudent=" + SqlInt(Student.IdStudent) +
                     ";";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
         }
-
         internal int? SaveAnnotation(StudentAnnotation Annotation, Student s)
         {
             using (DbConnection conn = Connect())
@@ -68,13 +65,13 @@ namespace SchoolGrades
                 {   // update answer
                     query = "UPDATE StudentsAnnotations" +
                     " SET" +
-                    " idStudent=" + SqlVal.SqlInt(s.IdStudent) + "," +
-                    " idSchoolYear='" + SqlVal.SqlString(Annotation.IdSchoolYear) + "'," +
-                    " instantTaken=" + SqlVal.SqlDate(Annotation.InstantTaken) + "," +
-                    " instantClosed=" + SqlVal.SqlDate(Annotation.InstantClosed) + "," +
-                    " isActive=" + SqlVal.SqlBool(Annotation.IsActive) + "," +
-                    " annotation='" + SqlVal.SqlString(Annotation.Annotation) + "'" +
-                    " WHERE idStudent=" + SqlVal.SqlInt(s.IdStudent) +
+                    " idStudent=" + SqlInt(s.IdStudent) + "," +
+                    " idSchoolYear=" + SqlString(Annotation.IdSchoolYear) + "," +
+                    " instantTaken=" + SqlDate(Annotation.InstantTaken) + "," +
+                    " instantClosed=" + SqlDate(Annotation.InstantClosed) + "," +
+                    " isActive=" + SqlBool(Annotation.IsActive) + "," +
+                    " annotation=" + SqlString(Annotation.Annotation) + "" +
+                    " WHERE idStudent=" + SqlInt(s.IdStudent) +
                     ";";
                 }
                 else
@@ -92,14 +89,14 @@ namespace SchoolGrades
                         query += ",idSchoolYear";
                     query += ")";
                     query += " Values(";
-                    query += "" + SqlVal.SqlInt(Annotation.IdAnnotation) + ",";
-                    query += "" + SqlVal.SqlInt(s.IdStudent) + ",";
-                    query += "'" + SqlVal.SqlString(Annotation.Annotation) + "'";
-                    query += "," + SqlVal.SqlDate(Annotation.InstantTaken);
-                    query += "," + SqlVal.SqlDate(Annotation.InstantClosed);
-                    query += "," + SqlVal.SqlBool(Annotation.IsActive);
+                    query += "" + SqlInt(Annotation.IdAnnotation) + ",";
+                    query += "" + SqlInt(s.IdStudent) + ",";
+                    query += "" + SqlString(Annotation.Annotation) + "";
+                    query += "," + SqlDate(Annotation.InstantTaken);
+                    query += "," + SqlDate(Annotation.InstantClosed);
+                    query += "," + SqlBool(Annotation.IsActive);
                     if (Annotation.IdSchoolYear != null && Annotation.IdSchoolYear != "")
-                        query += ",'" + SqlVal.SqlString(Annotation.IdSchoolYear) + "'";
+                        query += "," + SqlString(Annotation.IdSchoolYear) + "";
                     query += ");";
                 }
                 cmd.CommandText = query;
@@ -135,13 +132,13 @@ namespace SchoolGrades
         internal StudentAnnotation GetAnnotationFromRow(DbDataReader Row)
         {
             StudentAnnotation a = new StudentAnnotation();
-            a.IdAnnotation = SafeDb.SafeInt(Row["idAnnotation"]);
-            a.IdStudent = SafeDb.SafeInt(Row["idStudent"]);
-            a.IdSchoolYear = SafeDb.SafeString(Row["idSchoolYear"]);
-            a.Annotation = SafeDb.SafeString(Row["annotation"]);
-            a.InstantTaken = SafeDb.SafeDateTime(Row["instantTaken"]);
-            a.InstantClosed = SafeDb.SafeDateTime(Row["instantClosed"]);
-            a.IsActive = SafeDb.SafeBool(Row["isActive"]);
+            a.IdAnnotation = Safe.Int(Row["idAnnotation"]);
+            a.IdStudent = Safe.Int(Row["idStudent"]);
+            a.IdSchoolYear = Safe.String(Row["idSchoolYear"]);
+            a.Annotation = Safe.String(Row["annotation"]);
+            a.InstantTaken = Safe.DateTime(Row["instantTaken"]);
+            a.InstantClosed = Safe.DateTime(Row["instantClosed"]);
+            a.IsActive = Safe.Bool(Row["isActive"]);
             return a;
         }
 
@@ -151,7 +148,7 @@ namespace SchoolGrades
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM StudentsAnnotations" +
-                    " WHERE idAnnotation=" + SqlVal.SqlInt(IdAnnotation) +
+                    " WHERE idAnnotation=" + SqlInt(IdAnnotation) +
                     ";";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();

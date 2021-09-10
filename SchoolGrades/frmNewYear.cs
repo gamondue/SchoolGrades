@@ -1,22 +1,14 @@
 ﻿using SchoolGrades.DbClasses;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Data.Common;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SchoolGrades
 {
     public partial class frmNewYear : Form
     {
-        DbAndBusiness db;
-        BusinessLayer bl;
-        DataLayer dl;
         string idStartYear;
         private School currentSchool;
 
@@ -31,16 +23,13 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
-            db = new DbAndBusiness(Commons.PathAndFileDatabase);
-            bl = new BusinessLayer(Commons.PathAndFileDatabase);
-            dl = new DataLayer();
             idStartYear = IdStartYear;
         }
 
         private void frmNewYear_Load(object sender, EventArgs e)
         {
             // school data
-            currentSchool = dl.GetSchool(TxtOfficialSchoolAbbreviation.Text);
+            currentSchool = Commons.bl.GetSchool(TxtOfficialSchoolAbbreviation.Text);
 
             // first default year in the "years" combo
             int anno = 2009;
@@ -61,7 +50,7 @@ namespace SchoolGrades
         private void BtnClassMigration_Click(object sender, EventArgs e)
         {
             Class currentClass;
-            BtnStudentNew.Visible = true;
+            //BtnStudentNew.Visible = true;
             if (CmbClasses.Text == "")
             {
                 MessageBox.Show("Scegliere una classe di partenza");
@@ -79,9 +68,9 @@ namespace SchoolGrades
             Class c = (Class)CmbClasses.SelectedItem;
             if (c != null)
             {
-                dtClass = dl.GetClassTable(c.IdClass);
+                dtClass = Commons.bl.GetClassTable(c.IdClass);
 
-                DgwStudents.DataSource = dl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text,
+                DgwStudents.DataSource = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text,
                     CmbPresentSchoolYear.Text, CmbClasses.Text, true);
 
                 currentClass = (Class)CmbClasses.SelectedItem;
@@ -104,13 +93,14 @@ namespace SchoolGrades
                 TxtClassDescription.Visible = true;
                 lblClassDescription.Visible = true; 
 
-                MessageBox.Show("Aggiustare i dati della classe e degli studenti\r\nSegnare gli studenti da ESCLUDERE " +
-                    "dalla nuova classe, con il segno di spunta a sinistra, poi premere 'Genera classe'"+
+                MessageBox.Show("Aggiustare i dati della classe e degli studenti\r\nSegnare gli studenti da INCLUDERE " +
+                    "nella nuova classe, con il segno di spunta a sinistra, poi premere 'Genera classe'"+
                     "\r\nPer aggiungere allievi tornare alla finestra precedente di gestione classi" +
-                    "\r\nPer preparare la classe successiva premere di nuovo 'Prepara classe'" +
                     "\r\nPremendo 'Annulla' non si importerà la classe",
                     "Modifiche classe", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
             }
+            BtnClassGenerate.Visible = true;
+            BtnClassMigration.Visible = false;
         }
 
         private void txtNextSchoolYear_SelectedIndexChanged(object sender, EventArgs e)
@@ -121,8 +111,13 @@ namespace SchoolGrades
 
         private void BtnClassGenerate_Click(object sender, EventArgs e)
         {
-            string classDescription = currentSchool.Desc + " " + TxtSchoolYearNext.Text + TxtClassNext.Text; 
-            int classCode = dl.CreateClass((string)dtClass.Rows[0]["abbreviation"], classDescription, 
+            if (TxtClassNext.Text == "")
+            {
+                MessageBox.Show("Scrivere la sigla della nuova classe!");
+                return; 
+            }
+            string classDescription = currentSchool.Desc + " " + TxtSchoolYearNext.Text + " " + TxtClassNext.Text; 
+            int classCode = Commons.bl.CreateClass(TxtClassNext.Text, classDescription, 
                 TxtSchoolYearNext.Text, TxtOfficialSchoolAbbreviation.Text);
 
             int studentDone = 0; 
@@ -133,13 +128,13 @@ namespace SchoolGrades
                 {
                     studentDone++;
                     ((Student)r.DataBoundItem).RegisterNumber = studentDone.ToString(); 
-                    dl.PutStudentInClass((int)r.Cells["idStudent"].Value, classCode);
-                    dl.AddLinkToOldPhoto((int)r.Cells["idStudent"].Value, CmbPresentSchoolYear.Text, TxtSchoolYearNext.Text);
-                    dl.UpdateStudent((Student)r.DataBoundItem); 
+                    Commons.bl.PutStudentInClass((int)r.Cells["idStudent"].Value, classCode);
+                    Commons.bl.AddLinkToOldPhoto((int)r.Cells["idStudent"].Value, CmbPresentSchoolYear.Text, TxtSchoolYearNext.Text);
+                    Commons.bl.UpdateStudent((Student)r.DataBoundItem); 
                 }
             }
             MessageBox.Show("Creazione classe " + TxtClassNext.Text + " " + TxtSchoolYearNext.Text + " terminata");
-            BtnStudentNew.Visible = false;
+            //BtnStudentNew.Visible = false;
         }
 
         private void BtnStudentNew_Click(object sender, EventArgs e)
@@ -153,7 +148,6 @@ namespace SchoolGrades
                 ls.Add(sf.CurrentStudent);
                 DgwStudents.DataSource = null;
                 DgwStudents.DataSource = ls;
-                //DgwStudents.Update(); 
                 DgwStudents.Refresh();
             }
         }
@@ -186,12 +180,12 @@ namespace SchoolGrades
 
             string idSchoolYear = CmbPresentSchoolYear.SelectedItem.ToString();
             CmbClasses.DataSource = null; 
-            CmbClasses.DataSource = bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
+            CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
         }
 
         private void CmbClasses_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            BtnClassMigration.Visible = true;
         }
     }
 }

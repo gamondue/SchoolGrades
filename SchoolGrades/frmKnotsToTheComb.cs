@@ -1,20 +1,11 @@
 ﻿using SchoolGrades.DbClasses;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SchoolGrades
 {
     public partial class frmKnotsToTheComb : Form
     {
-        DbAndBusiness db;
-        DataLayer dl;
         private Question chosenQuestion = new Question();
         private frmMicroAssessment grandparentForm; 
 
@@ -31,9 +22,7 @@ namespace SchoolGrades
         public frmKnotsToTheComb(frmMicroAssessment GrandparentForm, int? IdStudent, SchoolSubject SchoolSubject, string Year)
         {
             InitializeComponent();
-            dl = new DataLayer();
-            db = new DbAndBusiness(Commons.PathAndFileDatabase);
-            currentStudent = dl.GetStudent(IdStudent);
+            currentStudent = Commons.dl.GetStudent(IdStudent);
             lblStudent.Text = currentStudent.LastName + " " + currentStudent.FirstName; 
             currentIdSchoolYear = Year;
             currentSubject = SchoolSubject;
@@ -42,7 +31,7 @@ namespace SchoolGrades
             // fills the lookup tables' combos
             cmbSchoolSubject.DisplayMember = "Name";
             cmbSchoolSubject.ValueMember = "idSchoolSubject";
-            cmbSchoolSubject.DataSource = dl.GetListSchoolSubjects(true);
+            cmbSchoolSubject.DataSource = Commons.dl.GetListSchoolSubjects(true);
 
             currentSubject = SchoolSubject; 
             ChosenQuestion = null; 
@@ -54,17 +43,14 @@ namespace SchoolGrades
 
             RefreshData(); 
         }
-
         private void RefreshData()
         {
-            dgwQuestions.DataSource = dl.GetUnfixedGrades(currentStudent, currentSubject.IdSchoolSubject, 60);
+            dgwQuestions.DataSource = Commons.dl.GetUnfixedGrades(currentStudent, currentSubject.IdSchoolSubject, 60);
         }
-
         private void DgwQuestions_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
-
         private void DgwQuestions_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
@@ -74,7 +60,6 @@ namespace SchoolGrades
                 currentIdGrade = (int)r.Cells["IdQuestion"].Value;
             }
         }
-
         private void DgwQuestions_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
@@ -101,7 +86,7 @@ namespace SchoolGrades
             if (MessageBox.Show("La domanda '" + (string)r.Cells["Text"].Value + "' è stata riparata?","Riparazione domanda",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                dl.FixQuestionInGrade(currentIdGrade);
+                Commons.bl.FixQuestionInGrade(currentIdGrade);
                 RefreshData(); 
             }
         }
@@ -115,7 +100,7 @@ namespace SchoolGrades
                 if (grandparentForm != null)
                 {
                     // form called by student's assessment form 
-                    grandparentForm.CurrentQuestion = dl.GetQuestionById(key);
+                    grandparentForm.CurrentQuestion = Commons.bl.GetQuestionById(key);
                     grandparentForm.DisplayCurrentQuestion(); 
                 }
             }

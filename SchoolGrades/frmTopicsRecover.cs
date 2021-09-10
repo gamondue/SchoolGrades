@@ -31,7 +31,6 @@ namespace SchoolGrades
         public frmTopicsRecover()
         {
             InitializeComponent();
-            dl = new DataLayer();
         }
 
         private void frmTopicsRecover_Load(object sender, EventArgs e)

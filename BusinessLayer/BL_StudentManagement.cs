@@ -9,7 +9,7 @@ namespace SchoolGrades
 {
     internal partial class BusinessLayer
     {
-        internal int CreateStudentFromStringMatrix(string[,] StudentData, int? StudentRow)
+        internal Student CreateStudentFromStringMatrix(string[,] StudentData, int? StudentRow)
         {
             return dl.CreateStudentFromStringMatrix(StudentData, StudentRow);
         }
@@ -72,8 +72,8 @@ namespace SchoolGrades
             foreach (DataRow row in t.Rows)
             {
                 Student s = dl.GetStudent((int)row["idStudent"]);
-                s.Sum = SafeDb.SafeDouble(row["GradesFraction"]);
-                s.DummyNumber = SafeDb.SafeDouble(row["GradesCount"]);
+                s.Sum = Safe.Double(row["GradesFraction"]);
+                s.DummyNumber = Safe.Double(row["GradesCount"]);
                 ls.Add(s);
             }
             return ls;
@@ -89,6 +89,22 @@ namespace SchoolGrades
         internal string GetFilePhoto(int? IdStudent, string SchoolYear)
         {
             return dl.GetFilePhoto(IdStudent, SchoolYear);
+        }
+        internal void UpdateStudent(Student Student)
+        {
+            dl.UpdateStudent(Student);
+        }
+        internal DataTable GetStudentsWithNoMicrogrades(Class currentClass, string idGradeType, string idSchoolSubject, DateTime value1, DateTime value2)
+        {
+            return dl.GetStudentsWithNoMicrogrades(currentClass, idGradeType, idSchoolSubject, value1, value2);
+        }
+        internal List<int> GetIdStudentsNonGraded(Class currentClass, GradeType currentGradeType, SchoolSubject currentSubject)
+        {
+            return dl.GetIdStudentsNonGraded(currentClass, currentGradeType, currentSubject);
+        }
+        internal void SaveStudentsAnswer(Student Student, Test Test, Answer Answer, bool IsChecked, string StudentsTextAnswer)
+        {
+            dl.SaveStudentsAnswer(Student, Test, Answer, IsChecked, StudentsTextAnswer);
         }
     }
 }

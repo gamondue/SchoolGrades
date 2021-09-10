@@ -107,7 +107,7 @@ namespace gamon.TreeMptt
             PictureBox LedPictureBox,
             System.Windows.Forms.DragDropEffects TypeOfDragAndDrop = System.Windows.Forms.DragDropEffects.Move)
         {
-            dl = new DataLayer();
+            dl = Commons.dl;
             dbMptt = new TreeMpttDb(dl);
             shownTreeView = TreeViewControl;
             //listTopicsBefore = InitialListOfTopics;

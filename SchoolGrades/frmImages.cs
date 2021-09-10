@@ -22,8 +22,6 @@ namespace SchoolGrades
         private Class currentClass;
         private DbClasses.Image currentImage; 
         private SchoolSubject currentSubject;
-        DbAndBusiness db;
-        BusinessLayer bl; 
 
         ImagesFormType type;
         private string lessonImagesPath;
@@ -39,8 +37,6 @@ namespace SchoolGrades
             List<SchoolGrades.DbClasses.Image> Images, SchoolSubject Subject)
         {
             InitializeComponent();
-            db = new DbAndBusiness(Commons.PathAndFileDatabase);
-            bl = new BusinessLayer(Commons.PathAndFileDatabase);
 
             listImages = Images;
             currentLesson = Lesson;
@@ -141,7 +137,7 @@ namespace SchoolGrades
                 try
                 {
                     picImage.Load(openFileDialog1.FileName);
-                    List<string> captions = db.GetCaptionsOfThisImage(txtFileImportImage.Text);
+                    List<string> captions = Commons.bl.GetCaptionsOfThisImage(txtFileImportImage.Text);
                     if (captions.Count > 0)
                         txtCaption.Text = captions[captions.Count - 1];
                     else
@@ -194,7 +190,7 @@ namespace SchoolGrades
 
         private void justLinkFileToLesson(string sourcePathAndFileName)
         {
-            DbClasses.Image currentImage = db.FindImageWithGivenFile(sourcePathAndFileName);
+            DbClasses.Image currentImage = Commons.bl.FindImageWithGivenFile(sourcePathAndFileName);
             // if the image that reference to the file isn't anymore in the database 
             // create a new image that references to this file 
             // (eg. if the lesson has been deleted from the database together with its images, but 
@@ -210,9 +206,9 @@ namespace SchoolGrades
             {
                 LoadImage(); 
             }
-            bl.LinkOneImageToLesson(currentImage, currentLesson);
+            Commons.bl.LinkOneImageToLesson(currentImage, currentLesson);
             // refresh images in grid
-            DgwLessonsImages.DataSource = bl.GetLessonsImagesList(currentLesson);
+            DgwLessonsImages.DataSource = Commons.bl.GetLessonsImagesList(currentLesson);
         }
 
         private void copyFileToImagesAndLinkToLessons(string sourcePathAndFileName)
@@ -274,9 +270,9 @@ namespace SchoolGrades
             //currentImage.IdImage = int.MaxValue; 
             currentImage.Caption = txtCaption.Text;
             currentImage.IdImage = 0; // to force creation of a new record
-            bl.LinkOneImageToLesson(currentImage, currentLesson);
+            Commons.bl.LinkOneImageToLesson(currentImage, currentLesson);
             // refresh images in grid
-            DgwLessonsImages.DataSource = bl.GetLessonsImagesList(currentLesson);
+            DgwLessonsImages.DataSource = Commons.bl.GetLessonsImagesList(currentLesson);
         }
 
         private void picImage_Click(object sender, EventArgs e)
@@ -356,11 +352,11 @@ namespace SchoolGrades
                 MessageBoxDefaultButton.Button2)
                 == DialogResult.Yes)
             {
-                db.RemoveImageFromLesson(currentLesson, currentImage, true);
+                Commons.bl.RemoveImageFromLesson(currentLesson, currentImage, true);
             }
             else
-                db.RemoveImageFromLesson(currentLesson, currentImage, false);
-            DgwLessonsImages.DataSource = bl.GetLessonsImagesList(currentLesson);
+                Commons.bl.RemoveImageFromLesson(currentLesson, currentImage, false);
+            DgwLessonsImages.DataSource = Commons.bl.GetLessonsImagesList(currentLesson);
             try
             {
                 currentImage = ((List<DbClasses.Image>)DgwLessonsImages.DataSource)[0];
@@ -382,9 +378,9 @@ namespace SchoolGrades
         {
             int localIndex = DgwLessonsImages.SelectedRows[0].Index;
             currentImage.Caption = txtCaption.Text;
-            db.SaveImage(currentImage);
+            Commons.bl.SaveImage(currentImage);
             // refresh images in grid
-            DgwLessonsImages.DataSource = bl.GetLessonsImagesList(currentLesson);
+            DgwLessonsImages.DataSource = Commons.bl.GetLessonsImagesList(currentLesson);
             indexImages = localIndex;
             currentImage = ((List<DbClasses.Image>)DgwLessonsImages.DataSource)[localIndex];
             LoadImage();

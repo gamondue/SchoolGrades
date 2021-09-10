@@ -23,13 +23,11 @@ namespace gamon.gamon
             if (ThirdIsPassword)
                 txtInput3.PasswordChar = '*'; 
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
-
         private void frmInput_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)

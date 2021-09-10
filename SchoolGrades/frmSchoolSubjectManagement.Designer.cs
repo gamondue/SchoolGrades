@@ -41,6 +41,8 @@
             // 
             // DgwSubjects
             // 
+            this.DgwSubjects.AllowUserToAddRows = false;
+            this.DgwSubjects.AllowUserToDeleteRows = false;
             this.DgwSubjects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DgwSubjects.Location = new System.Drawing.Point(3, 61);
             this.DgwSubjects.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -49,6 +51,7 @@
             this.DgwSubjects.TabIndex = 0;
             this.DgwSubjects.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgwSubjects_CellClick);
             this.DgwSubjects.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.btn_CellContentClick);
+            this.DgwSubjects.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgwSubjects_CellLeave);
             // 
             // picSubjectColor
             // 
@@ -105,7 +108,7 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.picSubjectColor);
             this.Controls.Add(this.DgwSubjects);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "FrmSchoolSubjectManagement";

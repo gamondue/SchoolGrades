@@ -9,6 +9,7 @@
     <Import_RootNamespace>DataLayer</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)DL_SqlStringsGeneration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_AnnotationManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_AnswerManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_ClassManagement.cs" />

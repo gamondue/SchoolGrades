@@ -13,10 +13,6 @@ namespace SchoolGrades
 {
     public partial class frmBackupManagement : Form
     {
-        DbAndBusiness db;
-        BusinessLayer bl;
-        DataLayer dl;
-
         TreeMptt topicTreeMptt; 
 
         private string schoolYear;
@@ -26,13 +22,9 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
-            db = new DbAndBusiness(Commons.PathAndFileDatabase);
-            bl = new BusinessLayer (Commons.PathAndFileDatabase);
-            dl = new DataLayer(Commons.PathAndFileDatabase);
+            TreeMpttDb dbMptt = new TreeMpttDb(Commons.dl);
 
-            TreeMpttDb dbMptt = new TreeMpttDb(dl);
-
-            topicTreeMptt = new TreeMptt(dl, null, null, null, null, null, null, null, DragDropEffects.None);
+            topicTreeMptt = new TreeMptt(Commons.dl, null, null, null, null, null, null, null, DragDropEffects.None);
         }
 
         private void frmBackupManagement_Load(object sender, EventArgs e)
@@ -50,7 +42,7 @@ namespace SchoolGrades
 
             schoolYear = CmbSchoolYear.SelectedItem.ToString();
 
-            lstClasses.DataSource = bl.GetClassesOfYear(Commons.IdSchool, schoolYear);
+            lstClasses.DataSource = Commons.bl.GetClassesOfYear(Commons.IdSchool, schoolYear);
         }
 
         private void btnBackupTables_Click(object sender, EventArgs e)
@@ -65,15 +57,15 @@ namespace SchoolGrades
             //db.BackupTableTsv("SchoolYears");
             //db.BackupTableTsv("SchoolPeriods");
 
-            dl.BackupTableXml("SchoolSubjects");
-            dl.BackupTableXml("TestTypes");
-            dl.BackupTableXml("QuestionTypes");
-            //db.BackupTableXml("AnswerTypes");
-            dl.BackupTableXml("GradeTypes");
-            dl.BackupTableXml("GradeCategories");
-            dl.BackupTableXml("Schools");
-            dl.BackupTableXml("SchoolYears");
-            dl.BackupTableXml("SchoolPeriods");
+            Commons.bl.BackupTableXml("SchoolSubjects");
+            Commons.bl.BackupTableXml("TestTypes");
+            Commons.bl.BackupTableXml("QuestionTypes");
+            //Commons.bl.BackupTableXml("AnswerTypes");
+            Commons.bl.BackupTableXml("GradeTypes");
+            Commons.bl.BackupTableXml("GradeCategories");
+            Commons.bl.BackupTableXml("Schools");
+            Commons.bl.BackupTableXml("SchoolYears");
+            Commons.bl.BackupTableXml("SchoolPeriods");
             MessageBox.Show("Salvataggio tabelle terminato");
         }
 
@@ -84,7 +76,7 @@ namespace SchoolGrades
                 MessageBox.Show("Scegliere la classe da tenere nel database");
                 return; 
             }
-            string imagesFolder = dl.CreateOneClassOnlyDatabase(currentClass);
+            string imagesFolder = Commons.bl.CreateOneClassOnlyDatabase(currentClass);
             if (imagesFolder != "")
                 Commons.ProcessStartLink(imagesFolder);
             else
@@ -94,7 +86,7 @@ namespace SchoolGrades
 
         private void cmbSchoolYear_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lstClasses.DataSource = bl.GetClassesOfYear(Commons.IdSchool, CmbSchoolYear.Text);
+            lstClasses.DataSource = Commons.bl.GetClassesOfYear(Commons.IdSchool, CmbSchoolYear.Text);
         }
 
         private void lstClasses_SelectedIndexChanged(object sender, EventArgs e)
@@ -120,22 +112,22 @@ namespace SchoolGrades
             //db.RestoreTableTsv("SchoolYears", rdbRestoreErasing.Checked);
             //db.RestoreTableTsv("SchoolPeriods", rdbRestoreErasing.Checked);
 
-            dl.RestoreTableXml("SchoolSubjects", rdbRestoreErasing.Checked);
-            dl.RestoreTableXml("TestTypes", rdbRestoreErasing.Checked);
-            dl.RestoreTableXml("QuestionTypes", rdbRestoreErasing.Checked);
+            Commons.bl.RestoreTableXml("SchoolSubjects", rdbRestoreErasing.Checked);
+            Commons.bl.RestoreTableXml("TestTypes", rdbRestoreErasing.Checked);
+            Commons.bl.RestoreTableXml("QuestionTypes", rdbRestoreErasing.Checked);
             //db.RestoreTableXml("AnswerTypes", rdbRestoreErasing.Checked);
-            dl.RestoreTableXml("GradeTypes", rdbRestoreErasing.Checked);
-            dl.RestoreTableXml("GradeCategories", rdbRestoreErasing.Checked);
-            dl.RestoreTableXml("Schools", rdbRestoreErasing.Checked);
-            dl.RestoreTableXml("SchoolYears", rdbRestoreErasing.Checked);
-            dl.RestoreTableXml("SchoolPeriods", rdbRestoreErasing.Checked);
+            Commons.bl.RestoreTableXml("GradeTypes", rdbRestoreErasing.Checked);
+            Commons.bl.RestoreTableXml("GradeCategories", rdbRestoreErasing.Checked);
+            Commons.bl.RestoreTableXml("Schools", rdbRestoreErasing.Checked);
+            Commons.bl.RestoreTableXml("SchoolYears", rdbRestoreErasing.Checked);
+            Commons.bl.RestoreTableXml("SchoolPeriods", rdbRestoreErasing.Checked);
             MessageBox.Show("Ripristino tabelle terminato");
         }
 
         private void btnBackupTopics_Click(object sender, EventArgs e)
         {
             //db.BackupTableTsv("Topics");
-            dl.BackupTableXml("Topics");
+            Commons.bl.BackupTableXml("Topics");
             MessageBox.Show("Backup argomenti terminato");
         }
 
@@ -149,7 +141,7 @@ namespace SchoolGrades
         private void btnBackupTags_Click(object sender, EventArgs e)
         {
             //db.BackupTableTsv("Tags");
-            dl.BackupTableXml("Tags");
+            Commons.bl.BackupTableXml("Tags");
             MessageBox.Show("Backup Tags terminato");
         }
 
@@ -196,7 +188,7 @@ namespace SchoolGrades
         private void btnRestoreTopics_Click(object sender, EventArgs e)
         {
             //db.RestoreTableTsv("Topics", rdbRestoreErasing.Checked);
-            dl.RestoreTableXml("Topics", rdbRestoreErasing.Checked);
+            Commons.bl.RestoreTableXml("Topics", rdbRestoreErasing.Checked);
             MessageBox.Show("Ripristino argomenti terminato");
         }
 
@@ -210,15 +202,15 @@ namespace SchoolGrades
         private void btnRestoreTags_Click(object sender, EventArgs e)
         {
             //db.RestoreTableTsv("Tags", rdbRestoreErasing.Checked);
-            dl.RestoreTableXml("Tags", rdbRestoreErasing.Checked);
-            dl.BackupAllStudentsDataXml();
+            Commons.bl.RestoreTableXml("Tags", rdbRestoreErasing.Checked);
+            Commons.bl.BackupAllStudentsDataXml();
             MessageBox.Show("Ripristino Tags terminato");
         }
 
         private void btnBackupStudents_Click(object sender, EventArgs e)
         {
             //db.BackupAllStudentsDataTsv();
-            dl.BackupAllStudentsDataXml();
+            Commons.bl.BackupAllStudentsDataXml();
             MessageBox.Show("Backup studenti terminato");
         }
 
@@ -235,13 +227,13 @@ namespace SchoolGrades
         private void btnRestoreStudents_Click(object sender, EventArgs e)
         {
             //db.RestoreAllStudentsDataTsv(rdbRestoreErasing.Checked);
-            dl.RestoreAllStudentsDataXml(rdbRestoreErasing.Checked);
+            Commons.bl.RestoreAllStudentsDataXml(rdbRestoreErasing.Checked);
             MessageBox.Show("Ripristino studenti terminato");
         }
 
         private void btnCompactDatabase_Click(object sender, EventArgs e)
         {
-            dl.CompactDatabase();
+            Commons.bl.CompactDatabase();
             Application.Exit();
         }
 
@@ -288,13 +280,11 @@ namespace SchoolGrades
                 else
                     return;
             }
-
-            string fileDatabase = dl.CreateDemoDatabase(newDatabasePathName, currentClass, otherClass);
+            string fileDatabase = Commons.bl.CreateDemoDatabase(newDatabasePathName, currentClass, otherClass);
             MessageBox.Show("Creato il file " + fileDatabase + ", " +
                 "che contiene le due classi DEMO1 e DEMO2, con tutte le foto, " +
                 "le valutazioni e le immagini."); ; 
         }
-
         private void BtnNewDatabase_Click(object sender, EventArgs e)
         {
             string newDatabasePathName = Commons.PathDatabase;
@@ -317,8 +307,7 @@ namespace SchoolGrades
                 else
                     return;
             }
-
-            bl.CreateNewDatabase(newDatabaseFullName);
+            Commons.bl.CreateNewDatabase(newDatabaseFullName);
             MessageBox.Show("Creato nuovo database SchoolGradesNew.sqlite"); 
         }
     }

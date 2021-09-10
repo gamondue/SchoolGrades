@@ -16,16 +16,16 @@ namespace SchoolGrades
         internal Topic GetTopicFromRow(DbDataReader dRead)
         {
             Topic t = new Topic();
-            t.Id = SafeDb.SafeInt(dRead["IdTopic"]);
-            t.Name = SafeDb.SafeString(dRead["name"]);
-            t.Desc = SafeDb.SafeString(dRead["desc"]);
-            t.LeftNodeOld = SafeDb.SafeInt(dRead["leftNode"]);
+            t.Id = Safe.Int(dRead["IdTopic"]);
+            t.Name = Safe.String(dRead["name"]);
+            t.Desc = Safe.String(dRead["desc"]);
+            t.LeftNodeOld = Safe.Int(dRead["leftNode"]);
             t.LeftNodeNew = -1;
-            t.RightNodeOld = SafeDb.SafeInt(dRead["rightNode"]);
+            t.RightNodeOld = Safe.Int(dRead["rightNode"]);
             t.RightNodeNew = -1;
-            t.ParentNodeOld = SafeDb.SafeInt(dRead["parentNode"]);
+            t.ParentNodeOld = Safe.Int(dRead["parentNode"]);
             t.ParentNodeNew = -1;
-            t.ChildNumberOld = SafeDb.SafeInt(dRead["childNumber"]);
+            t.ChildNumberOld = Safe.Int(dRead["childNumber"]);
             t.ChildNumberNew = -1;
             t.Changed = false;
 
@@ -43,10 +43,10 @@ namespace SchoolGrades
                 cmd.CommandText = "INSERT INTO Topics " +
                 "(idTopic,name,desc,leftNode,rightNode,parentNode,childNumber)" +
                 "Values " +
-                "(" + nextId + ",'" + SqlVal.SqlString(NewTopic.Name) + "','" +
-                SqlVal.SqlString(NewTopic.Desc) + "'," + SqlVal.SqlInt(NewTopic.LeftNodeNew.ToString()) + "," +
-                 SqlVal.SqlInt(NewTopic.RightNodeNew.ToString()) + "," + SqlVal.SqlInt(NewTopic.ParentNodeNew.ToString()) +
-                "," + SqlVal.SqlInt(NewTopic.ChildNumberNew.ToString()) +
+                "(" + nextId + "," + SqlString(NewTopic.Name) + "," +
+                SqlString(NewTopic.Desc) + "," + SqlInt(NewTopic.LeftNodeNew.ToString()) + "," +
+                 SqlInt(NewTopic.RightNodeNew.ToString()) + "," + SqlInt(NewTopic.ParentNodeNew.ToString()) +
+                "," + SqlInt(NewTopic.ChildNumberNew.ToString()) +
                 ");";
                 cmd.ExecuteNonQuery();
 
@@ -210,7 +210,7 @@ namespace SchoolGrades
                     " AND Lessons.idSchoolSubject ='" + Subject.IdSchoolSubject + "'";
                 if (DateStart != default(DateTime) && DateFinish != default(DateTime))
                     query += " AND Lessons.date BETWEEN " +
-                    SqlVal.SqlDate(DateStart) + " AND " + SqlVal.SqlDate(DateFinish);
+                    SqlDate(DateStart) + " AND " + SqlDate(DateFinish);
                 query += " ORDER BY Lessons.date ASC;";
                 cmd = new SQLiteCommand(query);
                 cmd.Connection = conn;
@@ -258,7 +258,7 @@ namespace SchoolGrades
                     t.Desc = (string)dRead["desc"];
                     //t.LeftNodeNew = -1;
                     //t.RightNodeNew = -1;
-                    t.Date = (DateTime)dRead["date"]; // taken fron the Lessons table 
+                    t.Date = (DateTime)dRead["date"]; // taken fron the Lessons taSafee 
 
                     // determine the path while still in the database
                     // if we don't, determination from the outside would be too costly 
@@ -301,8 +301,8 @@ namespace SchoolGrades
             DbCommand cmd = conn.CreateCommand();
             cmd.CommandText = "UPDATE Topics" +
                 " SET" +
-                " name='" + SqlVal.SqlString(t.Name) + "'" +
-                ",desc='" + SqlVal.SqlString(t.Desc) + "'" +
+                " name=" + SqlString(t.Name) + "" +
+                ",desc=" + SqlString(t.Desc) + "" +
                 ",parentNode=" + t.ParentNodeNew +
                 ",leftNode=" + t.LeftNodeNew +
                 ",rightNode=" + t.RightNodeNew +
@@ -337,8 +337,8 @@ namespace SchoolGrades
                     " (idTopic,name,desc,leftNode,rightNode,parentNode,childNumber)" +
                     " Values (" +
                     t.Id.ToString() +
-                    ",'" + SqlVal.SqlString(t.Name) + "'" +
-                    ",'" + SqlVal.SqlString(t.Desc) + "'" +
+                    "," + SqlString(t.Name) + "" +
+                    "," + SqlString(t.Desc) + "" +
                     "," + t.LeftNodeNew + "" +
                     "," + t.RightNodeNew + "" +
                     "," + t.ParentNodeNew + "" +
@@ -355,7 +355,7 @@ namespace SchoolGrades
         }
         internal List<Topic> GetTopicsByParent()
         {
-            // node order according to siblings' order (parentNode and childNumber)
+            // node order according to siSafeings' order (parentNode and childNumber)
             List<Topic> l = new List<Topic>();
             using (DbConnection conn = Connect())
             {
@@ -398,8 +398,8 @@ namespace SchoolGrades
                            " (idTopic,name,desc,parentNode,leftNode,rightNode,parentNode)" +
                            " Values (" +
                            (++key).ToString() +
-                            ",'" + SqlVal.SqlString(t.Name) + "'" +
-                            ",'" + SqlVal.SqlString(t.Desc) + "'" +
+                            "," + SqlString(t.Name) + "" +
+                            "," + SqlString(t.Desc) + "" +
                             "," + t.ParentNodeNew + "" +
                             "," + t.LeftNodeNew + "" +
                             "," + t.RightNodeNew + "" +

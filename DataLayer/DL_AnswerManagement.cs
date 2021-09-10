@@ -9,16 +9,15 @@ namespace SchoolGrades
 {
     internal partial class DataLayer
     {
-
         internal StudentsAnswer GetStudentsAnswerFromRow(DbDataReader Row)
         {
             StudentsAnswer a = new StudentsAnswer();
-            a.IdAnswer = SafeDb.SafeInt(Row["IdAnswer"]);
-            a.IdStudent = SafeDb.SafeInt(Row["IdStudent"]);
-            a.IdStudentsAnswer = SafeDb.SafeInt(Row["IdStudentsAnswer"]);
-            a.IdTest = SafeDb.SafeInt(Row["IdTest"]);
-            a.StudentsBoolAnswer = SafeDb.SafeBool(Row["StudentsBoolAnswer"]);
-            a.StudentsTextAnswer = SafeDb.SafeString(Row["StudentsTextAnswer"]);
+            a.IdAnswer = Safe.Int(Row["IdAnswer"]);
+            a.IdStudent = Safe.Int(Row["IdStudent"]);
+            a.IdStudentsAnswer = Safe.Int(Row["IdStudentsAnswer"]);
+            a.IdTest = Safe.Int(Row["IdTest"]);
+            a.StudentsBoolAnswer = Safe.Bool(Row["StudentsBoolAnswer"]);
+            a.StudentsTextAnswer = Safe.String(Row["StudentsTextAnswer"]);
 
             return a;
         }
@@ -96,14 +95,14 @@ namespace SchoolGrades
         internal Answer GetAnswerFromRow(DbDataReader Row)
         {
             Answer a = new Answer();
-            a.IdAnswer = SafeDb.SafeInt(Row["IdAnswer"]);
-            a.IdQuestion = SafeDb.SafeInt(Row["IdQuestion"]);
-            a.ShowingOrder = SafeDb.SafeInt(Row["ShowingOrder"]);
-            a.Text = SafeDb.SafeString(Row["Text"]);
-            a.ErrorCost = SafeDb.SafeInt(Row["ErrorCost"]);
-            a.IsCorrect = SafeDb.SafeBool(Row["IsCorrect"]);
-            a.IsOpenAnswer = SafeDb.SafeBool(Row["IsOpenAnswer"]);
-            a.IsMutex = SafeDb.SafeBool(Row["IsMutex"]);
+            a.IdAnswer = Safe.Int(Row["IdAnswer"]);
+            a.IdQuestion = Safe.Int(Row["IdQuestion"]);
+            a.ShowingOrder = Safe.Int(Row["ShowingOrder"]);
+            a.Text = Safe.String(Row["Text"]);
+            a.ErrorCost = Safe.Int(Row["ErrorCost"]);
+            a.IsCorrect = Safe.Bool(Row["IsCorrect"]);
+            a.IsOpenAnswer = Safe.Bool(Row["IsOpenAnswer"]);
+            a.IsMutex = Safe.Bool(Row["IsMutex"]);
 
             return a;
         }
@@ -119,12 +118,12 @@ namespace SchoolGrades
                 cmd.CommandText = "INSERT INTO Answers" +
                     " (idAnswer,idQuestion,showingOrder,text,errorCost,isCorrect,isOpenAnswer)" +
                     " Values (" + codice +
-                    "," + SqlVal.SqlInt(currentAnswer.IdQuestion) +
-                    "," + SqlVal.SqlInt(currentAnswer.ShowingOrder) +
-                    ",'" + SqlVal.SqlString(currentAnswer.Text) + "'" +
-                    "," + SqlVal.SqlDouble(currentAnswer.ErrorCost) +
-                    "," + SqlVal.SqlBool(currentAnswer.IsCorrect) +
-                    "," + SqlVal.SqlBool(currentAnswer.IsOpenAnswer) +
+                    "," + SqlInt(currentAnswer.IdQuestion) +
+                    "," + SqlInt(currentAnswer.ShowingOrder) +
+                    "," + SqlString(currentAnswer.Text) + "" +
+                    "," + SqlDouble(currentAnswer.ErrorCost) +
+                    "," + SqlBool(currentAnswer.IsCorrect) +
+                    "," + SqlBool(currentAnswer.IsOpenAnswer) +
                     ");";
                 cmd.ExecuteNonQuery();
 
@@ -132,7 +131,6 @@ namespace SchoolGrades
             }
             return codice;
         }
-
         internal void SaveAnswer(Answer currentAnswer)
         {
             using (DbConnection conn = Connect())
@@ -141,10 +139,10 @@ namespace SchoolGrades
                 cmd.CommandText = "UPDATE Answers" +
                     " SET idAnswer=" + currentAnswer.IdAnswer + "," +
                     " idQuestion=" + currentAnswer.IdQuestion + "," +
-                    " isCorrect='" + SqlVal.SqlBool(currentAnswer.IsCorrect) + "'," +
-                    " isOpenAnswer='" + SqlVal.SqlBool(currentAnswer.IsOpenAnswer) + "'," +
-                    " Text='" + SqlVal.SqlString(currentAnswer.Text) + "'," +
-                    " errorCost=" + SqlVal.SqlDouble(currentAnswer.ErrorCost.ToString()) + "" +
+                    " isCorrect='" + SqlBool(currentAnswer.IsCorrect) + "'," +
+                    " isOpenAnswer='" + SqlBool(currentAnswer.IsOpenAnswer) + "'," +
+                    " Text=" + SqlString(currentAnswer.Text) + "," +
+                    " errorCost=" + SqlDouble(currentAnswer.ErrorCost.ToString()) + "" +
                     " WHERE idAnswer = " + currentAnswer.IdAnswer +
                     ";";
                 cmd.ExecuteNonQuery();
@@ -176,8 +174,8 @@ namespace SchoolGrades
                     t.Text = (string)dRead["text"];
                     t.IdAnswer = (int)dRead["idAnswer"];
                     t.ErrorCost = (int)dRead["errorCost"];
-                    t.IsCorrect = SafeDb.SafeBool(dRead["isCorrect"]);
-                    t.IsOpenAnswer = SafeDb.SafeBool(dRead["isOpenAnswer"]);
+                    t.IsCorrect = Safe.Bool(dRead["isCorrect"]);
+                    t.IsOpenAnswer = Safe.Bool(dRead["isOpenAnswer"]);
 
                     l.Add(t);
                 }

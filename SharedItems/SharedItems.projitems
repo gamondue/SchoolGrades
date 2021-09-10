@@ -12,6 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ClientTcp.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ColorConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commons.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Safe.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ServerTcp.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TextFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ThreadServerReceiver.cs" />

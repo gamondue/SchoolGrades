@@ -10,30 +10,67 @@ namespace SchoolGrades
 {
     internal partial class DataLayer
     {
-        internal int CreateStudentFromStringMatrix(string[,] StudentData, int? StudentRow)
+        internal Student CreateStudentFromStringMatrix(string[,] StudentData, int? StudentRow)
         {
-            // trova una chiave da assegnare al nuovo studente
-            int codiceStudente = NextKey("Students", "idStudent");
+            // look if exists a student with same name, last name, birth date and place
+            Student s = new Student();
+            s.RegisterNumber = StudentData[(int)StudentRow, 0];
+            s.LastName = StudentData[(int)StudentRow, 1];
+            s.FirstName = StudentData[(int)StudentRow, 2];
+            s.BirthDate = Safe.DateTime(StudentData[(int)StudentRow, 3]);
+            s.Residence = StudentData[(int)StudentRow, 4];
+            s.Origin = StudentData[(int)StudentRow, 5];
+            s.Email = StudentData[(int)StudentRow, 6];
+            s.BirthPlace = StudentData[(int)StudentRow, 7];
+            s.Eligible = false;
+
+            Student existingStudent = GetStudent(s);
+            if (existingStudent == null)
+            {
+                // not found an existing student: find a key for the new student
+                s.IdStudent = NextKey("Students", "idStudent");
+                CreateStudent(s); 
+            }
+            else
+            {
+                // student already exists, uses old data in the fields from the file that are empty
+                // LastName, FirstName, BirthDate and BirthPlace are equal! 
+                s.IdStudent = existingStudent.IdStudent;
+                if (s.Residence == "") s.Residence = existingStudent.Residence;
+                if (s.Origin == "") s.Origin = existingStudent.Origin;
+                if (s.Email == "") s.Email = existingStudent.Email;
+                if (s.RegisterNumber == "") s.RegisterNumber = existingStudent.RegisterNumber;
+                s.Origin = StudentData[(int)StudentRow, 5];
+                s.Email = StudentData[(int)StudentRow, 6];
+                s.Eligible = false;
+                UpdateStudent(s);
+            }
+            return s;
+        }
+        private Student GetStudent(Student StudentToFind)
+        {
+            Student s;
             using (DbConnection conn = Connect())
             {
+                DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO Students " +
-                    "(idStudent, lastName, firstName, residence, origin, email," +
-                    //" birthDate," + // save also this field after SqlVal.SqlDate( will include the '', to better treat null values
-                    " birthPlace) " +
-                    "Values (" + codiceStudente + "," +
-                    "'" + SqlVal.SqlString(StudentData[(int)StudentRow, 1]) + "'," +
-                    "'" + SqlVal.SqlString(StudentData[(int)StudentRow, 2]) + "'," +
-                    "'" + SqlVal.SqlString(StudentData[(int)StudentRow, 3]) + "'," +
-                    "'" + SqlVal.SqlString(StudentData[(int)StudentRow, 4]) + "'," +
-                    "'" + SqlVal.SqlString(StudentData[(int)StudentRow, 5]) + "'," +
-                    //"'" + SqlVal.SqlDate(StudentData[(int)StudentRow, 6]) + "'," + // save also this field after SqlVal.SqlDate( will include the ''
-                    "'" + SqlVal.SqlString(StudentData[(int)StudentRow, 7]) + "'" +
-                    ");";
-                cmd.ExecuteNonQuery();
+                cmd.CommandText = "SELECT *" +
+                    " FROM Students" +
+                    " WHERE lastName=" + SqlString(StudentToFind.LastName) +
+                    " AND firstName=" + SqlString(StudentToFind.FirstName) +
+                    " AND (birthDate=" + SqlDate(StudentToFind.BirthDate) + " OR birthDate=NULL)" +
+                    //" AND (birthPlace=" + SqlDate(StudentToFind.BirthPlace) + " OR birthPlace=NULL)" +
+                    ";";
+                dRead = cmd.ExecuteReader();
+                dRead.Read(); 
+                if(dRead.HasRows)
+                    s = GetStudentFromRow(dRead);
+                else
+                    s = null;
+                dRead.Dispose();
                 cmd.Dispose();
             }
-            return codiceStudente;
+            return s;
         }
 
         internal DataTable GetStudentsWithNoMicrogrades(Class Class, string IdGradeType, string IdSchoolSubject,
@@ -63,7 +100,7 @@ namespace SchoolGrades
                 " OR Grades.idGradeType IS NULL)" +
                 " AND Grades.idSchoolSubject='" + IdSchoolSubject + "'" +
                 " AND Grades.value IS NOT NULL AND Grades.value <> 0" +
-                " AND Grades.Timestamp BETWEEN " + SqlVal.SqlDate(DateFrom) + " AND " + SqlVal.SqlDate(DateTo) +
+                " AND Grades.Timestamp BETWEEN " + SqlDate(DateFrom) + " AND " + SqlDate(DateTo) +
                 ")";
                 query += " AND Classes_Students.idClass=" + Class.IdClass;
                 query += ";";
@@ -96,7 +133,7 @@ namespace SchoolGrades
                 DbDataReader dRead = cmd.ExecuteReader();
                 while (dRead.Read())
                 {
-                    int? idStudent = SafeDb.SafeInt(dRead["idStudent"]);
+                    int? idStudent = Safe.Int(dRead["idStudent"]);
                     Student s = GetStudent(idStudent);
                     list.Add(s);
                 }
@@ -121,14 +158,14 @@ namespace SchoolGrades
                 cmd.CommandText = "INSERT INTO Students " +
                     "(idStudent,lastName,firstName,residence,origin," +
                     "email,birthDate,birthPlace,disabled) " +
-                    "Values ('" + Student.IdStudent + "','" +
-                    SqlVal.SqlString(Student.LastName) + "','" +
-                    SqlVal.SqlString(Student.FirstName) + "','" +
-                    SqlVal.SqlString(Student.Residence) + "','" +
-                    SqlVal.SqlString(Student.Origin) + "','" +
-                    SqlVal.SqlString(Student.Email) + "'," +
-                    SqlVal.SqlDate(Student.BirthDate.ToString()) + ",'" +
-                    SqlVal.SqlString(Student.BirthPlace) + "'," +
+                    "VALUES (" + SqlInt(Student.IdStudent) + "," +
+                    SqlString(Student.LastName) + "," +
+                    SqlString(Student.FirstName) + "," +
+                    SqlString(Student.Residence) + "," +
+                    SqlString(Student.Origin) + "," +
+                    SqlString(Student.Email) + "," +
+                    SqlDate(Student.BirthDate.ToString()) + "," +
+                    SqlString(Student.BirthPlace) + "," +
                     "false" +
                     ");";
                 cmd.ExecuteNonQuery();
@@ -153,17 +190,17 @@ namespace SchoolGrades
             cmd.CommandText = "UPDATE Students " +
                 "SET" +
                 " idStudent=" + Student.IdStudent +
-                ",lastName='" + SqlVal.SqlString(Student.LastName) + "'" +
-                ",firstName='" + SqlVal.SqlString(Student.FirstName) + "'" +
-                ",residence='" + SqlVal.SqlString(Student.Residence) + "'" +
-                ",birthDate=" + SqlVal.SqlDate(Student.BirthDate.ToString()) + "" +
-                ",email='" + SqlVal.SqlString(Student.Email) + "'" +
-                //",schoolyear='" + SqlVal.SqlString(Student.SchoolYear) + "'" +
-                ",origin='" + SqlVal.SqlString(Student.Origin) + "'" +
-                ",birthPlace='" + SqlVal.SqlString(Student.BirthPlace) + "'" +
-                ",drawable=" + SqlVal.SqlBool(Student.Eligible) + "" +
-                ",disabled=" + SqlVal.SqlBool(Student.Disabled) + "" +
-                ",VFCounter=" + SqlVal.SqlInt(Student.RevengeFactorCounter) + "" +
+                ",lastName=" + SqlString(Student.LastName) + 
+                ",firstName=" + SqlString(Student.FirstName) + 
+                ",residence=" + SqlString(Student.Residence) + 
+                ",birthDate=" + SqlDate(Student.BirthDate.ToString()) + "" +
+                ",email=" + SqlString(Student.Email) + 
+                //",schoolyear=" + SqlString(Student.SchoolYear) + 
+                ",origin=" + SqlString(Student.Origin) + 
+                ",birthPlace=" + SqlString(Student.BirthPlace) + 
+                ",drawable=" + SqlBool(Student.Eligible) + "" +
+                ",disabled=" + SqlBool(Student.Disabled) + "" +
+                ",VFCounter=" + SqlInt(Student.RevengeFactorCounter) + "" +
                 " WHERE idStudent = " + Student.IdStudent +
                 ";";
             cmd.ExecuteNonQuery();
@@ -206,17 +243,17 @@ namespace SchoolGrades
         {
             Student s = new Student();
             s.IdStudent = (int)Row["IdStudent"];
-            s.LastName = SafeDb.SafeString(Row["LastName"]);
-            s.FirstName = SafeDb.SafeString(Row["FirstName"]);
-            s.Residence = SafeDb.SafeString(Row["Residence"]);
-            s.Origin = SafeDb.SafeString(Row["Origin"]);
-            s.Email = SafeDb.SafeString(Row["Email"]);
+            s.LastName = Safe.String(Row["LastName"]);
+            s.FirstName = Safe.String(Row["FirstName"]);
+            s.Residence = Safe.String(Row["Residence"]);
+            s.Origin = Safe.String(Row["Origin"]);
+            s.Email = Safe.String(Row["Email"]);
             if (!(Row["birthDate"] is DBNull))
-                s.BirthDate = SafeDb.SafeDateTime(Row["birthDate"]);
-            s.BirthPlace = SafeDb.SafeString(Row["birthPlace"]);
-            s.Eligible = SafeDb.SafeBool(Row["drawable"]);
-            s.Disabled = SafeDb.SafeBool(Row["disabled"]);
-            s.RevengeFactorCounter = SafeDb.SafeInt(Row["VFCounter"]);
+                s.BirthDate = Safe.DateTime(Row["birthDate"]);
+            s.BirthPlace = Safe.String(Row["birthPlace"]);
+            s.Eligible = Safe.Bool(Row["drawable"]);
+            s.Disabled = Safe.Bool(Row["disabled"]);
+            s.RevengeFactorCounter = Safe.Int(Row["VFCounter"]);
 
             return s;
         }
@@ -363,8 +400,8 @@ namespace SchoolGrades
                 " FROM Students" +
                 " JOIN Classes_Students ON Students.idStudent=Classes_Students.idStudent" +
                 " JOIN Classes ON Classes.idClass=Classes_Students.idClass" +
-                " WHERE Classes.idSchoolYear = '" + SqlVal.SqlString(Anno) + "'" +
-                " AND Classes.abbreviation = '" + SqlVal.SqlString(SiglaClasse) + "'";
+                " WHERE Classes.idSchoolYear=" + SqlString(Anno) +
+                " AND Classes.abbreviation=" + SqlString(SiglaClasse);
                 if (!IncludeNonActiveStudents)
                     query += " AND (Students.disabled = 0 OR Students.disabled IS NULL)";
                 if (Scuola != null && Scuola != "")
@@ -415,7 +452,7 @@ namespace SchoolGrades
                 dRead = cmd.ExecuteReader();
                 while (dRead.Read())
                 {
-                    keys.Add((int)SafeDb.SafeInt(dRead["idStudent"]));
+                    keys.Add((int)Safe.Int(dRead["idStudent"]));
                 }
                 dRead.Dispose();
                 cmd.Dispose();
@@ -594,11 +631,11 @@ namespace SchoolGrades
                 if (IdStudentsAnswer != null)
                 {   // update answer
                     cmd.CommandText = "UPDATE StudentsAnswers" +
-                    " SET idStudent=" + SqlVal.SqlInt(Student.IdStudent) + "," +
-                    "idAnswer=" + SqlVal.SqlInt(Answer.IdAnswer) + "," +
-                    "studentsBoolAnswer=" + SqlVal.SqlBool(StudentsBoolAnswer) + "," +
-                    "studentsTextAnswer='" + SqlVal.SqlString(StudentsTextAnswer) + "'," +
-                    "IdTest=" + SqlVal.SqlInt(Test.IdTest) +
+                    " SET idStudent=" + SqlInt(Student.IdStudent) + "," +
+                    "idAnswer=" + SqlInt(Answer.IdAnswer) + "," +
+                    "studentsBoolAnswer=" + SqlBool(StudentsBoolAnswer) + "," +
+                    "studentsTextAnswer=" + SqlString(StudentsTextAnswer) + "," +
+                    "IdTest=" + SqlInt(Test.IdTest) +
                     "" +
                     " WHERE IdStudentsAnswer=" + Answer.IdAnswer +
                     ";";
@@ -612,10 +649,10 @@ namespace SchoolGrades
                     "studentsTextAnswer,IdTest" +
                     ")" +
                     "Values " +
-                    "(" + nextId + "," + SqlVal.SqlInt(Student.IdStudent) + "," +
-                     SqlVal.SqlInt(Answer.IdAnswer) + "," + SqlVal.SqlBool(StudentsBoolAnswer) + ",'" +
-                    SqlVal.SqlString(StudentsTextAnswer) + "'," +
-                     SqlVal.SqlInt(Test.IdTest) +
+                    "(" + nextId + "," + SqlInt(Student.IdStudent) + "," +
+                     SqlInt(Answer.IdAnswer) + "," + SqlBool(StudentsBoolAnswer) + "," +
+                     SqlString(StudentsTextAnswer) + "," +
+                     SqlInt(Test.IdTest) +
                     ");";
                 }
                 cmd.ExecuteNonQuery();

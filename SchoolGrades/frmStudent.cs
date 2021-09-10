@@ -10,18 +10,13 @@ namespace SchoolGrades
     {
         Student currentStudent;
         private bool isDialog;
-        DbAndBusiness db;
-        DataLayer dl;  // this must be eradicated from here !!!! 
-        BusinessLayer bl;
-        internal bool UserHasChosen; //!!!!= false;
+
+        internal bool UserHasChosen = false;
 
         public Student CurrentStudent { get => currentStudent; set => currentStudent = value; }
         public frmStudent(Student Student, bool IsDialog)
         {
             InitializeComponent();
-            dl = new DataLayer();
-            bl = new BusinessLayer(Commons.PathAndFileDatabase);
-            db = new DbAndBusiness(Commons.PathAndFileDatabase);
 
             currentStudent = Student;
             isDialog = IsDialog; 
@@ -52,7 +47,10 @@ namespace SchoolGrades
             //txtDrawable.Text = currentStudent.Drawable;
             txtBirthDate.Text = currentStudent.BirthDate.ToString();
             txtBirthPlace.Text = currentStudent.BirthPlace;
-            chkDisabled.Checked = (bool)currentStudent.Disabled;  
+            if (currentStudent.Disabled != null)
+                chkDisabled.Checked = (bool)currentStudent.Disabled;
+            else
+                chkDisabled.Checked = false;
 
             loadPicture(currentStudent);
         }
@@ -61,7 +59,7 @@ namespace SchoolGrades
             try
             {
                 picStudent.Image = System.Drawing.Image.FromFile(Commons.PathImages + "\\" +
-                    dl.GetFilePhoto(StudentToLoad.IdStudent, StudentToLoad.SchoolYear));
+                    Commons.bl.GetFilePhoto(StudentToLoad.IdStudent, StudentToLoad.SchoolYear));
             }
             catch
             {
@@ -87,14 +85,19 @@ namespace SchoolGrades
                 catch { }
                 currentStudent.BirthPlace = txtBirthPlace.Text;
             }
-            if(txtIdStudent.Text =="" && currentStudent.IdStudent == 0)
+            else
+            {
+                MessageBox.Show("Immettere Nome e Cognome del nuovo allievo");
+                return; 
+            }
+            if(txtIdStudent.Text =="" && (currentStudent.IdStudent == 0 || currentStudent.IdStudent == null))
             {   // creation
-                txtIdStudent.Text = bl.CreateStudent(currentStudent).ToString();
+                txtIdStudent.Text = Commons.bl.CreateStudent(currentStudent).ToString();
             }
             else
             {
                 // modification 
-                bl.SaveStudent(currentStudent);
+                Commons.bl.SaveStudent(currentStudent);
             }
         }
         private void btnNew_Click(object sender, EventArgs e)
@@ -125,13 +128,13 @@ namespace SchoolGrades
         }
         private void btnFindStudent_Click(object sender, EventArgs e)
         {
-            DataTable dt = db.FindStudentsLike(txtLastName.Text, txtFirstName.Text);
+            DataTable dt = Commons.bl.FindStudentsLike(txtLastName.Text, txtFirstName.Text);
             dgwSearchedStudents.DataSource = dt;
         }
 
         private void btnFindHomonym_Click(object sender, EventArgs e)
         {
-            DataTable dt = db.GetStudentsSameName(txtLastName.Text, txtFirstName.Text);
+            DataTable dt = Commons.bl.GetStudentsSameName(txtLastName.Text, txtFirstName.Text);
             dgwSearchedStudents.DataSource = dt;
         }
 
@@ -140,7 +143,7 @@ namespace SchoolGrades
             if (e.RowIndex > -1)
             {
                 int key = (int)((DataTable)(dgwSearchedStudents.DataSource)).Rows[e.RowIndex]["idStudent"];
-                Student s = db.GetStudent(key);
+                Student s = Commons.bl.GetStudent(key);
                 loadStudentData(s);
                 currentStudent = s;
             }
@@ -156,15 +159,15 @@ namespace SchoolGrades
             if (e.RowIndex > -1)
             {
                 int key = (int)((DataTable)(dgwSearchedStudents.DataSource)).Rows[e.RowIndex]["idStudent"];
-                Student s = db.GetStudent(key);
+                Student s = Commons.bl.GetStudent(key);
                 loadStudentData(s);
                 currentStudent = s;
             }
         }
-        private void frmStudent_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            UserHasChosen = false;
-        }
+        //private void frmStudent_FormClosing(object sender, FormClosingEventArgs e)
+        //{
+        //    UserHasChosen = false;
+        //}
 
         private void btnExitWithoutChoosing_Click(object sender, EventArgs e)
         {

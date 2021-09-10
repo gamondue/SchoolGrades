@@ -9,8 +9,6 @@ namespace SchoolGrades
 {
     public partial class frmGradesClassSummary : Form
     {
-        DbAndBusiness db;
-        DataLayer dl;
         private Class currentClass;
         private GradeType currentGradeType;
         private SchoolSubject currentSubject;
@@ -21,25 +19,22 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
-            db = new DbAndBusiness(Commons.PathAndFileDatabase);
-            dl = new DataLayer();
-
             currentClass = Class;
             currentGradeType = GradeType;
             currentSubject = Subject;
 
             // fill the combos of lookup tables
-            List<GradeType> listGradeTypes = dl.GetListGradeTypes();
+            List<GradeType> listGradeTypes = Commons.bl.GetListGradeTypes();
             cmbSummaryGradeType.DisplayMember = "Name";
             cmbSummaryGradeType.ValueMember = "idGradeType";
             cmbSummaryGradeType.DataSource = listGradeTypes;
 
-            List<SchoolSubject> listSubjects = dl.GetListSchoolSubjects(false);
+            List<SchoolSubject> listSubjects = Commons.bl.GetListSchoolSubjects(false);
             cmbSchoolSubjects.DisplayMember = "Name";
             cmbSchoolSubjects.ValueMember = "idSchoolSubject";
             cmbSchoolSubjects.DataSource = listSubjects;
 
-            List<SchoolPeriod> listPeriods = dl.GetSchoolPeriods(Class.SchoolYear);
+            List<SchoolPeriod> listPeriods = Commons.bl.GetSchoolPeriods(Class.SchoolYear);
             cmbSchoolPeriod.DataSource = listPeriods;
             // select the combo item of the partial period of the DateTime.Now
             foreach (SchoolPeriod sp in listPeriods)
@@ -54,7 +49,6 @@ namespace SchoolGrades
             currentGradeType = GradeType;
             currentSubject = Subject;
         }
-
         private void frmGradesClassSummary_Load(object sender, EventArgs e)
         {
             // classes label  
@@ -66,29 +60,25 @@ namespace SchoolGrades
 
             RetrieveData(FindCheckedRadioButton()); 
         }
-
         private void cmbSummaryGradeType_SelectedIndexChanged(object sender, EventArgs e)
         {
         }
-
         private void cmbSchoolSubjects_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentSubject = ((SchoolSubject)(cmbSchoolSubjects.SelectedItem));
             this.BackColor = Commons.ColorFromNumber(currentSubject);  
         }
-
         private void cmbPeriodo_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
-
         private void RetrieveData(RadioButton rdb)
         {
             if (cmbSummaryGradeType.SelectedItem != null && cmbSchoolSubjects.SelectedItem != null)
             {
                 if (rdb == rdbMissing)
                 {
-                    dgwGrades.DataSource = dl.GetStudentsWithNoMicrogrades(currentClass,
+                    dgwGrades.DataSource = Commons.bl.GetStudentsWithNoMicrogrades(currentClass,
                         ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                         ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
                         dtpStartPeriod.Value, dtpEndPeriod.Value
@@ -96,7 +86,7 @@ namespace SchoolGrades
                 }
                 if (rdb == rdbShowGrades)
                 {
-                    dgwGrades.DataSource = dl.GetGradesOfClass(currentClass,
+                    dgwGrades.DataSource = Commons.bl.GetGradesOfClass(currentClass,
                         ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                         ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
                         dtpStartPeriod.Value, dtpEndPeriod.Value
@@ -106,7 +96,7 @@ namespace SchoolGrades
                 }
                 else if (rdb == rdbShowWeights)
                 {
-                    dgwGrades.DataSource = dl.GetWeightedAveragesOfClass(currentClass,
+                    dgwGrades.DataSource = Commons.bl.GetWeightedAveragesOfClass(currentClass,
                         ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                         ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject ,
                         dtpStartPeriod.Value, dtpEndPeriod.Value
@@ -126,7 +116,7 @@ namespace SchoolGrades
                 }
                 else if (rdb == rdbShowWeightedGrades)
                 {
-                    dgwGrades.DataSource = dl.GetGradesWeightedAveragesOfClass(currentClass,
+                    dgwGrades.DataSource = Commons.bl.GetGradesWeightedAveragesOfClass(currentClass,
                         ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                         ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
                         dtpStartPeriod.Value, dtpEndPeriod.Value
@@ -136,7 +126,7 @@ namespace SchoolGrades
                 }
                 else if (rdb == rdbShowWeightsOnOpenGrades)
                 {
-                    dgwGrades.DataSource = dl.GetGradesWeightsOfClassOnOpenGrades(currentClass,
+                    dgwGrades.DataSource = Commons.bl.GetGradesWeightsOfClassOnOpenGrades(currentClass,
                         ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                         ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
                         dtpStartPeriod.Value, dtpEndPeriod.Value
@@ -149,7 +139,6 @@ namespace SchoolGrades
             }
             txtNStudents.Text = ((DataTable)dgwGrades.DataSource).Rows.Count.ToString(); 
         }
-
         private void setRowNumbers(DataGridView dgv)
         {
             foreach (DataGridViewRow row in dgv.Rows)
@@ -157,7 +146,6 @@ namespace SchoolGrades
                 row.HeaderCell.Value = (row.Index + 1).ToString();
             }
         }
-
         private void cmbSchoolPeriod_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentSchoolPeriod = (SchoolPeriod)(cmbSchoolPeriod.SelectedValue); 
@@ -183,7 +171,6 @@ namespace SchoolGrades
             }
             RetrieveData(FindCheckedRadioButton());
         }
-
         private RadioButton FindCheckedRadioButton()
         {
             RadioButton rdbFound = null; 
@@ -197,32 +184,26 @@ namespace SchoolGrades
             }
             return rdbFound; 
         }
-
         private void rdbShowGrades_CheckedChanged(object sender, EventArgs e)
         {
             //RefreshData();
         }
-
         private void rdbShowWeightedGrades_CheckedChanged(object sender, EventArgs e)
         {
             //RefreshData();
         }
-
         private void rdbShowWeights_CheckedChanged(object sender, EventArgs e)
         {
             //RefreshData();
         }
-
         private void rdbShowWeightsOnOpenGrades_CheckedChanged(object sender, EventArgs e)
         {
             //RefreshData();
         }
-
         private void rdbMissing_CheckedChanged(object sender, EventArgs e)
         {
             //RefreshData();
         }
-
         private void btnSaveOnFile_Click(object sender, EventArgs e)
         {
             // find the kind of table we have to save
@@ -234,19 +215,16 @@ namespace SchoolGrades
                 tipoTabella + "_" +
                 dtpStartPeriod.Value.ToString("yyyy.MM.dd_") + dtpEndPeriod.Value.ToString("yyyy.MM.dd") +
                 ".csv"; 
-            dl.SaveTableOnCvs((DataTable)dgwGrades.DataSource, FileName);
+            Commons.bl.SaveTableOnCvs((DataTable)dgwGrades.DataSource, FileName);
             MessageBox.Show("Creato file: " + FileName);
         }
-
         private void dgwGrades_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
         }
-
         private void dgwGrades_CellClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
-
         private void dgwGrades_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             int IdQuestion;
@@ -265,7 +243,6 @@ namespace SchoolGrades
                 }
             }
         }
-
         private void rdb_Click(object sender, EventArgs e)
         {
             RetrieveData((RadioButton)sender); 
