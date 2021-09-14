@@ -376,17 +376,20 @@ namespace SchoolGrades
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            int localIndex = DgwLessonsImages.SelectedRows[0].Index;
-            currentImage.Caption = txtCaption.Text;
-            Commons.bl.SaveImage(currentImage);
-            // refresh images in grid
-            DgwLessonsImages.DataSource = Commons.bl.GetLessonsImagesList(currentLesson);
-            indexImages = localIndex;
-            currentImage = ((List<DbClasses.Image>)DgwLessonsImages.DataSource)[localIndex];
-            LoadImage();
-            txtCaption.Text = currentImage.Caption; 
-            DgwLessonsImages.Rows[localIndex].Selected = false;
-            DgwLessonsImages.Rows[localIndex].Selected = true;
+            if (DgwLessonsImages.SelectedRows != null)
+            {
+                int localIndex = DgwLessonsImages.SelectedRows[0].Index;
+                currentImage.Caption = txtCaption.Text;
+                Commons.bl.SaveImage(currentImage);
+                // refresh images in grid
+                DgwLessonsImages.DataSource = Commons.bl.GetLessonsImagesList(currentLesson);
+                indexImages = localIndex;
+                currentImage = ((List<DbClasses.Image>)DgwLessonsImages.DataSource)[localIndex];
+                LoadImage();
+                txtCaption.Text = currentImage.Caption;
+                DgwLessonsImages.Rows[localIndex].Selected = false;
+                DgwLessonsImages.Rows[localIndex].Selected = true;
+            }
         }
         private void PreviousImage()
         {

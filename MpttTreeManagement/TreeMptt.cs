@@ -622,7 +622,7 @@ namespace gamon.TreeMptt
         {
             startNode.Collapse();
             // !! list must be given in Tree Traversal order !!
-            if (ItemsToCheck.Count == 0)
+            if (ItemsToCheck == null || ItemsToCheck.Count == 0)
                 return;
             foreach (TreeNode sonNode in startNode.Nodes)
             {

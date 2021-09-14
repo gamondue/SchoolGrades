@@ -50,7 +50,7 @@ namespace SchoolGrades
                         }
                         cmd.ExecuteNonQuery();
                         cmd.Dispose();
-                    } 
+                    }
                     catch (Exception e)
                     {
 
@@ -101,22 +101,43 @@ namespace SchoolGrades
 
             using (DbConnection conn = Connect())
             {
-                query = "SELECT * FROM SchoolSubjects" + 
-                    " ORDER BY orderOfVisualization, name";
-                cmd = new SQLiteCommand(query);
-                cmd.Connection = conn;
-                dRead = cmd.ExecuteReader();
-                while (dRead.Read())
+                try
                 {
-                    SchoolSubject subject = new SchoolSubject();
-                    subject.IdSchoolSubject = dRead["IdSchoolSubject"].ToString();
-                    subject.Name = dRead["Name"].ToString();
-                    subject.Desc = dRead["Desc"].ToString();
-                    subject.Color = Safe.Int(dRead["color"]);
-                    subject.OrderOfVisualization = Safe.Int(dRead["orderOfVisualization"]);
-                    subject.OldId = subject.IdSchoolSubject; // to check if the user changes IdSchoolSubject
+                    query = "SELECT * FROM SchoolSubjects" +
+                        " ORDER BY orderOfVisualization, name";
+                    cmd = new SQLiteCommand(query);
+                    cmd.Connection = conn;
+                    dRead = cmd.ExecuteReader();
+                    while (dRead.Read())
+                    {
+                        SchoolSubject subject = new SchoolSubject();
+                        subject.IdSchoolSubject = dRead["IdSchoolSubject"].ToString();
+                        subject.Name = dRead["Name"].ToString();
+                        subject.Desc = dRead["Desc"].ToString();
+                        subject.Color = Safe.Int(dRead["color"]);
+                        subject.OrderOfVisualization = Safe.Int(dRead["orderOfVisualization"]);
+                        subject.OldId = subject.IdSchoolSubject; // to check if the user changes IdSchoolSubject
 
-                    lss.Add(subject);
+                        lss.Add(subject);
+                    }
+                }
+                catch
+                {   // if database is old, dont use orderOfVisualization
+                    query = "SELECT * FROM SchoolSubjects;";
+                    cmd = new SQLiteCommand(query);
+                    cmd.Connection = conn;
+                    dRead = cmd.ExecuteReader();
+                    while (dRead.Read())
+                    {
+                        SchoolSubject subject = new SchoolSubject();
+                        subject.IdSchoolSubject = dRead["IdSchoolSubject"].ToString();
+                        subject.Name = dRead["Name"].ToString();
+                        subject.Desc = dRead["Desc"].ToString();
+                        subject.Color = Safe.Int(dRead["color"]);
+                        subject.OldId = subject.IdSchoolSubject; // to check if the user changes IdSchoolSubject
+
+                        lss.Add(subject);
+                    }
                 }
             }
             cmd.Dispose();

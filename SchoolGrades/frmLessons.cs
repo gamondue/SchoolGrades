@@ -220,7 +220,8 @@ namespace SchoolGrades
                 // first time, no lesson present, put current date in the control
                 // the control will be used to know the date of the new lesson 
                 dtpLessonDate.Value = DateTime.Now;
-                currentLesson.Date = dtpLessonDate.Value; 
+                currentLesson.Date = dtpLessonDate.Value;
+                return; 
             }
             else
             {

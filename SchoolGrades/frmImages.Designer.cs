@@ -97,7 +97,9 @@
             this.DgwLessonsImages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DgwLessonsImages.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.DgwLessonsImages.Location = new System.Drawing.Point(0, 0);
+            this.DgwLessonsImages.MultiSelect = false;
             this.DgwLessonsImages.Name = "DgwLessonsImages";
+            this.DgwLessonsImages.ReadOnly = true;
             this.DgwLessonsImages.Size = new System.Drawing.Size(1221, 90);
             this.DgwLessonsImages.TabIndex = 128;
             this.DgwLessonsImages.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgwLessonsImages_CellClick);
