@@ -382,7 +382,7 @@
             // 
             this.TxtLessonDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TxtLessonDesc.Location = new System.Drawing.Point(258, -161);
+            this.TxtLessonDesc.Location = new System.Drawing.Point(229, 92);
             this.TxtLessonDesc.Multiline = true;
             this.TxtLessonDesc.Name = "TxtLessonDesc";
             this.TxtLessonDesc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -563,7 +563,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trwTopics.CheckBoxes = true;
             this.trwTopics.LabelEdit = true;
-            this.trwTopics.Location = new System.Drawing.Point(736, -282);
+            this.trwTopics.Location = new System.Drawing.Point(0, 0);
             this.trwTopics.Name = "trwTopics";
             this.trwTopics.Size = new System.Drawing.Size(263, 337);
             this.trwTopics.TabIndex = 148;

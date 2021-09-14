@@ -44,7 +44,7 @@ namespace SchoolGrades
         }
         internal int? NewLesson(Lesson currentLesson)
         {
-            return NewLesson(currentLesson); 
+            return dl.NewLesson(currentLesson); 
         }
         internal void LinkOneImageToLesson(Image currentImage, Lesson currentLesson)
         {
