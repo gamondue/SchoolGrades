@@ -60,9 +60,8 @@ namespace SchoolGrades
             {
                 DbCommand cmd = conn.CreateCommand();
                 string query = "";
-                // find if an answer has already been given
                 if (Annotation.IdAnnotation != null && Annotation.IdAnnotation != 0)
-                {   // update answer
+                {   
                     query = "UPDATE StudentsAnnotations" +
                     " SET" +
                     " idStudent=" + SqlInt(s.IdStudent) + "," +
@@ -78,7 +77,7 @@ namespace SchoolGrades
                 {
                     Annotation.InstantTaken = DateTime.Now;
                     Annotation.IsActive = true;
-                    // create answer on database
+                    // create an annotation on database
                     int? nextId = NextKey("StudentsAnnotations", "IdAnnotation");
                     Annotation.IdAnnotation = nextId;
 

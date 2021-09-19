@@ -349,13 +349,13 @@ namespace SchoolGrades
         }
         private void btnStartLinks_Click(object sender, EventArgs e)
         {
-            List<string> ll = Commons.bl.GetStartLinksOfClass(currentClass); 
-            foreach(string link in ll)
+            List<StartLink> ll = Commons.bl.GetStartLinksOfClass(currentClass); 
+            foreach(StartLink link in ll)
             {
                 try
                 {
-                    if (link.Substring(0, 4) == "http")
-                        Commons.ProcessStartLink(link);
+                    if (link.Link.Substring(0, 4) == "http")
+                        Commons.ProcessStartLink(link.Link);
                     else
                         //Commons.ProcessStartLink(Commons.PathStartLinks + "\\" + link);
                         Commons.ProcessStartLink(currentClass.PathRestrictedApplication + "\\" + link);

@@ -1,5 +1,6 @@
 ﻿using SchoolGrades.DbClasses;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Windows.Forms;
@@ -8,11 +9,9 @@ namespace SchoolGrades
 {
     public partial class frmStartLinksManagement : Form
     {
-        // TODO management of year and classes of year with combo.  
-
-        string year;
         private int? currentIdStartLink;
-        private Class currentClass; 
+        private Class currentClass;
+        private StartLink currentLink; 
 
         public frmStartLinksManagement(Class CurrentClass)
         {
@@ -49,8 +48,8 @@ namespace SchoolGrades
 
         private void refreshGrid()
         {
-            DgwLinks.DataSource = Commons.bl.GetAllStartLinks(CmbSchoolYear.Text.ToString()
-                ,currentClass.IdClass);
+            DgwLinks.DataSource = null;
+            DgwLinks.DataSource = Commons.bl.GetStartLinksOfClass(currentClass);
         }
 
         private void DgwLinks_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -62,7 +61,8 @@ namespace SchoolGrades
         {
             if (e.RowIndex > -1)
             {
-                DgwLinks.Rows[e.RowIndex].Selected = true;  
+                DgwLinks.Rows[e.RowIndex].Selected = true;
+                currentLink = ((List<StartLink>)DgwLinks.DataSource)[e.RowIndex]; 
             }
         }
 
@@ -70,17 +70,15 @@ namespace SchoolGrades
         {
             if (e.RowIndex > -1)
             {
-                DataRow row = ((DataTable)(DgwLinks.DataSource)).Rows[e.RowIndex];
-                CmbClasses.SelectedItem = (string)row["abbreviation"];
-                currentClass.Abbreviation = (string)row["abbreviation"];
-                TxtStartLink.Text = Safe.String(row["startLink"]);
+                List<StartLink> l = (List<StartLink>)DgwLinks.DataSource; 
 
-                TxtLinkDescription.Text = Safe.String(row["desc"]);
-                currentIdStartLink = (int)row["idStartLink"];
-                currentClass.IdClass = (int)row["idClass"];
+                TxtStartLink.Text = Safe.String(l[e.RowIndex].Link);
+
+                TxtLinkDescription.Text = Safe.String(l[e.RowIndex].Desc);
+                currentIdStartLink = Safe.Int(l[e.RowIndex].IdStartLink);
+                currentClass.IdClass = Safe.Int(l[e.RowIndex].IdClass);
             }
         }
-
         private void DgwLinks_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
@@ -100,39 +98,33 @@ namespace SchoolGrades
                 }
             }
         }
-
         private void btnSaveLinks_Click(object sender, EventArgs e)
         {
             Commons.bl.SaveStartLink(currentIdStartLink, currentClass.IdClass, 
                 CmbSchoolYear.Text, TxtStartLink.Text, TxtLinkDescription.Text);
             refreshGrid();
         }
-
         private void btnAddLink_Click(object sender, EventArgs e)
         {
             if (currentClass.IdClass > 0)
-                //currentIdStartLink = db.CreateNewVoidStartLink(currentClass.IdClass);
                 currentIdStartLink = Commons.bl.SaveStartLink(null, currentClass.IdClass, 
                     CmbSchoolYear.Text, TxtStartLink.Text, TxtLinkDescription.Text);
-                    else
-                        MessageBox.Show("Scegliere una classe");
+            else
+                MessageBox.Show("Scegliere una classe");
             refreshGrid();
         }
-
         private void btnRemoveLink_Click(object sender, EventArgs e)
         {
-            if (currentClass.IdClass > 0)
-                Commons.bl.DeleteStartLink(currentIdStartLink);
+            if (currentLink.IdStartLink > 0)
+                Commons.bl.DeleteStartLink(currentLink.IdStartLink);
             else
                 MessageBox.Show("Scegliere un link da cancellare");
             refreshGrid();
         }
-
         private void txtStartLink_TextChanged(object sender, EventArgs e)
         {
 
         }
-
         private void txtStartLink_DoubleClick(object sender, EventArgs e)
         {
             try
@@ -147,7 +139,6 @@ namespace SchoolGrades
                 Console.Beep();
             }
         }
-
         private void CmbClasses_SelectedIndexChanged(object sender, EventArgs e)
         {
             Class tempClass = Commons.bl.GetClass(TxtOfficialSchoolAbbreviation.Text, 
@@ -163,7 +154,6 @@ namespace SchoolGrades
                 DgwLinks.DataSource = null;
             }
         }
-
         private void CmbSchoolYear_SelectedIndexChanged(object sender, EventArgs e)
         {
             refreshGrid();
@@ -172,17 +162,14 @@ namespace SchoolGrades
             // TxtPathStartLink.Text = Commons.PathStartLinks;
             TxtPathStartLink.Text = currentClass.PathRestrictedApplication;
         }
-
         private void TxtPathStartLink_TextChanged(object sender, EventArgs e)
         {
 
         }
-
         private void TxtPathStartLink_DoubleClick(object sender, EventArgs e)
         {
             Commons.ProcessStartLink(TxtPathStartLink.Text);
         }
-
         private void BtnPathRetrictedApplication_Click(object sender, EventArgs e)
         {
             // !!!! TODO: add a new field to Classes record that contains the start link folder and separate if 
@@ -214,7 +201,6 @@ namespace SchoolGrades
                 TxtStartLink.Text = openFileDialog.FileName.Replace(folderStartLinks,"").Substring(1);
             }
         }
-
         private void TxtLinkedFile_TextChanged(object sender, EventArgs e)
         {
 

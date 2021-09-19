@@ -8,9 +8,9 @@ namespace SchoolGrades
 {
     internal partial class BusinessLayer
     {
-        internal DataTable GetAllStartLinks(string Year, int? idClass)
+        internal List<StartLink> GetStartLinksOfClass(Class Class)
         {
-            return dl.GetAllStartLinks(Year, idClass);
+            return dl.GetStartLinksOfClass(Class);
         }
         internal void UpdatePathStartLinkOfClass(Class currentClass, string text)
         {

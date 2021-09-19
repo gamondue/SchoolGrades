@@ -204,15 +204,15 @@ namespace SchoolGrades
             }
             return sum;
         }
-        internal static void StartLinks(Class Class, List<string> LinksOfClass)
+        internal static void StartLinks(Class Class, List<StartLink> LinksOfClass)
         {
-            foreach (string link in LinksOfClass)
+            foreach (StartLink link in LinksOfClass)
             {
                 try
                 {
                     string startLink;
-                    if (link.Substring(0, 4) == "http" || link.Contains(".exe"))
-                        startLink = link;
+                    if (link.Link.Substring(0, 4) == "http" || link.Link.Contains(".exe"))
+                        startLink = link.Link;
                     else
                         startLink = Class.PathRestrictedApplication + "\\" + link;
                     Commons.ProcessStartLink(startLink); 
