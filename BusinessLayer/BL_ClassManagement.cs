@@ -87,10 +87,6 @@ namespace SchoolGrades
             }
             return fileContent; 
         }
-        internal List<string> GetStartLinksOfClass(Class currentClass)
-        {
-            return dl.GetStartLinksOfClass(currentClass); 
-        }
         internal int? CreateClassAndStudents(string[,] StudentsData, string ClassAbbreviation, string ClassDescription,
             string SchoolYear, string OfficialSchoolAbbreviation, bool LinkPhoto)
         {

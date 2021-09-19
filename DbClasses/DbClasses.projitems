@@ -21,6 +21,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)School.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SchoolPeriod.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SchoolSubject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StartLink.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Student.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StudentAnnotation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StudentsAnswer.cs" />

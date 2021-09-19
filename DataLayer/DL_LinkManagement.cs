@@ -125,8 +125,8 @@ namespace SchoolGrades
                     {
                         cmd.CommandText = "UPDATE Classes_StartLinks" +
                             " SET" +
-                            " idStartLink=" + IdStartLink +
-                            ",idClass=" + IdClass + "" +
+                            //" idStartLink=" + IdStartLink +
+                            " idClass=" + IdClass + "" +
                             ",startLink=" + SqlString(StartLink) + "" +
                             ",desc=" + SqlString(Desc) + "" +
                             " WHERE idStartLink=" + IdStartLink +
@@ -159,49 +159,31 @@ namespace SchoolGrades
         }
         internal void DeleteStartLink(Nullable<int> IdStartLink)
         {
-            using (DbConnection conn = Connect())
+            DbCommand cmd = null;
+            try
             {
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "DELETE FROM Classes_StartLinks" +
-                    " WHERE idStartLink=" + IdStartLink +
-                    ";";
-                cmd.ExecuteNonQuery();
+                using (DbConnection conn = Connect())
+                {
+                    cmd = conn.CreateCommand();
+                    cmd.CommandText =  "DELETE FROM Classes_StartLinks" +
+                            " WHERE idStartLink=" + IdStartLink +
+                            ";";
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog("DbLayer.SaveStartLink: " + ex.Message);
+                IdStartLink = null;
                 cmd.Dispose();
             }
         }
-        internal DataTable GetAllStartLinks(string Year, int? IdClass)
+        internal List<StartLink> GetStartLinksOfClass(Class Class)
         {
-            DataTable t;
-            using (DbConnection conn = Connect())
-            {
-                string query = "SELECT Classes.idSchoolYear,Classes.abbreviation,Classes.idClass," +
-                    "Classes_StartLinks.startLink, Classes_StartLinks.desc,Classes_StartLinks.idStartLink" +
-                    " FROM Classes" +
-                    " JOIN Classes_StartLinks ON Classes_StartLinks.idClass=Classes.idClass" +
-                    " WHERE Classes.idSchoolYear=" + Year;
-                if (IdClass != null && IdClass != 0)
-                    query += " AND Classes.idClass=" + IdClass;
-                query += " ORDER BY Classes.abbreviation" +
-                    ";";
-                DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                DataSet DSet = new DataSet("AllStartLinks");
-                try
-                {
-                    DAdapt.Fill(DSet);
-                    t = DSet.Tables[0];
-                }
-                catch
-                {
-                    t = null;
-                }
-                DAdapt.Dispose();
-                DSet.Dispose();
-            }
-            return t;
-        }
-        internal List<string> GetStartLinksOfClass(Class Class)
-        {
-            List<string> listOfLinks = new List<string>();
+            List<StartLink> listOfLinks = new List<StartLink>();
+            if (Class == null || Class.IdClass == null)
+                return listOfLinks; 
             DbDataReader dRead;
             DbCommand cmd;
             using (DbConnection conn = Connect())
@@ -213,8 +195,12 @@ namespace SchoolGrades
                 dRead = cmd.ExecuteReader();
                 while (dRead.Read())
                 {
-                    string item = (string)dRead["startLink"];
-                    listOfLinks.Add(item);
+                    StartLink l = new StartLink();
+                    l.Link = Safe.String(dRead["startLink"]);
+                    l.Desc= Safe.String(dRead["Desc"]);
+                    l.IdClass = Safe.Int(dRead["IdClass"]);
+                    l.IdStartLink = Safe.Int(dRead["IdStartLink"]);
+                    listOfLinks.Add(l);
                 }
                 dRead.Dispose();
                 cmd.Dispose();
