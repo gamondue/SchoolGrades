@@ -1006,7 +1006,6 @@ namespace gamon.TreeMptt
             shownTreeView.SelectedNode = draggedNode;
             // NavigateToContent(draggedNode.Tag);  
         }
-
         internal void TreeView_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.F2)
@@ -1052,15 +1051,18 @@ namespace gamon.TreeMptt
         }
         private void TxtNodeName_Leave(object sender, EventArgs e)
         {
-            try
+            if (TreeView.SelectedNode != null)
             {
-                Topic t = (Topic)(TreeView.SelectedNode.Tag);
-                t.Name = txtNodeName.Text;
-                TreeView.SelectedNode.Text = txtNodeName.Text;
-            }
-            catch (Exception ex)
-            {
+                try
+                {
+                    Topic t = (Topic)(TreeView.SelectedNode.Tag);
+                    t.Name = txtNodeName.Text;
+                    TreeView.SelectedNode.Text = txtNodeName.Text;
+                }
+                catch (Exception ex)
+                {
 
+                }
             }
         }
         #endregion

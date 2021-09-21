@@ -32,7 +32,7 @@ Versions with numbers under 0.50 are previous version, not distributed, made wit
   <Import Project="..\SharedWinForms\SharedWinForms.projitems" Label="Shared" />
 
   <ItemGroup>
-    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.113.7" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.115" />
   </ItemGroup>
 
   <ItemGroup>
