@@ -34,7 +34,7 @@ namespace SchoolGrades
         {
             dl.SaveTopicsOfLesson(idLesson, topicsOfTheLesson);
         }
-        internal List<Image> GetLessonsImagesList(Lesson currentLesson)
+        internal List<Image> GetListLessonsImages(Lesson currentLesson)
         {
             return dl.GetLessonsImagesList(currentLesson);
         }

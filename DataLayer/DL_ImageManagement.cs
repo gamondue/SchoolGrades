@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.IO;
-using System.Text;
 
 namespace SchoolGrades
 {
@@ -57,7 +55,7 @@ namespace SchoolGrades
                 cmd = conn.CreateCommand();
                 string query;
                 query = "SELECT Caption FROM Images" +
-                        " WHERE imagePath LIKE '%" + FileName + "%'";
+                        " WHERE imagePath " + SqlStringLike(FileName) + "";
                 query += ";";
                 cmd.CommandText = query;
                 dRead = cmd.ExecuteReader();
@@ -70,7 +68,6 @@ namespace SchoolGrades
             }
             return captions;
         }
-
         internal void EraseStudentsPhoto(int? IdStudent, string SchoolYear)
         {
             using (DbConnection conn = Connect())
@@ -160,46 +157,33 @@ namespace SchoolGrades
             }
         }
 
-        internal void RemoveImageFromLesson(Lesson Lesson, Image Image,
-            bool AlsoEraseImageFile)
+        internal void RemoveImageFromLesson(Lesson Lesson, Image Image, bool AlsoEraseImageFile)
         {
+            // delete from the link table
+            string query;
             using (DbConnection conn = Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
-                string query;
                 query = "DELETE FROM Lessons_Images" +
                     " WHERE idImage=" +
                     Image.IdImage +
                     ";";
                 cmd.CommandText = query;
                 cmd.ExecuteNonQuery();
-
                 if (AlsoEraseImageFile)
                 {
-
+                    // delete from the Images table 
                     query = "DELETE FROM Images" +
                         " WHERE idImage=" +
                         Image.IdImage +
                         ";";
                     cmd.CommandText = query;
                     cmd.ExecuteNonQuery();
-                    try
-                    {
-                        File.Delete(Commons.PathImages + "\\" + Image.RelativePathAndFilename);
-                    }
-                    catch (Exception ex)
-                    {
-                        string err = "DbLayer|RemoveImageFromLesson|" +
-                            Commons.PathImages + "\\" + Image.RelativePathAndFilename +
-                            ".\r\n" + ex.Message + ex.StackTrace;
-                        Commons.ErrorLog(err);
-                        throw new Exception(err);
-                    }
                 }
                 cmd.Dispose();
             }
-        }
 
+        }
         internal void SaveImage(Image Image)
         {
             using (DbConnection conn = Connect())

@@ -370,6 +370,17 @@ namespace SchoolGrades
                     cmd.CommandText = query;
                     cmd.ExecuteNonQuery();
                 }
+                else
+                {
+                    query = "UPDATE Images" +
+                        " SET " +
+                        " imagePath="+ SqlString(Image.RelativePathAndFilename) + "," +
+                        " caption=" + SqlString(Image.Caption) + "" +
+                        " WHERE idImage="+ Image.IdImage + 
+                        ";";
+                    cmd.CommandText = query;
+                    cmd.ExecuteNonQuery();
+                }
                 query = "INSERT INTO Lessons_Images" +
                     " (idImage, idLesson)" +
                     " Values (" + Image.IdImage + "," + Lesson.IdLesson + "" +

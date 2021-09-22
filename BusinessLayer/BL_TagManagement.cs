@@ -19,10 +19,6 @@ namespace SchoolGrades
         {
             return dl.CreateNewTag(currentTag);
         }
-        internal List<string> GetCaptionsOfThisImage(string Text)
-        {
-            return dl.GetCaptionsOfThisImage(Text);
-        }
         internal List<Tag> TagsOfAQuestion(int? IdQuestion)
         {
             return dl.TagsOfAQuestion(IdQuestion); 
