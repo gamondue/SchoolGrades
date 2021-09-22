@@ -43,6 +43,23 @@ namespace SchoolGrades
             temp = "'" + temp + "'";
             return temp;
         }
+        internal string SqlStringLike(string String)
+        {
+            if (String == null) return "null";
+            string temp;
+            if (!(String == null))
+            {
+                temp = String;
+
+                //temp = temp.Replace("\"", "\"\"");
+                temp = temp.Replace("'", "''");
+                //temp = "'" + temp + "'";
+            }
+            else
+                temp = "";
+            temp = "LIKE '%" + temp + "%'";
+            return temp;
+        }
         public string SqlBool(object Value)
         {
             if (Value == null)

@@ -93,7 +93,7 @@ namespace SchoolGrades
                 TopicsToCheck, ref dummy, ref dummy2);
 
             // gets the images associated with this lesson
-            listImages = Commons.bl.GetLessonsImagesList(currentLesson);
+            listImages = Commons.bl.GetListLessonsImages(currentLesson);
             // shows the first image
             if (listImages != null && listImages.Count > 0)
                 try
@@ -413,19 +413,26 @@ namespace SchoolGrades
             frmImages fi = new frmImages(frmImages.ImagesFormType.NormalManagement
                 , currentLesson, currentClass, listImages, currentSchoolSubject);
             fi.ShowDialog();
-            listImages = Commons.bl.GetLessonsImagesList(currentLesson);
-            indexImages = 0;
+            listImages = Commons.bl.GetListLessonsImages(currentLesson);
             if (listImages.Count > 0)
             {
-                string nomeFile = Commons.PathImages + "\\" + listImages[indexImages].RelativePathAndFilename;
-                try
+                indexImages = 0;
+                if (listImages.Count > 0)
                 {
-                    picImage.Load(nomeFile);
+                    string nomeFile = Commons.PathImages + "\\" + listImages[indexImages].RelativePathAndFilename;
+                    try
+                    {
+                        picImage.Load(nomeFile);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Non è possible aprire il file " + nomeFile + " !");
+                    }
                 }
-                catch
-                {
-                    MessageBox.Show("Non è possible aprire il file " + nomeFile +  " !");
-                }
+            }
+            else
+            {
+                picImage.Image = null; 
             }
         }
 
@@ -609,7 +616,7 @@ namespace SchoolGrades
                         TopicsToCheck, ref dummy, ref dummy2);
 
                     // gets the images associated with this lesson
-                    listImages = Commons.bl.GetLessonsImagesList(currentLesson);
+                    listImages = Commons.bl.GetListLessonsImages(currentLesson);
                     // shows the fist image
                     if (listImages.Count > 0)
                         try

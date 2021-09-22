@@ -309,7 +309,7 @@ namespace SchoolGrades
             // if the search string is present, then it must be in the searched field 
             if (SearchString != "")
             {
-                query += " WHERE Questions.text LIKE '%" + SearchString + "%'"; 
+                query += " WHERE Questions.text " + SqlStringLike(SearchString) + ""; 
             }
             if (Subject != null)
                 filteredQuestions = MakeStringForFilteredQuestionsQuery(Tags, Subject.IdSchoolSubject, IdQuestionType,

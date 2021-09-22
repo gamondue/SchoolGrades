@@ -447,7 +447,7 @@ namespace gamon.TreeMptt
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "SELECT * FROM Topics" +
-                    " WHERE name LIKE '%" + SearchText + "%';";
+                    " WHERE name " + dl.SqlStringLike(SearchText)+ ";";
                 dRead = cmd.ExecuteReader();
                 while (dRead.Read())
                 {
