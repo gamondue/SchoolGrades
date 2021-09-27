@@ -119,28 +119,29 @@ namespace SchoolGrades
             }
             return p;
         }
-        internal static void ShuffleList(List<Student> List)
+        internal static void ListShuffleRandom<T>(IList<T> List)
         {
             Random r = new Random();
-            for (int p = 0; p < List.Count - 1; p++)
+            int n = List.Count;
+            while (n > 1)
             {
-                // item to exchange with the first
-                int num = r.Next(List.Count - p) + p;
-                // exchange
-                Student tmp = List[p];
-                List[p] = List[num];
-                List[num] = tmp;
+                n--;
+                int k = r.Next(n + 1);
+                T value = List[k];
+                List[k] = List[n];
+                List[n] = value;
             }
             // once again
-            for (int p = 0; p < List.Count - 1; p++)
+            while (n > 1)
             {
-                int num = r.Next(List.Count - p) + p;
-                Student tmp = List[p];
-                List[p] = List[num];
-                List[num] = tmp;
+                n--;
+                int k = r.Next(n + 1);
+                T value = List[k];
+                List[k] = List[n];
+                List[n] = value;
             }
         }
-        internal static void ShuffleListWithDifferentProbabilities(List<Student> List)
+        internal static void ListShuffleWithDifferentProbabilities(List<Student> List)
         {
             // shuffles the list with a probability of going in the first place proportional 
             // to the property SortOrDrawCriterion
@@ -167,19 +168,6 @@ namespace SchoolGrades
                 Student tmp = List[p];
                 List[p] = List[num];
                 List[num] = tmp;
-            }
-        }
-        internal static void ShuffleListOfStrings(ref List<string> List)
-        {
-            // shuffles the list 
-            Random r = new Random();
-            for (int p = 0; p < List.Count - 1; p++)
-            {
-                int drawn = r.Next(p + 1, List.Count);
-                // exchange
-                string tmp = List[drawn];
-                List[drawn] = List[p];
-                List[p] = tmp;
             }
         }
         private static int findIndexOfItemtoSwapWithFirst(double drawn, 

@@ -486,18 +486,21 @@ namespace SchoolGrades
             throw new NotImplementedException();
 
         }
-        internal DataTable GetGradesWeightedAveragesOfClass(Class Class, string IdGradeType,
+        internal List<StudentAndGrade> GetGradesWeightedAveragesOfClass(Class Class, string IdGradeType,
             string IdSchoolSubject, DateTime DateFrom, DateTime DateTo)
         {
-            DataTable t;
+            //DataTable t;
+            List<StudentAndGrade> l = new List<StudentAndGrade>(); 
+
             using (DbConnection conn = Connect())
             {
                 string query = "SELECT Grades.idGrade, Students.idStudent,lastName,firstName," +
                 " SUM(Grades.value * Grades.weight)/SUM(Grades.weight) AS 'Weighted average'" +
                 // weighted RMS (Root Mean Square) as defined here: 
                 // https://stackoverflow.com/questions/10947180/weighted-standard-deviation-in-sql-server-without-aggregation-error
-                ",SQRT(SUM(Grades.weight * SQUARE(Grades.value)) / SUM(Grades.weight) - SQUARE(SUM(Grades.weight  * Grades.value) / SUM(Grades.weight))) AS 'Weighted RMS'" +
-                ",COUNT() 'Grades Count'" +
+                // !!!! fix the calculation of weighted RMS 
+                //",SQRT( SUM(Grades.weight * SQUARE(Grades.value)) / SUM(Grades.weight) - SQUARE(SUM(Grades.weight * Grades.value) / SUM(Grades.weight)) )  AS 'Weighted RMS'" +
+                ",COUNT() AS 'Grades Count'" +
                 " FROM Grades" +
                 " JOIN Students" +
                 " ON Students.idStudent=Grades.idStudent" +
@@ -512,16 +515,27 @@ namespace SchoolGrades
                 " GROUP BY Students.idStudent" +
                 " ORDER BY lastName, firstName, Students.idStudent;";
 
-                DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                DataSet DSet = new DataSet("ClosedMicroGrades");
+                DbDataReader dRead;
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = query;
+                dRead = cmd.ExecuteReader();
+                while (dRead.Read())
+                {
+                    StudentAndGrade sg = new StudentAndGrade();
 
-                DAdapt.Fill(DSet);
-                t = DSet.Tables[0];
+                    sg.Student.IdStudent = Safe.Int(dRead["idStudent"]);
+                    sg.Student.LastName = Safe.String(dRead["lastName"]);
+                    sg.Student.FirstName = Safe.String(dRead["firstName"]);
+                    sg.Grade.IdGrade = Safe.Int(dRead["idGrade"]);
+                    sg.WeightedAverage = Safe.Double(dRead["Weighted average"]);
+                    //sg.WeightedRms = Safe.Double(dRead["Weighted RMS"]); // when RMS calculation in fixed, reenact this statement 
+                    sg.GradesCount = Safe.Int(dRead["Grades Count"]);
 
-                DAdapt.Dispose();
-                DSet.Dispose();
+                    l.Add(sg);
+                }
+                dRead.Dispose();
             }
-            return t;
+            return l;
         }
 
         internal DataTable GetUnfixedGrades(Student Student, string IdSchoolSubject,

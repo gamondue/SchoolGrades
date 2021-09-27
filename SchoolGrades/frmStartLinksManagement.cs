@@ -36,7 +36,7 @@ namespace SchoolGrades
                 CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text,
                 CmbSchoolYear.SelectedItem.ToString());
 
-            refreshGrid();
+            //refreshGrid();
             // TxtPathStartLink.Text = Commons.PathStartLinks;
             TxtPathStartLink.Text = currentClass.PathRestrictedApplication; 
         }

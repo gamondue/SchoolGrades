@@ -451,7 +451,7 @@ namespace SchoolGrades
                     }
                 }
                 if (filesInFolder.Count > 0)
-                    Commons.ShuffleListOfStrings(ref filesInFolder);
+                    Commons.ListShuffleRandom(filesInFolder);
             }
             if (filesInFolder.Count > 0)
             {
@@ -559,7 +559,7 @@ namespace SchoolGrades
             // for both operations it uses the SortOrDrawCriterion Property
             if (rdbMustDraw.Checked && !rdbSortByAlphbetical.Checked)
             {
-                Commons.ShuffleListWithDifferentProbabilities(eligiblesList);
+                Commons.ListShuffleWithDifferentProbabilities(eligiblesList);
             }
             else
             {  // sort the list by the criterion
