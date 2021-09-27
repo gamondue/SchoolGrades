@@ -82,7 +82,7 @@ namespace SchoolGrades
         {
             return dl.GetWeightedAveragesOfStudent(Student, IdGradeType, IdSchoolSubject, DateFrom, DateTo);
         }
-        internal DataTable GetGradesWeightedAveragesOfClass(Class Class, string IdGradeType,
+        internal List<StudentAndGrade> GetGradesWeightedAveragesOfClass(Class Class, string IdGradeType,
             string IdSchoolSubject, DateTime DateFrom, DateTime DateTo)
         {
             return dl.GetGradesWeightedAveragesOfClass(Class, IdGradeType, IdSchoolSubject, DateFrom, DateTo);
