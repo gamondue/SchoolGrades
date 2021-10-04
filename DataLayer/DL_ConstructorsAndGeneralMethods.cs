@@ -80,7 +80,6 @@ namespace SchoolGrades
             }
             return connection;
         }
-
         public int nFieldDbDataReader(string NomeCampo, DbDataReader dr)
         {
             for (int i = 0; i < dr.FieldCount; i++)
@@ -115,13 +114,13 @@ namespace SchoolGrades
             news.OfficialSchoolAbbreviation = Commons.IdSchool;
             return news;
         }
-        internal int NextKey(string Table, string Id)
+        internal int NextKey(string Table, string KeyName)
         {
             int nextId;
             using (DbConnection conn = Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT MAX(" + Id + ") FROM " + Table + ";";
+                cmd.CommandText = "SELECT MAX(" + KeyName + ") FROM " + Table + ";";
                 var firstColumn = cmd.ExecuteScalar();
                 if (firstColumn != DBNull.Value)
                 {
@@ -319,7 +318,6 @@ namespace SchoolGrades
                 dSet.Dispose();
             }
         }
-
         internal void RestoreTableTsv(string TableName, bool EraseBefore)
         {
             List<string> fieldNames;
@@ -444,7 +442,6 @@ namespace SchoolGrades
                 //cmd.Dispose();
             }
         }
-
         internal void RestoreTableXml(string TableName, bool EraseBefore)
         {
             DataSet dSet = new DataSet();
