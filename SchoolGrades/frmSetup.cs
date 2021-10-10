@@ -121,7 +121,10 @@ namespace SchoolGrades
                 TextFile.ArrayToFile(Commons.PathAndFileConfig, dati, false);
 #endif
 
-                MessageBox.Show("File di configurazione salvato in " + Commons.PathAndFileConfig);
+                MessageBox.Show("File di configurazione salvato in " + Commons.PathAndFileConfig +
+                    "-\nIl programma verrà chiuso.");
+
+                Application.Exit();
             }
             catch (Exception e)
             {

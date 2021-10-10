@@ -123,7 +123,7 @@ namespace SchoolGrades
 
             // stop background saving thread when using this form so it will not interfere
             // locks a concurrent modification of Commons.BackgroundCanStillSaveTopicsTree 
-            lock (CommonsWinForms.LockBackgroundCanStillSaveTopicsTree)
+            lock (CommonsWinForms.LockSavingTopicsTree)
             {
                 CommonsWinForms.BackgroundCanStillSaveTopicsTree = false;
             }
@@ -333,7 +333,7 @@ namespace SchoolGrades
 
             // abort the background saving that was triggered by SaveTreeFromTreeViewControlByParent
             // locks a concurrent modification of Commons.BackgroundCanStillSaveTopicsTree 
-            lock (CommonsWinForms.LockBackgroundCanStillSaveTopicsTree)
+            lock (CommonsWinForms.LockSavingTopicsTree)
             {
                 CommonsWinForms.BackgroundCanStillSaveTopicsTree = false;
             }

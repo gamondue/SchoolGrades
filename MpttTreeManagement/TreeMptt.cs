@@ -363,7 +363,7 @@ namespace gamon.TreeMptt
                 {
                     // start saving in background, signalling to the main program 
                     // locks a concurrent modification of Commons.BackgroundCanStillSaveTopicsTree 
-                    lock (CommonsWinForms.LockBackgroundCanStillSaveTopicsTree)
+                    lock (CommonsWinForms.LockSavingTopicsTree)
                     {
                         CommonsWinForms.BackgroundCanStillSaveTopicsTree = true;
                     }
@@ -474,8 +474,7 @@ namespace gamon.TreeMptt
         //        }
         //    }
         //}
-        internal void 
-            SaveTreeFromTreeViewControlByParent()
+        internal void SaveTreeFromTreeViewControlByParent()
         {
             // syncronously save the nodes that have changed data or parentNode
             // (shorter operation) 
@@ -484,61 +483,65 @@ namespace gamon.TreeMptt
             if (IsThreadSavingTreeMptt)
             {
                 // locks a concurrent modification of Commons.BackgroundCanStillSaveTopicsTree 
-                lock (CommonsWinForms.LockBackgroundCanStillSaveTopicsTree)
+                lock (CommonsWinForms.LockSavingTopicsTree)
                 {
                     CommonsWinForms.BackgroundCanStillSaveTopicsTree = false;
                 }
                 // we wait for the saving Thread to finish
                 // (it aborts in a point in which status is preserved)  
-                CommonsWinForms.BackgroundSaveThread.Join(30000); // enormous timeout just for big problems
+                CommonsWinForms.BackgroundSaveThread.Join(90000); // big timeout just for big recalculation
             }
-            // save the nodes that have changed any field, except RightNode & Left Node (optional) 
-            // (saving RightNode & Left Node changes would be too slow, 
-            // so it is done in the background Thread, that we will restart at the end of this method
-            listItemsAfter = new List<Topic>();
-            int nodeCount = 1;
-            // recursive function using ONE single root node of Treeview 
-            dbMptt.GenerateNewListOfNodesFromTreeViewControl(shownTreeView.Nodes[0], ref nodeCount, ref listItemsAfter);
-            // now in listTopicsAfter we have the list of all current nodes, with correct 
-            // "new" and "old" pointers (included Left and Right) 
-
-            // find deleted topics. After they will be deleted from database
-            listItemsDeleted = new List<Topic>();
-            // ???? this is expensive! We can do better !!!!! (TODO !!!! manage deletion list directly on delete from the treeview)
-            foreach (Topic tOld in listItemsBefore)
+            // saving the tree locks the background task 
+            lock (CommonsWinForms.LockSavingTopicsTree)
             {
-                if (FindNodeRecursivelyById(shownTreeView.Nodes[0], tOld) == null)
+                // save the nodes that have changed any field, except RightNode & Left Node (optional) 
+                // (saving RightNode & Left Node changes would be too slow, 
+                // so it is done in the background Thread, that we will restart at the end of this method
+                listItemsAfter = new List<Topic>();
+                int nodeCount = 1;
+                // recursive function using ONE single root node of Treeview 
+                dbMptt.GenerateNewListOfNodesFromTreeViewControl(shownTreeView.Nodes[0], ref nodeCount, ref listItemsAfter);
+                // now in listTopicsAfter we have the list of all current nodes, with correct 
+                // "new" and "old" pointers (included Left and Right) 
+
+                // find deleted topics. After they will be deleted from database
+                listItemsDeleted = new List<Topic>();
+                // ???? this is expensive! We can do better !!!!! (TODO !!!! manage deletion list directly on delete from the treeview)
+                foreach (Topic tOld in listItemsBefore)
                 {
-                    // not found, has been deleted 
-                    if (tOld.ParentNodeOld > 0)
+                    if (FindNodeRecursivelyById(shownTreeView.Nodes[0], tOld) == null)
                     {
-                        // don't delete possible other root nodes (for future features and for error emersion) 
-                        listItemsDeleted.Add(tOld);
+                        // not found, has been deleted 
+                        if (tOld.ParentNodeOld > 0)
+                        {
+                            // don't delete possible other root nodes (for future features and for error emersion) 
+                            listItemsDeleted.Add(tOld);
+                        }
                     }
                 }
-            }
-            // UPDATE THE DATABASE
-            // save the items in the database (modified nodes will be saved 
-            // according to the difference between old and new values, new 
-            // nodes are empty, so they will save. Left and Right will be 
-            // saved by a concurrent Thread, so here the third parameter is false
+                // UPDATE THE DATABASE
+                // save the items in the database (modified nodes will be saved 
+                // according to the difference between old and new values, new 
+                // nodes are empty, so they will save. Left and Right will be 
+                // saved by a concurrent Thread, so here the third parameter is false
 
-             
-            
-            
-            
-            dbMptt.SaveTreeToDb(listItemsAfter, listItemsDeleted, false);
 
-            // Update listTopicsBefore by taking it from the treeview 
-            nodeCount = 1;
-            listItemsBefore.Clear();
-            // recursive function
-            dbMptt.GenerateNewListOfNodesFromTreeViewControl(shownTreeView.Nodes[0], ref nodeCount, ref listItemsBefore);
-            // copy New fields in Old  
-            foreach (Topic t in listItemsBefore)
-            {
-                t.ChildNumberOld = t.ChildNumberNew;
-                t.ParentNodeOld = t.ParentNodeNew;
+
+
+
+                dbMptt.SaveTreeToDb(listItemsAfter, listItemsDeleted, false);
+
+                // Update listTopicsBefore by taking it from the treeview 
+                nodeCount = 1;
+                listItemsBefore.Clear();
+                // recursive function
+                dbMptt.GenerateNewListOfNodesFromTreeViewControl(shownTreeView.Nodes[0], ref nodeCount, ref listItemsBefore);
+                // copy New fields in Old  
+                foreach (Topic t in listItemsBefore)
+                {
+                    t.ChildNumberOld = t.ChildNumberNew;
+                    t.ParentNodeOld = t.ParentNodeNew;
+                }
             }
             try
             {

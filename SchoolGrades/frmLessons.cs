@@ -28,6 +28,8 @@ namespace SchoolGrades
         private SchoolSubject currentSchoolSubject;
 
         bool isFormClosed = false;
+        private int currentLessonsGridIndex;
+
         public bool IsFormClosed { get => isFormClosed; set => isFormClosed = value; }
         public frmLessons(Class CurrentClass, SchoolSubject SchoolSubject, bool ReadOnly)
         {
@@ -77,47 +79,48 @@ namespace SchoolGrades
             {
                 //dtpLessonDate.Visible = false; 
             }
+            currentLessonsGridIndex = 0; 
             // load data in datagrids
-            RefreshUI();
+            RefreshLessons(currentLessonsGridIndex);
+            
             //topicTreeMptt = new TopicTreeMptt(listTopicsBefore, trwTopics,
             topicTreeMptt = new gamon.TreeMptt.TreeMptt(Commons.dl, trwTopics,
                 txtTopicName, txtTopicDescription, txtTopicFind, TxtTopicsDigestAndSearch,
                 null, CommonsWinForms.globalPicLed, DragDropEffects.Copy);
             topicTreeMptt.AddNodesToTreeviewByBestMethod();
 
-            // gets and checks the topics of the current lesson 
-            List<Topic> TopicsToCheck = Commons.bl.GetTopicsOfLesson(currentLesson.IdLesson);
-            int dummy = 0;
-            bool dummy2 = false;
-            topicTreeMptt.CheckItemsInList(trwTopics.Nodes[0],
-                TopicsToCheck, ref dummy, ref dummy2);
-
-            // gets the images associated with this lesson
-            listImages = Commons.bl.GetListLessonsImages(currentLesson);
-            // shows the first image
-            if (listImages != null && listImages.Count > 0)
-                try
-                {
-                    picImage.Load(Commons.PathImages + "\\" + listImages[indexImages].RelativePathAndFilename);
-                }
-                catch { };
+            RefreshTopicsChecksAndImages(); 
 
             this.BackColor = Commons.ColorFromNumber(currentSchoolSubject);
 
             LessonTimer.Interval = 1000;
             LessonTimer.Start();
         }
-
-        private void RefreshUI()
+        private void RefreshLessons(int IndexInLessons)
         {
-            //DgwAllLessons.DataSource = Commons.bl.GetLessonsOfClass(currentClass, currentLesson);
-            DgwAllLessons.DataSource = Commons.bl.GetLessonsOfClass(currentClass, currentLesson.IdSchoolSubject);
-            DgwAllLessons.Columns[0].Visible = true;
-            DgwAllLessons.Columns[1].Visible = true;
-            DgwAllLessons.Columns[2].Visible = false;
-            DgwAllLessons.Columns[3].Visible = false;
-            DgwAllLessons.Columns[4].Visible = true;
-            DgwAllLessons.Columns[5].Visible = false;
+            List<DbClasses.Lesson> l = Commons.bl.GetLessonsOfClass(currentClass, currentLesson.IdSchoolSubject);
+            dgwAllLessons.DataSource = l;
+            dgwAllLessons.Columns[0].Visible = true;
+            dgwAllLessons.Columns[1].Visible = true;
+            dgwAllLessons.Columns[2].Visible = false;
+            dgwAllLessons.Columns[3].Visible = false;
+            dgwAllLessons.Columns[4].Visible = true;
+            dgwAllLessons.Columns[5].Visible = false;
+            if (l.Count > 0)
+            {
+                try
+                {
+                    dgwAllLessons.ClearSelection(); 
+                    dgwAllLessons.Rows[IndexInLessons].Selected = true;
+                }
+                catch
+                {
+
+                }
+            }
+            else
+            {
+            }
 
             dgwOneLesson.DataSource = Commons.bl.GetTopicsOfOneLessonOfClass(currentClass,
                 currentLesson);
@@ -128,12 +131,34 @@ namespace SchoolGrades
             dgwOneLesson.Columns[4].Visible = false;
             dgwOneLesson.Columns[5].Visible = false;
         }
+        private void RefreshTopicsChecksAndImages()
+        {
+            topicTreeMptt.UncheckAllItemsUnderNode(trwTopics.Nodes[0]);
+            // gets and checks the topics of the current lesson 
+            List<Topic> TopicsToCheck = Commons.bl.GetTopicsOfLesson(currentLesson.IdLesson);
+            int dummy = 0;
+            bool dummy2 = false;
+            topicTreeMptt.CheckItemsInList(trwTopics.Nodes[0],
+            TopicsToCheck, ref dummy, ref dummy2);
 
+            // gets the images associated with this lesson
+            listImages = Commons.bl.GetListLessonsImages(currentLesson);
+            // shows the fist image
+            if (listImages.Count > 0)
+                try
+                {
+                    picImage.Load(Commons.PathImages + "\\" + listImages[indexImages].RelativePathAndFilename);
+                }
+                catch { }
+            else
+            {
+                picImage.Image = null;
+            }
+        }
         private void btnFind_Click(object sender, EventArgs e)
         {
             topicTreeMptt.FindItem(txtTopicFind.Text); 
         }
-
         private void btnAddNode_Click(object sender, EventArgs e)
         {
             topicTreeMptt.AddNewNode("Nuovo argomento");
@@ -209,7 +234,6 @@ namespace SchoolGrades
 
             MessageBox.Show("Albero copiato nella clipboard");
         }
-
         private void btnLessonAdd_Click(object sender, EventArgs e)
         { 
             dtpLessonDate.Visible = true;
@@ -283,7 +307,7 @@ namespace SchoolGrades
             topicTreeMptt.UncheckAllItemsUnderNode(trwTopics.Nodes[0]);
             
             //  refresh database data in grids 
-            RefreshUI();
+            RefreshLessons(dgwAllLessons.Rows.Count-1);
         }
 
         private void txtLessonDesc_TextChanged(object sender, EventArgs e)
@@ -293,6 +317,7 @@ namespace SchoolGrades
 
         private void btnLessonSave_Click(object sender, EventArgs e)
         {
+            currentLessonsGridIndex = dgwAllLessons.CurrentRow.Index;
             btnLessonSave.Enabled = false;
             // save anyway (should be better to control if it is necessary)  
             topicTreeMptt.SaveTreeFromTreeViewControlByParent(); 
@@ -327,21 +352,10 @@ namespace SchoolGrades
             Commons.bl.SaveTopicsOfLesson(currentLesson.IdLesson, topicsOfTheLesson);
 
             //  refresh database data in grids 
-            RefreshUI();
-
-            // reset check signs
-            topicTreeMptt.UncheckAllItemsUnderNode(trwTopics.Nodes[0]);
-            // restore current checksigns from database 
-            List<Topic> TopicsToCheck = Commons.bl.GetTopicsOfLesson(currentLesson.IdLesson);
-            dummy = 0;
-            bool dummy2 = false;
-            topicTreeMptt.CheckItemsInList(trwTopics.Nodes[0],
-                TopicsToCheck, ref dummy, ref dummy2);
+            RefreshLessons(currentLessonsGridIndex);
+            RefreshTopicsChecksAndImages();
+            
             btnLessonSave.Enabled = true;
-            //MessageBox.Show("Fatto"); 
-
-            //this.Close(); // TODO avoid this when the process of saving without
-            //              // closing the form will be relaiable
         }
         private void btnCopyToClipboard_Click(object sender, EventArgs e)
         {
@@ -549,6 +563,7 @@ namespace SchoolGrades
 
         private void bntLessonErase_Click(object sender, EventArgs e)
         {
+
             if (MessageBox.Show("Vuole davvero  eliminare la lezione:\r\n" + txtLessonCode.Text +
                 ",'" + TxtLessonDesc.Text + "'?", "Cancellazione", MessageBoxButtons.YesNo, 
                 MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) 
@@ -556,9 +571,10 @@ namespace SchoolGrades
             {
                 return; 
             }
+            currentLessonsGridIndex = dgwAllLessons.CurrentRow.Index; 
             // !! TODO !! add message box to ask for image files deletion
             Commons.bl.EraseLesson(int.Parse(txtLessonCode.Text), false);
-            RefreshUI();
+            RefreshLessons(currentLessonsGridIndex);
         }
         private void btnNext_Click(object sender, EventArgs e)
         {
@@ -588,10 +604,10 @@ namespace SchoolGrades
         {
             if (e.RowIndex > -1)
             {
-                DgwAllLessons.Rows[e.RowIndex].Selected = true;
+                dgwAllLessons.Rows[e.RowIndex].Selected = true;
 
                 TxtTopicsDigestAndSearch.Text = "";
-                List<Lesson> l =((List<Lesson>)(DgwAllLessons.DataSource)); 
+                List<Lesson> l =((List<Lesson>)(dgwAllLessons.DataSource)); 
 
                 if (currentLesson.IdLesson != l[e.RowIndex].IdLesson)
                 {
@@ -606,28 +622,7 @@ namespace SchoolGrades
                     dgwOneLesson.DataSource = Commons.bl.GetTopicsOfOneLessonOfClass(currentClass,
                         currentLesson);
 
-                    topicTreeMptt.UncheckAllItemsUnderNode(trwTopics.Nodes[0]);
-
-                    // gets and checks the topics of the current lesson 
-                    List<Topic> TopicsToCheck = Commons.bl.GetTopicsOfLesson(currentLesson.IdLesson);
-                    int dummy = 0;
-                    bool dummy2 = false;
-                    topicTreeMptt.CheckItemsInList(trwTopics.Nodes[0],
-                        TopicsToCheck, ref dummy, ref dummy2);
-
-                    // gets the images associated with this lesson
-                    listImages = Commons.bl.GetListLessonsImages(currentLesson);
-                    // shows the fist image
-                    if (listImages.Count > 0)
-                        try
-                        {
-                            picImage.Load(Commons.PathImages + "\\" + listImages[indexImages].RelativePathAndFilename);
-                        }
-                        catch { }
-                    else
-                    {
-                        picImage.Image = null;
-                    }
+                    RefreshTopicsChecksAndImages(); 
                 }
             }
         }
@@ -635,7 +630,7 @@ namespace SchoolGrades
         {
             if (e.RowIndex > -1)
             {
-                DgwAllLessons.Rows[e.RowIndex].Selected = true;
+                dgwAllLessons.Rows[e.RowIndex].Selected = true;
             }
         }
 
@@ -643,23 +638,23 @@ namespace SchoolGrades
         {
             int rowToBeSearchedIndex;
 
-            if (DgwAllLessons.SelectedRows == null)
+            if (dgwAllLessons.SelectedRows == null)
                 rowToBeSearchedIndex = 0;
             else
-                rowToBeSearchedIndex = DgwAllLessons.SelectedRows[0].Index;
+                rowToBeSearchedIndex = dgwAllLessons.SelectedRows[0].Index;
             int indexWhenBeginning = rowToBeSearchedIndex;
-            rowToBeSearchedIndex = ++rowToBeSearchedIndex % DgwAllLessons.Rows.Count;
+            rowToBeSearchedIndex = ++rowToBeSearchedIndex % dgwAllLessons.Rows.Count;
             bool allScanned = false;
             while (!allScanned)
             {
-                DataGridViewRow row = DgwAllLessons.Rows[rowToBeSearchedIndex]; 
+                DataGridViewRow row = dgwAllLessons.Rows[rowToBeSearchedIndex]; 
                 if (((string)row.Cells["Note"].Value).Contains(TxtTopicsDigestAndSearch.Text))
                 {
-                    DgwAllLessons.ClearSelection(); 
+                    dgwAllLessons.ClearSelection(); 
                     row.Selected = true;
                     break; 
                 }
-                rowToBeSearchedIndex = ++rowToBeSearchedIndex % DgwAllLessons.Rows.Count;
+                rowToBeSearchedIndex = ++rowToBeSearchedIndex % dgwAllLessons.Rows.Count;
                 if (rowToBeSearchedIndex == indexWhenBeginning)
                     allScanned = true;
             }
