@@ -1218,7 +1218,7 @@ namespace SchoolGrades
             if (CommonsWinForms.BackgroundSaveThread.IsAlive)
             {
                 // locks a concurrent modification of Commons.BackgroundCanStillSaveTopicsTree 
-                lock (CommonsWinForms.LockBackgroundCanStillSaveTopicsTree)
+                lock (CommonsWinForms.LockSavingTopicsTree)
                 {
                     CommonsWinForms.BackgroundCanStillSaveTopicsTree = false;
                 }

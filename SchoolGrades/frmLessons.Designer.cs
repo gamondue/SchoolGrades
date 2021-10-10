@@ -57,7 +57,7 @@
             this.btnSaveTree = new System.Windows.Forms.Button();
             this.TxtLessonDesc = new System.Windows.Forms.TextBox();
             this.dtpLessonDate = new System.Windows.Forms.DateTimePicker();
-            this.DgwAllLessons = new System.Windows.Forms.DataGridView();
+            this.dgwAllLessons = new System.Windows.Forms.DataGridView();
             this.TxtTopicsDigestAndSearch = new System.Windows.Forms.TextBox();
             this.btnCopyNoteToClipboard = new System.Windows.Forms.Button();
             this.btnStartLinks = new System.Windows.Forms.Button();
@@ -87,7 +87,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.grpViewTopics.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgwOneLesson)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DgwAllLessons)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgwAllLessons)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -401,23 +401,23 @@
             // 
             // DgwAllLessons
             // 
-            this.DgwAllLessons.AllowUserToAddRows = false;
-            this.DgwAllLessons.AllowUserToDeleteRows = false;
-            this.DgwAllLessons.AllowUserToOrderColumns = true;
-            this.DgwAllLessons.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgwAllLessons.AllowUserToAddRows = false;
+            this.dgwAllLessons.AllowUserToDeleteRows = false;
+            this.dgwAllLessons.AllowUserToOrderColumns = true;
+            this.dgwAllLessons.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.DgwAllLessons.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
-            this.DgwAllLessons.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DgwAllLessons.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.DgwAllLessons.Location = new System.Drawing.Point(0, 3);
-            this.DgwAllLessons.Name = "DgwAllLessons";
-            this.DgwAllLessons.RowHeadersWidth = 51;
-            this.DgwAllLessons.Size = new System.Drawing.Size(505, 275);
-            this.DgwAllLessons.TabIndex = 127;
-            this.DgwAllLessons.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgwAllLessons_CellClick);
-            this.DgwAllLessons.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgwAllLessons_CellContentClick);
-            this.DgwAllLessons.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgwAllLessons_RowEnter);
+            this.dgwAllLessons.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
+            this.dgwAllLessons.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgwAllLessons.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgwAllLessons.Location = new System.Drawing.Point(0, 3);
+            this.dgwAllLessons.Name = "DgwAllLessons";
+            this.dgwAllLessons.RowHeadersWidth = 51;
+            this.dgwAllLessons.Size = new System.Drawing.Size(505, 275);
+            this.dgwAllLessons.TabIndex = 127;
+            this.dgwAllLessons.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgwAllLessons_CellClick);
+            this.dgwAllLessons.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgwAllLessons_CellContentClick);
+            this.dgwAllLessons.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgwAllLessons_RowEnter);
             // 
             // TxtTopicsDigestAndSearch
             // 
@@ -524,7 +524,7 @@
             // 
             // splitContainer3.Panel1
             // 
-            this.splitContainer3.Panel1.Controls.Add(this.DgwAllLessons);
+            this.splitContainer3.Panel1.Controls.Add(this.dgwAllLessons);
             // 
             // splitContainer3.Panel2
             // 
@@ -810,7 +810,7 @@
             this.grpViewTopics.ResumeLayout(false);
             this.grpViewTopics.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgwOneLesson)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DgwAllLessons)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgwAllLessons)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picImage)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
@@ -861,7 +861,7 @@
         private System.Windows.Forms.Button btnSaveTree;
         private System.Windows.Forms.TextBox TxtLessonDesc;
         private System.Windows.Forms.DateTimePicker dtpLessonDate;
-        private System.Windows.Forms.DataGridView DgwAllLessons;
+        private System.Windows.Forms.DataGridView dgwAllLessons;
         private System.Windows.Forms.TextBox TxtTopicsDigestAndSearch;
         private System.Windows.Forms.Button btnCopyNoteToClipboard;
         private System.Windows.Forms.Button btnStartLinks;
