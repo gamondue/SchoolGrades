@@ -89,6 +89,8 @@ namespace SchoolGrades
         }
         internal string SqlDouble(object Number)
         {
+            if (Number == null)
+                return "null"; 
             // restituisce null se dà errore, perchè viene usato con double? 
             try
             {

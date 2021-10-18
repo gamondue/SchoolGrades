@@ -58,6 +58,7 @@
             this.btnExitWithoutChoosing = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.btnDeleteStudent = new System.Windows.Forms.Button();
+            this.chkHasSpecialNeeds = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgwSearchedStudents)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picStudent)).BeginInit();
             this.SuspendLayout();
@@ -330,12 +331,23 @@
             this.btnDeleteStudent.UseVisualStyleBackColor = true;
             this.btnDeleteStudent.Click += new System.EventHandler(this.btnDeleteStudent_Click);
             // 
+            // chkHasSpecialNeeds
+            // 
+            this.chkHasSpecialNeeds.AutoSize = true;
+            this.chkHasSpecialNeeds.Location = new System.Drawing.Point(408, 188);
+            this.chkHasSpecialNeeds.Name = "chkHasSpecialNeeds";
+            this.chkHasSpecialNeeds.Size = new System.Drawing.Size(57, 22);
+            this.chkHasSpecialNeeds.TabIndex = 159;
+            this.chkHasSpecialNeeds.Text = "BES";
+            this.chkHasSpecialNeeds.UseVisualStyleBackColor = true;
+            // 
             // frmStudent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(754, 407);
+            this.Controls.Add(this.chkHasSpecialNeeds);
             this.Controls.Add(this.btnDeleteStudent);
             this.Controls.Add(this.btnExitWithoutChoosing);
             this.Controls.Add(this.btnFindStudent);
@@ -408,5 +420,6 @@
         private System.Windows.Forms.Button btnExitWithoutChoosing;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button btnDeleteStudent;
+        private System.Windows.Forms.CheckBox chkHasSpecialNeeds;
     }
 }

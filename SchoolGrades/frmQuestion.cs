@@ -33,7 +33,7 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
-            TreeMpttDb dbMptt = new TreeMpttDb(Commons.dl);
+            dbMptt = new TreeMpttDb(Commons.dl);
 
             // fills the lookup tables' combos
             List<QuestionType> listQuestions = Commons.bl.GetListQuestionTypes(true);

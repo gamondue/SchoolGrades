@@ -1,6 +1,6 @@
 ﻿namespace SchoolGrades
 {
-    partial class FrmClassesManagement
+    partial class frmClassesManagement
     {
         /// <summary>
         /// Variabile di progettazione necessaria.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmClassesManagement));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmClassesManagement));
             this.TxtClassDescription = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.RdbPhotoAlreadyPresent = new System.Windows.Forms.RadioButton();

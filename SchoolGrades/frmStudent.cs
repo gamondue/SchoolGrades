@@ -51,6 +51,10 @@ namespace SchoolGrades
                 chkDisabled.Checked = (bool)currentStudent.Disabled;
             else
                 chkDisabled.Checked = false;
+            if (currentStudent.HasSpecialNeeds != null)
+                chkHasSpecialNeeds.Checked = (bool)currentStudent.HasSpecialNeeds;
+            else
+                chkHasSpecialNeeds.Checked = false;
 
             loadPicture(currentStudent);
         }
@@ -77,7 +81,8 @@ namespace SchoolGrades
                 currentStudent.Residence = txtResidence.Text;
                 currentStudent.Origin = txtOrigin.Text;
                 currentStudent.Email = txtEmail.Text;
-                currentStudent.Disabled = chkDisabled.Checked; 
+                currentStudent.Disabled = chkDisabled.Checked;
+                currentStudent.HasSpecialNeeds = chkHasSpecialNeeds.Checked;
                 try
                 {
                     currentStudent.BirthDate = DateTime.Parse(txtBirthDate.Text);

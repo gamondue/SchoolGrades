@@ -629,8 +629,8 @@ namespace SchoolGrades
                 ",'" + IdMacroGrade + "'" +
                 "," + SqlDouble(weight) + "" +
                 ",0" +
-                ",'" + Grade.IdSchoolYear + "','" +
-                System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss").Replace('.', ':') + "'" +
+                ",'" + Grade.IdSchoolYear + "'," +
+                SqlDate(System.DateTime.Now) + "" +
                 ",'" + Grade.IdSchoolSubject +
                 "');";
                 cmd.ExecuteNonQuery();
@@ -660,7 +660,8 @@ namespace SchoolGrades
                     "," + SqlDouble(Grade.Weight) + "" +
                     "," + SqlDouble(Grade.CncFactor) + "" +
                     "," + SqlString(Grade.IdSchoolYear) + "" +
-                    "," + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss").Replace('.', ':') + "" +
+                    //"," + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss").Replace('.', ':') + "" +
+                    "," + SqlDate(System.DateTime.Now) + "" +
                     "," + SqlInt(Grade.IdQuestion.ToString()) + "" +
                     ",'" + Grade.IdSchoolSubject + "'" +
                     ");";
@@ -674,7 +675,7 @@ namespace SchoolGrades
                     ",idGradeParent=" + SqlInt(Grade.IdGradeParent.ToString()) + "" +
                     ",idStudent=" + SqlInt(Grade.IdStudent.ToString()) + "" +
                     ",idSchoolYear=" + SqlString(Grade.IdSchoolYear) + "" +
-                    ",timestamp=" + SqlString(((DateTime)Grade.Timestamp).ToString("yyyy-MM-dd HH:mm:ss")) + "" +
+                    ",timestamp=" + SqlDate((DateTime)Grade.Timestamp) + "" +
                     ",idQuestion=" + SqlInt(Grade.IdQuestion.ToString()) + "" +
                     ",idSchoolSubject=" + SqlString(Grade.IdSchoolSubject) + "" +
                     ",value=" + SqlDouble(Grade.Value) + "" +

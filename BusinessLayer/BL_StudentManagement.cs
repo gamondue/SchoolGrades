@@ -56,10 +56,10 @@ namespace SchoolGrades
             return dl.GetStudentsOfClass(IdClass, conn);
         }
         internal List<Student> GetStudentsOfClassList(string Scuola, string Anno,
-            string SiglaClasse, bool IncludeNonActiveStudents)
+            string ClassAbbreviation, bool IncludeNonActiveStudents)
         {
             return dl.GetStudentsOfClassList(Scuola, Anno,
-            SiglaClasse, IncludeNonActiveStudents);
+            ClassAbbreviation, IncludeNonActiveStudents);
         }
         internal List<Student> GetStudentsAndSumOfWeights(Class Class,
             GradeType GradeType, SchoolSubject SchoolSubject,

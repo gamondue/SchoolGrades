@@ -10,7 +10,7 @@ using SchoolGrades.DbClasses;
 
 namespace SchoolGrades
 {
-    public partial class FrmClassesManagement : Form
+    public partial class frmClassesManagement : Form
     {
     	// TODO !!!! put an option for separator in import files 
 
@@ -20,7 +20,7 @@ namespace SchoolGrades
         School currentSchool; 
         Class currentClass;
         string idSchoolYear; 
-        public FrmClassesManagement()
+        public frmClassesManagement()
         {
             InitializeComponent();
         }
@@ -175,7 +175,6 @@ namespace SchoolGrades
             dtClass = Commons.bl.GetClassTable(Class.IdClass);
             DgwClass.DataSource = dtClass;
 
-            //dgwAllievi.DataSource = db.GetClass(txtOfficialSchoolAbbreviation.Text, idSchoolYear, cmbClasses.Text);
             DgwStudents.DataSource = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, 
                 idSchoolYear, CmbClasses.Text, true);
             TxtClassDescription.Text = Safe.String(DgwClass.Rows[DgwClass.CurrentRow.Index].Cells["desc"].Value);
@@ -185,17 +184,6 @@ namespace SchoolGrades
 
         private void BtnPhotoChange_Click(object sender, EventArgs e)
         {
-            //if(picStudent.Image != null)
-            //{
-            //    picStudent.Image = null;
-            //    MessageBox.Show("Premere ancora.."); 
-            //    return; 
-            //}
-            // to free the lock on the picture we have to substitute by erasing the picture box
-            ////////string fileTemp = Commons.PathImages + "\\" + "TEMP.png";
-            //////////if (!File.Exists(fileTemp))
-            //////////    File.Copy(fileToCopy, fileTemp);
-            ////////picStudent.Image = System.Drawing.Image.FromFile(fileTemp);
             picStudent.Invalidate();
             picStudent.Refresh();
             picStudent.Update();
