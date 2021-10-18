@@ -30,6 +30,8 @@ namespace SchoolGrades.DbClasses
         public string BirthPlace { get => birthPlace; set => birthPlace = value; }
         public int? RevengeFactorCounter { get; set; }  // revenge factor counter start from 0 
         public bool? Disabled { get; set; }
+        public bool? HasSpecialNeeds { get; set; }
+
         public double? SortOrDrawCriterion { get; internal set; }
 
         public override string ToString()

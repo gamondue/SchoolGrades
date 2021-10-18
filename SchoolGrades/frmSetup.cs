@@ -37,7 +37,7 @@ namespace SchoolGrades
 
         private void BtnClassi_Click(object sender, EventArgs e)
         {
-            FrmClassesManagement f = new FrmClassesManagement();
+            frmClassesManagement f = new frmClassesManagement();
             f.ShowDialog(); 
         }
 
@@ -122,7 +122,7 @@ namespace SchoolGrades
 #endif
 
                 MessageBox.Show("File di configurazione salvato in " + Commons.PathAndFileConfig +
-                    "-\nIl programma verrà chiuso.");
+                    "\n\nIl programma verrà chiuso.");
 
                 Application.Exit();
             }

@@ -157,7 +157,7 @@ namespace SchoolGrades
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "INSERT INTO Students " +
                     "(idStudent,lastName,firstName,residence,origin," +
-                    "email,birthDate,birthPlace,disabled) " +
+                    "email,birthDate,birthPlace,disabled,hasSpecialNeeds) " +
                     "VALUES (" + SqlInt(Student.IdStudent) + "," +
                     SqlString(Student.LastName) + "," +
                     SqlString(Student.FirstName) + "," +
@@ -166,6 +166,7 @@ namespace SchoolGrades
                     SqlString(Student.Email) + "," +
                     SqlDate(Student.BirthDate.ToString()) + "," +
                     SqlString(Student.BirthPlace) + "," +
+                    "false," +
                     "false" +
                     ");";
                 cmd.ExecuteNonQuery();
@@ -200,6 +201,7 @@ namespace SchoolGrades
                 ",birthPlace=" + SqlString(Student.BirthPlace) + 
                 ",drawable=" + SqlBool(Student.Eligible) + "" +
                 ",disabled=" + SqlBool(Student.Disabled) + "" +
+                ",hasSpecialNeeds=" + SqlBool(Student.HasSpecialNeeds) + "" +
                 ",VFCounter=" + SqlInt(Student.RevengeFactorCounter) + "" +
                 " WHERE idStudent = " + Student.IdStudent +
                 ";";
@@ -253,6 +255,7 @@ namespace SchoolGrades
             s.BirthPlace = Safe.String(Row["birthPlace"]);
             s.Eligible = Safe.Bool(Row["drawable"]);
             s.Disabled = Safe.Bool(Row["disabled"]);
+            s.HasSpecialNeeds = Safe.Bool(Row["hasSpecialNeeds"]);
             s.RevengeFactorCounter = Safe.Int(Row["VFCounter"]);
 
             return s;
