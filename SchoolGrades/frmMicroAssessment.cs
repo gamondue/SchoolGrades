@@ -125,7 +125,9 @@ namespace SchoolGrades
         private void ShowStudentsDataAndAverages()
         {
             // student's label
-            lblStudent.Text = currentStudent.ToString(); 
+            lblStudent.Text = currentStudent.ToString();
+            if(currentStudent.HasSpecialNeeds!= null && currentStudent.HasSpecialNeeds == true)
+                chkHasSpecialNeeds.Checked = true; 
 
             txtMicroGradeWeight.Text = currentGrade.Weight.ToString();
             txtMicroGrade.Text = currentGrade.Value.ToString(); 
@@ -196,7 +198,7 @@ namespace SchoolGrades
             int.TryParse(txtIdMacroGrade.Text, out keyParent);
             if (keyParent == 0)
             {
-                MessageBox.Show("Prima di assegnare voti parziali, generare un nuovo voto complessivo\n" +
+                MessageBox.Show("Prima di assegnare voti parziali, generare un nuovo voto di sintesi\n" +
                     "(\"Nuovo voto\")");
                 return;  
             }

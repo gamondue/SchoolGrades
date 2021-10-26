@@ -122,11 +122,13 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.timerPopUp = new System.Windows.Forms.Timer(this.components);
+            this.dgwStudents = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.picBackgroundSaveRunning)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picStudent)).BeginInit();
             this.grpSorts.SuspendLayout();
             this.grpImageSource.SuspendLayout();
             this.grpChooseDrawSort.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgwStudents)).BeginInit();
             this.SuspendLayout();
             // 
             // btnDraw
@@ -830,9 +832,9 @@
             this.toolTip1.SetToolTip(this.lstNames, "Nomi degli allievi della classe. ");
             this.lstNames.UseCompatibleTextRendering = true;
             this.lstNames.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.lstNames_ItemCheck);
-            this.lstNames.SelectedIndexChanged += new System.EventHandler(this.lstNomi_SelectedIndexChanged);
+            this.lstNames.SelectedIndexChanged += new System.EventHandler(this.lstNames_SelectedIndexChanged);
             this.lstNames.SelectedValueChanged += new System.EventHandler(this.lstNomi_SelectedValueChanged);
-            this.lstNames.DoubleClick += new System.EventHandler(this.lstNomi_DoubleClick);
+            this.lstNames.DoubleClick += new System.EventHandler(this.lstNames_DoubleClick);
             // 
             // lblDatabaseFile
             // 
@@ -1347,12 +1349,31 @@
             // 
             this.timerPopUp.Tick += new System.EventHandler(this.timerPopUp_Tick);
             // 
+            // dgwStudents
+            // 
+            this.dgwStudents.AllowUserToAddRows = false;
+            this.dgwStudents.AllowUserToDeleteRows = false;
+            this.dgwStudents.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgwStudents.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
+            this.dgwStudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgwStudents.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgwStudents.Location = new System.Drawing.Point(39, 223);
+            this.dgwStudents.Name = "dgwStudents";
+            this.dgwStudents.Size = new System.Drawing.Size(711, 509);
+            this.dgwStudents.TabIndex = 185;
+            this.dgwStudents.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwStudents_CellContentClick);
+            this.dgwStudents.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwStudents_CellDoubleClick);
+            this.dgwStudents.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgwStudents_DataBindingComplete);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(1069, 741);
+            this.Controls.Add(this.dgwStudents);
             this.Controls.Add(this.chkSoundsInColorTimer);
             this.Controls.Add(this.btnTemporary);
             this.Controls.Add(this.btnRandomNumber);
@@ -1446,6 +1467,7 @@
             this.grpImageSource.PerformLayout();
             this.grpChooseDrawSort.ResumeLayout(false);
             this.grpChooseDrawSort.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgwStudents)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1545,6 +1567,7 @@
         private System.Windows.Forms.Timer timerPopUp;
         private System.Windows.Forms.Button btnRandomNumber;
         private System.Windows.Forms.CheckBox chkSoundsInColorTimer;
+        private System.Windows.Forms.DataGridView dgwStudents;
     }
 }
 

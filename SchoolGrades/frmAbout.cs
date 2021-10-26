@@ -180,7 +180,7 @@ namespace gamon
             this.panel1.Controls.Add(this.lblVersione);
             this.panel1.Controls.Add(this.lblAssemblyDescription);
             this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Location = new System.Drawing.Point(-44, -24);
+            this.panel1.Location = new System.Drawing.Point(11, 11);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(658, 384);
             this.panel1.TabIndex = 24;
@@ -242,7 +242,7 @@ namespace gamon
             this.AutoScaleBaseSize = new System.Drawing.Size(6, 16);
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(570, 333);
+            this.ClientSize = new System.Drawing.Size(680, 403);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
