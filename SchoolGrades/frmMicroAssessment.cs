@@ -229,7 +229,10 @@ namespace SchoolGrades
             // remember that this question has already been done 
             if (currentQuestion.IdQuestion != 0)
                 Commons.QuestionsAlreadyMadeThisTime.Add(currentQuestion);
-            ShowStudentsDataAndAverages();
+            ShowStudentsDataAndAverages(); 
+            // goto the last row
+            DgwQuestions.ClearSelection(); 
+            DgwQuestions.Rows[DgwQuestions.Rows.Count - 1].Selected = true;
         }
 
         private bool GradeAndWeightExist()
