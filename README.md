@@ -1,13 +1,18 @@
 # SchoolGrades
-SchoolGrades manages the daily life of a teacher in the classroom, with particular attention to evaluation and tracking of topics. 
-It is useful also to the student, to know his grades, the questions he answered and the topics covered by the teacher during his teaching. 
+SchoolGrades manages a teacher's daily life in the classroom, with a focus on assessing and tracking topics. It is also helpful for the student to know about his grades, the questions he has answered and the topics covered by the teacher during his teaching.
+
+SchoolGrades is written in C# with Windows Forms, currently in .Net Core.
 
 SchoolGrades currently has no documentation. Contribution to documentation is welcome and encouraged.
 
-The SchoolGrades user interface is totally in Italian.
-The source code of the program is entirely in English.
-So, if anyone would like to be involved in the translation into English or another language, please just tell it. We can arrange a way to do it..
+The SchoolGrades' user interface is totally in Italian.  
+The source code of the program is entirely in English.  
+So, if anyone would like to be involved in the translation into English or another language, please say so. We can arrange a way to do it ..
 
-SchoolGrades is written in C# with Windows Forms in .Net Core. 
+All error reports will be taken into consideration. Errors will be corrected quickly only if they are important and useful for my personal use of the program.
 
-Currently (spring 2021) the program and GitHub are used as an exercitation from some of my classes at school, so many of the pull requests are only instrumental to the school's exercitations.
+Try making requests for new features, although you'll have to be very patient to get them satisfied.
+
+I will be grateful if you do pull requests with the code that fixes the bug or implements the new functionality.
+
+In the spring of 2021 I used the program and GitHub as school exercises for some of my classes at school, so many of the pull requests are only instrumental to those school exercises. 

@@ -103,5 +103,5 @@ namespace SchoolGrades
         {
             return dl.GetGradesOfClass(currentClass, idGradeType, idSchoolSubject, value1, value2);
         }
-    }
+   }
 }

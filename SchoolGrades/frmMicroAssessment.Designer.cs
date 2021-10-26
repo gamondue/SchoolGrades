@@ -66,6 +66,7 @@
             this.LessonTimer = new System.Windows.Forms.Timer(this.components);
             this.lblLessonTime = new System.Windows.Forms.Label();
             this.picStudent = new System.Windows.Forms.PictureBox();
+            this.chkHasSpecialNeeds = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.trkbGrade)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trkbWeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DgwQuestions)).BeginInit();
@@ -286,7 +287,7 @@
             this.lblStudent.Location = new System.Drawing.Point(89, 12);
             this.lblStudent.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblStudent.Name = "lblStudent";
-            this.lblStudent.Size = new System.Drawing.Size(824, 59);
+            this.lblStudent.Size = new System.Drawing.Size(743, 59);
             this.lblStudent.TabIndex = 89;
             this.lblStudent.Text = "Allievo";
             this.lblStudent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -418,7 +419,7 @@
             this.lblSchoolSubject.Enabled = false;
             this.lblSchoolSubject.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblSchoolSubject.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblSchoolSubject.Location = new System.Drawing.Point(910, 16);
+            this.lblSchoolSubject.Location = new System.Drawing.Point(910, 6);
             this.lblSchoolSubject.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSchoolSubject.Name = "lblSchoolSubject";
             this.lblSchoolSubject.Size = new System.Drawing.Size(56, 15);
@@ -428,7 +429,7 @@
             // txtSchoolSubject
             // 
             this.txtSchoolSubject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSchoolSubject.Location = new System.Drawing.Point(915, 34);
+            this.txtSchoolSubject.Location = new System.Drawing.Point(915, 24);
             this.txtSchoolSubject.Name = "txtSchoolSubject";
             this.txtSchoolSubject.ReadOnly = true;
             this.txtSchoolSubject.Size = new System.Drawing.Size(152, 24);
@@ -487,7 +488,7 @@
             // TxtIdStudent
             // 
             this.TxtIdStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.TxtIdStudent.Location = new System.Drawing.Point(836, 34);
+            this.TxtIdStudent.Location = new System.Drawing.Point(836, 24);
             this.TxtIdStudent.Margin = new System.Windows.Forms.Padding(4);
             this.TxtIdStudent.Name = "TxtIdStudent";
             this.TxtIdStudent.ReadOnly = true;
@@ -504,7 +505,7 @@
             this.label1.Enabled = false;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label1.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label1.Location = new System.Drawing.Point(833, 16);
+            this.label1.Location = new System.Drawing.Point(833, 6);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(65, 15);
@@ -544,7 +545,7 @@
             this.lblLessonTime.Enabled = false;
             this.lblLessonTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblLessonTime.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblLessonTime.Location = new System.Drawing.Point(836, 60);
+            this.lblLessonTime.Location = new System.Drawing.Point(990, 57);
             this.lblLessonTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblLessonTime.Name = "lblLessonTime";
             this.lblLessonTime.Size = new System.Drawing.Size(77, 15);
@@ -560,12 +561,24 @@
             this.picStudent.TabIndex = 145;
             this.picStudent.TabStop = false;
             // 
+            // chkHasSpecialNeeds
+            // 
+            this.chkHasSpecialNeeds.AutoSize = true;
+            this.chkHasSpecialNeeds.ForeColor = System.Drawing.Color.DarkBlue;
+            this.chkHasSpecialNeeds.Location = new System.Drawing.Point(836, 55);
+            this.chkHasSpecialNeeds.Name = "chkHasSpecialNeeds";
+            this.chkHasSpecialNeeds.Size = new System.Drawing.Size(69, 22);
+            this.chkHasSpecialNeeds.TabIndex = 149;
+            this.chkHasSpecialNeeds.Text = "BES ..";
+            this.chkHasSpecialNeeds.UseVisualStyleBackColor = true;
+            // 
             // frmMicroAssessment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(1070, 715);
+            this.Controls.Add(this.chkHasSpecialNeeds);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.TxtIdStudent);
             this.Controls.Add(this.picStudent);
@@ -654,5 +667,6 @@
         private System.Windows.Forms.PictureBox picStudent;
         private System.Windows.Forms.TextBox TxtIdStudent;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox chkHasSpecialNeeds;
     }
 }
