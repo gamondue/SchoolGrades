@@ -100,12 +100,6 @@ namespace SchoolGrades
         {
             List<DbClasses.Lesson> l = Commons.bl.GetLessonsOfClass(currentClass, currentLesson.IdSchoolSubject);
             dgwAllLessons.DataSource = l;
-            dgwAllLessons.Columns[0].Visible = true;
-            dgwAllLessons.Columns[1].Visible = true;
-            dgwAllLessons.Columns[2].Visible = false;
-            dgwAllLessons.Columns[3].Visible = false;
-            dgwAllLessons.Columns[4].Visible = true;
-            dgwAllLessons.Columns[5].Visible = false;
             if (l.Count > 0)
             {
                 try
@@ -121,15 +115,16 @@ namespace SchoolGrades
             else
             {
             }
-
-            dgwOneLesson.DataSource = Commons.bl.GetTopicsOfOneLessonOfClass(currentClass,
-                currentLesson);
             dgwOneLesson.Columns[0].Visible = false;
             dgwOneLesson.Columns[1].Visible = true;
             dgwOneLesson.Columns[2].Visible = true;
             dgwOneLesson.Columns[3].Visible = false;
             dgwOneLesson.Columns[4].Visible = false;
             dgwOneLesson.Columns[5].Visible = false;
+
+            dgwOneLesson.DataSource = Commons.bl.GetTopicsOfOneLessonOfClass(currentClass,
+                    currentLesson);
+            RefreshTopicsChecksAndImages();
         }
         private void RefreshTopicsChecksAndImages()
         {
@@ -307,7 +302,7 @@ namespace SchoolGrades
             topicTreeMptt.UncheckAllItemsUnderNode(trwTopics.Nodes[0]);
             
             //  refresh database data in grids 
-            RefreshLessons(dgwAllLessons.Rows.Count-1);
+            RefreshLessons(0);
         }
 
         private void txtLessonDesc_TextChanged(object sender, EventArgs e)
@@ -563,7 +558,6 @@ namespace SchoolGrades
 
         private void bntLessonErase_Click(object sender, EventArgs e)
         {
-
             if (MessageBox.Show("Vuole davvero  eliminare la lezione:\r\n" + txtLessonCode.Text +
                 ",'" + TxtLessonDesc.Text + "'?", "Cancellazione", MessageBoxButtons.YesNo, 
                 MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) 
