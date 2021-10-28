@@ -140,7 +140,7 @@ namespace SchoolGrades
                 currentSubject = new SchoolSubject();
             if (currentTopic == null)
                 currentTopic = new Topic();
-            List<Question> l = Commons.bl.GetFilteredQuestionsNotAsked(currentStudent, currentClass,
+            List<Question> l = Commons.bl.GetFilteredQuestionsNotAskedToStudent(currentStudent, currentClass,
                 currentSubject, keyQuestionType, tagsList, currentTopic,
                 rdbManyTopics.Checked, rdbAnd.Checked, txtSearchText.Text, 
                 dateFrom, dateTo);
@@ -249,7 +249,7 @@ namespace SchoolGrades
             //}
             DateTime dateFrom = dtpStartPeriod.Value;
             DateTime dateTo = dtpEndPeriod.Value;
-            List<Question> listAskedInThisLesson = Commons.bl.GetFilteredQuestionsNotAsked
+            List<Question> listAskedInThisLesson = Commons.bl.GetFilteredQuestionsNotAskedToStudent
                 (currentStudent, currentClass,currentSubject,keyQuestionType,
                 tagsList, currentTopic,
                 rdbManyTopics.Checked, rdbAnd.Checked,
@@ -381,6 +381,26 @@ namespace SchoolGrades
         {
             updateQuestions();
         }
+
+        private void btnQuestionsDone_Click(object sender, EventArgs e)
+        {
+            //dgwQuestions.DataSource = db.GetFilteredQuestions(tagsList, keySubject,
+            //    keyQuestionType, currentTopic, rdbManyTopics.Checked, rdbAnd.Checked);
+            DateTime dateFrom = dtpStartPeriod.Value;
+            DateTime dateTo = dtpEndPeriod.Value;
+            if (cmbStandardPeriod.Text == "")
+                dateFrom = Commons.DateNull;
+            if (currentSubject == null)
+                currentSubject = new SchoolSubject();
+            if (currentTopic == null)
+                currentTopic = new Topic();
+            List<Question> l = Commons.bl.GetFilteredQuestionsAskedToClass(currentClass,
+                currentSubject, keyQuestionType, tagsList, currentTopic,
+                rdbManyTopics.Checked, rdbAnd.Checked, txtSearchText.Text,
+                dateFrom, dateTo);
+            dgwQuestions.DataSource = l;
+        }
+
         private void BtnComb_Click(object sender, EventArgs e)
         {
             if(!CommonsWinForms.CheckIfStudentChosen(currentStudent))
@@ -395,11 +415,7 @@ namespace SchoolGrades
             frmKnotsToTheComb frm = new frmKnotsToTheComb(ParentForm, currentStudent.IdStudent, currentSubject,
                 currentClass.SchoolYear);
             frm.Show();
-            ////////if (frm.ChosenQuestion != null)
-            ////////{
-            ////////    ChosenQuestion = frm.ChosenQuestion;
-            ////////    this.Close();
-            ////////}
+
         }
     }
 }
