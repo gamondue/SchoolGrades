@@ -115,39 +115,61 @@ namespace SchoolGrades
             else
             {
             }
-            dgwOneLesson.Columns[0].Visible = false;
-            dgwOneLesson.Columns[1].Visible = true;
-            dgwOneLesson.Columns[2].Visible = true;
-            dgwOneLesson.Columns[3].Visible = false;
-            dgwOneLesson.Columns[4].Visible = false;
-            dgwOneLesson.Columns[5].Visible = false;
+            RefreshTopicsInOneLesson();
+            RefreshTopicsChecksAndImages();
+            if (dgwAllLessons.Columns.Count > 5)
+            {
+                dgwAllLessons.Columns[0].Visible = false;
+                dgwAllLessons.Columns[1].Visible = true;
+                dgwAllLessons.Columns[2].Visible = false;
+                dgwAllLessons.Columns[3].Visible = false;
+                dgwAllLessons.Columns[4].Visible = true;
+                dgwAllLessons.Columns[5].Visible = false;
+            }
+        }
+
+        private void RefreshTopicsInOneLesson()
+        {
 
             dgwOneLesson.DataSource = Commons.bl.GetTopicsOfOneLessonOfClass(currentClass,
                     currentLesson);
-            RefreshTopicsChecksAndImages();
+            if (dgwOneLesson.Columns.Count > 5)
+            {
+                dgwOneLesson.Columns[0].Visible = false;
+                dgwOneLesson.Columns[1].Visible = true;
+                dgwOneLesson.Columns[2].Visible = true;
+                dgwOneLesson.Columns[3].Visible = false;
+                dgwOneLesson.Columns[4].Visible = false;
+                dgwOneLesson.Columns[5].Visible = false;
+                dgwOneLesson.Columns[6].Visible = false;
+            }
         }
+
         private void RefreshTopicsChecksAndImages()
         {
-            topicTreeMptt.UncheckAllItemsUnderNode(trwTopics.Nodes[0]);
-            // gets and checks the topics of the current lesson 
-            List<Topic> TopicsToCheck = Commons.bl.GetTopicsOfLesson(currentLesson.IdLesson);
-            int dummy = 0;
-            bool dummy2 = false;
-            topicTreeMptt.CheckItemsInList(trwTopics.Nodes[0],
-            TopicsToCheck, ref dummy, ref dummy2);
-
-            // gets the images associated with this lesson
-            listImages = Commons.bl.GetListLessonsImages(currentLesson);
-            // shows the fist image
-            if (listImages.Count > 0)
-                try
-                {
-                    picImage.Load(Commons.PathImages + "\\" + listImages[indexImages].RelativePathAndFilename);
-                }
-                catch { }
-            else
+            if (topicTreeMptt != null)
             {
-                picImage.Image = null;
+                topicTreeMptt.UncheckAllItemsUnderNode(trwTopics.Nodes[0]);
+                // gets and checks the topics of the current lesson 
+                List<Topic> TopicsToCheck = Commons.bl.GetTopicsOfLesson(currentLesson.IdLesson);
+                int dummy = 0;
+                bool dummy2 = false;
+                topicTreeMptt.CheckItemsInList(trwTopics.Nodes[0],
+                TopicsToCheck, ref dummy, ref dummy2);
+
+                // gets the images associated with this lesson
+                listImages = Commons.bl.GetListLessonsImages(currentLesson);
+                // shows the fist image
+                if (listImages.Count > 0)
+                    try
+                    {
+                        picImage.Load(Commons.PathImages + "\\" + listImages[indexImages].RelativePathAndFilename);
+                    }
+                    catch { }
+                else
+                {
+                    picImage.Image = null;
+                }
             }
         }
         private void btnFind_Click(object sender, EventArgs e)
@@ -169,7 +191,7 @@ namespace SchoolGrades
             topicTreeMptt.SaveTreeFromTreeViewControlByParent();
             MessageBox.Show("Salvataggio fatto");
         }
-        // !!!! TODO: this should stay into the TTMPT tree class !!!!
+        // !!!! TODO: this should stay into the MPTT tree class !!!!
         private void txtTopicName_TextChanged(object sender, EventArgs e)
         {
             // if the change is due to selection in the tree, don't change
@@ -613,9 +635,7 @@ namespace SchoolGrades
                     dtpLessonDate.Value = (DateTime)currentLesson.Date;
                     txtLessonCode.Text = currentLesson.IdLesson.ToString();
 
-                    dgwOneLesson.DataSource = Commons.bl.GetTopicsOfOneLessonOfClass(currentClass,
-                        currentLesson);
-
+                    RefreshTopicsInOneLesson();
                     RefreshTopicsChecksAndImages(); 
                 }
             }

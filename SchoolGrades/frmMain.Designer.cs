@@ -78,11 +78,10 @@
             this.btnClassesGradesSummary = new System.Windows.Forms.Button();
             this.btnCheckAll = new System.Windows.Forms.Button();
             this.btnCheckNoGrade = new System.Windows.Forms.Button();
-            this.lstNames = new System.Windows.Forms.CheckedListBox();
             this.lblDatabaseFile = new System.Windows.Forms.Label();
             this.btnYearTopics = new System.Windows.Forms.Button();
             this.ChkActivateLessonClock = new System.Windows.Forms.CheckBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lblIdStudent = new System.Windows.Forms.Label();
             this.txtIdStudent = new System.Windows.Forms.TextBox();
             this.btnTemporary = new System.Windows.Forms.Button();
             this.txtTimeInterval = new System.Windows.Forms.TextBox();
@@ -138,7 +137,7 @@
             this.btnDraw.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnDraw.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnDraw.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnDraw.Location = new System.Drawing.Point(847, 361);
+            this.btnDraw.Location = new System.Drawing.Point(696, 361);
             this.btnDraw.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnDraw.Name = "btnDraw";
             this.btnDraw.Size = new System.Drawing.Size(101, 54);
@@ -157,7 +156,7 @@
             this.butComeOn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.butComeOn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.butComeOn.ForeColor = System.Drawing.Color.DarkBlue;
-            this.butComeOn.Location = new System.Drawing.Point(954, 361);
+            this.butComeOn.Location = new System.Drawing.Point(803, 361);
             this.butComeOn.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.butComeOn.Name = "butComeOn";
             this.butComeOn.Size = new System.Drawing.Size(101, 54);
@@ -176,7 +175,7 @@
             // 
             this.txtMinuteStartLesson.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtMinuteStartLesson.ForeColor = System.Drawing.Color.DarkBlue;
-            this.txtMinuteStartLesson.Location = new System.Drawing.Point(543, 8);
+            this.txtMinuteStartLesson.Location = new System.Drawing.Point(516, 294);
             this.txtMinuteStartLesson.Name = "txtMinuteStartLesson";
             this.txtMinuteStartLesson.Size = new System.Drawing.Size(46, 24);
             this.txtMinuteStartLesson.TabIndex = 139;
@@ -189,7 +188,7 @@
             // 
             this.txtDurationLesson.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDurationLesson.ForeColor = System.Drawing.Color.DarkBlue;
-            this.txtDurationLesson.Location = new System.Drawing.Point(543, 33);
+            this.txtDurationLesson.Location = new System.Drawing.Point(516, 319);
             this.txtDurationLesson.Name = "txtDurationLesson";
             this.txtDurationLesson.Size = new System.Drawing.Size(46, 24);
             this.txtDurationLesson.TabIndex = 140;
@@ -202,7 +201,7 @@
             // 
             this.txtMinuteStartAlarm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtMinuteStartAlarm.ForeColor = System.Drawing.Color.DarkBlue;
-            this.txtMinuteStartAlarm.Location = new System.Drawing.Point(543, 58);
+            this.txtMinuteStartAlarm.Location = new System.Drawing.Point(516, 344);
             this.txtMinuteStartAlarm.Name = "txtMinuteStartAlarm";
             this.txtMinuteStartAlarm.Size = new System.Drawing.Size(46, 24);
             this.txtMinuteStartAlarm.TabIndex = 141;
@@ -214,7 +213,7 @@
             // txtRevengeFactor
             // 
             this.txtRevengeFactor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRevengeFactor.Location = new System.Drawing.Point(912, 511);
+            this.txtRevengeFactor.Location = new System.Drawing.Point(761, 511);
             this.txtRevengeFactor.Name = "txtRevengeFactor";
             this.txtRevengeFactor.ReadOnly = true;
             this.txtRevengeFactor.Size = new System.Drawing.Size(36, 24);
@@ -228,7 +227,7 @@
             this.btnCheckNone.BackColor = System.Drawing.Color.Transparent;
             this.btnCheckNone.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnCheckNone.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnCheckNone.Location = new System.Drawing.Point(723, 617);
+            this.btnCheckNone.Location = new System.Drawing.Point(572, 617);
             this.btnCheckNone.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnCheckNone.Name = "btnCheckNone";
             this.btnCheckNone.Size = new System.Drawing.Size(91, 54);
@@ -259,7 +258,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pgbTimeQuestion.Location = new System.Drawing.Point(8, 168);
             this.pgbTimeQuestion.Name = "pgbTimeQuestion";
-            this.pgbTimeQuestion.Size = new System.Drawing.Size(711, 23);
+            this.pgbTimeQuestion.Size = new System.Drawing.Size(560, 23);
             this.pgbTimeQuestion.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.pgbTimeQuestion.TabIndex = 50;
             this.toolTip1.SetToolTip(this.pgbTimeQuestion, "Barra tempo per la risposta, Click  per far partire il cronometro.");
@@ -331,7 +330,7 @@
             this.TxtPathImages.ForeColor = System.Drawing.Color.DarkBlue;
             this.TxtPathImages.Location = new System.Drawing.Point(8, 142);
             this.TxtPathImages.Name = "TxtPathImages";
-            this.TxtPathImages.Size = new System.Drawing.Size(671, 24);
+            this.TxtPathImages.Size = new System.Drawing.Size(520, 24);
             this.TxtPathImages.TabIndex = 20;
             this.toolTip1.SetToolTip(this.TxtPathImages, "Cartella in cui trovare l\'immagine casuale (click per aprire un file nella cartel" +
         "la) ");
@@ -343,7 +342,7 @@
             // 
             this.btnPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPath.ForeColor = System.Drawing.Color.Black;
-            this.btnPath.Location = new System.Drawing.Point(685, 140);
+            this.btnPath.Location = new System.Drawing.Point(534, 140);
             this.btnPath.Name = "btnPath";
             this.btnPath.Size = new System.Drawing.Size(34, 27);
             this.btnPath.TabIndex = 67;
@@ -358,7 +357,7 @@
             this.BtnShowRandomImage.BackColor = System.Drawing.Color.Transparent;
             this.BtnShowRandomImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.BtnShowRandomImage.ForeColor = System.Drawing.Color.DarkBlue;
-            this.BtnShowRandomImage.Location = new System.Drawing.Point(723, 131);
+            this.BtnShowRandomImage.Location = new System.Drawing.Point(572, 131);
             this.BtnShowRandomImage.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.BtnShowRandomImage.Name = "BtnShowRandomImage";
             this.BtnShowRandomImage.Size = new System.Drawing.Size(91, 59);
@@ -456,7 +455,7 @@
             this.BtnSetup.BackColor = System.Drawing.Color.Transparent;
             this.BtnSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.BtnSetup.ForeColor = System.Drawing.Color.DarkBlue;
-            this.BtnSetup.Location = new System.Drawing.Point(711, 5);
+            this.BtnSetup.Location = new System.Drawing.Point(560, 5);
             this.BtnSetup.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.BtnSetup.Name = "BtnSetup";
             this.BtnSetup.Size = new System.Drawing.Size(107, 59);
@@ -472,7 +471,7 @@
             this.btnStudentsGradesSummary.BackColor = System.Drawing.Color.Transparent;
             this.btnStudentsGradesSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnStudentsGradesSummary.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnStudentsGradesSummary.Location = new System.Drawing.Point(954, 617);
+            this.btnStudentsGradesSummary.Location = new System.Drawing.Point(803, 617);
             this.btnStudentsGradesSummary.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnStudentsGradesSummary.Name = "btnStudentsGradesSummary";
             this.btnStudentsGradesSummary.Size = new System.Drawing.Size(101, 54);
@@ -491,7 +490,7 @@
             this.btnOldestGrade.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.btnOldestGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnOldestGrade.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnOldestGrade.Location = new System.Drawing.Point(954, 489);
+            this.btnOldestGrade.Location = new System.Drawing.Point(803, 489);
             this.btnOldestGrade.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnOldestGrade.Name = "btnOldestGrade";
             this.btnOldestGrade.Size = new System.Drawing.Size(101, 54);
@@ -514,7 +513,7 @@
             "Scritti",
             "Pratici",
             "Scritto-grafici"});
-            this.cmbGradeType.Location = new System.Drawing.Point(820, 246);
+            this.cmbGradeType.Location = new System.Drawing.Point(669, 246);
             this.cmbGradeType.Margin = new System.Windows.Forms.Padding(4);
             this.cmbGradeType.Name = "cmbGradeType";
             this.cmbGradeType.Size = new System.Drawing.Size(239, 28);
@@ -528,7 +527,7 @@
             this.btnLessonsTopics.BackColor = System.Drawing.Color.Transparent;
             this.btnLessonsTopics.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnLessonsTopics.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnLessonsTopics.Location = new System.Drawing.Point(847, 678);
+            this.btnLessonsTopics.Location = new System.Drawing.Point(696, 678);
             this.btnLessonsTopics.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnLessonsTopics.Name = "btnLessonsTopics";
             this.btnLessonsTopics.Size = new System.Drawing.Size(101, 54);
@@ -545,7 +544,7 @@
             this.cmbSchoolSubject.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSchoolSubject.ForeColor = System.Drawing.Color.DarkBlue;
             this.cmbSchoolSubject.FormattingEnabled = true;
-            this.cmbSchoolSubject.Location = new System.Drawing.Point(820, 300);
+            this.cmbSchoolSubject.Location = new System.Drawing.Point(669, 300);
             this.cmbSchoolSubject.Name = "cmbSchoolSubject";
             this.cmbSchoolSubject.Size = new System.Drawing.Size(239, 26);
             this.cmbSchoolSubject.TabIndex = 108;
@@ -558,7 +557,7 @@
             this.btnTopicsDone.BackColor = System.Drawing.Color.Transparent;
             this.btnTopicsDone.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnTopicsDone.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnTopicsDone.Location = new System.Drawing.Point(847, 553);
+            this.btnTopicsDone.Location = new System.Drawing.Point(696, 553);
             this.btnTopicsDone.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnTopicsDone.Name = "btnTopicsDone";
             this.btnTopicsDone.Size = new System.Drawing.Size(101, 54);
@@ -571,7 +570,7 @@
             // btnStartLinks
             // 
             this.btnStartLinks.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnStartLinks.Location = new System.Drawing.Point(723, 256);
+            this.btnStartLinks.Location = new System.Drawing.Point(572, 256);
             this.btnStartLinks.Name = "btnStartLinks";
             this.btnStartLinks.Size = new System.Drawing.Size(91, 54);
             this.btnStartLinks.TabIndex = 132;
@@ -586,7 +585,7 @@
             this.btnQuestion.BackColor = System.Drawing.Color.Transparent;
             this.btnQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnQuestion.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnQuestion.Location = new System.Drawing.Point(847, 425);
+            this.btnQuestion.Location = new System.Drawing.Point(696, 425);
             this.btnQuestion.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnQuestion.Name = "btnQuestion";
             this.btnQuestion.Size = new System.Drawing.Size(101, 54);
@@ -603,7 +602,7 @@
             this.txtQuestion.Location = new System.Drawing.Point(8, 193);
             this.txtQuestion.Name = "txtQuestion";
             this.txtQuestion.ReadOnly = true;
-            this.txtQuestion.Size = new System.Drawing.Size(711, 24);
+            this.txtQuestion.Size = new System.Drawing.Size(560, 24);
             this.txtQuestion.TabIndex = 134;
             this.toolTip1.SetToolTip(this.txtQuestion, "Testo della domanda corrente");
             this.txtQuestion.TextChanged += new System.EventHandler(this.txtQuestion_TextChanged);
@@ -615,7 +614,7 @@
             this.btnMakeGroups.BackColor = System.Drawing.Color.Transparent;
             this.btnMakeGroups.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnMakeGroups.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnMakeGroups.Location = new System.Drawing.Point(597, 72);
+            this.btnMakeGroups.Location = new System.Drawing.Point(446, 72);
             this.btnMakeGroups.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnMakeGroups.Name = "btnMakeGroups";
             this.btnMakeGroups.Size = new System.Drawing.Size(107, 59);
@@ -631,7 +630,7 @@
             this.BtnLessonTime.BackColor = System.Drawing.Color.Transparent;
             this.BtnLessonTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.BtnLessonTime.ForeColor = System.Drawing.Color.DarkBlue;
-            this.BtnLessonTime.Location = new System.Drawing.Point(597, 5);
+            this.BtnLessonTime.Location = new System.Drawing.Point(432, 230);
             this.BtnLessonTime.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.BtnLessonTime.Name = "BtnLessonTime";
             this.BtnLessonTime.Size = new System.Drawing.Size(107, 59);
@@ -647,7 +646,7 @@
             this.btnVindicationFactorPlus.BackColor = System.Drawing.Color.Transparent;
             this.btnVindicationFactorPlus.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnVindicationFactorPlus.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnVindicationFactorPlus.Location = new System.Drawing.Point(847, 489);
+            this.btnVindicationFactorPlus.Location = new System.Drawing.Point(696, 489);
             this.btnVindicationFactorPlus.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnVindicationFactorPlus.Name = "btnVindicationFactorPlus";
             this.btnVindicationFactorPlus.Size = new System.Drawing.Size(57, 27);
@@ -663,7 +662,7 @@
             this.btnVindicationFactorMinus.BackColor = System.Drawing.Color.Transparent;
             this.btnVindicationFactorMinus.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnVindicationFactorMinus.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnVindicationFactorMinus.Location = new System.Drawing.Point(847, 516);
+            this.btnVindicationFactorMinus.Location = new System.Drawing.Point(696, 516);
             this.btnVindicationFactorMinus.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnVindicationFactorMinus.Name = "btnVindicationFactorMinus";
             this.btnVindicationFactorMinus.Size = new System.Drawing.Size(57, 27);
@@ -679,7 +678,7 @@
             this.btnCheckToggle.BackColor = System.Drawing.Color.Transparent;
             this.btnCheckToggle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnCheckToggle.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnCheckToggle.Location = new System.Drawing.Point(723, 425);
+            this.btnCheckToggle.Location = new System.Drawing.Point(572, 425);
             this.btnCheckToggle.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnCheckToggle.Name = "btnCheckToggle";
             this.btnCheckToggle.Size = new System.Drawing.Size(91, 54);
@@ -693,7 +692,7 @@
             // 
             this.chkSuspence.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkSuspence.AutoSize = true;
-            this.chkSuspence.Location = new System.Drawing.Point(960, 223);
+            this.chkSuspence.Location = new System.Drawing.Point(809, 223);
             this.chkSuspence.Name = "chkSuspence";
             this.chkSuspence.Size = new System.Drawing.Size(99, 22);
             this.chkSuspence.TabIndex = 147;
@@ -707,7 +706,7 @@
             this.btnCheckRevenge.BackColor = System.Drawing.Color.Transparent;
             this.btnCheckRevenge.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnCheckRevenge.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnCheckRevenge.Location = new System.Drawing.Point(723, 489);
+            this.btnCheckRevenge.Location = new System.Drawing.Point(572, 489);
             this.btnCheckRevenge.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnCheckRevenge.Name = "btnCheckRevenge";
             this.btnCheckRevenge.Size = new System.Drawing.Size(91, 54);
@@ -722,7 +721,7 @@
             this.lblVindicationFactor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblVindicationFactor.AutoSize = true;
             this.lblVindicationFactor.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblVindicationFactor.Location = new System.Drawing.Point(912, 491);
+            this.lblVindicationFactor.Location = new System.Drawing.Point(761, 491);
             this.lblVindicationFactor.Name = "lblVindicationFactor";
             this.lblVindicationFactor.Size = new System.Drawing.Size(38, 18);
             this.lblVindicationFactor.TabIndex = 145;
@@ -734,7 +733,7 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label1.Location = new System.Drawing.Point(423, 11);
+            this.label1.Location = new System.Drawing.Point(396, 297);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(104, 18);
             this.label1.TabIndex = 149;
@@ -746,7 +745,7 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label3.Location = new System.Drawing.Point(423, 36);
+            this.label3.Location = new System.Drawing.Point(396, 322);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(105, 18);
             this.label3.TabIndex = 150;
@@ -758,7 +757,7 @@
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label4.Location = new System.Drawing.Point(423, 61);
+            this.label4.Location = new System.Drawing.Point(396, 347);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(118, 18);
             this.label4.TabIndex = 151;
@@ -771,7 +770,7 @@
             this.btnClassesGradesSummary.BackColor = System.Drawing.Color.Transparent;
             this.btnClassesGradesSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnClassesGradesSummary.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnClassesGradesSummary.Location = new System.Drawing.Point(847, 617);
+            this.btnClassesGradesSummary.Location = new System.Drawing.Point(696, 617);
             this.btnClassesGradesSummary.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnClassesGradesSummary.Name = "btnClassesGradesSummary";
             this.btnClassesGradesSummary.Size = new System.Drawing.Size(101, 54);
@@ -787,7 +786,7 @@
             this.btnCheckAll.BackColor = System.Drawing.Color.Transparent;
             this.btnCheckAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnCheckAll.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnCheckAll.Location = new System.Drawing.Point(723, 678);
+            this.btnCheckAll.Location = new System.Drawing.Point(572, 678);
             this.btnCheckAll.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnCheckAll.Name = "btnCheckAll";
             this.btnCheckAll.Size = new System.Drawing.Size(91, 54);
@@ -803,7 +802,7 @@
             this.btnCheckNoGrade.BackColor = System.Drawing.Color.Transparent;
             this.btnCheckNoGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnCheckNoGrade.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnCheckNoGrade.Location = new System.Drawing.Point(723, 553);
+            this.btnCheckNoGrade.Location = new System.Drawing.Point(572, 553);
             this.btnCheckNoGrade.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnCheckNoGrade.Name = "btnCheckNoGrade";
             this.btnCheckNoGrade.Size = new System.Drawing.Size(91, 54);
@@ -812,29 +811,6 @@
             this.toolTip1.SetToolTip(this.btnCheckNoGrade, "Check allievi che non hanno voti");
             this.btnCheckNoGrade.UseVisualStyleBackColor = false;
             this.btnCheckNoGrade.Click += new System.EventHandler(this.btnCheckNoGrade_Click);
-            // 
-            // lstNames
-            // 
-            this.lstNames.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lstNames.BackColor = System.Drawing.Color.PowderBlue;
-            this.lstNames.ColumnWidth = 350;
-            this.lstNames.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lstNames.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lstNames.HorizontalScrollbar = true;
-            this.lstNames.Location = new System.Drawing.Point(8, 222);
-            this.lstNames.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.lstNames.MultiColumn = true;
-            this.lstNames.Name = "lstNames";
-            this.lstNames.Size = new System.Drawing.Size(711, 508);
-            this.lstNames.TabIndex = 26;
-            this.toolTip1.SetToolTip(this.lstNames, "Nomi degli allievi della classe. ");
-            this.lstNames.UseCompatibleTextRendering = true;
-            this.lstNames.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.lstNames_ItemCheck);
-            this.lstNames.SelectedIndexChanged += new System.EventHandler(this.lstNames_SelectedIndexChanged);
-            this.lstNames.SelectedValueChanged += new System.EventHandler(this.lstNomi_SelectedValueChanged);
-            this.lstNames.DoubleClick += new System.EventHandler(this.lstNames_DoubleClick);
             // 
             // lblDatabaseFile
             // 
@@ -855,7 +831,7 @@
             this.btnYearTopics.BackColor = System.Drawing.Color.Transparent;
             this.btnYearTopics.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnYearTopics.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnYearTopics.Location = new System.Drawing.Point(954, 553);
+            this.btnYearTopics.Location = new System.Drawing.Point(803, 553);
             this.btnYearTopics.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.btnYearTopics.Name = "btnYearTopics";
             this.btnYearTopics.Size = new System.Drawing.Size(101, 54);
@@ -871,7 +847,7 @@
             this.ChkActivateLessonClock.AutoSize = true;
             this.ChkActivateLessonClock.Checked = true;
             this.ChkActivateLessonClock.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ChkActivateLessonClock.Location = new System.Drawing.Point(423, 92);
+            this.ChkActivateLessonClock.Location = new System.Drawing.Point(396, 378);
             this.ChkActivateLessonClock.Name = "ChkActivateLessonClock";
             this.ChkActivateLessonClock.Size = new System.Drawing.Size(157, 22);
             this.ChkActivateLessonClock.TabIndex = 159;
@@ -880,26 +856,26 @@
             this.ChkActivateLessonClock.UseVisualStyleBackColor = true;
             this.ChkActivateLessonClock.CheckedChanged += new System.EventHandler(this.ChkActivateLessonClock_CheckedChanged);
             // 
-            // label5
+            // lblIdStudent
             // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.Enabled = false;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label5.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label5.Location = new System.Drawing.Point(639, 223);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(65, 15);
-            this.label5.TabIndex = 163;
-            this.label5.Text = "Id allievo";
-            this.toolTip1.SetToolTip(this.label5, "Media pesata di tutti i microvoti visualizzati. Salvata nel voto complessivo. Si " +
+            this.lblIdStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblIdStudent.AutoSize = true;
+            this.lblIdStudent.Enabled = false;
+            this.lblIdStudent.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblIdStudent.ForeColor = System.Drawing.Color.DarkBlue;
+            this.lblIdStudent.Location = new System.Drawing.Point(488, 218);
+            this.lblIdStudent.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblIdStudent.Name = "lblIdStudent";
+            this.lblIdStudent.Size = new System.Drawing.Size(65, 15);
+            this.lblIdStudent.TabIndex = 163;
+            this.lblIdStudent.Text = "Id allievo";
+            this.toolTip1.SetToolTip(this.lblIdStudent, "Media pesata di tutti i microvoti visualizzati. Salvata nel voto complessivo. Si " +
         "può modificare. ");
             // 
             // txtIdStudent
             // 
             this.txtIdStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtIdStudent.Location = new System.Drawing.Point(642, 241);
+            this.txtIdStudent.Location = new System.Drawing.Point(491, 236);
             this.txtIdStudent.Margin = new System.Windows.Forms.Padding(4);
             this.txtIdStudent.Name = "txtIdStudent";
             this.txtIdStudent.ReadOnly = true;
@@ -914,7 +890,7 @@
             this.btnTemporary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTemporary.BackColor = System.Drawing.Color.Red;
             this.btnTemporary.ForeColor = System.Drawing.Color.Yellow;
-            this.btnTemporary.Location = new System.Drawing.Point(563, 163);
+            this.btnTemporary.Location = new System.Drawing.Point(412, 163);
             this.btnTemporary.Name = "btnTemporary";
             this.btnTemporary.Size = new System.Drawing.Size(91, 54);
             this.btnTemporary.TabIndex = 164;
@@ -952,7 +928,7 @@
             // btnMosaic
             // 
             this.btnMosaic.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMosaic.Location = new System.Drawing.Point(723, 316);
+            this.btnMosaic.Location = new System.Drawing.Point(572, 316);
             this.btnMosaic.Name = "btnMosaic";
             this.btnMosaic.Size = new System.Drawing.Size(91, 54);
             this.btnMosaic.TabIndex = 170;
@@ -1016,7 +992,7 @@
             // 
             this.txtNStudents.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNStudents.ForeColor = System.Drawing.Color.DarkBlue;
-            this.txtNStudents.Location = new System.Drawing.Point(745, 394);
+            this.txtNStudents.Location = new System.Drawing.Point(454, 465);
             this.txtNStudents.Name = "txtNStudents";
             this.txtNStudents.Size = new System.Drawing.Size(46, 24);
             this.txtNStudents.TabIndex = 174;
@@ -1028,7 +1004,7 @@
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
             this.label6.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label6.Location = new System.Drawing.Point(736, 373);
+            this.label6.Location = new System.Drawing.Point(445, 444);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(65, 18);
             this.label6.TabIndex = 175;
@@ -1041,7 +1017,7 @@
             this.btnStudentsNotes.BackColor = System.Drawing.Color.Transparent;
             this.btnStudentsNotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnStudentsNotes.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnStudentsNotes.Location = new System.Drawing.Point(953, 678);
+            this.btnStudentsNotes.Location = new System.Drawing.Point(802, 678);
             this.btnStudentsNotes.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnStudentsNotes.Name = "btnStudentsNotes";
             this.btnStudentsNotes.Size = new System.Drawing.Size(101, 54);
@@ -1066,7 +1042,7 @@
             // 
             this.chkPopUpQuestionsEnabled.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkPopUpQuestionsEnabled.AutoSize = true;
-            this.chkPopUpQuestionsEnabled.Location = new System.Drawing.Point(822, 338);
+            this.chkPopUpQuestionsEnabled.Location = new System.Drawing.Point(671, 338);
             this.chkPopUpQuestionsEnabled.Name = "chkPopUpQuestionsEnabled";
             this.chkPopUpQuestionsEnabled.Size = new System.Drawing.Size(167, 22);
             this.chkPopUpQuestionsEnabled.TabIndex = 179;
@@ -1080,7 +1056,7 @@
             this.txtPopUpQuestionCentralTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtPopUpQuestionCentralTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.txtPopUpQuestionCentralTime.ForeColor = System.Drawing.Color.DarkBlue;
-            this.txtPopUpQuestionCentralTime.Location = new System.Drawing.Point(992, 342);
+            this.txtPopUpQuestionCentralTime.Location = new System.Drawing.Point(841, 342);
             this.txtPopUpQuestionCentralTime.Name = "txtPopUpQuestionCentralTime";
             this.txtPopUpQuestionCentralTime.Size = new System.Drawing.Size(46, 21);
             this.txtPopUpQuestionCentralTime.TabIndex = 181;
@@ -1094,7 +1070,7 @@
             this.btnRandomNumber.BackColor = System.Drawing.Color.Transparent;
             this.btnRandomNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnRandomNumber.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnRandomNumber.Location = new System.Drawing.Point(723, 193);
+            this.btnRandomNumber.Location = new System.Drawing.Point(572, 193);
             this.btnRandomNumber.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnRandomNumber.Name = "btnRandomNumber";
             this.btnRandomNumber.Size = new System.Drawing.Size(91, 59);
@@ -1130,7 +1106,7 @@
             this.lblStudentChosen.Location = new System.Drawing.Point(8, 222);
             this.lblStudentChosen.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblStudentChosen.Name = "lblStudentChosen";
-            this.lblStudentChosen.Size = new System.Drawing.Size(625, 43);
+            this.lblStudentChosen.Size = new System.Drawing.Size(474, 43);
             this.lblStudentChosen.TabIndex = 27;
             this.lblStudentChosen.Text = "Allievo";
             this.lblStudentChosen.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1157,10 +1133,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.picStudent.Location = new System.Drawing.Point(10, 222);
             this.picStudent.Name = "picStudent";
-            this.picStudent.Size = new System.Drawing.Size(709, 510);
+            this.picStudent.Size = new System.Drawing.Size(558, 510);
             this.picStudent.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picStudent.TabIndex = 52;
             this.picStudent.TabStop = false;
+            this.picStudent.Visible = false;
             this.picStudent.DoubleClick += new System.EventHandler(this.picStudent_DoubleClick);
             // 
             // grpSorts
@@ -1175,7 +1152,7 @@
             this.grpSorts.Controls.Add(this.rdbDrawEqualProbability);
             this.grpSorts.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.grpSorts.ForeColor = System.Drawing.Color.DarkBlue;
-            this.grpSorts.Location = new System.Drawing.Point(847, 38);
+            this.grpSorts.Location = new System.Drawing.Point(696, 38);
             this.grpSorts.Name = "grpSorts";
             this.grpSorts.Size = new System.Drawing.Size(216, 179);
             this.grpSorts.TabIndex = 69;
@@ -1188,7 +1165,7 @@
             this.btnAssess.BackColor = System.Drawing.Color.Transparent;
             this.btnAssess.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnAssess.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnAssess.Location = new System.Drawing.Point(954, 425);
+            this.btnAssess.Location = new System.Drawing.Point(803, 425);
             this.btnAssess.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnAssess.Name = "btnAssess";
             this.btnAssess.Size = new System.Drawing.Size(101, 54);
@@ -1202,7 +1179,7 @@
             this.lblSchoolSubject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSchoolSubject.AutoSize = true;
             this.lblSchoolSubject.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblSchoolSubject.Location = new System.Drawing.Point(819, 279);
+            this.lblSchoolSubject.Location = new System.Drawing.Point(668, 279);
             this.lblSchoolSubject.Name = "lblSchoolSubject";
             this.lblSchoolSubject.Size = new System.Drawing.Size(64, 18);
             this.lblSchoolSubject.TabIndex = 109;
@@ -1213,7 +1190,7 @@
             this.lblGradeType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblGradeType.AutoSize = true;
             this.lblGradeType.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblGradeType.Location = new System.Drawing.Point(817, 224);
+            this.lblGradeType.Location = new System.Drawing.Point(666, 224);
             this.lblGradeType.Name = "lblGradeType";
             this.lblGradeType.Size = new System.Drawing.Size(131, 18);
             this.lblGradeType.TabIndex = 110;
@@ -1229,7 +1206,7 @@
             this.ChkEnableEndLessonWarning.AutoSize = true;
             this.ChkEnableEndLessonWarning.Checked = true;
             this.ChkEnableEndLessonWarning.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ChkEnableEndLessonWarning.Location = new System.Drawing.Point(423, 117);
+            this.ChkEnableEndLessonWarning.Location = new System.Drawing.Point(396, 403);
             this.ChkEnableEndLessonWarning.Name = "ChkEnableEndLessonWarning";
             this.ChkEnableEndLessonWarning.Size = new System.Drawing.Size(174, 22);
             this.ChkEnableEndLessonWarning.TabIndex = 158;
@@ -1243,7 +1220,7 @@
             this.grpImageSource.Controls.Add(this.chkLessonsPictures);
             this.grpImageSource.Controls.Add(this.chkGivenFolder);
             this.grpImageSource.ForeColor = System.Drawing.Color.DarkBlue;
-            this.grpImageSource.Location = new System.Drawing.Point(723, 67);
+            this.grpImageSource.Location = new System.Drawing.Point(572, 67);
             this.grpImageSource.Name = "grpImageSource";
             this.grpImageSource.Size = new System.Drawing.Size(118, 64);
             this.grpImageSource.TabIndex = 158;
@@ -1256,7 +1233,7 @@
             this.grpChooseDrawSort.Controls.Add(this.rdbMustSort);
             this.grpChooseDrawSort.Controls.Add(this.rdbMustDraw);
             this.grpChooseDrawSort.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.grpChooseDrawSort.Location = new System.Drawing.Point(847, 0);
+            this.grpChooseDrawSort.Location = new System.Drawing.Point(696, 0);
             this.grpChooseDrawSort.Name = "grpChooseDrawSort";
             this.grpChooseDrawSort.Size = new System.Drawing.Size(216, 33);
             this.grpChooseDrawSort.TabIndex = 165;
@@ -1328,7 +1305,7 @@
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label8.Location = new System.Drawing.Point(995, 326);
+            this.label8.Location = new System.Drawing.Point(844, 326);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(41, 13);
             this.label8.TabIndex = 180;
@@ -1339,7 +1316,7 @@
             this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label9.Location = new System.Drawing.Point(1039, 346);
+            this.label9.Location = new System.Drawing.Point(888, 346);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(26, 13);
             this.label9.TabIndex = 182;
@@ -1359,9 +1336,9 @@
             this.dgwStudents.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
             this.dgwStudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgwStudents.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgwStudents.Location = new System.Drawing.Point(39, 223);
+            this.dgwStudents.Location = new System.Drawing.Point(8, 222);
             this.dgwStudents.Name = "dgwStudents";
-            this.dgwStudents.Size = new System.Drawing.Size(711, 509);
+            this.dgwStudents.Size = new System.Drawing.Size(382, 509);
             this.dgwStudents.TabIndex = 185;
             this.dgwStudents.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwStudents_CellContentClick);
             this.dgwStudents.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwStudents_CellDoubleClick);
@@ -1372,7 +1349,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
-            this.ClientSize = new System.Drawing.Size(1069, 741);
+            this.ClientSize = new System.Drawing.Size(918, 741);
+            this.Controls.Add(this.lblIdStudent);
+            this.Controls.Add(this.txtIdStudent);
             this.Controls.Add(this.dgwStudents);
             this.Controls.Add(this.chkSoundsInColorTimer);
             this.Controls.Add(this.btnTemporary);
@@ -1395,9 +1374,6 @@
             this.Controls.Add(this.txtTimeInterval);
             this.Controls.Add(this.lstTimeInterval);
             this.Controls.Add(this.grpChooseDrawSort);
-            this.Controls.Add(this.lstNames);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.txtIdStudent);
             this.Controls.Add(this.grpImageSource);
             this.Controls.Add(this.ChkActivateLessonClock);
             this.Controls.Add(this.ChkEnableEndLessonWarning);
@@ -1489,7 +1465,6 @@
         private System.Windows.Forms.CheckBox chkFotoVisibile;
         private System.Windows.Forms.CheckBox chkStudentsListVisible;
         private System.Windows.Forms.ComboBox CmbSchoolYear;
-        private System.Windows.Forms.CheckedListBox lstNames;
         private System.Windows.Forms.TextBox TxtPathImages;
         private System.Windows.Forms.Button btnPath;
         private System.Windows.Forms.Button BtnShowRandomImage;
@@ -1540,7 +1515,7 @@
         private System.Windows.Forms.CheckBox ChkEnableEndLessonWarning;
         private System.Windows.Forms.CheckBox ChkActivateLessonClock;
         private System.Windows.Forms.GroupBox grpImageSource;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblIdStudent;
         private System.Windows.Forms.TextBox txtIdStudent;
         private System.Windows.Forms.Button btnTemporary;
         private System.Windows.Forms.GroupBox grpChooseDrawSort;

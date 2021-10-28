@@ -162,7 +162,7 @@ namespace SchoolGrades
 
         private void btnTopicsManagement_Click(object sender, EventArgs e)
         {
-            frmTopics f = new frmTopics(frmTopics.TopicsFormType.NormalManagement,
+            frmTopics f = new frmTopics(frmTopics.TopicsFormType.ShowAndManagement,
                 null, null, null);  
             f.ShowDialog();
             f.Dispose();

@@ -363,6 +363,7 @@ namespace gamon.TreeMptt
                 {
                     // start saving in background, signalling to the main program 
                     // locks a concurrent modification of Commons.BackgroundCanStillSaveTopicsTree 
+                    
                     lock (CommonsWinForms.LockSavingTopicsTree)
                     {
                         CommonsWinForms.BackgroundCanStillSaveTopicsTree = true;

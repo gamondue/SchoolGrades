@@ -31,27 +31,31 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTopics));
             this.trwTopics = new System.Windows.Forms.TreeView();
             this.btnSaveTree = new System.Windows.Forms.Button();
-            this.btnAddNode = new System.Windows.Forms.Button();
             this.lblDescription = new System.Windows.Forms.Label();
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.txtTopicName = new System.Windows.Forms.TextBox();
             this.btnChoose = new System.Windows.Forms.Button();
             this.lblEdits = new System.Windows.Forms.Label();
-            this.btnDelete = new System.Windows.Forms.Button();
             this.lblFind = new System.Windows.Forms.Label();
             this.txtFind = new System.Windows.Forms.TextBox();
             this.btnFind = new System.Windows.Forms.Button();
             this.lblExplain = new System.Windows.Forms.Label();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnAddNode = new System.Windows.Forms.Button();
+            this.rdbOrSearch = new System.Windows.Forms.RadioButton();
+            this.rdbAndSearch = new System.Windows.Forms.RadioButton();
+            this.rdbStringSearch = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // trwTopics
             // 
             this.trwTopics.AllowDrop = true;
-            this.trwTopics.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.trwTopics.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trwTopics.Location = new System.Drawing.Point(12, 12);
             this.trwTopics.Name = "trwTopics";
-            this.trwTopics.Size = new System.Drawing.Size(476, 417);
+            this.trwTopics.Size = new System.Drawing.Size(480, 417);
             this.trwTopics.TabIndex = 2;
             this.trwTopics.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.trwTopics_AfterSelect);
             // 
@@ -66,19 +70,9 @@
             this.btnSaveTree.UseVisualStyleBackColor = true;
             this.btnSaveTree.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // btnAddNode
-            // 
-            this.btnAddNode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddNode.Location = new System.Drawing.Point(513, 284);
-            this.btnAddNode.Name = "btnAddNode";
-            this.btnAddNode.Size = new System.Drawing.Size(124, 61);
-            this.btnAddNode.TabIndex = 5;
-            this.btnAddNode.Text = "Aggiungi";
-            this.btnAddNode.UseVisualStyleBackColor = true;
-            this.btnAddNode.Click += new System.EventHandler(this.btnAddNode_Click);
-            // 
             // lblDescription
             // 
+            this.lblDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblDescription.AutoSize = true;
             this.lblDescription.Location = new System.Drawing.Point(13, 514);
             this.lblDescription.Name = "lblDescription";
@@ -88,21 +82,20 @@
             // 
             // txtDescription
             // 
-            this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDescription.Location = new System.Drawing.Point(16, 535);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(621, 110);
+            this.txtDescription.Size = new System.Drawing.Size(476, 110);
             this.txtDescription.TabIndex = 4;
             this.txtDescription.TextChanged += new System.EventHandler(this.txtDescription_TextChanged);
             // 
             // txtTopicName
             // 
-            this.txtTopicName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtTopicName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtTopicName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTopicName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtTopicName.Location = new System.Drawing.Point(16, 472);
             this.txtTopicName.Multiline = true;
             this.txtTopicName.Name = "txtTopicName";
@@ -123,23 +116,13 @@
             // 
             // lblEdits
             // 
+            this.lblEdits.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblEdits.AutoSize = true;
             this.lblEdits.Location = new System.Drawing.Point(13, 451);
             this.lblEdits.Name = "lblEdits";
             this.lblEdits.Size = new System.Drawing.Size(81, 18);
             this.lblEdits.TabIndex = 7;
             this.lblEdits.Text = "Argomento";
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDelete.Location = new System.Drawing.Point(513, 471);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(124, 61);
-            this.btnDelete.TabIndex = 6;
-            this.btnDelete.Text = "Elimina";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // lblFind
             // 
@@ -154,7 +137,7 @@
             // txtFind
             // 
             this.txtFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFind.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFind.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtFind.Location = new System.Drawing.Point(508, 21);
             this.txtFind.Multiline = true;
             this.txtFind.Name = "txtFind";
@@ -164,7 +147,7 @@
             // btnFind
             // 
             this.btnFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFind.Location = new System.Drawing.Point(513, 77);
+            this.btnFind.Location = new System.Drawing.Point(513, 94);
             this.btnFind.Name = "btnFind";
             this.btnFind.Size = new System.Drawing.Size(124, 61);
             this.btnFind.TabIndex = 2;
@@ -174,14 +157,72 @@
             // 
             // lblExplain
             // 
+            this.lblExplain.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblExplain.AutoSize = true;
-            this.lblExplain.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblExplain.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblExplain.Location = new System.Drawing.Point(9, 434);
             this.lblExplain.Name = "lblExplain";
-            this.lblExplain.Size = new System.Drawing.Size(337, 16);
+            this.lblExplain.Size = new System.Drawing.Size(336, 16);
             this.lblExplain.TabIndex = 10;
             this.lblExplain.Text = "Drag per spostare su nodo padre, Ctrl Drag per fratello. ";
             this.lblExplain.Click += new System.EventHandler(this.lblExplain_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDelete.Location = new System.Drawing.Point(513, 584);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(124, 61);
+            this.btnDelete.TabIndex = 126;
+            this.btnDelete.Text = "Elimina (Canc)";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            // 
+            // btnAddNode
+            // 
+            this.btnAddNode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddNode.Location = new System.Drawing.Point(513, 284);
+            this.btnAddNode.Name = "btnAddNode";
+            this.btnAddNode.Size = new System.Drawing.Size(124, 61);
+            this.btnAddNode.TabIndex = 127;
+            this.btnAddNode.Text = "Aggiungi (Ins)";
+            this.btnAddNode.UseVisualStyleBackColor = true;
+            // 
+            // rdbOrSearch
+            // 
+            this.rdbOrSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.rdbOrSearch.AutoSize = true;
+            this.rdbOrSearch.Enabled = false;
+            this.rdbOrSearch.Location = new System.Drawing.Point(555, 66);
+            this.rdbOrSearch.Name = "rdbOrSearch";
+            this.rdbOrSearch.Size = new System.Drawing.Size(40, 22);
+            this.rdbOrSearch.TabIndex = 153;
+            this.rdbOrSearch.Text = " ||";
+            this.rdbOrSearch.UseVisualStyleBackColor = true;
+            // 
+            // rdbAndSearch
+            // 
+            this.rdbAndSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.rdbAndSearch.AutoSize = true;
+            this.rdbAndSearch.Enabled = false;
+            this.rdbAndSearch.Location = new System.Drawing.Point(596, 66);
+            this.rdbAndSearch.Name = "rdbAndSearch";
+            this.rdbAndSearch.Size = new System.Drawing.Size(50, 22);
+            this.rdbAndSearch.TabIndex = 152;
+            this.rdbAndSearch.Text = " &&&&";
+            this.rdbAndSearch.UseVisualStyleBackColor = true;
+            // 
+            // rdbStringSearch
+            // 
+            this.rdbStringSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.rdbStringSearch.AutoSize = true;
+            this.rdbStringSearch.Checked = true;
+            this.rdbStringSearch.Location = new System.Drawing.Point(508, 66);
+            this.rdbStringSearch.Name = "rdbStringSearch";
+            this.rdbStringSearch.Size = new System.Drawing.Size(46, 22);
+            this.rdbStringSearch.TabIndex = 151;
+            this.rdbStringSearch.TabStop = true;
+            this.rdbStringSearch.Text = "Txt";
+            this.rdbStringSearch.UseVisualStyleBackColor = true;
             // 
             // frmTopics
             // 
@@ -189,20 +230,23 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(659, 657);
+            this.Controls.Add(this.rdbOrSearch);
+            this.Controls.Add(this.rdbAndSearch);
+            this.Controls.Add(this.rdbStringSearch);
+            this.Controls.Add(this.btnAddNode);
+            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.lblExplain);
             this.Controls.Add(this.btnFind);
             this.Controls.Add(this.lblFind);
             this.Controls.Add(this.txtFind);
-            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.lblEdits);
             this.Controls.Add(this.btnChoose);
             this.Controls.Add(this.txtTopicName);
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.lblDescription);
-            this.Controls.Add(this.btnAddNode);
             this.Controls.Add(this.btnSaveTree);
             this.Controls.Add(this.trwTopics);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.Color.DarkBlue;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
@@ -231,5 +275,8 @@
         private System.Windows.Forms.TextBox txtFind;
         private System.Windows.Forms.Button btnFind;
         private System.Windows.Forms.Label lblExplain;
+        private System.Windows.Forms.RadioButton rdbOrSearch;
+        private System.Windows.Forms.RadioButton rdbAndSearch;
+        private System.Windows.Forms.RadioButton rdbStringSearch;
     }
 }

@@ -104,10 +104,8 @@ namespace SchoolGrades
 
             timerQuestion.Interval = 250;
             
-            //#if DEBUG
             lblDatabaseFile.Visible = true;
             lblDatabaseFile.Text = Commons.FileDatabase;
-            //#endif
 #if !DEBUG
             // capture every exception for exception logging
             Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
@@ -137,6 +135,14 @@ namespace SchoolGrades
             CommonsWinForms.RestoreCurrentValuesOfAllControls(this, file);
 
             txtNStudents.Text = "";
+
+            picStudent.BringToFront();
+            lblStudentChosen.BringToFront();
+            lblIdStudent.BringToFront();
+            txtIdStudent.BringToFront();
+            lblStudentChosen.Visible = false;
+            lblIdStudent.Visible = false;
+            txtIdStudent.Visible = false; 
 
             // start Thread that concurrently saves the Topics tree
             CommonsWinForms.SaveTreeMptt = new TreeMptt(Commons.dl, null, null, null, null, null, null, picBackgroundSaveRunning);
@@ -219,7 +225,8 @@ namespace SchoolGrades
             else
             {
                 DrawOrSort();
-                ListaVisibile = false;
+                //ListaVisibile = false;
+                dgwStudents.Visible = false;
                 chkStudentsListVisible.Checked = false;
             }
         }
@@ -289,8 +296,6 @@ namespace SchoolGrades
             {
                 return;
             }
-            if (lstNames.Visible)
-                AllChecked();
             if (dgwStudents.Visible)
                 AllChecked();
         }
@@ -300,8 +305,6 @@ namespace SchoolGrades
             {
                 return;
             }
-            if (lstNames.Visible)
-                AllToggle();
             if (dgwStudents.Visible)
                 AllToggle();
         }
@@ -311,8 +314,6 @@ namespace SchoolGrades
             {
                 return;
             }
-            if (lstNames.Visible)
-                AllUnChecked();
             if (dgwStudents.Visible)
                 AllUnChecked();
         }
@@ -322,8 +323,6 @@ namespace SchoolGrades
             {
                 return;
             }
-            if (lstNames.Visible)
-                AllCheckRevenge();
             if (dgwStudents.Visible)
                 AllCheckRevenge();
         }
@@ -351,21 +350,6 @@ namespace SchoolGrades
         {
 
         }
-        private void lstNames_DoubleClick(object sender, EventArgs e)
-        {
-            if (!CommonsWinForms.CheckIfClassChosen(currentClass))
-            {
-                return;
-            }
-            if (lstNames.SelectedIndex == -1)
-                return;
-            currentClass.CurrentStudent = currentStudentsList[lstNames.SelectedIndex];
-            currentStudent = currentClass.CurrentStudent;
-            currentStudent.SchoolYear = currentClass.SchoolYear;
-            loadStudentsData(currentStudent);
-            lstNames.Visible = false;
-            dgwStudents.Visible = false;
-        }
         private void chkNomeVisibile_CheckedChanged(object sender, EventArgs e)
         {
             lblStudentChosen.Visible = chkNomeVisibile.Checked;
@@ -374,6 +358,7 @@ namespace SchoolGrades
         {
             picStudent.Image = null;
             lblStudentChosen.Text = "";
+            chkStudentsListVisible.Checked = true; 
         }
         private void lstClassi_DoubleClick(object sender, EventArgs e)
         {
@@ -396,9 +381,11 @@ namespace SchoolGrades
         }
         private void chkStudentsListVisible_CheckedChanged(object sender, EventArgs e)
         {
-            lstNames.Visible = false;
-            dgwStudents.Visible = false;
-            ListaVisibile = chkStudentsListVisible.Checked;
+            dgwStudents.Visible = chkStudentsListVisible.Checked;
+            lblStudentChosen.Visible = !chkStudentsListVisible.Checked;
+            picStudent.Visible = !chkStudentsListVisible.Checked;
+            lblIdStudent.Visible = !chkStudentsListVisible.Checked;
+            txtIdStudent.Visible = !chkStudentsListVisible.Checked;
         }
         private void cmbSchoolYear_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -504,22 +491,7 @@ namespace SchoolGrades
                 if (currentStudentsList == null)
                     return;
 
-                dgwStudents.DataSource = null; 
-                dgwStudents.DataSource = currentStudentsList;
-                dgwStudents.Visible = true;
-
-                // clear and refill the content of the listview control 
-                lstNames.Items.Clear();
-                for (int i = 0; i < currentStudentsList.Count; i++)
-                {
-                    lstNames.Items.Add(currentStudentsList[i]);
-                }
-                lstNames.Visible = true;
-
-                for (int i = 0; i < currentStudentsList.Count; i++)
-                {
-                    SetStudentEligible(i, currentStudentsList[i].Eligible);
-                }
+                RefreshStudentsGrid(); 
             }
         }
         public void DrawOrSort()
@@ -571,7 +543,6 @@ namespace SchoolGrades
                 MessageBox.Show("Nessun allievo presente?");
                 return;
             }
-            lstNames.Visible = false;
             dgwStudents.Visible = false; 
             
             // second pass: shuffle the list or sort 
@@ -648,11 +619,8 @@ namespace SchoolGrades
             // find the number of microgrades for each student
 
             List<Student> CheckedStudents = new List<Student>();
-			CopyCheckedStatusIntoEligiblesList(); 
-            if (lstNames.CheckedItems.Count != 0)
-            {               
-                eligiblesList = Commons.bl.EqualizeTheNumberOfTheGrades(currentStudentsList, currentClass, currentGradeType);
-            }
+			CopyCheckedStatusIntoEligiblesList();             
+            eligiblesList = Commons.bl.EqualizeTheNumberOfTheGrades(currentStudentsList, currentClass, currentGradeType);
         }
         private void PrepareEligiblesByWeightSum()
         {
@@ -691,16 +659,15 @@ namespace SchoolGrades
                     eligiblesList.Add(studentOfAll);
             }
         }
-
         private List<Student> FillListOfChecked()
         {
             List<Student> CheckedList = new List<Student>();
             // fill the list with those included in the CheckedItems collection
-            foreach (Student s in lstNames.CheckedItems)
+            foreach (Student s in currentStudentsList)
             {
                 CheckedList.Add(s);
             }
-            return CheckedList; 
+            return CheckedList;
         }
         public void SaveStudentsOfClassIfEligibleHasChanged()
         {
@@ -732,88 +699,56 @@ namespace SchoolGrades
         }
         public void AllChecked()
         {
-            for (int i = 0; i < lstNames.Items.Count; i++)
+            foreach(Student s in currentStudentsList)
             {
-                SetStudentEligible(i, true);
+                s.Eligible = true; 
             }
+            RefreshStudentsGrid(); 
         }
         public void AllUnChecked()
         {
-            for (int i = 0; i < lstNames.Items.Count; i++)
+            foreach (Student s in currentStudentsList)
             {
-                SetStudentEligible(i, false);
+                s.Eligible = false;
             }
+            RefreshStudentsGrid();
         }
         public void AllToggle()
         {
-            for (int i = 0; i < lstNames.Items.Count; i++)
+            foreach (Student s in currentStudentsList)
             {
-                Student s = (Student)lstNames.Items[i];
-                bool found = false;
-                foreach (object o in lstNames.CheckedItems)
-                {
-                    Student s1 = (Student)o;
-                    if (s == s1)
-                    {
-                        SetStudentEligible(i, false);
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found)
-                {
-                    SetStudentEligible(i, true);
-                }
+                s.Eligible = !s.Eligible;
             }
+            RefreshStudentsGrid();
         }
         private void AllCheckRevenge()
         {
             // TODO !!!! check all the students that have a RfCounter > minimum !!!! 
-            for (int i = 0; i < lstNames.Items.Count; i++)
+            foreach (Student s in currentStudentsList)
             {
-                Student s = (Student)lstNames.Items[i];
-                SetStudentEligible(i, (s.RevengeFactorCounter > 0));
+                if (s.RevengeFactorCounter > 0)
+                    s.Eligible = true;
+                else
+                    s.Eligible = false;
             }
+            RefreshStudentsGrid();
         }
         private void AllCheckNonGraded()
         {
             List<int> nonGraded = Commons.bl.GetIdStudentsNonGraded(currentClass, currentGradeType,
                 currentSubject);
-            for (int i = 0; i < lstNames.Items.Count; i++)
+            foreach (Student s in currentStudentsList)
             {
-                Student s = (Student)lstNames.Items[i];
-                SetStudentEligible(i, false);
                 foreach (int k in nonGraded)
                 {
                     if (k == s.IdStudent)
                     {
-                        SetStudentEligible(i, true);
+                        s.Eligible = true;
                         break;
                     }
                 }
             }
-        }
-        private void SetStudentEligible(int Index, bool? Drawable)
-        {
-            if (Drawable != null)
-            {
-                lstNames.SetItemChecked(Index, (bool)Drawable);
-                dgwStudents.Rows[Index].Cells[0].Value = (bool)Drawable;
-            }
-            else
-            {
-                // Drawable is null
-                lstNames.SetItemChecked(Index, false);
-                dgwStudents.Rows[Index].Cells[0].Value = false;
-                currentStudentsList[Index].Eligible = false;
-            }
-        }
-        private bool GetStudentDrawable(int Index)
-        {
-            // takes from the UI and syncs with the students list
-            bool d = lstNames.GetItemChecked(Index);
-            currentStudentsList[Index].Eligible = d;
-            return d;
+            RefreshStudentsGrid();
         }
         public void ResetData()
         {
@@ -825,17 +760,6 @@ namespace SchoolGrades
                 currentStudentsList[i].DummyNumber = 0;
             }
             SaveStudentsOfClassIfEligibleHasChanged();
-        }
-        public bool ListaVisibile
-        {
-            get
-            {
-                return lstNames.Visible;
-            }
-            set
-            {
-                lstNames.Visible = value;
-            }
         }
         internal Question CurrentQuestion
         {
@@ -906,7 +830,6 @@ namespace SchoolGrades
                 // restart from the beginning with a new database file 
                 frmMain_Load(null, null);
                 lblDatabaseFile.Text = Commons.FileDatabase;
-                lstNames.Items.Clear();
                 currentStudentsList = null;
                 eligiblesList.Clear();
             }
@@ -933,10 +856,6 @@ namespace SchoolGrades
             // gets all the list, but we are interested only to the first, the oldest
             List<Couple> fromOldest = Commons.bl.GetGradesOldestInClass(currentClass,
                 ((GradeType)(cmbGradeType.SelectedItem)), currentSubject);
-            //if (dalPiuVecchio.Count < StudentsList.Count)
-            //{
-            //    MessageBox.Show("ATTENZIONE: almeno un allievo non ha neppure un voticino!");
-            //}
             Student trovato = null;
             int keyFirst = fromOldest[0].Key;
             foreach (Student s in currentStudentsList)
@@ -1000,7 +919,6 @@ namespace SchoolGrades
             Color bgColor = Commons.ColorFromNumber(currentSubject);
             this.BackColor = bgColor;
             lstClasses.BackColor = bgColor;
-            lstNames.BackColor = bgColor;
             lstTimeInterval.BackColor = bgColor;
             picStudent.BackColor = bgColor;
             lblCodYear.BackColor = bgColor;
@@ -1018,9 +936,7 @@ namespace SchoolGrades
                 return;
             if (!CommonsWinForms.CheckIfSubjectChosen(currentSubject))
                 return;
-            frmTopicChooseByPeriod frm = new frmTopicChooseByPeriod(
-                frmTopicChooseByPeriod.TopicChooseFormType.OpenTopicOnExit,
-                currentClass, currentSubject);
+            frmTopics frm = new frmTopics (frmTopics.TopicsFormType.ShowAndManagement, currentClass, currentSubject);
             frm.Show();
         }
         private void btnStartLinks_Click(object sender, EventArgs e)
@@ -1141,39 +1057,59 @@ namespace SchoolGrades
                     "", MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
 
-            if (lstNames.CheckedItems.Count == 0)
+            if (NoStudentIsChecked())
             {
                 MessageBox.Show("Spuntare i nomi degli studenti cui aumentare il fattore vendetta");
                 return;
             }
-            foreach (object o in lstNames.CheckedItems)
+            foreach (Student s in currentStudentsList)
             {
-                Student s = (Student)o;
-                if (s.RevengeFactorCounter == null) s.RevengeFactorCounter = 0;  
-                s.RevengeFactorCounter++;
-                Commons.bl.UpdateStudent(s);
+                if (s.Eligible == true)
+                {
+                    if (s.RevengeFactorCounter == null)
+                        s.RevengeFactorCounter = 0;
+                    s.RevengeFactorCounter++;
+                    Commons.bl.UpdateStudent(s);
+                }
             }
             lstClassi_DoubleClick(null, null);
         }
+
+        private bool NoStudentIsChecked()
+        {
+            bool found = false; 
+            foreach (Student s in currentStudentsList)
+            {
+                if (s.Eligible == true)
+                {
+                    found = true;
+                    break; 
+                }
+            }
+            return !found; 
+        }
+
         private void btnRevengeFactorMinus_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Decremento del fattore vendetta per ogni allievo spuntato",
                     "", MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
 
-            if (lstNames.CheckedItems.Count == 0)
+            if (currentStudentsList.Count == 0)
             {
                 MessageBox.Show("Spuntare i nomi degli studenti cui diminuire il fattore vendetta");
                 return;
             }
-            foreach (object o in lstNames.CheckedItems)
+            foreach (Student s in currentStudentsList)
             {
-                Student s = (Student)o;
-                if (s.RevengeFactorCounter == null) s.RevengeFactorCounter = 0;
-                s.RevengeFactorCounter--;
-                if (s.RevengeFactorCounter < 0)
-                    s.RevengeFactorCounter = 0;
-                Commons.bl.UpdateStudent(s);
+                if (s.Eligible == true)
+                {
+                    if (s.RevengeFactorCounter == null) s.RevengeFactorCounter = 0;
+                    s.RevengeFactorCounter--;
+                    if (s.RevengeFactorCounter < 0)
+                        s.RevengeFactorCounter = 0;
+                    Commons.bl.UpdateStudent(s);
+                }
             }
             lstClassi_DoubleClick(null, null);
         }
@@ -1246,7 +1182,7 @@ namespace SchoolGrades
             {
                 return;
             }
-            if (lstNames.Visible)
+            if (dgwStudents.Visible)
                 AllCheckNonGraded();
         }
         private void btnYearTopics_Click(object sender, EventArgs e)
@@ -1437,7 +1373,7 @@ namespace SchoolGrades
             // annotation can be applied to a single student or to a whole list, based on the 
             // lstNames being visible or not 
             List<Student> chosenStudents;
-             if (currentStudent != null && !lstNames.Visible)
+             if (currentStudent != null && !dgwStudents.Visible)
             {
                 // annotation applied to a single student
                 chosenStudents = new List<Student>();
@@ -1523,7 +1459,56 @@ namespace SchoolGrades
         }
         private void dgwStudents_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex > -1)
+            {
+                if (dgwStudents.CurrentCell.ColumnIndex == 0)
+                {
+                    currentStudentsList[e.RowIndex].Eligible = !currentStudentsList[e.RowIndex].Eligible;
+                    if (currentStudentsList == null)
+                        return;
 
+                    RefreshStudentsGrid(); 
+                }
+            }
+        }
+        private void RefreshStudentsGrid()
+        {
+            dgwStudents.DataSource = null;
+            dgwStudents.DataSource = currentStudentsList;
+            dgwStudents.Visible = true;
+
+            dgwStudents.Columns[4].Visible = false;
+            dgwStudents.Columns[5].Visible = false;
+            dgwStudents.Columns[6].Visible = false;
+            dgwStudents.Columns[7].Visible = false;
+            dgwStudents.Columns[8].Visible = false;
+            dgwStudents.Columns[9].Visible = false;
+            dgwStudents.Columns[10].Visible = false;
+            dgwStudents.Columns[11].Visible = false;
+            dgwStudents.Columns[12].Visible = false;
+            dgwStudents.Columns[13].Visible = false;
+            dgwStudents.Columns[14].Visible = false;
+            dgwStudents.Columns[15].Visible = false;
+            dgwStudents.Columns[16].Visible = false;
+
+            dgwStudents.Columns[18].Visible = false;
+
+            dgwStudents.Columns[20].Visible = false;
+
+            int Index = 0; 
+            foreach (Student s in currentStudentsList)
+            {
+                // "manually" set the check columm (0)
+                if (s.Eligible == true)
+                {
+                    dgwStudents.Rows[Index].Cells[0].Value = true; 
+                }
+                else
+                {
+                    dgwStudents.Rows[Index].Cells[0].Value = false;
+                }
+                Index++; 
+            }
         }
         private void dgwStudents_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -1537,7 +1522,7 @@ namespace SchoolGrades
                 currentStudent = currentClass.CurrentStudent;
                 currentStudent.SchoolYear = currentClass.SchoolYear;
                 loadStudentsData(currentStudent);
-                lstNames.Visible = false;
+                dgwStudents.Visible = false;
             } 
         }
         private void dgwStudents_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
@@ -1560,13 +1545,16 @@ namespace SchoolGrades
 			foreach (Student stud in currentStudentsList)
 			{
 				bool found = false; 
-				foreach (Student check in lstNames.CheckedItems)
+				foreach (Student s in currentStudentsList)
 				{
-					if (stud == check)
-					{
-						found = true; 
-						break; 
-					}
+                    if (s.Eligible == true)
+                    {
+                        if (stud == s)
+                        {
+                            found = true;
+                            break;
+                        }
+                    }
 				}
 				stud.Eligible = found;
 			}
