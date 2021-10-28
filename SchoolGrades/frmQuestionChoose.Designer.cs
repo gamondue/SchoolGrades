@@ -70,6 +70,7 @@
             this.txtSearchText = new System.Windows.Forms.TextBox();
             this.lblSearchText = new System.Windows.Forms.Label();
             this.LessonTimer = new System.Windows.Forms.Timer(this.components);
+            this.btnQuestionsDone = new System.Windows.Forms.Button();
             this.grpTopic.SuspendLayout();
             this.grpQuestions.SuspendLayout();
             this.grpPeriodOfQuestionsTopics.SuspendLayout();
@@ -507,7 +508,7 @@
             this.btnComb.BackColor = System.Drawing.Color.Transparent;
             this.btnComb.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnComb.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnComb.Location = new System.Drawing.Point(949, 21);
+            this.btnComb.Location = new System.Drawing.Point(886, 21);
             this.btnComb.Margin = new System.Windows.Forms.Padding(6);
             this.btnComb.Name = "btnComb";
             this.btnComb.Size = new System.Drawing.Size(70, 37);
@@ -523,7 +524,7 @@
             this.btnSearch.BackColor = System.Drawing.Color.Transparent;
             this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnSearch.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnSearch.Location = new System.Drawing.Point(867, 21);
+            this.btnSearch.Location = new System.Drawing.Point(814, 21);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(6);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(70, 37);
@@ -541,7 +542,7 @@
             this.txtSearchText.Location = new System.Drawing.Point(485, 28);
             this.txtSearchText.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtSearchText.Name = "txtSearchText";
-            this.txtSearchText.Size = new System.Drawing.Size(337, 24);
+            this.txtSearchText.Size = new System.Drawing.Size(323, 24);
             this.txtSearchText.TabIndex = 7;
             this.txtSearchText.TextChanged += new System.EventHandler(this.txtSearchText_TextChanged);
             // 
@@ -559,12 +560,29 @@
             this.LessonTimer.Interval = 1000;
             this.LessonTimer.Tick += new System.EventHandler(this.LessonTimer_Tick);
             // 
+            // btnQuestionsDone
+            // 
+            this.btnQuestionsDone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnQuestionsDone.BackColor = System.Drawing.Color.Transparent;
+            this.btnQuestionsDone.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnQuestionsDone.ForeColor = System.Drawing.Color.DarkBlue;
+            this.btnQuestionsDone.Location = new System.Drawing.Point(958, 21);
+            this.btnQuestionsDone.Margin = new System.Windows.Forms.Padding(6);
+            this.btnQuestionsDone.Name = "btnQuestionsDone";
+            this.btnQuestionsDone.Size = new System.Drawing.Size(70, 37);
+            this.btnQuestionsDone.TabIndex = 145;
+            this.btnQuestionsDone.Text = "Fatte";
+            this.toolTip1.SetToolTip(this.btnQuestionsDone, "Trova domande già fatte nel periodo indicato");
+            this.btnQuestionsDone.UseVisualStyleBackColor = false;
+            this.btnQuestionsDone.Click += new System.EventHandler(this.btnQuestionsDone_Click);
+            // 
             // frmQuestionChoose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(1030, 547);
+            this.Controls.Add(this.btnQuestionsDone);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.LblLessonTime);
             this.Controls.Add(this.btnComb);
@@ -636,5 +654,6 @@
         private System.Windows.Forms.TextBox txtWeightInTest;
         private System.Windows.Forms.Label lblWeightInTest;
         private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Button btnQuestionsDone;
     }
 }
