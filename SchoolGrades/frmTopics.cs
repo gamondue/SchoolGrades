@@ -23,14 +23,15 @@ namespace SchoolGrades
 
         public bool UserHasChosen { get; internal set; }
         internal Topic ChosenTopic { get => chosenTopic; }
+        public TopicsFormType ShowTopicsDone { get; }
 
         public enum TopicsFormType
         {
-            NormalManagement,
+            ShowAndManagement,
             NormalDialog,
             ImportWithErase,
             ImportWithoutErase,
-            SearchForm,
+            SearchForm
         }
         TopicsFormType formType;
         private Topic chosenTopic;
@@ -44,6 +45,15 @@ namespace SchoolGrades
             currentClass = Class; 
             formType = FormType;
             listTopicsExternal = ListTopicsExternal;
+        }
+
+        public frmTopics(TopicsFormType FormType, Class CurrentClass, SchoolSubject CurrentSubject)
+        {
+            InitializeComponent();
+
+            formType = FormType;
+            currentClass = CurrentClass;
+            currentSubject = CurrentSubject;
         }
 
         private void frmTopic_Load(object sender, EventArgs e)
@@ -73,7 +83,7 @@ namespace SchoolGrades
                         }
                         break;
                     }
-                case TopicsFormType.NormalManagement:
+                case TopicsFormType.ShowAndManagement:
                     {
                         btnChoose.Visible = false;
                         break;
@@ -108,7 +118,7 @@ namespace SchoolGrades
             else
                 topicTreeMptt.SaveTreeFromTreeViewControlByParent();
 
-            MessageBox.Show("Salvataggio in due passaggi: primo salvataggio fatto\r\n(il secondo procede in background e si può interrompere chiudendo il programma)");
+            MessageBox.Show("Salvataggio fatto");
         }
 
         private void btnAddNode_Click(object sender, EventArgs e)

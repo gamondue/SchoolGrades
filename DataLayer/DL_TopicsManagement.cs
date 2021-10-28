@@ -255,7 +255,7 @@ namespace SchoolGrades
                     Topic t = GetTopicFromRow(dRead);
                     t.Id = (int)dRead["IdTopic"];
                     t.Name = (string)dRead["name"];
-                    t.Desc = (string)dRead["desc"];
+                    t.Desc = Safe.String(dRead["desc"]);
                     //t.LeftNodeNew = -1;
                     //t.RightNodeNew = -1;
                     t.Date = (DateTime)dRead["date"]; // taken fron the Lessons taSafee 
