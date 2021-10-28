@@ -81,7 +81,6 @@ namespace SchoolGrades
             }
             return query;
         }
-
         internal List<Question> GetAllQuestionsOfATest(int? IdTest)
         {
             List<Question> lq = new List<Question>();
@@ -104,7 +103,6 @@ namespace SchoolGrades
             }
             return lq;
         }
-
         internal void FixQuestionInGrade(int? IdGrade)
         {
             using (DbConnection conn = Connect())
@@ -133,7 +131,6 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-
         private Question GetQuestionFromRow(DbDataReader Row)
         {
             Question q = new Question();
@@ -154,7 +151,6 @@ namespace SchoolGrades
 
             return q;
         }
-
         internal Question GetQuestionById(int? IdQuestion)
         {
             Question question = new Question();
@@ -191,7 +187,6 @@ namespace SchoolGrades
             }
             return question;
         }
-
         internal void SaveQuestion(Question Question)
         {
             using (DbConnection conn = Connect())
@@ -217,7 +212,6 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-
         internal void AddQuestionToTest(Test Test, Question Question)
         {
             using (DbConnection conn = Connect())
@@ -233,7 +227,6 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-
         internal List<QuestionType> GetListQuestionTypes(bool IncludeANullObject)
         {
             List<QuestionType> l = new List<QuestionType>();
@@ -263,7 +256,6 @@ namespace SchoolGrades
                 return l;
             }
         }
-
         internal Question CreateNewVoidQuestion()
         {
             // trova una chiave da assegnare alla nuova domanda
@@ -310,6 +302,116 @@ namespace SchoolGrades
             if (SearchString != "")
             {
                 query += " WHERE Questions.text " + SqlStringLike(SearchString) + ""; 
+            }
+            if (Subject != null)
+                filteredQuestions = MakeStringForFilteredQuestionsQuery(Tags, Subject.IdSchoolSubject, IdQuestionType,
+                    Topic, QueryManyTopics, TagsAnd);
+            else
+                filteredQuestions = MakeStringForFilteredQuestionsQuery(Tags, "", IdQuestionType,
+                    Topic, QueryManyTopics, TagsAnd);
+            // !!!! THIS PART MUST BE FIXED !!!!
+            string questionsAlreadyMade = "";
+            //if (Student != null)
+            //{
+            //    questionsAlreadyMade = "SELECT Questions.idQuestion" +
+            //        " FROM Questions" +
+            //        " JOIN Grades ON Questions.idQuestion=Grades.idQuestion" +
+            //        " JOIN Students ON Students.idStudent=Grades.IdStudent" +
+            //        " WHERE Students.idStudent=" + Student.IdStudent +
+            //        " AND Grades.idSchoolYear='" + Class.SchoolYear + "'";
+            //}
+            //string questionsTopicsMade = "";
+            //if (Class != null && Subject != null)
+            //{
+            //    // questions made to the class in every time ever 
+            //    questionsTopicsMade = "SELECT Questions.idQuestion" +
+            //        " FROM Questions" +
+            //        " JOIN Lessons_Topics ON Questions.idTopic=Lessons_Topics.idTopic" +
+            //        " JOIN Lessons ON Lessons_Topics.idLesson=Lessons.idLesson" +
+            //        " JOIN Classes ON Classes.idClass=Lessons.idClass" +
+            //        " WHERE Classes.idClass=" + Class.IdClass +
+            //        " AND (Questions.idSchoolSubject='" + Subject.IdSchoolSubject + "'" +
+            //        " OR Questions.idSchoolSubject='' OR Questions.idSchoolSubject=NULL)";
+            //    if (DateFrom != Commons.DateNull)
+            //        questionsTopicsMade += " AND (Lessons.Date BETWEEN " + SqlDate(DateFrom) + " AND " + SqlDate(DateTo) + ")";
+            //    // PART of the final query that extracts the Ids of the questions already made 
+            //    questionsTopicsMade = " Questions.idQuestion IN(" + questionsTopicsMade + ")";
+            //}
+
+            //if (questionsAlreadyMade != "")
+            //{
+            //    // take only questions already made 
+            //    if (SearchString == "")
+            //    {
+            //        query += " WHERE Questions.idQuestion NOT IN(" + questionsAlreadyMade + ")";
+            //    }
+            //    else
+            //    {
+            //        query += " Questions.idQuestion NOT IN(" + questionsAlreadyMade + ")";
+            //    }
+            //}
+            //if (filteredQuestions != "")
+            //{
+            //    if (questionsAlreadyMade != "" || SearchString != "")
+            //    {
+            //        query += " AND Questions.idQuestion IN(" + filteredQuestions + ")";
+            //    }
+            //    else
+            //    {
+            //        query += " WHERE Questions.idQuestion IN(" + filteredQuestions + ")";
+            //    }
+            //}
+            //query += " OR Questions.idTopic IS NULL OR Questions.idTopic = ''";
+            //if (SearchString != "")
+            //    query += ")";
+
+            query += " ORDER BY Questions.weight;";
+
+            using (DbConnection conn = Connect())
+            {
+                DbDataReader dRead;
+                DbCommand cmd = conn.CreateCommand();
+
+                cmd.CommandText = query;
+
+                dRead = cmd.ExecuteReader();
+                while (dRead.Read()) // 
+                {
+                    Question questionForList = new Question();
+
+                    questionForList.Difficulty = (int)dRead["difficulty"];
+                    questionForList.Duration = (int)dRead["duration"];
+                    questionForList.IdQuestion = (int)dRead["idQuestion"];
+                    questionForList.IdQuestionType = dRead["idQuestionType"].ToString();
+                    questionForList.IdSchoolSubject = dRead["idSchoolSubject"].ToString();
+                    //q.idSubject = (int)dRead["idSubject"];
+                    questionForList.IdTopic = (int)dRead["idTopic"];
+                    questionForList.Image = dRead["image"].ToString();
+                    questionForList.QuestionImage = dRead["image"].ToString();
+                    questionForList.Text = dRead["text"].ToString();
+                    questionForList.Weight = (double)dRead["weight"];
+
+                    lq.Add(questionForList);
+                }
+                dRead.Dispose();
+                cmd.Dispose();
+            }
+            return lq;
+        }
+        internal List<Question> GetFilteredQuestionsAskedToClass(Class @class, SchoolSubject currentSubject, string keyQuestionType, List<Tag> tagsList, Topic currentTopic, bool checked1, bool checked2, string text, DateTime dateFrom, DateTime dateTo)
+        {
+            List<Question> lq = new List<Question>();
+            string filteredQuestions;
+
+            // first part of the query: selection of the interesting fields in Questions
+            string query = "SELECT Questions.IdQuestion,Questions.text,Questions.idSchoolSubject,Questions.idQuestionType" +
+                ",Questions.weight,Questions.duration,Questions.difficulty,Questions.image,Questions.idTopic" +
+                " FROM Questions";
+            // add the WHERE clauses
+            // if the search string is present, then it must be in the searched field 
+            if (SearchString != "")
+            {
+                query += " WHERE Questions.text " + SqlStringLike(SearchString) + "";
             }
             if (Subject != null)
                 filteredQuestions = MakeStringForFilteredQuestionsQuery(Tags, Subject.IdSchoolSubject, IdQuestionType,
