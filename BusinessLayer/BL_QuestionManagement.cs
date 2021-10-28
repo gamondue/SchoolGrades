@@ -28,10 +28,18 @@ namespace SchoolGrades
         {
             return dl.GetAllAnswersOfAStudentToAQuestionOfThisTest(idStudent, idQuestion, idTest);
         }
-        internal List<Question> GetFilteredQuestionsNotAsked(Student currentStudent, Class currentClass, SchoolSubject currentSubject, string keyQuestionType, List<Tag> tagsList, Topic currentTopic, bool checked1, bool checked2, string text, DateTime dateFrom, DateTime dateTo)
+        internal List<Question> GetFilteredQuestionsNotAskedToStudent(Student currentStudent, Class currentClass, 
+            SchoolSubject currentSubject, string keyQuestionType, List<Tag> tagsList, Topic currentTopic, 
+            bool checked1, bool checked2, string text, DateTime dateFrom, DateTime dateTo)
         {
             return dl.GetFilteredQuestionsNotAsked(currentStudent, currentClass, currentSubject,
                 keyQuestionType, tagsList, currentTopic, checked1, checked2, text, dateFrom, dateTo);
+        }
+        internal List<Question> GetFilteredQuestionsAskedToClass(Class Class, SchoolSubject Subject, string KeyQuestionType, 
+            List<Tag> TagsList, Topic Topic, bool Checked1, bool Checked2, string Text, DateTime DateFrom, DateTime DateTo)
+        {
+            return dl.GetFilteredQuestionsAskedToClass(Class, Subject, KeyQuestionType,
+                TagsList, Topic, Checked1, Checked2, Text, DateFrom, DateTo);
         }
         internal void AddTagToQuestion(int? idQuestion, int? idTag)
         {
