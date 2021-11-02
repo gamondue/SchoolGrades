@@ -1,7 +1,9 @@
 ﻿using SchoolGrades.DbClasses;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
+using System.Data.SQLite;
 using System.Text;
 
 namespace SchoolGrades
@@ -37,7 +39,7 @@ namespace SchoolGrades
             }
             return la;
         }
-        internal int? UpdateAnnotationGroup(StudentAnnotation currentAnnotation, Student currentStudent)
+        internal int? UpdateAnnotationsGroup(StudentAnnotation currentAnnotation, Student currentStudent)
         {
             throw new NotImplementedException();
         }
@@ -61,16 +63,18 @@ namespace SchoolGrades
                 DbCommand cmd = conn.CreateCommand();
                 string query = "";
                 if (Annotation.IdAnnotation != null && Annotation.IdAnnotation != 0)
-                {   
+                {
                     query = "UPDATE StudentsAnnotations" +
                     " SET" +
                     " idStudent=" + SqlInt(s.IdStudent) + "," +
                     " idSchoolYear=" + SqlString(Annotation.IdSchoolYear) + "," +
                     " instantTaken=" + SqlDate(Annotation.InstantTaken) + "," +
                     " instantClosed=" + SqlDate(Annotation.InstantClosed) + "," +
-                    " isActive=" + SqlBool(Annotation.IsActive) + "," +
-                    " annotation=" + SqlString(Annotation.Annotation) + "" +
-                    " WHERE idStudent=" + SqlInt(s.IdStudent) +
+                    " isActive=" + SqlBool(Annotation.IsActive) + ",";
+                    if (FieldExists("StudentsAnnotations", "isPopUp"))
+                        query += " isPopUp=" + SqlBool(Annotation.IsPopUp) + ",";
+                    query += " annotation=" + SqlString(Annotation.Annotation) + "" +
+                    " WHERE idAnnotation=" + SqlInt(Annotation.IdAnnotation) + 
                     ";";
                 }
                 else
@@ -84,6 +88,8 @@ namespace SchoolGrades
                     query = "INSERT INTO StudentsAnnotations " +
                     "(idAnnotation, idStudent, annotation,instantTaken," +
                     "instantClosed,isActive";
+                    if (FieldExists("StudentsAnnotations", "isPopUp"))
+                        query += ",isPopUp"; 
                     if (Annotation.IdSchoolYear != null && Annotation.IdSchoolYear != "")
                         query += ",idSchoolYear";
                     query += ")";
@@ -94,6 +100,8 @@ namespace SchoolGrades
                     query += "," + SqlDate(Annotation.InstantTaken);
                     query += "," + SqlDate(Annotation.InstantClosed);
                     query += "," + SqlBool(Annotation.IsActive);
+                    if (FieldExists("StudentsAnnotations", "isPopUp"))
+                        query += "," + SqlBool(Annotation.IsPopUp);
                     if (Annotation.IdSchoolYear != null && Annotation.IdSchoolYear != "")
                         query += "," + SqlString(Annotation.IdSchoolYear) + "";
                     query += ");";
@@ -104,7 +112,6 @@ namespace SchoolGrades
             }
             return Annotation.IdAnnotation;
         }
-
         internal StudentAnnotation GetAnnotation(int? IdAnnotation)
         {
             StudentAnnotation a;
@@ -127,8 +134,7 @@ namespace SchoolGrades
             }
             return a;
         }
-
-        internal StudentAnnotation GetAnnotationFromRow(DbDataReader Row)
+        private StudentAnnotation GetAnnotationFromRow(DbDataReader Row)
         {
             StudentAnnotation a = new StudentAnnotation();
             a.IdAnnotation = Safe.Int(Row["idAnnotation"]);
@@ -138,9 +144,13 @@ namespace SchoolGrades
             a.InstantTaken = Safe.DateTime(Row["instantTaken"]);
             a.InstantClosed = Safe.DateTime(Row["instantClosed"]);
             a.IsActive = Safe.Bool(Row["isActive"]);
+            try // the program must work also with old versions of database 
+            {
+                a.IsPopUp = Safe.Bool(Row["isPopUp"]);
+            }
+            catch {}
             return a;
         }
-
         internal void EraseAnnotationById(int? IdAnnotation)
         {
             using (DbConnection conn = Connect())
@@ -152,6 +162,37 @@ namespace SchoolGrades
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
+        }
+        internal DataTable GetAnnotationsOfClasss(int? IdClass, 
+            bool IncludeAlsoNonActive, bool IncludeJustPopUp)
+        {
+            DataTable table = new DataTable(); 
+            using (DbConnection conn = Connect())
+            {
+                DataAdapter dAdapter;
+                DataSet dSet = new DataSet();
+                string query = "SELECT Students.lastName, Students.firstName, StudentsAnnotations.annotation" +
+                    ",Students.IdStudent, StudentsAnnotations.IdAnnotation" +
+                    " FROM StudentsAnnotations" +
+                    " JOIN Students ON Students.idStudent = StudentsAnnotations.idStudent" +
+                    " JOIN Classes_Students ON Classes_Students.idStudent = Students.idStudent" +
+                    " WHERE Classes_Students.idClass=" + IdClass; 
+                if (!IncludeAlsoNonActive)
+                    query += " AND isActive=true";
+                // !!!! TODO avoid to check field existence after some versions
+                // (made to avoid breaking the code with an old database) !!!!
+                if (IncludeJustPopUp && FieldExists("StudentsAnnotations", "isPopUp")) 
+                    query += " AND isPopUp=true";
+                query += ";";
+                dAdapter = new SQLiteDataAdapter(query, (System.Data.SQLite.SQLiteConnection)conn);
+
+                dAdapter.Fill(dSet);
+                table = dSet.Tables[0];
+
+                dAdapter.Dispose();
+                dSet.Dispose();
+            }
+            return table;
         }
     }
 }

@@ -616,7 +616,6 @@ namespace SchoolGrades
                     pictureIndex = 0;
             }
         }
-
         internal void SaveStudentsAnswer(Student Student, Test Test, Answer Answer,
             bool StudentsBoolAnswer, string StudentsTextAnswer)
         {
@@ -661,6 +660,7 @@ namespace SchoolGrades
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
+
         }
     }
 }

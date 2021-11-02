@@ -728,5 +728,28 @@ namespace SchoolGrades
             }
             return newDatabaseFullName;
         }
+        private bool FieldExists(string TableName, string FieldName)
+        {
+            // watch if field isPopUp exist in the database
+            DataTable table = new DataTable();
+            bool fieldExists;
+            using (DbConnection conn = Connect())
+            {
+                table = conn.GetSchema("Columns", new string[] { null, null, TableName, null});
+                fieldExists = false;
+                foreach (DataRow row in table.Rows)
+                {
+                    foreach (DataColumn col in table.Columns)
+                    {
+                        if (row["COLUMN_NAME"].ToString() == FieldName)
+                        {
+                            fieldExists = true;
+                            break; 
+                        }
+                    }
+                }
+            }
+            return fieldExists;
+        }
     }
 }

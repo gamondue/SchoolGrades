@@ -20,5 +20,6 @@ namespace SchoolGrades.DbClasses
         public DateTime? InstantClosed { get => instantClosed; set => instantClosed = value; }
         public bool? IsActive { get; internal set; }
         public int? IdStudent { get => idStudent; set => idStudent = value; }
+        public bool? IsPopUp { get; internal set; }
     }
 }

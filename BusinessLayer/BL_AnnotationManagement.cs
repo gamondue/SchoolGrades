@@ -15,7 +15,7 @@ namespace SchoolGrades
         }
         internal int? SaveAnnotation(StudentAnnotation CurrentAnnotation, Student CurrentStudent)
         {
-            return SaveAnnotation(CurrentAnnotation, CurrentStudent);
+            return dl.SaveAnnotation(CurrentAnnotation, CurrentStudent);
         }
         internal StudentAnnotation GetAnnotation(int? IdAnnotation)
         {
@@ -28,6 +28,10 @@ namespace SchoolGrades
         internal void EraseAnnotationByText(string Text, Student Student)
         {
             EraseAnnotationByText(Text, Student);
+        }
+        internal DataTable GetAnnotationsOfClasss(int? idClass, bool IncludeAlsoNonActive, bool IncludeJustPopUp)
+        {
+            return dl.GetAnnotationsOfClasss(idClass, IncludeAlsoNonActive, IncludeJustPopUp);
         }
     }
 }

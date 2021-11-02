@@ -8,6 +8,7 @@ using gamon;
 using SchoolGrades.DbClasses;
 using gamon.TreeMptt;
 using SharedWinForms;
+using System.Data;
 
 namespace SchoolGrades
 {
@@ -142,7 +143,7 @@ namespace SchoolGrades
             txtIdStudent.BringToFront();
             lblStudentChosen.Visible = false;
             lblIdStudent.Visible = false;
-            txtIdStudent.Visible = false; 
+            txtIdStudent.Visible = false;
 
             // start Thread that concurrently saves the Topics tree
             CommonsWinForms.SaveTreeMptt = new TreeMptt(Commons.dl, null, null, null, null, null, null, picBackgroundSaveRunning);
@@ -358,7 +359,7 @@ namespace SchoolGrades
         {
             picStudent.Image = null;
             lblStudentChosen.Text = "";
-            chkStudentsListVisible.Checked = true; 
+            chkStudentsListVisible.Checked = true;
         }
         private void lstClassi_DoubleClick(object sender, EventArgs e)
         {
@@ -372,7 +373,14 @@ namespace SchoolGrades
             else
                 txtNStudents.Text = "";
 
-            //TxtPathImages.Text = currentClass.PathRestrictedApplication + @"\SchoolGrades";
+            // show popup annotations of the students of the class
+            DataTable popUpAnnotations = Commons.bl.GetAnnotationsOfClasss(currentClass.IdClass, true, true);
+            if (popUpAnnotations.Rows.Count > 0)
+            {
+                frmAnnotationsPopUp f = new frmAnnotationsPopUp(popUpAnnotations);
+                f.StartPosition = FormStartPosition.CenterParent; 
+                f.Show(); 
+            }
         }
         private void chkFotoVisibile_CheckedChanged(object sender, EventArgs e)
         {
@@ -936,7 +944,8 @@ namespace SchoolGrades
                 return;
             if (!CommonsWinForms.CheckIfSubjectChosen(currentSubject))
                 return;
-            frmTopics frm = new frmTopics (frmTopics.TopicsFormType.ShowAndManagement, currentClass, currentSubject);
+            frmTopics frm = new frmTopics (frmTopics.TopicsFormType.HighlightTopics, 
+                currentClass, currentSubject);
             frm.Show();
         }
         private void btnStartLinks_Click(object sender, EventArgs e)
@@ -1373,7 +1382,7 @@ namespace SchoolGrades
             // annotation can be applied to a single student or to a whole list, based on the 
             // lstNames being visible or not 
             List<Student> chosenStudents;
-             if (currentStudent != null && !dgwStudents.Visible)
+            if (currentStudent != null && !dgwStudents.Visible)
             {
                 // annotation applied to a single student
                 chosenStudents = new List<Student>();
@@ -1387,6 +1396,7 @@ namespace SchoolGrades
             if (chosenStudents.Count > 0)
             {
                 frmAnnotationsAboutStudents f = new frmAnnotationsAboutStudents(chosenStudents, CmbSchoolYear.Text);
+                f.StartPosition = FormStartPosition.CenterParent; 
                 f.Show();
             }
         }

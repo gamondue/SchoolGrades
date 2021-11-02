@@ -1,5 +1,4 @@
-﻿
-namespace SchoolGrades
+﻿namespace SchoolGrades
 {
     partial class frmAnnotationsAboutStudents
     {
@@ -40,7 +39,9 @@ namespace SchoolGrades
             this.chkUseSchoolYear = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtIdStudent = new System.Windows.Forms.TextBox();
-            this.btnNew = new System.Windows.Forms.Button();
+            this.chkCurrentActive = new System.Windows.Forms.CheckBox();
+            this.chkPopUp = new System.Windows.Forms.CheckBox();
+            this.btnPrepareNew = new System.Windows.Forms.Button();
             this.btnSaveModificationsStudent = new System.Windows.Forms.Button();
             this.btnAddAnnotationGroup = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
@@ -51,8 +52,7 @@ namespace SchoolGrades
             this.btnRemoveAnnotationGroup = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.txtIdAnnotation = new System.Windows.Forms.TextBox();
-            this.chkCurrentAnnotationActive = new System.Windows.Forms.CheckBox();
-            this.chkAnnotationsShowActive = new System.Windows.Forms.CheckBox();
+            this.chkShowOnlyActive = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgwNotes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgwStudents)).BeginInit();
@@ -86,7 +86,7 @@ namespace SchoolGrades
             this.lblCurrentStudent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblCurrentStudent.BackColor = System.Drawing.Color.Transparent;
-            this.lblCurrentStudent.Font = new System.Drawing.Font("Arial Black", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentStudent.Font = new System.Drawing.Font("Arial Black", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblCurrentStudent.ForeColor = System.Drawing.Color.DarkBlue;
             this.lblCurrentStudent.Location = new System.Drawing.Point(7, 3);
             this.lblCurrentStudent.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
@@ -110,7 +110,7 @@ namespace SchoolGrades
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label1.Location = new System.Drawing.Point(679, 5);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(73, 15);
@@ -159,7 +159,9 @@ namespace SchoolGrades
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.btnNew);
+            this.splitContainer1.Panel2.Controls.Add(this.chkCurrentActive);
+            this.splitContainer1.Panel2.Controls.Add(this.chkPopUp);
+            this.splitContainer1.Panel2.Controls.Add(this.btnPrepareNew);
             this.splitContainer1.Panel2.Controls.Add(this.btnSaveModificationsStudent);
             this.splitContainer1.Panel2.Controls.Add(this.btnAddAnnotationGroup);
             this.splitContainer1.Panel2.Controls.Add(this.label5);
@@ -170,8 +172,7 @@ namespace SchoolGrades
             this.splitContainer1.Panel2.Controls.Add(this.btnRemoveAnnotationGroup);
             this.splitContainer1.Panel2.Controls.Add(this.label4);
             this.splitContainer1.Panel2.Controls.Add(this.txtIdAnnotation);
-            this.splitContainer1.Panel2.Controls.Add(this.chkCurrentAnnotationActive);
-            this.splitContainer1.Panel2.Controls.Add(this.chkAnnotationsShowActive);
+            this.splitContainer1.Panel2.Controls.Add(this.chkShowOnlyActive);
             this.splitContainer1.Panel2.Controls.Add(this.dgwNotes);
             this.splitContainer1.Size = new System.Drawing.Size(759, 504);
             this.splitContainer1.SplitterDistance = 222;
@@ -195,7 +196,7 @@ namespace SchoolGrades
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.Enabled = false;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label2.ForeColor = System.Drawing.Color.DarkBlue;
             this.label2.Location = new System.Drawing.Point(683, 49);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -216,23 +217,45 @@ namespace SchoolGrades
             this.txtIdStudent.TabStop = false;
             this.txtIdStudent.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // btnNew
+            // chkCurrentActive
             // 
-            this.btnNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNew.Location = new System.Drawing.Point(482, 23);
-            this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(63, 37);
-            this.btnNew.TabIndex = 189;
-            this.btnNew.Text = " Nuova";
-            this.toolTip1.SetToolTip(this.btnNew, "Cancella i dati dell\'annotazione per salvare come nuova");
-            this.btnNew.UseVisualStyleBackColor = true;
-            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
+            this.chkCurrentActive.AutoSize = true;
+            this.chkCurrentActive.Location = new System.Drawing.Point(71, 54);
+            this.chkCurrentActive.Name = "chkCurrentActive";
+            this.chkCurrentActive.Size = new System.Drawing.Size(62, 22);
+            this.chkCurrentActive.TabIndex = 191;
+            this.chkCurrentActive.Text = "Attiva";
+            this.toolTip1.SetToolTip(this.chkCurrentActive, "l\'annotazione è attiva");
+            this.chkCurrentActive.UseVisualStyleBackColor = true;
+            // 
+            // chkPopUp
+            // 
+            this.chkPopUp.AutoSize = true;
+            this.chkPopUp.Location = new System.Drawing.Point(144, 54);
+            this.chkPopUp.Name = "chkPopUp";
+            this.chkPopUp.Size = new System.Drawing.Size(110, 22);
+            this.chkPopUp.TabIndex = 190;
+            this.chkPopUp.Text = "Promemoria";
+            this.toolTip1.SetToolTip(this.chkPopUp, "Viene visualizzata ogni volta che si visualizza la classe");
+            this.chkPopUp.UseVisualStyleBackColor = true;
+            // 
+            // btnPrepareNew
+            // 
+            this.btnPrepareNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPrepareNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnPrepareNew.Location = new System.Drawing.Point(482, 23);
+            this.btnPrepareNew.Name = "btnPrepareNew";
+            this.btnPrepareNew.Size = new System.Drawing.Size(63, 37);
+            this.btnPrepareNew.TabIndex = 189;
+            this.btnPrepareNew.Text = " Prepara nuova";
+            this.toolTip1.SetToolTip(this.btnPrepareNew, "Cancella i dati dell\'annotazione per salvare come nuova");
+            this.btnPrepareNew.UseVisualStyleBackColor = true;
+            this.btnPrepareNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // btnSaveModificationsStudent
             // 
             this.btnSaveModificationsStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveModificationsStudent.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveModificationsStudent.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnSaveModificationsStudent.Location = new System.Drawing.Point(620, 5);
             this.btnSaveModificationsStudent.Name = "btnSaveModificationsStudent";
             this.btnSaveModificationsStudent.Size = new System.Drawing.Size(63, 37);
@@ -244,7 +267,7 @@ namespace SchoolGrades
             // btnAddAnnotationGroup
             // 
             this.btnAddAnnotationGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddAnnotationGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddAnnotationGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnAddAnnotationGroup.Location = new System.Drawing.Point(551, 46);
             this.btnAddAnnotationGroup.Name = "btnAddAnnotationGroup";
             this.btnAddAnnotationGroup.Size = new System.Drawing.Size(63, 36);
@@ -256,7 +279,7 @@ namespace SchoolGrades
             // label5
             // 
             this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label5.ForeColor = System.Drawing.Color.DarkBlue;
             this.label5.Location = new System.Drawing.Point(2, 5);
             this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
@@ -270,7 +293,7 @@ namespace SchoolGrades
             // 
             this.btnSaveModificationsGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSaveModificationsGroup.Enabled = false;
-            this.btnSaveModificationsGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveModificationsGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnSaveModificationsGroup.Location = new System.Drawing.Point(620, 45);
             this.btnSaveModificationsGroup.Name = "btnSaveModificationsGroup";
             this.btnSaveModificationsGroup.Size = new System.Drawing.Size(63, 37);
@@ -292,7 +315,7 @@ namespace SchoolGrades
             // btnAddAnnotationStudent
             // 
             this.btnAddAnnotationStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddAnnotationStudent.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddAnnotationStudent.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnAddAnnotationStudent.Location = new System.Drawing.Point(551, 5);
             this.btnAddAnnotationStudent.Name = "btnAddAnnotationStudent";
             this.btnAddAnnotationStudent.Size = new System.Drawing.Size(63, 37);
@@ -304,7 +327,7 @@ namespace SchoolGrades
             // btnRemoveAnnotationStudent
             // 
             this.btnRemoveAnnotationStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemoveAnnotationStudent.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRemoveAnnotationStudent.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnRemoveAnnotationStudent.Location = new System.Drawing.Point(689, 5);
             this.btnRemoveAnnotationStudent.Name = "btnRemoveAnnotationStudent";
             this.btnRemoveAnnotationStudent.Size = new System.Drawing.Size(63, 37);
@@ -316,7 +339,7 @@ namespace SchoolGrades
             // btnRemoveAnnotationGroup
             // 
             this.btnRemoveAnnotationGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemoveAnnotationGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRemoveAnnotationGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnRemoveAnnotationGroup.Location = new System.Drawing.Point(689, 45);
             this.btnRemoveAnnotationGroup.Name = "btnRemoveAnnotationGroup";
             this.btnRemoveAnnotationGroup.Size = new System.Drawing.Size(63, 37);
@@ -342,28 +365,18 @@ namespace SchoolGrades
             this.txtIdAnnotation.Size = new System.Drawing.Size(59, 24);
             this.txtIdAnnotation.TabIndex = 181;
             // 
-            // chkCurrentAnnotationActive
+            // chkShowOnlyActive
             // 
-            this.chkCurrentAnnotationActive.AutoSize = true;
-            this.chkCurrentAnnotationActive.Location = new System.Drawing.Point(71, 54);
-            this.chkCurrentAnnotationActive.Name = "chkCurrentAnnotationActive";
-            this.chkCurrentAnnotationActive.Size = new System.Drawing.Size(62, 22);
-            this.chkCurrentAnnotationActive.TabIndex = 180;
-            this.chkCurrentAnnotationActive.Text = "Attiva";
-            this.chkCurrentAnnotationActive.UseVisualStyleBackColor = true;
-            // 
-            // chkAnnotationsShowActive
-            // 
-            this.chkAnnotationsShowActive.AutoSize = true;
-            this.chkAnnotationsShowActive.Checked = true;
-            this.chkAnnotationsShowActive.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAnnotationsShowActive.Location = new System.Drawing.Point(144, 9);
-            this.chkAnnotationsShowActive.Name = "chkAnnotationsShowActive";
-            this.chkAnnotationsShowActive.Size = new System.Drawing.Size(162, 22);
-            this.chkAnnotationsShowActive.TabIndex = 179;
-            this.chkAnnotationsShowActive.Text = "visualizza solo attive";
-            this.chkAnnotationsShowActive.UseVisualStyleBackColor = true;
-            this.chkAnnotationsShowActive.CheckedChanged += new System.EventHandler(this.chkAnnotationsShowActive_CheckedChanged);
+            this.chkShowOnlyActive.AutoSize = true;
+            this.chkShowOnlyActive.Checked = true;
+            this.chkShowOnlyActive.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkShowOnlyActive.Location = new System.Drawing.Point(144, 9);
+            this.chkShowOnlyActive.Name = "chkShowOnlyActive";
+            this.chkShowOnlyActive.Size = new System.Drawing.Size(257, 22);
+            this.chkShowOnlyActive.TabIndex = 179;
+            this.chkShowOnlyActive.Text = "visualizza solo le annotazioni attive";
+            this.chkShowOnlyActive.UseVisualStyleBackColor = true;
+            this.chkShowOnlyActive.CheckedChanged += new System.EventHandler(this.chkShowOnlyActive_CheckedChanged);
             // 
             // frmAnnotationsAboutStudents
             // 
@@ -373,12 +386,12 @@ namespace SchoolGrades
             this.ClientSize = new System.Drawing.Size(778, 575);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.lblCurrentStudent);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.Color.DarkBlue;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmAnnotationsAboutStudents";
-            this.Text = "Note sullo studente";
+            this.Text = "Annotazioni sullo studente";
             this.Load += new System.EventHandler(this.frmStudentsNotes_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgwNotes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgwStudents)).EndInit();
@@ -405,7 +418,6 @@ namespace SchoolGrades
         private System.Windows.Forms.CheckBox chkAnnotationsShowActive;
         private System.Windows.Forms.CheckBox chkUseSchoolYear;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.CheckBox chkCurrentAnnotationActive;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtIdAnnotation;
         private System.Windows.Forms.Button btnAddAnnotationStudent;
@@ -417,5 +429,9 @@ namespace SchoolGrades
         private System.Windows.Forms.Button btnNew;
         private System.Windows.Forms.Button btnSaveModificationsStudent;
         private System.Windows.Forms.Button btnSaveModificationsGroup;
+        private System.Windows.Forms.CheckBox chkPopUp;
+        private System.Windows.Forms.Button btnPrepareNew;
+        private System.Windows.Forms.CheckBox chkCurrentActive;
+        private System.Windows.Forms.CheckBox chkShowOnlyActive;
     }
 }

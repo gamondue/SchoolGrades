@@ -347,7 +347,7 @@ namespace SchoolGrades
         private void frmTopicsRecover_FormClosing(object sender, FormClosingEventArgs e)
         {
             // when the form closes, we restart the background saving task
-            // that we have left off whe this form was open
+            // that we have left off when this form was open
 
             // restart the Thread 
             // re-create and run the Thread that concurrently saves the Topics tree

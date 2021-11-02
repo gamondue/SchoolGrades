@@ -27,7 +27,6 @@ namespace SchoolGrades
             this.chosenStudents = ChosenStudents;
             dgwStudents.DataSource = ChosenStudents; 
         }
-
         private void frmStudentsNotes_Load(object sender, EventArgs e)
         {
             txtSchoolYear.Text = idSchoolYear;
@@ -44,42 +43,57 @@ namespace SchoolGrades
                 ShowAnnotationsOfCurrentStudent(); 
             }
         }
-
         private void RefreshUI()
         {
             dgwNotes.DataSource = Commons.bl.AnnotationsAboutThisStudent(currentStudent, yearUsed,
-                chkAnnotationsShowActive.Checked);
+                chkShowOnlyActive.Checked);
+            if (dgwNotes.Rows.Count == 0)
+                currentAnnotation = new StudentAnnotation(); 
+            WriteUI(); 
         }
-
+        private void WriteUI()
+        {
+            if (currentAnnotation != null)
+            {
+                if (currentAnnotation.IdSchoolYear != null)
+                    txtSchoolYear.Text = currentAnnotation.IdSchoolYear;
+                txtAnnotation.Text = currentAnnotation.Annotation;
+                txtIdAnnotation.Text = currentAnnotation.IdAnnotation.ToString();
+                if (currentAnnotation.IsActive == null) currentAnnotation.IsActive = false;
+                chkCurrentActive.Checked = (bool)currentAnnotation.IsActive;
+                if (currentAnnotation.IsPopUp == null) currentAnnotation.IsPopUp = false;
+                chkPopUp.Checked = (bool)currentAnnotation.IsPopUp;
+            }
+        }
         private void ReadUI()
         {
             if (currentAnnotation == null)
                 currentAnnotation = new StudentAnnotation();
 
-            currentAnnotation.IsActive = chkCurrentAnnotationActive.Checked;
             currentAnnotation.IdSchoolYear = txtSchoolYear.Text;
-            if (txtAnnotation.Text != "")
+            //if (txtAnnotation.Text != "")
                 currentAnnotation.IdAnnotation = Safe.Int(txtIdAnnotation.Text);
-            else
-                currentAnnotation.IdAnnotation = null;
+            ////else
+            ////    currentAnnotation.IdAnnotation = null;
             if (currentAnnotation.IdStudent != 0)
                 currentAnnotation.IdStudent = Safe.Int(txtIdStudent.Text);
             else
                 currentAnnotation.IdStudent = null;
             currentAnnotation.Annotation = txtAnnotation.Text;
+            if (currentAnnotation.IsActive == null) currentAnnotation.IsActive = false; 
+            currentAnnotation.IsActive = chkCurrentActive.Checked;
+            if (currentAnnotation.IsPopUp == null) currentAnnotation.IsPopUp = false; 
+            currentAnnotation.IsPopUp = chkPopUp.Checked; 
         }
-
         private void txtSchoolYear_TextChanged(object sender, EventArgs e)
         {
-            ReadUI(); 
-            RefreshUI();
+            //ReadUI(); 
+            //RefreshUI();
         }
-
         private void dgwNotes_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
-
         private void dgwNotes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
@@ -87,16 +101,9 @@ namespace SchoolGrades
                 dgwNotes.Rows[e.RowIndex].Selected = true;
                 
                 currentAnnotation = ((List<StudentAnnotation>)dgwNotes.DataSource)[e.RowIndex];
-
-                txtIdAnnotation.Text = currentAnnotation.IdAnnotation.ToString();
-                txtAnnotation.Text = currentAnnotation.Annotation;
-                chkCurrentAnnotationActive.Checked = (bool)currentAnnotation.IsActive;
-                txtSchoolYear.Text = currentAnnotation.IdSchoolYear;
-                txtIdStudent.Text = currentAnnotation.IdStudent.ToString();
-                chkCurrentAnnotationActive.Checked = (bool)currentAnnotation.IsActive; 
             }
+            WriteUI();
         }
-
         private void btnAddAnnotation_Click(object sender, EventArgs e)
         {
             ReadUI();
@@ -107,7 +114,6 @@ namespace SchoolGrades
 
             RefreshUI();
         }
-
         private void SaveAnnotations(bool SaveMany)
         {
             if (currentAnnotation.IdAnnotation == null)
@@ -159,15 +165,14 @@ namespace SchoolGrades
             }
             RefreshUI(); 
         }
-
         private void ShowAnnotationsOfCurrentStudent()
         {
             txtIdStudent.Text = currentStudent.IdStudent.ToString();
             lblCurrentStudent.Text = $"{currentStudent.LastName} {currentStudent.FirstName}";
             dgwNotes.DataSource = Commons.bl.AnnotationsAboutThisStudent(currentStudent,
-              yearUsed, chkAnnotationsShowActive.Checked);
+              yearUsed, chkShowOnlyActive.Checked);
+            RefreshUI();
         }
-
         private void chkUseSchoolYear_CheckedChanged(object sender, EventArgs e)
         {
             if (chkUseSchoolYear.Checked)
@@ -181,9 +186,8 @@ namespace SchoolGrades
                 yearUsed = null;
             }
             dgwNotes.DataSource = Commons.bl.AnnotationsAboutThisStudent(currentStudent,
-                    yearUsed, chkAnnotationsShowActive.Checked);
+                    yearUsed, chkShowOnlyActive.Checked);
         }
-
         private void btnAddAnnotationStudent_Click(object sender, EventArgs e)
         {
             if (txtAnnotation.Text == "")
@@ -191,13 +195,18 @@ namespace SchoolGrades
                 MessageBox.Show("Testo dell'annotazione vuoto!");
                 return;
             }
+            if (txtIdAnnotation.Text != "")
+            {   // an Id is already there 
+                if (MessageBox.Show("Devo creare una nuova annotazione con lo stesso testo della precedente?",
+                    "", MessageBoxButtons.YesNo) == DialogResult.No)
+                    return; 
+            }
             ReadUI();
-            // null the Id to save new annotaion 
+            // null the Id to save a new annotaion 
             currentAnnotation.IdAnnotation = null; 
             SaveAnnotations(false);
             RefreshUI();
         }
-
         private void btnAddAnnotationGroup_Click(object sender, EventArgs e)
         {
             if (txtAnnotation.Text == "")
@@ -210,7 +219,6 @@ namespace SchoolGrades
             SaveAnnotations(true);
             RefreshUI();
         }
-
         private void btnRemoveAnnotationStudent_Click(object sender, EventArgs e)
         {
             if (txtIdAnnotation.Text == "")
@@ -225,7 +233,6 @@ namespace SchoolGrades
                 RefreshUI();
             };
         }
-
         private void btnRemoveAnnotationGroup_Click(object sender, EventArgs e)
         {
             if (txtAnnotation.Text == "")
@@ -243,10 +250,9 @@ namespace SchoolGrades
                 RefreshUI();
             };
         }
-
         private void btnSaveModificationsStudent_Click(object sender, EventArgs e)
         {
-             if (txtIdAnnotation.Text == "")
+            if (txtIdAnnotation.Text == "")
             {
                 MessageBox.Show("Scegliere un'annotazione da modificare");
                 return; 
@@ -260,7 +266,6 @@ namespace SchoolGrades
             currentAnnotation.IdAnnotation = Commons.bl.SaveAnnotation(currentAnnotation, currentStudent);
             RefreshUI();
         }
-
         private void btnSaveModificationsGroup_Click(object sender, EventArgs e)
         {
             // !!!! think how to make this !!!!
@@ -283,14 +288,12 @@ namespace SchoolGrades
             ////}
             ////RefreshUI();
         }
-
         private void btnNew_Click(object sender, EventArgs e)
         {
             txtIdAnnotation.Text = "";
             txtAnnotation.Text = ""; 
         }
-
-        private void chkAnnotationsShowActive_CheckedChanged(object sender, EventArgs e)
+        private void chkShowOnlyActive_CheckedChanged(object sender, EventArgs e)
         {
             ReadUI();
             if (currentStudent.IdStudent != null)
@@ -298,7 +301,7 @@ namespace SchoolGrades
                 txtIdStudent.Text = currentStudent.IdStudent.ToString();
                 lblCurrentStudent.Text = $"{currentStudent.LastName} {currentStudent.FirstName}";
                 dgwNotes.DataSource = Commons.bl.AnnotationsAboutThisStudent(currentStudent,
-                  yearUsed, chkAnnotationsShowActive.Checked);
+                  yearUsed, chkShowOnlyActive.Checked);
             }
             RefreshUI();
         }
@@ -308,12 +311,7 @@ namespace SchoolGrades
         }
         private void dgwStudents_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex > -1)
-            {
-                dgwStudents.Rows[e.RowIndex].Selected = true;
-                currentStudent = chosenStudents[e.RowIndex];
-                ShowAnnotationsOfCurrentStudent();
-            }
+
         }
         private void dgwStudents_RowLeave(object sender, DataGridViewCellEventArgs e)
         {

@@ -13,7 +13,7 @@ namespace gamon.TreeMptt
     internal class TreeMptt
     {
         /// <summary>
-        /// Takes a TreeView control and adds to it and to some ancillary TextBoxes, 
+        /// Takes a TreeView control and adds to it, and to some ancillary TextBoxes, 
         /// the capability of storing and retreiving the tree in a database, memorizing it both 
         /// by the reference to the parent node of each node ("ByParent") 
         /// and by the use of a right and left nodes referece in a 
@@ -23,7 +23,8 @@ namespace gamon.TreeMptt
         /// Some events of the controls, redriven to this class, are treated. 
         /// 
         /// An MPTT tree loads more quickly in a single DBMS query but saves much more 
-        /// slowly, with many DBMS queries. 
+        /// slowly, with one DBMS query for each change in the left and right node. 
+        /// Almost all left and right nodes can be changed if the change in the tree is very "up", near the root
         /// With MPTT we can use single queries to retreive subtrees. 
         /// With MPTT we can have in the results of the queries all the nodes that 
         /// stay under a given node with just two tests
@@ -408,7 +409,7 @@ namespace gamon.TreeMptt
         }
         internal void EraseTree()
         {
-
+            decimal d = 4; 
         }
 
         // next version of the previous method left commented. Different idea, but not working! Adjusting might require being too slow
@@ -492,7 +493,7 @@ namespace gamon.TreeMptt
                 // (it aborts in a point in which status is preserved)  
                 CommonsWinForms.BackgroundSaveThread.Join(90000); // big timeout just for big recalculation
             }
-            // saving the tree locks the background task 
+            // this saving of the tree locks the background task 
             lock (CommonsWinForms.LockSavingTopicsTree)
             {
                 // save the nodes that have changed any field, except RightNode & Left Node (optional) 
@@ -525,11 +526,6 @@ namespace gamon.TreeMptt
                 // according to the difference between old and new values, new 
                 // nodes are empty, so they will save. Left and Right will be 
                 // saved by a concurrent Thread, so here the third parameter is false
-
-
-
-
-
                 dbMptt.SaveTreeToDb(listItemsAfter, listItemsDeleted, false);
 
                 // Update listTopicsBefore by taking it from the treeview 
@@ -549,10 +545,10 @@ namespace gamon.TreeMptt
                 CommonsWinForms.SwitchPicLedOn(false);
             }
             catch { }
-            // restart the Thread 
-            // re-create and run the Thread that concurrently saves the Topics tree
-            CommonsWinForms.BackgroundSaveThread = new Thread(CommonsWinForms.SaveTreeMptt.SaveMpttBackground);
-            CommonsWinForms.BackgroundSaveThread.Start();
+            //// restart the Thread 
+            //// re-create and run the Thread that concurrently saves the Topics tree
+            //CommonsWinForms.BackgroundSaveThread = new Thread(CommonsWinForms.SaveTreeMptt.SaveMpttBackground);
+            //CommonsWinForms.BackgroundSaveThread.Start();
         }
         internal TreeNode AddNewNode(string Text)
         {
@@ -802,7 +798,7 @@ namespace gamon.TreeMptt
             Color highlightColor  = HighlightColor ?? colorOfHighlightedItem; 
 
             startNode.Collapse();
-            // !! list must be given in Tree Traversal order !!
+            // !! list ItemsToHighlight must be given in Tree Traversal order !!
             if (ItemsToHighlight.Count == 0)
                 return;
             foreach (TreeNode sonNode in startNode.Nodes)

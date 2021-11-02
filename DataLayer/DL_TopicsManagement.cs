@@ -167,17 +167,18 @@ namespace SchoolGrades
             {
                 // find descendant topics that are done  
                 DbCommand cmd = conn.CreateCommand();
-                string query = "SELECT *" +
+                string query = "SELECT DISTINCT Topics.idTopic, Topics.name, Topics.desc" +
+                    ",Topics.leftNode, Topics.rightNode, Topics.parentNode, Topics.childNumber" +
                     " FROM Topics" +
-                    " JOIN Lessons_Topics ON Lessons_Topics.idTopic = Topics.idTopic " +
+                    " JOIN Lessons_Topics ON Lessons_Topics.idTopic = Topics.idTopic" +
                     " JOIN Lessons ON Lessons_Topics.idLesson = Lessons.idLesson" +
                     " WHERE leftNode BETWEEN " + StartTopic.LeftNodeOld +
                     " AND " + StartTopic.RightNodeOld;
                 if (Class != null)
                     query += " AND Lessons.idClass = " + Class.IdClass;
                 if (Subject != null)
-                    query += " AND Lessons.idSchoolSubject ='" + Subject.IdSchoolSubject + "'" +
-                    " ORDER BY leftNode ASC;";
+                    query += " AND Lessons.idSchoolSubject ='" + Subject.IdSchoolSubject + "'";
+                query += " ORDER BY leftNode ASC;";
                 cmd = new SQLiteCommand(query);
                 cmd.Connection = conn;
                 DbDataReader dRead = cmd.ExecuteReader();
