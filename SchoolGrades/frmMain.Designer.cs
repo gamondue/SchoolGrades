@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.btnDraw = new System.Windows.Forms.Button();
             this.butComeOn = new System.Windows.Forms.Button();
@@ -1335,9 +1336,18 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgwStudents.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
             this.dgwStudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.DarkBlue;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgwStudents.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgwStudents.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgwStudents.Location = new System.Drawing.Point(8, 222);
             this.dgwStudents.Name = "dgwStudents";
+            this.dgwStudents.ReadOnly = true;
             this.dgwStudents.Size = new System.Drawing.Size(382, 509);
             this.dgwStudents.TabIndex = 185;
             this.dgwStudents.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwStudents_CellContentClick);

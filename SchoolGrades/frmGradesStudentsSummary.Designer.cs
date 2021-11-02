@@ -60,7 +60,7 @@
             this.btnAddAnnotation = new System.Windows.Forms.Button();
             this.txtAnnotation = new System.Windows.Forms.TextBox();
             this.chkCurrentAnnotationActive = new System.Windows.Forms.CheckBox();
-            this.chkAnnotationsShowActive = new System.Windows.Forms.CheckBox();
+            this.chkShowOnlyActive = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -421,7 +421,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.txtAnnotation);
             this.splitContainer1.Panel2.Controls.Add(this.chkCurrentAnnotationActive);
             this.splitContainer1.Panel2.Controls.Add(this.dgwNotes);
-            this.splitContainer1.Panel2.Controls.Add(this.chkAnnotationsShowActive);
+            this.splitContainer1.Panel2.Controls.Add(this.chkShowOnlyActive);
             this.splitContainer1.Panel2.Controls.Add(this.label5);
             this.splitContainer1.Panel2.Controls.Add(this.label4);
             this.splitContainer1.Panel2.Controls.Add(this.textBox1);
@@ -488,16 +488,15 @@
             // 
             // chkAnnotationsShowActive
             // 
-            this.chkAnnotationsShowActive.AutoSize = true;
-            this.chkAnnotationsShowActive.Checked = true;
-            this.chkAnnotationsShowActive.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAnnotationsShowActive.Location = new System.Drawing.Point(518, 43);
-            this.chkAnnotationsShowActive.Name = "chkAnnotationsShowActive";
-            this.chkAnnotationsShowActive.Size = new System.Drawing.Size(162, 22);
-            this.chkAnnotationsShowActive.TabIndex = 178;
-            this.chkAnnotationsShowActive.Text = "visualizza solo attive";
-            this.chkAnnotationsShowActive.UseVisualStyleBackColor = true;
-            this.chkAnnotationsShowActive.CheckedChanged += new System.EventHandler(this.chkAnnotationsShowActive_CheckedChanged);
+            this.chkShowOnlyActive.AutoSize = true;
+            this.chkShowOnlyActive.Checked = true;
+            this.chkShowOnlyActive.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkShowOnlyActive.Location = new System.Drawing.Point(518, 43);
+            this.chkShowOnlyActive.Name = "chkAnnotationsShowActive";
+            this.chkShowOnlyActive.Size = new System.Drawing.Size(162, 22);
+            this.chkShowOnlyActive.TabIndex = 178;
+            this.chkShowOnlyActive.Text = "visualizza solo attive";
+            this.chkShowOnlyActive.UseVisualStyleBackColor = true;
             // 
             // label5
             // 
@@ -612,7 +611,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtIdStudentsAnnotation;
         private System.Windows.Forms.CheckBox chkCurrentAnnotationActive;
-        private System.Windows.Forms.CheckBox chkAnnotationsShowActive;
+        private System.Windows.Forms.CheckBox chkShowOnlyActive;
         private System.Windows.Forms.TextBox txtAnnotation;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnSave;

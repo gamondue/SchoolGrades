@@ -28,7 +28,7 @@ namespace SchoolGrades
         public enum TopicsFormType
         {
             ShowAndManagement,
-            NormalDialog,
+            HighlightTopics,
             ImportWithErase,
             ImportWithoutErase,
             SearchForm
@@ -62,14 +62,13 @@ namespace SchoolGrades
             topicTreeMptt = new TreeMptt(Commons.dl, trwTopics,
                 txtTopicName, txtDescription, txtFind, null, null,
                 CommonsWinForms.globalPicLed, DragDropEffects.Copy);
-
             // list read from database 
             topicTreeMptt.AddNodesToTreeviewByBestMethod();
-
             switch (formType)
             {
-                case TopicsFormType.NormalDialog:
+                case TopicsFormType.HighlightTopics:
                     {
+                        topicTreeMptt.ClearBackColorOnClick = false; 
                         btnChoose.Visible = true; 
                         // highlists the topics done by the current class in the current subject
                         List<Topic> listDone = Commons.bl.GetTopicsDoneFromThisTopic(currentClass, 
@@ -95,14 +94,12 @@ namespace SchoolGrades
 
                         topicTreeMptt.ImportToTreewiewFromList(listTopicsExternal,
                             null);
-
                         return;
                     }
                 case TopicsFormType.SearchForm:
                     {
                         topicTreeMptt.FindItemById(listTopicsExternal[0].Id);
                         // just the first node
-
                         return;
                     }
             }

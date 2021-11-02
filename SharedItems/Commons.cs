@@ -55,6 +55,7 @@ namespace SchoolGrades
 
         internal static string IdSchool = "FOIS01100L";
         internal static bool IsTimerLessonActive { get; set; }
+        
         internal static string CalculateSHA1(string File)
         {
             try

@@ -106,7 +106,7 @@ namespace SchoolGrades
                         {
                             List<Topic> oneItemList = new List<Topic>();
                             oneItemList.Add(topicsDone[e.RowIndex]);
-                            frmTopics t = new frmTopics(frmTopics.TopicsFormType.NormalDialog,
+                            frmTopics t = new frmTopics(frmTopics.TopicsFormType.HighlightTopics,
                                 oneItemList, currentClass, currentSubject);
                             t.ShowDialog(); 
                             t.Dispose();
@@ -158,7 +158,7 @@ namespace SchoolGrades
                     {
                         List<Topic> oneItemList = new List<Topic>();
                         oneItemList.Add(topicsDone[rowIndex]);
-                        frmTopics t = new frmTopics(frmTopics.TopicsFormType.NormalDialog,
+                        frmTopics t = new frmTopics(frmTopics.TopicsFormType.HighlightTopics,
                             oneItemList, currentClass, currentSubject);
                         t.ShowDialog();
                         t.Dispose();

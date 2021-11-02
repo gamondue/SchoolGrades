@@ -58,7 +58,7 @@ namespace SchoolGrades
             cmbSchoolPeriod.DataSource = listPeriods;
 
             dgwNotes.DataSource = Commons.bl.AnnotationsAboutThisStudent(currentStudent, currentSchoolYear,
-                chkAnnotationsShowActive.Checked);
+                chkShowOnlyActive.Checked);
             RefreshData();
         }
         private void dgwVoti_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -209,15 +209,9 @@ namespace SchoolGrades
                 row.HeaderCell.Value = (row.Index + 1).ToString();
             }
         }
-        private void chkAnnotationsShowActive_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
         private void dgwGrades_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
             TxtIdStudent.Text = currentStudent.IdStudent.ToString();
-
         }
     }
 }

@@ -398,7 +398,9 @@ namespace SchoolGrades
             }
             return lq;
         }
-        internal List<Question> GetFilteredQuestionsAskedToClass(Class @class, SchoolSubject currentSubject, string keyQuestionType, List<Tag> tagsList, Topic currentTopic, bool checked1, bool checked2, string text, DateTime dateFrom, DateTime dateTo)
+        internal List<Question> GetFilteredQuestionsAskedToClass(Class Class, SchoolSubject Subject, string IdQuestionType, 
+            List<Tag> Tags, Topic Topic, bool QueryManyTopics, bool TagsAnd, 
+            string SearchString, DateTime DateFrom, DateTime DateTo)
         {
             List<Question> lq = new List<Question>();
             string filteredQuestions;
