@@ -42,18 +42,33 @@ namespace SchoolGrades
             InitializeComponent();
 
             currentSubject = Subject;
+            if (currentSubject == null || currentSubject.Name == null)
+                currentSubject = null;
+            else
+            {
+                Color bgColor = Commons.ColorFromNumber(currentSubject);
+                this.BackColor = bgColor;
+            }
             currentClass = Class; 
             formType = FormType;
             listTopicsExternal = ListTopicsExternal;
         }
 
-        public frmTopics(TopicsFormType FormType, Class CurrentClass, SchoolSubject CurrentSubject)
+        public frmTopics(TopicsFormType FormType, Class CurrentClass, SchoolSubject Subject)
         {
             InitializeComponent();
 
             formType = FormType;
             currentClass = CurrentClass;
-            currentSubject = CurrentSubject;
+            currentSubject = Subject;
+
+            if (currentSubject == null || currentSubject.Name == null)
+                currentSubject = null;
+            else
+            {
+                Color bgColor = Commons.ColorFromNumber(currentSubject);
+                this.BackColor = bgColor;
+            }
         }
 
         private void frmTopic_Load(object sender, EventArgs e)

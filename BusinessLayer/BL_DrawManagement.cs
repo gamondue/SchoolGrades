@@ -7,7 +7,7 @@ namespace SchoolGrades
 {
     internal partial class BusinessLayer
     {
-        internal void PrepareEligiblesByEqualProbability(List<Student> StudentsList)
+        internal List<Student> PrepareEligiblesByEqualProbability(List<Student> StudentsList)
         {
             List<Student> eligiblesList = new List<Student>();
             foreach (Student s in StudentsList)
@@ -18,6 +18,7 @@ namespace SchoolGrades
                     eligiblesList.Add(s);
                 }
             }
+            return eligiblesList; 
         }
         internal List<Student> EqualizeTheNumberOfTheGrades(List<Student> StudentsWithCheck, Class Class, GradeType GradeType)
         {

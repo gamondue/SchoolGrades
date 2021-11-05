@@ -219,6 +219,8 @@ namespace SchoolGrades
         // Draw
         private void btnDrawOrSort_Click(object sender, EventArgs e)
         {
+            // read checksigns from the grid
+            ReadCheckSignsIntoCurrentStudentsList();
             if (!CommonsWinForms.CheckIfClassChosen(currentClass))
             {
                 return;
@@ -510,7 +512,7 @@ namespace SchoolGrades
             // sets the value of property SortOrDrawCriterion according to the type of draw
             if (rdbDrawEqualProbability.Checked)
             {
-                Commons.bl.PrepareEligiblesByEqualProbability(currentStudentsList); 
+                eligiblesList = Commons.bl.PrepareEligiblesByEqualProbability(currentStudentsList); 
             }
             else if (rdbDrawByWeightsSum.Checked)
             {
@@ -518,7 +520,7 @@ namespace SchoolGrades
                     return;
                 if (!CommonsWinForms.CheckIfTypeOfAssessmentChosen(currentGradeType))
                     return;
-                PrepareEligiblesByWeightSum();
+                eligiblesList = PrepareEligiblesByWeightSum();
             }
             else if (rdbDrawNoOfGrades.Checked)
             {
@@ -526,25 +528,25 @@ namespace SchoolGrades
                     return;
                 if (!CommonsWinForms.CheckIfTypeOfAssessmentChosen(currentGradeType))
                     return;
-                PrepareEligiblesByNumberOfGrades();
+                eligiblesList = PrepareEligiblesByNumberOfGrades();
             }
             else if (rdbDrawByOldestFirst.Checked)
             {
-                PrepareEligiblesByOldestFirst();
+                eligiblesList = PrepareEligiblesByOldestFirst();
             }
             else if (rdbSortByAlphbetical.Checked)
             {
                 // same as equal probability
                 // but draw will be forbidden later
-                Commons.bl.PrepareEligiblesByEqualProbability(currentStudentsList);
+                eligiblesList = Commons.bl.PrepareEligiblesByEqualProbability(currentStudentsList);
             }
             else if (rdbDrawLowGradesFirst.Checked)
             {
-                PrepareEligiblesByLowGradesFirst();
+                eligiblesList = PrepareEligiblesByLowGradesFirst();
             }
             else if (rdbDrawByRevengeFactor.Checked)
             {
-                PrepareEligiblesByRevengeFactor();
+                eligiblesList = PrepareEligiblesByRevengeFactor();
             }
             if (eligiblesList.Count == 0)
             {
@@ -567,20 +569,21 @@ namespace SchoolGrades
             MessageBox.Show("Sorteggio od ordinamento fatto!", "",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-        private void PrepareEligiblesByRevengeFactor()
+        private List<Student> PrepareEligiblesByRevengeFactor()
         {
-            eligiblesList = CreateRevengeList(currentStudentsList);
+            return CreateRevengeList(currentStudentsList);
         }
-        private void PrepareEligiblesByLowGradesFirst()
+        private List<Student> PrepareEligiblesByLowGradesFirst()
         {
             throw new NotImplementedException();
         }
-        private void PrepareEligiblesByOldestFirst()
+        private List<Student> PrepareEligiblesByOldestFirst()
         {
             throw new NotImplementedException();
         }
-        private void PrepareEligiblesByNumberOfGrades()
+        private List<Student> PrepareEligiblesByNumberOfGrades()
         {
+            List<Student> eligiblesList = new List<Student>();  
             //find the number of grades of each student (beside the sum of the weights)
             List<Student> studentsAndWeights =
                 Commons.bl.GetStudentsAndSumOfWeights(currentClass,
@@ -616,6 +619,7 @@ namespace SchoolGrades
                 if (studentOfAll.Eligible == true)
                     eligiblesList.Add(studentOfAll);
             }
+            return eligiblesList; 
         }
         private void EqualizeTheNumberOfTheGrades()
         {
@@ -630,7 +634,7 @@ namespace SchoolGrades
 			CopyCheckedStatusIntoEligiblesList();             
             eligiblesList = Commons.bl.EqualizeTheNumberOfTheGrades(currentStudentsList, currentClass, currentGradeType);
         }
-        private void PrepareEligiblesByWeightSum()
+        private List<Student> PrepareEligiblesByWeightSum()
         {
             //find the sum of the weights of grades of each student
             List<Student> studentsAndWeights =
@@ -666,14 +670,16 @@ namespace SchoolGrades
                 if ((bool)studentOfAll.Eligible)
                     eligiblesList.Add(studentOfAll);
             }
+            return eligiblesList; 
         }
-        private List<Student> FillListOfChecked()
+        private List<Student> FillListOfChecked(List<Student> StudentsList)
         {
             List<Student> CheckedList = new List<Student>();
             // fill the list with those included in the CheckedItems collection
-            foreach (Student s in currentStudentsList)
+            foreach (Student s in StudentsList)
             {
-                CheckedList.Add(s);
+                if (s.Eligible == true)
+                    CheckedList.Add(s);
             }
             return CheckedList;
         }
@@ -931,13 +937,6 @@ namespace SchoolGrades
             picStudent.BackColor = bgColor;
             lblCodYear.BackColor = bgColor;
         }
-        private void lstNames_ItemCheck(object sender, ItemCheckEventArgs e)
-        {
-            if (e.CurrentValue != CheckState.Checked) // seem to work "reversed"..
-                currentStudentsList[e.Index].Eligible = true;
-            else
-                currentStudentsList[e.Index].Eligible = false;
-        }
         private void btnTopicsDone_Click(object sender, EventArgs e)
         {
             if (!CommonsWinForms.CheckIfClassChosen(currentClass))
@@ -998,7 +997,7 @@ namespace SchoolGrades
         {
             if (!CommonsWinForms.CheckIfClassChosen(currentClass))
                 return;
-            eligiblesList = FillListOfChecked(); 
+            eligiblesList = FillListOfChecked(currentStudentsList); 
             if (eligiblesList.Count == 0)
             {
                 MessageBox.Show("Nessun studente presente!");
@@ -1390,8 +1389,10 @@ namespace SchoolGrades
             }
             else
             {
+                // read checksigns from the grid
+                ReadCheckSignsIntoCurrentStudentsList();
                 // annotation applied to a whole list of students
-                chosenStudents = FillListOfChecked();
+                chosenStudents = FillListOfChecked(currentStudentsList);
             }
             if (chosenStudents.Count > 0)
             {
@@ -1569,5 +1570,16 @@ namespace SchoolGrades
 				stud.Eligible = found;
 			}
 		}
+        private void ReadCheckSignsIntoCurrentStudentsList()
+        {
+            int i = 0; 
+            foreach (DataGridViewRow r in dgwStudents.Rows)
+            {
+                //if ( == true)
+                //{
+                    currentStudentsList[i].Eligible = (bool)r.Cells[0].Value; 
+                //}
+            }
+        }
     }
 }

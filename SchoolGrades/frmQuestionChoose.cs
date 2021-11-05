@@ -400,7 +400,6 @@ namespace SchoolGrades
                 dateFrom, dateTo);
             dgwQuestions.DataSource = l;
         }
-
         private void BtnComb_Click(object sender, EventArgs e)
         {
             if(!CommonsWinForms.CheckIfStudentChosen(currentStudent))
