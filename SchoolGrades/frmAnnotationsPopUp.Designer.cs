@@ -30,6 +30,7 @@ namespace SchoolGrades
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAnnotationsPopUp));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.lblCurrentStudent = new System.Windows.Forms.Label();
             this.dgwStudentsAllPopUpAnnotations = new System.Windows.Forms.DataGridView();
@@ -50,7 +51,7 @@ namespace SchoolGrades
             this.lblCurrentStudent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblCurrentStudent.Click += new System.EventHandler(this.lblCurrentStudent_Click);
             // 
-            // dgwStudentsActivePopUpAnnotations
+            // dgwStudentsAllPopUpAnnotations
             // 
             this.dgwStudentsAllPopUpAnnotations.AllowUserToAddRows = false;
             this.dgwStudentsAllPopUpAnnotations.AllowUserToDeleteRows = false;
@@ -62,7 +63,7 @@ namespace SchoolGrades
             this.dgwStudentsAllPopUpAnnotations.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgwStudentsAllPopUpAnnotations.Location = new System.Drawing.Point(0, 53);
             this.dgwStudentsAllPopUpAnnotations.Margin = new System.Windows.Forms.Padding(4);
-            this.dgwStudentsAllPopUpAnnotations.Name = "dgwStudentsActivePopUpAnnotations";
+            this.dgwStudentsAllPopUpAnnotations.Name = "dgwStudentsAllPopUpAnnotations";
             this.dgwStudentsAllPopUpAnnotations.RowTemplate.Height = 24;
             this.dgwStudentsAllPopUpAnnotations.Size = new System.Drawing.Size(635, 203);
             this.dgwStudentsAllPopUpAnnotations.TabIndex = 171;
@@ -80,6 +81,7 @@ namespace SchoolGrades
             this.Controls.Add(this.lblCurrentStudent);
             this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.Color.DarkBlue;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmAnnotationsPopUp";
             this.Text = "Annotazioni in evidenza";

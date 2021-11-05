@@ -377,8 +377,10 @@
             this.Controls.Add(this.dgwSearchedStudents);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.Color.DarkBlue;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
             this.Name = "frmStudent";
             this.Text = "Gestione studenti";
             this.toolTip1.SetToolTip(this, "Esci scegliendo l\'attuale studente");
