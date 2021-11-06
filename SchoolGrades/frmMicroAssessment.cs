@@ -49,7 +49,7 @@ namespace SchoolGrades
             // constructor for subgrades for a grade passed trough its id
             currentGrade.IdGrade = IdGrade;
             currentStudent = new Student();
-            Commons.bl.GetGradeAndStudent(currentGrade, currentStudent);
+            Commons.bl.GetGradeAndStudentFromIdGrade(ref currentGrade, ref currentStudent);
             currentYear = currentGrade.IdSchoolYear;
             currentClass = Commons.bl.GetClassOfStudent(Commons.IdSchool, currentYear, currentStudent);
             

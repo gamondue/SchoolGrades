@@ -144,11 +144,12 @@ namespace SchoolGrades
             a.InstantTaken = Safe.DateTime(Row["instantTaken"]);
             a.InstantClosed = Safe.DateTime(Row["instantClosed"]);
             a.IsActive = Safe.Bool(Row["isActive"]);
-            try // the program must work also with old versions of database 
+             
+            // the program must work also with old versions of database 
+            if(FieldExists("StudentsAnnotations", "isPopUp"))
             {
                 a.IsPopUp = Safe.Bool(Row["isPopUp"]);
             }
-            catch {}
             return a;
         }
         internal void EraseAnnotationById(int? IdAnnotation)

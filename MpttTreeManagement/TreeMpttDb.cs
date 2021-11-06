@@ -411,26 +411,20 @@ namespace gamon.TreeMptt
         internal string GetTopicPath(int? LeftNode, int? RightNode)
         {
             // node numbering according to Modified Preorder Tree Traversal algorithm
+            string path = "";
             try
             {
                 List<Topic> l = GetTopicAncestors(LeftNode, RightNode);
-                string path = "";
-                if (l != null)
+                for (int i = 0; i < l.Count; i++)
                 {
-                    for (int i = 0; i < l.Count; i++)
-                    {
-                        path += l[i].Name + "|";
-                        return path;
-                    }
+                    path += l[i].Name + "|";
                 }
-                else
-                    return "";
             }
             catch
             {
-                return ""; 
+                return path;
             }
-            return ""; 
+            return path;
         }
         internal string GetTopicPath(int? idTopic)
         {

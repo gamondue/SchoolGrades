@@ -1175,6 +1175,10 @@ namespace SchoolGrades
             {
                 return;
             }
+            if (!CommonsWinForms.CheckIfSubjectChosen(currentSubject))
+            {
+                return;
+            }
             frmGradesClassSummary f;
             f = new frmGradesClassSummary(currentClass,
                 currentGradeType, currentSubject);

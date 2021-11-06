@@ -53,7 +53,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal void GetGradeAndStudent(Grade Grade, Student Student)
+        internal void GetGradeAndStudentFromIdGrade(ref Grade Grade, ref Student Student)
         {
             using (DbConnection conn = Connect())
             {
@@ -71,11 +71,10 @@ namespace SchoolGrades
                     Student = GetStudentFromRow(dRead);
                     break; // just the first! 
                 }
-                //dRead.Dispose();
-                //cmd.Dispose();
+                dRead.Dispose();
+                cmd.Dispose();
             }
         }
-
         internal double GetDefaultWeightOfGradeType(string IdGradeType)
         {
             double d;

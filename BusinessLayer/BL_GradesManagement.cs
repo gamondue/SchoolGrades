@@ -13,29 +13,30 @@ namespace SchoolGrades
         {
             return dl.GetGrade(IdGrade);
         }
-        internal void GetGradeAndStudent(Grade currentGrade, Student currentStudent)
+        internal void GetGradeAndStudentFromIdGrade(ref Grade Grade, ref Student Student)
         {
-            dl.GetGradeAndStudent(currentGrade, currentStudent);
+            dl.GetGradeAndStudentFromIdGrade(ref Grade, ref Student);
         }
-        internal Class GetClassOfStudent(string idSchool, string currentYear, Student currentStudent)
+        internal Class GetClassOfStudent(string IdSchool, string SchoolYear, Student Student)
         {
-            return dl.GetClassOfStudent(idSchool, currentYear, currentStudent);
+            return dl.GetClassOfStudent(IdSchool, SchoolYear, Student);
         }
-        internal GradeType GetGradeType(string idGradeType)
+        internal GradeType GetGradeType(string IdGradeType)
         {
-            return dl.GetGradeType(idGradeType);
+            return dl.GetGradeType(IdGradeType);
         }
-        internal SchoolSubject GetSchoolSubject(string idSchoolSubject)
+        internal SchoolSubject GetSchoolSubject(string SchoolSubject)
         {
-            return dl.GetSchoolSubject(idSchoolSubject);
+            return dl.GetSchoolSubject(SchoolSubject);
         }
         internal Question GetQuestionById(int? idQuestion)
         {
             return dl.GetQuestionById(idQuestion);
         }
-        internal Grade LastOpenGradeOfStudent(Student currentStudent, string currentYear, SchoolSubject currentSchoolSubject, string idGradeTypeParent)
+        internal Grade LastOpenGradeOfStudent(Student Student, string SchoolYear, 
+            SchoolSubject Subject, string IdGradeTypeParent)
         {
-            return dl.LastOpenGradeOfStudent(currentStudent, currentYear, currentSchoolSubject, idGradeTypeParent);
+            return dl.LastOpenGradeOfStudent(Student, SchoolYear, Subject, IdGradeTypeParent);
         }
         internal DataTable GetMicroGradesOfStudentWithMacroOpen(int? idStudent, string currentYear, string idGradeType, string idSchoolSubject)
         {
@@ -49,13 +50,13 @@ namespace SchoolGrades
         {
             dl.DeleteValueOfGrade(Value);
         }
-        internal int? SaveMicroGrade(Grade currentGrade)
+        internal int? SaveMicroGrade(Grade Grade)
         {
-            return dl.SaveMicroGrade(currentGrade);
+            return dl.SaveMicroGrade(Grade);
         }
-        internal int CreateMacroGrade(ref Grade currentMacroGrade, Student currentStudent, string idGradeType)
+        internal int CreateMacroGrade(ref Grade MacroGrade, Student Student, string IdGradeType)
         {
-            return dl.CreateMacroGrade(ref currentMacroGrade, currentStudent, idGradeType);
+            return dl.CreateMacroGrade(ref MacroGrade, Student, IdGradeType);
         }
         internal void SaveMacroGrade(int? idStudent, int? v, double average, double weight, string currentYear, string idSchoolSubject)
         {
