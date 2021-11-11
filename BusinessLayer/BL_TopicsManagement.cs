@@ -75,21 +75,21 @@ namespace SchoolGrades
             else
                 TextFile.StringToFile(Commons.PathDatabase + "\\" + Filename + ".md", f, false);
         }
-        internal List<Topic> GetTopicsDoneFromThisTopic(Class currentClass, Topic tag, SchoolSubject currentSchoolSubject)
+        internal List<Topic> GetTopicsDoneFromThisTopic(Class Class, Topic Tag, SchoolSubject Subject)
         {
-            return dl.GetTopicsDoneFromThisTopic(currentClass, tag, currentSchoolSubject);
+            return dl.GetTopicsDoneFromThisTopic(Class, Tag, Subject);
         }
-        internal List<Topic> GetTopicsNotDoneFromThisTopic(Class currentClass, Topic tag, SchoolSubject currentSchoolSubject)
+        internal List<Topic> GetTopicsNotDoneFromThisTopic(Class Class, Topic Tag, SchoolSubject Subject)
         {
-            return dl.GetTopicsNotDoneFromThisTopic(currentClass, tag, currentSchoolSubject);
+            return dl.GetTopicsNotDoneFromThisTopic(Class, Tag, Subject);
         }
-        internal Topic GetTopicById(int? idTopic)
+        internal Topic GetTopicById(int? IdTopic)
         {
-            return dl.GetTopicById(idTopic);
+            return dl.GetTopicById(IdTopic);
         }
-        internal List<Topic> GetTopicsDoneInPeriod(Class currentClass, SchoolSubject currentSubject, DateTime dateFrom, DateTime DateTo)
+        internal List<Topic> GetTopicsDoneInPeriod(Class Class, SchoolSubject Subject, DateTime DateFrom, DateTime DateTo)
         {
-            return dl.GetTopicsDoneInPeriod(currentClass, currentSubject, dateFrom, DateTo);
+            return dl.GetTopicsDoneInPeriod(Class, Subject, DateFrom, DateTo);
         }
     }
 }

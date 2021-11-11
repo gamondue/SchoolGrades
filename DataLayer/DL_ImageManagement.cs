@@ -43,7 +43,6 @@ namespace SchoolGrades
             }
             return images;
         }
-
         internal List<string> GetCaptionsOfThisImage(string FileName)
         {
             List<string> captions = new List<string>();
@@ -81,7 +80,6 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-
         internal string GetFilePhoto(int? IdStudent, string SchoolYear)
         {
             using (DbConnection conn = Connect())
@@ -107,7 +105,6 @@ namespace SchoolGrades
                 return NamePath;
             }
         }
-
         private void ChangeImagesPath(Class Class, DbConnection conn)
         {
             DbDataReader dRead;
@@ -131,7 +128,6 @@ namespace SchoolGrades
             }
             cmd.Dispose();
         }
-
         private void SaveImagePath(int? id, string path, DbConnection conn)
         {
             DbCommand cmd = conn.CreateCommand();
@@ -142,7 +138,6 @@ namespace SchoolGrades
             cmd.ExecuteNonQuery();
             cmd.Dispose();
         }
-
         private void SaveStudentsPhotosPath(int? id, string path, DbConnection conn)
         {
             if (id != null)
@@ -156,7 +151,6 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-
         internal void RemoveImageFromLesson(Lesson Lesson, Image Image, bool AlsoEraseImageFile)
         {
             // delete from the link table
@@ -201,7 +195,6 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-
         internal Image FindImageWithGivenFile(string PathAndFileNameOfImage)
         {
             Image i = new Image();
@@ -227,7 +220,6 @@ namespace SchoolGrades
             }
             return i;
         }
-
         /// <summary>
         /// Creates a new Image in Images and links it to the lesson
         /// If the image has an id != 0, it exists and is not created 
@@ -264,6 +256,5 @@ namespace SchoolGrades
             }
             return Image.IdImage;
         }
-
     }
 }

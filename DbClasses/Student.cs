@@ -12,17 +12,17 @@ namespace SchoolGrades.DbClasses
         Nullable<DateTime> birthDate;
         string birthPlace;
 
-        public string RegisterNumber { get; set; }
+        public int? IdStudent { get; set; }
+        public string RegisterNumber { get; set; } // field not in the table Student in database
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public float ArithmeticMean { get; set; }    // modificare il programma per eliminarlo 
         public double? Sum { get; set; }     // modificare il programma per eliminarlo 
-        public string SchoolYear { get; set; }
+        public string SchoolYear { get; set; }    // field not in the table Student in database
         public double? DummyNumber { get; set; }  // usewd by the program when it need fo associate a number to a student
         public bool? Eligible { get; set; } // TODO: change the name of the database field from "drawable" to "eligible"
-        public int? IdStudent { get; set; }
-        public int? IdClass { get; set; }
-        public string Class { get; set; }
+        public int? IdClass { get; set; }   // field not in the table Student in database
+        public string ClassAbbreviation { get; set; } // field not in the table Student in database
         public string Residence { get => residence; set => residence = value; }
         public string Origin { get => origin; set => origin = value; }
         public string Email { get => email; set => email = value; }

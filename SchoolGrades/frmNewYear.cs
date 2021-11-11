@@ -81,7 +81,7 @@ namespace SchoolGrades
                     st.IdClass = 0;
                     st.RegisterNumber = "";
                     st.SchoolYear = TxtSchoolYearNext.Text;
-                    st.Class = TxtClassNext.Text;
+                    st.ClassAbbreviation = TxtClassNext.Text;
 
                     st.Disabled = false;
                     st.Eligible = false;

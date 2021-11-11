@@ -19,15 +19,15 @@ namespace gamon.TreeMptt
         /// and by the use of a right and left nodes referece in a 
         /// Modified Preorder Traversal Tree organization ("Mptt"). 
         /// The saving of the tree in a MPTT fashion can be accomplished asyncronuosly
-        /// in a separate thread. Consistency of the tree is preserved. (!! NOT TRUE, must be cured.. !!)
+        /// in a separate thread. Consistency of the tree is preserved when the program exits . 
+        /// (!! proved NOT TRUE is some cases, must be cured.. !!)
         /// Some events of the controls, redriven to this class, are treated. 
         /// 
         /// An MPTT tree loads more quickly in a single DBMS query but saves much more 
         /// slowly, with one DBMS query for each change in the left and right node. 
         /// Almost all left and right nodes can be changed if the change in the tree is very "up", near the root
         /// With MPTT we can use single queries to retreive subtrees. 
-        /// With MPTT we can have in the results of the queries all the nodes that 
-        /// stay under a given node with just two tests
+        /// With MPTT we can have all the nodes that stay under a given node with just two tests
         /// 
         ///  made by Gabriele MONTI - Forlì - Italia
         /// </summary>
@@ -37,74 +37,111 @@ namespace gamon.TreeMptt
 
         // !!!! TODO some more events of the TextBoxes should be encapsulated in this class 
 
-        //DbAndBusiness db = new DbAndBusiness();
-        //DbAndBusiness dl;
+        // class that encapsulates the data access to the tree nodes 
         TreeMpttDb dbMptt;
+        // datalayer for other data access
+        // !! we should avoid using the next, so the tree could be in another DBMS type !!
         DataLayer dl;
+        #region Internal fields
+        #region fields used for drag and drop 
         // identification of the Treeview control from which the drag starts
-        int dragSourceControlHash; 
-        System.Windows.Forms.DragDropEffects typeOfDragAndDrop;
+        private int dragSourceControlHash;
+        private bool hasNodeBeenSelectedFromTree;
 
-        // parameters for saving the Mptt tree concurrently 
+        System.Windows.Forms.DragDropEffects typeOfDragAndDrop;
+        #endregion
+
+        #region fields used for saving the Mptt tree (also concurrently)
         // variable that can be set from the external to stop the background 
         // task that saves the nodes' tree as a Mptt tree
+        // internal field to set the status of 
+        bool areLeftAndRightConsistent = true;
+        private static bool isSavingTreeMptt;
 
-        List<Topic> listItemsBefore; // !!!!!!!!!!! forse non serve più !!!!!!!!
+        #endregion
+
+        #region lists used to detect changes, to have less accesses to the database 
+        List<Topic> listItemsBefore; // !!!! this list should be inufluent now. Code revision could eliminate it!!!!
         List<Topic> listItemsAfter;
         List<Topic> listItemsDeleted;
+        #endregion
 
-        private TreeView shownTreeView;
-        public TreeView TreeView { get => shownTreeView; set => shownTreeView = value; }
 
+        // a stack used to remember the father node in some part of the code  
         Stack<TreeNode> stack = new Stack<TreeNode>();
 
         string previousSearch = "";
         int indexDone = 0;
         List<Topic> found = null;
+
+        #region internal object variables for controls passed from outside
+        // Winforms control that is manipulated by this class
+        private TreeView shownTreeView;
         TextBox txtNodeName;
         TextBox txtNodeDescription;
         TextBox txtTopicsSearchString;
         TextBox txtCodTopic;
+        #endregion
 
-        private static bool isSavingTreeMptt;
+        #region coloring of the nodes
         private Color colorOfHighlightedItem = Color.Khaki;
         private Color colorOfFoundItem = Color.Lime;
         private Color colorOfBeheadedColor = Color.Orange;
 
         bool clearBackColorOnClick = true;
-        public bool ClearBackColorOnClick { get => clearBackColorOnClick; set => clearBackColorOnClick = value; }
+        #endregion
 
-        bool areLeftAndRightConsistent = true;
-        public bool AreLeftAndRightConsistent { get => areLeftAndRightConsistent; }
-
-        private static bool hasNodeBeenSelectedFromTree;
-
+        #region Properties
         /// <summary>
-        /// Flag that helps in the behaviour of the treeview control when a selection of 
-        /// a node is done by the user. 
-        /// !!!! TODO Should be private, because some of the TextBoxes' events should be 
-        /// encapsulated in this class. !!!!
+        /// If true the backcolor of of nodes will be cleared when the user clicks on one node 
         /// </summary>
-        public static bool HasNodeBeenSelectedFromTree { get => hasNodeBeenSelectedFromTree; set => hasNodeBeenSelectedFromTree = value; }
-        public static bool IsThreadSavingTreeMptt { get => isSavingTreeMptt; set => isSavingTreeMptt = value; }
+        public bool ClearBackColorOnClick { get => clearBackColorOnClick; set => clearBackColorOnClick = value; }
+        /// <summary>
+        /// True if the Mptt scan of the tree has been concluded 
+        /// </summary>
+        public bool AreLeftAndRightConsistent { get => areLeftAndRightConsistent; }
+        /// <summary>
+        /// True if the user has selected a node in the tree
+        /// </summary>
+        // !!!! TODO Should be private, because some of the TextBoxes' events should be 
+        // encapsulated in this class. The class should manage also the behaviours in which this property is used!!!!
+        public bool HasNodeBeenSelectedFromTree { get => hasNodeBeenSelectedFromTree; set => hasNodeBeenSelectedFromTree = value; }
+        /// <summary>
+        /// true when a background task is saving left and right nodes to the tree
+        /// </summary>
+        public bool IsThreadSavingTreeMptt { get => isSavingTreeMptt; set => isSavingTreeMptt = value; }
+        #endregion
+        /// <summary>
+        /// Name of the object
+        /// </summary>
         public string Name { get; set; }
+        // TreeView control from the calling code
+        public TreeView TreeView { get => shownTreeView; set => shownTreeView = value; }
+        #endregion
 
-        // enum to be used yet
+        // enum to be used yet (will be public when used..)
         enum TypeOfSearch
         {
             StringSearch,
             AndSearch,
             OrSearch
         }
-
-        //internal TreeMptt(DbAndBusiness DB, TreeView TreeViewControl,
-        //    TextBox TxtNodeName, TextBox TxtNodeDescription, TextBox TxtTopicFind,
-        //    TextBox TxtTopicsDigest, TextBox TxtCodTopic,
-        //    PictureBox LedPictureBox,
-        //    System.Windows.Forms.DragDropEffects TypeOfDragAndDrop = System.Windows.Forms.DragDropEffects.Move)
+        #region constructors
+        /// <summary>
+        /// TreeMptt object requires these information. Controls not used can be passed as null 
+        /// </summary>
+        /// <param name="DataLayer">Access to other data</param>
+        /// <param name="TreeViewControl">WinForms TreeView Control manipulated by the class</param>
+        /// <param name="TxtNodeName">TextBox of the "short" name of the node</param>
+        /// <param name="TxtNodeDescription">TextBox of the "long" description of the node</param>
+        /// <param name="TxtTopicFind">TextBox of the text to search in the tree</param>
+        /// <param name="TxtTopicsDigest">TextBox that shows the short names of ticked nodes</param>
+        /// <param name="TxtIdTopic">TextBox that shows Id of the node (Primary key) </param>
+        /// <param name="LedPictureBox">Picture box that the class fills with red when saving in background</param>
+        /// <param name="TypeOfDragAndDrop"></param>
         internal TreeMptt(DataLayer DataLayer, TreeView TreeViewControl,
             TextBox TxtNodeName, TextBox TxtNodeDescription, TextBox TxtTopicFind,
-            TextBox TxtTopicsDigest, TextBox TxtCodTopic,
+            TextBox TxtTopicsDigest, TextBox TxtIdTopic,
             PictureBox LedPictureBox,
             System.Windows.Forms.DragDropEffects TypeOfDragAndDrop = System.Windows.Forms.DragDropEffects.Move)
         {
@@ -116,7 +153,7 @@ namespace gamon.TreeMptt
             txtNodeName = TxtNodeName;
             txtNodeDescription = TxtNodeDescription;
             txtTopicsSearchString = TxtTopicsDigest;
-            txtCodTopic = TxtCodTopic;
+            txtCodTopic = TxtIdTopic;
 
             if (shownTreeView != null)
             {
@@ -140,6 +177,7 @@ namespace gamon.TreeMptt
 
             typeOfDragAndDrop = TypeOfDragAndDrop;
         }
+        #endregion
         internal void GetAllNodesOfSubtree(TreeNode NodeStart, List<TreeNode> List) // (passes List for recursion) 
         {
             List.Add(NodeStart);
@@ -336,7 +374,6 @@ namespace gamon.TreeMptt
             // recursive function
             dbMptt.SaveLeftAndRightToDbMptt();
         }
-
         /// <summary>
         /// Saves Left and Right nodes according to MPTT trtraversal 
         /// To store the topology uses a hidden Treeview, which we will never show to the user
@@ -364,7 +401,6 @@ namespace gamon.TreeMptt
                 {
                     // start saving in background, signalling to the main program 
                     // locks a concurrent modification of Commons.BackgroundCanStillSaveTopicsTree 
-                    
                     lock (CommonsWinForms.LockSavingTopicsTree)
                     {
                         CommonsWinForms.BackgroundCanStillSaveTopicsTree = true;
@@ -411,7 +447,6 @@ namespace gamon.TreeMptt
         {
             decimal d = 4; 
         }
-
         // next version of the previous method left commented. Different idea, but not working! Adjusting might require being too slow
         // so the method has been re-written storing the topology into a hidden Treevie
         //internal void SaveMpttBackground()
@@ -843,7 +878,7 @@ namespace gamon.TreeMptt
             {
                 TreeNode te = shownTreeView.SelectedNode;
                 // if the topic has already been saved in the database, we have to ask for 
-                // confirmation if it has already been cheched in the past
+                // confirmation if it has already been checked in the past
                 if (((Topic)te.Tag).Id != null) 
                     if (dl.IsTopicAlreadyTaught((Topic)te.Tag))
                     {

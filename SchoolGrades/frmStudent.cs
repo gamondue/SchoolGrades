@@ -95,15 +95,11 @@ namespace SchoolGrades
                 MessageBox.Show("Immettere Nome e Cognome del nuovo allievo");
                 return; 
             }
-            if(txtIdStudent.Text =="" && (currentStudent.IdStudent == 0 || currentStudent.IdStudent == null))
-            {   // creation
-                txtIdStudent.Text = Commons.bl.CreateStudent(currentStudent).ToString();
-            }
-            else
+            if (txtIdStudent.Text == "" && (currentStudent.IdStudent == 0 || currentStudent.IdStudent == null))
             {
-                // modification 
-                Commons.bl.SaveStudent(currentStudent);
+                currentStudent.IdStudent = 0; 
             }
+            Commons.bl.SaveStudent(currentStudent);
         }
         private void btnNew_Click(object sender, EventArgs e)
         {
