@@ -14,7 +14,7 @@ namespace SchoolGrades
 {
     public partial class frmLessons : Form
     {
-        gamon.TreeMptt.TreeMptt topicTreeMptt;
+        TreeMptt topicTreeMptt;
 
         Lesson currentLesson = new Lesson();
 
@@ -127,7 +127,6 @@ namespace SchoolGrades
                 dgwAllLessons.Columns[5].Visible = false;
             }
         }
-
         private void RefreshTopicsInOneLesson()
         {
 
@@ -144,7 +143,6 @@ namespace SchoolGrades
                 dgwOneLesson.Columns[6].Visible = false;
             }
         }
-
         private void RefreshTopicsChecksAndImages()
         {
             if (topicTreeMptt != null)
@@ -160,7 +158,7 @@ namespace SchoolGrades
                 // gets the images associated with this lesson
                 listImages = Commons.bl.GetListLessonsImages(currentLesson);
                 // shows the fist image
-                if (listImages.Count > 0)
+                if (listImages != null && listImages.Count > 0)
                     try
                     {
                         picImage.Load(Commons.PathImages + "\\" + listImages[indexImages].RelativePathAndFilename);
@@ -195,9 +193,9 @@ namespace SchoolGrades
         private void txtTopicName_TextChanged(object sender, EventArgs e)
         {
             // if the change is due to selection in the tree, don't change
-            if (TreeMptt.HasNodeBeenSelectedFromTree)
+            if (topicTreeMptt.HasNodeBeenSelectedFromTree)
             {
-                TreeMptt.HasNodeBeenSelectedFromTree = false;
+                topicTreeMptt.HasNodeBeenSelectedFromTree = false;
                 return;
             }
             if (trwTopics.SelectedNode == null)
@@ -233,7 +231,6 @@ namespace SchoolGrades
                 }
             }
         }
-
         private void ExportSubtreeToClipboard()
         {
             if (topicTreeMptt.TreeView.SelectedNode.Tag == null)
@@ -326,15 +323,17 @@ namespace SchoolGrades
             //  refresh database data in grids 
             RefreshLessons(0);
         }
-
         private void txtLessonDesc_TextChanged(object sender, EventArgs e)
         {
 
         }
-
         private void btnLessonSave_Click(object sender, EventArgs e)
         {
-            currentLessonsGridIndex = dgwAllLessons.CurrentRow.Index;
+            int currentLessonsGridIndex = -1; 
+            if (dgwAllLessons.CurrentRow != null)
+            { 
+                currentLessonsGridIndex = dgwAllLessons.CurrentRow.Index;
+            }
             btnLessonSave.Enabled = false;
             // save anyway (should be better to control if it is necessary)  
             topicTreeMptt.SaveTreeFromTreeViewControlByParent(); 
@@ -342,6 +341,7 @@ namespace SchoolGrades
             if (txtLessonCode.Text == "")
             {
                 MessageBox.Show("ATTENZIONE: Creare una nuova lezione!");
+                btnLessonSave.Enabled = true;
                 return; 
             }
 
@@ -352,7 +352,10 @@ namespace SchoolGrades
                     "", MessageBoxButtons.YesNo, MessageBoxIcon.Information,
                     MessageBoxDefaultButton.Button1)
                     == DialogResult.No)
+                {
+                    btnLessonSave.Enabled = true;
                     return;
+                }
             }
             currentLesson.Date = dtpLessonDate.Value;
             currentLesson.Note = TxtLessonDesc.Text;
@@ -366,10 +369,12 @@ namespace SchoolGrades
             int dummy = 0; 
             topicTreeMptt.FindCheckedItems(trwTopics.Nodes[0], 
                 topicsOfTheLesson, ref dummy);
-            Commons.bl.SaveTopicsOfLesson(currentLesson.IdLesson, topicsOfTheLesson);
+            if(topicsOfTheLesson.Count > 0)
+                Commons.bl.SaveTopicsOfLesson(currentLesson.IdLesson, topicsOfTheLesson);
 
             //  refresh database data in grids 
-            RefreshLessons(currentLessonsGridIndex);
+            if(currentLessonsGridIndex != -1)
+                RefreshLessons(currentLessonsGridIndex);
             RefreshTopicsChecksAndImages();
             
             btnLessonSave.Enabled = true;
@@ -399,7 +404,7 @@ namespace SchoolGrades
         }
         private void txtTopicDescription_TextChanged(object sender, EventArgs e)
         {
-            if (gamon.TreeMptt.TreeMptt.HasNodeBeenSelectedFromTree)
+            if (topicTreeMptt.HasNodeBeenSelectedFromTree)
                 return;
             if (trwTopics.SelectedNode != null)
             {
@@ -412,7 +417,6 @@ namespace SchoolGrades
                 MessageBox.Show("Selezionare un argomento"); 
             }
         }
-
         private void picImage_Click(object sender, EventArgs e)
         {
 
@@ -433,7 +437,6 @@ namespace SchoolGrades
                 }
             }
         }
-
         private void btnManageImages_Click(object sender, EventArgs e)
         {
             if(txtLessonCode.Text=="")
@@ -466,7 +469,6 @@ namespace SchoolGrades
                 picImage.Image = null; 
             }
         }
-
         private void dgwOneLesson_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
@@ -497,7 +499,6 @@ namespace SchoolGrades
                 btnSaveTree_Click(null, null);
             }
         }
-
         private void checkSpecificKeysForTopicsTree(KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Right)
@@ -525,7 +526,6 @@ namespace SchoolGrades
             //    btnAddNode_Click(null, null);
             //}
         }
-
         private void PreviousImage()
         {
             if (listImages.Count > 0)
@@ -536,7 +536,6 @@ namespace SchoolGrades
                 picImage.Load(Commons.PathImages + "\\" + listImages[indexImages].RelativePathAndFilename);
             }
         }
-
         private void NextImage()
         {
             if (listImages.Count > 0)
@@ -545,7 +544,6 @@ namespace SchoolGrades
                 picImage.Load(Commons.PathImages + "\\" + listImages[indexImages].RelativePathAndFilename);
             }
         }
-
         private void btnTopicsNotDone_Click(object sender, EventArgs e)
         {
             if (trwTopics.SelectedNode == null)
@@ -554,14 +552,12 @@ namespace SchoolGrades
                     "Verranno evidenziati gli argomenti sotto l'argomento scelto che NON sono stati fatti");
                     return;
             }
-            // !!!! nella query non c'è la classe. NON può funzionare !!!!
             List<Topic> listNonDone = Commons.bl.GetTopicsNotDoneFromThisTopic(currentClass,
                 ((Topic)trwTopics.SelectedNode.Tag), currentSchoolSubject);
             int dummy=0; bool dummy2=false; 
             topicTreeMptt.HighlightTopicsInList(trwTopics.Nodes[0],
                  listNonDone, ref dummy, ref dummy2);
         }
-
         private void btnTopicsDone_Click(object sender, EventArgs e)
         {
             if (trwTopics.SelectedNode == null)
@@ -570,14 +566,12 @@ namespace SchoolGrades
                     "Verranno evidenziati gli argomenti sotto l'argomento scelto che sono stati fatti");
                 return;
             }
-
             List<Topic> listDone = Commons.bl.GetTopicsDoneFromThisTopic(currentClass,
                 ((Topic)trwTopics.SelectedNode.Tag), currentSchoolSubject);
             int dummy = 0; bool dummy2 = false;
             topicTreeMptt.HighlightTopicsInList(trwTopics.Nodes[0],
                  listDone, ref dummy, ref dummy2);
         }
-
         private void bntLessonErase_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Vuole davvero  eliminare la lezione:\r\n" + txtLessonCode.Text +
@@ -647,7 +641,6 @@ namespace SchoolGrades
                 dgwAllLessons.Rows[e.RowIndex].Selected = true;
             }
         }
-
         private void BtnSearchAmongTopics_Click(object sender, EventArgs e)
         {
             int rowToBeSearchedIndex;
@@ -674,7 +667,6 @@ namespace SchoolGrades
             }
 
         }
-
         private void BtnOpenImagesFolder_Click(object sender, EventArgs e)
         {
             string folder = Commons.PathImages + "\\" + currentClass.SchoolYear + currentClass.Abbreviation +
@@ -688,7 +680,6 @@ namespace SchoolGrades
                 MessageBox.Show("La cartella non è stata ancora creata.\nIl programma la creerà automaticamente quando verrà salvata la prima immagine."); 
             }
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Da fare!");

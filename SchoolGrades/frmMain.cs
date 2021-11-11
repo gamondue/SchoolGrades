@@ -1492,7 +1492,9 @@ namespace SchoolGrades
             dgwStudents.DataSource = currentStudentsList;
             dgwStudents.Visible = true;
 
-            dgwStudents.Columns[4].Visible = false;
+            dgwStudents.Columns[1].Visible = false;
+
+            //dgwStudents.Columns[4].Visible = false;
             dgwStudents.Columns[5].Visible = false;
             dgwStudents.Columns[6].Visible = false;
             dgwStudents.Columns[7].Visible = false;

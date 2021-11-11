@@ -175,13 +175,13 @@ namespace SchoolGrades
             dtClass = Commons.bl.GetClassTable(Class.IdClass);
             DgwClass.DataSource = dtClass;
 
+            DgwStudents.DataSource = null;
             DgwStudents.DataSource = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, 
                 idSchoolYear, CmbClasses.Text, true);
             TxtClassDescription.Text = Safe.String(DgwClass.Rows[DgwClass.CurrentRow.Index].Cells["desc"].Value);
             currentClass = (Class)CmbClasses.SelectedItem;
             TxtStartLinksFolder.Text = currentClass.PathRestrictedApplication; 
         }
-
         private void BtnPhotoChange_Click(object sender, EventArgs e)
         {
             picStudent.Invalidate();
@@ -212,8 +212,6 @@ namespace SchoolGrades
                 MessageBox.Show("Scegliere un allievo cui cambiare la foto"); 
             }
         }
-
-        //string temp = "TEMP"; 
         private void LoadPicture(Student StudentToLoad)
         {
             try
@@ -268,7 +266,6 @@ namespace SchoolGrades
                 Console.Beep();
             }
         }
-
         private void BtnNewYear_Click(object sender, EventArgs e)
         {
             frmNewYear f = new frmNewYear(idSchoolYear);
@@ -276,7 +273,6 @@ namespace SchoolGrades
             CmbClasses.DataSource = null; 
             CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
         }
-
         private void BtnStudentNew_Click(object sender, EventArgs e)
         {
             if (CmbClasses.Text == "")
@@ -298,7 +294,6 @@ namespace SchoolGrades
                 MessageBox.Show("Studente non aggiunto alla classe \n(premere 'Scegli' nella finestra appena chiusa)"); 
             }
         }
-
         private void BtnStudentErase_Click(object sender, EventArgs e)
         {
             if (DgwStudents.SelectedRows.Count == 0)
@@ -319,8 +314,7 @@ namespace SchoolGrades
             DgwStudents.DataSource = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, 
                 idSchoolYear, CmbClasses.Text, false);
         }
-
-        private void BtnSaveClassData_Click(object sender, EventArgs e)
+        private void btnSaveClassAndStudents_Click(object sender, EventArgs e)
         {
             DataGridViewRow dgr = DgwClass.Rows[0];
             int? idClass = ((Class)CmbClasses.SelectedItem).IdClass; 
@@ -335,7 +329,6 @@ namespace SchoolGrades
 
             FillClassData(c); 
         }
-
         private void BtnToggleDisableStudent_Click(object sender, EventArgs e)
         {
             if (DgwStudents.SelectedRows.Count == 0)
@@ -482,10 +475,6 @@ namespace SchoolGrades
         {
 
         }
-        private void label10_Click(object sender, EventArgs e)
-        {
-
-        }
         private void lblClassData_Click(object sender, EventArgs e)
         {
 
@@ -515,6 +504,19 @@ namespace SchoolGrades
         private void picStudent_Click(object sender, EventArgs e)
         {
 
+        }
+        private void btnPutNumbers_Click(object sender, EventArgs e)
+        {
+            int i = 1; 
+            foreach (Student s in (List<Student>)DgwStudents.DataSource)
+            {
+                if (s.Disabled != true)
+                {
+                    s.RegisterNumber = i.ToString();
+                    i++;
+                }
+            }
+            DgwStudents.Refresh(); 
         }
     }
 }

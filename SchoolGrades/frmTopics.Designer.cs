@@ -55,14 +55,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trwTopics.Location = new System.Drawing.Point(12, 12);
             this.trwTopics.Name = "trwTopics";
-            this.trwTopics.Size = new System.Drawing.Size(480, 417);
+            this.trwTopics.Size = new System.Drawing.Size(475, 418);
             this.trwTopics.TabIndex = 2;
             this.trwTopics.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.trwTopics_AfterSelect);
             // 
             // btnSaveTree
             // 
             this.btnSaveTree.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveTree.Location = new System.Drawing.Point(513, 217);
+            this.btnSaveTree.Location = new System.Drawing.Point(508, 217);
             this.btnSaveTree.Name = "btnSaveTree";
             this.btnSaveTree.Size = new System.Drawing.Size(124, 61);
             this.btnSaveTree.TabIndex = 4;
@@ -74,7 +74,7 @@
             // 
             this.lblDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblDescription.AutoSize = true;
-            this.lblDescription.Location = new System.Drawing.Point(13, 514);
+            this.lblDescription.Location = new System.Drawing.Point(13, 515);
             this.lblDescription.Name = "lblDescription";
             this.lblDescription.Size = new System.Drawing.Size(87, 18);
             this.lblDescription.TabIndex = 3;
@@ -84,10 +84,10 @@
             // 
             this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescription.Location = new System.Drawing.Point(16, 535);
+            this.txtDescription.Location = new System.Drawing.Point(16, 536);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(476, 110);
+            this.txtDescription.Size = new System.Drawing.Size(471, 110);
             this.txtDescription.TabIndex = 4;
             this.txtDescription.TextChanged += new System.EventHandler(this.txtDescription_TextChanged);
             // 
@@ -96,17 +96,17 @@
             this.txtTopicName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTopicName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtTopicName.Location = new System.Drawing.Point(16, 472);
+            this.txtTopicName.Location = new System.Drawing.Point(16, 473);
             this.txtTopicName.Multiline = true;
             this.txtTopicName.Name = "txtTopicName";
-            this.txtTopicName.Size = new System.Drawing.Size(476, 39);
+            this.txtTopicName.Size = new System.Drawing.Size(471, 39);
             this.txtTopicName.TabIndex = 3;
             this.txtTopicName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
             // btnChoose
             // 
             this.btnChoose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnChoose.Location = new System.Drawing.Point(513, 351);
+            this.btnChoose.Location = new System.Drawing.Point(508, 351);
             this.btnChoose.Name = "btnChoose";
             this.btnChoose.Size = new System.Drawing.Size(124, 61);
             this.btnChoose.TabIndex = 7;
@@ -118,7 +118,7 @@
             // 
             this.lblEdits.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblEdits.AutoSize = true;
-            this.lblEdits.Location = new System.Drawing.Point(13, 451);
+            this.lblEdits.Location = new System.Drawing.Point(13, 452);
             this.lblEdits.Name = "lblEdits";
             this.lblEdits.Size = new System.Drawing.Size(81, 18);
             this.lblEdits.TabIndex = 7;
@@ -128,7 +128,7 @@
             // 
             this.lblFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblFind.AutoSize = true;
-            this.lblFind.Location = new System.Drawing.Point(505, 0);
+            this.lblFind.Location = new System.Drawing.Point(500, 0);
             this.lblFind.Name = "lblFind";
             this.lblFind.Size = new System.Drawing.Size(46, 18);
             this.lblFind.TabIndex = 9;
@@ -138,7 +138,7 @@
             // 
             this.txtFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFind.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtFind.Location = new System.Drawing.Point(508, 21);
+            this.txtFind.Location = new System.Drawing.Point(503, 21);
             this.txtFind.Multiline = true;
             this.txtFind.Name = "txtFind";
             this.txtFind.Size = new System.Drawing.Size(139, 39);
@@ -147,7 +147,7 @@
             // btnFind
             // 
             this.btnFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFind.Location = new System.Drawing.Point(513, 94);
+            this.btnFind.Location = new System.Drawing.Point(508, 94);
             this.btnFind.Name = "btnFind";
             this.btnFind.Size = new System.Drawing.Size(124, 61);
             this.btnFind.TabIndex = 2;
@@ -160,7 +160,7 @@
             this.lblExplain.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblExplain.AutoSize = true;
             this.lblExplain.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblExplain.Location = new System.Drawing.Point(9, 434);
+            this.lblExplain.Location = new System.Drawing.Point(9, 435);
             this.lblExplain.Name = "lblExplain";
             this.lblExplain.Size = new System.Drawing.Size(336, 16);
             this.lblExplain.TabIndex = 10;
@@ -170,7 +170,7 @@
             // btnDelete
             // 
             this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDelete.Location = new System.Drawing.Point(513, 584);
+            this.btnDelete.Location = new System.Drawing.Point(508, 585);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(124, 61);
             this.btnDelete.TabIndex = 126;
@@ -180,7 +180,7 @@
             // btnAddNode
             // 
             this.btnAddNode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddNode.Location = new System.Drawing.Point(513, 284);
+            this.btnAddNode.Location = new System.Drawing.Point(508, 284);
             this.btnAddNode.Name = "btnAddNode";
             this.btnAddNode.Size = new System.Drawing.Size(124, 61);
             this.btnAddNode.TabIndex = 127;
@@ -192,7 +192,7 @@
             this.rdbOrSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rdbOrSearch.AutoSize = true;
             this.rdbOrSearch.Enabled = false;
-            this.rdbOrSearch.Location = new System.Drawing.Point(555, 66);
+            this.rdbOrSearch.Location = new System.Drawing.Point(550, 66);
             this.rdbOrSearch.Name = "rdbOrSearch";
             this.rdbOrSearch.Size = new System.Drawing.Size(40, 22);
             this.rdbOrSearch.TabIndex = 153;
@@ -204,7 +204,7 @@
             this.rdbAndSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rdbAndSearch.AutoSize = true;
             this.rdbAndSearch.Enabled = false;
-            this.rdbAndSearch.Location = new System.Drawing.Point(596, 66);
+            this.rdbAndSearch.Location = new System.Drawing.Point(591, 66);
             this.rdbAndSearch.Name = "rdbAndSearch";
             this.rdbAndSearch.Size = new System.Drawing.Size(50, 22);
             this.rdbAndSearch.TabIndex = 152;
@@ -216,7 +216,7 @@
             this.rdbStringSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rdbStringSearch.AutoSize = true;
             this.rdbStringSearch.Checked = true;
-            this.rdbStringSearch.Location = new System.Drawing.Point(508, 66);
+            this.rdbStringSearch.Location = new System.Drawing.Point(503, 66);
             this.rdbStringSearch.Name = "rdbStringSearch";
             this.rdbStringSearch.Size = new System.Drawing.Size(46, 22);
             this.rdbStringSearch.TabIndex = 151;
@@ -229,7 +229,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
-            this.ClientSize = new System.Drawing.Size(659, 657);
+            this.ClientSize = new System.Drawing.Size(654, 658);
             this.Controls.Add(this.rdbOrSearch);
             this.Controls.Add(this.rdbAndSearch);
             this.Controls.Add(this.rdbStringSearch);

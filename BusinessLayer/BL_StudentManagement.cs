@@ -26,7 +26,16 @@ namespace SchoolGrades
         }
         internal int? SaveStudent(Student Student, DbConnection conn = null)
         {
-            return dl.UpdateStudent(Student, conn);
+            if(Student.IdStudent == null || Student.IdStudent == 0)
+            {
+                // creation 
+                return dl.CreateStudent(Student);
+            }
+            else
+            {
+                // modification 
+                return dl.UpdateStudent(Student, conn);
+            }
         }
         internal Student GetStudent(int? IdStudent)
         {

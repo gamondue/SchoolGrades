@@ -24,7 +24,6 @@ namespace SchoolGrades
         public bool UserHasChosen { get; internal set; }
         internal Topic ChosenTopic { get => chosenTopic; }
         public TopicsFormType ShowTopicsDone { get; }
-
         public enum TopicsFormType
         {
             ShowAndManagement,
@@ -35,7 +34,6 @@ namespace SchoolGrades
         }
         TopicsFormType formType;
         private Topic chosenTopic;
-
         internal frmTopics(TopicsFormType FormType, List<Topic> ListTopicsExternal, 
             Class Class, SchoolSubject Subject)
         {
@@ -53,7 +51,6 @@ namespace SchoolGrades
             formType = FormType;
             listTopicsExternal = ListTopicsExternal;
         }
-
         public frmTopics(TopicsFormType FormType, Class CurrentClass, SchoolSubject Subject)
         {
             InitializeComponent();
@@ -70,7 +67,6 @@ namespace SchoolGrades
                 this.BackColor = bgColor;
             }
         }
-
         private void frmTopic_Load(object sender, EventArgs e)
         {
             //topicTreeMptt = new TopicTreeMptt(listTopicsInternal, trwTopics,
@@ -122,7 +118,6 @@ namespace SchoolGrades
             //topicTreeMptt.LoadTreeFromDatabase();
             UserHasChosen = false;
         }
-
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (formType == TopicsFormType.ImportWithErase)
@@ -132,7 +127,6 @@ namespace SchoolGrades
 
             MessageBox.Show("Salvataggio fatto");
         }
-
         private void btnAddNode_Click(object sender, EventArgs e)
         {
             // add a completely new node
@@ -140,27 +134,24 @@ namespace SchoolGrades
             //txtTopicName.Text = t.Name;
             txtTopicName.Focus();
         }
-
         private void btnDelete_Click(object sender, EventArgs e)
         {
             topicTreeMptt.DeleteNodeClick();
         }
-
         private void txtDescription_TextChanged(object sender, EventArgs e)
         {
-            if (TreeMptt.HasNodeBeenSelectedFromTree)
+            if (topicTreeMptt.HasNodeBeenSelectedFromTree)
                 return;
             Topic t = (Topic)(trwTopics.SelectedNode.Tag);
             t.Desc = txtDescription.Text;
             t.Changed = true;
         }
-
         private void txtName_TextChanged(object sender, EventArgs e)
         {
             // if the change is due to selection in the tree, don't change
-            if (TreeMptt.HasNodeBeenSelectedFromTree)
+            if (topicTreeMptt.HasNodeBeenSelectedFromTree)
             {
-                gamon.TreeMptt.TreeMptt.HasNodeBeenSelectedFromTree = false;
+                topicTreeMptt.HasNodeBeenSelectedFromTree = false;
                 return;
             }
             if (trwTopics.SelectedNode == null)
@@ -173,7 +164,6 @@ namespace SchoolGrades
             trwTopics.SelectedNode.Text = t.Name;
             t.Changed = true;
         }
-
         private void btnChoose_Click(object sender, EventArgs e)
         {
             if (trwTopics.SelectedNode != null)
@@ -184,17 +174,14 @@ namespace SchoolGrades
                 this.Close();
             }
         }
-
         private void btnFind_Click(object sender, EventArgs e)
         {
             topicTreeMptt.FindItem(txtFind.Text);
         }
-
         private System.Windows.Forms.TreeNode FindTopicName(int Key, System.Windows.Forms.TreeNode StartNode)
         {
             throw new NotImplementedException();
         }
-
         private void frmTopics_KeyDown(object sender, KeyEventArgs e)
         {
             //if (e.KeyCode == Keys.Return || e.KeyCode == Keys.F3)
@@ -205,12 +192,10 @@ namespace SchoolGrades
                 btnSave_Click(null, null);
             }
         }
-
         private void lblExplain_Click(object sender, EventArgs e)
         {
 
         }
-
         private void trwTopics_AfterSelect(object sender, TreeViewEventArgs e)
         {
 

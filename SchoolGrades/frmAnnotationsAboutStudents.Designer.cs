@@ -227,6 +227,7 @@
             this.chkCurrentActive.Text = "Attiva";
             this.toolTip1.SetToolTip(this.chkCurrentActive, "l\'annotazione è attiva");
             this.chkCurrentActive.UseVisualStyleBackColor = true;
+            this.chkCurrentActive.CheckedChanged += new System.EventHandler(this.chkCurrentActive_CheckedChanged);
             // 
             // chkPopUp
             // 

@@ -123,43 +123,10 @@ namespace SchoolGrades
             }
         }
 
-        internal List<Topic> GetTopicsNotDoneFromThisTopic(Class Class, Topic Topic,
-            SchoolSubject Subject)
-        {
-            // node numbering according to Modified Preorder Tree Traversal algorithm
-            List<Topic> l = new List<Topic>();
-            using (DbConnection conn = Connect())
-            {
-                // find descendant topics that aren't done  
-                DbCommand cmd = conn.CreateCommand();
-                //!!!! TODO aggiustare la logica
-                string query = "SELECT *" +
-                    " FROM Topics" +
-                    " LEFT JOIN Lessons_Topics ON Lessons_Topics.idTopic = Topics.idTopic" +
-                    " JOIN Lessons ON Lessons_Topics.idLesson = Lessons.IdLesson" +
-                    " WHERE leftNode BETWEEN " + Topic.LeftNodeOld +
-                    " AND " + Topic.RightNodeOld +
-                    " AND Lessons_Topics.idLesson IS null" +
-                    " AND Lessons.idClass = " + Class.IdClass +
-                    " AND Lessons.idSchoolSubject ='" + Subject.IdSchoolSubject + "'" +
-                    " ORDER BY leftNode ASC;";
-                cmd = new SQLiteCommand(query);
-                cmd.Connection = conn;
-                DbDataReader dRead = cmd.ExecuteReader();
-                while (dRead.Read())
-                {
-                    Topic t = GetTopicFromRow(dRead);
-                    l.Add(t);
-                }
-                dRead.Dispose();
-                cmd.Dispose();
-            }
-            return l;
-        }
         internal List<Topic> GetTopicsDoneFromThisTopic(Class Class, Topic StartTopic,
             SchoolSubject Subject)
         {
-            // node order according to Modified Preorder Tree Traversal algorithm
+            // node numbering according to Modified Preorder Tree Traversal algorithm
             List<Topic> l = new List<Topic>();
             if (Class == null)
                 return l;
@@ -192,6 +159,50 @@ namespace SchoolGrades
             }
             return l;
         }
+        internal List<Topic> GetTopicsNotDoneFromThisTopic(Class Class, Topic StartTopic,
+            SchoolSubject Subject)
+        {
+            // node numbering according to Modified Preorder Tree Traversal algorithm
+            List<Topic> l = new List<Topic>();
+            if (Class == null)
+                return l;
+            using (DbConnection conn = Connect())
+            {
+                // find descendant topics that aren't done  
+                DbCommand cmd = conn.CreateCommand();
+                // query that gets the Ids of topics done
+                string queryDone = "SELECT DISTINCT Topics.idTopic" +
+                    " FROM Topics" +
+                    " JOIN Lessons_Topics ON Lessons_Topics.idTopic = Topics.idTopic" +
+                    " JOIN Lessons ON Lessons_Topics.idLesson = Lessons.idLesson" +
+                    " WHERE leftNode BETWEEN " + StartTopic.LeftNodeOld +
+                    " AND " + StartTopic.RightNodeOld;
+                if (Class != null)
+                    queryDone += " AND Lessons.idClass = " + Class.IdClass;
+                if (Subject != null)
+                    queryDone += " AND Lessons.idSchoolSubject ='" + Subject.IdSchoolSubject + "'";
+
+                string queryNotDone = "SELECT DISTINCT Topics.idTopic, Topics.name, Topics.desc" +
+                    ",Topics.leftNode, Topics.rightNode, Topics.parentNode, Topics.childNumber" +
+                    " FROM Topics" +
+                    " WHERE leftNode BETWEEN " + StartTopic.LeftNodeOld +
+                    " AND " + StartTopic.RightNodeOld +
+                    " AND Topics.idTopic NOT IN (" + queryDone + ")";  
+                queryNotDone += " ORDER BY leftNode ASC;";
+                cmd = new SQLiteCommand(queryNotDone);
+                cmd.Connection = conn;
+                DbDataReader dRead = cmd.ExecuteReader();
+                while (dRead.Read())
+                {
+                    Topic t = GetTopicFromRow(dRead);
+                    l.Add(t);
+                }
+                dRead.Dispose();
+                cmd.Dispose();
+            }
+            return l;
+        }
+
         internal List<Topic> GetAllTopicsDoneInClassAndSubject(Class Class,
             SchoolSubject Subject,
             DateTime DateStart = default(DateTime), DateTime DateFinish = default(DateTime))

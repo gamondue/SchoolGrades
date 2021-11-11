@@ -191,7 +191,7 @@ namespace SchoolGrades
             cmd.CommandText = "UPDATE Students " +
                 "SET" +
                 " idStudent=" + Student.IdStudent +
-                ",lastName=" + SqlString(Student.LastName) + 
+                ",lastName=" + SqlString(Student.LastName) +
                 ",firstName=" + SqlString(Student.FirstName) + 
                 ",residence=" + SqlString(Student.Residence) + 
                 ",birthDate=" + SqlDate(Student.BirthDate.ToString()) + "" +
@@ -203,9 +203,18 @@ namespace SchoolGrades
                 ",disabled=" + SqlBool(Student.Disabled) + "" +
                 ",hasSpecialNeeds=" + SqlBool(Student.HasSpecialNeeds) + "" +
                 ",VFCounter=" + SqlInt(Student.RevengeFactorCounter) + "" +
-                " WHERE idStudent = " + Student.IdStudent +
+                " WHERE idStudent=" + Student.IdStudent +
                 ";";
             cmd.ExecuteNonQuery();
+            if (Student.RegisterNumber != null && Student.RegisterNumber != "")
+            {
+                cmd.CommandText = "UPDATE Classes_Students" +
+                    " SET" +
+                    " registerNumber=" + Student.RegisterNumber +
+                    " WHERE idStudent=" + Student.IdStudent +
+                    " AND idClass=" + Student.IdClass; 
+                cmd.ExecuteNonQuery();
+            }
             cmd.Dispose();
             if (!leaveConnectionOpen)
             {
@@ -257,7 +266,6 @@ namespace SchoolGrades
             s.Disabled = Safe.Bool(Row["disabled"]);
             s.HasSpecialNeeds = Safe.Bool(Row["hasSpecialNeeds"]);
             s.RevengeFactorCounter = Safe.Int(Row["VFCounter"]);
-
             return s;
         }
 
@@ -388,7 +396,6 @@ namespace SchoolGrades
             }
             return l;
         }
-
         internal List<Student> GetStudentsOfClassList(string Scuola, string Anno,
             string SiglaClasse, bool IncludeNonActiveStudents)
         {
@@ -414,11 +421,15 @@ namespace SchoolGrades
                 cmd = conn.CreateCommand();
                 cmd.CommandText = query;
                 dRead = cmd.ExecuteReader();
+
+
                 while (dRead.Read())
                 {
                     Student s = GetStudentFromRow(dRead);
-                    s.Class = (string)dRead["abbreviation"];
-                    s.IdClass = (int)dRead["idClass"];
+                    s.ClassAbbreviation = (string)dRead["abbreviation"];
+                    // read the properties from other tables
+                    s.IdClass = (int)dRead["idClass"]; 
+                    s.RegisterNumber = Safe.String(dRead["registerNumber"]);
                     ls.Add(s);
                 }
                 dRead.Dispose();
@@ -541,7 +552,7 @@ namespace SchoolGrades
                 s.FirstName = firstName;
                 s.BirthDate = null;
                 s.BirthPlace = null;
-                s.Class = "";
+                s.ClassAbbreviation = "";
                 s.Email = "";
                 s.IdClass = 0;
                 s.ArithmeticMean = 0;

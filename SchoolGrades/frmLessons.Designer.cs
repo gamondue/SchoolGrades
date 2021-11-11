@@ -85,6 +85,7 @@
             this.rdbOrSearch = new System.Windows.Forms.RadioButton();
             this.BtnSearchAmongTopics = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.chkFindAll = new System.Windows.Forms.CheckBox();
             this.grpViewTopics.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgwOneLesson)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgwAllLessons)).BeginInit();
@@ -399,7 +400,7 @@
             this.dtpLessonDate.Size = new System.Drawing.Size(107, 24);
             this.dtpLessonDate.TabIndex = 125;
             // 
-            // DgwAllLessons
+            // dgwAllLessons
             // 
             this.dgwAllLessons.AllowUserToAddRows = false;
             this.dgwAllLessons.AllowUserToDeleteRows = false;
@@ -411,7 +412,7 @@
             this.dgwAllLessons.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgwAllLessons.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgwAllLessons.Location = new System.Drawing.Point(0, 3);
-            this.dgwAllLessons.Name = "DgwAllLessons";
+            this.dgwAllLessons.Name = "dgwAllLessons";
             this.dgwAllLessons.RowHeadersWidth = 51;
             this.dgwAllLessons.Size = new System.Drawing.Size(505, 275);
             this.dgwAllLessons.TabIndex = 127;
@@ -750,12 +751,23 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // chkFindAll
+            // 
+            this.chkFindAll.AutoSize = true;
+            this.chkFindAll.Location = new System.Drawing.Point(891, 140);
+            this.chkFindAll.Name = "chkFindAll";
+            this.chkFindAll.Size = new System.Drawing.Size(50, 22);
+            this.chkFindAll.TabIndex = 152;
+            this.chkFindAll.Text = "tutti";
+            this.chkFindAll.UseVisualStyleBackColor = true;
+            // 
             // frmLessons
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(945, 663);
+            this.Controls.Add(this.chkFindAll);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnAddNode);
             this.Controls.Add(this.rdbOrSearch);
@@ -889,5 +901,6 @@
         private System.Windows.Forms.RadioButton rdbAndSearch;
         private System.Windows.Forms.RadioButton rdbOrSearch;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox chkFindAll;
     }
 }

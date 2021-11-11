@@ -45,6 +45,8 @@
             this.BtnCreateEmailAddresses = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.btnStudentsInfoList = new System.Windows.Forms.Button();
+            this.btnPutNumbers = new System.Windows.Forms.Button();
+            this.BtnClassErase = new System.Windows.Forms.Button();
             this.TxtOfficialSchoolAbbreviation = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
@@ -56,7 +58,6 @@
             this.BtnNewYear = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.DgwStudents = new System.Windows.Forms.DataGridView();
-            this.BtnClassErase = new System.Windows.Forms.Button();
             this.grpImportClasses = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -70,7 +71,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.BtnPhotoErase = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.TxtFileOfStudentsImport = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -85,9 +85,8 @@
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
-            this.button9 = new System.Windows.Forms.Button();
+            this.btnSaveClassAndStudents = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
-            this.button11 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
             this.picStudent = new System.Windows.Forms.PictureBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
@@ -203,7 +202,7 @@
             this.BtnSaveClassData.Text = "Salva dati classe";
             this.toolTip1.SetToolTip(this.BtnSaveClassData, "Salva i dati sulla classe, qui accanto");
             this.BtnSaveClassData.UseVisualStyleBackColor = false;
-            this.BtnSaveClassData.Click += new System.EventHandler(this.BtnSaveClassData_Click);
+            this.BtnSaveClassData.Click += new System.EventHandler(this.btnSaveClassAndStudents_Click);
             // 
             // BtnStudentErase
             // 
@@ -225,7 +224,7 @@
             this.BtnModifyStudent.BackColor = System.Drawing.Color.Transparent;
             this.BtnModifyStudent.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.BtnModifyStudent.ForeColor = System.Drawing.Color.DarkBlue;
-            this.BtnModifyStudent.Location = new System.Drawing.Point(625, 182);
+            this.BtnModifyStudent.Location = new System.Drawing.Point(515, 182);
             this.BtnModifyStudent.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.BtnModifyStudent.Name = "BtnModifyStudent";
             this.BtnModifyStudent.Size = new System.Drawing.Size(81, 62);
@@ -308,6 +307,36 @@
             this.toolTip1.SetToolTip(this.btnStudentsInfoList, "Genera un elenco degli allievi della classe");
             this.btnStudentsInfoList.UseVisualStyleBackColor = false;
             this.btnStudentsInfoList.Click += new System.EventHandler(this.btnStudentsInfoList_Click);
+            // 
+            // btnPutNumbers
+            // 
+            this.btnPutNumbers.BackColor = System.Drawing.Color.Transparent;
+            this.btnPutNumbers.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnPutNumbers.ForeColor = System.Drawing.Color.DarkBlue;
+            this.btnPutNumbers.Location = new System.Drawing.Point(725, 182);
+            this.btnPutNumbers.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.btnPutNumbers.Name = "btnPutNumbers";
+            this.btnPutNumbers.Size = new System.Drawing.Size(81, 62);
+            this.btnPutNumbers.TabIndex = 14;
+            this.btnPutNumbers.Text = "Numeri registro";
+            this.toolTip1.SetToolTip(this.btnPutNumbers, "Scrive numeri consecutivi nei campi numero di registro ");
+            this.btnPutNumbers.UseVisualStyleBackColor = false;
+            this.btnPutNumbers.Click += new System.EventHandler(this.btnPutNumbers_Click);
+            // 
+            // BtnClassErase
+            // 
+            this.BtnClassErase.BackColor = System.Drawing.Color.Transparent;
+            this.BtnClassErase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.BtnClassErase.ForeColor = System.Drawing.Color.DarkBlue;
+            this.BtnClassErase.Location = new System.Drawing.Point(807, 182);
+            this.BtnClassErase.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.BtnClassErase.Name = "BtnClassErase";
+            this.BtnClassErase.Size = new System.Drawing.Size(81, 62);
+            this.BtnClassErase.TabIndex = 14;
+            this.BtnClassErase.Text = "Elimina Classe";
+            this.toolTip1.SetToolTip(this.BtnClassErase, "Elimina la classe dal database");
+            this.BtnClassErase.UseVisualStyleBackColor = false;
+            this.BtnClassErase.Click += new System.EventHandler(this.BtnClassErase_Click);
             // 
             // TxtOfficialSchoolAbbreviation
             // 
@@ -432,20 +461,6 @@
             this.DgwStudents.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgwStudents_CellContentClick);
             this.DgwStudents.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgwStudents_CellDoubleClick);
             this.DgwStudents.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgwStudents_RowEnter);
-            // 
-            // BtnClassErase
-            // 
-            this.BtnClassErase.BackColor = System.Drawing.Color.Transparent;
-            this.BtnClassErase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.BtnClassErase.ForeColor = System.Drawing.Color.DarkBlue;
-            this.BtnClassErase.Location = new System.Drawing.Point(521, 182);
-            this.BtnClassErase.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.BtnClassErase.Name = "BtnClassErase";
-            this.BtnClassErase.Size = new System.Drawing.Size(81, 62);
-            this.BtnClassErase.TabIndex = 14;
-            this.BtnClassErase.Text = "Elimina Classe";
-            this.BtnClassErase.UseVisualStyleBackColor = false;
-            this.BtnClassErase.Click += new System.EventHandler(this.BtnClassErase_Click);
             // 
             // grpImportClasses
             // 
@@ -617,20 +632,6 @@
             this.button1.Text = "Nuovo anno";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.BtnNewYear_Click);
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button2.ForeColor = System.Drawing.Color.DarkBlue;
-            this.button2.Location = new System.Drawing.Point(521, 182);
-            this.button2.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(81, 62);
-            this.button2.TabIndex = 14;
-            this.button2.Text = "Elimina Classe";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.BtnClassErase_Click);
             // 
             // groupBox1
             // 
@@ -812,29 +813,28 @@
             this.label10.Size = new System.Drawing.Size(210, 18);
             this.label10.TabIndex = 95;
             this.label10.Text = "Dati classe (F2 per modificare)";
-            this.label10.Click += new System.EventHandler(this.label10_Click);
             // 
-            // button9
+            // btnSaveClassAndStudents
             // 
-            this.button9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button9.BackColor = System.Drawing.Color.Transparent;
-            this.button9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button9.ForeColor = System.Drawing.Color.DarkBlue;
-            this.button9.Location = new System.Drawing.Point(1040, 340);
-            this.button9.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(81, 62);
-            this.button9.TabIndex = 96;
-            this.button9.Text = "Salva dati classe";
-            this.button9.UseVisualStyleBackColor = false;
-            this.button9.Click += new System.EventHandler(this.BtnSaveClassData_Click);
+            this.btnSaveClassAndStudents.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSaveClassAndStudents.BackColor = System.Drawing.Color.Transparent;
+            this.btnSaveClassAndStudents.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnSaveClassAndStudents.ForeColor = System.Drawing.Color.DarkBlue;
+            this.btnSaveClassAndStudents.Location = new System.Drawing.Point(1040, 340);
+            this.btnSaveClassAndStudents.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.btnSaveClassAndStudents.Name = "btnSaveClassAndStudents";
+            this.btnSaveClassAndStudents.Size = new System.Drawing.Size(81, 62);
+            this.btnSaveClassAndStudents.TabIndex = 96;
+            this.btnSaveClassAndStudents.Text = "Salva classe e studenti";
+            this.btnSaveClassAndStudents.UseVisualStyleBackColor = false;
+            this.btnSaveClassAndStudents.Click += new System.EventHandler(this.btnSaveClassAndStudents_Click);
             // 
             // button10
             // 
             this.button10.BackColor = System.Drawing.Color.Transparent;
             this.button10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.button10.ForeColor = System.Drawing.Color.DarkBlue;
-            this.button10.Location = new System.Drawing.Point(432, 182);
+            this.button10.Location = new System.Drawing.Point(428, 182);
             this.button10.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(85, 62);
@@ -842,20 +842,6 @@
             this.button10.Text = "Cambia abilitaz. allievo";
             this.button10.UseVisualStyleBackColor = false;
             this.button10.Click += new System.EventHandler(this.BtnToggleDisableStudent_Click);
-            // 
-            // button11
-            // 
-            this.button11.BackColor = System.Drawing.Color.Transparent;
-            this.button11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button11.ForeColor = System.Drawing.Color.DarkBlue;
-            this.button11.Location = new System.Drawing.Point(625, 182);
-            this.button11.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(81, 62);
-            this.button11.TabIndex = 98;
-            this.button11.Text = "Modifica allievo";
-            this.button11.UseVisualStyleBackColor = false;
-            this.button11.Click += new System.EventHandler(this.BtnModifyStudent_Click);
             // 
             // button12
             // 
@@ -909,7 +895,7 @@
             this.button14.BackColor = System.Drawing.Color.Transparent;
             this.button14.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.button14.ForeColor = System.Drawing.Color.DarkBlue;
-            this.button14.Location = new System.Drawing.Point(347, 182);
+            this.button14.Location = new System.Drawing.Point(345, 182);
             this.button14.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(81, 62);
@@ -960,7 +946,7 @@
             this.splitter1.TabIndex = 161;
             this.splitter1.TabStop = false;
             // 
-            // FrmClassesManagement
+            // frmClassesManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -981,11 +967,10 @@
             this.Controls.Add(this.TxtEmailGenerationPattern);
             this.Controls.Add(this.button12);
             this.Controls.Add(this.BtnEndingPeriod);
-            this.Controls.Add(this.button11);
             this.Controls.Add(this.BtnModifyStudent);
             this.Controls.Add(this.button10);
             this.Controls.Add(this.BtnToggleDisableStudent);
-            this.Controls.Add(this.button9);
+            this.Controls.Add(this.btnSaveClassAndStudents);
             this.Controls.Add(this.BtnSaveClassData);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.lblClassData);
@@ -997,7 +982,7 @@
             this.Controls.Add(this.BtnStudentNew);
             this.Controls.Add(this.CmbClasses);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnPutNumbers);
             this.Controls.Add(this.grpImportClasses);
             this.Controls.Add(this.BtnClassErase);
             this.Controls.Add(this.DgwStudents);
@@ -1014,7 +999,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "FrmClassesManagement";
+            this.Name = "frmClassesManagement";
             this.Text = " Gestione classi";
             this.Load += new System.EventHandler(this.FrmClassesManagement_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DgwClass)).EndInit();
@@ -1068,7 +1053,7 @@
         private System.Windows.Forms.Button BtnCreateEmailAddresses;
         private System.Windows.Forms.Button BtnPhotoErase;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnPutNumbers;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button3;
@@ -1083,9 +1068,8 @@
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button btnSaveClassAndStudents;
         private System.Windows.Forms.Button button10;
-        private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.PictureBox picStudent;
         private System.Windows.Forms.TextBox textBox3;

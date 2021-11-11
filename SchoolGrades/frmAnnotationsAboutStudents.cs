@@ -326,5 +326,12 @@ namespace SchoolGrades
                 ShowAnnotationsOfCurrentStudent();
             }
         }
+        private void chkCurrentActive_CheckedChanged(object sender, EventArgs e)
+        {
+            if(chkCurrentActive.Checked == false)
+            {
+                chkPopUp.Checked = false; 
+            }
+        }
     }
 }
