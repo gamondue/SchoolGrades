@@ -23,11 +23,11 @@ namespace SchoolGrades
         }
         internal void EraseAnnotationById(int? idAnnotation)
         {
-            EraseAnnotationById(idAnnotation);
+            dl.EraseAnnotationById(idAnnotation);
         }
         internal void EraseAnnotationByText(string Text, Student Student)
         {
-            EraseAnnotationByText(Text, Student);
+            dl.EraseAnnotationByText(Text, Student);
         }
         internal DataTable GetAnnotationsOfClasss(int? idClass, bool IncludeAlsoNonActive, bool IncludeJustPopUp)
         {

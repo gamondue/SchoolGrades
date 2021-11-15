@@ -176,7 +176,7 @@ namespace SchoolGrades
         }
         private void btnFind_Click(object sender, EventArgs e)
         {
-            topicTreeMptt.FindItem(txtFind.Text);
+            topicTreeMptt.FindItem(txtFind.Text, false);
         }
         private System.Windows.Forms.TreeNode FindTopicName(int Key, System.Windows.Forms.TreeNode StartNode)
         {
@@ -186,7 +186,7 @@ namespace SchoolGrades
         {
             //if (e.KeyCode == Keys.Return || e.KeyCode == Keys.F3)
             if (e.KeyCode == Keys.F3)
-                topicTreeMptt.FindItem(txtFind.Text);
+                topicTreeMptt.FindItem(txtFind.Text, false);
             if (e.KeyCode == Keys.F5)
             {
                 btnSave_Click(null, null);

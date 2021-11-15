@@ -15,14 +15,18 @@ namespace SharedWinForms
         internal static PictureBox globalPicLed;
 
         // wait time before saving 
-        public static int BackgroundThreadSleepSeconds = 5 * 60;
+        public static int BackgroundThreadSleepSeconds = 60;
         // enable Mptt backgroud saving of Left anf Right pointers 
-        public static bool BackgroundCanStillSaveTopicsTree = true;
-        public static object LockSavingTopicsTree = new object();
-        // Tree object for concurrent saving 
-        internal static TreeMptt SaveTreeMptt;
+        public static bool BackgroundSavingEnabled = true;
+        // exit the background task 
+        public static bool BackgroundTaskClose = false;
+        // lock variable for serialization of access to BackgroundSavingEnabled and BackgroundSavingSafeStatus
+        public static object LockSavingCriticalSections = new object();
+        public static object LockBackgroundSavingVariables = new object();
         // Thread that concurrently saves the Topics tree
         internal static Thread BackgroundSaveThread;
+        // Tree object for concurrent saving 
+        internal static TreeMptt SaveTreeMptt;
 
         public static bool SaveBackupWhenExiting;
 
@@ -238,6 +242,7 @@ namespace SharedWinForms
                 else
                     globalPicLed.BackColor = Color.DarkGray;      // LED off
             }));
+            Application.DoEvents();
         }
         internal static bool ReadConfigFile()
         {

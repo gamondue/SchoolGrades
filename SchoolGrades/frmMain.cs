@@ -97,6 +97,11 @@ namespace SchoolGrades
             // fill the combo of School subjects
             List<SchoolSubject> listSubjects = Commons.bl.GetListSchoolSubjects(true);
             cmbSchoolSubject.DataSource = listSubjects;
+
+            // start Thread that concurrently saves the Topics tree
+            CommonsWinForms.SaveTreeMptt = new TreeMptt(Commons.dl, null, null, null, null, null, null, picBackgroundSaveRunning);
+            CommonsWinForms.BackgroundSaveThread = new Thread(CommonsWinForms.SaveTreeMptt.SaveMpttBackground);
+            CommonsWinForms.BackgroundSaveThread.Start();
         }
         private void frmMain_Load(object sender, EventArgs e)
         {
@@ -144,11 +149,6 @@ namespace SchoolGrades
             lblStudentChosen.Visible = false;
             lblIdStudent.Visible = false;
             txtIdStudent.Visible = false;
-
-            // start Thread that concurrently saves the Topics tree
-            CommonsWinForms.SaveTreeMptt = new TreeMptt(Commons.dl, null, null, null, null, null, null, picBackgroundSaveRunning);
-            CommonsWinForms.BackgroundSaveThread= new Thread(CommonsWinForms.SaveTreeMptt.SaveMpttBackground);
-            CommonsWinForms.BackgroundSaveThread.Start(); 
         }
         static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
@@ -427,7 +427,6 @@ namespace SchoolGrades
         List<string> filesInFolder = new List<string>();
         int indexImage = 0;
         private DateTime nextPopUpQuestionTime;
-
         private void BtnShowRandomImage_Click(object sender, EventArgs e)
         {
             if (filesInFolder.Count == 0 || currentClass != lastClass || currentSubject != lastSubject 
@@ -1082,7 +1081,6 @@ namespace SchoolGrades
             }
             lstClassi_DoubleClick(null, null);
         }
-
         private bool NoStudentIsChecked()
         {
             bool found = false; 
@@ -1096,7 +1094,6 @@ namespace SchoolGrades
             }
             return !found; 
         }
-
         private void btnRevengeFactorMinus_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Decremento del fattore vendetta per ogni allievo spuntato",
@@ -1143,6 +1140,19 @@ namespace SchoolGrades
             if (!File.Exists(Commons.PathAndFileDatabase))
                 return;
 
+            // if a save of the database with Mptt is running, we close it 
+            if (CommonsWinForms.BackgroundSavingEnabled)
+            {
+                lock (CommonsWinForms.LockBackgroundSavingVariables)
+                {
+                    CommonsWinForms.BackgroundSavingEnabled = false;
+                    CommonsWinForms.BackgroundTaskClose = true;
+                }
+            }
+            // we wait for the saving Thread to finish
+            // (it aborts in a point in which status is preserved)  
+            CommonsWinForms.BackgroundSaveThread.Join(3000);
+
             timerLesson.Stop(); 
             timerPopUp.Stop();
             timerQuestion.Stop();
@@ -1150,17 +1160,7 @@ namespace SchoolGrades
             string file = Commons.PathLogs + @"\frmMain_parameters.txt";
             CommonsWinForms.SaveCurrentValuesOfAllControls(this, ref file);
             SaveStudentsOfClassIfEligibleHasChanged();
-            // if a save of the database with Mptt is running, we close it 
-            if (CommonsWinForms.BackgroundSaveThread.IsAlive)
-            {
-                // locks a concurrent modification of Commons.BackgroundCanStillSaveTopicsTree 
-                lock (CommonsWinForms.LockSavingTopicsTree)
-                {
-                    CommonsWinForms.BackgroundCanStillSaveTopicsTree = false;
-                }
-                // we wait for the saving Thread to finish
-                CommonsWinForms.BackgroundSaveThread.Join(30000);  // enormous timeout just for big problems
-            }
+
             // save in the log folder a copy of the database, if enabled 
             if (CommonsWinForms.SaveBackupWhenExiting)
             { 
@@ -1168,6 +1168,9 @@ namespace SchoolGrades
                     Commons.PathLogs + "\\" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") +
                     "_" + Commons.FileDatabase);
             }
+            //// we wait for the saving Thread to finish
+            //CommonsWinForms.BackgroundSaveThread.Join(30000);  // enormous timeout just for big problems
+        
         }
         private void btnClassesGradesSummary_Click(object sender, EventArgs e)
         {

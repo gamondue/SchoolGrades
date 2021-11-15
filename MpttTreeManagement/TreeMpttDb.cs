@@ -35,16 +35,20 @@ namespace gamon.TreeMptt
                 {
                     foreach (Topic t in ListTopicsDeleted)
                     {
+                        // if the saving must finish and the task saving in background, we quit the function 
+                        if (!CommonsWinForms.BackgroundSavingEnabled && MustSaveLeftAndRight)
+                            return;
                         cmd.CommandText = "DELETE FROM Topics" +
                                 " WHERE IdTopic =" + t.Id +
                                 ";";
                         cmd.ExecuteNonQuery();
-                        if (!CommonsWinForms.BackgroundCanStillSaveTopicsTree)
-                            return;
                     }
                 }
                 foreach (Topic t in ListTopicsAfter)
                 {
+                    // if the saving must finish and the task saving in background, we quit the function 
+                    if (!CommonsWinForms.BackgroundSavingEnabled && MustSaveLeftAndRight)
+                        return;
                     // this cures a behaviour of the program, not proper functioning on root node's parent node
                     if (t.ParentNodeNew < 0)
                         t.ParentNodeNew = 0;
@@ -69,15 +73,9 @@ namespace gamon.TreeMptt
                             dl.InsertTopic(t, conn);
                         }
                     }
-                    if (!CommonsWinForms.BackgroundCanStillSaveTopicsTree)
-                        break;
                 }
                 cmd.Dispose();
             }
-            // Left-Right status left on "inconsistent" if we were NOT saving leftNode and rightNode
-            // or if we quit this method breaking the loops. 
-            if (MustSaveLeftAndRight && CommonsWinForms.BackgroundCanStillSaveTopicsTree)
-                SaveLeftRightConsistent(true); 
         }
         internal void SaveLeftRightConsistent(bool SetConsistent)
         {
@@ -184,9 +182,9 @@ namespace gamon.TreeMptt
         }
         private void SetRightAndLeftInOneLevel(Topic ParentNode, ref int NodeCount)
         {
-            // if requested externally by setting BackgroundCanStillSaveTopicsTree to false, 
-            // abort tree update by exiting method 
-            if (!CommonsWinForms.BackgroundCanStillSaveTopicsTree)
+            // if it is requested externally by setting BackgroundSavingEnabled to false, 
+            // abort tree update by exiting the method 
+            if (!CommonsWinForms.BackgroundSavingEnabled)
                 return; 
             // visits all the childrens of CurrentNode in the Treeview. 
             // with the Modified Tree Traversal algorithm 
@@ -266,8 +264,6 @@ namespace gamon.TreeMptt
             GetAllChildren(ParentNode, Level, Connection);
             Connection.Close();
             Connection.Dispose();
-            //if (!Commons.BackgroundCanStillSaveTopicsTree)
-            //    return; 
         }
         internal void GenerateNewListOfNodesFromTreeViewControl(TreeNode CurrentNode, ref int nodeCount,
             ref List<Topic> generatedList) // the 2 ref parameters must be passed for recursion
@@ -340,13 +336,16 @@ namespace gamon.TreeMptt
             List<Topic> SortedList = lt.OrderBy(o => o.ChildNumberOld).ToList();
             foreach (Topic t in SortedList)
             {
+                // abort commented because this method could be called by foreground task
+                //// if it is requested externally by setting BackgroundSavingEnabled to false, 
+                //// abort the method 
+                //if (!CommonsWinForms.BackgroundSavingEnabled)
+                //    return;
                 TreeNode n = new TreeNode(t.Name);
                 n.Tag = t;
                 n.Text = t.Name;
                 ParentNode.Nodes.Add(n);
                 GetAllChildren(n, Level++, Connection);
-                if (!CommonsWinForms.BackgroundCanStillSaveTopicsTree)
-                    return;
             }
         }
         internal List<Topic> GetTopicChildsByParent(Topic ParentTopic, DbConnection Connection)
