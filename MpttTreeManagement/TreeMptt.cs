@@ -42,6 +42,9 @@ namespace gamon.TreeMptt
         // datalayer for other data access
         // !! we should avoid using the next, so the tree could be in another DBMS type !!
         DataLayer dl;
+
+        bool markAllInSearch = false; 
+
         #region Internal fields
         #region fields used for drag and drop 
         // identification of the Treeview control from which the drag starts
@@ -289,22 +292,33 @@ namespace gamon.TreeMptt
         }
         // !! TODO !! add options to the search. Currently it is only a substing search
         //internal void FindItem(string TextToFind, TypeOfSearch Type, bool WholeWordSearch)
-        internal void FindItem(string TextToFind)
+        internal void FindItem(string TextToFind, bool MarkAllFound)
         {
+            markAllInSearch = MarkAllFound; 
             if (previousSearch != TextToFind)
             {
                 // first search: find all the occurencies of the string 
                 found = dbMptt.FindTopicsLike(TextToFind);
-                //if (found.Count == 0)
-                //    MessageBox.Show("Non trovato");
+
                 indexDone = 0;
                 previousSearch = TextToFind;
+
+                if (markAllInSearch)
+                {
+                    int dummy = 0; bool bDummy = false; 
+                    // !!!! the following doesn't work. Highlight only a few of the results. Probably this "found" list of found is noo in Mptt order !!!! 
+                    HighlightTopicsInList(shownTreeView.Nodes[0], found, ref dummy, ref bDummy);
+                    ClearBackColorOnClick = false; 
+                }
             }
             else
             {
                 // same search, find the next occurence of the same string 
                 indexDone++;
-                shownTreeView.Nodes[0].Collapse(); // selection will expand
+                if (!markAllInSearch)
+                {
+                    shownTreeView.Nodes[0].Collapse(); // selection will expand
+                }
                 // if the results are finished: bring back to the first 
                 if (found == null)
                     return;
@@ -375,7 +389,7 @@ namespace gamon.TreeMptt
             dbMptt.SaveLeftAndRightToDbMptt();
         }
         /// <summary>
-        /// Saves Left and Right nodes according to MPTT trtraversal 
+        /// Saves Left and Right nodes according to MPTT traversal 
         /// To store the topology uses a hidden Treeview, which we will never show to the user
         /// !!!! TODO: probably this might be much more quick !!!!
         /// </summary>
@@ -383,44 +397,46 @@ namespace gamon.TreeMptt
         {
             // Starts a loop that finishes when we want to close the thread.
             // Closing will be fired from external, by resetting to false BackgroundCanStillSaveTopicsTree
-            while (CommonsWinForms.BackgroundCanStillSaveTopicsTree)
+            while (!CommonsWinForms.BackgroundTaskClose)  // closes task when can't run anymore 
             {
                 // waits BackgroundThreadSleepTime seconds, watching periodically if it must exit
                 DateTime endTime = DateTime.Now.AddSeconds(CommonsWinForms.BackgroundThreadSleepSeconds);
                 while (DateTime.Now < endTime)
                 {
-                    if (!CommonsWinForms.BackgroundCanStillSaveTopicsTree)
-                        // thread finishes! (main saving thread has started)
-                        // when main thread has finished saving, it will start this thread once again
-                        return; 
-                    Thread.Sleep(1000);
+                    Thread.Sleep(2500);
                 }
                 // check if RightNode & LeftNode are already consistent, if they are, this task 
-                // has nothing to do, so we will skip the modification, then wait 
-                if (!dbMptt.AreLeftAndRightConsistent())
+                // has nothing to do, so we will skip the modification, then wait again
+                if (!dbMptt.AreLeftAndRightConsistent() && CommonsWinForms.BackgroundSavingEnabled)
                 {
-                    // start saving in background, signalling to the main program 
-                    // locks a concurrent modification of Commons.BackgroundCanStillSaveTopicsTree 
-                    lock (CommonsWinForms.LockSavingTopicsTree)
+                    // start saving in background, in locked condition
+                    // other tasks can signal this to abort operation by setting 
+                    // Commons.BackgroundSavingEnabled to false
+                    lock (CommonsWinForms.LockSavingCriticalSections)
                     {
-                        CommonsWinForms.BackgroundCanStillSaveTopicsTree = true;
+                        CommonsWinForms.BackgroundSavingEnabled = true;
+                            CommonsWinForms.SwitchPicLedOn(true);
+                        // read the tree by Parent into a new TreeView control
+                        TreeView hiddenTree = new TreeView();
+                        AddNodesToTreeViewByParent(hiddenTree);
+                        // traverse the tree with Mptt, saving Left and Right and quitting if  
+                        // someone else modifies BackgroundSavingEnabled
+                        List<Topic> listNodes = new List<Topic>();
+                        int nodeCount = 1;
+                        if (CommonsWinForms.BackgroundSavingEnabled) 
+                            // not executed if saving is aborted 
+                            dbMptt.GenerateNewListOfNodesFromTreeViewControl(hiddenTree.Nodes[0], ref nodeCount, ref listNodes);
+                        if (CommonsWinForms.BackgroundSavingEnabled) 
+                            // not executed if saving is aborted 
+                            // in this point delete list cannot have any entry
+                            dbMptt.SaveTreeToDb(listNodes, null, true);
+                         if (CommonsWinForms.BackgroundSavingEnabled) 
+                            // not executed if saving is aborted 
+                            dbMptt.SaveLeftRightConsistent(true);
+                        
+                        CommonsWinForms.BackgroundSavingEnabled = false;
+                        CommonsWinForms.SwitchPicLedOn(false);
                     }
-                    CommonsWinForms.SwitchPicLedOn(true);
-                    // read the tree by Parent into a new TreeView control
-                    TreeView hiddenTree = new TreeView();
-                    AddNodesToTreeViewByParent(hiddenTree);
-                    // traverse the tree with Mptt, saving Left and Right and quitting if 
-                    // someone else modifies BackgroundCanStillSaveItemsTree
-                    List<Topic> listNodes = new List<Topic>();
-                    int nodeCount = 1;
-                    // recursive function using ONE single root node of Treeview 
-                    dbMptt.GenerateNewListOfNodesFromTreeViewControl(hiddenTree.Nodes[0], ref nodeCount, ref listNodes);
-                    // in this point delete list cannot have any entry
-                    dbMptt.SaveTreeToDb(listNodes, null, true);
-                    
-                    if (CommonsWinForms.BackgroundCanStillSaveTopicsTree)
-                        dbMptt.SaveLeftRightConsistent(true);
-                    CommonsWinForms.SwitchPicLedOn(false);
                 }
             }
         }
@@ -447,90 +463,21 @@ namespace gamon.TreeMptt
         {
             decimal d = 4; 
         }
-        // next version of the previous method left commented. Different idea, but not working! Adjusting might require being too slow
-        // so the method has been re-written storing the topology into a hidden Treevie
-        //internal void SaveMpttBackground()
-        //{
-        //    // Starts a loop that finishes when we want to close the thread.
-        //    // Closing will be fired from external, by resetting to false BackgroundCanStillSaveTopicsTree
-        //    while (Commons.BackgroundCanStillSaveTopicsTree)
-        //    {
-        //        // waits BackgroundThreadSleepTime seconds, watching periodically if it must exit
-        //        DateTime endTime = DateTime.Now.AddSeconds(Commons.BackgroundThreadSleepSeconds);
-        //        while (DateTime.Now < endTime)
-        //        {
-        //            if (!BackgroundCanStillSaveItemsTree)
-        //                return;
-        //            Thread.Sleep(1000);
-        //        }
-        //        // check if RightNode & LeftNode are already consistent, if they are, this task 
-        //        // has nothing to do, so we will wait 
-        //        if (!dbMptt.AreLeftAndRightConsistent())
-        //        {
-        //            // if they aren't, start the update of all the RightNode & LeftNode pointers. 
-        //            // This code reads nodes from the database, NOT from the TreeView control 
-        //            // and can be aborted by an external program by setting BackgroundCanStillSaveItemsTree
-        //            // to false 
-        //            Commons.SwitchPicLedOn(true);
-        //            // Read list of topics from database
-        //            //List<Topic> list = dbMptt.GetTopicsByParent();
-
-        //            // save the nodes that have changed any field, except RightNode & Left Node (optional) 
-        //            // (saving RightNode & Left Node changes would be too slow, so it will be made in a 
-        //            // background Thread) 
-        //            // update of the database
-        //            // save the items' rightNode and leftNode in the database
-
-        //            // update the items in the database (modified nodes will be saved 
-        //            // according to the difference between old and new values, new 
-        //            // nodes are empty, so they will save. Left and Right will be 
-        //            // saved according to the last parameter of the function) 
-        //            // save the nodes that have changed data or parent node
-        //            // if mustSaveTreeAsMptt is set, salve also topics that have changed rightNode or leftNode
-        //            dbMptt.SaveLeftAndRightToDbMptt();
-        //            //int nodeCount = 1;
-        //            //List<Topic> listTopicsBefore = new List<Topic>();
-
-        //            //foreach (Topic t in listTopicsBefore)
-        //            //{
-        //            //    t.ChildNumberOld = t.ChildNumberNew;
-        //            //    t.ParentNodeOld = t.ParentNodeNew;
-        //            //}
-
-        //            //IsThreadSavingTreeMptt = false;
-        //            //foreach (Topic t in listTopicsBefore)
-        //            //{
-        //            //    t.LeftNodeOld = t.LeftNodeNew;
-        //            //    t.RightNodeOld = t.RightNodeNew;
-        //            //}
-
-        //            if (BackgroundCanStillSaveItemsTree)
-        //                dbMptt.SaveLeftRightConsistent(true); 
-
-        //            Commons.SwitchPicLedOn(false);
-        //        }
-        //    }
-        //}
         internal void SaveTreeFromTreeViewControlByParent()
         {
             // syncronously save the nodes that have changed data or parentNode
             // (shorter operation) 
 
-            // if a background process is saving the tree, we stop it
-            if (IsThreadSavingTreeMptt)
+            // disable the background saving task. When disabled, it will not modify the database 
+            // locks the concurrent modification of syncronizing variables 
+            lock (CommonsWinForms.LockBackgroundSavingVariables)
             {
-                // locks a concurrent modification of Commons.BackgroundCanStillSaveTopicsTree 
-                lock (CommonsWinForms.LockSavingTopicsTree)
-                {
-                    CommonsWinForms.BackgroundCanStillSaveTopicsTree = false;
-                }
-                // we wait for the saving Thread to finish
-                // (it aborts in a point in which status is preserved)  
-                CommonsWinForms.BackgroundSaveThread.Join(90000); // big timeout just for big recalculation
+                CommonsWinForms.BackgroundSavingEnabled = false;
             }
-            // this saving of the tree locks the background task 
-            lock (CommonsWinForms.LockSavingTopicsTree)
+            // all the saving happens under a lock from other tasks
+            lock (CommonsWinForms.LockSavingCriticalSections)
             {
+                dbMptt.SaveLeftRightConsistent(false);
                 // save the nodes that have changed any field, except RightNode & Left Node (optional) 
                 // (saving RightNode & Left Node changes would be too slow, 
                 // so it is done in the background Thread, that we will restart at the end of this method
@@ -562,7 +509,8 @@ namespace gamon.TreeMptt
                 // nodes are empty, so they will save. Left and Right will be 
                 // saved by a concurrent Thread, so here the third parameter is false
                 dbMptt.SaveTreeToDb(listItemsAfter, listItemsDeleted, false);
-
+                // Left-Right status left on "inconsistent" if we were NOT saving leftNode and rightNode
+                // or if we quit this method breaking the loops. 
                 // Update listTopicsBefore by taking it from the treeview 
                 nodeCount = 1;
                 listItemsBefore.Clear();
@@ -574,16 +522,17 @@ namespace gamon.TreeMptt
                     t.ChildNumberOld = t.ChildNumberNew;
                     t.ParentNodeOld = t.ParentNodeNew;
                 }
+                dbMptt.SaveLeftRightConsistent(false);
+                ////try
+                ////{
+                //    CommonsWinForms.SwitchPicLedOn(false);
+                ////}
+                ////catch { }
             }
-            try
+            lock (CommonsWinForms.LockBackgroundSavingVariables)
             {
-                CommonsWinForms.SwitchPicLedOn(false);
+                CommonsWinForms.BackgroundSavingEnabled = true;
             }
-            catch { }
-            //// restart the Thread 
-            //// re-create and run the Thread that concurrently saves the Topics tree
-            //CommonsWinForms.BackgroundSaveThread = new Thread(CommonsWinForms.SaveTreeMptt.SaveMpttBackground);
-            //CommonsWinForms.BackgroundSaveThread.Start();
         }
         internal TreeNode AddNewNode(string Text)
         {
@@ -807,9 +756,9 @@ namespace gamon.TreeMptt
                 ClearBackColorRecursive(n);
             }
         }
-        // called by ClearBackColor function
         private void ClearBackColorRecursive(TreeNode treeNode)
         {
+            // called by ClearBackColor function
             foreach (TreeNode tn in treeNode.Nodes)
             {
                 tn.BackColor = Color.White;
@@ -907,7 +856,7 @@ namespace gamon.TreeMptt
         internal void checkGeneralKeysForTopicsTree(KeyEventArgs e, string ToFind)
         {
             if (e.KeyCode == Keys.F3)
-                FindItem(ToFind);
+                FindItem(ToFind, markAllInSearch);
             if (e.KeyCode == Keys.F5)
             {
                 SaveTreeFromTreeViewControlByParent();

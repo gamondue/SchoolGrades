@@ -172,7 +172,7 @@ namespace SchoolGrades
         }
         private void btnFind_Click(object sender, EventArgs e)
         {
-            topicTreeMptt.FindItem(txtTopicFind.Text); 
+            topicTreeMptt.FindItem(txtTopicFind.Text, chkFindAll.Checked); 
         }
         private void btnAddNode_Click(object sender, EventArgs e)
         {
@@ -493,7 +493,7 @@ namespace SchoolGrades
             //}
 
             if (e.KeyCode == Keys.F3)
-                topicTreeMptt.FindItem(txtTopicFind.Text);
+                topicTreeMptt.FindItem(txtTopicFind.Text, chkFindAll.Checked);
             if (e.KeyCode == Keys.F5)
             {
                 btnSaveTree_Click(null, null);
@@ -511,7 +511,7 @@ namespace SchoolGrades
             }
 
             if (e.KeyCode == Keys.F3)
-                topicTreeMptt.FindItem(txtTopicFind.Text);
+                topicTreeMptt.FindItem(txtTopicFind.Text, chkFindAll.Checked);
             if (e.KeyCode == Keys.F5)
             {
                 btnSaveTree_Click(null, null);

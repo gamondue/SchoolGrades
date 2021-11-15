@@ -122,14 +122,15 @@ namespace SchoolGrades
             treeOld.ClearBackColorOnClick = false;
 
             // stop background saving thread when using this form so it will not interfere
-            // locks a concurrent modification of Commons.BackgroundCanStillSaveTopicsTree 
-            lock (CommonsWinForms.LockSavingTopicsTree)
+            // locks a concurrent modification of syncronyzing variables 
+            lock (CommonsWinForms.LockBackgroundSavingVariables)
             {
-                CommonsWinForms.BackgroundCanStillSaveTopicsTree = false;
+                CommonsWinForms.BackgroundSavingEnabled = false;
+                CommonsWinForms.BackgroundTaskClose = true;
             }
             // we wait for the saving Thread to finish
             // (it aborts in a point in which status is preserved)  
-            CommonsWinForms.BackgroundSaveThread.Join(30000); // enormous timeout just for big problems
+            CommonsWinForms.BackgroundSaveThread.Join(3000); 
 
             highligthDifferences();
         }
@@ -321,11 +322,11 @@ namespace SchoolGrades
         }
         private void btnFindNew_Click(object sender, EventArgs e)
         {
-            treeNew.FindItem(txtSearchNew.Text);
+            treeNew.FindItem(txtSearchNew.Text, false);
         }
         private void btnFindOld_Click(object sender, EventArgs e)
         {
-            treeOld.FindItem(txtSearchOld.Text);
+            treeOld.FindItem(txtSearchOld.Text,false);
         }
         private void BtnSaveNewTree_Click(object sender, EventArgs e)
         {
@@ -333,28 +334,33 @@ namespace SchoolGrades
 
             // abort the background saving that was triggered by SaveTreeFromTreeViewControlByParent
             // locks a concurrent modification of Commons.BackgroundCanStillSaveTopicsTree 
-            lock (CommonsWinForms.LockSavingTopicsTree)
+            lock (CommonsWinForms.LockBackgroundSavingVariables)
             {
-                CommonsWinForms.BackgroundCanStillSaveTopicsTree = false;
+                CommonsWinForms.BackgroundSavingEnabled = false;
+                CommonsWinForms.BackgroundTaskClose = true;
             }
-            // we wait for the saving Thread to finish
+                // we wait for the saving Thread to finish
             // (it aborts in a point in which status is preserved)  
-            CommonsWinForms.BackgroundSaveThread.Join(30000); // enormous timeout just for big problems
+            CommonsWinForms.BackgroundSaveThread.Join(3000); 
+
+            // !!!! TODO restart the task on closing the form !!!!
 
             MessageBox.Show("Fatto"); 
         }
-
         private void frmTopicsRecover_FormClosing(object sender, FormClosingEventArgs e)
         {
             // when the form closes, we restart the background saving task
             // that we have left off when this form was open
 
-            // restart the Thread 
+            // restart the background Thread 
+            startBackgroundSavingTask(); 
+        }
+        private void startBackgroundSavingTask()
+        {
             // re-create and run the Thread that concurrently saves the Topics tree
             CommonsWinForms.BackgroundSaveThread = new Thread(CommonsWinForms.SaveTreeMptt.SaveMpttBackground);
             CommonsWinForms.BackgroundSaveThread.Start();
         }
-
         private void btnBeheaded_Click(object sender, EventArgs e)
         {
             treeNew.EraseTree();

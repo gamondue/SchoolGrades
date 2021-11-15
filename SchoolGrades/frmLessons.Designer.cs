@@ -753,6 +753,7 @@
             // 
             // chkFindAll
             // 
+            this.chkFindAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkFindAll.AutoSize = true;
             this.chkFindAll.Location = new System.Drawing.Point(891, 140);
             this.chkFindAll.Name = "chkFindAll";
