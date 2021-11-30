@@ -71,15 +71,16 @@ namespace SchoolGrades
                 return; 
             }
             // Balanced component option should use a better algorithm (current one doesn't make the best to balace groups). 
-            List<StudentAndGrade> listStudentsWithWeightedAverage = Commons.bl.GetGradesWeightedAveragesOfClass(schoolClass, schoolGrade.IdGradeType, 
+            List<StudentAndGrade> listStudentsWithWeightedAverage = Commons.bl.GetListGradesWeightedAveragesOfClassByName(schoolClass, schoolGrade.IdGradeType, 
                 schoolSubject.IdSchoolSubject, dtpStartPeriod.Value, dtpEndPeriod.Value);
 
             // sort list by WeightedAverage
             listStudentsWithWeightedAverage = listStudentsWithWeightedAverage.OrderBy(item => item.WeightedAverage).ToList();
-
             // put student's list in descending order, based on the grade
             listStudentsWithWeightedAverage.Reverse();
+
             List<Student> listTempStudents;
+
 
             if (rbdGroupsRandom.Checked)
             {

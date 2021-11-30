@@ -51,7 +51,8 @@ namespace SchoolGrades
             formType = FormType;
             listTopicsExternal = ListTopicsExternal;
         }
-        public frmTopics(TopicsFormType FormType, Class CurrentClass, SchoolSubject Subject)
+        public frmTopics(TopicsFormType FormType, 
+            Class CurrentClass, SchoolSubject Subject)
         {
             InitializeComponent();
 
@@ -65,6 +66,14 @@ namespace SchoolGrades
             {
                 Color bgColor = Commons.ColorFromNumber(currentSubject);
                 this.BackColor = bgColor;
+            }
+            if (formType == TopicsFormType.HighlightTopics)
+            {
+                btnSaveTree.Visible = false;
+                btnAddNode.Visible = false;
+                btnAddNode.Visible = false; 
+                btnChoose.Visible = false;
+                btnDelete.Visible = false; 
             }
         }
         private void frmTopic_Load(object sender, EventArgs e)
@@ -130,39 +139,13 @@ namespace SchoolGrades
         private void btnAddNode_Click(object sender, EventArgs e)
         {
             // add a completely new node
-            System.Windows.Forms.TreeNode t = topicTreeMptt.AddNewNode("Nuovo argomento");
+            System.Windows.Forms.TreeNode t = topicTreeMptt.AddNewNode("Nuovo argomento", true);
             //txtTopicName.Text = t.Name;
             txtTopicName.Focus();
         }
         private void btnDelete_Click(object sender, EventArgs e)
         {
             topicTreeMptt.DeleteNodeClick();
-        }
-        private void txtDescription_TextChanged(object sender, EventArgs e)
-        {
-            if (topicTreeMptt.HasNodeBeenSelectedFromTree)
-                return;
-            Topic t = (Topic)(trwTopics.SelectedNode.Tag);
-            t.Desc = txtDescription.Text;
-            t.Changed = true;
-        }
-        private void txtName_TextChanged(object sender, EventArgs e)
-        {
-            // if the change is due to selection in the tree, don't change
-            if (topicTreeMptt.HasNodeBeenSelectedFromTree)
-            {
-                topicTreeMptt.HasNodeBeenSelectedFromTree = false;
-                return;
-            }
-            if (trwTopics.SelectedNode == null)
-            {
-                MessageBox.Show("Aggiungere il primo argomento o selezionarne uno");
-                return;
-            }
-            Topic t = (Topic)(trwTopics.SelectedNode.Tag);
-            t.Name = txtTopicName.Text;
-            trwTopics.SelectedNode.Text = t.Name;
-            t.Changed = true;
         }
         private void btnChoose_Click(object sender, EventArgs e)
         {

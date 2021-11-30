@@ -86,10 +86,10 @@ namespace SchoolGrades
                     "WHERE idGradeType='" + IdGradeType + "'; ";
                 string idGradeTypeParent = (string)cmd.ExecuteScalar();
 
-                string query = "SELECT Students.idStudent, LastName, FirstName FROM Students" +
-                    " JOIN Classes_Students ON Students.idStudent=Classes_Students.idStudent" +
-                    " WHERE Students.idStudent NOT IN" +
-                    "(";
+                string query = "SELECT Students.idStudent, LastName, FirstName, disabled FROM Students" +
+                                    " JOIN Classes_Students ON Students.idStudent=Classes_Students.idStudent" +
+                                    " WHERE Students.idStudent NOT IN" +
+                                    "(";
                 query += "SELECT DISTINCT Students.idStudent" +
                 " FROM Classes_Students" +
                 " LEFT JOIN Grades ON Students.idStudent=Grades.idStudent" +
@@ -101,7 +101,8 @@ namespace SchoolGrades
                 " AND Grades.idSchoolSubject='" + IdSchoolSubject + "'" +
                 " AND Grades.value IS NOT NULL AND Grades.value <> 0" +
                 " AND Grades.Timestamp BETWEEN " + SqlDate(DateFrom) + " AND " + SqlDate(DateTo) +
-                ")";
+                ")" +
+                " AND NOT Students.disabled"; 
                 query += " AND Classes_Students.idClass=" + Class.IdClass;
                 query += ";";
                 DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);

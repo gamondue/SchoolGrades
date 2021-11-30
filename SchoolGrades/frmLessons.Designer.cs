@@ -53,7 +53,7 @@
             this.txtTopicFind = new System.Windows.Forms.TextBox();
             this.btnDelete = new System.Windows.Forms.Button();
             this.txtTopicName = new System.Windows.Forms.TextBox();
-            this.btnAddNode = new System.Windows.Forms.Button();
+            this.btnAddNodeSon = new System.Windows.Forms.Button();
             this.btnSaveTree = new System.Windows.Forms.Button();
             this.TxtLessonDesc = new System.Windows.Forms.TextBox();
             this.dtpLessonDate = new System.Windows.Forms.DateTimePicker();
@@ -84,8 +84,9 @@
             this.rdbAndSearch = new System.Windows.Forms.RadioButton();
             this.rdbOrSearch = new System.Windows.Forms.RadioButton();
             this.BtnSearchAmongTopics = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnExport = new System.Windows.Forms.Button();
             this.chkFindAll = new System.Windows.Forms.CheckBox();
+            this.btnAddNodeBrother = new System.Windows.Forms.Button();
             this.grpViewTopics.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgwOneLesson)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgwAllLessons)).BeginInit();
@@ -307,7 +308,7 @@
             this.btnFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFind.Location = new System.Drawing.Point(805, 229);
             this.btnFind.Name = "btnFind";
-            this.btnFind.Size = new System.Drawing.Size(124, 61);
+            this.btnFind.Size = new System.Drawing.Size(130, 50);
             this.btnFind.TabIndex = 121;
             this.btnFind.Text = "Trova (F3)";
             this.btnFind.UseVisualStyleBackColor = true;
@@ -336,9 +337,9 @@
             // btnDelete
             // 
             this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDelete.Location = new System.Drawing.Point(809, 594);
+            this.btnDelete.Location = new System.Drawing.Point(805, 594);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(124, 61);
+            this.btnDelete.Size = new System.Drawing.Size(130, 50);
             this.btnDelete.TabIndex = 125;
             this.btnDelete.Text = "Elimina (Canc)";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -355,25 +356,24 @@
             this.txtTopicName.Size = new System.Drawing.Size(263, 27);
             this.txtTopicName.TabIndex = 122;
             this.toolTip1.SetToolTip(this.txtTopicName, "Argomento di lezione");
-            this.txtTopicName.TextChanged += new System.EventHandler(this.txtTopicName_TextChanged);
             // 
-            // btnAddNode
+            // btnAddNodeSon
             // 
-            this.btnAddNode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddNode.Location = new System.Drawing.Point(805, 372);
-            this.btnAddNode.Name = "btnAddNode";
-            this.btnAddNode.Size = new System.Drawing.Size(124, 61);
-            this.btnAddNode.TabIndex = 124;
-            this.btnAddNode.Text = "Aggiungi (Ins)";
-            this.btnAddNode.UseVisualStyleBackColor = true;
-            this.btnAddNode.Click += new System.EventHandler(this.btnAddNode_Click);
+            this.btnAddNodeSon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddNodeSon.Location = new System.Drawing.Point(805, 333);
+            this.btnAddNodeSon.Name = "btnAddNodeSon";
+            this.btnAddNodeSon.Size = new System.Drawing.Size(130, 50);
+            this.btnAddNodeSon.TabIndex = 124;
+            this.btnAddNodeSon.Text = "Aggiungi (Ins)";
+            this.btnAddNodeSon.UseVisualStyleBackColor = true;
+            this.btnAddNodeSon.Click += new System.EventHandler(this.btnAddNode_Click);
             // 
             // btnSaveTree
             // 
             this.btnSaveTree.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveTree.Location = new System.Drawing.Point(805, 305);
+            this.btnSaveTree.Location = new System.Drawing.Point(805, 281);
             this.btnSaveTree.Name = "btnSaveTree";
-            this.btnSaveTree.Size = new System.Drawing.Size(124, 61);
+            this.btnSaveTree.Size = new System.Drawing.Size(130, 50);
             this.btnSaveTree.TabIndex = 123;
             this.btnSaveTree.Text = "Salva argomenti (F5)";
             this.btnSaveTree.UseVisualStyleBackColor = true;
@@ -468,7 +468,6 @@
             this.txtTopicDescription.Size = new System.Drawing.Size(263, 84);
             this.txtTopicDescription.TabIndex = 132;
             this.toolTip1.SetToolTip(this.txtTopicDescription, "Descrizione argomenti di lezione");
-            this.txtTopicDescription.TextChanged += new System.EventHandler(this.txtTopicDescription_TextChanged);
             // 
             // picImage
             // 
@@ -583,9 +582,9 @@
             // btnTopicsNotDone
             // 
             this.btnTopicsNotDone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTopicsNotDone.Location = new System.Drawing.Point(870, 437);
+            this.btnTopicsNotDone.Location = new System.Drawing.Point(867, 466);
             this.btnTopicsNotDone.Name = "btnTopicsNotDone";
-            this.btnTopicsNotDone.Size = new System.Drawing.Size(60, 61);
+            this.btnTopicsNotDone.Size = new System.Drawing.Size(65, 50);
             this.btnTopicsNotDone.TabIndex = 136;
             this.btnTopicsNotDone.Text = "A. non fatti";
             this.btnTopicsNotDone.UseVisualStyleBackColor = true;
@@ -594,9 +593,9 @@
             // btnTopicsDone
             // 
             this.btnTopicsDone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTopicsDone.Location = new System.Drawing.Point(805, 437);
+            this.btnTopicsDone.Location = new System.Drawing.Point(805, 466);
             this.btnTopicsDone.Name = "btnTopicsDone";
-            this.btnTopicsDone.Size = new System.Drawing.Size(65, 61);
+            this.btnTopicsDone.Size = new System.Drawing.Size(65, 50);
             this.btnTopicsDone.TabIndex = 137;
             this.btnTopicsDone.Text = "Arg. Fatti";
             this.btnTopicsDone.UseVisualStyleBackColor = true;
@@ -637,9 +636,9 @@
             // btnArgFreemind
             // 
             this.btnArgFreemind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnArgFreemind.Location = new System.Drawing.Point(828, 504);
+            this.btnArgFreemind.Location = new System.Drawing.Point(831, 522);
             this.btnArgFreemind.Name = "btnArgFreemind";
-            this.btnArgFreemind.Size = new System.Drawing.Size(78, 61);
+            this.btnArgFreemind.Size = new System.Drawing.Size(84, 50);
             this.btnArgFreemind.TabIndex = 141;
             this.btnArgFreemind.Text = "Argom. Freemind";
             this.btnArgFreemind.UseVisualStyleBackColor = true;
@@ -739,17 +738,17 @@
             this.BtnSearchAmongTopics.UseVisualStyleBackColor = true;
             this.BtnSearchAmongTopics.Click += new System.EventHandler(this.BtnSearchAmongTopics_Click);
             // 
-            // button1
+            // btnExport
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.ForeColor = System.Drawing.Color.Red;
-            this.button1.Location = new System.Drawing.Point(444, 67);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(108, 25);
-            this.button1.TabIndex = 151;
-            this.button1.Text = "Export";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExport.ForeColor = System.Drawing.Color.Red;
+            this.btnExport.Location = new System.Drawing.Point(444, 67);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(108, 25);
+            this.btnExport.TabIndex = 151;
+            this.btnExport.Text = "Export";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // chkFindAll
             // 
@@ -762,15 +761,27 @@
             this.chkFindAll.Text = "tutti";
             this.chkFindAll.UseVisualStyleBackColor = true;
             // 
+            // btnAddNodeBrother
+            // 
+            this.btnAddNodeBrother.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddNodeBrother.Location = new System.Drawing.Point(805, 385);
+            this.btnAddNodeBrother.Name = "btnAddNodeBrother";
+            this.btnAddNodeBrother.Size = new System.Drawing.Size(130, 50);
+            this.btnAddNodeBrother.TabIndex = 153;
+            this.btnAddNodeBrother.Text = "Fratello (Shift+Ins)";
+            this.btnAddNodeBrother.UseVisualStyleBackColor = true;
+            this.btnAddNodeBrother.Click += new System.EventHandler(this.btnAddNodeBrother_Click);
+            // 
             // frmLessons
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(945, 663);
+            this.Controls.Add(this.btnAddNodeBrother);
             this.Controls.Add(this.chkFindAll);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.btnAddNode);
+            this.Controls.Add(this.btnExport);
+            this.Controls.Add(this.btnAddNodeSon);
             this.Controls.Add(this.rdbOrSearch);
             this.Controls.Add(this.rdbAndSearch);
             this.Controls.Add(this.rdbStringSearch);
@@ -870,7 +881,7 @@
         private System.Windows.Forms.TextBox txtTopicFind;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.TextBox txtTopicName;
-        private System.Windows.Forms.Button btnAddNode;
+        private System.Windows.Forms.Button btnAddNodeSon;
         private System.Windows.Forms.Button btnSaveTree;
         private System.Windows.Forms.TextBox TxtLessonDesc;
         private System.Windows.Forms.DateTimePicker dtpLessonDate;
@@ -901,7 +912,8 @@
         private System.Windows.Forms.RadioButton rdbStringSearch;
         private System.Windows.Forms.RadioButton rdbAndSearch;
         private System.Windows.Forms.RadioButton rdbOrSearch;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.CheckBox chkFindAll;
+        private System.Windows.Forms.Button btnAddNodeBrother;
     }
 }
