@@ -74,7 +74,7 @@
             // 
             this.lblDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblDescription.AutoSize = true;
-            this.lblDescription.Location = new System.Drawing.Point(13, 515);
+            this.lblDescription.Location = new System.Drawing.Point(12, 515);
             this.lblDescription.Name = "lblDescription";
             this.lblDescription.Size = new System.Drawing.Size(87, 18);
             this.lblDescription.TabIndex = 3;
@@ -84,24 +84,22 @@
             // 
             this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescription.Location = new System.Drawing.Point(16, 536);
+            this.txtDescription.Location = new System.Drawing.Point(12, 536);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(471, 110);
+            this.txtDescription.Size = new System.Drawing.Size(475, 110);
             this.txtDescription.TabIndex = 4;
-            this.txtDescription.TextChanged += new System.EventHandler(this.txtDescription_TextChanged);
             // 
             // txtTopicName
             // 
             this.txtTopicName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTopicName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtTopicName.Location = new System.Drawing.Point(16, 473);
+            this.txtTopicName.Location = new System.Drawing.Point(12, 473);
             this.txtTopicName.Multiline = true;
             this.txtTopicName.Name = "txtTopicName";
-            this.txtTopicName.Size = new System.Drawing.Size(471, 39);
+            this.txtTopicName.Size = new System.Drawing.Size(475, 39);
             this.txtTopicName.TabIndex = 3;
-            this.txtTopicName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
             // btnChoose
             // 
@@ -118,7 +116,7 @@
             // 
             this.lblEdits.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblEdits.AutoSize = true;
-            this.lblEdits.Location = new System.Drawing.Point(13, 452);
+            this.lblEdits.Location = new System.Drawing.Point(12, 452);
             this.lblEdits.Name = "lblEdits";
             this.lblEdits.Size = new System.Drawing.Size(81, 18);
             this.lblEdits.TabIndex = 7;
@@ -176,6 +174,7 @@
             this.btnDelete.TabIndex = 126;
             this.btnDelete.Text = "Elimina (Canc)";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnAddNode
             // 
@@ -186,6 +185,7 @@
             this.btnAddNode.TabIndex = 127;
             this.btnAddNode.Text = "Aggiungi (Ins)";
             this.btnAddNode.UseVisualStyleBackColor = true;
+            this.btnAddNode.Click += new System.EventHandler(this.btnAddNode_Click);
             // 
             // rdbOrSearch
             // 

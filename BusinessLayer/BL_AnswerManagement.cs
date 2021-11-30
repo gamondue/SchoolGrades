@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.Text;
 using SchoolGrades.DbClasses;
@@ -12,9 +13,9 @@ namespace SchoolGrades
         {
             return dl.GetAnswersOfAQuestion(idQuestion);
         }
-        internal object GetWeightedAveragesOfClass(Class currentClass, string idGradeType, string idSchoolSubject, DateTime value1, DateTime value2)
+        internal DataTable GetWeightedAveragesOfClass(Class currentClass, string idGradeType, string idSchoolSubject, DateTime value1, DateTime value2)
         {
-            return dl.GetWeightedAveragesOfClass(currentClass, idGradeType, idSchoolSubject, value1, value2);
+            return dl.GetWeightedAveragesOfClassByGradesFraction(currentClass, idGradeType, idSchoolSubject, value1, value2);
         }
         internal void RestoreTableXml(string Value, bool IsChecked)
         {

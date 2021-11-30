@@ -43,7 +43,7 @@ namespace SchoolGrades
         }
         internal DataTable GetStudentsSameName(string LastName, string FirstName)
         {
-            return GetStudentsSameName(LastName, FirstName);
+            return dl.GetStudentsSameName(LastName, FirstName);
         }
         internal DataTable FindStudentsLike(string LastName, string FirstName)
         {
@@ -76,7 +76,7 @@ namespace SchoolGrades
         {
             List<Student> ls = new List<Student>();
 
-            DataTable t = dl.GetWeightedAveragesOfClass(Class, GradeType.IdGradeType,
+            DataTable t = dl.GetWeightedAveragesOfClassByGradesFraction(Class, GradeType.IdGradeType,
                 SchoolSubject.IdSchoolSubject, DateFrom, DateTo);
             foreach (DataRow row in t.Rows)
             {

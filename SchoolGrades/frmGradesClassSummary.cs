@@ -92,7 +92,7 @@ namespace SchoolGrades
                         dtpStartPeriod.Value, dtpEndPeriod.Value
                         );
                     lblSum.Text = "";
-                    txtMediaMicroDomande.Text = "";
+                    txtSummaryDatum.Text = "";
                 }
                 else if (rdb == rdbShowWeights)
                 {
@@ -112,17 +112,17 @@ namespace SchoolGrades
                     }
                     int nGrades = (int)Math.Round(maxGradesFraction + 0.10);
                     lblSum.Text = "Mancanti a fine giro";
-                    txtMediaMicroDomande.Text = (sumLeftToClose / nGrades).ToString();
+                    txtSummaryDatum.Text = (sumLeftToClose / nGrades).ToString("#.00");
                 }
                 else if (rdb == rdbShowWeightedGrades)
                 {
-                    dgwGrades.DataSource = Commons.bl.GetGradesWeightedAveragesOfClass(currentClass,
+                    dgwGrades.DataSource = Commons.bl.GetGradesWeightedAveragesOfClassByAverage(currentClass,
                         ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                         ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
                         dtpStartPeriod.Value, dtpEndPeriod.Value
                         );
                     lblSum.Text = "";
-                    txtMediaMicroDomande.Text = "";
+                    txtSummaryDatum.Text = "";
                 }
                 else if (rdb == rdbShowWeightsOnOpenGrades)
                 {
@@ -132,7 +132,7 @@ namespace SchoolGrades
                         dtpStartPeriod.Value, dtpEndPeriod.Value
                         );
                     lblSum.Text = "";
-                    txtMediaMicroDomande.Text = "";
+                    txtSummaryDatum.Text = "";
 
                     setRowNumbers(dgwGrades);
                 }
@@ -186,23 +186,23 @@ namespace SchoolGrades
         }
         private void rdbShowGrades_CheckedChanged(object sender, EventArgs e)
         {
-            //RefreshData();
+            //RetrieveData(rdbShowGrades);
         }
         private void rdbShowWeightedGrades_CheckedChanged(object sender, EventArgs e)
         {
-            //RefreshData();
+            //RetrieveData(rdbShowWeightedGrades);
         }
         private void rdbShowWeights_CheckedChanged(object sender, EventArgs e)
         {
-            //RefreshData();
+            //RetrieveData(rdbShowWeights);
         }
         private void rdbShowWeightsOnOpenGrades_CheckedChanged(object sender, EventArgs e)
         {
-            //RefreshData();
+            //RetrieveData(rdbShowWeightsOnOpenGrades);
         }
         private void rdbMissing_CheckedChanged(object sender, EventArgs e)
         {
-            //RefreshData();
+            //RetrieveData(rdbMissing);
         }
         private void btnSaveOnFile_Click(object sender, EventArgs e)
         {
