@@ -1,12 +1,12 @@
-﻿using System;
+﻿using SchoolGrades;
+using SchoolGrades.DbClasses;
+using SharedWinForms;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
-using SchoolGrades;
-using SchoolGrades.DbClasses;
-using SharedWinForms;
 
 namespace gamon.TreeMptt
 {
@@ -35,8 +35,6 @@ namespace gamon.TreeMptt
         // inspiration for the MPTT code comes from: 
         // https://www.sitepoint.com/hierarchical-data-database/, by Gijs Van Tulder
 
-        // !!!! TODO some more events of the TextBoxes should be encapsulated in this class 
-
         // class that encapsulates the data access to the tree nodes 
         TreeMpttDb dbMptt;
         // datalayer for other data access
@@ -49,7 +47,7 @@ namespace gamon.TreeMptt
         #region fields used for drag and drop 
         // identification of the Treeview control from which the drag starts
         private int dragSourceControlHash;
-        private bool hasNodeBeenSelectedFromTree;
+        private bool hasNodeBeenSelectedFromTree = false;
 
         System.Windows.Forms.DragDropEffects typeOfDragAndDrop;
         #endregion
@@ -68,7 +66,6 @@ namespace gamon.TreeMptt
         List<Topic> listItemsAfter;
         List<Topic> listItemsDeleted;
         #endregion
-
 
         // a stack used to remember the father node in some part of the code  
         Stack<TreeNode> stack = new Stack<TreeNode>();
@@ -106,9 +103,6 @@ namespace gamon.TreeMptt
         /// <summary>
         /// True if the user has selected a node in the tree
         /// </summary>
-        // !!!! TODO Should be private, because some of the TextBoxes' events should be 
-        // encapsulated in this class. The class should manage also the behaviours in which this property is used!!!!
-        public bool HasNodeBeenSelectedFromTree { get => hasNodeBeenSelectedFromTree; set => hasNodeBeenSelectedFromTree = value; }
         /// <summary>
         /// true when a background task is saving left and right nodes to the tree
         /// </summary>
@@ -120,6 +114,43 @@ namespace gamon.TreeMptt
         public string Name { get; set; }
         // TreeView control from the calling code
         public TreeView TreeView { get => shownTreeView; set => shownTreeView = value; }
+        
+        bool functionKeysEnabled = true; 
+        public bool FunctionKeysEnabled 
+        {
+            get
+            {
+                return functionKeysEnabled; 
+            }
+            set
+            {   
+                if (value == true)
+                {
+                    // hook the events
+                    shownTreeView.AfterLabelEdit += TreeView_AfterLabelEdit;
+                    shownTreeView.AfterCheck += TreeView_AfterCheck;
+                    shownTreeView.AfterSelect += TreeView_AfterSelect;
+                    shownTreeView.Click += TreeView_Click;
+                    shownTreeView.KeyDown += TreeView_KeyDown;
+                    txtNodeName.Leave += TxtNodeName_Leave;
+                    txtNodeName.TextChanged += TxtNodeName_TextChanged;
+                    txtNodeDescription.TextChanged += TxtNodeDescription_TextChanged;
+                }
+                else
+                {
+                    // un-hook the events
+                    shownTreeView.AfterLabelEdit -= TreeView_AfterLabelEdit;
+                    shownTreeView.AfterCheck -= TreeView_AfterCheck;
+                    shownTreeView.AfterSelect -= TreeView_AfterSelect;
+                    shownTreeView.Click -= TreeView_Click;
+                    shownTreeView.KeyDown -= TreeView_KeyDown;
+                    txtNodeName.Leave -= TxtNodeName_Leave;
+                    txtNodeName.TextChanged -= TxtNodeName_TextChanged;
+                    txtNodeDescription.TextChanged -= TxtNodeDescription_TextChanged;
+                }
+                functionKeysEnabled = value;
+            }
+        }
         #endregion
 
         // enum to be used yet (will be public when used..)
@@ -135,7 +166,7 @@ namespace gamon.TreeMptt
         /// </summary>
         /// <param name="DataLayer">Access to other data</param>
         /// <param name="TreeViewControl">WinForms TreeView Control manipulated by the class</param>
-        /// <param name="TxtNodeName">TextBox of the "short" name of the node</param>
+        /// <param name="txtNodeName">TextBox of the "short" name of the node</param>
         /// <param name="TxtNodeDescription">TextBox of the "long" description of the node</param>
         /// <param name="TxtTopicFind">TextBox of the text to search in the tree</param>
         /// <param name="TxtTopicsDigest">TextBox that shows the short names of ticked nodes</param>
@@ -152,7 +183,6 @@ namespace gamon.TreeMptt
             dbMptt = new TreeMpttDb(dl);
             shownTreeView = TreeViewControl;
             //listTopicsBefore = InitialListOfTopics;
-
             txtNodeName = TxtNodeName;
             txtNodeDescription = TxtNodeDescription;
             txtTopicsSearchString = TxtTopicsDigest;
@@ -160,13 +190,7 @@ namespace gamon.TreeMptt
 
             if (shownTreeView != null)
             {
-                // hook the events
-                shownTreeView.AfterLabelEdit += TreeView_AfterLabelEdit;
-                shownTreeView.AfterCheck += TreeView_AfterCheck;
-                shownTreeView.AfterSelect += TreeView_AfterSelect;
-                shownTreeView.Click += TreeView_Click;
-                shownTreeView.KeyDown += TreeView_KeyDown;
-                txtNodeName.Leave += TxtNodeName_Leave;
+                FunctionKeysEnabled = true; 
 
                 // for drag & drop 
                 shownTreeView.AllowDrop = true;
@@ -175,7 +199,7 @@ namespace gamon.TreeMptt
                 shownTreeView.DragEnter += TreeView_DragEnter;
                 shownTreeView.DragLeave += TreeView_DragLeave;
                 // for object that will be dragged:
-                //////TrwTopics.MouseDown += (sender, args) => DoDragDrop(TheSampleLabel.Text, DragDropEffects.Copy);
+                //////shownTreeView.MouseDown += (sender, args) => DoDragDrop(TheSampleLabel.Text, DragDropEffects.Copy);
             }
 
             typeOfDragAndDrop = TypeOfDragAndDrop;
@@ -403,6 +427,8 @@ namespace gamon.TreeMptt
                 DateTime endTime = DateTime.Now.AddSeconds(CommonsWinForms.BackgroundThreadSleepSeconds);
                 while (DateTime.Now < endTime)
                 {
+                    if (CommonsWinForms.BackgroundTaskClose)
+                        return; 
                     Thread.Sleep(2500);
                 }
                 // check if RightNode & LeftNode are already consistent, if they are, this task 
@@ -433,7 +459,6 @@ namespace gamon.TreeMptt
                          if (CommonsWinForms.BackgroundSavingEnabled) 
                             // not executed if saving is aborted 
                             dbMptt.SaveLeftRightConsistent(true);
-                        
                         CommonsWinForms.BackgroundSavingEnabled = false;
                         CommonsWinForms.SwitchPicLedOn(false);
                     }
@@ -534,36 +559,50 @@ namespace gamon.TreeMptt
                 CommonsWinForms.BackgroundSavingEnabled = true;
             }
         }
-        internal TreeNode AddNewNode(string Text)
+        internal TreeNode AddNewNode(string Text, bool isSonNode)
         {
             if (shownTreeView.SelectedNode == null)
             {
-                MessageBox.Show("Scegliere un nodo cui aggiungere un sottoalbero");
+                MessageBox.Show("Scegliere un nodo cui aggiungere un nodo ad un sottoalbero");
                 return null; 
             }
-            Topic tParent = (Topic)(shownTreeView.SelectedNode.Tag);
-            int? idParentNew = (int?)tParent.Id;
-            Topic t = new Topic();
-            t.Name = Text;
-            t.LeftNodeOld = t.RightNodeOld = -1;
-            TreeNode UiNode = new TreeNode(t.Name);
-            UiNode.Tag = t;
+            TreeNode fatherNode = null;
+            TreeNode UiNode = null;
+            Topic nodeParent = null;
+            Topic nodeNew = null;
+
+            if (isSonNode)
+            {   // the new node must be the son of the currennt
+                fatherNode = shownTreeView.SelectedNode;
+                nodeParent = (Topic)(shownTreeView.SelectedNode.Tag); 
+            }
+            else
+            {   // the new node must be the brother of the current
+                fatherNode = shownTreeView.SelectedNode.Parent;
+                nodeParent = (Topic)(shownTreeView.SelectedNode.Parent.Tag);
+            }
+            nodeNew = new Topic();
+            nodeNew.Name = Text;
+            nodeNew.LeftNodeOld = nodeNew.RightNodeOld = -1;
+            UiNode = new TreeNode(nodeNew.Name);
+            UiNode.Tag = nodeNew;
+
             if (shownTreeView.SelectedNode == null)
             {
                 shownTreeView.Nodes.Add(UiNode);
             }
             else
             {
-                shownTreeView.SelectedNode.Nodes.Add(UiNode);
+                fatherNode.Nodes.Add(UiNode);
             }
             shownTreeView.SelectedNode = UiNode;
 
-            txtNodeName.Text = t.Name;
+            txtNodeName.Text = nodeNew.Name;
             //txtNodeName.Focus();
             txtNodeDescription.Text = "";
             txtNodeName.SelectionLength = txtNodeName.Text.Length;
             if (txtCodTopic != null)
-                txtCodTopic.Text = t.Id.ToString();
+                txtCodTopic.Text = nodeNew.Id.ToString();
             // start edit in the selected node
             return UiNode;
         }
@@ -821,7 +860,7 @@ namespace gamon.TreeMptt
             f.Expand(); 
             return;
         }
-        internal void DeleteNode()
+        internal void DeleteSelectedNode()
         {
             try
             {
@@ -1005,14 +1044,24 @@ namespace gamon.TreeMptt
             }
             if (e.KeyCode == Keys.Insert)
             {
-                shownTreeView.SelectedNode = AddNewNode("Nuovo argomento");
-                // start edit the selected node
-                shownTreeView.LabelEdit = true;
-                shownTreeView.SelectedNode.BeginEdit();
+                if (Control.ModifierKeys == Keys.Shift)
+                { 
+                    shownTreeView.SelectedNode = AddNewNode("Nuovo argomento", false);
+                    // start edit the selected node
+                    shownTreeView.LabelEdit = true;
+                    shownTreeView.SelectedNode.BeginEdit();
+                }
+                else
+                {  // shift is not pressed
+                    shownTreeView.SelectedNode = AddNewNode("Nuovo argomento", true);
+                    // start edit the selected node
+                    shownTreeView.LabelEdit = true;
+                    shownTreeView.SelectedNode.BeginEdit();
+                }
             }
             if (e.KeyCode == Keys.Delete)
             {
-                DeleteNode();
+                DeleteSelectedNode();
             }
         }
         internal void TreeView_AfterCheck(object sender, TreeViewEventArgs e)
@@ -1048,6 +1097,68 @@ namespace gamon.TreeMptt
 
                 }
             }
+        }
+        string previousText = ""; 
+        private void TxtNodeName_TextChanged(object sender, EventArgs e)
+        {
+            // if the change is due to selection in the tree, don't change
+            if (hasNodeBeenSelectedFromTree)
+            {
+                hasNodeBeenSelectedFromTree = false;
+                return;
+            }
+            if (shownTreeView.SelectedNode == null)
+            {
+                MessageBox.Show("Aggiungere il primo argomento o selezionarne uno");
+                return;
+            }
+            // if the text is multiline and at the beginning of the new line there is 
+            // an indentation: ask to import a subtree, if yes then create subtree
+            if (txtNodeName.Text.Contains("\r\n")
+                && (txtNodeName.Text.Contains("    ") || txtNodeName.Text.Contains("\t"))
+                )
+            {
+                if (MessageBox.Show("Testo formattato come un albero di FreeMind.\nDevo importare un sottoalbero in questo punto?",
+                    "", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button1)
+                    == DialogResult.Yes)
+                {
+                    ImportSubtreeFromText(txtNodeName.Text);
+                    int positionOfTab = txtNodeName.Text.IndexOf("\r\n");
+                    shownTreeView.SelectedNode.Text = txtNodeName.Text.Substring(0, positionOfTab);
+                    ((Topic)(shownTreeView.SelectedNode.Tag)).Name = txtNodeName.Text.Substring(0, positionOfTab);
+                }
+                else
+                {
+                    shownTreeView.SelectedNode.Text = txtNodeName.Text;
+                }
+            }
+            else
+            {
+                if (txtNodeName.Text.Length > 0)
+                {
+                    string lastCharEntered = txtNodeName.Text.Substring(txtNodeName.Text.Length - 1, 1);
+                    if (lastCharEntered != "\n")
+                    {
+
+                    }
+                    else
+                    {   // if user pushed Enter key
+                        txtNodeName.Text = txtNodeName.Text.Substring(0, txtNodeName.Text.Length - 2);
+                    }
+                    Topic t = (Topic)(shownTreeView.SelectedNode.Tag);
+                    t.Name = txtNodeName.Text;
+                    t.Changed = true;
+                }
+            }
+        }
+        private void TxtNodeDescription_TextChanged(object sender, EventArgs e)
+        {
+            if (hasNodeBeenSelectedFromTree)
+                return;
+            Topic t = (Topic)(shownTreeView.SelectedNode.Tag);
+            t.Desc = txtNodeDescription.Text;
+            t.Changed = true;
         }
         #endregion
         internal string CreateTextTreeOfDescendants(int? LeftNode, int? RightNode, bool? IncludeTopicsIds)

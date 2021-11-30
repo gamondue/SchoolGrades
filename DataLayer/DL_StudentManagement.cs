@@ -72,7 +72,6 @@ namespace SchoolGrades
             }
             return s;
         }
-
         internal DataTable GetStudentsWithNoMicrogrades(Class Class, string IdGradeType, string IdSchoolSubject,
             DateTime DateFrom, DateTime DateTo)
         {
@@ -86,10 +85,10 @@ namespace SchoolGrades
                     "WHERE idGradeType='" + IdGradeType + "'; ";
                 string idGradeTypeParent = (string)cmd.ExecuteScalar();
 
-                string query = "SELECT Students.idStudent, LastName, FirstName FROM Students" +
-                    " JOIN Classes_Students ON Students.idStudent=Classes_Students.idStudent" +
-                    " WHERE Students.idStudent NOT IN" +
-                    "(";
+                string query = "SELECT Students.idStudent, LastName, FirstName, disabled FROM Students" +
+                                    " JOIN Classes_Students ON Students.idStudent=Classes_Students.idStudent" +
+                                    " WHERE Students.idStudent NOT IN" +
+                                    "(";
                 query += "SELECT DISTINCT Students.idStudent" +
                 " FROM Classes_Students" +
                 " LEFT JOIN Grades ON Students.idStudent=Grades.idStudent" +
@@ -101,7 +100,8 @@ namespace SchoolGrades
                 " AND Grades.idSchoolSubject='" + IdSchoolSubject + "'" +
                 " AND Grades.value IS NOT NULL AND Grades.value <> 0" +
                 " AND Grades.Timestamp BETWEEN " + SqlDate(DateFrom) + " AND " + SqlDate(DateTo) +
-                ")";
+                ")" +
+                " AND NOT Students.disabled"; 
                 query += " AND Classes_Students.idClass=" + Class.IdClass;
                 query += ";";
                 DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
@@ -249,7 +249,6 @@ namespace SchoolGrades
             }
             return s;
         }
-
         internal Student GetStudentFromRow(DbDataReader Row)
         {
             Student s = new Student();
@@ -268,7 +267,6 @@ namespace SchoolGrades
             s.RevengeFactorCounter = Safe.Int(Row["VFCounter"]);
             return s;
         }
-
         internal DataTable GetStudentsSameName(string LastName, string FirstName)
         {
             DataTable t;
@@ -294,7 +292,6 @@ namespace SchoolGrades
             }
             return t;
         }
-
         internal DataTable FindStudentsLike(string LastName, string FirstName)
         {
             DataTable t;
@@ -333,7 +330,6 @@ namespace SchoolGrades
             }
             return t;
         }
-
         internal void PutStudentInClass(int? IdStudent, int? IdClass)
         {
             using (DbConnection conn = Connect())
@@ -356,7 +352,6 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-
         /// <summary>
         /// 
         /// </summary>
@@ -437,7 +432,6 @@ namespace SchoolGrades
             }
             return ls;
         }
-
         internal List<int> GetIdStudentsNonGraded(Class Class,
             GradeType GradeType, SchoolSubject SchoolSubject)
         {
@@ -473,7 +467,6 @@ namespace SchoolGrades
             }
             return keys;
         }
-
         internal void ToggleDisableOneStudent(int? idStudent)
         {
             using (DbConnection conn = Connect())
@@ -489,7 +482,6 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-
         private Nullable<int> GetStudentsPhotoId(int? idStudent, string schoolYear, DbConnection conn)
         {
             DbCommand cmd = conn.CreateCommand();
@@ -498,7 +490,6 @@ namespace SchoolGrades
                 ";";
             return (int?)cmd.ExecuteScalar();
         }
-
         private int? StudentHasAnswered(int? IdAnswer, int? IdTest, int? IdStudent)
         {
             int? key;

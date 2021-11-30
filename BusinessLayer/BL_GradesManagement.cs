@@ -83,10 +83,15 @@ namespace SchoolGrades
         {
             return dl.GetWeightedAveragesOfStudent(Student, IdGradeType, IdSchoolSubject, DateFrom, DateTo);
         }
-        internal List<StudentAndGrade> GetGradesWeightedAveragesOfClass(Class Class, string IdGradeType,
+        internal DataTable GetGradesWeightedAveragesOfClassByAverage(Class Class, string IdGradeType,
             string IdSchoolSubject, DateTime DateFrom, DateTime DateTo)
         {
-            return dl.GetGradesWeightedAveragesOfClass(Class, IdGradeType, IdSchoolSubject, DateFrom, DateTo);
+            return dl.GetGradesWeightedAveragesOfClassByAverage(Class, IdGradeType, IdSchoolSubject, DateFrom, DateTo);
+        }
+        internal List<StudentAndGrade> GetListGradesWeightedAveragesOfClassByName(Class Class, string IdGradeType,
+            string IdSchoolSubject, DateTime DateFrom, DateTime DateTo)
+        {
+            return dl.GetListGradesWeightedAveragesOfClassByName(Class, IdGradeType, IdSchoolSubject, DateFrom, DateTo);
         }
         internal DataTable GetGradesWeightsOfClassOnOpenGrades(Class currentClass, string idGradeType, string idSchoolSubject, DateTime value1, DateTime value2)
         {
