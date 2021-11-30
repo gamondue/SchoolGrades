@@ -6,6 +6,8 @@ namespace gamon.TreeMptt
 {
     class TreeNodeMpttMapDb
     {
+        // !! currently not used, just an idea !!
+
         // a tree node with Right and Left node pointers to support Modified Preorder Tree Traversal (MPTT) algorithm 
         // maps the fields in the database with "new" and "old" copies, to detect differences 
         // so we can save only the nodes that have changed

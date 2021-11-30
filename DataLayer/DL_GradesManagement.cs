@@ -485,11 +485,86 @@ namespace SchoolGrades
             throw new NotImplementedException();
 
         }
-        internal List<StudentAndGrade> GetGradesWeightedAveragesOfClass(Class Class, string IdGradeType,
+        internal DataTable GetWeightedAveragesOfClassByGradesFraction(Class Class,
+            string IdGradeType, string IdSchoolSubject, DateTime DateFrom, DateTime DateTo)
+        {
+            DataTable t;
+            using (DbConnection conn = Connect())
+            {
+                string query = "SELECT Grades.idGrade,Students.idStudent,lastName,firstName" +
+                ",SUM(weight)/100 AS 'GradesFraction', 1 - SUM(weight)/100 AS LeftToCloseAssesments" +
+                ",COUNT() AS 'GradesCount'" +
+                " FROM Classes_Students" +
+                " LEFT JOIN Grades ON Students.idStudent=Grades.idStudent" +
+                " JOIN Students ON Classes_Students.idStudent=Students.idStudent" +
+                " WHERE Classes_Students.idClass =" + Class.IdClass +
+                " AND Grades.idSchoolYear='" + Class.SchoolYear + "'" +
+                " AND (Grades.idGradeType='" + IdGradeType + "'" +
+                " OR Grades.idGradeType IS NULL)" +
+                " AND Grades.idSchoolSubject='" + IdSchoolSubject + "'" +
+                " AND Grades.value IS NOT NULL AND Grades.value <> 0" +
+                " AND Grades.Timestamp BETWEEN " + SqlDate(DateFrom) + " AND " + SqlDate(DateTo) +
+                " GROUP BY Students.idStudent" +
+                " ORDER BY GradesFraction ASC, lastName, firstName, Students.idStudent;";
+                // !!!! TODO change the query to include at first rows also those students that have no grades !!!! 
+                DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
+                DataSet DSet = new DataSet("ClosedMicroGrades");
+
+                DAdapt.Fill(DSet);
+                t = DSet.Tables[0];
+
+                DAdapt.Dispose();
+                DSet.Dispose();
+            }
+            return t;
+        }
+        internal DataTable GetGradesWeightedAveragesOfClassByAverage(Class Class, string IdGradeType,
+            string IdSchoolSubject, DateTime DateFrom, DateTime DateTo)
+        {
+            DataTable t;
+            //List<StudentAndGrade> l = new List<StudentAndGrade>(); 
+
+            using (DbConnection conn = Connect())
+            {
+                DataAdapter dAdapt;
+                DataSet dSet = new DataSet();
+
+                    string query = "SELECT Grades.idGrade, Students.idStudent,lastName,firstName," +
+                " SUM(Grades.value * Grades.weight)/SUM(Grades.weight) AS 'Weighted average'" +
+                // weighted RMS (Root Mean Square) as defined here: 
+                // https://stackoverflow.com/questions/10947180/weighted-standard-deviation-in-sql-server-without-aggregation-error
+                // !!!! fix the calculation of weighted RMS 
+                //",SQRT( SUM(Grades.weight * SQUARE(Grades.value)) / SUM(Grades.weight) - SQUARE(SUM(Grades.weight * Grades.value) / SUM(Grades.weight)) )  AS 'Weighted RMS'" +
+                ",COUNT() AS 'Grades Count'" +
+                " FROM Grades" +
+                " JOIN Students" +
+                " ON Students.idStudent=Grades.idStudent" +
+                " JOIN Classes_Students" +
+                " ON Classes_Students.idStudent=Students.idStudent" +
+                " WHERE Classes_Students.idClass =" + Class.IdClass +
+                " AND Grades.idSchoolYear='" + Class.SchoolYear + "'" +
+                " AND Grades.idGradeType = '" + IdGradeType + "'" +
+                " AND Grades.idSchoolSubject = '" + IdSchoolSubject + "'" +
+                " AND Grades.Value > 0" +
+                " AND Grades.Timestamp BETWEEN " + SqlDate(DateFrom) + " AND " + SqlDate(DateTo) +
+                " GROUP BY Students.idStudent" +
+                " ORDER BY 'Weighted average';";
+                //" ORDER BY lastName, firstName, Students.idStudent;";
+                dAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
+                dSet = new DataSet("GetUnfixedGradesInTheYear");
+                dAdapt.Fill(dSet);
+                t = dSet.Tables[0];
+
+                dSet.Dispose();
+                dAdapt.Dispose();
+            }
+            return t;
+        }
+        internal List<StudentAndGrade> GetListGradesWeightedAveragesOfClassByName(Class Class, string IdGradeType,
             string IdSchoolSubject, DateTime DateFrom, DateTime DateTo)
         {
             //DataTable t;
-            List<StudentAndGrade> l = new List<StudentAndGrade>(); 
+            List<StudentAndGrade> l = new List<StudentAndGrade>();
 
             using (DbConnection conn = Connect())
             {
@@ -513,7 +588,6 @@ namespace SchoolGrades
                 " AND Grades.Timestamp BETWEEN " + SqlDate(DateFrom) + " AND " + SqlDate(DateTo) +
                 " GROUP BY Students.idStudent" +
                 " ORDER BY lastName, firstName, Students.idStudent;";
-
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = query;
@@ -536,7 +610,6 @@ namespace SchoolGrades
             }
             return l;
         }
-
         internal DataTable GetUnfixedGrades(Student Student, string IdSchoolSubject,
             double Threshold)
         {
@@ -565,7 +638,6 @@ namespace SchoolGrades
             }
             return t;
         }
-
         /// <summary>
         /// Gets all the grades of a students of a specified IdGradeType that are the sons 
         /// of another grade which has value NOT null AND NOT equal to zero
@@ -603,7 +675,6 @@ namespace SchoolGrades
             }
             return t;
         }
-
         internal int CreateMacroGrade(ref Grade Grade, Student Student, string IdMicroGradeType)
         {
             int key = NextKey("Grades", "idGrade");
@@ -638,7 +709,6 @@ namespace SchoolGrades
             }
             return key;
         }
-
         internal int? SaveMicroGrade(Grade Grade)
         {
             using (DbConnection conn = Connect())

@@ -35,7 +35,7 @@
             this.cmbSchoolSubjects = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cmbSummaryGradeType = new System.Windows.Forms.ComboBox();
-            this.txtMediaMicroDomande = new System.Windows.Forms.TextBox();
+            this.txtSummaryDatum = new System.Windows.Forms.TextBox();
             this.dgwGrades = new System.Windows.Forms.DataGridView();
             this.rdbShowGrades = new System.Windows.Forms.RadioButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -137,15 +137,15 @@
             this.cmbSummaryGradeType.TabIndex = 103;
             this.cmbSummaryGradeType.SelectedIndexChanged += new System.EventHandler(this.cmbSummaryGradeType_SelectedIndexChanged);
             // 
-            // txtMediaMicroDomande
+            // txtSummaryDatum
             // 
-            this.txtMediaMicroDomande.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtMediaMicroDomande.Location = new System.Drawing.Point(4, 175);
-            this.txtMediaMicroDomande.Margin = new System.Windows.Forms.Padding(4);
-            this.txtMediaMicroDomande.Name = "txtMediaMicroDomande";
-            this.txtMediaMicroDomande.Size = new System.Drawing.Size(105, 37);
-            this.txtMediaMicroDomande.TabIndex = 102;
-            this.txtMediaMicroDomande.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtSummaryDatum.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtSummaryDatum.Location = new System.Drawing.Point(4, 175);
+            this.txtSummaryDatum.Margin = new System.Windows.Forms.Padding(4);
+            this.txtSummaryDatum.Name = "txtSummaryDatum";
+            this.txtSummaryDatum.Size = new System.Drawing.Size(105, 37);
+            this.txtSummaryDatum.TabIndex = 102;
+            this.txtSummaryDatum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // dgwGrades
             // 
@@ -387,7 +387,7 @@
             this.Controls.Add(this.cmbSchoolSubjects);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cmbSummaryGradeType);
-            this.Controls.Add(this.txtMediaMicroDomande);
+            this.Controls.Add(this.txtSummaryDatum);
             this.Controls.Add(this.lblCurrentClass);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.Color.DarkBlue;
@@ -433,5 +433,6 @@
         private System.Windows.Forms.GroupBox grpChosenQuery;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtNStudents;
+        private System.Windows.Forms.TextBox txtSummaryDatum;
     }
 }

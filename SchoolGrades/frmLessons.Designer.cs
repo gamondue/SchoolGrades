@@ -53,7 +53,7 @@
             this.txtTopicFind = new System.Windows.Forms.TextBox();
             this.btnDelete = new System.Windows.Forms.Button();
             this.txtTopicName = new System.Windows.Forms.TextBox();
-            this.btnAddNode = new System.Windows.Forms.Button();
+            this.btnAddNodeSon = new System.Windows.Forms.Button();
             this.btnSaveTree = new System.Windows.Forms.Button();
             this.TxtLessonDesc = new System.Windows.Forms.TextBox();
             this.dtpLessonDate = new System.Windows.Forms.DateTimePicker();
@@ -64,9 +64,9 @@
             this.txtTopicDescription = new System.Windows.Forms.TextBox();
             this.picImage = new System.Windows.Forms.PictureBox();
             this.btnManageImages = new System.Windows.Forms.Button();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.splitContainerBigVertical = new System.Windows.Forms.SplitContainer();
+            this.splitContainerLeftHorizontal = new System.Windows.Forms.SplitContainer();
+            this.splitContainerRightHorizontal = new System.Windows.Forms.SplitContainer();
             this.trwTopics = new System.Windows.Forms.TreeView();
             this.lblExplain = new System.Windows.Forms.Label();
             this.btnTopicsNotDone = new System.Windows.Forms.Button();
@@ -84,24 +84,25 @@
             this.rdbAndSearch = new System.Windows.Forms.RadioButton();
             this.rdbOrSearch = new System.Windows.Forms.RadioButton();
             this.BtnSearchAmongTopics = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnExport = new System.Windows.Forms.Button();
             this.chkFindAll = new System.Windows.Forms.CheckBox();
+            this.btnAddNodeBrother = new System.Windows.Forms.Button();
             this.grpViewTopics.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgwOneLesson)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgwAllLessons)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
-            this.splitContainer3.Panel1.SuspendLayout();
-            this.splitContainer3.Panel2.SuspendLayout();
-            this.splitContainer3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerBigVertical)).BeginInit();
+            this.splitContainerBigVertical.Panel1.SuspendLayout();
+            this.splitContainerBigVertical.Panel2.SuspendLayout();
+            this.splitContainerBigVertical.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerLeftHorizontal)).BeginInit();
+            this.splitContainerLeftHorizontal.Panel1.SuspendLayout();
+            this.splitContainerLeftHorizontal.Panel2.SuspendLayout();
+            this.splitContainerLeftHorizontal.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerRightHorizontal)).BeginInit();
+            this.splitContainerRightHorizontal.Panel1.SuspendLayout();
+            this.splitContainerRightHorizontal.Panel2.SuspendLayout();
+            this.splitContainerRightHorizontal.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblSchoolSubject
@@ -232,7 +233,7 @@
             this.grpViewTopics.Controls.Add(this.rdbNotDone);
             this.grpViewTopics.Controls.Add(this.rdbAlreadyDone);
             this.grpViewTopics.Controls.Add(this.rdbLesson);
-            this.grpViewTopics.Location = new System.Drawing.Point(296, 122);
+            this.grpViewTopics.Location = new System.Drawing.Point(12, 23);
             this.grpViewTopics.Name = "grpViewTopics";
             this.grpViewTopics.Size = new System.Drawing.Size(150, 112);
             this.grpViewTopics.TabIndex = 111;
@@ -288,7 +289,7 @@
             this.dgwOneLesson.Location = new System.Drawing.Point(0, 1);
             this.dgwOneLesson.Name = "dgwOneLesson";
             this.dgwOneLesson.RowHeadersWidth = 51;
-            this.dgwOneLesson.Size = new System.Drawing.Size(505, 124);
+            this.dgwOneLesson.Size = new System.Drawing.Size(318, 124);
             this.dgwOneLesson.TabIndex = 112;
             this.dgwOneLesson.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwOneLesson_CellContentClick);
             // 
@@ -307,7 +308,7 @@
             this.btnFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFind.Location = new System.Drawing.Point(805, 229);
             this.btnFind.Name = "btnFind";
-            this.btnFind.Size = new System.Drawing.Size(124, 61);
+            this.btnFind.Size = new System.Drawing.Size(130, 50);
             this.btnFind.TabIndex = 121;
             this.btnFind.Text = "Trova (F3)";
             this.btnFind.UseVisualStyleBackColor = true;
@@ -336,9 +337,9 @@
             // btnDelete
             // 
             this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDelete.Location = new System.Drawing.Point(809, 594);
+            this.btnDelete.Location = new System.Drawing.Point(805, 594);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(124, 61);
+            this.btnDelete.Size = new System.Drawing.Size(130, 50);
             this.btnDelete.TabIndex = 125;
             this.btnDelete.Text = "Elimina (Canc)";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -352,28 +353,27 @@
             this.txtTopicName.Location = new System.Drawing.Point(0, 359);
             this.txtTopicName.Multiline = true;
             this.txtTopicName.Name = "txtTopicName";
-            this.txtTopicName.Size = new System.Drawing.Size(263, 27);
+            this.txtTopicName.Size = new System.Drawing.Size(451, 27);
             this.txtTopicName.TabIndex = 122;
             this.toolTip1.SetToolTip(this.txtTopicName, "Argomento di lezione");
-            this.txtTopicName.TextChanged += new System.EventHandler(this.txtTopicName_TextChanged);
             // 
-            // btnAddNode
+            // btnAddNodeSon
             // 
-            this.btnAddNode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddNode.Location = new System.Drawing.Point(805, 372);
-            this.btnAddNode.Name = "btnAddNode";
-            this.btnAddNode.Size = new System.Drawing.Size(124, 61);
-            this.btnAddNode.TabIndex = 124;
-            this.btnAddNode.Text = "Aggiungi (Ins)";
-            this.btnAddNode.UseVisualStyleBackColor = true;
-            this.btnAddNode.Click += new System.EventHandler(this.btnAddNode_Click);
+            this.btnAddNodeSon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddNodeSon.Location = new System.Drawing.Point(805, 333);
+            this.btnAddNodeSon.Name = "btnAddNodeSon";
+            this.btnAddNodeSon.Size = new System.Drawing.Size(130, 50);
+            this.btnAddNodeSon.TabIndex = 124;
+            this.btnAddNodeSon.Text = "Aggiungi figlio (Ins)";
+            this.btnAddNodeSon.UseVisualStyleBackColor = true;
+            this.btnAddNodeSon.Click += new System.EventHandler(this.btnAddNode_Click);
             // 
             // btnSaveTree
             // 
             this.btnSaveTree.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveTree.Location = new System.Drawing.Point(805, 305);
+            this.btnSaveTree.Location = new System.Drawing.Point(805, 281);
             this.btnSaveTree.Name = "btnSaveTree";
-            this.btnSaveTree.Size = new System.Drawing.Size(124, 61);
+            this.btnSaveTree.Size = new System.Drawing.Size(130, 50);
             this.btnSaveTree.TabIndex = 123;
             this.btnSaveTree.Text = "Salva argomenti (F5)";
             this.btnSaveTree.UseVisualStyleBackColor = true;
@@ -414,7 +414,7 @@
             this.dgwAllLessons.Location = new System.Drawing.Point(0, 3);
             this.dgwAllLessons.Name = "dgwAllLessons";
             this.dgwAllLessons.RowHeadersWidth = 51;
-            this.dgwAllLessons.Size = new System.Drawing.Size(505, 275);
+            this.dgwAllLessons.Size = new System.Drawing.Size(318, 275);
             this.dgwAllLessons.TabIndex = 127;
             this.dgwAllLessons.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgwAllLessons_CellClick);
             this.dgwAllLessons.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgwAllLessons_CellContentClick);
@@ -429,7 +429,7 @@
             this.TxtTopicsDigestAndSearch.Multiline = true;
             this.TxtTopicsDigestAndSearch.Name = "TxtTopicsDigestAndSearch";
             this.TxtTopicsDigestAndSearch.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.TxtTopicsDigestAndSearch.Size = new System.Drawing.Size(504, 69);
+            this.TxtTopicsDigestAndSearch.Size = new System.Drawing.Size(316, 69);
             this.TxtTopicsDigestAndSearch.TabIndex = 128;
             this.toolTip1.SetToolTip(this.TxtTopicsDigestAndSearch, "Testo da ricercare negli argomenti OPPURE argomenti selezionati (generati automat" +
         "icamente)");
@@ -465,10 +465,9 @@
             this.txtTopicDescription.Location = new System.Drawing.Point(0, 2);
             this.txtTopicDescription.Multiline = true;
             this.txtTopicDescription.Name = "txtTopicDescription";
-            this.txtTopicDescription.Size = new System.Drawing.Size(263, 84);
+            this.txtTopicDescription.Size = new System.Drawing.Size(451, 84);
             this.txtTopicDescription.TabIndex = 132;
             this.toolTip1.SetToolTip(this.txtTopicDescription, "Descrizione argomenti di lezione");
-            this.txtTopicDescription.TextChanged += new System.EventHandler(this.txtTopicDescription_TextChanged);
             // 
             // picImage
             // 
@@ -494,67 +493,69 @@
             this.btnManageImages.UseVisualStyleBackColor = true;
             this.btnManageImages.Click += new System.EventHandler(this.btnManageImages_Click);
             // 
-            // splitContainer1
+            // splitContainerBigVertical
             // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.splitContainerBigVertical.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(12, 179);
-            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainerBigVertical.Cursor = System.Windows.Forms.Cursors.VSplit;
+            this.splitContainerBigVertical.Location = new System.Drawing.Point(12, 179);
+            this.splitContainerBigVertical.Name = "splitContainerBigVertical";
             // 
-            // splitContainer1.Panel1
+            // splitContainerBigVertical.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.splitContainer3);
-            this.splitContainer1.Panel1.Controls.Add(this.TxtTopicsDigestAndSearch);
+            this.splitContainerBigVertical.Panel1.Controls.Add(this.grpViewTopics);
+            this.splitContainerBigVertical.Panel1.Controls.Add(this.splitContainerLeftHorizontal);
+            this.splitContainerBigVertical.Panel1.Controls.Add(this.TxtTopicsDigestAndSearch);
             // 
-            // splitContainer1.Panel2
+            // splitContainerBigVertical.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(775, 476);
-            this.splitContainer1.SplitterDistance = 508;
-            this.splitContainer1.TabIndex = 135;
+            this.splitContainerBigVertical.Panel2.Controls.Add(this.splitContainerRightHorizontal);
+            this.splitContainerBigVertical.Size = new System.Drawing.Size(775, 476);
+            this.splitContainerBigVertical.SplitterDistance = 320;
+            this.splitContainerBigVertical.TabIndex = 135;
             // 
-            // splitContainer3
+            // splitContainerLeftHorizontal
             // 
-            this.splitContainer3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.splitContainerLeftHorizontal.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer3.Location = new System.Drawing.Point(0, 68);
-            this.splitContainer3.Name = "splitContainer3";
-            this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.splitContainerLeftHorizontal.Location = new System.Drawing.Point(0, 68);
+            this.splitContainerLeftHorizontal.Name = "splitContainerLeftHorizontal";
+            this.splitContainerLeftHorizontal.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer3.Panel1
+            // splitContainerLeftHorizontal.Panel1
             // 
-            this.splitContainer3.Panel1.Controls.Add(this.dgwAllLessons);
+            this.splitContainerLeftHorizontal.Panel1.Controls.Add(this.dgwAllLessons);
             // 
-            // splitContainer3.Panel2
+            // splitContainerLeftHorizontal.Panel2
             // 
-            this.splitContainer3.Panel2.Controls.Add(this.dgwOneLesson);
-            this.splitContainer3.Size = new System.Drawing.Size(505, 408);
-            this.splitContainer3.SplitterDistance = 279;
-            this.splitContainer3.TabIndex = 129;
+            this.splitContainerLeftHorizontal.Panel2.Controls.Add(this.dgwOneLesson);
+            this.splitContainerLeftHorizontal.Size = new System.Drawing.Size(318, 408);
+            this.splitContainerLeftHorizontal.SplitterDistance = 279;
+            this.splitContainerLeftHorizontal.TabIndex = 129;
             // 
-            // splitContainer2
+            // splitContainerRightHorizontal
             // 
-            this.splitContainer2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.splitContainerRightHorizontal.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Name = "splitContainer2";
-            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.splitContainerRightHorizontal.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerRightHorizontal.Name = "splitContainerRightHorizontal";
+            this.splitContainerRightHorizontal.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer2.Panel1
+            // splitContainerRightHorizontal.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.txtTopicName);
-            this.splitContainer2.Panel1.Controls.Add(this.trwTopics);
-            this.splitContainer2.Panel1.Controls.Add(this.lblExplain);
+            this.splitContainerRightHorizontal.Panel1.Controls.Add(this.txtTopicName);
+            this.splitContainerRightHorizontal.Panel1.Controls.Add(this.trwTopics);
+            this.splitContainerRightHorizontal.Panel1.Controls.Add(this.lblExplain);
             // 
-            // splitContainer2.Panel2
+            // splitContainerRightHorizontal.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.txtTopicDescription);
-            this.splitContainer2.Size = new System.Drawing.Size(263, 476);
-            this.splitContainer2.SplitterDistance = 386;
-            this.splitContainer2.TabIndex = 129;
+            this.splitContainerRightHorizontal.Panel2.Controls.Add(this.txtTopicDescription);
+            this.splitContainerRightHorizontal.Size = new System.Drawing.Size(451, 476);
+            this.splitContainerRightHorizontal.SplitterDistance = 386;
+            this.splitContainerRightHorizontal.TabIndex = 129;
             // 
             // trwTopics
             // 
@@ -566,7 +567,7 @@
             this.trwTopics.LabelEdit = true;
             this.trwTopics.Location = new System.Drawing.Point(0, 0);
             this.trwTopics.Name = "trwTopics";
-            this.trwTopics.Size = new System.Drawing.Size(263, 337);
+            this.trwTopics.Size = new System.Drawing.Size(451, 337);
             this.trwTopics.TabIndex = 148;
             // 
             // lblExplain
@@ -583,9 +584,9 @@
             // btnTopicsNotDone
             // 
             this.btnTopicsNotDone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTopicsNotDone.Location = new System.Drawing.Point(870, 437);
+            this.btnTopicsNotDone.Location = new System.Drawing.Point(867, 466);
             this.btnTopicsNotDone.Name = "btnTopicsNotDone";
-            this.btnTopicsNotDone.Size = new System.Drawing.Size(60, 61);
+            this.btnTopicsNotDone.Size = new System.Drawing.Size(65, 50);
             this.btnTopicsNotDone.TabIndex = 136;
             this.btnTopicsNotDone.Text = "A. non fatti";
             this.btnTopicsNotDone.UseVisualStyleBackColor = true;
@@ -594,9 +595,9 @@
             // btnTopicsDone
             // 
             this.btnTopicsDone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTopicsDone.Location = new System.Drawing.Point(805, 437);
+            this.btnTopicsDone.Location = new System.Drawing.Point(805, 466);
             this.btnTopicsDone.Name = "btnTopicsDone";
-            this.btnTopicsDone.Size = new System.Drawing.Size(65, 61);
+            this.btnTopicsDone.Size = new System.Drawing.Size(65, 50);
             this.btnTopicsDone.TabIndex = 137;
             this.btnTopicsDone.Text = "Arg. Fatti";
             this.btnTopicsDone.UseVisualStyleBackColor = true;
@@ -637,9 +638,9 @@
             // btnArgFreemind
             // 
             this.btnArgFreemind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnArgFreemind.Location = new System.Drawing.Point(828, 504);
+            this.btnArgFreemind.Location = new System.Drawing.Point(831, 522);
             this.btnArgFreemind.Name = "btnArgFreemind";
-            this.btnArgFreemind.Size = new System.Drawing.Size(78, 61);
+            this.btnArgFreemind.Size = new System.Drawing.Size(84, 50);
             this.btnArgFreemind.TabIndex = 141;
             this.btnArgFreemind.Text = "Argom. Freemind";
             this.btnArgFreemind.UseVisualStyleBackColor = true;
@@ -739,17 +740,17 @@
             this.BtnSearchAmongTopics.UseVisualStyleBackColor = true;
             this.BtnSearchAmongTopics.Click += new System.EventHandler(this.BtnSearchAmongTopics_Click);
             // 
-            // button1
+            // btnExport
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.ForeColor = System.Drawing.Color.Red;
-            this.button1.Location = new System.Drawing.Point(444, 67);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(108, 25);
-            this.button1.TabIndex = 151;
-            this.button1.Text = "Export";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExport.ForeColor = System.Drawing.Color.Red;
+            this.btnExport.Location = new System.Drawing.Point(444, 67);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(108, 25);
+            this.btnExport.TabIndex = 151;
+            this.btnExport.Text = "Export";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // chkFindAll
             // 
@@ -762,19 +763,30 @@
             this.chkFindAll.Text = "tutti";
             this.chkFindAll.UseVisualStyleBackColor = true;
             // 
+            // btnAddNodeBrother
+            // 
+            this.btnAddNodeBrother.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddNodeBrother.Location = new System.Drawing.Point(805, 385);
+            this.btnAddNodeBrother.Name = "btnAddNodeBrother";
+            this.btnAddNodeBrother.Size = new System.Drawing.Size(130, 50);
+            this.btnAddNodeBrother.TabIndex = 153;
+            this.btnAddNodeBrother.Text = "Agg. fratello (Shift+Ins)";
+            this.btnAddNodeBrother.UseVisualStyleBackColor = true;
+            this.btnAddNodeBrother.Click += new System.EventHandler(this.btnAddNodeBrother_Click);
+            // 
             // frmLessons
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(945, 663);
+            this.Controls.Add(this.btnAddNodeBrother);
             this.Controls.Add(this.chkFindAll);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.btnAddNode);
+            this.Controls.Add(this.btnExport);
+            this.Controls.Add(this.btnAddNodeSon);
             this.Controls.Add(this.rdbOrSearch);
             this.Controls.Add(this.rdbAndSearch);
             this.Controls.Add(this.rdbStringSearch);
-            this.Controls.Add(this.grpViewTopics);
             this.Controls.Add(this.BtnOpenImagesFolder);
             this.Controls.Add(this.BtnSearchAmongTopics);
             this.Controls.Add(this.lblLessonTime);
@@ -786,7 +798,7 @@
             this.Controls.Add(this.bntLessonErase);
             this.Controls.Add(this.btnTopicsDone);
             this.Controls.Add(this.btnTopicsNotDone);
-            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.splitContainerBigVertical);
             this.Controls.Add(this.btnManageImages);
             this.Controls.Add(this.picImage);
             this.Controls.Add(this.btnStartLinks);
@@ -825,21 +837,21 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgwOneLesson)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgwAllLessons)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picImage)).EndInit();
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            this.splitContainer3.Panel1.ResumeLayout(false);
-            this.splitContainer3.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
-            this.splitContainer3.ResumeLayout(false);
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel1.PerformLayout();
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            this.splitContainer2.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
-            this.splitContainer2.ResumeLayout(false);
+            this.splitContainerBigVertical.Panel1.ResumeLayout(false);
+            this.splitContainerBigVertical.Panel1.PerformLayout();
+            this.splitContainerBigVertical.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerBigVertical)).EndInit();
+            this.splitContainerBigVertical.ResumeLayout(false);
+            this.splitContainerLeftHorizontal.Panel1.ResumeLayout(false);
+            this.splitContainerLeftHorizontal.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerLeftHorizontal)).EndInit();
+            this.splitContainerLeftHorizontal.ResumeLayout(false);
+            this.splitContainerRightHorizontal.Panel1.ResumeLayout(false);
+            this.splitContainerRightHorizontal.Panel1.PerformLayout();
+            this.splitContainerRightHorizontal.Panel2.ResumeLayout(false);
+            this.splitContainerRightHorizontal.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerRightHorizontal)).EndInit();
+            this.splitContainerRightHorizontal.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -870,7 +882,7 @@
         private System.Windows.Forms.TextBox txtTopicFind;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.TextBox txtTopicName;
-        private System.Windows.Forms.Button btnAddNode;
+        private System.Windows.Forms.Button btnAddNodeSon;
         private System.Windows.Forms.Button btnSaveTree;
         private System.Windows.Forms.TextBox TxtLessonDesc;
         private System.Windows.Forms.DateTimePicker dtpLessonDate;
@@ -881,9 +893,9 @@
         private System.Windows.Forms.TextBox txtTopicDescription;
         private System.Windows.Forms.PictureBox picImage;
         private System.Windows.Forms.Button btnManageImages;
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.SplitContainer splitContainer3;
+        private System.Windows.Forms.SplitContainer splitContainerBigVertical;
+        private System.Windows.Forms.SplitContainer splitContainerRightHorizontal;
+        private System.Windows.Forms.SplitContainer splitContainerLeftHorizontal;
         private System.Windows.Forms.Button btnTopicsNotDone;
         private System.Windows.Forms.Button btnTopicsDone;
         private System.Windows.Forms.Button bntLessonErase;
@@ -901,7 +913,8 @@
         private System.Windows.Forms.RadioButton rdbStringSearch;
         private System.Windows.Forms.RadioButton rdbAndSearch;
         private System.Windows.Forms.RadioButton rdbOrSearch;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.CheckBox chkFindAll;
+        private System.Windows.Forms.Button btnAddNodeBrother;
     }
 }

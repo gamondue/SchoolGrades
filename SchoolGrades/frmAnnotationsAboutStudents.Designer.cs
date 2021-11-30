@@ -39,17 +39,19 @@
             this.chkUseSchoolYear = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtIdStudent = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnAddAnnotationGroup = new System.Windows.Forms.Button();
+            this.btnRemoveAnnotationGroup = new System.Windows.Forms.Button();
+            this.btnSaveModificationsGroup = new System.Windows.Forms.Button();
+            this.grpSingleButtons = new System.Windows.Forms.GroupBox();
+            this.btnSaveModificationsStudent = new System.Windows.Forms.Button();
+            this.btnRemoveAnnotationStudent = new System.Windows.Forms.Button();
+            this.btnAddAnnotationStudent = new System.Windows.Forms.Button();
             this.chkCurrentActive = new System.Windows.Forms.CheckBox();
             this.chkPopUp = new System.Windows.Forms.CheckBox();
             this.btnPrepareNew = new System.Windows.Forms.Button();
-            this.btnSaveModificationsStudent = new System.Windows.Forms.Button();
-            this.btnAddAnnotationGroup = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.btnSaveModificationsGroup = new System.Windows.Forms.Button();
             this.txtAnnotation = new System.Windows.Forms.TextBox();
-            this.btnAddAnnotationStudent = new System.Windows.Forms.Button();
-            this.btnRemoveAnnotationStudent = new System.Windows.Forms.Button();
-            this.btnRemoveAnnotationGroup = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.txtIdAnnotation = new System.Windows.Forms.TextBox();
             this.chkShowOnlyActive = new System.Windows.Forms.CheckBox();
@@ -60,6 +62,8 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.grpSingleButtons.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgwNotes
@@ -76,7 +80,7 @@
             this.dgwNotes.Margin = new System.Windows.Forms.Padding(4);
             this.dgwNotes.Name = "dgwNotes";
             this.dgwNotes.RowTemplate.Height = 24;
-            this.dgwNotes.Size = new System.Drawing.Size(759, 122);
+            this.dgwNotes.Size = new System.Drawing.Size(831, 122);
             this.dgwNotes.TabIndex = 163;
             this.dgwNotes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwNotes_CellClick);
             this.dgwNotes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwNotes_CellContentClick);
@@ -91,7 +95,7 @@
             this.lblCurrentStudent.Location = new System.Drawing.Point(7, 3);
             this.lblCurrentStudent.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblCurrentStudent.Name = "lblCurrentStudent";
-            this.lblCurrentStudent.Size = new System.Drawing.Size(759, 53);
+            this.lblCurrentStudent.Size = new System.Drawing.Size(831, 53);
             this.lblCurrentStudent.TabIndex = 158;
             this.lblCurrentStudent.Text = "Annotazioni su allievi o gruppi";
             this.lblCurrentStudent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -100,7 +104,7 @@
             // 
             this.txtSchoolYear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSchoolYear.Enabled = false;
-            this.txtSchoolYear.Location = new System.Drawing.Point(688, 25);
+            this.txtSchoolYear.Location = new System.Drawing.Point(760, 25);
             this.txtSchoolYear.Name = "txtSchoolYear";
             this.txtSchoolYear.Size = new System.Drawing.Size(55, 24);
             this.txtSchoolYear.TabIndex = 169;
@@ -111,7 +115,7 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(679, 5);
+            this.label1.Location = new System.Drawing.Point(751, 5);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(73, 15);
             this.label1.TabIndex = 170;
@@ -131,7 +135,7 @@
             this.dgwStudents.Margin = new System.Windows.Forms.Padding(4);
             this.dgwStudents.Name = "dgwStudents";
             this.dgwStudents.RowTemplate.Height = 24;
-            this.dgwStudents.Size = new System.Drawing.Size(658, 220);
+            this.dgwStudents.Size = new System.Drawing.Size(730, 220);
             this.dgwStudents.TabIndex = 171;
             this.dgwStudents.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwStudents_CellClick);
             this.dgwStudents.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwStudents_CellContentClick);
@@ -159,22 +163,18 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
+            this.splitContainer1.Panel2.Controls.Add(this.grpSingleButtons);
             this.splitContainer1.Panel2.Controls.Add(this.chkCurrentActive);
             this.splitContainer1.Panel2.Controls.Add(this.chkPopUp);
             this.splitContainer1.Panel2.Controls.Add(this.btnPrepareNew);
-            this.splitContainer1.Panel2.Controls.Add(this.btnSaveModificationsStudent);
-            this.splitContainer1.Panel2.Controls.Add(this.btnAddAnnotationGroup);
             this.splitContainer1.Panel2.Controls.Add(this.label5);
-            this.splitContainer1.Panel2.Controls.Add(this.btnSaveModificationsGroup);
             this.splitContainer1.Panel2.Controls.Add(this.txtAnnotation);
-            this.splitContainer1.Panel2.Controls.Add(this.btnAddAnnotationStudent);
-            this.splitContainer1.Panel2.Controls.Add(this.btnRemoveAnnotationStudent);
-            this.splitContainer1.Panel2.Controls.Add(this.btnRemoveAnnotationGroup);
             this.splitContainer1.Panel2.Controls.Add(this.label4);
             this.splitContainer1.Panel2.Controls.Add(this.txtIdAnnotation);
             this.splitContainer1.Panel2.Controls.Add(this.chkShowOnlyActive);
             this.splitContainer1.Panel2.Controls.Add(this.dgwNotes);
-            this.splitContainer1.Size = new System.Drawing.Size(759, 504);
+            this.splitContainer1.Size = new System.Drawing.Size(831, 504);
             this.splitContainer1.SplitterDistance = 222;
             this.splitContainer1.TabIndex = 172;
             // 
@@ -184,7 +184,7 @@
             this.chkUseSchoolYear.AutoSize = true;
             this.chkUseSchoolYear.Checked = true;
             this.chkUseSchoolYear.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkUseSchoolYear.Location = new System.Drawing.Point(665, 31);
+            this.chkUseSchoolYear.Location = new System.Drawing.Point(737, 31);
             this.chkUseSchoolYear.Name = "chkUseSchoolYear";
             this.chkUseSchoolYear.Size = new System.Drawing.Size(15, 14);
             this.chkUseSchoolYear.TabIndex = 180;
@@ -198,7 +198,7 @@
             this.label2.Enabled = false;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label2.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label2.Location = new System.Drawing.Point(683, 49);
+            this.label2.Location = new System.Drawing.Point(755, 49);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(65, 15);
@@ -208,7 +208,7 @@
             // txtIdStudent
             // 
             this.txtIdStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtIdStudent.Location = new System.Drawing.Point(688, 67);
+            this.txtIdStudent.Location = new System.Drawing.Point(760, 67);
             this.txtIdStudent.Margin = new System.Windows.Forms.Padding(4);
             this.txtIdStudent.Name = "txtIdStudent";
             this.txtIdStudent.ReadOnly = true;
@@ -216,6 +216,99 @@
             this.txtIdStudent.TabIndex = 173;
             this.txtIdStudent.TabStop = false;
             this.txtIdStudent.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btnAddAnnotationGroup);
+            this.groupBox1.Controls.Add(this.btnRemoveAnnotationGroup);
+            this.groupBox1.Controls.Add(this.btnSaveModificationsGroup);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.groupBox1.Location = new System.Drawing.Point(617, 15);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(219, 61);
+            this.groupBox1.TabIndex = 193;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Annotazioni su gruppo";
+            // 
+            // btnAddAnnotationGroup
+            // 
+            this.btnAddAnnotationGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnAddAnnotationGroup.Location = new System.Drawing.Point(6, 20);
+            this.btnAddAnnotationGroup.Name = "btnAddAnnotationGroup";
+            this.btnAddAnnotationGroup.Size = new System.Drawing.Size(63, 36);
+            this.btnAddAnnotationGroup.TabIndex = 188;
+            this.btnAddAnnotationGroup.Text = "+ gruppo";
+            this.btnAddAnnotationGroup.UseVisualStyleBackColor = true;
+            this.btnAddAnnotationGroup.Click += new System.EventHandler(this.btnAddAnnotationGroup_Click);
+            // 
+            // btnRemoveAnnotationGroup
+            // 
+            this.btnRemoveAnnotationGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnRemoveAnnotationGroup.Location = new System.Drawing.Point(144, 19);
+            this.btnRemoveAnnotationGroup.Name = "btnRemoveAnnotationGroup";
+            this.btnRemoveAnnotationGroup.Size = new System.Drawing.Size(63, 37);
+            this.btnRemoveAnnotationGroup.TabIndex = 183;
+            this.btnRemoveAnnotationGroup.Text = " -  gruppo";
+            this.btnRemoveAnnotationGroup.UseVisualStyleBackColor = true;
+            this.btnRemoveAnnotationGroup.Click += new System.EventHandler(this.btnRemoveAnnotationGroup_Click);
+            // 
+            // btnSaveModificationsGroup
+            // 
+            this.btnSaveModificationsGroup.Enabled = false;
+            this.btnSaveModificationsGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnSaveModificationsGroup.Location = new System.Drawing.Point(75, 19);
+            this.btnSaveModificationsGroup.Name = "btnSaveModificationsGroup";
+            this.btnSaveModificationsGroup.Size = new System.Drawing.Size(63, 37);
+            this.btnSaveModificationsGroup.TabIndex = 185;
+            this.btnSaveModificationsGroup.Text = "salva modifica";
+            this.btnSaveModificationsGroup.UseVisualStyleBackColor = true;
+            this.btnSaveModificationsGroup.Click += new System.EventHandler(this.btnSaveModificationsGroup_Click);
+            // 
+            // grpSingleButtons
+            // 
+            this.grpSingleButtons.Controls.Add(this.btnSaveModificationsStudent);
+            this.grpSingleButtons.Controls.Add(this.btnRemoveAnnotationStudent);
+            this.grpSingleButtons.Controls.Add(this.btnAddAnnotationStudent);
+            this.grpSingleButtons.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.grpSingleButtons.Location = new System.Drawing.Point(398, 15);
+            this.grpSingleButtons.Name = "grpSingleButtons";
+            this.grpSingleButtons.Size = new System.Drawing.Size(219, 68);
+            this.grpSingleButtons.TabIndex = 192;
+            this.grpSingleButtons.TabStop = false;
+            this.grpSingleButtons.Text = "Annotazioni su singolo";
+            // 
+            // btnSaveModificationsStudent
+            // 
+            this.btnSaveModificationsStudent.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnSaveModificationsStudent.Location = new System.Drawing.Point(81, 18);
+            this.btnSaveModificationsStudent.Name = "btnSaveModificationsStudent";
+            this.btnSaveModificationsStudent.Size = new System.Drawing.Size(63, 37);
+            this.btnSaveModificationsStudent.TabIndex = 189;
+            this.btnSaveModificationsStudent.Text = "salva modifica";
+            this.btnSaveModificationsStudent.UseVisualStyleBackColor = true;
+            this.btnSaveModificationsStudent.Click += new System.EventHandler(this.btnSaveModificationsStudent_Click);
+            // 
+            // btnRemoveAnnotationStudent
+            // 
+            this.btnRemoveAnnotationStudent.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnRemoveAnnotationStudent.Location = new System.Drawing.Point(150, 18);
+            this.btnRemoveAnnotationStudent.Name = "btnRemoveAnnotationStudent";
+            this.btnRemoveAnnotationStudent.Size = new System.Drawing.Size(63, 37);
+            this.btnRemoveAnnotationStudent.TabIndex = 184;
+            this.btnRemoveAnnotationStudent.Text = " -  allievo";
+            this.btnRemoveAnnotationStudent.UseVisualStyleBackColor = true;
+            this.btnRemoveAnnotationStudent.Click += new System.EventHandler(this.btnRemoveAnnotationStudent_Click);
+            // 
+            // btnAddAnnotationStudent
+            // 
+            this.btnAddAnnotationStudent.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnAddAnnotationStudent.Location = new System.Drawing.Point(12, 18);
+            this.btnAddAnnotationStudent.Name = "btnAddAnnotationStudent";
+            this.btnAddAnnotationStudent.Size = new System.Drawing.Size(63, 37);
+            this.btnAddAnnotationStudent.TabIndex = 185;
+            this.btnAddAnnotationStudent.Text = " +  allievo";
+            this.btnAddAnnotationStudent.UseVisualStyleBackColor = true;
+            this.btnAddAnnotationStudent.Click += new System.EventHandler(this.btnAddAnnotationStudent_Click);
             // 
             // chkCurrentActive
             // 
@@ -244,7 +337,7 @@
             // 
             this.btnPrepareNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPrepareNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnPrepareNew.Location = new System.Drawing.Point(482, 23);
+            this.btnPrepareNew.Location = new System.Drawing.Point(329, 33);
             this.btnPrepareNew.Name = "btnPrepareNew";
             this.btnPrepareNew.Size = new System.Drawing.Size(63, 37);
             this.btnPrepareNew.TabIndex = 189;
@@ -252,30 +345,6 @@
             this.toolTip1.SetToolTip(this.btnPrepareNew, "Cancella i dati dell\'annotazione per salvare come nuova");
             this.btnPrepareNew.UseVisualStyleBackColor = true;
             this.btnPrepareNew.Click += new System.EventHandler(this.btnNew_Click);
-            // 
-            // btnSaveModificationsStudent
-            // 
-            this.btnSaveModificationsStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveModificationsStudent.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnSaveModificationsStudent.Location = new System.Drawing.Point(620, 5);
-            this.btnSaveModificationsStudent.Name = "btnSaveModificationsStudent";
-            this.btnSaveModificationsStudent.Size = new System.Drawing.Size(63, 37);
-            this.btnSaveModificationsStudent.TabIndex = 189;
-            this.btnSaveModificationsStudent.Text = "salva modifica";
-            this.btnSaveModificationsStudent.UseVisualStyleBackColor = true;
-            this.btnSaveModificationsStudent.Click += new System.EventHandler(this.btnSaveModificationsStudent_Click);
-            // 
-            // btnAddAnnotationGroup
-            // 
-            this.btnAddAnnotationGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddAnnotationGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnAddAnnotationGroup.Location = new System.Drawing.Point(551, 46);
-            this.btnAddAnnotationGroup.Name = "btnAddAnnotationGroup";
-            this.btnAddAnnotationGroup.Size = new System.Drawing.Size(63, 36);
-            this.btnAddAnnotationGroup.TabIndex = 188;
-            this.btnAddAnnotationGroup.Text = "+ gruppo";
-            this.btnAddAnnotationGroup.UseVisualStyleBackColor = true;
-            this.btnAddAnnotationGroup.Click += new System.EventHandler(this.btnAddAnnotationGroup_Click);
             // 
             // label5
             // 
@@ -290,19 +359,6 @@
             this.label5.Text = "Annotazione";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // btnSaveModificationsGroup
-            // 
-            this.btnSaveModificationsGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveModificationsGroup.Enabled = false;
-            this.btnSaveModificationsGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnSaveModificationsGroup.Location = new System.Drawing.Point(620, 45);
-            this.btnSaveModificationsGroup.Name = "btnSaveModificationsGroup";
-            this.btnSaveModificationsGroup.Size = new System.Drawing.Size(63, 37);
-            this.btnSaveModificationsGroup.TabIndex = 185;
-            this.btnSaveModificationsGroup.Text = "salva modifica";
-            this.btnSaveModificationsGroup.UseVisualStyleBackColor = true;
-            this.btnSaveModificationsGroup.Click += new System.EventHandler(this.btnSaveModificationsGroup_Click);
-            // 
             // txtAnnotation
             // 
             this.txtAnnotation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -310,44 +366,8 @@
             this.txtAnnotation.Location = new System.Drawing.Point(-1, 89);
             this.txtAnnotation.Multiline = true;
             this.txtAnnotation.Name = "txtAnnotation";
-            this.txtAnnotation.Size = new System.Drawing.Size(759, 68);
+            this.txtAnnotation.Size = new System.Drawing.Size(831, 68);
             this.txtAnnotation.TabIndex = 186;
-            // 
-            // btnAddAnnotationStudent
-            // 
-            this.btnAddAnnotationStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddAnnotationStudent.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnAddAnnotationStudent.Location = new System.Drawing.Point(551, 5);
-            this.btnAddAnnotationStudent.Name = "btnAddAnnotationStudent";
-            this.btnAddAnnotationStudent.Size = new System.Drawing.Size(63, 37);
-            this.btnAddAnnotationStudent.TabIndex = 185;
-            this.btnAddAnnotationStudent.Text = " +  allievo";
-            this.btnAddAnnotationStudent.UseVisualStyleBackColor = true;
-            this.btnAddAnnotationStudent.Click += new System.EventHandler(this.btnAddAnnotationStudent_Click);
-            // 
-            // btnRemoveAnnotationStudent
-            // 
-            this.btnRemoveAnnotationStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemoveAnnotationStudent.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnRemoveAnnotationStudent.Location = new System.Drawing.Point(689, 5);
-            this.btnRemoveAnnotationStudent.Name = "btnRemoveAnnotationStudent";
-            this.btnRemoveAnnotationStudent.Size = new System.Drawing.Size(63, 37);
-            this.btnRemoveAnnotationStudent.TabIndex = 184;
-            this.btnRemoveAnnotationStudent.Text = " -  allievo";
-            this.btnRemoveAnnotationStudent.UseVisualStyleBackColor = true;
-            this.btnRemoveAnnotationStudent.Click += new System.EventHandler(this.btnRemoveAnnotationStudent_Click);
-            // 
-            // btnRemoveAnnotationGroup
-            // 
-            this.btnRemoveAnnotationGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemoveAnnotationGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnRemoveAnnotationGroup.Location = new System.Drawing.Point(689, 45);
-            this.btnRemoveAnnotationGroup.Name = "btnRemoveAnnotationGroup";
-            this.btnRemoveAnnotationGroup.Size = new System.Drawing.Size(63, 37);
-            this.btnRemoveAnnotationGroup.TabIndex = 183;
-            this.btnRemoveAnnotationGroup.Text = " -  gruppo";
-            this.btnRemoveAnnotationGroup.UseVisualStyleBackColor = true;
-            this.btnRemoveAnnotationGroup.Click += new System.EventHandler(this.btnRemoveAnnotationGroup_Click);
             // 
             // label4
             // 
@@ -384,7 +404,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
-            this.ClientSize = new System.Drawing.Size(778, 575);
+            this.ClientSize = new System.Drawing.Size(850, 575);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.lblCurrentStudent);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -402,6 +422,8 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.grpSingleButtons.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -434,5 +456,7 @@
         private System.Windows.Forms.Button btnPrepareNew;
         private System.Windows.Forms.CheckBox chkCurrentActive;
         private System.Windows.Forms.CheckBox chkShowOnlyActive;
+        private System.Windows.Forms.GroupBox grpSingleButtons;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

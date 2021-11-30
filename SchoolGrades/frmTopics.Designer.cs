@@ -41,10 +41,11 @@
             this.btnFind = new System.Windows.Forms.Button();
             this.lblExplain = new System.Windows.Forms.Label();
             this.btnDelete = new System.Windows.Forms.Button();
-            this.btnAddNode = new System.Windows.Forms.Button();
+            this.btnAddNodeSon = new System.Windows.Forms.Button();
             this.rdbOrSearch = new System.Windows.Forms.RadioButton();
             this.rdbAndSearch = new System.Windows.Forms.RadioButton();
             this.rdbStringSearch = new System.Windows.Forms.RadioButton();
+            this.btnAddNodeBrother = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // trwTopics
@@ -74,7 +75,7 @@
             // 
             this.lblDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblDescription.AutoSize = true;
-            this.lblDescription.Location = new System.Drawing.Point(13, 515);
+            this.lblDescription.Location = new System.Drawing.Point(12, 515);
             this.lblDescription.Name = "lblDescription";
             this.lblDescription.Size = new System.Drawing.Size(87, 18);
             this.lblDescription.TabIndex = 3;
@@ -84,29 +85,27 @@
             // 
             this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescription.Location = new System.Drawing.Point(16, 536);
+            this.txtDescription.Location = new System.Drawing.Point(12, 536);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(471, 110);
+            this.txtDescription.Size = new System.Drawing.Size(475, 110);
             this.txtDescription.TabIndex = 4;
-            this.txtDescription.TextChanged += new System.EventHandler(this.txtDescription_TextChanged);
             // 
             // txtTopicName
             // 
             this.txtTopicName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTopicName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtTopicName.Location = new System.Drawing.Point(16, 473);
+            this.txtTopicName.Location = new System.Drawing.Point(12, 473);
             this.txtTopicName.Multiline = true;
             this.txtTopicName.Name = "txtTopicName";
-            this.txtTopicName.Size = new System.Drawing.Size(471, 39);
+            this.txtTopicName.Size = new System.Drawing.Size(475, 39);
             this.txtTopicName.TabIndex = 3;
-            this.txtTopicName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
             // btnChoose
             // 
             this.btnChoose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnChoose.Location = new System.Drawing.Point(508, 351);
+            this.btnChoose.Location = new System.Drawing.Point(508, 418);
             this.btnChoose.Name = "btnChoose";
             this.btnChoose.Size = new System.Drawing.Size(124, 61);
             this.btnChoose.TabIndex = 7;
@@ -118,7 +117,7 @@
             // 
             this.lblEdits.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblEdits.AutoSize = true;
-            this.lblEdits.Location = new System.Drawing.Point(13, 452);
+            this.lblEdits.Location = new System.Drawing.Point(12, 452);
             this.lblEdits.Name = "lblEdits";
             this.lblEdits.Size = new System.Drawing.Size(81, 18);
             this.lblEdits.TabIndex = 7;
@@ -176,16 +175,18 @@
             this.btnDelete.TabIndex = 126;
             this.btnDelete.Text = "Elimina (Canc)";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnAddNode
             // 
-            this.btnAddNode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddNode.Location = new System.Drawing.Point(508, 284);
-            this.btnAddNode.Name = "btnAddNode";
-            this.btnAddNode.Size = new System.Drawing.Size(124, 61);
-            this.btnAddNode.TabIndex = 127;
-            this.btnAddNode.Text = "Aggiungi (Ins)";
-            this.btnAddNode.UseVisualStyleBackColor = true;
+            this.btnAddNodeSon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddNodeSon.Location = new System.Drawing.Point(508, 284);
+            this.btnAddNodeSon.Name = "btnAddNode";
+            this.btnAddNodeSon.Size = new System.Drawing.Size(124, 61);
+            this.btnAddNodeSon.TabIndex = 127;
+            this.btnAddNodeSon.Text = "Aggiungi figlio (Ins)";
+            this.btnAddNodeSon.UseVisualStyleBackColor = true;
+            this.btnAddNodeSon.Click += new System.EventHandler(this.btnAddNode_Click);
             // 
             // rdbOrSearch
             // 
@@ -224,16 +225,28 @@
             this.rdbStringSearch.Text = "Txt";
             this.rdbStringSearch.UseVisualStyleBackColor = true;
             // 
+            // btnAddNodeBrother
+            // 
+            this.btnAddNodeBrother.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddNodeBrother.Location = new System.Drawing.Point(508, 351);
+            this.btnAddNodeBrother.Name = "btnAddNodeBrother";
+            this.btnAddNodeBrother.Size = new System.Drawing.Size(124, 61);
+            this.btnAddNodeBrother.TabIndex = 154;
+            this.btnAddNodeBrother.Text = "Agg. fratello (Shift+Ins)";
+            this.btnAddNodeBrother.UseVisualStyleBackColor = true;
+            this.btnAddNodeBrother.Click += new System.EventHandler(this.btnAddNodeBrother_Click);
+            // 
             // frmTopics
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(654, 658);
+            this.Controls.Add(this.btnAddNodeBrother);
             this.Controls.Add(this.rdbOrSearch);
             this.Controls.Add(this.rdbAndSearch);
             this.Controls.Add(this.rdbStringSearch);
-            this.Controls.Add(this.btnAddNode);
+            this.Controls.Add(this.btnAddNodeSon);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.lblExplain);
             this.Controls.Add(this.btnFind);
@@ -264,7 +277,7 @@
 
         private System.Windows.Forms.TreeView trwTopics;
         private System.Windows.Forms.Button btnSaveTree;
-        private System.Windows.Forms.Button btnAddNode;
+        private System.Windows.Forms.Button btnAddNodeSon;
         private System.Windows.Forms.Label lblDescription;
         private System.Windows.Forms.TextBox txtDescription;
         private System.Windows.Forms.TextBox txtTopicName;
@@ -278,5 +291,6 @@
         private System.Windows.Forms.RadioButton rdbOrSearch;
         private System.Windows.Forms.RadioButton rdbAndSearch;
         private System.Windows.Forms.RadioButton rdbStringSearch;
+        private System.Windows.Forms.Button btnAddNodeBrother;
     }
 }

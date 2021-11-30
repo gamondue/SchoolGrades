@@ -47,7 +47,7 @@ namespace SchoolGrades
             if (ReadOnly)
             {
                 btnSaveTree.Enabled = false;
-                btnAddNode.Enabled = false;
+                btnAddNodeSon.Enabled = false;
                 btnDelete.Enabled = false;
                 btnLessonAdd.Enabled = false;
                 btnLessonSave.Enabled = false;
@@ -176,60 +176,18 @@ namespace SchoolGrades
         }
         private void btnAddNode_Click(object sender, EventArgs e)
         {
-            topicTreeMptt.AddNewNode("Nuovo argomento");
+            topicTreeMptt.AddNewNode("Nuovo argomento", true);
             // set focus to the name textBox
             txtTopicName.Focus();
         }
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            topicTreeMptt.DeleteNode();
+            topicTreeMptt.DeleteSelectedNode();
         }
         private void btnSaveTree_Click(object sender, EventArgs e)
         {
             topicTreeMptt.SaveTreeFromTreeViewControlByParent();
             MessageBox.Show("Salvataggio fatto");
-        }
-        // !!!! TODO: this should stay into the MPTT tree class !!!!
-        private void txtTopicName_TextChanged(object sender, EventArgs e)
-        {
-            // if the change is due to selection in the tree, don't change
-            if (topicTreeMptt.HasNodeBeenSelectedFromTree)
-            {
-                topicTreeMptt.HasNodeBeenSelectedFromTree = false;
-                return;
-            }
-            if (trwTopics.SelectedNode == null)
-            {
-                MessageBox.Show("Aggiungere il primo argomento o selezionarne uno");
-                return;
-            }
-            // if the text is multiline and at the beginning of the new line there is 
-            // an indentation: ask to import a subtree, if yes then create subtree
-            if (!txtTopicName.Text.Contains("\r\n")
-                && !(txtTopicName.Text.Contains("    ") || txtTopicName.Text.Contains("\t"))
-                )
-            {
-                Topic t = (Topic)(trwTopics.SelectedNode.Tag);
-                t.Name = txtTopicName.Text;
-                t.Changed = true;
-            }
-            else
-            {
-                if (MessageBox.Show("Testo formattato come un albero di FreeMind.\nDevo importare un sottoalbero in questo punto?",
-                    "", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
-                    MessageBoxDefaultButton.Button1)
-                    == DialogResult.Yes)
-                {
-                    topicTreeMptt.ImportSubtreeFromText(txtTopicName.Text);
-                    int positionOfTab = txtTopicName.Text.IndexOf("\r\n");
-                    trwTopics.SelectedNode.Text = txtTopicName.Text.Substring(0, positionOfTab);
-                    ((Topic)(trwTopics.SelectedNode.Tag)).Name = txtTopicName.Text.Substring(0, positionOfTab);
-                }
-                else
-                {
-                    trwTopics.SelectedNode.Text = txtTopicName.Text;
-                }
-            }
         }
         private void ExportSubtreeToClipboard()
         {
@@ -323,10 +281,10 @@ namespace SchoolGrades
             //  refresh database data in grids 
             RefreshLessons(0);
         }
-        private void txtLessonDesc_TextChanged(object sender, EventArgs e)
-        {
+        //private void txtLessonDesc_TextChanged(object sender, EventArgs e)
+        //{
 
-        }
+        //}
         private void btnLessonSave_Click(object sender, EventArgs e)
         {
             int currentLessonsGridIndex = -1; 
@@ -402,21 +360,6 @@ namespace SchoolGrades
                 }
             }
         }
-        private void txtTopicDescription_TextChanged(object sender, EventArgs e)
-        {
-            if (topicTreeMptt.HasNodeBeenSelectedFromTree)
-                return;
-            if (trwTopics.SelectedNode != null)
-            {
-                Topic t = (Topic)(trwTopics.SelectedNode.Tag);
-                t.Desc = txtTopicDescription.Text;
-                t.Changed = true;
-            }
-            else
-            {
-                MessageBox.Show("Selezionare un argomento"); 
-            }
-        }
         private void picImage_Click(object sender, EventArgs e)
         {
 
@@ -483,15 +426,6 @@ namespace SchoolGrades
         }
         private void checkGeneralKeysForTopicsTree(KeyEventArgs e)
         {
-            //if (e.KeyCode == Keys.Right)
-            //{
-            //    NextImage();
-            //}
-            //if (e.KeyCode == Keys.Left)
-            //{
-            //    PreviousImage();
-            //}
-
             if (e.KeyCode == Keys.F3)
                 topicTreeMptt.FindItem(txtTopicFind.Text, chkFindAll.Checked);
             if (e.KeyCode == Keys.F5)
@@ -516,15 +450,6 @@ namespace SchoolGrades
             {
                 btnSaveTree_Click(null, null);
             }
-
-            //if (e.KeyCode == Keys.Delete || e.KeyCode == Keys.Decimal)
-            //{
-            //    btnDelete_Click(null, null);
-            //}
-            //if (e.KeyCode == Keys.Insert || e.KeyCode == Keys.NumPad0)
-            //{
-            //    btnAddNode_Click(null, null);
-            //}
         }
         private void PreviousImage()
         {
@@ -680,9 +605,15 @@ namespace SchoolGrades
                 MessageBox.Show("La cartella non è stata ancora creata.\nIl programma la creerà automaticamente quando verrà salvata la prima immagine."); 
             }
         }
-        private void button1_Click(object sender, EventArgs e)
+        private void btnExport_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Da fare!");
+        }
+        private void btnAddNodeBrother_Click(object sender, EventArgs e)
+        {
+            topicTreeMptt.AddNewNode("Nuovo argomento", false);
+            // set focus to the name textBox
+            txtTopicName.Focus();
         }
     }
 }

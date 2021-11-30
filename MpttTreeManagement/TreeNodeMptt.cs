@@ -7,6 +7,7 @@ namespace gamon.TreeMptt
     class TreeNodeMptt<T>
     {
         // TODO use this Class to generalize the TreeViewMppt (also complete it..) 
+        // !! currently not used, just an idea !!
         // a Generic tree node with Right and Left node pointers to support Modified Preorder Tree Traversal (MPTT) algorithm 
         int id;
         int parentNode; 
