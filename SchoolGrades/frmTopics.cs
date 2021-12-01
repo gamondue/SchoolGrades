@@ -67,6 +67,14 @@ namespace SchoolGrades
                 Color bgColor = Commons.ColorFromNumber(currentSubject);
                 this.BackColor = bgColor;
             }
+            if (formType == TopicsFormType.HighlightTopics)
+            {
+                btnSaveTree.Visible = false;
+                btnAddNode.Visible = false;
+                btnAddNode.Visible = false; 
+                btnChoose.Visible = false;
+                btnDelete.Visible = false; 
+            }
         }
         private void frmTopic_Load(object sender, EventArgs e)
         {
