@@ -266,7 +266,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmTopics";
             this.Text = "Argomenti";
-            this.Load += new System.EventHandler(this.frmTopic_Load);
+            this.Load += new System.EventHandler(this.frmTopics_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmTopics_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -20,7 +20,7 @@ namespace SchoolGrades
 
         Class currentClass;
 
-        List<Topic> listTopicsBefore;
+        //List<Topic> listTopicsBefore;
 
         List<DbClasses.Image> listImages;
         private int indexImages = 0;

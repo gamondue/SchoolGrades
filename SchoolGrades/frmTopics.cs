@@ -70,13 +70,13 @@ namespace SchoolGrades
             if (formType == TopicsFormType.HighlightTopics)
             {
                 btnSaveTree.Visible = false;
-                btnAddNode.Visible = false;
-                btnAddNode.Visible = false; 
+                btnAddNodeSon.Visible = false;
+                btnAddNodeBrother.Visible = false; 
                 btnChoose.Visible = false;
                 btnDelete.Visible = false; 
             }
         }
-        private void frmTopic_Load(object sender, EventArgs e)
+        private void frmTopics_Load(object sender, EventArgs e)
         {
             //topicTreeMptt = new TopicTreeMptt(listTopicsInternal, trwTopics,
             topicTreeMptt = new TreeMptt(Commons.dl, trwTopics,

@@ -752,6 +752,7 @@ namespace SchoolGrades
                 currentSubject);
             foreach (Student s in currentStudentsList)
             {
+                s.Eligible = false; 
                 foreach (int k in nonGraded)
                 {
                     if (k == s.IdStudent)
