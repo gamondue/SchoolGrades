@@ -194,7 +194,7 @@ namespace SchoolGrades
             Topic chosenTopic = currentTopic;
             List<Topic> oneItemList = new List<Topic>();
             oneItemList.Add(chosenTopic);
-            frmTopics f = new frmTopics(frmTopics.TopicsFormType.HighlightTopics,
+            frmTopics f = new frmTopics(frmTopics.TopicsFormType.ChooseTopic,
                 oneItemList, currentClass, currentSubject);
         
             f.ShowDialog();
