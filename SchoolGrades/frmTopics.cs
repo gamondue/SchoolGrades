@@ -30,7 +30,8 @@ namespace SchoolGrades
             HighlightTopics,
             ImportWithErase,
             ImportWithoutErase,
-            SearchForm
+            SearchTopics,
+            ChooseTopic
         }
         TopicsFormType formType;
         private Topic chosenTopic;
@@ -74,6 +75,14 @@ namespace SchoolGrades
                 btnAddNodeBrother.Visible = false; 
                 btnChoose.Visible = false;
                 btnDelete.Visible = false; 
+            }
+            else if (formType == TopicsFormType.ChooseTopic)
+            {
+                btnSaveTree.Visible = false;
+                btnAddNodeSon.Visible = false;
+                btnAddNodeBrother.Visible = false;
+                btnChoose.Visible = true;
+                btnDelete.Visible = false;
             }
         }
         private void frmTopics_Load(object sender, EventArgs e)
@@ -124,11 +133,34 @@ namespace SchoolGrades
                             null);
                         return;
                     }
-                case TopicsFormType.SearchForm:
+                case TopicsFormType.SearchTopics:
                     {
                         topicTreeMptt.FindItemById(listTopicsExternal[0].Id);
                         // just the first node
                         return;
+                    }
+                case TopicsFormType.ChooseTopic:
+                    {
+                        topicTreeMptt.ClearBackColorOnClick = false;
+                        // highlists the topics done by the current class in the current subject
+                        List<Topic> listDone = Commons.bl.GetTopicsDoneFromThisTopic(currentClass,
+                                ((Topic)trwTopics.Nodes[0].Tag), currentSubject);
+                        int dummy = 0; bool dummy2 = false;
+                        topicTreeMptt.HighlightTopicsInList(trwTopics.Nodes[0],
+                             listDone, ref dummy, ref dummy2);
+                        if (listTopicsExternal != null && listTopicsExternal[0] != null)
+                        {
+                            topicTreeMptt.FindItemById(listTopicsExternal[0].Id);
+                        }
+                        // hide the buttons 
+                        btnSaveTree.Visible = false;
+                        btnAddNodeSon.Visible = false;
+                        btnAddNodeBrother.Visible = false;
+                        btnChoose.Visible = true;
+                        btnDelete.Visible = false;
+                        // disable function keys
+                        topicTreeMptt.FunctionKeysEnabled = false;
+                        break;
                     }
             }
             // list read from database 
@@ -191,7 +223,6 @@ namespace SchoolGrades
         {
 
         }
-
         private void btnAddNodeBrother_Click(object sender, EventArgs e)
         {
             topicTreeMptt.AddNewNode("Nuovo argomento", false);
