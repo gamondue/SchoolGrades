@@ -96,17 +96,6 @@ namespace gamon.TreeMptt
         /// If true the backcolor of of nodes will be cleared when the user clicks on one node 
         /// </summary>
         public bool ClearBackColorOnClick { get => clearBackColorOnClick; set => clearBackColorOnClick = value; }
-        /// <summary>
-        /// True if the Mptt scan of the tree has been concluded 
-        /// </summary>
-        public bool AreLeftAndRightConsistent { get => areLeftAndRightConsistent; }
-        /// <summary>
-        /// True if the user has selected a node in the tree
-        /// </summary>
-        /// <summary>
-        /// true when a background task is saving left and right nodes to the tree
-        /// </summary>
-        public bool IsThreadSavingTreeMptt { get => isSavingTreeMptt; set => isSavingTreeMptt = value; }
         #endregion
         /// <summary>
         /// Name of the object
@@ -441,7 +430,7 @@ namespace gamon.TreeMptt
                     lock (CommonsWinForms.LockSavingCriticalSections)
                     {
                         CommonsWinForms.BackgroundSavingEnabled = true;
-                            CommonsWinForms.SwitchPicLedOn(true);
+                        CommonsWinForms.SwitchPicLedOn(true);
                         // read the tree by Parent into a new TreeView control
                         TreeView hiddenTree = new TreeView();
                         AddNodesToTreeViewByParent(hiddenTree);
@@ -460,8 +449,8 @@ namespace gamon.TreeMptt
                             // not executed if saving is aborted 
                             dbMptt.SaveLeftRightConsistent(true);
                         CommonsWinForms.BackgroundSavingEnabled = false;
-                        CommonsWinForms.SwitchPicLedOn(false);
                     }
+                    CommonsWinForms.SwitchPicLedOn(false);
                 }
             }
         }
@@ -548,11 +537,6 @@ namespace gamon.TreeMptt
                     t.ParentNodeOld = t.ParentNodeNew;
                 }
                 dbMptt.SaveLeftRightConsistent(false);
-                ////try
-                ////{
-                //    CommonsWinForms.SwitchPicLedOn(false);
-                ////}
-                ////catch { }
             }
             lock (CommonsWinForms.LockBackgroundSavingVariables)
             {
