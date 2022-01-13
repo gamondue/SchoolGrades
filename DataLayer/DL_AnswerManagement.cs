@@ -22,7 +22,6 @@ namespace SchoolGrades
 
             return a;
         }
-
         internal List<StudentsAnswer> GetAllAnswersOfAStudentToAQuestionOfThisTest(
             int? IdStudent, int? IdQuestion, int? IdTest)
         {
@@ -52,7 +51,6 @@ namespace SchoolGrades
             }
             return list;
         }
-
         internal void AddAnswerToQuestion(int? idQuestion, int? idAnswer)
         {
             using (DbConnection conn = Connect())
@@ -66,7 +64,6 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-
         internal List<Answer> GetAllCorrectAnswersToThisQuestionOfThisTest(int? IdQuestion, int? IdTest)
         {
             List<Answer> list = new List<Answer>();
@@ -92,7 +89,6 @@ namespace SchoolGrades
             }
             return list;
         }
-
         internal Answer GetAnswerFromRow(DbDataReader Row)
         {
             Answer a = new Answer();
@@ -107,8 +103,6 @@ namespace SchoolGrades
 
             return a;
         }
-
-
         internal int CreateAnswer(Answer currentAnswer)
         {
             // trova una chiave da assegnare alla nuova domanda
@@ -151,7 +145,6 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-
         internal List<Answer> GetAnswersOfAQuestion(int? idQuestion)
         {
             List<Answer> l = new List<Answer>();

@@ -54,15 +54,12 @@ namespace SchoolGrades
             {
                 currentQuestion = Commons.bl.GetQuestionById(Question.IdQuestion);
             }
-            if (Topic != null)
+            if (Topic != null && Topic.Id != null)
             {
                 currentTopic = Commons.bl.GetTopicById(Topic.Id);
                 if (currentTopic.Id != 0)
                     txtTopic.Text = dbMptt.GetTopicPath(currentTopic.Id);
             }
-
-            //if (Subject != null)
-            //    idSchoolSubject = Subject.IdSchoolSubject;    
         }
 
         private void frmQuestion_Load(object sender, EventArgs e)

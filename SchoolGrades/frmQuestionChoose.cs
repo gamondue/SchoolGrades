@@ -26,7 +26,8 @@ namespace SchoolGrades
 
         string keySubject, keyQuestionType;
 
-        bool isLoading = true; 
+        bool isLoading = true;
+        private SchoolPeriod currentSchoolPeriod;
 
         internal Question ChosenQuestion {get => chosenQuestion; set => chosenQuestion = value; }
         public frmMicroAssessment ParentForm { get; }
@@ -66,7 +67,17 @@ namespace SchoolGrades
                 txtTopic.Text = dbMptt.GetTopicPath(previousQuestion.IdTopic);
                 txtTopicCode.Text = currentTopic.Id.ToString();
             }
-            cmbStandardPeriod.SelectedIndex = 4; // !! year !! TODO set with previous value 
+            List<SchoolPeriod> listPeriods = Commons.bl.GetSchoolPeriods(currentClass.SchoolYear);
+            cmbSchoolPeriod.DataSource = listPeriods;
+            // select the combo item of the partial period of the DateTime.Now
+            foreach (SchoolPeriod sp in listPeriods)
+            {
+                if (sp.DateFinish > DateTime.Now && sp.DateStart < DateTime.Now
+                    && sp.IdSchoolPeriodType == "P")
+                {
+                    cmbSchoolPeriod.SelectedItem = sp;
+                }
+            }
 
             isLoading = false;
             // if the query would include too many rows, don't do it 
@@ -134,7 +145,7 @@ namespace SchoolGrades
             //    keyQuestionType, currentTopic, rdbManyTopics.Checked, rdbAnd.Checked);
             DateTime dateFrom = dtpStartPeriod.Value;
             DateTime dateTo = dtpEndPeriod.Value;
-            if (cmbStandardPeriod.Text == "")
+            if (cmbSchoolPeriod.Text == "")
                 dateFrom = Commons.DateNull;
             if (currentSubject == null)
                 currentSubject = new SchoolSubject();
@@ -298,38 +309,28 @@ namespace SchoolGrades
         {
             updateQuestions();
         }
-        private void cmbStandardPeriod_SelectedIndexChanged(object sender, EventArgs e)
+        private void cmbSchoolPeriod_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (cmbStandardPeriod.SelectedIndex)
+            currentSchoolPeriod = (SchoolPeriod)(cmbSchoolPeriod.SelectedValue);
+            if (currentSchoolPeriod.IdSchoolPeriodType != "N")
             {
-                case 0:
-                    { // week
-                        dtpStartPeriod.Value = Commons.DateNull;
-                        break;
-                    }
-                case 1:
-                    { // week
-                        dtpStartPeriod.Value = dtpEndPeriod.Value.AddDays(-7);
-                        break;
-                    }
-                case 2:
-                    {  // month
-                        dtpStartPeriod.Value = dtpEndPeriod.Value.AddMonths(-1);
-                        break;
-                    }
-                case 3:
-                    {   // school year
-                        // TODO calculate automatically the beginning of the school year 
-                        // TODO and put in dtpStartPeriod
-                        dtpStartPeriod.Value = new DateTime(2018, 09, 1);
-                        break;
-                    }
-                case 4:
-                    {   // from the beginning of the solar year. 
-                        // TODO use the periods stores in SchoolPeriods table 
-                        dtpStartPeriod.Value = new DateTime(2019, 01, 01);
-                        break;
-                    }
+                dtpStartPeriod.Value = (DateTime)currentSchoolPeriod.DateStart;
+                dtpEndPeriod.Value = (DateTime)currentSchoolPeriod.DateFinish;
+            }
+            else if (currentSchoolPeriod.IdSchoolPeriod == "month")
+            {
+                dtpStartPeriod.Value = DateTime.Now.AddMonths(-1);
+                dtpEndPeriod.Value = DateTime.Now;
+            }
+            else if (currentSchoolPeriod.IdSchoolPeriod == "week")
+            {
+                dtpStartPeriod.Value = DateTime.Now.AddDays(-7);
+                dtpEndPeriod.Value = DateTime.Now;
+            }
+            else if (currentSchoolPeriod.IdSchoolPeriod == "year")
+            {
+                dtpStartPeriod.Value = DateTime.Now.AddYears(-1);
+                dtpEndPeriod.Value = DateTime.Now;
             }
             updateQuestions();
         }
@@ -388,7 +389,7 @@ namespace SchoolGrades
             //    keyQuestionType, currentTopic, rdbManyTopics.Checked, rdbAnd.Checked);
             DateTime dateFrom = dtpStartPeriod.Value;
             DateTime dateTo = dtpEndPeriod.Value;
-            if (cmbStandardPeriod.Text == "")
+            if (cmbSchoolPeriod.Text == "")
                 dateFrom = Commons.DateNull;
             if (currentSubject == null)
                 currentSubject = new SchoolSubject();

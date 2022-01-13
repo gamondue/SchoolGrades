@@ -230,14 +230,24 @@ namespace SchoolGrades
         }
         private void dgwGrades_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            int IdQuestion;
             if (e.RowIndex > -1)
             {
                 try
                 {
-                    IdQuestion = (int)dgwGrades.Rows[e.RowIndex].Cells[0].Value;
-                    frmMicroAssessment fg = new frmMicroAssessment(IdQuestion);
-                    fg.Show();
+                    if (!rdbMissing.Checked)
+                    {
+                        int IdQuestion = (int)dgwGrades.Rows[e.RowIndex].Cells[0].Value;
+                        frmMicroAssessment fg = new frmMicroAssessment(IdQuestion);
+                        fg.Show();
+                    } else
+                    {
+                        int IdStudent = (int)dgwGrades.Rows[e.RowIndex].Cells[0].Value;
+                        Student currentStudent = Commons.bl.GetStudent(IdStudent); 
+                        frmMicroAssessment fg = new frmMicroAssessment(null,
+                            currentClass, currentStudent,
+                            currentGradeType, currentSubject, null);
+                        fg.Show();
+                    }
                 }
                 catch
                 {

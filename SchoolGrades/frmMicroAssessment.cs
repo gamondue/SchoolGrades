@@ -23,16 +23,14 @@ namespace SchoolGrades
         SchoolSubject currentSchoolSubject;
         Question currentQuestion = new Question();
 
-        internal Question CurrentQuestion { get => currentQuestion; set => currentQuestion = value; }
-        Grade currentGrade = new Grade();
-        internal Grade CurrentGrade { get => currentGrade; set => currentGrade = value; }
-        internal frmMicroAssessment(frmMain CallingForm, Class Class, Student Student,  
+        #region constructors
+        internal frmMicroAssessment(frmMain CallingForm, Class Class, Student Student,
             GradeType GradeType, SchoolSubject Subject, Question Question)
         {
             InitializeComponent();
 
-            callingForm = CallingForm; 
-            currentClass = Class; 
+            callingForm = CallingForm;
+            currentClass = Class;
             currentStudent = Student;
             currentGradeType = GradeType;
             currentSchoolSubject = Subject;
@@ -48,18 +46,24 @@ namespace SchoolGrades
             Commons.bl.GetGradeAndStudentFromIdGrade(ref currentGrade, ref currentStudent);
             currentYear = currentGrade.IdSchoolYear;
             currentClass = Commons.bl.GetClassOfStudent(Commons.IdSchool, currentYear, currentStudent);
-            
+
             currentGradeType = Commons.bl.GetGradeType(currentGrade.IdGradeType);
 
             currentSchoolSubject = Commons.bl.GetSchoolSubject(currentGrade.IdSchoolSubject);
             currentQuestion = Commons.bl.GetQuestionById(currentGrade.IdQuestion);
         }
+
+        #endregion
+        internal Question CurrentQuestion { get => currentQuestion; set => currentQuestion = value; }
+        Grade currentGrade = new Grade();
+        internal Grade CurrentGrade { get => currentGrade; set => currentGrade = value; }
         private void frmMicroAssessment_Load(object sender, EventArgs e)
         {
             if (currentStudent is null)
             {
                 MessageBox.Show("Selezionare un allievo");
                 this.Close();
+                return; 
             }
 
             //if (currentGradeType != null)

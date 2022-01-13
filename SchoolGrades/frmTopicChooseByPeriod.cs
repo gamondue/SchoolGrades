@@ -21,12 +21,11 @@ namespace SchoolGrades
             OpenTopicOnExit,
         }
         TopicChooseFormType formType;
+        private SchoolPeriod currentSchoolPeriod;
         public frmTopicChooseByPeriod(TopicChooseFormType FormType, 
             Class Class, SchoolSubject Subject)
         {
             InitializeComponent();
-            //db = new DbAndBusiness(Commons.PathAndFileDatabase);
-            //dl = new DataLayer();
             currentClass = Class;
             currentSubject = Subject;
             formType = FormType;
@@ -47,13 +46,22 @@ namespace SchoolGrades
             {
 
             }
-            cmbStandardPeriod.SelectedIndex = 4; // !! year !! TODO read previuos value 
+            List<SchoolPeriod> listPeriods = Commons.bl.GetSchoolPeriods(currentClass.SchoolYear);
+            cmbSchoolPeriod.DataSource = listPeriods;
+            // select the combo item of the partial period of the DateTime.Now
+            foreach (SchoolPeriod sp in listPeriods)
+            {
+                if (sp.DateFinish > DateTime.Now && sp.DateStart < DateTime.Now
+                    && sp.IdSchoolPeriodType == "P")
+                {
+                    cmbSchoolPeriod.SelectedItem = sp;
+                }
+            }
         }
-
         private void btnSearch_Click(object sender, EventArgs e)
         {
             DateTime dateFrom;
-            if (cmbStandardPeriod.Text == "")
+            if (cmbSchoolPeriod.Text == "")
                 dateFrom = Commons.DateNull;
             else
                 dateFrom = dtpStartPeriod.Value; 
@@ -80,12 +88,10 @@ namespace SchoolGrades
             dgwTopics.Columns[11].Visible = false;
             dgwTopics.Columns[12].Visible = false;
         }
-
         private void dgwTopics_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
-
         private void dgwTopics_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
@@ -115,7 +121,6 @@ namespace SchoolGrades
                 }
             }
         }
-
         private void btnRandomTopic_Click(object sender, EventArgs e)
         {
             if (topicsDone == null)
@@ -132,7 +137,6 @@ namespace SchoolGrades
             }
             Console.Beep(); 
         }
-
         private void btnChoose_Click(object sender, EventArgs e)
         {
             if (dgwTopics.SelectedRows.Count == 0)
@@ -166,59 +170,30 @@ namespace SchoolGrades
                     }
             }
         }
-
-        private void rdbWeek_CheckedChanged(object sender, EventArgs e)
-        {
-            dtpStartPeriod.Value = dtpEndPeriod.Value.AddDays(-7);
-        }
-
-        private void rdbMonth_CheckedChanged(object sender, EventArgs e)
-        {
-            dtpStartPeriod.Value = dtpEndPeriod.Value.AddMonths(-1);
-        }
-
-        private void rdbSchoolYear_CheckedChanged(object sender, EventArgs e)
-        {
-            // TODO calculate automatically the beginning of the school year 
-            // TODO and put in dtpStartPeriod
-            dtpStartPeriod.Value = new DateTime(2018, 09, 15);
-        }
-
         private void cmbStandardPeriod_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (cmbStandardPeriod.SelectedIndex)
+            currentSchoolPeriod = (SchoolPeriod)(cmbSchoolPeriod.SelectedValue);
+            if (currentSchoolPeriod.IdSchoolPeriodType != "N")
             {
-                case 0:
-                    { // week
-                        dtpStartPeriod.Value = Commons.DateNull;
-                        break;
-                    }
-                case 1:
-                    { // week
-                        dtpStartPeriod.Value = dtpEndPeriod.Value.AddDays(-7);
-                        break;
-                    }
-                case 2:
-                    {  // month
-                        dtpStartPeriod.Value = dtpEndPeriod.Value.AddMonths(-1);
-                        break;
-                    }
-                case 3:
-                    {   // school year
-                        // TODO calculate automatically the beginning of the school year 
-                        // TODO and put in dtpStartPeriod
-                        dtpStartPeriod.Value = new DateTime(2018, 09, 1);
-                        break;
-                    }
-                case 4:
-                    {   // from the beginning of the solar year. 
-                        // TODO use the periods stores in SchoolPeriods table 
-                        dtpStartPeriod.Value = new DateTime(2019, 01, 01);
-                        break;
-                    }
+                dtpStartPeriod.Value = (DateTime)currentSchoolPeriod.DateStart;
+                dtpEndPeriod.Value = (DateTime)currentSchoolPeriod.DateFinish;
+            }
+            else if (currentSchoolPeriod.IdSchoolPeriod == "month")
+            {
+                dtpStartPeriod.Value = DateTime.Now.AddMonths(-1);
+                dtpEndPeriod.Value = DateTime.Now;
+            }
+            else if (currentSchoolPeriod.IdSchoolPeriod == "week")
+            {
+                dtpStartPeriod.Value = DateTime.Now.AddDays(-7);
+                dtpEndPeriod.Value = DateTime.Now;
+            }
+            else if (currentSchoolPeriod.IdSchoolPeriod == "year")
+            {
+                dtpStartPeriod.Value = DateTime.Now.AddYears(-1);
+                dtpEndPeriod.Value = DateTime.Now;
             }
         }
-
         private void dgwTopics_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)

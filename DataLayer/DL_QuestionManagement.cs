@@ -43,37 +43,39 @@ namespace SchoolGrades
                 }
                 query += queryTags;
             }
-            if (IdSchoolSubject != "")
+            if (IdSchoolSubject != null && IdSchoolSubject != "")
             {
                 // if we have already added the SQL for tags, we don't need a where
-                if (Tags != null && Tags.Count > 0)
+                if (query.Contains("WHERE"))
                     query += " AND idSchoolSubject=" + SqlString(IdSchoolSubject);
                 else
                     query += " WHERE idSchoolSubject=" + SqlString(IdSchoolSubject);
             }
             if (IdQuestionType != null && IdQuestionType != "")
             {
-                if (IdSchoolSubject != "" || Tags.Count > 0)
+                if (query.Contains("WHERE"))
                     query += " AND idQuestionType=" + SqlString(IdQuestionType);
                 else
                     query += " WHERE idQuestionType=" + SqlString(IdQuestionType);
             }
-            if (QuestionsTopic != null)
+            if (QuestionsTopic != null && QuestionsTopic.Id != null)
             {
                 if (!QueryManyTopics)
                 {
-                    if (IdSchoolSubject != "" || Tags.Count > 0 || IdQuestionType != "")
+                    // just one topic
+                    if (query.Contains("WHERE"))
                         query += " AND idTopic=" + QuestionsTopic.Id + "";
                     else
                         query += " WHERE idTopic=" + QuestionsTopic.Id + "";
                 }
                 else
                 {
+                    // manu topics: all those that stay under the node passed 
                     string queryApplicableTopics = "SELECT idTopic FROM Topics" +
                         " WHERE Topics.leftNode BETWEEN " + QuestionsTopic.LeftNodeOld +
                         " AND " + QuestionsTopic.RightNodeOld;
                     // query the passed Topic, plus all its descendants in the tree
-                    if (IdSchoolSubject != "" || Tags.Count > 0 || IdQuestionType != "")
+                    if (query.Contains("WHERE"))
                         query += " AND Questions.IdTopic IN (" + queryApplicableTopics + ")";
                     else
                         query += " WHERE Questions.IdTopic IN (" + queryApplicableTopics + ")";
@@ -303,65 +305,63 @@ namespace SchoolGrades
             {
                 query += " WHERE Questions.text " + SqlStringLike(SearchString) + ""; 
             }
-            if (Subject != null)
-                filteredQuestions = MakeStringForFilteredQuestionsQuery(Tags, Subject.IdSchoolSubject, IdQuestionType,
-                    Topic, QueryManyTopics, TagsAnd);
-            else
-                filteredQuestions = MakeStringForFilteredQuestionsQuery(Tags, "", IdQuestionType,
-                    Topic, QueryManyTopics, TagsAnd);
-            // !!!! THIS PART MUST BE FIXED !!!!
-            string questionsAlreadyMade = "";
-            //if (Student != null)
-            //{
-            //    questionsAlreadyMade = "SELECT Questions.idQuestion" +
-            //        " FROM Questions" +
-            //        " JOIN Grades ON Questions.idQuestion=Grades.idQuestion" +
-            //        " JOIN Students ON Students.idStudent=Grades.IdStudent" +
-            //        " WHERE Students.idStudent=" + Student.IdStudent +
-            //        " AND Grades.idSchoolYear='" + Class.SchoolYear + "'";
-            //}
-            //string questionsTopicsMade = "";
-            //if (Class != null && Subject != null)
-            //{
-            //    // questions made to the class in every time ever 
-            //    questionsTopicsMade = "SELECT Questions.idQuestion" +
-            //        " FROM Questions" +
-            //        " JOIN Lessons_Topics ON Questions.idTopic=Lessons_Topics.idTopic" +
-            //        " JOIN Lessons ON Lessons_Topics.idLesson=Lessons.idLesson" +
-            //        " JOIN Classes ON Classes.idClass=Lessons.idClass" +
-            //        " WHERE Classes.idClass=" + Class.IdClass +
-            //        " AND (Questions.idSchoolSubject='" + Subject.IdSchoolSubject + "'" +
-            //        " OR Questions.idSchoolSubject='' OR Questions.idSchoolSubject=NULL)";
-            //    if (DateFrom != Commons.DateNull)
-            //        questionsTopicsMade += " AND (Lessons.Date BETWEEN " + SqlDate(DateFrom) + " AND " + SqlDate(DateTo) + ")";
-            //    // PART of the final query that extracts the Ids of the questions already made 
-            //    questionsTopicsMade = " Questions.idQuestion IN(" + questionsTopicsMade + ")";
-            //}
 
-            //if (questionsAlreadyMade != "")
-            //{
-            //    // take only questions already made 
-            //    if (SearchString == "")
-            //    {
-            //        query += " WHERE Questions.idQuestion NOT IN(" + questionsAlreadyMade + ")";
-            //    }
-            //    else
-            //    {
-            //        query += " Questions.idQuestion NOT IN(" + questionsAlreadyMade + ")";
-            //    }
-            //}
-            //if (filteredQuestions != "")
-            //{
-            //    if (questionsAlreadyMade != "" || SearchString != "")
-            //    {
-            //        query += " AND Questions.idQuestion IN(" + filteredQuestions + ")";
-            //    }
-            //    else
-            //    {
-            //        query += " WHERE Questions.idQuestion IN(" + filteredQuestions + ")";
-            //    }
-            //}
-            //query += " OR Questions.idTopic IS NULL OR Questions.idTopic = ''";
+            filteredQuestions = MakeStringForFilteredQuestionsQuery(Tags, Subject.IdSchoolSubject, IdQuestionType,
+                    Topic, QueryManyTopics, TagsAnd);
+
+            // !!!! IF we don't want to make the same question to the student the next part SHOULD BE FIXED !!!!
+            string questionsAlreadyMade = "";
+            if (Student != null)
+            {
+                questionsAlreadyMade = "SELECT Questions.idQuestion" +
+                    " FROM Questions" +
+                    " JOIN Grades ON Questions.idQuestion=Grades.idQuestion" +
+                    " JOIN Students ON Students.idStudent=Grades.IdStudent" +
+                    " WHERE Students.idStudent=" + Student.IdStudent +
+                    " AND Grades.idSchoolYear='" + Class.SchoolYear + "'";
+            }
+            string questionsTopicsMade = "";
+            if (Class != null && Subject != null)
+            {
+                // questions made to the class 
+                questionsTopicsMade = "SELECT Questions.idQuestion" +
+                    " FROM Questions" +
+                    " JOIN Lessons_Topics ON Questions.idTopic=Lessons_Topics.idTopic" +
+                    " JOIN Lessons ON Lessons_Topics.idLesson=Lessons.idLesson" +
+                    " JOIN Classes ON Classes.idClass=Lessons.idClass" +
+                    " WHERE Classes.idClass=" + Class.IdClass +
+                    " AND (Questions.idSchoolSubject='" + Subject.IdSchoolSubject + "'" +
+                    " OR Questions.idSchoolSubject='' OR Questions.idSchoolSubject=NULL)";
+                //////////////if (DateFrom != Commons.DateNull)
+                //////////////    questionsTopicsMade += " AND (Lessons.Date BETWEEN " + SqlDate(DateFrom) + " AND " + SqlDate(DateTo) + ")";
+                // PART of the final query that extracts the Ids of the questions already made 
+                questionsTopicsMade = " Questions.idQuestion IN(" + questionsTopicsMade + ")";
+            }
+            if (questionsAlreadyMade != "")
+            {
+                // take only questions already made 
+                if (SearchString == "")
+                {
+                    query += " WHERE Questions.idQuestion NOT IN(" + questionsAlreadyMade + ")";
+                }
+                else
+                {
+                    query += " AND Questions.idQuestion NOT IN(" + questionsAlreadyMade + ")";
+                }
+            }
+            if (filteredQuestions != "")
+            {
+                if (query.Contains("WHERE"))
+                {
+                    query += " AND";
+                }
+                else
+                {
+                    query += " WHERE";
+                }
+                query += " Questions.idQuestion IN(" + filteredQuestions + ")";
+            }
+            query += " OR Questions.idTopic IS NULL OR Questions.idTopic = ''";
             //if (SearchString != "")
             //    query += ")";
 

@@ -615,5 +615,13 @@ namespace SchoolGrades
             // set focus to the name textBox
             txtTopicName.Focus();
         }
+
+        private void btnFindUnderNode_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Da fare!");
+            return; 
+
+            topicTreeMptt.FindItemUnderNode(txtTopicFind.Text, chkFindAll.Checked);
+        }
     }
 }

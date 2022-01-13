@@ -64,6 +64,7 @@
             this.chkAskPassword = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.chkSaveBackup = new System.Windows.Forms.CheckBox();
+            this.btnSchoolPeriodsManagement = new System.Windows.Forms.Button();
             this.btnUsersManagement = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -150,7 +151,7 @@
             // btnSaveConfigurationFile
             // 
             this.btnSaveConfigurationFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnSaveConfigurationFile.Location = new System.Drawing.Point(1035, 82);
+            this.btnSaveConfigurationFile.Location = new System.Drawing.Point(1141, 71);
             this.btnSaveConfigurationFile.Name = "btnSaveConfigurationFile";
             this.btnSaveConfigurationFile.Size = new System.Drawing.Size(96, 50);
             this.btnSaveConfigurationFile.TabIndex = 92;
@@ -344,7 +345,7 @@
             // btnEraseConfigurationFile
             // 
             this.btnEraseConfigurationFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnEraseConfigurationFile.Location = new System.Drawing.Point(1035, 221);
+            this.btnEraseConfigurationFile.Location = new System.Drawing.Point(1141, 210);
             this.btnEraseConfigurationFile.Name = "btnEraseConfigurationFile";
             this.btnEraseConfigurationFile.Size = new System.Drawing.Size(96, 50);
             this.btnEraseConfigurationFile.TabIndex = 108;
@@ -355,7 +356,7 @@
             // BtnUseDemo
             // 
             this.BtnUseDemo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.BtnUseDemo.Location = new System.Drawing.Point(1035, 290);
+            this.BtnUseDemo.Location = new System.Drawing.Point(1141, 279);
             this.BtnUseDemo.Name = "BtnUseDemo";
             this.BtnUseDemo.Size = new System.Drawing.Size(96, 50);
             this.BtnUseDemo.TabIndex = 109;
@@ -377,7 +378,7 @@
             // btnOpenConfigurationFolder
             // 
             this.btnOpenConfigurationFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnOpenConfigurationFolder.Location = new System.Drawing.Point(1035, 135);
+            this.btnOpenConfigurationFolder.Location = new System.Drawing.Point(1141, 124);
             this.btnOpenConfigurationFolder.Name = "btnOpenConfigurationFolder";
             this.btnOpenConfigurationFolder.Size = new System.Drawing.Size(96, 50);
             this.btnOpenConfigurationFolder.TabIndex = 111;
@@ -408,6 +409,17 @@
             this.toolTip1.SetToolTip(this.chkSaveBackup, "Se abilitato il programma chiede una password per entrare");
             this.chkSaveBackup.UseVisualStyleBackColor = true;
             // 
+            // btnSchoolPeriodsManagement
+            // 
+            this.btnSchoolPeriodsManagement.Location = new System.Drawing.Point(1139, 12);
+            this.btnSchoolPeriodsManagement.Name = "btnSchoolPeriodsManagement";
+            this.btnSchoolPeriodsManagement.Size = new System.Drawing.Size(98, 50);
+            this.btnSchoolPeriodsManagement.TabIndex = 115;
+            this.btnSchoolPeriodsManagement.Text = "Gestione periodi";
+            this.toolTip1.SetToolTip(this.btnSchoolPeriodsManagement, "Gestione periodi scolastici (trimesti, quadrimestri..)");
+            this.btnSchoolPeriodsManagement.UseVisualStyleBackColor = true;
+            this.btnSchoolPeriodsManagement.Click += new System.EventHandler(this.btnSchoolPeriodsManagement_Click);
+            // 
             // btnUsersManagement
             // 
             this.btnUsersManagement.Location = new System.Drawing.Point(934, 12);
@@ -423,7 +435,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
-            this.ClientSize = new System.Drawing.Size(1145, 348);
+            this.ClientSize = new System.Drawing.Size(1276, 348);
+            this.Controls.Add(this.btnSchoolPeriodsManagement);
             this.Controls.Add(this.btnUsersManagement);
             this.Controls.Add(this.chkSaveBackup);
             this.Controls.Add(this.chkAskPassword);
@@ -507,5 +520,6 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.CheckBox chkSaveBackup;
         private System.Windows.Forms.Button btnUsersManagement;
+        private System.Windows.Forms.Button btnSchoolPeriodsManagement;
     }
 }

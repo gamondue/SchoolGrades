@@ -1,6 +1,6 @@
 ﻿namespace SchoolGrades
 {
-    partial class FrmSchoolSubjectManagement
+    partial class frmSchoolSubjectManagement
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmSchoolSubjectManagement));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSchoolSubjectManagement));
             this.DgwSubjects = new System.Windows.Forms.DataGridView();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.picSubjectColor = new System.Windows.Forms.PictureBox();
