@@ -578,6 +578,7 @@
             this.cmbSchoolPeriod.Name = "cmbSchoolPeriod";
             this.cmbSchoolPeriod.Size = new System.Drawing.Size(218, 26);
             this.cmbSchoolPeriod.TabIndex = 153;
+            this.cmbSchoolPeriod.SelectedIndexChanged += new System.EventHandler(this.cmbSchoolPeriod_SelectedIndexChanged);
             // 
             // BtnPreviousImage
             // 

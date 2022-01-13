@@ -6,19 +6,21 @@ using System.Windows.Forms;
 
 namespace SchoolGrades
 {
-    public partial class FrmSchoolSubjectManagement : Form
+    public partial class frmSchoolSubjectManagement : Form
     {
         SchoolSubject currentSubject;
         List<SchoolSubject> subjectList;  
-
-        public FrmSchoolSubjectManagement()
+        public frmSchoolSubjectManagement()
         {
             InitializeComponent();
         }
-
         private void frmSchoolSubjectManagement_Load(object sender, EventArgs e)
         {
-            subjectList = Commons.bl.GetListSchoolSubjects(false); 
+            RefreshGrid(); 
+        }
+        private void RefreshGrid()
+        {
+            subjectList = Commons.bl.GetListSchoolSubjects(false);
             DgwSubjects.DataSource = subjectList;
             DgwSubjects.Columns["OldId"].Visible = false;
         }
@@ -27,7 +29,6 @@ namespace SchoolGrades
         {
 
         }
-
         private void DgwSubjects_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             int? index; 
@@ -75,7 +76,6 @@ namespace SchoolGrades
             subjectList = Commons.bl.GetListSchoolSubjects(false);
             DgwSubjects.DataSource = subjectList;
         }
-
         private void btnAdd_Click(object sender, EventArgs e)
         {
             SchoolSubject ss = new SchoolSubject (); 
@@ -83,7 +83,6 @@ namespace SchoolGrades
             DgwSubjects.DataSource = null; 
             DgwSubjects.DataSource = subjectList;
         }
-
         private void btnErase_Click(object sender, EventArgs e)
         {
             if (DgwSubjects.SelectedRows == null)

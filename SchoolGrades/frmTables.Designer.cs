@@ -35,7 +35,6 @@
             this.rdbSchools = new System.Windows.Forms.RadioButton();
             this.rdbQuestionTypes = new System.Windows.Forms.RadioButton();
             this.rdbGradeCategories = new System.Windows.Forms.RadioButton();
-            this.rdbSchoolPeriods = new System.Windows.Forms.RadioButton();
             this.rdbSchoolYears = new System.Windows.Forms.RadioButton();
             this.rdbAnswerTypes = new System.Windows.Forms.RadioButton();
             this.btnOpen = new System.Windows.Forms.Button();
@@ -113,18 +112,6 @@
             this.rdbGradeCategories.UseVisualStyleBackColor = true;
             this.rdbGradeCategories.CheckedChanged += new System.EventHandler(this.rdb_CheckedChanged);
             // 
-            // rdbSchoolPeriods
-            // 
-            this.rdbSchoolPeriods.AutoSize = true;
-            this.rdbSchoolPeriods.Location = new System.Drawing.Point(2, 311);
-            this.rdbSchoolPeriods.Name = "rdbSchoolPeriods";
-            this.rdbSchoolPeriods.Size = new System.Drawing.Size(138, 22);
-            this.rdbSchoolPeriods.TabIndex = 6;
-            this.rdbSchoolPeriods.TabStop = true;
-            this.rdbSchoolPeriods.Text = "Periodi scolastici";
-            this.rdbSchoolPeriods.UseVisualStyleBackColor = true;
-            this.rdbSchoolPeriods.CheckedChanged += new System.EventHandler(this.rdb_CheckedChanged);
-            // 
             // rdbSchoolYears
             // 
             this.rdbSchoolYears.AutoSize = true;
@@ -169,7 +156,6 @@
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.rdbAnswerTypes);
             this.Controls.Add(this.rdbSchoolYears);
-            this.Controls.Add(this.rdbSchoolPeriods);
             this.Controls.Add(this.rdbGradeCategories);
             this.Controls.Add(this.rdbQuestionTypes);
             this.Controls.Add(this.rdbSchools);
@@ -198,7 +184,6 @@
         private System.Windows.Forms.RadioButton rdbSchools;
         private System.Windows.Forms.RadioButton rdbQuestionTypes;
         private System.Windows.Forms.RadioButton rdbGradeCategories;
-        private System.Windows.Forms.RadioButton rdbSchoolPeriods;
         private System.Windows.Forms.RadioButton rdbSchoolYears;
         private System.Windows.Forms.RadioButton rdbAnswerTypes;
         private System.Windows.Forms.Button btnOpen;

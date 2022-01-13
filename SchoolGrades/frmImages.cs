@@ -21,6 +21,8 @@ namespace SchoolGrades
         ImagesFormType type;
         private string lessonImagesPath;
         private int currentIndexInImages;
+        private SchoolPeriod currentSchoolPeriod;
+
         public enum ImagesFormType
         {
             NormalManagement,
@@ -487,6 +489,31 @@ namespace SchoolGrades
         private void BtnLastImage_Click(object sender, EventArgs e)
         {
             LastImage(); 
+        }
+
+        private void cmbSchoolPeriod_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            currentSchoolPeriod = (SchoolPeriod)(cmbSchoolPeriod.SelectedValue);
+            if (currentSchoolPeriod.IdSchoolPeriodType != "N")
+            {
+                dtpStartPeriod.Value = (DateTime)currentSchoolPeriod.DateStart;
+                dtpEndPeriod.Value = (DateTime)currentSchoolPeriod.DateFinish;
+            }
+            else if (currentSchoolPeriod.IdSchoolPeriod == "month")
+            {
+                dtpStartPeriod.Value = DateTime.Now.AddMonths(-1);
+                dtpEndPeriod.Value = DateTime.Now;
+            }
+            else if (currentSchoolPeriod.IdSchoolPeriod == "week")
+            {
+                dtpStartPeriod.Value = DateTime.Now.AddDays(-7);
+                dtpEndPeriod.Value = DateTime.Now;
+            }
+            else if (currentSchoolPeriod.IdSchoolPeriod == "year")
+            {
+                dtpStartPeriod.Value = DateTime.Now.AddYears(-1);
+                dtpEndPeriod.Value = DateTime.Now;
+            }
         }
     }
 }

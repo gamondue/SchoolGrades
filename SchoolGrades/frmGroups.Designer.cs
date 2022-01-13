@@ -64,7 +64,7 @@
             this.txtGroups.Multiline = true;
             this.txtGroups.Name = "txtGroups";
             this.txtGroups.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtGroups.Size = new System.Drawing.Size(469, 527);
+            this.txtGroups.Size = new System.Drawing.Size(535, 527);
             this.txtGroups.TabIndex = 0;
             // 
             // btnCreateFileGroups
@@ -209,7 +209,7 @@
             this.grpPeriodOfQuestionsTopics.Enabled = false;
             this.grpPeriodOfQuestionsTopics.Location = new System.Drawing.Point(291, 57);
             this.grpPeriodOfQuestionsTopics.Name = "grpPeriodOfQuestionsTopics";
-            this.grpPeriodOfQuestionsTopics.Size = new System.Drawing.Size(178, 128);
+            this.grpPeriodOfQuestionsTopics.Size = new System.Drawing.Size(234, 128);
             this.grpPeriodOfQuestionsTopics.TabIndex = 147;
             this.grpPeriodOfQuestionsTopics.TabStop = false;
             this.grpPeriodOfQuestionsTopics.Text = "Periodo dei voti";
@@ -217,7 +217,7 @@
             // lblEnd
             // 
             this.lblEnd.AutoSize = true;
-            this.lblEnd.Location = new System.Drawing.Point(2, 61);
+            this.lblEnd.Location = new System.Drawing.Point(65, 61);
             this.lblEnd.Name = "lblEnd";
             this.lblEnd.Size = new System.Drawing.Size(36, 18);
             this.lblEnd.TabIndex = 157;
@@ -226,7 +226,7 @@
             // lblStart
             // 
             this.lblStart.AutoSize = true;
-            this.lblStart.Location = new System.Drawing.Point(2, 24);
+            this.lblStart.Location = new System.Drawing.Point(65, 24);
             this.lblStart.Name = "lblStart";
             this.lblStart.Size = new System.Drawing.Size(42, 18);
             this.lblStart.TabIndex = 156;
@@ -236,7 +236,7 @@
             // 
             this.dtpEndPeriod.CustomFormat = "yyyy-MM-dd";
             this.dtpEndPeriod.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpEndPeriod.Location = new System.Drawing.Point(54, 56);
+            this.dtpEndPeriod.Location = new System.Drawing.Point(117, 56);
             this.dtpEndPeriod.MinDate = new System.DateTime(1800, 1, 1, 0, 0, 0, 0);
             this.dtpEndPeriod.Name = "dtpEndPeriod";
             this.dtpEndPeriod.Size = new System.Drawing.Size(111, 24);
@@ -247,12 +247,13 @@
             // 
             this.dtpStartPeriod.CustomFormat = "yyyy-MM-dd";
             this.dtpStartPeriod.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpStartPeriod.Location = new System.Drawing.Point(54, 21);
+            this.dtpStartPeriod.Location = new System.Drawing.Point(117, 21);
             this.dtpStartPeriod.MinDate = new System.DateTime(1800, 1, 1, 0, 0, 0, 0);
             this.dtpStartPeriod.Name = "dtpStartPeriod";
             this.dtpStartPeriod.Size = new System.Drawing.Size(111, 24);
             this.dtpStartPeriod.TabIndex = 154;
             this.dtpStartPeriod.Value = new System.DateTime(2019, 1, 24, 0, 0, 0, 0);
+            this.dtpStartPeriod.ValueChanged += new System.EventHandler(this.dtpStartPeriod_ValueChanged);
             // 
             // cmbSchoolPeriod
             // 
@@ -265,7 +266,7 @@
             "Da nuovo anno solare"});
             this.cmbSchoolPeriod.Location = new System.Drawing.Point(6, 92);
             this.cmbSchoolPeriod.Name = "cmbSchoolPeriod";
-            this.cmbSchoolPeriod.Size = new System.Drawing.Size(159, 26);
+            this.cmbSchoolPeriod.Size = new System.Drawing.Size(222, 26);
             this.cmbSchoolPeriod.TabIndex = 153;
             this.cmbSchoolPeriod.SelectedIndexChanged += new System.EventHandler(this.cmbSchoolPeriod_SelectedIndexChanged);
             // 
@@ -274,7 +275,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
-            this.ClientSize = new System.Drawing.Size(471, 737);
+            this.ClientSize = new System.Drawing.Size(537, 737);
             this.Controls.Add(this.grpPeriodOfQuestionsTopics);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtTotalStudentsToGroup);

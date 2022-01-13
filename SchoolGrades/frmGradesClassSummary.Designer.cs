@@ -239,7 +239,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label6.Location = new System.Drawing.Point(174, 164);
+            this.label6.Location = new System.Drawing.Point(150, 152);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(61, 20);
             this.label6.TabIndex = 177;
@@ -249,7 +249,7 @@
             // txtNStudents
             // 
             this.txtNStudents.ForeColor = System.Drawing.Color.DarkBlue;
-            this.txtNStudents.Location = new System.Drawing.Point(183, 185);
+            this.txtNStudents.Location = new System.Drawing.Point(159, 173);
             this.txtNStudents.Name = "txtNStudents";
             this.txtNStudents.Size = new System.Drawing.Size(46, 26);
             this.txtNStudents.TabIndex = 176;
@@ -349,7 +349,7 @@
             // 
             // btnSaveOnFile
             // 
-            this.btnSaveOnFile.Location = new System.Drawing.Point(169, 76);
+            this.btnSaveOnFile.Location = new System.Drawing.Point(150, 54);
             this.btnSaveOnFile.Name = "btnSaveOnFile";
             this.btnSaveOnFile.Size = new System.Drawing.Size(75, 71);
             this.btnSaveOnFile.TabIndex = 148;

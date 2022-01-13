@@ -30,6 +30,7 @@ namespace SchoolGrades
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmUsersManagement));
             this.lstUser = new System.Windows.Forms.ListBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
@@ -111,7 +112,7 @@ namespace SchoolGrades
             this.button3.Text = "Salva";
             this.button3.UseVisualStyleBackColor = true;
             // 
-            // frmUserManagement
+            // frmUsersManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -126,7 +127,8 @@ namespace SchoolGrades
             this.Controls.Add(this.lstUser);
             this.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.Color.DarkBlue;
-            this.Name = "frmUserManagement";
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "frmUsersManagement";
             this.Text = "Gestione utenti";
             this.Load += new System.EventHandler(this.frmUserManagement_Load);
             this.ResumeLayout(false);

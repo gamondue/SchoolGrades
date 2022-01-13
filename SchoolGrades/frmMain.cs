@@ -1461,7 +1461,7 @@ namespace SchoolGrades
                 }
                 else
                 {
-                    Console.Beep(3000, 500);
+                    //Console.Beep(3000, 500);
                     SetNewPopUpOfQuestion();
                     return;
                 }

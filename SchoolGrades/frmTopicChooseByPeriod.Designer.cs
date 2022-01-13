@@ -44,7 +44,7 @@
             this.txtSchoolYear = new System.Windows.Forms.TextBox();
             this.lblSchoolYear = new System.Windows.Forms.Label();
             this.chkVisualizePath = new System.Windows.Forms.CheckBox();
-            this.cmbStandardPeriod = new System.Windows.Forms.ComboBox();
+            this.cmbSchoolPeriod = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgwTopics)).BeginInit();
             this.SuspendLayout();
             // 
@@ -110,7 +110,7 @@
             this.dgwTopics.Margin = new System.Windows.Forms.Padding(4);
             this.dgwTopics.Name = "dgwTopics";
             this.dgwTopics.RowTemplate.Height = 24;
-            this.dgwTopics.Size = new System.Drawing.Size(1103, 582);
+            this.dgwTopics.Size = new System.Drawing.Size(1158, 582);
             this.dgwTopics.TabIndex = 139;
             this.dgwTopics.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwTopics_CellClick);
             this.dgwTopics.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwTopics_CellContentClick);
@@ -119,7 +119,7 @@
             // btnSearch
             // 
             this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSearch.Location = new System.Drawing.Point(857, 6);
+            this.btnSearch.Location = new System.Drawing.Point(912, 6);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 35);
             this.btnSearch.TabIndex = 140;
@@ -138,7 +138,7 @@
             // btnChoose
             // 
             this.btnChoose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnChoose.Location = new System.Drawing.Point(1030, 6);
+            this.btnChoose.Location = new System.Drawing.Point(1085, 6);
             this.btnChoose.Name = "btnChoose";
             this.btnChoose.Size = new System.Drawing.Size(75, 35);
             this.btnChoose.TabIndex = 142;
@@ -149,7 +149,7 @@
             // btnRandomTopic
             // 
             this.btnRandomTopic.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRandomTopic.Location = new System.Drawing.Point(949, 6);
+            this.btnRandomTopic.Location = new System.Drawing.Point(1004, 6);
             this.btnRandomTopic.Name = "btnRandomTopic";
             this.btnRandomTopic.Size = new System.Drawing.Size(75, 35);
             this.btnRandomTopic.TabIndex = 143;
@@ -204,26 +204,26 @@
             // 
             // cmbStandardPeriod
             // 
-            this.cmbStandardPeriod.FormattingEnabled = true;
-            this.cmbStandardPeriod.Items.AddRange(new object[] {
+            this.cmbSchoolPeriod.FormattingEnabled = true;
+            this.cmbSchoolPeriod.Items.AddRange(new object[] {
             "",
             "Settimana",
             "Mese",
             "Anno scolastico",
             "Da nuovo anno solare"});
-            this.cmbStandardPeriod.Location = new System.Drawing.Point(717, 10);
-            this.cmbStandardPeriod.Name = "cmbStandardPeriod";
-            this.cmbStandardPeriod.Size = new System.Drawing.Size(121, 26);
-            this.cmbStandardPeriod.TabIndex = 152;
-            this.cmbStandardPeriod.SelectedIndexChanged += new System.EventHandler(this.cmbStandardPeriod_SelectedIndexChanged);
+            this.cmbSchoolPeriod.Location = new System.Drawing.Point(717, 10);
+            this.cmbSchoolPeriod.Name = "cmbStandardPeriod";
+            this.cmbSchoolPeriod.Size = new System.Drawing.Size(190, 26);
+            this.cmbSchoolPeriod.TabIndex = 152;
+            this.cmbSchoolPeriod.SelectedIndexChanged += new System.EventHandler(this.cmbStandardPeriod_SelectedIndexChanged);
             // 
             // frmTopicChooseByPeriod
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
-            this.ClientSize = new System.Drawing.Size(1106, 633);
-            this.Controls.Add(this.cmbStandardPeriod);
+            this.ClientSize = new System.Drawing.Size(1161, 633);
+            this.Controls.Add(this.cmbSchoolPeriod);
             this.Controls.Add(this.chkVisualizePath);
             this.Controls.Add(this.txtSchoolYear);
             this.Controls.Add(this.lblSchoolYear);
@@ -239,7 +239,7 @@
             this.Controls.Add(this.dtpEndPeriod);
             this.Controls.Add(this.dtpStartPeriod);
             this.Controls.Add(this.dgwTopics);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.Color.DarkBlue;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -269,6 +269,6 @@
         private System.Windows.Forms.TextBox txtSchoolYear;
         private System.Windows.Forms.Label lblSchoolYear;
         private System.Windows.Forms.CheckBox chkVisualizePath;
-        private System.Windows.Forms.ComboBox cmbStandardPeriod;
+        private System.Windows.Forms.ComboBox cmbSchoolPeriod;
     }
 }

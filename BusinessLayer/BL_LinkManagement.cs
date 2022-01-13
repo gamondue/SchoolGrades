@@ -25,5 +25,10 @@ namespace SchoolGrades
         {
             dl.DeleteStartLink(currentIdStartLink);
         }
+
+        internal List<SchoolPeriodType> GetSchoolPeriodTypes()
+        {
+            return dl.GetSchoolPeriodTypes();
+        }
     }
 }

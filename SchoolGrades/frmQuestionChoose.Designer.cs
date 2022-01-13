@@ -47,7 +47,7 @@
             this.dtpEndPeriod = new System.Windows.Forms.DateTimePicker();
             this.dtpStartPeriod = new System.Windows.Forms.DateTimePicker();
             this.rdbAmongPeriod = new System.Windows.Forms.RadioButton();
-            this.cmbStandardPeriod = new System.Windows.Forms.ComboBox();
+            this.cmbSchoolPeriod = new System.Windows.Forms.ComboBox();
             this.dgwQuestions = new System.Windows.Forms.DataGridView();
             this.rdbOr = new System.Windows.Forms.RadioButton();
             this.rdbAnd = new System.Windows.Forms.RadioButton();
@@ -67,10 +67,10 @@
             this.LblLessonTime = new System.Windows.Forms.Label();
             this.btnComb = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
+            this.btnQuestionsDone = new System.Windows.Forms.Button();
             this.txtSearchText = new System.Windows.Forms.TextBox();
             this.lblSearchText = new System.Windows.Forms.Label();
             this.LessonTimer = new System.Windows.Forms.Timer(this.components);
-            this.btnQuestionsDone = new System.Windows.Forms.Button();
             this.grpTopic.SuspendLayout();
             this.grpQuestions.SuspendLayout();
             this.grpPeriodOfQuestionsTopics.SuspendLayout();
@@ -147,6 +147,7 @@
             this.btnDontUseTopic.Size = new System.Drawing.Size(34, 34);
             this.btnDontUseTopic.TabIndex = 3;
             this.btnDontUseTopic.Text = "-";
+            this.toolTip1.SetToolTip(this.btnDontUseTopic, "Cancella argomento");
             this.btnDontUseTopic.UseVisualStyleBackColor = true;
             this.btnDontUseTopic.Click += new System.EventHandler(this.btnDontUseTopic_Click);
             // 
@@ -169,6 +170,7 @@
             this.btnChooseTopic.Size = new System.Drawing.Size(34, 34);
             this.btnChooseTopic.TabIndex = 1;
             this.btnChooseTopic.Text = "..";
+            this.toolTip1.SetToolTip(this.btnChooseTopic, "Scelta argomento fra quelli fatti");
             this.btnChooseTopic.UseVisualStyleBackColor = true;
             this.btnChooseTopic.Click += new System.EventHandler(this.btnChooseTopic_Click);
             // 
@@ -235,7 +237,8 @@
             this.grpPeriodOfQuestionsTopics.Controls.Add(this.dtpEndPeriod);
             this.grpPeriodOfQuestionsTopics.Controls.Add(this.dtpStartPeriod);
             this.grpPeriodOfQuestionsTopics.Controls.Add(this.rdbAmongPeriod);
-            this.grpPeriodOfQuestionsTopics.Controls.Add(this.cmbStandardPeriod);
+            this.grpPeriodOfQuestionsTopics.Controls.Add(this.cmbSchoolPeriod);
+            this.grpPeriodOfQuestionsTopics.Enabled = false;
             this.grpPeriodOfQuestionsTopics.Location = new System.Drawing.Point(125, 3);
             this.grpPeriodOfQuestionsTopics.Name = "grpPeriodOfQuestionsTopics";
             this.grpPeriodOfQuestionsTopics.Size = new System.Drawing.Size(483, 58);
@@ -294,20 +297,20 @@
             this.rdbAmongPeriod.UseVisualStyleBackColor = true;
             this.rdbAmongPeriod.Visible = false;
             // 
-            // cmbStandardPeriod
+            // cmbSchoolPeriod
             // 
-            this.cmbStandardPeriod.FormattingEnabled = true;
-            this.cmbStandardPeriod.Items.AddRange(new object[] {
+            this.cmbSchoolPeriod.FormattingEnabled = true;
+            this.cmbSchoolPeriod.Items.AddRange(new object[] {
             "",
             "Settimana",
             "Mese",
             "Anno scolastico",
             "Da nuovo anno solare"});
-            this.cmbStandardPeriod.Location = new System.Drawing.Point(325, 24);
-            this.cmbStandardPeriod.Name = "cmbStandardPeriod";
-            this.cmbStandardPeriod.Size = new System.Drawing.Size(149, 26);
-            this.cmbStandardPeriod.TabIndex = 153;
-            this.cmbStandardPeriod.SelectedIndexChanged += new System.EventHandler(this.cmbStandardPeriod_SelectedIndexChanged);
+            this.cmbSchoolPeriod.Location = new System.Drawing.Point(325, 24);
+            this.cmbSchoolPeriod.Name = "cmbSchoolPeriod";
+            this.cmbSchoolPeriod.Size = new System.Drawing.Size(149, 26);
+            this.cmbSchoolPeriod.TabIndex = 153;
+            this.cmbSchoolPeriod.SelectedIndexChanged += new System.EventHandler(this.cmbSchoolPeriod_SelectedIndexChanged);
             // 
             // dgwQuestions
             // 
@@ -535,6 +538,22 @@
             this.btnSearch.UseVisualStyleBackColor = false;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
+            // btnQuestionsDone
+            // 
+            this.btnQuestionsDone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnQuestionsDone.BackColor = System.Drawing.Color.Transparent;
+            this.btnQuestionsDone.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnQuestionsDone.ForeColor = System.Drawing.Color.DarkBlue;
+            this.btnQuestionsDone.Location = new System.Drawing.Point(958, 21);
+            this.btnQuestionsDone.Margin = new System.Windows.Forms.Padding(6);
+            this.btnQuestionsDone.Name = "btnQuestionsDone";
+            this.btnQuestionsDone.Size = new System.Drawing.Size(70, 37);
+            this.btnQuestionsDone.TabIndex = 145;
+            this.btnQuestionsDone.Text = "Fatte";
+            this.toolTip1.SetToolTip(this.btnQuestionsDone, "Trova domande già fatte nel periodo indicato");
+            this.btnQuestionsDone.UseVisualStyleBackColor = false;
+            this.btnQuestionsDone.Click += new System.EventHandler(this.btnQuestionsDone_Click);
+            // 
             // txtSearchText
             // 
             this.txtSearchText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -559,22 +578,6 @@
             // 
             this.LessonTimer.Interval = 1000;
             this.LessonTimer.Tick += new System.EventHandler(this.LessonTimer_Tick);
-            // 
-            // btnQuestionsDone
-            // 
-            this.btnQuestionsDone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnQuestionsDone.BackColor = System.Drawing.Color.Transparent;
-            this.btnQuestionsDone.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnQuestionsDone.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnQuestionsDone.Location = new System.Drawing.Point(958, 21);
-            this.btnQuestionsDone.Margin = new System.Windows.Forms.Padding(6);
-            this.btnQuestionsDone.Name = "btnQuestionsDone";
-            this.btnQuestionsDone.Size = new System.Drawing.Size(70, 37);
-            this.btnQuestionsDone.TabIndex = 145;
-            this.btnQuestionsDone.Text = "Fatte";
-            this.toolTip1.SetToolTip(this.btnQuestionsDone, "Trova domande già fatte nel periodo indicato");
-            this.btnQuestionsDone.UseVisualStyleBackColor = false;
-            this.btnQuestionsDone.Click += new System.EventHandler(this.btnQuestionsDone_Click);
             // 
             // frmQuestionChoose
             // 
@@ -641,7 +644,7 @@
         private System.Windows.Forms.GroupBox grpPeriodOfQuestionsTopics;
         private System.Windows.Forms.RadioButton rdbAmongPeriod;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.ComboBox cmbStandardPeriod;
+        private System.Windows.Forms.ComboBox cmbSchoolPeriod;
         private System.Windows.Forms.Label lblEnd;
         private System.Windows.Forms.Label lblStart;
         private System.Windows.Forms.DateTimePicker dtpEndPeriod;

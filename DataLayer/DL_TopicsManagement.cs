@@ -250,8 +250,9 @@ namespace SchoolGrades
                     " FROM Topics" +
                     " JOIN Lessons_Topics ON Lessons_Topics.IdTopic=Topics.IdTopic" +
                     " JOIN Lessons ON Lessons_Topics.IdLesson=Lessons.IdLesson" +
-                    " WHERE Lessons.IdClass=" + currentClass.IdClass +
-                    " AND Lessons.idSchoolSubject='" + currentSubject.IdSchoolSubject + "'";
+                    " WHERE Lessons.IdClass=" + currentClass.IdClass; 
+                if (currentSubject != null && currentSubject.IdSchoolSubject != null && currentSubject.IdSchoolSubject != "")
+                    query += " AND Lessons.idSchoolSubject='" + currentSubject.IdSchoolSubject + "'";
                 if (DateFrom == Commons.DateNull)
                 {
                     query += " AND (Lessons.Date BETWEEN '" + DateFrom.ToString("yyyy-MM-dd") + "'" +

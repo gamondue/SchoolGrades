@@ -356,6 +356,59 @@ namespace gamon.TreeMptt
                 MessageBox.Show("Non trovato");
             }
         }
+        internal void FindItemUnderNode(string TextToFind, bool MarkAllFound)
+        {
+            // TODO !!!! make this option !!!!
+            //markAllInSearch = MarkAllFound;
+            //if (previousSearch != TextToFind)
+            //{
+            //    // first search: find all the occurencies of the string 
+            //    found = dbMptt.FindTopicsLike(TextToFind);
+
+            //    indexDone = 0;
+            //    previousSearch = TextToFind;
+
+            //    if (markAllInSearch)
+            //    {
+            //        int dummy = 0; bool bDummy = false;
+            //        // !!!! the following doesn't work. Highlight only a few of the results. Probably this "found" list of found is noo in Mptt order !!!! 
+            //        HighlightTopicsInList(shownTreeView.Nodes[0], found, ref dummy, ref bDummy);
+            //        ClearBackColorOnClick = false;
+            //    }
+            //}
+            //else
+            //{
+            //    // same search, find the next occurence of the same string 
+            //    indexDone++;
+            //    if (!markAllInSearch)
+            //    {
+            //        shownTreeView.Nodes[0].Collapse(); // selection will expand
+            //    }
+            //    // if the results are finished: bring back to the first 
+            //    if (found == null)
+            //        return;
+            //    if (indexDone >= found.Count)
+            //        indexDone = 0;
+            //}
+            //TreeNode f = null;
+            //if (found.Count > 0)
+            //{
+            //    f = FindNodeRecursivelyById(shownTreeView.Nodes[0], found[indexDone]);
+            //    if (f != null)
+            //    {
+            //        shownTreeView.Select();
+            //        shownTreeView.SelectedNode = f;
+            //        f.BackColor = colorOfFoundItem;
+            //    }
+            //    else
+            //        MessageBox.Show("Non trovato");
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Non trovato");
+            //}
+        }
+
         /// <summary>
         /// Finds a tree node, searching by its Id
         /// </summary>

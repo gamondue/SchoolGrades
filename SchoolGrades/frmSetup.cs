@@ -216,7 +216,7 @@ namespace SchoolGrades
         }
         private void btnSchoolSubjectManagement_Click(object sender, EventArgs e)
         {
-            FrmSchoolSubjectManagement f = new FrmSchoolSubjectManagement();
+            frmSchoolSubjectManagement f = new frmSchoolSubjectManagement();
             f.ShowDialog();
         }
         private void btnOpenConfigurationFolder_Click(object sender, EventArgs e)
@@ -264,6 +264,12 @@ namespace SchoolGrades
             MessageBox.Show("Form da completare!");
             frmUsersManagement f = new frmUsersManagement();
             f.Show(); 
+        }
+
+        private void btnSchoolPeriodsManagement_Click(object sender, EventArgs e)
+        {
+            frmSchoolPeriodsManagement f = new frmSchoolPeriodsManagement();
+            f.ShowDialog();
         }
     }
 }

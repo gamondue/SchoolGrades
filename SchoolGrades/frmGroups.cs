@@ -240,5 +240,10 @@ namespace SchoolGrades
                 grpPeriodOfQuestionsTopics.Enabled = true;
             }
         }
+
+        private void dtpStartPeriod_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
