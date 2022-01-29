@@ -62,5 +62,9 @@ namespace SchoolGrades
         {
             return dl.CreateDemoDatabase(newDatabasePathName, currentClass, otherClass);
         }
+        internal void PurgeDatabase()
+        {
+            dl.PurgeDatabase(); 
+        }
     }
 }

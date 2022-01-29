@@ -20,6 +20,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)DL_LinkManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_PeriodManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_QuestionManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DL_SqlToCreateDatabase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_StudentManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_SubjectManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_TableManagement.cs" />

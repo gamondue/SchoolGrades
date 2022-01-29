@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SQLite;
+using System.IO;
 using System.Text;
 
 namespace SchoolGrades
@@ -63,6 +64,17 @@ namespace SchoolGrades
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
+        }
+        internal void PurgeDatabase()
+        {
+            try
+            {
+                File.Delete(dbName);
+            }
+            catch (Exception ex)
+            {
+                ////////Common.LogOfProgram.Error("Sqlite_DataLayerConstructorsAndGeneral | SaveParameter", ex);
+            };
         }
         internal List<Answer> GetAllCorrectAnswersToThisQuestionOfThisTest(int? IdQuestion, int? IdTest)
         {
