@@ -160,10 +160,46 @@ namespace SchoolGrades
             return t;
         }
 
-        internal object GetWeightedAveragesOfStudent(Student Student, string stringKey1, string stringKey2, DateTime value1, DateTime value2)
+        internal Student GetWeightedAveragesOfStudent(Student Student, string stringKey1, string stringKey2, DateTime value1, DateTime value2)
         {
-            throw new NotImplementedException();
-            return null;
+            
+            //List<StudentAndGrade> l = new List<StudentAndGrade>(); 
+
+            //using (DbConnection conn = Connect())
+            //{
+            //    DataAdapter dAdapt;
+            //    DataSet dSet = new DataSet();
+
+            //    string query = "SELECT Grades.idGrade, Students.idStudent,lastName,firstName," +
+            //" SUM(Grades.value * Grades.weight)/SUM(Grades.weight) AS 'Weighted average'" +
+            //// weighted RMS (Root Mean Square) as defined here:   
+            //// https://stackoverflow.com/questions/10947180/weighted-standard-deviation-in-sql-server-without-aggregation-error
+            //// !!!! fix the calculation of weighted RMS 
+            ////",SQRT( SUM(Grades.weight * SQUARE(Grades.value)) / SUM(Grades.weight) - SQUARE(SUM(Grades.weight * Grades.value) / SUM(Grades.weight)) )  AS 'Weighted RMS'" +
+            //",COUNT() AS 'Grades Count'" +
+            //" FROM Grades" +
+            //" JOIN Students" +
+            //" ON Students.idStudent=Grades.idStudent" +
+            //" JOIN Classes_Students" +
+            //" ON Classes_Students.idStudent=Students.idStudent" +
+            //" WHERE Classes_Students.idClass =" + Class.IdClass +
+            //" AND Grades.idSchoolYear='" + Class.SchoolYear + "'" +
+            //" AND Grades.idGradeType = '" + IdGradeType + "'" +
+            //" AND Grades.idSchoolSubject = '" + IdSchoolSubject + "'" +
+            //" AND Grades.Value > 0" +
+            //" AND Grades.Timestamp BETWEEN " + SqlDate(DateFrom) + " AND " + SqlDate(DateTo) +
+            //" GROUP BY Students.idStudent" +
+            //" ORDER BY 'Weighted average';";
+            //    //" ORDER BY lastName, firstName, Students.idStudent;";
+            //    dAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
+            //    dSet = new DataSet("GetUnfixedGradesInTheYear");
+            //    dAdapt.Fill(dSet);
+            //    t = dSet.Tables[0];
+
+            //    dSet.Dispose();
+            //    dAdapt.Dispose();
+            //}
+            return Student;
         }
 
         internal DataTable GetGradesOfClass(Class Class,

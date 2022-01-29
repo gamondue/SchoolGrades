@@ -280,17 +280,22 @@ namespace SchoolGrades
                     "Selezionare un tipo di valutazione corretto");
                 return;
             }
-            frmMicroAssessment voto = new frmMicroAssessment(this,
+            frmMicroAssessment grade = new frmMicroAssessment(this,
                 currentClass, currentClass.CurrentStudent,
                 currentGradeType, currentSubject, CurrentQuestion);
-            //voto.ShowDialog();
-            voto.Show();
+            //grade.ShowDialog();
+            grade.Show();
 
-            if (voto.CurrentQuestion != null)
+            if (grade.CurrentQuestion != null)
             {
-                CurrentQuestion = voto.CurrentQuestion;
+                CurrentQuestion = grade.CurrentQuestion;
                 txtQuestion.Text = CurrentQuestion.Text;
                 lstTimeInterval.Text = CurrentQuestion.Duration.ToString();
+                // start the timer if the question has a timer
+                if (CurrentQuestion.Duration != null)
+                {
+                    btnStartColorTimer_Click(null, null); 
+                }
             }
         }
         private void btnCheckAll_Click(object sender, EventArgs e)
@@ -850,8 +855,8 @@ namespace SchoolGrades
         }
         private void btnStudentsGradesSummary_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Parte da finire");
-            return; 
+            //MessageBox.Show("Parte da finire");
+            //return; 
 
             if (!CommonsWinForms.CheckIfClassChosen(currentClass))
                 return;
@@ -1415,54 +1420,67 @@ namespace SchoolGrades
             timerPopUp.Enabled = chkPopUpQuestionsEnabled.Checked;
             if (timerPopUp.Enabled)
             {
-                SetNewPopUpOfQuestion(); 
+                SetNewPopUpOfStudentToQuestion(); 
             }
         }
-        private void SetNewPopUpOfQuestion()
+        private void SetNewPopUpOfStudentToQuestion()
         {
             int PopUpQuestionCentralTime;
-            int.TryParse(txtPopUpQuestionCentralTime.Text, out PopUpQuestionCentralTime);
+            if (!int.TryParse(txtPopUpQuestionCentralTime.Text, out PopUpQuestionCentralTime))
+            {
+                txtPopUpQuestionCentralTime.Text = "";
+                return;
+            }
             double displacementTime = PopUpQuestionCentralTime * 0.1;
             double minutesToTheNextQuestion = PopUpQuestionCentralTime - random.NextDouble() * 
-                PopUpQuestionCentralTime * displacementTime/ 2; 
+                PopUpQuestionCentralTime * displacementTime/ 4; 
             nextPopUpQuestionTime = DateTime.Now.AddMinutes(minutesToTheNextQuestion);
             timerPopUp.Enabled = true;
         }
+        private void txtPopUpQuestionCentralTime_TextChanged(object sender, EventArgs e)
+        {
+            if (timerPopUp.Enabled)
+            {
+                SetNewPopUpOfStudentToQuestion();
+            }
+        }
         private void timerPopUp_Tick(object sender, EventArgs e)
         {
-            if (nextPopUpQuestionTime < DateTime.Now)
+            if (nextPopUpQuestionTime <= DateTime.Now)
             {
                 timerPopUp.Enabled = false;
                 if (currentClass == null)
                 {
                     Console.Beep(1000, 500);
-                    SetNewPopUpOfQuestion();
+                    SetNewPopUpOfStudentToQuestion();
                     return;
                 }
                 if (eligiblesList.Count > 0)
                 {
                     if (indexCurrentDrawn < eligiblesList.Count)
                     {
-                        Console.Beep(400, 800);
                         // make a question to a random student
+                        // draws the student wiyh the criterion set in the U.I. 
                         btnComeOn_Click(null, null);
                         chkFotoVisibile.Checked = true;
                         btnAssess_Click(null, null);
+                        // tell the user that he has a new student chosen 
+                        Console.Beep(400, 800);
                         // prepare for the next popup question 
-                        SetNewPopUpOfQuestion();
+                        SetNewPopUpOfStudentToQuestion();
                         return; 
                     }
                     else
                     {
                         Console.Beep(2000, 500);
-                        SetNewPopUpOfQuestion();
+                        SetNewPopUpOfStudentToQuestion();
                         return;
                     }
                 }
                 else
                 {
                     //Console.Beep(3000, 500);
-                    SetNewPopUpOfQuestion();
+                    SetNewPopUpOfStudentToQuestion();
                     return;
                 }
             }

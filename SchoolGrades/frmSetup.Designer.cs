@@ -66,6 +66,7 @@
             this.chkSaveBackup = new System.Windows.Forms.CheckBox();
             this.btnSchoolPeriodsManagement = new System.Windows.Forms.Button();
             this.btnUsersManagement = new System.Windows.Forms.Button();
+            this.btnResetDatabase = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnTabelle
@@ -430,12 +431,26 @@
             this.btnUsersManagement.UseVisualStyleBackColor = true;
             this.btnUsersManagement.Click += new System.EventHandler(this.btnUsersManagement_Click);
             // 
+            // btnResetDatabase
+            // 
+            this.btnResetDatabase.BackColor = System.Drawing.Color.Red;
+            this.btnResetDatabase.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnResetDatabase.ForeColor = System.Drawing.Color.Yellow;
+            this.btnResetDatabase.Location = new System.Drawing.Point(1033, 270);
+            this.btnResetDatabase.Name = "btnResetDatabase";
+            this.btnResetDatabase.Size = new System.Drawing.Size(100, 63);
+            this.btnResetDatabase.TabIndex = 116;
+            this.btnResetDatabase.Text = "Reset database";
+            this.btnResetDatabase.UseVisualStyleBackColor = false;
+            this.btnResetDatabase.Click += new System.EventHandler(this.btnResetDatabase_Click);
+            // 
             // FrmSetup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(1276, 348);
+            this.Controls.Add(this.btnResetDatabase);
             this.Controls.Add(this.btnSchoolPeriodsManagement);
             this.Controls.Add(this.btnUsersManagement);
             this.Controls.Add(this.chkSaveBackup);
@@ -521,5 +536,6 @@
         private System.Windows.Forms.CheckBox chkSaveBackup;
         private System.Windows.Forms.Button btnUsersManagement;
         private System.Windows.Forms.Button btnSchoolPeriodsManagement;
+        private System.Windows.Forms.Button btnResetDatabase;
     }
 }

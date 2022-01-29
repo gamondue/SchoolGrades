@@ -271,5 +271,15 @@ namespace SchoolGrades
             frmSchoolPeriodsManagement f = new frmSchoolPeriodsManagement();
             f.ShowDialog();
         }
+
+        private void btnResetDatabase_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("ATTENZIONE: devo cancellare TUTTO il database?\n(Tutti i dati verranno persi!)",
+                "CANCELLAZIONE", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
+                == DialogResult.Yes)
+            {
+                Commons.bl.PurgeDatabase();
+            }
+        }
     }
 }
