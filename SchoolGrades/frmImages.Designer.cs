@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmImages));
-            this.DgwLessonsImages = new System.Windows.Forms.DataGridView();
+            this.dgwLessonsImages = new System.Windows.Forms.DataGridView();
             this.picImage = new System.Windows.Forms.PictureBox();
             this.txtLessonDesc = new System.Windows.Forms.TextBox();
             this.txtSchoolSubject = new System.Windows.Forms.TextBox();
@@ -73,11 +73,11 @@
             this.dtpStartPeriod = new System.Windows.Forms.DateTimePicker();
             this.rdbAmongPeriod = new System.Windows.Forms.RadioButton();
             this.cmbSchoolPeriod = new System.Windows.Forms.ComboBox();
-            this.BtnPreviousImage = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.BtnFirstImage = new System.Windows.Forms.Button();
-            this.BtnLastImage = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.DgwLessonsImages)).BeginInit();
+            this.btnPreviousImage = new System.Windows.Forms.Button();
+            this.btnNextImage = new System.Windows.Forms.Button();
+            this.btnFirstImage = new System.Windows.Forms.Button();
+            this.btnLastImage = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgwLessonsImages)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -86,25 +86,26 @@
             this.grpPeriodOfQuestionsTopics.SuspendLayout();
             this.SuspendLayout();
             // 
-            // DgwLessonsImages
+            // dgwLessonsImages
             // 
-            this.DgwLessonsImages.AllowUserToAddRows = false;
-            this.DgwLessonsImages.AllowUserToDeleteRows = false;
-            this.DgwLessonsImages.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgwLessonsImages.AllowUserToAddRows = false;
+            this.dgwLessonsImages.AllowUserToDeleteRows = false;
+            this.dgwLessonsImages.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.DgwLessonsImages.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
-            this.DgwLessonsImages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DgwLessonsImages.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.DgwLessonsImages.Location = new System.Drawing.Point(0, 0);
-            this.DgwLessonsImages.MultiSelect = false;
-            this.DgwLessonsImages.Name = "DgwLessonsImages";
-            this.DgwLessonsImages.ReadOnly = true;
-            this.DgwLessonsImages.Size = new System.Drawing.Size(1221, 90);
-            this.DgwLessonsImages.TabIndex = 128;
-            this.DgwLessonsImages.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgwLessonsImages_CellClick);
-            this.DgwLessonsImages.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgwLessonsImages_CellContentClick);
-            this.DgwLessonsImages.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgwLessonsImages_RowEnter);
+            this.dgwLessonsImages.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
+            this.dgwLessonsImages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgwLessonsImages.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgwLessonsImages.Location = new System.Drawing.Point(0, 0);
+            this.dgwLessonsImages.MultiSelect = false;
+            this.dgwLessonsImages.Name = "dgwLessonsImages";
+            this.dgwLessonsImages.ReadOnly = true;
+            this.dgwLessonsImages.Size = new System.Drawing.Size(1221, 90);
+            this.dgwLessonsImages.TabIndex = 128;
+            this.dgwLessonsImages.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwLessonsImages_CellClick);
+            this.dgwLessonsImages.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwLessonsImages_CellContentClick);
+            this.dgwLessonsImages.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwLessonsImages_CellDoubleClick);
+            this.dgwLessonsImages.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwLessonsImages_RowEnter);
             // 
             // picImage
             // 
@@ -469,7 +470,7 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.DgwLessonsImages);
+            this.splitContainer1.Panel1.Controls.Add(this.dgwLessonsImages);
             // 
             // splitContainer1.Panel2
             // 
@@ -580,45 +581,45 @@
             this.cmbSchoolPeriod.TabIndex = 153;
             this.cmbSchoolPeriod.SelectedIndexChanged += new System.EventHandler(this.cmbSchoolPeriod_SelectedIndexChanged);
             // 
-            // BtnPreviousImage
+            // btnPreviousImage
             // 
-            this.BtnPreviousImage.Location = new System.Drawing.Point(757, 168);
-            this.BtnPreviousImage.Name = "BtnPreviousImage";
-            this.BtnPreviousImage.Size = new System.Drawing.Size(36, 34);
-            this.BtnPreviousImage.TabIndex = 166;
-            this.BtnPreviousImage.Text = "<";
-            this.BtnPreviousImage.UseVisualStyleBackColor = true;
-            this.BtnPreviousImage.Click += new System.EventHandler(this.BtnPreviousImage_Click);
+            this.btnPreviousImage.Location = new System.Drawing.Point(757, 168);
+            this.btnPreviousImage.Name = "btnPreviousImage";
+            this.btnPreviousImage.Size = new System.Drawing.Size(36, 34);
+            this.btnPreviousImage.TabIndex = 166;
+            this.btnPreviousImage.Text = "<";
+            this.btnPreviousImage.UseVisualStyleBackColor = true;
+            this.btnPreviousImage.Click += new System.EventHandler(this.btnPreviousImage_Click);
             // 
-            // button2
+            // btnNextImage
             // 
-            this.button2.Location = new System.Drawing.Point(799, 168);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(36, 34);
-            this.button2.TabIndex = 165;
-            this.button2.Text = ">";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.BtnNextImage_Click);
+            this.btnNextImage.Location = new System.Drawing.Point(799, 168);
+            this.btnNextImage.Name = "btnNextImage";
+            this.btnNextImage.Size = new System.Drawing.Size(36, 34);
+            this.btnNextImage.TabIndex = 165;
+            this.btnNextImage.Text = ">";
+            this.btnNextImage.UseVisualStyleBackColor = true;
+            this.btnNextImage.Click += new System.EventHandler(this.btnNextImage_Click);
             // 
-            // BtnFirstImage
+            // btnFirstImage
             // 
-            this.BtnFirstImage.Location = new System.Drawing.Point(715, 168);
-            this.BtnFirstImage.Name = "BtnFirstImage";
-            this.BtnFirstImage.Size = new System.Drawing.Size(36, 34);
-            this.BtnFirstImage.TabIndex = 168;
-            this.BtnFirstImage.Text = "<<";
-            this.BtnFirstImage.UseVisualStyleBackColor = true;
-            this.BtnFirstImage.Click += new System.EventHandler(this.BtnFirstImage_Click);
+            this.btnFirstImage.Location = new System.Drawing.Point(715, 168);
+            this.btnFirstImage.Name = "btnFirstImage";
+            this.btnFirstImage.Size = new System.Drawing.Size(36, 34);
+            this.btnFirstImage.TabIndex = 168;
+            this.btnFirstImage.Text = "<<";
+            this.btnFirstImage.UseVisualStyleBackColor = true;
+            this.btnFirstImage.Click += new System.EventHandler(this.btnFirstImage_Click);
             // 
-            // BtnLastImage
+            // btnLastImage
             // 
-            this.BtnLastImage.Location = new System.Drawing.Point(841, 168);
-            this.BtnLastImage.Name = "BtnLastImage";
-            this.BtnLastImage.Size = new System.Drawing.Size(36, 34);
-            this.BtnLastImage.TabIndex = 167;
-            this.BtnLastImage.Text = ">>";
-            this.BtnLastImage.UseVisualStyleBackColor = true;
-            this.BtnLastImage.Click += new System.EventHandler(this.BtnLastImage_Click);
+            this.btnLastImage.Location = new System.Drawing.Point(841, 168);
+            this.btnLastImage.Name = "btnLastImage";
+            this.btnLastImage.Size = new System.Drawing.Size(36, 34);
+            this.btnLastImage.TabIndex = 167;
+            this.btnLastImage.Text = ">>";
+            this.btnLastImage.UseVisualStyleBackColor = true;
+            this.btnLastImage.Click += new System.EventHandler(this.btnLastImage_Click);
             // 
             // frmImages
             // 
@@ -626,10 +627,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(1226, 632);
-            this.Controls.Add(this.BtnFirstImage);
-            this.Controls.Add(this.BtnLastImage);
-            this.Controls.Add(this.BtnPreviousImage);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnFirstImage);
+            this.Controls.Add(this.btnLastImage);
+            this.Controls.Add(this.btnPreviousImage);
+            this.Controls.Add(this.btnNextImage);
             this.Controls.Add(this.grpPeriodOfQuestionsTopics);
             this.Controls.Add(this.btnPrevious);
             this.Controls.Add(this.btnNext);
@@ -672,7 +673,7 @@
             this.Text = "Immagini";
             this.Load += new System.EventHandler(this.frmImages_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmImages_KeyDown);
-            ((System.ComponentModel.ISupportInitialize)(this.DgwLessonsImages)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgwLessonsImages)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picImage)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -688,7 +689,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView DgwLessonsImages;
+        private System.Windows.Forms.DataGridView dgwLessonsImages;
         private System.Windows.Forms.PictureBox picImage;
         private System.Windows.Forms.TextBox txtLessonDesc;
         private System.Windows.Forms.TextBox txtSchoolSubject;
@@ -732,9 +733,9 @@
         private System.Windows.Forms.DateTimePicker dtpStartPeriod;
         private System.Windows.Forms.RadioButton rdbAmongPeriod;
         private System.Windows.Forms.ComboBox cmbSchoolPeriod;
-        private System.Windows.Forms.Button BtnPreviousImage;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button BtnFirstImage;
-        private System.Windows.Forms.Button BtnLastImage;
+        private System.Windows.Forms.Button btnPreviousImage;
+        private System.Windows.Forms.Button btnNextImage;
+        private System.Windows.Forms.Button btnFirstImage;
+        private System.Windows.Forms.Button btnLastImage;
     }
 }

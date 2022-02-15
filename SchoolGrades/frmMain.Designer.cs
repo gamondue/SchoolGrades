@@ -122,6 +122,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.timerPopUp = new System.Windows.Forms.Timer(this.components);
             this.dgwStudents = new System.Windows.Forms.DataGridView();
+            this.lblLastDatabaseModification = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picBackgroundSaveRunning)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picStudent)).BeginInit();
             this.grpSorts.SuspendLayout();
@@ -817,7 +818,7 @@
             this.lblDatabaseFile.AutoSize = true;
             this.lblDatabaseFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblDatabaseFile.ForeColor = System.Drawing.Color.Red;
-            this.lblDatabaseFile.Location = new System.Drawing.Point(216, 0);
+            this.lblDatabaseFile.Location = new System.Drawing.Point(216, 2);
             this.lblDatabaseFile.Name = "lblDatabaseFile";
             this.lblDatabaseFile.Size = new System.Drawing.Size(94, 13);
             this.lblDatabaseFile.TabIndex = 111;
@@ -915,7 +916,7 @@
             this.btnStartColorTimer.BackColor = System.Drawing.Color.Transparent;
             this.btnStartColorTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnStartColorTimer.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnStartColorTimer.Location = new System.Drawing.Point(216, 27);
+            this.btnStartColorTimer.Location = new System.Drawing.Point(217, 36);
             this.btnStartColorTimer.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnStartColorTimer.Name = "btnStartColorTimer";
             this.btnStartColorTimer.Size = new System.Drawing.Size(74, 28);
@@ -942,7 +943,7 @@
             this.btnStartBarTimer.BackColor = System.Drawing.Color.Transparent;
             this.btnStartBarTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnStartBarTimer.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnStartBarTimer.Location = new System.Drawing.Point(297, 27);
+            this.btnStartBarTimer.Location = new System.Drawing.Point(298, 36);
             this.btnStartBarTimer.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnStartBarTimer.Name = "btnStartBarTimer";
             this.btnStartBarTimer.Size = new System.Drawing.Size(74, 28);
@@ -1346,12 +1347,26 @@
             this.dgwStudents.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwStudents_CellDoubleClick);
             this.dgwStudents.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgwStudents_DataBindingComplete);
             // 
+            // lblLastDatabaseModification
+            // 
+            this.lblLastDatabaseModification.AutoSize = true;
+            this.lblLastDatabaseModification.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblLastDatabaseModification.ForeColor = System.Drawing.Color.Red;
+            this.lblLastDatabaseModification.Location = new System.Drawing.Point(216, 19);
+            this.lblLastDatabaseModification.Name = "lblLastDatabaseModification";
+            this.lblLastDatabaseModification.Size = new System.Drawing.Size(167, 13);
+            this.lblLastDatabaseModification.TabIndex = 187;
+            this.lblLastDatabaseModification.Text = "lblLastDatabaseModification";
+            this.toolTip1.SetToolTip(this.lblLastDatabaseModification, "Nome del file del database. ");
+            this.lblLastDatabaseModification.Visible = false;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(918, 741);
+            this.Controls.Add(this.lblLastDatabaseModification);
             this.Controls.Add(this.lblIdStudent);
             this.Controls.Add(this.txtIdStudent);
             this.Controls.Add(this.dgwStudents);
@@ -1545,6 +1560,7 @@
         private System.Windows.Forms.Button btnRandomNumber;
         private System.Windows.Forms.CheckBox chkSoundsInColorTimer;
         private System.Windows.Forms.DataGridView dgwStudents;
+        private System.Windows.Forms.Label lblLastDatabaseModification;
     }
 }
 

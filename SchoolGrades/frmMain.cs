@@ -112,6 +112,9 @@ namespace SchoolGrades
             
             lblDatabaseFile.Visible = true;
             lblDatabaseFile.Text = Commons.FileDatabase;
+
+            lblLastDatabaseModification.Visible = true; 
+            lblLastDatabaseModification.Text = File.GetLastWriteTime(Commons.PathAndFileDatabase).ToString("yyyy-MM-dd HH:mm:ss");
 #if !DEBUG
             // capture every exception for exception logging
             Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
