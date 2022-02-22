@@ -78,13 +78,14 @@ namespace SchoolGrades
             }
 
             DataLayer dlNew = new DataLayer(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
-            List<Topic> lNew = dlNew.GetTopicsByParent();
 
             treeNew = new TreeMptt(dlNew, trwNewTopics,
                 txtNewTopicName, txtNewDescription, null, null, txtCodNewTopic,
                 CommonsWinForms.globalPicLed, DragDropEffects.Copy); 
             treeNew.AddNodesToTreeviewByBestMethod();
             treeNew.ClearBackColorOnClick = false;
+
+            highligthDifferences();
         }
 
         private void btnPathOldDatabase_Click(object sender, EventArgs e)
@@ -111,8 +112,7 @@ namespace SchoolGrades
                 Console.Beep();
                 return;
             }
-            DataLayer dlOld = new DataLayer(
-                txtPathOldDatabase.Text + "\\" + txtFileOldDatabase.Text);
+            DataLayer dlOld = new DataLayer(txtPathOldDatabase.Text + "\\" + txtFileOldDatabase.Text);
 
             treeOld = new TreeMptt(dlOld, trwOldTopics,
                 txtOldTopicName, txtOldDescription, txtSearchOld, null, txtCodOldTopic,
@@ -121,7 +121,7 @@ namespace SchoolGrades
             treeOld.AddNodesToTreeviewByBestMethod();
             treeOld.ClearBackColorOnClick = false;
 
-            // stop background saving thread when using this form so it will not interfere
+            // stop background saving thread when using this form so it will not interfere. 
             // locks a concurrent modification of syncronyzing variables 
             lock (CommonsWinForms.LockBackgroundSavingVariables)
             {

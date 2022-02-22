@@ -1515,41 +1515,44 @@ namespace SchoolGrades
         {
             dgwStudents.DataSource = null;
             dgwStudents.DataSource = currentStudentsList;
+            dgwStudents.Refresh(); 
             dgwStudents.Visible = true;
 
-            dgwStudents.Columns[1].Visible = false;
-
-            //dgwStudents.Columns[4].Visible = false;
-            dgwStudents.Columns[5].Visible = false;
-            dgwStudents.Columns[6].Visible = false;
-            dgwStudents.Columns[7].Visible = false;
-            dgwStudents.Columns[8].Visible = false;
-            dgwStudents.Columns[9].Visible = false;
-            dgwStudents.Columns[10].Visible = false;
-            dgwStudents.Columns[11].Visible = false;
-            dgwStudents.Columns[12].Visible = false;
-            dgwStudents.Columns[13].Visible = false;
-            dgwStudents.Columns[14].Visible = false;
-            dgwStudents.Columns[15].Visible = false;
-            dgwStudents.Columns[16].Visible = false;
-
-            dgwStudents.Columns[18].Visible = false;
-
-            dgwStudents.Columns[20].Visible = false;
-
-            int Index = 0; 
-            foreach (Student s in currentStudentsList)
+            if (dgwStudents.Columns.Count > 0)
             {
-                // "manually" set the check columm (0)
-                if (s.Eligible == true)
+                dgwStudents.Columns[1].Visible = false;
+
+                //dgwStudents.Columns[4].Visible = false;
+                dgwStudents.Columns[5].Visible = false;
+                dgwStudents.Columns[6].Visible = false;
+                dgwStudents.Columns[7].Visible = false;
+                dgwStudents.Columns[8].Visible = false;
+                dgwStudents.Columns[9].Visible = false;
+                dgwStudents.Columns[10].Visible = false;
+                dgwStudents.Columns[11].Visible = false;
+                dgwStudents.Columns[12].Visible = false;
+                dgwStudents.Columns[13].Visible = false;
+                dgwStudents.Columns[14].Visible = false;
+                dgwStudents.Columns[15].Visible = false;
+                dgwStudents.Columns[16].Visible = false;
+
+                dgwStudents.Columns[18].Visible = false;
+
+                dgwStudents.Columns[20].Visible = false;
+                int Index = 0;
+                foreach (Student s in currentStudentsList)
                 {
-                    dgwStudents.Rows[Index].Cells[0].Value = true; 
+                    // "manually" set the check columm (0)
+                    if (s.Eligible == true)
+                    {
+                        dgwStudents.Rows[Index].Cells[0].Value = true;
+                    }
+                    else
+                    {
+                        dgwStudents.Rows[Index].Cells[0].Value = false;
+                    }
+                    Index++;
                 }
-                else
-                {
-                    dgwStudents.Rows[Index].Cells[0].Value = false;
-                }
-                Index++; 
             }
         }
         private void dgwStudents_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
