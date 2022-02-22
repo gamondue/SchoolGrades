@@ -14,11 +14,11 @@ namespace gamon.TreeMptt
     {
         DataLayer dl; 
 
-        string dbName = Commons.PathAndFileDatabase;
+        //string dbName = Commons.PathAndFileDatabase;
 
         public TreeMpttDb(DataLayer DataAccessLayer)
         { 
-            dl = Commons.dl;
+            dl = DataAccessLayer;
         }
         // TODO: finish to encapsulate in this class all the code to access the DBMS with TreeMptt
 

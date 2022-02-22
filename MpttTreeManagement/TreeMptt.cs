@@ -168,7 +168,7 @@ namespace gamon.TreeMptt
             PictureBox LedPictureBox,
             System.Windows.Forms.DragDropEffects TypeOfDragAndDrop = System.Windows.Forms.DragDropEffects.Move)
         {
-            dl = Commons.dl;
+            dl = DataLayer;
             dbMptt = new TreeMpttDb(dl);
             shownTreeView = TreeViewControl;
             //listTopicsBefore = InitialListOfTopics;
@@ -314,8 +314,6 @@ namespace gamon.TreeMptt
                 found = dbMptt.FindTopicsLike(TextToFind);
 
                 indexDone = 0;
-                previousSearch = TextToFind;
-
                 if (markAllInSearch)
                 {
                     int dummy = 0; bool bDummy = false; 
@@ -355,6 +353,8 @@ namespace gamon.TreeMptt
             {
                 MessageBox.Show("Non trovato");
             }
+            previousSearch = TextToFind;
+
         }
         internal void FindItemUnderNode(string TextToFind, bool MarkAllFound)
         {
