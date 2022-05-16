@@ -461,7 +461,7 @@ namespace SchoolGrades
                     // add the path & filename of the files foud to the list of those that we can draw
                     foreach (DbClasses.Image i in lessonImages)
                     {
-                        filesInFolder.Add(Commons.PathImages + "\\" + i.RelativePathAndFilename);
+                        filesInFolder.Add(Path.Combine(Commons.PathImages, i.RelativePathAndFilename));
                     }
                 }
                 if (filesInFolder.Count > 0)
@@ -1227,13 +1227,13 @@ namespace SchoolGrades
                 "Tipo di file", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 Commons.bl.CreateAllTopicsDoneFile(filenameNoExtension, currentClass, currentSubject, true);
-                Commons.ProcessStartLink(Commons.PathDatabase + "\\" + filenameNoExtension + ".txt");
+                Commons.ProcessStartLink(Path.Combine(Commons.PathDatabase, filenameNoExtension + ".txt"));
                 MessageBox.Show("Creato il file " + filenameNoExtension + ".txt");
             }
             else
             {
                 Commons.bl.CreateAllTopicsDoneFile(filenameNoExtension, currentClass, currentSubject, false);
-                Commons.ProcessStartLink(Commons.PathDatabase + "\\" + filenameNoExtension + ".md");
+                Commons.ProcessStartLink(Path.Combine(Commons.PathDatabase, filenameNoExtension + ".md"));
                 MessageBox.Show("Creato il file " + filenameNoExtension + ".md");
             }
         }

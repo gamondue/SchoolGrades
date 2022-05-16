@@ -19,26 +19,26 @@ namespace SchoolGrades
         //internal static string PathExe = System.IO.Path.GetDirectoryName(PathAndFileExe);
         internal static string PathExe = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
 
-        internal static string PathConfig = PathUser + "\\SchoolGrades\\Config";
-        internal static string PathAndFileConfig = PathConfig + "\\schgrd.cfg";
+        internal static string PathConfig = Path.Combine(PathUser, "SchoolGrades\\Config");
+        internal static string PathAndFileConfig = Path.Combine(PathConfig, "schgrd.cfg");
         internal static string CompanyPrefix = "gamon-";
-        internal static string PathLogs = PathUser + "\\SchoolGrades\\Logs";
-        internal static string PathAndFileLogText = PathLogs + "\\" + CompanyPrefix + "Errori.txt";
+        internal static string PathLogs = Path.Combine(PathUser, "SchoolGrades\\Logs");
+        internal static string PathAndFileLogText = Path.Combine(PathLogs, CompanyPrefix + "Errori.txt");
 
         internal static string FileDatabase = "SchoolGrades_DEMO.sqlite";
         //internal static string PathDatabase = PathUser + "\\SchoolGrades\\Data";
-        internal static string PathDatabase = PathExe + "\\Data";
-        internal static string PathAndFileDatabase = PathDatabase + "\\" + FileDatabase; // if will be read with ReadConfigFile()! 
+        internal static string PathDatabase = Path.Combine(PathExe, "Data");
+        internal static string PathAndFileDatabase = Path.Combine(PathDatabase, FileDatabase); // if will be read with ReadConfigFile()! 
 
         //internal static string PathStartLink = PathUser + "\\SchoolGrades\\";
         internal static string PathStartLinks = PathExe;
         //internal static string PathImages = PathUser + "\\SchoolGrades\\Images";
         //internal static string PathImages = PathExe + "\\SchoolGrades\\Images";
 
-        internal static string PathImages = PathExe + "\\Images";
+        internal static string PathImages = Path.Combine(PathExe, "Images");
 
         //internal static string PathDocuments = PathExe + "\\SchoolGrades\\Docs";
-        internal static string PathDocuments = PathExe + "\\Docs";
+        internal static string PathDocuments = Path.Combine(PathExe, "Docs");
 
         // variables to remember something between forms (Global) 
         // remember what was the last Topic chosen

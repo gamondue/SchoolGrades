@@ -70,7 +70,7 @@
             this.lblCurrentClass.Location = new System.Drawing.Point(254, 3);
             this.lblCurrentClass.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblCurrentClass.Name = "lblCurrentClass";
-            this.lblCurrentClass.Size = new System.Drawing.Size(555, 59);
+            this.lblCurrentClass.Size = new System.Drawing.Size(609, 59);
             this.lblCurrentClass.TabIndex = 91;
             this.lblCurrentClass.Text = "Class";
             this.lblCurrentClass.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -162,7 +162,7 @@
             this.dgwGrades.Name = "dgwGrades";
             this.dgwGrades.RowHeadersVisible = false;
             this.dgwGrades.RowTemplate.Height = 24;
-            this.dgwGrades.Size = new System.Drawing.Size(846, 500);
+            this.dgwGrades.Size = new System.Drawing.Size(900, 500);
             this.dgwGrades.TabIndex = 108;
             this.dgwGrades.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwGrades_CellClick);
             this.dgwGrades.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwGrades_CellContentClick);
@@ -349,7 +349,7 @@
             // 
             // btnSaveOnFile
             // 
-            this.btnSaveOnFile.Location = new System.Drawing.Point(150, 54);
+            this.btnSaveOnFile.Location = new System.Drawing.Point(150, 70);
             this.btnSaveOnFile.Name = "btnSaveOnFile";
             this.btnSaveOnFile.Size = new System.Drawing.Size(75, 71);
             this.btnSaveOnFile.TabIndex = 148;
@@ -375,7 +375,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
-            this.ClientSize = new System.Drawing.Size(854, 721);
+            this.ClientSize = new System.Drawing.Size(908, 721);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtNStudents);
             this.Controls.Add(this.grpChosenQuery);

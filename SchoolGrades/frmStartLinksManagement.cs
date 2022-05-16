@@ -83,14 +83,13 @@ namespace SchoolGrades
         {
             if (e.RowIndex > -1)
             {
-                try { 
-                    DataRow row = ((DataTable)(DgwLinks.DataSource)).Rows[e.RowIndex];
-                    string link = (string)row["startLink"];
-                    Class clickedClass = Commons.bl.GetClassById((int)row["idClass"]); 
-                    if (link.Substring(0, 4) == "http" || link.Contains(".exe"))
-                        Commons.ProcessStartLink(link);
+                try {
+                    StartLink row = ((List<StartLink>)(DgwLinks.DataSource))[e.RowIndex];
+                    Class clickedClass = Commons.bl.GetClassById((int)row.IdClass); 
+                    if (row.Link.Substring(0, 4) == "http" || row.Link.Contains(".exe"))
+                        Commons.ProcessStartLink(row.Link);
                     else
-                        Commons.ProcessStartLink(clickedClass.PathRestrictedApplication + "\\" + link);
+                        Commons.ProcessStartLink(Path.Combine(clickedClass.PathRestrictedApplication, row.Link));
                 }
                 catch (Exception ex)
                 {
@@ -132,7 +131,7 @@ namespace SchoolGrades
                 if (TxtStartLink.Text.Substring(0, 4) == "http")
                     Commons.ProcessStartLink(TxtStartLink.Text);
                 else
-                    Commons.ProcessStartLink(currentClass.PathRestrictedApplication + "\\" + TxtStartLink.Text);
+                    Commons.ProcessStartLink(Path.Combine(currentClass.PathRestrictedApplication, TxtStartLink.Text));
             }
             catch
             {

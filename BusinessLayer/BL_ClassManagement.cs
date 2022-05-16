@@ -127,9 +127,12 @@ namespace SchoolGrades
         {
             dl.SaveClass(Class);
         }
-        internal Class GetClassById(int IdClass)
+        internal Class GetClassById(int? IdClass)
         {
-            return dl.GetClassById(IdClass);
+            if (IdClass != null)
+                return dl.GetClassById(IdClass);
+            else
+                return null; 
         }
     }
 }

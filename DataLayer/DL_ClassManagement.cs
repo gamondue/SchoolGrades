@@ -124,14 +124,14 @@ namespace SchoolGrades
         }
         internal string CreateOneClassOnlyDatabase(Class Class)
         {
-            string newDatabasePathName = Class.PathRestrictedApplication + "\\SchoolGrades\\Data\\";
+            string newDatabasePathName = Path.Combine(Class.PathRestrictedApplication , @"\SchoolGrades\Data\");
             if (!Directory.Exists(newDatabasePathName))
                 Directory.CreateDirectory(newDatabasePathName);
 
-            string newDatabaseFullName = newDatabasePathName +
+            string newDatabaseFullName = Path.Combine(newDatabasePathName ,
                 System.DateTime.Now.ToString("yyyy-MM-dd_HH.mm.ss") +
-                "_" + Class.Abbreviation + "_" + Class.SchoolYear + "_" +
-                Commons.FileDatabase;
+                "_" + Class.Abbreviation + "_" + Class.SchoolYear + "_",
+                Commons.FileDatabase);
             File.Copy(Commons.PathAndFileDatabase, newDatabaseFullName);
 
             // open a local connection to database 
@@ -485,24 +485,24 @@ namespace SchoolGrades
         }
         internal Class GetClassById(int? IdClass)
         {
-            DbDataReader dRead;
-            DbCommand cmd;
             Class c = null;
             using (DbConnection conn = Connect())
             {
+                DbDataReader dRead;
+                DbCommand cmd = conn.CreateCommand();
                 string query = "SELECT *" +
                     " FROM Classes" +
                     " WHERE Classes.idClass=" + IdClass +
                     ";";
-                cmd = new SQLiteCommand(query);
+                cmd.CommandText = query;
                 dRead = cmd.ExecuteReader();
-                while (dRead.Read())
-                {
-                    c = new Class(IdClass, Safe.String(dRead["abbreviation"]), Safe.String(dRead["idSchoolYear"]),
-                        Safe.String(dRead["idSchool"]));
-                    c.PathRestrictedApplication = Safe.String(dRead["pathRestrictedApplication"]);
-                    c.UriWebApp = Safe.String(dRead["uriWebApp"]);
-                }
+                dRead.Read(); 
+
+                c = new Class(IdClass, Safe.String(dRead["abbreviation"]), Safe.String(dRead["idSchoolYear"]),
+                    Safe.String(dRead["idSchool"]));
+                c.PathRestrictedApplication = Safe.String(dRead["pathRestrictedApplication"]);
+                c.UriWebApp = Safe.String(dRead["uriWebApp"]);
+
                 dRead.Dispose();
                 cmd.Dispose();
             }

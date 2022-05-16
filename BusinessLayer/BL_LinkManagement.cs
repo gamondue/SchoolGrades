@@ -30,5 +30,10 @@ namespace SchoolGrades
         {
             return dl.GetSchoolPeriodTypes();
         }
+
+        internal List<Student> GetStudentsOfClassList(int? idClass)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

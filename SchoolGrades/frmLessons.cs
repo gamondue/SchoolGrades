@@ -352,7 +352,7 @@ namespace SchoolGrades
                         Commons.ProcessStartLink(link.Link);
                     else
                         //Commons.ProcessStartLink(Commons.PathStartLinks + "\\" + link);
-                        Commons.ProcessStartLink(currentClass.PathRestrictedApplication + "\\" + link);
+                        Commons.ProcessStartLink(Path.Combine(currentClass.PathRestrictedApplication, link.Link));
                 }
                 catch
                 {
@@ -368,7 +368,7 @@ namespace SchoolGrades
         {
             if (listImages.Count > 0)
             {
-                string fileName = Commons.PathImages + "\\" + listImages[indexImages].RelativePathAndFilename;
+                string fileName = Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename);
                 if (File.Exists(fileName))
                 {
                     Commons.ProcessStartLink(fileName);
@@ -594,8 +594,9 @@ namespace SchoolGrades
         }
         private void BtnOpenImagesFolder_Click(object sender, EventArgs e)
         {
-            string folder = Commons.PathImages + "\\" + currentClass.SchoolYear + currentClass.Abbreviation +
-                "\\Lessons\\" + currentSchoolSubject.IdSchoolSubject;
+            string folder = Path.Combine(Commons.PathImages, 
+                currentClass.SchoolYear + currentClass.Abbreviation, 
+                "Lessons", currentSchoolSubject.IdSchoolSubject);
             try
             {
                 Commons.ProcessStartLink(folder);

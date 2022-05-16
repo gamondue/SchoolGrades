@@ -348,7 +348,8 @@ namespace SchoolGrades
             {
                 DisplayCurrentQuestion(); 
                 // put the question chosen also in the main form
-                callingForm.CurrentQuestion = choice.ChosenQuestion; 
+                if (callingForm != null)
+                    callingForm.CurrentQuestion = choice.ChosenQuestion; 
             } else
             {
                 TxtQuestionText.Text = "";

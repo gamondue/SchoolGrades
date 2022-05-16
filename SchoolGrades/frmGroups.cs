@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using SchoolGrades.DbClasses;
 using System.Data;
 using System.Linq;
+using System.IO;
 
 namespace SchoolGrades
 {
@@ -57,9 +58,9 @@ namespace SchoolGrades
                 MessageBox.Show("Prima di salvare un file, generare i gruppi");
                 return; 
             }
-            string fileName = Commons.PathDatabase + "\\" +
+            string fileName = Path.Combine(Commons.PathDatabase , 
                 "Groups_" + schoolClass.Abbreviation + "_" + schoolClass.SchoolYear +
-                ".txt";
+                ".txt");
             TextFile.StringToFile(fileName, txtGroups.Text, false);
             Commons.ProcessStartLink(fileName);
         }
