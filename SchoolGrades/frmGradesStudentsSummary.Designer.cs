@@ -66,6 +66,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtIdStudentsAnnotation = new System.Windows.Forms.TextBox();
+            this.btnClosePeriod = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgwGrades)).BeginInit();
             this.grpPeriodOfQuestionsTopics.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgwNotes)).BeginInit();
@@ -124,7 +125,7 @@
             this.btnDettagliVoto.BackColor = System.Drawing.Color.Transparent;
             this.btnDettagliVoto.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnDettagliVoto.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnDettagliVoto.Location = new System.Drawing.Point(745, 47);
+            this.btnDettagliVoto.Location = new System.Drawing.Point(766, 51);
             this.btnDettagliVoto.Margin = new System.Windows.Forms.Padding(6);
             this.btnDettagliVoto.Name = "btnDettagliVoto";
             this.btnDettagliVoto.Size = new System.Drawing.Size(76, 51);
@@ -398,6 +399,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.btnClosePeriod);
             this.splitContainer1.Panel1.Controls.Add(this.rdbShowWeightsOnOpenGrades);
             this.splitContainer1.Panel1.Controls.Add(this.rdbShowGrades);
             this.splitContainer1.Panel1.Controls.Add(this.rdbShowWeights);
@@ -545,6 +547,16 @@
             this.txtIdStudentsAnnotation.Size = new System.Drawing.Size(59, 24);
             this.txtIdStudentsAnnotation.TabIndex = 174;
             // 
+            // btnClosePeriod
+            // 
+            this.btnClosePeriod.Location = new System.Drawing.Point(766, 103);
+            this.btnClosePeriod.Name = "btnClosePeriod";
+            this.btnClosePeriod.Size = new System.Drawing.Size(75, 49);
+            this.btnClosePeriod.TabIndex = 179;
+            this.btnClosePeriod.Text = "Chiudi periodo";
+            this.btnClosePeriod.UseVisualStyleBackColor = true;
+            this.btnClosePeriod.Click += new System.EventHandler(this.btnClosePeriod_Click);
+            // 
             // frmGradesStudentsSummary
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -617,5 +629,6 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnEraseAnnotation;
         private System.Windows.Forms.Button btnAddAnnotation;
+        private System.Windows.Forms.Button btnClosePeriod;
     }
 }

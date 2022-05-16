@@ -213,5 +213,20 @@ namespace SchoolGrades
         {
             TxtIdStudent.Text = currentStudent.IdStudent.ToString();
         }
+
+        private void btnClosePeriod_Click(object sender, EventArgs e)
+        {
+            //List<Student> ss = Commons.bl.GetStudentsOfClassList(currentClass.IdClass);
+            //foreach (Student s in ss)
+            //{
+            //    //DataTable T = Commons.bl.GetMicroGradesOfStudentWithMacroOpen(s.IdStudent, 
+            //    //    currentSchoolPeriod.IdSchoolYear, currentGradeType.IdGradeType,
+            //    //    currentSubject.IdSchoolSubject);
+
+            //    //Commons.bl.SaveMacroGrade(currentStudent.IdStudent, (int?)int.Parse(txtIdMacroGrade.Text),
+            //    //    average, weight, currentYear,
+            //    //    currentSchoolSubject.IdSchoolSubject);
+            //}
+        }
     }
 }

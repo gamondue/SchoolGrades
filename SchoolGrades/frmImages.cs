@@ -104,7 +104,6 @@ namespace SchoolGrades
         {
             if(txtPathImportImage.Text != "")
                 Commons.ProcessStartLink(txtPathImportImage.Text);
-
         }
         private void btnPathImportImage_Click(object sender, EventArgs e)
         {
@@ -330,8 +329,8 @@ namespace SchoolGrades
         }
         private void picImage_DoubleClick(object sender, EventArgs e)
         {
-            Commons.ProcessStartLink(Commons.PathImages + "\\" + 
-                currentImage.RelativePathAndFilename);
+            Commons.ProcessStartLink(Path.Combine(Commons.PathImages,  
+                currentImage.RelativePathAndFilename));
         }
         private void rdbAutoRename_CheckedChanged(object sender, EventArgs e)
         {
@@ -362,7 +361,7 @@ namespace SchoolGrades
         }
         private void txtSubFolderStorage_DoubleClick(object sender, EventArgs e)
         {
-            string directory = Commons.PathImages + "\\" + txtSubFolderStorage.Text;
+            string directory = Path.Combine(Commons.PathImages, txtSubFolderStorage.Text);
             if (txtSubFolderStorage.Text != "" && Directory.Exists(directory))
                 Commons.ProcessStartLink(directory);
             else
@@ -471,7 +470,7 @@ namespace SchoolGrades
         private void dgwLessonsImages_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             string RelativePath = Path.GetDirectoryName(currentImage.RelativePathAndFilename); 
-            Commons.ProcessStartLink(Commons.PathImages + "\\" + RelativePath);
+            Commons.ProcessStartLink(Path.Combine(Commons.PathImages , RelativePath));
         }
         private void btnNextImage_Click(object sender, EventArgs e)
         {
