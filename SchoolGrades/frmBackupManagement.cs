@@ -26,7 +26,6 @@ namespace SchoolGrades
 
             topicTreeMptt = new TreeMptt(Commons.dl, null, null, null, null, null, null, null, DragDropEffects.None);
         }
-
         private void frmBackupManagement_Load(object sender, EventArgs e)
         {
             // dal primo anno di default del combo con gli anni
@@ -44,7 +43,6 @@ namespace SchoolGrades
 
             lstClasses.DataSource = Commons.bl.GetClassesOfYear(Commons.IdSchool, schoolYear);
         }
-
         private void btnBackupTables_Click(object sender, EventArgs e)
         {
             //db.BackupTableTsv("SchoolSubjects");
@@ -68,7 +66,6 @@ namespace SchoolGrades
             Commons.bl.BackupTableXml("SchoolPeriods");
             MessageBox.Show("Salvataggio tabelle terminato");
         }
-
         private void btnClassBackup_Click(object sender, EventArgs e)
         {
             if (currentClass == null)
@@ -83,23 +80,19 @@ namespace SchoolGrades
                 MessageBox.Show("Cartella del database della classe non trovata"); 
             //MessageBox.Show("Fatto"); 
         }
-
         private void cmbSchoolYear_SelectedIndexChanged(object sender, EventArgs e)
         {
             lstClasses.DataSource = Commons.bl.GetClassesOfYear(Commons.IdSchool, CmbSchoolYear.Text);
         }
-
         private void lstClasses_SelectedIndexChanged(object sender, EventArgs e)
         {
             //classeCorrente = new Classe(nomeFile); 
             currentClass = (Class)lstClasses.SelectedItem;
         }
-
         private void lstClassi_DoubleClick(object sender, EventArgs e)
         {
             //DataTable students = db.GetClass(school, schoolYear, lstClasses.SelectedItem.ToString());
         }
-
         private void btnRestoreTables_Click(object sender, EventArgs e)
         {
             //db.RestoreTableTsv("SchoolSubjects", rdbRestoreErasing.Checked);
@@ -123,28 +116,24 @@ namespace SchoolGrades
             Commons.bl.RestoreTableXml("SchoolPeriods", rdbRestoreErasing.Checked);
             MessageBox.Show("Ripristino tabelle terminato");
         }
-
         private void btnBackupTopics_Click(object sender, EventArgs e)
         {
             //db.BackupTableTsv("Topics");
             Commons.bl.BackupTableXml("Topics");
             MessageBox.Show("Backup argomenti terminato");
         }
-
         private void btnExportTopics_Click(object sender, EventArgs e)
         {
             //Topic initial = ((Topic)trwTopics.SelectedNode.Tag);
             string tree = topicTreeMptt.CreateTextTreeOfDescendants(0, int.MaxValue, true);
             TextFile.StringToFile(Commons.PathDatabase + "\\Argomenti.tsv", tree, false);
         }
-
         private void btnBackupTags_Click(object sender, EventArgs e)
         {
             //db.BackupTableTsv("Tags");
             Commons.bl.BackupTableXml("Tags");
             MessageBox.Show("Backup Tags terminato");
         }
-
         private void btnImportTopics_Click(object sender, EventArgs e)
         {
             // !!!! TODO fix using Regex.Split(string, ...) !!!!
@@ -184,21 +173,18 @@ namespace SchoolGrades
             ft.ShowDialog(); 
             ft.Dispose();
         }
-
         private void btnRestoreTopics_Click(object sender, EventArgs e)
         {
             //db.RestoreTableTsv("Topics", rdbRestoreErasing.Checked);
             Commons.bl.RestoreTableXml("Topics", rdbRestoreErasing.Checked);
             MessageBox.Show("Ripristino argomenti terminato");
         }
-
         private void btnSaveDatabaseFile_Click(object sender, EventArgs e)
         {
             File.Copy(Commons.PathAndFileDatabase,
                 Commons.PathDatabase + "\\" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + 
                 "_" + Commons.FileDatabase); 
         }
-
         private void btnRestoreTags_Click(object sender, EventArgs e)
         {
             //db.RestoreTableTsv("Tags", rdbRestoreErasing.Checked);
@@ -206,37 +192,31 @@ namespace SchoolGrades
             Commons.bl.BackupAllStudentsDataXml();
             MessageBox.Show("Ripristino Tags terminato");
         }
-
         private void btnBackupStudents_Click(object sender, EventArgs e)
         {
             //db.BackupAllStudentsDataTsv();
             Commons.bl.BackupAllStudentsDataXml();
             MessageBox.Show("Backup studenti terminato");
         }
-
         private void btnExportTags_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Da fare");
         }
-
         private void btnImportTags_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Da fare");
         }
-
         private void btnRestoreStudents_Click(object sender, EventArgs e)
         {
             //db.RestoreAllStudentsDataTsv(rdbRestoreErasing.Checked);
             Commons.bl.RestoreAllStudentsDataXml(rdbRestoreErasing.Checked);
             MessageBox.Show("Ripristino studenti terminato");
         }
-
         private void btnCompactDatabase_Click(object sender, EventArgs e)
         {
             Commons.bl.CompactDatabase();
             Application.Exit();
         }
-
         private void BtnMakeDemo_Click(object sender, EventArgs e)
         {
             int indexNextClass = lstClasses.SelectedIndex - 1;
