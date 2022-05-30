@@ -124,13 +124,13 @@ namespace SchoolGrades
         }
         internal string CreateOneClassOnlyDatabase(Class Class)
         {
-            string newDatabasePathName = Path.Combine(Class.PathRestrictedApplication , @"\SchoolGrades\Data\");
+            string newDatabasePathName = Path.Combine(Class.PathRestrictedApplication , @"SchoolGrades\Data");
             if (!Directory.Exists(newDatabasePathName))
                 Directory.CreateDirectory(newDatabasePathName);
 
             string newDatabaseFullName = Path.Combine(newDatabasePathName ,
                 System.DateTime.Now.ToString("yyyy-MM-dd_HH.mm.ss") +
-                "_" + Class.Abbreviation + "_" + Class.SchoolYear + "_",
+                "_" + Class.Abbreviation + "_" + Class.SchoolYear + "_" +
                 Commons.FileDatabase);
             File.Copy(Commons.PathAndFileDatabase, newDatabaseFullName);
 
