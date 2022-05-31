@@ -17,11 +17,13 @@ namespace SchoolGrades
         private Class currentClass;
         private DbClasses.Image currentImage; 
         private SchoolSubject currentSubject;
+        private bool imageChanged = false; 
 
         ImagesFormType type;
         private string lessonImagesPath;
         private int currentIndexInImages;
         private SchoolPeriod currentSchoolPeriod;
+        private string oldImage;
 
         public enum ImagesFormType
         {
@@ -136,6 +138,12 @@ namespace SchoolGrades
                         txtCaption.Text = captions[captions.Count - 1];
                     else
                         txtCaption.Text = "";
+                    string currentImage = Path.Combine(txtPathImportImage.Text, txtFileImportImage.Text); 
+                    if (currentImage != oldImage)
+                    {
+                        imageChanged = true; 
+                    }
+                    oldImage = currentImage; 
                 }
                 catch (Exception ex)
                 {
@@ -236,7 +244,13 @@ namespace SchoolGrades
             {
                 int localIndex = dgwLessonsImages.SelectedRows[0].Index;
                 currentImage.Caption = txtCaption.Text;
+                if (imageChanged)
+                {
+                    string currentFile = Path.Combine(txtPathImportImage.Text, txtFileImportImage.Text);
+                    currentImage.RelativePathAndFilename = currentFile.Remove(0, Commons.PathImages.Length + 1); 
+                }
                 Commons.bl.SaveImage(currentImage);
+                imageChanged = false; 
                 currentIndexInImages = localIndex;
                 refreshUi(currentIndexInImages);
                 currentImage = ((List<DbClasses.Image>)dgwLessonsImages.DataSource)[localIndex];
