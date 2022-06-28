@@ -32,8 +32,6 @@
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.dgwGrades = new System.Windows.Forms.DataGridView();
             this.lblCurrentStudent = new System.Windows.Forms.Label();
-            this.txtMediaMicroDomande = new System.Windows.Forms.TextBox();
-            this.btnDettagliVoto = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.grpComplessivo = new System.Windows.Forms.GroupBox();
             this.cmbSummaryGradeType = new System.Windows.Forms.ComboBox();
@@ -46,15 +44,12 @@
             this.dtpStartPeriod = new System.Windows.Forms.DateTimePicker();
             this.rdbAmongPeriod = new System.Windows.Forms.RadioButton();
             this.cmbSchoolPeriod = new System.Windows.Forms.ComboBox();
-            this.rdbShowWeightsOnOpenGrades = new System.Windows.Forms.RadioButton();
-            this.lblSum = new System.Windows.Forms.Label();
-            this.rdbShowWeightedGrades = new System.Windows.Forms.RadioButton();
-            this.rdbShowWeights = new System.Windows.Forms.RadioButton();
-            this.rdbShowGrades = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.TxtIdStudent = new System.Windows.Forms.TextBox();
             this.dgwNotes = new System.Windows.Forms.DataGridView();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.lblAverage = new System.Windows.Forms.Label();
+            this.txtMediaDomande = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnEraseAnnotation = new System.Windows.Forms.Button();
             this.btnAddAnnotation = new System.Windows.Forms.Button();
@@ -66,7 +61,6 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtIdStudentsAnnotation = new System.Windows.Forms.TextBox();
-            this.btnClosePeriod = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgwGrades)).BeginInit();
             this.grpPeriodOfQuestionsTopics.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgwNotes)).BeginInit();
@@ -86,13 +80,15 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgwGrades.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
             this.dgwGrades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgwGrades.Location = new System.Drawing.Point(0, 159);
+            this.dgwGrades.Location = new System.Drawing.Point(6, 159);
             this.dgwGrades.Margin = new System.Windows.Forms.Padding(4);
             this.dgwGrades.Name = "dgwGrades";
             this.dgwGrades.RowTemplate.Height = 24;
-            this.dgwGrades.Size = new System.Drawing.Size(845, 223);
+            this.dgwGrades.Size = new System.Drawing.Size(839, 223);
             this.dgwGrades.TabIndex = 77;
+            this.dgwGrades.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwGrades_CellClick);
             this.dgwGrades.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwGrades_CellContentClick);
+            this.dgwGrades.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwGrades_CellDoubleClick);
             this.dgwGrades.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwVoti_CellEndEdit);
             // 
             // lblCurrentStudent
@@ -102,55 +98,30 @@
             this.lblCurrentStudent.BackColor = System.Drawing.Color.Transparent;
             this.lblCurrentStudent.Font = new System.Drawing.Font("Arial Black", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblCurrentStudent.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblCurrentStudent.Location = new System.Drawing.Point(7, 3);
+            this.lblCurrentStudent.Location = new System.Drawing.Point(93, 4);
             this.lblCurrentStudent.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblCurrentStudent.Name = "lblCurrentStudent";
-            this.lblCurrentStudent.Size = new System.Drawing.Size(756, 46);
+            this.lblCurrentStudent.Size = new System.Drawing.Size(764, 46);
             this.lblCurrentStudent.TabIndex = 90;
             this.lblCurrentStudent.Text = "Allievo";
             this.lblCurrentStudent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // txtMediaMicroDomande
-            // 
-            this.txtMediaMicroDomande.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtMediaMicroDomande.Location = new System.Drawing.Point(5, 118);
-            this.txtMediaMicroDomande.Margin = new System.Windows.Forms.Padding(4);
-            this.txtMediaMicroDomande.Name = "txtMediaMicroDomande";
-            this.txtMediaMicroDomande.Size = new System.Drawing.Size(124, 37);
-            this.txtMediaMicroDomande.TabIndex = 91;
-            this.txtMediaMicroDomande.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // btnDettagliVoto
-            // 
-            this.btnDettagliVoto.BackColor = System.Drawing.Color.Transparent;
-            this.btnDettagliVoto.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnDettagliVoto.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnDettagliVoto.Location = new System.Drawing.Point(766, 51);
-            this.btnDettagliVoto.Margin = new System.Windows.Forms.Padding(6);
-            this.btnDettagliVoto.Name = "btnDettagliVoto";
-            this.btnDettagliVoto.Size = new System.Drawing.Size(76, 51);
-            this.btnDettagliVoto.TabIndex = 94;
-            this.btnDettagliVoto.Text = "Mostra dettagli voto";
-            this.btnDettagliVoto.UseVisualStyleBackColor = false;
-            this.btnDettagliVoto.Click += new System.EventHandler(this.btnDettagliVoto_Click);
             // 
             // label2
             // 
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label2.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label2.Location = new System.Drawing.Point(158, 5);
+            this.label2.Location = new System.Drawing.Point(6, 12);
             this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(271, 59);
+            this.label2.Size = new System.Drawing.Size(118, 34);
             this.label2.TabIndex = 96;
-            this.label2.Text = "Riepilogo dei voti di tipo ";
+            this.label2.Text = "Voti di tipo ";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // grpComplessivo
             // 
-            this.grpComplessivo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.grpComplessivo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpComplessivo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.grpComplessivo.ForeColor = System.Drawing.Color.DarkBlue;
@@ -174,10 +145,10 @@
             "Scritti",
             "Pratici",
             "Scritto-grafici"});
-            this.cmbSummaryGradeType.Location = new System.Drawing.Point(437, 17);
+            this.cmbSummaryGradeType.Location = new System.Drawing.Point(130, 12);
             this.cmbSummaryGradeType.Margin = new System.Windows.Forms.Padding(4);
             this.cmbSummaryGradeType.Name = "cmbSummaryGradeType";
-            this.cmbSummaryGradeType.Size = new System.Drawing.Size(288, 34);
+            this.cmbSummaryGradeType.Size = new System.Drawing.Size(373, 34);
             this.cmbSummaryGradeType.TabIndex = 95;
             this.cmbSummaryGradeType.SelectedIndexChanged += new System.EventHandler(this.cmbTipoVotoRiepilogo_SelectedIndexChanged);
             // 
@@ -186,10 +157,10 @@
             this.lblSchoolSubject.BackColor = System.Drawing.Color.Transparent;
             this.lblSchoolSubject.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblSchoolSubject.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblSchoolSubject.Location = new System.Drawing.Point(156, 50);
+            this.lblSchoolSubject.Location = new System.Drawing.Point(6, 60);
             this.lblSchoolSubject.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblSchoolSubject.Name = "lblSchoolSubject";
-            this.lblSchoolSubject.Size = new System.Drawing.Size(271, 59);
+            this.lblSchoolSubject.Size = new System.Drawing.Size(118, 31);
             this.lblSchoolSubject.TabIndex = 101;
             this.lblSchoolSubject.Text = "Materia";
             this.lblSchoolSubject.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -205,10 +176,10 @@
             "Scritti",
             "Pratici",
             "Scritto-grafici"});
-            this.cmbSchoolSubjects.Location = new System.Drawing.Point(437, 62);
+            this.cmbSchoolSubjects.Location = new System.Drawing.Point(130, 57);
             this.cmbSchoolSubjects.Margin = new System.Windows.Forms.Padding(4);
             this.cmbSchoolSubjects.Name = "cmbSchoolSubjects";
-            this.cmbSchoolSubjects.Size = new System.Drawing.Size(288, 34);
+            this.cmbSchoolSubjects.Size = new System.Drawing.Size(373, 34);
             this.cmbSchoolSubjects.TabIndex = 100;
             this.cmbSchoolSubjects.SelectedIndexChanged += new System.EventHandler(this.cmbSchoolSubjects_SelectedIndexChanged);
             // 
@@ -220,7 +191,7 @@
             this.grpPeriodOfQuestionsTopics.Controls.Add(this.dtpStartPeriod);
             this.grpPeriodOfQuestionsTopics.Controls.Add(this.rdbAmongPeriod);
             this.grpPeriodOfQuestionsTopics.Controls.Add(this.cmbSchoolPeriod);
-            this.grpPeriodOfQuestionsTopics.Location = new System.Drawing.Point(157, 107);
+            this.grpPeriodOfQuestionsTopics.Location = new System.Drawing.Point(6, 98);
             this.grpPeriodOfQuestionsTopics.Name = "grpPeriodOfQuestionsTopics";
             this.grpPeriodOfQuestionsTopics.Size = new System.Drawing.Size(606, 58);
             this.grpPeriodOfQuestionsTopics.TabIndex = 147;
@@ -230,7 +201,7 @@
             // lblEnd
             // 
             this.lblEnd.AutoSize = true;
-            this.lblEnd.Location = new System.Drawing.Point(171, 24);
+            this.lblEnd.Location = new System.Drawing.Point(179, 26);
             this.lblEnd.Name = "lblEnd";
             this.lblEnd.Size = new System.Drawing.Size(36, 18);
             this.lblEnd.TabIndex = 157;
@@ -239,7 +210,7 @@
             // lblStart
             // 
             this.lblStart.AutoSize = true;
-            this.lblStart.Location = new System.Drawing.Point(2, 24);
+            this.lblStart.Location = new System.Drawing.Point(10, 26);
             this.lblStart.Name = "lblStart";
             this.lblStart.Size = new System.Drawing.Size(42, 18);
             this.lblStart.TabIndex = 156;
@@ -249,7 +220,7 @@
             // 
             this.dtpEndPeriod.CustomFormat = "yyyy-MM-dd";
             this.dtpEndPeriod.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpEndPeriod.Location = new System.Drawing.Point(211, 21);
+            this.dtpEndPeriod.Location = new System.Drawing.Point(219, 23);
             this.dtpEndPeriod.MinDate = new System.DateTime(1800, 1, 1, 0, 0, 0, 0);
             this.dtpEndPeriod.Name = "dtpEndPeriod";
             this.dtpEndPeriod.Size = new System.Drawing.Size(111, 24);
@@ -260,7 +231,7 @@
             // 
             this.dtpStartPeriod.CustomFormat = "yyyy-MM-dd";
             this.dtpStartPeriod.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpStartPeriod.Location = new System.Drawing.Point(54, 21);
+            this.dtpStartPeriod.Location = new System.Drawing.Point(62, 23);
             this.dtpStartPeriod.MinDate = new System.DateTime(1800, 1, 1, 0, 0, 0, 0);
             this.dtpStartPeriod.Name = "dtpStartPeriod";
             this.dtpStartPeriod.Size = new System.Drawing.Size(111, 24);
@@ -288,65 +259,11 @@
             "Mese",
             "Anno scolastico",
             "Da nuovo anno solare"});
-            this.cmbSchoolPeriod.Location = new System.Drawing.Point(333, 19);
+            this.cmbSchoolPeriod.Location = new System.Drawing.Point(341, 21);
             this.cmbSchoolPeriod.Name = "cmbSchoolPeriod";
             this.cmbSchoolPeriod.Size = new System.Drawing.Size(264, 26);
             this.cmbSchoolPeriod.TabIndex = 153;
             this.cmbSchoolPeriod.SelectedIndexChanged += new System.EventHandler(this.cmbSchoolPeriod_SelectedIndexChanged);
-            // 
-            // rdbShowWeightsOnOpenGrades
-            // 
-            this.rdbShowWeightsOnOpenGrades.AutoSize = true;
-            this.rdbShowWeightsOnOpenGrades.Location = new System.Drawing.Point(3, 74);
-            this.rdbShowWeightsOnOpenGrades.Name = "rdbShowWeightsOnOpenGrades";
-            this.rdbShowWeightsOnOpenGrades.Size = new System.Drawing.Size(142, 22);
-            this.rdbShowWeightsOnOpenGrades.TabIndex = 153;
-            this.rdbShowWeightsOnOpenGrades.Text = "Pesi su voti aperti";
-            this.rdbShowWeightsOnOpenGrades.UseVisualStyleBackColor = true;
-            // 
-            // lblSum
-            // 
-            this.lblSum.AutoSize = true;
-            this.lblSum.Location = new System.Drawing.Point(3, 96);
-            this.lblSum.Name = "lblSum";
-            this.lblSum.Size = new System.Drawing.Size(53, 18);
-            this.lblSum.TabIndex = 152;
-            this.lblSum.Text = "lblSum";
-            // 
-            // rdbShowWeightedGrades
-            // 
-            this.rdbShowWeightedGrades.AutoSize = true;
-            this.rdbShowWeightedGrades.Location = new System.Drawing.Point(4, 28);
-            this.rdbShowWeightedGrades.Name = "rdbShowWeightedGrades";
-            this.rdbShowWeightedGrades.Size = new System.Drawing.Size(145, 22);
-            this.rdbShowWeightedGrades.TabIndex = 151;
-            this.rdbShowWeightedGrades.Text = "Media pesata voti ";
-            this.rdbShowWeightedGrades.UseVisualStyleBackColor = true;
-            this.rdbShowWeightedGrades.CheckedChanged += new System.EventHandler(this.rdbShowWeightedGrades_CheckedChanged);
-            // 
-            // rdbShowWeights
-            // 
-            this.rdbShowWeights.AutoSize = true;
-            this.rdbShowWeights.Checked = true;
-            this.rdbShowWeights.Location = new System.Drawing.Point(4, 51);
-            this.rdbShowWeights.Name = "rdbShowWeights";
-            this.rdbShowWeights.Size = new System.Drawing.Size(55, 22);
-            this.rdbShowWeights.TabIndex = 150;
-            this.rdbShowWeights.TabStop = true;
-            this.rdbShowWeights.Text = "Pesi";
-            this.rdbShowWeights.UseVisualStyleBackColor = true;
-            this.rdbShowWeights.CheckedChanged += new System.EventHandler(this.rdbShowWeights_CheckedChanged);
-            // 
-            // rdbShowGrades
-            // 
-            this.rdbShowGrades.AutoSize = true;
-            this.rdbShowGrades.Location = new System.Drawing.Point(4, 5);
-            this.rdbShowGrades.Name = "rdbShowGrades";
-            this.rdbShowGrades.Size = new System.Drawing.Size(51, 22);
-            this.rdbShowGrades.TabIndex = 149;
-            this.rdbShowGrades.Text = "Voti";
-            this.rdbShowGrades.UseVisualStyleBackColor = true;
-            this.rdbShowGrades.CheckedChanged += new System.EventHandler(this.rdbShowGrades_CheckedChanged);
             // 
             // label1
             // 
@@ -355,7 +272,7 @@
             this.label1.Enabled = false;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label1.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label1.Location = new System.Drawing.Point(773, 7);
+            this.label1.Location = new System.Drawing.Point(6, 2);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(65, 15);
@@ -365,7 +282,7 @@
             // TxtIdStudent
             // 
             this.TxtIdStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.TxtIdStudent.Location = new System.Drawing.Point(776, 25);
+            this.TxtIdStudent.Location = new System.Drawing.Point(6, 20);
             this.TxtIdStudent.Margin = new System.Windows.Forms.Padding(4);
             this.TxtIdStudent.Name = "TxtIdStudent";
             this.TxtIdStudent.ReadOnly = true;
@@ -384,36 +301,33 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgwNotes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
             this.dgwNotes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgwNotes.Location = new System.Drawing.Point(0, 131);
+            this.dgwNotes.Location = new System.Drawing.Point(6, 122);
             this.dgwNotes.Margin = new System.Windows.Forms.Padding(4);
             this.dgwNotes.Name = "dgwNotes";
             this.dgwNotes.RowTemplate.Height = 24;
-            this.dgwNotes.Size = new System.Drawing.Size(849, 103);
+            this.dgwNotes.Size = new System.Drawing.Size(836, 112);
             this.dgwNotes.TabIndex = 157;
             // 
             // splitContainer1
             // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.Location = new System.Drawing.Point(8, 53);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.btnClosePeriod);
-            this.splitContainer1.Panel1.Controls.Add(this.rdbShowWeightsOnOpenGrades);
-            this.splitContainer1.Panel1.Controls.Add(this.rdbShowGrades);
-            this.splitContainer1.Panel1.Controls.Add(this.rdbShowWeights);
-            this.splitContainer1.Panel1.Controls.Add(this.rdbShowWeightedGrades);
+            this.splitContainer1.Panel1.Controls.Add(this.lblAverage);
+            this.splitContainer1.Panel1.Controls.Add(this.txtMediaDomande);
             this.splitContainer1.Panel1.Controls.Add(this.label2);
             this.splitContainer1.Panel1.Controls.Add(this.grpComplessivo);
-            this.splitContainer1.Panel1.Controls.Add(this.lblSum);
             this.splitContainer1.Panel1.Controls.Add(this.dgwGrades);
-            this.splitContainer1.Panel1.Controls.Add(this.btnDettagliVoto);
             this.splitContainer1.Panel1.Controls.Add(this.cmbSummaryGradeType);
             this.splitContainer1.Panel1.Controls.Add(this.grpPeriodOfQuestionsTopics);
             this.splitContainer1.Panel1.Controls.Add(this.cmbSchoolSubjects);
             this.splitContainer1.Panel1.Controls.Add(this.lblSchoolSubject);
-            this.splitContainer1.Panel1.Controls.Add(this.txtMediaMicroDomande);
             // 
             // splitContainer1.Panel2
             // 
@@ -433,13 +347,32 @@
             this.splitContainer1.SplitterDistance = 487;
             this.splitContainer1.TabIndex = 157;
             // 
+            // lblAverage
+            // 
+            this.lblAverage.AutoSize = true;
+            this.lblAverage.Location = new System.Drawing.Point(511, 29);
+            this.lblAverage.Name = "lblAverage";
+            this.lblAverage.Size = new System.Drawing.Size(96, 18);
+            this.lblAverage.TabIndex = 149;
+            this.lblAverage.Text = "Media pesata";
+            // 
+            // txtMediaDomande
+            // 
+            this.txtMediaDomande.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtMediaDomande.Location = new System.Drawing.Point(511, 54);
+            this.txtMediaDomande.Margin = new System.Windows.Forms.Padding(4);
+            this.txtMediaDomande.Name = "txtMediaDomande";
+            this.txtMediaDomande.Size = new System.Drawing.Size(100, 37);
+            this.txtMediaDomande.TabIndex = 148;
+            this.txtMediaDomande.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnSave.Location = new System.Drawing.Point(433, 1);
+            this.btnSave.Location = new System.Drawing.Point(441, 11);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(63, 37);
+            this.btnSave.Size = new System.Drawing.Size(62, 37);
             this.btnSave.TabIndex = 170;
             this.btnSave.Text = "Salva";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -448,9 +381,9 @@
             // 
             this.btnEraseAnnotation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEraseAnnotation.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnEraseAnnotation.Location = new System.Drawing.Point(367, 1);
+            this.btnEraseAnnotation.Location = new System.Drawing.Point(375, 11);
             this.btnEraseAnnotation.Name = "btnEraseAnnotation";
-            this.btnEraseAnnotation.Size = new System.Drawing.Size(63, 37);
+            this.btnEraseAnnotation.Size = new System.Drawing.Size(62, 37);
             this.btnEraseAnnotation.TabIndex = 169;
             this.btnEraseAnnotation.Text = "-";
             this.btnEraseAnnotation.UseVisualStyleBackColor = true;
@@ -459,9 +392,9 @@
             // 
             this.btnAddAnnotation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAddAnnotation.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnAddAnnotation.Location = new System.Drawing.Point(301, 1);
+            this.btnAddAnnotation.Location = new System.Drawing.Point(309, 11);
             this.btnAddAnnotation.Name = "btnAddAnnotation";
-            this.btnAddAnnotation.Size = new System.Drawing.Size(63, 37);
+            this.btnAddAnnotation.Size = new System.Drawing.Size(62, 37);
             this.btnAddAnnotation.TabIndex = 168;
             this.btnAddAnnotation.Text = "+";
             this.btnAddAnnotation.UseVisualStyleBackColor = true;
@@ -470,10 +403,10 @@
             // 
             this.txtAnnotation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtAnnotation.Location = new System.Drawing.Point(0, 71);
+            this.txtAnnotation.Location = new System.Drawing.Point(6, 62);
             this.txtAnnotation.Multiline = true;
             this.txtAnnotation.Name = "txtAnnotation";
-            this.txtAnnotation.Size = new System.Drawing.Size(775, 53);
+            this.txtAnnotation.Size = new System.Drawing.Size(834, 53);
             this.txtAnnotation.TabIndex = 177;
             // 
             // chkCurrentAnnotationActive
@@ -481,7 +414,7 @@
             this.chkCurrentAnnotationActive.AutoSize = true;
             this.chkCurrentAnnotationActive.Checked = true;
             this.chkCurrentAnnotationActive.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkCurrentAnnotationActive.Location = new System.Drawing.Point(779, 74);
+            this.chkCurrentAnnotationActive.Location = new System.Drawing.Point(533, 10);
             this.chkCurrentAnnotationActive.Name = "chkCurrentAnnotationActive";
             this.chkCurrentAnnotationActive.Size = new System.Drawing.Size(62, 22);
             this.chkCurrentAnnotationActive.TabIndex = 179;
@@ -493,7 +426,7 @@
             this.chkShowOnlyActive.AutoSize = true;
             this.chkShowOnlyActive.Checked = true;
             this.chkShowOnlyActive.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkShowOnlyActive.Location = new System.Drawing.Point(518, 43);
+            this.chkShowOnlyActive.Location = new System.Drawing.Point(533, 32);
             this.chkShowOnlyActive.Name = "chkShowOnlyActive";
             this.chkShowOnlyActive.Size = new System.Drawing.Size(162, 22);
             this.chkShowOnlyActive.TabIndex = 178;
@@ -505,10 +438,10 @@
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label5.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label5.Location = new System.Drawing.Point(-1, 0);
+            this.label5.Location = new System.Drawing.Point(3, 9);
             this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(271, 59);
+            this.label5.Size = new System.Drawing.Size(271, 38);
             this.label5.TabIndex = 176;
             this.label5.Text = "Annotazione";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -516,7 +449,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(783, 20);
+            this.label4.Location = new System.Drawing.Point(778, 11);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(64, 18);
             this.label4.TabIndex = 175;
@@ -524,7 +457,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(786, 41);
+            this.textBox1.Location = new System.Drawing.Point(781, 32);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(59, 24);
@@ -533,7 +466,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(718, 20);
+            this.label3.Location = new System.Drawing.Point(713, 11);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(64, 18);
             this.label3.TabIndex = 175;
@@ -541,21 +474,11 @@
             // 
             // txtIdStudentsAnnotation
             // 
-            this.txtIdStudentsAnnotation.Location = new System.Drawing.Point(721, 41);
+            this.txtIdStudentsAnnotation.Location = new System.Drawing.Point(716, 32);
             this.txtIdStudentsAnnotation.Name = "txtIdStudentsAnnotation";
             this.txtIdStudentsAnnotation.ReadOnly = true;
             this.txtIdStudentsAnnotation.Size = new System.Drawing.Size(59, 24);
             this.txtIdStudentsAnnotation.TabIndex = 174;
-            // 
-            // btnClosePeriod
-            // 
-            this.btnClosePeriod.Location = new System.Drawing.Point(766, 103);
-            this.btnClosePeriod.Name = "btnClosePeriod";
-            this.btnClosePeriod.Size = new System.Drawing.Size(75, 49);
-            this.btnClosePeriod.TabIndex = 179;
-            this.btnClosePeriod.Text = "Chiudi periodo";
-            this.btnClosePeriod.UseVisualStyleBackColor = true;
-            this.btnClosePeriod.Click += new System.EventHandler(this.btnClosePeriod_Click);
             // 
             // frmGradesStudentsSummary
             // 
@@ -595,8 +518,6 @@
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.DataGridView dgwGrades;
         private System.Windows.Forms.Label lblCurrentStudent;
-        private System.Windows.Forms.TextBox txtMediaMicroDomande;
-        private System.Windows.Forms.Button btnDettagliVoto;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox grpComplessivo;
         private System.Windows.Forms.ComboBox cmbSummaryGradeType;
@@ -609,11 +530,6 @@
         private System.Windows.Forms.DateTimePicker dtpStartPeriod;
         private System.Windows.Forms.RadioButton rdbAmongPeriod;
         private System.Windows.Forms.ComboBox cmbSchoolPeriod;
-        private System.Windows.Forms.RadioButton rdbShowWeightsOnOpenGrades;
-        private System.Windows.Forms.Label lblSum;
-        private System.Windows.Forms.RadioButton rdbShowWeightedGrades;
-        private System.Windows.Forms.RadioButton rdbShowWeights;
-        private System.Windows.Forms.RadioButton rdbShowGrades;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox TxtIdStudent;
         private System.Windows.Forms.DataGridView dgwNotes;
@@ -629,6 +545,7 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnEraseAnnotation;
         private System.Windows.Forms.Button btnAddAnnotation;
-        private System.Windows.Forms.Button btnClosePeriod;
+        private System.Windows.Forms.Label lblAverage;
+        private System.Windows.Forms.TextBox txtMediaDomande;
     }
 }

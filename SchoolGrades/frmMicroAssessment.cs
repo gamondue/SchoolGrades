@@ -207,7 +207,6 @@ namespace SchoolGrades
                         MessageBoxDefaultButton.Button2)
                          == DialogResult.Yes)
                     {
-                        // 
                         Commons.bl.DeleteValueOfGrade(int.Parse(txtIdMacroGrade.Text));
                         ShowStudentsDataAndAverages();
                     }
