@@ -29,7 +29,6 @@ namespace SchoolGrades
             }
             return g;
         }
-
         internal void SaveMacroGrade(int? IdStudent, int? IdParent,
             double Grade, double Weight, string IdSchoolYear,
             string IdSchoolSubject)
@@ -89,7 +88,6 @@ namespace SchoolGrades
             }
             return d;
         }
-
         /// <summary>
         /// Gets all the grades of a students of a specified IdGradeType that are the sons 
         /// of another grade which has value greater than zero
@@ -136,7 +134,6 @@ namespace SchoolGrades
                 return DSet.Tables[0];
             }
         }
-
         internal DataTable GetSubGradesOfGrade(int? IdGrade)
         {
             DataTable t;
@@ -159,7 +156,6 @@ namespace SchoolGrades
             }
             return t;
         }
-
         internal Student GetWeightedAveragesOfStudent(Student Student, string stringKey1, string stringKey2, DateTime value1, DateTime value2)
         {
             
@@ -201,7 +197,6 @@ namespace SchoolGrades
             //}
             return Student;
         }
-
         internal DataTable GetGradesOfClass(Class Class,
              string IdGradeType, string IdSchoolSubject,
              DateTime DateFrom, DateTime DateTo)
@@ -237,7 +232,6 @@ namespace SchoolGrades
             }
             return t;
         }
-
         /// <summary>
         /// Gets the number of microquestions that haven't yet a global grade
         /// </summary>
@@ -272,7 +266,6 @@ namespace SchoolGrades
             }
             return ls;
         }
-
         internal Grade LastOpenGradeOfStudent(Student Student, string IdSchoolYear,
             SchoolSubject SchoolSubject, string IdGradeType)
         {
@@ -301,7 +294,6 @@ namespace SchoolGrades
             }
             return g;
         }
-
         internal void CloneGrade(DataRow Riga)
         {
             using (DbConnection conn = Connect())
@@ -361,7 +353,6 @@ namespace SchoolGrades
                 return lg;
             }
         }
-
         internal void DeleteValueOfGrade(int IdGrade)
         {
             using (DbConnection conn = Connect())
@@ -377,7 +368,6 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-
         internal GradeType GetGradeTypeFromRow(DbDataReader Row)
         {
             if (Row.HasRows)
@@ -393,7 +383,6 @@ namespace SchoolGrades
             }
             return null;
         }
-
         internal GradeType GetGradeType(string IdGradeType)
         {
             GradeType gt = null;
@@ -412,7 +401,6 @@ namespace SchoolGrades
             }
             return gt;
         }
-
         internal void RandomizeGrades(DbConnection conn)
         {
             DbDataReader dRead;
@@ -439,7 +427,6 @@ namespace SchoolGrades
             }
             cmd.Dispose();
         }
-
         private void SaveGradeValue(int? id, double? grade, DbConnection conn)
         {
             DbCommand cmd = conn.CreateCommand();
@@ -450,8 +437,6 @@ namespace SchoolGrades
             cmd.ExecuteNonQuery();
             cmd.Dispose();
         }
-        
-
         internal void EraseGrade(int? KeyGrade)
         {
             using (DbConnection conn = Connect())
@@ -464,7 +449,6 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-
         internal Grade GetGradeFromRow(DbDataReader Row)
         {
             Grade g = new Grade();
@@ -488,7 +472,7 @@ namespace SchoolGrades
             DataTable t;
             using (DbConnection conn = Connect())
             {
-                string query = "SELECT Grades.idGrade,datetime(Grades.timeStamp), Students.idStudent," +
+                string query = "SELECT DISTINCT Grades.idGrade,datetime(Grades.timeStamp), Students.idStudent," +
                 "lastName,firstName," +
                 " Grades.value AS 'grade', Grades.weight," +
                 " Grades.idGradeParent" +
@@ -519,7 +503,6 @@ namespace SchoolGrades
         internal object GetGradesWeightsOfStudentOnOpenGrades(Student currentStudent, string stringKey1, string stringKey2, DateTime value1, DateTime value2)
         {
             throw new NotImplementedException();
-
         }
         internal DataTable GetWeightedAveragesOfClassByGradesFraction(Class Class,
             string IdGradeType, string IdSchoolSubject, DateTime DateFrom, DateTime DateTo)
