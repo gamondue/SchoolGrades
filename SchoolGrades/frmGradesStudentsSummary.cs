@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -11,10 +10,12 @@ namespace SchoolGrades
     public partial class frmGradesStudentsSummary : Form
     {
         private Student currentStudent;
+        private Grade currentGrade = new Grade(); 
         private string currentSchoolYear;
         private GradeType currentGradeType;
         private SchoolSubject currentSchoolSubject;
-        private StudentAnnotation currentAnnotation; 
+        private StudentAnnotation currentAnnotation;
+        private SchoolPeriod currentSchoolPeriod; 
 
         public frmGradesStudentsSummary(Student Student, string IdSchoolYear,
             GradeType GradeType, SchoolSubject SchoolSubject)
@@ -39,7 +40,7 @@ namespace SchoolGrades
             // student's name label 
             lblCurrentStudent.Text = currentStudent.ToString();
             TxtIdStudent.Text = currentStudent.IdStudent.ToString(); 
-            lblSum.Text = "";
+            //lblSum.Text = "";
 
             // fill the combos of lookup tables
             List<GradeType> listGrades = Commons.bl.GetListGradeTypes();
@@ -50,7 +51,7 @@ namespace SchoolGrades
 
             List<SchoolSubject> listSubjects = Commons.bl.GetListSchoolSubjects(false);
             cmbSchoolSubjects.DisplayMember = "Name";
-            cmbSchoolSubjects.ValueMember = "idGradeType";
+            cmbSchoolSubjects.ValueMember = "idSchoolSubject";
             cmbSchoolSubjects.DataSource = listSubjects;
             cmbSchoolSubjects.SelectedValue = currentSchoolSubject.IdSchoolSubject;
 
@@ -59,30 +60,28 @@ namespace SchoolGrades
 
             dgwNotes.DataSource = Commons.bl.AnnotationsAboutThisStudent(currentStudent, currentSchoolYear,
                 chkShowOnlyActive.Checked);
+            TxtIdStudent.Text = currentStudent.IdStudent.ToString(); 
             RefreshData();
-        }
-        private void dgwVoti_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            CalculateWeightedAverage();
         }
         private void CalculateWeightedAverage()
         {
-            if (dgwGrades.DataSource != null)
-            {
-                double sommaPesata = 0;
-                double sommaPesi = 0;
-                foreach (DataRow riga in ((DataTable)dgwGrades.DataSource).Rows)
-                {
-                    sommaPesata += (double)riga["value"] * (double)riga["weight"];
-                    sommaPesi += (double)riga["weight"];
-                }
-                double mediaPesata = sommaPesata / sommaPesi;
-                txtMediaMicroDomande.Text = mediaPesata.ToString("#.##");
-            }
-            else
-            {
-                txtMediaMicroDomande.Text = "";
-            }
+            // !!!! fix !!!! 
+            ////////////if (dgwGrades.DataSource != null)
+            ////////////{
+            ////////////    double sommaPesata = 0;
+            ////////////    double sommaPesi = 0;
+            ////////////    foreach (DataRow riga in ((DataTable)dgwGrades.DataSource).Rows)
+            ////////////    {
+            ////////////        sommaPesata += (double)riga["value"] * (double)riga["weight"];
+            ////////////        sommaPesi += (double)riga["weight"];
+            ////////////    }
+            ////////////    double mediaPesata = sommaPesata / sommaPesi;
+            ////////////    txtMediaDomande.Text = mediaPesata.ToString("#.##");
+            ////////////}
+            ////////////else
+            ////////////{
+            ////////////    txtMediaDomande.Text = "";
+            ////////////}
         }
         private void btnDettagliVoto_Click(object sender, EventArgs e)
         {
@@ -117,62 +116,13 @@ namespace SchoolGrades
         {
             if (cmbSummaryGradeType.SelectedItem != null && cmbSchoolSubjects.SelectedItem != null)
             {
-                if (cmbSummaryGradeType.SelectedItem != null && cmbSchoolSubjects.SelectedItem != null)
-                {
-                    if (rdbShowGrades.Checked)
-                    {
-                        dgwGrades.DataSource = Commons.bl.GetGradesOfStudent(currentStudent, currentSchoolYear,
-                            ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
-                            ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
-                            dtpStartPeriod.Value, dtpEndPeriod.Value
-                            );
-                        lblSum.Text = "";
-                        txtMediaMicroDomande.Text = "";
-                    }
-                    else if (rdbShowWeights.Checked)
-                    {
-                        dgwGrades.DataSource = Commons.bl.GetWeightedAveragesOfStudent(currentStudent,
-                            ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
-                            ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
-                            dtpStartPeriod.Value, dtpEndPeriod.Value
-                            );
-                        double sumLeftToClose = 0;
-                        double maxGradesFraction = 0;
-                        foreach (DataRow row in ((DataTable)dgwGrades.DataSource).Rows)
-                        {
-                            double gf = (double)row["GradesFraction"];
-                            if (gf > maxGradesFraction)
-                                maxGradesFraction = gf;
-                            sumLeftToClose += (double)row["LeftToCloseAssesments"];
-                        }
-                        int nGrades = (int)Math.Round(maxGradesFraction + 0.10);
-                        lblSum.Text = "Mancanti a fine giro";
-                        txtMediaMicroDomande.Text = (sumLeftToClose / nGrades).ToString();
-                    }
-                    else if (rdbShowWeightedGrades.Checked)
-                    {
-                        dgwGrades.DataSource = Commons.bl.GetGradesWeightedAveragesOfStudent(currentStudent,
-                            ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
-                            ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
-                            dtpStartPeriod.Value, dtpEndPeriod.Value
-                            );
-                        lblSum.Text = "";
-                        txtMediaMicroDomande.Text = "";
-                    }
-                    else if (rdbShowWeightsOnOpenGrades.Checked)
-                    {
-                        dgwGrades.DataSource = Commons.bl.GetGradesWeightsOfStudentOnOpenGrades(currentStudent,
-                            ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
-                            ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
-                            dtpStartPeriod.Value, dtpEndPeriod.Value
-                            );
-                        lblSum.Text = "";
-                        txtMediaMicroDomande.Text = "";
-
-                        setRowNumbers(dgwGrades);
-                    }
-                }
+                dgwGrades.DataSource = Commons.bl.GetGradesOfStudent(currentStudent, currentSchoolYear,
+                    ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
+                    ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
+                    dtpStartPeriod.Value, dtpEndPeriod.Value
+                    );
             }
+            CalculateWeightedAverage();
         }
         private void cmbSchoolSubjects_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -188,45 +138,50 @@ namespace SchoolGrades
         }
         private void cmbSchoolPeriod_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RefreshData();
-        }
-        private void rdbShowGrades_CheckedChanged(object sender, EventArgs e)
-        {
-            RefreshData();
-        }
-        private void rdbShowWeightedGrades_CheckedChanged(object sender, EventArgs e)
-        {
-            txtMediaMicroDomande.Text = "";
-        }
-        private void rdbShowWeights_CheckedChanged(object sender, EventArgs e)
-        {
-            RefreshData(); 
-        }
-        private void setRowNumbers(DataGridView dgv)
-        {
-            foreach (DataGridViewRow row in dgv.Rows)
+            currentSchoolPeriod = (SchoolPeriod)(cmbSchoolPeriod.SelectedValue);
+            if (currentSchoolPeriod.IdSchoolPeriodType != "N")
             {
-                row.HeaderCell.Value = (row.Index + 1).ToString();
+                dtpStartPeriod.Value = (DateTime)currentSchoolPeriod.DateStart;
+                dtpEndPeriod.Value = (DateTime)currentSchoolPeriod.DateFinish;
             }
+            else if (currentSchoolPeriod.IdSchoolPeriod == "month")
+            {
+                dtpStartPeriod.Value = DateTime.Now.AddMonths(-1);
+                dtpEndPeriod.Value = DateTime.Now;
+            }
+            else if (currentSchoolPeriod.IdSchoolPeriod == "week")
+            {
+                dtpStartPeriod.Value = DateTime.Now.AddDays(-7);
+                dtpEndPeriod.Value = DateTime.Now;
+            }
+            else if (currentSchoolPeriod.IdSchoolPeriod == "year")
+            {
+                dtpStartPeriod.Value = DateTime.Now.AddYears(-1);
+                dtpEndPeriod.Value = DateTime.Now;
+            }
+            RefreshData();
         }
         private void dgwGrades_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            TxtIdStudent.Text = currentStudent.IdStudent.ToString();
+
         }
-
-        private void btnClosePeriod_Click(object sender, EventArgs e)
+        private void dgwVoti_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            //List<Student> ss = Commons.bl.GetStudentsOfClassList(currentClass.IdClass);
-            //foreach (Student s in ss)
-            //{
-            //    //DataTable T = Commons.bl.GetMicroGradesOfStudentWithMacroOpen(s.IdStudent, 
-            //    //    currentSchoolPeriod.IdSchoolYear, currentGradeType.IdGradeType,
-            //    //    currentSubject.IdSchoolSubject);
-
-            //    //Commons.bl.SaveMacroGrade(currentStudent.IdStudent, (int?)int.Parse(txtIdMacroGrade.Text),
-            //    //    average, weight, currentYear,
-            //    //    currentSchoolSubject.IdSchoolSubject);
-            //}
+            CalculateWeightedAverage();
+        }
+        private void dgwGrades_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            frmGrade f = new frmGrade(currentStudent, currentGrade); 
+            f.Show();
+        }
+        private void dgwGrades_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > 0)
+            {
+                dgwGrades.Rows[e.RowIndex].Selected = true;
+                currentGrade.IdGrade = (int?)dgwGrades.Rows[e.RowIndex].Cells["IdGrade"].Value; 
+                currentGrade = Commons.bl.GetGrade(currentGrade.IdGrade); 
+            }
         }
     }
 }
