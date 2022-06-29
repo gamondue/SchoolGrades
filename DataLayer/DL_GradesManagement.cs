@@ -472,8 +472,8 @@ namespace SchoolGrades
             DataTable t;
             using (DbConnection conn = Connect())
             {
-                string query = "SELECT DISTINCT Grades.idGrade,datetime(Grades.timeStamp), Students.idStudent," +
-                "lastName,firstName," +
+                string query = "SELECT DISTINCT Grades.idGrade,datetime(Grades.timeStamp)," +
+                "lastName,firstName,Questions.text," +
                 " Grades.value AS 'grade', Grades.weight," +
                 " Grades.idGradeParent" +
                 " FROM Grades" +
@@ -481,6 +481,8 @@ namespace SchoolGrades
                 " ON Students.idStudent=Grades.idStudent" +
                 " JOIN Classes_Students" +
                 " ON Classes_Students.idStudent=Students.idStudent" +
+                " LEFT JOIN Questions" +
+                " ON Grades.idQuestion=Questions.idQuestion" +
                 " WHERE Students.idStudent =" + Student.IdStudent +
                 " AND Grades.idSchoolYear='" + SchoolYear + "'" +
                 " AND Grades.idGradeType = '" + IdGradeType + "'" +

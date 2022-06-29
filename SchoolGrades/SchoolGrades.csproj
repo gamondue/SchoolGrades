@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
-    <Version>0.53.0.12</Version>
+    <Version>0.53.0.14</Version>
     <Authors>Ing. Gabriele Monti - Forlì - Italia</Authors>
     <Copyright>Ing. Gabriele Monti - Forlì - Italia</Copyright>
     <PackageLicenseExpression>GPLv2</PackageLicenseExpression>
@@ -17,8 +17,8 @@ Versions with numbers under 0.50 were made with .Net Framework.</PackageReleaseN
     <PackageIcon>gamon LegoLogo decentrato trasparente 256x256.ico</PackageIcon>
     <ApplicationIcon>gamon LegoLogo decentrato trasparente 256x256.ico</ApplicationIcon>
     <DefineConstants>WINFORMS</DefineConstants>
-    <AssemblyVersion>0.53.0.13</AssemblyVersion>
-    <FileVersion>0.53.0.13</FileVersion>
+    <AssemblyVersion></AssemblyVersion>
+    <FileVersion></FileVersion>
   </PropertyGroup>
 
   <Import Project="..\SharedItems\SharedItems.projitems" Label="Shared" />
