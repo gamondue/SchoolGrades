@@ -44,10 +44,10 @@ namespace SchoolGrades
 
             // fill the combos of lookup tables
             List<GradeType> listGrades = Commons.bl.GetListGradeTypes();
-            cmbSummaryGradeType.DisplayMember = "Name";
-            cmbSummaryGradeType.ValueMember = "idGradeType";
-            cmbSummaryGradeType.DataSource = listGrades;
-            cmbSummaryGradeType.SelectedValue = currentGradeType.IdGradeType;
+            cmbGradeType.DisplayMember = "Name";
+            cmbGradeType.ValueMember = "idGradeType";
+            cmbGradeType.DataSource = listGrades;
+            cmbGradeType.SelectedValue = currentGradeType.IdGradeType;
 
             List<SchoolSubject> listSubjects = Commons.bl.GetListSchoolSubjects(false);
             cmbSchoolSubjects.DisplayMember = "Name";
@@ -65,30 +65,23 @@ namespace SchoolGrades
         }
         private void CalculateWeightedAverage()
         {
-            // !!!! fix !!!! 
-            ////////////if (dgwGrades.DataSource != null)
-            ////////////{
-            ////////////    double sommaPesata = 0;
-            ////////////    double sommaPesi = 0;
-            ////////////    foreach (DataRow riga in ((DataTable)dgwGrades.DataSource).Rows)
-            ////////////    {
-            ////////////        sommaPesata += (double)riga["value"] * (double)riga["weight"];
-            ////////////        sommaPesi += (double)riga["weight"];
-            ////////////    }
-            ////////////    double mediaPesata = sommaPesata / sommaPesi;
-            ////////////    txtMediaDomande.Text = mediaPesata.ToString("#.##");
-            ////////////}
-            ////////////else
-            ////////////{
-            ////////////    txtMediaDomande.Text = "";
-            ////////////}
-        }
-        private void btnDettagliVoto_Click(object sender, EventArgs e)
-        {
-            DataRow riga = ((DataTable) dgwGrades.DataSource).Rows[dgwGrades.CurrentRow.Index]; 
-            int idSelectedGrade = (int) riga["idGrade"];
-            frmMicroAssessment f = new frmMicroAssessment(idSelectedGrade);
-            f.ShowDialog();
+            if (dgwGrades.DataSource != null)
+            {
+                double weightedAverage = 0;
+                double sumOfWeights = 0;
+                foreach (DataRow row in ((DataTable)dgwGrades.DataSource).Rows)
+                {
+                    weightedAverage += (double)row["grade"] * (double)row["weight"];
+                    sumOfWeights += (double)row["weight"];
+                }
+                double mediaPesata = weightedAverage / sumOfWeights;
+                txtSumOfWeights.Text = sumOfWeights.ToString("#.##"); 
+                txtWeightedAverage.Text = mediaPesata.ToString("#.##");
+            }
+            else
+            {
+                txtWeightedAverage.Text = "";
+            }
         }
         private void frmGradesSummary_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -108,16 +101,16 @@ namespace SchoolGrades
                 }
             }
         }
-        private void cmbTipoVotoRiepilogo_SelectedIndexChanged(object sender, EventArgs e)
+        private void cmbGradeType_SelectedIndexChanged(object sender, EventArgs e)
         {
             RefreshData();
         }
         private void RefreshData()
         {
-            if (cmbSummaryGradeType.SelectedItem != null && cmbSchoolSubjects.SelectedItem != null)
+            if (cmbGradeType.SelectedItem != null && cmbSchoolSubjects.SelectedItem != null)
             {
                 dgwGrades.DataSource = Commons.bl.GetGradesOfStudent(currentStudent, currentSchoolYear,
-                    ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
+                    ((GradeType)(cmbGradeType.SelectedItem)).IdGradeType,
                     ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
                     dtpStartPeriod.Value, dtpEndPeriod.Value
                     );
