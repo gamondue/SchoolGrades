@@ -55,12 +55,12 @@
             this.label1.TabIndex = 156;
             this.label1.Text = "Id allievo";
             // 
-            // TxtIdStudent
+            // txtIdStudent
             // 
             this.txtIdStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtIdStudent.Location = new System.Drawing.Point(1, 21);
             this.txtIdStudent.Margin = new System.Windows.Forms.Padding(4);
-            this.txtIdStudent.Name = "TxtIdStudent";
+            this.txtIdStudent.Name = "txtIdStudent";
             this.txtIdStudent.ReadOnly = true;
             this.txtIdStudent.Size = new System.Drawing.Size(77, 27);
             this.txtIdStudent.TabIndex = 155;
@@ -91,17 +91,19 @@
             this.lblSchoolSubject.TabIndex = 153;
             this.lblSchoolSubject.Text = "Materia";
             // 
-            // TxtQuestionText
+            // txtQuestionText
             // 
             this.txtQuestionText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtQuestionText.Location = new System.Drawing.Point(1, 63);
             this.txtQuestionText.Margin = new System.Windows.Forms.Padding(4);
             this.txtQuestionText.Multiline = true;
-            this.txtQuestionText.Name = "TxtQuestionText";
+            this.txtQuestionText.Name = "txtQuestionText";
             this.txtQuestionText.ReadOnly = true;
             this.txtQuestionText.Size = new System.Drawing.Size(834, 64);
             this.txtQuestionText.TabIndex = 152;
+            this.txtQuestionText.TextChanged += new System.EventHandler(this.txtQuestionText_TextChanged);
+            this.txtQuestionText.DoubleClick += new System.EventHandler(this.txtQuestionText_DoubleClick);
             // 
             // lblStudent
             // 

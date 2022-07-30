@@ -61,5 +61,14 @@ namespace SchoolGrades
                 currentQuestion.IdQuestion = null;
             }
         }
+        private void txtQuestionText_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void txtQuestionText_DoubleClick(object sender, EventArgs e)
+        {
+            frmQuestion f = new frmQuestion(frmQuestion.QuestionFormType.EditOneQuestion, currentQuestion, null, null, null); 
+            f.ShowDialog(); 
+        }
     }
 }
