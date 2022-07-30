@@ -185,7 +185,8 @@ namespace SchoolGrades
                 DbCommand cmd = conn.CreateCommand();
                 string query;
                 query = "UPDATE Images" +
-                    " SET caption=" + SqlString(Image.Caption) + "" +
+                    " SET caption=" + SqlString(Image.Caption) + "" + 
+                    ", imagePath=" + SqlString(Image.RelativePathAndFilename) + "" +
                     " WHERE idImage=" +
                     Image.IdImage +
                     ";";

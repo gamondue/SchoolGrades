@@ -52,7 +52,7 @@
     }
   },
   "libraries": {
-    "SchoolGrades/0.53.0.14": {
+    "SchoolGrades/0.53.0.12": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
