@@ -473,8 +473,8 @@ namespace SchoolGrades
             using (DbConnection conn = Connect())
             {
                 string query = "SELECT DISTINCT Grades.idGrade,datetime(Grades.timeStamp)," +
-                "lastName,firstName,Questions.text," +
-                " Grades.value AS 'grade', Grades.weight," +
+                "Grades.value AS 'grade', Grades.weight," +
+                "Questions.text,lastName,firstName," +
                 " Grades.idGradeParent" +
                 " FROM Grades" +
                 " JOIN Students" +

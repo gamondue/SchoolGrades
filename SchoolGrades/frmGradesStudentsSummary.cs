@@ -10,12 +10,12 @@ namespace SchoolGrades
     public partial class frmGradesStudentsSummary : Form
     {
         private Student currentStudent;
-        private Grade currentGrade = new Grade(); 
+        private Grade currentGrade = new Grade();
         private string currentSchoolYear;
         private GradeType currentGradeType;
         private SchoolSubject currentSchoolSubject;
         private StudentAnnotation currentAnnotation;
-        private SchoolPeriod currentSchoolPeriod; 
+        private SchoolPeriod currentSchoolPeriod;
 
         public frmGradesStudentsSummary(Student Student, string IdSchoolYear,
             GradeType GradeType, SchoolSubject SchoolSubject)
@@ -34,12 +34,12 @@ namespace SchoolGrades
             if (currentStudent == null)
             {
                 MessageBox.Show("Non è stato passato nessun studente");
-                this.Close(); 
-            } 
+                this.Close();
+            }
 
             // student's name label 
             lblCurrentStudent.Text = currentStudent.ToString();
-            TxtIdStudent.Text = currentStudent.IdStudent.ToString(); 
+            TxtIdStudent.Text = currentStudent.IdStudent.ToString();
             //lblSum.Text = "";
 
             // fill the combos of lookup tables
@@ -60,7 +60,7 @@ namespace SchoolGrades
 
             dgwNotes.DataSource = Commons.bl.AnnotationsAboutThisStudent(currentStudent, currentSchoolYear,
                 chkShowOnlyActive.Checked);
-            TxtIdStudent.Text = currentStudent.IdStudent.ToString(); 
+            TxtIdStudent.Text = currentStudent.IdStudent.ToString();
             RefreshData();
         }
         private void CalculateWeightedAverage()
@@ -75,7 +75,7 @@ namespace SchoolGrades
                     sumOfWeights += (double)row["weight"];
                 }
                 double mediaPesata = weightedAverage / sumOfWeights;
-                txtSumOfWeights.Text = sumOfWeights.ToString("#.##"); 
+                txtSumOfWeights.Text = sumOfWeights.ToString("#.##");
                 txtWeightedAverage.Text = mediaPesata.ToString("#.##");
             }
             else
@@ -121,7 +121,7 @@ namespace SchoolGrades
         {
             if (cmbSchoolSubjects.SelectedItem == null)
             {
-                return; 
+                return;
             }
             string IdCurrentSubject = ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject;
             int col = (int)Commons.bl.GetSchoolSubject(IdCurrentSubject).Color;
@@ -164,7 +164,7 @@ namespace SchoolGrades
         }
         private void dgwGrades_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            frmGrade f = new frmGrade(currentStudent, currentGrade); 
+            frmGrade f = new frmGrade(currentStudent, currentGrade);
             f.Show();
         }
         private void dgwGrades_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -172,8 +172,8 @@ namespace SchoolGrades
             if (e.RowIndex > 0)
             {
                 dgwGrades.Rows[e.RowIndex].Selected = true;
-                currentGrade.IdGrade = (int?)dgwGrades.Rows[e.RowIndex].Cells["IdGrade"].Value; 
-                currentGrade = Commons.bl.GetGrade(currentGrade.IdGrade); 
+                currentGrade.IdGrade = (int?)dgwGrades.Rows[e.RowIndex].Cells["IdGrade"].Value;
+                currentGrade = Commons.bl.GetGrade(currentGrade.IdGrade);
             }
         }
     }
