@@ -58,6 +58,10 @@
             this.txtSumOfWeights = new System.Windows.Forms.TextBox();
             this.lblAverage = new System.Windows.Forms.Label();
             this.txtWeightedAverage = new System.Windows.Forms.TextBox();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnEraseAnnotation = new System.Windows.Forms.Button();
+            this.btnAddAnnotation = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
             this.txtAnnotation = new System.Windows.Forms.TextBox();
             this.chkCurrentAnnotationActive = new System.Windows.Forms.CheckBox();
             this.chkShowOnlyActive = new System.Windows.Forms.CheckBox();
@@ -85,11 +89,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgwGrades.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
             this.dgwGrades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgwGrades.Location = new System.Drawing.Point(3, 89);
+            this.dgwGrades.Location = new System.Drawing.Point(0, 151);
             this.dgwGrades.Margin = new System.Windows.Forms.Padding(4);
             this.dgwGrades.Name = "dgwGrades";
             this.dgwGrades.RowTemplate.Height = 24;
-            this.dgwGrades.Size = new System.Drawing.Size(908, 212);
+            this.dgwGrades.Size = new System.Drawing.Size(923, 215);
             this.dgwGrades.TabIndex = 77;
             this.dgwGrades.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwGrades_CellClick);
             this.dgwGrades.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwGrades_CellContentClick);
@@ -106,7 +110,7 @@
             this.lblCurrentStudent.Location = new System.Drawing.Point(93, 4);
             this.lblCurrentStudent.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblCurrentStudent.Name = "lblCurrentStudent";
-            this.lblCurrentStudent.Size = new System.Drawing.Size(831, 46);
+            this.lblCurrentStudent.Size = new System.Drawing.Size(827, 46);
             this.lblCurrentStudent.TabIndex = 90;
             this.lblCurrentStudent.Text = "Allievo";
             this.lblCurrentStudent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -116,7 +120,7 @@
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label2.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label2.Location = new System.Drawing.Point(5, 0);
+            this.label2.Location = new System.Drawing.Point(5, 5);
             this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(118, 34);
@@ -136,11 +140,11 @@
             this.grpComplessivo.Controls.Add(this.label7);
             this.grpComplessivo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.grpComplessivo.ForeColor = System.Drawing.Color.DarkBlue;
-            this.grpComplessivo.Location = new System.Drawing.Point(12, 128);
+            this.grpComplessivo.Location = new System.Drawing.Point(0, 374);
             this.grpComplessivo.Margin = new System.Windows.Forms.Padding(4);
             this.grpComplessivo.Name = "grpComplessivo";
             this.grpComplessivo.Padding = new System.Windows.Forms.Padding(4);
-            this.grpComplessivo.Size = new System.Drawing.Size(909, 213);
+            this.grpComplessivo.Size = new System.Drawing.Size(919, 99);
             this.grpComplessivo.TabIndex = 97;
             this.grpComplessivo.TabStop = false;
             this.grpComplessivo.Text = "Riepilogo complessivo";
@@ -150,7 +154,7 @@
             this.lblTypeOfGrade.BackColor = System.Drawing.Color.Transparent;
             this.lblTypeOfGrade.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblTypeOfGrade.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblTypeOfGrade.Location = new System.Drawing.Point(141, 18);
+            this.lblTypeOfGrade.Location = new System.Drawing.Point(141, 26);
             this.lblTypeOfGrade.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblTypeOfGrade.Name = "lblTypeOfGrade";
             this.lblTypeOfGrade.Size = new System.Drawing.Size(319, 34);
@@ -161,7 +165,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(700, 27);
+            this.label8.Location = new System.Drawing.Point(704, 37);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(82, 15);
             this.label8.TabIndex = 157;
@@ -170,7 +174,7 @@
             // textBox4
             // 
             this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.textBox4.Location = new System.Drawing.Point(803, 18);
+            this.textBox4.Location = new System.Drawing.Point(800, 26);
             this.textBox4.Margin = new System.Windows.Forms.Padding(4);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(100, 37);
@@ -180,7 +184,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(516, 26);
+            this.label6.Location = new System.Drawing.Point(513, 34);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(77, 15);
             this.label6.TabIndex = 155;
@@ -189,7 +193,7 @@
             // textBox3
             // 
             this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.textBox3.Location = new System.Drawing.Point(600, 14);
+            this.textBox3.Location = new System.Drawing.Point(597, 26);
             this.textBox3.Margin = new System.Windows.Forms.Padding(4);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(100, 37);
@@ -201,7 +205,7 @@
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label7.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label7.Location = new System.Drawing.Point(11, 18);
+            this.label7.Location = new System.Drawing.Point(13, 29);
             this.label7.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(118, 34);
@@ -220,7 +224,7 @@
             "Scritti",
             "Pratici",
             "Scritto-grafici"});
-            this.cmbGradeType.Location = new System.Drawing.Point(129, 0);
+            this.cmbGradeType.Location = new System.Drawing.Point(129, 5);
             this.cmbGradeType.Margin = new System.Windows.Forms.Padding(4);
             this.cmbGradeType.Name = "cmbGradeType";
             this.cmbGradeType.Size = new System.Drawing.Size(373, 34);
@@ -266,7 +270,7 @@
             this.grpPeriodOfQuestionsTopics.Controls.Add(this.dtpStartPeriod);
             this.grpPeriodOfQuestionsTopics.Controls.Add(this.rdbAmongPeriod);
             this.grpPeriodOfQuestionsTopics.Controls.Add(this.cmbSchoolPeriod);
-            this.grpPeriodOfQuestionsTopics.Location = new System.Drawing.Point(14, 63);
+            this.grpPeriodOfQuestionsTopics.Location = new System.Drawing.Point(3, 86);
             this.grpPeriodOfQuestionsTopics.Name = "grpPeriodOfQuestionsTopics";
             this.grpPeriodOfQuestionsTopics.Size = new System.Drawing.Size(606, 58);
             this.grpPeriodOfQuestionsTopics.TabIndex = 147;
@@ -374,11 +378,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgwNotes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
             this.dgwNotes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgwNotes.Location = new System.Drawing.Point(6, 63);
+            this.dgwNotes.Location = new System.Drawing.Point(10, 120);
             this.dgwNotes.Margin = new System.Windows.Forms.Padding(4);
             this.dgwNotes.Name = "dgwNotes";
             this.dgwNotes.RowTemplate.Height = 24;
-            this.dgwNotes.Size = new System.Drawing.Size(905, 58);
+            this.dgwNotes.Size = new System.Drawing.Size(913, 129);
             this.dgwNotes.TabIndex = 157;
             // 
             // splitContainer1
@@ -386,7 +390,7 @@
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(6, 348);
+            this.splitContainer1.Location = new System.Drawing.Point(3, 53);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -395,6 +399,8 @@
             this.splitContainer1.Panel1.Controls.Add(this.label5);
             this.splitContainer1.Panel1.Controls.Add(this.txtSumOfWeights);
             this.splitContainer1.Panel1.Controls.Add(this.lblAverage);
+            this.splitContainer1.Panel1.Controls.Add(this.grpComplessivo);
+            this.splitContainer1.Panel1.Controls.Add(this.grpPeriodOfQuestionsTopics);
             this.splitContainer1.Panel1.Controls.Add(this.txtWeightedAverage);
             this.splitContainer1.Panel1.Controls.Add(this.label2);
             this.splitContainer1.Panel1.Controls.Add(this.dgwGrades);
@@ -404,6 +410,10 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.btnSave);
+            this.splitContainer1.Panel2.Controls.Add(this.btnEraseAnnotation);
+            this.splitContainer1.Panel2.Controls.Add(this.btnAddAnnotation);
+            this.splitContainer1.Panel2.Controls.Add(this.label9);
             this.splitContainer1.Panel2.Controls.Add(this.txtAnnotation);
             this.splitContainer1.Panel2.Controls.Add(this.chkCurrentAnnotationActive);
             this.splitContainer1.Panel2.Controls.Add(this.dgwNotes);
@@ -412,33 +422,35 @@
             this.splitContainer1.Panel2.Controls.Add(this.textBox1);
             this.splitContainer1.Panel2.Controls.Add(this.label3);
             this.splitContainer1.Panel2.Controls.Add(this.txtIdStudentsAnnotation);
-            this.splitContainer1.Size = new System.Drawing.Size(918, 434);
-            this.splitContainer1.SplitterDistance = 305;
+            this.splitContainer1.Size = new System.Drawing.Size(928, 734);
+            this.splitContainer1.SplitterDistance = 477;
             this.splitContainer1.TabIndex = 157;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(510, 8);
+            this.label5.Location = new System.Drawing.Point(693, 95);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(92, 18);
             this.label5.TabIndex = 151;
             this.label5.Text = "Somma pesi";
+            this.label5.Visible = false;
             // 
             // txtSumOfWeights
             // 
             this.txtSumOfWeights.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtSumOfWeights.Location = new System.Drawing.Point(613, -1);
+            this.txtSumOfWeights.Location = new System.Drawing.Point(796, 86);
             this.txtSumOfWeights.Margin = new System.Windows.Forms.Padding(4);
             this.txtSumOfWeights.Name = "txtSumOfWeights";
             this.txtSumOfWeights.Size = new System.Drawing.Size(100, 37);
             this.txtSumOfWeights.TabIndex = 150;
             this.txtSumOfWeights.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtSumOfWeights.Visible = false;
             // 
             // lblAverage
             // 
             this.lblAverage.AutoSize = true;
-            this.lblAverage.Location = new System.Drawing.Point(510, 53);
+            this.lblAverage.Location = new System.Drawing.Point(516, 14);
             this.lblAverage.Name = "lblAverage";
             this.lblAverage.Size = new System.Drawing.Size(96, 18);
             this.lblAverage.TabIndex = 149;
@@ -447,21 +459,67 @@
             // txtWeightedAverage
             // 
             this.txtWeightedAverage.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtWeightedAverage.Location = new System.Drawing.Point(613, 44);
+            this.txtWeightedAverage.Location = new System.Drawing.Point(516, 45);
             this.txtWeightedAverage.Margin = new System.Windows.Forms.Padding(4);
             this.txtWeightedAverage.Name = "txtWeightedAverage";
             this.txtWeightedAverage.Size = new System.Drawing.Size(100, 37);
             this.txtWeightedAverage.TabIndex = 148;
             this.txtWeightedAverage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // btnSave
+            // 
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnSave.Location = new System.Drawing.Point(543, 14);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(62, 37);
+            this.btnSave.TabIndex = 183;
+            this.btnSave.Text = "Salva";
+            this.btnSave.UseVisualStyleBackColor = true;
+            // 
+            // btnEraseAnnotation
+            // 
+            this.btnEraseAnnotation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEraseAnnotation.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnEraseAnnotation.Location = new System.Drawing.Point(477, 14);
+            this.btnEraseAnnotation.Name = "btnEraseAnnotation";
+            this.btnEraseAnnotation.Size = new System.Drawing.Size(62, 37);
+            this.btnEraseAnnotation.TabIndex = 182;
+            this.btnEraseAnnotation.Text = "-";
+            this.btnEraseAnnotation.UseVisualStyleBackColor = true;
+            // 
+            // btnAddAnnotation
+            // 
+            this.btnAddAnnotation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddAnnotation.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnAddAnnotation.Location = new System.Drawing.Point(411, 14);
+            this.btnAddAnnotation.Name = "btnAddAnnotation";
+            this.btnAddAnnotation.Size = new System.Drawing.Size(62, 37);
+            this.btnAddAnnotation.TabIndex = 181;
+            this.btnAddAnnotation.Text = "+";
+            this.btnAddAnnotation.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.BackColor = System.Drawing.Color.Transparent;
+            this.label9.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label9.ForeColor = System.Drawing.Color.DarkBlue;
+            this.label9.Location = new System.Drawing.Point(10, 19);
+            this.label9.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(271, 38);
+            this.label9.TabIndex = 180;
+            this.label9.Text = "Annotazione";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // txtAnnotation
             // 
             this.txtAnnotation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtAnnotation.Location = new System.Drawing.Point(6, 3);
+            this.txtAnnotation.Location = new System.Drawing.Point(9, 60);
             this.txtAnnotation.Multiline = true;
             this.txtAnnotation.Name = "txtAnnotation";
-            this.txtAnnotation.Size = new System.Drawing.Size(526, 53);
+            this.txtAnnotation.Size = new System.Drawing.Size(914, 53);
             this.txtAnnotation.TabIndex = 177;
             // 
             // chkCurrentAnnotationActive
@@ -469,7 +527,7 @@
             this.chkCurrentAnnotationActive.AutoSize = true;
             this.chkCurrentAnnotationActive.Checked = true;
             this.chkCurrentAnnotationActive.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkCurrentAnnotationActive.Location = new System.Drawing.Point(536, 3);
+            this.chkCurrentAnnotationActive.Location = new System.Drawing.Point(617, 7);
             this.chkCurrentAnnotationActive.Name = "chkCurrentAnnotationActive";
             this.chkCurrentAnnotationActive.Size = new System.Drawing.Size(62, 22);
             this.chkCurrentAnnotationActive.TabIndex = 179;
@@ -481,7 +539,7 @@
             this.chkShowOnlyActive.AutoSize = true;
             this.chkShowOnlyActive.Checked = true;
             this.chkShowOnlyActive.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkShowOnlyActive.Location = new System.Drawing.Point(536, 25);
+            this.chkShowOnlyActive.Location = new System.Drawing.Point(617, 29);
             this.chkShowOnlyActive.Name = "chkShowOnlyActive";
             this.chkShowOnlyActive.Size = new System.Drawing.Size(162, 22);
             this.chkShowOnlyActive.TabIndex = 178;
@@ -491,7 +549,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(781, 4);
+            this.label4.Location = new System.Drawing.Point(864, 6);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(64, 18);
             this.label4.TabIndex = 175;
@@ -499,7 +557,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(784, 25);
+            this.textBox1.Location = new System.Drawing.Point(866, 27);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(59, 24);
@@ -508,7 +566,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(716, 4);
+            this.label3.Location = new System.Drawing.Point(792, 6);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(64, 18);
             this.label3.TabIndex = 175;
@@ -516,7 +574,7 @@
             // 
             // txtIdStudentsAnnotation
             // 
-            this.txtIdStudentsAnnotation.Location = new System.Drawing.Point(719, 25);
+            this.txtIdStudentsAnnotation.Location = new System.Drawing.Point(795, 27);
             this.txtIdStudentsAnnotation.Name = "txtIdStudentsAnnotation";
             this.txtIdStudentsAnnotation.ReadOnly = true;
             this.txtIdStudentsAnnotation.Size = new System.Drawing.Size(59, 24);
@@ -527,13 +585,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
-            this.ClientSize = new System.Drawing.Size(933, 784);
+            this.ClientSize = new System.Drawing.Size(929, 784);
             this.Controls.Add(this.lblCurrentStudent);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.grpComplessivo);
             this.Controls.Add(this.TxtIdStudent);
-            this.Controls.Add(this.grpPeriodOfQuestionsTopics);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.Color.DarkBlue;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -595,8 +651,12 @@
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lblAverage;
         private System.Windows.Forms.TextBox txtWeightedAverage;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnEraseAnnotation;
+        private System.Windows.Forms.Button btnAddAnnotation;
+        private System.Windows.Forms.Label label9;
     }
 }
