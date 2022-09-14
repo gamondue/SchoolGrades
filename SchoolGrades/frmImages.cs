@@ -1,4 +1,4 @@
-﻿using SchoolGrades.DbClasses;
+﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,10 +12,10 @@ namespace SchoolGrades
     {
         // TODO manage an order of the images of the lesson (database and code) 
 
-        List<DbClasses.Image> listImages;
+        List<BusinessObjects.Image> listImages;
         private Lesson currentLesson;
         private Class currentClass;
-        private DbClasses.Image currentImage; 
+        private BusinessObjects.Image currentImage; 
         private SchoolSubject currentSubject;
         private bool imageChanged = false; 
 
@@ -31,7 +31,7 @@ namespace SchoolGrades
             ShowImage,
         }
         public frmImages(ImagesFormType Type, Lesson Lesson, Class Class, 
-            List<SchoolGrades.DbClasses.Image> Images, SchoolSubject Subject)
+            List<SchoolGrades.BusinessObjects.Image> Images, SchoolSubject Subject)
         {
             InitializeComponent();
 
@@ -77,7 +77,7 @@ namespace SchoolGrades
             }
             else
             {
-                currentImage = new DbClasses.Image();
+                currentImage = new BusinessObjects.Image();
             }
 
             if (currentSubject != null)
@@ -186,7 +186,7 @@ namespace SchoolGrades
                     currentIndexInImages = 0;
                 refreshUi(currentIndexInImages);
                 // load data from the last 
-                currentImage = ((List<DbClasses.Image>)dgwLessonsImages.DataSource)[dgwLessonsImages.Rows.Count - 1];
+                currentImage = ((List<BusinessObjects.Image>)dgwLessonsImages.DataSource)[dgwLessonsImages.Rows.Count - 1];
                 loadCurrentImage();
             }
         }
@@ -202,7 +202,7 @@ namespace SchoolGrades
             }
             picImage.Image = null;
             // read from grid the data of the image to delete
-            currentImage = ((List<DbClasses.Image>)dgwLessonsImages.DataSource)[dgwLessonsImages.SelectedRows[0].Index];
+            currentImage = ((List<BusinessObjects.Image>)dgwLessonsImages.DataSource)[dgwLessonsImages.SelectedRows[0].Index];
             DialogResult r = MessageBox.Show(" (Sì) Cancella anche il FILE dell'immagine '" + currentImage.Caption + "';" +
                 "\n (No) Cancella il solo collegamento a questa lezione; " +
                 "\n (Annulla) Non cancella nulla.",
@@ -221,7 +221,7 @@ namespace SchoolGrades
                 currentIndexInImages = oldIndex - 1;
             try
             {
-                currentImage = ((List<DbClasses.Image>)dgwLessonsImages.DataSource)[currentIndexInImages];
+                currentImage = ((List<BusinessObjects.Image>)dgwLessonsImages.DataSource)[currentIndexInImages];
             }
             catch { }
             loadCurrentImage();
@@ -253,7 +253,7 @@ namespace SchoolGrades
                 imageChanged = false; 
                 currentIndexInImages = localIndex;
                 refreshUi(currentIndexInImages);
-                currentImage = ((List<DbClasses.Image>)dgwLessonsImages.DataSource)[localIndex];
+                currentImage = ((List<BusinessObjects.Image>)dgwLessonsImages.DataSource)[localIndex];
                 loadCurrentImage();
                 //txtCaption.Text = currentImage.Caption;
                 //DgwLessonsImages.Rows[localIndex].Selected = false;
@@ -262,14 +262,14 @@ namespace SchoolGrades
         }
         private void justLinkFileToLesson(string sourcePathAndFileName)
         {
-            DbClasses.Image currentImage = Commons.bl.FindImageWithGivenFile(sourcePathAndFileName);
+            BusinessObjects.Image currentImage = Commons.bl.FindImageWithGivenFile(sourcePathAndFileName);
             // if the image that reference to the file isn't anymore in the database 
             // create a new image that references to this file 
             // (eg. if the lesson has been deleted from the database together with its images, but 
             // the file is (somehow) still there) 
             if (currentImage == null)
             {
-                currentImage = new DbClasses.Image();
+                currentImage = new BusinessObjects.Image();
                 currentImage.IdImage = 0;
                 currentImage.RelativePathAndFilename = sourcePathAndFileName.Remove(0,Commons.PathImages.Length + 1);
             }
@@ -384,7 +384,7 @@ namespace SchoolGrades
         private void refreshUi(int IndexInImages)
         {
             // refresh images in grid
-            List<DbClasses.Image> l = Commons.bl.GetListLessonsImages(currentLesson); 
+            List<BusinessObjects.Image> l = Commons.bl.GetListLessonsImages(currentLesson); 
             dgwLessonsImages.DataSource = l;
             if (l.Count > 0)
             {
@@ -421,7 +421,7 @@ namespace SchoolGrades
                 if (currentIndexInImages == 0)
                     currentIndexInImages = listImages.Count;
                 currentIndexInImages--;
-                currentImage = (DbClasses.Image)listImages[currentIndexInImages];
+                currentImage = (BusinessObjects.Image)listImages[currentIndexInImages];
                 loadCurrentImage();
                 dgwLessonsImages.Rows[currentIndexInImages].Selected = true;
             }
@@ -432,7 +432,7 @@ namespace SchoolGrades
             {
                 dgwLessonsImages.Rows[currentIndexInImages].Selected = false;
                 currentIndexInImages = ++currentIndexInImages % listImages.Count;
-                currentImage = (DbClasses.Image)listImages[currentIndexInImages];
+                currentImage = (BusinessObjects.Image)listImages[currentIndexInImages];
                 loadCurrentImage();
                 dgwLessonsImages.Rows[currentIndexInImages].Selected = true;
             }
@@ -443,7 +443,7 @@ namespace SchoolGrades
             {
                 dgwLessonsImages.Rows[currentIndexInImages].Selected = false;
                 currentIndexInImages = listImages.Count - 1;
-                currentImage = (DbClasses.Image)listImages[currentIndexInImages];
+                currentImage = (BusinessObjects.Image)listImages[currentIndexInImages];
                 loadCurrentImage();
                 dgwLessonsImages.Rows[currentIndexInImages].Selected = true;
             }
@@ -454,7 +454,7 @@ namespace SchoolGrades
             {
                 dgwLessonsImages.Rows[currentIndexInImages].Selected = false;
                 currentIndexInImages = 0;
-                currentImage = (DbClasses.Image)listImages[currentIndexInImages];
+                currentImage = (BusinessObjects.Image)listImages[currentIndexInImages];
                 loadCurrentImage();
                 dgwLessonsImages.Rows[currentIndexInImages].Selected = true;
             }
@@ -476,7 +476,7 @@ namespace SchoolGrades
             if (e.RowIndex > -1)
             {
                 dgwLessonsImages.Rows[e.RowIndex].Selected = true;
-                currentImage = ((List<DbClasses.Image>)dgwLessonsImages.DataSource)[e.RowIndex];
+                currentImage = ((List<BusinessObjects.Image>)dgwLessonsImages.DataSource)[e.RowIndex];
                 currentIndexInImages = e.RowIndex;
                 loadCurrentImage();
             }

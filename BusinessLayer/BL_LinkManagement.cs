@@ -1,4 +1,4 @@
-﻿using SchoolGrades.DbClasses;
+﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -25,12 +25,10 @@ namespace SchoolGrades
         {
             dl.DeleteStartLink(currentIdStartLink);
         }
-
         internal List<SchoolPeriodType> GetSchoolPeriodTypes()
         {
             return dl.GetSchoolPeriodTypes();
         }
-
         internal List<Student> GetStudentsOfClassList(int? idClass)
         {
             throw new NotImplementedException();

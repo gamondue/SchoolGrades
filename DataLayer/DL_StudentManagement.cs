@@ -1,4 +1,4 @@
-﻿using SchoolGrades.DbClasses;
+﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -94,7 +94,9 @@ namespace SchoolGrades
                 " LEFT JOIN Grades ON Students.idStudent=Grades.idStudent" +
                 " JOIN Students ON Classes_Students.idStudent=Students.idStudent" +
                 " WHERE Classes_Students.idClass =" + Class.IdClass +
-                " AND Grades.idSchoolYear='" + Class.SchoolYear + "'" +
+                " AND (Grades.idSchoolYear='" + Class.SchoolYear + "'" +
+                " OR Grades.idSchoolYear='" + Class.SchoolYear.Replace("-", "") + "'" + // TEMPORARY: delete after 
+                ")" +
                 " AND (Grades.idGradeType='" + IdGradeType + "'" +
                 " OR Grades.idGradeType IS NULL)" +
                 " AND Grades.idSchoolSubject='" + IdSchoolSubject + "'" +
@@ -486,7 +488,9 @@ namespace SchoolGrades
         {
             DbCommand cmd = conn.CreateCommand();
             cmd.CommandText = "SELECT idStudentsPhoto FROM StudentsPhotos_Students " +
-                "WHERE idStudent=" + idStudent + " AND idSchoolYear=" + schoolYear + "" +
+                "WHERE idStudent=" + idStudent + " AND (idSchoolYear=" + SqlString(schoolYear) + "" +
+                " OR idSchoolYear=" + SqlString(schoolYear.Replace("-", "")) + // !!!! TEMPORARY: for compatibility with old database. erase this line in future 
+                ")" + 
                 ";";
             return (int?)cmd.ExecuteScalar();
         }
@@ -557,7 +561,7 @@ namespace SchoolGrades
 
                 // save the image with standard name in the folder of the demo class
                 string fileExtension = Path.GetExtension(OriginalDemoPictures[pictureIndex]);
-                string folder = Commons.PathImages + "\\" + Class.SchoolYear + Class.Abbreviation + "\\";
+                string folder = Commons.PathImages + "\\" + Class.SchoolYear + "_" + Class.Abbreviation + "\\";
                 string filename = s.LastName + "_" + s.FirstName + "_" + Class.Abbreviation + Class.SchoolYear + fileExtension;
                 if (!Directory.Exists(folder))
                 {
@@ -570,7 +574,7 @@ namespace SchoolGrades
                 File.Copy(OriginalDemoPictures[pictureIndex], folder + filename);
 
                 // change student pictures' paths in table StudentsPhotos
-                string relativePathAndFile = Class.SchoolYear + Class.Abbreviation + "\\" + filename;
+                string relativePathAndFile = Class.SchoolYear + "_" + Class.Abbreviation + "\\" + filename;
                 int? idImage = GetStudentsPhotoId(s.IdStudent, Class.SchoolYear, conn);
                 SaveStudentsPhotosPath(idImage, relativePathAndFile, conn);
 
@@ -587,25 +591,22 @@ namespace SchoolGrades
                 DbDataReader dReader = cmd.ExecuteReader();
                 while (dReader.Read())
                 {
-                    //string destinationFile = (string)dReader["pathRestrictedApplication"] +
-                    //    "\\SchoolGrades\\" + "Images" + "\\" + (string)dReader["imagePath"];
+                    string originFile = Commons.PathImages + "\\" + (string)dReader["imagePath"]; 
                     string filePart = (string)dReader["imagePath"];
                     string partToReplace = filePart.Substring(0, filePart.IndexOf("\\"));
-                    filePart = filePart.Replace(partToReplace, Class.SchoolYear + Class.Abbreviation);
-                    string destinationFile = (string)Commons.PathImages + "\\" + filePart;
-
-                    if (!Directory.Exists(Path.GetDirectoryName(destinationFile)))
+                    filePart = filePart.Replace(partToReplace, Class.SchoolYear + "_" + Class.Abbreviation);
+                    string destinationFile = Path.Combine(Commons.PathImages, filePart);
+                    string destinationFolder = Path.GetDirectoryName(destinationFile); 
+                    if (!Directory.Exists(destinationFolder))
                     {
-                        Directory.CreateDirectory(Path.GetDirectoryName(destinationFile));
+                        Directory.CreateDirectory(destinationFolder);
                     }
                     if (!File.Exists(destinationFile) ||
-                        File.GetLastWriteTime(destinationFile)
-                        < File.GetLastWriteTime(Commons.PathImages + "\\" + (string)dReader["imagePath"]))
+                        File.GetLastWriteTime(destinationFile) < File.GetLastWriteTime(originFile))
                         // destination file not existing or older
                         try
                         {
-                            File.Copy(Commons.PathImages + "\\" + (string)dReader["imagePath"],
-                                destinationFile);
+                            File.Copy(originFile, destinationFile);
                         }
                         catch (Exception ex)
                         {

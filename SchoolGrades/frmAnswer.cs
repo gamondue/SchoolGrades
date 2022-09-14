@@ -1,4 +1,4 @@
-﻿using SchoolGrades.DbClasses;
+﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SchoolGrades.DbClasses;
+using SchoolGrades.BusinessObjects;
 
 namespace SchoolGrades
 {

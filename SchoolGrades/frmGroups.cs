@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using SchoolGrades.DbClasses;
+using SchoolGrades.BusinessObjects;
 using System.Data;
 using System.Linq;
 using System.IO;

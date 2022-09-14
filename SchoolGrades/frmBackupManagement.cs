@@ -1,4 +1,4 @@
-﻿using SchoolGrades.DbClasses;
+﻿using SchoolGrades.BusinessObjects;
 using gamon;
 using System;
 using System.Collections.Generic;
@@ -28,16 +28,10 @@ namespace SchoolGrades
         }
         private void frmBackupManagement_Load(object sender, EventArgs e)
         {
-            // dal primo anno di default del combo con gli anni
-            for (int anno = 2009; anno <= DateTime.Now.Year; anno++)
-            {
-                CmbSchoolYear.Items.Add((anno - 2000).ToString("00") + ((anno + 1) - 2000).ToString("00"));
-            }
-            int nAnni = CmbSchoolYear.Items.Count;
-            if (DateTime.Now.Month >= 9)
-                CmbSchoolYear.SelectedItem = CmbSchoolYear.Items[nAnni - 1];
-            else
-                CmbSchoolYear.SelectedItem = CmbSchoolYear.Items[nAnni - 2];
+            List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
+            CmbSchoolYear.DataSource = ly;
+            if (ly.Count > 0)
+                CmbSchoolYear.SelectedItem = ly[ly.Count - 1];
 
             schoolYear = CmbSchoolYear.SelectedItem.ToString();
 
@@ -255,14 +249,13 @@ namespace SchoolGrades
                     MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     File.Delete(newDatabaseFullName);
-
                 }
                 else
                     return;
             }
-            string fileDatabase = Commons.bl.CreateDemoDatabase(newDatabasePathName, currentClass, otherClass);
+            string fileDatabase = Commons.bl.CreateDemoDatabase(newDatabaseFullName, otherClass, currentClass);
             MessageBox.Show("Creato il file " + fileDatabase + ", " +
-                "che contiene le due classi DEMO1 e DEMO2, con tutte le foto, " +
+                "che contiene le due classi 1DEMO e 2DEMO, con tutte le foto, " +
                 "le valutazioni e le immagini."); ; 
         }
         private void BtnNewDatabase_Click(object sender, EventArgs e)

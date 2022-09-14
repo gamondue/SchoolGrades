@@ -1,4 +1,4 @@
-﻿using SchoolGrades.DbClasses;
+﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Data;
 using System.Drawing;
@@ -127,8 +127,8 @@ namespace SchoolGrades
             if(currentStudent.HasSpecialNeeds!= null && currentStudent.HasSpecialNeeds == true)
                 chkHasSpecialNeeds.Checked = true; 
 
-            txtMicroGradeWeight.Text = currentGrade.Weight.ToString();
-            txtMicroGrade.Text = currentGrade.Value.ToString(); 
+            txtMicroGradeWeight.Text = ((double)currentGrade.Weight).ToString("#.##");
+            txtMicroGrade.Text = ((double)currentGrade.Value).ToString("#.#"); 
 
             DataTable T = Commons.bl.GetMicroGradesOfStudentWithMacroOpen(currentStudent.IdStudent, currentYear, currentGradeType.IdGradeType,
                 currentSchoolSubject.IdSchoolSubject);
@@ -157,7 +157,7 @@ namespace SchoolGrades
             double? defaultWeight = Commons.bl.GetDefaultWeightOfGradeType(idGradeType);
             if (txtMicroGradeWeight.Text == "")
             {
-                txtMicroGradeWeight.Text = defaultWeight.ToString();
+                txtMicroGradeWeight.Text = ((double)defaultWeight).ToString("#.#");
             }
             defaultWeight = currentGradeType.DefaultWeight;
             txtMacroGradeWeight.Text = defaultWeight.ToString();
@@ -168,7 +168,7 @@ namespace SchoolGrades
         }
         private void trkbGrade_Scroll(object sender, EventArgs e)
         {
-            txtMicroGrade.Text = trkbGrade.Value.ToString();
+            txtMicroGrade.Text = ((double)trkbGrade.Value).ToString("#.#");
         }
         int previousQuestionCode = int.MinValue;
         private void btnSaveMicroGrade_Click(object sender, EventArgs e)
@@ -378,7 +378,7 @@ namespace SchoolGrades
                     DataRow row = ((DataTable)DgwQuestions.DataSource).Rows[e.RowIndex];
                     ReadCurrentGradeAndQuestionFromGridRow(row);
                     txtMicroGradeWeight.Text = currentGrade.Weight.ToString();
-                    txtMicroGrade.Text = currentGrade.Value.ToString();
+                    txtMicroGrade.Text = ((double)currentGrade.Value).ToString("#.#");
                     if (currentQuestion != null)
                         TxtQuestionText.Text = currentQuestion.Text;
                     else

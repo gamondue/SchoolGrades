@@ -1,4 +1,4 @@
-using SchoolGrades.DbClasses;
+using SchoolGrades.BusinessObjects;
 using System;
 using System.Windows.Forms;
 

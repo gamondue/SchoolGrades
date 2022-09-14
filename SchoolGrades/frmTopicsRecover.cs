@@ -1,12 +1,12 @@
 ﻿using gamon.TreeMptt;
-using SchoolGrades.DbClasses;
+using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-using SchoolGrades.DbClasses;
+using SchoolGrades.BusinessObjects;
 using SharedWinForms;
 
 namespace SchoolGrades

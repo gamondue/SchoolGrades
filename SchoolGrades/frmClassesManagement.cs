@@ -6,7 +6,7 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
-using SchoolGrades.DbClasses;
+using SchoolGrades.BusinessObjects;
 
 namespace SchoolGrades
 {
@@ -28,27 +28,25 @@ namespace SchoolGrades
         {
             // school data
             currentSchool = Commons.bl.GetSchool(TxtOfficialSchoolAbbreviation.Text);
-            // primo anno di default del combo con gli anni
-            int anno = 2009;
 
-            for (; anno <= DateTime.Now.Year; anno++)
+            List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
+            CmbSchoolYear.DataSource = ly;
+            if (ly.Count > 0)
+                CmbSchoolYear.SelectedItem = ly[ly.Count - 1];
+
+            if (CmbSchoolYear.SelectedItem != null)
             {
-                CmbSchoolYear.Items.Add((anno - 2000).ToString("00") + ((anno + 1) - 2000).ToString("00"));
+                idSchoolYear = CmbSchoolYear.SelectedItem.ToString();
+                CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
             }
-            int nAnni = CmbSchoolYear.Items.Count;
-            if (DateTime.Now.Month >= 9)
-                CmbSchoolYear.SelectedItem = CmbSchoolYear.Items[nAnni - 1];
-            else
-                CmbSchoolYear.SelectedItem = CmbSchoolYear.Items[nAnni - 2];
-            idSchoolYear = CmbSchoolYear.SelectedItem.ToString();
             CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
         }
-        private void BtnImportStudentsOfClass_Click(object sender, EventArgs e)
+        private void btnImportStudentsOfClass_Click(object sender, EventArgs e)
         {
             // give warning to avoid modifying existing class instead of making a new one
             if (Commons.bl.GetClass(currentSchool.IdSchool, idSchoolYear, CmbClasses.Text).Abbreviation != null)
             {
-                MessageBox.Show("Esiste già una classe con il nome \"" + CmbClasses.Text + "\" in questo anno!", "Avviso", 
+                MessageBox.Show("Esiste già una classe con il nome \"" + CmbClasses.Text + "\" in questa scuola ed in questo anno!", "Avviso", 
                     MessageBoxButtons.OK);
                 return;
             }
@@ -71,14 +69,14 @@ namespace SchoolGrades
             int idClass;
             Class newClass = new Class(0, CmbClasses.Text, CmbSchoolYear.Text, TxtOfficialSchoolAbbreviation.Text);
 
-            if (!RdbPhotoUserChoosen.Checked)
+            if (!rdbChooseStudentsPhotoWhileImporting.Checked)
             {
-                newClass.IdClass = Commons.bl.CreateClassAndStudents(datiAllievi, CmbClasses.Text, TxtClassDescription.Text,
+                newClass.IdClass = Commons.bl.CreateClassAndStudents(datiAllievi, CmbClasses.Text, txtClassDescription.Text,
                 CmbSchoolYear.Text, TxtOfficialSchoolAbbreviation.Text,RdbPhotoAlreadyPresent.Checked);
             }
             else
             {
-                idClass = Commons.bl.CreateClass(CmbClasses.Text, TxtClassDescription.Text,
+                idClass = Commons.bl.CreateClass(CmbClasses.Text, txtClassDescription.Text,
                     CmbSchoolYear.Text, TxtOfficialSchoolAbbreviation.Text);
                 for (int riga = 1; riga < datiAllievi.GetLength(0); riga++)
                 {
@@ -93,7 +91,7 @@ namespace SchoolGrades
                                 dlg.Title = "Scegli una foto dello studente " + datiAllievi[riga, 1] + " " +
                                     datiAllievi[riga, 2] + ", " + CmbClasses.Text + " " + CmbSchoolYear.Text;
                                 dlg.Filter = "jpg files (*.jpg)|*.jpg";
-                                dlg.InitialDirectory = TxtPathImages.Text;
+                                dlg.InitialDirectory = TxtImagesOriginFolder.Text;
                                 if (dlg.ShowDialog() == DialogResult.OK)
                                 {
                                     Student s1 = new Student();
@@ -110,7 +108,7 @@ namespace SchoolGrades
             MessageBox.Show("Importazione terminata");
             this.Close(); 
         }
-        private void BtnFileChoose_Click(object sender, EventArgs e)
+        private void btnFileChoose_Click(object sender, EventArgs e)
         {
             openFileDialog.InitialDirectory = Path.GetDirectoryName(TxtFileOfStudentsImport.Text+ "\\");
             DialogResult r = openFileDialog.ShowDialog();
@@ -119,13 +117,13 @@ namespace SchoolGrades
                 TxtFileOfStudentsImport.Text = openFileDialog.FileName;
             }
         }
-        private void BtnPathImages_Click(object sender, EventArgs e)
+        private void btnPathImages_Click(object sender, EventArgs e)
         {
-            folderBrowserDialog.SelectedPath = TxtPathImages.Text;
+            folderBrowserDialog.SelectedPath = TxtImagesOriginFolder.Text;
             DialogResult r = folderBrowserDialog.ShowDialog();
             if (r == System.Windows.Forms.DialogResult.OK)
             {
-                TxtPathImages.Text = folderBrowserDialog.SelectedPath;
+                TxtImagesOriginFolder.Text = folderBrowserDialog.SelectedPath;
             }
         }
         private void CmbSchoolYear_SelectedIndexChanged(object sender, EventArgs e)
@@ -133,7 +131,7 @@ namespace SchoolGrades
             idSchoolYear = CmbSchoolYear.SelectedItem.ToString();
             CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
         }
-        private void BtnClassErase_Click(object sender, EventArgs e)
+        private void btnClassErase_Click(object sender, EventArgs e)
         {
             if (currentClass==null)
             {
@@ -167,7 +165,7 @@ namespace SchoolGrades
         private void CmbClasses_TextChanged(object sender, EventArgs e)
         {
             // !!!! written by the user. It should be fired only when the text part of the combo is manually modified for the first time 
-            TxtClassDescription.Text = currentSchool.Name + " " + CmbSchoolYear.Text +
+            txtClassDescription.Text = currentSchool.Name + " " + CmbSchoolYear.Text +
                 " " + CmbClasses.Text;
         }
         private void FillClassData(Class Class)
@@ -178,7 +176,7 @@ namespace SchoolGrades
             DgwStudents.DataSource = null;
             DgwStudents.DataSource = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, 
                 idSchoolYear, CmbClasses.Text, true);
-            TxtClassDescription.Text = Safe.String(DgwClass.Rows[DgwClass.CurrentRow.Index].Cells["desc"].Value);
+            txtClassDescription.Text = Safe.String(DgwClass.Rows[DgwClass.CurrentRow.Index].Cells["desc"].Value);
             currentClass = (Class)CmbClasses.SelectedItem;
             TxtStartLinksFolder.Text = currentClass.PathRestrictedApplication; 
         }
@@ -215,50 +213,12 @@ namespace SchoolGrades
         private void LoadPicture(Student StudentToLoad)
         {
             try
-            //{
-            //    string filePathAndName = Commons.PathImages + "\\" +
-            //        db.GetFilePhoto(StudentToLoad.IdStudent, StudentToLoad.SchoolYear);
-
-            //    //string fileTemp = Path.GetDirectoryName(filePathAndName) + "\\" + temp + 
-            //    //    Path.GetExtension(filePathAndName);
-            //    picStudent.Image = System.Drawing.Image.FromFile(filePathAndName);
-
-            //    //File.Copy(filePathAndName, fileTemp, true);
-            //    //picStudent.Image = System.Drawing.Image.FromFile(fileTemp);
-            //    //if (temp == "TEMP")
-            //    //    temp = "TEMP1";
-            //    //else
-            //    //    temp = "TEMP";
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine(ex);
-            //    picStudent.Image = null;
-            //    //picStudent.Invalidate();
-            //    //picStudent.Refresh();
-            //    //picStudent.Update();
-            //    //if (picStudent.Image != null)
-            //    //{
-            //    //    picStudent.Image.Dispose();
-            //    //}
-            //}
             {
                 string filePathAndName = Commons.PathImages + "\\" +
                     Commons.bl.GetFilePhoto(StudentToLoad.IdStudent, StudentToLoad.SchoolYear);
 
-                //string fileTemp = Path.GetDirectoryName(filePathAndName) + "\\" + temp + 
-                //    Path.GetExtension(filePathAndName);
                 picStudent.Image = System.Drawing.Image.FromFile(filePathAndName);
                 picStudent.Visible = true;
-                //picStudent.Image = System.Drawing.Image.FromFile(Commons.PathImages + "\\" +
-                //    db.GetFilePhoto(StudentToLoad.IdStudent, StudentToLoad.SchoolYear));
-
-                //File.Copy(filePathAndName, fileTemp, true);
-                //picStudent.Image = System.Drawing.Image.FromFile(fileTemp);
-                //if (temp == "TEMP")
-                //    temp = "TEMP1";
-                //else
-                //    temp = "TEMP";
             }
             catch (Exception ex)
             {
@@ -266,14 +226,14 @@ namespace SchoolGrades
                 Console.Beep();
             }
         }
-        private void BtnNewYear_Click(object sender, EventArgs e)
+        private void btnNewYear_Click(object sender, EventArgs e)
         {
             frmNewYear f = new frmNewYear(idSchoolYear);
             f.ShowDialog();
             CmbClasses.DataSource = null; 
             CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
         }
-        private void BtnStudentNew_Click(object sender, EventArgs e)
+        private void btnStudentNew_Click(object sender, EventArgs e)
         {
             if (CmbClasses.Text == "")
             {
@@ -294,7 +254,7 @@ namespace SchoolGrades
                 MessageBox.Show("Studente non aggiunto alla classe \n(premere 'Scegli' nella finestra appena chiusa)"); 
             }
         }
-        private void BtnStudentErase_Click(object sender, EventArgs e)
+        private void btnStudentErase_Click(object sender, EventArgs e)
         {
             if (DgwStudents.SelectedRows.Count == 0)
             {
@@ -329,7 +289,7 @@ namespace SchoolGrades
 
             FillClassData(c); 
         }
-        private void BtnToggleDisableStudent_Click(object sender, EventArgs e)
+        private void btnToggleDisableStudent_Click(object sender, EventArgs e)
         {
             if (DgwStudents.SelectedRows.Count == 0)
             {
@@ -347,14 +307,58 @@ namespace SchoolGrades
             // prompt += ".\nStato attuale: "
             MessageBox.Show(prompt); 
         }
-        private void BtnModifyStudent_Click(object sender, EventArgs e)
+        private void btnModifyStudent_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("TO DO!"); 
+            if (DgwStudents.SelectedRows.Count < 1)
+            {
+                MessageBox.Show("Selezionare lo studente da modificare");
+                return;
+            }
+            Student s = (Student)DgwStudents.SelectedRows[0].DataBoundItem;
+            s.SchoolYear = currentClass.SchoolYear;
+
+            frmStudent fs = new frmStudent(s, true);
+            fs.ShowDialog();
+
+            Class c = (Class)CmbClasses.SelectedItem;
+            FillClassData(c);
         }
-        private void BtnEndingPeriod_Click(object sender, EventArgs e)
+        private void btnEndingPeriod_Click(object sender, EventArgs e)
         {
             // make a csv file with all grades and averages 
             MessageBox.Show("TO DO!"); 
+        }
+        private void btnCreateEmailAddresses_Click(object sender, EventArgs e)
+        {
+            if (currentClass == null)
+            {
+                MessageBox.Show("Scegliere la classe per cui generare gli indirizzi email");
+                return;
+            }
+            List<Student> list = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, CmbSchoolYear.Text,
+                CmbClasses.SelectedItem.ToString(), false);
+            string file = "";
+            string pattern = TxtEmailGenerationPattern.Text;
+            string email = "";
+            foreach (Student s in list)
+            {
+                email = pattern;
+                foreach (PropertyInfo prop in s.GetType().GetProperties())
+                {
+                    if (pattern.Contains(prop.Name))
+                    {
+                        // the name of the field is in the pattern, then we have to put
+                        // the value of the field il the email 
+                        email = email.Replace("<" + prop.Name + ">", ((string)prop.GetValue(s)).ToLower().Trim());
+                    }
+                }
+                file += email + "\r\n";
+            }
+            string nomeFile = Commons.PathDatabase + "\\" + CmbSchoolYear.Text + "_" +
+                CmbClasses.SelectedItem.ToString() + "_emails.txt";
+            TextFile.StringToFile(nomeFile, file, false);
+
+            MessageBox.Show("Ho generato il file " + nomeFile);
         }
         private void DgwStudents_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -383,46 +387,18 @@ namespace SchoolGrades
             {
                 List<Student> ls = (List<Student>)(DgwStudents.DataSource);
                 Student s = ls[e.RowIndex];
-                s.SchoolYear = currentClass.SchoolYear;
-
-                frmStudent fs = new frmStudent(s, true);
-                fs.ShowDialog();
-
-                Class c = (Class)CmbClasses.SelectedItem;
-                FillClassData(c);
+                EditStudentsData(s); 
             }
         }
-        private void BtnCreateEmailAddresses_Click(object sender, EventArgs e)
+        private void EditStudentsData(Student Student)
         {
-            if (currentClass == null)
-            {
-                MessageBox.Show("Scegliere la classe per cui generare gli indirizzi email");
-                return;
-            }
-            List<Student> list = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, CmbSchoolYear.Text,
-                CmbClasses.SelectedItem.ToString(), false);
-            string file = "";
-            string pattern = TxtEmailGenerationPattern.Text;
-            string email = "";
-            foreach (Student s in list)
-            {
-                email = pattern;
-                foreach (PropertyInfo prop in s.GetType().GetProperties())
-                {
-                    if (pattern.Contains(prop.Name))
-                    {
-                        // the name of the field is in the pattern, then we have to put
-                        // the value of the field il the email 
-                        email = email.Replace("<" + prop.Name + ">", ((string)prop.GetValue(s)).ToLower().Trim());
-                    }
-                }
-                file += email + "\r\n";
-            }
-            string nomeFile = Commons.PathDatabase + "\\" + CmbSchoolYear.Text + "_" + 
-                CmbClasses.SelectedItem.ToString() + "_emails.txt";
-            TextFile.StringToFile(nomeFile, file, false);
+            Student.SchoolYear = currentClass.SchoolYear;
 
-            MessageBox.Show("Ho generato il file " + nomeFile); 
+            frmStudent fs = new frmStudent(Student, true);
+            fs.ShowDialog();
+
+            Class c = (Class)CmbClasses.SelectedItem;
+            FillClassData(c);
         }
         private void DgwClass_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -438,7 +414,7 @@ namespace SchoolGrades
                 }
             }
         }
-        private void BtnPhotoErase_Click(object sender, EventArgs e)
+        private void btnPhotoErase_Click(object sender, EventArgs e)
         {
             if (DgwStudents.SelectedRows.Count == 0)
             {
@@ -452,11 +428,11 @@ namespace SchoolGrades
         }
         private void button15_Click(object sender, EventArgs e)
         {
-            folderBrowserDialog.SelectedPath = TxtPathImages.Text;
+            folderBrowserDialog.SelectedPath = TxtImagesOriginFolder.Text;
             DialogResult r = folderBrowserDialog.ShowDialog();
             if (r == System.Windows.Forms.DialogResult.OK)
             {
-                TxtPathImages.Text = folderBrowserDialog.SelectedPath;
+                TxtImagesOriginFolder.Text = folderBrowserDialog.SelectedPath;
             }
         }
         private void label11_Click(object sender, EventArgs e)

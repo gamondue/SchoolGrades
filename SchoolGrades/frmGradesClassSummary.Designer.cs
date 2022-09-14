@@ -55,6 +55,7 @@
             this.cmbSchoolPeriod = new System.Windows.Forms.ComboBox();
             this.btnSaveOnFile = new System.Windows.Forms.Button();
             this.grpChosenQuery = new System.Windows.Forms.GroupBox();
+            this.btnReadData = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgwGrades)).BeginInit();
             this.grpPeriodOfQuestionsTopics.SuspendLayout();
             this.grpChosenQuery.SuspendLayout();
@@ -249,7 +250,7 @@
             // txtNStudents
             // 
             this.txtNStudents.ForeColor = System.Drawing.Color.DarkBlue;
-            this.txtNStudents.Location = new System.Drawing.Point(159, 173);
+            this.txtNStudents.Location = new System.Drawing.Point(159, 180);
             this.txtNStudents.Name = "txtNStudents";
             this.txtNStudents.Size = new System.Drawing.Size(46, 26);
             this.txtNStudents.TabIndex = 176;
@@ -370,12 +371,23 @@
             this.grpChosenQuery.TabIndex = 150;
             this.grpChosenQuery.TabStop = false;
             // 
+            // btnReadData
+            // 
+            this.btnReadData.Location = new System.Drawing.Point(829, 164);
+            this.btnReadData.Name = "btnReadData";
+            this.btnReadData.Size = new System.Drawing.Size(75, 49);
+            this.btnReadData.TabIndex = 178;
+            this.btnReadData.Text = "Leggi dati";
+            this.btnReadData.UseVisualStyleBackColor = true;
+            this.btnReadData.Click += new System.EventHandler(this.btnReadData_Click);
+            // 
             // frmGradesClassSummary
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(908, 721);
+            this.Controls.Add(this.btnReadData);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtNStudents);
             this.Controls.Add(this.grpChosenQuery);
@@ -434,5 +446,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtNStudents;
         private System.Windows.Forms.TextBox txtSummaryDatum;
+        private System.Windows.Forms.Button btnReadData;
     }
 }

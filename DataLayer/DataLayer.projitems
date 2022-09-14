@@ -28,5 +28,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)DL_TestManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_TopicsManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_UserManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DL_YearsAndPeriodsManagement.cs" />
   </ItemGroup>
 </Project>

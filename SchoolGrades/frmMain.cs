@@ -5,7 +5,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Threading;
 using gamon;
-using SchoolGrades.DbClasses;
+using SchoolGrades.BusinessObjects;
 using gamon.TreeMptt;
 using SharedWinForms;
 using System.Data;
@@ -77,18 +77,10 @@ namespace SchoolGrades
 
             this.Text += " v. " + version;
 
-            // first default year in the "years" combo
-            int firstYear = 2009;
-
-            for (; firstYear <= DateTime.Now.Year; firstYear++)
-            {
-                CmbSchoolYear.Items.Add((firstYear - 2000).ToString("00") + ((firstYear + 1) - 2000).ToString("00"));
-            }
-            int nYears = CmbSchoolYear.Items.Count;
-            if (DateTime.Now.Month >= 9)
-                CmbSchoolYear.SelectedItem = CmbSchoolYear.Items[nYears - 1];
-            else
-                CmbSchoolYear.SelectedItem = CmbSchoolYear.Items[nYears - 2];
+            List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
+            CmbSchoolYear.DataSource = ly;
+            if (ly.Count > 0)
+                CmbSchoolYear.SelectedItem = ly[ly.Count - 1];
 
             // fill the combo of grade types 
             List<GradeType> ListGradeTypes = Commons.bl.GetListGradeTypes();
@@ -125,7 +117,8 @@ namespace SchoolGrades
             if (school == null)
                 return;
 
-            schoolYear = CmbSchoolYear.SelectedItem.ToString();
+            if (CmbSchoolYear.SelectedItem != null)
+                schoolYear = CmbSchoolYear.SelectedItem.ToString();
 
             lstClasses.DataSource = Commons.bl.GetClassesOfYear(school.IdSchool, schoolYear);
 
@@ -370,6 +363,7 @@ namespace SchoolGrades
             picStudent.Image = null;
             lblStudentChosen.Text = "";
             chkStudentsListVisible.Checked = true;
+            dgwStudents.DataSource = null; 
         }
         private void lstClassi_DoubleClick(object sender, EventArgs e)
         {
@@ -456,10 +450,10 @@ namespace SchoolGrades
                     if (!CommonsWinForms.CheckIfSubjectChosen(currentSubject))
                         return;
                     //List<Image> lessonImages = db.GetAllImagesShownToAClassDuringLessons(currentClass, currentSubject);
-                    List<DbClasses.Image> lessonImages = Commons.bl.GetAllImagesShownToAClassDuringLessons(currentClass, currentSubject,
+                    List<BusinessObjects.Image> lessonImages = Commons.bl.GetAllImagesShownToAClassDuringLessons(currentClass, currentSubject,
                         DateTime.Now.AddMonths(-8), DateTime.Now);
                     // add the path & filename of the files foud to the list of those that we can draw
-                    foreach (DbClasses.Image i in lessonImages)
+                    foreach (BusinessObjects.Image i in lessonImages)
                     {
                         filesInFolder.Add(Path.Combine(Commons.PathImages, i.RelativePathAndFilename));
                     }
@@ -1511,6 +1505,35 @@ namespace SchoolGrades
                 }
             }
         }
+        private void dgwStudents_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1)
+            {
+                if (!CommonsWinForms.CheckIfClassChosen(currentClass))
+                {
+                    return;
+                }
+                currentClass.CurrentStudent = currentStudentsList[e.RowIndex];
+                currentStudent = currentClass.CurrentStudent;
+                currentStudent.SchoolYear = currentClass.SchoolYear;
+                loadStudentsData(currentStudent);
+                dgwStudents.Visible = false;
+            }
+        }
+        private void dgwStudents_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            dgwStudents.ReadOnly = false;
+            if (dgwStudents.Columns.Count == 20)
+            {
+                DataGridViewCheckBoxColumn chkSelected = new DataGridViewCheckBoxColumn();
+                {
+                    chkSelected.HeaderText = "Chosen";
+                    chkSelected.Name = "chkSelected";
+                    chkSelected.ReadOnly = false;
+                }
+                dgwStudents.Columns.Insert(0, chkSelected);
+            }
+        }
         private void RefreshStudentsGrid()
         {
             dgwStudents.DataSource = null;
@@ -1553,35 +1576,6 @@ namespace SchoolGrades
                     }
                     Index++;
                 }
-            }
-        }
-        private void dgwStudents_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex > -1)
-            {
-                if (!CommonsWinForms.CheckIfClassChosen(currentClass))
-                {
-                    return;
-                }
-                currentClass.CurrentStudent = currentStudentsList[e.RowIndex];
-                currentStudent = currentClass.CurrentStudent;
-                currentStudent.SchoolYear = currentClass.SchoolYear;
-                loadStudentsData(currentStudent);
-                dgwStudents.Visible = false;
-            } 
-        }
-        private void dgwStudents_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            dgwStudents.ReadOnly = false; 
-            if (dgwStudents.Columns.Count == 20)
-            {
-                DataGridViewCheckBoxColumn chkSelected = new DataGridViewCheckBoxColumn();
-                {
-                    chkSelected.HeaderText = "Chosen";
-                    chkSelected.Name = "chkSelected";
-                    chkSelected.ReadOnly = false; 
-                }
-                dgwStudents.Columns.Insert(0, chkSelected);
             }
         }
 		private void CopyCheckedStatusIntoEligiblesList()

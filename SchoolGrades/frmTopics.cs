@@ -1,4 +1,4 @@
-﻿using SchoolGrades.DbClasses;
+﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -89,7 +89,7 @@ namespace SchoolGrades
         {
             //topicTreeMptt = new TopicTreeMptt(listTopicsInternal, trwTopics,
             topicTreeMptt = new TreeMptt(Commons.dl, trwTopics,
-                txtTopicName, txtDescription, txtFind, null, null,
+                txtTopicName, txtDescription, txtTopicFind, null, null,
                 CommonsWinForms.globalPicLed, DragDropEffects.Copy);
             // list read from database 
             topicTreeMptt.AddNodesToTreeviewByBestMethod();
@@ -199,7 +199,7 @@ namespace SchoolGrades
         }
         private void btnFind_Click(object sender, EventArgs e)
         {
-            topicTreeMptt.FindItem(txtFind.Text, false);
+            topicTreeMptt.FindItem(txtTopicFind.Text, false);
         }
         private System.Windows.Forms.TreeNode FindTopicName(int Key, System.Windows.Forms.TreeNode StartNode)
         {
@@ -209,7 +209,7 @@ namespace SchoolGrades
         {
             //if (e.KeyCode == Keys.Return || e.KeyCode == Keys.F3)
             if (e.KeyCode == Keys.F3)
-                topicTreeMptt.FindItem(txtFind.Text, false);
+                topicTreeMptt.FindItem(txtTopicFind.Text, false);
             if (e.KeyCode == Keys.F5)
             {
                 btnSave_Click(null, null);
@@ -228,6 +228,19 @@ namespace SchoolGrades
             topicTreeMptt.AddNewNode("Nuovo argomento", false);
             // set focus to the name textBox
             txtTopicName.Focus();
+        }
+
+        private void btnFindUnderNode_Click(object sender, EventArgs e)
+        {
+            //MessageBox.Show("Da fare!");
+            //return;
+
+            topicTreeMptt.FindItemUnderNode(txtTopicFind.Text, chkFindAll.Checked);
+        }
+
+        private void btnArgFreemind_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
