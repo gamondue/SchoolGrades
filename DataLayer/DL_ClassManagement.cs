@@ -1,4 +1,4 @@
-﻿using SchoolGrades.DbClasses;
+﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -324,12 +324,12 @@ namespace SchoolGrades
         internal int CreateClass(string ClassAbbreviation, string ClassDescription, string SchoolYear,
             string IdSchool)
         {
-            // trova una chiave da assegnare alla nuova classe
+            // find a key for the new class
             int idClass = NextKey("Classes", "idClass");
             using (DbConnection conn = Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
-                // creazione della classe nella tabella delle classi (soltanto quella) 
+                // creation of the new class into the Classes table (just creation!) 
                 cmd.CommandText = "INSERT INTO Classes " +
                     "(idClass, Desc, idSchoolYear, idSchool, abbreviation) " +
                     "Values (" + idClass + "," + SqlString(ClassDescription) + "," +
@@ -349,7 +349,6 @@ namespace SchoolGrades
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
-            // crea la cartella delle foto della classe, se non esiste
             // if it doesn't exist, create the folder of classes student's images
             if (!Directory.Exists(Commons.PathImages + "\\" + SchoolYear + ClassAbbreviation))
             {
@@ -442,7 +441,7 @@ namespace SchoolGrades
             // Execute the query
             using (DbConnection conn = Connect())
             {
-                string query = "SELECT Classes.* " +
+                string query = "SELECT * " +
                 " FROM Classes" +
                 " WHERE idSchoolYear = '" + Year + "'" +
                 " ORDER BY abbreviation" +
@@ -450,14 +449,11 @@ namespace SchoolGrades
                 cmd = conn.CreateCommand();
                 cmd.CommandText = query;
                 dRead = cmd.ExecuteReader();
-                // fill the combo with this year's classes
+                // fill the list with this year's classes
                 while (dRead.Read())
                 {
-                    Class c = new Class((int)dRead["idClass"],
-                        (string)dRead["abbreviation"], Year, "dummy");
-                    c.UriWebApp = Safe.String(dRead["UriWebApp"]);
-                    c.PathRestrictedApplication = Safe.String(dRead["pathRestrictedApplication"]);
-
+                    Class c = new Class();
+                    GetClassFromRow(c, dRead);
                     lc.Add(c);
                 }
                 dRead.Dispose();
@@ -626,6 +622,38 @@ namespace SchoolGrades
             Class.SchoolYear = Safe.String(Row["idSchoolYear"]);
             Class.UriWebApp = Safe.String(Row["uriWebApp"]);
             Class.Description = Safe.String(Row["desc"]);
+        }
+        internal List<SchoolYear> GetSchoolYearsThatHaveClasses()
+        {
+            DbDataReader dRead;
+            DbCommand cmd;
+            List<SchoolYear> ly = new List<SchoolYear>();
+
+            // Execute the query
+            using (DbConnection conn = Connect())
+            {
+                string query = "SELECT DISTINCT SchoolYears.*" +
+                " FROM SchoolYears" +
+                " JOIN Classes ON Classes.IdSchoolYear = SchoolYears.IdSchoolYear" +
+                " WHERE SchoolYears.IdSchoolYear IS NOT NULL" +
+                " ORDER BY IdSchoolYear" +
+                ";";
+                cmd = conn.CreateCommand();
+                cmd.CommandText = query;
+                dRead = cmd.ExecuteReader();
+                while (dRead.Read())
+                {
+                    SchoolYear y = new SchoolYear();
+                    y.IdSchoolYear = (string)dRead["idSchoolYear"];
+                    y.ShortDescription = Safe.String(dRead["shortDesc"]);
+                    y.Notes = Safe.String(dRead["notes"]);
+
+                    ly.Add(y);
+                }
+                dRead.Dispose();
+                cmd.Dispose();
+            }
+            return ly;
         }
     }
 }

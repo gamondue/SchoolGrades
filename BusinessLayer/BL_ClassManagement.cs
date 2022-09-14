@@ -1,9 +1,6 @@
-﻿using gamon;
-using SchoolGrades.DbClasses;
-using System;
+﻿using SchoolGrades.BusinessObjects;
 using System.Collections.Generic;
 using System.Data;
-using System.Text;
 
 namespace SchoolGrades
 {
@@ -133,6 +130,40 @@ namespace SchoolGrades
                 return dl.GetClassById(IdClass);
             else
                 return null; 
+        }
+        internal List<SchoolYear> GetSchoolYearsThatHaveClasses()
+        {
+            List<SchoolYear> ly = dl.GetSchoolYearsThatHaveClasses();
+            // add the new year if the school year has started and we have no classes for the year 
+            ////////DateTime now = DateTime.Now;
+            ////////string yearNow = now.Year.ToString("####").Substring(2, 2);
+            ////////string yearNext = (now.Year + 1).ToString("####").Substring(2, 2);
+            ////////int monthNow = now.Month;
+            ////////if (monthNow >= 9 && ly[ly.Count - 1].IdSchoolYear.Substring(0, 2) != yearNow)
+            ////////{
+            ////////    SchoolYear nextYearId = new SchoolYear();
+            ////////    nextYearId.IdSchoolYear = yearNow + "-" + yearNext;
+            ////////    ly.Add(nextYearId);
+            ////////}
+            return ly;
+        }
+        internal void GenerateNewClassFromPrevious(List<Student> StudentsOfNewClass, string ClassAbbreviation, 
+            string ClassDescription, SchoolYear SchoolYear, string IdPreviousSchoolYear, string OfficialSchoolAbbreviation)
+        {
+            // add the new school year to the database, if it doesn't already exist 
+            Commons.bl.AddSchoolYearIfNotExists(SchoolYear);
+            // create the new class
+            int classCode = Commons.bl.CreateClass(ClassAbbreviation, ClassDescription,
+                SchoolYear.IdSchoolYear, OfficialSchoolAbbreviation);
+            int studentDone = 1; 
+            foreach (Student s in StudentsOfNewClass)
+            {
+                s.RegisterNumber = studentDone.ToString();
+                Commons.bl.PutStudentInClass(s.IdStudent, classCode);
+                Commons.bl.AddLinkToOldPhoto(s.IdStudent, IdPreviousSchoolYear, SchoolYear.IdSchoolYear);
+                Commons.bl.UpdateStudent(s);
+                studentDone++;
+            }
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using gamon.TreeMptt;
 using gamon;
-using SchoolGrades.DbClasses;
+using SchoolGrades.BusinessObjects;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;

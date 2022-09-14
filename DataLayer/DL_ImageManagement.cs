@@ -1,4 +1,4 @@
-﻿using SchoolGrades.DbClasses;
+﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -89,7 +89,11 @@ namespace SchoolGrades
                     " FROM StudentsPhotos_Students, StudentsPhotos" +
                     " WHERE StudentsPhotos_Students.idStudentsPhoto = StudentsPhotos.idStudentsPhoto";
                 if (SchoolYear != null && SchoolYear != "")
-                    query += " AND StudentsPhotos_Students.idSchoolYear='" + SchoolYear + "'";
+                {
+                    query += " AND (StudentsPhotos_Students.idSchoolYear='" + SchoolYear + "'" +
+                        " OR StudentsPhotos_Students.idSchoolYear = '" + SchoolYear.Replace("-", "") + "'" + // !!!! temporary !!!!
+                        ")";
+                }
                 query += " AND StudentsPhotos_Students.idStudent = " + IdStudent + "; ";
                 string NamePath = null;
                 try
@@ -117,7 +121,7 @@ namespace SchoolGrades
                 " WHERE Lessons.idClass=" + Class.IdClass +
             ";";
             dRead = cmd.ExecuteReader();
-            string newFolder = Class.SchoolYear + Class.Abbreviation;
+            string newFolder = Class.SchoolYear + "_" + Class.Abbreviation;
             while (dRead.Read())
             {
                 string path = Safe.String(dRead["imagePath"]);

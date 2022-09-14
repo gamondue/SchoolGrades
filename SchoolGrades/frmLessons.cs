@@ -6,7 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using SchoolGrades.DbClasses;
+using SchoolGrades.BusinessObjects;
 using gamon.TreeMptt;
 using SharedWinForms;
 
@@ -22,7 +22,7 @@ namespace SchoolGrades
 
         //List<Topic> listTopicsBefore;
 
-        List<DbClasses.Image> listImages;
+        List<BusinessObjects.Image> listImages;
         private int indexImages = 0;
 
         private SchoolSubject currentSchoolSubject;
@@ -98,7 +98,7 @@ namespace SchoolGrades
         }
         private void RefreshLessons(int IndexInLessons)
         {
-            List<DbClasses.Lesson> l = Commons.bl.GetLessonsOfClass(currentClass, currentLesson.IdSchoolSubject);
+            List<BusinessObjects.Lesson> l = Commons.bl.GetLessonsOfClass(currentClass, currentLesson.IdSchoolSubject);
             dgwAllLessons.DataSource = l;
             if (l.Count > 0)
             {
@@ -619,9 +619,8 @@ namespace SchoolGrades
 
         private void btnFindUnderNode_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Da fare!");
-            return; 
-
+            //MessageBox.Show("Da fare!");
+            //return; 
             topicTreeMptt.FindItemUnderNode(txtTopicFind.Text, chkFindAll.Checked);
         }
     }

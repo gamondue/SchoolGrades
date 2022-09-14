@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using gamon.TreeMptt;
-using SchoolGrades.DbClasses;
+using SchoolGrades.BusinessObjects;
 
 namespace SchoolGrades
 {

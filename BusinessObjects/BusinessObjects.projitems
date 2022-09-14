@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>fc67d93e-c273-48fb-b183-dfa07592452e</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>BusinessObjects</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Answer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Class.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Couple.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Grade.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GradeType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Image.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Lesson.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Question.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)QuestionType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)School.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SchoolPeriod.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SchoolPeriodType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SchoolSubject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SchoolYear.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StartLink.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Student.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StudentAndGrade.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StudentAnnotation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StudentsAnswer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tag.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Topic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)User.cs" />
+  </ItemGroup>
+</Project>

@@ -35,6 +35,7 @@
             this.CmbSchoolYear = new System.Windows.Forms.ComboBox();
             this.lstClasses = new System.Windows.Forms.ListBox();
             this.grpOnlyOneClass = new System.Windows.Forms.GroupBox();
+            this.btnMakeDemo = new System.Windows.Forms.Button();
             this.BtnNewDatabase = new System.Windows.Forms.Button();
             this.btnRestoreTables = new System.Windows.Forms.Button();
             this.btnBackupTopics = new System.Windows.Forms.Button();
@@ -51,7 +52,6 @@
             this.btnExportTags = new System.Windows.Forms.Button();
             this.btnImportTags = new System.Windows.Forms.Button();
             this.btnCompactDatabase = new System.Windows.Forms.Button();
-            this.btnMakeDemo = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.grpOnlyOneClass.SuspendLayout();
             this.SuspendLayout();
@@ -103,6 +103,7 @@
             // 
             // grpOnlyOneClass
             // 
+            this.grpOnlyOneClass.Controls.Add(this.btnMakeDemo);
             this.grpOnlyOneClass.Controls.Add(this.BtnNewDatabase);
             this.grpOnlyOneClass.Controls.Add(this.CmbSchoolYear);
             this.grpOnlyOneClass.Controls.Add(this.lstClasses);
@@ -114,11 +115,22 @@
             this.grpOnlyOneClass.TabStop = false;
             this.grpOnlyOneClass.Text = "Database con solo una classe";
             // 
+            // btnMakeDemo
+            // 
+            this.btnMakeDemo.Location = new System.Drawing.Point(192, 90);
+            this.btnMakeDemo.Name = "btnMakeDemo";
+            this.btnMakeDemo.Size = new System.Drawing.Size(98, 46);
+            this.btnMakeDemo.TabIndex = 65;
+            this.btnMakeDemo.Text = "Genera dati demo";
+            this.toolTip1.SetToolTip(this.btnMakeDemo, "Genera un database demo dell\'applicazione");
+            this.btnMakeDemo.UseVisualStyleBackColor = true;
+            this.btnMakeDemo.Click += new System.EventHandler(this.BtnMakeDemo_Click);
+            // 
             // BtnNewDatabase
             // 
             this.BtnNewDatabase.Location = new System.Drawing.Point(192, 23);
             this.BtnNewDatabase.Name = "BtnNewDatabase";
-            this.BtnNewDatabase.Size = new System.Drawing.Size(98, 69);
+            this.BtnNewDatabase.Size = new System.Drawing.Size(98, 68);
             this.BtnNewDatabase.TabIndex = 81;
             this.BtnNewDatabase.Text = "Nuovo database (da zero)";
             this.toolTip1.SetToolTip(this.BtnNewDatabase, "Database nuovo per cominciare dall\'inizio");
@@ -280,24 +292,12 @@
             this.btnCompactDatabase.UseVisualStyleBackColor = true;
             this.btnCompactDatabase.Click += new System.EventHandler(this.btnCompactDatabase_Click);
             // 
-            // btnMakeDemo
-            // 
-            this.btnMakeDemo.Location = new System.Drawing.Point(195, 451);
-            this.btnMakeDemo.Name = "btnMakeDemo";
-            this.btnMakeDemo.Size = new System.Drawing.Size(98, 50);
-            this.btnMakeDemo.TabIndex = 65;
-            this.btnMakeDemo.Text = "Genera dati demo";
-            this.toolTip1.SetToolTip(this.btnMakeDemo, "Genera un database demo dell\'applicazione");
-            this.btnMakeDemo.UseVisualStyleBackColor = true;
-            this.btnMakeDemo.Click += new System.EventHandler(this.BtnMakeDemo_Click);
-            // 
             // frmBackupManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(436, 513);
-            this.Controls.Add(this.btnMakeDemo);
             this.Controls.Add(this.btnCompactDatabase);
             this.Controls.Add(this.btnImportTags);
             this.Controls.Add(this.btnExportTags);

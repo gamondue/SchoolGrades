@@ -1,5 +1,5 @@
 ﻿using gamon;
-using SchoolGrades.DbClasses;
+using SchoolGrades.BusinessObjects;
 using SharedWinForms;
 using System;
 using System.IO;
@@ -23,7 +23,7 @@ namespace SchoolGrades
             TxtPathDatabase.Text = Commons.PathDatabase;
             TxtFileDatabase.Text = Commons.FileDatabase;
             TxtPathImages.Text = Commons.PathImages;
-            TxtPathStartLinks.Text = Commons.PathStartLinks; // not longer used
+            //TxtPathStartLinks.Text = Commons.PathStartLinks; // not longer used
             Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.FileDatabase;
             TxtPathDocuments.Text = Commons.PathDocuments;
             chkSaveBackup.Checked = CommonsWinForms.SaveBackupWhenExiting; 
@@ -90,8 +90,9 @@ namespace SchoolGrades
                 if (!Directory.Exists(Commons.PathImages))
                     Directory.CreateDirectory(Commons.PathImages);
 
-                // path of the startlinks (PathStartLinks) is not longer used, substituted by PathRestrictedApp
-                Commons.PathStartLinks = dati[2] = TxtPathStartLinks.Text;
+                // path of the startlinks (PathStartLinks) is not longer used,
+                // substituted by PathRestrictedApp  (attribute of the single class) 
+                //Commons.PathStartLinks = dati[2] = TxtPathStartLinks.Text;
                 if (!Directory.Exists(Commons.PathStartLinks))
                     Directory.CreateDirectory(Commons.PathStartLinks);
 
@@ -140,12 +141,12 @@ namespace SchoolGrades
         }
         private void btnPathQuestions_Click(object sender, EventArgs e)
         {
-            folderBrowserDialog1.SelectedPath = TxtPathStartLinks.Text;
-            DialogResult r = folderBrowserDialog1.ShowDialog();
-            if (r == System.Windows.Forms.DialogResult.OK)
-            {
-                TxtPathStartLinks.Text = folderBrowserDialog1.SelectedPath;
-            }
+            //folderBrowserDialog1.SelectedPath = TxtPathStartLinks.Text;
+            //DialogResult r = folderBrowserDialog1.ShowDialog();
+            //if (r == System.Windows.Forms.DialogResult.OK)
+            //{
+            //    TxtPathStartLinks.Text = folderBrowserDialog1.SelectedPath;
+            //}
         }
 
         private void btnPathDatabase_Click(object sender, EventArgs e)
@@ -268,7 +269,7 @@ namespace SchoolGrades
 
         private void btnSchoolPeriodsManagement_Click(object sender, EventArgs e)
         {
-            frmSchoolPeriodsManagement f = new frmSchoolPeriodsManagement();
+            frmSchoolYearAndPeriodsManagement f = new frmSchoolYearAndPeriodsManagement();
             f.ShowDialog();
         }
 

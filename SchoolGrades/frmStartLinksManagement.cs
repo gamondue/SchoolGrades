@@ -1,4 +1,4 @@
-﻿using SchoolGrades.DbClasses;
+﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -22,19 +22,24 @@ namespace SchoolGrades
 
         private void frmStartLinksManagement_Load(object sender, EventArgs e)
         {
-            int anno = 2009;
-            for (; anno <= DateTime.Now.Year; anno++)
-            {
-                CmbSchoolYear.Items.Add((anno - 2000).ToString("00") + ((anno + 1) - 2000).ToString("00"));
-            }
-            int nAnni = CmbSchoolYear.Items.Count;
-            if (DateTime.Now.Month >= 9)
-                CmbSchoolYear.SelectedItem = CmbSchoolYear.Items[nAnni - 1];
-            else
-                CmbSchoolYear.SelectedItem = CmbSchoolYear.Items[nAnni - 2];
+            List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
+            CmbSchoolYear.DataSource = ly;
+            if (ly.Count > 0)
+                CmbSchoolYear.SelectedItem = ly[ly.Count - 1];
 
-                CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text,
-                CmbSchoolYear.SelectedItem.ToString());
+            //int anno = 2009;
+            //for (; anno <= DateTime.Now.Year; anno++)
+            //{
+            //    CmbSchoolYear.Items.Add((anno - 2000).ToString("00") + ((anno + 1) - 2000).ToString("00"));
+            //}
+            //int nAnni = CmbSchoolYear.Items.Count;
+            //if (DateTime.Now.Month >= 9)
+            //    CmbSchoolYear.SelectedItem = CmbSchoolYear.Items[nAnni - 1];
+            //else
+            //    CmbSchoolYear.SelectedItem = CmbSchoolYear.Items[nAnni - 2];
+
+            //    CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text,
+            //    CmbSchoolYear.SelectedItem.ToString());
 
             //refreshGrid();
             // TxtPathStartLink.Text = Commons.PathStartLinks;

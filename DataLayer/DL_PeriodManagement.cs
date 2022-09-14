@@ -1,4 +1,4 @@
-﻿using SchoolGrades.DbClasses;
+﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -42,7 +42,7 @@ namespace SchoolGrades
                 if (IdSchoolYear != null)
                 {
                     query += 
-                    " WHERE idSchoolYear=" + IdSchoolYear +
+                    " WHERE idSchoolYear=" + SqlString(IdSchoolYear) +
                     " OR IdSchoolYear IS null OR IdSchoolYear=''" +
                     ";";
                 }

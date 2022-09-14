@@ -1,4 +1,4 @@
-﻿using SchoolGrades.DbClasses;
+﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -258,6 +258,35 @@ namespace SchoolGrades
         private void rdb_Click(object sender, EventArgs e)
         {
             RetrieveData((RadioButton)sender); 
+        }
+        private void btnReadData_Click(object sender, EventArgs e)
+        {
+            RetrieveData(ActiveRadioButton());
+        }
+        private RadioButton ActiveRadioButton()
+        {
+            if (rdbMissing.Checked)
+            {
+                return rdbMissing;
+            }
+            if (rdbShowGrades.Checked)
+            {
+                return rdbShowGrades;
+            }
+            if (rdbShowWeightedGrades.Checked)
+            {
+                return rdbShowWeightedGrades;
+            }
+            if (rdbShowWeights.Checked)
+            {
+                return rdbShowWeights;
+            }
+            if (rdbShowWeightsOnOpenGrades.Checked)
+            {
+                return rdbShowWeightsOnOpenGrades;
+
+            }
+            return null;
         }
     }
 }

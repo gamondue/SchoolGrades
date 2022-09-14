@@ -1,4 +1,4 @@
-﻿using SchoolGrades.DbClasses;
+﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,7 +27,7 @@ namespace SchoolGrades
         private void frmTestAssessment_Load(object sender, EventArgs e)
         {
             currentTest = Commons.bl.GetTest(1); //!!!!!!!!!!!!!!
-            currentClass = Commons.bl.GetClass(Commons.IdSchool, "1920", "IFTS"); //!!!!!!!!!!!!!!
+            currentClass = Commons.bl.GetClass(Commons.IdSchool, "19-20", "IFTS"); //!!!!!!!!!!!!!!
 
             GradeTest(); 
             RefreshUi();

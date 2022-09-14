@@ -1,4 +1,4 @@
-﻿using SchoolGrades.DbClasses;
+﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -214,7 +214,9 @@ namespace SchoolGrades
                 " JOIN Classes_Students" +
                 " ON Classes_Students.idStudent=Students.idStudent" +
                 " WHERE Classes_Students.idClass =" + Class.IdClass +
-                " AND Grades.idSchoolYear='" + Class.SchoolYear + "'" +
+                " AND (Grades.idSchoolYear='" + Class.SchoolYear + "'" +
+                " OR Grades.idSchoolYear='" + Class.SchoolYear.Replace("-", "") + "'" +
+                " )" + 
                 " AND Grades.idGradeType = '" + IdGradeType + "'" +
                 " AND Grades.idSchoolSubject = '" + IdSchoolSubject + "'" +
                 " AND Grades.Value > 0" +
@@ -483,10 +485,12 @@ namespace SchoolGrades
                 " ON Classes_Students.idStudent=Students.idStudent" +
                 " LEFT JOIN Questions" +
                 " ON Grades.idQuestion=Questions.idQuestion" +
-                " WHERE Students.idStudent =" + Student.IdStudent +
-                " AND Grades.idSchoolYear='" + SchoolYear + "'" +
-                " AND Grades.idGradeType = '" + IdGradeType + "'" +
-                " AND Grades.idSchoolSubject = '" + IdSchoolSubject + "'" +
+                " WHERE Students.idStudent=" + Student.IdStudent +
+                " AND (Grades.idSchoolYear='" + SchoolYear + "'" +
+                " OR Grades.idSchoolYear='" + SchoolYear.Replace("-", "") + "'" +
+                ")" + 
+                " AND Grades.idGradeType='" + IdGradeType + "'" +
+                " AND Grades.idSchoolSubject='" + IdSchoolSubject + "'" +
                 " AND Grades.Value > 0" +
                 " AND Grades.Timestamp BETWEEN " + SqlDate(DateFrom) + " AND " + SqlDate(DateTo) +
                 " ORDER BY lastName, firstName, Students.idStudent, Grades.timestamp Desc;";
@@ -519,7 +523,9 @@ namespace SchoolGrades
                 " LEFT JOIN Grades ON Students.idStudent=Grades.idStudent" +
                 " JOIN Students ON Classes_Students.idStudent=Students.idStudent" +
                 " WHERE Classes_Students.idClass =" + Class.IdClass +
-                " AND Grades.idSchoolYear='" + Class.SchoolYear + "'" +
+                " AND (Grades.idSchoolYear='" + Class.SchoolYear + "'" +
+                " OR Grades.idSchoolYear='" + Class.SchoolYear.Replace("-", "") + "'" + // TEMPORARY line for compatibility
+                ")" + 
                 " AND (Grades.idGradeType='" + IdGradeType + "'" +
                 " OR Grades.idGradeType IS NULL)" +
                 " AND Grades.idSchoolSubject='" + IdSchoolSubject + "'" +
@@ -563,7 +569,9 @@ namespace SchoolGrades
                 " JOIN Classes_Students" +
                 " ON Classes_Students.idStudent=Students.idStudent" +
                 " WHERE Classes_Students.idClass =" + Class.IdClass +
-                " AND Grades.idSchoolYear='" + Class.SchoolYear + "'" +
+                " AND (Grades.idSchoolYear='" + Class.SchoolYear + "'" +
+                " OR Grades.idSchoolYear='" + Class.SchoolYear.Replace("-", "") + "'" +
+                ")" + 
                 " AND Grades.idGradeType = '" + IdGradeType + "'" +
                 " AND Grades.idSchoolSubject = '" + IdSchoolSubject + "'" +
                 " AND Grades.Value > 0" +
@@ -846,7 +854,9 @@ namespace SchoolGrades
                 " JOIN Classes_Students ON Students.idStudent=Grades.idStudent" +
                 " JOIN Students ON Classes_Students.idStudent=Students.idStudent" +
                 " WHERE Classes_Students.idClass =" + Class.IdClass +
-                " AND Grades.idSchoolYear='" + Class.SchoolYear + "'" +
+                " AND (Grades.idSchoolYear='" + Class.SchoolYear + "'" +
+                " OR Grades.idSchoolYear='" + Class.SchoolYear.Replace("-", "") + "'" +
+                ")" +
                 " AND (Grades.idGradeType='" + IdGradeType + "'" +
                 " OR Grades.idGradeType IS NULL)" +
                 " AND Grades.idSchoolSubject='" + IdSchoolSubject + "'" +

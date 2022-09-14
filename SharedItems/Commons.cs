@@ -4,8 +4,9 @@ using System.Security.Cryptography;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Drawing;
-using SchoolGrades.DbClasses;
+using SchoolGrades.BusinessObjects;
 using System.Diagnostics;
+using System.Linq;
 
 namespace SchoolGrades
 {
@@ -318,6 +319,64 @@ namespace SchoolGrades
             Console.Beep();
 
             return Error;
+        }
+        enum State
+        {
+            SeekingFirstDigit,
+            ReadingNumber
+        }
+        internal static string IncreaseIntegersInString(string StringWithNumbersInside)
+        {
+            // increase (add one to) the integer numbers contained into a string, leaving the rest untouched 
+
+            // finite state machine that recognizes numbers 
+            string outputString = "";
+            string partialString = ""; 
+            int currentIndex = 0;
+            State state = State.SeekingFirstDigit;
+            while (currentIndex < StringWithNumbersInside.Length)
+            {
+                char currentChar = StringWithNumbersInside[currentIndex];
+                switch (state)
+                {
+                    case State.SeekingFirstDigit:
+                        {
+                            if (char.IsDigit(currentChar))
+                            {
+                                state = State.ReadingNumber;
+                                outputString += partialString;
+                                partialString = ""; 
+                            }
+                            partialString += currentChar.ToString();
+                            break;
+                        }
+                    case State.ReadingNumber:
+                        {
+                            if (char.IsDigit(currentChar))
+                            {
+                                partialString += currentChar.ToString();
+                            }
+                            else
+                            {
+                                state = State.SeekingFirstDigit;
+                                int number = int.Parse(partialString);
+                                outputString += (++number).ToString() + currentChar.ToString();
+                                partialString = ""; 
+                            }
+                            break; 
+                        }
+                }
+                currentIndex++;
+            }
+            if (state == State.ReadingNumber)
+            {
+                int number = int.Parse(partialString);
+                outputString += (++number).ToString();
+            }
+            else
+                outputString += partialString; 
+
+            return outputString; 
         }
     }
 }

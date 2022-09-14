@@ -1,8 +1,7 @@
-﻿using SchoolGrades.DbClasses;
+﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace SchoolGrades
 {
@@ -37,9 +36,9 @@ namespace SchoolGrades
         {
             dl.SaveImage(currentImage);
         }
-        internal void AddLinkToOldPhoto(int value, string text1, string text2)
+        internal void AddLinkToOldPhoto(int? IdStudent, string IdPreviousSchoolYear, string IdNextSchoolYear)
         {
-            dl.AddLinkToOldPhoto(value, text1, text2);
+            dl.AddLinkToOldPhoto(IdStudent, IdPreviousSchoolYear, IdNextSchoolYear);
         }
         internal List<Image> GetAllImagesShownToAClassDuringLessons(Class currentClass, SchoolSubject currentSubject, DateTime dateTime, DateTime now)
         {

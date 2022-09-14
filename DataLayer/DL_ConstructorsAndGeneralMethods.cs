@@ -1,5 +1,5 @@
 ﻿using gamon;
-using SchoolGrades.DbClasses;
+using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -109,8 +109,8 @@ namespace SchoolGrades
             School news = new School();
             // the next should be a real integer id, 
             news.IdSchool = Commons.IdSchool;
-            news.Name = "IS Pascal Comandini";
-            news.Desc = "Istituto Di Istruzione Superiore Pascal-Comandini, Cesena";
+            news.Name = "ITT Pascal - Cesena";
+            news.Desc = "Istituto Tecnico Tecnologico Blaise Pascal, Cesena";
             news.OfficialSchoolAbbreviation = Commons.IdSchool;
             return news;
         }
@@ -551,15 +551,15 @@ namespace SchoolGrades
                     ");";
                 cmd.ExecuteNonQuery();
 
-                // erase all the annotation, of all classes
+                // erase all the annotations, of all classes
                 cmd.CommandText = "DELETE FROM StudentsAnnotations" +
                     ";";
                 cmd.ExecuteNonQuery();
 
-                // erase all the StartLinks of other classes
+                // erase all the StartLinks of ALL the classes (they will be re-done in the new database) 
                 cmd.CommandText = "DELETE FROM Classes_StartLinks" +
-                    " WHERE idClass<>" + Class1.IdClass +
-                    " AND idClass<>" + Class2.IdClass +
+                    //" WHERE idClass<>" + Class1.IdClass +
+                    //" AND idClass<>" + Class2.IdClass +
                     ";";
                 cmd.ExecuteNonQuery();
 
@@ -653,14 +653,12 @@ namespace SchoolGrades
                 cmd.ExecuteNonQuery();
 
                 // change the data of the classes
-                Class1.Abbreviation = "DEMO1";
+                Class1.Abbreviation = "1DEMO";
                 Class1.Description = "SchoolGrades demo class 1";
-                // Class1.IdSchool = ""; // left the existing code 
-                Class1.PathRestrictedApplication = Commons.PathExe + "\\demo1";
                 // Class1.SchoolYear = // !!!! shift the data to the destination school year, to be done when year's shifting will be managed!!!!
-                Class1.IdSchool = Commons.IdSchool;
+                Class1.PathRestrictedApplication = Commons.PathExe + "\\1demo";
+                Class1.IdSchool = Commons.IdSchool; 
                 Class1.UriWebApp = ""; // ???? decide what to put here ????
-
                 // SaveClass Class1;
                 string query = "UPDATE Classes" +
                     " SET" +
@@ -669,17 +667,17 @@ namespace SchoolGrades
                     ",idSchool=" + SqlString(Class1.IdSchool) + "" +
                     ",abbreviation=" + SqlString(Class1.Abbreviation) + "" +
                     ",desc=" + SqlString(Class1.Description) + "" +
-                    ",uriWebApp=" + Class1.UriWebApp + "" +
+                    ",uriWebApp=" + SqlString(Class1.UriWebApp) + "" +
                     ",pathRestrictedApplication=" + SqlString(Class1.PathRestrictedApplication) + "" +
                     " WHERE idClass=" + Class1.IdClass +
                     ";";
                 cmd.CommandText = query;
                 cmd.ExecuteNonQuery();
 
-                Class2.Abbreviation = "DEMO2";
+                // class 2
+                Class2.Abbreviation = "2DEMO";
                 Class2.Description = "SchoolGrades demo class 2";
-                Class2.PathRestrictedApplication = Commons.PathExe + "\\demo2";
-                // Class2.SchoolYear = !!!! shift the data to the destination school year !!!!
+                Class2.PathRestrictedApplication = Commons.PathExe + "\\2demo";
                 Class2.IdSchool = Commons.IdSchool;
                 Class2.UriWebApp = ""; // ???? decide what to put here ????
                 // SaveClass Class2;
@@ -690,7 +688,7 @@ namespace SchoolGrades
                     ",idSchool=" + SqlString(Class2.IdSchool) + "" +
                     ",abbreviation=" + SqlString(Class2.Abbreviation) + "" +
                     ",desc=" + SqlString(Class2.Description) + "" +
-                    ",uriWebApp=" + Class2.UriWebApp + "" +
+                    ",uriWebApp=" + SqlString(Class2.UriWebApp) + "" +
                     ",pathRestrictedApplication=" + SqlString(Class2.PathRestrictedApplication) + "" +
                     " WHERE idClass=" + Class2.IdClass +
                     ";";
@@ -720,11 +718,58 @@ namespace SchoolGrades
                 // change the school year in StudentsPhotos_Students (when we implement year shift!) 
                 // !!!! TODO !!!!
 
+                // Class1 start links
+
+                // !!!! understand why the next 3 queries don't work (the )
+                int IdStartLink = NextKey("Classes_StartLinks", "IdStartLink");
+                query = "INSERT INTO Classes_StartLinks" +
+                    "(idStartLink, idClass, startLink, desc)" +
+                    " Values (" + IdStartLink + "," +
+                    Class1.IdClass + "," +
+                    SqlString(@"https://web.spaggiari.eu/home/app/default/login.php?custcode=FOIP0004") + "," +
+                    SqlString("Registro di classe") +
+                    ");";
+                cmd.CommandText = query;
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+            using (DbConnection conn = newDatabaseDl.Connect())
+            {
+                int IdStartLink = NextKey("Classes_StartLinks", "IdStartLink");
+                string query = "INSERT INTO Classes_StartLinks" +
+                    "(idStartLink, idClass, startLink, desc)" +
+                    " Values (" + IdStartLink + "," +
+                    Class1.IdClass + "," +
+                    SqlString(@"https://github.com/gamondue/SchoolGrades") + "," +
+                    SqlString("Repo sorgenti") +
+                    ");";
+                cmd.CommandText = query;
+                cmd.ExecuteNonQuery();
+                // Class2 start links
+                IdStartLink = NextKey("Classes_StartLinks", "IdStartLink");
+                query = "INSERT INTO Classes_StartLinks" +
+                    "(idStartLink, idClass, startLink, desc)" +
+                    " Values (" + IdStartLink + "," +
+                    Class1.IdClass + "," +
+                    SqlString(@"http://www.ingmonti.it/") + "," +
+                    SqlString("Sito gamon") +
+                    ");";
+                cmd.CommandText = query;
+                cmd.ExecuteNonQuery();
+                IdStartLink = NextKey("Classes_StartLinks", "IdStartLink");
+                query = "INSERT INTO Classes_StartLinks" +
+                    "(idStartLink, idClass, startLink, desc)" +
+                    " Values (" + IdStartLink + "," +
+                    Class1.IdClass + "," +
+                    SqlString(@".\README.md") + "," +
+                    SqlString("File di testo!") +
+                    ");";
+                cmd.CommandText = query;
+                cmd.ExecuteNonQuery();
+
                 // compact the database 
                 cmd.CommandText = "VACUUM;";
                 cmd.ExecuteNonQuery();
-
-                cmd.Dispose();
             }
             return newDatabaseFullName;
         }

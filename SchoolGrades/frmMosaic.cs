@@ -1,4 +1,4 @@
-﻿using SchoolGrades.DbClasses;
+﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -12,7 +12,7 @@ namespace SchoolGrades
         List<Student> currentStudents;
         List<PictureBox> currentPictures = new List<PictureBox>(); 
 
-        public frmMosaic(SchoolGrades.DbClasses.Class Class)
+        public frmMosaic(SchoolGrades.BusinessObjects.Class Class)
         {
             InitializeComponent();
 
@@ -87,7 +87,6 @@ namespace SchoolGrades
                 Console.Beep();
             }
         }
-
         private void frmMosaic_Resize(object sender, EventArgs e)
         {
             ResizePictures(); 

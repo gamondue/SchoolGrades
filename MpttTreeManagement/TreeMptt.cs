@@ -1,5 +1,5 @@
 ﻿using SchoolGrades;
-using SchoolGrades.DbClasses;
+using SchoolGrades.BusinessObjects;
 using SharedWinForms;
 using System;
 using System.Collections.Generic;

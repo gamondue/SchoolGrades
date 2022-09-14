@@ -5,7 +5,7 @@ using System.Data.SQLite;
 using System.Linq;
 using System.Windows.Forms;
 using SchoolGrades;
-using SchoolGrades.DbClasses;
+using SchoolGrades.BusinessObjects;
 using SharedWinForms;
 
 namespace gamon.TreeMptt

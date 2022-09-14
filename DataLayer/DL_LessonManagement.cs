@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using SchoolGrades.DbClasses;
+using SchoolGrades.BusinessObjects;
 using System.Data.Common;
 using System.Data;
 using System.Data.SQLite;
