@@ -72,7 +72,7 @@ namespace SchoolGrades
             if (!rdbChooseStudentsPhotoWhileImporting.Checked)
             {
                 newClass.IdClass = Commons.bl.CreateClassAndStudents(datiAllievi, CmbClasses.Text, txtClassDescription.Text,
-                CmbSchoolYear.Text, TxtOfficialSchoolAbbreviation.Text,RdbPhotoAlreadyPresent.Checked);
+                CmbSchoolYear.Text, TxtOfficialSchoolAbbreviation.Text,rdbStudentsPhotosAlreadyPresent.Checked);
             }
             else
             {
@@ -170,15 +170,18 @@ namespace SchoolGrades
         }
         private void FillClassData(Class Class)
         {
-            dtClass = Commons.bl.GetClassTable(Class.IdClass);
-            DgwClass.DataSource = dtClass;
+            if (Class != null)
+            {
+                dtClass = Commons.bl.GetClassTable(Class.IdClass);
+                DgwClass.DataSource = dtClass;
 
-            DgwStudents.DataSource = null;
-            DgwStudents.DataSource = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, 
-                idSchoolYear, CmbClasses.Text, true);
-            txtClassDescription.Text = Safe.String(DgwClass.Rows[DgwClass.CurrentRow.Index].Cells["desc"].Value);
-            currentClass = (Class)CmbClasses.SelectedItem;
-            TxtStartLinksFolder.Text = currentClass.PathRestrictedApplication; 
+                DgwStudents.DataSource = null;
+                DgwStudents.DataSource = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text,
+                    idSchoolYear, CmbClasses.Text, true);
+                txtClassDescription.Text = Safe.String(DgwClass.Rows[DgwClass.CurrentRow.Index].Cells["desc"].Value);
+                currentClass = (Class)CmbClasses.SelectedItem;
+                TxtStartLinksFolder.Text = currentClass.PathRestrictedApplication;
+            }
         }
         private void BtnPhotoChange_Click(object sender, EventArgs e)
         {

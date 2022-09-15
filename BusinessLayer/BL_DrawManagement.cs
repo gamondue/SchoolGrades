@@ -12,7 +12,7 @@ namespace SchoolGrades
             List<Student> eligiblesList = new List<Student>();
             foreach (Student s in StudentsList)
             {
-                if ((bool)s.Eligible)
+                if (s.Eligible == true)
                 {
                     s.SortOrDrawCriterion = 1; // equal probability to all
                     eligiblesList.Add(s);
