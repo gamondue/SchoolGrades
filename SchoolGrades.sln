@@ -15,8 +15,6 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedWinForms", "SharedWin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolGrades", "SchoolGrades\SchoolGrades.csproj", "{14583D93-E4DD-4E30-8D6D-194727A795D3}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedWebForms", "SharedWebForms\SharedWebForms.shproj", "{CC542454-DECF-4224-9F6C-D5C86DE2105A}"
-EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "BusinessObjects", "BusinessObjects\BusinessObjects.shproj", "{FC67D93E-C273-48FB-B183-DFA07592452E}"
 EndProject
 Global
@@ -72,7 +70,6 @@ Global
 		SharedItems\SharedItems.projitems*{a5dc5853-0eb8-493e-804d-d596d841aa2d}*SharedItemsImports = 13
 		MpttTreeManagement\MpttTreeManagement.projitems*{aea6904a-a8b6-4602-8946-03df79cbbd30}*SharedItemsImports = 13
 		SharedWinForms\SharedWinForms.projitems*{bdb76e62-3474-4529-b85d-2ebe40c7befb}*SharedItemsImports = 13
-		SharedWebForms\SharedWebForms.projitems*{cc542454-decf-4224-9f6c-d5c86de2105a}*SharedItemsImports = 13
 		BusinessObjects\BusinessObjects.projitems*{fc67d93e-c273-48fb-b183-dfa07592452e}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

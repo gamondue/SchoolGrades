@@ -126,9 +126,10 @@ namespace SchoolGrades
             lblStudent.Text = currentStudent.ToString();
             if(currentStudent.HasSpecialNeeds!= null && currentStudent.HasSpecialNeeds == true)
                 chkHasSpecialNeeds.Checked = true; 
-
-            txtMicroGradeWeight.Text = ((double)currentGrade.Weight).ToString("#.##");
-            txtMicroGrade.Text = ((double)currentGrade.Value).ToString("#.#"); 
+            if (currentGrade.Weight != null)
+                txtMicroGradeWeight.Text = ((double)currentGrade.Weight).ToString("#.##");
+            if(currentGrade.Value != null)
+                txtMicroGrade.Text = ((double)currentGrade.Value).ToString("#.#"); 
 
             DataTable T = Commons.bl.GetMicroGradesOfStudentWithMacroOpen(currentStudent.IdStudent, currentYear, currentGradeType.IdGradeType,
                 currentSchoolSubject.IdSchoolSubject);

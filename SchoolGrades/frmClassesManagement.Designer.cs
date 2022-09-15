@@ -529,6 +529,7 @@
             this.btnFileChoose.TabIndex = 98;
             this.btnFileChoose.Text = "..";
             this.btnFileChoose.UseVisualStyleBackColor = false;
+            this.btnFileChoose.Click += new System.EventHandler(this.btnFileChoose_Click);
             // 
             // TxtFileOfStudentsImport
             // 

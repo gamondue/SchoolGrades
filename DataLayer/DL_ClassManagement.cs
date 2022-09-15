@@ -386,7 +386,7 @@ namespace SchoolGrades
                     int rigap1 = row + 1;
                     // create new student
                     cmd.CommandText = "INSERT INTO Students " +
-                        "(idStudent, lastName, firstName, residence, origin, email, birthDate, birthPlace) " +
+                        "(idStudent, lastName, firstName, birthDate, residence, origin, email, birthPlace) " +
                         "Values (" +
                         "" + idNextStudent + "," +
                         SqlString(StudentsData[row, 1]) + "," +
