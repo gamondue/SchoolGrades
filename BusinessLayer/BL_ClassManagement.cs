@@ -134,17 +134,6 @@ namespace SchoolGrades
         internal List<SchoolYear> GetSchoolYearsThatHaveClasses()
         {
             List<SchoolYear> ly = dl.GetSchoolYearsThatHaveClasses();
-            // add the new year if the school year has started and we have no classes for the year 
-            ////////DateTime now = DateTime.Now;
-            ////////string yearNow = now.Year.ToString("####").Substring(2, 2);
-            ////////string yearNext = (now.Year + 1).ToString("####").Substring(2, 2);
-            ////////int monthNow = now.Month;
-            ////////if (monthNow >= 9 && ly[ly.Count - 1].IdSchoolYear.Substring(0, 2) != yearNow)
-            ////////{
-            ////////    SchoolYear nextYearId = new SchoolYear();
-            ////////    nextYearId.IdSchoolYear = yearNow + "-" + yearNext;
-            ////////    ly.Add(nextYearId);
-            ////////}
             return ly;
         }
         internal void GenerateNewClassFromPrevious(List<Student> StudentsOfNewClass, string ClassAbbreviation, 

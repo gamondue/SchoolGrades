@@ -6,7 +6,7 @@ namespace SchoolGrades
 {
     internal partial class DataLayer
     {
-        #region functions that prepare the valu of a variable to be used in a SQL statement 
+        #region functions that prepare the value of a variable to be used in a SQL statement 
         internal string SqlString(string String)
         {
             if (String == null) return "null";
@@ -15,9 +15,7 @@ namespace SchoolGrades
             {
                 temp = String;
 
-                //temp = temp.Replace("\"", "\"\"");
                 temp = temp.Replace("'", "''");
-                //temp = "'" + temp + "'";
             }
             else
                 temp = "";
@@ -32,9 +30,7 @@ namespace SchoolGrades
             {
                 temp = String;
 
-                //temp = temp.Replace("\"", "\"\"");
                 temp = temp.Replace("'", "''");
-                //temp = "'" + temp + "'";
             }
             else
                 temp = "";
@@ -51,9 +47,7 @@ namespace SchoolGrades
             {
                 temp = String;
 
-                //temp = temp.Replace("\"", "\"\"");
                 temp = temp.Replace("'", "''");
-                //temp = "'" + temp + "'";
             }
             else
                 temp = "";

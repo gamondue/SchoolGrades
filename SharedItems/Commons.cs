@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Drawing;
 using SchoolGrades.BusinessObjects;
 using System.Diagnostics;
-using System.Linq;
 
 namespace SchoolGrades
 {
@@ -17,24 +16,19 @@ namespace SchoolGrades
         // program's default path and files. Overridden by the config file "schgrd.cfg", when it exists
         internal static string PathUser = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
         internal static string PathAndFileExe = System.Reflection.Assembly.GetExecutingAssembly().CodeBase.Substring(8);
-        //internal static string PathExe = System.IO.Path.GetDirectoryName(PathAndFileExe);
         internal static string PathExe = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
 
-        internal static string PathConfig = Path.Combine(PathUser, "SchoolGrades\\Config");
+        internal static string PathConfig = Path.Combine(PathUser, "SchoolGrades", "Config");
         internal static string PathAndFileConfig = Path.Combine(PathConfig, "schgrd.cfg");
         internal static string CompanyPrefix = "gamon-";
-        internal static string PathLogs = Path.Combine(PathUser, "SchoolGrades\\Logs");
+        internal static string PathLogs = Path.Combine(PathUser, "SchoolGrades", "Logs");
         internal static string PathAndFileLogText = Path.Combine(PathLogs, CompanyPrefix + "Errori.txt");
 
         internal static string FileDatabase = "SchoolGrades_DEMO.sqlite";
-        //internal static string PathDatabase = PathUser + "\\SchoolGrades\\Data";
         internal static string PathDatabase = Path.Combine(PathExe, "Data");
         internal static string PathAndFileDatabase = Path.Combine(PathDatabase, FileDatabase); // if will be read with ReadConfigFile()! 
 
-        //internal static string PathStartLink = PathUser + "\\SchoolGrades\\";
         internal static string PathStartLinks = PathExe;
-        //internal static string PathImages = PathUser + "\\SchoolGrades\\Images";
-        //internal static string PathImages = PathExe + "\\SchoolGrades\\Images";
 
         internal static string PathImages = Path.Combine(PathExe, "Images");
 
@@ -56,7 +50,6 @@ namespace SchoolGrades
 
         internal static string IdSchool = "FOIS01100L";
         internal static bool IsTimerLessonActive { get; set; }
-        
         internal static string CalculateSHA1(string File)
         {
             try
@@ -312,10 +305,6 @@ namespace SchoolGrades
                     Console.WriteLine(DateTime.Now + " Errore nella memorizzazione del file di log. \r\n" + e.Message);
                 }
             }
-            ////////if (UseMessageBox)
-            ////////{
-            ////////    MessageBox.Show(Error, "Errore");
-            ////////}
             Console.Beep();
 
             return Error;

@@ -78,9 +78,9 @@ namespace SchoolGrades
             this.Text += " v. " + version;
 
             List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
-            CmbSchoolYear.DataSource = ly;
+            cmbSchoolYear.DataSource = ly;
             if (ly.Count > 0)
-                CmbSchoolYear.SelectedItem = ly[ly.Count - 1];
+                cmbSchoolYear.SelectedItem = ly[ly.Count - 1];
 
             // fill the combo of grade types 
             List<GradeType> ListGradeTypes = Commons.bl.GetListGradeTypes();
@@ -117,8 +117,8 @@ namespace SchoolGrades
             if (school == null)
                 return;
 
-            if (CmbSchoolYear.SelectedItem != null)
-                schoolYear = CmbSchoolYear.SelectedItem.ToString();
+            if (cmbSchoolYear.SelectedItem != null)
+                schoolYear = cmbSchoolYear.SelectedItem.ToString();
 
             lstClasses.DataSource = Commons.bl.GetClassesOfYear(school.IdSchool, schoolYear);
 
@@ -127,7 +127,7 @@ namespace SchoolGrades
 
             CommonsWinForms.globalPicLed = picBackgroundSaveRunning;
 
-            if (ChkActivateLessonClock.Checked)
+            if (chkActivateLessonClock.Checked)
             {
                 CalculateTimesForEndLessonWarning();
                 timerLesson.Start();
@@ -417,11 +417,11 @@ namespace SchoolGrades
         }
         private void btnPath_Click(object sender, EventArgs e)
         {
-            folderBrowserDialog.SelectedPath = TxtPathImages.Text;
+            folderBrowserDialog.SelectedPath = txtPathImages.Text;
             DialogResult r = folderBrowserDialog.ShowDialog();
             if (r == System.Windows.Forms.DialogResult.OK)
             {
-                TxtPathImages.Text = folderBrowserDialog.SelectedPath;
+                txtPathImages.Text = folderBrowserDialog.SelectedPath;
             }
         }
         Class lastClass = new Class(); 
@@ -440,8 +440,8 @@ namespace SchoolGrades
                 filesInFolder.Clear();                 
                 if (chkGivenFolder.Checked)
                 {
-                    if (TxtPathImages.Text != "")
-                        RecusivelyFindImagesUnderPath(TxtPathImages.Text, ref filesInFolder);
+                    if (txtPathImages.Text != "")
+                        RecusivelyFindImagesUnderPath(txtPathImages.Text, ref filesInFolder);
                 }
                 if (chkLessonsPictures.Checked)
                 {
@@ -818,19 +818,6 @@ namespace SchoolGrades
         {
             showCurrentStudent(descStudentChosen);
         }
-        private int indexInList(string firstLastName)
-        {
-            int indexInList = 0;
-            for (indexInList = 0; indexInList < currentStudentsList.Count; indexInList++)
-            {
-                string firstLast = currentStudentsList[indexInList].ToString();
-                if (firstLast == firstLastName)
-                {
-                    break;
-                }
-            }
-            return indexInList;
-        }
         private void btnSetup_Click(object sender, EventArgs e)
         {
             // save current students because can be used by setup windows
@@ -863,7 +850,7 @@ namespace SchoolGrades
                 return;
 
             // annotation applied to a single student
-            frmGradesStudentsSummary f = new frmGradesStudentsSummary(currentStudent, CmbSchoolYear.Text,
+            frmGradesStudentsSummary f = new frmGradesStudentsSummary(currentStudent, cmbSchoolYear.Text,
                 currentGradeType, (SchoolSubject)cmbSchoolSubject.SelectedItem);
             f.Show();
         }
@@ -1024,7 +1011,7 @@ namespace SchoolGrades
         {
             try
             {
-                Commons.ProcessStartLink(TxtPathImages.Text);
+                Commons.ProcessStartLink(txtPathImages.Text);
             }
             catch (Exception er)
             {
@@ -1034,7 +1021,7 @@ namespace SchoolGrades
         }
         private void txtPathImages_Click(object sender, EventArgs e)
         {
-            openFileDialog.InitialDirectory = TxtPathImages.Text;
+            openFileDialog.InitialDirectory = txtPathImages.Text;
             openFileDialog.Title = "File da visualizzare";
             openFileDialog.Filter = "Tutti i file|*.*";
             openFileDialog.FileName = "";
@@ -1043,7 +1030,7 @@ namespace SchoolGrades
                 try
                 {
                     picStudent.Image = System.Drawing.Image.FromFile(openFileDialog.FileName);
-                    TxtPathImages.Text = Path.GetDirectoryName(openFileDialog.FileName);
+                    txtPathImages.Text = Path.GetDirectoryName(openFileDialog.FileName);
                 }
                 catch
                 {
@@ -1231,9 +1218,9 @@ namespace SchoolGrades
                 MessageBox.Show("Creato il file " + filenameNoExtension + ".md");
             }
         }
-        private void ChkEnableEndLessonWarning_CheckedChanged(object sender, EventArgs e)
+        private void chkEnableEndLessonWarning_CheckedChanged(object sender, EventArgs e)
         {
-            if (ChkEnableEndLessonWarning.Checked)
+            if (chkEnableEndLessonWarning.Checked)
             {
                 CalculateTimesForEndLessonWarning();
             }
@@ -1244,7 +1231,7 @@ namespace SchoolGrades
             int.TryParse(txtMinuteStartLesson.Text, out minuteStart);
             float.TryParse(txtDurationLesson.Text, out timeLessonMinutes);
 
-            float.TryParse(txtMinuteStartAlarm.Text, out timeAlarmMinutes);
+            float.TryParse(txtAdvanceMinutes.Text, out timeAlarmMinutes);
             if (minuteStart <= 0 || minuteStart >= 60)
             {
                 minuteStart = 0;
@@ -1276,7 +1263,7 @@ namespace SchoolGrades
         {
             timeLeftMinutes = ticksToMinutesFactor * (thisLessonEndTime.Ticks - DateTime.Now.Ticks);
 
-            if (ChkEnableEndLessonWarning.Checked)
+            if (chkEnableEndLessonWarning.Checked)
             {
                 if (timeLeftMinutes <= timeAlarmMinutes && alarmNotFired)
                 {
@@ -1302,26 +1289,26 @@ namespace SchoolGrades
                 AForge.Imaging.ColorConverter.HSL2RGB(colHSL, colRGB);
                 CurrentLessonTimeColor = colRGB.Color;
 
-                BtnLessonTime.BackColor = CurrentLessonTimeColor;
+                btnLessonTime.BackColor = CurrentLessonTimeColor;
             }
             else
             {
                 timerLesson.Stop();
                 CurrentLessonTimeColor = Color.Transparent;
-                BtnLessonTime.BackColor = CurrentLessonTimeColor;
+                btnLessonTime.BackColor = CurrentLessonTimeColor;
             }
         }
-        private void ChkActivateLessonClock_CheckedChanged(object sender, EventArgs e)
+        private void chkActivateLessonClock_CheckedChanged(object sender, EventArgs e)
         {
-            if (ChkActivateLessonClock.Checked)
+            if (chkActivateLessonClock.Checked)
                 timerLesson.Enabled = true;
             else
             {
                 timerLesson.Enabled = false;
                 CurrentLessonTimeColor = Color.Transparent;
-                BtnLessonTime.BackColor = CurrentLessonTimeColor;
+                btnLessonTime.BackColor = CurrentLessonTimeColor;
             }
-            Commons.IsTimerLessonActive = ChkActivateLessonClock.Checked;
+            Commons.IsTimerLessonActive = chkActivateLessonClock.Checked;
         }
         private void btnTemporary_Click(object sender, EventArgs e)
         {
@@ -1406,7 +1393,7 @@ namespace SchoolGrades
             }
             if (chosenStudents.Count > 0)
             {
-                frmAnnotationsAboutStudents f = new frmAnnotationsAboutStudents(chosenStudents, CmbSchoolYear.Text);
+                frmAnnotationsAboutStudents f = new frmAnnotationsAboutStudents(chosenStudents, cmbSchoolYear.Text);
                 f.StartPosition = FormStartPosition.CenterParent; 
                 f.Show();
             }
@@ -1560,6 +1547,7 @@ namespace SchoolGrades
                 dgwStudents.Columns[16].Visible = false;
 
                 dgwStudents.Columns[18].Visible = false;
+                dgwStudents.Columns[19].Visible = false;
 
                 dgwStudents.Columns[20].Visible = false;
                 int Index = 0;
@@ -1603,10 +1591,7 @@ namespace SchoolGrades
             int i = 0; 
             foreach (DataGridViewRow r in dgwStudents.Rows)
             {
-                //if ( == true)
-                //{
-                    currentStudentsList[i].Eligible = (bool)r.Cells[0].Value; 
-                //}
+                currentStudentsList[i].Eligible = (bool)r.Cells[0].Value; 
             }
         }
     }

@@ -217,8 +217,8 @@ namespace SchoolGrades
         {
             try
             {
-                string filePathAndName = Commons.PathImages + "\\" +
-                    Commons.bl.GetFilePhoto(StudentToLoad.IdStudent, StudentToLoad.SchoolYear);
+                string filePathAndName = Path.Combine(Commons.PathImages, 
+                    Commons.bl.GetFilePhoto(StudentToLoad.IdStudent, StudentToLoad.SchoolYear));
 
                 picStudent.Image = System.Drawing.Image.FromFile(filePathAndName);
                 picStudent.Visible = true;
@@ -496,6 +496,10 @@ namespace SchoolGrades
                 }
             }
             DgwStudents.Refresh(); 
+        }
+        private void TxtStartLinksFolder_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

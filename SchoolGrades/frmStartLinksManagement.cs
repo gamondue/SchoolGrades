@@ -19,49 +19,27 @@ namespace SchoolGrades
 
             currentClass = CurrentClass; 
         }
-
         private void frmStartLinksManagement_Load(object sender, EventArgs e)
         {
             List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
             CmbSchoolYear.DataSource = ly;
             if (ly.Count > 0)
                 CmbSchoolYear.SelectedItem = ly[ly.Count - 1];
-
-            //int anno = 2009;
-            //for (; anno <= DateTime.Now.Year; anno++)
-            //{
-            //    CmbSchoolYear.Items.Add((anno - 2000).ToString("00") + ((anno + 1) - 2000).ToString("00"));
-            //}
-            //int nAnni = CmbSchoolYear.Items.Count;
-            //if (DateTime.Now.Month >= 9)
-            //    CmbSchoolYear.SelectedItem = CmbSchoolYear.Items[nAnni - 1];
-            //else
-            //    CmbSchoolYear.SelectedItem = CmbSchoolYear.Items[nAnni - 2];
-
-            //    CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text,
-            //    CmbSchoolYear.SelectedItem.ToString());
-
-            //refreshGrid();
-            // TxtPathStartLink.Text = Commons.PathStartLinks;
             TxtPathStartLink.Text = currentClass.PathRestrictedApplication; 
         }
-
         private void txtSchoolYear_TextChanged(object sender, EventArgs e)
         {
             refreshGrid();
         }
-
         private void refreshGrid()
         {
             DgwLinks.DataSource = null;
             DgwLinks.DataSource = Commons.bl.GetStartLinksOfClass(currentClass);
         }
-
         private void DgwLinks_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
-
         private void DgwLinks_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
@@ -70,7 +48,6 @@ namespace SchoolGrades
                 currentLink = ((List<StartLink>)DgwLinks.DataSource)[e.RowIndex]; 
             }
         }
-
         private void DgwLinks_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
@@ -163,7 +140,6 @@ namespace SchoolGrades
             refreshGrid();
             CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text,
                     CmbSchoolYear.SelectedItem.ToString());
-            // TxtPathStartLink.Text = Commons.PathStartLinks;
             TxtPathStartLink.Text = currentClass.PathRestrictedApplication;
         }
         private void TxtPathStartLink_TextChanged(object sender, EventArgs e)
@@ -176,7 +152,7 @@ namespace SchoolGrades
         }
         private void BtnPathRetrictedApplication_Click(object sender, EventArgs e)
         {
-            // !!!! TODO: add a new field to Classes record that contains the start link folder and separate if 
+            // !!!! TODO: add a new field to Classes record that contains the start link folder and separate it
             // !!!! from the RestrictedAccessPath, that is another thing! (even if in most cases the two 
             // !!!! paths will be equal). When the database will be changed adding a PathStartLink, then
             // !!!! update this method changing TxtPathStartLink.Text with a new textbox. 

@@ -58,7 +58,6 @@ namespace SchoolGrades
             if (!File.Exists(PathAndFileName))
             {
                 throw new FileNotFoundException(@"[" + PathAndFileName + " not found.]");
-                //return 0;
             }
             if (File.Exists(PathAndFileName + "TEMP"))
             {
@@ -67,11 +66,12 @@ namespace SchoolGrades
             File.Copy(PathAndFileName, PathAndFileName + "TEMP");
 
             string ext = Path.GetExtension(PathAndFileName);
-            string newFileName = Commons.PathImages + "\\" + Class.SchoolYear + Class.Abbreviation + "\\" +
-                Student.LastName + "_" + Student.FirstName + "_" + Class.Abbreviation + Class.SchoolYear + ext;
-            if (!Directory.Exists(Commons.PathImages + "\\" + Class.SchoolYear + Class.Abbreviation + "\\"))
+            string classFolder = Class.SchoolYear + Class.Abbreviation;
+            string fileName = Student.LastName + "_" + Student.FirstName + "_" + Class.Abbreviation + Class.SchoolYear + ext; 
+            string newFileName = Path.Combine(Commons.PathImages, classFolder, fileName);
+            if (!Directory.Exists(Path.Combine(Commons.PathImages, classFolder)))
             {
-                Directory.CreateDirectory(Commons.PathImages + "\\" + Class.SchoolYear + Class.Abbreviation + "\\");
+                Directory.CreateDirectory(Path.Combine(Commons.PathImages, classFolder));
             }
             if (File.Exists(newFileName))
             {
@@ -81,51 +81,49 @@ namespace SchoolGrades
             }
             File.Move(PathAndFileName + "TEMP", newFileName);
 
-            // trova la chiave per la prossima foto 
-            int codiceFoto = NextKey("StudentsPhotos", "idStudentsPhoto");
+            // find the key for next photo
+            int keyPhoto = NextKey("StudentsPhotos", "idStudentsPhoto");
             using (DbConnection conn = Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
-                string PathFileImage = Class.SchoolYear + Class.Abbreviation + "\\" +
-                    Student.LastName + "_" + Student.FirstName + "_" + Class.Abbreviation + Class.SchoolYear + ".jpg"; 
-                // aggiunge la foto alle foto (cartella relativa, cui verrà aggiunta la path delle foto)
+                string relativePathAndFileImage = Path.Combine(classFolder, fileName);
+                // add the relative path of the photo to the StudentsPhotos table
                 cmd.CommandText = "INSERT INTO StudentsPhotos " +
                 "(idStudentsPhoto, photoPath)" +
                 "Values " +
-                "('" + codiceFoto + "'," + SqlString(PathFileImage) +
+                "('" + keyPhoto + "'," + SqlString(relativePathAndFileImage) +
                 ");";
                 cmd.ExecuteNonQuery();
 
-                // cancella tutti gli eventuali riferimenti nella tabella link delle foto ad altre foto nell'anno 
+                // erase all possible links of old photos from the StudentsPhotos_Students table
                 cmd.CommandText = "DELETE FROM StudentsPhotos_Students " +
                     "WHERE idStudent=" + Student.IdStudent +
                     " AND idSchoolYear='" + Class.SchoolYear + "'" +
                     ";";
                 cmd.ExecuteNonQuery();
-                // aggiunge questa foto alla tabella link delle foto
+                // add this photo to the StudentsPhotos_Students table 
                 cmd.CommandText = "INSERT INTO StudentsPhotos_Students " +
                     "(idStudentsPhoto, idStudent, idSchoolYear) " +
-                    "Values (" + codiceFoto + "," + Student.IdStudent + "," + SqlString(Class.SchoolYear) +
+                    "Values (" + keyPhoto + "," + Student.IdStudent + "," + SqlString(Class.SchoolYear) +
                     ");";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
-            return codiceFoto;
+            return keyPhoto;
         }
         internal int? SaveStartLink(int? IdStartLink, int? IdClass, string SchoolYear,
             string StartLink, string Desc)
         {
-            DbCommand cmd = null;
             try
             {
                 using (DbConnection conn = Connect())
                 {
+                    DbCommand cmd = null;
                     cmd = conn.CreateCommand();
                     if (IdStartLink != null && IdStartLink != 0)
                     {
                         cmd.CommandText = "UPDATE Classes_StartLinks" +
                             " SET" +
-                            //" idStartLink=" + IdStartLink +
                             " idClass=" + IdClass + "" +
                             ",startLink=" + SqlString(StartLink) + "" +
                             ",desc=" + SqlString(Desc) + "" +
@@ -153,7 +151,6 @@ namespace SchoolGrades
             {
                 Commons.ErrorLog("DbLayer.SaveStartLink: " + ex.Message);
                 IdStartLink = null;
-                cmd.Dispose();
             }
             return IdStartLink;
         }

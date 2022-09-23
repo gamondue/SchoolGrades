@@ -16,7 +16,6 @@ namespace SchoolGrades
             InitializeComponent();
             NewDatabaseFile = false; 
         }
-
         private void frmSetup_Load(object sender, EventArgs e)
         {
             CommonsWinForms.ReadConfigFile();
@@ -28,25 +27,21 @@ namespace SchoolGrades
             TxtPathDocuments.Text = Commons.PathDocuments;
             chkSaveBackup.Checked = CommonsWinForms.SaveBackupWhenExiting; 
         }
-
         private void BtnTabelle_Click(object sender, EventArgs e)
         {
             frmTables f = new frmTables();
             f.ShowDialog(); 
         }
-
         private void BtnClassi_Click(object sender, EventArgs e)
         {
             frmClassesManagement f = new frmClassesManagement();
             f.ShowDialog(); 
         }
-
         private void btnBackupManagement_Click(object sender, EventArgs e)
         {
             frmBackupManagement f = new frmBackupManagement();
             f.ShowDialog();
         }
-
         private void btnScegliFile_Click(object sender, EventArgs e)
         {
             openFileDialog1.InitialDirectory = TxtPathDatabase.Text;
@@ -59,7 +54,6 @@ namespace SchoolGrades
             Commons.FileDatabase = TxtFileDatabase.Text;
             Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.FileDatabase;
         }
-
         private void btnCartellaImmagini_Click(object sender, EventArgs e)
         {
             folderBrowserDialog1.SelectedPath = TxtPathImages.Text;
@@ -69,12 +63,10 @@ namespace SchoolGrades
                 TxtPathImages.Text = folderBrowserDialog1.SelectedPath;
             }
         }
-
         private void btnSave_Click(object sender, EventArgs e)
         {
             WriteConfigFile();
         }
-
         internal void WriteConfigFile()
         {
             string[] dati = new string[6];
@@ -93,7 +85,7 @@ namespace SchoolGrades
                 // path of the startlinks (PathStartLinks) is not longer used,
                 // substituted by PathRestrictedApp  (attribute of the single class) 
                 //Commons.PathStartLinks = dati[2] = TxtPathStartLinks.Text;
-                if (!Directory.Exists(Commons.PathStartLinks))
+                if (!Directory.Exists(Commons.PathStartLinks) && Commons.PathStartLinks != "")
                     Directory.CreateDirectory(Commons.PathStartLinks);
 
                 Commons.PathDatabase = dati[3] = TxtPathDatabase.Text;
@@ -148,7 +140,6 @@ namespace SchoolGrades
             //    TxtPathStartLinks.Text = folderBrowserDialog1.SelectedPath;
             //}
         }
-
         private void btnPathDatabase_Click(object sender, EventArgs e)
         {
             folderBrowserDialog1.SelectedPath = TxtPathDatabase.Text;
@@ -160,7 +151,6 @@ namespace SchoolGrades
             Commons.PathDatabase = TxtPathDatabase.Text; 
             Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.FileDatabase;
         }
-
         private void btnTopicsManagement_Click(object sender, EventArgs e)
         {
             frmTopics f = new frmTopics(frmTopics.TopicsFormType.ShowAndManagement,
@@ -168,13 +158,11 @@ namespace SchoolGrades
             f.ShowDialog();
             f.Dispose();
         }
-
         private void btnTagsManagement_Click(object sender, EventArgs e)
         {
             frmTag t = new frmTag(false);
             t.ShowDialog(); 
         }
-
         private void btnStartLinksManagenet_Click(object sender, EventArgs e)
         {
             Class dummy = new Class();
@@ -224,55 +212,45 @@ namespace SchoolGrades
         {
             Commons.ProcessStartLink(Commons.PathConfig);
         }
-
         private void BtnUseDemo_Click(object sender, EventArgs e)
         {
 
         }
-
         private void TxtPathDatabase_TextChanged(object sender, EventArgs e)
         {
 
         }
-
         private void TxtPathImages_TextChanged(object sender, EventArgs e)
         {
 
         }
-
         private void TxtPathDocuments_TextChanged(object sender, EventArgs e)
         {
 
         }
-
         private void TxtPaths_DoubleClick(object sender, EventArgs e)
         {
             Commons.ProcessStartLink(((TextBox)sender).Text);
         }
-
         private void TxtFileDatabase_TextChanged(object sender, EventArgs e)
         {
 
         }
-
         private void TxtPathStartLinks_TextChanged(object sender, EventArgs e)
         {
 
         }
-
         private void btnUsersManagement_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Form da completare!");
             frmUsersManagement f = new frmUsersManagement();
             f.Show(); 
         }
-
         private void btnSchoolPeriodsManagement_Click(object sender, EventArgs e)
         {
             frmSchoolYearAndPeriodsManagement f = new frmSchoolYearAndPeriodsManagement();
             f.ShowDialog();
         }
-
         private void btnResetDatabase_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("ATTENZIONE: devo cancellare TUTTO il database?\n(Tutti i dati verranno persi!)",

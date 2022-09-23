@@ -35,7 +35,7 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.txtMinuteStartLesson = new System.Windows.Forms.TextBox();
             this.txtDurationLesson = new System.Windows.Forms.TextBox();
-            this.txtMinuteStartAlarm = new System.Windows.Forms.TextBox();
+            this.txtAdvanceMinutes = new System.Windows.Forms.TextBox();
             this.txtRevengeFactor = new System.Windows.Forms.TextBox();
             this.btnCheckNone = new System.Windows.Forms.Button();
             this.lstClasses = new System.Windows.Forms.ListBox();
@@ -43,10 +43,10 @@
             this.chkNomeVisibile = new System.Windows.Forms.CheckBox();
             this.chkFotoVisibile = new System.Windows.Forms.CheckBox();
             this.chkStudentsListVisible = new System.Windows.Forms.CheckBox();
-            this.CmbSchoolYear = new System.Windows.Forms.ComboBox();
-            this.TxtPathImages = new System.Windows.Forms.TextBox();
+            this.cmbSchoolYear = new System.Windows.Forms.ComboBox();
+            this.txtPathImages = new System.Windows.Forms.TextBox();
             this.btnPath = new System.Windows.Forms.Button();
-            this.BtnShowRandomImage = new System.Windows.Forms.Button();
+            this.btnShowRandomImage = new System.Windows.Forms.Button();
             this.rdbDrawByRevengeFactor = new System.Windows.Forms.RadioButton();
             this.rdbDrawByOldestFirst = new System.Windows.Forms.RadioButton();
             this.rdbDrawNoOfGrades = new System.Windows.Forms.RadioButton();
@@ -54,7 +54,7 @@
             this.rdbSortByAlphbetical = new System.Windows.Forms.RadioButton();
             this.rdbDrawByWeightsSum = new System.Windows.Forms.RadioButton();
             this.rdbDrawEqualProbability = new System.Windows.Forms.RadioButton();
-            this.BtnSetup = new System.Windows.Forms.Button();
+            this.btnSetup = new System.Windows.Forms.Button();
             this.btnStudentsGradesSummary = new System.Windows.Forms.Button();
             this.btnOldestGrade = new System.Windows.Forms.Button();
             this.cmbGradeType = new System.Windows.Forms.ComboBox();
@@ -65,7 +65,7 @@
             this.btnQuestion = new System.Windows.Forms.Button();
             this.txtQuestion = new System.Windows.Forms.TextBox();
             this.btnMakeGroups = new System.Windows.Forms.Button();
-            this.BtnLessonTime = new System.Windows.Forms.Button();
+            this.btnLessonTime = new System.Windows.Forms.Button();
             this.btnVindicationFactorPlus = new System.Windows.Forms.Button();
             this.btnVindicationFactorMinus = new System.Windows.Forms.Button();
             this.btnCheckToggle = new System.Windows.Forms.Button();
@@ -80,7 +80,7 @@
             this.btnCheckNoGrade = new System.Windows.Forms.Button();
             this.lblDatabaseFile = new System.Windows.Forms.Label();
             this.btnYearTopics = new System.Windows.Forms.Button();
-            this.ChkActivateLessonClock = new System.Windows.Forms.CheckBox();
+            this.chkActivateLessonClock = new System.Windows.Forms.CheckBox();
             this.lblIdStudent = new System.Windows.Forms.Label();
             this.txtIdStudent = new System.Windows.Forms.TextBox();
             this.btnTemporary = new System.Windows.Forms.Button();
@@ -99,6 +99,7 @@
             this.txtPopUpQuestionCentralTime = new System.Windows.Forms.TextBox();
             this.btnRandomNumber = new System.Windows.Forms.Button();
             this.chkSoundsInColorTimer = new System.Windows.Forms.CheckBox();
+            this.lblLastDatabaseModification = new System.Windows.Forms.Label();
             this.lblStudentChosen = new System.Windows.Forms.Label();
             this.lblCodYear = new System.Windows.Forms.Label();
             this.timerQuestion = new System.Windows.Forms.Timer(this.components);
@@ -110,7 +111,7 @@
             this.lblSchoolSubject = new System.Windows.Forms.Label();
             this.lblGradeType = new System.Windows.Forms.Label();
             this.timerLesson = new System.Windows.Forms.Timer(this.components);
-            this.ChkEnableEndLessonWarning = new System.Windows.Forms.CheckBox();
+            this.chkEnableEndLessonWarning = new System.Windows.Forms.CheckBox();
             this.grpImageSource = new System.Windows.Forms.GroupBox();
             this.grpChooseDrawSort = new System.Windows.Forms.GroupBox();
             this.rdbMustSort = new System.Windows.Forms.RadioButton();
@@ -122,7 +123,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.timerPopUp = new System.Windows.Forms.Timer(this.components);
             this.dgwStudents = new System.Windows.Forms.DataGridView();
-            this.lblLastDatabaseModification = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picBackgroundSaveRunning)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picStudent)).BeginInit();
             this.grpSorts.SuspendLayout();
@@ -198,18 +198,18 @@
             this.toolTip1.SetToolTip(this.txtDurationLesson, "Minuti durata lezione");
             this.txtDurationLesson.Leave += new System.EventHandler(this.LessonAlarmChanged);
             // 
-            // txtMinuteStartAlarm
+            // txtAdvanceMinutes
             // 
-            this.txtMinuteStartAlarm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMinuteStartAlarm.ForeColor = System.Drawing.Color.DarkBlue;
-            this.txtMinuteStartAlarm.Location = new System.Drawing.Point(516, 344);
-            this.txtMinuteStartAlarm.Name = "txtMinuteStartAlarm";
-            this.txtMinuteStartAlarm.Size = new System.Drawing.Size(46, 24);
-            this.txtMinuteStartAlarm.TabIndex = 141;
-            this.txtMinuteStartAlarm.Text = "8";
-            this.txtMinuteStartAlarm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip1.SetToolTip(this.txtMinuteStartAlarm, "Minuti per allarme prima della fine");
-            this.txtMinuteStartAlarm.Leave += new System.EventHandler(this.LessonAlarmChanged);
+            this.txtAdvanceMinutes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtAdvanceMinutes.ForeColor = System.Drawing.Color.DarkBlue;
+            this.txtAdvanceMinutes.Location = new System.Drawing.Point(516, 344);
+            this.txtAdvanceMinutes.Name = "txtAdvanceMinutes";
+            this.txtAdvanceMinutes.Size = new System.Drawing.Size(46, 24);
+            this.txtAdvanceMinutes.TabIndex = 141;
+            this.txtAdvanceMinutes.Text = "8";
+            this.txtAdvanceMinutes.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.toolTip1.SetToolTip(this.txtAdvanceMinutes, "Minuti per allarme prima della fine");
+            this.txtAdvanceMinutes.Leave += new System.EventHandler(this.LessonAlarmChanged);
             // 
             // txtRevengeFactor
             // 
@@ -313,31 +313,31 @@
             this.chkStudentsListVisible.UseVisualStyleBackColor = true;
             this.chkStudentsListVisible.CheckedChanged += new System.EventHandler(this.chkStudentsListVisible_CheckedChanged);
             // 
-            // CmbSchoolYear
+            // cmbSchoolYear
             // 
-            this.CmbSchoolYear.ForeColor = System.Drawing.Color.DarkBlue;
-            this.CmbSchoolYear.FormattingEnabled = true;
-            this.CmbSchoolYear.Location = new System.Drawing.Point(4, 28);
-            this.CmbSchoolYear.Name = "CmbSchoolYear";
-            this.CmbSchoolYear.Size = new System.Drawing.Size(72, 26);
-            this.CmbSchoolYear.TabIndex = 62;
-            this.toolTip1.SetToolTip(this.CmbSchoolYear, "Anno scolastico senza \"-\"");
-            this.CmbSchoolYear.SelectedIndexChanged += new System.EventHandler(this.cmbSchoolYear_SelectedIndexChanged);
+            this.cmbSchoolYear.ForeColor = System.Drawing.Color.DarkBlue;
+            this.cmbSchoolYear.FormattingEnabled = true;
+            this.cmbSchoolYear.Location = new System.Drawing.Point(4, 28);
+            this.cmbSchoolYear.Name = "cmbSchoolYear";
+            this.cmbSchoolYear.Size = new System.Drawing.Size(72, 26);
+            this.cmbSchoolYear.TabIndex = 62;
+            this.toolTip1.SetToolTip(this.cmbSchoolYear, "Anno scolastico senza \"-\"");
+            this.cmbSchoolYear.SelectedIndexChanged += new System.EventHandler(this.cmbSchoolYear_SelectedIndexChanged);
             // 
-            // TxtPathImages
+            // txtPathImages
             // 
-            this.TxtPathImages.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtPathImages.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TxtPathImages.ForeColor = System.Drawing.Color.DarkBlue;
-            this.TxtPathImages.Location = new System.Drawing.Point(8, 142);
-            this.TxtPathImages.Name = "TxtPathImages";
-            this.TxtPathImages.Size = new System.Drawing.Size(520, 24);
-            this.TxtPathImages.TabIndex = 20;
-            this.toolTip1.SetToolTip(this.TxtPathImages, "Cartella in cui trovare l\'immagine casuale (click per aprire un file nella cartel" +
+            this.txtPathImages.ForeColor = System.Drawing.Color.DarkBlue;
+            this.txtPathImages.Location = new System.Drawing.Point(8, 142);
+            this.txtPathImages.Name = "txtPathImages";
+            this.txtPathImages.Size = new System.Drawing.Size(520, 24);
+            this.txtPathImages.TabIndex = 20;
+            this.toolTip1.SetToolTip(this.txtPathImages, "Cartella in cui trovare l\'immagine casuale (click per aprire un file nella cartel" +
         "la) ");
-            this.TxtPathImages.Click += new System.EventHandler(this.txtPathImages_Click);
-            this.TxtPathImages.TextChanged += new System.EventHandler(this.txtPathImages_TextChanged);
-            this.TxtPathImages.DoubleClick += new System.EventHandler(this.txtPathImages_DoubleClick);
+            this.txtPathImages.Click += new System.EventHandler(this.txtPathImages_Click);
+            this.txtPathImages.TextChanged += new System.EventHandler(this.txtPathImages_TextChanged);
+            this.txtPathImages.DoubleClick += new System.EventHandler(this.txtPathImages_DoubleClick);
             // 
             // btnPath
             // 
@@ -352,21 +352,21 @@
             this.btnPath.UseVisualStyleBackColor = true;
             this.btnPath.Click += new System.EventHandler(this.btnPath_Click);
             // 
-            // BtnShowRandomImage
+            // btnShowRandomImage
             // 
-            this.BtnShowRandomImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnShowRandomImage.BackColor = System.Drawing.Color.Transparent;
-            this.BtnShowRandomImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.BtnShowRandomImage.ForeColor = System.Drawing.Color.DarkBlue;
-            this.BtnShowRandomImage.Location = new System.Drawing.Point(572, 131);
-            this.BtnShowRandomImage.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.BtnShowRandomImage.Name = "BtnShowRandomImage";
-            this.BtnShowRandomImage.Size = new System.Drawing.Size(91, 59);
-            this.BtnShowRandomImage.TabIndex = 22;
-            this.BtnShowRandomImage.Text = "Immagine casuale";
-            this.toolTip1.SetToolTip(this.BtnShowRandomImage, "Visualizzazione di un\'immagine casuale dalla cartella  qui sotto");
-            this.BtnShowRandomImage.UseVisualStyleBackColor = false;
-            this.BtnShowRandomImage.Click += new System.EventHandler(this.BtnShowRandomImage_Click);
+            this.btnShowRandomImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnShowRandomImage.BackColor = System.Drawing.Color.Transparent;
+            this.btnShowRandomImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnShowRandomImage.ForeColor = System.Drawing.Color.DarkBlue;
+            this.btnShowRandomImage.Location = new System.Drawing.Point(572, 131);
+            this.btnShowRandomImage.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.btnShowRandomImage.Name = "btnShowRandomImage";
+            this.btnShowRandomImage.Size = new System.Drawing.Size(91, 59);
+            this.btnShowRandomImage.TabIndex = 22;
+            this.btnShowRandomImage.Text = "Immagine casuale";
+            this.toolTip1.SetToolTip(this.btnShowRandomImage, "Visualizzazione di un\'immagine casuale dalla cartella  qui sotto");
+            this.btnShowRandomImage.UseVisualStyleBackColor = false;
+            this.btnShowRandomImage.Click += new System.EventHandler(this.BtnShowRandomImage_Click);
             // 
             // rdbDrawByRevengeFactor
             // 
@@ -450,21 +450,21 @@
             this.toolTip1.SetToolTip(this.rdbDrawEqualProbability, "Sorteggio con uguali probabilitàfra ogni allievo");
             this.rdbDrawEqualProbability.UseVisualStyleBackColor = true;
             // 
-            // BtnSetup
+            // btnSetup
             // 
-            this.BtnSetup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnSetup.BackColor = System.Drawing.Color.Transparent;
-            this.BtnSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.BtnSetup.ForeColor = System.Drawing.Color.DarkBlue;
-            this.BtnSetup.Location = new System.Drawing.Point(560, 5);
-            this.BtnSetup.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.BtnSetup.Name = "BtnSetup";
-            this.BtnSetup.Size = new System.Drawing.Size(107, 59);
-            this.BtnSetup.TabIndex = 73;
-            this.BtnSetup.Text = "Setup";
-            this.toolTip1.SetToolTip(this.BtnSetup, "Finestra opzioni di configurazione");
-            this.BtnSetup.UseVisualStyleBackColor = false;
-            this.BtnSetup.Click += new System.EventHandler(this.btnSetup_Click);
+            this.btnSetup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSetup.BackColor = System.Drawing.Color.Transparent;
+            this.btnSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnSetup.ForeColor = System.Drawing.Color.DarkBlue;
+            this.btnSetup.Location = new System.Drawing.Point(560, 5);
+            this.btnSetup.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.btnSetup.Name = "btnSetup";
+            this.btnSetup.Size = new System.Drawing.Size(107, 59);
+            this.btnSetup.TabIndex = 73;
+            this.btnSetup.Text = "Setup";
+            this.toolTip1.SetToolTip(this.btnSetup, "Finestra opzioni di configurazione");
+            this.btnSetup.UseVisualStyleBackColor = false;
+            this.btnSetup.Click += new System.EventHandler(this.btnSetup_Click);
             // 
             // btnStudentsGradesSummary
             // 
@@ -625,21 +625,21 @@
             this.btnMakeGroups.UseVisualStyleBackColor = false;
             this.btnMakeGroups.Click += new System.EventHandler(this.btnMakeGroups_Click);
             // 
-            // BtnLessonTime
+            // btnLessonTime
             // 
-            this.BtnLessonTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnLessonTime.BackColor = System.Drawing.Color.Transparent;
-            this.BtnLessonTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.BtnLessonTime.ForeColor = System.Drawing.Color.DarkBlue;
-            this.BtnLessonTime.Location = new System.Drawing.Point(432, 230);
-            this.BtnLessonTime.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.BtnLessonTime.Name = "BtnLessonTime";
-            this.BtnLessonTime.Size = new System.Drawing.Size(107, 59);
-            this.BtnLessonTime.TabIndex = 138;
-            this.BtnLessonTime.Text = "Inizio lezione";
-            this.toolTip1.SetToolTip(this.BtnLessonTime, "Colorazione in base al tempo che manca alla fine della lezione");
-            this.BtnLessonTime.UseVisualStyleBackColor = false;
-            this.BtnLessonTime.Click += new System.EventHandler(this.btnLessonTime_Click);
+            this.btnLessonTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnLessonTime.BackColor = System.Drawing.Color.Transparent;
+            this.btnLessonTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnLessonTime.ForeColor = System.Drawing.Color.DarkBlue;
+            this.btnLessonTime.Location = new System.Drawing.Point(432, 230);
+            this.btnLessonTime.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.btnLessonTime.Name = "btnLessonTime";
+            this.btnLessonTime.Size = new System.Drawing.Size(107, 59);
+            this.btnLessonTime.TabIndex = 138;
+            this.btnLessonTime.Text = "Inizio lezione";
+            this.toolTip1.SetToolTip(this.btnLessonTime, "Colorazione in base al tempo che manca alla fine della lezione");
+            this.btnLessonTime.UseVisualStyleBackColor = false;
+            this.btnLessonTime.Click += new System.EventHandler(this.btnLessonTime_Click);
             // 
             // btnVindicationFactorPlus
             // 
@@ -842,20 +842,20 @@
             this.btnYearTopics.UseVisualStyleBackColor = false;
             this.btnYearTopics.Click += new System.EventHandler(this.btnYearTopics_Click);
             // 
-            // ChkActivateLessonClock
+            // chkActivateLessonClock
             // 
-            this.ChkActivateLessonClock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ChkActivateLessonClock.AutoSize = true;
-            this.ChkActivateLessonClock.Checked = true;
-            this.ChkActivateLessonClock.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ChkActivateLessonClock.Location = new System.Drawing.Point(396, 378);
-            this.ChkActivateLessonClock.Name = "ChkActivateLessonClock";
-            this.ChkActivateLessonClock.Size = new System.Drawing.Size(157, 22);
-            this.ChkActivateLessonClock.TabIndex = 159;
-            this.ChkActivateLessonClock.Text = "Orologio lezione ";
-            this.toolTip1.SetToolTip(this.ChkActivateLessonClock, "Abilita orologio a colori per bottone lezione");
-            this.ChkActivateLessonClock.UseVisualStyleBackColor = true;
-            this.ChkActivateLessonClock.CheckedChanged += new System.EventHandler(this.ChkActivateLessonClock_CheckedChanged);
+            this.chkActivateLessonClock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkActivateLessonClock.AutoSize = true;
+            this.chkActivateLessonClock.Checked = true;
+            this.chkActivateLessonClock.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkActivateLessonClock.Location = new System.Drawing.Point(396, 378);
+            this.chkActivateLessonClock.Name = "chkActivateLessonClock";
+            this.chkActivateLessonClock.Size = new System.Drawing.Size(157, 22);
+            this.chkActivateLessonClock.TabIndex = 159;
+            this.chkActivateLessonClock.Text = "Orologio lezione ";
+            this.toolTip1.SetToolTip(this.chkActivateLessonClock, "Abilita orologio a colori per bottone lezione");
+            this.chkActivateLessonClock.UseVisualStyleBackColor = true;
+            this.chkActivateLessonClock.CheckedChanged += new System.EventHandler(this.chkActivateLessonClock_CheckedChanged);
             // 
             // lblIdStudent
             // 
@@ -1098,6 +1098,19 @@
             this.chkSoundsInColorTimer.UseVisualStyleBackColor = true;
             this.chkSoundsInColorTimer.CheckedChanged += new System.EventHandler(this.chkSoundsInColorTimer_CheckedChanged);
             // 
+            // lblLastDatabaseModification
+            // 
+            this.lblLastDatabaseModification.AutoSize = true;
+            this.lblLastDatabaseModification.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblLastDatabaseModification.ForeColor = System.Drawing.Color.Red;
+            this.lblLastDatabaseModification.Location = new System.Drawing.Point(216, 19);
+            this.lblLastDatabaseModification.Name = "lblLastDatabaseModification";
+            this.lblLastDatabaseModification.Size = new System.Drawing.Size(167, 13);
+            this.lblLastDatabaseModification.TabIndex = 187;
+            this.lblLastDatabaseModification.Text = "lblLastDatabaseModification";
+            this.toolTip1.SetToolTip(this.lblLastDatabaseModification, "Nome del file del database. ");
+            this.lblLastDatabaseModification.Visible = false;
+            // 
             // lblStudentChosen
             // 
             this.lblStudentChosen.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -1202,19 +1215,19 @@
             // 
             this.timerLesson.Tick += new System.EventHandler(this.timerLesson_Tick);
             // 
-            // ChkEnableEndLessonWarning
+            // chkEnableEndLessonWarning
             // 
-            this.ChkEnableEndLessonWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ChkEnableEndLessonWarning.AutoSize = true;
-            this.ChkEnableEndLessonWarning.Checked = true;
-            this.ChkEnableEndLessonWarning.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ChkEnableEndLessonWarning.Location = new System.Drawing.Point(396, 403);
-            this.ChkEnableEndLessonWarning.Name = "ChkEnableEndLessonWarning";
-            this.ChkEnableEndLessonWarning.Size = new System.Drawing.Size(174, 22);
-            this.ChkEnableEndLessonWarning.TabIndex = 158;
-            this.ChkEnableEndLessonWarning.Text = "Allarme fine lezione";
-            this.ChkEnableEndLessonWarning.UseVisualStyleBackColor = true;
-            this.ChkEnableEndLessonWarning.CheckedChanged += new System.EventHandler(this.ChkEnableEndLessonWarning_CheckedChanged);
+            this.chkEnableEndLessonWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkEnableEndLessonWarning.AutoSize = true;
+            this.chkEnableEndLessonWarning.Checked = true;
+            this.chkEnableEndLessonWarning.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkEnableEndLessonWarning.Location = new System.Drawing.Point(396, 403);
+            this.chkEnableEndLessonWarning.Name = "chkEnableEndLessonWarning";
+            this.chkEnableEndLessonWarning.Size = new System.Drawing.Size(174, 22);
+            this.chkEnableEndLessonWarning.TabIndex = 158;
+            this.chkEnableEndLessonWarning.Text = "Allarme fine lezione";
+            this.chkEnableEndLessonWarning.UseVisualStyleBackColor = true;
+            this.chkEnableEndLessonWarning.CheckedChanged += new System.EventHandler(this.chkEnableEndLessonWarning_CheckedChanged);
             // 
             // grpImageSource
             // 
@@ -1347,19 +1360,6 @@
             this.dgwStudents.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwStudents_CellDoubleClick);
             this.dgwStudents.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgwStudents_DataBindingComplete);
             // 
-            // lblLastDatabaseModification
-            // 
-            this.lblLastDatabaseModification.AutoSize = true;
-            this.lblLastDatabaseModification.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblLastDatabaseModification.ForeColor = System.Drawing.Color.Red;
-            this.lblLastDatabaseModification.Location = new System.Drawing.Point(216, 19);
-            this.lblLastDatabaseModification.Name = "lblLastDatabaseModification";
-            this.lblLastDatabaseModification.Size = new System.Drawing.Size(167, 13);
-            this.lblLastDatabaseModification.TabIndex = 187;
-            this.lblLastDatabaseModification.Text = "lblLastDatabaseModification";
-            this.toolTip1.SetToolTip(this.lblLastDatabaseModification, "Nome del file del database. ");
-            this.lblLastDatabaseModification.Visible = false;
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
@@ -1382,7 +1382,7 @@
             this.Controls.Add(this.btnStudentsNotes);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtNStudents);
-            this.Controls.Add(this.BtnShowRandomImage);
+            this.Controls.Add(this.btnShowRandomImage);
             this.Controls.Add(this.btnStartBarTimer);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.picBackgroundSaveRunning);
@@ -1392,8 +1392,8 @@
             this.Controls.Add(this.lstTimeInterval);
             this.Controls.Add(this.grpChooseDrawSort);
             this.Controls.Add(this.grpImageSource);
-            this.Controls.Add(this.ChkActivateLessonClock);
-            this.Controls.Add(this.ChkEnableEndLessonWarning);
+            this.Controls.Add(this.chkActivateLessonClock);
+            this.Controls.Add(this.chkEnableEndLessonWarning);
             this.Controls.Add(this.btnOldestGrade);
             this.Controls.Add(this.btnAssess);
             this.Controls.Add(this.btnDraw);
@@ -1412,10 +1412,10 @@
             this.Controls.Add(this.btnVindicationFactorMinus);
             this.Controls.Add(this.btnVindicationFactorPlus);
             this.Controls.Add(this.lblDatabaseFile);
-            this.Controls.Add(this.txtMinuteStartAlarm);
+            this.Controls.Add(this.txtAdvanceMinutes);
             this.Controls.Add(this.txtDurationLesson);
             this.Controls.Add(this.txtMinuteStartLesson);
-            this.Controls.Add(this.BtnLessonTime);
+            this.Controls.Add(this.btnLessonTime);
             this.Controls.Add(this.btnMakeGroups);
             this.Controls.Add(this.txtQuestion);
             this.Controls.Add(this.btnQuestion);
@@ -1427,11 +1427,11 @@
             this.Controls.Add(this.btnLessonsTopics);
             this.Controls.Add(this.cmbGradeType);
             this.Controls.Add(this.btnStudentsGradesSummary);
-            this.Controls.Add(this.BtnSetup);
+            this.Controls.Add(this.btnSetup);
             this.Controls.Add(this.grpSorts);
             this.Controls.Add(this.btnPath);
-            this.Controls.Add(this.TxtPathImages);
-            this.Controls.Add(this.CmbSchoolYear);
+            this.Controls.Add(this.txtPathImages);
+            this.Controls.Add(this.cmbSchoolYear);
             this.Controls.Add(this.chkStudentsListVisible);
             this.Controls.Add(this.chkFotoVisibile);
             this.Controls.Add(this.chkNomeVisibile);
@@ -1482,16 +1482,16 @@
         private System.Windows.Forms.CheckBox chkFotoVisibile;
         private System.Windows.Forms.CheckBox chkStudentsListVisible;
         private System.Windows.Forms.ComboBox CmbSchoolYear;
-        private System.Windows.Forms.TextBox TxtPathImages;
+        private System.Windows.Forms.TextBox txtPathImages;
         private System.Windows.Forms.Button btnPath;
-        private System.Windows.Forms.Button BtnShowRandomImage;
+        private System.Windows.Forms.Button btnShowRandomImage;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
         private System.Windows.Forms.GroupBox grpSorts;
         private System.Windows.Forms.RadioButton rdbSortByAlphbetical;
         private System.Windows.Forms.RadioButton rdbDrawByWeightsSum;
         private System.Windows.Forms.RadioButton rdbDrawEqualProbability;
         private System.Windows.Forms.RadioButton rdbDrawLowGradesFirst;
-        private System.Windows.Forms.Button BtnSetup;
+        private System.Windows.Forms.Button btnSetup;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.Button btnStudentsGradesSummary;
         private System.Windows.Forms.Button btnOldestGrade;
@@ -1509,10 +1509,10 @@
         private System.Windows.Forms.Button btnQuestion;
         private System.Windows.Forms.TextBox txtQuestion;
         private System.Windows.Forms.Button btnMakeGroups;
-        private System.Windows.Forms.Button BtnLessonTime;
+        private System.Windows.Forms.Button btnLessonTime;
         private System.Windows.Forms.TextBox txtMinuteStartLesson;
         private System.Windows.Forms.TextBox txtDurationLesson;
-        private System.Windows.Forms.TextBox txtMinuteStartAlarm;
+        private System.Windows.Forms.TextBox txtAdvanceMinutes;
         private System.Windows.Forms.Timer timerLesson;
         private System.Windows.Forms.RadioButton rdbDrawByRevengeFactor;
         private System.Windows.Forms.Button btnVindicationFactorPlus;
@@ -1529,8 +1529,8 @@
         private System.Windows.Forms.Button btnCheckAll;
         private System.Windows.Forms.Button btnCheckNoGrade;
         private System.Windows.Forms.Button btnYearTopics;
-        private System.Windows.Forms.CheckBox ChkEnableEndLessonWarning;
-        private System.Windows.Forms.CheckBox ChkActivateLessonClock;
+        private System.Windows.Forms.CheckBox chkEnableEndLessonWarning;
+        private System.Windows.Forms.CheckBox chkActivateLessonClock;
         private System.Windows.Forms.GroupBox grpImageSource;
         private System.Windows.Forms.Label lblIdStudent;
         private System.Windows.Forms.TextBox txtIdStudent;
@@ -1561,6 +1561,7 @@
         private System.Windows.Forms.CheckBox chkSoundsInColorTimer;
         private System.Windows.Forms.DataGridView dgwStudents;
         private System.Windows.Forms.Label lblLastDatabaseModification;
+        private System.Windows.Forms.ComboBox cmbSchoolYear;
     }
 }
 

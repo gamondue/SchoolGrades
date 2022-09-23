@@ -654,6 +654,7 @@
             this.TxtStartLinksFolder.Name = "TxtStartLinksFolder";
             this.TxtStartLinksFolder.Size = new System.Drawing.Size(641, 24);
             this.TxtStartLinksFolder.TabIndex = 158;
+            this.TxtStartLinksFolder.TextChanged += new System.EventHandler(this.TxtStartLinksFolder_TextChanged);
             // 
             // splitter1
             // 

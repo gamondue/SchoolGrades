@@ -1,5 +1,5 @@
 # SchoolGrades
-SchoolGrades manages a teacher's daily life in the classroom, with a focus on assessing and tracking topics. It is also helpful for the student to know about his grades, the questions he has answered and the topics covered by the teacher during his teaching.
+SchoolGrades manages a teacher's daily life in the classroom, with a focus on assessing and tracking topics. It is also helpful for the student to know about his grades, the questions he has answered, the grades he has had and the topics covered by the teacher during his teaching.
 
 SchoolGrades is written in C# with Windows Forms, currently in .Net 6.
 
