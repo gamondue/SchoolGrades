@@ -291,7 +291,7 @@ namespace SchoolGrades
                     }
                     y++;
                 }
-                TextFile.StringToFile(Commons.PathDatabase + "\\" + TableName + ".tsv", fileContent, false);
+                TextFile.StringToFile(Path.Combine(Commons.PathDatabase, TableName + ".tsv"), fileContent, false);
                 dRead.Dispose();
                 cmd.Dispose();
             }
@@ -311,7 +311,7 @@ namespace SchoolGrades
                 dAdapt.Fill(dSet);
                 t = dSet.Tables[0];
 
-                t.WriteXml(Commons.PathDatabase + "\\" + TableName + ".xml",
+                t.WriteXml(Path.Combine(Commons.PathDatabase,TableName + ".xml"),
                     XmlWriteMode.WriteSchema);
 
                 dAdapt.Dispose();

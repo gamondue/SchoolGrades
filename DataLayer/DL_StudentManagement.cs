@@ -260,7 +260,7 @@ namespace SchoolGrades
             s.Residence = Safe.String(Row["Residence"]);
             s.Origin = Safe.String(Row["Origin"]);
             s.Email = Safe.String(Row["Email"]);
-            if (!(Row["birthDate"] is DBNull))
+            if (Safe.DateTime(Row["birthDate"]) != null)
                 s.BirthDate = Safe.DateTime(Row["birthDate"]);
             s.BirthPlace = Safe.String(Row["birthPlace"]);
             s.Eligible = Safe.Bool(Row["drawable"]);

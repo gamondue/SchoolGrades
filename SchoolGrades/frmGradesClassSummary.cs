@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace SchoolGrades
@@ -208,13 +209,14 @@ namespace SchoolGrades
         {
             // find the kind of table we have to save
             string tipoTabella = FindCheckedRadioButton().Text; 
-            string FileName = Commons.PathDatabase + @"\" + 
+                //temp = "'" + temp + "'";
+            string FileName = Path.Combine(Commons.PathDatabase,  
                 DateTime.Now.ToString("yyyy.MM.dd_") + currentClass.Abbreviation + "_" +
                 currentSubject + "_" +
                 ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType + "_" +
                 tipoTabella + "_" +
                 dtpStartPeriod.Value.ToString("yyyy.MM.dd_") + dtpEndPeriod.Value.ToString("yyyy.MM.dd") +
-                ".csv"; 
+                ".csv"); 
             Commons.bl.SaveTableOnCvs((DataTable)dgwGrades.DataSource, FileName);
             MessageBox.Show("Creato file: " + FileName);
         }
