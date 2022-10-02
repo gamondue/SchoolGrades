@@ -41,7 +41,7 @@ namespace SchoolGrades
         private void ResizePictures()
         {
             int xNumPictures = 7;
-            int yNumPictures = (int)(Math.Ceiling((double)currentStudents.Count / xNumPictures));
+            int yNumPictures = Safe.Int((Math.Ceiling((double)currentStudents.Count / xNumPictures));
             int xStep = this.ClientRectangle.Width / xNumPictures;
             int yStep =  this.ClientRectangle.Height / yNumPictures;
             int nRow = 0, nCol = 0;

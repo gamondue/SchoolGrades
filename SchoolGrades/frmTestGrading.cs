@@ -129,7 +129,7 @@ namespace SchoolGrades
                             }
                             else
                             {   // if not correct it decreases the budget of ErrorCost
-                                budgetDecreaseForThisAnswer = (int)correctQuestionAnswers[iCorrectAnswer].ErrorCost;
+                                budgetDecreaseForThisAnswer = Safe.Int(correctQuestionAnswers[iCorrectAnswer].ErrorCost;
                                 budgetOfQuestion -= budgetDecreaseForThisAnswer;
                             }
                             GridAddData(gridRow + iCorrectAnswer + 1, gridColumn + 1,

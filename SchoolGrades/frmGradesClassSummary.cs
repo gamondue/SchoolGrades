@@ -111,7 +111,7 @@ namespace SchoolGrades
                             maxGradesFraction = gf;
                         sumLeftToClose += (double)row["LeftToCloseAssesments"];
                     }
-                    int nGrades = (int)Math.Round(maxGradesFraction + 0.10);
+                    int nGrades = Safe.Int(Math.Round(maxGradesFraction + 0.10);
                     lblSum.Text = "Mancanti a fine giro";
                     txtSummaryDatum.Text = (sumLeftToClose / nGrades).ToString("#.00");
                 }
@@ -238,12 +238,12 @@ namespace SchoolGrades
                 {
                     if (!rdbMissing.Checked)
                     {
-                        int IdQuestion = (int)dgwGrades.Rows[e.RowIndex].Cells[0].Value;
+                        int IdQuestion = Safe.Int(dgwGrades.Rows[e.RowIndex].Cells[0].Value;
                         frmMicroAssessment fg = new frmMicroAssessment(IdQuestion);
                         fg.Show();
                     } else
                     {
-                        int IdStudent = (int)dgwGrades.Rows[e.RowIndex].Cells[0].Value;
+                        int IdStudent = Safe.Int(dgwGrades.Rows[e.RowIndex].Cells[0].Value);
                         Student currentStudent = Commons.bl.GetStudent(IdStudent); 
                         frmMicroAssessment fg = new frmMicroAssessment(null,
                             currentClass, currentStudent,

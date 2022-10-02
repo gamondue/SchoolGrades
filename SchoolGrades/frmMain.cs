@@ -1283,7 +1283,7 @@ namespace SchoolGrades
             if (timeLeftMinutes >= 0)
             {
                 // changes color from startColor to finalColor
-                colHSL.Hue = (int)(startColor.GetHue() + spanHue * (timeLessonMinutes - timeLeftMinutes) / (timeLessonMinutes));
+                colHSL.Hue = Safe.Int((startColor.GetHue() + spanHue * (timeLessonMinutes - timeLeftMinutes) / (timeLessonMinutes));
                 colHSL.Saturation = startColor.GetSaturation() + spanSaturation * (timeLessonMinutes - timeLeftMinutes) / (timeLessonMinutes);
                 colHSL.Luminance = startColor.GetBrightness() + spanLuminance * (timeLessonMinutes - timeLeftMinutes) / timeLessonMinutes;
                 AForge.Imaging.ColorConverter.HSL2RGB(colHSL, colRGB);

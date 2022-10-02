@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 using System.Diagnostics;
 using System.IO;
 
@@ -60,11 +60,13 @@ namespace SchoolGrades
         #endregion
         internal DbConnection Connect()
         {
-            DbConnection connection;
+            SqliteConnection connection;
+            string connectionString = "Data Source=\"" + dbName + "\"; Cache = Shared; Mode = ReadWriteCreate";
+
+            //DbConnection connection;
             try
             {
-                connection = new SQLiteConnection("Data Source=" + dbName +
-                ";version=3;new=False;datetimeformat=CurrentCulture");
+                connection = new SqliteConnection(connectionString);
                 connection.Open();
             }
             catch (Exception ex)
@@ -256,7 +258,8 @@ namespace SchoolGrades
             {
                 string query = "SELECT *" +
                     " FROM " + TableName + " ";
-                cmd = new SQLiteCommand(query);
+                cmd = conn.CreateCommand();
+                cmd.CommandText = query;
                 cmd.Connection = conn;
                 dRead = cmd.ExecuteReader();
                 int y = 0;
@@ -298,24 +301,29 @@ namespace SchoolGrades
         }
         internal void BackupTableXml(string TableName)
         {
-            DataAdapter dAdapt;
-            DataSet dSet = new DataSet();
+            //DataAdapter dAdapt;
+            //DataSet dSet = new DataSet();
             DataTable t;
             string query = "SELECT *" +
                     " FROM " + TableName + ";";
 
             using (DbConnection conn = Connect())
             {
-                dAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                dSet = new DataSet("GetTable");
-                dAdapt.Fill(dSet);
-                t = dSet.Tables[0];
+                //dAdapt = new SQLiteDataAdapter(query, (SqliteConnection)conn);
+                //dSet = new DataSet("GetTable");
+                //dAdapt.Fill(dSet);
+                //t = dSet.Tables[0];
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = query;
+                t = new DataTable();
+                DbDataReader reader = cmd.ExecuteReader();
+                t.Load(reader);
 
                 t.WriteXml(Path.Combine(Commons.PathDatabase,TableName + ".xml"),
                     XmlWriteMode.WriteSchema);
 
-                dAdapt.Dispose();
-                dSet.Dispose();
+                //dAdapt.Dispose();
+                //dSet.Dispose();
             }
         }
         internal void RestoreTableTsv(string TableName, bool EraseBefore)
@@ -775,7 +783,7 @@ namespace SchoolGrades
         }
         private bool FieldExists(string TableName, string FieldName)
         {
-            // watch if field isPopUp exist in the database
+            // watch if field FieldName exist in the database
             DataTable table = new DataTable();
             bool fieldExists;
             using (DbConnection conn = Connect())

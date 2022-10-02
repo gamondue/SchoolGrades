@@ -90,8 +90,8 @@ namespace SchoolGrades
         }
         internal static DateTime NextWeekSameDay(DateTime from, DayOfWeek dayOfWeek)
         {
-            int start = (int)from.DayOfWeek;
-            int target = (int)dayOfWeek;
+            int start = Safe.Int(from.DayOfWeek;
+            int target = Safe.Int(dayOfWeek;
             if (target <= start)
                 target += 7;
             return from.AddDays(target - start);

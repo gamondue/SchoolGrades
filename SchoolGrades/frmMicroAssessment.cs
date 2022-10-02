@@ -295,7 +295,7 @@ namespace SchoolGrades
             float.TryParse(txtMicroGrade.Text, out voto); 
             if (voto >= 10 && voto <= 100)
             {
-                trkbGrade.Value = (int) voto;
+                trkbGrade.Value = Safe.Int( voto;
             }
         }
         private void btnSaveMacroGrade_Click(object sender, EventArgs e)

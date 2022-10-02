@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 using System.Text;
 
 namespace SchoolGrades
@@ -71,8 +71,8 @@ namespace SchoolGrades
                     " instantTaken=" + SqlDate(Annotation.InstantTaken) + "," +
                     " instantClosed=" + SqlDate(Annotation.InstantClosed) + "," +
                     " isActive=" + SqlBool(Annotation.IsActive) + ",";
-                    if (FieldExists("StudentsAnnotations", "isPopUp"))
-                        query += " isPopUp=" + SqlBool(Annotation.IsPopUp) + ",";
+                    //if (FieldExists("StudentsAnnotations", "isPopUp"))
+                    //    query += " isPopUp=" + SqlBool(Annotation.IsPopUp) + ",";
                     query += " annotation=" + SqlString(Annotation.Annotation) + "" +
                     " WHERE idAnnotation=" + SqlInt(Annotation.IdAnnotation) + 
                     ";";
@@ -167,11 +167,11 @@ namespace SchoolGrades
         internal DataTable GetAnnotationsOfClasss(int? IdClass, 
             bool IncludeAlsoNonActive, bool IncludeJustPopUp)
         {
-            DataTable table = new DataTable(); 
+            DataTable t = new DataTable(); 
             using (DbConnection conn = Connect())
             {
-                DataAdapter dAdapter;
-                DataSet dSet = new DataSet();
+                //DataAdapter dAdapter;
+                //DataSet dSet = new DataSet();
                 string query = "SELECT Students.lastName, Students.firstName, StudentsAnnotations.annotation" +
                     ",Students.IdStudent, StudentsAnnotations.IdAnnotation" +
                     " FROM StudentsAnnotations" +
@@ -182,18 +182,23 @@ namespace SchoolGrades
                     query += " AND isActive=true";
                 // !!!! TODO avoid to check field existence after some versions
                 // (made to avoid breaking the code with an old database) !!!!
-                if (IncludeJustPopUp && FieldExists("StudentsAnnotations", "isPopUp")) 
-                    query += " AND isPopUp=true";
+                //if (IncludeJustPopUp && FieldExists("StudentsAnnotations", "isPopUp")) 
+                //    query += " AND isPopUp=true";
                 query += ";";
-                dAdapter = new SQLiteDataAdapter(query, (System.Data.SQLite.SQLiteConnection)conn);
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = query;
+                t = new DataTable();
+                DbDataReader reader = cmd.ExecuteReader();
+                t.Load(reader);
+                //dAdapter = new SQLiteDataAdapter(query, (SqliteConnection)conn);
 
-                dAdapter.Fill(dSet);
-                table = dSet.Tables[0];
+                //dAdapter.Fill(dSet);
+                //table = dSet.Tables[0];
 
-                dAdapter.Dispose();
-                dSet.Dispose();
+                //dAdapter.Dispose();
+                //dSet.Dispose();
             }
-            return table;
+            return t;
         }
     }
 }

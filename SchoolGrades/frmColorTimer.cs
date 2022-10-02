@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Threading;
 using gamon.gamon;
+using SchoolGrades;
 
 namespace gamon
 {
@@ -108,7 +109,7 @@ namespace gamon
                 if (timeLeftSeconds < 0) timeLeftSeconds = Convert.ToSingle(txtIntervalNext.Text) * 60;
                 txtCountDown.Text = Convert.ToString(timeLeftSeconds);
 
-                int minutes = (int)timeLeftSeconds / 60;
+                int minutes = Safe.Int(timeLeftSeconds / 60F);
                 txtMinutesLeft.Text = minutes.ToString("00");
                 txtSecondsLeft.Text = (timeLeftSeconds % 60).ToString("00");
                 lblMinutesLeft.Text = txtMinutesLeft.Text;
@@ -121,14 +122,14 @@ namespace gamon
                 AForge.Imaging.HSL colHSL = new AForge.Imaging.HSL();
 
                 // cambia colore dal colore iniziale a quello finale
-                colHSL.Hue = (int)(initialColor.GetHue() + spanHue * (timeTotalSeconds * 60 - timeLeftSeconds) / (timeTotalSeconds * 60));
+                colHSL.Hue = Safe.Int((initialColor.GetHue() + spanHue * (timeTotalSeconds * 60 - timeLeftSeconds) / (timeTotalSeconds * 60)));
                 colHSL.Saturation = initialColor.GetSaturation() + spanSaturation * (timeTotalSeconds * 60 - timeLeftSeconds) / (timeTotalSeconds * 60);
                 colHSL.Luminance = initialColor.GetBrightness() + spanLuminance * (timeTotalSeconds * 60 - timeLeftSeconds) / timeTotalSeconds;
                 AForge.Imaging.ColorConverter.HSL2RGB(colHSL, colRGB);
                 currentColor = colRGB.Color;
                 try
                 {
-                    progressBar1.Value = (int)((timeTotalSeconds * 60 - timeLeftSeconds) / (timeTotalSeconds * 60) * 100.0F);
+                    progressBar1.Value = Safe.Int(((timeTotalSeconds * 60 - timeLeftSeconds) / (timeTotalSeconds * 60) * 100.0F));
                     //progressBar1.ForeColor = coloreAttuale;
                 }
                 catch
@@ -414,7 +415,7 @@ namespace gamon
         {
             int Y = btnStartFirstInterval.Location.Y + btnStartFirstInterval.Size.Height;
             int height = this.Size.Height - Y;
-            int width = (int)(this.Size.Width / 2);
+            int width = Safe.Int((this.Size.Width / 2);
             lblMinutesLeft.Size = new Size(width, height);
             lblSecondsLeft.Size = new Size(width, height);
             lblMinutesLeft.Location = new Point(0, Y);

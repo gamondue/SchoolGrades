@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 using System.Text;
 
 namespace SchoolGrades
@@ -14,13 +14,21 @@ namespace SchoolGrades
         {
             using (DbConnection conn = Connect())
             {
-                string query = "SELECT * FROM " + Table + ";";
-                DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                DSet = new DataSet("OpenLookupTable");
+                // !!!! TODO fix this !!!!
+                //////Exception exception = new Exception.
+                //////string query = "SELECT * FROM " + Table + ";";
+                //////DbCommand cmd = conn.CreateCommand();
+                //////cmd.CommandText = query;
+                //////t = new DataTable();
+                //////DbDataReader reader = cmd.ExecuteReader();
+                //////t.Load(reader);
 
-                DAdapt.Fill(DSet);
-                DAdapt.Dispose();
-                DSet.Dispose();
+                ////////DAdapt = new SQLiteDataAdapter(query, (SqliteConnection)conn);
+                ////////DSet = new DataSet("OpenLookupTable");
+
+                ////////DAdapt.Fill(DSet);
+                ////////DAdapt.Dispose();
+                ////////DSet.Dispose();
             }
         }
         internal void SaveTableOnCsv(DataTable Table, string FileName)
@@ -48,7 +56,7 @@ namespace SchoolGrades
             try
             {
                 // if key field is Integer, this works
-                int iId = (int)Row[0];
+                int iId = Safe.Int(Row[0]);
                 query = "INSERT INTO " + Table +
                     " (" + IdTable + ", name, desc)" +
                     " VALUES (" + iId + ",'" + Row["name"] + "','" + Row["desc"] + "'" +

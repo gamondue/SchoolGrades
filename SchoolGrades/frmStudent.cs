@@ -143,7 +143,7 @@ namespace SchoolGrades
         {
             if (e.RowIndex > -1)
             {
-                int key = (int)((DataTable)(dgwSearchedStudents.DataSource)).Rows[e.RowIndex]["idStudent"];
+                int key = Safe.Int(((DataTable)(dgwSearchedStudents.DataSource)).Rows[e.RowIndex]["idStudent"];
                 Student s = Commons.bl.GetStudent(key);
                 loadStudentData(s);
                 currentStudent = s;
@@ -159,7 +159,7 @@ namespace SchoolGrades
         {
             if (e.RowIndex > -1)
             {
-                int key = (int)((DataTable)(dgwSearchedStudents.DataSource)).Rows[e.RowIndex]["idStudent"];
+                int key = Safe.Int(((DataTable)(dgwSearchedStudents.DataSource)).Rows[e.RowIndex]["idStudent"];
                 Student s = Commons.bl.GetStudent(key);
                 loadStudentData(s);
                 currentStudent = s;

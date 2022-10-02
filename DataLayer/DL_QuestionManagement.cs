@@ -173,14 +173,14 @@ namespace SchoolGrades
                 dRead = cmd.ExecuteReader();
                 while (dRead.Read()) // we cycle even if we need just a row, to check if it exists
                 {
-                    question.IdQuestion = (int)dRead["idQuestion"];
+                    question.IdQuestion = Safe.Int(dRead["idQuestion"]);
                     question.IdQuestionType = dRead["idQuestionType"].ToString();
                     question.Text = dRead["text"].ToString();
                     question.QuestionImage = dRead["image"].ToString();
-                    question.Difficulty = (int)dRead["difficulty"];
-                    question.Duration = (int)dRead["duration"];
+                    question.Difficulty = Safe.Int(dRead["difficulty"]);
+                    question.Duration = Safe.Int(dRead["duration"]);
                     question.IdSchoolSubject = dRead["idSchoolSubject"].ToString();
-                    question.IdTopic = (int)dRead["idTopic"];
+                    question.IdTopic = Safe.Int(dRead["idTopic"]);
                     question.Image = dRead["image"].ToString();
                     question.Weight = (double)dRead["weight"];
                 }
@@ -379,13 +379,13 @@ namespace SchoolGrades
                 {
                     Question questionForList = new Question();
 
-                    questionForList.Difficulty = (int)dRead["difficulty"];
-                    questionForList.Duration = (int)dRead["duration"];
-                    questionForList.IdQuestion = (int)dRead["idQuestion"];
+                    questionForList.Difficulty = Safe.Int(dRead["difficulty"]);
+                    questionForList.Duration = Safe.Int(dRead["duration"]);
+                    questionForList.IdQuestion = Safe.Int(dRead["idQuestion"]);
                     questionForList.IdQuestionType = dRead["idQuestionType"].ToString();
                     questionForList.IdSchoolSubject = dRead["idSchoolSubject"].ToString();
-                    //q.idSubject = (int)dRead["idSubject"];
-                    questionForList.IdTopic = (int)dRead["idTopic"];
+                    //q.idSubject = Safe.Int(dRead["idSubject"];
+                    questionForList.IdTopic = Safe.Int(dRead["idTopic"]);
                     questionForList.Image = dRead["image"].ToString();
                     questionForList.QuestionImage = dRead["image"].ToString();
                     questionForList.Text = dRead["text"].ToString();
@@ -491,13 +491,13 @@ namespace SchoolGrades
                 {
                     Question questionForList = new Question();
 
-                    questionForList.Difficulty = (int)dRead["difficulty"];
-                    questionForList.Duration = (int)dRead["duration"];
-                    questionForList.IdQuestion = (int)dRead["idQuestion"];
+                    questionForList.Difficulty = Safe.Int(dRead["difficulty"]);
+                    questionForList.Duration = Safe.Int(dRead["duration"]);
+                    questionForList.IdQuestion = Safe.Int(dRead["idQuestion"]);
                     questionForList.IdQuestionType = dRead["idQuestionType"].ToString();
                     questionForList.IdSchoolSubject = dRead["idSchoolSubject"].ToString();
-                    //q.idSubject = (int)dRead["idSubject"];
-                    questionForList.IdTopic = (int)dRead["idTopic"];
+                    //q.idSubject = Safe.Int(dRead["idSubject"];
+                    questionForList.IdTopic = Safe.Int(dRead["idTopic"]);
                     questionForList.Image = dRead["image"].ToString();
                     questionForList.QuestionImage = dRead["image"].ToString();
                     questionForList.Text = dRead["text"].ToString();

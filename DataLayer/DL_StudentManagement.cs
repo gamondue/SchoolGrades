@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 using System.IO;
 
 namespace SchoolGrades
@@ -106,14 +106,20 @@ namespace SchoolGrades
                 " AND NOT Students.disabled"; 
                 query += " AND Classes_Students.idClass=" + Class.IdClass;
                 query += ";";
-                DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                DataSet DSet = new DataSet("ClosedMicroGrades");
+                
+                cmd = conn.CreateCommand();
+                cmd.CommandText = query;
+                t = new DataTable();
+                DbDataReader reader = cmd.ExecuteReader();
+                t.Load(reader);
+                //DataAdapter DAdapt = new SQLiteDataAdapter(query, (SqliteConnection)conn);
+                //DataSet DSet = new DataSet("ClosedMicroGrades");
 
-                DAdapt.Fill(DSet);
-                t = DSet.Tables[0];
+                //DAdapt.Fill(DSet);
+                //t = DSet.Tables[0];
 
-                DAdapt.Dispose();
-                DSet.Dispose();
+                //DAdapt.Dispose();
+                //DSet.Dispose();
             }
             return t;
         }
@@ -254,7 +260,7 @@ namespace SchoolGrades
         internal Student GetStudentFromRow(DbDataReader Row)
         {
             Student s = new Student();
-            s.IdStudent = (int)Row["IdStudent"];
+            s.IdStudent = Safe.Int(Row["IdStudent"]);
             s.LastName = Safe.String(Row["LastName"]);
             s.FirstName = Safe.String(Row["FirstName"]);
             s.Residence = Safe.String(Row["Residence"]);
@@ -274,8 +280,8 @@ namespace SchoolGrades
             DataTable t;
             using (DbConnection conn = Connect())
             {
-                DataAdapter dAdapt;
-                DataSet dSet = new DataSet();
+                //DataAdapter dAdapt;
+                //DataSet dSet = new DataSet();
                 string query = "SELECT Students.IdStudent, Students.lastName, Students.firstName," +
                     " Classes.abbreviation, Classes.idSchoolYear" +
                     " FROM Students" +
@@ -284,13 +290,18 @@ namespace SchoolGrades
                     " WHERE Students.lastName " + SqlStringLike(LastName) + "" +
                     " AND Students.firstName " + SqlStringLike(FirstName) + "" +
                     ";";
-                dAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                dSet = new DataSet("GetStudentsSameName");
-                dAdapt.Fill(dSet);
-                t = dSet.Tables[0];
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = query;
+                t = new DataTable();
+                DbDataReader reader = cmd.ExecuteReader();
+                t.Load(reader);
+                //dAdapt = new SQLiteDataAdapter(query, (SqliteConnection)conn);
+                //dSet = new DataSet("GetStudentsSameName");
+                //dAdapt.Fill(dSet);
+                //t = dSet.Tables[0];
 
-                dSet.Dispose();
-                dAdapt.Dispose();
+                //dSet.Dispose();
+                //dAdapt.Dispose();
             }
             return t;
         }
@@ -322,13 +333,18 @@ namespace SchoolGrades
                     }
                 }
                 query += ";";
-                dAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                dSet = new DataSet("GetStudentsSameName");
-                dAdapt.Fill(dSet);
-                t = dSet.Tables[0];
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = query;
+                t = new DataTable();
+                DbDataReader reader = cmd.ExecuteReader();
+                t.Load(reader);
+                //dAdapt = new SQLiteDataAdapter(query, (SqliteConnection)conn);
+                //dSet = new DataSet("GetStudentsSameName");
+                //dAdapt.Fill(dSet);
+                //t = dSet.Tables[0];
 
-                dSet.Dispose();
-                dAdapt.Dispose();
+                //dSet.Dispose();
+                //dAdapt.Dispose();
             }
             return t;
         }
@@ -425,7 +441,7 @@ namespace SchoolGrades
                     Student s = GetStudentFromRow(dRead);
                     s.ClassAbbreviation = (string)dRead["abbreviation"];
                     // read the properties from other tables
-                    s.IdClass = (int)dRead["idClass"]; 
+                    s.IdClass = Safe.Int(dRead["idClass"]); 
                     s.RegisterNumber = Safe.String(dRead["registerNumber"]);
                     ls.Add(s);
                 }
@@ -586,7 +602,8 @@ namespace SchoolGrades
                     " JOIN Classes ON Classes.idClass=Lessons.idClass" +
                     " WHERE Lessons.idClass=" + Class.IdClass +
                     ";";
-                DbCommand cmd = new SQLiteCommand(query);
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = query;
                 cmd.Connection = conn;
                 DbDataReader dReader = cmd.ExecuteReader();
                 while (dReader.Read())

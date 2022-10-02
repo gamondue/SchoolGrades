@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 using System.Text;
 
 namespace SchoolGrades
@@ -125,13 +125,18 @@ namespace SchoolGrades
                     " AND Grades.idGradeParent = Parents.idGrade" +
                     " AND (Parents.value = 0 OR Parents.value is NULL)" +
                     " ORDER BY Grades.timestamp;";
+                cmd.CommandText = query; 
+                DataTable t = new DataTable(); 
+                DbDataReader reader = cmd.ExecuteReader();
+                t.Load(reader);
 
-                DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                DataSet DSet = new DataSet("OpenMicroGrades");
-                DAdapt.Fill(DSet);
-                DAdapt.Dispose();
-                DSet.Dispose();
-                return DSet.Tables[0];
+                //DataAdapter DAdapt = new SQLiteDataAdapter(query, (SqliteConnection)conn);
+                //DataSet DSet = new DataSet("OpenMicroGrades");
+                //DAdapt.Fill(DSet);
+                //DAdapt.Dispose();
+                //DSet.Dispose();
+                //return DSet.Tables[0];
+                return t;
             }
         }
         internal DataTable GetSubGradesOfGrade(int? IdGrade)
@@ -145,14 +150,20 @@ namespace SchoolGrades
                     " JOIN Questions ON Grades.idQuestion=Questions.idQuestion" +
                     " WHERE Grades.idGradeParent =" + IdGrade +
                     " ORDER BY Grades.timestamp;";
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = query;
+                t = new DataTable();
+                DbDataReader reader = cmd.ExecuteReader();
+                t.Load(reader);
 
-                DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                DataSet DSet = new DataSet("OpenMicroGrades");
-                DAdapt.Fill(DSet);
-                t = DSet.Tables[0];
+                //DataAdapter DAdapt = new Sqlite
+                //    new SQLiteDataAdapter(query, (SqliteConnection)conn);
+                //DataSet DSet = new DataSet("OpenMicroGrades");
+                //DAdapt.Fill(DSet);
+                //t = DSet.Tables[0];
 
-                DAdapt.Dispose();
-                DSet.Dispose();
+                //DAdapt.Dispose();
+                //DSet.Dispose();
             }
             return t;
         }
@@ -187,7 +198,7 @@ namespace SchoolGrades
             //" GROUP BY Students.idStudent" +
             //" ORDER BY 'Weighted average';";
             //    //" ORDER BY lastName, firstName, Students.idStudent;";
-            //    dAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
+            //    dAdapt = new SQLiteDataAdapter(query, (SqliteConnection)conn);
             //    dSet = new DataSet("GetUnfixedGradesInTheYear");
             //    dAdapt.Fill(dSet);
             //    t = dSet.Tables[0];
@@ -222,15 +233,20 @@ namespace SchoolGrades
                 " AND Grades.Value > 0" +
                 " AND Grades.Timestamp BETWEEN " + SqlDate(DateFrom) + " AND " + SqlDate(DateTo) +
                 " ORDER BY lastName, firstName, Students.idStudent, Grades.timestamp Desc;";
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = query;
+                t = new DataTable();
+                DbDataReader reader = cmd.ExecuteReader();
+                t.Load(reader);
 
-                DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                DataSet DSet = new DataSet("ClosedMicroGrades");
+                //DataAdapter DAdapt = new SQLiteDataAdapter(query, (SqliteConnection)conn);
+                //DataSet DSet = new DataSet("ClosedMicroGrades");
 
-                DAdapt.Fill(DSet);
-                t = DSet.Tables[0];
+                //DAdapt.Fill(DSet);
+                //t = DSet.Tables[0];
 
-                DAdapt.Dispose();
-                DSet.Dispose();
+                //DAdapt.Dispose();
+                //DSet.Dispose();
             }
             return t;
         }
@@ -255,13 +271,14 @@ namespace SchoolGrades
                     " AND Grades.idGradeParent = Parents.idGrade" +
                     " AND Parents.Value is null or Parents.Value = 0" +
                     " GROUP BY Grades.idStudent;";
-                cmd = new SQLiteCommand(query);
+                cmd = conn.CreateCommand();
+                cmd.CommandText = query;
                 dRead = cmd.ExecuteReader();
                 while (dRead.Read())
                 {
                     Grade g = new Grade();
-                    g.IdStudent = (int)dRead["idStudent"];
-                    g.DummyInt = (int)dRead["nGrades"];
+                    g.IdStudent = Safe.Int(dRead["idStudent"]);
+                    g.DummyInt = Safe.Int(dRead["nGrades"]);
                 }
                 dRead.Dispose();
                 cmd.Dispose();
@@ -454,7 +471,7 @@ namespace SchoolGrades
         internal Grade GetGradeFromRow(DbDataReader Row)
         {
             Grade g = new Grade();
-            g.IdGrade = (int)Row["idGrade"];
+            g.IdGrade = Safe.Int(Row["idGrade"]);
             g.IdGradeParent = Safe.Int(Row["idGradeParent"]);
             g.IdStudent = Safe.Int(Row["idStudent"]);
             g.IdGradeType = Safe.String(Row["IdGradeType"]);
@@ -466,7 +483,7 @@ namespace SchoolGrades
             g.Weight = Safe.Double(Row["weight"]);
             g.CncFactor = Safe.Double(Row["cncFactor"]);
             g.IdSchoolYear = Safe.String(Row["idSchoolYear"]);
-            //g.DummyInt = (int)Row["dummyInt"]; 
+            //g.DummyInt = Safe.Int(Row["dummyInt"]; 
             return g;
         }
         internal DataTable GetGradesOfStudent(Student Student, string SchoolYear, string IdGradeType, string IdSchoolSubject,DateTime DateFrom, DateTime DateTo)
@@ -494,15 +511,20 @@ namespace SchoolGrades
                 " AND Grades.Value > 0" +
                 " AND Grades.Timestamp BETWEEN " + SqlDate(DateFrom) + " AND " + SqlDate(DateTo) +
                 " ORDER BY lastName, firstName, Students.idStudent, Grades.timestamp Desc;";
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = query;
+                t = new DataTable();
+                DbDataReader reader = cmd.ExecuteReader();
+                t.Load(reader);
 
-                DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                DataSet DSet = new DataSet("ClosedMicroGrades");
+                //DataAdapter DAdapt = new SQLiteDataAdapter(query, (SqliteConnection)conn);
+                //DataSet DSet = new DataSet("ClosedMicroGrades");
 
-                DAdapt.Fill(DSet);
-                t = DSet.Tables[0];
+                //DAdapt.Fill(DSet);
+                //t = DSet.Tables[0];
 
-                DAdapt.Dispose();
-                DSet.Dispose();
+                //DAdapt.Dispose();
+                //DSet.Dispose();
             }
             return t;
         }
@@ -534,14 +556,20 @@ namespace SchoolGrades
                 " GROUP BY Students.idStudent" +
                 " ORDER BY GradesFraction ASC, lastName, firstName, Students.idStudent;";
                 // !!!! TODO change the query to include at first rows also those students that have no grades !!!! 
-                DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                DataSet DSet = new DataSet("ClosedMicroGrades");
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = query;
+                t = new DataTable();
+                DbDataReader reader = cmd.ExecuteReader();
+                t.Load(reader);
 
-                DAdapt.Fill(DSet);
-                t = DSet.Tables[0];
+                //DataAdapter DAdapt = new SQLiteDataAdapter(query, (SqliteConnection)conn);
+                //DataSet DSet = new DataSet("ClosedMicroGrades");
 
-                DAdapt.Dispose();
-                DSet.Dispose();
+                //DAdapt.Fill(DSet);
+                //t = DSet.Tables[0];
+
+                //DAdapt.Dispose();
+                //DSet.Dispose();
             }
             return t;
         }
@@ -553,10 +581,10 @@ namespace SchoolGrades
 
             using (DbConnection conn = Connect())
             {
-                DataAdapter dAdapt;
-                DataSet dSet = new DataSet();
+                //DataAdapter dAdapt;
+                //DataSet dSet = new DataSet();
 
-                    string query = "SELECT Grades.idGrade, Students.idStudent,lastName,firstName," +
+                string query = "SELECT Grades.idGrade, Students.idStudent,lastName,firstName," +
                 " SUM(Grades.value * Grades.weight)/SUM(Grades.weight) AS 'Weighted average'" +
                 // weighted RMS (Root Mean Square) as defined here: 
                 // https://stackoverflow.com/questions/10947180/weighted-standard-deviation-in-sql-server-without-aggregation-error
@@ -579,13 +607,19 @@ namespace SchoolGrades
                 " GROUP BY Students.idStudent" +
                 " ORDER BY 'Weighted average';";
                 //" ORDER BY lastName, firstName, Students.idStudent;";
-                dAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                dSet = new DataSet("GetUnfixedGradesInTheYear");
-                dAdapt.Fill(dSet);
-                t = dSet.Tables[0];
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = query;
+                t = new DataTable();
+                DbDataReader reader = cmd.ExecuteReader();
+                t.Load(reader);
 
-                dSet.Dispose();
-                dAdapt.Dispose();
+                //dAdapt = new SQLiteDataAdapter(query, (SqliteConnection)conn);
+                //dSet = new DataSet("GetUnfixedGradesInTheYear");
+                //dAdapt.Fill(dSet);
+                //t = dSet.Tables[0];
+
+                //dSet.Dispose();
+                //dAdapt.Dispose();
             }
             return t;
         }
@@ -645,8 +679,8 @@ namespace SchoolGrades
             DataTable t;
             using (DbConnection conn = Connect())
             {
-                DataAdapter dAdapt;
-                DataSet dSet = new DataSet();
+                //DataAdapter dAdapt;
+                //DataSet dSet = new DataSet();
                 string query = "SELECT Grades.IdGrade,Grades.idStudent,Grades.value,Grades.timestamp,Grades.isFixed," +
                     "Grades.idGradeType,Grades.idQuestion,Questions.text,Questions.*,Grades.*" +
                     " FROM Grades" +
@@ -657,13 +691,18 @@ namespace SchoolGrades
                 if (IdSchoolSubject != "")
                     query += " AND Grades.idSchoolSubject='" + IdSchoolSubject + "'";
                 query += ";";
-                dAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                dSet = new DataSet("GetUnfixedGradesInTheYear");
-                dAdapt.Fill(dSet);
-                t = dSet.Tables[0];
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = query;
+                t = new DataTable();
+                DbDataReader reader = cmd.ExecuteReader();
+                t.Load(reader);
+                //dAdapt = new SQLiteDataAdapter(query, (SqliteConnection)conn);
+                //dSet = new DataSet("GetUnfixedGradesInTheYear");
+                //dAdapt.Fill(dSet);
+                //t = dSet.Tables[0];
 
-                dSet.Dispose();
-                dAdapt.Dispose();
+                //dSet.Dispose();
+                //dAdapt.Dispose();
             }
             return t;
         }
@@ -692,15 +731,19 @@ namespace SchoolGrades
                 " AND Grades.idSchoolSubject = '" + IdSchoolSubject + "'" +
                 " AND Grades.Value > 0" +
                 " ORDER BY datetime(Grades.timestamp) Desc;";
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = query;
+                t = new DataTable();
+                DbDataReader reader = cmd.ExecuteReader();
+                t.Load(reader);
+                //DataAdapter DAdapt = new SQLiteDataAdapter(query, (SqliteConnection)conn);
+                //DataSet DSet = new DataSet("ClosedMicroGrades");
 
-                DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                DataSet DSet = new DataSet("ClosedMicroGrades");
+                //DAdapt.Fill(DSet);
+                //t = DSet.Tables[0];
 
-                DAdapt.Fill(DSet);
-                t = DSet.Tables[0];
-
-                DAdapt.Dispose();
-                DSet.Dispose();
+                //DAdapt.Dispose();
+                //DSet.Dispose();
             }
             return t;
         }
@@ -821,7 +864,7 @@ namespace SchoolGrades
                     Couple c = new Couple();
                     // we give back also the nulls, as Nows
                     DateTime now = System.DateTime.Now;
-                    c.Key = (int)dRead["IdStudent"];
+                    c.Key = Safe.Int(dRead["IdStudent"]);
                     if (!dRead.IsDBNull(1))
                         c.Value = Safe.DateTime(dRead["InstantLastQuestion"]);
                     else
@@ -868,15 +911,19 @@ namespace SchoolGrades
                 " AND NOT Students.disabled" +
                 " GROUP BY Students.idStudent" +
                 " ORDER BY GradesFraction ASC, lastName, firstName, Students.idStudent;";
+                cmd = conn.CreateCommand();
+                cmd.CommandText = query;
+                t = new DataTable();
+                DbDataReader reader = cmd.ExecuteReader();
+                t.Load(reader);
+                //DataAdapter DAdapt = new SQLiteDataAdapter(query, (SqliteConnection)conn);
+                //DataSet DSet = new DataSet("ClosedMicroGrades");
 
-                DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                DataSet DSet = new DataSet("ClosedMicroGrades");
+                //DAdapt.Fill(DSet);
+                //t = DSet.Tables[0];
 
-                DAdapt.Fill(DSet);
-                t = DSet.Tables[0];
-
-                DAdapt.Dispose();
-                DSet.Dispose();
+                //DAdapt.Dispose();
+                //DSet.Dispose();
             }
             return t;
         }

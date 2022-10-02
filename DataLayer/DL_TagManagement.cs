@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 using System.Text;
 
 namespace SchoolGrades
@@ -21,13 +21,14 @@ namespace SchoolGrades
                     " FROM Tags" +
                     " WHERE Tag " + SqlStringLike(Pattern) + "" +
                     ";";
-                cmd = new SQLiteCommand(query);
+                cmd = conn.CreateCommand();
+                cmd.CommandText = query;
                 cmd.Connection = conn;
                 dRead = cmd.ExecuteReader();
                 while (dRead.Read())
                 {
                     Tag t = new Tag();
-                    t.IdTag = (int)dRead["IdTag"];
+                    t.IdTag = Safe.Int(dRead["IdTag"]);
                     t.TagName = (string)dRead["tag"];
                     t.Desc = (string)dRead["Desc"];
 
@@ -86,14 +87,15 @@ namespace SchoolGrades
                     " WHERE Tags.IdTag = Questions_Tags.IdTag " +
                     " AND Questions_Tags.idQuestion=" + IdQuestion +
                     " ORDER BY Tags.tag;";
-                cmd = new SQLiteCommand(query);
+                cmd = conn.CreateCommand();
+                cmd.CommandText = query;
                 cmd.Connection = conn;
                 dRead = cmd.ExecuteReader();
                 while (dRead.Read())
                 {
                     Tag t = new Tag();
                     t.Desc = (string)dRead["Desc"];
-                    t.IdTag = (int)dRead["IdTag"];
+                    t.IdTag = Safe.Int(dRead["IdTag"]);
                     t.TagName = (string)dRead["tag"];
                     l.Add(t);
                 }

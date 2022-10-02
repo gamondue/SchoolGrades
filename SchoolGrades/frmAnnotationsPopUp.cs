@@ -48,7 +48,7 @@ namespace SchoolGrades
                 dgwStudentsAllPopUpAnnotations.Rows[e.RowIndex].Selected = true;
                 if (dgwStudentsAllPopUpAnnotations.SelectedRows.Count > 0)
                 {
-                    int idStudent = (int)dgwStudentsAllPopUpAnnotations.SelectedRows[0].Cells["IdStudent"].Value;
+                    int idStudent = Safe.Int(dgwStudentsAllPopUpAnnotations.SelectedRows[0].Cells["IdStudent"].Value;
                     Student s = Commons.bl.GetStudent(idStudent);
                     List<Student> SingleStudent = new List<Student>();
                     SingleStudent.Add(s);

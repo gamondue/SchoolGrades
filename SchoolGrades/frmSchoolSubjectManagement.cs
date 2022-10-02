@@ -39,7 +39,7 @@ namespace SchoolGrades
                 currentSubject = subjectList[e.RowIndex];
                 if (currentSubject.Color != null)
                 {
-                    int color = (int)currentSubject.Color;
+                    int color = Safe.Int(currentSubject.Color;
                     picSubjectColor.BackColor = Color.FromArgb((color & 0xFF0000) >> 16, (color & 0xFF00) >> 8, color & 0xFF);
                 }
             }

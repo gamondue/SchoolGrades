@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 using System.Diagnostics;
 
 namespace SchoolGrades
@@ -18,7 +18,8 @@ namespace SchoolGrades
                 string query = "SELECT *" +
                     " FROM Users" +
                     " WHERE username='" + Username + "';";
-                cmd = new SQLiteCommand(query);
+                cmd = conn.CreateCommand();
+                cmd.CommandText = query;
                 cmd.Connection = conn;
                 DbDataReader dRead = cmd.ExecuteReader();
                 dRead.Read(); 
@@ -36,7 +37,8 @@ namespace SchoolGrades
                 DbCommand cmd = conn.CreateCommand();
                 string query = "SELECT *" +
                     " FROM Users";
-                cmd = new SQLiteCommand(query);
+                cmd = conn.CreateCommand();
+                cmd.CommandText = query;
                 cmd.Connection = conn;
                 DbDataReader dRead = cmd.ExecuteReader();
                 while (dRead.Read())

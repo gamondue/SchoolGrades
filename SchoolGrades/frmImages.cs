@@ -82,7 +82,7 @@ namespace SchoolGrades
 
             if (currentSubject != null)
             {
-                int col = (int)currentSubject.Color;
+                int col = Safe.Int(currentSubject.Color;
                 this.BackColor = Commons.ColorFromNumber(currentSubject);
                 rdbAutoRename_CheckedChanged(null, null);
             }

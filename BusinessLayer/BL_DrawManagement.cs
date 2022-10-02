@@ -39,7 +39,7 @@ namespace SchoolGrades
                         stud.DummyNumber = g.DummyInt;
                         if (stud.DummyNumber > nMaxTimes)
                         {
-                            nMaxTimes = (int)stud.DummyNumber;
+                            nMaxTimes = Safe.Int(stud.DummyNumber);
                         }
                     }
                 }

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 using System.IO;
 
 namespace SchoolGrades
@@ -251,7 +251,8 @@ namespace SchoolGrades
                 " JOIN StudentsPhotos_Students ON StudentsPhotos_Students.idStudentsPhoto = StudentsPhotos.idStudentsPhoto" +
                 " JOIN Classes_Students ON StudentsPhotos_Students.idStudent = Classes_Students.idStudent" +
                 " WHERE Classes_Students.idClass = " + Class.IdClass + "; ";
-                cmd = new SQLiteCommand(query);
+                cmd = conn.CreateCommand();
+                cmd.CommandText = query; 
                 cmd.Connection = conn;
                 DbDataReader dReader = cmd.ExecuteReader();
                 while (dReader.Read())
@@ -280,7 +281,8 @@ namespace SchoolGrades
                     " JOIN Classes ON Classes.idClass=Lessons.idClass" +
                     " WHERE Lessons.idClass=" + Class.IdClass +
                     ";";
-                cmd = new SQLiteCommand(query);
+                cmd = conn.CreateCommand();
+                cmd.CommandText = query;
                 cmd.Connection = conn;
                 dReader = cmd.ExecuteReader();
                 while (dReader.Read())
@@ -466,16 +468,20 @@ namespace SchoolGrades
             DataTable t;
             using (DbConnection conn = Connect())
             {
-                DataAdapter dAdapter;
-                DataSet dSet = new DataSet();
-
+                //DataAdapter dAdapter;
+                //DataSet dSet = new DataSet();
                 string query = "SELECT * FROM Classes" +
                 " WHERE Classes.idClass = " + idClass + ";";
-                dAdapter = new SQLiteDataAdapter(query, (System.Data.SQLite.SQLiteConnection)conn);
-                dAdapter.Fill(dSet);
-                t = dSet.Tables[0];
-                dAdapter.Dispose();
-                dSet.Dispose();
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = query;
+                t = new DataTable();
+                DbDataReader reader = cmd.ExecuteReader();
+                t.Load(reader);
+                //dAdapter = new SQLiteDataAdapter(query, (SqliteConnection)conn);
+                //dAdapter.Fill(dSet);
+                //t = dSet.Tables[0];
+                //dAdapter.Dispose();
+                //dSet.Dispose();
             }
             return t;
         }
@@ -519,13 +525,18 @@ namespace SchoolGrades
                     " AND Classes.idSchool=" + SqlString(IdSchool) + " AND Classes.idSchoolYear = " + SqlString(IdSchoolYear) +
                     " AND Classes.abbreviation=" + SqlString(ClassAbbreviation) +
                     " ORDER BY Students.lastName, Students.firstName;";
-                dAdapter = new SQLiteDataAdapter(query,
-                    (System.Data.SQLite.SQLiteConnection)conn);
-                dAdapter.Fill(dSet);
-                t = dSet.Tables[0];
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = query;
+                t = new DataTable();
+                DbDataReader reader = cmd.ExecuteReader();
+                t.Load(reader);
+                //dAdapter = new SQLiteDataAdapter(query,
+                //    (SqliteConnection)conn);
+                //dAdapter.Fill(dSet);
+                //t = dSet.Tables[0];
 
-                dAdapter.Dispose();
-                dSet.Dispose();
+                //dAdapter.Dispose();
+                //dSet.Dispose();
             }
             return t;
         }
@@ -615,7 +626,7 @@ namespace SchoolGrades
         {
             if (Class == null)
                 Class = new Class();
-            Class.IdClass = (int)Row["idClass"];
+            Class.IdClass = Safe.Int(Row["idClass"]);
             Class.Abbreviation = Safe.String(Row["abbreviation"]);
             Class.IdSchool = Safe.String(Row["idSchool"]);
             Class.PathRestrictedApplication = Safe.String(Row["pathRestrictedApplication"]);

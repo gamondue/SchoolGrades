@@ -271,7 +271,7 @@ namespace SchoolGrades
                 "Conferma", MessageBoxButtons.YesNo)
                 == DialogResult.No)
                 return;
-            int IdDeletingStudent = (int)DgwStudents.SelectedRows[0].Cells["IdStudent"].Value;
+            int IdDeletingStudent = Safe.Int(DgwStudents.SelectedRows[0].Cells["IdStudent"].Value);
             Commons.bl.DeleteOneStudentFromClass(IdDeletingStudent,
                 ((Class)(CmbClasses.SelectedItem)).IdClass);
             DgwStudents.DataSource = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, 
@@ -301,7 +301,7 @@ namespace SchoolGrades
             }
             string disablingStudent = (string)DgwStudents.SelectedRows[0].Cells["LastName"].Value +
                 " " + (string)DgwStudents.SelectedRows[0].Cells["FirstName"].Value;
-            int IdDisablingStudent = (int)DgwStudents.SelectedRows[0].Cells["IdStudent"].Value;
+            int IdDisablingStudent = Safe.Int(DgwStudents.SelectedRows[0].Cells["IdStudent"].Value;
             Commons.bl.ToggleDisableOneStudent(IdDisablingStudent);
             DgwStudents.DataSource = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, 
                 idSchoolYear, CmbClasses.Text, true);

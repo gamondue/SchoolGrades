@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 using System.Linq;
 using System.Windows.Forms;
 using SchoolGrades;
 using SchoolGrades.BusinessObjects;
 using SharedWinForms;
+using System.Diagnostics;
 
 namespace gamon.TreeMptt
 {
@@ -98,18 +99,20 @@ namespace gamon.TreeMptt
                     DbCommand cmd = conn.CreateCommand();
                     cmd.CommandText = "SELECT areLeftRightConsistent" +
                         " FROM Flags";
-                    int consistent = (int)cmd.ExecuteScalar();
+                    int? consistent = Safe.Int(cmd.ExecuteScalar());
                     cmd.Dispose();
                     return consistent != 0;
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    // if the table "Flags" doesn't exist (old version of database) 
-                    // return true (those versions where working only with MPTT tree)
-                    if (e.Message.Contains("no such"))
-                        return true;
-                    else
-                        throw e;
+                    //// if the table "Flags" doesn't exist (old version of database) 
+                    //// return true (those versions where working only with MPTT tree)
+                    //if (e.Message.Contains("no such"))
+                    //    return true;
+                    //else
+                    //    throw e;
+                    Commons.ErrorLog("AreLeftAndRightConsistent: " + ex.Message);
+                    return false; 
                 }
             }
         }
@@ -126,7 +129,8 @@ namespace gamon.TreeMptt
                     " WHERE leftNode BETWEEN " + LeftNode +
                     " AND " + RightNode +
                     " ORDER BY leftNode ASC;";
-                cmd = new SQLiteCommand(query);
+                cmd = conn.CreateCommand();
+                cmd.CommandText = query;
                 cmd.Connection = conn;
                 DbDataReader dRead = cmd.ExecuteReader();
                 while (dRead.Read())
@@ -149,7 +153,8 @@ namespace gamon.TreeMptt
                 string query = "SELECT *" +
                     " FROM Topics" +
                     " ORDER BY parentNode ASC, childNumber ASC;";
-                cmd = new SQLiteCommand(query);
+                cmd = conn.CreateCommand();
+                cmd.CommandText = query;
                 cmd.Connection = conn;
                 DbDataReader dRead = cmd.ExecuteReader();
                 while (dRead.Read())
@@ -178,7 +183,7 @@ namespace gamon.TreeMptt
             // then we save left and right anyway 
             UdpateTopicMptt(firstNodes[0].Id, 0, nodeCount);
             // restore status of "consistent" flag
-           SaveLeftRightConsistent(true);
+            SaveLeftRightConsistent(true);
         }
         private void SetRightAndLeftInOneLevel(Topic ParentNode, ref int NodeCount)
         {
@@ -244,7 +249,8 @@ namespace gamon.TreeMptt
                     " FROM Topics" +
                     " WHERE parentNode<=0" +
                     " ORDER BY childNumber;";
-                cmd = new SQLiteCommand(query);
+                cmd = conn.CreateCommand();
+                cmd.CommandText = query;
                 cmd.Connection = conn;
                 DbDataReader dRead = cmd.ExecuteReader();
 
@@ -328,7 +334,6 @@ namespace gamon.TreeMptt
             GenerateNewListOfNodesFromTreeViewControl(CurrentNode, ref nodeCount, ref generatedList);
             dl.SaveTopicsFromScratch(generatedList);
         }
-
         private void GetAllChildren(TreeNode ParentNode, int Level, DbConnection Connection)
         {
             // recursively retrieve all direct children of ParentNode  
@@ -362,7 +367,7 @@ namespace gamon.TreeMptt
                 " FROM Topics" +
                 " WHERE parentNode=" + ParentTopic.Id + 
                 " ORDER BY childNumber";
-            cmd = new SQLiteCommand(query);
+            cmd.CommandText = query;
             cmd.Connection = Connection;
             DbDataReader dRead = cmd.ExecuteReader();
             while (dRead.Read())
@@ -394,7 +399,8 @@ namespace gamon.TreeMptt
                     " WHERE leftNode <=" + LeftNode +
                     " AND rightNode >=" + RightNode +
                     " ORDER BY LeftNode ASC;)";
-                cmd = new SQLiteCommand(query);
+                cmd = conn.CreateCommand();
+                cmd.CommandText = query;
                 cmd.Connection = conn;
                 DbDataReader dRead = cmd.ExecuteReader();
                 while (dRead.Read())
@@ -481,7 +487,7 @@ namespace gamon.TreeMptt
                 if (temp is DBNull)
                     key = 0;
                 else
-                    key = (int)temp;
+                    key = Safe.Int(temp;
                 foreach (Topic t in ListTopics)
                 {   // insert new nodes
                     {

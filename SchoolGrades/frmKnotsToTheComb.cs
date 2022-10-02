@@ -57,7 +57,7 @@ namespace SchoolGrades
             {
                 DataGridViewRow r = dgwQuestions.Rows[e.RowIndex];
                 txtQuestionText.Text = (string)r.Cells["Text"].Value;
-                currentIdGrade = (int)r.Cells["IdQuestion"].Value;
+                currentIdGrade = Safe.Int(r.Cells["IdQuestion"].Value;
             }
         }
         private void DgwQuestions_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -82,7 +82,7 @@ namespace SchoolGrades
                 return; 
             }
             DataGridViewRow r = dgwQuestions.SelectedRows[0];
-            currentIdGrade = (int)r.Cells["IdGrade"].Value;
+            currentIdGrade = Safe.Int(r.Cells["IdGrade"].Value;
             if (MessageBox.Show("La domanda '" + (string)r.Cells["Text"].Value + "' è stata riparata?","Riparazione domanda",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
@@ -96,7 +96,7 @@ namespace SchoolGrades
             if (dgwQuestions.SelectedRows.Count > 0)
             {
                 //int key = int.Parse(dgwQuestions.SelectedRows[0].Cells[6].Value.ToString());
-                int key = (int) dgwQuestions.SelectedRows[0].Cells[6].Value;
+                int key = Safe.Int( dgwQuestions.SelectedRows[0].Cells[6].Value;
                 if (grandparentForm != null)
                 {
                     // form called by student's assessment form 

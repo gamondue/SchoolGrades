@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 using System.IO;
 using System.Text;
 
@@ -168,18 +168,18 @@ namespace SchoolGrades
                     " FROM Answers" +
                     " WHERE idQuestion=" + idQuestion +
                     " ORDER BY showingOrder;";
-                cmd = new SQLiteCommand(query);
+                cmd = conn.CreateCommand();
                 cmd.Connection = conn;
                 dRead = cmd.ExecuteReader();
                 while (dRead.Read())
                 {
                     Answer t = new Answer();
-                    t.IdAnswer = (int)dRead["idAnswer"];
-                    t.IdQuestion = (int)dRead["idQuestion"];
-                    t.ShowingOrder = (int)dRead["showingOrder"];
+                    t.IdAnswer = Safe.Int(dRead["idAnswer"]);
+                    t.IdQuestion = Safe.Int(dRead["idQuestion"]);
+                    t.ShowingOrder = Safe.Int(dRead["showingOrder"]); 
                     t.Text = (string)dRead["text"];
-                    t.IdAnswer = (int)dRead["idAnswer"];
-                    t.ErrorCost = (int)dRead["errorCost"];
+                    t.IdAnswer = Safe.Int(dRead["idAnswer"]);
+                    t.ErrorCost = Safe.Int(dRead["errorCost"]);
                     t.IsCorrect = Safe.Bool(dRead["isCorrect"]);
                     t.IsOpenAnswer = Safe.Bool(dRead["isOpenAnswer"]);
 

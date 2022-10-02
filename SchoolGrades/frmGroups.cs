@@ -175,7 +175,7 @@ namespace SchoolGrades
                 AlreadyChanged = true;
                 if (nStudentsPerGroup != 0)
                 {
-                    nGroups = (int) Math.Ceiling((double)listGroups.Count / nStudentsPerGroup);
+                    nGroups = Safe.Int( Math.Ceiling((double)listGroups.Count / nStudentsPerGroup);
                     //nGroups++;
                     txtNGroups.Text = (nGroups).ToString();
                 }
@@ -190,7 +190,7 @@ namespace SchoolGrades
                 int.TryParse(txtNGroups.Text, out nGroups);
                 if (nGroups != 0)
                 {
-                    nStudentsPerGroup = (int)Math.Ceiling((double)listGroups.Count / nGroups);
+                    nStudentsPerGroup = Safe.Int(Math.Ceiling((double)listGroups.Count / nGroups);
                 }
                 AlreadyChanged = true;
                 txtStudentsPerGroup.Text = nStudentsPerGroup.ToString();

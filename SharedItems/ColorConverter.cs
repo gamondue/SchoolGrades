@@ -6,6 +6,7 @@
 
 namespace AForge.Imaging
 {
+	using SchoolGrades;
 	using System;
 	using System.Drawing;
 
@@ -265,7 +266,7 @@ namespace AForge.Imaging
 				if ( hue > 1 )
 					hue -= 1;
 
-				hsl.Hue = (int) ( hue * 360 );
+				hsl.Hue = Safe.Int( ( hue * 360 ));
 			}
 		}
 

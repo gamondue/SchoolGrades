@@ -124,7 +124,7 @@ namespace SchoolGrades
                 return;
             }
             string IdCurrentSubject = ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject;
-            int col = (int)Commons.bl.GetSchoolSubject(IdCurrentSubject).Color;
+            int col = Safe.Int(Commons.bl.GetSchoolSubject(IdCurrentSubject).Color;
             Color bgColor = Color.FromArgb((col & 0xFF0000) >> 16, (col & 0xFF00) >> 8, col & 0xFF);
             this.BackColor = bgColor;
             RefreshData();
