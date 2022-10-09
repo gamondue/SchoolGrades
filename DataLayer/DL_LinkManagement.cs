@@ -183,24 +183,31 @@ namespace SchoolGrades
                 return listOfLinks; 
             DbDataReader dRead;
             DbCommand cmd;
-            using (DbConnection conn = Connect())
+            try
             {
-                cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT *" +
-                    " FROM Classes_StartLinks" +
-                    " WHERE idClass=" + Class.IdClass + "; ";
-                dRead = cmd.ExecuteReader();
-                while (dRead.Read())
+                using (DbConnection conn = Connect())
                 {
-                    StartLink l = new StartLink();
-                    l.Link = Safe.String(dRead["startLink"]);
-                    l.Desc= Safe.String(dRead["Desc"]);
-                    l.IdClass = Safe.Int(dRead["IdClass"]);
-                    l.IdStartLink = Safe.Int(dRead["IdStartLink"]);
-                    listOfLinks.Add(l);
+                    cmd = conn.CreateCommand();
+                    cmd.CommandText = "SELECT *" +
+                        " FROM Classes_StartLinks" +
+                        " WHERE idClass=" + Class.IdClass + "; ";
+                    dRead = cmd.ExecuteReader();
+                    while (dRead.Read())
+                    {
+                        StartLink l = new StartLink();
+                        l.Link = Safe.String(dRead["startLink"]);
+                        l.Desc = Safe.String(dRead["Desc"]);
+                        l.IdClass = Safe.Int(dRead["IdClass"]);
+                        l.IdStartLink = Safe.Int(dRead["IdStartLink"]);
+                        listOfLinks.Add(l);
+                    }
+                    dRead.Dispose();
+                    cmd.Dispose();
                 }
-                dRead.Dispose();
-                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog("DbLayer.GetStartLinksOfClass: " + ex.Message);
             }
             return listOfLinks;
         }

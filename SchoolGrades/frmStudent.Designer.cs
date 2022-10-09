@@ -70,7 +70,7 @@
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(91, 47);
             this.btnNew.TabIndex = 151;
-            this.btnNew.Text = "Nuovo allievo";
+            this.btnNew.Text = "Pulisci dati";
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
@@ -336,9 +336,9 @@
             this.chkHasSpecialNeeds.AutoSize = true;
             this.chkHasSpecialNeeds.Location = new System.Drawing.Point(408, 188);
             this.chkHasSpecialNeeds.Name = "chkHasSpecialNeeds";
-            this.chkHasSpecialNeeds.Size = new System.Drawing.Size(57, 22);
+            this.chkHasSpecialNeeds.Size = new System.Drawing.Size(91, 22);
             this.chkHasSpecialNeeds.TabIndex = 159;
-            this.chkHasSpecialNeeds.Text = "BES";
+            this.chkHasSpecialNeeds.Text = "BES/DSA";
             this.chkHasSpecialNeeds.UseVisualStyleBackColor = true;
             // 
             // frmStudent

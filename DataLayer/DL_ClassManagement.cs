@@ -239,9 +239,16 @@ namespace SchoolGrades
                     " (SELECT idLesson from Lessons);";
                 cmd.ExecuteNonQuery();
 
-                // erase all the users
+                // erase all the users (table currently not used) 
                 cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM Users" +
+                    ";";
+                cmd.ExecuteNonQuery();
+
+                // null all Special Needs flags (privacy) 
+                cmd = conn.CreateCommand(); 
+                cmd.CommandText = "UPDATE Students" +
+                    " SET hasSpecialNeeds=null" +
                     ";";
                 cmd.ExecuteNonQuery();
 
@@ -647,7 +654,7 @@ namespace SchoolGrades
                     y.IdSchoolYear = (string)dRead["idSchoolYear"];
                     y.ShortDescription = Safe.String(dRead["shortDesc"]);
                     y.Notes = Safe.String(dRead["notes"]);
-
+ 
                     ly.Add(y);
                 }
                 dRead.Dispose();

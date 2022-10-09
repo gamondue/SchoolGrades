@@ -72,7 +72,7 @@ namespace SchoolGrades
             string[] dati = new string[6];
             try
             {
-                if (!Directory.Exists(Commons.PathConfig))
+                 if (!Directory.Exists(Commons.PathConfig))
                     Directory.CreateDirectory(Commons.PathConfig);
 
                 if (!Directory.Exists(Commons.PathLogs))
