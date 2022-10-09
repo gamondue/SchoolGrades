@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace SchoolGrades
@@ -11,7 +12,8 @@ namespace SchoolGrades
     {
         private int? currentIdStartLink;
         private Class currentClass;
-        private StartLink currentLink; 
+        private StartLink currentLink;
+        private bool loading;
 
         public frmStartLinksManagement(Class CurrentClass)
         {
@@ -21,11 +23,13 @@ namespace SchoolGrades
         }
         private void frmStartLinksManagement_Load(object sender, EventArgs e)
         {
+            loading = true;
             List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
             CmbSchoolYear.DataSource = ly;
             if (ly.Count > 0)
                 CmbSchoolYear.SelectedItem = ly[ly.Count - 1];
-            TxtPathStartLink.Text = currentClass.PathRestrictedApplication; 
+            //TxtPathStartLink.Text = currentClass.PathRestrictedApplication;
+            loading = false; 
         }
         private void txtSchoolYear_TextChanged(object sender, EventArgs e)
         {
@@ -33,8 +37,11 @@ namespace SchoolGrades
         }
         private void refreshGrid()
         {
-            DgwLinks.DataSource = null;
-            DgwLinks.DataSource = Commons.bl.GetStartLinksOfClass(currentClass);
+            if (!loading)
+            {
+                DgwLinks.DataSource = null;
+                DgwLinks.DataSource = Commons.bl.GetStartLinksOfClass(currentClass);
+            }
         }
         private void DgwLinks_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -122,25 +129,31 @@ namespace SchoolGrades
         }
         private void CmbClasses_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Class tempClass = Commons.bl.GetClass(TxtOfficialSchoolAbbreviation.Text, 
-                CmbSchoolYear.Text, CmbClasses.SelectedItem.ToString());
-            if (tempClass.IdClass != null && tempClass.IdClass != 0)
+            if (!loading)
             {
-                currentClass = tempClass;
-                TxtPathStartLink.Text = currentClass.PathRestrictedApplication;
-                refreshGrid();
-            }
-            else
-            {
-                DgwLinks.DataSource = null;
+                Class tempClass = Commons.bl.GetClass(TxtOfficialSchoolAbbreviation.Text,
+                    CmbSchoolYear.Text, CmbClasses.SelectedItem.ToString());
+                if (tempClass.IdClass != null && tempClass.IdClass != 0)
+                {
+                    currentClass = tempClass;
+                    TxtPathStartLink.Text = currentClass.PathRestrictedApplication;
+                    refreshGrid();
+                }
+                else
+                {
+                    DgwLinks.DataSource = null;
+                }
             }
         }
         private void CmbSchoolYear_SelectedIndexChanged(object sender, EventArgs e)
         {
-            refreshGrid();
             CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text,
                     CmbSchoolYear.SelectedItem.ToString());
-            TxtPathStartLink.Text = currentClass.PathRestrictedApplication;
+            if (!loading)
+            { 
+                refreshGrid();
+                TxtPathStartLink.Text = currentClass.PathRestrictedApplication;
+            }
         }
         private void TxtPathStartLink_TextChanged(object sender, EventArgs e)
         {
