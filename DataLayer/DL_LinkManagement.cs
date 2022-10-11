@@ -53,45 +53,18 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal int CopyAndLinkOnePhoto(Student Student, Class Class, string PathAndFileName)
+        internal int LinkOnePhoto(Student Student, Class Class, string RelativePathAndFilePhoto)
         {
-            if (!File.Exists(PathAndFileName))
-            {
-                throw new FileNotFoundException(@"[" + PathAndFileName + " not found.]");
-            }
-            if (File.Exists(PathAndFileName + "TEMP"))
-            {
-                File.Delete(PathAndFileName + "TEMP");
-            }
-            File.Copy(PathAndFileName, PathAndFileName + "TEMP");
-
-            string ext = Path.GetExtension(PathAndFileName);
-            string classFolder = Class.SchoolYear + Class.Abbreviation;
-            string fileName = Student.LastName + "_" + Student.FirstName + "_" + Class.Abbreviation + Class.SchoolYear + ext; 
-            string newFileName = Path.Combine(Commons.PathImages, classFolder, fileName);
-            if (!Directory.Exists(Path.Combine(Commons.PathImages, classFolder)))
-            {
-                Directory.CreateDirectory(Path.Combine(Commons.PathImages, classFolder));
-            }
-            if (File.Exists(newFileName))
-            {
-                // !!!! TODO: resolve the problem of the lock that is still active here, 
-                // !!!! despite many attempts to free it !!!!
-                File.Delete(newFileName);
-            }
-            File.Move(PathAndFileName + "TEMP", newFileName);
-
             // find the key for next photo
             int keyPhoto = NextKey("StudentsPhotos", "idStudentsPhoto");
             using (DbConnection conn = Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
-                string relativePathAndFileImage = Path.Combine(classFolder, fileName);
                 // add the relative path of the photo to the StudentsPhotos table
                 cmd.CommandText = "INSERT INTO StudentsPhotos " +
                 "(idStudentsPhoto, photoPath)" +
                 "Values " +
-                "('" + keyPhoto + "'," + SqlString(relativePathAndFileImage) +
+                "('" + keyPhoto + "'," + SqlString(RelativePathAndFilePhoto) +
                 ");";
                 cmd.ExecuteNonQuery();
 
