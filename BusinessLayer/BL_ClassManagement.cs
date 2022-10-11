@@ -1,6 +1,7 @@
 ﻿using SchoolGrades.BusinessObjects;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 
 namespace SchoolGrades
 {
@@ -94,9 +95,19 @@ namespace SchoolGrades
         {
             return dl.GetClass(idSchool, idSchoolYear, ClassAbbreviation);
         }
-        internal void CopyAndLinkOnePhoto(Student s, Class newClass, string fileName)
+        internal void CopyAndLinkOnePhoto(Student NewStudent, Class NewClass, string PhotoToCopyFullName)
         {
-            dl.CopyAndLinkOnePhoto(s, newClass, fileName);
+            string ext = Path.GetExtension(PhotoToCopyFullName);
+            string classFolder = NewClass.SchoolYear + NewClass.Abbreviation;
+            string justFileName = NewStudent.LastName + "_" + NewStudent.FirstName + "_" + NewClass.Abbreviation + NewClass.SchoolYear + ext;
+            string relativePathFileName = Path.Combine(classFolder, justFileName);
+            string newPhotoFullName = Path.Combine(Commons.PathImages, relativePathFileName);
+            if (!Directory.Exists(Path.Combine(Commons.PathImages, classFolder)))
+            {
+                Directory.CreateDirectory(Path.Combine(Commons.PathImages, classFolder));
+            }
+            File.Copy(PhotoToCopyFullName, newPhotoFullName, true);
+            dl.LinkOnePhoto(NewStudent, NewClass, relativePathFileName);
         }
         internal int CreateClass(string ClassAbbreviation, string ClassDescription,
             string SchoolYear, string IdSchool)

@@ -14,18 +14,20 @@ namespace SchoolGrades
     {
     	// TODO !!!! put an option for separator in import files 
 
-        DataSet dsClass;
         DataTable dtClass;
 
         School currentSchool; 
         Class currentClass;
-        string idSchoolYear; 
+        string idSchoolYear;
+        bool isLoading = true;
+
         public frmClassesManagement()
         {
             InitializeComponent();
         }
         private void FrmClassesManagement_Load(object sender, EventArgs e)
         {
+            isLoading = true;
             // school data
             currentSchool = Commons.bl.GetSchool(TxtOfficialSchoolAbbreviation.Text);
 
@@ -40,6 +42,8 @@ namespace SchoolGrades
                 CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
             }
             CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
+
+            isLoading = false;
         }
         private void btnImportStudentsOfClass_Click(object sender, EventArgs e)
         {
@@ -156,10 +160,13 @@ namespace SchoolGrades
         }
         private void CmbClasses_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Class c = (Class)CmbClasses.SelectedItem;
-            if (c != null)
+            if (!isLoading)
             {
-                FillClassData(c);
+                Class c = (Class)CmbClasses.SelectedItem;
+                if (c != null)
+                {
+                    FillClassData(c);
+                }
             }
         }
         private void CmbClasses_TextChanged(object sender, EventArgs e)
@@ -185,25 +192,28 @@ namespace SchoolGrades
         }
         private void BtnPhotoChange_Click(object sender, EventArgs e)
         {
-            picStudent.Invalidate();
-            picStudent.Refresh();
-            picStudent.Update();
-            Application.DoEvents();
-            if (picStudent.Image != null)
-            {
-                picStudent.Image.Dispose();
-            }
-            Thread.Sleep(500);
-
             if (DgwStudents.SelectedCells.Count > -1)
             {
                 List<Student> ls = (List<Student>)DgwStudents.DataSource;
                 Student s = ls[DgwStudents.SelectedCells[0].RowIndex];
                 DialogResult dr = openFileDialog.ShowDialog();
-                if (openFileDialog.FileName != "" && !(dr == DialogResult.Cancel))
+                string newPhotoFullName = openFileDialog.FileName;
+                if (newPhotoFullName != "" && !(dr == DialogResult.Cancel))
                 {
-                    string fileToCopy = openFileDialog.FileName; 
-                    Commons.bl.CopyAndLinkOnePhoto(s, currentClass, openFileDialog.FileName);
+                    Application.DoEvents();
+                    if (picStudent.Image != null)
+                        picStudent.Image.Dispose();
+                    picStudent.Image = null;
+                    Application.DoEvents();
+                    if (picStudent.InitialImage != null)
+                        picStudent.InitialImage.Dispose();
+                    picStudent.InitialImage = null;
+                    picStudent.Update();
+                    Application.DoEvents();
+                    picStudent.Refresh();
+                    Thread.Sleep(1500);
+
+                    Commons.bl.CopyAndLinkOnePhoto(s, currentClass, newPhotoFullName);
                     s.SchoolYear = CmbSchoolYear.Text; 
                     LoadPicture(s); 
                 }
