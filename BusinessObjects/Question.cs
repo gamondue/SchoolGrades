@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SchoolGrades.BusinessObjects
 {
-    class Question
+    public class Question
     {
         private int? idQuestion = 0;
         private string idQuestionType = "";

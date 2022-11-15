@@ -511,7 +511,7 @@
             this.btnComb.BackColor = System.Drawing.Color.Transparent;
             this.btnComb.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnComb.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnComb.Location = new System.Drawing.Point(886, 21);
+            this.btnComb.Location = new System.Drawing.Point(886, 22);
             this.btnComb.Margin = new System.Windows.Forms.Padding(6);
             this.btnComb.Name = "btnComb";
             this.btnComb.Size = new System.Drawing.Size(70, 37);
@@ -527,7 +527,7 @@
             this.btnSearch.BackColor = System.Drawing.Color.Transparent;
             this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnSearch.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnSearch.Location = new System.Drawing.Point(814, 21);
+            this.btnSearch.Location = new System.Drawing.Point(814, 22);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(6);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(70, 37);
@@ -544,7 +544,7 @@
             this.btnQuestionsDone.BackColor = System.Drawing.Color.Transparent;
             this.btnQuestionsDone.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnQuestionsDone.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnQuestionsDone.Location = new System.Drawing.Point(958, 21);
+            this.btnQuestionsDone.Location = new System.Drawing.Point(958, 22);
             this.btnQuestionsDone.Margin = new System.Windows.Forms.Padding(6);
             this.btnQuestionsDone.Name = "btnQuestionsDone";
             this.btnQuestionsDone.Size = new System.Drawing.Size(70, 37);

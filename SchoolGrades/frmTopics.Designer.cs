@@ -49,6 +49,7 @@
             this.btnFindUnderNode = new System.Windows.Forms.Button();
             this.chkFindAll = new System.Windows.Forms.CheckBox();
             this.btnArgFreemind = new System.Windows.Forms.Button();
+            this.btnQuestions = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // trwTopics
@@ -59,7 +60,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trwTopics.Location = new System.Drawing.Point(12, 12);
             this.trwTopics.Name = "trwTopics";
-            this.trwTopics.Size = new System.Drawing.Size(475, 418);
+            this.trwTopics.Size = new System.Drawing.Size(475, 492);
             this.trwTopics.TabIndex = 2;
             this.trwTopics.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.trwTopics_AfterSelect);
             // 
@@ -78,7 +79,7 @@
             // 
             this.lblDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblDescription.AutoSize = true;
-            this.lblDescription.Location = new System.Drawing.Point(12, 515);
+            this.lblDescription.Location = new System.Drawing.Point(12, 589);
             this.lblDescription.Name = "lblDescription";
             this.lblDescription.Size = new System.Drawing.Size(87, 18);
             this.lblDescription.TabIndex = 3;
@@ -88,7 +89,7 @@
             // 
             this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescription.Location = new System.Drawing.Point(12, 536);
+            this.txtDescription.Location = new System.Drawing.Point(12, 610);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(475, 110);
@@ -99,7 +100,7 @@
             this.txtTopicName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTopicName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtTopicName.Location = new System.Drawing.Point(12, 473);
+            this.txtTopicName.Location = new System.Drawing.Point(12, 547);
             this.txtTopicName.Multiline = true;
             this.txtTopicName.Name = "txtTopicName";
             this.txtTopicName.Size = new System.Drawing.Size(475, 39);
@@ -120,7 +121,7 @@
             // 
             this.lblEdits.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblEdits.AutoSize = true;
-            this.lblEdits.Location = new System.Drawing.Point(12, 452);
+            this.lblEdits.Location = new System.Drawing.Point(12, 526);
             this.lblEdits.Name = "lblEdits";
             this.lblEdits.Size = new System.Drawing.Size(81, 18);
             this.lblEdits.TabIndex = 7;
@@ -162,7 +163,7 @@
             this.lblExplain.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblExplain.AutoSize = true;
             this.lblExplain.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblExplain.Location = new System.Drawing.Point(9, 435);
+            this.lblExplain.Location = new System.Drawing.Point(9, 509);
             this.lblExplain.Name = "lblExplain";
             this.lblExplain.Size = new System.Drawing.Size(336, 16);
             this.lblExplain.TabIndex = 10;
@@ -172,7 +173,7 @@
             // btnDelete
             // 
             this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDelete.Location = new System.Drawing.Point(508, 585);
+            this.btnDelete.Location = new System.Drawing.Point(508, 659);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(124, 61);
             this.btnDelete.TabIndex = 126;
@@ -272,12 +273,24 @@
             this.btnArgFreemind.UseVisualStyleBackColor = true;
             this.btnArgFreemind.Click += new System.EventHandler(this.btnArgFreemind_Click);
             // 
+            // btnQuestions
+            // 
+            this.btnQuestions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnQuestions.Location = new System.Drawing.Point(508, 587);
+            this.btnQuestions.Name = "btnQuestions";
+            this.btnQuestions.Size = new System.Drawing.Size(124, 61);
+            this.btnQuestions.TabIndex = 158;
+            this.btnQuestions.Text = "Domande";
+            this.btnQuestions.UseVisualStyleBackColor = true;
+            this.btnQuestions.Click += new System.EventHandler(this.btnQuestions_Click);
+            // 
             // frmTopics
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
-            this.ClientSize = new System.Drawing.Size(654, 658);
+            this.ClientSize = new System.Drawing.Size(654, 732);
+            this.Controls.Add(this.btnQuestions);
             this.Controls.Add(this.btnArgFreemind);
             this.Controls.Add(this.chkFindAll);
             this.Controls.Add(this.btnFindUnderNode);
@@ -334,5 +347,6 @@
         private System.Windows.Forms.Button btnFindUnderNode;
         private System.Windows.Forms.CheckBox chkFindAll;
         private System.Windows.Forms.Button btnArgFreemind;
+        private System.Windows.Forms.Button btnQuestions;
     }
 }

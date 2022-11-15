@@ -48,7 +48,7 @@ namespace SchoolGrades
                 // config file has been read 
                 // do nothing
             }
-            // create Businnes and Data layer objects, to be used throughout the program
+            // create Busines and Data layer objects, to be used throughout the program
             // keep this order of creation. Create after reading config file  
             Commons.dl = new DataLayer(Commons.PathAndFileDatabase);
             Commons.bl = new BusinessLayer(Commons.PathAndFileDatabase);

@@ -1,8 +1,6 @@
 ﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
 using System.Windows.Forms;
 using gamon.TreeMptt;
 using SharedWinForms;
@@ -12,7 +10,6 @@ namespace SchoolGrades
     public partial class frmQuestionChoose : Form
     {
         TreeMpttDb dbMptt;
-        //SchoolSubject subj = new SchoolSubject();
 
         List<Tag> tagsList = new List<Tag>();
 
@@ -31,8 +28,9 @@ namespace SchoolGrades
 
         internal Question ChosenQuestion {get => chosenQuestion; set => chosenQuestion = value; }
         public frmMicroAssessment ParentForm { get; }
-        internal frmQuestionChoose(frmMicroAssessment ParentForm,
-            SchoolSubject SchoolSubject, Class Class, Student Student = null, Question Question = null)
+        internal frmQuestionChoose(SchoolSubject SchoolSubject, Class Class, 
+            Student Student = null, Question Question = null, 
+            frmMicroAssessment ParentForm = null)
         {
             InitializeComponent();
 
@@ -54,7 +52,9 @@ namespace SchoolGrades
             currentStudent = Student;
             previousQuestion = Question;
             if (Question != null && Question.IdTopic != 0)
-                currentTopic = Commons.bl.GetTopicById(Question.IdTopic); 
+            {
+                currentTopic = Commons.bl.GetTopicById(Question.IdTopic);
+            }
         }
         private void frmQuestionChoose_Load(object sender, EventArgs e)
         {
@@ -62,11 +62,6 @@ namespace SchoolGrades
 
             lstTags.DataSource = tagsList;
 
-            if (currentTopic != null && previousQuestion != null)
-            {
-                txtTopic.Text = dbMptt.GetTopicPath(previousQuestion.IdTopic);
-                txtTopicCode.Text = currentTopic.Id.ToString();
-            }
             List<SchoolPeriod> listPeriods = Commons.bl.GetSchoolPeriods(currentClass.SchoolYear);
             cmbSchoolPeriod.DataSource = listPeriods;
             // select the combo item of the partial period of the DateTime.Now
@@ -84,6 +79,12 @@ namespace SchoolGrades
             //if (!(currentSubject == null && (previousQuestion == null || previousQuestion.IdQuestion == 0)))
             //    updateQuestions();
 
+            if (currentTopic != null && previousQuestion != null)
+            {
+                txtTopic.Text = dbMptt.GetTopicPath(previousQuestion.IdTopic);
+                txtTopicCode.Text = currentTopic.Id.ToString();
+                updateQuestions();
+            }
             LessonTimer.Interval = 1000;
             if (Commons.IsTimerLessonActive)
                 LessonTimer.Start();
@@ -206,7 +207,7 @@ namespace SchoolGrades
             List<Topic> oneItemList = new List<Topic>();
             oneItemList.Add(chosenTopic);
             frmTopics f = new frmTopics(frmTopics.TopicsFormType.ChooseTopic,
-                oneItemList, currentClass, currentSubject);
+                currentClass, currentSubject, null, oneItemList);
         
             f.ShowDialog();
             if (f.UserHasChosen)

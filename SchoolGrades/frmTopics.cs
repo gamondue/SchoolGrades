@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using gamon.TreeMptt;
 using SharedWinForms;
@@ -19,7 +16,10 @@ namespace SchoolGrades
         List<Topic> listTopicsExternal;
         //Class currentClass; 
         SchoolSubject currentSubject;
-        Class currentClass; 
+        Class currentClass;
+        Question currentQuestion;
+
+        frmMain parentForm; 
 
         public bool UserHasChosen { get; internal set; }
         internal Topic ChosenTopic { get => chosenTopic; }
@@ -35,55 +35,58 @@ namespace SchoolGrades
         }
         TopicsFormType formType;
         private Topic chosenTopic;
-        internal frmTopics(TopicsFormType FormType, List<Topic> ListTopicsExternal, 
-            Class Class, SchoolSubject Subject)
-        {
-            InitializeComponent();
-
-            currentSubject = Subject;
-            if (currentSubject == null || currentSubject.Name == null)
-                currentSubject = null;
-            else
-            {
-                Color bgColor = Commons.ColorFromNumber(currentSubject);
-                this.BackColor = bgColor;
-            }
-            currentClass = Class; 
-            formType = FormType;
-            listTopicsExternal = ListTopicsExternal;
-        }
         public frmTopics(TopicsFormType FormType, 
-            Class CurrentClass, SchoolSubject Subject)
+            Class Class, SchoolSubject Subject,
+            Question Question = null, List<Topic> ListTopicsExternal = null, 
+            frmMain ParentForm = null)
         {
             InitializeComponent();
 
-            formType = FormType;
-            currentClass = CurrentClass;
-            currentSubject = Subject;
-
-            if (currentSubject == null || currentSubject.Name == null)
-                currentSubject = null;
+            if (ListTopicsExternal != null)
+            {
+                currentSubject = Subject;
+                if (currentSubject == null || currentSubject.Name == null)
+                    currentSubject = null;
+                else
+                {
+                    Color bgColor = Commons.ColorFromNumber(currentSubject);
+                    this.BackColor = bgColor;
+                }
+                currentClass = Class;
+                formType = FormType;
+                listTopicsExternal = ListTopicsExternal;
+            }
             else
             {
-                Color bgColor = Commons.ColorFromNumber(currentSubject);
-                this.BackColor = bgColor;
+                formType = FormType;
+                currentClass = Class;
+                currentQuestion = Question;
+                currentSubject = Subject;
+                if (currentSubject == null || currentSubject.Name == null)
+                    currentSubject = null;
+                else
+                {
+                    Color bgColor = Commons.ColorFromNumber(currentSubject);
+                    this.BackColor = bgColor;
+                }
+                if (formType == TopicsFormType.HighlightTopics)
+                {
+                    btnSaveTree.Visible = false;
+                    btnAddNodeSon.Visible = false;
+                    btnAddNodeBrother.Visible = false;
+                    btnChoose.Visible = false;
+                    btnDelete.Visible = false;
+                }
+                else if (formType == TopicsFormType.ChooseTopic)
+                {
+                    btnSaveTree.Visible = false;
+                    btnAddNodeSon.Visible = false;
+                    btnAddNodeBrother.Visible = false;
+                    btnChoose.Visible = true;
+                    btnDelete.Visible = false;
+                }
             }
-            if (formType == TopicsFormType.HighlightTopics)
-            {
-                btnSaveTree.Visible = false;
-                btnAddNodeSon.Visible = false;
-                btnAddNodeBrother.Visible = false; 
-                btnChoose.Visible = false;
-                btnDelete.Visible = false; 
-            }
-            else if (formType == TopicsFormType.ChooseTopic)
-            {
-                btnSaveTree.Visible = false;
-                btnAddNodeSon.Visible = false;
-                btnAddNodeBrother.Visible = false;
-                btnChoose.Visible = true;
-                btnDelete.Visible = false;
-            }
+            this.parentForm = ParentForm;
         }
         private void frmTopics_Load(object sender, EventArgs e)
         {
@@ -115,12 +118,14 @@ namespace SchoolGrades
                         btnAddNodeBrother.Visible = false;
                         btnChoose.Visible = false;
                         btnDelete.Visible = false;
+                        btnQuestions.Visible = true;
                         // disable function keys
                         topicTreeMptt.FunctionKeysEnabled = false;
                         break;
                     }
                 case TopicsFormType.ShowAndManagement:
                     {
+                        btnQuestions.Visible = false;
                         btnChoose.Visible = false;
                         break;
                     }
@@ -128,6 +133,7 @@ namespace SchoolGrades
                     {
                         // Form used for import 
                         btnChoose.Visible = false;
+                        btnQuestions.Visible = false;
 
                         topicTreeMptt.ImportToTreewiewFromList(listTopicsExternal,
                             null);
@@ -158,6 +164,7 @@ namespace SchoolGrades
                         btnAddNodeBrother.Visible = false;
                         btnChoose.Visible = true;
                         btnDelete.Visible = false;
+                        btnQuestions.Visible = true; // ??????????????
                         // disable function keys
                         topicTreeMptt.FunctionKeysEnabled = false;
                         break;
@@ -180,7 +187,6 @@ namespace SchoolGrades
         {
             // add a completely new node
             System.Windows.Forms.TreeNode t = topicTreeMptt.AddNewNode("Nuovo argomento", true);
-            //txtTopicName.Text = t.Name;
             txtTopicName.Focus();
         }
         private void btnDelete_Click(object sender, EventArgs e)
@@ -229,7 +235,6 @@ namespace SchoolGrades
             // set focus to the name textBox
             txtTopicName.Focus();
         }
-
         private void btnFindUnderNode_Click(object sender, EventArgs e)
         {
             //MessageBox.Show("Da fare!");
@@ -237,10 +242,29 @@ namespace SchoolGrades
 
             topicTreeMptt.FindItemUnderNode(txtTopicFind.Text, chkFindAll.Checked);
         }
-
         private void btnArgFreemind_Click(object sender, EventArgs e)
         {
 
+        }
+        private void btnQuestions_Click(object sender, EventArgs e)
+        {
+            if (topicTreeMptt.TreeView.SelectedNode == null)
+            {
+                MessageBox.Show("Scegliere un argomento per trovare le domande al di sotto di esso");
+                return;
+            }
+            if (currentQuestion == null)
+                currentQuestion = new Question(); 
+            currentQuestion.IdTopic = ((Topic)topicTreeMptt.TreeView.SelectedNode.Tag).Id;
+            frmQuestionChoose fq = new frmQuestionChoose(currentSubject, 
+                currentClass, null, currentQuestion); 
+            fq.ShowDialog();
+            if (fq.ChosenQuestion != null && fq.ChosenQuestion.IdQuestion != 0)
+            {
+                parentForm.CurrentQuestion = fq.ChosenQuestion;
+                //parentForm.txtQuestion.Text = currentQuestion.Text;
+                //parentForm.lstTimeInterval.Text = currentQuestion.Duration.ToString();
+            }
         }
     }
 }

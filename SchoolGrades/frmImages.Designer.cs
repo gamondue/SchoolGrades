@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmImages));
             this.dgwLessonsImages = new System.Windows.Forms.DataGridView();
             this.picImage = new System.Windows.Forms.PictureBox();
             this.txtLessonDesc = new System.Windows.Forms.TextBox();
@@ -66,13 +65,6 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.btnPrevious = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
-            this.grpPeriodOfQuestionsTopics = new System.Windows.Forms.GroupBox();
-            this.lblEnd = new System.Windows.Forms.Label();
-            this.lblStart = new System.Windows.Forms.Label();
-            this.dtpEndPeriod = new System.Windows.Forms.DateTimePicker();
-            this.dtpStartPeriod = new System.Windows.Forms.DateTimePicker();
-            this.rdbAmongPeriod = new System.Windows.Forms.RadioButton();
-            this.cmbSchoolPeriod = new System.Windows.Forms.ComboBox();
             this.btnPreviousImage = new System.Windows.Forms.Button();
             this.btnNextImage = new System.Windows.Forms.Button();
             this.btnFirstImage = new System.Windows.Forms.Button();
@@ -83,7 +75,6 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.grpPeriodOfQuestionsTopics.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgwLessonsImages
@@ -292,9 +283,9 @@
             this.lblFileImportName.AutoSize = true;
             this.lblFileImportName.Location = new System.Drawing.Point(-1, 158);
             this.lblFileImportName.Name = "lblFileImportName";
-            this.lblFileImportName.Size = new System.Drawing.Size(211, 18);
+            this.lblFileImportName.Size = new System.Drawing.Size(326, 18);
             this.lblFileImportName.TabIndex = 145;
-            this.lblFileImportName.Text = "File dell\'immagine da importare";
+            this.lblFileImportName.Text = "File dell\'immagine o del documento da importare";
             // 
             // txtFileImportImage
             // 
@@ -310,9 +301,9 @@
             this.lblPathDatabase.AutoSize = true;
             this.lblPathDatabase.Location = new System.Drawing.Point(-1, 108);
             this.lblPathDatabase.Name = "lblPathDatabase";
-            this.lblPathDatabase.Size = new System.Drawing.Size(216, 18);
+            this.lblPathDatabase.Size = new System.Drawing.Size(323, 18);
             this.lblPathDatabase.TabIndex = 148;
-            this.lblPathDatabase.Text = "Cartella importazione immagine";
+            this.lblPathDatabase.Text = "Cartella importazione di immagine o documento";
             // 
             // btnAddImage
             // 
@@ -498,89 +489,6 @@
             this.btnNext.Text = ">";
             this.btnNext.UseVisualStyleBackColor = true;
             // 
-            // grpPeriodOfQuestionsTopics
-            // 
-            this.grpPeriodOfQuestionsTopics.Controls.Add(this.lblEnd);
-            this.grpPeriodOfQuestionsTopics.Controls.Add(this.lblStart);
-            this.grpPeriodOfQuestionsTopics.Controls.Add(this.dtpEndPeriod);
-            this.grpPeriodOfQuestionsTopics.Controls.Add(this.dtpStartPeriod);
-            this.grpPeriodOfQuestionsTopics.Controls.Add(this.rdbAmongPeriod);
-            this.grpPeriodOfQuestionsTopics.Controls.Add(this.cmbSchoolPeriod);
-            this.grpPeriodOfQuestionsTopics.Location = new System.Drawing.Point(716, 12);
-            this.grpPeriodOfQuestionsTopics.Name = "grpPeriodOfQuestionsTopics";
-            this.grpPeriodOfQuestionsTopics.Size = new System.Drawing.Size(356, 95);
-            this.grpPeriodOfQuestionsTopics.TabIndex = 164;
-            this.grpPeriodOfQuestionsTopics.TabStop = false;
-            this.grpPeriodOfQuestionsTopics.Text = "Periodo delle lezioni";
-            this.grpPeriodOfQuestionsTopics.Enter += new System.EventHandler(this.grpPeriodOfQuestionsTopics_Enter);
-            // 
-            // lblEnd
-            // 
-            this.lblEnd.AutoSize = true;
-            this.lblEnd.Location = new System.Drawing.Point(188, 24);
-            this.lblEnd.Name = "lblEnd";
-            this.lblEnd.Size = new System.Drawing.Size(36, 18);
-            this.lblEnd.TabIndex = 157;
-            this.lblEnd.Text = "Fine";
-            // 
-            // lblStart
-            // 
-            this.lblStart.AutoSize = true;
-            this.lblStart.Location = new System.Drawing.Point(6, 24);
-            this.lblStart.Name = "lblStart";
-            this.lblStart.Size = new System.Drawing.Size(42, 18);
-            this.lblStart.TabIndex = 156;
-            this.lblStart.Text = "Inizio";
-            // 
-            // dtpEndPeriod
-            // 
-            this.dtpEndPeriod.CustomFormat = "yyyy-MM-dd";
-            this.dtpEndPeriod.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpEndPeriod.Location = new System.Drawing.Point(230, 22);
-            this.dtpEndPeriod.MinDate = new System.DateTime(1800, 1, 1, 0, 0, 0, 0);
-            this.dtpEndPeriod.Name = "dtpEndPeriod";
-            this.dtpEndPeriod.Size = new System.Drawing.Size(111, 24);
-            this.dtpEndPeriod.TabIndex = 155;
-            this.dtpEndPeriod.Value = new System.DateTime(2019, 6, 7, 0, 0, 0, 0);
-            // 
-            // dtpStartPeriod
-            // 
-            this.dtpStartPeriod.CustomFormat = "yyyy-MM-dd";
-            this.dtpStartPeriod.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpStartPeriod.Location = new System.Drawing.Point(54, 21);
-            this.dtpStartPeriod.MinDate = new System.DateTime(1800, 1, 1, 0, 0, 0, 0);
-            this.dtpStartPeriod.Name = "dtpStartPeriod";
-            this.dtpStartPeriod.Size = new System.Drawing.Size(111, 24);
-            this.dtpStartPeriod.TabIndex = 154;
-            this.dtpStartPeriod.Value = new System.DateTime(2019, 1, 24, 0, 0, 0, 0);
-            // 
-            // rdbAmongPeriod
-            // 
-            this.rdbAmongPeriod.AutoSize = true;
-            this.rdbAmongPeriod.Enabled = false;
-            this.rdbAmongPeriod.Location = new System.Drawing.Point(6, 56);
-            this.rdbAmongPeriod.Name = "rdbAmongPeriod";
-            this.rdbAmongPeriod.Size = new System.Drawing.Size(91, 22);
-            this.rdbAmongPeriod.TabIndex = 2;
-            this.rdbAmongPeriod.Text = "in periodo";
-            this.rdbAmongPeriod.UseVisualStyleBackColor = true;
-            this.rdbAmongPeriod.Visible = false;
-            // 
-            // cmbSchoolPeriod
-            // 
-            this.cmbSchoolPeriod.FormattingEnabled = true;
-            this.cmbSchoolPeriod.Items.AddRange(new object[] {
-            "",
-            "Settimana",
-            "Mese",
-            "Anno scolastico",
-            "Da nuovo anno solare"});
-            this.cmbSchoolPeriod.Location = new System.Drawing.Point(123, 55);
-            this.cmbSchoolPeriod.Name = "cmbSchoolPeriod";
-            this.cmbSchoolPeriod.Size = new System.Drawing.Size(218, 26);
-            this.cmbSchoolPeriod.TabIndex = 153;
-            this.cmbSchoolPeriod.SelectedIndexChanged += new System.EventHandler(this.cmbSchoolPeriod_SelectedIndexChanged);
-            // 
             // btnPreviousImage
             // 
             this.btnPreviousImage.Location = new System.Drawing.Point(757, 168);
@@ -631,7 +539,6 @@
             this.Controls.Add(this.btnLastImage);
             this.Controls.Add(this.btnPreviousImage);
             this.Controls.Add(this.btnNextImage);
-            this.Controls.Add(this.grpPeriodOfQuestionsTopics);
             this.Controls.Add(this.btnPrevious);
             this.Controls.Add(this.btnNext);
             this.Controls.Add(this.splitContainer1);
@@ -666,7 +573,6 @@
             this.Controls.Add(this.lblSchoolSubject);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.Color.DarkBlue;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmImages";
@@ -680,8 +586,6 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.grpPeriodOfQuestionsTopics.ResumeLayout(false);
-            this.grpPeriodOfQuestionsTopics.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -726,13 +630,6 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Button btnPrevious;
         private System.Windows.Forms.Button btnNext;
-        private System.Windows.Forms.GroupBox grpPeriodOfQuestionsTopics;
-        private System.Windows.Forms.Label lblEnd;
-        private System.Windows.Forms.Label lblStart;
-        private System.Windows.Forms.DateTimePicker dtpEndPeriod;
-        private System.Windows.Forms.DateTimePicker dtpStartPeriod;
-        private System.Windows.Forms.RadioButton rdbAmongPeriod;
-        private System.Windows.Forms.ComboBox cmbSchoolPeriod;
         private System.Windows.Forms.Button btnPreviousImage;
         private System.Windows.Forms.Button btnNextImage;
         private System.Windows.Forms.Button btnFirstImage;

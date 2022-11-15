@@ -52,6 +52,7 @@ namespace SchoolGrades
                 btnLessonAdd.Enabled = false;
                 btnLessonSave.Enabled = false;
                 bntLessonErase.Enabled = false;
+                btnAddNodeBrother.Enabled = false;
                 this.Text += " (sola lettura)"; 
             }
         }

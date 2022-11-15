@@ -1507,7 +1507,7 @@
         private System.Windows.Forms.Button btnTopicsDone;
         private System.Windows.Forms.Button btnStartLinks;
         private System.Windows.Forms.Button btnQuestion;
-        private System.Windows.Forms.TextBox txtQuestion;
+        public System.Windows.Forms.TextBox txtQuestion;
         private System.Windows.Forms.Button btnMakeGroups;
         private System.Windows.Forms.Button btnLessonTime;
         private System.Windows.Forms.TextBox txtMinuteStartLesson;
@@ -1538,7 +1538,7 @@
         private System.Windows.Forms.GroupBox grpChooseDrawSort;
         private System.Windows.Forms.RadioButton rdbMustSort;
         private System.Windows.Forms.RadioButton rdbMustDraw;
-        private System.Windows.Forms.ListBox lstTimeInterval;
+        public System.Windows.Forms.ListBox lstTimeInterval;
         private System.Windows.Forms.TextBox txtTimeInterval;
         private System.Windows.Forms.Button btnStartColorTimer;
         private System.Windows.Forms.Button btnMosaic;

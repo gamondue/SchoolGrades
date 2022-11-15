@@ -943,11 +943,11 @@ namespace gamon.TreeMptt
             if (Path == null)
                 return null;
             string[] AllNodes = Path.Split('|');
-            string stringToAdd = "";
+            string stringToAdd = " ";
             // take the last topics of the topics tree 
             for (int i = AllNodes.Length - 2, j = 0; i > 0 && j < 2; i--, j++)
             {
-                stringToAdd = (AllNodes[i] + ":" + stringToAdd).Trim();
+                stringToAdd = (AllNodes[i] + ": " + stringToAdd).Trim();
             }
             return stringToAdd += ". ";
         }
