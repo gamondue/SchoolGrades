@@ -205,8 +205,8 @@ namespace SchoolGrades
         }
         private void loadStudentsData(Student Student)
         {
-            if (chkStudentsListVisible.Checked)
-                loadPicture(Student);
+            //if (chkStudentsListVisible.Checked)
+            loadPicture(Student);
             chkStudentsListVisible.Checked = false;
             lblStudentChosen.Text = Student.ToString();
             txtRevengeFactor.Text = Student.RevengeFactorCounter.ToString();
@@ -335,7 +335,7 @@ namespace SchoolGrades
             try
             {
                 string pictureFile = Commons.PathImages + "\\" +
-                Commons.bl.GetFilePhoto(currentStudent.IdStudent, schoolYear);
+                Commons.bl.GetFilePhoto(Chosen.IdStudent, schoolYear);
                 picStudent.Image = System.Drawing.Image.FromFile(pictureFile);
             }
             catch
@@ -784,6 +784,7 @@ namespace SchoolGrades
             {
                 currentQuestion = value;
                 txtQuestion.Text = currentQuestion.Text;
+                lstTimeInterval.Text = currentQuestion.Duration.ToString();
             }
         }
         private void showCurrentStudent(Student alli)
@@ -933,7 +934,7 @@ namespace SchoolGrades
             if (!CommonsWinForms.CheckIfSubjectChosen(currentSubject))
                 return;
             frmTopics frm = new frmTopics (frmTopics.TopicsFormType.HighlightTopics, 
-                currentClass, currentSubject);
+                currentClass, currentSubject, currentQuestion, null, (frmMain)this);
             frm.Show();
         }
         private void btnStartLinks_Click(object sender, EventArgs e)
@@ -948,14 +949,12 @@ namespace SchoolGrades
         {
             if (!CommonsWinForms.CheckIfSubjectChosen(currentSubject))
                 return;
-            frmQuestionChoose scelta = new frmQuestionChoose(null, currentSubject,
+            frmQuestionChoose scelta = new frmQuestionChoose(currentSubject,
                 currentClass, currentStudent, CurrentQuestion);
             scelta.ShowDialog();
             if (scelta.ChosenQuestion != null && scelta.ChosenQuestion.IdQuestion != 0)
             {
                 CurrentQuestion = scelta.ChosenQuestion;
-                txtQuestion.Text = CurrentQuestion.Text;
-                lstTimeInterval.Text = CurrentQuestion.Duration.ToString();
             }
             scelta.Dispose();
         }

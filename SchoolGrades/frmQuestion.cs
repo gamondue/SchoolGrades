@@ -249,7 +249,7 @@ namespace SchoolGrades
             List<Topic> oneItemList = new List<Topic>();
             oneItemList.Add(chosenTopic); 
             frmTopics f = new frmTopics(frmTopics.TopicsFormType.HighlightTopics,
-                oneItemList, currentClass, currentSubject);
+                currentClass, currentSubject, null, oneItemList);
             f.ShowDialog();
             if (f.UserHasChosen)
             {

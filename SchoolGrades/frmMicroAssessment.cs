@@ -339,7 +339,7 @@ namespace SchoolGrades
             //    currentClass, currentStudent, currentQuestion); // this one passes the subject
             
             // we don't pass the currentSubject because it is better to start from any type of question
-            frmQuestionChoose choice = new frmQuestionChoose(this, currentSchoolSubject, 
+            frmQuestionChoose choice = new frmQuestionChoose(currentSchoolSubject, 
                 currentClass, currentStudent, currentQuestion);
             choice.ShowDialog();
             if (choice.ChosenQuestion.Text != null && choice.ChosenQuestion.Text != "")

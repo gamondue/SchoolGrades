@@ -96,7 +96,7 @@ namespace SchoolGrades
         {
             Question dummy = new Question();
             dummy.IdQuestionType = (string)cmbQuestionTypes.SelectedValue; 
-            frmQuestionChoose scelta = new frmQuestionChoose(null, null, null, null, dummy);
+            frmQuestionChoose scelta = new frmQuestionChoose(null, null, null, dummy);
             scelta.ShowDialog();
             if (scelta.ChosenQuestion != null && scelta.ChosenQuestion.IdQuestion != 0)
             {

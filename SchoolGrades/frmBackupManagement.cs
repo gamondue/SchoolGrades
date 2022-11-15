@@ -163,7 +163,8 @@ namespace SchoolGrades
                 }
             }
             MessageBox.Show("Salvare per rendere definitiva l'importazione."); 
-            frmTopics ft = new frmTopics(frmTopics.TopicsFormType.ImportWithErase, ListTopics, null, null);
+            frmTopics ft = new frmTopics(frmTopics.TopicsFormType.ImportWithErase, 
+                null, null, null, ListTopics);
             ft.ShowDialog(); 
             ft.Dispose();
         }

@@ -113,7 +113,7 @@ namespace SchoolGrades
                             List<Topic> oneItemList = new List<Topic>();
                             oneItemList.Add(topicsDone[e.RowIndex]);
                             frmTopics t = new frmTopics(frmTopics.TopicsFormType.HighlightTopics,
-                                oneItemList, currentClass, currentSubject);
+                                currentClass, currentSubject, null, oneItemList);
                             t.ShowDialog(); 
                             t.Dispose();
                             break;
@@ -163,7 +163,7 @@ namespace SchoolGrades
                         List<Topic> oneItemList = new List<Topic>();
                         oneItemList.Add(topicsDone[rowIndex]);
                         frmTopics t = new frmTopics(frmTopics.TopicsFormType.HighlightTopics,
-                            oneItemList, currentClass, currentSubject);
+                            currentClass, currentSubject, null, oneItemList);
                         t.ShowDialog();
                         t.Dispose();
                         break;

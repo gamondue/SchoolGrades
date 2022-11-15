@@ -1,10 +1,9 @@
 ﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace SchoolGrades
 {
@@ -41,10 +40,9 @@ namespace SchoolGrades
             currentSubject = Subject; 
 
             type = Type;
-
             lessonImagesPath = currentClass.SchoolYear +
-                    currentClass.Abbreviation + "\\Lessons" +
-                    "\\" + currentLesson.IdSchoolSubject;
+                currentClass.Abbreviation + "\\Lessons" +
+                "\\" + currentLesson.IdSchoolSubject;
         }
         private void frmImages_Load(object sender, EventArgs e)
         {
@@ -157,37 +155,34 @@ namespace SchoolGrades
             {
                 string sourcePathAndFileName = txtPathImportImage.Text + "\\" +
                     txtFileImportImage.Text;
-                // if the chosen file is already in the image path, the program
-                // will avoid copying it under the image path and will link to the 
-                // existing file instead 
-                if (txtPathImportImage.Text.Contains(Commons.PathImages))
-                {
-                    // chosen file is inside the images path 
-                    // does not copy and rename the file
-                    // this spares HDD space on teachers' machine 
-                    justLinkFileToLesson(sourcePathAndFileName);
+                string lessonImagesPath = Path.Combine(Commons.PathImages, txtSubFolderStorage.Text); 
+                string extension = Path.GetExtension(sourcePathAndFileName);
+                if (extension == ".jpg" || extension == ".jpeg" || extension == ".png")
+                {   // save an image
+                    currentImage.Caption = txtCaption.Text;
+                    Commons.bl.AddImageToLesson(sourcePathAndFileName, lessonImagesPath, txtSubFolderStorage.Text, 
+                        currentLesson, currentClass, currentImage, rdbAutoRename.Checked, chkMantainOldFileName.Checked);
+                    try
+                    {
+                        picImage.Load(sourcePathAndFileName);
+                    }
+                    catch
+                    {
+                        Console.Beep();
+                    };
+                    // goto the last in the grid (the one just added) 
+                    currentIndexInImages = dgwLessonsImages.Rows.Count;
+                    if (currentIndexInImages < 0)
+                        currentIndexInImages = 0;
+                    refreshUi(currentIndexInImages);
+                    // load data from the last 
+                    currentImage = ((List<BusinessObjects.Image>)dgwLessonsImages.DataSource)[dgwLessonsImages.Rows.Count - 1];
+                    loadCurrentImage();
                 }
                 else
-                {
-                    // chosen file is outside the images path 
-                    copyFileToImagesAndLinkToLessons(sourcePathAndFileName);
+                {   // save a document 
+
                 }
-                try
-                {
-                    picImage.Load(sourcePathAndFileName);
-                }
-                catch
-                {
-                    Console.Beep();
-                };
-                // goto the last in the grid (the one just added) 
-                currentIndexInImages = dgwLessonsImages.Rows.Count;
-                if (currentIndexInImages < 0)
-                    currentIndexInImages = 0;
-                refreshUi(currentIndexInImages);
-                // load data from the last 
-                currentImage = ((List<BusinessObjects.Image>)dgwLessonsImages.DataSource)[dgwLessonsImages.Rows.Count - 1];
-                loadCurrentImage();
             }
         }
         private void btnRemoveImage_Click(object sender, EventArgs e)
@@ -259,83 +254,6 @@ namespace SchoolGrades
                 //DgwLessonsImages.Rows[localIndex].Selected = false;
                 //DgwLessonsImages.Rows[localIndex].Selected = true;
             }
-        }
-        private void justLinkFileToLesson(string sourcePathAndFileName)
-        {
-            BusinessObjects.Image currentImage = Commons.bl.FindImageWithGivenFile(sourcePathAndFileName);
-            // if the image that reference to the file isn't anymore in the database 
-            // create a new image that references to this file 
-            // (eg. if the lesson has been deleted from the database together with its images, but 
-            // the file is (somehow) still there) 
-            if (currentImage == null)
-            {
-                currentImage = new BusinessObjects.Image();
-                currentImage.IdImage = 0;
-                currentImage.RelativePathAndFilename = sourcePathAndFileName.Remove(0,Commons.PathImages.Length + 1);
-            }
-            currentImage.Caption = txtCaption.Text;
-            Commons.bl.LinkOneImageToLesson(currentImage, currentLesson);
-        }
-        private void copyFileToImagesAndLinkToLessons(string sourcePathAndFileName)
-        {
-            string ext = Path.GetExtension(sourcePathAndFileName);
-            if (rdbAutoRename.Checked)
-                lessonImagesPath = txtSubFolderStorage.Text + "\\"; // + currentLesson.IdSchoolSubject;
-            string destinationFileName = "";
-            string destinationPathAndFileName = "";
-
-            if (rdbAutoRename.Checked)
-            {
-                string tempFileName;
-                if (chkMantainOldFileName.Checked)
-                    tempFileName = ((DateTime)currentLesson.Date).ToString("yyyy-MM-dd") + "_" +
-                        currentLesson.IdSchoolSubject + "-xggR" +
-                        "_" + txtFileImportImage.Text;
-                else
-                {
-                    tempFileName = ((DateTime)currentLesson.Date).ToString("yyyy-MM-dd") + "_L_" +
-                    currentClass.Abbreviation + currentClass.SchoolYear +
-                    currentLesson.IdSchoolSubject + "-xggR";
-                    tempFileName += ext;
-                }
-                int i = 1;
-                do
-                {
-                    destinationPathAndFileName = Commons.PathImages + "\\" +
-                        lessonImagesPath + 
-                        tempFileName.Replace("xggR", (i++).ToString("00"));
-                } while (File.Exists(destinationPathAndFileName));
-                destinationFileName = tempFileName.Replace("xggR", (--i).ToString("00"));
-                currentImage.RelativePathAndFilename = lessonImagesPath +  destinationFileName;
-            }
-            else if (rdbManualRename.Checked)
-            {
-                destinationFileName = txtFileImportImage.Text;
-                destinationPathAndFileName = Commons.PathImages + "\\" +
-                    lessonImagesPath +  destinationFileName;
-                if (File.Exists(destinationPathAndFileName))
-                {
-                    MessageBox.Show("Il file " + destinationPathAndFileName + " esiste già.");
-                    return;
-                }
-                currentImage.RelativePathAndFilename = lessonImagesPath +  destinationFileName;
-            }
-
-            if (!File.Exists(sourcePathAndFileName))
-            {
-                MessageBox.Show("Il file " + sourcePathAndFileName + " non esiste!");
-                return;
-            }
-            // if it doesn't exist, create the folder of the images of the lessons of the class
-            if (!Directory.Exists(Commons.PathImages + "\\" + lessonImagesPath))
-            {
-                Directory.CreateDirectory(Commons.PathImages + "\\" + lessonImagesPath);
-            }
-            File.Copy(sourcePathAndFileName, destinationPathAndFileName);
-            //currentImage.IdImage = int.MaxValue; 
-            currentImage.Caption = txtCaption.Text;
-            currentImage.IdImage = 0; // to force creation of a new record
-            Commons.bl.LinkOneImageToLesson(currentImage, currentLesson);
         }
         private void picImage_Click(object sender, EventArgs e)
         {
@@ -501,30 +419,6 @@ namespace SchoolGrades
         private void btnLastImage_Click(object sender, EventArgs e)
         {
             lastImage(); 
-        }
-        private void cmbSchoolPeriod_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            currentSchoolPeriod = (SchoolPeriod)(cmbSchoolPeriod.SelectedValue);
-            if (currentSchoolPeriod.IdSchoolPeriodType != "N")
-            {
-                dtpStartPeriod.Value = (DateTime)currentSchoolPeriod.DateStart;
-                dtpEndPeriod.Value = (DateTime)currentSchoolPeriod.DateFinish;
-            }
-            else if (currentSchoolPeriod.IdSchoolPeriod == "month")
-            {
-                dtpStartPeriod.Value = DateTime.Now.AddMonths(-1);
-                dtpEndPeriod.Value = DateTime.Now;
-            }
-            else if (currentSchoolPeriod.IdSchoolPeriod == "week")
-            {
-                dtpStartPeriod.Value = DateTime.Now.AddDays(-7);
-                dtpEndPeriod.Value = DateTime.Now;
-            }
-            else if (currentSchoolPeriod.IdSchoolPeriod == "year")
-            {
-                dtpStartPeriod.Value = DateTime.Now.AddYears(-1);
-                dtpEndPeriod.Value = DateTime.Now;
-            }
         }
     }
 }
