@@ -30,12 +30,12 @@ namespace SchoolGrades
         public frmMicroAssessment ParentForm { get; }
         internal frmQuestionChoose(SchoolSubject SchoolSubject, Class Class, 
             Student Student = null, Question Question = null, 
-            frmMicroAssessment ParentForm = null)
+            frmMicroAssessment MicroAssessmentParent = null, frmMain MainParent = null)
         {
             InitializeComponent();
 
             dbMptt = new TreeMpttDb(Commons.dl);
-            this.ParentForm = ParentForm; 
+            this.ParentForm = MicroAssessmentParent; 
             // fills the lookup tables' combos
             cmbSchoolSubject.DisplayMember = "Name";
             cmbSchoolSubject.ValueMember = "idSchoolSubject";

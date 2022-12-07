@@ -335,9 +335,6 @@ namespace SchoolGrades
         }
         private void btnQuestionChoose_Click(object sender, EventArgs e)
         {
-            //frmQuestionChoose choice = new frmQuestionChoose(currentSchoolSubject,
-            //    currentClass, currentStudent, currentQuestion); // this one passes the subject
-            
             // we don't pass the currentSubject because it is better to start from any type of question
             frmQuestionChoose choice = new frmQuestionChoose(currentSchoolSubject, 
                 currentClass, currentStudent, currentQuestion);
@@ -454,7 +451,9 @@ namespace SchoolGrades
         {
             frmQuestion f = new frmQuestion(frmQuestion.QuestionFormType.EditOneQuestion,
                 currentQuestion, currentSchoolSubject, currentClass, null);
-            f.Show();
+            f.ShowDialog();
+            if (f.UserHasChosen)
+                TxtQuestionText.Text = f.currentQuestion.Text; 
         }
         private void txtIdMacroGrade_TextChanged(object sender, EventArgs e)
         {
