@@ -257,11 +257,12 @@ namespace SchoolGrades
                 currentQuestion = new Question(); 
             currentQuestion.IdTopic = ((Topic)topicTreeMptt.TreeView.SelectedNode.Tag).Id;
             frmQuestionChoose fq = new frmQuestionChoose(currentSubject, 
-                currentClass, null, currentQuestion); 
+                currentClass, null, currentQuestion, null, parentForm); 
             fq.ShowDialog();
             if (fq.ChosenQuestion != null && fq.ChosenQuestion.IdQuestion != 0)
             {
-                parentForm.CurrentQuestion = fq.ChosenQuestion;
+                if (parentForm != null)
+                    parentForm.CurrentQuestion = fq.ChosenQuestion;
                 //parentForm.txtQuestion.Text = currentQuestion.Text;
                 //parentForm.lstTimeInterval.Text = currentQuestion.Duration.ToString();
             }
