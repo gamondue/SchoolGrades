@@ -469,16 +469,19 @@ namespace SchoolGrades
             }
             return keys;
         }
-        internal void ToggleDisableOneStudent(int? idStudent)
+        internal void ToggleDisabledFlagOneStudent(Student Student)
         {
+            // if Disabled is null I want it to be true after method
+            if(Student.Disabled == null)
+                Student.Disabled = false;
             using (DbConnection conn = Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
 
                 cmd.CommandText = "UPDATE Students" +
                            " Set" +
-                           " disabled = ~disabled" +
-                           " WHERE IdStudent =" + idStudent +
+                           " disabled = NOT " + Student.Disabled +
+                           " WHERE IdStudent =" + Student.IdStudent +
                            ";";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();

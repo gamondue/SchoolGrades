@@ -91,9 +91,9 @@ namespace SchoolGrades
         {
             dl.EraseStudentsPhoto(IdStudent, SchoolYear); 
         }
-        internal void ToggleDisableOneStudent(int IdDisablingStudent)
+        internal void ToggleDisabledFlagOneStudent(Student DisablingStudent)
         {
-            dl.ToggleDisableOneStudent(IdDisablingStudent);
+            dl.ToggleDisabledFlagOneStudent(DisablingStudent);
         }
         internal string GetFilePhoto(int? IdStudent, string SchoolYear)
         {
