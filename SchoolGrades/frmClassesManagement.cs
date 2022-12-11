@@ -18,6 +18,7 @@ namespace SchoolGrades
 
         School currentSchool; 
         Class currentClass;
+        List<Student> studentsList; 
         string idSchoolYear;
         bool isLoading = true;
 
@@ -182,9 +183,9 @@ namespace SchoolGrades
                 dtClass = Commons.bl.GetClassTable(Class.IdClass);
                 DgwClass.DataSource = dtClass;
 
-                DgwStudents.DataSource = null;
-                DgwStudents.DataSource = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text,
+                studentsList  = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text,
                     idSchoolYear, CmbClasses.Text, true);
+                DgwStudents.DataSource = studentsList; 
                 txtClassDescription.Text = Safe.String(DgwClass.Rows[DgwClass.CurrentRow.Index].Cells["desc"].Value);
                 currentClass = (Class)CmbClasses.SelectedItem;
                 TxtStartLinksFolder.Text = currentClass.PathRestrictedApplication;
@@ -194,8 +195,8 @@ namespace SchoolGrades
         {
             if (DgwStudents.SelectedCells.Count > -1)
             {
-                List<Student> ls = (List<Student>)DgwStudents.DataSource;
-                Student s = ls[DgwStudents.SelectedCells[0].RowIndex];
+                studentsList = (List<Student>)DgwStudents.DataSource;
+                Student s = studentsList[DgwStudents.SelectedCells[0].RowIndex];
                 DialogResult dr = openFileDialog.ShowDialog();
                 string newPhotoFullName = openFileDialog.FileName;
                 if (newPhotoFullName != "" && !(dr == DialogResult.Cancel))
@@ -309,16 +310,15 @@ namespace SchoolGrades
                 MessageBox.Show("Selezionare nella griglia un allievo di cui cambiare lo stato di attivazione");
                 return;
             }
-            string disablingStudent = (string)DgwStudents.SelectedRows[0].Cells["LastName"].Value +
-                " " + (string)DgwStudents.SelectedRows[0].Cells["FirstName"].Value;
-            int IdDisablingStudent = (int)DgwStudents.SelectedRows[0].Cells["IdStudent"].Value;
-            Commons.bl.ToggleDisableOneStudent(IdDisablingStudent);
+            Student disablingStudent = studentsList[DgwStudents.SelectedCells[0].RowIndex];
+            Commons.bl.ToggleDisabledFlagOneStudent(disablingStudent);
+            DgwStudents.DataSource = null; 
             DgwStudents.DataSource = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, 
                 idSchoolYear, CmbClasses.Text, true);
             string prompt = "Commutato lo stato di abilitazione dell'allievo " + disablingStudent;
             // !!!! dire in che stato è ora 
             // prompt += ".\nStato attuale: "
-            MessageBox.Show(prompt); 
+            MessageBox.Show(prompt);
         }
         private void btnModifyStudent_Click(object sender, EventArgs e)
         {
