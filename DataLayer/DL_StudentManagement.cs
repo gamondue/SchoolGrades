@@ -622,15 +622,38 @@ namespace SchoolGrades
                     pictureIndex = 0;
             }
         }
+        internal List<Student> GetStudentsOnBirthday(Class Class, DateTime Date)
+        {
+            List<Student> list = new List<Student>();
+            // strip daytime from date 
+            string monthAndYear = Date.Month.ToString("00") + "-" + Date.Day.ToString("00"); 
+
+            DbDataReader dRead;
+            DbCommand cmd;
+            using (DbConnection conn = Connect())
+            {
+                string query = "SELECT * " +
+                " FROM Students" +
+                " JOIN Classes_Students ON Students.idStudent=Classes_Students.idStudent" +
+                " WHERE Classes_Students.idClass=" + Class.IdClass +
+                " AND strftime('%m-%d',Students.BirthDate)='" + monthAndYear + "'" +
+                ";";
+                cmd = conn.CreateCommand();
+                cmd.CommandText = query;
+                dRead = cmd.ExecuteReader();
+                while (dRead.Read())
+                {
+                    Student s = GetStudentFromRow(dRead);
+                    list.Add(s); 
+                }
+                dRead.Dispose();
+                cmd.Dispose();
+            }
+            return list;
+        }
         internal void SaveStudentsAnswer(Student Student, Test Test, Answer Answer,
             bool StudentsBoolAnswer, string StudentsTextAnswer)
         {
-            // TODO put this UI matter into form's code 
-            //////////if (Student == null)
-            //////////{
-            //////////    MessageBox.Show("Scegliere un allievo");
-            //////////    return; 
-            //////////}
             using (DbConnection conn = Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
@@ -666,7 +689,6 @@ namespace SchoolGrades
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
-
         }
     }
 }

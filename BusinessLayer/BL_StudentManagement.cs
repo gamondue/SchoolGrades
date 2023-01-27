@@ -115,5 +115,9 @@ namespace SchoolGrades
         {
             dl.SaveStudentsAnswer(Student, Test, Answer, IsChecked, StudentsTextAnswer);
         }
+        internal List<Student> FindStudentsOnBirthday(Class Class, DateTime Date)
+        {
+            return dl.GetStudentsOnBirthday(Class, Date); 
+        }
     }
 }

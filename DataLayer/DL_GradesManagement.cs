@@ -48,7 +48,6 @@ namespace SchoolGrades
                     "WHERE idGrade = " + IdParent +
                     ";";
                 cmd.ExecuteNonQuery();
-
                 cmd.Dispose();
             }
         }
@@ -325,14 +324,12 @@ namespace SchoolGrades
                 "',NULL" +
                 ");";
                 cmd.ExecuteNonQuery();
-
                 // aggiusta tutte le domande figlie
                 cmd.CommandText = "UPDATE Grades " +
                     " SET idGradeParent=" + codiceVoto +
                     " WHERE idGradeParent = " + Riga["idGrade"] +
                     ";";
                 cmd.ExecuteNonQuery();
-
                 cmd.Dispose();
             }
         }
@@ -733,7 +730,6 @@ namespace SchoolGrades
                 ",'" + Grade.IdSchoolSubject +
                 "');";
                 cmd.ExecuteNonQuery();
-
                 cmd.Dispose();
             }
             return key;
@@ -784,7 +780,6 @@ namespace SchoolGrades
                 }
 
                 cmd.ExecuteNonQuery();
-
                 cmd.Dispose();
             }
             return Grade.IdGrade;

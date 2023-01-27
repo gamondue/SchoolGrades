@@ -56,7 +56,7 @@
             this.lblStudent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblStudent.BackColor = System.Drawing.Color.Transparent;
-            this.lblStudent.Font = new System.Drawing.Font("Arial Black", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStudent.Font = new System.Drawing.Font("Arial Black", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblStudent.ForeColor = System.Drawing.Color.DarkBlue;
             this.lblStudent.Location = new System.Drawing.Point(233, 9);
             this.lblStudent.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
@@ -76,6 +76,7 @@
             this.dgwQuestions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgwQuestions.Location = new System.Drawing.Point(12, 130);
             this.dgwQuestions.Name = "dgwQuestions";
+            this.dgwQuestions.ReadOnly = true;
             this.dgwQuestions.Size = new System.Drawing.Size(910, 349);
             this.dgwQuestions.TabIndex = 117;
             this.dgwQuestions.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgwQuestions_CellClick);
@@ -137,7 +138,7 @@
             this.Controls.Add(this.dgwQuestions);
             this.Controls.Add(this.txtQuestionText);
             this.Controls.Add(this.lblStudent);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.Color.DarkBlue;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);

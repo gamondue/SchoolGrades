@@ -82,7 +82,6 @@ namespace SchoolGrades
                     " JOIN Classes_Students ON Students.idStudent = Classes_Students.idStudent" +
                     " WHERE Classes_Students.idClass=" + Class.IdClass + ");";
                 cmd.ExecuteNonQuery();
-
                 cmd.Dispose();
             }
         }

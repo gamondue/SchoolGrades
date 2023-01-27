@@ -161,6 +161,7 @@
             this.dgwGrades.Location = new System.Drawing.Point(4, 220);
             this.dgwGrades.Margin = new System.Windows.Forms.Padding(4);
             this.dgwGrades.Name = "dgwGrades";
+            this.dgwGrades.ReadOnly = true;
             this.dgwGrades.RowHeadersVisible = false;
             this.dgwGrades.RowTemplate.Height = 24;
             this.dgwGrades.Size = new System.Drawing.Size(900, 500);

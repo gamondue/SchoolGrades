@@ -65,7 +65,7 @@
             this.lblQuestionType = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.LblLessonTime = new System.Windows.Forms.Label();
-            this.btnComb = new System.Windows.Forms.Button();
+            this.btnKnotsToTheComb = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnQuestionsDone = new System.Windows.Forms.Button();
             this.txtSearchText = new System.Windows.Forms.TextBox();
@@ -505,21 +505,21 @@
             this.LblLessonTime.Text = "      ";
             this.toolTip1.SetToolTip(this.LblLessonTime, "Tempo della lezione rimasto");
             // 
-            // btnComb
+            // btnKnotsToTheComb
             // 
-            this.btnComb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnComb.BackColor = System.Drawing.Color.Transparent;
-            this.btnComb.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnComb.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnComb.Location = new System.Drawing.Point(886, 22);
-            this.btnComb.Margin = new System.Windows.Forms.Padding(6);
-            this.btnComb.Name = "btnComb";
-            this.btnComb.Size = new System.Drawing.Size(70, 37);
-            this.btnComb.TabIndex = 119;
-            this.btnComb.Text = "Pettine";
-            this.toolTip1.SetToolTip(this.btnComb, "Domande che hanno un voto insufficiente");
-            this.btnComb.UseVisualStyleBackColor = false;
-            this.btnComb.Click += new System.EventHandler(this.BtnComb_Click);
+            this.btnKnotsToTheComb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnKnotsToTheComb.BackColor = System.Drawing.Color.Transparent;
+            this.btnKnotsToTheComb.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnKnotsToTheComb.ForeColor = System.Drawing.Color.DarkBlue;
+            this.btnKnotsToTheComb.Location = new System.Drawing.Point(886, 22);
+            this.btnKnotsToTheComb.Margin = new System.Windows.Forms.Padding(6);
+            this.btnKnotsToTheComb.Name = "btnKnotsToTheComb";
+            this.btnKnotsToTheComb.Size = new System.Drawing.Size(70, 37);
+            this.btnKnotsToTheComb.TabIndex = 119;
+            this.btnKnotsToTheComb.Text = "Pettine";
+            this.toolTip1.SetToolTip(this.btnKnotsToTheComb, "Domande che hanno un voto insufficiente");
+            this.btnKnotsToTheComb.UseVisualStyleBackColor = false;
+            this.btnKnotsToTheComb.Click += new System.EventHandler(this.btnKnotsToTheComb_Click);
             // 
             // btnSearch
             // 
@@ -588,7 +588,7 @@
             this.Controls.Add(this.btnQuestionsDone);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.LblLessonTime);
-            this.Controls.Add(this.btnComb);
+            this.Controls.Add(this.btnKnotsToTheComb);
             this.Controls.Add(this.lblSearchText);
             this.Controls.Add(this.txtSearchText);
             this.Controls.Add(this.lblQuestionType);
@@ -651,7 +651,7 @@
         private System.Windows.Forms.DateTimePicker dtpStartPeriod;
         private System.Windows.Forms.TextBox txtSearchText;
         private System.Windows.Forms.Label lblSearchText;
-        private System.Windows.Forms.Button btnComb;
+        private System.Windows.Forms.Button btnKnotsToTheComb;
         private System.Windows.Forms.Label LblLessonTime;
         private System.Windows.Forms.Timer LessonTimer;
         private System.Windows.Forms.TextBox txtWeightInTest;

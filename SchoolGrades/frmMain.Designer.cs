@@ -378,7 +378,7 @@
             this.rdbDrawByRevengeFactor.Text = "Tremenda vendetta";
             this.toolTip1.SetToolTip(this.rdbDrawByRevengeFactor, "Sorteggio con probabilità più alta per maggiori fattori di vendetta");
             this.rdbDrawByRevengeFactor.UseVisualStyleBackColor = true;
-            this.rdbDrawByRevengeFactor.CheckedChanged += new System.EventHandler(this.rdbDrawOnVindicationFactor_CheckedChanged);
+            this.rdbDrawByRevengeFactor.CheckedChanged += new System.EventHandler(this.rdbDrawByRevengeFactor_CheckedChanged);
             // 
             // rdbDrawByOldestFirst
             // 
