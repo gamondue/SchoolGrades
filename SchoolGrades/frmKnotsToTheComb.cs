@@ -39,8 +39,8 @@ namespace SchoolGrades
 
         private void FrmKnotsToTheComb_Load(object sender, EventArgs e)
         {
-            cmbSchoolSubject.SelectedValue = currentSubject.IdSchoolSubject; 
-
+            if (currentSubject.IdSchoolSubject != null)
+                cmbSchoolSubject.SelectedValue = currentSubject.IdSchoolSubject; 
             RefreshData(); 
         }
         private void RefreshData()
@@ -97,12 +97,14 @@ namespace SchoolGrades
             {
                 //int key = int.Parse(dgwQuestions.SelectedRows[0].Cells[6].Value.ToString());
                 int key = (int) dgwQuestions.SelectedRows[0].Cells[6].Value;
+                ChosenQuestion = Commons.bl.GetQuestionById(key);
                 if (grandparentForm != null)
                 {
                     // form called by student's assessment form 
-                    grandparentForm.CurrentQuestion = Commons.bl.GetQuestionById(key);
+                    grandparentForm.CurrentQuestion = ChosenQuestion; 
                     grandparentForm.DisplayCurrentQuestion(); 
                 }
+                this.Close(); 
             }
             else
             {
@@ -113,7 +115,9 @@ namespace SchoolGrades
 
         private void cmbSchoolSubject_SelectedIndexChanged(object sender, EventArgs e)
         {
+            currentSubject = (SchoolSubject) cmbSchoolSubject.SelectedItem; 
             this.BackColor = Commons.ColorFromNumber(currentSubject);
+            RefreshData();
         }
     }
 }

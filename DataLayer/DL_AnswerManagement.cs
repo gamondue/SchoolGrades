@@ -133,7 +133,6 @@ namespace SchoolGrades
                     "," + SqlBool(currentAnswer.IsOpenAnswer) +
                     ");";
                 cmd.ExecuteNonQuery();
-
                 cmd.Dispose();
             }
             return codice;
@@ -153,7 +152,6 @@ namespace SchoolGrades
                     " WHERE idAnswer = " + currentAnswer.IdAnswer +
                     ";";
                 cmd.ExecuteNonQuery();
-
                 cmd.Dispose();
             }
         }

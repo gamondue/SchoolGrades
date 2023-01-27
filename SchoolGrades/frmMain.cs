@@ -369,7 +369,7 @@ namespace SchoolGrades
         {
             SaveStudentsOfClassIfEligibleHasChanged();
             currentClass = (Class)lstClasses.SelectedItem;
-            txtIdClass.Text = currentClass.IdClass.ToString(); 
+            txtIdClass.Text = currentClass.IdClass.ToString();
 
             ShowStudentsOfClass();
             if (currentStudentsList != null)
@@ -382,8 +382,29 @@ namespace SchoolGrades
             if (popUpAnnotations.Rows.Count > 0)
             {
                 frmAnnotationsPopUp f = new frmAnnotationsPopUp(popUpAnnotations);
-                f.StartPosition = FormStartPosition.CenterParent; 
-                f.Show(); 
+                f.StartPosition = FormStartPosition.CenterParent;
+                f.Show();
+            }
+            // play Happy Birthday when a student has his BirthDay
+            List<Student> celebrated = Commons.bl.FindStudentsOnBirthday(currentClass, DateTime.Now);
+            if (celebrated.Count > 0)
+            { 
+                try
+                {
+                    suonatore.SoundLocation = ".\\Auguri.mp3";
+                    suonatore.Play();
+                }
+                catch
+                {
+                    Console.Beep(220, 1000);
+                }
+                foreach (Student s in celebrated)
+                {
+                    frmStudent f = new frmStudent(s, false);
+                    f.Show();
+                    // put full screen ther form 
+                    // TODO 
+                }
             }
         }
         private void chkFotoVisibile_CheckedChanged(object sender, EventArgs e)
@@ -1107,16 +1128,19 @@ namespace SchoolGrades
             }
             lstClassi_DoubleClick(null, null);
         }
-        private void rdbDrawOnVindicationFactor_CheckedChanged(object sender, EventArgs e)
+        private void rdbDrawByRevengeFactor_CheckedChanged(object sender, EventArgs e)
         {
-            try
+            if (rdbDrawByRevengeFactor.Checked)
             {
-                suonatore.SoundLocation = ".\\Rigoletto.wav";
-                suonatore.Play();
-            }
-            catch
-            {
-                Console.Beep(220, 1000);
+                try
+                {
+                    suonatore.SoundLocation = ".\\Rigoletto.wav";
+                    suonatore.Play();
+                }
+                catch
+                {
+                    Console.Beep(220, 1000);
+                }
             }
         }
         private void picStudent_DoubleClick(object sender, EventArgs e)

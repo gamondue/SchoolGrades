@@ -92,6 +92,7 @@
             this.dgwGrades.Location = new System.Drawing.Point(0, 151);
             this.dgwGrades.Margin = new System.Windows.Forms.Padding(4);
             this.dgwGrades.Name = "dgwGrades";
+            this.dgwGrades.ReadOnly = true;
             this.dgwGrades.RowTemplate.Height = 24;
             this.dgwGrades.Size = new System.Drawing.Size(923, 215);
             this.dgwGrades.TabIndex = 77;

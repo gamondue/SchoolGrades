@@ -62,13 +62,13 @@
             this.BtnSaveGrid = new System.Windows.Forms.Button();
             this.TxtIdStudent = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.DgwQuestions = new System.Windows.Forms.DataGridView();
             this.LessonTimer = new System.Windows.Forms.Timer(this.components);
             this.lblLessonTime = new System.Windows.Forms.Label();
             this.picStudent = new System.Windows.Forms.PictureBox();
             this.chkHasSpecialNeeds = new System.Windows.Forms.CheckBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trkbGrade)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trkbWeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DgwQuestions)).BeginInit();
@@ -516,6 +516,36 @@
             this.toolTip1.SetToolTip(this.label1, "Media pesata di tutti i microvoti visualizzati. Salvata nel voto complessivo. Si " +
         "può modificare. ");
             // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.Enabled = false;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label2.ForeColor = System.Drawing.Color.DarkBlue;
+            this.label2.Location = new System.Drawing.Point(938, 216);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(103, 15);
+            this.label2.TabIndex = 150;
+            this.label2.Text = "Peso domanda";
+            this.toolTip1.SetToolTip(this.label2, "Codice del voto \"padre\", sotto il quale stanno tuttu queste microvalutazioni ");
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.AutoSize = true;
+            this.label5.Enabled = false;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label5.ForeColor = System.Drawing.Color.DarkBlue;
+            this.label5.Location = new System.Drawing.Point(940, 276);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(99, 15);
+            this.label5.TabIndex = 151;
+            this.label5.Text = "Voto domanda";
+            this.toolTip1.SetToolTip(this.label5, "Codice del voto \"padre\", sotto il quale stanno tuttu queste microvalutazioni ");
+            // 
             // DgwQuestions
             // 
             this.DgwQuestions.AllowUserToAddRows = false;
@@ -573,36 +603,6 @@
             this.chkHasSpecialNeeds.TabIndex = 149;
             this.chkHasSpecialNeeds.Text = "BES ..";
             this.chkHasSpecialNeeds.UseVisualStyleBackColor = true;
-            // 
-            // label2
-            // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Enabled = false;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label2.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label2.Location = new System.Drawing.Point(938, 216);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(103, 15);
-            this.label2.TabIndex = 150;
-            this.label2.Text = "Peso domanda";
-            this.toolTip1.SetToolTip(this.label2, "Codice del voto \"padre\", sotto il quale stanno tuttu queste microvalutazioni ");
-            // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.Enabled = false;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label5.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label5.Location = new System.Drawing.Point(940, 276);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(99, 15);
-            this.label5.TabIndex = 151;
-            this.label5.Text = "Voto domanda";
-            this.toolTip1.SetToolTip(this.label5, "Codice del voto \"padre\", sotto il quale stanno tuttu queste microvalutazioni ");
             // 
             // frmMicroAssessment
             // 

@@ -317,7 +317,7 @@ namespace SchoolGrades
             double.TryParse(txtAverageMicroQuestions.Text, out average);
             if (average == 0)
             {
-                MessageBox.Show("La media deve essere diversa da zero");
+                MessageBox.Show("La media od il voto assegnato deve essere diversa da zero");
                 return;
             }
             if (txtIdMacroGrade.Text != "")  // if we have a macrograde 

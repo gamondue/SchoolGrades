@@ -28,6 +28,7 @@ namespace SchoolGrades
 
         internal Question ChosenQuestion {get => chosenQuestion; set => chosenQuestion = value; }
         public frmMicroAssessment ParentForm { get; }
+
         internal frmQuestionChoose(SchoolSubject SchoolSubject, Class Class, 
             Student Student = null, Question Question = null, 
             frmMicroAssessment MicroAssessmentParent = null, frmMain MainParent = null)
@@ -402,7 +403,7 @@ namespace SchoolGrades
                 dateFrom, dateTo);
             dgwQuestions.DataSource = l;
         }
-        private void BtnComb_Click(object sender, EventArgs e)
+        private void btnKnotsToTheComb_Click(object sender, EventArgs e)
         {
             if(!CommonsWinForms.CheckIfStudentChosen(currentStudent))
             {
@@ -415,8 +416,11 @@ namespace SchoolGrades
 
             frmKnotsToTheComb frm = new frmKnotsToTheComb(ParentForm, currentStudent.IdStudent, currentSubject,
                 currentClass.SchoolYear);
-            frm.Show();
-
+            frm.ShowDialog();
+            if (frm.ChosenQuestion != null) {
+                chosenQuestion = frm.ChosenQuestion;
+                this.Close(); 
+            }
         }
     }
 }

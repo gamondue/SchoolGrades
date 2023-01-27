@@ -206,11 +206,9 @@ namespace SchoolGrades
                 "DELETE FROM usersCategories;" +
                 "DELETE FROM Users;";
                 cmd.ExecuteNonQuery();
-
                 // compact the database 
                 cmd.CommandText = "VACUUM;";
                 cmd.ExecuteNonQuery();
-
                 cmd.Dispose();
             }
         }
