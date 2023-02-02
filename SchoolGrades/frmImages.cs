@@ -237,22 +237,29 @@ namespace SchoolGrades
         {
             if (dgwLessonsImages.SelectedRows != null)
             {
-                int localIndex = dgwLessonsImages.SelectedRows[0].Index;
-                currentImage.Caption = txtCaption.Text;
-                if (imageChanged)
+                try
                 {
-                    string currentFile = Path.Combine(txtPathImportImage.Text, txtFileImportImage.Text);
-                    currentImage.RelativePathAndFilename = currentFile.Remove(0, Commons.PathImages.Length + 1); 
+                    int localIndex = dgwLessonsImages.SelectedRows[0].Index;
+                    currentImage.Caption = txtCaption.Text;
+                    if (imageChanged)
+                    {
+                        string currentFile = Path.Combine(txtPathImportImage.Text, txtFileImportImage.Text);
+                        currentImage.RelativePathAndFilename = currentFile.Remove(0, Commons.PathImages.Length + 1);
+                    }
+                    Commons.bl.SaveImage(currentImage);
+                    imageChanged = false;
+                    currentIndexInImages = localIndex;
+                    refreshUi(currentIndexInImages);
+                    currentImage = ((List<BusinessObjects.Image>)dgwLessonsImages.DataSource)[localIndex];
+                    loadCurrentImage();
+                    //txtCaption.Text = currentImage.Caption;
+                    //DgwLessonsImages.Rows[localIndex].Selected = false;
+                    //DgwLessonsImages.Rows[localIndex].Selected = true;                    
                 }
-                Commons.bl.SaveImage(currentImage);
-                imageChanged = false; 
-                currentIndexInImages = localIndex;
-                refreshUi(currentIndexInImages);
-                currentImage = ((List<BusinessObjects.Image>)dgwLessonsImages.DataSource)[localIndex];
-                loadCurrentImage();
-                //txtCaption.Text = currentImage.Caption;
-                //DgwLessonsImages.Rows[localIndex].Selected = false;
-                //DgwLessonsImages.Rows[localIndex].Selected = true;
+                catch (Exception ex)
+                {
+                    Console.Beep();
+                }
             }
         }
         private void picImage_Click(object sender, EventArgs e)

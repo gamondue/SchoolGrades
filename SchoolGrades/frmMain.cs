@@ -288,7 +288,7 @@ namespace SchoolGrades
                 txtQuestion.Text = CurrentQuestion.Text;
                 lstTimeInterval.Text = CurrentQuestion.Duration.ToString();
                 // start the timer if the question has a timer
-                if (CurrentQuestion.Duration != null)
+                if (CurrentQuestion.Duration != null && CurrentQuestion.Duration > 0)
                 {
                     btnStartColorTimer_Click(null, null); 
                 }
@@ -371,27 +371,19 @@ namespace SchoolGrades
             currentClass = (Class)lstClasses.SelectedItem;
             txtIdClass.Text = currentClass.IdClass.ToString();
 
-            ShowStudentsOfClass();
+            ShowStudentsOfClass(); 
             if (currentStudentsList != null)
                 txtNStudents.Text = currentStudentsList.Count.ToString();
             else
                 txtNStudents.Text = "";
 
-            // show popup annotations of the students of the class
-            DataTable popUpAnnotations = Commons.bl.GetAnnotationsOfClasss(currentClass.IdClass, true, true);
-            if (popUpAnnotations.Rows.Count > 0)
-            {
-                frmAnnotationsPopUp f = new frmAnnotationsPopUp(popUpAnnotations);
-                f.StartPosition = FormStartPosition.CenterParent;
-                f.Show();
-            }
             // play Happy Birthday when a student has his BirthDay
             List<Student> celebrated = Commons.bl.FindStudentsOnBirthday(currentClass, DateTime.Now);
             if (celebrated.Count > 0)
             { 
                 try
                 {
-                    suonatore.SoundLocation = ".\\Auguri.mp3";
+                    suonatore.SoundLocation = ".\\Auguri.wav";
                     suonatore.Play();
                 }
                 catch
@@ -404,6 +396,14 @@ namespace SchoolGrades
                     f.Show();
                     // put full screen ther form 
                     // TODO 
+                }
+                // show popup annotations of the students of the class
+                DataTable popUpAnnotations = Commons.bl.GetAnnotationsOfClasss(currentClass.IdClass, true, true);
+                if (popUpAnnotations.Rows.Count > 0)
+                {
+                    frmAnnotationsPopUp f = new frmAnnotationsPopUp(popUpAnnotations);
+                    f.StartPosition = FormStartPosition.CenterParent;
+                    f.Show();
                 }
             }
         }

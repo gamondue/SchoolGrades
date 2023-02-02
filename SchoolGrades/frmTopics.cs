@@ -90,10 +90,9 @@ namespace SchoolGrades
         }
         private void frmTopics_Load(object sender, EventArgs e)
         {
-            //topicTreeMptt = new TopicTreeMptt(listTopicsInternal, trwTopics,
             topicTreeMptt = new TreeMptt(Commons.dl, trwTopics,
-                txtTopicName, txtDescription, txtTopicFind, null, null,
-                CommonsWinForms.globalPicLed, DragDropEffects.Copy);
+                txtTopicName, txtTopicDescription, txtTopicFind, null, 
+                null, CommonsWinForms.globalPicLed, DragDropEffects.Copy);
             // list read from database 
             topicTreeMptt.AddNodesToTreeviewByBestMethod();
             switch (formType)
@@ -120,7 +119,7 @@ namespace SchoolGrades
                         btnDelete.Visible = false;
                         btnQuestions.Visible = true;
                         // disable function keys
-                        topicTreeMptt.FunctionKeysEnabled = false;
+                        topicTreeMptt.FunctionKeysEnabled = true;
                         break;
                     }
                 case TopicsFormType.ShowAndManagement:

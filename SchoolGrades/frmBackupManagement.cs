@@ -2,10 +2,7 @@
 using gamon;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
 using System.IO;
-using System.Reflection;
 using System.Windows.Forms;
 using gamon.TreeMptt;
 

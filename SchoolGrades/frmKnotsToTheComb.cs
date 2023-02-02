@@ -9,7 +9,6 @@ namespace SchoolGrades
         private Question chosenQuestion = new Question();
         private frmMicroAssessment grandparentForm; 
 
-        //private Class currentClass;
         private Student currentStudent;
         private SchoolSubject currentSubject;
         private string currentIdSchoolYear;
@@ -18,7 +17,6 @@ namespace SchoolGrades
         bool isLoading = true;
 
         internal Question ChosenQuestion { get; private set; }
-
         public frmKnotsToTheComb(frmMicroAssessment GrandparentForm, int? IdStudent, SchoolSubject SchoolSubject, string Year)
         {
             InitializeComponent();
@@ -36,7 +34,6 @@ namespace SchoolGrades
             currentSubject = SchoolSubject; 
             ChosenQuestion = null; 
         }
-
         private void FrmKnotsToTheComb_Load(object sender, EventArgs e)
         {
             if (currentSubject.IdSchoolSubject != null)
@@ -67,13 +64,11 @@ namespace SchoolGrades
                 dgwQuestions.Rows[e.RowIndex].Selected = true; 
             }
         }
-
         private void DgwQuestions_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             // choose this question
             // !!!! TODO !!!!
         }
-
         private void BtnFix_Click(object sender, EventArgs e)
         {
             if (dgwQuestions.SelectedRows.Count == 0)
@@ -90,7 +85,6 @@ namespace SchoolGrades
                 RefreshData(); 
             }
         }
-
         private void btnChoose_Click(object sender, EventArgs e)
         {
             if (dgwQuestions.SelectedRows.Count > 0)
@@ -112,7 +106,6 @@ namespace SchoolGrades
                 return;
             }
         }
-
         private void cmbSchoolSubject_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentSubject = (SchoolSubject) cmbSchoolSubject.SelectedItem; 
