@@ -113,8 +113,8 @@ namespace gamon.TreeMptt
             }
             set
             {   
-                if (value == true)
-                {
+                //if (value == true)
+                //{
                     // hook the events
                     shownTreeView.AfterLabelEdit += TreeView_AfterLabelEdit;
                     shownTreeView.AfterCheck += TreeView_AfterCheck;
@@ -124,19 +124,22 @@ namespace gamon.TreeMptt
                     txtNodeName.Leave += TxtNodeName_Leave;
                     txtNodeName.TextChanged += TxtNodeName_TextChanged;
                     txtNodeDescription.TextChanged += TxtNodeDescription_TextChanged;
-                }
-                else
-                {
-                    // un-hook the events
-                    shownTreeView.AfterLabelEdit -= TreeView_AfterLabelEdit;
-                    shownTreeView.AfterCheck -= TreeView_AfterCheck;
-                    shownTreeView.AfterSelect -= TreeView_AfterSelect;
-                    shownTreeView.Click -= TreeView_Click;
-                    shownTreeView.KeyDown -= TreeView_KeyDown;
-                    txtNodeName.Leave -= TxtNodeName_Leave;
-                    txtNodeName.TextChanged -= TxtNodeName_TextChanged;
-                    txtNodeDescription.TextChanged -= TxtNodeDescription_TextChanged;
-                }
+                //}
+                //else
+                //{
+                //    // un-hook the events
+                //    // !!!! TODO !!!! rethink the event we should unhook
+                //    // since the functioning unhoking the followionf events 
+                //    // was akward, the unhook ha been disabled 
+                //    //shownTreeView.AfterLabelEdit -= TreeView_AfterLabelEdit;
+                //    //shownTreeView.AfterCheck -= TreeView_AfterCheck;
+                //    //shownTreeView.AfterSelect -= TreeView_AfterSelect;
+                //    //shownTreeView.Click -= TreeView_Click;
+                //    //shownTreeView.KeyDown -= TreeView_KeyDown;
+                //    //txtNodeName.Leave -= TxtNodeName_Leave;
+                //    //txtNodeName.TextChanged -= TxtNodeName_TextChanged;
+                //    //txtNodeDescription.TextChanged -= TxtNodeDescription_TextChanged;
+                //}
                 functionKeysEnabled = value;
             }
         }

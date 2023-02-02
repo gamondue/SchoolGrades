@@ -32,7 +32,7 @@
             this.trwTopics = new System.Windows.Forms.TreeView();
             this.btnSaveTree = new System.Windows.Forms.Button();
             this.lblDescription = new System.Windows.Forms.Label();
-            this.txtDescription = new System.Windows.Forms.TextBox();
+            this.txtTopicDescription = new System.Windows.Forms.TextBox();
             this.txtTopicName = new System.Windows.Forms.TextBox();
             this.btnChoose = new System.Windows.Forms.Button();
             this.lblEdits = new System.Windows.Forms.Label();
@@ -50,6 +50,11 @@
             this.chkFindAll = new System.Windows.Forms.CheckBox();
             this.btnArgFreemind = new System.Windows.Forms.Button();
             this.btnQuestions = new System.Windows.Forms.Button();
+            this.splcHorizontal = new System.Windows.Forms.SplitContainer();
+            ((System.ComponentModel.ISupportInitialize)(this.splcHorizontal)).BeginInit();
+            this.splcHorizontal.Panel1.SuspendLayout();
+            this.splcHorizontal.Panel2.SuspendLayout();
+            this.splcHorizontal.SuspendLayout();
             this.SuspendLayout();
             // 
             // trwTopics
@@ -58,9 +63,9 @@
             this.trwTopics.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.trwTopics.Location = new System.Drawing.Point(12, 12);
+            this.trwTopics.Location = new System.Drawing.Point(0, 4);
             this.trwTopics.Name = "trwTopics";
-            this.trwTopics.Size = new System.Drawing.Size(475, 492);
+            this.trwTopics.Size = new System.Drawing.Size(475, 510);
             this.trwTopics.TabIndex = 2;
             this.trwTopics.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.trwTopics_AfterSelect);
             // 
@@ -77,30 +82,31 @@
             // 
             // lblDescription
             // 
-            this.lblDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblDescription.AutoSize = true;
-            this.lblDescription.Location = new System.Drawing.Point(12, 589);
+            this.lblDescription.Location = new System.Drawing.Point(3, 81);
             this.lblDescription.Name = "lblDescription";
             this.lblDescription.Size = new System.Drawing.Size(87, 18);
             this.lblDescription.TabIndex = 3;
             this.lblDescription.Text = "Descrizione";
             // 
-            // txtDescription
+            // txtTopicDescription
             // 
-            this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtTopicDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescription.Location = new System.Drawing.Point(12, 610);
-            this.txtDescription.Multiline = true;
-            this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(475, 110);
-            this.txtDescription.TabIndex = 4;
+            this.txtTopicDescription.Location = new System.Drawing.Point(0, 99);
+            this.txtTopicDescription.Multiline = true;
+            this.txtTopicDescription.Name = "txtTopicDescription";
+            this.txtTopicDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtTopicDescription.Size = new System.Drawing.Size(475, 110);
+            this.txtTopicDescription.TabIndex = 4;
             // 
             // txtTopicName
             // 
-            this.txtTopicName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtTopicName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTopicName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtTopicName.Location = new System.Drawing.Point(12, 547);
+            this.txtTopicName.Location = new System.Drawing.Point(0, 39);
             this.txtTopicName.Multiline = true;
             this.txtTopicName.Name = "txtTopicName";
             this.txtTopicName.Size = new System.Drawing.Size(475, 39);
@@ -119,9 +125,8 @@
             // 
             // lblEdits
             // 
-            this.lblEdits.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblEdits.AutoSize = true;
-            this.lblEdits.Location = new System.Drawing.Point(12, 526);
+            this.lblEdits.Location = new System.Drawing.Point(3, 17);
             this.lblEdits.Name = "lblEdits";
             this.lblEdits.Size = new System.Drawing.Size(81, 18);
             this.lblEdits.TabIndex = 7;
@@ -160,12 +165,11 @@
             // 
             // lblExplain
             // 
-            this.lblExplain.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblExplain.AutoSize = true;
-            this.lblExplain.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblExplain.Location = new System.Drawing.Point(9, 509);
+            this.lblExplain.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblExplain.Location = new System.Drawing.Point(3, 4);
             this.lblExplain.Name = "lblExplain";
-            this.lblExplain.Size = new System.Drawing.Size(336, 16);
+            this.lblExplain.Size = new System.Drawing.Size(267, 13);
             this.lblExplain.TabIndex = 10;
             this.lblExplain.Text = "Drag per spostare su nodo padre, Ctrl Drag per fratello. ";
             this.lblExplain.Click += new System.EventHandler(this.lblExplain_Click);
@@ -255,7 +259,7 @@
             // 
             this.chkFindAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkFindAll.AutoSize = true;
-            this.chkFindAll.Location = new System.Drawing.Point(503, 228);
+            this.chkFindAll.Location = new System.Drawing.Point(508, 228);
             this.chkFindAll.Name = "chkFindAll";
             this.chkFindAll.Size = new System.Drawing.Size(87, 22);
             this.chkFindAll.TabIndex = 156;
@@ -284,12 +288,34 @@
             this.btnQuestions.UseVisualStyleBackColor = true;
             this.btnQuestions.Click += new System.EventHandler(this.btnQuestions_Click);
             // 
+            // splcHorizontal
+            // 
+            this.splcHorizontal.Location = new System.Drawing.Point(9, 0);
+            this.splcHorizontal.Name = "splcHorizontal";
+            this.splcHorizontal.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splcHorizontal.Panel1
+            // 
+            this.splcHorizontal.Panel1.Controls.Add(this.trwTopics);
+            // 
+            // splcHorizontal.Panel2
+            // 
+            this.splcHorizontal.Panel2.Controls.Add(this.lblEdits);
+            this.splcHorizontal.Panel2.Controls.Add(this.txtTopicDescription);
+            this.splcHorizontal.Panel2.Controls.Add(this.lblExplain);
+            this.splcHorizontal.Panel2.Controls.Add(this.txtTopicName);
+            this.splcHorizontal.Panel2.Controls.Add(this.lblDescription);
+            this.splcHorizontal.Size = new System.Drawing.Size(478, 732);
+            this.splcHorizontal.SplitterDistance = 519;
+            this.splcHorizontal.TabIndex = 159;
+            // 
             // frmTopics
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(654, 732);
+            this.Controls.Add(this.splcHorizontal);
             this.Controls.Add(this.btnQuestions);
             this.Controls.Add(this.btnArgFreemind);
             this.Controls.Add(this.chkFindAll);
@@ -300,17 +326,11 @@
             this.Controls.Add(this.rdbStringSearch);
             this.Controls.Add(this.btnAddNodeSon);
             this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.lblExplain);
             this.Controls.Add(this.btnFind);
             this.Controls.Add(this.lblFind);
             this.Controls.Add(this.txtTopicFind);
-            this.Controls.Add(this.lblEdits);
             this.Controls.Add(this.btnChoose);
-            this.Controls.Add(this.txtTopicName);
-            this.Controls.Add(this.txtDescription);
-            this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.btnSaveTree);
-            this.Controls.Add(this.trwTopics);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.Color.DarkBlue;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -320,6 +340,11 @@
             this.Text = "Argomenti";
             this.Load += new System.EventHandler(this.frmTopics_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmTopics_KeyDown);
+            this.splcHorizontal.Panel1.ResumeLayout(false);
+            this.splcHorizontal.Panel2.ResumeLayout(false);
+            this.splcHorizontal.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splcHorizontal)).EndInit();
+            this.splcHorizontal.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -348,5 +373,7 @@
         private System.Windows.Forms.CheckBox chkFindAll;
         private System.Windows.Forms.Button btnArgFreemind;
         private System.Windows.Forms.Button btnQuestions;
+        private System.Windows.Forms.TextBox txtTopicDescription;
+        private System.Windows.Forms.SplitContainer splcHorizontal;
     }
 }

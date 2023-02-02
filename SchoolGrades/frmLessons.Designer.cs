@@ -465,6 +465,7 @@
             this.txtTopicDescription.Location = new System.Drawing.Point(0, 2);
             this.txtTopicDescription.Multiline = true;
             this.txtTopicDescription.Name = "txtTopicDescription";
+            this.txtTopicDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtTopicDescription.Size = new System.Drawing.Size(448, 104);
             this.txtTopicDescription.TabIndex = 132;
             this.toolTip1.SetToolTip(this.txtTopicDescription, "Descrizione argomenti di lezione");

@@ -85,7 +85,7 @@ namespace SchoolGrades
             RefreshLessons(currentLessonsGridIndex);
             
             //topicTreeMptt = new TopicTreeMptt(listTopicsBefore, trwTopics,
-            topicTreeMptt = new gamon.TreeMptt.TreeMptt(Commons.dl, trwTopics,
+            topicTreeMptt = new TreeMptt(Commons.dl, trwTopics,
                 txtTopicName, txtTopicDescription, txtTopicFind, TxtTopicsDigestAndSearch,
                 null, CommonsWinForms.globalPicLed, DragDropEffects.Copy);
             topicTreeMptt.AddNodesToTreeviewByBestMethod();
