@@ -107,6 +107,8 @@ namespace SchoolGrades
                 int i = 1;
                 do
                 {
+                    if (!Directory.Exists(LessonImagesFullPath))
+                        Directory.CreateDirectory(LessonImagesFullPath);
                     destinationPathAndFileName = Path.Combine(LessonImagesFullPath, 
                         tempFileName.Replace("xggR", (i++).ToString("00")));
                 } while (File.Exists(destinationPathAndFileName));

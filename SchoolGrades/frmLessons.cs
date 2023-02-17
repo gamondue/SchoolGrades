@@ -459,7 +459,14 @@ namespace SchoolGrades
                 if (indexImages == 0)
                     indexImages = listImages.Count;
                 indexImages--;
-                picImage.Load(Commons.PathImages + "\\" + listImages[indexImages].RelativePathAndFilename);
+                try
+                {
+                    picImage.Load(Commons.PathImages + "\\" + listImages[indexImages].RelativePathAndFilename);
+                }
+                catch
+                {
+                    Console.Beep();
+                }
             }
         }
         private void NextImage()
@@ -467,7 +474,12 @@ namespace SchoolGrades
             if (listImages.Count > 0)
             {
                 indexImages = ++indexImages % listImages.Count;
-                picImage.Load(Commons.PathImages + "\\" + listImages[indexImages].RelativePathAndFilename);
+                try { 
+                    picImage.Load(Commons.PathImages + "\\" + listImages[indexImages].RelativePathAndFilename);
+                }
+                catch {
+                    Console.Beep();
+                }
             }
         }
         private void btnTopicsNotDone_Click(object sender, EventArgs e)
