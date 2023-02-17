@@ -296,7 +296,8 @@ namespace SchoolGrades
             c.Description= Safe.String(dgr.Cells["desc"].Value);
             //c.Description = TxtClassDescription.Text;  
             c.UriWebApp = Safe.String(dgr.Cells["uriWebApp"].Value);
-            c.PathRestrictedApplication = Safe.String(dgr.Cells["pathRestrictedApplication"].Value);
+            //c.PathRestrictedApplication = Safe.String(dgr.Cells["pathRestrictedApplication"].Value);
+            c.PathRestrictedApplication = TxtStartLinksFolder.Text;
 
             Commons.bl.SaveClass(c);
             Commons.bl.SaveStudentsOfList((List<Student>) DgwStudents.DataSource, null);  
