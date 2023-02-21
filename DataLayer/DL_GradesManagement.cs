@@ -33,7 +33,6 @@ namespace SchoolGrades
             double Grade, double Weight, string IdSchoolYear,
             string IdSchoolSubject)
         {
-            // !!!! TODO !!!! pass a Grade and save all the fields of a grade 
             using (DbConnection conn = Connect())
             {
                 DbCommand cmd = conn.CreateCommand();

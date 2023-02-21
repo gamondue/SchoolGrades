@@ -14,7 +14,6 @@ namespace SchoolGrades
 {
     public partial class frmMain : Form
     {
-        Color colorGrade = Color.Red;
         public int indexCurrentDrawn = 0;
 
         public List<Student> currentStudentsList;
