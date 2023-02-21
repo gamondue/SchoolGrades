@@ -290,6 +290,9 @@
             // 
             // splcHorizontal
             // 
+            this.splcHorizontal.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.splcHorizontal.Location = new System.Drawing.Point(9, 0);
             this.splcHorizontal.Name = "splcHorizontal";
             this.splcHorizontal.Orientation = System.Windows.Forms.Orientation.Horizontal;
