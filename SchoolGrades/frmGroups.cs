@@ -82,7 +82,6 @@ namespace SchoolGrades
 
             List<Student> listTempStudents;
 
-
             if (rbdGroupsRandom.Checked)
             {
                 // !!!! TODO number of element in group is unbalanced!

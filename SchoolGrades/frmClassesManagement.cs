@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using SchoolGrades.BusinessObjects;
+using System.Drawing;
 
 namespace SchoolGrades
 {
@@ -201,18 +202,28 @@ namespace SchoolGrades
                 string newPhotoFullName = openFileDialog.FileName;
                 if (newPhotoFullName != "" && !(dr == DialogResult.Cancel))
                 {
-                    Application.DoEvents();
-                    if (picStudent.Image != null)
+                    if (picStudent.Image!= null) 
                         picStudent.Image.Dispose();
-                    picStudent.Image = null;
                     Application.DoEvents();
-                    if (picStudent.InitialImage != null)
-                        picStudent.InitialImage.Dispose();
-                    picStudent.InitialImage = null;
-                    picStudent.Update();
-                    Application.DoEvents();
-                    picStudent.Refresh();
                     Thread.Sleep(1500);
+
+                    System.Drawing.Image newImage = System.Drawing.Image.FromFile(newPhotoFullName);
+                    picStudent.Image = newImage;
+
+                    Application.DoEvents();
+                    Thread.Sleep(1500);
+                    //picStudent.Image = null;
+
+                    ////picStudent.Image.Dispose();
+
+                    //Application.DoEvents();
+                    //if (picStudent.InitialImage != null)
+                    //    picStudent.InitialImage.Dispose();
+                    //picStudent.InitialImage = null;
+                    //picStudent.Update();
+                    //Application.DoEvents();
+                    //picStudent.Refresh();
+                    //Thread.Sleep(1500);
 
                     Commons.bl.CopyAndLinkOnePhoto(s, currentClass, newPhotoFullName);
                     s.SchoolYear = CmbSchoolYear.Text; 
