@@ -263,12 +263,12 @@ namespace SharedWinForms
 #endif
                 if (dati != null)
                 {
-                    Commons.TeachersDatabaseFileName = dati[0];
+                    Commons.DatabaseFileName_Current = dati[0];
                     Commons.PathImages = dati[1];
                     // position 2 was hel by PathStartLinks 
                     //Commons.PathStartLinks = dati[2]; 
                     Commons.PathDatabase = dati[3];
-                    Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.TeachersDatabaseFileName;
+                    Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
                     Commons.PathDocuments = dati[4];
                     // we try the next to avoid stopping the program whem we have a new config file, 
                     // with another field will show up. You have to add some data in.config file. 
@@ -314,7 +314,7 @@ namespace SharedWinForms
                     else
                         Commons.PathDocuments = ".";
                 }
-                dati[0] = Commons.TeachersDatabaseFileName;
+                dati[0] = Commons.DatabaseFileName_Current;
                 dati[1] = Commons.PathImages;
                 //dati[2] = Commons.PathStartLinks;
                 dati[3] = Commons.PathDatabase;

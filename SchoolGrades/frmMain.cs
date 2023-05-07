@@ -27,6 +27,8 @@ namespace SchoolGrades
 
         private string schoolYear;
 
+        bool formInitializing = true; 
+
         Student currentStudent;
         Question currentQuestion;
         GradeType currentGradeType;
@@ -98,7 +100,7 @@ namespace SchoolGrades
                 // config file is unexistent or unreadable
                 mustBeGivenANewName = true;
                 messagePrompt = "Il file di configurazione " + Commons.PathAndFileConfig +
-                    " non esiste o non è leggibile.\n";
+                    "\nnon esiste o non è leggibile.\n";
             }
             else
             {
@@ -106,49 +108,59 @@ namespace SchoolGrades
                 string configuredFile = Commons.PathAndFileDatabase;
                 if (configuredFile != null)
                 {
-                    // the database filename exists
+                    // the database filename exists in configuration file 
                     // checks if the file exists
                     if (!File.Exists(Commons.PathAndFileDatabase))
                     {
                         mustBeGivenANewName = true;
-                        messagePrompt = "Il file " + Commons.PathAndFileDatabase + "non esiste\n";
+                        messagePrompt = "Il file " + Commons.PathAndFileDatabase + "\nnon esiste\n";
                     }
                     // if file exists, create the database access objects
                     else if (!CreateBusinessAndDataLayer())
                     {
                         // error opening the database
                         mustBeGivenANewName = true;
-                        messagePrompt = "Il file " + Commons.PathAndFileDatabase +
-                            " contiene degli errori e non è leggibile.\n";
+                        messagePrompt = "Impossibile collegarsi al database, file: \n" + Commons.PathAndFileDatabase +
+                            "\n";
+                    }
+                    else
+                    {
+                        // sqlite file exists, tests if it is working
+                        if (!Commons.bl.IsDataLayerFunctioning)
+                        {
+                            mustBeGivenANewName = true;
+                            messagePrompt = "Il file " + Commons.PathAndFileDatabase +
+                                "\nesiste, ma contiene degli errori e non è leggibile.\n";
+                        }
                     }
                 }
                 else // no indication of a database file 
                 {
                     mustBeGivenANewName = true;
                     messagePrompt = "Il file di configurazione " + Commons.PathAndFileConfig +
-                        "non contiene il nome del file del database.\n";
+                        "\nnon contiene il nome del file del database.\n";
                 }
             }
             if (mustBeGivenANewName)
             {
                 // something didn't work, we must choose a good filename for the database file
-                messagePrompt += "Sistemare le cartelle con il percorso dei file, " +
+                messagePrompt += "\nSistemare le cartelle con il percorso dei file, " +
                     "poi scegliere il file di dati .sqlite e premere 'Salva configurazione'," +
                     "\nI nomi scelti dal programma dovrebbero essere giusti.";
                 string proposedFolderName;
                 proposedFolderName = Commons.PathExe;
                 string proposedDatabasePath = Path.Combine(proposedFolderName, "Data") + "\\";
                 string proposedDatabaseFileName = "";
-                if (!File.Exists(Path.Combine(proposedDatabasePath, Commons.TeachersDatabaseFileName)))
-                    if (!File.Exists(Path.Combine(proposedDatabasePath, Commons.DemoDatabaseFileName)))
+                if (!File.Exists(Path.Combine(proposedDatabasePath, Commons.DatabaseFileName_Teacher)))
+                    if (!File.Exists(Path.Combine(proposedDatabasePath, Commons.DatabaseFileName_Demo)))
                     {
                         // look for the newest "ISO date" filename in folder
                         proposedDatabaseFileName = FindNewestFileName(proposedDatabasePath);
                     }
                     else
-                        proposedDatabaseFileName = Commons.DemoDatabaseFileName;
+                        proposedDatabaseFileName = Commons.DatabaseFileName_Demo;
                 else
-                    proposedDatabaseFileName = Commons.TeachersDatabaseFileName;
+                    proposedDatabaseFileName = Commons.DatabaseFileName_Teacher;
                 Commons.PathAndFileDatabase = Path.Combine(proposedDatabasePath,
                     proposedDatabaseFileName);
                 Commons.PathImages = Path.Combine(proposedFolderName, "Images");
@@ -190,7 +202,7 @@ namespace SchoolGrades
             timerQuestion.Interval = 250;
 
             lblDatabaseFile.Visible = true;
-            lblDatabaseFile.Text = Commons.TeachersDatabaseFileName;
+            lblDatabaseFile.Text = Commons.DatabaseFileName_Current;
 
             lblLastDatabaseModification.Visible = true;
             lblLastDatabaseModification.Text = File.GetLastWriteTime(Commons.PathAndFileDatabase).ToString("yyyy-MM-dd HH:mm:ss");
@@ -232,8 +244,9 @@ namespace SchoolGrades
             lblStudentChosen.Visible = false;
             lblIdStudent.Visible = false;
             txtIdStudent.Visible = false;
-        }
 
+            formInitializing = false; 
+        }
         private string FindNewestFileName(string Path)
         {
             try
@@ -272,9 +285,14 @@ namespace SchoolGrades
                 string err = @"[" + Commons.PathAndFileDatabase + " not in the current nor in the dev directory]";
                 Commons.ErrorLog(err);
                 throw new System.IO.FileNotFoundException(err);
+                return false; 
             }
             Commons.dl = new DataLayer(Commons.PathAndFileDatabase);
+            if (Commons.dl == null)
+                return false;
             Commons.bl = new BusinessLayer(Commons.PathAndFileDatabase);
+            if (Commons.bl == null)
+                return false;
             return true; 
         }
         static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
@@ -553,7 +571,8 @@ namespace SchoolGrades
         }
         private void cmbSchoolYear_SelectedIndexChanged(object sender, EventArgs e)
         {
-            AllTheInitializations(); 
+            if (!formInitializing)
+                AllTheInitializations(); 
         }
         private void btnPresentiRegistro_Click(object sender, EventArgs e)
         {
@@ -985,7 +1004,7 @@ namespace SchoolGrades
             {
                 // restart from the beginning with a new database file 
                 frmMain_Load(null, null);
-                lblDatabaseFile.Text = Commons.TeachersDatabaseFileName;
+                lblDatabaseFile.Text = Commons.DatabaseFileName_Current;
                 currentStudentsList = null;
                 eligiblesList.Clear();
             }
@@ -1304,7 +1323,7 @@ namespace SchoolGrades
             { 
                 File.Copy(Commons.PathAndFileDatabase,
                     Commons.PathLogs + "\\" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") +
-                    "_" + Commons.TeachersDatabaseFileName);
+                    "_" + Commons.DatabaseFileName_Current);
             }
             //// we wait for the saving Thread to finish
             //CommonsWinForms.BackgroundSaveThread.Join(30000);  // enormous timeout just for big problems

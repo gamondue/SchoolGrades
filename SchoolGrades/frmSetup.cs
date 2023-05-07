@@ -23,7 +23,7 @@ namespace SchoolGrades
             TxtFileDatabase.Text = Path.GetFileName(Commons.PathAndFileDatabase);
             TxtPathImages.Text = Commons.PathImages;
             //TxtPathStartLinks.Text = Commons.PathStartLinks; // not longer used
-            Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.TeachersDatabaseFileName;
+            Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.DatabaseFileName_Current;
             TxtPathDocuments.Text = Commons.PathDocuments;
             chkSaveBackup.Checked = CommonsWinForms.SaveBackupWhenExiting; 
         }
@@ -51,8 +51,8 @@ namespace SchoolGrades
                 TxtFileDatabase.Text = Path.GetFileName(openFileDialog1.FileName);
                 TxtPathDatabase.Text = Path.GetDirectoryName(openFileDialog1.FileName); 
             }
-            Commons.TeachersDatabaseFileName = TxtFileDatabase.Text;
-            Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.TeachersDatabaseFileName;
+            Commons.DatabaseFileName_Current = TxtFileDatabase.Text;
+            Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.DatabaseFileName_Current;
         }
         private void btnCartellaImmagini_Click(object sender, EventArgs e)
         {
@@ -78,6 +78,8 @@ namespace SchoolGrades
                 if (!Directory.Exists(Commons.PathLogs))
                     Directory.CreateDirectory(Commons.PathLogs);
 
+                Commons.DatabaseFileName_Current = dati[0] = TxtFileDatabase.Text;
+
                 Commons.PathImages = dati[1] = TxtPathImages.Text;
                 if (!Directory.Exists(Commons.PathImages))
                     Directory.CreateDirectory(Commons.PathImages);
@@ -98,14 +100,14 @@ namespace SchoolGrades
                     else
                         Commons.PathDocuments = "."; 
                 }
-                Commons.TeachersDatabaseFileName = dati[0] = TxtFileDatabase.Text;
 
                 CommonsWinForms.SaveBackupWhenExiting = chkSaveBackup.Checked;
                 dati[5] = CommonsWinForms.SaveBackupWhenExiting.ToString(); 
 
-                Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.TeachersDatabaseFileName;
-                if(!File.Exists(Commons.PathAndFileDatabase))
-                    File.Copy(".\\" + Commons.TeachersDatabaseFileName, Commons.PathAndFileDatabase);
+                Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
+                // TODO !!! if the file doesn't exist copies the sample empty database. Eventually redo this code, it is ugly and not functional !!!!
+                ////if(!File.Exists(Commons.PathAndFileDatabase))
+                ////    File.Copy(".\\" + Commons.TeachersDatabaseFileName, Commons.PathAndFileDatabase);
 #if DEBUG
                 TextFile.ArrayToFile(Commons.PathAndFileConfig + "_DEBUG", dati, false);
 #else
@@ -147,7 +149,7 @@ namespace SchoolGrades
                 TxtPathDatabase.Text = folderBrowserDialog1.SelectedPath;
             }
             Commons.PathDatabase = TxtPathDatabase.Text; 
-            Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.TeachersDatabaseFileName;
+            Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.DatabaseFileName_Current;
         }
         private void btnTopicsManagement_Click(object sender, EventArgs e)
         {

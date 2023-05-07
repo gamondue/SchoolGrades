@@ -787,5 +787,25 @@ namespace SchoolGrades
             }
             return fieldExists;
         }
+        internal bool IsTableReadable(string Table)
+        {
+            try
+            {
+                int Id;
+                //var row = null; 
+                using (DbConnection conn = Connect())
+                {
+                    DbCommand cmd = conn.CreateCommand();
+                    cmd.CommandText = "SELECT * FROM (" + Table + ") LINIT 1 ;";
+                    var row = cmd.ExecuteScalar();
+                    cmd.Dispose();
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }
