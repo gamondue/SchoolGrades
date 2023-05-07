@@ -175,7 +175,7 @@ namespace SchoolGrades
         {
             File.Copy(Commons.PathAndFileDatabase,
                 Commons.PathDatabase + "\\" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + 
-                "_" + Commons.TeachersDatabaseFileName); 
+                "_" + Commons.DatabaseFileName_Current); 
         }
         private void btnRestoreTags_Click(object sender, EventArgs e)
         {

@@ -11,6 +11,13 @@ namespace SchoolGrades
 {
     internal partial class BusinessLayer
     {
+        internal bool IsDataLayerFunctioning
+        { 
+            get {
+                return dl.IsTableReadable("Lessons"); 
+            } 
+        }
+
         internal List<StartLink> GetStartLinksOfClass(Class Class)
         {
             return dl.GetStartLinksOfClass(Class);

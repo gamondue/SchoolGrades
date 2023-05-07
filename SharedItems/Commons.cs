@@ -24,11 +24,11 @@ namespace SchoolGrades
         internal static string PathLogs = Path.Combine(PathUser, "SchoolGrades", "Logs");
         internal static string PathAndFileLogText = Path.Combine(PathLogs, CompanyPrefix + "Errori.txt");
 
-        internal static string TeachersDatabaseFileName = "SchoolGrades.sqlite";
-        internal static string DemoDatabaseFileName = "SchoolGrades_DEMO.sqlite";
-        internal static string StudentsDatabaseFileName = ""; // students database depends on creation date
+        internal static string DatabaseFileName_Teacher = "SchoolGrades.sqlite";
+        internal static string DatabaseFileName_Demo = "SchoolGrades_DEMO.sqlite";
+        internal static string DatabaseFileName_Current = ""; 
         internal static string PathDatabase = Path.Combine(PathExe, "Data");
-        internal static string PathAndFileDatabase = Path.Combine(PathDatabase, TeachersDatabaseFileName); // if will be read with ReadConfigFile()! 
+        internal static string PathAndFileDatabase = Path.Combine(PathDatabase, DatabaseFileName_Teacher); // if will be read with ReadConfigFile()! 
         internal static string PathImages = Path.Combine(PathExe, "Images");
         internal static string PathDocuments = Path.Combine(PathExe, "Docs");
 
