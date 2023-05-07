@@ -9,6 +9,8 @@ using SchoolGrades.BusinessObjects;
 using gamon.TreeMptt;
 using SharedWinForms;
 using System.Data;
+using System.Reflection.Emit;
+using System.Diagnostics.Eventing.Reader;
 
 namespace SchoolGrades
 {
@@ -75,6 +77,99 @@ namespace SchoolGrades
             InitializeComponent();
 
             this.Text += " v. " + version;
+        }
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+            AllTheInitializations();
+
+            // start the Thread that concurrently saves the Topics tree
+            CommonsWinForms.SaveTreeMptt = new TreeMptt(Commons.dl, null, null, null, null, null, null, picBackgroundSaveRunning);
+            CommonsWinForms.BackgroundSaveThread = new Thread(CommonsWinForms.SaveTreeMptt.SaveMpttBackground);
+            CommonsWinForms.BackgroundSaveThread.Start();
+        }
+        private void AllTheInitializations()
+        {
+            // manage the configuration file 
+            string messagePrompt = "";
+            bool mustBeGivenANewName = false;
+            // read configuration file, if doesn't work run configuration 
+            if (!CommonsWinForms.ReadConfigFile())
+            {
+                // config file is unexistent or unreadable
+                mustBeGivenANewName = true;
+                messagePrompt = "Il file di configurazione " + Commons.PathAndFileConfig +
+                    " non esiste o non è leggibile.\n";
+            }
+            else
+            {
+                // config file has been read 
+                string configuredFile = Commons.PathAndFileDatabase;
+                if (configuredFile != null)
+                {
+                    // the database filename exists
+                    // checks if the file exists
+                    if (!File.Exists(Commons.PathAndFileDatabase))
+                    {
+                        mustBeGivenANewName = true;
+                        messagePrompt = "Il file " + Commons.PathAndFileDatabase + "non esiste\n";
+                    }
+                    // if file exists, create the database access objects
+                    else if (!CreateBusinessAndDataLayer())
+                    {
+                        // error opening the database
+                        mustBeGivenANewName = true;
+                        messagePrompt = "Il file " + Commons.PathAndFileDatabase +
+                            " contiene degli errori e non è leggibile.\n";
+                    }
+                }
+                else // no indication of a database file 
+                {
+                    mustBeGivenANewName = true;
+                    messagePrompt = "Il file di configurazione " + Commons.PathAndFileConfig +
+                        "non contiene il nome del file del database.\n";
+                }
+            }
+            if (mustBeGivenANewName)
+            {
+                // something didn't work, we must choose a good filename for the database file
+                messagePrompt += "Sistemare le cartelle con il percorso dei file, " +
+                    "poi scegliere il file di dati .sqlite e premere 'Salva configurazione'," +
+                    "\nI nomi scelti dal programma dovrebbero essere giusti.";
+                string proposedFolderName;
+                proposedFolderName = Commons.PathExe;
+                string proposedDatabasePath = Path.Combine(proposedFolderName, "Data") + "\\";
+                string proposedDatabaseFileName = "";
+                if (!File.Exists(Path.Combine(proposedDatabasePath, Commons.TeachersDatabaseFileName)))
+                    if (!File.Exists(Path.Combine(proposedDatabasePath, Commons.DemoDatabaseFileName)))
+                    {
+                        // look for the newest "ISO date" filename in folder
+                        proposedDatabaseFileName = FindNewestFileName(proposedDatabasePath);
+                    }
+                    else
+                        proposedDatabaseFileName = Commons.DemoDatabaseFileName;
+                else
+                    proposedDatabaseFileName = Commons.TeachersDatabaseFileName;
+                Commons.PathAndFileDatabase = Path.Combine(proposedDatabasePath,
+                    proposedDatabaseFileName);
+                Commons.PathImages = Path.Combine(proposedFolderName, "Images");
+                Commons.PathDatabase = proposedDatabasePath;
+                Commons.PathDocuments = Path.Combine(proposedFolderName, "Docs");
+
+                MessageBox.Show(messagePrompt, "SchoolGrades", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                FrmSetup f = new FrmSetup();
+                f.ShowDialog();
+                if (!File.Exists(Commons.PathAndFileDatabase))
+                {
+                    MessageBox.Show("Configurare il programma!", "SchoolGrades", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    CloseThread();
+                    Application.Exit();
+                    return;
+                }
+                MessageBox.Show("Il programma verrà chiuso. Alla ripartenza potrà leggere la configurazione.");
+                CloseThread();
+                Application.Exit();
+                return;
+            }
 
             List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
             cmbSchoolYear.DataSource = ly;
@@ -89,22 +184,15 @@ namespace SchoolGrades
             List<SchoolSubject> listSubjects = Commons.bl.GetListSchoolSubjects(true);
             cmbSchoolSubject.DataSource = listSubjects;
 
-            // start Thread that concurrently saves the Topics tree
-            CommonsWinForms.SaveTreeMptt = new TreeMptt(Commons.dl, null, null, null, null, null, null, picBackgroundSaveRunning);
-            CommonsWinForms.BackgroundSaveThread = new Thread(CommonsWinForms.SaveTreeMptt.SaveMpttBackground);
-            CommonsWinForms.BackgroundSaveThread.Start();
-        }
-        private void frmMain_Load(object sender, EventArgs e)
-        {
             if (!File.Exists(Commons.PathAndFileDatabase))
                 return;
 
             timerQuestion.Interval = 250;
-            
-            lblDatabaseFile.Visible = true;
-            lblDatabaseFile.Text = Commons.FileDatabase;
 
-            lblLastDatabaseModification.Visible = true; 
+            lblDatabaseFile.Visible = true;
+            lblDatabaseFile.Text = Commons.TeachersDatabaseFileName;
+
+            lblLastDatabaseModification.Visible = true;
             lblLastDatabaseModification.Text = File.GetLastWriteTime(Commons.PathAndFileDatabase).ToString("yyyy-MM-dd HH:mm:ss");
 #if !DEBUG
             // capture every exception for exception logging
@@ -144,6 +232,50 @@ namespace SchoolGrades
             lblStudentChosen.Visible = false;
             lblIdStudent.Visible = false;
             txtIdStudent.Visible = false;
+        }
+
+        private string FindNewestFileName(string Path)
+        {
+            try
+            {
+                string[] files = Directory.GetFiles(Path);
+                DateTime maxDate = new DateTime();
+                string maxfile = ""; 
+                foreach (string file in files)
+                {
+                    try
+                    {
+                        string justTheFile = System.IO.Path.GetFileName(file); 
+                        DateTime fileDate = new DateTime(Convert.ToInt32(justTheFile.Substring(0, 4))
+                            , Convert.ToInt32(justTheFile.Substring(5, 2)),
+                            Convert.ToInt32(justTheFile.Substring(8, 2))); 
+                        if (fileDate > maxDate) {
+                            maxDate = fileDate;
+                            maxfile = justTheFile;
+                        }
+                    }
+                    catch (Exception ex) { }
+                }
+                return maxfile; 
+            }
+            catch (Exception ex)
+            {
+                return ""; 
+            }
+        }
+        private bool CreateBusinessAndDataLayer()
+        {
+            // create Business and Data layer objects, to be used throughout the program
+            // keep this order of creation. Create after reading config file
+            if (!System.IO.File.Exists(Commons.PathAndFileDatabase))
+            {
+                string err = @"[" + Commons.PathAndFileDatabase + " not in the current nor in the dev directory]";
+                Commons.ErrorLog(err);
+                throw new System.IO.FileNotFoundException(err);
+            }
+            Commons.dl = new DataLayer(Commons.PathAndFileDatabase);
+            Commons.bl = new BusinessLayer(Commons.PathAndFileDatabase);
+            return true; 
         }
         static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
@@ -421,7 +553,7 @@ namespace SchoolGrades
         }
         private void cmbSchoolYear_SelectedIndexChanged(object sender, EventArgs e)
         {
-            frmMain_Load(null, null);
+            AllTheInitializations(); 
         }
         private void btnPresentiRegistro_Click(object sender, EventArgs e)
         {
@@ -853,7 +985,7 @@ namespace SchoolGrades
             {
                 // restart from the beginning with a new database file 
                 frmMain_Load(null, null);
-                lblDatabaseFile.Text = Commons.FileDatabase;
+                lblDatabaseFile.Text = Commons.TeachersDatabaseFileName;
                 currentStudentsList = null;
                 eligiblesList.Clear();
             }
@@ -1152,6 +1284,8 @@ namespace SchoolGrades
             if (!File.Exists(Commons.PathAndFileDatabase))
                 return;
 
+            CloseThread(); 
+
             // if a save of the database with Mptt is running, we close it 
             if (CommonsWinForms.BackgroundSavingEnabled)
             {
@@ -1161,14 +1295,6 @@ namespace SchoolGrades
                     CommonsWinForms.BackgroundTaskClose = true;
                 }
             }
-            // we wait for the saving Thread to finish
-            // (it aborts in a point in which status is preserved)  
-            CommonsWinForms.BackgroundSaveThread.Join(3000);
-
-            timerLesson.Stop(); 
-            timerPopUp.Stop();
-            timerQuestion.Stop();
-
             string file = Commons.PathLogs + @"\frmMain_parameters.txt";
             CommonsWinForms.SaveCurrentValuesOfAllControls(this, ref file);
             SaveStudentsOfClassIfEligibleHasChanged();
@@ -1178,11 +1304,22 @@ namespace SchoolGrades
             { 
                 File.Copy(Commons.PathAndFileDatabase,
                     Commons.PathLogs + "\\" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") +
-                    "_" + Commons.FileDatabase);
+                    "_" + Commons.TeachersDatabaseFileName);
             }
             //// we wait for the saving Thread to finish
             //CommonsWinForms.BackgroundSaveThread.Join(30000);  // enormous timeout just for big problems
-        
+        }
+        private void CloseThread()
+        {
+            if (CommonsWinForms.BackgroundSaveThread != null)
+            {
+                // we wait for the saving Thread to finish
+                // (it aborts in a point in which status is preserved)  
+                CommonsWinForms.BackgroundSaveThread.Join(10000);
+                timerLesson.Stop();
+                timerPopUp.Stop();
+                timerQuestion.Stop();
+            }
         }
         private void btnClassesGradesSummary_Click(object sender, EventArgs e)
         {

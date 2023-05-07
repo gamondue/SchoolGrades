@@ -18,12 +18,12 @@ namespace SchoolGrades
         }
         private void frmSetup_Load(object sender, EventArgs e)
         {
-            CommonsWinForms.ReadConfigFile();
+            //CommonsWinForms.ReadConfigFile();
             TxtPathDatabase.Text = Commons.PathDatabase;
-            TxtFileDatabase.Text = Commons.FileDatabase;
+            TxtFileDatabase.Text = Path.GetFileName(Commons.PathAndFileDatabase);
             TxtPathImages.Text = Commons.PathImages;
             //TxtPathStartLinks.Text = Commons.PathStartLinks; // not longer used
-            Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.FileDatabase;
+            Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.TeachersDatabaseFileName;
             TxtPathDocuments.Text = Commons.PathDocuments;
             chkSaveBackup.Checked = CommonsWinForms.SaveBackupWhenExiting; 
         }
@@ -51,8 +51,8 @@ namespace SchoolGrades
                 TxtFileDatabase.Text = Path.GetFileName(openFileDialog1.FileName);
                 TxtPathDatabase.Text = Path.GetDirectoryName(openFileDialog1.FileName); 
             }
-            Commons.FileDatabase = TxtFileDatabase.Text;
-            Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.FileDatabase;
+            Commons.TeachersDatabaseFileName = TxtFileDatabase.Text;
+            Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.TeachersDatabaseFileName;
         }
         private void btnCartellaImmagini_Click(object sender, EventArgs e)
         {
@@ -82,11 +82,9 @@ namespace SchoolGrades
                 if (!Directory.Exists(Commons.PathImages))
                     Directory.CreateDirectory(Commons.PathImages);
 
-                // path of the startlinks (PathStartLinks) is not longer used,
-                // substituted by PathRestrictedApp  (attribute of the single class) 
-                //Commons.PathStartLinks = dati[2] = TxtPathStartLinks.Text;
-                if (!Directory.Exists(Commons.PathStartLinks) && Commons.PathStartLinks != "")
-                    Directory.CreateDirectory(Commons.PathStartLinks);
+                // postition 2 was hels by PathStartLinks, that is not longer used,
+                // substituted by PathRestrictedApp  (attribute of the single school class) 
+                //dati[2] = Commons.PathRestrictedApp; 
 
                 Commons.PathDatabase = dati[3] = TxtPathDatabase.Text;
                 if (!Directory.Exists(Commons.PathDatabase))
@@ -100,14 +98,14 @@ namespace SchoolGrades
                     else
                         Commons.PathDocuments = "."; 
                 }
-                Commons.FileDatabase = dati[0] = TxtFileDatabase.Text;
+                Commons.TeachersDatabaseFileName = dati[0] = TxtFileDatabase.Text;
 
                 CommonsWinForms.SaveBackupWhenExiting = chkSaveBackup.Checked;
                 dati[5] = CommonsWinForms.SaveBackupWhenExiting.ToString(); 
 
-                Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.FileDatabase;
+                Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.TeachersDatabaseFileName;
                 if(!File.Exists(Commons.PathAndFileDatabase))
-                    File.Copy(".\\SchoolGrades.sqlite", Commons.PathAndFileDatabase);
+                    File.Copy(".\\" + Commons.TeachersDatabaseFileName, Commons.PathAndFileDatabase);
 #if DEBUG
                 TextFile.ArrayToFile(Commons.PathAndFileConfig + "_DEBUG", dati, false);
 #else
@@ -149,7 +147,7 @@ namespace SchoolGrades
                 TxtPathDatabase.Text = folderBrowserDialog1.SelectedPath;
             }
             Commons.PathDatabase = TxtPathDatabase.Text; 
-            Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.FileDatabase;
+            Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.TeachersDatabaseFileName;
         }
         private void btnTopicsManagement_Click(object sender, EventArgs e)
         {

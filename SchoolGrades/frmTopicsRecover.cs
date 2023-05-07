@@ -38,7 +38,7 @@ namespace SchoolGrades
             // Commons.ReadConfigFile();
             txtPathNewDatabase.Text = Commons.PathDatabase;
             txtPathOldDatabase.Text = Commons.PathDatabase;
-            txtFileNewDatabase.Text = Commons.FileDatabase;
+            txtFileNewDatabase.Text = Commons.TeachersDatabaseFileName;
 
             DataLayer dlNew = new DataLayer(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
             treeNew = new TreeMptt(dlNew, trwNewTopics,
