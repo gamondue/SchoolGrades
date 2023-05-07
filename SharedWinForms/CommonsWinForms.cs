@@ -263,11 +263,12 @@ namespace SharedWinForms
 #endif
                 if (dati != null)
                 {
-                    Commons.FileDatabase = dati[0];
+                    Commons.TeachersDatabaseFileName = dati[0];
                     Commons.PathImages = dati[1];
-                    Commons.PathStartLinks = dati[2]; // not longer used; left for compatibility of configuration file
+                    // position 2 was hel by PathStartLinks 
+                    //Commons.PathStartLinks = dati[2]; 
                     Commons.PathDatabase = dati[3];
-                    Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.FileDatabase;
+                    Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.TeachersDatabaseFileName;
                     Commons.PathDocuments = dati[4];
                     // we try the next to avoid stopping the program whem we have a new config file, 
                     // with another field will show up. You have to add some data in.config file. 
@@ -281,6 +282,8 @@ namespace SharedWinForms
                         return false;
                     }
                 }
+                else
+                    return false;
             }
             catch
             {
@@ -300,8 +303,8 @@ namespace SharedWinForms
                     Directory.CreateDirectory(Commons.PathLogs);
                 if (!Directory.Exists(Commons.PathImages))
                     Directory.CreateDirectory(Commons.PathImages);
-                if (!Directory.Exists(Commons.PathStartLinks))
-                    Directory.CreateDirectory(Commons.PathStartLinks);
+                //if (!Directory.Exists(Commons.PathStartLinks))
+                //    Directory.CreateDirectory(Commons.PathStartLinks);
                 if (!Directory.Exists(Commons.PathDatabase))
                     Directory.CreateDirectory(Commons.PathDatabase);
                 if (!Directory.Exists(Commons.PathDocuments))
@@ -311,9 +314,9 @@ namespace SharedWinForms
                     else
                         Commons.PathDocuments = ".";
                 }
-                dati[0] = Commons.FileDatabase;
+                dati[0] = Commons.TeachersDatabaseFileName;
                 dati[1] = Commons.PathImages;
-                dati[2] = Commons.PathStartLinks;
+                //dati[2] = Commons.PathStartLinks;
                 dati[3] = Commons.PathDatabase;
                 dati[4] = Commons.PathDocuments;
                 dati[5] = CommonsWinForms.SaveBackupWhenExiting.ToString();

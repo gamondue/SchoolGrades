@@ -130,7 +130,7 @@ namespace SchoolGrades
             string newDatabaseFullName = Path.Combine(newDatabasePathName ,
                 System.DateTime.Now.ToString("yyyy-MM-dd_HH.mm.ss") +
                 "_" + Class.Abbreviation + "_" + Class.SchoolYear + "_" +
-                Commons.FileDatabase);
+                Commons.TeachersDatabaseFileName);
             File.Copy(Commons.PathAndFileDatabase, newDatabaseFullName);
 
             // open a local connection to database 

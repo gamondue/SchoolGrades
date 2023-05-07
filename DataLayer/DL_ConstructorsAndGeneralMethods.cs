@@ -41,13 +41,6 @@ namespace SchoolGrades
         /// </summary>
         internal DataLayer(string PathAndFile)
         {
- 			// ???? is next if useful ????
-            if (!System.IO.File.Exists(PathAndFile))
-            {
-                string err = @"[" + PathAndFile + " not in the current nor in the dev directory]";
-                Commons.ErrorLog(err);
-                throw new System.IO.FileNotFoundException(err);
-            }
             dbName = PathAndFile;
         }
         #endregion
