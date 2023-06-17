@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Drawing;
 using SchoolGrades.BusinessObjects;
 using System.Diagnostics;
+using DataLayer;
 
 namespace SchoolGrades
 {
@@ -28,9 +29,16 @@ namespace SchoolGrades
         internal static string DatabaseFileName_Demo = "SchoolGrades_DEMO.sqlite";
         internal static string DatabaseFileName_Current = ""; 
         internal static string PathDatabase = Path.Combine(PathExe, "Data");
-        internal static string PathAndFileDatabase = Path.Combine(PathDatabase, DatabaseFileName_Teacher); // if will be read with ReadConfigFile()! 
+        private static string pathAndFileDatabase; 
         internal static string PathImages = Path.Combine(PathExe, "Images");
         internal static string PathDocuments = Path.Combine(PathExe, "Docs");
+         
+        internal static DatabaseInfo DbInfo = new();
+        DbInfo.
+        
+        //    .Name_Teacher = "SchoolGrades.sqlite";
+        //Database.Name_Demo = "SchoolGrades_DEMO.sqlite";
+        //Database.Name_Current = "";
 
         // variables to remember something between forms (Global) 
         // remember what was the last Topic chosen
@@ -47,6 +55,8 @@ namespace SchoolGrades
 
         internal static string IdSchool = "FOIS01100L";
         internal static bool IsTimerLessonActive { get; set; }
+        internal static string PathAndFileDatabase { get => pathAndFileDatabase; set => pathAndFileDatabase = value; }
+
         internal static string CalculateSHA1(string File)
         {
             try
