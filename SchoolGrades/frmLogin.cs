@@ -34,7 +34,7 @@ namespace SchoolGrades
             if (Commons.bl.HasUserLoginPermission(txtUsername.Text, 
                 txtPassword.Text))
             {
-                frmMain f = new frmMain();
+                frmMain f = new frmMain(Commons.PathAndFileDatabase);
                 this.Hide();
                 f.ShowDialog(); 
             }

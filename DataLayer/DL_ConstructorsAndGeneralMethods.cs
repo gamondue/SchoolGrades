@@ -796,7 +796,7 @@ namespace SchoolGrades
                 using (DbConnection conn = Connect())
                 {
                     DbCommand cmd = conn.CreateCommand();
-                    cmd.CommandText = "SELECT * FROM (" + Table + ") LINIT 1 ;";
+                    cmd.CommandText = "SELECT * FROM (" + Table + ") LIMIT 1 ;";
                     var row = cmd.ExecuteScalar();
                     cmd.Dispose();
                 }

@@ -263,14 +263,27 @@ namespace SharedWinForms
 #endif
                 if (dati != null)
                 {
-                    Commons.DatabaseFileName_Current = dati[0];
-                    Commons.PathImages = dati[1];
-                    // position 2 was hel by PathStartLinks 
-                    //Commons.PathStartLinks = dati[2]; 
-                    Commons.PathDatabase = dati[3];
-                    Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
-                    Commons.PathDocuments = dati[4];
-                    // we try the next to avoid stopping the program whem we have a new config file, 
+                    if (Commons.PathAndFileDatabase == null)
+                    {
+                        Commons.DatabaseFileName_Current = dati[0];
+                        Commons.PathImages = dati[1];
+                        // position 2 was held by PathStartLinks 
+                        //Commons.PathStartLinks = dati[2]; 
+                        Commons.PathDatabase = dati[3]; 
+                        Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
+                        Commons.PathDocuments = dati[4];
+                    }
+                    else
+                    {
+                        Commons.DatabaseFileName_Current = dati[0];
+                        Commons.PathImages = dati[1];
+                        // position 2 was held by PathStartLinks 
+                        //Commons.PathStartLinks = dati[2]; 
+                        Commons.PathDatabase = dati[3]
+                        Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
+                        Commons.PathDocuments = dati[4];
+                    }
+                    // we try the next to avoid stopping the program when we have a new config file, 
                     // with another field will show up. You have to add some data in.config file. 
                     try
                     {

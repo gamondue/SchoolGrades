@@ -23,7 +23,7 @@ namespace SchoolGrades
             TxtFileDatabase.Text = Path.GetFileName(Commons.PathAndFileDatabase);
             TxtPathImages.Text = Commons.PathImages;
             //TxtPathStartLinks.Text = Commons.PathStartLinks; // not longer used
-            Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.DatabaseFileName_Current;
+            Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
             TxtPathDocuments.Text = Commons.PathDocuments;
             chkSaveBackup.Checked = CommonsWinForms.SaveBackupWhenExiting; 
         }
@@ -52,7 +52,7 @@ namespace SchoolGrades
                 TxtPathDatabase.Text = Path.GetDirectoryName(openFileDialog1.FileName); 
             }
             Commons.DatabaseFileName_Current = TxtFileDatabase.Text;
-            Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.DatabaseFileName_Current;
+            Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
         }
         private void btnCartellaImmagini_Click(object sender, EventArgs e)
         {
@@ -149,7 +149,7 @@ namespace SchoolGrades
                 TxtPathDatabase.Text = folderBrowserDialog1.SelectedPath;
             }
             Commons.PathDatabase = TxtPathDatabase.Text; 
-            Commons.PathAndFileDatabase = Commons.PathDatabase + "\\" + Commons.DatabaseFileName_Current;
+            Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
         }
         private void btnTopicsManagement_Click(object sender, EventArgs e)
         {

@@ -11,6 +11,7 @@ using SharedWinForms;
 using System.Data;
 using System.Reflection.Emit;
 using System.Diagnostics.Eventing.Reader;
+using System.Web;
 
 namespace SchoolGrades
 {
@@ -74,9 +75,12 @@ namespace SchoolGrades
 
         private bool dataModified = false;
 
-        public frmMain()
+        public frmMain(string DatabasePathAndFile)
         {
             InitializeComponent();
+
+            if (DatabasePathAndFile != null) 
+                Commons.PathAndFileDatabase = DatabasePathAndFile; 
 
             this.Text += " v. " + version;
         }
@@ -147,25 +151,7 @@ namespace SchoolGrades
                 messagePrompt += "\nSistemare le cartelle con il percorso dei file, " +
                     "poi scegliere il file di dati .sqlite e premere 'Salva configurazione'," +
                     "\nI nomi scelti dal programma dovrebbero essere giusti.";
-                string proposedFolderName;
-                proposedFolderName = Commons.PathExe;
-                string proposedDatabasePath = Path.Combine(proposedFolderName, "Data") + "\\";
-                string proposedDatabaseFileName = "";
-                if (!File.Exists(Path.Combine(proposedDatabasePath, Commons.DatabaseFileName_Teacher)))
-                    if (!File.Exists(Path.Combine(proposedDatabasePath, Commons.DatabaseFileName_Demo)))
-                    {
-                        // look for the newest "ISO date" filename in folder
-                        proposedDatabaseFileName = FindNewestFileName(proposedDatabasePath);
-                    }
-                    else
-                        proposedDatabaseFileName = Commons.DatabaseFileName_Demo;
-                else
-                    proposedDatabaseFileName = Commons.DatabaseFileName_Teacher;
-                Commons.PathAndFileDatabase = Path.Combine(proposedDatabasePath,
-                    proposedDatabaseFileName);
-                Commons.PathImages = Path.Combine(proposedFolderName, "Images");
-                Commons.PathDatabase = proposedDatabasePath;
-                Commons.PathDocuments = Path.Combine(proposedFolderName, "Docs");
+                string pathAndFileDatabase = NewFilenameAndPath(Commons.PathExe);
 
                 MessageBox.Show(messagePrompt, "SchoolGrades", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 FrmSetup f = new FrmSetup();
@@ -202,7 +188,9 @@ namespace SchoolGrades
             timerQuestion.Interval = 250;
 
             lblDatabaseFile.Visible = true;
-            lblDatabaseFile.Text = Commons.DatabaseFileName_Current;
+
+            //lblDatabaseFile.Text = Commons.DatabaseFileName_Current;
+            lblDatabaseFile.Text = Path.GetFileName(Commons.PathAndFileDatabase);
 
             lblLastDatabaseModification.Visible = true;
             lblLastDatabaseModification.Text = File.GetLastWriteTime(Commons.PathAndFileDatabase).ToString("yyyy-MM-dd HH:mm:ss");
@@ -247,6 +235,31 @@ namespace SchoolGrades
 
             formInitializing = false; 
         }
+
+        private string NewFilenameAndPath(string proposedFolderName)
+        {
+            string proposedDatabasePath = Path.Combine(proposedFolderName, "Data") + "\\";
+            string proposedDatabaseFileName = "";
+            string proposedTeachersDatabaseFileName = Path.Combine(proposedDatabasePath, Commons.DatabaseFileName_Teacher);
+            string proposedDemoDatabaseFileName = Path.Combine(proposedDatabasePath, Commons.DatabaseFileName_Demo);
+            if (!File.Exists(proposedTeachersDatabaseFileName))
+                if (!File.Exists(proposedDemoDatabaseFileName))
+                {
+                    // look for the newest "ISO date" filename in folder
+                    proposedDatabaseFileName = FindNewestFileName(proposedDatabasePath);
+                }
+                else
+                    proposedDatabaseFileName = Commons.DatabaseFileName_Demo;
+            else
+                proposedDatabaseFileName = Commons.DatabaseFileName_Teacher;
+            Commons.PathAndFileDatabase = Path.Combine(proposedDatabasePath,
+                proposedDatabaseFileName);
+            Commons.PathImages = Path.Combine(proposedFolderName, "Images");
+            Commons.PathDatabase = proposedDatabasePath;
+            Commons.PathDocuments = Path.Combine(proposedFolderName, "Docs");
+
+            return Commons.PathAndFileDatabase; 
+        }
         private string FindNewestFileName(string Path)
         {
             try
@@ -260,8 +273,12 @@ namespace SchoolGrades
                     {
                         string justTheFile = System.IO.Path.GetFileName(file); 
                         DateTime fileDate = new DateTime(Convert.ToInt32(justTheFile.Substring(0, 4))
-                            , Convert.ToInt32(justTheFile.Substring(5, 2)),
-                            Convert.ToInt32(justTheFile.Substring(8, 2))); 
+                            , Convert.ToInt32(justTheFile.Substring(5, 2))
+                            , Convert.ToInt32(justTheFile.Substring(8, 2))
+                            , Convert.ToInt32(justTheFile.Substring(11, 2))
+                            , Convert.ToInt32(justTheFile.Substring(14, 2))
+                            , Convert.ToInt32(justTheFile.Substring(17, 2))
+                            ); 
                         if (fileDate > maxDate) {
                             maxDate = fileDate;
                             maxfile = justTheFile;
@@ -956,6 +973,8 @@ namespace SchoolGrades
                 currentQuestion = value;
                 txtQuestion.Text = currentQuestion.Text;
                 lstTimeInterval.Text = currentQuestion.Duration.ToString();
+                if (currentQuestion.Duration != null && currentQuestion.Duration != 0)
+                    txtTimeInterval.Text = CurrentQuestion.Duration.ToString();
             }
         }
         private void showCurrentStudent(Student alli)
