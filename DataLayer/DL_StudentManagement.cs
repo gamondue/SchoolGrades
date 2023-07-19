@@ -281,8 +281,8 @@ namespace SchoolGrades
                     " FROM Students" +
                     " LEFT JOIN Classes_Students ON Students.idStudent = Classes_Students.idStudent " +
                     " LEFT JOIN Classes ON Classes.idClass = Classes_Students.idClass " +
-                    " WHERE Students.lastName " + SqlStringLike(LastName) + "" +
-                    " AND Students.firstName " + SqlStringLike(FirstName) + "" +
+                    " WHERE Students.lastName " + SqlLikeStatement(LastName) + "" +
+                    " AND Students.firstName " + SqlLikeStatement(FirstName) + "" +
                     ";";
                 dAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
                 dSet = new DataSet("GetStudentsSameName");
@@ -308,17 +308,17 @@ namespace SchoolGrades
                     " LEFT JOIN Classes ON Classes.idClass = Classes_Students.idClass ";
                 if (LastName != "" && LastName != null)
                 {
-                    query += "WHERE Students.lastName " + SqlStringLike(LastName) + "";
+                    query += "WHERE Students.lastName " + SqlLikeStatement(LastName) + "";
                     if (FirstName != "" && FirstName != null)
                     {
-                        query += " AND Students.firstName " + SqlStringLike(FirstName) + "";
+                        query += " AND Students.firstName " + SqlLikeStatement(FirstName) + "";
                     }
                 }
                 else
                 {
                     if (FirstName != "" && FirstName != null)
                     {
-                        query += " WHERE Students.firstName " + SqlStringLike(FirstName) + "";
+                        query += " WHERE Students.firstName " + SqlLikeStatement(FirstName) + "";
                     }
                 }
                 query += ";";

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DataLayer
+namespace SchoolGrades
 {
     internal class DatabaseInfo
     {

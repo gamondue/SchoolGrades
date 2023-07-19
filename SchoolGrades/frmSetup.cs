@@ -26,6 +26,8 @@ namespace SchoolGrades
             Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
             TxtPathDocuments.Text = Commons.PathDocuments;
             chkSaveBackup.Checked = CommonsWinForms.SaveBackupWhenExiting; 
+
+            
         }
         private void BtnTabelle_Click(object sender, EventArgs e)
         {

@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Drawing;
 using SchoolGrades.BusinessObjects;
 using System.Diagnostics;
-using DataLayer;
 
 namespace SchoolGrades
 {
@@ -32,13 +31,13 @@ namespace SchoolGrades
         private static string pathAndFileDatabase; 
         internal static string PathImages = Path.Combine(PathExe, "Images");
         internal static string PathDocuments = Path.Combine(PathExe, "Docs");
-         
-        internal static DatabaseInfo DbInfo = new();
-        DbInfo.
-        
-        //    .Name_Teacher = "SchoolGrades.sqlite";
-        //Database.Name_Demo = "SchoolGrades_DEMO.sqlite";
-        //Database.Name_Current = "";
+
+        // !!!! usare DbInfo !!!!
+        //internal static DatabaseInfo DbInfo = new();
+        //DatabaseInfo.
+        //    . = "SchoolGrades.sqlite";
+        //DbInfo.Name_Demo = "SchoolGrades_DEMO.sqlite";
+        //DbInfo.Name_Current = "";
 
         // variables to remember something between forms (Global) 
         // remember what was the last Topic chosen

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -39,20 +40,31 @@ namespace SchoolGrades
             temp = "'" + temp + "'";
             return temp;
         }
-        internal string SqlStringLike(string String)
+        internal string SqlLikeStatement(string SearchText)
         {
-            if (String == null) return "null";
-            string temp;
-            if (!(String == null))
-            {
-                temp = String;
-
-                temp = temp.Replace("'", "''");
-            }
-            else
-                temp = "";
+            if (SearchText == null) return "null";
+            string temp = SearchText;
+            temp = temp.Replace("'", "''");
             temp = "LIKE '%" + temp + "%'";
             return temp;
+        }
+        internal string SqlLikeStatementWithOptions(string FieldName, string SearchText, 
+            bool SearchWholeWord = false)
+        {
+            if (SearchText == null) return "null";
+            string statement = SearchText.Replace("'", "''");
+
+            if (SearchWholeWord)
+            {
+                statement =           FieldName + " LIKE '" + SearchText + " %'";
+                statement += " OR " + FieldName + " LIKE '% " + SearchText + "'";
+                statement += " OR " + FieldName + " LIKE '% " + SearchText + " %'";
+                statement += " OR " + FieldName + " = '" + SearchText + "'";
+            }
+            else
+                // ricerca sensitive con sottostringa 
+                statement = FieldName + " LIKE '%" + SearchText + "%'";
+            return statement;
         }
         public string SqlBool(object Value)
         {

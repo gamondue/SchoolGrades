@@ -54,7 +54,7 @@ namespace SchoolGrades
                 cmd = conn.CreateCommand();
                 string query;
                 query = "SELECT Caption FROM Images" +
-                        " WHERE imagePath " + SqlStringLike(FileName) + "";
+                        " WHERE imagePath " + SqlLikeStatement(FileName) + "";
                 query += ";";
                 cmd.CommandText = query;
                 dRead = cmd.ExecuteReader();

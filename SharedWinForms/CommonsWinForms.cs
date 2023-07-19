@@ -279,7 +279,7 @@ namespace SharedWinForms
                         Commons.PathImages = dati[1];
                         // position 2 was held by PathStartLinks 
                         //Commons.PathStartLinks = dati[2]; 
-                        Commons.PathDatabase = dati[3]
+                        Commons.PathDatabase = dati[3];
                         Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
                         Commons.PathDocuments = dati[4];
                     }
