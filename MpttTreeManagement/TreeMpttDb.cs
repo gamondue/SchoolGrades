@@ -89,27 +89,30 @@ namespace gamon.TreeMptt
                 cmd.Dispose();
             }
         }
-        internal bool AreLeftAndRightConsistent()
+        internal bool AreLeftAndRightConsistent
         {
-            using (DbConnection conn = dl.Connect())
+            get
             {
-                try
+                using (DbConnection conn = dl.Connect())
                 {
-                    DbCommand cmd = conn.CreateCommand();
-                    cmd.CommandText = "SELECT areLeftRightConsistent" +
-                        " FROM Flags";
-                    int consistent = (int)cmd.ExecuteScalar();
-                    cmd.Dispose();
-                    return consistent != 0;
-                }
-                catch (Exception e)
-                {
-                    // if the table "Flags" doesn't exist (old version of database) 
-                    // return true (those versions where working only with MPTT tree)
-                    if (e.Message.Contains("no such"))
-                        return true;
-                    else
-                        throw e;
+                    try
+                    {
+                        DbCommand cmd = conn.CreateCommand();
+                        cmd.CommandText = "SELECT areLeftRightConsistent" +
+                            " FROM Flags";
+                        int consistent = (int)cmd.ExecuteScalar();
+                        cmd.Dispose();
+                        return consistent != 0;
+                    }
+                    catch (Exception e)
+                    {
+                        // if the table "Flags" doesn't exist (old version of database) 
+                        // return true (those versions where working only with MPTT tree)
+                        if (e.Message.Contains("no such"))
+                            return true;
+                        else
+                            throw e;
+                    }
                 }
             }
         }
@@ -319,7 +322,6 @@ namespace gamon.TreeMptt
             // right node management
             CurrentNode.RightNodeNew = nodeCount++;
         }
-
         internal void SaveTreeFromScratch(TreeNode CurrentNode, List<Topic> generatedList)
         {
             // TODO !!!! this refactory of this function must be tested !!!!
@@ -328,7 +330,6 @@ namespace gamon.TreeMptt
             GenerateNewListOfNodesFromTreeViewControl(CurrentNode, ref nodeCount, ref generatedList);
             dl.SaveTopicsFromScratch(generatedList);
         }
-
         private void GetAllChildren(TreeNode ParentNode, int Level, DbConnection Connection)
         {
             // recursively retrieve all direct children of ParentNode  
@@ -445,15 +446,28 @@ namespace gamon.TreeMptt
             }
             return t;
         }
-        internal List<Topic> FindTopicsLike(string SearchText)
+        internal List<Topic> FindTopicsLike(string SearchText, bool SearchInDescriptions, 
+            bool SearchWholeWord, bool SearchCaseInsensitive)
         {
             List<Topic> found = new List<Topic>();
             using (DbConnection conn = dl.Connect())
             {
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM Topics" +
-                    " WHERE name " + dl.SqlStringLike(SearchText)+ ";";
+                string query;
+                if (SearchCaseInsensitive)
+                    query = "PRAGMA case_sensitive_like=OFF;";
+                else
+                    query = "PRAGMA case_sensitive_like=ON;";
+                if (!SearchInDescriptions)
+                    query += "SELECT * FROM Topics" +
+                        " WHERE " + dl.SqlLikeStatementWithOptions("name", SearchText, SearchWholeWord) + ";";
+                else
+                    query += "SELECT * FROM Topics" +
+                        " WHERE " + dl.SqlLikeStatementWithOptions("name", SearchText, SearchWholeWord) +
+                        " OR " + dl.SqlLikeStatementWithOptions("desc", SearchText, SearchWholeWord);
+                query += " ORDER BY leftNode ASC;"; 
+                cmd.CommandText += query; 
                 dRead = cmd.ExecuteReader();
                 while (dRead.Read())
                 {
@@ -502,6 +516,5 @@ namespace gamon.TreeMptt
                 cmd.Dispose();
             }
         }
-
     }
 }

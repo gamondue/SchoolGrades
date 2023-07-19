@@ -41,7 +41,9 @@ namespace gamon.TreeMptt
         // !! we should avoid using the next, so the tree could be in another DBMS type !!
         DataLayer dl;
 
-        bool markAllInSearch = false; 
+        bool markAllInSearch = false;
+        // property true when something has changed 
+        public bool ContentModified { get; private set; }
 
         #region Internal fields
         #region fields used for drag and drop 
@@ -53,16 +55,12 @@ namespace gamon.TreeMptt
         #endregion
 
         #region fields used for saving the Mptt tree (also concurrently)
-        // variable that can be set from the external to stop the background 
-        // task that saves the nodes' tree as a Mptt tree
-        // internal field to set the status of 
-        bool areLeftAndRightConsistent = true;
         private static bool isSavingTreeMptt;
 
         #endregion
 
         #region lists used to detect changes, to have less accesses to the database 
-        List<Topic> listItemsBefore; // !!!! this list should be inufluent now. Code revision could eliminate it!!!!
+        List<Topic> listItemsBefore; // !!!! this list should be non influent now. Code revision should eliminate it!!!!
         List<Topic> listItemsAfter;
         List<Topic> listItemsDeleted;
         #endregion
@@ -129,8 +127,8 @@ namespace gamon.TreeMptt
                 //{
                 //    // un-hook the events
                 //    // !!!! TODO !!!! rethink the event we should unhook
-                //    // since the functioning unhoking the followionf events 
-                //    // was akward, the unhook ha been disabled 
+                //    // since the functioning involving the following events 
+                //    // was akward, the unhook has been disabled 
                 //    //shownTreeView.AfterLabelEdit -= TreeView_AfterLabelEdit;
                 //    //shownTreeView.AfterCheck -= TreeView_AfterCheck;
                 //    //shownTreeView.AfterSelect -= TreeView_AfterSelect;
@@ -207,7 +205,7 @@ namespace gamon.TreeMptt
         }
         internal void AddNodesToTreeviewByBestMethod()
         {
-            if (dbMptt.AreLeftAndRightConsistent())
+            if (dbMptt.AreLeftAndRightConsistent)
             {
                 // load by leftNode and rightNode values 
                 // (database was left consistent, with correct values for 
@@ -308,19 +306,21 @@ namespace gamon.TreeMptt
         }
         // !! TODO !! add options to the search. Currently it is only a substing search
         //internal void FindItem(string TextToFind, TypeOfSearch Type, bool WholeWordSearch)
-        internal void FindItem(string TextToFind, bool MarkAllFound)
+        // optionally searchs only in items' names 
+        internal void FindItem(string TextToFind, bool MarkAllFound, bool SearchInDescriptions = true,
+            bool SearchWholeWord = false, bool SearchCaseInsensitive = false)
         {
             markAllInSearch = MarkAllFound; 
             if (previousSearch != TextToFind)
             {
-                // first search: find all the occurencies of the string 
-                found = dbMptt.FindTopicsLike(TextToFind);
-
+                found = dbMptt.FindTopicsLike(TextToFind, SearchInDescriptions, SearchWholeWord, SearchCaseInsensitive);
                 indexDone = 0;
                 if (markAllInSearch)
                 {
-                    int dummy = 0; bool bDummy = false; 
-                    // !!!! the following doesn't work. Highlight only a few of the results. Probably this "found" list of found is noo in Mptt order !!!! 
+                    int dummy = 0; bool bDummy = false;
+                    // TODO: fix !!!! the following doesn't work. Highlights only a few of the results.
+                    // Probably this "found" list of found items is not in Mptt order
+                    // Check if adding a ORDER BY leftNode ASC in FindTopicsLike() has cured this issue !!!! 
                     HighlightTopicsInList(shownTreeView.Nodes[0], found, ref dummy, ref bDummy);
                     ClearBackColorOnClick = false; 
                 }
@@ -478,7 +478,7 @@ namespace gamon.TreeMptt
                 }
                 // check if RightNode & LeftNode are already consistent, if they are, this task 
                 // has nothing to do, so we will skip the modification, then wait again
-                if (!dbMptt.AreLeftAndRightConsistent() && CommonsWinForms.BackgroundSavingEnabled)
+                if (!dbMptt.AreLeftAndRightConsistent && CommonsWinForms.BackgroundSavingEnabled)
                 {
                     // start saving in background, in locked condition
                     // other tasks can signal this to abort operation by setting 
@@ -1262,6 +1262,10 @@ namespace gamon.TreeMptt
                 }
             }
             return file;
+        }
+        internal void ResetSearch()
+        {
+            previousSearch = "";
         }
     }
 }

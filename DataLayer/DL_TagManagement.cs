@@ -19,7 +19,7 @@ namespace SchoolGrades
             {
                 string query = "SELECT *" +
                     " FROM Tags" +
-                    " WHERE Tag " + SqlStringLike(Pattern) + "" +
+                    " WHERE Tag " + SqlLikeStatement(Pattern) + "" +
                     ";";
                 cmd = new SQLiteCommand(query);
                 cmd.Connection = conn;

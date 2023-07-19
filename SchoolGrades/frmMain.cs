@@ -12,7 +12,6 @@ using System.Data;
 using System.Reflection.Emit;
 using System.Diagnostics.Eventing.Reader;
 using System.Web;
-
 namespace SchoolGrades
 {
     public partial class frmMain : Form
@@ -112,7 +111,7 @@ namespace SchoolGrades
                 string configuredFile = Commons.PathAndFileDatabase;
                 if (configuredFile != null)
                 {
-                    // the database filename exists in configuration file 
+                    // the database filename exists in common data 
                     // checks if the file exists
                     if (!File.Exists(Commons.PathAndFileDatabase))
                     {
