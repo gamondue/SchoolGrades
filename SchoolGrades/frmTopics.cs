@@ -19,7 +19,7 @@ namespace SchoolGrades
         Class currentClass;
         Question currentQuestion;
 
-        frmMain parentForm; 
+        frmMain parentForm;
 
         public bool UserHasChosen { get; internal set; }
         internal Topic ChosenTopic { get => chosenTopic; }
@@ -35,9 +35,9 @@ namespace SchoolGrades
         }
         TopicsFormType formType;
         private Topic chosenTopic;
-        public frmTopics(TopicsFormType FormType, 
+        public frmTopics(TopicsFormType FormType,
             Class Class, SchoolSubject Subject,
-            Question Question = null, List<Topic> ListTopicsExternal = null, 
+            Question Question = null, List<Topic> ListTopicsExternal = null,
             frmMain ParentForm = null)
         {
             InitializeComponent();
@@ -91,25 +91,26 @@ namespace SchoolGrades
         private void frmTopics_Load(object sender, EventArgs e)
         {
             topicTreeMptt = new TreeMptt(Commons.dl, trwTopics,
-                txtTopicName, txtTopicDescription, txtTopicFind, null, 
-                null, CommonsWinForms.globalPicLed, DragDropEffects.Copy);
+                txtTopicName, txtTopicDescription, txtTopicSearchString, null,
+                null, CommonsWinForms.globalPicLed, chkSearchInDescriptions,
+                chkAllWord, chkCaseInsensitive, chkFindAll, DragDropEffects.Copy);
             // list read from database 
             topicTreeMptt.AddNodesToTreeviewByBestMethod();
             switch (formType)
             {
                 case TopicsFormType.HighlightTopics:
                     {
-                        topicTreeMptt.ClearBackColorOnClick = false; 
+                        topicTreeMptt.ClearBackColorOnClick = false;
                         //btnChoose.Visible = true; 
                         // highlists the topics done by the current class in the current subject
-                        List<Topic> listDone = Commons.bl.GetTopicsDoneFromThisTopic(currentClass, 
+                        List<Topic> listDone = Commons.bl.GetTopicsDoneFromThisTopic(currentClass,
                                 ((Topic)trwTopics.Nodes[0].Tag), currentSubject);
                         int dummy = 0; bool dummy2 = false;
-                        topicTreeMptt.HighlightTopicsInList(trwTopics.Nodes[0],
+                        topicTreeMptt.HighlightNodesInList(trwTopics.Nodes[0],
                              listDone, ref dummy, ref dummy2);
                         if (listTopicsExternal != null && listTopicsExternal[0] != null)
                         {
-                            topicTreeMptt.FindItemById(listTopicsExternal[0].Id);
+                            topicTreeMptt.FindNodeById(listTopicsExternal[0].Id);
                         }
                         // hide the buttons 
                         btnSaveTree.Visible = false;
@@ -140,7 +141,7 @@ namespace SchoolGrades
                     }
                 case TopicsFormType.SearchTopics:
                     {
-                        topicTreeMptt.FindItemById(listTopicsExternal[0].Id);
+                        topicTreeMptt.FindNodeById(listTopicsExternal[0].Id);
                         // just the first node
                         return;
                     }
@@ -151,11 +152,11 @@ namespace SchoolGrades
                         List<Topic> listDone = Commons.bl.GetTopicsDoneFromThisTopic(currentClass,
                                 ((Topic)trwTopics.Nodes[0].Tag), currentSubject);
                         int dummy = 0; bool dummy2 = false;
-                        topicTreeMptt.HighlightTopicsInList(trwTopics.Nodes[0],
+                        topicTreeMptt.HighlightNodesInList(trwTopics.Nodes[0],
                              listDone, ref dummy, ref dummy2);
                         if (listTopicsExternal != null && listTopicsExternal[0] != null)
                         {
-                            topicTreeMptt.FindItemById(listTopicsExternal[0].Id);
+                            topicTreeMptt.FindNodeById(listTopicsExternal[0].Id);
                         }
                         // hide the buttons 
                         btnSaveTree.Visible = false;
@@ -178,7 +179,7 @@ namespace SchoolGrades
             if (formType == TopicsFormType.ImportWithErase)
                 topicTreeMptt.SaveTreeFromScratch();
             else
-                topicTreeMptt.SaveTreeFromTreeViewControlByParent();
+                topicTreeMptt.SaveTreeFromTreeViewByParent();
 
             MessageBox.Show("Salvataggio fatto");
         }
@@ -190,7 +191,7 @@ namespace SchoolGrades
         }
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            topicTreeMptt.DeleteNodeClick();
+            topicTreeMptt.DeleteNodeFromButton();
         }
         private void btnChoose_Click(object sender, EventArgs e)
         {
@@ -204,7 +205,9 @@ namespace SchoolGrades
         }
         private void btnFind_Click(object sender, EventArgs e)
         {
-            topicTreeMptt.FindItem(txtTopicFind.Text, false);
+            topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkFindAll.Checked,
+                chkSearchInDescriptions.Checked,
+                chkAllWord.Checked, chkCaseInsensitive.Checked);
         }
         private System.Windows.Forms.TreeNode FindTopicName(int Key, System.Windows.Forms.TreeNode StartNode)
         {
@@ -214,7 +217,7 @@ namespace SchoolGrades
         {
             //if (e.KeyCode == Keys.Return || e.KeyCode == Keys.F3)
             if (e.KeyCode == Keys.F3)
-                topicTreeMptt.FindItem(txtTopicFind.Text, false);
+                topicTreeMptt.FindNodes(txtTopicSearchString.Text, false);
             if (e.KeyCode == Keys.F5)
             {
                 btnSave_Click(null, null);
@@ -239,7 +242,7 @@ namespace SchoolGrades
             //MessageBox.Show("Da fare!");
             //return;
 
-            topicTreeMptt.FindItemUnderNode(txtTopicFind.Text, chkFindAll.Checked);
+            topicTreeMptt.FindNodeUnderNode(txtTopicSearchString.Text, chkFindAll.Checked);
         }
         private void btnArgFreemind_Click(object sender, EventArgs e)
         {
@@ -253,10 +256,10 @@ namespace SchoolGrades
                 return;
             }
             if (currentQuestion == null)
-                currentQuestion = new Question(); 
+                currentQuestion = new Question();
             currentQuestion.IdTopic = ((Topic)topicTreeMptt.TreeView.SelectedNode.Tag).Id;
-            frmQuestionChoose fq = new frmQuestionChoose(currentSubject, 
-                currentClass, null, currentQuestion, null, parentForm); 
+            frmQuestionChoose fq = new frmQuestionChoose(currentSubject,
+                currentClass, null, currentQuestion, null, parentForm);
             fq.ShowDialog();
             if (fq.ChosenQuestion != null && fq.ChosenQuestion.IdQuestion != 0)
             {

@@ -28,710 +28,697 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTopicsRecover));
-            this.lblPathDatabase = new System.Windows.Forms.Label();
-            this.txtPathNewDatabase = new System.Windows.Forms.TextBox();
-            this.btnPathNewDatabase = new System.Windows.Forms.Button();
-            this.lblFileDatabase = new System.Windows.Forms.Label();
-            this.txtFileNewDatabase = new System.Windows.Forms.TextBox();
-            this.btnFileNewDatabase = new System.Windows.Forms.Button();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtPathOldDatabase = new System.Windows.Forms.TextBox();
-            this.btnPathOldDatabase = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtFileOldDatabase = new System.Windows.Forms.TextBox();
-            this.btnFileOldDatabase = new System.Windows.Forms.Button();
-            this.btnRecover = new System.Windows.Forms.Button();
-            this.chkCheckChangesSameId = new System.Windows.Forms.CheckBox();
-            this.chkErasedId = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.trwNewTopics = new System.Windows.Forms.TreeView();
-            this.trwOldTopics = new System.Windows.Forms.TreeView();
-            this.txtNewTopicName = new System.Windows.Forms.TextBox();
-            this.txtOldTopicName = new System.Windows.Forms.TextBox();
-            this.txtCodOldTopic = new System.Windows.Forms.TextBox();
-            this.txtCodNewTopic = new System.Windows.Forms.TextBox();
-            this.lblIdNewTopic = new System.Windows.Forms.Label();
-            this.lblIdOldTopic = new System.Windows.Forms.Label();
-            this.btnCopyOldNew = new System.Windows.Forms.Button();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.btnFindNew = new System.Windows.Forms.Button();
-            this.txtSearchNew = new System.Windows.Forms.TextBox();
-            this.txtNewDescription = new System.Windows.Forms.TextBox();
-            this.btnFindOld = new System.Windows.Forms.Button();
-            this.txtSearchOld = new System.Windows.Forms.TextBox();
-            this.txtOldDescription = new System.Windows.Forms.TextBox();
-            this.BtnSaveNewTree = new System.Windows.Forms.Button();
-            this.picNewOnly = new System.Windows.Forms.PictureBox();
-            this.chkNewOnly = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.picOldOnly = new System.Windows.Forms.PictureBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.picSameId = new System.Windows.Forms.PictureBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.picSameName = new System.Windows.Forms.PictureBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.picSameDesc = new System.Windows.Forms.PictureBox();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
-            this.picSameNodeChangedParent = new System.Windows.Forms.PictureBox();
-            this.checkBox6 = new System.Windows.Forms.CheckBox();
-            this.picSameNodeChangedPosition = new System.Windows.Forms.PictureBox();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btnTemporary = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.btnBeheaded = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picNewOnly)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picOldOnly)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picSameId)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picSameName)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picSameDesc)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picSameNodeChangedParent)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picSameNodeChangedPosition)).BeginInit();
-            this.SuspendLayout();
+            lblPathDatabase = new System.Windows.Forms.Label();
+            txtPathNewDatabase = new System.Windows.Forms.TextBox();
+            btnPathNewDatabase = new System.Windows.Forms.Button();
+            lblFileDatabase = new System.Windows.Forms.Label();
+            txtFileNewDatabase = new System.Windows.Forms.TextBox();
+            btnFileNewDatabase = new System.Windows.Forms.Button();
+            openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            label6 = new System.Windows.Forms.Label();
+            txtPathOldDatabase = new System.Windows.Forms.TextBox();
+            btnPathOldDatabase = new System.Windows.Forms.Button();
+            label7 = new System.Windows.Forms.Label();
+            txtFileOldDatabase = new System.Windows.Forms.TextBox();
+            btnFileOldDatabase = new System.Windows.Forms.Button();
+            btnRecover = new System.Windows.Forms.Button();
+            chkCheckChangesSameId = new System.Windows.Forms.CheckBox();
+            chkErasedId = new System.Windows.Forms.CheckBox();
+            label1 = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
+            trwNewTopics = new System.Windows.Forms.TreeView();
+            trwOldTopics = new System.Windows.Forms.TreeView();
+            txtNewTopicName = new System.Windows.Forms.TextBox();
+            txtOldTopicName = new System.Windows.Forms.TextBox();
+            txtCodOldTopic = new System.Windows.Forms.TextBox();
+            txtCodNewTopic = new System.Windows.Forms.TextBox();
+            lblIdNewTopic = new System.Windows.Forms.Label();
+            lblIdOldTopic = new System.Windows.Forms.Label();
+            btnCopyOldNew = new System.Windows.Forms.Button();
+            splitContainer1 = new System.Windows.Forms.SplitContainer();
+            btnFindNew = new System.Windows.Forms.Button();
+            txtSearchNew = new System.Windows.Forms.TextBox();
+            txtNewDescription = new System.Windows.Forms.TextBox();
+            btnFindOld = new System.Windows.Forms.Button();
+            txtSearchOld = new System.Windows.Forms.TextBox();
+            txtOldDescription = new System.Windows.Forms.TextBox();
+            BtnSaveNewTree = new System.Windows.Forms.Button();
+            picNewOnly = new System.Windows.Forms.PictureBox();
+            chkNewOnly = new System.Windows.Forms.CheckBox();
+            checkBox1 = new System.Windows.Forms.CheckBox();
+            picOldOnly = new System.Windows.Forms.PictureBox();
+            checkBox2 = new System.Windows.Forms.CheckBox();
+            picSameId = new System.Windows.Forms.PictureBox();
+            checkBox3 = new System.Windows.Forms.CheckBox();
+            picSameName = new System.Windows.Forms.PictureBox();
+            checkBox4 = new System.Windows.Forms.CheckBox();
+            picSameDesc = new System.Windows.Forms.PictureBox();
+            checkBox5 = new System.Windows.Forms.CheckBox();
+            picSameNodeChangedParent = new System.Windows.Forms.PictureBox();
+            checkBox6 = new System.Windows.Forms.CheckBox();
+            picSameNodeChangedPosition = new System.Windows.Forms.PictureBox();
+            toolTip1 = new System.Windows.Forms.ToolTip(components);
+            btnTemporary = new System.Windows.Forms.Button();
+            btnBeheaded = new System.Windows.Forms.Button();
+            label3 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
+            splitContainer1.Panel1.SuspendLayout();
+            splitContainer1.Panel2.SuspendLayout();
+            splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picNewOnly).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picOldOnly).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picSameId).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picSameName).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picSameDesc).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picSameNodeChangedParent).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picSameNodeChangedPosition).BeginInit();
+            SuspendLayout();
             // 
             // lblPathDatabase
             // 
-            this.lblPathDatabase.AutoSize = true;
-            this.lblPathDatabase.Location = new System.Drawing.Point(10, 10);
-            this.lblPathDatabase.Name = "lblPathDatabase";
-            this.lblPathDatabase.Size = new System.Drawing.Size(125, 18);
-            this.lblPathDatabase.TabIndex = 102;
-            this.lblPathDatabase.Text = "Cartella file nuovo";
+            lblPathDatabase.AutoSize = true;
+            lblPathDatabase.Location = new System.Drawing.Point(10, 10);
+            lblPathDatabase.Name = "lblPathDatabase";
+            lblPathDatabase.Size = new System.Drawing.Size(125, 18);
+            lblPathDatabase.TabIndex = 102;
+            lblPathDatabase.Text = "Cartella file nuovo";
             // 
             // txtPathNewDatabase
             // 
-            this.txtPathNewDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtPathNewDatabase.Location = new System.Drawing.Point(13, 31);
-            this.txtPathNewDatabase.Margin = new System.Windows.Forms.Padding(4);
-            this.txtPathNewDatabase.Name = "txtPathNewDatabase";
-            this.txtPathNewDatabase.Size = new System.Drawing.Size(762, 24);
-            this.txtPathNewDatabase.TabIndex = 100;
+            txtPathNewDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtPathNewDatabase.Location = new System.Drawing.Point(13, 31);
+            txtPathNewDatabase.Margin = new System.Windows.Forms.Padding(4);
+            txtPathNewDatabase.Name = "txtPathNewDatabase";
+            txtPathNewDatabase.Size = new System.Drawing.Size(762, 24);
+            txtPathNewDatabase.TabIndex = 100;
             // 
             // btnPathNewDatabase
             // 
-            this.btnPathNewDatabase.BackColor = System.Drawing.Color.Transparent;
-            this.btnPathNewDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnPathNewDatabase.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnPathNewDatabase.Location = new System.Drawing.Point(785, 22);
-            this.btnPathNewDatabase.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.btnPathNewDatabase.Name = "btnPathNewDatabase";
-            this.btnPathNewDatabase.Size = new System.Drawing.Size(54, 40);
-            this.btnPathNewDatabase.TabIndex = 101;
-            this.btnPathNewDatabase.Text = "..";
-            this.btnPathNewDatabase.UseVisualStyleBackColor = false;
-            this.btnPathNewDatabase.Click += new System.EventHandler(this.btnPathNewDatabase_Click);
+            btnPathNewDatabase.BackColor = System.Drawing.Color.Transparent;
+            btnPathNewDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnPathNewDatabase.ForeColor = System.Drawing.Color.DarkBlue;
+            btnPathNewDatabase.Location = new System.Drawing.Point(785, 22);
+            btnPathNewDatabase.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            btnPathNewDatabase.Name = "btnPathNewDatabase";
+            btnPathNewDatabase.Size = new System.Drawing.Size(54, 40);
+            btnPathNewDatabase.TabIndex = 101;
+            btnPathNewDatabase.Text = "..";
+            btnPathNewDatabase.UseVisualStyleBackColor = false;
+            btnPathNewDatabase.Click += btnPathNewDatabase_Click;
             // 
             // lblFileDatabase
             // 
-            this.lblFileDatabase.AutoSize = true;
-            this.lblFileDatabase.Location = new System.Drawing.Point(848, 10);
-            this.lblFileDatabase.Name = "lblFileDatabase";
-            this.lblFileDatabase.Size = new System.Drawing.Size(76, 18);
-            this.lblFileDatabase.TabIndex = 99;
-            this.lblFileDatabase.Text = "File nuovo";
+            lblFileDatabase.AutoSize = true;
+            lblFileDatabase.Location = new System.Drawing.Point(848, 10);
+            lblFileDatabase.Name = "lblFileDatabase";
+            lblFileDatabase.Size = new System.Drawing.Size(76, 18);
+            lblFileDatabase.TabIndex = 99;
+            lblFileDatabase.Text = "File nuovo";
             // 
             // txtFileNewDatabase
             // 
-            this.txtFileNewDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtFileNewDatabase.Location = new System.Drawing.Point(851, 31);
-            this.txtFileNewDatabase.Margin = new System.Windows.Forms.Padding(4);
-            this.txtFileNewDatabase.Name = "txtFileNewDatabase";
-            this.txtFileNewDatabase.Size = new System.Drawing.Size(344, 24);
-            this.txtFileNewDatabase.TabIndex = 97;
+            txtFileNewDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtFileNewDatabase.Location = new System.Drawing.Point(851, 31);
+            txtFileNewDatabase.Margin = new System.Windows.Forms.Padding(4);
+            txtFileNewDatabase.Name = "txtFileNewDatabase";
+            txtFileNewDatabase.Size = new System.Drawing.Size(344, 24);
+            txtFileNewDatabase.TabIndex = 97;
             // 
             // btnFileNewDatabase
             // 
-            this.btnFileNewDatabase.BackColor = System.Drawing.Color.Transparent;
-            this.btnFileNewDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnFileNewDatabase.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnFileNewDatabase.Location = new System.Drawing.Point(1205, 22);
-            this.btnFileNewDatabase.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.btnFileNewDatabase.Name = "btnFileNewDatabase";
-            this.btnFileNewDatabase.Size = new System.Drawing.Size(54, 40);
-            this.btnFileNewDatabase.TabIndex = 98;
-            this.btnFileNewDatabase.Text = "..";
-            this.btnFileNewDatabase.UseVisualStyleBackColor = false;
-            this.btnFileNewDatabase.Click += new System.EventHandler(this.btnFileNewDatabase_Click);
+            btnFileNewDatabase.BackColor = System.Drawing.Color.Transparent;
+            btnFileNewDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnFileNewDatabase.ForeColor = System.Drawing.Color.DarkBlue;
+            btnFileNewDatabase.Location = new System.Drawing.Point(1205, 22);
+            btnFileNewDatabase.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            btnFileNewDatabase.Name = "btnFileNewDatabase";
+            btnFileNewDatabase.Size = new System.Drawing.Size(54, 40);
+            btnFileNewDatabase.TabIndex = 98;
+            btnFileNewDatabase.Text = "..";
+            btnFileNewDatabase.UseVisualStyleBackColor = false;
+            btnFileNewDatabase.Click += btnFileNewDatabase_Click;
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
+            openFileDialog1.FileName = "openFileDialog1";
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 68);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(135, 18);
-            this.label6.TabIndex = 125;
-            this.label6.Text = "Cartella file vecchio";
+            label6.AutoSize = true;
+            label6.Location = new System.Drawing.Point(9, 68);
+            label6.Name = "label6";
+            label6.Size = new System.Drawing.Size(135, 18);
+            label6.TabIndex = 125;
+            label6.Text = "Cartella file vecchio";
             // 
             // txtPathOldDatabase
             // 
-            this.txtPathOldDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtPathOldDatabase.Location = new System.Drawing.Point(12, 89);
-            this.txtPathOldDatabase.Margin = new System.Windows.Forms.Padding(4);
-            this.txtPathOldDatabase.Name = "txtPathOldDatabase";
-            this.txtPathOldDatabase.Size = new System.Drawing.Size(762, 24);
-            this.txtPathOldDatabase.TabIndex = 123;
+            txtPathOldDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtPathOldDatabase.Location = new System.Drawing.Point(12, 89);
+            txtPathOldDatabase.Margin = new System.Windows.Forms.Padding(4);
+            txtPathOldDatabase.Name = "txtPathOldDatabase";
+            txtPathOldDatabase.Size = new System.Drawing.Size(762, 24);
+            txtPathOldDatabase.TabIndex = 123;
             // 
             // btnPathOldDatabase
             // 
-            this.btnPathOldDatabase.BackColor = System.Drawing.Color.Transparent;
-            this.btnPathOldDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnPathOldDatabase.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnPathOldDatabase.Location = new System.Drawing.Point(784, 80);
-            this.btnPathOldDatabase.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.btnPathOldDatabase.Name = "btnPathOldDatabase";
-            this.btnPathOldDatabase.Size = new System.Drawing.Size(54, 40);
-            this.btnPathOldDatabase.TabIndex = 124;
-            this.btnPathOldDatabase.Text = "..";
-            this.btnPathOldDatabase.UseVisualStyleBackColor = false;
-            this.btnPathOldDatabase.Click += new System.EventHandler(this.btnPathOldDatabase_Click);
+            btnPathOldDatabase.BackColor = System.Drawing.Color.Transparent;
+            btnPathOldDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnPathOldDatabase.ForeColor = System.Drawing.Color.DarkBlue;
+            btnPathOldDatabase.Location = new System.Drawing.Point(784, 80);
+            btnPathOldDatabase.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            btnPathOldDatabase.Name = "btnPathOldDatabase";
+            btnPathOldDatabase.Size = new System.Drawing.Size(54, 40);
+            btnPathOldDatabase.TabIndex = 124;
+            btnPathOldDatabase.Text = "..";
+            btnPathOldDatabase.UseVisualStyleBackColor = false;
+            btnPathOldDatabase.Click += btnPathOldDatabase_Click;
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(847, 68);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(86, 18);
-            this.label7.TabIndex = 122;
-            this.label7.Text = "File vecchio";
+            label7.AutoSize = true;
+            label7.Location = new System.Drawing.Point(847, 68);
+            label7.Name = "label7";
+            label7.Size = new System.Drawing.Size(86, 18);
+            label7.TabIndex = 122;
+            label7.Text = "File vecchio";
             // 
             // txtFileOldDatabase
             // 
-            this.txtFileOldDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtFileOldDatabase.Location = new System.Drawing.Point(850, 89);
-            this.txtFileOldDatabase.Margin = new System.Windows.Forms.Padding(4);
-            this.txtFileOldDatabase.Name = "txtFileOldDatabase";
-            this.txtFileOldDatabase.Size = new System.Drawing.Size(344, 24);
-            this.txtFileOldDatabase.TabIndex = 120;
+            txtFileOldDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtFileOldDatabase.Location = new System.Drawing.Point(850, 89);
+            txtFileOldDatabase.Margin = new System.Windows.Forms.Padding(4);
+            txtFileOldDatabase.Name = "txtFileOldDatabase";
+            txtFileOldDatabase.Size = new System.Drawing.Size(344, 24);
+            txtFileOldDatabase.TabIndex = 120;
             // 
             // btnFileOldDatabase
             // 
-            this.btnFileOldDatabase.BackColor = System.Drawing.Color.Transparent;
-            this.btnFileOldDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnFileOldDatabase.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnFileOldDatabase.Location = new System.Drawing.Point(1204, 80);
-            this.btnFileOldDatabase.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.btnFileOldDatabase.Name = "btnFileOldDatabase";
-            this.btnFileOldDatabase.Size = new System.Drawing.Size(54, 40);
-            this.btnFileOldDatabase.TabIndex = 121;
-            this.btnFileOldDatabase.Text = "..";
-            this.btnFileOldDatabase.UseVisualStyleBackColor = false;
-            this.btnFileOldDatabase.Click += new System.EventHandler(this.btnFileOldDatabase_Click);
+            btnFileOldDatabase.BackColor = System.Drawing.Color.Transparent;
+            btnFileOldDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnFileOldDatabase.ForeColor = System.Drawing.Color.DarkBlue;
+            btnFileOldDatabase.Location = new System.Drawing.Point(1204, 80);
+            btnFileOldDatabase.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            btnFileOldDatabase.Name = "btnFileOldDatabase";
+            btnFileOldDatabase.Size = new System.Drawing.Size(54, 40);
+            btnFileOldDatabase.TabIndex = 121;
+            btnFileOldDatabase.Text = "..";
+            btnFileOldDatabase.UseVisualStyleBackColor = false;
+            btnFileOldDatabase.Click += btnFileOldDatabase_Click;
             // 
             // btnRecover
             // 
-            this.btnRecover.Location = new System.Drawing.Point(12, 120);
-            this.btnRecover.Name = "btnRecover";
-            this.btnRecover.Size = new System.Drawing.Size(66, 46);
-            this.btnRecover.TabIndex = 126;
-            this.btnRecover.Text = "Importa";
-            this.btnRecover.UseVisualStyleBackColor = true;
-            this.btnRecover.Click += new System.EventHandler(this.btnRecover_Click);
+            btnRecover.Location = new System.Drawing.Point(12, 120);
+            btnRecover.Name = "btnRecover";
+            btnRecover.Size = new System.Drawing.Size(66, 46);
+            btnRecover.TabIndex = 126;
+            btnRecover.Text = "Importa";
+            btnRecover.UseVisualStyleBackColor = true;
+            btnRecover.Click += btnRecover_Click;
             // 
             // chkCheckChangesSameId
             // 
-            this.chkCheckChangesSameId.AutoSize = true;
-            this.chkCheckChangesSameId.Location = new System.Drawing.Point(158, 144);
-            this.chkCheckChangesSameId.Name = "chkCheckChangesSameId";
-            this.chkCheckChangesSameId.Size = new System.Drawing.Size(246, 22);
-            this.chkCheckChangesSameId.TabIndex = 127;
-            this.chkCheckChangesSameId.Text = "Argomenti con stesso Id cambiati";
-            this.chkCheckChangesSameId.UseVisualStyleBackColor = true;
+            chkCheckChangesSameId.AutoSize = true;
+            chkCheckChangesSameId.Location = new System.Drawing.Point(158, 144);
+            chkCheckChangesSameId.Name = "chkCheckChangesSameId";
+            chkCheckChangesSameId.Size = new System.Drawing.Size(246, 22);
+            chkCheckChangesSameId.TabIndex = 127;
+            chkCheckChangesSameId.Text = "Argomenti con stesso Id cambiati";
+            chkCheckChangesSameId.UseVisualStyleBackColor = true;
             // 
             // chkErasedId
             // 
-            this.chkErasedId.AutoSize = true;
-            this.chkErasedId.Checked = true;
-            this.chkErasedId.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkErasedId.Location = new System.Drawing.Point(158, 120);
-            this.chkErasedId.Name = "chkErasedId";
-            this.chkErasedId.Size = new System.Drawing.Size(209, 22);
-            this.chkErasedId.TabIndex = 128;
-            this.chkErasedId.Text = "Argomenti con Id cancellato";
-            this.chkErasedId.UseVisualStyleBackColor = true;
+            chkErasedId.AutoSize = true;
+            chkErasedId.Checked = true;
+            chkErasedId.CheckState = System.Windows.Forms.CheckState.Checked;
+            chkErasedId.Location = new System.Drawing.Point(158, 120);
+            chkErasedId.Name = "chkErasedId";
+            chkErasedId.Size = new System.Drawing.Size(209, 22);
+            chkErasedId.TabIndex = 128;
+            chkErasedId.Text = "Argomenti con Id cancellato";
+            chkErasedId.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 11);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(127, 18);
-            this.label1.TabIndex = 129;
-            this.label1.Text = "Albero file vecchio";
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(3, 11);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(127, 18);
+            label1.TabIndex = 129;
+            label1.Text = "Albero file vecchio";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(4, 11);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(117, 18);
-            this.label2.TabIndex = 130;
-            this.label2.Text = "Albero file nuovo";
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(4, 11);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(117, 18);
+            label2.TabIndex = 130;
+            label2.Text = "Albero file nuovo";
             // 
             // trwNewTopics
             // 
-            this.trwNewTopics.AllowDrop = true;
-            this.trwNewTopics.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.trwNewTopics.Location = new System.Drawing.Point(3, 39);
-            this.trwNewTopics.Name = "trwNewTopics";
-            this.trwNewTopics.Size = new System.Drawing.Size(577, 292);
-            this.trwNewTopics.TabIndex = 131;
+            trwNewTopics.AllowDrop = true;
+            trwNewTopics.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            trwNewTopics.Location = new System.Drawing.Point(3, 39);
+            trwNewTopics.Name = "trwNewTopics";
+            trwNewTopics.Size = new System.Drawing.Size(577, 292);
+            trwNewTopics.TabIndex = 131;
             // 
             // trwOldTopics
             // 
-            this.trwOldTopics.AllowDrop = true;
-            this.trwOldTopics.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.trwOldTopics.Location = new System.Drawing.Point(3, 40);
-            this.trwOldTopics.Name = "trwOldTopics";
-            this.trwOldTopics.Size = new System.Drawing.Size(572, 292);
-            this.trwOldTopics.TabIndex = 134;
+            trwOldTopics.AllowDrop = true;
+            trwOldTopics.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            trwOldTopics.Location = new System.Drawing.Point(3, 40);
+            trwOldTopics.Name = "trwOldTopics";
+            trwOldTopics.Size = new System.Drawing.Size(572, 292);
+            trwOldTopics.TabIndex = 134;
             // 
             // txtNewTopicName
             // 
-            this.txtNewTopicName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNewTopicName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtNewTopicName.Location = new System.Drawing.Point(3, 335);
-            this.txtNewTopicName.Multiline = true;
-            this.txtNewTopicName.Name = "txtNewTopicName";
-            this.txtNewTopicName.Size = new System.Drawing.Size(577, 32);
-            this.txtNewTopicName.TabIndex = 136;
+            txtNewTopicName.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txtNewTopicName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtNewTopicName.Location = new System.Drawing.Point(3, 335);
+            txtNewTopicName.Multiline = true;
+            txtNewTopicName.Name = "txtNewTopicName";
+            txtNewTopicName.Size = new System.Drawing.Size(577, 32);
+            txtNewTopicName.TabIndex = 136;
             // 
             // txtOldTopicName
             // 
-            this.txtOldTopicName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtOldTopicName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtOldTopicName.Location = new System.Drawing.Point(3, 335);
-            this.txtOldTopicName.Multiline = true;
-            this.txtOldTopicName.Name = "txtOldTopicName";
-            this.txtOldTopicName.Size = new System.Drawing.Size(572, 32);
-            this.txtOldTopicName.TabIndex = 137;
+            txtOldTopicName.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txtOldTopicName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtOldTopicName.Location = new System.Drawing.Point(3, 335);
+            txtOldTopicName.Multiline = true;
+            txtOldTopicName.Name = "txtOldTopicName";
+            txtOldTopicName.Size = new System.Drawing.Size(572, 32);
+            txtOldTopicName.TabIndex = 137;
             // 
             // txtCodOldTopic
             // 
-            this.txtCodOldTopic.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtCodOldTopic.Location = new System.Drawing.Point(254, 9);
-            this.txtCodOldTopic.Margin = new System.Windows.Forms.Padding(4);
-            this.txtCodOldTopic.Name = "txtCodOldTopic";
-            this.txtCodOldTopic.Size = new System.Drawing.Size(70, 24);
-            this.txtCodOldTopic.TabIndex = 138;
-            this.txtCodOldTopic.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            txtCodOldTopic.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtCodOldTopic.Location = new System.Drawing.Point(254, 9);
+            txtCodOldTopic.Margin = new System.Windows.Forms.Padding(4);
+            txtCodOldTopic.Name = "txtCodOldTopic";
+            txtCodOldTopic.Size = new System.Drawing.Size(70, 24);
+            txtCodOldTopic.TabIndex = 138;
+            txtCodOldTopic.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtCodNewTopic
             // 
-            this.txtCodNewTopic.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtCodNewTopic.Location = new System.Drawing.Point(252, 8);
-            this.txtCodNewTopic.Margin = new System.Windows.Forms.Padding(4);
-            this.txtCodNewTopic.Name = "txtCodNewTopic";
-            this.txtCodNewTopic.Size = new System.Drawing.Size(70, 24);
-            this.txtCodNewTopic.TabIndex = 139;
-            this.txtCodNewTopic.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            txtCodNewTopic.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtCodNewTopic.Location = new System.Drawing.Point(252, 8);
+            txtCodNewTopic.Margin = new System.Windows.Forms.Padding(4);
+            txtCodNewTopic.Name = "txtCodNewTopic";
+            txtCodNewTopic.Size = new System.Drawing.Size(70, 24);
+            txtCodNewTopic.TabIndex = 139;
+            txtCodNewTopic.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // lblIdNewTopic
             // 
-            this.lblIdNewTopic.AutoSize = true;
-            this.lblIdNewTopic.Location = new System.Drawing.Point(133, 11);
-            this.lblIdNewTopic.Name = "lblIdNewTopic";
-            this.lblIdNewTopic.Size = new System.Drawing.Size(112, 18);
-            this.lblIdNewTopic.TabIndex = 140;
-            this.lblIdNewTopic.Text = "Cod.argomento";
+            lblIdNewTopic.AutoSize = true;
+            lblIdNewTopic.Location = new System.Drawing.Point(133, 11);
+            lblIdNewTopic.Name = "lblIdNewTopic";
+            lblIdNewTopic.Size = new System.Drawing.Size(112, 18);
+            lblIdNewTopic.TabIndex = 140;
+            lblIdNewTopic.Text = "Cod.argomento";
             // 
             // lblIdOldTopic
             // 
-            this.lblIdOldTopic.AutoSize = true;
-            this.lblIdOldTopic.Location = new System.Drawing.Point(136, 11);
-            this.lblIdOldTopic.Name = "lblIdOldTopic";
-            this.lblIdOldTopic.Size = new System.Drawing.Size(112, 18);
-            this.lblIdOldTopic.TabIndex = 141;
-            this.lblIdOldTopic.Text = "Cod.argomento";
+            lblIdOldTopic.AutoSize = true;
+            lblIdOldTopic.Location = new System.Drawing.Point(136, 11);
+            lblIdOldTopic.Name = "lblIdOldTopic";
+            lblIdOldTopic.Size = new System.Drawing.Size(112, 18);
+            lblIdOldTopic.TabIndex = 141;
+            lblIdOldTopic.Text = "Cod.argomento";
             // 
             // btnCopyOldNew
             // 
-            this.btnCopyOldNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCopyOldNew.Location = new System.Drawing.Point(1184, 209);
-            this.btnCopyOldNew.Name = "btnCopyOldNew";
-            this.btnCopyOldNew.Size = new System.Drawing.Size(75, 42);
-            this.btnCopyOldNew.TabIndex = 142;
-            this.btnCopyOldNew.Text = "<-";
-            this.btnCopyOldNew.UseVisualStyleBackColor = true;
-            this.btnCopyOldNew.Click += new System.EventHandler(this.btnCopyOldNew_Click);
+            btnCopyOldNew.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnCopyOldNew.Location = new System.Drawing.Point(1184, 209);
+            btnCopyOldNew.Name = "btnCopyOldNew";
+            btnCopyOldNew.Size = new System.Drawing.Size(75, 42);
+            btnCopyOldNew.TabIndex = 142;
+            btnCopyOldNew.Text = "<-";
+            btnCopyOldNew.UseVisualStyleBackColor = true;
+            btnCopyOldNew.Click += btnCopyOldNew_Click;
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(13, 172);
-            this.splitContainer1.Name = "splitContainer1";
+            splitContainer1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            splitContainer1.Location = new System.Drawing.Point(13, 172);
+            splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.btnFindNew);
-            this.splitContainer1.Panel1.Controls.Add(this.txtSearchNew);
-            this.splitContainer1.Panel1.Controls.Add(this.txtNewDescription);
-            this.splitContainer1.Panel1.Controls.Add(this.trwNewTopics);
-            this.splitContainer1.Panel1.Controls.Add(this.lblIdNewTopic);
-            this.splitContainer1.Panel1.Controls.Add(this.txtNewTopicName);
-            this.splitContainer1.Panel1.Controls.Add(this.label2);
-            this.splitContainer1.Panel1.Controls.Add(this.txtCodNewTopic);
+            splitContainer1.Panel1.Controls.Add(btnFindNew);
+            splitContainer1.Panel1.Controls.Add(txtSearchNew);
+            splitContainer1.Panel1.Controls.Add(txtNewDescription);
+            splitContainer1.Panel1.Controls.Add(trwNewTopics);
+            splitContainer1.Panel1.Controls.Add(lblIdNewTopic);
+            splitContainer1.Panel1.Controls.Add(txtNewTopicName);
+            splitContainer1.Panel1.Controls.Add(label2);
+            splitContainer1.Panel1.Controls.Add(txtCodNewTopic);
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.btnFindOld);
-            this.splitContainer1.Panel2.Controls.Add(this.txtSearchOld);
-            this.splitContainer1.Panel2.Controls.Add(this.txtOldDescription);
-            this.splitContainer1.Panel2.Controls.Add(this.trwOldTopics);
-            this.splitContainer1.Panel2.Controls.Add(this.txtOldTopicName);
-            this.splitContainer1.Panel2.Controls.Add(this.lblIdOldTopic);
-            this.splitContainer1.Panel2.Controls.Add(this.label1);
-            this.splitContainer1.Panel2.Controls.Add(this.txtCodOldTopic);
-            this.splitContainer1.Size = new System.Drawing.Size(1165, 482);
-            this.splitContainer1.SplitterDistance = 583;
-            this.splitContainer1.TabIndex = 143;
+            splitContainer1.Panel2.Controls.Add(btnFindOld);
+            splitContainer1.Panel2.Controls.Add(txtSearchOld);
+            splitContainer1.Panel2.Controls.Add(txtOldDescription);
+            splitContainer1.Panel2.Controls.Add(trwOldTopics);
+            splitContainer1.Panel2.Controls.Add(txtOldTopicName);
+            splitContainer1.Panel2.Controls.Add(lblIdOldTopic);
+            splitContainer1.Panel2.Controls.Add(label1);
+            splitContainer1.Panel2.Controls.Add(txtCodOldTopic);
+            splitContainer1.Size = new System.Drawing.Size(1165, 482);
+            splitContainer1.SplitterDistance = 583;
+            splitContainer1.TabIndex = 143;
             // 
             // btnFindNew
             // 
-            this.btnFindNew.Location = new System.Drawing.Point(363, 8);
-            this.btnFindNew.Name = "btnFindNew";
-            this.btnFindNew.Size = new System.Drawing.Size(75, 23);
-            this.btnFindNew.TabIndex = 143;
-            this.btnFindNew.Text = "Trova";
-            this.btnFindNew.UseVisualStyleBackColor = true;
-            this.btnFindNew.Click += new System.EventHandler(this.btnFindNew_Click);
+            btnFindNew.Location = new System.Drawing.Point(363, 8);
+            btnFindNew.Name = "btnFindNew";
+            btnFindNew.Size = new System.Drawing.Size(75, 23);
+            btnFindNew.TabIndex = 143;
+            btnFindNew.Text = "Trova";
+            btnFindNew.UseVisualStyleBackColor = true;
+            btnFindNew.Click += btnFindNew_Click;
             // 
             // txtSearchNew
             // 
-            this.txtSearchNew.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSearchNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtSearchNew.Location = new System.Drawing.Point(445, 8);
-            this.txtSearchNew.Margin = new System.Windows.Forms.Padding(4);
-            this.txtSearchNew.Name = "txtSearchNew";
-            this.txtSearchNew.Size = new System.Drawing.Size(135, 24);
-            this.txtSearchNew.TabIndex = 141;
-            this.txtSearchNew.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            txtSearchNew.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txtSearchNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtSearchNew.Location = new System.Drawing.Point(445, 8);
+            txtSearchNew.Margin = new System.Windows.Forms.Padding(4);
+            txtSearchNew.Name = "txtSearchNew";
+            txtSearchNew.Size = new System.Drawing.Size(135, 24);
+            txtSearchNew.TabIndex = 141;
+            txtSearchNew.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtNewDescription
             // 
-            this.txtNewDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNewDescription.Location = new System.Drawing.Point(3, 373);
-            this.txtNewDescription.Multiline = true;
-            this.txtNewDescription.Name = "txtNewDescription";
-            this.txtNewDescription.Size = new System.Drawing.Size(577, 106);
-            this.txtNewDescription.TabIndex = 134;
+            txtNewDescription.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txtNewDescription.Location = new System.Drawing.Point(3, 373);
+            txtNewDescription.Multiline = true;
+            txtNewDescription.Name = "txtNewDescription";
+            txtNewDescription.Size = new System.Drawing.Size(577, 106);
+            txtNewDescription.TabIndex = 134;
             // 
             // btnFindOld
             // 
-            this.btnFindOld.Location = new System.Drawing.Point(359, 9);
-            this.btnFindOld.Name = "btnFindOld";
-            this.btnFindOld.Size = new System.Drawing.Size(75, 23);
-            this.btnFindOld.TabIndex = 144;
-            this.btnFindOld.Text = "Trova";
-            this.btnFindOld.UseVisualStyleBackColor = true;
-            this.btnFindOld.Click += new System.EventHandler(this.btnFindOld_Click);
+            btnFindOld.Location = new System.Drawing.Point(359, 9);
+            btnFindOld.Name = "btnFindOld";
+            btnFindOld.Size = new System.Drawing.Size(75, 23);
+            btnFindOld.TabIndex = 144;
+            btnFindOld.Text = "Trova";
+            btnFindOld.UseVisualStyleBackColor = true;
+            btnFindOld.Click += btnFindOld_Click;
             // 
             // txtSearchOld
             // 
-            this.txtSearchOld.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSearchOld.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtSearchOld.Location = new System.Drawing.Point(441, 8);
-            this.txtSearchOld.Margin = new System.Windows.Forms.Padding(4);
-            this.txtSearchOld.Name = "txtSearchOld";
-            this.txtSearchOld.Size = new System.Drawing.Size(134, 24);
-            this.txtSearchOld.TabIndex = 143;
-            this.txtSearchOld.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            txtSearchOld.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txtSearchOld.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtSearchOld.Location = new System.Drawing.Point(441, 8);
+            txtSearchOld.Margin = new System.Windows.Forms.Padding(4);
+            txtSearchOld.Name = "txtSearchOld";
+            txtSearchOld.Size = new System.Drawing.Size(134, 24);
+            txtSearchOld.TabIndex = 143;
+            txtSearchOld.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtOldDescription
             // 
-            this.txtOldDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtOldDescription.Location = new System.Drawing.Point(3, 373);
-            this.txtOldDescription.Multiline = true;
-            this.txtOldDescription.Name = "txtOldDescription";
-            this.txtOldDescription.Size = new System.Drawing.Size(572, 106);
-            this.txtOldDescription.TabIndex = 136;
+            txtOldDescription.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txtOldDescription.Location = new System.Drawing.Point(3, 373);
+            txtOldDescription.Multiline = true;
+            txtOldDescription.Name = "txtOldDescription";
+            txtOldDescription.Size = new System.Drawing.Size(572, 106);
+            txtOldDescription.TabIndex = 136;
             // 
             // BtnSaveNewTree
             // 
-            this.BtnSaveNewTree.Location = new System.Drawing.Point(518, 120);
-            this.BtnSaveNewTree.Name = "BtnSaveNewTree";
-            this.BtnSaveNewTree.Size = new System.Drawing.Size(75, 46);
-            this.BtnSaveNewTree.TabIndex = 144;
-            this.BtnSaveNewTree.Text = "Salva nuovo";
-            this.BtnSaveNewTree.UseVisualStyleBackColor = true;
-            this.BtnSaveNewTree.Click += new System.EventHandler(this.BtnSaveNewTree_Click);
+            BtnSaveNewTree.Location = new System.Drawing.Point(518, 120);
+            BtnSaveNewTree.Name = "BtnSaveNewTree";
+            BtnSaveNewTree.Size = new System.Drawing.Size(75, 46);
+            BtnSaveNewTree.TabIndex = 144;
+            BtnSaveNewTree.Text = "Salva nuovo";
+            BtnSaveNewTree.UseVisualStyleBackColor = true;
+            BtnSaveNewTree.Click += BtnSaveNewTree_Click;
             // 
             // picNewOnly
             // 
-            this.picNewOnly.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picNewOnly.BackColor = System.Drawing.Color.Pink;
-            this.picNewOnly.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picNewOnly.Location = new System.Drawing.Point(920, 137);
-            this.picNewOnly.Name = "picNewOnly";
-            this.picNewOnly.Size = new System.Drawing.Size(27, 29);
-            this.picNewOnly.TabIndex = 145;
-            this.picNewOnly.TabStop = false;
-            this.toolTip1.SetToolTip(this.picNewOnly, "Nodo nuovo");
+            picNewOnly.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            picNewOnly.BackColor = System.Drawing.Color.Pink;
+            picNewOnly.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            picNewOnly.Location = new System.Drawing.Point(920, 137);
+            picNewOnly.Name = "picNewOnly";
+            picNewOnly.Size = new System.Drawing.Size(27, 29);
+            picNewOnly.TabIndex = 145;
+            picNewOnly.TabStop = false;
+            toolTip1.SetToolTip(picNewOnly, "Nodo nuovo");
             // 
             // chkNewOnly
             // 
-            this.chkNewOnly.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkNewOnly.AutoSize = true;
-            this.chkNewOnly.Location = new System.Drawing.Point(926, 120);
-            this.chkNewOnly.Name = "chkNewOnly";
-            this.chkNewOnly.Size = new System.Drawing.Size(15, 14);
-            this.chkNewOnly.TabIndex = 146;
-            this.chkNewOnly.UseVisualStyleBackColor = true;
+            chkNewOnly.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            chkNewOnly.AutoSize = true;
+            chkNewOnly.Location = new System.Drawing.Point(926, 120);
+            chkNewOnly.Name = "chkNewOnly";
+            chkNewOnly.Size = new System.Drawing.Size(15, 14);
+            chkNewOnly.TabIndex = 146;
+            chkNewOnly.UseVisualStyleBackColor = true;
             // 
             // checkBox1
             // 
-            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(965, 120);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(15, 14);
-            this.checkBox1.TabIndex = 148;
-            this.checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new System.Drawing.Point(965, 120);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new System.Drawing.Size(15, 14);
+            checkBox1.TabIndex = 148;
+            checkBox1.UseVisualStyleBackColor = true;
             // 
             // picOldOnly
             // 
-            this.picOldOnly.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picOldOnly.BackColor = System.Drawing.Color.Pink;
-            this.picOldOnly.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picOldOnly.Location = new System.Drawing.Point(959, 137);
-            this.picOldOnly.Name = "picOldOnly";
-            this.picOldOnly.Size = new System.Drawing.Size(27, 29);
-            this.picOldOnly.TabIndex = 147;
-            this.picOldOnly.TabStop = false;
-            this.toolTip1.SetToolTip(this.picOldOnly, "Nodo vecchio");
+            picOldOnly.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            picOldOnly.BackColor = System.Drawing.Color.Pink;
+            picOldOnly.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            picOldOnly.Location = new System.Drawing.Point(959, 137);
+            picOldOnly.Name = "picOldOnly";
+            picOldOnly.Size = new System.Drawing.Size(27, 29);
+            picOldOnly.TabIndex = 147;
+            picOldOnly.TabStop = false;
+            toolTip1.SetToolTip(picOldOnly, "Nodo vecchio");
             // 
             // checkBox2
             // 
-            this.checkBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(1004, 120);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(15, 14);
-            this.checkBox2.TabIndex = 150;
-            this.checkBox2.UseVisualStyleBackColor = true;
+            checkBox2.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            checkBox2.AutoSize = true;
+            checkBox2.Location = new System.Drawing.Point(1004, 120);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new System.Drawing.Size(15, 14);
+            checkBox2.TabIndex = 150;
+            checkBox2.UseVisualStyleBackColor = true;
             // 
             // picSameId
             // 
-            this.picSameId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picSameId.BackColor = System.Drawing.Color.Pink;
-            this.picSameId.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picSameId.Location = new System.Drawing.Point(998, 137);
-            this.picSameId.Name = "picSameId";
-            this.picSameId.Size = new System.Drawing.Size(27, 29);
-            this.picSameId.TabIndex = 149;
-            this.picSameId.TabStop = false;
-            this.toolTip1.SetToolTip(this.picSameId, "Stesso Id diversa descrizione");
+            picSameId.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            picSameId.BackColor = System.Drawing.Color.Pink;
+            picSameId.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            picSameId.Location = new System.Drawing.Point(998, 137);
+            picSameId.Name = "picSameId";
+            picSameId.Size = new System.Drawing.Size(27, 29);
+            picSameId.TabIndex = 149;
+            picSameId.TabStop = false;
+            toolTip1.SetToolTip(picSameId, "Stesso Id diversa descrizione");
             // 
             // checkBox3
             // 
-            this.checkBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(1043, 120);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(15, 14);
-            this.checkBox3.TabIndex = 152;
-            this.checkBox3.UseVisualStyleBackColor = true;
+            checkBox3.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            checkBox3.AutoSize = true;
+            checkBox3.Location = new System.Drawing.Point(1043, 120);
+            checkBox3.Name = "checkBox3";
+            checkBox3.Size = new System.Drawing.Size(15, 14);
+            checkBox3.TabIndex = 152;
+            checkBox3.UseVisualStyleBackColor = true;
             // 
             // picSameName
             // 
-            this.picSameName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picSameName.BackColor = System.Drawing.Color.Pink;
-            this.picSameName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picSameName.Location = new System.Drawing.Point(1037, 137);
-            this.picSameName.Name = "picSameName";
-            this.picSameName.Size = new System.Drawing.Size(27, 29);
-            this.picSameName.TabIndex = 151;
-            this.picSameName.TabStop = false;
-            this.toolTip1.SetToolTip(this.picSameName, "Stesso nome");
+            picSameName.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            picSameName.BackColor = System.Drawing.Color.Pink;
+            picSameName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            picSameName.Location = new System.Drawing.Point(1037, 137);
+            picSameName.Name = "picSameName";
+            picSameName.Size = new System.Drawing.Size(27, 29);
+            picSameName.TabIndex = 151;
+            picSameName.TabStop = false;
+            toolTip1.SetToolTip(picSameName, "Stesso nome");
             // 
             // checkBox4
             // 
-            this.checkBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(1082, 120);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(15, 14);
-            this.checkBox4.TabIndex = 154;
-            this.checkBox4.UseVisualStyleBackColor = true;
+            checkBox4.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            checkBox4.AutoSize = true;
+            checkBox4.Location = new System.Drawing.Point(1082, 120);
+            checkBox4.Name = "checkBox4";
+            checkBox4.Size = new System.Drawing.Size(15, 14);
+            checkBox4.TabIndex = 154;
+            checkBox4.UseVisualStyleBackColor = true;
             // 
             // picSameDesc
             // 
-            this.picSameDesc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picSameDesc.BackColor = System.Drawing.Color.Pink;
-            this.picSameDesc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picSameDesc.Location = new System.Drawing.Point(1076, 137);
-            this.picSameDesc.Name = "picSameDesc";
-            this.picSameDesc.Size = new System.Drawing.Size(27, 29);
-            this.picSameDesc.TabIndex = 153;
-            this.picSameDesc.TabStop = false;
-            this.toolTip1.SetToolTip(this.picSameDesc, "Stessa descrizione");
+            picSameDesc.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            picSameDesc.BackColor = System.Drawing.Color.Pink;
+            picSameDesc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            picSameDesc.Location = new System.Drawing.Point(1076, 137);
+            picSameDesc.Name = "picSameDesc";
+            picSameDesc.Size = new System.Drawing.Size(27, 29);
+            picSameDesc.TabIndex = 153;
+            picSameDesc.TabStop = false;
+            toolTip1.SetToolTip(picSameDesc, "Stessa descrizione");
             // 
             // checkBox5
             // 
-            this.checkBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(1121, 120);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(15, 14);
-            this.checkBox5.TabIndex = 156;
-            this.checkBox5.UseVisualStyleBackColor = true;
+            checkBox5.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            checkBox5.AutoSize = true;
+            checkBox5.Location = new System.Drawing.Point(1121, 120);
+            checkBox5.Name = "checkBox5";
+            checkBox5.Size = new System.Drawing.Size(15, 14);
+            checkBox5.TabIndex = 156;
+            checkBox5.UseVisualStyleBackColor = true;
             // 
             // picSameNodeChangedParent
             // 
-            this.picSameNodeChangedParent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picSameNodeChangedParent.BackColor = System.Drawing.Color.Pink;
-            this.picSameNodeChangedParent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picSameNodeChangedParent.Location = new System.Drawing.Point(1115, 137);
-            this.picSameNodeChangedParent.Name = "picSameNodeChangedParent";
-            this.picSameNodeChangedParent.Size = new System.Drawing.Size(27, 29);
-            this.picSameNodeChangedParent.TabIndex = 155;
-            this.picSameNodeChangedParent.TabStop = false;
-            this.toolTip1.SetToolTip(this.picSameNodeChangedParent, "Stesso nome con nodo padre diverso");
+            picSameNodeChangedParent.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            picSameNodeChangedParent.BackColor = System.Drawing.Color.Pink;
+            picSameNodeChangedParent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            picSameNodeChangedParent.Location = new System.Drawing.Point(1115, 137);
+            picSameNodeChangedParent.Name = "picSameNodeChangedParent";
+            picSameNodeChangedParent.Size = new System.Drawing.Size(27, 29);
+            picSameNodeChangedParent.TabIndex = 155;
+            picSameNodeChangedParent.TabStop = false;
+            toolTip1.SetToolTip(picSameNodeChangedParent, "Stesso nome con nodo padre diverso");
             // 
             // checkBox6
             // 
-            this.checkBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(1160, 120);
-            this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(15, 14);
-            this.checkBox6.TabIndex = 158;
-            this.checkBox6.UseVisualStyleBackColor = true;
+            checkBox6.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            checkBox6.AutoSize = true;
+            checkBox6.Location = new System.Drawing.Point(1160, 120);
+            checkBox6.Name = "checkBox6";
+            checkBox6.Size = new System.Drawing.Size(15, 14);
+            checkBox6.TabIndex = 158;
+            checkBox6.UseVisualStyleBackColor = true;
             // 
             // picSameNodeChangedPosition
             // 
-            this.picSameNodeChangedPosition.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picSameNodeChangedPosition.BackColor = System.Drawing.Color.Pink;
-            this.picSameNodeChangedPosition.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picSameNodeChangedPosition.Location = new System.Drawing.Point(1154, 137);
-            this.picSameNodeChangedPosition.Name = "picSameNodeChangedPosition";
-            this.picSameNodeChangedPosition.Size = new System.Drawing.Size(27, 29);
-            this.picSameNodeChangedPosition.TabIndex = 157;
-            this.picSameNodeChangedPosition.TabStop = false;
+            picSameNodeChangedPosition.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            picSameNodeChangedPosition.BackColor = System.Drawing.Color.Pink;
+            picSameNodeChangedPosition.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            picSameNodeChangedPosition.Location = new System.Drawing.Point(1154, 137);
+            picSameNodeChangedPosition.Name = "picSameNodeChangedPosition";
+            picSameNodeChangedPosition.Size = new System.Drawing.Size(27, 29);
+            picSameNodeChangedPosition.TabIndex = 157;
+            picSameNodeChangedPosition.TabStop = false;
             // 
             // btnTemporary
             // 
-            this.btnTemporary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTemporary.BackColor = System.Drawing.Color.Red;
-            this.btnTemporary.ForeColor = System.Drawing.Color.Yellow;
-            this.btnTemporary.Location = new System.Drawing.Point(644, 120);
-            this.btnTemporary.Name = "btnTemporary";
-            this.btnTemporary.Size = new System.Drawing.Size(270, 50);
-            this.btnTemporary.TabIndex = 165;
-            this.btnTemporary.Text = "Danger area. Backup before saving in this window!";
-            this.toolTip1.SetToolTip(this.btnTemporary, "Lancio dei link e programmi legati alla classe");
-            this.btnTemporary.UseVisualStyleBackColor = false;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(391, 136);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(121, 15);
-            this.label3.TabIndex = 166;
-            this.label3.Text = "Drag destra->sinistra";
+            btnTemporary.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnTemporary.BackColor = System.Drawing.Color.Red;
+            btnTemporary.ForeColor = System.Drawing.Color.Yellow;
+            btnTemporary.Location = new System.Drawing.Point(588, 106);
+            btnTemporary.Name = "btnTemporary";
+            btnTemporary.Size = new System.Drawing.Size(326, 64);
+            btnTemporary.TabIndex = 165;
+            btnTemporary.Text = "Danger area. This code makes heavy changes to the database and is barely tested.       Backup before saving in this window!";
+            toolTip1.SetToolTip(btnTemporary, "Lancio dei link e programmi legati alla classe");
+            btnTemporary.UseVisualStyleBackColor = false;
             // 
             // btnBeheaded
             // 
-            this.btnBeheaded.Location = new System.Drawing.Point(84, 120);
-            this.btnBeheaded.Name = "btnBeheaded";
-            this.btnBeheaded.Size = new System.Drawing.Size(68, 46);
-            this.btnBeheaded.TabIndex = 167;
-            this.btnBeheaded.Text = "No padre";
-            this.toolTip1.SetToolTip(this.btnBeheaded, "Mostra i nodi dell\'albero che non hanno padre");
-            this.btnBeheaded.UseCompatibleTextRendering = true;
-            this.btnBeheaded.UseVisualStyleBackColor = true;
-            this.btnBeheaded.Click += new System.EventHandler(this.btnBeheaded_Click);
+            btnBeheaded.Location = new System.Drawing.Point(84, 120);
+            btnBeheaded.Name = "btnBeheaded";
+            btnBeheaded.Size = new System.Drawing.Size(68, 46);
+            btnBeheaded.TabIndex = 167;
+            btnBeheaded.Text = "No padre";
+            toolTip1.SetToolTip(btnBeheaded, "Mostra i nodi dell'albero che non hanno padre");
+            btnBeheaded.UseCompatibleTextRendering = true;
+            btnBeheaded.UseVisualStyleBackColor = true;
+            btnBeheaded.Click += btnBeheaded_Click;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label3.Location = new System.Drawing.Point(391, 136);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(121, 15);
+            label3.TabIndex = 166;
+            label3.Text = "Drag destra->sinistra";
             // 
             // frmTopicsRecover
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.PowderBlue;
-            this.ClientSize = new System.Drawing.Size(1266, 652);
-            this.Controls.Add(this.btnBeheaded);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.btnTemporary);
-            this.Controls.Add(this.checkBox6);
-            this.Controls.Add(this.picSameNodeChangedPosition);
-            this.Controls.Add(this.checkBox5);
-            this.Controls.Add(this.picSameNodeChangedParent);
-            this.Controls.Add(this.checkBox4);
-            this.Controls.Add(this.picSameDesc);
-            this.Controls.Add(this.checkBox3);
-            this.Controls.Add(this.picSameName);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.picSameId);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.picOldOnly);
-            this.Controls.Add(this.chkNewOnly);
-            this.Controls.Add(this.picNewOnly);
-            this.Controls.Add(this.BtnSaveNewTree);
-            this.Controls.Add(this.splitContainer1);
-            this.Controls.Add(this.btnCopyOldNew);
-            this.Controls.Add(this.chkErasedId);
-            this.Controls.Add(this.chkCheckChangesSameId);
-            this.Controls.Add(this.btnRecover);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.txtPathOldDatabase);
-            this.Controls.Add(this.btnPathOldDatabase);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.txtFileOldDatabase);
-            this.Controls.Add(this.btnFileOldDatabase);
-            this.Controls.Add(this.lblPathDatabase);
-            this.Controls.Add(this.txtPathNewDatabase);
-            this.Controls.Add(this.btnPathNewDatabase);
-            this.Controls.Add(this.lblFileDatabase);
-            this.Controls.Add(this.txtFileNewDatabase);
-            this.Controls.Add(this.btnFileNewDatabase);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ForeColor = System.Drawing.Color.DarkBlue;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "frmTopicsRecover";
-            this.Text = "Recupera argomenti";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmTopicsRecover_FormClosing);
-            this.Load += new System.EventHandler(this.frmTopicsRecover_Load);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picNewOnly)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picOldOnly)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picSameId)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picSameName)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picSameDesc)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picSameNodeChangedParent)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picSameNodeChangedPosition)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.PowderBlue;
+            ClientSize = new System.Drawing.Size(1266, 652);
+            Controls.Add(btnBeheaded);
+            Controls.Add(label3);
+            Controls.Add(btnTemporary);
+            Controls.Add(checkBox6);
+            Controls.Add(picSameNodeChangedPosition);
+            Controls.Add(checkBox5);
+            Controls.Add(picSameNodeChangedParent);
+            Controls.Add(checkBox4);
+            Controls.Add(picSameDesc);
+            Controls.Add(checkBox3);
+            Controls.Add(picSameName);
+            Controls.Add(checkBox2);
+            Controls.Add(picSameId);
+            Controls.Add(checkBox1);
+            Controls.Add(picOldOnly);
+            Controls.Add(chkNewOnly);
+            Controls.Add(picNewOnly);
+            Controls.Add(BtnSaveNewTree);
+            Controls.Add(splitContainer1);
+            Controls.Add(btnCopyOldNew);
+            Controls.Add(chkErasedId);
+            Controls.Add(chkCheckChangesSameId);
+            Controls.Add(btnRecover);
+            Controls.Add(label6);
+            Controls.Add(txtPathOldDatabase);
+            Controls.Add(btnPathOldDatabase);
+            Controls.Add(label7);
+            Controls.Add(txtFileOldDatabase);
+            Controls.Add(btnFileOldDatabase);
+            Controls.Add(lblPathDatabase);
+            Controls.Add(txtPathNewDatabase);
+            Controls.Add(btnPathNewDatabase);
+            Controls.Add(lblFileDatabase);
+            Controls.Add(txtFileNewDatabase);
+            Controls.Add(btnFileNewDatabase);
+            Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            ForeColor = System.Drawing.Color.DarkBlue;
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            Margin = new System.Windows.Forms.Padding(4);
+            Name = "frmTopicsRecover";
+            Text = "Recupera argomenti";
+            FormClosing += frmTopicsRecover_FormClosing;
+            Load += frmTopicsRecover_Load;
+            splitContainer1.Panel1.ResumeLayout(false);
+            splitContainer1.Panel1.PerformLayout();
+            splitContainer1.Panel2.ResumeLayout(false);
+            splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
+            splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)picNewOnly).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picOldOnly).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picSameId).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picSameName).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picSameDesc).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picSameNodeChangedParent).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picSameNodeChangedPosition).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

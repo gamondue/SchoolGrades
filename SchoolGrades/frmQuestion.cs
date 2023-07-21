@@ -58,7 +58,7 @@ namespace SchoolGrades
             {
                 currentTopic = Commons.bl.GetTopicById(Topic.Id);
                 if (currentTopic.Id != 0)
-                    txtTopic.Text = dbMptt.GetTopicPath(currentTopic.Id);
+                    txtTopic.Text = dbMptt.GetNodePath(currentTopic.Id);
             }
         }
 
@@ -105,7 +105,7 @@ namespace SchoolGrades
 
                 // show the path of the topic of the question 
                 if (currentTopic != null)
-                    txtTopic.Text = dbMptt.GetTopicPath(currentTopic.Id);
+                    txtTopic.Text = dbMptt.GetNodePath(currentTopic.Id);
                 
                 answersList = Commons.bl.GetAnswersOfAQuestion(currentQuestion.IdQuestion);
                 dgwAnswers.DataSource = answersList;
@@ -256,7 +256,7 @@ namespace SchoolGrades
                 chosenTopic = f.ChosenTopic;
                 currentTopic = chosenTopic;
                 currentQuestion.IdTopic= chosenTopic.Id;
-                txtTopic.Text = dbMptt.GetTopicPath(currentTopic.Id); 
+                txtTopic.Text = dbMptt.GetNodePath(currentTopic.Id); 
             }
             f.Dispose();
         }
@@ -277,7 +277,7 @@ namespace SchoolGrades
             {
                 chosenTopic = f.TopicChosen;
                 currentTopic = chosenTopic;
-                txtTopic.Text = dbMptt.GetTopicPath(chosenTopic.Id);
+                txtTopic.Text = dbMptt.GetNodePath(chosenTopic.Id);
             }
             f.Dispose();
         }

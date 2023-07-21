@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Drawing;
 using SchoolGrades.BusinessObjects;
 using System.Diagnostics;
+using SharedWinForms;
 
 namespace SchoolGrades
 {
@@ -372,6 +373,13 @@ namespace SchoolGrades
                 outputString += partialString; 
 
             return outputString; 
+        }
+        internal static bool ProcessingCanContinue()
+        {
+            // if the foreground taask id running, we will NOT interrupt it 
+            if (!CommonsWinForms.IAmBackgroundTask) return true;
+            // il the background is disabled, processing can not proceed 
+            return CommonsWinForms.BackgroundSavingEnabled;
         }
     }
 }

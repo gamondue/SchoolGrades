@@ -82,7 +82,7 @@ namespace SchoolGrades
 
             if (currentTopic != null && previousQuestion != null)
             {
-                txtTopic.Text = dbMptt.GetTopicPath(previousQuestion.IdTopic);
+                txtTopic.Text = dbMptt.GetNodePath(previousQuestion.IdTopic);
                 txtTopicCode.Text = currentTopic.Id.ToString();
                 updateQuestions();
             }
@@ -215,7 +215,7 @@ namespace SchoolGrades
             {
                 chosenTopic = f.ChosenTopic;
                 currentTopic = chosenTopic;
-                txtTopic.Text = dbMptt.GetTopicPath(chosenTopic.Id);
+                txtTopic.Text = dbMptt.GetNodePath(chosenTopic.Id);
                 txtTopicCode.Text = chosenTopic.Id.ToString(); 
                 updateQuestions();
             }
@@ -245,7 +245,7 @@ namespace SchoolGrades
             {
                 chosenTopic = f.TopicChosen;
                 currentTopic = chosenTopic;
-                txtTopic.Text = dbMptt.GetTopicPath(chosenTopic.Id);
+                txtTopic.Text = dbMptt.GetNodePath(chosenTopic.Id);
                 txtTopicCode.Text = chosenTopic.Id.ToString();
                 updateQuestions();
             }
