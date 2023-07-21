@@ -20,6 +20,8 @@ namespace SharedWinForms
         public static bool BackgroundSavingEnabled = true;
         // exit the background task 
         public static bool BackgroundTaskClose = false;
+        public static bool BackgroundTaskIsSaving = false;
+        public static bool IAmBackgroundTask = false;
         // lock variable for serialization of access to BackgroundSavingEnabled and BackgroundSavingSafeStatus
         public static object LockSavingCriticalSections = new object();
         public static object LockBackgroundSavingVariables = new object();
@@ -239,12 +241,12 @@ namespace SharedWinForms
             }
             return true;
         }
-        internal static void SwitchPicLedOn(bool SetLedLit)
+        internal static void SwitchPicLed(bool IsLedLit)
         {
             // lights on or off the PictureBox used as an Activity LED 
             globalPicLed.Invoke(new Action(() =>
             {
-                if (SetLedLit)
+                if (IsLedLit)
                     globalPicLed.BackColor = Color.Red;           // LED lit
                 else
                     globalPicLed.BackColor = Color.DarkGray;      // LED off

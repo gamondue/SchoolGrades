@@ -88,8 +88,10 @@ namespace SchoolGrades
             AllTheInitializations();
 
             // start the Thread that concurrently saves the Topics tree
-            CommonsWinForms.SaveTreeMptt = new TreeMptt(Commons.dl, null, null, null, null, null, null, picBackgroundSaveRunning);
-            CommonsWinForms.BackgroundSaveThread = new Thread(CommonsWinForms.SaveTreeMptt.SaveMpttBackground);
+            CommonsWinForms.SaveTreeMptt = new TreeMptt(Commons.dl, 
+                null, null, null, null, null, null, picBackgroundSaveRunning,
+                null, null, null, null);
+            CommonsWinForms.BackgroundSaveThread = new Thread(CommonsWinForms.SaveTreeMptt.SaveTreeMpttBackground);
             CommonsWinForms.BackgroundSaveThread.Start();
         }
         private void AllTheInitializations()
@@ -1323,7 +1325,7 @@ namespace SchoolGrades
 
             CloseThread(); 
 
-            // if a save of the database with Mptt is running, we close it 
+            // if a saving of the database with Mptt is running, we close it 
             if (CommonsWinForms.BackgroundSavingEnabled)
             {
                 lock (CommonsWinForms.LockBackgroundSavingVariables)

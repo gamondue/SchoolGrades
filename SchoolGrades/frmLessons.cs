@@ -88,8 +88,10 @@ namespace SchoolGrades
 
             //topicTreeMptt = new TopicTreeMptt(listTopicsBefore, trwTopics,
             topicTreeMptt = new TreeMptt(Commons.dl, trwTopics,
-                txtTopicName, txtTopicDescription, txtTopicFind, TxtTopicsDigestAndSearch,
-                null, CommonsWinForms.globalPicLed, DragDropEffects.Copy);
+                txtTopicName, txtTopicDescription, txtTopicSearchString, txtTopicsDigest, 
+                null, CommonsWinForms.globalPicLed, chkSearchInDescriptions, chkAllWord,
+                chkCaseInsensitive, chkMarkAllTopicsFound,
+                DragDropEffects.Copy);
             topicTreeMptt.AddNodesToTreeviewByBestMethod();
 
             RefreshTopicsChecksAndImages();
@@ -152,12 +154,12 @@ namespace SchoolGrades
         {
             if (topicTreeMptt != null)
             {
-                topicTreeMptt.UncheckAllItemsUnderNode(trwTopics.Nodes[0]);
+                topicTreeMptt.UncheckAllItemsUnderNode_Recursive(trwTopics.Nodes[0]);
                 // gets and checks the topics of the current lesson 
                 List<Topic> TopicsToCheck = Commons.bl.GetTopicsOfLesson(currentLesson.IdLesson);
                 int dummy = 0;
                 bool dummy2 = false;
-                topicTreeMptt.CheckItemsInList(trwTopics.Nodes[0],
+                topicTreeMptt.CheckItemsInList_Recursive(trwTopics.Nodes[0],
                 TopicsToCheck, ref dummy, ref dummy2);
 
                 // gets the images associated with this lesson
@@ -177,8 +179,10 @@ namespace SchoolGrades
         }
         private void btnFind_Click(object sender, EventArgs e)
         {
-            topicTreeMptt.FindItem(txtTopicFind.Text, chkFindAll.Checked, chkSearchInDescriptions.Checked,
-                chkAllWord.Checked, chkCaseSensitive.Checked);
+            // ricerca 
+            topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked,
+                chkSearchInDescriptions.Checked,
+                chkAllWord.Checked, chkCaseInsensitive.Checked);
         }
         private void btnAddNode_Click(object sender, EventArgs e)
         {
@@ -188,11 +192,11 @@ namespace SchoolGrades
         }
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            topicTreeMptt.DeleteSelectedNode();
+            topicTreeMptt.DeleteNodeSelected();
         }
         private void btnSaveTree_Click(object sender, EventArgs e)
         {
-            topicTreeMptt.SaveTreeFromTreeViewControlByParent();
+            topicTreeMptt.SaveTreeFromTreeViewByParent();
             MessageBox.Show("Salvataggio fatto");
         }
         private void ExportSubtreeToClipboard()
@@ -282,7 +286,7 @@ namespace SchoolGrades
             TxtLessonDesc.Text = "";
             txtLessonCode.Text = currentLesson.IdLesson.ToString();
             dtpLessonDate.Value = (DateTime)currentLesson.Date;
-            topicTreeMptt.UncheckAllItemsUnderNode(trwTopics.Nodes[0]);
+            topicTreeMptt.UncheckAllItemsUnderNode_Recursive(trwTopics.Nodes[0]);
 
             //  refresh database data in grids 
             RefreshLessons(0);
@@ -300,7 +304,7 @@ namespace SchoolGrades
             }
             btnLessonSave.Enabled = false;
             // save anyway (should be better to control if it is necessary)  
-            topicTreeMptt.SaveTreeFromTreeViewControlByParent();
+            topicTreeMptt.SaveTreeFromTreeViewByParent();
 
             if (txtLessonCode.Text == "")
             {
@@ -331,7 +335,7 @@ namespace SchoolGrades
             // we find the checked items in treeviw, we start from the beginning 
             List<Topic> topicsOfTheLesson = new List<Topic>();
             int dummy = 0;
-            topicTreeMptt.FindCheckedItems(trwTopics.Nodes[0],
+            topicTreeMptt.FindCheckedItems_Recursive(trwTopics.Nodes[0],
                 topicsOfTheLesson, ref dummy);
             if (topicsOfTheLesson.Count > 0)
                 Commons.bl.SaveTopicsOfLesson(currentLesson.IdLesson, topicsOfTheLesson);
@@ -345,7 +349,7 @@ namespace SchoolGrades
         }
         private void btnCopyToClipboard_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(TxtLessonDesc.Text + ". " + TxtTopicsDigestAndSearch.Text);
+            Clipboard.SetText(TxtLessonDesc.Text + ". " + txtTopicsDigest.Text);
         }
         private void btnStartLinks_Click(object sender, EventArgs e)
         {
@@ -423,7 +427,7 @@ namespace SchoolGrades
             if (e.RowIndex > -1)
             {
                 DataRow row = ((DataTable)(dgwOneLesson.DataSource)).Rows[e.RowIndex];
-                topicTreeMptt.FindItemById((int)row["idTopic"]);
+                topicTreeMptt.FindNodeById((int)row["idTopic"]);
             }
         }
         private void frmLessonsTopics_KeyDown(object sender, KeyEventArgs e)
@@ -433,7 +437,7 @@ namespace SchoolGrades
         private void checkGeneralKeysForTopicsTree(KeyEventArgs e)
         {
             if (e.KeyCode == Keys.F3)
-                topicTreeMptt.FindItem(txtTopicFind.Text, chkFindAll.Checked);
+                topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked);
             if (e.KeyCode == Keys.F5)
             {
                 btnSaveTree_Click(null, null);
@@ -451,7 +455,7 @@ namespace SchoolGrades
             }
 
             if (e.KeyCode == Keys.F3)
-                topicTreeMptt.FindItem(txtTopicFind.Text, chkFindAll.Checked);
+                topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked);
             if (e.KeyCode == Keys.F5)
             {
                 btnSaveTree_Click(null, null);
@@ -500,7 +504,7 @@ namespace SchoolGrades
             List<Topic> listNonDone = Commons.bl.GetTopicsNotDoneFromThisTopic(currentClass,
                 ((Topic)trwTopics.SelectedNode.Tag), currentSchoolSubject);
             int dummy = 0; bool dummy2 = false;
-            topicTreeMptt.HighlightTopicsInList(trwTopics.Nodes[0],
+            topicTreeMptt.HighlightNodesInList(trwTopics.Nodes[0],
                  listNonDone, ref dummy, ref dummy2);
         }
         private void btnTopicsDone_Click(object sender, EventArgs e)
@@ -514,7 +518,7 @@ namespace SchoolGrades
             List<Topic> listDone = Commons.bl.GetTopicsDoneFromThisTopic(currentClass,
                 ((Topic)trwTopics.SelectedNode.Tag), currentSchoolSubject);
             int dummy = 0; bool dummy2 = false;
-            topicTreeMptt.HighlightTopicsInList(trwTopics.Nodes[0],
+            topicTreeMptt.HighlightNodesInList(trwTopics.Nodes[0],
                  listDone, ref dummy, ref dummy2);
         }
         private void bntLessonErase_Click(object sender, EventArgs e)
@@ -549,7 +553,10 @@ namespace SchoolGrades
         }
         private void LessonTimer_Tick(object sender, EventArgs e)
         {
-            lblLessonTime.BackColor = ((frmMain)Application.OpenForms[0]).CurrentLessonTimeColor;
+            if (Application.OpenForms[0] != null)
+            {
+                lblLessonTime.BackColor = ((frmMain)Application.OpenForms[0]).CurrentLessonTimeColor;
+            }
         }
         private void DgwAllLessons_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -561,7 +568,7 @@ namespace SchoolGrades
             {
                 dgwAllLessons.Rows[e.RowIndex].Selected = true;
 
-                TxtTopicsDigestAndSearch.Text = "";
+                txtTopicsDigest.Text = "";
                 List<Lesson> l = ((List<Lesson>)(dgwAllLessons.DataSource));
 
                 if (currentLesson.IdLesson != l[e.RowIndex].IdLesson)
@@ -600,7 +607,7 @@ namespace SchoolGrades
             while (!allScanned)
             {
                 DataGridViewRow row = dgwAllLessons.Rows[rowToBeSearchedIndex];
-                if (((string)row.Cells["Note"].Value).Contains(TxtTopicsDigestAndSearch.Text))
+                if (((string)row.Cells["Note"].Value).Contains(txtTopicsDigest.Text))
                 {
                     dgwAllLessons.ClearSelection();
                     row.Selected = true;
@@ -636,14 +643,12 @@ namespace SchoolGrades
             // set focus to the name textBox
             txtTopicName.Focus();
         }
-
         private void btnFindUnderNode_Click(object sender, EventArgs e)
         {
             //MessageBox.Show("Da fare!");
             //return; 
-            topicTreeMptt.FindItemUnderNode(txtTopicFind.Text, chkFindAll.Checked);
+            topicTreeMptt.FindNodeUnderNode(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked);
         }
-
         private void chksSearch_CheckedChanged(object sender, EventArgs e)
         {
             if (!isLoading)
@@ -652,8 +657,9 @@ namespace SchoolGrades
 
                 // fire a new search 
                 topicTreeMptt.ResetSearch();
-                topicTreeMptt.FindItem(txtTopicFind.Text, chkFindAll.Checked, chkSearchInDescriptions.Checked,
-                    chkAllWord.Checked, chkCaseSensitive.Checked);
+                topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked,
+                    chkSearchInDescriptions.Checked,
+                    chkAllWord.Checked, chkCaseInsensitive.Checked);
             }
         }
     }

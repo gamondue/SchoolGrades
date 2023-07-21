@@ -32,7 +32,6 @@ namespace SchoolGrades
         {
             InitializeComponent();
         }
-
         private void frmTopicsRecover_Load(object sender, EventArgs e)
         {
             // Commons.ReadConfigFile();
@@ -43,8 +42,8 @@ namespace SchoolGrades
             DataLayer dlNew = new DataLayer(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
             treeNew = new TreeMptt(dlNew, trwNewTopics,
                 txtNewTopicName, txtNewDescription, txtSearchNew, null, txtCodNewTopic,
-                CommonsWinForms.globalPicLed, DragDropEffects.Copy);
-            treeNew.Name = "treeNew"; 
+                CommonsWinForms.globalPicLed, null, null, null, null, DragDropEffects.Copy);
+            treeNew.Name = "treeNew";
             treeNew.AddNodesToTreeviewByBestMethod();
             treeNew.ClearBackColorOnClick = false;
 
@@ -56,7 +55,6 @@ namespace SchoolGrades
             picSameNodeChangedParent.BackColor = colorSameNodeChangedParent;
             picSameNodeChangedPosition.BackColor = colorSameNodeChangedPosition;
         }
-
         private void btnPathNewDatabase_Click(object sender, EventArgs e)
         {
             folderBrowserDialog1.SelectedPath = txtPathNewDatabase.Text;
@@ -66,7 +64,6 @@ namespace SchoolGrades
                 txtPathNewDatabase.Text = folderBrowserDialog1.SelectedPath;
             }
         }
-
         private void btnFileNewDatabase_Click(object sender, EventArgs e)
         {
             openFileDialog1.InitialDirectory = txtPathNewDatabase.Text;
@@ -81,13 +78,12 @@ namespace SchoolGrades
 
             treeNew = new TreeMptt(dlNew, trwNewTopics,
                 txtNewTopicName, txtNewDescription, null, null, txtCodNewTopic,
-                CommonsWinForms.globalPicLed, DragDropEffects.Copy); 
+                CommonsWinForms.globalPicLed, null, null, null, null, DragDropEffects.Copy);
             treeNew.AddNodesToTreeviewByBestMethod();
             treeNew.ClearBackColorOnClick = false;
 
             highligthDifferences();
         }
-
         private void btnPathOldDatabase_Click(object sender, EventArgs e)
         {
             folderBrowserDialog1.SelectedPath = txtPathOldDatabase.Text;
@@ -97,7 +93,6 @@ namespace SchoolGrades
                 txtPathOldDatabase.Text = folderBrowserDialog1.SelectedPath;
             }
         }
-
         private void btnFileOldDatabase_Click(object sender, EventArgs e)
         {
             openFileDialog1.InitialDirectory = txtPathOldDatabase.Text;
@@ -116,8 +111,8 @@ namespace SchoolGrades
 
             treeOld = new TreeMptt(dlOld, trwOldTopics,
                 txtOldTopicName, txtOldDescription, txtSearchOld, null, txtCodOldTopic,
-                CommonsWinForms.globalPicLed, DragDropEffects.Copy);
-            treeOld.Name = "treeOld"; 
+                CommonsWinForms.globalPicLed, null, null, null, null, DragDropEffects.Copy);
+            treeOld.Name = "treeOld";
             treeOld.AddNodesToTreeviewByBestMethod();
             treeOld.ClearBackColorOnClick = false;
 
@@ -130,21 +125,20 @@ namespace SchoolGrades
             }
             // we wait for the saving Thread to finish
             // (it aborts in a point in which status is preserved)  
-            CommonsWinForms.BackgroundSaveThread.Join(3000); 
+            CommonsWinForms.BackgroundSaveThread.Join(3000);
 
             highligthDifferences();
         }
-
         private void highligthDifferences()
         {
             treeNew.ClearBackColor();
             treeOld.ClearBackColor();
             List<System.Windows.Forms.TreeNode> nodesNew = new List<System.Windows.Forms.TreeNode>();
             // recursively fill nodesNew
-            treeNew.GetAllNodesOfSubtree(trwNewTopics.Nodes[0], nodesNew);
+            treeNew.GetSubtree_Recursive(trwNewTopics.Nodes[0], nodesNew);
             // recursively fill nodesOld
             List<System.Windows.Forms.TreeNode> nodesOld = new List<System.Windows.Forms.TreeNode>();
-            treeOld.GetAllNodesOfSubtree(trwOldTopics.Nodes[0], nodesOld);
+            treeOld.GetSubtree_Recursive(trwOldTopics.Nodes[0], nodesOld);
 
             int indexScanNew = 0;
             int indexScanOld = 0;
@@ -153,7 +147,7 @@ namespace SchoolGrades
             Topic topicNew;
             Topic topicOld;
 
-            while (indexScanNew < nodesNew.Count -1 && indexScanOld < nodesOld.Count - 1)
+            while (indexScanNew < nodesNew.Count - 1 && indexScanOld < nodesOld.Count - 1)
             {
                 nodeNew = nodesNew[indexScanNew];
                 nodeOld = nodesOld[indexScanOld];
@@ -174,17 +168,21 @@ namespace SchoolGrades
                     {
                         nodeNew.BackColor = colorSameName;
                         nodeOld.BackColor = colorSameName;
-                        nodeNew.Parent.Expand();
+                        try
+                        {
+                            nodeNew.Parent.Expand();
+                        }
+                        catch { }
                         nodeOld.Expand();
                     }
                     else if (topicNew.Desc == topicOld.Desc)
                     {
-                        if (topicNew.ParentNodeOld== topicOld.ParentNodeOld)
+                        if (topicNew.ParentNodeOld == topicOld.ParentNodeOld)
                         {
                             nodeNew.BackColor = colorSameDesc;
                             nodeOld.BackColor = colorSameDesc;
                         }
-                        else 
+                        else
                         {
                             nodeNew.BackColor = colorSameNodeChangedParent;
                             nodeOld.BackColor = colorSameNodeChangedParent;
@@ -217,12 +215,12 @@ namespace SchoolGrades
                         found = true;
                         break;
                     }
-                    indexSearchOld++; 
+                    indexSearchOld++;
                 }
                 if (found && indexScanNew < nodesNew.Count - 1)
                 {   // we found the current new node in old tree 
                     // we can go on with the scanning 
-                    indexScanOld = indexSearchOld; 
+                    indexScanOld = indexSearchOld;
                 }
                 else if (indexScanNew < nodesNew.Count - 1)
                 {
@@ -238,7 +236,6 @@ namespace SchoolGrades
             //trwNewTopics.ExpandAll();
             //trwOldTopics.ExpandAll();
         }
-
         private void btnRecover_Click(object sender, EventArgs e)
         {
             //DbAndBusiness dbNew = new DbAndBusiness( txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
@@ -247,7 +244,7 @@ namespace SchoolGrades
 
             if (txtFileOldDatabase.Text == "")
             {
-                Console.Beep(); 
+                Console.Beep();
                 return;
             }
 
@@ -257,8 +254,8 @@ namespace SchoolGrades
             List<Topic> lOld = dlOld.GetTopics();
 
             int newIndex = 0;
-            bool newFinished = false; 
-            foreach(Topic tOld in lOld)
+            bool newFinished = false;
+            foreach (Topic tOld in lOld)
             {
                 Topic tNew = lNew[newIndex];
                 while (tNew.Id < tOld.Id && !newFinished)
@@ -301,9 +298,8 @@ namespace SchoolGrades
                     }
                 }
             }
-            this.Close(); 
+            this.Close();
         }
-
         private void btnCopyOldNew_Click(object sender, EventArgs e)
         {
             MessageBox.Show("TO FINISH!");
@@ -322,15 +318,15 @@ namespace SchoolGrades
         }
         private void btnFindNew_Click(object sender, EventArgs e)
         {
-            treeNew.FindItem(txtSearchNew.Text, false);
+            treeNew.FindNodes(txtSearchNew.Text, false);
         }
         private void btnFindOld_Click(object sender, EventArgs e)
         {
-            treeOld.FindItem(txtSearchOld.Text,false);
+            treeOld.FindNodes(txtSearchOld.Text, false);
         }
         private void BtnSaveNewTree_Click(object sender, EventArgs e)
         {
-            treeNew.SaveTreeFromTreeViewControlByParent();
+            treeNew.SaveTreeFromTreeViewByParent();
 
             // abort the background saving that was triggered by SaveTreeFromTreeViewControlByParent
             // locks a concurrent modification of Commons.BackgroundCanStillSaveTopicsTree 
@@ -339,13 +335,13 @@ namespace SchoolGrades
                 CommonsWinForms.BackgroundSavingEnabled = false;
                 CommonsWinForms.BackgroundTaskClose = true;
             }
-                // we wait for the saving Thread to finish
+            // we wait for the saving Thread to finish
             // (it aborts in a point in which status is preserved)  
-            CommonsWinForms.BackgroundSaveThread.Join(3000); 
+            CommonsWinForms.BackgroundSaveThread.Join(3000);
 
             // !!!! TODO restart the task on closing the form !!!!
 
-            MessageBox.Show("Fatto"); 
+            MessageBox.Show("Fatto");
         }
         private void frmTopicsRecover_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -353,18 +349,17 @@ namespace SchoolGrades
             // that we have left off when this form was open
 
             // restart the background Thread 
-            startBackgroundSavingTask(); 
+            startBackgroundSavingTask();
         }
         private void startBackgroundSavingTask()
         {
             // re-create and run the Thread that concurrently saves the Topics tree
-            CommonsWinForms.BackgroundSaveThread = new Thread(CommonsWinForms.SaveTreeMptt.SaveMpttBackground);
+            CommonsWinForms.BackgroundSaveThread = new Thread(CommonsWinForms.SaveTreeMptt.SaveTreeMpttBackground);
             CommonsWinForms.BackgroundSaveThread.Start();
         }
         private void btnBeheaded_Click(object sender, EventArgs e)
         {
-            treeNew.EraseTree();
-            treeOld.ShowAllBeheadedNodes();
+            treeOld.ColorAllBeheadedNodes();
         }
     }
 }

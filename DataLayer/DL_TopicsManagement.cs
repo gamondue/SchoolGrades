@@ -107,7 +107,6 @@ namespace SchoolGrades
             }
             return lt;
         }
-
         internal bool IsTopicAlreadyTaught(Topic Topic)
         {
             using (DbConnection conn = Connect())
@@ -122,7 +121,6 @@ namespace SchoolGrades
                 return (result != null);
             }
         }
-
         internal List<Topic> GetTopicsDoneFromThisTopic(Class Class, Topic StartTopic,
             SchoolSubject Subject)
         {
@@ -202,7 +200,6 @@ namespace SchoolGrades
             }
             return l;
         }
-
         internal List<Topic> GetAllTopicsDoneInClassAndSubject(Class Class,
             SchoolSubject Subject,
             DateTime DateStart = default(DateTime), DateTime DateFinish = default(DateTime))
@@ -366,9 +363,9 @@ namespace SchoolGrades
                 }
             }
         }
-        internal List<Topic> GetTopicsByParent()
+        internal List<Topic> GetNodesByParentFromDatabase()
         {
-            // node order according to siSafeings' order (parentNode and childNumber)
+            // node order according to parents' order (parentNode and childNumber)
             List<Topic> l = new List<Topic>();
             using (DbConnection conn = Connect())
             {
@@ -389,7 +386,6 @@ namespace SchoolGrades
             }
             return l;
         }
-
         internal void SaveTopicsFromScratch(List<Topic> ListTopics)
         {
             using (DbConnection conn = Connect())

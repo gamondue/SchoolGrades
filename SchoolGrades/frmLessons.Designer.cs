@@ -49,7 +49,7 @@
             txtSchoolSubject = new System.Windows.Forms.TextBox();
             btnFind = new System.Windows.Forms.Button();
             lblFind = new System.Windows.Forms.Label();
-            txtTopicFind = new System.Windows.Forms.TextBox();
+            txtTopicSearchString = new System.Windows.Forms.TextBox();
             btnDelete = new System.Windows.Forms.Button();
             txtTopicName = new System.Windows.Forms.TextBox();
             btnAddNodeSon = new System.Windows.Forms.Button();
@@ -57,7 +57,7 @@
             TxtLessonDesc = new System.Windows.Forms.TextBox();
             dtpLessonDate = new System.Windows.Forms.DateTimePicker();
             dgwAllLessons = new System.Windows.Forms.DataGridView();
-            TxtTopicsDigestAndSearch = new System.Windows.Forms.TextBox();
+            txtTopicsDigest = new System.Windows.Forms.TextBox();
             btnCopyNoteToClipboard = new System.Windows.Forms.Button();
             btnStartLinks = new System.Windows.Forms.Button();
             txtTopicDescription = new System.Windows.Forms.TextBox();
@@ -82,10 +82,10 @@
             rdbAndSearch = new System.Windows.Forms.RadioButton();
             rdbOrSearch = new System.Windows.Forms.RadioButton();
             btnFindUnderNode = new System.Windows.Forms.Button();
-            chkCaseSensitive = new System.Windows.Forms.CheckBox();
+            chkCaseInsensitive = new System.Windows.Forms.CheckBox();
             BtnSearchAmongTopics = new System.Windows.Forms.Button();
             btnExport = new System.Windows.Forms.Button();
-            chkFindAll = new System.Windows.Forms.CheckBox();
+            chkMarkAllTopicsFound = new System.Windows.Forms.CheckBox();
             btnAddNodeBrother = new System.Windows.Forms.Button();
             btnLessonAdd = new System.Windows.Forms.Button();
             chkAllWord = new System.Windows.Forms.CheckBox();
@@ -314,15 +314,15 @@
             lblFind.TabIndex = 121;
             lblFind.Text = "Trova";
             // 
-            // txtTopicFind
+            // txtTopicSearchString
             // 
-            txtTopicFind.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            txtTopicFind.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            txtTopicFind.Location = new System.Drawing.Point(885, 189);
-            txtTopicFind.Multiline = true;
-            txtTopicFind.Name = "txtTopicFind";
-            txtTopicFind.Size = new System.Drawing.Size(139, 33);
-            txtTopicFind.TabIndex = 120;
+            txtTopicSearchString.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            txtTopicSearchString.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtTopicSearchString.Location = new System.Drawing.Point(885, 189);
+            txtTopicSearchString.Multiline = true;
+            txtTopicSearchString.Name = "txtTopicSearchString";
+            txtTopicSearchString.Size = new System.Drawing.Size(139, 33);
+            txtTopicSearchString.TabIndex = 120;
             // 
             // btnDelete
             // 
@@ -406,17 +406,17 @@
             dgwAllLessons.CellContentClick += DgwAllLessons_CellContentClick;
             dgwAllLessons.RowEnter += DgwAllLessons_RowEnter;
             // 
-            // TxtTopicsDigestAndSearch
+            // txtTopicsDigest
             // 
-            TxtTopicsDigestAndSearch.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            TxtTopicsDigestAndSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            TxtTopicsDigestAndSearch.Location = new System.Drawing.Point(1, 0);
-            TxtTopicsDigestAndSearch.Multiline = true;
-            TxtTopicsDigestAndSearch.Name = "TxtTopicsDigestAndSearch";
-            TxtTopicsDigestAndSearch.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            TxtTopicsDigestAndSearch.Size = new System.Drawing.Size(351, 69);
-            TxtTopicsDigestAndSearch.TabIndex = 128;
-            toolTip1.SetToolTip(TxtTopicsDigestAndSearch, "Testo da ricercare negli argomenti OPPURE argomenti selezionati (generati automaticamente)");
+            txtTopicsDigest.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txtTopicsDigest.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtTopicsDigest.Location = new System.Drawing.Point(1, 0);
+            txtTopicsDigest.Multiline = true;
+            txtTopicsDigest.Name = "txtTopicsDigest";
+            txtTopicsDigest.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            txtTopicsDigest.Size = new System.Drawing.Size(351, 69);
+            txtTopicsDigest.TabIndex = 128;
+            toolTip1.SetToolTip(txtTopicsDigest, "Testo da ricercare negli argomenti OPPURE argomenti selezionati (generati automaticamente)");
             // 
             // btnCopyNoteToClipboard
             // 
@@ -487,7 +487,7 @@
             // 
             splitContainerBigVertical.Panel1.Controls.Add(grpViewTopics);
             splitContainerBigVertical.Panel1.Controls.Add(splitContainerLeftHorizontal);
-            splitContainerBigVertical.Panel1.Controls.Add(TxtTopicsDigestAndSearch);
+            splitContainerBigVertical.Panel1.Controls.Add(txtTopicsDigest);
             // 
             // splitContainerBigVertical.Panel2
             // 
@@ -711,16 +711,15 @@
             // 
             // chkCaseSensitive
             // 
-            chkCaseSensitive.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            chkCaseSensitive.AutoSize = true;
-            chkCaseSensitive.Location = new System.Drawing.Point(947, 247);
-            chkCaseSensitive.Name = "chkCaseSensitive";
-            chkCaseSensitive.Size = new System.Drawing.Size(82, 22);
-            chkCaseSensitive.TabIndex = 157;
-            chkCaseSensitive.Text = "ma && mi";
-            toolTip1.SetToolTip(chkCaseSensitive, "Ricerca case sensitive");
-            chkCaseSensitive.UseVisualStyleBackColor = true;
-            chkCaseSensitive.CheckedChanged += chksSearch_CheckedChanged;
+            chkCaseInsensitive.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            chkCaseInsensitive.AutoSize = true;
+            chkCaseInsensitive.Location = new System.Drawing.Point(947, 247);
+            chkCaseInsensitive.Name = "chkCaseSensitive";
+            chkCaseInsensitive.Size = new System.Drawing.Size(82, 22);
+            chkCaseInsensitive.TabIndex = 157;
+            chkCaseInsensitive.Text = "ma && mi";
+            toolTip1.SetToolTip(chkCaseInsensitive, "Ricerca case sensitive");
+            chkCaseInsensitive.UseVisualStyleBackColor = true;
             // 
             // BtnSearchAmongTopics
             // 
@@ -745,16 +744,16 @@
             btnExport.UseVisualStyleBackColor = true;
             btnExport.Click += btnExport_Click;
             // 
-            // chkFindAll
+            // chkMarkAllTopicsFound
             // 
-            chkFindAll.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            chkFindAll.AutoSize = true;
-            chkFindAll.Location = new System.Drawing.Point(974, 166);
-            chkFindAll.Name = "chkFindAll";
-            chkFindAll.Size = new System.Drawing.Size(50, 22);
-            chkFindAll.TabIndex = 152;
-            chkFindAll.Text = "tutti";
-            chkFindAll.UseVisualStyleBackColor = true;
+            chkMarkAllTopicsFound.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            chkMarkAllTopicsFound.AutoSize = true;
+            chkMarkAllTopicsFound.Location = new System.Drawing.Point(974, 166);
+            chkMarkAllTopicsFound.Name = "chkMarkAllTopicsFound";
+            chkMarkAllTopicsFound.Size = new System.Drawing.Size(50, 22);
+            chkMarkAllTopicsFound.TabIndex = 152;
+            chkMarkAllTopicsFound.Text = "tutti";
+            chkMarkAllTopicsFound.UseVisualStyleBackColor = true;
             // 
             // btnAddNodeBrother
             // 
@@ -787,7 +786,6 @@
             chkAllWord.TabIndex = 156;
             chkAllWord.Text = "Parola";
             chkAllWord.UseVisualStyleBackColor = true;
-            chkAllWord.CheckedChanged += chksSearch_CheckedChanged;
             // 
             // chkSearchInDescriptions
             // 
@@ -801,7 +799,6 @@
             chkSearchInDescriptions.TabIndex = 158;
             chkSearchInDescriptions.Text = "In Descriz.";
             chkSearchInDescriptions.UseVisualStyleBackColor = true;
-            chkSearchInDescriptions.CheckedChanged += chksSearch_CheckedChanged;
             // 
             // frmLessons
             // 
@@ -810,11 +807,11 @@
             BackColor = System.Drawing.Color.PowderBlue;
             ClientSize = new System.Drawing.Size(1032, 667);
             Controls.Add(chkSearchInDescriptions);
-            Controls.Add(chkCaseSensitive);
+            Controls.Add(chkCaseInsensitive);
             Controls.Add(chkAllWord);
             Controls.Add(btnFindUnderNode);
             Controls.Add(btnAddNodeBrother);
-            Controls.Add(chkFindAll);
+            Controls.Add(chkMarkAllTopicsFound);
             Controls.Add(btnExport);
             Controls.Add(btnAddNodeSon);
             Controls.Add(rdbOrSearch);
@@ -839,7 +836,7 @@
             Controls.Add(TxtLessonDesc);
             Controls.Add(btnFind);
             Controls.Add(lblFind);
-            Controls.Add(txtTopicFind);
+            Controls.Add(txtTopicSearchString);
             Controls.Add(btnDelete);
             Controls.Add(btnSaveTree);
             Controls.Add(txtSchoolSubject);
@@ -918,7 +915,7 @@
         private System.Windows.Forms.TextBox TxtLessonDesc;
         private System.Windows.Forms.DateTimePicker dtpLessonDate;
         private System.Windows.Forms.DataGridView dgwAllLessons;
-        private System.Windows.Forms.TextBox TxtTopicsDigestAndSearch;
+        private System.Windows.Forms.TextBox txtTopicsDigest;
         private System.Windows.Forms.Button btnCopyNoteToClipboard;
         private System.Windows.Forms.Button btnStartLinks;
         private System.Windows.Forms.TextBox txtTopicDescription;
@@ -945,7 +942,7 @@
         private System.Windows.Forms.RadioButton rdbAndSearch;
         private System.Windows.Forms.RadioButton rdbOrSearch;
         private System.Windows.Forms.Button btnExport;
-        private System.Windows.Forms.CheckBox chkFindAll;
+        private System.Windows.Forms.CheckBox chkMarkAllTopicsFound;
         private System.Windows.Forms.Button btnAddNodeBrother;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnFindUnderNode;
@@ -954,8 +951,9 @@
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox chkMaiuscoleMinuscole;
-        private System.Windows.Forms.CheckBox chkCaseSensitive;
+        private System.Windows.Forms.CheckBox chkCaseInsensitive;
         private System.Windows.Forms.CheckBox chkAllWord;
         private System.Windows.Forms.CheckBox chkSearchInDescriptions;
+        private System.Windows.Forms.TextBox txtTopicSearchString;
     }
 }
