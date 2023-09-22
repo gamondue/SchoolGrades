@@ -1,21 +1,21 @@
-﻿using System;
+﻿using SchoolGrades;
+using SchoolGrades.BusinessObjects;
+using SharedWinForms;
+using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SQLite;
 using System.Linq;
 using System.Windows.Forms;
-using SchoolGrades;
-using SchoolGrades.BusinessObjects;
-using SharedWinForms;
 
 namespace gamon.TreeMptt
 {
     internal class TreeMpttDb
     {
         // !!!! TODO; turn to generic this tree, such that it can contain any class and not just Topic instances !!!!
-        DataLayer dl; 
+        DataLayer dl;
         public TreeMpttDb(DataLayer DataAccessLayer)
-        { 
+        {
             dl = DataAccessLayer;
         }
         internal void SaveTreeToDb(List<Topic> ListTopicsAfter, List<Topic> ListTopicsDeleted,
@@ -38,7 +38,7 @@ namespace gamon.TreeMptt
                 foreach (Topic t in ListTopicsDeleted)
                 {
                     // if the saving must finish and the task saving in background, we quit the function 
-                    if (Commons.ProcessingCanContinue()) break;
+                    if (Commons.ProcessingCanContinue()) return;
                     cmd.CommandText = "DELETE FROM Topics" +
                             " WHERE IdTopic =" + t.Id +
                             ";";
@@ -47,7 +47,7 @@ namespace gamon.TreeMptt
             }
             foreach (Topic t in ListTopicsAfter)
             {
-                if (!Commons.ProcessingCanContinue()) break;
+                if (!Commons.ProcessingCanContinue()) return;
 
                 // if the saving must finish and the task saving in background, we quit the function 
                 if (!CommonsWinForms.BackgroundSavingEnabled && MustSaveLeftAndRight)
@@ -59,7 +59,7 @@ namespace gamon.TreeMptt
                 if (t.Changed == null)
                     changed = false;
                 else
-                    changed = (bool)t.Changed; 
+                    changed = (bool)t.Changed;
                 // update modified nodes 
                 if (changed
                     || t.ParentNodeNew != t.ParentNodeOld || t.ChildNumberNew != t.ChildNumberOld
@@ -104,7 +104,7 @@ namespace gamon.TreeMptt
                 Connection.Close();
             }
         }
-        internal bool AreLeftAndRightConsistent ()
+        internal bool AreLeftAndRightConsistent()
         {
             // reads in the db if the pointers to right and left node of all the nodes are
             // considered to be consistent 
@@ -195,7 +195,7 @@ namespace gamon.TreeMptt
             // recursive call that does all: 
             int nodeCount = 0;
             // recursive function starts from just one root node
-            SetRightAndLeftInOneLevel(firstNodes[0], ref nodeCount); 
+            SetRightAndLeftInOneLevel(firstNodes[0], ref nodeCount);
             // since the initial node has not been read from the database, 
             // then we save left and right anyway 
             UdpateTopicMptt(firstNodes[0].Id, 0, nodeCount);
@@ -206,22 +206,22 @@ namespace gamon.TreeMptt
         {
             // if it is requested externally by setting BackgroundSavingEnabled to false, 
             // abort tree update by exiting the method 
-            if (!Commons.ProcessingCanContinue()) return; 
+            if (!Commons.ProcessingCanContinue()) return;
             // visits all the childrens of CurrentNode in the Treeview. 
             // with the Modified Tree Traversal algorithm 
             // calculates Right and Left node and update the database in case they are different
             // ParentNode was taken from the database, NodeCount has been calculated here 
             bool isLeftDifferent = false;
-            int NewLeft = 0; 
+            int NewLeft = 0;
             if (ParentNode.LeftNodeNew != NodeCount++)
             {
                 isLeftDifferent = true;
-                NewLeft = NodeCount - 1; 
+                NewLeft = NodeCount - 1;
             }
             // find all son nodes of current node (list is ordered by childNumber) 
             // takes from the database, which could be unmodified 
             // !!!! TODO: keep the connection open !!!!
-            List<Topic> listChilds = GetNodesChildsByParent(ParentNode, null); 
+            List<Topic> listChilds = GetNodesChildsByParent(ParentNode, null);
             foreach (Topic sonNode in listChilds)  // list Childs are taken from the database 
             {
                 if (!Commons.ProcessingCanContinue()) return;
@@ -297,6 +297,7 @@ namespace gamon.TreeMptt
         internal void GenerateNewListOfNodesFromTreeViewControl_Recursive(TreeNode CurrentNode, ref int nodeCount,
             ref List<Topic> generatedList, DbConnection Connection) // the 2 ref parameters must be passed for recursion
         {
+            if (!CommonsWinForms.BackgroundSavingEnabled && CommonsWinForms.BackgroundTaskIsSaving) return;
             // visits all the childrens of CurrentNode in the Treeview. 
             // with the Modified Tree Traversal algorithm 
 
@@ -317,7 +318,7 @@ namespace gamon.TreeMptt
             {
                 if (!Commons.ProcessingCanContinue()) break;
                 // calls passing the updated count and the list under construction 
-                GenerateNewListOfNodesFromTreeViewControl_Recursive(sonNode, 
+                GenerateNewListOfNodesFromTreeViewControl_Recursive(sonNode,
                     ref nodeCount, ref generatedList, Connection);
                 ((Topic)sonNode.Tag).ParentNodeNew = ct.Id;
                 ((Topic)sonNode.Tag).ChildNumberNew = brotherNo++;
@@ -341,7 +342,7 @@ namespace gamon.TreeMptt
             List<Topic> listChilds = GetNodesChildsByParent(CurrentNode, null);
             foreach (Topic sonNode in listChilds)
             {
-                if (!Commons.ProcessingCanContinue()) return; 
+                if (!Commons.ProcessingCanContinue()) return;
                 // calls passing the updated count and the list under construction 
                 GenerateNewListOfNodesFromDatabase(sonNode, ref nodeCount, ref generatedList);
                 sonNode.ParentNodeNew = CurrentNode.Id;
@@ -353,11 +354,11 @@ namespace gamon.TreeMptt
         }
         internal void SaveTreeFromScratch(TreeNode CurrentNode, List<Topic> generatedList)
         {
-            // TODO !!!! this refactor of this function must be tested !!!!
+            // TODO !!!! the refactor of this function must be tested !!!!
             DbConnection Connection = dl.Connect();
             int nodeCount = 1;
             // recursive function
-            GenerateNewListOfNodesFromTreeViewControl_Recursive(CurrentNode, 
+            GenerateNewListOfNodesFromTreeViewControl_Recursive(CurrentNode,
                 ref nodeCount, ref generatedList, Connection);
             dl.SaveTopicsFromScratch(generatedList);
         }
@@ -393,7 +394,7 @@ namespace gamon.TreeMptt
             DbCommand cmd = Connection.CreateCommand();
             string query = "SELECT *" +
                 " FROM Topics" +
-                " WHERE parentNode=" + ParentNode.Id + 
+                " WHERE parentNode=" + ParentNode.Id +
                 " ORDER BY childNumber";
             cmd = new SQLiteCommand(query);
             cmd.Connection = Connection;
@@ -478,7 +479,7 @@ namespace gamon.TreeMptt
             }
             return t;
         }
-        internal List<Topic> FindNodesLike(string SearchText, bool SearchInDescriptions, 
+        internal List<Topic> FindNodesLike(string SearchText, bool SearchInDescriptions,
             bool SearchWholeWord, bool SearchCaseInsensitive)
         {
             List<Topic> found = new List<Topic>();
@@ -498,8 +499,8 @@ namespace gamon.TreeMptt
                     query += "SELECT * FROM Topics" +
                         " WHERE " + dl.SqlLikeStatementWithOptions("name", SearchText, SearchWholeWord) +
                         " OR " + dl.SqlLikeStatementWithOptions("desc", SearchText, SearchWholeWord);
-                query += " ORDER BY leftNode ASC;"; 
-                cmd.CommandText += query; 
+                query += " ORDER BY leftNode ASC;";
+                cmd.CommandText += query;
                 dRead = cmd.ExecuteReader();
                 while (dRead.Read())
                 {

@@ -28,444 +28,443 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmSetup));
-            this.btnTabelle = new System.Windows.Forms.Button();
-            this.btnClassi = new System.Windows.Forms.Button();
-            this.btnBackupManagement = new System.Windows.Forms.Button();
-            this.TxtFileDatabase = new System.Windows.Forms.TextBox();
-            this.btnFileDatabase = new System.Windows.Forms.Button();
-            this.TxtPathImages = new System.Windows.Forms.TextBox();
-            this.btnPathImages = new System.Windows.Forms.Button();
-            this.btnSaveConfigurationFile = new System.Windows.Forms.Button();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.lblFileDatabase = new System.Windows.Forms.Label();
-            this.lblPathDatabase = new System.Windows.Forms.Label();
-            this.TxtPathDatabase = new System.Windows.Forms.TextBox();
-            this.btnPathDatabase = new System.Windows.Forms.Button();
-            this.lblPathImages = new System.Windows.Forms.Label();
-            this.btnTopicsManagement = new System.Windows.Forms.Button();
-            this.btnTagsManagement = new System.Windows.Forms.Button();
-            this.btnStartLinksManagenet = new System.Windows.Forms.Button();
-            this.btnQuestionManagement = new System.Windows.Forms.Button();
-            this.btnTestManagement = new System.Windows.Forms.Button();
-            this.btnRecoverTopics = new System.Windows.Forms.Button();
-            this.TxtPathDocuments = new System.Windows.Forms.TextBox();
-            this.btnPathDocuments = new System.Windows.Forms.Button();
-            this.lblPathDocuments = new System.Windows.Forms.Label();
-            this.btnEraseConfigurationFile = new System.Windows.Forms.Button();
-            this.BtnUseDemo = new System.Windows.Forms.Button();
-            this.btnSchoolSubjectManagement = new System.Windows.Forms.Button();
-            this.btnOpenConfigurationFolder = new System.Windows.Forms.Button();
-            this.chkAskPassword = new System.Windows.Forms.CheckBox();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.chkSaveBackup = new System.Windows.Forms.CheckBox();
-            this.btnSchoolPeriodsManagement = new System.Windows.Forms.Button();
-            this.btnUsersManagement = new System.Windows.Forms.Button();
-            this.btnResetDatabase = new System.Windows.Forms.Button();
-            this.SuspendLayout();
+            btnTabelle = new System.Windows.Forms.Button();
+            btnClassi = new System.Windows.Forms.Button();
+            btnBackupManagement = new System.Windows.Forms.Button();
+            TxtFileDatabase = new System.Windows.Forms.TextBox();
+            btnFileDatabase = new System.Windows.Forms.Button();
+            TxtPathImages = new System.Windows.Forms.TextBox();
+            btnPathImages = new System.Windows.Forms.Button();
+            btnSaveConfigurationFile = new System.Windows.Forms.Button();
+            openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            lblFileDatabase = new System.Windows.Forms.Label();
+            lblPathDatabase = new System.Windows.Forms.Label();
+            TxtPathDatabase = new System.Windows.Forms.TextBox();
+            btnPathDatabase = new System.Windows.Forms.Button();
+            lblPathImages = new System.Windows.Forms.Label();
+            btnTopicsManagement = new System.Windows.Forms.Button();
+            btnTagsManagement = new System.Windows.Forms.Button();
+            btnStartLinksManagenet = new System.Windows.Forms.Button();
+            btnQuestionManagement = new System.Windows.Forms.Button();
+            btnTestManagement = new System.Windows.Forms.Button();
+            btnRecoverTopics = new System.Windows.Forms.Button();
+            TxtPathDocuments = new System.Windows.Forms.TextBox();
+            btnPathDocuments = new System.Windows.Forms.Button();
+            lblPathDocuments = new System.Windows.Forms.Label();
+            btnEraseConfigurationFile = new System.Windows.Forms.Button();
+            BtnUseDemo = new System.Windows.Forms.Button();
+            btnSchoolSubjectManagement = new System.Windows.Forms.Button();
+            btnOpenConfigurationFolder = new System.Windows.Forms.Button();
+            chkAskPassword = new System.Windows.Forms.CheckBox();
+            toolTip1 = new System.Windows.Forms.ToolTip(components);
+            chkSaveBackup = new System.Windows.Forms.CheckBox();
+            btnSchoolPeriodsManagement = new System.Windows.Forms.Button();
+            btnUsersManagement = new System.Windows.Forms.Button();
+            btnResetDatabase = new System.Windows.Forms.Button();
+            SuspendLayout();
             // 
             // btnTabelle
             // 
-            this.btnTabelle.Location = new System.Drawing.Point(8, 12);
-            this.btnTabelle.Name = "btnTabelle";
-            this.btnTabelle.Size = new System.Drawing.Size(100, 60);
-            this.btnTabelle.TabIndex = 0;
-            this.btnTabelle.Text = "Gestione tabelle";
-            this.toolTip1.SetToolTip(this.btnTabelle, "Modifiche delle tabelle dei dati fissi");
-            this.btnTabelle.UseVisualStyleBackColor = true;
-            this.btnTabelle.Click += new System.EventHandler(this.BtnTabelle_Click);
+            btnTabelle.Location = new System.Drawing.Point(8, 12);
+            btnTabelle.Name = "btnTabelle";
+            btnTabelle.Size = new System.Drawing.Size(82, 60);
+            btnTabelle.TabIndex = 0;
+            btnTabelle.Text = "Gestione tabelle";
+            toolTip1.SetToolTip(btnTabelle, "Modifiche delle tabelle dei dati fissi");
+            btnTabelle.UseVisualStyleBackColor = true;
+            btnTabelle.Click += BtnTabelle_Click;
             // 
             // btnClassi
             // 
-            this.btnClassi.Location = new System.Drawing.Point(109, 12);
-            this.btnClassi.Name = "btnClassi";
-            this.btnClassi.Size = new System.Drawing.Size(100, 60);
-            this.btnClassi.TabIndex = 1;
-            this.btnClassi.Text = "Gestione classi";
-            this.toolTip1.SetToolTip(this.btnClassi, "Creazione e modifica delle classi");
-            this.btnClassi.UseVisualStyleBackColor = true;
-            this.btnClassi.Click += new System.EventHandler(this.BtnClassi_Click);
+            btnClassi.Location = new System.Drawing.Point(95, 12);
+            btnClassi.Name = "btnClassi";
+            btnClassi.Size = new System.Drawing.Size(82, 60);
+            btnClassi.TabIndex = 1;
+            btnClassi.Text = "Gestione classi";
+            toolTip1.SetToolTip(btnClassi, "Creazione e modifica delle classi");
+            btnClassi.UseVisualStyleBackColor = true;
+            btnClassi.Click += BtnClassi_Click;
             // 
             // btnBackupManagement
             // 
-            this.btnBackupManagement.Location = new System.Drawing.Point(210, 12);
-            this.btnBackupManagement.Name = "btnBackupManagement";
-            this.btnBackupManagement.Size = new System.Drawing.Size(100, 60);
-            this.btnBackupManagement.TabIndex = 2;
-            this.btnBackupManagement.Text = "Backup e gen.file";
-            this.toolTip1.SetToolTip(this.btnBackupManagement, "Generazione di file e salvataggi di backup");
-            this.btnBackupManagement.UseVisualStyleBackColor = true;
-            this.btnBackupManagement.Click += new System.EventHandler(this.btnBackupManagement_Click);
+            btnBackupManagement.Location = new System.Drawing.Point(182, 12);
+            btnBackupManagement.Name = "btnBackupManagement";
+            btnBackupManagement.Size = new System.Drawing.Size(82, 60);
+            btnBackupManagement.TabIndex = 2;
+            btnBackupManagement.Text = "Backup e gen.file";
+            toolTip1.SetToolTip(btnBackupManagement, "Generazione di file e salvataggi di backup");
+            btnBackupManagement.UseVisualStyleBackColor = true;
+            btnBackupManagement.Click += btnBackupManagement_Click;
             // 
             // TxtFileDatabase
             // 
-            this.TxtFileDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.TxtFileDatabase.Location = new System.Drawing.Point(8, 153);
-            this.TxtFileDatabase.Margin = new System.Windows.Forms.Padding(4);
-            this.TxtFileDatabase.Name = "TxtFileDatabase";
-            this.TxtFileDatabase.Size = new System.Drawing.Size(537, 24);
-            this.TxtFileDatabase.TabIndex = 2;
-            this.TxtFileDatabase.TextChanged += new System.EventHandler(this.TxtFileDatabase_TextChanged);
-            this.TxtFileDatabase.DoubleClick += new System.EventHandler(this.TxtPaths_DoubleClick);
+            TxtFileDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            TxtFileDatabase.Location = new System.Drawing.Point(8, 153);
+            TxtFileDatabase.Margin = new System.Windows.Forms.Padding(4);
+            TxtFileDatabase.Name = "TxtFileDatabase";
+            TxtFileDatabase.Size = new System.Drawing.Size(537, 24);
+            TxtFileDatabase.TabIndex = 2;
+            TxtFileDatabase.TextChanged += TxtFileDatabase_TextChanged;
+            TxtFileDatabase.DoubleClick += TxtPaths_DoubleClick;
             // 
             // btnFileDatabase
             // 
-            this.btnFileDatabase.BackColor = System.Drawing.Color.Transparent;
-            this.btnFileDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnFileDatabase.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnFileDatabase.Location = new System.Drawing.Point(555, 144);
-            this.btnFileDatabase.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.btnFileDatabase.Name = "btnFileDatabase";
-            this.btnFileDatabase.Size = new System.Drawing.Size(54, 40);
-            this.btnFileDatabase.TabIndex = 84;
-            this.btnFileDatabase.Text = "..";
-            this.btnFileDatabase.UseVisualStyleBackColor = false;
-            this.btnFileDatabase.Click += new System.EventHandler(this.btnScegliFile_Click);
+            btnFileDatabase.BackColor = System.Drawing.Color.Transparent;
+            btnFileDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnFileDatabase.ForeColor = System.Drawing.Color.DarkBlue;
+            btnFileDatabase.Location = new System.Drawing.Point(555, 144);
+            btnFileDatabase.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            btnFileDatabase.Name = "btnFileDatabase";
+            btnFileDatabase.Size = new System.Drawing.Size(54, 40);
+            btnFileDatabase.TabIndex = 84;
+            btnFileDatabase.Text = "..";
+            btnFileDatabase.UseVisualStyleBackColor = false;
+            btnFileDatabase.Click += btnScegliFile_Click;
             // 
             // TxtPathImages
             // 
-            this.TxtPathImages.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.TxtPathImages.Location = new System.Drawing.Point(8, 203);
-            this.TxtPathImages.Margin = new System.Windows.Forms.Padding(4);
-            this.TxtPathImages.Name = "TxtPathImages";
-            this.TxtPathImages.Size = new System.Drawing.Size(762, 24);
-            this.TxtPathImages.TabIndex = 15;
-            this.TxtPathImages.TextChanged += new System.EventHandler(this.TxtPathImages_TextChanged);
-            this.TxtPathImages.DoubleClick += new System.EventHandler(this.TxtPaths_DoubleClick);
+            TxtPathImages.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            TxtPathImages.Location = new System.Drawing.Point(8, 203);
+            TxtPathImages.Margin = new System.Windows.Forms.Padding(4);
+            TxtPathImages.Name = "TxtPathImages";
+            TxtPathImages.Size = new System.Drawing.Size(762, 24);
+            TxtPathImages.TabIndex = 15;
+            TxtPathImages.TextChanged += TxtPathImages_TextChanged;
+            TxtPathImages.DoubleClick += TxtPaths_DoubleClick;
             // 
             // btnPathImages
             // 
-            this.btnPathImages.BackColor = System.Drawing.Color.Transparent;
-            this.btnPathImages.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnPathImages.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnPathImages.Location = new System.Drawing.Point(780, 193);
-            this.btnPathImages.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.btnPathImages.Name = "btnPathImages";
-            this.btnPathImages.Size = new System.Drawing.Size(54, 40);
-            this.btnPathImages.TabIndex = 83;
-            this.btnPathImages.Text = "..";
-            this.btnPathImages.UseVisualStyleBackColor = false;
-            this.btnPathImages.Click += new System.EventHandler(this.btnCartellaImmagini_Click);
+            btnPathImages.BackColor = System.Drawing.Color.Transparent;
+            btnPathImages.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnPathImages.ForeColor = System.Drawing.Color.DarkBlue;
+            btnPathImages.Location = new System.Drawing.Point(780, 193);
+            btnPathImages.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            btnPathImages.Name = "btnPathImages";
+            btnPathImages.Size = new System.Drawing.Size(54, 40);
+            btnPathImages.TabIndex = 83;
+            btnPathImages.Text = "..";
+            btnPathImages.UseVisualStyleBackColor = false;
+            btnPathImages.Click += btnCartellaImmagini_Click;
             // 
             // btnSaveConfigurationFile
             // 
-            this.btnSaveConfigurationFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnSaveConfigurationFile.Location = new System.Drawing.Point(1131, 76);
-            this.btnSaveConfigurationFile.Name = "btnSaveConfigurationFile";
-            this.btnSaveConfigurationFile.Size = new System.Drawing.Size(100, 60);
-            this.btnSaveConfigurationFile.TabIndex = 92;
-            this.btnSaveConfigurationFile.Text = "Salva config.";
-            this.btnSaveConfigurationFile.UseVisualStyleBackColor = true;
-            this.btnSaveConfigurationFile.Click += new System.EventHandler(this.btnSave_Click);
+            btnSaveConfigurationFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            btnSaveConfigurationFile.Location = new System.Drawing.Point(965, 76);
+            btnSaveConfigurationFile.Name = "btnSaveConfigurationFile";
+            btnSaveConfigurationFile.Size = new System.Drawing.Size(82, 60);
+            btnSaveConfigurationFile.TabIndex = 92;
+            btnSaveConfigurationFile.Text = "Salva config.";
+            btnSaveConfigurationFile.UseVisualStyleBackColor = true;
+            btnSaveConfigurationFile.Click += btnSave_Click;
             // 
             // lblFileDatabase
             // 
-            this.lblFileDatabase.AutoSize = true;
-            this.lblFileDatabase.Location = new System.Drawing.Point(5, 132);
-            this.lblFileDatabase.Name = "lblFileDatabase";
-            this.lblFileDatabase.Size = new System.Drawing.Size(81, 18);
-            this.lblFileDatabase.TabIndex = 93;
-            this.lblFileDatabase.Text = "File dei dati";
+            lblFileDatabase.AutoSize = true;
+            lblFileDatabase.Location = new System.Drawing.Point(5, 132);
+            lblFileDatabase.Name = "lblFileDatabase";
+            lblFileDatabase.Size = new System.Drawing.Size(81, 18);
+            lblFileDatabase.TabIndex = 93;
+            lblFileDatabase.Text = "File dei dati";
             // 
             // lblPathDatabase
             // 
-            this.lblPathDatabase.AutoSize = true;
-            this.lblPathDatabase.Location = new System.Drawing.Point(5, 74);
-            this.lblPathDatabase.Name = "lblPathDatabase";
-            this.lblPathDatabase.Size = new System.Drawing.Size(108, 18);
-            this.lblPathDatabase.TabIndex = 96;
-            this.lblPathDatabase.Text = "Cartella dei dati";
+            lblPathDatabase.AutoSize = true;
+            lblPathDatabase.Location = new System.Drawing.Point(5, 74);
+            lblPathDatabase.Name = "lblPathDatabase";
+            lblPathDatabase.Size = new System.Drawing.Size(108, 18);
+            lblPathDatabase.TabIndex = 96;
+            lblPathDatabase.Text = "Cartella dei dati";
             // 
             // TxtPathDatabase
             // 
-            this.TxtPathDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.TxtPathDatabase.Location = new System.Drawing.Point(8, 95);
-            this.TxtPathDatabase.Margin = new System.Windows.Forms.Padding(4);
-            this.TxtPathDatabase.Name = "TxtPathDatabase";
-            this.TxtPathDatabase.Size = new System.Drawing.Size(762, 24);
-            this.TxtPathDatabase.TabIndex = 94;
-            this.TxtPathDatabase.TextChanged += new System.EventHandler(this.TxtPathDatabase_TextChanged);
-            this.TxtPathDatabase.DoubleClick += new System.EventHandler(this.TxtPaths_DoubleClick);
+            TxtPathDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            TxtPathDatabase.Location = new System.Drawing.Point(8, 95);
+            TxtPathDatabase.Margin = new System.Windows.Forms.Padding(4);
+            TxtPathDatabase.Name = "TxtPathDatabase";
+            TxtPathDatabase.Size = new System.Drawing.Size(762, 24);
+            TxtPathDatabase.TabIndex = 94;
+            TxtPathDatabase.TextChanged += TxtPathDatabase_TextChanged;
+            TxtPathDatabase.DoubleClick += TxtPaths_DoubleClick;
             // 
             // btnPathDatabase
             // 
-            this.btnPathDatabase.BackColor = System.Drawing.Color.Transparent;
-            this.btnPathDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnPathDatabase.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnPathDatabase.Location = new System.Drawing.Point(780, 86);
-            this.btnPathDatabase.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.btnPathDatabase.Name = "btnPathDatabase";
-            this.btnPathDatabase.Size = new System.Drawing.Size(54, 40);
-            this.btnPathDatabase.TabIndex = 95;
-            this.btnPathDatabase.Text = "..";
-            this.btnPathDatabase.UseVisualStyleBackColor = false;
-            this.btnPathDatabase.Click += new System.EventHandler(this.btnPathDatabase_Click);
+            btnPathDatabase.BackColor = System.Drawing.Color.Transparent;
+            btnPathDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnPathDatabase.ForeColor = System.Drawing.Color.DarkBlue;
+            btnPathDatabase.Location = new System.Drawing.Point(780, 86);
+            btnPathDatabase.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            btnPathDatabase.Name = "btnPathDatabase";
+            btnPathDatabase.Size = new System.Drawing.Size(54, 40);
+            btnPathDatabase.TabIndex = 95;
+            btnPathDatabase.Text = "..";
+            btnPathDatabase.UseVisualStyleBackColor = false;
+            btnPathDatabase.Click += btnPathDatabase_Click;
             // 
             // lblPathImages
             // 
-            this.lblPathImages.AutoSize = true;
-            this.lblPathImages.Location = new System.Drawing.Point(5, 181);
-            this.lblPathImages.Name = "lblPathImages";
-            this.lblPathImages.Size = new System.Drawing.Size(155, 18);
-            this.lblPathImages.TabIndex = 97;
-            this.lblPathImages.Text = "Cartella delle immagini";
+            lblPathImages.AutoSize = true;
+            lblPathImages.Location = new System.Drawing.Point(5, 181);
+            lblPathImages.Name = "lblPathImages";
+            lblPathImages.Size = new System.Drawing.Size(155, 18);
+            lblPathImages.TabIndex = 97;
+            lblPathImages.Text = "Cartella delle immagini";
             // 
             // btnTopicsManagement
             // 
-            this.btnTopicsManagement.Location = new System.Drawing.Point(311, 12);
-            this.btnTopicsManagement.Name = "btnTopicsManagement";
-            this.btnTopicsManagement.Size = new System.Drawing.Size(100, 60);
-            this.btnTopicsManagement.TabIndex = 99;
-            this.btnTopicsManagement.Text = "Gestione argomenti";
-            this.toolTip1.SetToolTip(this.btnTopicsManagement, "Gestione dell\'albero degli argomenti");
-            this.btnTopicsManagement.UseVisualStyleBackColor = true;
-            this.btnTopicsManagement.Click += new System.EventHandler(this.btnTopicsManagement_Click);
+            btnTopicsManagement.Location = new System.Drawing.Point(269, 12);
+            btnTopicsManagement.Name = "btnTopicsManagement";
+            btnTopicsManagement.Size = new System.Drawing.Size(82, 60);
+            btnTopicsManagement.TabIndex = 99;
+            btnTopicsManagement.Text = "Gestione argomenti";
+            toolTip1.SetToolTip(btnTopicsManagement, "Gestione dell'albero degli argomenti");
+            btnTopicsManagement.UseVisualStyleBackColor = true;
+            btnTopicsManagement.Click += btnTopicsManagement_Click;
             // 
             // btnTagsManagement
             // 
-            this.btnTagsManagement.Location = new System.Drawing.Point(412, 12);
-            this.btnTagsManagement.Name = "btnTagsManagement";
-            this.btnTagsManagement.Size = new System.Drawing.Size(100, 60);
-            this.btnTagsManagement.TabIndex = 100;
-            this.btnTagsManagement.Text = "Gestione tag";
-            this.toolTip1.SetToolTip(this.btnTagsManagement, "Gestione dei tag associati agli argomenti ");
-            this.btnTagsManagement.UseVisualStyleBackColor = true;
-            this.btnTagsManagement.Click += new System.EventHandler(this.btnTagsManagement_Click);
+            btnTagsManagement.Location = new System.Drawing.Point(356, 12);
+            btnTagsManagement.Name = "btnTagsManagement";
+            btnTagsManagement.Size = new System.Drawing.Size(82, 60);
+            btnTagsManagement.TabIndex = 100;
+            btnTagsManagement.Text = "Gestione tag";
+            toolTip1.SetToolTip(btnTagsManagement, "Gestione dei tag associati agli argomenti ");
+            btnTagsManagement.UseVisualStyleBackColor = true;
+            btnTagsManagement.Click += btnTagsManagement_Click;
             // 
             // btnStartLinksManagenet
             // 
-            this.btnStartLinksManagenet.Location = new System.Drawing.Point(616, 12);
-            this.btnStartLinksManagenet.Name = "btnStartLinksManagenet";
-            this.btnStartLinksManagenet.Size = new System.Drawing.Size(100, 60);
-            this.btnStartLinksManagenet.TabIndex = 101;
-            this.btnStartLinksManagenet.Text = "Gestione start links";
-            this.toolTip1.SetToolTip(this.btnStartLinksManagenet, "Gestione di link e programmi lanciati all\'apertura di una classe");
-            this.btnStartLinksManagenet.UseVisualStyleBackColor = true;
-            this.btnStartLinksManagenet.Click += new System.EventHandler(this.btnStartLinksManagenet_Click);
+            btnStartLinksManagenet.Location = new System.Drawing.Point(530, 12);
+            btnStartLinksManagenet.Name = "btnStartLinksManagenet";
+            btnStartLinksManagenet.Size = new System.Drawing.Size(82, 60);
+            btnStartLinksManagenet.TabIndex = 101;
+            btnStartLinksManagenet.Text = "Gestione start links";
+            toolTip1.SetToolTip(btnStartLinksManagenet, "Gestione di link e programmi lanciati all'apertura di una classe");
+            btnStartLinksManagenet.UseVisualStyleBackColor = true;
+            btnStartLinksManagenet.Click += btnStartLinksManagenet_Click;
             // 
             // btnQuestionManagement
             // 
-            this.btnQuestionManagement.Enabled = false;
-            this.btnQuestionManagement.Location = new System.Drawing.Point(513, 12);
-            this.btnQuestionManagement.Name = "btnQuestionManagement";
-            this.btnQuestionManagement.Size = new System.Drawing.Size(100, 60);
-            this.btnQuestionManagement.TabIndex = 102;
-            this.btnQuestionManagement.Text = "Gestione domande";
-            this.toolTip1.SetToolTip(this.btnQuestionManagement, "Gestione delle domande");
-            this.btnQuestionManagement.UseVisualStyleBackColor = true;
-            this.btnQuestionManagement.Click += new System.EventHandler(this.btnQuestionManagement_Click);
+            btnQuestionManagement.Enabled = false;
+            btnQuestionManagement.Location = new System.Drawing.Point(443, 12);
+            btnQuestionManagement.Name = "btnQuestionManagement";
+            btnQuestionManagement.Size = new System.Drawing.Size(82, 60);
+            btnQuestionManagement.TabIndex = 102;
+            btnQuestionManagement.Text = "Gestione domande";
+            toolTip1.SetToolTip(btnQuestionManagement, "Gestione delle domande");
+            btnQuestionManagement.UseVisualStyleBackColor = true;
+            btnQuestionManagement.Click += btnQuestionManagement_Click;
             // 
             // btnTestManagement
             // 
-            this.btnTestManagement.Enabled = false;
-            this.btnTestManagement.Location = new System.Drawing.Point(719, 12);
-            this.btnTestManagement.Name = "btnTestManagement";
-            this.btnTestManagement.Size = new System.Drawing.Size(100, 60);
-            this.btnTestManagement.TabIndex = 103;
-            this.btnTestManagement.Text = "Gestione prove";
-            this.toolTip1.SetToolTip(this.btnTestManagement, "Gestione dei test (da finire e controllare! )");
-            this.btnTestManagement.UseVisualStyleBackColor = true;
-            this.btnTestManagement.Click += new System.EventHandler(this.btnTestManagement_Click);
+            btnTestManagement.Enabled = false;
+            btnTestManagement.Location = new System.Drawing.Point(617, 12);
+            btnTestManagement.Name = "btnTestManagement";
+            btnTestManagement.Size = new System.Drawing.Size(82, 60);
+            btnTestManagement.TabIndex = 103;
+            btnTestManagement.Text = "Gestione prove";
+            toolTip1.SetToolTip(btnTestManagement, "Gestione dei test (da finire e controllare! )");
+            btnTestManagement.UseVisualStyleBackColor = true;
+            btnTestManagement.Click += btnTestManagement_Click;
             // 
             // btnRecoverTopics
             // 
-            this.btnRecoverTopics.Location = new System.Drawing.Point(822, 12);
-            this.btnRecoverTopics.Name = "btnRecoverTopics";
-            this.btnRecoverTopics.Size = new System.Drawing.Size(100, 60);
-            this.btnRecoverTopics.TabIndex = 104;
-            this.btnRecoverTopics.Text = "Recover argomenti";
-            this.toolTip1.SetToolTip(this.btnRecoverTopics, "Confronto fra versioni dell\'albero degli argomenti (da complatare)");
-            this.btnRecoverTopics.UseVisualStyleBackColor = true;
-            this.btnRecoverTopics.Click += new System.EventHandler(this.btnRecoverTopics_Click);
+            btnRecoverTopics.Location = new System.Drawing.Point(704, 12);
+            btnRecoverTopics.Name = "btnRecoverTopics";
+            btnRecoverTopics.Size = new System.Drawing.Size(82, 60);
+            btnRecoverTopics.TabIndex = 104;
+            btnRecoverTopics.Text = "Recover argomenti";
+            toolTip1.SetToolTip(btnRecoverTopics, "Confronto fra versioni dell'albero degli argomenti (da complatare)");
+            btnRecoverTopics.UseVisualStyleBackColor = true;
+            btnRecoverTopics.Click += btnRecoverTopics_Click;
             // 
             // TxtPathDocuments
             // 
-            this.TxtPathDocuments.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.TxtPathDocuments.Location = new System.Drawing.Point(8, 258);
-            this.TxtPathDocuments.Margin = new System.Windows.Forms.Padding(4);
-            this.TxtPathDocuments.Name = "TxtPathDocuments";
-            this.TxtPathDocuments.Size = new System.Drawing.Size(762, 24);
-            this.TxtPathDocuments.TabIndex = 105;
-            this.TxtPathDocuments.TextChanged += new System.EventHandler(this.TxtPathDocuments_TextChanged);
-            this.TxtPathDocuments.DoubleClick += new System.EventHandler(this.TxtPaths_DoubleClick);
+            TxtPathDocuments.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            TxtPathDocuments.Location = new System.Drawing.Point(8, 258);
+            TxtPathDocuments.Margin = new System.Windows.Forms.Padding(4);
+            TxtPathDocuments.Name = "TxtPathDocuments";
+            TxtPathDocuments.Size = new System.Drawing.Size(762, 24);
+            TxtPathDocuments.TabIndex = 105;
+            TxtPathDocuments.TextChanged += TxtPathDocuments_TextChanged;
+            TxtPathDocuments.DoubleClick += TxtPaths_DoubleClick;
             // 
             // btnPathDocuments
             // 
-            this.btnPathDocuments.BackColor = System.Drawing.Color.Transparent;
-            this.btnPathDocuments.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnPathDocuments.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnPathDocuments.Location = new System.Drawing.Point(780, 248);
-            this.btnPathDocuments.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.btnPathDocuments.Name = "btnPathDocuments";
-            this.btnPathDocuments.Size = new System.Drawing.Size(54, 40);
-            this.btnPathDocuments.TabIndex = 106;
-            this.btnPathDocuments.Text = "..";
-            this.btnPathDocuments.UseVisualStyleBackColor = false;
-            this.btnPathDocuments.Click += new System.EventHandler(this.btnPathDocuments_Click);
+            btnPathDocuments.BackColor = System.Drawing.Color.Transparent;
+            btnPathDocuments.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnPathDocuments.ForeColor = System.Drawing.Color.DarkBlue;
+            btnPathDocuments.Location = new System.Drawing.Point(780, 248);
+            btnPathDocuments.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            btnPathDocuments.Name = "btnPathDocuments";
+            btnPathDocuments.Size = new System.Drawing.Size(54, 40);
+            btnPathDocuments.TabIndex = 106;
+            btnPathDocuments.Text = "..";
+            btnPathDocuments.UseVisualStyleBackColor = false;
+            btnPathDocuments.Click += btnPathDocuments_Click;
             // 
             // lblPathDocuments
             // 
-            this.lblPathDocuments.AutoSize = true;
-            this.lblPathDocuments.Location = new System.Drawing.Point(5, 236);
-            this.lblPathDocuments.Name = "lblPathDocuments";
-            this.lblPathDocuments.Size = new System.Drawing.Size(154, 18);
-            this.lblPathDocuments.TabIndex = 107;
-            this.lblPathDocuments.Text = "Cartella dei documenti";
+            lblPathDocuments.AutoSize = true;
+            lblPathDocuments.Location = new System.Drawing.Point(5, 236);
+            lblPathDocuments.Name = "lblPathDocuments";
+            lblPathDocuments.Size = new System.Drawing.Size(154, 18);
+            lblPathDocuments.TabIndex = 107;
+            lblPathDocuments.Text = "Cartella dei documenti";
             // 
             // btnEraseConfigurationFile
             // 
-            this.btnEraseConfigurationFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnEraseConfigurationFile.Location = new System.Drawing.Point(1131, 204);
-            this.btnEraseConfigurationFile.Name = "btnEraseConfigurationFile";
-            this.btnEraseConfigurationFile.Size = new System.Drawing.Size(100, 60);
-            this.btnEraseConfigurationFile.TabIndex = 108;
-            this.btnEraseConfigurationFile.Text = "Cancella config.";
-            this.btnEraseConfigurationFile.UseVisualStyleBackColor = true;
-            this.btnEraseConfigurationFile.Click += new System.EventHandler(this.btnEraseConfigurationFile_Click);
+            btnEraseConfigurationFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            btnEraseConfigurationFile.Location = new System.Drawing.Point(965, 206);
+            btnEraseConfigurationFile.Name = "btnEraseConfigurationFile";
+            btnEraseConfigurationFile.Size = new System.Drawing.Size(82, 60);
+            btnEraseConfigurationFile.TabIndex = 108;
+            btnEraseConfigurationFile.Text = "Cancella config.";
+            btnEraseConfigurationFile.UseVisualStyleBackColor = true;
+            btnEraseConfigurationFile.Click += btnEraseConfigurationFile_Click;
             // 
             // BtnUseDemo
             // 
-            this.BtnUseDemo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.BtnUseDemo.Location = new System.Drawing.Point(1014, 208);
-            this.BtnUseDemo.Name = "BtnUseDemo";
-            this.BtnUseDemo.Size = new System.Drawing.Size(100, 60);
-            this.BtnUseDemo.TabIndex = 109;
-            this.BtnUseDemo.Text = "Usa demo";
-            this.BtnUseDemo.UseVisualStyleBackColor = true;
-            this.BtnUseDemo.Visible = false;
-            this.BtnUseDemo.Click += new System.EventHandler(this.BtnUseDemo_Click);
+            BtnUseDemo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            BtnUseDemo.Location = new System.Drawing.Point(867, 141);
+            BtnUseDemo.Name = "BtnUseDemo";
+            BtnUseDemo.Size = new System.Drawing.Size(82, 60);
+            BtnUseDemo.TabIndex = 109;
+            BtnUseDemo.Text = "Usa demo";
+            BtnUseDemo.UseVisualStyleBackColor = true;
+            BtnUseDemo.Visible = false;
+            BtnUseDemo.Click += BtnUseDemo_Click;
             // 
             // btnSchoolSubjectManagement
             // 
-            this.btnSchoolSubjectManagement.Location = new System.Drawing.Point(1028, 12);
-            this.btnSchoolSubjectManagement.Name = "btnSchoolSubjectManagement";
-            this.btnSchoolSubjectManagement.Size = new System.Drawing.Size(100, 60);
-            this.btnSchoolSubjectManagement.TabIndex = 110;
-            this.btnSchoolSubjectManagement.Text = "Gestione materie";
-            this.btnSchoolSubjectManagement.UseVisualStyleBackColor = true;
-            this.btnSchoolSubjectManagement.Click += new System.EventHandler(this.btnSchoolSubjectManagement_Click);
+            btnSchoolSubjectManagement.Location = new System.Drawing.Point(878, 12);
+            btnSchoolSubjectManagement.Name = "btnSchoolSubjectManagement";
+            btnSchoolSubjectManagement.Size = new System.Drawing.Size(82, 60);
+            btnSchoolSubjectManagement.TabIndex = 110;
+            btnSchoolSubjectManagement.Text = "Gestione materie";
+            btnSchoolSubjectManagement.UseVisualStyleBackColor = true;
+            btnSchoolSubjectManagement.Click += btnSchoolSubjectManagement_Click;
             // 
             // btnOpenConfigurationFolder
             // 
-            this.btnOpenConfigurationFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnOpenConfigurationFolder.Location = new System.Drawing.Point(1131, 140);
-            this.btnOpenConfigurationFolder.Name = "btnOpenConfigurationFolder";
-            this.btnOpenConfigurationFolder.Size = new System.Drawing.Size(100, 60);
-            this.btnOpenConfigurationFolder.TabIndex = 111;
-            this.btnOpenConfigurationFolder.Text = "Cartella config.";
-            this.btnOpenConfigurationFolder.UseVisualStyleBackColor = true;
-            this.btnOpenConfigurationFolder.Click += new System.EventHandler(this.btnOpenConfigurationFolder_Click);
+            btnOpenConfigurationFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            btnOpenConfigurationFolder.Location = new System.Drawing.Point(965, 141);
+            btnOpenConfigurationFolder.Name = "btnOpenConfigurationFolder";
+            btnOpenConfigurationFolder.Size = new System.Drawing.Size(82, 60);
+            btnOpenConfigurationFolder.TabIndex = 111;
+            btnOpenConfigurationFolder.Text = "Cartella config.";
+            btnOpenConfigurationFolder.UseVisualStyleBackColor = true;
+            btnOpenConfigurationFolder.Click += btnOpenConfigurationFolder_Click;
             // 
             // chkAskPassword
             // 
-            this.chkAskPassword.AutoSize = true;
-            this.chkAskPassword.Enabled = false;
-            this.chkAskPassword.Location = new System.Drawing.Point(859, 86);
-            this.chkAskPassword.Name = "chkAskPassword";
-            this.chkAskPassword.Size = new System.Drawing.Size(152, 22);
-            this.chkAskPassword.TabIndex = 112;
-            this.chkAskPassword.Text = "Chiedi la password";
-            this.toolTip1.SetToolTip(this.chkAskPassword, "Se abilitato il programma chiede una password per entrare");
-            this.chkAskPassword.UseVisualStyleBackColor = true;
+            chkAskPassword.AutoSize = true;
+            chkAskPassword.Enabled = false;
+            chkAskPassword.Location = new System.Drawing.Point(878, 272);
+            chkAskPassword.Name = "chkAskPassword";
+            chkAskPassword.Size = new System.Drawing.Size(152, 22);
+            chkAskPassword.TabIndex = 112;
+            chkAskPassword.Text = "Chiedi la password";
+            toolTip1.SetToolTip(chkAskPassword, "Se abilitato il programma chiede una password per entrare");
+            chkAskPassword.UseVisualStyleBackColor = true;
             // 
             // chkSaveBackup
             // 
-            this.chkSaveBackup.AutoSize = true;
-            this.chkSaveBackup.Location = new System.Drawing.Point(618, 152);
-            this.chkSaveBackup.Name = "chkSaveBackup";
-            this.chkSaveBackup.Size = new System.Drawing.Size(213, 22);
-            this.chkSaveBackup.TabIndex = 113;
-            this.chkSaveBackup.Text = "Salva database alla chiusura";
-            this.toolTip1.SetToolTip(this.chkSaveBackup, "Se abilitato il programma chiede una password per entrare");
-            this.chkSaveBackup.UseVisualStyleBackColor = true;
+            chkSaveBackup.AutoSize = true;
+            chkSaveBackup.Location = new System.Drawing.Point(618, 152);
+            chkSaveBackup.Name = "chkSaveBackup";
+            chkSaveBackup.Size = new System.Drawing.Size(213, 22);
+            chkSaveBackup.TabIndex = 113;
+            chkSaveBackup.Text = "Salva database alla chiusura";
+            toolTip1.SetToolTip(chkSaveBackup, "Se abilitato il programma chiede una password per entrare");
+            chkSaveBackup.UseVisualStyleBackColor = true;
             // 
             // btnSchoolPeriodsManagement
             // 
-            this.btnSchoolPeriodsManagement.Location = new System.Drawing.Point(1131, 12);
-            this.btnSchoolPeriodsManagement.Name = "btnSchoolPeriodsManagement";
-            this.btnSchoolPeriodsManagement.Size = new System.Drawing.Size(100, 60);
-            this.btnSchoolPeriodsManagement.TabIndex = 115;
-            this.btnSchoolPeriodsManagement.Text = "Gestione periodi";
-            this.toolTip1.SetToolTip(this.btnSchoolPeriodsManagement, "Gestione periodi scolastici (trimesti, quadrimestri..)");
-            this.btnSchoolPeriodsManagement.UseVisualStyleBackColor = true;
-            this.btnSchoolPeriodsManagement.Click += new System.EventHandler(this.btnSchoolPeriodsManagement_Click);
+            btnSchoolPeriodsManagement.Location = new System.Drawing.Point(965, 11);
+            btnSchoolPeriodsManagement.Name = "btnSchoolPeriodsManagement";
+            btnSchoolPeriodsManagement.Size = new System.Drawing.Size(82, 60);
+            btnSchoolPeriodsManagement.TabIndex = 115;
+            btnSchoolPeriodsManagement.Text = "Gestione periodi";
+            toolTip1.SetToolTip(btnSchoolPeriodsManagement, "Gestione periodi scolastici (trimesti, quadrimestri..)");
+            btnSchoolPeriodsManagement.UseVisualStyleBackColor = true;
+            btnSchoolPeriodsManagement.Click += btnSchoolPeriodsManagement_Click;
             // 
             // btnUsersManagement
             // 
-            this.btnUsersManagement.Enabled = false;
-            this.btnUsersManagement.Location = new System.Drawing.Point(925, 12);
-            this.btnUsersManagement.Name = "btnUsersManagement";
-            this.btnUsersManagement.Size = new System.Drawing.Size(100, 60);
-            this.btnUsersManagement.TabIndex = 114;
-            this.btnUsersManagement.Text = "Gestione Utenti";
-            this.toolTip1.SetToolTip(this.btnUsersManagement, "TODO!");
-            this.btnUsersManagement.UseVisualStyleBackColor = true;
-            this.btnUsersManagement.Click += new System.EventHandler(this.btnUsersManagement_Click);
+            btnUsersManagement.Enabled = false;
+            btnUsersManagement.Location = new System.Drawing.Point(791, 12);
+            btnUsersManagement.Name = "btnUsersManagement";
+            btnUsersManagement.Size = new System.Drawing.Size(82, 60);
+            btnUsersManagement.TabIndex = 114;
+            btnUsersManagement.Text = "Gestione Utenti";
+            toolTip1.SetToolTip(btnUsersManagement, "TODO!");
+            btnUsersManagement.UseVisualStyleBackColor = true;
+            btnUsersManagement.Click += btnUsersManagement_Click;
             // 
             // btnResetDatabase
             // 
-            this.btnResetDatabase.BackColor = System.Drawing.Color.Red;
-            this.btnResetDatabase.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnResetDatabase.ForeColor = System.Drawing.Color.Yellow;
-            this.btnResetDatabase.Location = new System.Drawing.Point(843, 203);
-            this.btnResetDatabase.Name = "btnResetDatabase";
-            this.btnResetDatabase.Size = new System.Drawing.Size(116, 69);
-            this.btnResetDatabase.TabIndex = 116;
-            this.btnResetDatabase.Text = "Reset database";
-            this.btnResetDatabase.UseVisualStyleBackColor = false;
-            this.btnResetDatabase.Click += new System.EventHandler(this.btnResetDatabase_Click);
+            btnResetDatabase.BackColor = System.Drawing.Color.Red;
+            btnResetDatabase.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnResetDatabase.ForeColor = System.Drawing.Color.Yellow;
+            btnResetDatabase.Location = new System.Drawing.Point(859, 203);
+            btnResetDatabase.Name = "btnResetDatabase";
+            btnResetDatabase.Size = new System.Drawing.Size(99, 69);
+            btnResetDatabase.TabIndex = 116;
+            btnResetDatabase.Text = "Reset database";
+            btnResetDatabase.UseVisualStyleBackColor = false;
+            btnResetDatabase.Click += btnResetDatabase_Click;
             // 
             // FrmSetup
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.PowderBlue;
-            this.ClientSize = new System.Drawing.Size(1249, 302);
-            this.Controls.Add(this.btnResetDatabase);
-            this.Controls.Add(this.btnSchoolPeriodsManagement);
-            this.Controls.Add(this.btnUsersManagement);
-            this.Controls.Add(this.chkSaveBackup);
-            this.Controls.Add(this.chkAskPassword);
-            this.Controls.Add(this.btnOpenConfigurationFolder);
-            this.Controls.Add(this.btnSchoolSubjectManagement);
-            this.Controls.Add(this.BtnUseDemo);
-            this.Controls.Add(this.btnEraseConfigurationFile);
-            this.Controls.Add(this.TxtPathDocuments);
-            this.Controls.Add(this.btnPathDocuments);
-            this.Controls.Add(this.lblPathDocuments);
-            this.Controls.Add(this.btnRecoverTopics);
-            this.Controls.Add(this.btnTestManagement);
-            this.Controls.Add(this.btnQuestionManagement);
-            this.Controls.Add(this.btnStartLinksManagenet);
-            this.Controls.Add(this.btnTagsManagement);
-            this.Controls.Add(this.btnTopicsManagement);
-            this.Controls.Add(this.TxtPathImages);
-            this.Controls.Add(this.btnPathImages);
-            this.Controls.Add(this.lblPathImages);
-            this.Controls.Add(this.lblPathDatabase);
-            this.Controls.Add(this.TxtPathDatabase);
-            this.Controls.Add(this.btnPathDatabase);
-            this.Controls.Add(this.btnSaveConfigurationFile);
-            this.Controls.Add(this.lblFileDatabase);
-            this.Controls.Add(this.TxtFileDatabase);
-            this.Controls.Add(this.btnFileDatabase);
-            this.Controls.Add(this.btnBackupManagement);
-            this.Controls.Add(this.btnClassi);
-            this.Controls.Add(this.btnTabelle);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ForeColor = System.Drawing.Color.DarkBlue;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4);
-            this.MaximizeBox = false;
-            this.Name = "FrmSetup";
-            this.Text = "Setup";
-            this.Load += new System.EventHandler(this.frmSetup_Load);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.PowderBlue;
+            ClientSize = new System.Drawing.Size(1051, 298);
+            Controls.Add(btnResetDatabase);
+            Controls.Add(btnSchoolPeriodsManagement);
+            Controls.Add(btnUsersManagement);
+            Controls.Add(chkSaveBackup);
+            Controls.Add(chkAskPassword);
+            Controls.Add(btnOpenConfigurationFolder);
+            Controls.Add(btnSchoolSubjectManagement);
+            Controls.Add(BtnUseDemo);
+            Controls.Add(btnEraseConfigurationFile);
+            Controls.Add(TxtPathDocuments);
+            Controls.Add(btnPathDocuments);
+            Controls.Add(lblPathDocuments);
+            Controls.Add(btnRecoverTopics);
+            Controls.Add(btnTestManagement);
+            Controls.Add(btnQuestionManagement);
+            Controls.Add(btnStartLinksManagenet);
+            Controls.Add(btnTagsManagement);
+            Controls.Add(btnTopicsManagement);
+            Controls.Add(TxtPathImages);
+            Controls.Add(btnPathImages);
+            Controls.Add(lblPathImages);
+            Controls.Add(lblPathDatabase);
+            Controls.Add(TxtPathDatabase);
+            Controls.Add(btnPathDatabase);
+            Controls.Add(btnSaveConfigurationFile);
+            Controls.Add(lblFileDatabase);
+            Controls.Add(TxtFileDatabase);
+            Controls.Add(btnFileDatabase);
+            Controls.Add(btnBackupManagement);
+            Controls.Add(btnClassi);
+            Controls.Add(btnTabelle);
+            Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            ForeColor = System.Drawing.Color.DarkBlue;
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            Margin = new System.Windows.Forms.Padding(4);
+            MaximizeBox = false;
+            Name = "FrmSetup";
+            Text = "Setup";
+            Load += frmSetup_Load;
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

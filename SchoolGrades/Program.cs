@@ -1,11 +1,4 @@
-using gamon;
-using SharedWinForms;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SchoolGrades
@@ -22,16 +15,15 @@ namespace SchoolGrades
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-
-            string database;
-            database = @"C:\OneDriveScuola\OneDrive - ispascalcomandini.gov.it\SchoolGrades\Data\SchoolGrades-Bardock-75.sqlite";
+            string database = @"C:\OneDriveScuola\OneDrive - ispascalcomandini.gov.it\SchoolGrades\Data\SchoolGrades.sqlite";
             //if (args.Length > 0)
             //    database = args[0];
             //else
             //    database = null;
 
             //Application.Run(new frmLogin());
-            Application.Run(new frmMain(database));
+            //Application.Run(new frmMain(database));
+            Application.Run(new frmMain());
         }
-   }
+    }
 }

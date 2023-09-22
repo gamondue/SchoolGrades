@@ -1,14 +1,11 @@
-﻿using gamon;
+﻿using gamon.TreeMptt;
+using SchoolGrades.BusinessObjects;
+using SharedWinForms;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using SchoolGrades.BusinessObjects;
-using gamon.TreeMptt;
-using SharedWinForms;
 
 namespace SchoolGrades
 {
@@ -88,7 +85,7 @@ namespace SchoolGrades
 
             //topicTreeMptt = new TopicTreeMptt(listTopicsBefore, trwTopics,
             topicTreeMptt = new TreeMptt(Commons.dl, trwTopics,
-                txtTopicName, txtTopicDescription, txtTopicSearchString, txtTopicsDigest, 
+                txtTopicName, txtTopicDescription, txtTopicSearchString, txtTopicsDigest,
                 null, CommonsWinForms.globalPicLed, chkSearchInDescriptions, chkAllWord,
                 chkCaseInsensitive, chkMarkAllTopicsFound,
                 DragDropEffects.Copy);
@@ -196,6 +193,11 @@ namespace SchoolGrades
         }
         private void btnSaveTree_Click(object sender, EventArgs e)
         {
+            if (!topicTreeMptt.HasChanges)
+            {
+                MessageBox.Show("Nessuna modifica fatta agli argomenti");
+                return;
+            }
             topicTreeMptt.SaveTreeFromTreeViewByParent();
             MessageBox.Show("Salvataggio fatto");
         }
@@ -304,7 +306,12 @@ namespace SchoolGrades
             }
             btnLessonSave.Enabled = false;
             // save anyway (should be better to control if it is necessary)  
-            topicTreeMptt.SaveTreeFromTreeViewByParent();
+            if (!topicTreeMptt.HasChanges)
+            {
+                MessageBox.Show("Nessuna modifica fatta agli argomenti");
+            }
+            else
+                topicTreeMptt.SaveTreeFromTreeViewByParent();
 
             if (txtLessonCode.Text == "")
             {

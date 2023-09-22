@@ -301,6 +301,7 @@
             btnFind.Size = new System.Drawing.Size(130, 45);
             btnFind.TabIndex = 121;
             btnFind.Text = "Trova (F3)";
+            toolTip1.SetToolTip(btnFind, "Effettua ricerca");
             btnFind.UseVisualStyleBackColor = true;
             btnFind.Click += btnFind_Click;
             // 
@@ -332,6 +333,7 @@
             btnDelete.Size = new System.Drawing.Size(130, 50);
             btnDelete.TabIndex = 125;
             btnDelete.Text = "Elimina (Canc)";
+            toolTip1.SetToolTip(btnDelete, "Cancella l'argomento selezionato e tutti i suoi figli");
             btnDelete.UseVisualStyleBackColor = true;
             btnDelete.Click += btnDelete_Click;
             // 
@@ -354,6 +356,7 @@
             btnAddNodeSon.Size = new System.Drawing.Size(130, 45);
             btnAddNodeSon.TabIndex = 124;
             btnAddNodeSon.Text = "Aggiungi figlio (Ins)";
+            toolTip1.SetToolTip(btnAddNodeSon, "Aggiungi nuovo argomento sotto al selezionato");
             btnAddNodeSon.UseVisualStyleBackColor = true;
             btnAddNodeSon.Click += btnAddNode_Click;
             // 
@@ -365,6 +368,7 @@
             btnSaveTree.Size = new System.Drawing.Size(130, 45);
             btnSaveTree.TabIndex = 123;
             btnSaveTree.Text = "Salva argomenti (F5)";
+            toolTip1.SetToolTip(btnSaveTree, "Salvataggio di tutti gli argomenti");
             btnSaveTree.UseVisualStyleBackColor = true;
             btnSaveTree.Click += btnSaveTree_Click;
             // 
@@ -565,6 +569,7 @@
             btnTopicsDone.Size = new System.Drawing.Size(130, 50);
             btnTopicsDone.TabIndex = 137;
             btnTopicsDone.Text = "Argomenti fatti";
+            toolTip1.SetToolTip(btnTopicsDone, "Segna tutti gli argomenti fatti dalla classe ");
             btnTopicsDone.UseVisualStyleBackColor = true;
             btnTopicsDone.Click += btnTopicsDone_Click;
             // 
@@ -608,6 +613,7 @@
             btnArgFreemind.Size = new System.Drawing.Size(130, 50);
             btnArgFreemind.TabIndex = 141;
             btnArgFreemind.Text = "Argom. Freemind";
+            toolTip1.SetToolTip(btnArgFreemind, "Mette in clipboard per trasferimento in Freemind");
             btnArgFreemind.UseVisualStyleBackColor = true;
             btnArgFreemind.Click += btnArgFreemind_Click;
             // 
@@ -705,20 +711,22 @@
             btnFindUnderNode.Size = new System.Drawing.Size(130, 45);
             btnFindUnderNode.TabIndex = 154;
             btnFindUnderNode.Text = "Trova sotto (Shift+F3)";
-            toolTip1.SetToolTip(btnFindUnderNode, "Trova sotto il nodo selezionato");
+            toolTip1.SetToolTip(btnFindUnderNode, "Ricerca sotto il nodo selezionato");
             btnFindUnderNode.UseVisualStyleBackColor = true;
             btnFindUnderNode.Click += btnFindUnderNode_Click;
             // 
-            // chkCaseSensitive
+            // chkCaseInsensitive
             // 
             chkCaseInsensitive.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             chkCaseInsensitive.AutoSize = true;
+            chkCaseInsensitive.Checked = true;
+            chkCaseInsensitive.CheckState = System.Windows.Forms.CheckState.Checked;
             chkCaseInsensitive.Location = new System.Drawing.Point(947, 247);
-            chkCaseInsensitive.Name = "chkCaseSensitive";
+            chkCaseInsensitive.Name = "chkCaseInsensitive";
             chkCaseInsensitive.Size = new System.Drawing.Size(82, 22);
             chkCaseInsensitive.TabIndex = 157;
             chkCaseInsensitive.Text = "ma && mi";
-            toolTip1.SetToolTip(chkCaseInsensitive, "Ricerca case sensitive");
+            toolTip1.SetToolTip(chkCaseInsensitive, "Ricerca case insensitive");
             chkCaseInsensitive.UseVisualStyleBackColor = true;
             // 
             // BtnSearchAmongTopics
@@ -753,6 +761,7 @@
             chkMarkAllTopicsFound.Size = new System.Drawing.Size(50, 22);
             chkMarkAllTopicsFound.TabIndex = 152;
             chkMarkAllTopicsFound.Text = "tutti";
+            toolTip1.SetToolTip(chkMarkAllTopicsFound, "Trova e segna ogni occorrenza  della stringa");
             chkMarkAllTopicsFound.UseVisualStyleBackColor = true;
             // 
             // btnAddNodeBrother
@@ -763,6 +772,7 @@
             btnAddNodeBrother.Size = new System.Drawing.Size(130, 45);
             btnAddNodeBrother.TabIndex = 153;
             btnAddNodeBrother.Text = "Agg. fratello (Shift+Ins)";
+            toolTip1.SetToolTip(btnAddNodeBrother, "Aggiungi nuovo argomento a fianco del selezionato");
             btnAddNodeBrother.UseVisualStyleBackColor = true;
             btnAddNodeBrother.Click += btnAddNodeBrother_Click;
             // 
@@ -785,6 +795,7 @@
             chkAllWord.Size = new System.Drawing.Size(70, 22);
             chkAllWord.TabIndex = 156;
             chkAllWord.Text = "Parola";
+            toolTip1.SetToolTip(chkAllWord, "Ricerca a parola intera");
             chkAllWord.UseVisualStyleBackColor = true;
             // 
             // chkSearchInDescriptions
@@ -798,6 +809,7 @@
             chkSearchInDescriptions.Size = new System.Drawing.Size(97, 22);
             chkSearchInDescriptions.TabIndex = 158;
             chkSearchInDescriptions.Text = "In Descriz.";
+            toolTip1.SetToolTip(chkSearchInDescriptions, "Ricerca anche in descrizione");
             chkSearchInDescriptions.UseVisualStyleBackColor = true;
             // 
             // frmLessons
