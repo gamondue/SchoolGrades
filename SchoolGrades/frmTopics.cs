@@ -1,10 +1,10 @@
-﻿using SchoolGrades.BusinessObjects;
+﻿using gamon.TreeMptt;
+using SchoolGrades.BusinessObjects;
+using SharedWinForms;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using gamon.TreeMptt;
-using SharedWinForms;
 
 namespace SchoolGrades
 {
@@ -176,6 +176,11 @@ namespace SchoolGrades
         }
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (!topicTreeMptt.HasChanges)
+            {
+                MessageBox.Show("Nessuna modifica fatta agli argomenti");
+                return;
+            }
             if (formType == TopicsFormType.ImportWithErase)
                 topicTreeMptt.SaveTreeFromScratch();
             else
@@ -222,14 +227,6 @@ namespace SchoolGrades
             {
                 btnSave_Click(null, null);
             }
-        }
-        private void lblExplain_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void trwTopics_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-
         }
         private void btnAddNodeBrother_Click(object sender, EventArgs e)
         {

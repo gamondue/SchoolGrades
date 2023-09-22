@@ -4,7 +4,7 @@ using SharedWinForms;
 using System;
 using System.IO;
 using System.Windows.Forms;
-  
+
 namespace SchoolGrades
 {
     public partial class FrmSetup : Form
@@ -14,7 +14,7 @@ namespace SchoolGrades
         public FrmSetup()
         {
             InitializeComponent();
-            NewDatabaseFile = false; 
+            NewDatabaseFile = false;
         }
         private void frmSetup_Load(object sender, EventArgs e)
         {
@@ -25,19 +25,19 @@ namespace SchoolGrades
             //TxtPathStartLinks.Text = Commons.PathStartLinks; // not longer used
             Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
             TxtPathDocuments.Text = Commons.PathDocuments;
-            chkSaveBackup.Checked = CommonsWinForms.SaveBackupWhenExiting; 
+            chkSaveBackup.Checked = CommonsWinForms.SaveBackupWhenExiting;
 
-            
+
         }
         private void BtnTabelle_Click(object sender, EventArgs e)
         {
             frmTables f = new frmTables();
-            f.ShowDialog(); 
+            f.ShowDialog();
         }
         private void BtnClassi_Click(object sender, EventArgs e)
         {
             frmClassesManagement f = new frmClassesManagement();
-            f.ShowDialog(); 
+            f.ShowDialog();
         }
         private void btnBackupManagement_Click(object sender, EventArgs e)
         {
@@ -51,7 +51,7 @@ namespace SchoolGrades
             if (r == System.Windows.Forms.DialogResult.OK)
             {
                 TxtFileDatabase.Text = Path.GetFileName(openFileDialog1.FileName);
-                TxtPathDatabase.Text = Path.GetDirectoryName(openFileDialog1.FileName); 
+                TxtPathDatabase.Text = Path.GetDirectoryName(openFileDialog1.FileName);
             }
             Commons.DatabaseFileName_Current = TxtFileDatabase.Text;
             Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
@@ -74,7 +74,7 @@ namespace SchoolGrades
             string[] dati = new string[6];
             try
             {
-                 if (!Directory.Exists(Commons.PathConfig))
+                if (!Directory.Exists(Commons.PathConfig))
                     Directory.CreateDirectory(Commons.PathConfig);
 
                 if (!Directory.Exists(Commons.PathLogs))
@@ -100,11 +100,11 @@ namespace SchoolGrades
                     if (Commons.PathDocuments != "")
                         Directory.CreateDirectory(Commons.PathDocuments);
                     else
-                        Commons.PathDocuments = "."; 
+                        Commons.PathDocuments = ".";
                 }
 
                 CommonsWinForms.SaveBackupWhenExiting = chkSaveBackup.Checked;
-                dati[5] = CommonsWinForms.SaveBackupWhenExiting.ToString(); 
+                dati[5] = CommonsWinForms.SaveBackupWhenExiting.ToString();
 
                 Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
                 // TODO !!! if the file doesn't exist copies the sample empty database. Eventually redo this code, it is ugly and not functional !!!!
@@ -130,7 +130,7 @@ namespace SchoolGrades
                 //return;
             }
             //Application.Exit();
-            NewDatabaseFile = true; 
+            NewDatabaseFile = true;
             this.Close();
         }
         private void btnPathQuestions_Click(object sender, EventArgs e)
@@ -150,19 +150,19 @@ namespace SchoolGrades
             {
                 TxtPathDatabase.Text = folderBrowserDialog1.SelectedPath;
             }
-            Commons.PathDatabase = TxtPathDatabase.Text; 
+            Commons.PathDatabase = TxtPathDatabase.Text;
             Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
         }
         private void btnTopicsManagement_Click(object sender, EventArgs e)
         {
-            frmTopics f = new frmTopics(frmTopics.TopicsFormType.ShowAndManagement, null, null);  
+            frmTopics f = new frmTopics(frmTopics.TopicsFormType.ShowAndManagement, null, null);
             f.ShowDialog();
             f.Dispose();
         }
         private void btnTagsManagement_Click(object sender, EventArgs e)
         {
             frmTag t = new frmTag(false);
-            t.ShowDialog(); 
+            t.ShowDialog();
         }
         private void btnStartLinksManagenet_Click(object sender, EventArgs e)
         {
@@ -176,8 +176,8 @@ namespace SchoolGrades
         {
             //frmQuestion form = new frmQuestion(frmQuestion.QuestionFormType.CreateSeveralQuestions,
             //    null, null, null, null); 
-            frmQuestionChoose form = new frmQuestionChoose(null, null, null); 
-            form.ShowDialog(); 
+            frmQuestionChoose form = new frmQuestionChoose(null, null, null);
+            form.ShowDialog();
         }
         private void btnTestManagement_Click(object sender, EventArgs e)
         {
@@ -200,7 +200,7 @@ namespace SchoolGrades
         }
         private void btnEraseConfigurationFile_Click(object sender, EventArgs e)
         {
-            File.Delete(Commons.PathAndFileConfig); 
+            File.Delete(Commons.PathAndFileConfig);
             //this.Close();
             Application.Exit();
         }
@@ -245,7 +245,7 @@ namespace SchoolGrades
         {
             MessageBox.Show("Form da completare!");
             frmUsersManagement f = new frmUsersManagement();
-            f.Show(); 
+            f.Show();
         }
         private void btnSchoolPeriodsManagement_Click(object sender, EventArgs e)
         {

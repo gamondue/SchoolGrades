@@ -1,17 +1,14 @@
-using System;
-using System.Drawing;
-using System.Windows.Forms;
-using System.IO;
-using System.Collections.Generic;
-using System.Threading;
 using gamon;
-using SchoolGrades.BusinessObjects;
 using gamon.TreeMptt;
+using SchoolGrades.BusinessObjects;
 using SharedWinForms;
+using System;
+using System.Collections.Generic;
 using System.Data;
-using System.Reflection.Emit;
-using System.Diagnostics.Eventing.Reader;
-using System.Web;
+using System.Drawing;
+using System.IO;
+using System.Threading;
+using System.Windows.Forms;
 namespace SchoolGrades
 {
     public partial class frmMain : Form
@@ -27,14 +24,15 @@ namespace SchoolGrades
 
         private string schoolYear;
 
-        bool formInitializing = true; 
+        //bool formInitializing = true;
+        //bool firstTime = true;
 
         Student currentStudent;
         Question currentQuestion;
         GradeType currentGradeType;
         Class currentClass;
 
-        Random random = new Random(); 
+        Random random = new Random();
 
         System.Media.SoundPlayer suonatore = new System.Media.SoundPlayer();
         public Student CurrentStudent
@@ -44,7 +42,7 @@ namespace SchoolGrades
         }
 
         string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-        
+
         #region fields of the ColorTimer
         int ticksPassed;
         AForge.Imaging.RGB colRGB = new AForge.Imaging.RGB();
@@ -74,101 +72,45 @@ namespace SchoolGrades
 
         private bool dataModified = false;
 
-        public frmMain(string DatabasePathAndFile)
+        public frmMain()
         {
             InitializeComponent();
 
-            if (DatabasePathAndFile != null) 
-                Commons.PathAndFileDatabase = DatabasePathAndFile; 
-
             this.Text += " v. " + version;
-        }
-        private void frmMain_Load(object sender, EventArgs e)
-        {
-            AllTheInitializations();
 
-            // start the Thread that concurrently saves the Topics tree
-            CommonsWinForms.SaveTreeMptt = new TreeMptt(Commons.dl, 
-                null, null, null, null, null, null, picBackgroundSaveRunning,
-                null, null, null, null);
-            CommonsWinForms.BackgroundSaveThread = new Thread(CommonsWinForms.SaveTreeMptt.SaveTreeMpttBackground);
-            CommonsWinForms.BackgroundSaveThread.Start();
-        }
-        private void AllTheInitializations()
-        {
             // manage the configuration file 
             string messagePrompt = "";
             bool mustBeGivenANewName = false;
             // read configuration file, if doesn't work run configuration 
-            if (!CommonsWinForms.ReadConfigFile())
+            if (!CommonsWinForms.ReadConfigData())
             {
                 // config file is unexistent or unreadable
                 mustBeGivenANewName = true;
                 messagePrompt = "Il file di configurazione " + Commons.PathAndFileConfig +
                     "\nnon esiste o non è leggibile.\n";
             }
-            else
-            {
-                // config file has been read 
-                string configuredFile = Commons.PathAndFileDatabase;
-                if (configuredFile != null)
-                {
-                    // the database filename exists in common data 
-                    // checks if the file exists
-                    if (!File.Exists(Commons.PathAndFileDatabase))
-                    {
-                        mustBeGivenANewName = true;
-                        messagePrompt = "Il file " + Commons.PathAndFileDatabase + "\nnon esiste\n";
-                    }
-                    // if file exists, create the database access objects
-                    else if (!CreateBusinessAndDataLayer())
-                    {
-                        // error opening the database
-                        mustBeGivenANewName = true;
-                        messagePrompt = "Impossibile collegarsi al database, file: \n" + Commons.PathAndFileDatabase +
-                            "\n";
-                    }
-                    else
-                    {
-                        // sqlite file exists, tests if it is working
-                        if (!Commons.bl.IsDataLayerFunctioning)
-                        {
-                            mustBeGivenANewName = true;
-                            messagePrompt = "Il file " + Commons.PathAndFileDatabase +
-                                "\nesiste, ma contiene degli errori e non è leggibile.\n";
-                        }
-                    }
-                }
-                else // no indication of a database file 
-                {
-                    mustBeGivenANewName = true;
-                    messagePrompt = "Il file di configurazione " + Commons.PathAndFileConfig +
-                        "\nnon contiene il nome del file del database.\n";
-                }
-            }
-            if (mustBeGivenANewName)
-            {
-                // something didn't work, we must choose a good filename for the database file
-                messagePrompt += "\nSistemare le cartelle con il percorso dei file, " +
-                    "poi scegliere il file di dati .sqlite e premere 'Salva configurazione'," +
-                    "\nI nomi scelti dal programma dovrebbero essere giusti.";
-                string pathAndFileDatabase = NewFilenameAndPath(Commons.PathExe);
-
-                MessageBox.Show(messagePrompt, "SchoolGrades", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                FrmSetup f = new FrmSetup();
-                f.ShowDialog();
-                if (!File.Exists(Commons.PathAndFileDatabase))
-                {
-                    MessageBox.Show("Configurare il programma!", "SchoolGrades", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    CloseThread();
-                    Application.Exit();
-                    return;
-                }
-                MessageBox.Show("Il programma verrà chiuso. Alla ripartenza potrà leggere la configurazione.");
-                CloseThread();
-                Application.Exit();
-                return;
-            }
+            //else
+            //{
+            //    // config file has been read
+            //    string configuredFile = Commons.PathAndFileDatabase;
+            //    if (configuredFile != null)
+            //    {
+            //        // in Commons.PathAndFileDatabase we have a name 
+            //        // checks if the file exists
+            //        if (!File.Exists(Commons.PathAndFileDatabase))
+            //        {
+            //            // the file in config file doesn't exist in the filesystem 
+            //            mustBeGivenANewName = true;
+            //            messagePrompt = "Il file configurato:\n" + Commons.PathAndFileDatabase + "\nnon esiste!\n";
+            //        }
+            //        else
+            //        {
+            //            // the configured file exists, if it is a file for a single class,
+            //            // check if a more recent file exist 
+            //            if (Commons.IsValidDate())
+            //        }
+            //    }
+            CreateBusinessAndDataLayer();
 
             List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
             cmbSchoolYear.DataSource = ly;
@@ -182,16 +124,92 @@ namespace SchoolGrades
             // fill the combo of School subjects
             List<SchoolSubject> listSubjects = Commons.bl.GetListSchoolSubjects(true);
             cmbSchoolSubject.DataSource = listSubjects;
+        }
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+            // start the Thread that concurrently saves the Topics tree
+            CommonsWinForms.SaveTreeMptt = new TreeMptt(Commons.dl,
+                null, null, null, null, null, null, picBackgroundSaveRunning,
+                null, null, null, null);
+            CommonsWinForms.BackgroundSaveThread = new Thread(CommonsWinForms.SaveTreeMptt.SaveTreeMpttBackground);
+            CommonsWinForms.BackgroundSaveThread.Start();
+
+
+            //            // if file exists, create the database access objects
+            //            else if (!CreateBusinessAndDataLayer())
+            //            {
+            //                // error opening the database
+            //                mustBeGivenANewName = true;
+            //                messagePrompt = "Impossibile collegarsi al database, file: \n" + Commons.PathAndFileDatabase +
+            //                    "\n";
+            //            }
+            //            else
+            //            {
+            //                // sqlite file exists, tests if it is working
+            //                if (!Commons.bl.IsDataLayerFunctioning)
+            //                {
+            //                    mustBeGivenANewName = true;
+            //                    messagePrompt = "Il file " + Commons.PathAndFileDatabase +
+            //                        "\nesiste, ma contiene degli errori e non è leggibile.\n";
+            //                }
+            //            }
+            //        }
+            //        else // no indication of a database file 
+            //        {
+            //            mustBeGivenANewName = true;
+            //            messagePrompt = "Il file di configurazione " + Commons.PathAndFileConfig +
+            //                "\nnon contiene il nome del file del database.\n";
+            //        }
+            //    }
+            //    if (mustBeGivenANewName)
+            //    {
+            //        // something didn't work, we must choose a good filename for the database file
+            //        messagePrompt += "\nSistemare le cartelle con il percorso dei file, " +
+            //            "poi scegliere il file di dati .sqlite e premere 'Salva configurazione'," +
+            //            "\nI nomi scelti dal programma dovrebbero essere giusti.";
+            //        string pathAndFileDatabase = NewFilenameAndPath(Commons.PathExe);
+
+            //        MessageBox.Show(messagePrompt, "SchoolGrades", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //        FrmSetup f = new FrmSetup();
+            //        f.ShowDialog();
+            //        if (!File.Exists(Commons.PathAndFileDatabase))
+            //        {
+            //            MessageBox.Show("Configurare il programma!", "SchoolGrades", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //            CloseThread();
+            //            Application.Exit();
+            //            return;
+            //        }
+            //        MessageBox.Show("Il programma verrà chiuso. Alla ripartenza potrà leggere la configurazione.");
+            //        CloseThread();
+            //        Application.Exit();
+            //        return;
+            //    }
 
             if (!File.Exists(Commons.PathAndFileDatabase))
                 return;
 
             timerQuestion.Interval = 250;
 
-            lblDatabaseFile.Visible = true;
+            //List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
+            //cmbSchoolYear.DataSource = ly;
 
-            //lblDatabaseFile.Text = Commons.DatabaseFileName_Current;
-            lblDatabaseFile.Text = Path.GetFileName(Commons.PathAndFileDatabase);
+            //if (ly.Count > 0)
+            //    cmbSchoolYear.SelectedItem = ly[ly.Count - 1];
+
+            //// fill the combo of grade types 
+            //List<GradeType> ListGradeTypes = Commons.bl.GetListGradeTypes();
+            //cmbGradeType.DataSource = ListGradeTypes;
+
+            //// fill the combo of School subjects
+            //List<SchoolSubject> listSubjects = Commons.bl.GetListSchoolSubjects(true);
+            //cmbSchoolSubject.DataSource = listSubjects;
+
+            //if (!File.Exists(Commons.PathAndFileDatabase))
+            //    return;
+
+            lblDatabaseFile.Visible = true;
+            lblDatabaseFile.Text = Commons.DatabaseFileName_Current;
+            //lblDatabaseFile.Text = Path.GetFileName(Commons.PathAndFileDatabase);
 
             lblLastDatabaseModification.Visible = true;
             lblLastDatabaseModification.Text = File.GetLastWriteTime(Commons.PathAndFileDatabase).ToString("yyyy-MM-dd HH:mm:ss");
@@ -234,9 +252,8 @@ namespace SchoolGrades
             lblIdStudent.Visible = false;
             txtIdStudent.Visible = false;
 
-            formInitializing = false; 
+            //formInitializing = false;
         }
-
         private string NewFilenameAndPath(string proposedFolderName)
         {
             string proposedDatabasePath = Path.Combine(proposedFolderName, "Data") + "\\";
@@ -259,7 +276,7 @@ namespace SchoolGrades
             Commons.PathDatabase = proposedDatabasePath;
             Commons.PathDocuments = Path.Combine(proposedFolderName, "Docs");
 
-            return Commons.PathAndFileDatabase; 
+            return Commons.PathAndFileDatabase;
         }
         private string FindNewestFileName(string Path)
         {
@@ -267,31 +284,32 @@ namespace SchoolGrades
             {
                 string[] files = Directory.GetFiles(Path);
                 DateTime maxDate = new DateTime();
-                string maxfile = ""; 
+                string maxfile = "";
                 foreach (string file in files)
                 {
                     try
                     {
-                        string justTheFile = System.IO.Path.GetFileName(file); 
+                        string justTheFile = System.IO.Path.GetFileName(file);
                         DateTime fileDate = new DateTime(Convert.ToInt32(justTheFile.Substring(0, 4))
                             , Convert.ToInt32(justTheFile.Substring(5, 2))
                             , Convert.ToInt32(justTheFile.Substring(8, 2))
                             , Convert.ToInt32(justTheFile.Substring(11, 2))
                             , Convert.ToInt32(justTheFile.Substring(14, 2))
                             , Convert.ToInt32(justTheFile.Substring(17, 2))
-                            ); 
-                        if (fileDate > maxDate) {
+                            );
+                        if (fileDate > maxDate)
+                        {
                             maxDate = fileDate;
                             maxfile = justTheFile;
                         }
                     }
                     catch (Exception ex) { }
                 }
-                return maxfile; 
+                return maxfile;
             }
             catch (Exception ex)
             {
-                return ""; 
+                return "";
             }
         }
         private bool CreateBusinessAndDataLayer()
@@ -303,7 +321,7 @@ namespace SchoolGrades
                 string err = @"[" + Commons.PathAndFileDatabase + " not in the current nor in the dev directory]";
                 Commons.ErrorLog(err);
                 throw new System.IO.FileNotFoundException(err);
-                return false; 
+                return false;
             }
             Commons.dl = new DataLayer(Commons.PathAndFileDatabase);
             if (Commons.dl == null)
@@ -311,12 +329,12 @@ namespace SchoolGrades
             Commons.bl = new BusinessLayer(Commons.PathAndFileDatabase);
             if (Commons.bl == null)
                 return false;
-            return true; 
+            return true;
         }
         static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
             string err = sender.GetType().Name + " " + e.Exception.Message +
-                "\r\n" + e.Exception.StackTrace; 
+                "\r\n" + e.Exception.StackTrace;
             Commons.ErrorLog(err);
             throw new Exception(err);
         }
@@ -457,7 +475,7 @@ namespace SchoolGrades
                 // start the timer if the question has a timer
                 if (CurrentQuestion.Duration != null && CurrentQuestion.Duration > 0)
                 {
-                    btnStartColorTimer_Click(null, null); 
+                    btnStartColorTimer_Click(null, null);
                 }
             }
         }
@@ -530,7 +548,7 @@ namespace SchoolGrades
             picStudent.Image = null;
             lblStudentChosen.Text = "";
             chkStudentsListVisible.Checked = true;
-            dgwStudents.DataSource = null; 
+            dgwStudents.DataSource = null;
         }
         private void lstClassi_DoubleClick(object sender, EventArgs e)
         {
@@ -538,7 +556,7 @@ namespace SchoolGrades
             currentClass = (Class)lstClasses.SelectedItem;
             txtIdClass.Text = currentClass.IdClass.ToString();
 
-            ShowStudentsOfClass(); 
+            ShowStudentsOfClass();
             if (currentStudentsList != null)
                 txtNStudents.Text = currentStudentsList.Count.ToString();
             else
@@ -547,7 +565,7 @@ namespace SchoolGrades
             // play Happy Birthday when a student has his BirthDay
             List<Student> celebrated = Commons.bl.FindStudentsOnBirthday(currentClass, DateTime.Now);
             if (celebrated.Count > 0)
-            { 
+            {
                 try
                 {
                     suonatore.SoundLocation = ".\\Auguri.wav";
@@ -589,16 +607,26 @@ namespace SchoolGrades
         }
         private void cmbSchoolYear_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!formInitializing)
-                AllTheInitializations(); 
-        }
-        private void btnPresentiRegistro_Click(object sender, EventArgs e)
-        {
+            frmMain_Load(null, null);
+            //if (!formInitializing && firstTime)
+            //{
+            //    firstTime = false;
+            //    //    AllTheInitializations();
+            //    List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
+            //    cmbSchoolYear.DataSource = ly;
 
-        }
-        private void lstNomi_SelectedValueChanged(object sender, EventArgs e)
-        {
+            //    if (ly.Count > 0)
+            //        cmbSchoolYear.SelectedItem = ly[ly.Count - 1];
 
+            //    // fill the combo of grade types 
+            //    List<GradeType> ListGradeTypes = Commons.bl.GetListGradeTypes();
+            //    cmbGradeType.DataSource = ListGradeTypes;
+
+            //    // fill the combo of School subjects
+            //    List<SchoolSubject> listSubjects = Commons.bl.GetListSchoolSubjects(true);
+            //    cmbSchoolSubject.DataSource = listSubjects;
+            //}
+            //firstTime = true;
         }
         private void btnSalvaInterrogati_Click(object sender, EventArgs e)
         {
@@ -613,20 +641,20 @@ namespace SchoolGrades
                 txtPathImages.Text = folderBrowserDialog.SelectedPath;
             }
         }
-        Class lastClass = new Class(); 
+        Class lastClass = new Class();
         SchoolSubject lastSubject = new SchoolSubject();
         List<string> filesInFolder = new List<string>();
         int indexImage = 0;
         private DateTime nextPopUpQuestionTime;
         private void BtnShowRandomImage_Click(object sender, EventArgs e)
         {
-            if (filesInFolder.Count == 0 || currentClass != lastClass || currentSubject != lastSubject 
+            if (filesInFolder.Count == 0 || currentClass != lastClass || currentSubject != lastSubject
                 || indexImage == filesInFolder.Count)
             {
                 indexImage = 0;
                 lastClass = currentClass;
                 lastSubject = currentSubject;
-                filesInFolder.Clear();                 
+                filesInFolder.Clear();
                 if (chkGivenFolder.Checked)
                 {
                     if (txtPathImages.Text != "")
@@ -691,7 +719,7 @@ namespace SchoolGrades
                 if (currentStudentsList == null)
                     return;
 
-                RefreshStudentsGrid(); 
+                RefreshStudentsGrid();
             }
         }
         public void DrawOrSort()
@@ -702,7 +730,7 @@ namespace SchoolGrades
             // sets the value of property SortOrDrawCriterion according to the type of draw
             if (rdbDrawEqualProbability.Checked)
             {
-                eligiblesList = Commons.bl.PrepareEligiblesByEqualProbability(currentStudentsList); 
+                eligiblesList = Commons.bl.PrepareEligiblesByEqualProbability(currentStudentsList);
             }
             else if (rdbDrawByWeightsSum.Checked)
             {
@@ -743,8 +771,8 @@ namespace SchoolGrades
                 MessageBox.Show("Nessun allievo presente?");
                 return;
             }
-            dgwStudents.Visible = false; 
-            
+            dgwStudents.Visible = false;
+
             // second pass: shuffle the list or sort 
             // for both operations it uses the SortOrDrawCriterion Property
             if (rdbMustDraw.Checked && !rdbSortByAlphbetical.Checked)
@@ -773,7 +801,7 @@ namespace SchoolGrades
         }
         private List<Student> PrepareEligiblesByNumberOfGrades()
         {
-            List<Student> eligiblesList = new List<Student>();  
+            List<Student> eligiblesList = new List<Student>();
             //find the number of grades of each student (beside the sum of the weights)
             List<Student> studentsAndWeights =
                 Commons.bl.GetStudentsAndSumOfWeights(currentClass,
@@ -809,7 +837,7 @@ namespace SchoolGrades
                 if (studentOfAll.Eligible == true)
                     eligiblesList.Add(studentOfAll);
             }
-            return eligiblesList; 
+            return eligiblesList;
         }
         private void EqualizeTheNumberOfTheGrades()
         {
@@ -821,7 +849,7 @@ namespace SchoolGrades
             // find the number of microgrades for each student
 
             List<Student> CheckedStudents = new List<Student>();
-			CopyCheckedStatusIntoEligiblesList();             
+            CopyCheckedStatusIntoEligiblesList();
             eligiblesList = Commons.bl.EqualizeTheNumberOfTheGrades(currentStudentsList, currentClass, currentGradeType);
         }
         private List<Student> PrepareEligiblesByWeightSum()
@@ -860,7 +888,7 @@ namespace SchoolGrades
                 if ((bool)studentOfAll.Eligible)
                     eligiblesList.Add(studentOfAll);
             }
-            return eligiblesList; 
+            return eligiblesList;
         }
         private List<Student> FillListOfChecked(List<Student> StudentsList)
         {
@@ -876,19 +904,19 @@ namespace SchoolGrades
         public void SaveStudentsOfClassIfEligibleHasChanged()
         {
             // check if the Eligible field has changhed since when we read the students 
-            dataModified = dataModified || CheckIfAnyEligibleHasChanged(); 
+            dataModified = dataModified || CheckIfAnyEligibleHasChanged();
             if (currentStudentsList != null && dataModified)
                 Commons.bl.SaveStudentsOfList(currentStudentsList, null);
         }
         private bool CheckIfAnyEligibleHasChanged()
         {
-            bool OneIsDifferent = false; 
+            bool OneIsDifferent = false;
             if (currentClass != null)
             {
                 List<Student> oldList = Commons.bl.GetStudentsOfClassList(school.OfficialSchoolAbbreviation, schoolYear,
                         currentClass.Abbreviation, false);
-                if(currentStudentsList != null)
-                { 
+                if (currentStudentsList != null)
+                {
                     for (int i = 0; i < oldList.Count; i++)
                     {
                         if (currentStudentsList[i].Eligible != oldList[i].Eligible)
@@ -899,15 +927,15 @@ namespace SchoolGrades
                     }
                 }
             }
-            return OneIsDifferent; 
+            return OneIsDifferent;
         }
         public void AllChecked()
         {
-            foreach(Student s in currentStudentsList)
+            foreach (Student s in currentStudentsList)
             {
-                s.Eligible = true; 
+                s.Eligible = true;
             }
-            RefreshStudentsGrid(); 
+            RefreshStudentsGrid();
         }
         public void AllUnChecked()
         {
@@ -943,7 +971,7 @@ namespace SchoolGrades
                 currentSubject);
             foreach (Student s in currentStudentsList)
             {
-                s.Eligible = false; 
+                s.Eligible = false;
                 foreach (int k in nonGraded)
                 {
                     if (k == s.IdStudent)
@@ -1124,7 +1152,7 @@ namespace SchoolGrades
                 return;
             if (!CommonsWinForms.CheckIfSubjectChosen(currentSubject))
                 return;
-            frmTopics frm = new frmTopics (frmTopics.TopicsFormType.HighlightTopics, 
+            frmTopics frm = new frmTopics(frmTopics.TopicsFormType.HighlightTopics,
                 currentClass, currentSubject, currentQuestion, null, (frmMain)this);
             frm.Show();
         }
@@ -1151,7 +1179,7 @@ namespace SchoolGrades
         }
         private void pgbTimeQuestion_Click(object sender, EventArgs e)
         {
-            ToggleTimerBar(txtTimeInterval.Text); 
+            ToggleTimerBar(txtTimeInterval.Text);
         }
         private void ToggleTimerBar(string Time)
         {
@@ -1168,7 +1196,7 @@ namespace SchoolGrades
                 {
                     ticksPassed = 0;
                     pgbTimeQuestion.Maximum = int.Parse(Time) * 1000;
-                    timerQuestion.Start(); 
+                    timerQuestion.Start();
                 }
             }
         }
@@ -1176,7 +1204,7 @@ namespace SchoolGrades
         {
             if (!CommonsWinForms.CheckIfClassChosen(currentClass))
                 return;
-            eligiblesList = FillListOfChecked(currentStudentsList); 
+            eligiblesList = FillListOfChecked(currentStudentsList);
             if (eligiblesList.Count == 0)
             {
                 MessageBox.Show("Nessun studente presente!");
@@ -1263,16 +1291,16 @@ namespace SchoolGrades
         }
         private bool NoStudentIsChecked()
         {
-            bool found = false; 
+            bool found = false;
             foreach (Student s in currentStudentsList)
             {
                 if (s.Eligible == true)
                 {
                     found = true;
-                    break; 
+                    break;
                 }
             }
-            return !found; 
+            return !found;
         }
         private void btnRevengeFactorMinus_Click(object sender, EventArgs e)
         {
@@ -1323,7 +1351,7 @@ namespace SchoolGrades
             if (!File.Exists(Commons.PathAndFileDatabase))
                 return;
 
-            CloseThread(); 
+            CloseThread();
 
             // if a saving of the database with Mptt is running, we close it 
             if (CommonsWinForms.BackgroundSavingEnabled)
@@ -1334,13 +1362,21 @@ namespace SchoolGrades
                     CommonsWinForms.BackgroundTaskClose = true;
                 }
             }
+            // we wait for the saving Thread to finish
+            // (it aborts in a point in which status is preserved)  
+            CommonsWinForms.BackgroundSaveThread.Join(3000);
+
+            timerLesson.Stop();
+            timerPopUp.Stop();
+            timerQuestion.Stop();
+
             string file = Commons.PathLogs + @"\frmMain_parameters.txt";
             CommonsWinForms.SaveCurrentValuesOfAllControls(this, ref file);
             SaveStudentsOfClassIfEligibleHasChanged();
 
             // save in the log folder a copy of the database, if enabled 
             if (CommonsWinForms.SaveBackupWhenExiting)
-            { 
+            {
                 File.Copy(Commons.PathAndFileDatabase,
                     Commons.PathLogs + "\\" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") +
                     "_" + Commons.DatabaseFileName_Current);
@@ -1540,12 +1576,12 @@ namespace SchoolGrades
         }
         private void lstTimeInterval_DoubleClick(object sender, EventArgs e)
         {
-            ToggleTimerBar(txtTimeInterval.Text); 
+            ToggleTimerBar(txtTimeInterval.Text);
         }
         private void StartColorTimer(bool SoundEffectsInTimer)
         {
-            double t =  double.Parse(txtTimeInterval.Text);
-            ColorTimer ft = new ColorTimer(t /60, t /60, SoundEffectsInTimer);
+            double t = double.Parse(txtTimeInterval.Text);
+            ColorTimer ft = new ColorTimer(t / 60, t / 60, SoundEffectsInTimer);
             if (currentStudent != null)
             {
                 ft.FormCaption = ft.FormCaption.Replace("gamon", currentStudent.LastName);
@@ -1554,7 +1590,7 @@ namespace SchoolGrades
         }
         private void btnStartColorTimer_Click(object sender, EventArgs e)
         {
-            StartColorTimer(chkSoundsInColorTimer.Checked); 
+            StartColorTimer(chkSoundsInColorTimer.Checked);
         }
         private void btnMosaic_Click(object sender, EventArgs e)
         {
@@ -1592,7 +1628,7 @@ namespace SchoolGrades
             if (chosenStudents.Count > 0)
             {
                 frmAnnotationsAboutStudents f = new frmAnnotationsAboutStudents(chosenStudents, cmbSchoolYear.Text);
-                f.StartPosition = FormStartPosition.CenterParent; 
+                f.StartPosition = FormStartPosition.CenterParent;
                 f.Show();
             }
         }
@@ -1602,7 +1638,7 @@ namespace SchoolGrades
             timerPopUp.Enabled = chkPopUpQuestionsEnabled.Checked;
             if (timerPopUp.Enabled)
             {
-                SetNewPopUpOfStudentToQuestion(); 
+                SetNewPopUpOfStudentToQuestion();
             }
         }
         private void SetNewPopUpOfStudentToQuestion()
@@ -1614,8 +1650,8 @@ namespace SchoolGrades
                 return;
             }
             double displacementTime = PopUpQuestionCentralTime * 0.1;
-            double minutesToTheNextQuestion = PopUpQuestionCentralTime - random.NextDouble() * 
-                PopUpQuestionCentralTime * displacementTime/ 4; 
+            double minutesToTheNextQuestion = PopUpQuestionCentralTime - random.NextDouble() *
+                PopUpQuestionCentralTime * displacementTime / 4;
             nextPopUpQuestionTime = DateTime.Now.AddMinutes(minutesToTheNextQuestion);
             timerPopUp.Enabled = true;
         }
@@ -1650,7 +1686,7 @@ namespace SchoolGrades
                         Console.Beep(400, 800);
                         // prepare for the next popup question 
                         SetNewPopUpOfStudentToQuestion();
-                        return; 
+                        return;
                     }
                     else
                     {
@@ -1670,7 +1706,7 @@ namespace SchoolGrades
         private void btnRandomNumber_Click(object sender, EventArgs e)
         {
             frmRandom f = new frmRandom();
-            f.Show(); 
+            f.Show();
         }
         private void chkSoundsInColorTimer_CheckedChanged(object sender, EventArgs e)
         {
@@ -1686,7 +1722,7 @@ namespace SchoolGrades
                     if (currentStudentsList == null)
                         return;
 
-                    RefreshStudentsGrid(); 
+                    RefreshStudentsGrid();
                 }
             }
         }
@@ -1723,7 +1759,7 @@ namespace SchoolGrades
         {
             dgwStudents.DataSource = null;
             dgwStudents.DataSource = currentStudentsList;
-            dgwStudents.Refresh(); 
+            dgwStudents.Refresh();
             dgwStudents.Visible = true;
 
             if (dgwStudents.Columns.Count > 0)
@@ -1764,14 +1800,14 @@ namespace SchoolGrades
                 }
             }
         }
-		private void CopyCheckedStatusIntoEligiblesList()
-		{
-			// copy the checked status from the CheckedListBox
-			foreach (Student stud in currentStudentsList)
-			{
-				bool found = false; 
-				foreach (Student s in currentStudentsList)
-				{
+        private void CopyCheckedStatusIntoEligiblesList()
+        {
+            // copy the checked status from the CheckedListBox
+            foreach (Student stud in currentStudentsList)
+            {
+                bool found = false;
+                foreach (Student s in currentStudentsList)
+                {
                     if (s.Eligible == true)
                     {
                         if (stud == s)
@@ -1780,16 +1816,16 @@ namespace SchoolGrades
                             break;
                         }
                     }
-				}
-				stud.Eligible = found;
-			}
-		}
+                }
+                stud.Eligible = found;
+            }
+        }
         private void ReadCheckSignsIntoCurrentStudentsList()
         {
-            int i = 0; 
+            int i = 0;
             foreach (DataGridViewRow r in dgwStudents.Rows)
             {
-                currentStudentsList[i].Eligible = (bool)r.Cells[0].Value; 
+                currentStudentsList[i].Eligible = (bool)r.Cells[0].Value;
             }
         }
     }

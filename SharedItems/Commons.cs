@@ -1,12 +1,12 @@
-﻿using System;
-using System.IO;
-using System.Security.Cryptography;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Drawing;
-using SchoolGrades.BusinessObjects;
-using System.Diagnostics;
+﻿using SchoolGrades.BusinessObjects;
 using SharedWinForms;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Reflection;
+using System.Security.Cryptography;
 
 namespace SchoolGrades
 {
@@ -27,9 +27,9 @@ namespace SchoolGrades
 
         internal static string DatabaseFileName_Teacher = "SchoolGrades.sqlite";
         internal static string DatabaseFileName_Demo = "SchoolGrades_DEMO.sqlite";
-        internal static string DatabaseFileName_Current = ""; 
+        internal static string DatabaseFileName_Current = "";
         internal static string PathDatabase = Path.Combine(PathExe, "Data");
-        private static string pathAndFileDatabase; 
+        private static string pathAndFileDatabase;
         internal static string PathImages = Path.Combine(PathExe, "Images");
         internal static string PathDocuments = Path.Combine(PathExe, "Docs");
 
@@ -47,7 +47,7 @@ namespace SchoolGrades
         internal static List<Tag> LastTagsChosen;
 
         internal static bool isLogging = true;
-        internal static DateTime DateNull = new DateTime(1800,1,1);
+        internal static DateTime DateNull = new DateTime(1800, 1, 1);
 
         internal static List<Question> QuestionsAlreadyMadeThisTime = new List<Question>();
 
@@ -75,7 +75,7 @@ namespace SchoolGrades
             }
             catch (Exception ex)
             {
-                return ErrorLog("ERRORE in calcolo SHA1: " + ex.Message); 
+                return ErrorLog("ERRORE in calcolo SHA1: " + ex.Message);
             }
         }
         internal static string ConvertStringToFilename(string SubmittedName, bool SubstituteSpaces)
@@ -102,6 +102,19 @@ namespace SchoolGrades
             if (target <= start)
                 target += 7;
             return from.AddDays(target - start);
+        }
+        internal static bool IsValidDate(string input)
+        {
+            if (DateTime.TryParse(input, out DateTime date))
+            {
+                // The string is a valid date, and 'date' now contains the parsed value.
+                return true;
+            }
+            else
+            {
+                // The string is not a valid date.
+                return false;
+            }
         }
         public static object CloneObject(object o)
         {
@@ -156,11 +169,11 @@ namespace SchoolGrades
                 // determine the item to exchange with the first
                 // draw a random number less than the sum
                 double drawn = r.NextDouble() * sum;
-                int num = findIndexOfItemtoSwapWithFirst(drawn, p, List); 
+                int num = findIndexOfItemtoSwapWithFirst(drawn, p, List);
                 // exchange
                 Student tmp = List[p];
                 List[p] = List[num];
-                
+
                 List[num] = tmp;
             }
             // once again
@@ -172,25 +185,25 @@ namespace SchoolGrades
                 List[num] = tmp;
             }
         }
-        private static int findIndexOfItemtoSwapWithFirst(double drawn, 
+        private static int findIndexOfItemtoSwapWithFirst(double drawn,
             int IndexBeginFrom, List<Student> List)
         {
             double sumTillHere = 0;
-            int p = IndexBeginFrom; 
+            int p = IndexBeginFrom;
             for (; p < List.Count; p++)
             {
                 sumTillHere += (double)List[p].SortOrDrawCriterion;
                 if (drawn <= sumTillHere)
-                    break; 
+                    break;
             }
             return p;
         }
         private static double sumAllProbabilities(int IndexBeginFrom, List<Student> List)
         {
-            double sum = 0; 
+            double sum = 0;
             for (int p = IndexBeginFrom; p < List.Count; p++)
             {
-                sum += (double)List[p].SortOrDrawCriterion; 
+                sum += (double)List[p].SortOrDrawCriterion;
             }
             return sum;
         }
@@ -205,7 +218,7 @@ namespace SchoolGrades
                         startLink = link.Link;
                     else
                         startLink = Class.PathRestrictedApplication + "\\" + link;
-                    Commons.ProcessStartLink(startLink); 
+                    Commons.ProcessStartLink(startLink);
                 }
                 catch
                 {
@@ -227,7 +240,7 @@ namespace SchoolGrades
             }
             catch (Exception ex)
             {
-                Console.Beep(); 
+                Console.Beep();
             }
         }
         internal static void SortListBySortOrDrawCriterionDescending(List<Student> List)
@@ -236,7 +249,7 @@ namespace SchoolGrades
             {
                 Student max = List[i];
                 int indexMax = i;
-                for (int j = i + 1 ; j < List.Count; j++)
+                for (int j = i + 1; j < List.Count; j++)
                 {
                     if (List[j].SortOrDrawCriterion > max.SortOrDrawCriterion)
                     {
@@ -247,7 +260,7 @@ namespace SchoolGrades
                 // swap list elements
                 Student dummy = List[i];
                 List[i] = List[indexMax];
-                List[indexMax] = dummy; 
+                List[indexMax] = dummy;
             }
         }
         internal static Color ColorFromNumber(SchoolSubject Subject)
@@ -327,7 +340,7 @@ namespace SchoolGrades
 
             // finite state machine that recognizes numbers 
             string outputString = "";
-            string partialString = ""; 
+            string partialString = "";
             int currentIndex = 0;
             State state = State.SeekingFirstDigit;
             while (currentIndex < StringWithNumbersInside.Length)
@@ -341,7 +354,7 @@ namespace SchoolGrades
                             {
                                 state = State.ReadingNumber;
                                 outputString += partialString;
-                                partialString = ""; 
+                                partialString = "";
                             }
                             partialString += currentChar.ToString();
                             break;
@@ -357,9 +370,9 @@ namespace SchoolGrades
                                 state = State.SeekingFirstDigit;
                                 int number = int.Parse(partialString);
                                 outputString += (++number).ToString() + currentChar.ToString();
-                                partialString = ""; 
+                                partialString = "";
                             }
-                            break; 
+                            break;
                         }
                 }
                 currentIndex++;
@@ -370,16 +383,17 @@ namespace SchoolGrades
                 outputString += (++number).ToString();
             }
             else
-                outputString += partialString; 
+                outputString += partialString;
 
-            return outputString; 
+            return outputString;
         }
         internal static bool ProcessingCanContinue()
         {
-            // if the foreground taask id running, we will NOT interrupt it 
-            if (!CommonsWinForms.IAmBackgroundTask) return true;
-            // il the background is disabled, processing can not proceed 
+            // if the foreground task is running, we will NOT EVER interrupt it 
+            if (!CommonsWinForms.BackgroundTaskIsSaving) return true;
+            // if the background is disabled, processing proceed only if enabled 
             return CommonsWinForms.BackgroundSavingEnabled;
+
         }
     }
 }

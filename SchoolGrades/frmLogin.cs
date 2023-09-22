@@ -31,12 +31,13 @@ namespace SchoolGrades
         }
         private void btnOk_Click(object sender, EventArgs e)
         {
-            if (Commons.bl.HasUserLoginPermission(txtUsername.Text, 
+            if (Commons.bl.HasUserLoginPermission(txtUsername.Text,
                 txtPassword.Text))
             {
-                frmMain f = new frmMain(Commons.PathAndFileDatabase);
+                //frmMain f = new frmMain(Commons.PathAndFileDatabase);
+                frmMain f = new frmMain();
                 this.Hide();
-                f.ShowDialog(); 
+                f.ShowDialog();
             }
             else
             {

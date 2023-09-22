@@ -1,12 +1,12 @@
-﻿using System;
+﻿using gamon;
 using gamon.TreeMptt;
-using gamon;
+using SchoolGrades;
 using SchoolGrades.BusinessObjects;
+using System;
 using System.Drawing;
+using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-using System.IO;
-using SchoolGrades;
 
 namespace SharedWinForms
 {
@@ -21,7 +21,7 @@ namespace SharedWinForms
         // exit the background task 
         public static bool BackgroundTaskClose = false;
         public static bool BackgroundTaskIsSaving = false;
-        public static bool IAmBackgroundTask = false;
+
         // lock variable for serialization of access to BackgroundSavingEnabled and BackgroundSavingSafeStatus
         public static object LockSavingCriticalSections = new object();
         public static object LockBackgroundSavingVariables = new object();
@@ -37,7 +37,7 @@ namespace SharedWinForms
             string fileContent = "";
             if (ParentControl.Controls.Count > 0)
             {
-                    SaveControlsValuesOfLevel(ParentControl, ref fileContent);
+                SaveControlsValuesOfLevel(ParentControl, ref fileContent);
             }
             TextFile.StringToFile(PathAndFile, fileContent, false);
         }
@@ -102,7 +102,7 @@ namespace SharedWinForms
             // !!!! to fix !!!! reads only a few of the controls !!!! 
             foreach (Control c in ParentControl.Controls)
             {
-                for(int Index = 0; Index < NamesAndValues.GetLength(1); Index++)
+                for (int Index = 0; Index < NamesAndValues.GetLength(1); Index++)
                 {
                     // we don't restore the values of the types of controls that were not saved
                     if (
@@ -253,7 +253,7 @@ namespace SharedWinForms
             }));
             Application.DoEvents();
         }
-        internal static bool ReadConfigFile()
+        internal static bool ReadConfigData()
         {
             string[] dati = null;
             try
@@ -271,7 +271,7 @@ namespace SharedWinForms
                         Commons.PathImages = dati[1];
                         // position 2 was held by PathStartLinks 
                         //Commons.PathStartLinks = dati[2]; 
-                        Commons.PathDatabase = dati[3]; 
+                        Commons.PathDatabase = dati[3];
                         Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
                         Commons.PathDocuments = dati[4];
                     }
@@ -307,7 +307,7 @@ namespace SharedWinForms
             }
             return false;
         }
-        internal static void WriteConfigFile()
+        internal static void WriteConfigData()
         {
             string[] dati = new string[6];
             try

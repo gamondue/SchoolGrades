@@ -1,4 +1,5 @@
 using gamon;
+using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -6,20 +7,18 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
-using SchoolGrades.BusinessObjects;
-using System.Drawing;
 
 namespace SchoolGrades
 {
     public partial class frmClassesManagement : Form
     {
-    	// TODO !!!! put an option for separator in import files 
+        // TODO !!!! put an option for separator in import files 
 
         DataTable dtClass;
 
-        School currentSchool; 
+        School currentSchool;
         Class currentClass;
-        List<Student> studentsList; 
+        List<Student> studentsList;
         string idSchoolYear;
         bool isLoading = true;
 
@@ -52,7 +51,7 @@ namespace SchoolGrades
             // give warning to avoid modifying existing class instead of making a new one
             if (Commons.bl.GetClass(currentSchool.IdSchool, idSchoolYear, CmbClasses.Text).Abbreviation != null)
             {
-                MessageBox.Show("Esiste già una classe con il nome \"" + CmbClasses.Text + "\" in questa scuola ed in questo anno!", "Avviso", 
+                MessageBox.Show("Esiste già una classe con il nome \"" + CmbClasses.Text + "\" in questa scuola ed in questo anno!", "Avviso",
                     MessageBoxButtons.OK);
                 return;
             }
@@ -61,14 +60,14 @@ namespace SchoolGrades
                 DialogResult d = MessageBox.Show("E' meglio non mettere spazi nella sigla della classe." +
                     "\r\nDevo metterli lo stesso?",
                     "Informazione", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
-                if (d != DialogResult.Yes) return;  
+                if (d != DialogResult.Yes) return;
             }
             if (!File.Exists(TxtFileOfStudentsImport.Text) ||
                 TxtFileOfStudentsImport.Text.Substring(TxtFileOfStudentsImport.Text.Length - 1, 1) == "\\")
             {
                 MessageBox.Show("Il file \"" + TxtFileOfStudentsImport.Text + "\" non esiste!", "Avviso",
                     MessageBoxButtons.OK);
-                return; 
+                return;
             }
             string[,] datiAllievi = TextFile.FileToMatrix(TxtFileOfStudentsImport.Text, '\t');
 
@@ -78,7 +77,7 @@ namespace SchoolGrades
             if (!rdbChooseStudentsPhotoWhileImporting.Checked)
             {
                 newClass.IdClass = Commons.bl.CreateClassAndStudents(datiAllievi, CmbClasses.Text, txtClassDescription.Text,
-                CmbSchoolYear.Text, TxtOfficialSchoolAbbreviation.Text,rdbStudentsPhotosAlreadyPresent.Checked);
+                CmbSchoolYear.Text, TxtOfficialSchoolAbbreviation.Text, rdbStudentsPhotosAlreadyPresent.Checked);
             }
             else
             {
@@ -112,11 +111,11 @@ namespace SchoolGrades
                 }
             }
             MessageBox.Show("Importazione terminata");
-            this.Close(); 
+            this.Close();
         }
         private void btnFileChoose_Click(object sender, EventArgs e)
         {
-            openFileDialog.InitialDirectory = Path.GetDirectoryName(TxtFileOfStudentsImport.Text+ "\\");
+            openFileDialog.InitialDirectory = Path.GetDirectoryName(TxtFileOfStudentsImport.Text + "\\");
             DialogResult r = openFileDialog.ShowDialog();
             if (r == System.Windows.Forms.DialogResult.OK)
             {
@@ -139,7 +138,7 @@ namespace SchoolGrades
         }
         private void btnClassErase_Click(object sender, EventArgs e)
         {
-            if (currentClass==null)
+            if (currentClass == null)
             {
                 MessageBox.Show("Scegliere in 'Sigla classe' una classe da cancellare");
                 return;
@@ -158,7 +157,7 @@ namespace SchoolGrades
             // eliminazione della classe 
             Commons.bl.EraseClassFromClasses(currentClass);
 
-            this.Close(); 
+            this.Close();
         }
         private void CmbClasses_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -184,9 +183,9 @@ namespace SchoolGrades
                 dtClass = Commons.bl.GetClassTable(Class.IdClass);
                 DgwClass.DataSource = dtClass;
 
-                studentsList  = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text,
+                studentsList = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text,
                     idSchoolYear, CmbClasses.Text, true);
-                DgwStudents.DataSource = studentsList; 
+                DgwStudents.DataSource = studentsList;
                 txtClassDescription.Text = Safe.String(DgwClass.Rows[DgwClass.CurrentRow.Index].Cells["desc"].Value);
                 currentClass = (Class)CmbClasses.SelectedItem;
                 TxtStartLinksFolder.Text = currentClass.PathRestrictedApplication;
@@ -202,7 +201,7 @@ namespace SchoolGrades
                 string newPhotoFullName = openFileDialog.FileName;
                 if (newPhotoFullName != "" && !(dr == DialogResult.Cancel))
                 {
-                    if (picStudent.Image!= null) 
+                    if (picStudent.Image != null)
                         picStudent.Image.Dispose();
                     Application.DoEvents();
                     Thread.Sleep(1500);
@@ -226,20 +225,20 @@ namespace SchoolGrades
                     //Thread.Sleep(1500);
 
                     Commons.bl.CopyAndLinkOnePhoto(s, currentClass, newPhotoFullName);
-                    s.SchoolYear = CmbSchoolYear.Text; 
-                    LoadPicture(s); 
+                    s.SchoolYear = CmbSchoolYear.Text;
+                    LoadPicture(s);
                 }
             }
             else
             {
-                MessageBox.Show("Scegliere un allievo cui cambiare la foto"); 
+                MessageBox.Show("Scegliere un allievo cui cambiare la foto");
             }
         }
         private void LoadPicture(Student StudentToLoad)
         {
             try
             {
-                string filePathAndName = Path.Combine(Commons.PathImages, 
+                string filePathAndName = Path.Combine(Commons.PathImages,
                     Commons.bl.GetFilePhoto(StudentToLoad.IdStudent, StudentToLoad.SchoolYear));
 
                 picStudent.Image = System.Drawing.Image.FromFile(filePathAndName);
@@ -255,7 +254,7 @@ namespace SchoolGrades
         {
             frmNewYear f = new frmNewYear(idSchoolYear);
             f.ShowDialog();
-            CmbClasses.DataSource = null; 
+            CmbClasses.DataSource = null;
             CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
         }
         private void btnStudentNew_Click(object sender, EventArgs e)
@@ -263,7 +262,7 @@ namespace SchoolGrades
             if (CmbClasses.Text == "")
             {
                 MessageBox.Show("Scegliere una classe");
-                return; 
+                return;
             }
             frmStudent sf = new frmStudent(null, true);
             sf.ShowDialog();
@@ -271,12 +270,12 @@ namespace SchoolGrades
             {
                 Commons.bl.PutStudentInClass(sf.CurrentStudent.IdStudent,
                     ((Class)(CmbClasses.SelectedItem)).IdClass);
-                DgwStudents.DataSource = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, 
+                DgwStudents.DataSource = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text,
                     idSchoolYear, CmbClasses.Text, false);
             }
             else
             {
-                MessageBox.Show("Studente non aggiunto alla classe \n(premere 'Scegli' nella finestra appena chiusa)"); 
+                MessageBox.Show("Studente non aggiunto alla classe \n(premere 'Scegli' nella finestra appena chiusa)");
             }
         }
         private void btnStudentErase_Click(object sender, EventArgs e)
@@ -284,7 +283,7 @@ namespace SchoolGrades
             if (DgwStudents.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Selezionare nella griglia un allievo da cancellare");
-                return; 
+                return;
             }
             string deletingStudent = (string)DgwStudents.SelectedRows[0].Cells["LastName"].Value +
                 " " + (string)DgwStudents.SelectedRows[0].Cells["FirstName"].Value;
@@ -296,24 +295,24 @@ namespace SchoolGrades
             int IdDeletingStudent = (int)DgwStudents.SelectedRows[0].Cells["IdStudent"].Value;
             Commons.bl.DeleteOneStudentFromClass(IdDeletingStudent,
                 ((Class)(CmbClasses.SelectedItem)).IdClass);
-            DgwStudents.DataSource = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, 
+            DgwStudents.DataSource = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text,
                 idSchoolYear, CmbClasses.Text, false);
         }
         private void btnSaveClassAndStudents_Click(object sender, EventArgs e)
         {
             DataGridViewRow dgr = DgwClass.Rows[0];
-            int? idClass = ((Class)CmbClasses.SelectedItem).IdClass; 
+            int? idClass = ((Class)CmbClasses.SelectedItem).IdClass;
             Class c = new Class(idClass, CmbClasses.Text, CmbSchoolYear.Text, TxtOfficialSchoolAbbreviation.Text);
-            c.Description= Safe.String(dgr.Cells["desc"].Value);
+            c.Description = Safe.String(dgr.Cells["desc"].Value);
             //c.Description = TxtClassDescription.Text;  
             c.UriWebApp = Safe.String(dgr.Cells["uriWebApp"].Value);
             //c.PathRestrictedApplication = Safe.String(dgr.Cells["pathRestrictedApplication"].Value);
             c.PathRestrictedApplication = TxtStartLinksFolder.Text;
 
             Commons.bl.SaveClass(c);
-            Commons.bl.SaveStudentsOfList((List<Student>) DgwStudents.DataSource, null);  
+            Commons.bl.SaveStudentsOfList((List<Student>)DgwStudents.DataSource, null);
 
-            FillClassData(c); 
+            FillClassData(c);
         }
         private void btnToggleDisableStudent_Click(object sender, EventArgs e)
         {
@@ -324,8 +323,8 @@ namespace SchoolGrades
             }
             Student disablingStudent = studentsList[DgwStudents.SelectedCells[0].RowIndex];
             Commons.bl.ToggleDisabledFlagOneStudent(disablingStudent);
-            DgwStudents.DataSource = null; 
-            DgwStudents.DataSource = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, 
+            DgwStudents.DataSource = null;
+            DgwStudents.DataSource = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text,
                 idSchoolYear, CmbClasses.Text, true);
             string prompt = "Commutato lo stato di abilitazione dell'allievo " + disablingStudent;
             // !!!! dire in che stato è ora 
@@ -351,7 +350,7 @@ namespace SchoolGrades
         private void btnEndingPeriod_Click(object sender, EventArgs e)
         {
             // make a csv file with all grades and averages 
-            MessageBox.Show("TO DO!"); 
+            MessageBox.Show("TO DO!");
         }
         private void btnCreateEmailAddresses_Click(object sender, EventArgs e)
         {
@@ -412,7 +411,7 @@ namespace SchoolGrades
             {
                 List<Student> ls = (List<Student>)(DgwStudents.DataSource);
                 Student s = ls[e.RowIndex];
-                EditStudentsData(s); 
+                EditStudentsData(s);
             }
         }
         private void EditStudentsData(Student Student)
@@ -430,7 +429,7 @@ namespace SchoolGrades
 
         }
         private void DgwClass_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        { 
+        {
             if (e.RowIndex > -1)
             {
                 if (e.ColumnIndex == 6) // column of the path; opens the folder with that path 
@@ -444,12 +443,12 @@ namespace SchoolGrades
             if (DgwStudents.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Selezionere l'allievo del quale eliminare la foto");
-                return; 
+                return;
             }
             DataGridViewCell c = DgwStudents.SelectedRows[0].Cells["IdStudent"];
             Student s = Commons.bl.GetStudent((int)c.Value);
             Commons.bl.EraseStudentsPhoto((int)c.Value, CmbSchoolYear.Text);
-            picStudent.Image = null; 
+            picStudent.Image = null;
         }
         private void button15_Click(object sender, EventArgs e)
         {
@@ -492,9 +491,9 @@ namespace SchoolGrades
             string file = "N.registro\tCognome\tNome\tData di nascita\tLuogo di nascita\temail\tComune residenza\tIdSchoolGrades\r\n";
             foreach (Student s in list)
             {
-                file += s.RegisterNumber + "\t" + s.LastName + "\t" + s.FirstName + "\t" + s.BirthDate 
-                    + "\t" + s.BirthPlace + "\t" + s.Email 
-                    + "\t" + s.Residence + "\t" + s.IdStudent +"\r\n";
+                file += s.RegisterNumber + "\t" + s.LastName + "\t" + s.FirstName + "\t" + s.BirthDate
+                    + "\t" + s.BirthPlace + "\t" + s.Email
+                    + "\t" + s.Residence + "\t" + s.IdStudent + "\r\n";
             }
             string nomeFile = Commons.PathDatabase + "\\" + CmbSchoolYear.Text + "_" +
                 CmbClasses.SelectedItem.ToString() + "_elenco.csv";
@@ -508,7 +507,7 @@ namespace SchoolGrades
         }
         private void btnPutNumbers_Click(object sender, EventArgs e)
         {
-            int i = 1; 
+            int i = 1;
             foreach (Student s in (List<Student>)DgwStudents.DataSource)
             {
                 if (s.Disabled != true)
@@ -517,11 +516,20 @@ namespace SchoolGrades
                     i++;
                 }
             }
-            DgwStudents.Refresh(); 
+            DgwStudents.Refresh();
         }
         private void TxtStartLinksFolder_TextChanged(object sender, EventArgs e)
         {
 
+        }
+        private void btnPathStartLinks_Click(object sender, EventArgs e)
+        {
+            folderBrowserDialog.SelectedPath = TxtStartLinksFolder.Text;
+            DialogResult r = folderBrowserDialog.ShowDialog();
+            if (r == System.Windows.Forms.DialogResult.OK)
+            {
+                TxtStartLinksFolder.Text = folderBrowserDialog.SelectedPath;
+            }
         }
     }
 }

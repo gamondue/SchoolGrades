@@ -28,1442 +28,1420 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
-            this.btnDraw = new System.Windows.Forms.Button();
-            this.butComeOn = new System.Windows.Forms.Button();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.txtMinuteStartLesson = new System.Windows.Forms.TextBox();
-            this.txtDurationLesson = new System.Windows.Forms.TextBox();
-            this.txtAdvanceMinutes = new System.Windows.Forms.TextBox();
-            this.txtRevengeFactor = new System.Windows.Forms.TextBox();
-            this.btnCheckNone = new System.Windows.Forms.Button();
-            this.lstClasses = new System.Windows.Forms.ListBox();
-            this.pgbTimeQuestion = new System.Windows.Forms.ProgressBar();
-            this.chkNomeVisibile = new System.Windows.Forms.CheckBox();
-            this.chkFotoVisibile = new System.Windows.Forms.CheckBox();
-            this.chkStudentsListVisible = new System.Windows.Forms.CheckBox();
-            this.cmbSchoolYear = new System.Windows.Forms.ComboBox();
-            this.txtPathImages = new System.Windows.Forms.TextBox();
-            this.btnPath = new System.Windows.Forms.Button();
-            this.btnShowRandomImage = new System.Windows.Forms.Button();
-            this.rdbDrawByRevengeFactor = new System.Windows.Forms.RadioButton();
-            this.rdbDrawByOldestFirst = new System.Windows.Forms.RadioButton();
-            this.rdbDrawNoOfGrades = new System.Windows.Forms.RadioButton();
-            this.rdbDrawLowGradesFirst = new System.Windows.Forms.RadioButton();
-            this.rdbSortByAlphbetical = new System.Windows.Forms.RadioButton();
-            this.rdbDrawByWeightsSum = new System.Windows.Forms.RadioButton();
-            this.rdbDrawEqualProbability = new System.Windows.Forms.RadioButton();
-            this.btnSetup = new System.Windows.Forms.Button();
-            this.btnStudentsGradesSummary = new System.Windows.Forms.Button();
-            this.btnOldestGrade = new System.Windows.Forms.Button();
-            this.cmbGradeType = new System.Windows.Forms.ComboBox();
-            this.btnLessonsTopics = new System.Windows.Forms.Button();
-            this.cmbSchoolSubject = new System.Windows.Forms.ComboBox();
-            this.btnTopicsDone = new System.Windows.Forms.Button();
-            this.btnStartLinks = new System.Windows.Forms.Button();
-            this.btnQuestion = new System.Windows.Forms.Button();
-            this.txtQuestion = new System.Windows.Forms.TextBox();
-            this.btnMakeGroups = new System.Windows.Forms.Button();
-            this.btnLessonTime = new System.Windows.Forms.Button();
-            this.btnVindicationFactorPlus = new System.Windows.Forms.Button();
-            this.btnVindicationFactorMinus = new System.Windows.Forms.Button();
-            this.btnCheckToggle = new System.Windows.Forms.Button();
-            this.chkSuspence = new System.Windows.Forms.CheckBox();
-            this.btnCheckRevenge = new System.Windows.Forms.Button();
-            this.lblVindicationFactor = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.btnClassesGradesSummary = new System.Windows.Forms.Button();
-            this.btnCheckAll = new System.Windows.Forms.Button();
-            this.btnCheckNoGrade = new System.Windows.Forms.Button();
-            this.lblDatabaseFile = new System.Windows.Forms.Label();
-            this.btnYearTopics = new System.Windows.Forms.Button();
-            this.chkActivateLessonClock = new System.Windows.Forms.CheckBox();
-            this.lblIdStudent = new System.Windows.Forms.Label();
-            this.txtIdStudent = new System.Windows.Forms.TextBox();
-            this.btnTemporary = new System.Windows.Forms.Button();
-            this.txtTimeInterval = new System.Windows.Forms.TextBox();
-            this.btnStartColorTimer = new System.Windows.Forms.Button();
-            this.btnMosaic = new System.Windows.Forms.Button();
-            this.btnStartBarTimer = new System.Windows.Forms.Button();
-            this.chkLessonsPictures = new System.Windows.Forms.CheckBox();
-            this.chkGivenFolder = new System.Windows.Forms.CheckBox();
-            this.picBackgroundSaveRunning = new System.Windows.Forms.PictureBox();
-            this.txtNStudents = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.btnStudentsNotes = new System.Windows.Forms.Button();
-            this.txtIdClass = new System.Windows.Forms.TextBox();
-            this.chkPopUpQuestionsEnabled = new System.Windows.Forms.CheckBox();
-            this.txtPopUpQuestionCentralTime = new System.Windows.Forms.TextBox();
-            this.btnRandomNumber = new System.Windows.Forms.Button();
-            this.chkSoundsInColorTimer = new System.Windows.Forms.CheckBox();
-            this.lblLastDatabaseModification = new System.Windows.Forms.Label();
-            this.lblStudentChosen = new System.Windows.Forms.Label();
-            this.lblCodYear = new System.Windows.Forms.Label();
-            this.timerQuestion = new System.Windows.Forms.Timer(this.components);
-            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.picStudent = new System.Windows.Forms.PictureBox();
-            this.grpSorts = new System.Windows.Forms.GroupBox();
-            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.btnAssess = new System.Windows.Forms.Button();
-            this.lblSchoolSubject = new System.Windows.Forms.Label();
-            this.lblGradeType = new System.Windows.Forms.Label();
-            this.timerLesson = new System.Windows.Forms.Timer(this.components);
-            this.chkEnableEndLessonWarning = new System.Windows.Forms.CheckBox();
-            this.grpImageSource = new System.Windows.Forms.GroupBox();
-            this.grpChooseDrawSort = new System.Windows.Forms.GroupBox();
-            this.rdbMustSort = new System.Windows.Forms.RadioButton();
-            this.rdbMustDraw = new System.Windows.Forms.RadioButton();
-            this.lstTimeInterval = new System.Windows.Forms.ListBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.timerPopUp = new System.Windows.Forms.Timer(this.components);
-            this.dgwStudents = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.picBackgroundSaveRunning)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picStudent)).BeginInit();
-            this.grpSorts.SuspendLayout();
-            this.grpImageSource.SuspendLayout();
-            this.grpChooseDrawSort.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgwStudents)).BeginInit();
-            this.SuspendLayout();
+            btnDraw = new System.Windows.Forms.Button();
+            butComeOn = new System.Windows.Forms.Button();
+            toolTip1 = new System.Windows.Forms.ToolTip(components);
+            txtMinuteStartLesson = new System.Windows.Forms.TextBox();
+            txtDurationLesson = new System.Windows.Forms.TextBox();
+            txtAdvanceMinutes = new System.Windows.Forms.TextBox();
+            txtRevengeFactor = new System.Windows.Forms.TextBox();
+            btnCheckNone = new System.Windows.Forms.Button();
+            lstClasses = new System.Windows.Forms.ListBox();
+            pgbTimeQuestion = new System.Windows.Forms.ProgressBar();
+            chkNomeVisibile = new System.Windows.Forms.CheckBox();
+            chkFotoVisibile = new System.Windows.Forms.CheckBox();
+            chkStudentsListVisible = new System.Windows.Forms.CheckBox();
+            cmbSchoolYear = new System.Windows.Forms.ComboBox();
+            txtPathImages = new System.Windows.Forms.TextBox();
+            btnPath = new System.Windows.Forms.Button();
+            btnShowRandomImage = new System.Windows.Forms.Button();
+            rdbDrawByRevengeFactor = new System.Windows.Forms.RadioButton();
+            rdbDrawByOldestFirst = new System.Windows.Forms.RadioButton();
+            rdbDrawNoOfGrades = new System.Windows.Forms.RadioButton();
+            rdbDrawLowGradesFirst = new System.Windows.Forms.RadioButton();
+            rdbSortByAlphbetical = new System.Windows.Forms.RadioButton();
+            rdbDrawByWeightsSum = new System.Windows.Forms.RadioButton();
+            rdbDrawEqualProbability = new System.Windows.Forms.RadioButton();
+            btnSetup = new System.Windows.Forms.Button();
+            btnStudentsGradesSummary = new System.Windows.Forms.Button();
+            btnOldestGrade = new System.Windows.Forms.Button();
+            cmbGradeType = new System.Windows.Forms.ComboBox();
+            btnLessonsTopics = new System.Windows.Forms.Button();
+            cmbSchoolSubject = new System.Windows.Forms.ComboBox();
+            btnTopicsDone = new System.Windows.Forms.Button();
+            btnStartLinks = new System.Windows.Forms.Button();
+            btnQuestion = new System.Windows.Forms.Button();
+            txtQuestion = new System.Windows.Forms.TextBox();
+            btnMakeGroups = new System.Windows.Forms.Button();
+            btnLessonTime = new System.Windows.Forms.Button();
+            btnVindicationFactorPlus = new System.Windows.Forms.Button();
+            btnVindicationFactorMinus = new System.Windows.Forms.Button();
+            btnCheckToggle = new System.Windows.Forms.Button();
+            chkSuspence = new System.Windows.Forms.CheckBox();
+            btnCheckRevenge = new System.Windows.Forms.Button();
+            lblVindicationFactor = new System.Windows.Forms.Label();
+            label1 = new System.Windows.Forms.Label();
+            label3 = new System.Windows.Forms.Label();
+            label4 = new System.Windows.Forms.Label();
+            btnClassesGradesSummary = new System.Windows.Forms.Button();
+            btnCheckAll = new System.Windows.Forms.Button();
+            btnCheckNoGrade = new System.Windows.Forms.Button();
+            lblDatabaseFile = new System.Windows.Forms.Label();
+            btnYearTopics = new System.Windows.Forms.Button();
+            chkActivateLessonClock = new System.Windows.Forms.CheckBox();
+            lblIdStudent = new System.Windows.Forms.Label();
+            txtIdStudent = new System.Windows.Forms.TextBox();
+            btnTemporary = new System.Windows.Forms.Button();
+            txtTimeInterval = new System.Windows.Forms.TextBox();
+            btnStartColorTimer = new System.Windows.Forms.Button();
+            btnMosaic = new System.Windows.Forms.Button();
+            btnStartBarTimer = new System.Windows.Forms.Button();
+            chkLessonsPictures = new System.Windows.Forms.CheckBox();
+            chkGivenFolder = new System.Windows.Forms.CheckBox();
+            picBackgroundSaveRunning = new System.Windows.Forms.PictureBox();
+            txtNStudents = new System.Windows.Forms.TextBox();
+            label6 = new System.Windows.Forms.Label();
+            btnStudentsNotes = new System.Windows.Forms.Button();
+            txtIdClass = new System.Windows.Forms.TextBox();
+            chkPopUpQuestionsEnabled = new System.Windows.Forms.CheckBox();
+            txtPopUpQuestionCentralTime = new System.Windows.Forms.TextBox();
+            btnRandomNumber = new System.Windows.Forms.Button();
+            chkSoundsInColorTimer = new System.Windows.Forms.CheckBox();
+            lblLastDatabaseModification = new System.Windows.Forms.Label();
+            lblStudentChosen = new System.Windows.Forms.Label();
+            lblCodYear = new System.Windows.Forms.Label();
+            timerQuestion = new System.Windows.Forms.Timer(components);
+            folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            picStudent = new System.Windows.Forms.PictureBox();
+            grpSorts = new System.Windows.Forms.GroupBox();
+            openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            btnAssess = new System.Windows.Forms.Button();
+            lblSchoolSubject = new System.Windows.Forms.Label();
+            lblGradeType = new System.Windows.Forms.Label();
+            timerLesson = new System.Windows.Forms.Timer(components);
+            chkEnableEndLessonWarning = new System.Windows.Forms.CheckBox();
+            grpImageSource = new System.Windows.Forms.GroupBox();
+            grpChooseDrawSort = new System.Windows.Forms.GroupBox();
+            rdbMustSort = new System.Windows.Forms.RadioButton();
+            rdbMustDraw = new System.Windows.Forms.RadioButton();
+            lstTimeInterval = new System.Windows.Forms.ListBox();
+            label2 = new System.Windows.Forms.Label();
+            label7 = new System.Windows.Forms.Label();
+            label8 = new System.Windows.Forms.Label();
+            label9 = new System.Windows.Forms.Label();
+            timerPopUp = new System.Windows.Forms.Timer(components);
+            dgwStudents = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)picBackgroundSaveRunning).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picStudent).BeginInit();
+            grpSorts.SuspendLayout();
+            grpImageSource.SuspendLayout();
+            grpChooseDrawSort.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgwStudents).BeginInit();
+            SuspendLayout();
             // 
             // btnDraw
             // 
-            this.btnDraw.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDraw.BackColor = System.Drawing.Color.Transparent;
-            this.btnDraw.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnDraw.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnDraw.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnDraw.Location = new System.Drawing.Point(696, 361);
-            this.btnDraw.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnDraw.Name = "btnDraw";
-            this.btnDraw.Size = new System.Drawing.Size(101, 54);
-            this.btnDraw.TabIndex = 1;
-            this.btnDraw.Text = "Sorteggio o ordinam.";
-            this.toolTip1.SetToolTip(this.btnDraw, "Fa l\'ordinamento od il sorteggio");
-            this.btnDraw.UseVisualStyleBackColor = false;
-            this.btnDraw.Click += new System.EventHandler(this.btnDrawOrSort_Click);
+            btnDraw.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnDraw.BackColor = System.Drawing.Color.Transparent;
+            btnDraw.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnDraw.ForeColor = System.Drawing.Color.DarkBlue;
+            btnDraw.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            btnDraw.Location = new System.Drawing.Point(698, 377);
+            btnDraw.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            btnDraw.Name = "btnDraw";
+            btnDraw.Size = new System.Drawing.Size(94, 48);
+            btnDraw.TabIndex = 1;
+            btnDraw.Text = "Sortegg. o ordin.";
+            toolTip1.SetToolTip(btnDraw, "Fa l'ordinamento od il sorteggio");
+            btnDraw.UseVisualStyleBackColor = false;
+            btnDraw.Click += btnDrawOrSort_Click;
             // 
             // butComeOn
             // 
-            this.butComeOn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.butComeOn.BackColor = System.Drawing.Color.Transparent;
-            this.butComeOn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.butComeOn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
-            this.butComeOn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
-            this.butComeOn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.butComeOn.ForeColor = System.Drawing.Color.DarkBlue;
-            this.butComeOn.Location = new System.Drawing.Point(803, 361);
-            this.butComeOn.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.butComeOn.Name = "butComeOn";
-            this.butComeOn.Size = new System.Drawing.Size(101, 54);
-            this.butComeOn.TabIndex = 0;
-            this.butComeOn.Text = "Costretto";
-            this.toolTip1.SetToolTip(this.butComeOn, "Scelta del prossimo allievo dell\'elenco");
-            this.butComeOn.UseVisualStyleBackColor = false;
-            this.butComeOn.Click += new System.EventHandler(this.btnComeOn_Click);
+            butComeOn.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            butComeOn.BackColor = System.Drawing.Color.Transparent;
+            butComeOn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            butComeOn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            butComeOn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            butComeOn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            butComeOn.ForeColor = System.Drawing.Color.DarkBlue;
+            butComeOn.Location = new System.Drawing.Point(803, 377);
+            butComeOn.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            butComeOn.Name = "butComeOn";
+            butComeOn.Size = new System.Drawing.Size(94, 48);
+            butComeOn.TabIndex = 0;
+            butComeOn.Text = "Costretto";
+            toolTip1.SetToolTip(butComeOn, "Scelta del prossimo allievo dell'elenco");
+            butComeOn.UseVisualStyleBackColor = false;
+            butComeOn.Click += btnComeOn_Click;
             // 
             // toolTip1
             // 
-            this.toolTip1.BackColor = System.Drawing.SystemColors.ControlText;
-            this.toolTip1.ForeColor = System.Drawing.Color.Lime;
+            toolTip1.BackColor = System.Drawing.SystemColors.ControlText;
+            toolTip1.ForeColor = System.Drawing.Color.Lime;
             // 
             // txtMinuteStartLesson
             // 
-            this.txtMinuteStartLesson.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMinuteStartLesson.ForeColor = System.Drawing.Color.DarkBlue;
-            this.txtMinuteStartLesson.Location = new System.Drawing.Point(516, 294);
-            this.txtMinuteStartLesson.Name = "txtMinuteStartLesson";
-            this.txtMinuteStartLesson.Size = new System.Drawing.Size(46, 24);
-            this.txtMinuteStartLesson.TabIndex = 139;
-            this.txtMinuteStartLesson.Text = "0";
-            this.txtMinuteStartLesson.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip1.SetToolTip(this.txtMinuteStartLesson, "Minuto inizio lezione");
-            this.txtMinuteStartLesson.Leave += new System.EventHandler(this.LessonAlarmChanged);
+            txtMinuteStartLesson.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            txtMinuteStartLesson.ForeColor = System.Drawing.Color.DarkBlue;
+            txtMinuteStartLesson.Location = new System.Drawing.Point(516, 294);
+            txtMinuteStartLesson.Name = "txtMinuteStartLesson";
+            txtMinuteStartLesson.Size = new System.Drawing.Size(46, 24);
+            txtMinuteStartLesson.TabIndex = 139;
+            txtMinuteStartLesson.Text = "0";
+            txtMinuteStartLesson.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            toolTip1.SetToolTip(txtMinuteStartLesson, "Minuto inizio lezione");
+            txtMinuteStartLesson.Leave += LessonAlarmChanged;
             // 
             // txtDurationLesson
             // 
-            this.txtDurationLesson.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDurationLesson.ForeColor = System.Drawing.Color.DarkBlue;
-            this.txtDurationLesson.Location = new System.Drawing.Point(516, 319);
-            this.txtDurationLesson.Name = "txtDurationLesson";
-            this.txtDurationLesson.Size = new System.Drawing.Size(46, 24);
-            this.txtDurationLesson.TabIndex = 140;
-            this.txtDurationLesson.Text = "60";
-            this.txtDurationLesson.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip1.SetToolTip(this.txtDurationLesson, "Minuti durata lezione");
-            this.txtDurationLesson.Leave += new System.EventHandler(this.LessonAlarmChanged);
+            txtDurationLesson.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            txtDurationLesson.ForeColor = System.Drawing.Color.DarkBlue;
+            txtDurationLesson.Location = new System.Drawing.Point(516, 319);
+            txtDurationLesson.Name = "txtDurationLesson";
+            txtDurationLesson.Size = new System.Drawing.Size(46, 24);
+            txtDurationLesson.TabIndex = 140;
+            txtDurationLesson.Text = "60";
+            txtDurationLesson.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            toolTip1.SetToolTip(txtDurationLesson, "Minuti durata lezione");
+            txtDurationLesson.Leave += LessonAlarmChanged;
             // 
             // txtAdvanceMinutes
             // 
-            this.txtAdvanceMinutes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtAdvanceMinutes.ForeColor = System.Drawing.Color.DarkBlue;
-            this.txtAdvanceMinutes.Location = new System.Drawing.Point(516, 344);
-            this.txtAdvanceMinutes.Name = "txtAdvanceMinutes";
-            this.txtAdvanceMinutes.Size = new System.Drawing.Size(46, 24);
-            this.txtAdvanceMinutes.TabIndex = 141;
-            this.txtAdvanceMinutes.Text = "8";
-            this.txtAdvanceMinutes.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip1.SetToolTip(this.txtAdvanceMinutes, "Minuti per allarme prima della fine");
-            this.txtAdvanceMinutes.Leave += new System.EventHandler(this.LessonAlarmChanged);
+            txtAdvanceMinutes.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            txtAdvanceMinutes.ForeColor = System.Drawing.Color.DarkBlue;
+            txtAdvanceMinutes.Location = new System.Drawing.Point(516, 344);
+            txtAdvanceMinutes.Name = "txtAdvanceMinutes";
+            txtAdvanceMinutes.Size = new System.Drawing.Size(46, 24);
+            txtAdvanceMinutes.TabIndex = 141;
+            txtAdvanceMinutes.Text = "8";
+            txtAdvanceMinutes.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            toolTip1.SetToolTip(txtAdvanceMinutes, "Minuti per allarme prima della fine");
+            txtAdvanceMinutes.Leave += LessonAlarmChanged;
             // 
             // txtRevengeFactor
             // 
-            this.txtRevengeFactor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRevengeFactor.Location = new System.Drawing.Point(761, 511);
-            this.txtRevengeFactor.Name = "txtRevengeFactor";
-            this.txtRevengeFactor.ReadOnly = true;
-            this.txtRevengeFactor.Size = new System.Drawing.Size(36, 24);
-            this.txtRevengeFactor.TabIndex = 144;
-            this.txtRevengeFactor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip1.SetToolTip(this.txtRevengeFactor, "Fattore di vendetta dell\'allievo corrente");
+            txtRevengeFactor.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            txtRevengeFactor.Location = new System.Drawing.Point(761, 499);
+            txtRevengeFactor.Name = "txtRevengeFactor";
+            txtRevengeFactor.ReadOnly = true;
+            txtRevengeFactor.Size = new System.Drawing.Size(36, 24);
+            txtRevengeFactor.TabIndex = 144;
+            txtRevengeFactor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            toolTip1.SetToolTip(txtRevengeFactor, "Fattore di vendetta dell'allievo corrente");
             // 
             // btnCheckNone
             // 
-            this.btnCheckNone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCheckNone.BackColor = System.Drawing.Color.Transparent;
-            this.btnCheckNone.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnCheckNone.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnCheckNone.Location = new System.Drawing.Point(572, 617);
-            this.btnCheckNone.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnCheckNone.Name = "btnCheckNone";
-            this.btnCheckNone.Size = new System.Drawing.Size(91, 54);
-            this.btnCheckNone.TabIndex = 29;
-            this.btnCheckNone.Text = "X nessuno";
-            this.toolTip1.SetToolTip(this.btnCheckNone, "Check nessun allievo");
-            this.btnCheckNone.UseVisualStyleBackColor = false;
-            this.btnCheckNone.Click += new System.EventHandler(this.btnCheckNone_Click);
+            btnCheckNone.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnCheckNone.BackColor = System.Drawing.Color.Transparent;
+            btnCheckNone.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnCheckNone.ForeColor = System.Drawing.Color.DarkBlue;
+            btnCheckNone.Location = new System.Drawing.Point(573, 588);
+            btnCheckNone.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            btnCheckNone.Name = "btnCheckNone";
+            btnCheckNone.Size = new System.Drawing.Size(94, 48);
+            btnCheckNone.TabIndex = 29;
+            btnCheckNone.Text = "X nessuno";
+            toolTip1.SetToolTip(btnCheckNone, "Check nessun allievo");
+            btnCheckNone.UseVisualStyleBackColor = false;
+            btnCheckNone.Click += btnCheckNone_Click;
             // 
             // lstClasses
             // 
-            this.lstClasses.BackColor = System.Drawing.Color.PowderBlue;
-            this.lstClasses.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lstClasses.FormattingEnabled = true;
-            this.lstClasses.ItemHeight = 18;
-            this.lstClasses.Location = new System.Drawing.Point(86, 4);
-            this.lstClasses.Name = "lstClasses";
-            this.lstClasses.Size = new System.Drawing.Size(76, 130);
-            this.lstClasses.TabIndex = 46;
-            this.lstClasses.TabStop = false;
-            this.toolTip1.SetToolTip(this.lstClasses, "Classi dell\'anno scolastico selezionato");
-            this.lstClasses.SelectedIndexChanged += new System.EventHandler(this.lstClassi_SelectedIndexChanged);
-            this.lstClasses.DoubleClick += new System.EventHandler(this.lstClassi_DoubleClick);
+            lstClasses.BackColor = System.Drawing.Color.PowderBlue;
+            lstClasses.ForeColor = System.Drawing.Color.DarkBlue;
+            lstClasses.FormattingEnabled = true;
+            lstClasses.ItemHeight = 18;
+            lstClasses.Location = new System.Drawing.Point(86, 4);
+            lstClasses.Name = "lstClasses";
+            lstClasses.Size = new System.Drawing.Size(76, 130);
+            lstClasses.TabIndex = 46;
+            lstClasses.TabStop = false;
+            toolTip1.SetToolTip(lstClasses, "Classi dell'anno scolastico selezionato");
+            lstClasses.SelectedIndexChanged += lstClassi_SelectedIndexChanged;
+            lstClasses.DoubleClick += lstClassi_DoubleClick;
             // 
             // pgbTimeQuestion
             // 
-            this.pgbTimeQuestion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pgbTimeQuestion.Location = new System.Drawing.Point(8, 168);
-            this.pgbTimeQuestion.Name = "pgbTimeQuestion";
-            this.pgbTimeQuestion.Size = new System.Drawing.Size(560, 23);
-            this.pgbTimeQuestion.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.pgbTimeQuestion.TabIndex = 50;
-            this.toolTip1.SetToolTip(this.pgbTimeQuestion, "Barra tempo per la risposta, Click  per far partire il cronometro.");
-            this.pgbTimeQuestion.Click += new System.EventHandler(this.pgbTimeQuestion_Click);
+            pgbTimeQuestion.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            pgbTimeQuestion.Location = new System.Drawing.Point(8, 168);
+            pgbTimeQuestion.Name = "pgbTimeQuestion";
+            pgbTimeQuestion.Size = new System.Drawing.Size(560, 23);
+            pgbTimeQuestion.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            pgbTimeQuestion.TabIndex = 50;
+            toolTip1.SetToolTip(pgbTimeQuestion, "Barra tempo per la risposta, Click  per far partire il cronometro.");
+            pgbTimeQuestion.Click += pgbTimeQuestion_Click;
             // 
             // chkNomeVisibile
             // 
-            this.chkNomeVisibile.AutoSize = true;
-            this.chkNomeVisibile.Checked = true;
-            this.chkNomeVisibile.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkNomeVisibile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.chkNomeVisibile.ForeColor = System.Drawing.Color.DarkBlue;
-            this.chkNomeVisibile.Location = new System.Drawing.Point(297, 66);
-            this.chkNomeVisibile.Name = "chkNomeVisibile";
-            this.chkNomeVisibile.Size = new System.Drawing.Size(128, 22);
-            this.chkNomeVisibile.TabIndex = 14;
-            this.chkNomeVisibile.Text = "Nome visibile";
-            this.toolTip1.SetToolTip(this.chkNomeVisibile, "Visualizza il nome dell\'allievo");
-            this.chkNomeVisibile.UseVisualStyleBackColor = true;
-            this.chkNomeVisibile.CheckedChanged += new System.EventHandler(this.chkNomeVisibile_CheckedChanged);
+            chkNomeVisibile.AutoSize = true;
+            chkNomeVisibile.Checked = true;
+            chkNomeVisibile.CheckState = System.Windows.Forms.CheckState.Checked;
+            chkNomeVisibile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            chkNomeVisibile.ForeColor = System.Drawing.Color.DarkBlue;
+            chkNomeVisibile.Location = new System.Drawing.Point(297, 66);
+            chkNomeVisibile.Name = "chkNomeVisibile";
+            chkNomeVisibile.Size = new System.Drawing.Size(128, 22);
+            chkNomeVisibile.TabIndex = 14;
+            chkNomeVisibile.Text = "Nome visibile";
+            toolTip1.SetToolTip(chkNomeVisibile, "Visualizza il nome dell'allievo");
+            chkNomeVisibile.UseVisualStyleBackColor = true;
+            chkNomeVisibile.CheckedChanged += chkNomeVisibile_CheckedChanged;
             // 
             // chkFotoVisibile
             // 
-            this.chkFotoVisibile.AutoSize = true;
-            this.chkFotoVisibile.Checked = true;
-            this.chkFotoVisibile.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkFotoVisibile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.chkFotoVisibile.ForeColor = System.Drawing.Color.DarkBlue;
-            this.chkFotoVisibile.Location = new System.Drawing.Point(297, 91);
-            this.chkFotoVisibile.Name = "chkFotoVisibile";
-            this.chkFotoVisibile.Size = new System.Drawing.Size(118, 22);
-            this.chkFotoVisibile.TabIndex = 16;
-            this.chkFotoVisibile.Text = "Foto visibile";
-            this.toolTip1.SetToolTip(this.chkFotoVisibile, "Visualizza la foto dell\'allievo");
-            this.chkFotoVisibile.UseVisualStyleBackColor = true;
-            this.chkFotoVisibile.CheckedChanged += new System.EventHandler(this.chkFotoVisibile_CheckedChanged);
+            chkFotoVisibile.AutoSize = true;
+            chkFotoVisibile.Checked = true;
+            chkFotoVisibile.CheckState = System.Windows.Forms.CheckState.Checked;
+            chkFotoVisibile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            chkFotoVisibile.ForeColor = System.Drawing.Color.DarkBlue;
+            chkFotoVisibile.Location = new System.Drawing.Point(297, 91);
+            chkFotoVisibile.Name = "chkFotoVisibile";
+            chkFotoVisibile.Size = new System.Drawing.Size(118, 22);
+            chkFotoVisibile.TabIndex = 16;
+            chkFotoVisibile.Text = "Foto visibile";
+            toolTip1.SetToolTip(chkFotoVisibile, "Visualizza la foto dell'allievo");
+            chkFotoVisibile.UseVisualStyleBackColor = true;
+            chkFotoVisibile.CheckedChanged += chkFotoVisibile_CheckedChanged;
             // 
             // chkStudentsListVisible
             // 
-            this.chkStudentsListVisible.AutoSize = true;
-            this.chkStudentsListVisible.Checked = true;
-            this.chkStudentsListVisible.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkStudentsListVisible.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.chkStudentsListVisible.ForeColor = System.Drawing.Color.DarkBlue;
-            this.chkStudentsListVisible.Location = new System.Drawing.Point(297, 116);
-            this.chkStudentsListVisible.Name = "chkStudentsListVisible";
-            this.chkStudentsListVisible.Size = new System.Drawing.Size(119, 22);
-            this.chkStudentsListVisible.TabIndex = 18;
-            this.chkStudentsListVisible.Text = "Lista visibile";
-            this.toolTip1.SetToolTip(this.chkStudentsListVisible, "Visualizza l\'elenco degli allievi della classe");
-            this.chkStudentsListVisible.UseVisualStyleBackColor = true;
-            this.chkStudentsListVisible.CheckedChanged += new System.EventHandler(this.chkStudentsListVisible_CheckedChanged);
+            chkStudentsListVisible.AutoSize = true;
+            chkStudentsListVisible.Checked = true;
+            chkStudentsListVisible.CheckState = System.Windows.Forms.CheckState.Checked;
+            chkStudentsListVisible.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            chkStudentsListVisible.ForeColor = System.Drawing.Color.DarkBlue;
+            chkStudentsListVisible.Location = new System.Drawing.Point(297, 116);
+            chkStudentsListVisible.Name = "chkStudentsListVisible";
+            chkStudentsListVisible.Size = new System.Drawing.Size(119, 22);
+            chkStudentsListVisible.TabIndex = 18;
+            chkStudentsListVisible.Text = "Lista visibile";
+            toolTip1.SetToolTip(chkStudentsListVisible, "Visualizza l'elenco degli allievi della classe");
+            chkStudentsListVisible.UseVisualStyleBackColor = true;
+            chkStudentsListVisible.CheckedChanged += chkStudentsListVisible_CheckedChanged;
             // 
             // cmbSchoolYear
             // 
-            this.cmbSchoolYear.ForeColor = System.Drawing.Color.DarkBlue;
-            this.cmbSchoolYear.FormattingEnabled = true;
-            this.cmbSchoolYear.Location = new System.Drawing.Point(4, 28);
-            this.cmbSchoolYear.Name = "cmbSchoolYear";
-            this.cmbSchoolYear.Size = new System.Drawing.Size(72, 26);
-            this.cmbSchoolYear.TabIndex = 62;
-            this.toolTip1.SetToolTip(this.cmbSchoolYear, "Anno scolastico senza \"-\"");
-            this.cmbSchoolYear.SelectedIndexChanged += new System.EventHandler(this.cmbSchoolYear_SelectedIndexChanged);
+            cmbSchoolYear.ForeColor = System.Drawing.Color.DarkBlue;
+            cmbSchoolYear.FormattingEnabled = true;
+            cmbSchoolYear.Location = new System.Drawing.Point(4, 28);
+            cmbSchoolYear.Name = "cmbSchoolYear";
+            cmbSchoolYear.Size = new System.Drawing.Size(72, 26);
+            cmbSchoolYear.TabIndex = 62;
+            toolTip1.SetToolTip(cmbSchoolYear, "Anno scolastico senza \"-\"");
+            cmbSchoolYear.SelectedIndexChanged += cmbSchoolYear_SelectedIndexChanged;
             // 
             // txtPathImages
             // 
-            this.txtPathImages.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPathImages.ForeColor = System.Drawing.Color.DarkBlue;
-            this.txtPathImages.Location = new System.Drawing.Point(8, 142);
-            this.txtPathImages.Name = "txtPathImages";
-            this.txtPathImages.Size = new System.Drawing.Size(520, 24);
-            this.txtPathImages.TabIndex = 20;
-            this.toolTip1.SetToolTip(this.txtPathImages, "Cartella in cui trovare l\'immagine casuale (click per aprire un file nella cartel" +
-        "la) ");
-            this.txtPathImages.Click += new System.EventHandler(this.txtPathImages_Click);
-            this.txtPathImages.TextChanged += new System.EventHandler(this.txtPathImages_TextChanged);
-            this.txtPathImages.DoubleClick += new System.EventHandler(this.txtPathImages_DoubleClick);
+            txtPathImages.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txtPathImages.ForeColor = System.Drawing.Color.DarkBlue;
+            txtPathImages.Location = new System.Drawing.Point(8, 142);
+            txtPathImages.Name = "txtPathImages";
+            txtPathImages.Size = new System.Drawing.Size(520, 24);
+            txtPathImages.TabIndex = 20;
+            toolTip1.SetToolTip(txtPathImages, "Cartella in cui trovare l'immagine casuale (click per aprire un file nella cartella) ");
+            txtPathImages.Click += txtPathImages_Click;
+            txtPathImages.TextChanged += txtPathImages_TextChanged;
+            txtPathImages.DoubleClick += txtPathImages_DoubleClick;
             // 
             // btnPath
             // 
-            this.btnPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPath.ForeColor = System.Drawing.Color.Black;
-            this.btnPath.Location = new System.Drawing.Point(534, 140);
-            this.btnPath.Name = "btnPath";
-            this.btnPath.Size = new System.Drawing.Size(34, 27);
-            this.btnPath.TabIndex = 67;
-            this.btnPath.Text = "..";
-            this.toolTip1.SetToolTip(this.btnPath, "Scelta cartella immagini");
-            this.btnPath.UseVisualStyleBackColor = true;
-            this.btnPath.Click += new System.EventHandler(this.btnPath_Click);
+            btnPath.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnPath.ForeColor = System.Drawing.Color.Black;
+            btnPath.Location = new System.Drawing.Point(534, 140);
+            btnPath.Name = "btnPath";
+            btnPath.Size = new System.Drawing.Size(34, 27);
+            btnPath.TabIndex = 67;
+            btnPath.Text = "..";
+            toolTip1.SetToolTip(btnPath, "Scelta cartella immagini");
+            btnPath.UseVisualStyleBackColor = true;
+            btnPath.Click += btnPath_Click;
             // 
             // btnShowRandomImage
             // 
-            this.btnShowRandomImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnShowRandomImage.BackColor = System.Drawing.Color.Transparent;
-            this.btnShowRandomImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnShowRandomImage.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnShowRandomImage.Location = new System.Drawing.Point(572, 131);
-            this.btnShowRandomImage.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnShowRandomImage.Name = "btnShowRandomImage";
-            this.btnShowRandomImage.Size = new System.Drawing.Size(91, 59);
-            this.btnShowRandomImage.TabIndex = 22;
-            this.btnShowRandomImage.Text = "Immagine casuale";
-            this.toolTip1.SetToolTip(this.btnShowRandomImage, "Visualizzazione di un\'immagine casuale dalla cartella  qui sotto");
-            this.btnShowRandomImage.UseVisualStyleBackColor = false;
-            this.btnShowRandomImage.Click += new System.EventHandler(this.BtnShowRandomImage_Click);
+            btnShowRandomImage.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnShowRandomImage.BackColor = System.Drawing.Color.Transparent;
+            btnShowRandomImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnShowRandomImage.ForeColor = System.Drawing.Color.DarkBlue;
+            btnShowRandomImage.Location = new System.Drawing.Point(572, 131);
+            btnShowRandomImage.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            btnShowRandomImage.Name = "btnShowRandomImage";
+            btnShowRandomImage.Size = new System.Drawing.Size(94, 48);
+            btnShowRandomImage.TabIndex = 22;
+            btnShowRandomImage.Text = "Immagine casuale";
+            toolTip1.SetToolTip(btnShowRandomImage, "Visualizzazione di un'immagine casuale dalla cartella  qui a lato");
+            btnShowRandomImage.UseVisualStyleBackColor = false;
+            btnShowRandomImage.Click += BtnShowRandomImage_Click;
             // 
             // rdbDrawByRevengeFactor
             // 
-            this.rdbDrawByRevengeFactor.AutoSize = true;
-            this.rdbDrawByRevengeFactor.Location = new System.Drawing.Point(6, 152);
-            this.rdbDrawByRevengeFactor.Name = "rdbDrawByRevengeFactor";
-            this.rdbDrawByRevengeFactor.Size = new System.Drawing.Size(169, 22);
-            this.rdbDrawByRevengeFactor.TabIndex = 6;
-            this.rdbDrawByRevengeFactor.Text = "Tremenda vendetta";
-            this.toolTip1.SetToolTip(this.rdbDrawByRevengeFactor, "Sorteggio con probabilità più alta per maggiori fattori di vendetta");
-            this.rdbDrawByRevengeFactor.UseVisualStyleBackColor = true;
-            this.rdbDrawByRevengeFactor.CheckedChanged += new System.EventHandler(this.rdbDrawByRevengeFactor_CheckedChanged);
+            rdbDrawByRevengeFactor.AutoSize = true;
+            rdbDrawByRevengeFactor.Location = new System.Drawing.Point(6, 152);
+            rdbDrawByRevengeFactor.Name = "rdbDrawByRevengeFactor";
+            rdbDrawByRevengeFactor.Size = new System.Drawing.Size(169, 22);
+            rdbDrawByRevengeFactor.TabIndex = 6;
+            rdbDrawByRevengeFactor.Text = "Tremenda vendetta";
+            toolTip1.SetToolTip(rdbDrawByRevengeFactor, "Sorteggio con probabilità più alta per maggiori fattori di vendetta");
+            rdbDrawByRevengeFactor.UseVisualStyleBackColor = true;
+            rdbDrawByRevengeFactor.CheckedChanged += rdbDrawByRevengeFactor_CheckedChanged;
             // 
             // rdbDrawByOldestFirst
             // 
-            this.rdbDrawByOldestFirst.AutoSize = true;
-            this.rdbDrawByOldestFirst.Enabled = false;
-            this.rdbDrawByOldestFirst.Location = new System.Drawing.Point(6, 86);
-            this.rdbDrawByOldestFirst.Name = "rdbDrawByOldestFirst";
-            this.rdbDrawByOldestFirst.Size = new System.Drawing.Size(155, 22);
-            this.rdbDrawByOldestFirst.TabIndex = 4;
-            this.rdbDrawByOldestFirst.Text = "Prima voti vecchi";
-            this.toolTip1.SetToolTip(this.rdbDrawByOldestFirst, "Ordinamento con prima i voti più vecchi del tipo selezionato");
-            this.rdbDrawByOldestFirst.UseVisualStyleBackColor = true;
+            rdbDrawByOldestFirst.AutoSize = true;
+            rdbDrawByOldestFirst.Enabled = false;
+            rdbDrawByOldestFirst.Location = new System.Drawing.Point(6, 86);
+            rdbDrawByOldestFirst.Name = "rdbDrawByOldestFirst";
+            rdbDrawByOldestFirst.Size = new System.Drawing.Size(155, 22);
+            rdbDrawByOldestFirst.TabIndex = 4;
+            rdbDrawByOldestFirst.Text = "Prima voti vecchi";
+            toolTip1.SetToolTip(rdbDrawByOldestFirst, "Ordinamento con prima i voti più vecchi del tipo selezionato");
+            rdbDrawByOldestFirst.UseVisualStyleBackColor = true;
             // 
             // rdbDrawNoOfGrades
             // 
-            this.rdbDrawNoOfGrades.AutoSize = true;
-            this.rdbDrawNoOfGrades.Location = new System.Drawing.Point(6, 64);
-            this.rdbDrawNoOfGrades.Name = "rdbDrawNoOfGrades";
-            this.rdbDrawNoOfGrades.Size = new System.Drawing.Size(118, 22);
-            this.rdbDrawNoOfGrades.TabIndex = 5;
-            this.rdbDrawNoOfGrades.Text = "Numero voti";
-            this.toolTip1.SetToolTip(this.rdbDrawNoOfGrades, "Ordinamento in base al numero dei voti del tipo selezionato");
-            this.rdbDrawNoOfGrades.UseVisualStyleBackColor = true;
+            rdbDrawNoOfGrades.AutoSize = true;
+            rdbDrawNoOfGrades.Location = new System.Drawing.Point(6, 64);
+            rdbDrawNoOfGrades.Name = "rdbDrawNoOfGrades";
+            rdbDrawNoOfGrades.Size = new System.Drawing.Size(118, 22);
+            rdbDrawNoOfGrades.TabIndex = 5;
+            rdbDrawNoOfGrades.Text = "Numero voti";
+            toolTip1.SetToolTip(rdbDrawNoOfGrades, "Ordinamento in base al numero dei voti del tipo selezionato");
+            rdbDrawNoOfGrades.UseVisualStyleBackColor = true;
             // 
             // rdbDrawLowGradesFirst
             // 
-            this.rdbDrawLowGradesFirst.AutoSize = true;
-            this.rdbDrawLowGradesFirst.Enabled = false;
-            this.rdbDrawLowGradesFirst.Location = new System.Drawing.Point(6, 130);
-            this.rdbDrawLowGradesFirst.Name = "rdbDrawLowGradesFirst";
-            this.rdbDrawLowGradesFirst.Size = new System.Drawing.Size(147, 22);
-            this.rdbDrawLowGradesFirst.TabIndex = 3;
-            this.rdbDrawLowGradesFirst.Text = "Prima voti bassi";
-            this.toolTip1.SetToolTip(this.rdbDrawLowGradesFirst, "Ordinamento per voto descrescente");
-            this.rdbDrawLowGradesFirst.UseVisualStyleBackColor = true;
+            rdbDrawLowGradesFirst.AutoSize = true;
+            rdbDrawLowGradesFirst.Enabled = false;
+            rdbDrawLowGradesFirst.Location = new System.Drawing.Point(6, 130);
+            rdbDrawLowGradesFirst.Name = "rdbDrawLowGradesFirst";
+            rdbDrawLowGradesFirst.Size = new System.Drawing.Size(147, 22);
+            rdbDrawLowGradesFirst.TabIndex = 3;
+            rdbDrawLowGradesFirst.Text = "Prima voti bassi";
+            toolTip1.SetToolTip(rdbDrawLowGradesFirst, "Ordinamento per voto descrescente");
+            rdbDrawLowGradesFirst.UseVisualStyleBackColor = true;
             // 
             // rdbSortByAlphbetical
             // 
-            this.rdbSortByAlphbetical.AutoSize = true;
-            this.rdbSortByAlphbetical.Location = new System.Drawing.Point(6, 108);
-            this.rdbSortByAlphbetical.Name = "rdbSortByAlphbetical";
-            this.rdbSortByAlphbetical.Size = new System.Drawing.Size(100, 22);
-            this.rdbSortByAlphbetical.TabIndex = 2;
-            this.rdbSortByAlphbetical.Text = "Alfabetico";
-            this.toolTip1.SetToolTip(this.rdbSortByAlphbetical, "Ordinamento alfabetico");
-            this.rdbSortByAlphbetical.UseVisualStyleBackColor = true;
+            rdbSortByAlphbetical.AutoSize = true;
+            rdbSortByAlphbetical.Location = new System.Drawing.Point(6, 108);
+            rdbSortByAlphbetical.Name = "rdbSortByAlphbetical";
+            rdbSortByAlphbetical.Size = new System.Drawing.Size(100, 22);
+            rdbSortByAlphbetical.TabIndex = 2;
+            rdbSortByAlphbetical.Text = "Alfabetico";
+            toolTip1.SetToolTip(rdbSortByAlphbetical, "Ordinamento alfabetico");
+            rdbSortByAlphbetical.UseVisualStyleBackColor = true;
             // 
             // rdbDrawByWeightsSum
             // 
-            this.rdbDrawByWeightsSum.AutoSize = true;
-            this.rdbDrawByWeightsSum.Location = new System.Drawing.Point(6, 42);
-            this.rdbDrawByWeightsSum.Name = "rdbDrawByWeightsSum";
-            this.rdbDrawByWeightsSum.Size = new System.Drawing.Size(171, 22);
-            this.rdbDrawByWeightsSum.TabIndex = 1;
-            this.rdbDrawByWeightsSum.Text = "Peso totale dei voti";
-            this.toolTip1.SetToolTip(this.rdbDrawByWeightsSum, "Ordinamento secondo il peso totale del tipo di voto selezionato");
-            this.rdbDrawByWeightsSum.UseVisualStyleBackColor = true;
+            rdbDrawByWeightsSum.AutoSize = true;
+            rdbDrawByWeightsSum.Location = new System.Drawing.Point(6, 42);
+            rdbDrawByWeightsSum.Name = "rdbDrawByWeightsSum";
+            rdbDrawByWeightsSum.Size = new System.Drawing.Size(171, 22);
+            rdbDrawByWeightsSum.TabIndex = 1;
+            rdbDrawByWeightsSum.Text = "Peso totale dei voti";
+            toolTip1.SetToolTip(rdbDrawByWeightsSum, "Ordinamento secondo il peso totale del tipo di voto selezionato");
+            rdbDrawByWeightsSum.UseVisualStyleBackColor = true;
             // 
             // rdbDrawEqualProbability
             // 
-            this.rdbDrawEqualProbability.AutoSize = true;
-            this.rdbDrawEqualProbability.Checked = true;
-            this.rdbDrawEqualProbability.Location = new System.Drawing.Point(6, 20);
-            this.rdbDrawEqualProbability.Name = "rdbDrawEqualProbability";
-            this.rdbDrawEqualProbability.Size = new System.Drawing.Size(155, 22);
-            this.rdbDrawEqualProbability.TabIndex = 0;
-            this.rdbDrawEqualProbability.TabStop = true;
-            this.rdbDrawEqualProbability.Text = "Probabilità uguali";
-            this.toolTip1.SetToolTip(this.rdbDrawEqualProbability, "Sorteggio con uguali probabilitàfra ogni allievo");
-            this.rdbDrawEqualProbability.UseVisualStyleBackColor = true;
+            rdbDrawEqualProbability.AutoSize = true;
+            rdbDrawEqualProbability.Checked = true;
+            rdbDrawEqualProbability.Location = new System.Drawing.Point(6, 20);
+            rdbDrawEqualProbability.Name = "rdbDrawEqualProbability";
+            rdbDrawEqualProbability.Size = new System.Drawing.Size(155, 22);
+            rdbDrawEqualProbability.TabIndex = 0;
+            rdbDrawEqualProbability.TabStop = true;
+            rdbDrawEqualProbability.Text = "Probabilità uguali";
+            toolTip1.SetToolTip(rdbDrawEqualProbability, "Sorteggio con uguali probabilitàfra ogni allievo");
+            rdbDrawEqualProbability.UseVisualStyleBackColor = true;
             // 
             // btnSetup
             // 
-            this.btnSetup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSetup.BackColor = System.Drawing.Color.Transparent;
-            this.btnSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnSetup.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnSetup.Location = new System.Drawing.Point(560, 5);
-            this.btnSetup.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnSetup.Name = "btnSetup";
-            this.btnSetup.Size = new System.Drawing.Size(107, 59);
-            this.btnSetup.TabIndex = 73;
-            this.btnSetup.Text = "Setup";
-            this.toolTip1.SetToolTip(this.btnSetup, "Finestra opzioni di configurazione");
-            this.btnSetup.UseVisualStyleBackColor = false;
-            this.btnSetup.Click += new System.EventHandler(this.btnSetup_Click);
+            btnSetup.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnSetup.BackColor = System.Drawing.Color.Transparent;
+            btnSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnSetup.ForeColor = System.Drawing.Color.DarkBlue;
+            btnSetup.Location = new System.Drawing.Point(566, 5);
+            btnSetup.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            btnSetup.Name = "btnSetup";
+            btnSetup.Size = new System.Drawing.Size(107, 59);
+            btnSetup.TabIndex = 73;
+            btnSetup.Text = "Setup";
+            toolTip1.SetToolTip(btnSetup, "Finestra opzioni di configurazione");
+            btnSetup.UseVisualStyleBackColor = false;
+            btnSetup.Click += btnSetup_Click;
             // 
             // btnStudentsGradesSummary
             // 
-            this.btnStudentsGradesSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnStudentsGradesSummary.BackColor = System.Drawing.Color.Transparent;
-            this.btnStudentsGradesSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnStudentsGradesSummary.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnStudentsGradesSummary.Location = new System.Drawing.Point(803, 617);
-            this.btnStudentsGradesSummary.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnStudentsGradesSummary.Name = "btnStudentsGradesSummary";
-            this.btnStudentsGradesSummary.Size = new System.Drawing.Size(101, 54);
-            this.btnStudentsGradesSummary.TabIndex = 74;
-            this.btnStudentsGradesSummary.Text = "Voti allievo";
-            this.toolTip1.SetToolTip(this.btnStudentsGradesSummary, "Finestra di riepilogo dei voti e delle annotazioni sull\'allievo corrente");
-            this.btnStudentsGradesSummary.UseVisualStyleBackColor = false;
-            this.btnStudentsGradesSummary.Click += new System.EventHandler(this.btnStudentsGradesSummary_Click);
+            btnStudentsGradesSummary.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnStudentsGradesSummary.BackColor = System.Drawing.Color.Transparent;
+            btnStudentsGradesSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnStudentsGradesSummary.ForeColor = System.Drawing.Color.DarkBlue;
+            btnStudentsGradesSummary.Location = new System.Drawing.Point(803, 588);
+            btnStudentsGradesSummary.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            btnStudentsGradesSummary.Name = "btnStudentsGradesSummary";
+            btnStudentsGradesSummary.Size = new System.Drawing.Size(94, 48);
+            btnStudentsGradesSummary.TabIndex = 74;
+            btnStudentsGradesSummary.Text = "Voti allievo";
+            toolTip1.SetToolTip(btnStudentsGradesSummary, "Finestra di riepilogo dei voti e delle annotazioni sull'allievo corrente");
+            btnStudentsGradesSummary.UseVisualStyleBackColor = false;
+            btnStudentsGradesSummary.Click += btnStudentsGradesSummary_Click;
             // 
             // btnOldestGrade
             // 
-            this.btnOldestGrade.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOldestGrade.BackColor = System.Drawing.Color.Transparent;
-            this.btnOldestGrade.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btnOldestGrade.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
-            this.btnOldestGrade.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
-            this.btnOldestGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnOldestGrade.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnOldestGrade.Location = new System.Drawing.Point(803, 489);
-            this.btnOldestGrade.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnOldestGrade.Name = "btnOldestGrade";
-            this.btnOldestGrade.Size = new System.Drawing.Size(101, 54);
-            this.btnOldestGrade.TabIndex = 75;
-            this.btnOldestGrade.Text = "Voto più vecchio";
-            this.toolTip1.SetToolTip(this.btnOldestGrade, "Sceglie l\'allievo che ha il voto più vecchio");
-            this.btnOldestGrade.UseVisualStyleBackColor = false;
-            this.btnOldestGrade.Click += new System.EventHandler(this.btnOldestGrade_Click);
+            btnOldestGrade.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnOldestGrade.BackColor = System.Drawing.Color.Transparent;
+            btnOldestGrade.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            btnOldestGrade.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            btnOldestGrade.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            btnOldestGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnOldestGrade.ForeColor = System.Drawing.Color.DarkBlue;
+            btnOldestGrade.Location = new System.Drawing.Point(803, 482);
+            btnOldestGrade.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            btnOldestGrade.Name = "btnOldestGrade";
+            btnOldestGrade.Size = new System.Drawing.Size(94, 48);
+            btnOldestGrade.TabIndex = 75;
+            btnOldestGrade.Text = "Voto più vecchio";
+            toolTip1.SetToolTip(btnOldestGrade, "Sceglie l'allievo che ha il voto più vecchio");
+            btnOldestGrade.UseVisualStyleBackColor = false;
+            btnOldestGrade.Click += btnOldestGrade_Click;
             // 
             // cmbGradeType
             // 
-            this.cmbGradeType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbGradeType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbGradeType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cmbGradeType.ForeColor = System.Drawing.Color.DarkBlue;
-            this.cmbGradeType.FormattingEnabled = true;
-            this.cmbGradeType.Items.AddRange(new object[] {
-            "Voticini",
-            "Orali",
-            "Scritti",
-            "Pratici",
-            "Scritto-grafici"});
-            this.cmbGradeType.Location = new System.Drawing.Point(669, 246);
-            this.cmbGradeType.Margin = new System.Windows.Forms.Padding(4);
-            this.cmbGradeType.Name = "cmbGradeType";
-            this.cmbGradeType.Size = new System.Drawing.Size(239, 28);
-            this.cmbGradeType.TabIndex = 96;
-            this.toolTip1.SetToolTip(this.cmbGradeType, "Scelta del tipo di voto");
-            this.cmbGradeType.SelectedIndexChanged += new System.EventHandler(this.cmbGradeType_SelectedIndexChanged);
+            cmbGradeType.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            cmbGradeType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cmbGradeType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            cmbGradeType.ForeColor = System.Drawing.Color.DarkBlue;
+            cmbGradeType.FormattingEnabled = true;
+            cmbGradeType.Items.AddRange(new object[] { "Voticini", "Orali", "Scritti", "Pratici", "Scritto-grafici" });
+            cmbGradeType.Location = new System.Drawing.Point(669, 246);
+            cmbGradeType.Margin = new System.Windows.Forms.Padding(4);
+            cmbGradeType.Name = "cmbGradeType";
+            cmbGradeType.Size = new System.Drawing.Size(239, 28);
+            cmbGradeType.TabIndex = 96;
+            toolTip1.SetToolTip(cmbGradeType, "Scelta del tipo di voto");
+            cmbGradeType.SelectedIndexChanged += cmbGradeType_SelectedIndexChanged;
             // 
             // btnLessonsTopics
             // 
-            this.btnLessonsTopics.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLessonsTopics.BackColor = System.Drawing.Color.Transparent;
-            this.btnLessonsTopics.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnLessonsTopics.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnLessonsTopics.Location = new System.Drawing.Point(696, 678);
-            this.btnLessonsTopics.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnLessonsTopics.Name = "btnLessonsTopics";
-            this.btnLessonsTopics.Size = new System.Drawing.Size(101, 54);
-            this.btnLessonsTopics.TabIndex = 97;
-            this.btnLessonsTopics.Text = "Lezioni";
-            this.toolTip1.SetToolTip(this.btnLessonsTopics, "Finestra gestione lezioni della  materia selezionata");
-            this.btnLessonsTopics.UseVisualStyleBackColor = false;
-            this.btnLessonsTopics.Click += new System.EventHandler(this.btnLessonsTopics_Click);
+            btnLessonsTopics.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnLessonsTopics.BackColor = System.Drawing.Color.Transparent;
+            btnLessonsTopics.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnLessonsTopics.ForeColor = System.Drawing.Color.DarkBlue;
+            btnLessonsTopics.Location = new System.Drawing.Point(698, 641);
+            btnLessonsTopics.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            btnLessonsTopics.Name = "btnLessonsTopics";
+            btnLessonsTopics.Size = new System.Drawing.Size(94, 48);
+            btnLessonsTopics.TabIndex = 97;
+            btnLessonsTopics.Text = "Lezioni";
+            toolTip1.SetToolTip(btnLessonsTopics, "Finestra gestione lezioni della  materia selezionata");
+            btnLessonsTopics.UseVisualStyleBackColor = false;
+            btnLessonsTopics.Click += btnLessonsTopics_Click;
             // 
             // cmbSchoolSubject
             // 
-            this.cmbSchoolSubject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbSchoolSubject.BackColor = System.Drawing.SystemColors.Window;
-            this.cmbSchoolSubject.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbSchoolSubject.ForeColor = System.Drawing.Color.DarkBlue;
-            this.cmbSchoolSubject.FormattingEnabled = true;
-            this.cmbSchoolSubject.Location = new System.Drawing.Point(669, 300);
-            this.cmbSchoolSubject.Name = "cmbSchoolSubject";
-            this.cmbSchoolSubject.Size = new System.Drawing.Size(239, 26);
-            this.cmbSchoolSubject.TabIndex = 108;
-            this.toolTip1.SetToolTip(this.cmbSchoolSubject, "Scelta materia");
-            this.cmbSchoolSubject.SelectedIndexChanged += new System.EventHandler(this.cmbSchoolSubject_SelectedIndexChanged);
+            cmbSchoolSubject.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            cmbSchoolSubject.BackColor = System.Drawing.SystemColors.Window;
+            cmbSchoolSubject.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cmbSchoolSubject.ForeColor = System.Drawing.Color.DarkBlue;
+            cmbSchoolSubject.FormattingEnabled = true;
+            cmbSchoolSubject.Location = new System.Drawing.Point(669, 300);
+            cmbSchoolSubject.Name = "cmbSchoolSubject";
+            cmbSchoolSubject.Size = new System.Drawing.Size(239, 26);
+            cmbSchoolSubject.TabIndex = 108;
+            toolTip1.SetToolTip(cmbSchoolSubject, "Scelta materia");
+            cmbSchoolSubject.SelectedIndexChanged += cmbSchoolSubject_SelectedIndexChanged;
             // 
             // btnTopicsDone
             // 
-            this.btnTopicsDone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTopicsDone.BackColor = System.Drawing.Color.Transparent;
-            this.btnTopicsDone.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnTopicsDone.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnTopicsDone.Location = new System.Drawing.Point(696, 553);
-            this.btnTopicsDone.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnTopicsDone.Name = "btnTopicsDone";
-            this.btnTopicsDone.Size = new System.Drawing.Size(101, 54);
-            this.btnTopicsDone.TabIndex = 112;
-            this.btnTopicsDone.Text = "Argomenti fatti";
-            this.toolTip1.SetToolTip(this.btnTopicsDone, "Apre pagina ricerca argomenti già spiegati nel programma didattico");
-            this.btnTopicsDone.UseVisualStyleBackColor = false;
-            this.btnTopicsDone.Click += new System.EventHandler(this.btnTopicsDone_Click);
+            btnTopicsDone.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnTopicsDone.BackColor = System.Drawing.Color.Transparent;
+            btnTopicsDone.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnTopicsDone.ForeColor = System.Drawing.Color.DarkBlue;
+            btnTopicsDone.Location = new System.Drawing.Point(698, 535);
+            btnTopicsDone.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            btnTopicsDone.Name = "btnTopicsDone";
+            btnTopicsDone.Size = new System.Drawing.Size(94, 48);
+            btnTopicsDone.TabIndex = 112;
+            btnTopicsDone.Text = "Argomenti fatti";
+            toolTip1.SetToolTip(btnTopicsDone, "Apre pagina ricerca argomenti già spiegati nel programma didattico");
+            btnTopicsDone.UseVisualStyleBackColor = false;
+            btnTopicsDone.Click += btnTopicsDone_Click;
             // 
             // btnStartLinks
             // 
-            this.btnStartLinks.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnStartLinks.Location = new System.Drawing.Point(572, 256);
-            this.btnStartLinks.Name = "btnStartLinks";
-            this.btnStartLinks.Size = new System.Drawing.Size(91, 54);
-            this.btnStartLinks.TabIndex = 132;
-            this.btnStartLinks.Text = "Start links";
-            this.toolTip1.SetToolTip(this.btnStartLinks, "Lancio dei link e programmi legati alla classe");
-            this.btnStartLinks.UseVisualStyleBackColor = true;
-            this.btnStartLinks.Click += new System.EventHandler(this.btnStartLinks_Click);
+            btnStartLinks.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnStartLinks.Location = new System.Drawing.Point(572, 256);
+            btnStartLinks.Name = "btnStartLinks";
+            btnStartLinks.Size = new System.Drawing.Size(94, 48);
+            btnStartLinks.TabIndex = 132;
+            btnStartLinks.Text = "Start links";
+            toolTip1.SetToolTip(btnStartLinks, "Lancio dei link e programmi legati alla classe");
+            btnStartLinks.UseVisualStyleBackColor = true;
+            btnStartLinks.Click += btnStartLinks_Click;
             // 
             // btnQuestion
             // 
-            this.btnQuestion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnQuestion.BackColor = System.Drawing.Color.Transparent;
-            this.btnQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnQuestion.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnQuestion.Location = new System.Drawing.Point(696, 425);
-            this.btnQuestion.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnQuestion.Name = "btnQuestion";
-            this.btnQuestion.Size = new System.Drawing.Size(101, 54);
-            this.btnQuestion.TabIndex = 133;
-            this.btnQuestion.Text = "Scelta domanda";
-            this.toolTip1.SetToolTip(this.btnQuestion, "Scelta domanda \"di default\" da fare a tutti");
-            this.btnQuestion.UseVisualStyleBackColor = false;
-            this.btnQuestion.Click += new System.EventHandler(this.btnQuestion_Click);
+            btnQuestion.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnQuestion.BackColor = System.Drawing.Color.Transparent;
+            btnQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnQuestion.ForeColor = System.Drawing.Color.DarkBlue;
+            btnQuestion.Location = new System.Drawing.Point(698, 429);
+            btnQuestion.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            btnQuestion.Name = "btnQuestion";
+            btnQuestion.Size = new System.Drawing.Size(94, 48);
+            btnQuestion.TabIndex = 133;
+            btnQuestion.Text = "Scelta domanda";
+            toolTip1.SetToolTip(btnQuestion, "Scelta domanda \"di default\" da fare a tutti");
+            btnQuestion.UseVisualStyleBackColor = false;
+            btnQuestion.Click += btnQuestion_Click;
             // 
             // txtQuestion
             // 
-            this.txtQuestion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtQuestion.Location = new System.Drawing.Point(8, 193);
-            this.txtQuestion.Name = "txtQuestion";
-            this.txtQuestion.ReadOnly = true;
-            this.txtQuestion.Size = new System.Drawing.Size(560, 24);
-            this.txtQuestion.TabIndex = 134;
-            this.toolTip1.SetToolTip(this.txtQuestion, "Testo della domanda corrente");
-            this.txtQuestion.TextChanged += new System.EventHandler(this.txtQuestion_TextChanged);
-            this.txtQuestion.DoubleClick += new System.EventHandler(this.txtQuestion_DoubleClick);
+            txtQuestion.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txtQuestion.Location = new System.Drawing.Point(8, 193);
+            txtQuestion.Name = "txtQuestion";
+            txtQuestion.ReadOnly = true;
+            txtQuestion.Size = new System.Drawing.Size(560, 24);
+            txtQuestion.TabIndex = 134;
+            toolTip1.SetToolTip(txtQuestion, "Testo della domanda corrente");
+            txtQuestion.TextChanged += txtQuestion_TextChanged;
+            txtQuestion.DoubleClick += txtQuestion_DoubleClick;
             // 
             // btnMakeGroups
             // 
-            this.btnMakeGroups.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMakeGroups.BackColor = System.Drawing.Color.Transparent;
-            this.btnMakeGroups.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnMakeGroups.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnMakeGroups.Location = new System.Drawing.Point(446, 72);
-            this.btnMakeGroups.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnMakeGroups.Name = "btnMakeGroups";
-            this.btnMakeGroups.Size = new System.Drawing.Size(107, 59);
-            this.btnMakeGroups.TabIndex = 135;
-            this.btnMakeGroups.Text = "Gruppi";
-            this.toolTip1.SetToolTip(this.btnMakeGroups, "Formazione dei gruppi");
-            this.btnMakeGroups.UseVisualStyleBackColor = false;
-            this.btnMakeGroups.Click += new System.EventHandler(this.btnMakeGroups_Click);
+            btnMakeGroups.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnMakeGroups.BackColor = System.Drawing.Color.Transparent;
+            btnMakeGroups.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnMakeGroups.ForeColor = System.Drawing.Color.DarkBlue;
+            btnMakeGroups.Location = new System.Drawing.Point(446, 72);
+            btnMakeGroups.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            btnMakeGroups.Name = "btnMakeGroups";
+            btnMakeGroups.Size = new System.Drawing.Size(107, 59);
+            btnMakeGroups.TabIndex = 135;
+            btnMakeGroups.Text = "Gruppi";
+            toolTip1.SetToolTip(btnMakeGroups, "Formazione dei gruppi");
+            btnMakeGroups.UseVisualStyleBackColor = false;
+            btnMakeGroups.Click += btnMakeGroups_Click;
             // 
             // btnLessonTime
             // 
-            this.btnLessonTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLessonTime.BackColor = System.Drawing.Color.Transparent;
-            this.btnLessonTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnLessonTime.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnLessonTime.Location = new System.Drawing.Point(432, 230);
-            this.btnLessonTime.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnLessonTime.Name = "btnLessonTime";
-            this.btnLessonTime.Size = new System.Drawing.Size(107, 59);
-            this.btnLessonTime.TabIndex = 138;
-            this.btnLessonTime.Text = "Inizio lezione";
-            this.toolTip1.SetToolTip(this.btnLessonTime, "Colorazione in base al tempo che manca alla fine della lezione");
-            this.btnLessonTime.UseVisualStyleBackColor = false;
-            this.btnLessonTime.Click += new System.EventHandler(this.btnLessonTime_Click);
+            btnLessonTime.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnLessonTime.BackColor = System.Drawing.Color.Transparent;
+            btnLessonTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnLessonTime.ForeColor = System.Drawing.Color.DarkBlue;
+            btnLessonTime.Location = new System.Drawing.Point(432, 230);
+            btnLessonTime.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            btnLessonTime.Name = "btnLessonTime";
+            btnLessonTime.Size = new System.Drawing.Size(107, 59);
+            btnLessonTime.TabIndex = 138;
+            btnLessonTime.Text = "Inizio lezione";
+            toolTip1.SetToolTip(btnLessonTime, "Colorazione in base al tempo che manca alla fine della lezione");
+            btnLessonTime.UseVisualStyleBackColor = false;
+            btnLessonTime.Click += btnLessonTime_Click;
             // 
             // btnVindicationFactorPlus
             // 
-            this.btnVindicationFactorPlus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnVindicationFactorPlus.BackColor = System.Drawing.Color.Transparent;
-            this.btnVindicationFactorPlus.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnVindicationFactorPlus.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnVindicationFactorPlus.Location = new System.Drawing.Point(696, 489);
-            this.btnVindicationFactorPlus.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnVindicationFactorPlus.Name = "btnVindicationFactorPlus";
-            this.btnVindicationFactorPlus.Size = new System.Drawing.Size(57, 27);
-            this.btnVindicationFactorPlus.TabIndex = 142;
-            this.btnVindicationFactorPlus.Text = "FV++";
-            this.toolTip1.SetToolTip(this.btnVindicationFactorPlus, "Aumento del fattore di vendetta");
-            this.btnVindicationFactorPlus.UseVisualStyleBackColor = false;
-            this.btnVindicationFactorPlus.Click += new System.EventHandler(this.btnRevengeFactorPlus_Click);
+            btnVindicationFactorPlus.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnVindicationFactorPlus.BackColor = System.Drawing.Color.Transparent;
+            btnVindicationFactorPlus.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnVindicationFactorPlus.ForeColor = System.Drawing.Color.DarkBlue;
+            btnVindicationFactorPlus.Location = new System.Drawing.Point(696, 477);
+            btnVindicationFactorPlus.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            btnVindicationFactorPlus.Name = "btnVindicationFactorPlus";
+            btnVindicationFactorPlus.Size = new System.Drawing.Size(57, 27);
+            btnVindicationFactorPlus.TabIndex = 142;
+            btnVindicationFactorPlus.Text = "FV++";
+            toolTip1.SetToolTip(btnVindicationFactorPlus, "Aumento del fattore di vendetta");
+            btnVindicationFactorPlus.UseVisualStyleBackColor = false;
+            btnVindicationFactorPlus.Click += btnRevengeFactorPlus_Click;
             // 
             // btnVindicationFactorMinus
             // 
-            this.btnVindicationFactorMinus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnVindicationFactorMinus.BackColor = System.Drawing.Color.Transparent;
-            this.btnVindicationFactorMinus.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnVindicationFactorMinus.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnVindicationFactorMinus.Location = new System.Drawing.Point(696, 516);
-            this.btnVindicationFactorMinus.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnVindicationFactorMinus.Name = "btnVindicationFactorMinus";
-            this.btnVindicationFactorMinus.Size = new System.Drawing.Size(57, 27);
-            this.btnVindicationFactorMinus.TabIndex = 143;
-            this.btnVindicationFactorMinus.Text = "FV--";
-            this.toolTip1.SetToolTip(this.btnVindicationFactorMinus, "Decremento del fattore di vendetta");
-            this.btnVindicationFactorMinus.UseVisualStyleBackColor = false;
-            this.btnVindicationFactorMinus.Click += new System.EventHandler(this.btnRevengeFactorMinus_Click);
+            btnVindicationFactorMinus.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnVindicationFactorMinus.BackColor = System.Drawing.Color.Transparent;
+            btnVindicationFactorMinus.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnVindicationFactorMinus.ForeColor = System.Drawing.Color.DarkBlue;
+            btnVindicationFactorMinus.Location = new System.Drawing.Point(696, 504);
+            btnVindicationFactorMinus.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            btnVindicationFactorMinus.Name = "btnVindicationFactorMinus";
+            btnVindicationFactorMinus.Size = new System.Drawing.Size(57, 27);
+            btnVindicationFactorMinus.TabIndex = 143;
+            btnVindicationFactorMinus.Text = "FV--";
+            toolTip1.SetToolTip(btnVindicationFactorMinus, "Decremento del fattore di vendetta");
+            btnVindicationFactorMinus.UseVisualStyleBackColor = false;
+            btnVindicationFactorMinus.Click += btnRevengeFactorMinus_Click;
             // 
             // btnCheckToggle
             // 
-            this.btnCheckToggle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCheckToggle.BackColor = System.Drawing.Color.Transparent;
-            this.btnCheckToggle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnCheckToggle.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnCheckToggle.Location = new System.Drawing.Point(572, 425);
-            this.btnCheckToggle.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnCheckToggle.Name = "btnCheckToggle";
-            this.btnCheckToggle.Size = new System.Drawing.Size(91, 54);
-            this.btnCheckToggle.TabIndex = 146;
-            this.btnCheckToggle.Text = "cambio X";
-            this.toolTip1.SetToolTip(this.btnCheckToggle, "Cambia check di tutti gli allievi");
-            this.btnCheckToggle.UseVisualStyleBackColor = false;
-            this.btnCheckToggle.Click += new System.EventHandler(this.btnCheckToggle_Click);
+            btnCheckToggle.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnCheckToggle.BackColor = System.Drawing.Color.Transparent;
+            btnCheckToggle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnCheckToggle.ForeColor = System.Drawing.Color.DarkBlue;
+            btnCheckToggle.Location = new System.Drawing.Point(573, 429);
+            btnCheckToggle.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            btnCheckToggle.Name = "btnCheckToggle";
+            btnCheckToggle.Size = new System.Drawing.Size(94, 48);
+            btnCheckToggle.TabIndex = 146;
+            btnCheckToggle.Text = "cambio X";
+            toolTip1.SetToolTip(btnCheckToggle, "Cambia check di tutti gli allievi");
+            btnCheckToggle.UseVisualStyleBackColor = false;
+            btnCheckToggle.Click += btnCheckToggle_Click;
             // 
             // chkSuspence
             // 
-            this.chkSuspence.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkSuspence.AutoSize = true;
-            this.chkSuspence.Location = new System.Drawing.Point(809, 223);
-            this.chkSuspence.Name = "chkSuspence";
-            this.chkSuspence.Size = new System.Drawing.Size(99, 22);
-            this.chkSuspence.TabIndex = 147;
-            this.chkSuspence.Text = "suspence";
-            this.toolTip1.SetToolTip(this.chkSuspence, "Aspetta un po\' prima di estrarre, suonando una musica");
-            this.chkSuspence.UseVisualStyleBackColor = true;
+            chkSuspence.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            chkSuspence.AutoSize = true;
+            chkSuspence.Location = new System.Drawing.Point(809, 223);
+            chkSuspence.Name = "chkSuspence";
+            chkSuspence.Size = new System.Drawing.Size(99, 22);
+            chkSuspence.TabIndex = 147;
+            chkSuspence.Text = "suspence";
+            toolTip1.SetToolTip(chkSuspence, "Aspetta un po' prima di estrarre, suonando una musica");
+            chkSuspence.UseVisualStyleBackColor = true;
             // 
             // btnCheckRevenge
             // 
-            this.btnCheckRevenge.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCheckRevenge.BackColor = System.Drawing.Color.Transparent;
-            this.btnCheckRevenge.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnCheckRevenge.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnCheckRevenge.Location = new System.Drawing.Point(572, 489);
-            this.btnCheckRevenge.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnCheckRevenge.Name = "btnCheckRevenge";
-            this.btnCheckRevenge.Size = new System.Drawing.Size(91, 54);
-            this.btnCheckRevenge.TabIndex = 148;
-            this.btnCheckRevenge.Text = "X di vendetta";
-            this.toolTip1.SetToolTip(this.btnCheckRevenge, "Fattore vendetta per allievi checked");
-            this.btnCheckRevenge.UseVisualStyleBackColor = false;
-            this.btnCheckRevenge.Click += new System.EventHandler(this.btnCheckRevenge_Click);
+            btnCheckRevenge.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnCheckRevenge.BackColor = System.Drawing.Color.Transparent;
+            btnCheckRevenge.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnCheckRevenge.ForeColor = System.Drawing.Color.DarkBlue;
+            btnCheckRevenge.Location = new System.Drawing.Point(573, 482);
+            btnCheckRevenge.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            btnCheckRevenge.Name = "btnCheckRevenge";
+            btnCheckRevenge.Size = new System.Drawing.Size(94, 48);
+            btnCheckRevenge.TabIndex = 148;
+            btnCheckRevenge.Text = "X di vendetta";
+            toolTip1.SetToolTip(btnCheckRevenge, "Fattore vendetta per allievi checked");
+            btnCheckRevenge.UseVisualStyleBackColor = false;
+            btnCheckRevenge.Click += btnCheckRevenge_Click;
             // 
             // lblVindicationFactor
             // 
-            this.lblVindicationFactor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblVindicationFactor.AutoSize = true;
-            this.lblVindicationFactor.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblVindicationFactor.Location = new System.Drawing.Point(761, 491);
-            this.lblVindicationFactor.Name = "lblVindicationFactor";
-            this.lblVindicationFactor.Size = new System.Drawing.Size(38, 18);
-            this.lblVindicationFactor.TabIndex = 145;
-            this.lblVindicationFactor.Text = "F.V.";
-            this.toolTip1.SetToolTip(this.lblVindicationFactor, "Fattore di vendetta dell\'allievo corrente");
+            lblVindicationFactor.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            lblVindicationFactor.AutoSize = true;
+            lblVindicationFactor.ForeColor = System.Drawing.Color.DarkBlue;
+            lblVindicationFactor.Location = new System.Drawing.Point(761, 479);
+            lblVindicationFactor.Name = "lblVindicationFactor";
+            lblVindicationFactor.Size = new System.Drawing.Size(38, 18);
+            lblVindicationFactor.TabIndex = 145;
+            lblVindicationFactor.Text = "F.V.";
+            toolTip1.SetToolTip(lblVindicationFactor, "Fattore di vendetta dell'allievo corrente");
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label1.Location = new System.Drawing.Point(396, 297);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(104, 18);
-            this.label1.TabIndex = 149;
-            this.label1.Text = "Minuto inizio";
-            this.toolTip1.SetToolTip(this.label1, "Minuto di  inizio della lezione");
+            label1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            label1.AutoSize = true;
+            label1.ForeColor = System.Drawing.Color.DarkBlue;
+            label1.Location = new System.Drawing.Point(396, 297);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(104, 18);
+            label1.TabIndex = 149;
+            label1.Text = "Minuto inizio";
+            toolTip1.SetToolTip(label1, "Minuto di  inizio della lezione");
             // 
             // label3
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label3.Location = new System.Drawing.Point(396, 322);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(105, 18);
-            this.label3.TabIndex = 150;
-            this.label3.Text = "Minuti durata";
-            this.toolTip1.SetToolTip(this.label3, "Minuti di durata della lezione");
+            label3.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            label3.AutoSize = true;
+            label3.ForeColor = System.Drawing.Color.DarkBlue;
+            label3.Location = new System.Drawing.Point(396, 322);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(105, 18);
+            label3.TabIndex = 150;
+            label3.Text = "Minuti durata";
+            toolTip1.SetToolTip(label3, "Minuti di durata della lezione");
             // 
             // label4
             // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label4.Location = new System.Drawing.Point(396, 347);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(118, 18);
-            this.label4.TabIndex = 151;
-            this.label4.Text = "Anticipo minuti";
-            this.toolTip1.SetToolTip(this.label4, "Minuti di anticipo dell\'allarme rispetto a fine lezione ");
+            label4.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            label4.AutoSize = true;
+            label4.ForeColor = System.Drawing.Color.DarkBlue;
+            label4.Location = new System.Drawing.Point(396, 347);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(118, 18);
+            label4.TabIndex = 151;
+            label4.Text = "Anticipo minuti";
+            toolTip1.SetToolTip(label4, "Minuti di anticipo dell'allarme rispetto a fine lezione ");
             // 
             // btnClassesGradesSummary
             // 
-            this.btnClassesGradesSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClassesGradesSummary.BackColor = System.Drawing.Color.Transparent;
-            this.btnClassesGradesSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnClassesGradesSummary.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnClassesGradesSummary.Location = new System.Drawing.Point(696, 617);
-            this.btnClassesGradesSummary.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnClassesGradesSummary.Name = "btnClassesGradesSummary";
-            this.btnClassesGradesSummary.Size = new System.Drawing.Size(101, 54);
-            this.btnClassesGradesSummary.TabIndex = 153;
-            this.btnClassesGradesSummary.Text = "Voti classe";
-            this.toolTip1.SetToolTip(this.btnClassesGradesSummary, "Finestra di riepilogo dei voti della classe corrente");
-            this.btnClassesGradesSummary.UseVisualStyleBackColor = false;
-            this.btnClassesGradesSummary.Click += new System.EventHandler(this.btnClassesGradesSummary_Click);
+            btnClassesGradesSummary.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnClassesGradesSummary.BackColor = System.Drawing.Color.Transparent;
+            btnClassesGradesSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnClassesGradesSummary.ForeColor = System.Drawing.Color.DarkBlue;
+            btnClassesGradesSummary.Location = new System.Drawing.Point(698, 588);
+            btnClassesGradesSummary.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            btnClassesGradesSummary.Name = "btnClassesGradesSummary";
+            btnClassesGradesSummary.Size = new System.Drawing.Size(94, 48);
+            btnClassesGradesSummary.TabIndex = 153;
+            btnClassesGradesSummary.Text = "Voti classe";
+            toolTip1.SetToolTip(btnClassesGradesSummary, "Finestra di riepilogo dei voti della classe corrente");
+            btnClassesGradesSummary.UseVisualStyleBackColor = false;
+            btnClassesGradesSummary.Click += btnClassesGradesSummary_Click;
             // 
             // btnCheckAll
             // 
-            this.btnCheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCheckAll.BackColor = System.Drawing.Color.Transparent;
-            this.btnCheckAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnCheckAll.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnCheckAll.Location = new System.Drawing.Point(572, 678);
-            this.btnCheckAll.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnCheckAll.Name = "btnCheckAll";
-            this.btnCheckAll.Size = new System.Drawing.Size(91, 54);
-            this.btnCheckAll.TabIndex = 28;
-            this.btnCheckAll.Text = "X tutti";
-            this.toolTip1.SetToolTip(this.btnCheckAll, "Check tutti allievi");
-            this.btnCheckAll.UseVisualStyleBackColor = false;
-            this.btnCheckAll.Click += new System.EventHandler(this.btnCheckAll_Click);
+            btnCheckAll.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnCheckAll.BackColor = System.Drawing.Color.Transparent;
+            btnCheckAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnCheckAll.ForeColor = System.Drawing.Color.DarkBlue;
+            btnCheckAll.Location = new System.Drawing.Point(573, 641);
+            btnCheckAll.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            btnCheckAll.Name = "btnCheckAll";
+            btnCheckAll.Size = new System.Drawing.Size(94, 48);
+            btnCheckAll.TabIndex = 28;
+            btnCheckAll.Text = "X tutti";
+            toolTip1.SetToolTip(btnCheckAll, "Check tutti allievi");
+            btnCheckAll.UseVisualStyleBackColor = false;
+            btnCheckAll.Click += btnCheckAll_Click;
             // 
             // btnCheckNoGrade
             // 
-            this.btnCheckNoGrade.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCheckNoGrade.BackColor = System.Drawing.Color.Transparent;
-            this.btnCheckNoGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnCheckNoGrade.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnCheckNoGrade.Location = new System.Drawing.Point(572, 553);
-            this.btnCheckNoGrade.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnCheckNoGrade.Name = "btnCheckNoGrade";
-            this.btnCheckNoGrade.Size = new System.Drawing.Size(91, 54);
-            this.btnCheckNoGrade.TabIndex = 155;
-            this.btnCheckNoGrade.Text = " X no voti";
-            this.toolTip1.SetToolTip(this.btnCheckNoGrade, "Check allievi che non hanno voti");
-            this.btnCheckNoGrade.UseVisualStyleBackColor = false;
-            this.btnCheckNoGrade.Click += new System.EventHandler(this.btnCheckNoGrade_Click);
+            btnCheckNoGrade.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnCheckNoGrade.BackColor = System.Drawing.Color.Transparent;
+            btnCheckNoGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnCheckNoGrade.ForeColor = System.Drawing.Color.DarkBlue;
+            btnCheckNoGrade.Location = new System.Drawing.Point(573, 535);
+            btnCheckNoGrade.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            btnCheckNoGrade.Name = "btnCheckNoGrade";
+            btnCheckNoGrade.Size = new System.Drawing.Size(94, 48);
+            btnCheckNoGrade.TabIndex = 155;
+            btnCheckNoGrade.Text = " X no voti";
+            toolTip1.SetToolTip(btnCheckNoGrade, "Check allievi che non hanno voti");
+            btnCheckNoGrade.UseVisualStyleBackColor = false;
+            btnCheckNoGrade.Click += btnCheckNoGrade_Click;
             // 
             // lblDatabaseFile
             // 
-            this.lblDatabaseFile.AutoSize = true;
-            this.lblDatabaseFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblDatabaseFile.ForeColor = System.Drawing.Color.Red;
-            this.lblDatabaseFile.Location = new System.Drawing.Point(216, 2);
-            this.lblDatabaseFile.Name = "lblDatabaseFile";
-            this.lblDatabaseFile.Size = new System.Drawing.Size(94, 13);
-            this.lblDatabaseFile.TabIndex = 111;
-            this.lblDatabaseFile.Text = "lblDatabaseFile";
-            this.toolTip1.SetToolTip(this.lblDatabaseFile, "Nome del file del database. ");
-            this.lblDatabaseFile.Visible = false;
+            lblDatabaseFile.AutoSize = true;
+            lblDatabaseFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            lblDatabaseFile.ForeColor = System.Drawing.Color.Red;
+            lblDatabaseFile.Location = new System.Drawing.Point(216, 2);
+            lblDatabaseFile.Name = "lblDatabaseFile";
+            lblDatabaseFile.Size = new System.Drawing.Size(94, 13);
+            lblDatabaseFile.TabIndex = 111;
+            lblDatabaseFile.Text = "lblDatabaseFile";
+            toolTip1.SetToolTip(lblDatabaseFile, "Nome del file del database. ");
+            lblDatabaseFile.Visible = false;
             // 
             // btnYearTopics
             // 
-            this.btnYearTopics.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnYearTopics.BackColor = System.Drawing.Color.Transparent;
-            this.btnYearTopics.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnYearTopics.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnYearTopics.Location = new System.Drawing.Point(803, 553);
-            this.btnYearTopics.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.btnYearTopics.Name = "btnYearTopics";
-            this.btnYearTopics.Size = new System.Drawing.Size(101, 54);
-            this.btnYearTopics.TabIndex = 157;
-            this.btnYearTopics.Text = "File arg. anno";
-            this.toolTip1.SetToolTip(this.btnYearTopics, "Crea un file con tutti gli argomenti fatti nell\'anno scolatico");
-            this.btnYearTopics.UseVisualStyleBackColor = false;
-            this.btnYearTopics.Click += new System.EventHandler(this.btnYearTopics_Click);
+            btnYearTopics.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnYearTopics.BackColor = System.Drawing.Color.Transparent;
+            btnYearTopics.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnYearTopics.ForeColor = System.Drawing.Color.DarkBlue;
+            btnYearTopics.Location = new System.Drawing.Point(803, 535);
+            btnYearTopics.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            btnYearTopics.Name = "btnYearTopics";
+            btnYearTopics.Size = new System.Drawing.Size(94, 48);
+            btnYearTopics.TabIndex = 157;
+            btnYearTopics.Text = "File arg. anno";
+            toolTip1.SetToolTip(btnYearTopics, "Crea un file con tutti gli argomenti fatti nell'anno scolatico");
+            btnYearTopics.UseVisualStyleBackColor = false;
+            btnYearTopics.Click += btnYearTopics_Click;
             // 
             // chkActivateLessonClock
             // 
-            this.chkActivateLessonClock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkActivateLessonClock.AutoSize = true;
-            this.chkActivateLessonClock.Checked = true;
-            this.chkActivateLessonClock.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkActivateLessonClock.Location = new System.Drawing.Point(396, 378);
-            this.chkActivateLessonClock.Name = "chkActivateLessonClock";
-            this.chkActivateLessonClock.Size = new System.Drawing.Size(157, 22);
-            this.chkActivateLessonClock.TabIndex = 159;
-            this.chkActivateLessonClock.Text = "Orologio lezione ";
-            this.toolTip1.SetToolTip(this.chkActivateLessonClock, "Abilita orologio a colori per bottone lezione");
-            this.chkActivateLessonClock.UseVisualStyleBackColor = true;
-            this.chkActivateLessonClock.CheckedChanged += new System.EventHandler(this.chkActivateLessonClock_CheckedChanged);
+            chkActivateLessonClock.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            chkActivateLessonClock.AutoSize = true;
+            chkActivateLessonClock.Checked = true;
+            chkActivateLessonClock.CheckState = System.Windows.Forms.CheckState.Checked;
+            chkActivateLessonClock.Location = new System.Drawing.Point(396, 378);
+            chkActivateLessonClock.Name = "chkActivateLessonClock";
+            chkActivateLessonClock.Size = new System.Drawing.Size(157, 22);
+            chkActivateLessonClock.TabIndex = 159;
+            chkActivateLessonClock.Text = "Orologio lezione ";
+            toolTip1.SetToolTip(chkActivateLessonClock, "Abilita orologio a colori per bottone lezione");
+            chkActivateLessonClock.UseVisualStyleBackColor = true;
+            chkActivateLessonClock.CheckedChanged += chkActivateLessonClock_CheckedChanged;
             // 
             // lblIdStudent
             // 
-            this.lblIdStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblIdStudent.AutoSize = true;
-            this.lblIdStudent.Enabled = false;
-            this.lblIdStudent.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblIdStudent.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblIdStudent.Location = new System.Drawing.Point(488, 218);
-            this.lblIdStudent.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblIdStudent.Name = "lblIdStudent";
-            this.lblIdStudent.Size = new System.Drawing.Size(65, 15);
-            this.lblIdStudent.TabIndex = 163;
-            this.lblIdStudent.Text = "Id allievo";
-            this.toolTip1.SetToolTip(this.lblIdStudent, "Media pesata di tutti i microvoti visualizzati. Salvata nel voto complessivo. Si " +
-        "può modificare. ");
+            lblIdStudent.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            lblIdStudent.AutoSize = true;
+            lblIdStudent.Enabled = false;
+            lblIdStudent.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            lblIdStudent.ForeColor = System.Drawing.Color.DarkBlue;
+            lblIdStudent.Location = new System.Drawing.Point(488, 218);
+            lblIdStudent.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblIdStudent.Name = "lblIdStudent";
+            lblIdStudent.Size = new System.Drawing.Size(65, 15);
+            lblIdStudent.TabIndex = 163;
+            lblIdStudent.Text = "Id allievo";
+            toolTip1.SetToolTip(lblIdStudent, "Media pesata di tutti i microvoti visualizzati. Salvata nel voto complessivo. Si può modificare. ");
             // 
             // txtIdStudent
             // 
-            this.txtIdStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtIdStudent.Location = new System.Drawing.Point(491, 236);
-            this.txtIdStudent.Margin = new System.Windows.Forms.Padding(4);
-            this.txtIdStudent.Name = "txtIdStudent";
-            this.txtIdStudent.ReadOnly = true;
-            this.txtIdStudent.Size = new System.Drawing.Size(77, 24);
-            this.txtIdStudent.TabIndex = 162;
-            this.txtIdStudent.TabStop = false;
-            this.txtIdStudent.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip1.SetToolTip(this.txtIdStudent, "Codice del voto \"padre\", sotto il quale stanno tuttu queste microvalutazioni ");
+            txtIdStudent.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            txtIdStudent.Location = new System.Drawing.Point(491, 236);
+            txtIdStudent.Margin = new System.Windows.Forms.Padding(4);
+            txtIdStudent.Name = "txtIdStudent";
+            txtIdStudent.ReadOnly = true;
+            txtIdStudent.Size = new System.Drawing.Size(77, 24);
+            txtIdStudent.TabIndex = 162;
+            txtIdStudent.TabStop = false;
+            txtIdStudent.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            toolTip1.SetToolTip(txtIdStudent, "Codice del voto \"padre\", sotto il quale stanno tuttu queste microvalutazioni ");
             // 
             // btnTemporary
             // 
-            this.btnTemporary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTemporary.BackColor = System.Drawing.Color.Red;
-            this.btnTemporary.ForeColor = System.Drawing.Color.Yellow;
-            this.btnTemporary.Location = new System.Drawing.Point(412, 163);
-            this.btnTemporary.Name = "btnTemporary";
-            this.btnTemporary.Size = new System.Drawing.Size(91, 54);
-            this.btnTemporary.TabIndex = 164;
-            this.btnTemporary.Text = "Test";
-            this.toolTip1.SetToolTip(this.btnTemporary, "Bottone per test, visibile solo quando in debug");
-            this.btnTemporary.UseVisualStyleBackColor = false;
-            this.btnTemporary.Click += new System.EventHandler(this.btnTemporary_Click);
+            btnTemporary.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnTemporary.BackColor = System.Drawing.Color.Red;
+            btnTemporary.ForeColor = System.Drawing.Color.Yellow;
+            btnTemporary.Location = new System.Drawing.Point(412, 163);
+            btnTemporary.Name = "btnTemporary";
+            btnTemporary.Size = new System.Drawing.Size(91, 54);
+            btnTemporary.TabIndex = 164;
+            btnTemporary.Text = "Test";
+            toolTip1.SetToolTip(btnTemporary, "Bottone per test, visibile solo quando in debug");
+            btnTemporary.UseVisualStyleBackColor = false;
+            btnTemporary.Click += btnTemporary_Click;
             // 
             // txtTimeInterval
             // 
-            this.txtTimeInterval.ForeColor = System.Drawing.Color.DarkBlue;
-            this.txtTimeInterval.Location = new System.Drawing.Point(168, 4);
-            this.txtTimeInterval.Name = "txtTimeInterval";
-            this.txtTimeInterval.Size = new System.Drawing.Size(46, 24);
-            this.txtTimeInterval.TabIndex = 168;
-            this.txtTimeInterval.Text = "0";
-            this.txtTimeInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip1.SetToolTip(this.txtTimeInterval, "Minuti per allarme prima della fine");
+            txtTimeInterval.ForeColor = System.Drawing.Color.DarkBlue;
+            txtTimeInterval.Location = new System.Drawing.Point(168, 4);
+            txtTimeInterval.Name = "txtTimeInterval";
+            txtTimeInterval.Size = new System.Drawing.Size(41, 24);
+            txtTimeInterval.TabIndex = 168;
+            txtTimeInterval.Text = "0";
+            txtTimeInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            toolTip1.SetToolTip(txtTimeInterval, "Minuti per allarme prima della fine");
             // 
             // btnStartColorTimer
             // 
-            this.btnStartColorTimer.BackColor = System.Drawing.Color.Transparent;
-            this.btnStartColorTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnStartColorTimer.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnStartColorTimer.Location = new System.Drawing.Point(217, 36);
-            this.btnStartColorTimer.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnStartColorTimer.Name = "btnStartColorTimer";
-            this.btnStartColorTimer.Size = new System.Drawing.Size(74, 28);
-            this.btnStartColorTimer.TabIndex = 169;
-            this.btnStartColorTimer.Text = "T.colori";
-            this.toolTip1.SetToolTip(this.btnStartColorTimer, "Partenza di un cronometro a colori");
-            this.btnStartColorTimer.UseVisualStyleBackColor = false;
-            this.btnStartColorTimer.Click += new System.EventHandler(this.btnStartColorTimer_Click);
+            btnStartColorTimer.BackColor = System.Drawing.Color.Transparent;
+            btnStartColorTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnStartColorTimer.ForeColor = System.Drawing.Color.DarkBlue;
+            btnStartColorTimer.Location = new System.Drawing.Point(217, 36);
+            btnStartColorTimer.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            btnStartColorTimer.Name = "btnStartColorTimer";
+            btnStartColorTimer.Size = new System.Drawing.Size(74, 28);
+            btnStartColorTimer.TabIndex = 169;
+            btnStartColorTimer.Text = "T.colori";
+            toolTip1.SetToolTip(btnStartColorTimer, "Partenza di un cronometro a colori");
+            btnStartColorTimer.UseVisualStyleBackColor = false;
+            btnStartColorTimer.Click += btnStartColorTimer_Click;
             // 
             // btnMosaic
             // 
-            this.btnMosaic.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMosaic.Location = new System.Drawing.Point(572, 316);
-            this.btnMosaic.Name = "btnMosaic";
-            this.btnMosaic.Size = new System.Drawing.Size(91, 54);
-            this.btnMosaic.TabIndex = 170;
-            this.btnMosaic.Text = "Mosaico";
-            this.toolTip1.SetToolTip(this.btnMosaic, "Visualizzazione di tutte le foto della classe");
-            this.btnMosaic.UseVisualStyleBackColor = true;
-            this.btnMosaic.Click += new System.EventHandler(this.btnMosaic_Click);
+            btnMosaic.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnMosaic.Location = new System.Drawing.Point(572, 316);
+            btnMosaic.Name = "btnMosaic";
+            btnMosaic.Size = new System.Drawing.Size(94, 48);
+            btnMosaic.TabIndex = 170;
+            btnMosaic.Text = "Mosaico";
+            toolTip1.SetToolTip(btnMosaic, "Visualizzazione di tutte le foto della classe");
+            btnMosaic.UseVisualStyleBackColor = true;
+            btnMosaic.Click += btnMosaic_Click;
             // 
             // btnStartBarTimer
             // 
-            this.btnStartBarTimer.BackColor = System.Drawing.Color.Transparent;
-            this.btnStartBarTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnStartBarTimer.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnStartBarTimer.Location = new System.Drawing.Point(298, 36);
-            this.btnStartBarTimer.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnStartBarTimer.Name = "btnStartBarTimer";
-            this.btnStartBarTimer.Size = new System.Drawing.Size(74, 28);
-            this.btnStartBarTimer.TabIndex = 173;
-            this.btnStartBarTimer.Text = "T.barra";
-            this.toolTip1.SetToolTip(this.btnStartBarTimer, "Partenza di un cronometro a barra");
-            this.btnStartBarTimer.UseVisualStyleBackColor = false;
-            this.btnStartBarTimer.Click += new System.EventHandler(this.btnStartBarTimer_Click);
+            btnStartBarTimer.BackColor = System.Drawing.Color.Transparent;
+            btnStartBarTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnStartBarTimer.ForeColor = System.Drawing.Color.DarkBlue;
+            btnStartBarTimer.Location = new System.Drawing.Point(298, 36);
+            btnStartBarTimer.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            btnStartBarTimer.Name = "btnStartBarTimer";
+            btnStartBarTimer.Size = new System.Drawing.Size(74, 28);
+            btnStartBarTimer.TabIndex = 173;
+            btnStartBarTimer.Text = "T.barra";
+            toolTip1.SetToolTip(btnStartBarTimer, "Partenza di un cronometro a barra");
+            btnStartBarTimer.UseVisualStyleBackColor = false;
+            btnStartBarTimer.Click += btnStartBarTimer_Click;
             // 
             // chkLessonsPictures
             // 
-            this.chkLessonsPictures.AutoSize = true;
-            this.chkLessonsPictures.Checked = true;
-            this.chkLessonsPictures.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkLessonsPictures.Location = new System.Drawing.Point(5, 19);
-            this.chkLessonsPictures.Name = "chkLessonsPictures";
-            this.chkLessonsPictures.Size = new System.Drawing.Size(76, 22);
-            this.chkLessonsPictures.TabIndex = 10;
-            this.chkLessonsPictures.Text = "lezioni";
-            this.toolTip1.SetToolTip(this.chkLessonsPictures, "Estrazione fra  le immagini mostrate durante le lezioni");
-            this.chkLessonsPictures.UseVisualStyleBackColor = true;
+            chkLessonsPictures.AutoSize = true;
+            chkLessonsPictures.Checked = true;
+            chkLessonsPictures.CheckState = System.Windows.Forms.CheckState.Checked;
+            chkLessonsPictures.Location = new System.Drawing.Point(5, 19);
+            chkLessonsPictures.Name = "chkLessonsPictures";
+            chkLessonsPictures.Size = new System.Drawing.Size(76, 22);
+            chkLessonsPictures.TabIndex = 10;
+            chkLessonsPictures.Text = "lezioni";
+            toolTip1.SetToolTip(chkLessonsPictures, "Estrazione fra  le immagini mostrate durante le lezioni");
+            chkLessonsPictures.UseVisualStyleBackColor = true;
             // 
             // chkGivenFolder
             // 
-            this.chkGivenFolder.AutoSize = true;
-            this.chkGivenFolder.Location = new System.Drawing.Point(5, 41);
-            this.chkGivenFolder.Name = "chkGivenFolder";
-            this.chkGivenFolder.Size = new System.Drawing.Size(82, 22);
-            this.chkGivenFolder.TabIndex = 174;
-            this.chkGivenFolder.Text = "cartella";
-            this.toolTip1.SetToolTip(this.chkGivenFolder, "Estrazione fra le immmagini che stanno sotto la cartella data");
-            this.chkGivenFolder.UseVisualStyleBackColor = true;
+            chkGivenFolder.AutoSize = true;
+            chkGivenFolder.Location = new System.Drawing.Point(5, 41);
+            chkGivenFolder.Name = "chkGivenFolder";
+            chkGivenFolder.Size = new System.Drawing.Size(82, 22);
+            chkGivenFolder.TabIndex = 174;
+            chkGivenFolder.Text = "cartella";
+            toolTip1.SetToolTip(chkGivenFolder, "Estrazione fra le immmagini che stanno sotto la cartella data");
+            chkGivenFolder.UseVisualStyleBackColor = true;
             // 
             // picBackgroundSaveRunning
             // 
-            this.picBackgroundSaveRunning.BackColor = System.Drawing.Color.DarkGray;
-            this.picBackgroundSaveRunning.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.picBackgroundSaveRunning.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picBackgroundSaveRunning.Location = new System.Drawing.Point(25, 124);
-            this.picBackgroundSaveRunning.Name = "picBackgroundSaveRunning";
-            this.picBackgroundSaveRunning.Size = new System.Drawing.Size(30, 14);
-            this.picBackgroundSaveRunning.TabIndex = 171;
-            this.picBackgroundSaveRunning.TabStop = false;
-            this.toolTip1.SetToolTip(this.picBackgroundSaveRunning, "Rosso mentre il programma salva in background");
+            picBackgroundSaveRunning.BackColor = System.Drawing.Color.DarkGray;
+            picBackgroundSaveRunning.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            picBackgroundSaveRunning.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            picBackgroundSaveRunning.Location = new System.Drawing.Point(25, 124);
+            picBackgroundSaveRunning.Name = "picBackgroundSaveRunning";
+            picBackgroundSaveRunning.Size = new System.Drawing.Size(30, 14);
+            picBackgroundSaveRunning.TabIndex = 171;
+            picBackgroundSaveRunning.TabStop = false;
+            toolTip1.SetToolTip(picBackgroundSaveRunning, "Rosso mentre il programma salva in background");
             // 
             // txtNStudents
             // 
-            this.txtNStudents.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNStudents.ForeColor = System.Drawing.Color.DarkBlue;
-            this.txtNStudents.Location = new System.Drawing.Point(454, 465);
-            this.txtNStudents.Name = "txtNStudents";
-            this.txtNStudents.Size = new System.Drawing.Size(46, 24);
-            this.txtNStudents.TabIndex = 174;
-            this.txtNStudents.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip1.SetToolTip(this.txtNStudents, "Minuti per allarme prima della fine");
+            txtNStudents.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            txtNStudents.ForeColor = System.Drawing.Color.DarkBlue;
+            txtNStudents.Location = new System.Drawing.Point(454, 465);
+            txtNStudents.Name = "txtNStudents";
+            txtNStudents.Size = new System.Drawing.Size(46, 24);
+            txtNStudents.TabIndex = 174;
+            txtNStudents.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            toolTip1.SetToolTip(txtNStudents, "Minuti per allarme prima della fine");
             // 
             // label6
             // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.AutoSize = true;
-            this.label6.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label6.Location = new System.Drawing.Point(445, 444);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(65, 18);
-            this.label6.TabIndex = 175;
-            this.label6.Text = "n.Allievi";
-            this.toolTip1.SetToolTip(this.label6, "Minuto di  inizio della lezione");
+            label6.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            label6.AutoSize = true;
+            label6.ForeColor = System.Drawing.Color.DarkBlue;
+            label6.Location = new System.Drawing.Point(445, 444);
+            label6.Name = "label6";
+            label6.Size = new System.Drawing.Size(65, 18);
+            label6.TabIndex = 175;
+            label6.Text = "n.Allievi";
+            toolTip1.SetToolTip(label6, "Minuto di  inizio della lezione");
             // 
             // btnStudentsNotes
             // 
-            this.btnStudentsNotes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnStudentsNotes.BackColor = System.Drawing.Color.Transparent;
-            this.btnStudentsNotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnStudentsNotes.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnStudentsNotes.Location = new System.Drawing.Point(802, 678);
-            this.btnStudentsNotes.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnStudentsNotes.Name = "btnStudentsNotes";
-            this.btnStudentsNotes.Size = new System.Drawing.Size(101, 54);
-            this.btnStudentsNotes.TabIndex = 176;
-            this.btnStudentsNotes.Text = "Annotaz.";
-            this.toolTip1.SetToolTip(this.btnStudentsNotes, "Finestra per assegnare annotazioni di gruppo");
-            this.btnStudentsNotes.UseVisualStyleBackColor = false;
-            this.btnStudentsNotes.Click += new System.EventHandler(this.btnStudentsNotes_Click);
+            btnStudentsNotes.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnStudentsNotes.BackColor = System.Drawing.Color.Transparent;
+            btnStudentsNotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnStudentsNotes.ForeColor = System.Drawing.Color.DarkBlue;
+            btnStudentsNotes.Location = new System.Drawing.Point(803, 641);
+            btnStudentsNotes.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            btnStudentsNotes.Name = "btnStudentsNotes";
+            btnStudentsNotes.Size = new System.Drawing.Size(94, 48);
+            btnStudentsNotes.TabIndex = 176;
+            btnStudentsNotes.Text = "Annotaz.";
+            toolTip1.SetToolTip(btnStudentsNotes, "Finestra per assegnare annotazioni di gruppo");
+            btnStudentsNotes.UseVisualStyleBackColor = false;
+            btnStudentsNotes.Click += btnStudentsNotes_Click;
             // 
             // txtIdClass
             // 
-            this.txtIdClass.ForeColor = System.Drawing.Color.DarkBlue;
-            this.txtIdClass.Location = new System.Drawing.Point(17, 77);
-            this.txtIdClass.Name = "txtIdClass";
-            this.txtIdClass.Size = new System.Drawing.Size(46, 24);
-            this.txtIdClass.TabIndex = 177;
-            this.txtIdClass.Text = "0";
-            this.txtIdClass.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip1.SetToolTip(this.txtIdClass, "Minuti per allarme prima della fine");
+            txtIdClass.ForeColor = System.Drawing.Color.DarkBlue;
+            txtIdClass.Location = new System.Drawing.Point(17, 77);
+            txtIdClass.Name = "txtIdClass";
+            txtIdClass.Size = new System.Drawing.Size(46, 24);
+            txtIdClass.TabIndex = 177;
+            txtIdClass.Text = "0";
+            txtIdClass.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            toolTip1.SetToolTip(txtIdClass, "Minuti per allarme prima della fine");
             // 
             // chkPopUpQuestionsEnabled
             // 
-            this.chkPopUpQuestionsEnabled.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkPopUpQuestionsEnabled.AutoSize = true;
-            this.chkPopUpQuestionsEnabled.Location = new System.Drawing.Point(671, 338);
-            this.chkPopUpQuestionsEnabled.Name = "chkPopUpQuestionsEnabled";
-            this.chkPopUpQuestionsEnabled.Size = new System.Drawing.Size(167, 22);
-            this.chkPopUpQuestionsEnabled.TabIndex = 179;
-            this.chkPopUpQuestionsEnabled.Text = "Domande \"pop up\"";
-            this.toolTip1.SetToolTip(this.chkPopUpQuestionsEnabled, "Aspetta un po\' prima di estrarre, suonando una musica");
-            this.chkPopUpQuestionsEnabled.UseVisualStyleBackColor = true;
-            this.chkPopUpQuestionsEnabled.CheckedChanged += new System.EventHandler(this.chkPopUpQuestionsEnabled_CheckedChanged);
+            chkPopUpQuestionsEnabled.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            chkPopUpQuestionsEnabled.AutoSize = true;
+            chkPopUpQuestionsEnabled.Location = new System.Drawing.Point(671, 338);
+            chkPopUpQuestionsEnabled.Name = "chkPopUpQuestionsEnabled";
+            chkPopUpQuestionsEnabled.Size = new System.Drawing.Size(167, 22);
+            chkPopUpQuestionsEnabled.TabIndex = 179;
+            chkPopUpQuestionsEnabled.Text = "Domande \"pop up\"";
+            toolTip1.SetToolTip(chkPopUpQuestionsEnabled, "Aspetta un po' prima di estrarre, suonando una musica");
+            chkPopUpQuestionsEnabled.UseVisualStyleBackColor = true;
+            chkPopUpQuestionsEnabled.CheckedChanged += chkPopUpQuestionsEnabled_CheckedChanged;
             // 
             // txtPopUpQuestionCentralTime
             // 
-            this.txtPopUpQuestionCentralTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPopUpQuestionCentralTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtPopUpQuestionCentralTime.ForeColor = System.Drawing.Color.DarkBlue;
-            this.txtPopUpQuestionCentralTime.Location = new System.Drawing.Point(841, 342);
-            this.txtPopUpQuestionCentralTime.Name = "txtPopUpQuestionCentralTime";
-            this.txtPopUpQuestionCentralTime.Size = new System.Drawing.Size(46, 21);
-            this.txtPopUpQuestionCentralTime.TabIndex = 181;
-            this.txtPopUpQuestionCentralTime.Text = "7";
-            this.txtPopUpQuestionCentralTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip1.SetToolTip(this.txtPopUpQuestionCentralTime, "Minuti per allarme prima della fine");
-            this.txtPopUpQuestionCentralTime.TextChanged += new System.EventHandler(this.txtPopUpQuestionCentralTime_TextChanged);
+            txtPopUpQuestionCentralTime.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            txtPopUpQuestionCentralTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            txtPopUpQuestionCentralTime.ForeColor = System.Drawing.Color.DarkBlue;
+            txtPopUpQuestionCentralTime.Location = new System.Drawing.Point(841, 342);
+            txtPopUpQuestionCentralTime.Name = "txtPopUpQuestionCentralTime";
+            txtPopUpQuestionCentralTime.Size = new System.Drawing.Size(46, 21);
+            txtPopUpQuestionCentralTime.TabIndex = 181;
+            txtPopUpQuestionCentralTime.Text = "7";
+            txtPopUpQuestionCentralTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            toolTip1.SetToolTip(txtPopUpQuestionCentralTime, "Minuti per allarme prima della fine");
+            txtPopUpQuestionCentralTime.TextChanged += txtPopUpQuestionCentralTime_TextChanged;
             // 
             // btnRandomNumber
             // 
-            this.btnRandomNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRandomNumber.BackColor = System.Drawing.Color.Transparent;
-            this.btnRandomNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnRandomNumber.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnRandomNumber.Location = new System.Drawing.Point(572, 193);
-            this.btnRandomNumber.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnRandomNumber.Name = "btnRandomNumber";
-            this.btnRandomNumber.Size = new System.Drawing.Size(91, 59);
-            this.btnRandomNumber.TabIndex = 183;
-            this.btnRandomNumber.Text = "Numero casuale";
-            this.toolTip1.SetToolTip(this.btnRandomNumber, "Visualizzazione di un\'immagine casuale dalla cartella  qui sotto");
-            this.btnRandomNumber.UseVisualStyleBackColor = false;
-            this.btnRandomNumber.Click += new System.EventHandler(this.btnRandomNumber_Click);
+            btnRandomNumber.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnRandomNumber.BackColor = System.Drawing.Color.Transparent;
+            btnRandomNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnRandomNumber.ForeColor = System.Drawing.Color.DarkBlue;
+            btnRandomNumber.Location = new System.Drawing.Point(572, 193);
+            btnRandomNumber.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            btnRandomNumber.Name = "btnRandomNumber";
+            btnRandomNumber.Size = new System.Drawing.Size(94, 48);
+            btnRandomNumber.TabIndex = 183;
+            btnRandomNumber.Text = "Numero casuale";
+            toolTip1.SetToolTip(btnRandomNumber, "Visualizzazione di un'immagine casuale dalla cartella  qui sotto");
+            btnRandomNumber.UseVisualStyleBackColor = false;
+            btnRandomNumber.Click += btnRandomNumber_Click;
             // 
             // chkSoundsInColorTimer
             // 
-            this.chkSoundsInColorTimer.AutoSize = true;
-            this.chkSoundsInColorTimer.Checked = true;
-            this.chkSoundsInColorTimer.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSoundsInColorTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.chkSoundsInColorTimer.ForeColor = System.Drawing.Color.DarkBlue;
-            this.chkSoundsInColorTimer.Location = new System.Drawing.Point(217, 66);
-            this.chkSoundsInColorTimer.Name = "chkSoundsInColorTimer";
-            this.chkSoundsInColorTimer.Size = new System.Drawing.Size(70, 22);
-            this.chkSoundsInColorTimer.TabIndex = 184;
-            this.chkSoundsInColorTimer.Text = "Suoni";
-            this.toolTip1.SetToolTip(this.chkSoundsInColorTimer, "Esegue i suoni nel timer a colori");
-            this.chkSoundsInColorTimer.UseVisualStyleBackColor = true;
-            this.chkSoundsInColorTimer.CheckedChanged += new System.EventHandler(this.chkSoundsInColorTimer_CheckedChanged);
+            chkSoundsInColorTimer.AutoSize = true;
+            chkSoundsInColorTimer.Checked = true;
+            chkSoundsInColorTimer.CheckState = System.Windows.Forms.CheckState.Checked;
+            chkSoundsInColorTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            chkSoundsInColorTimer.ForeColor = System.Drawing.Color.DarkBlue;
+            chkSoundsInColorTimer.Location = new System.Drawing.Point(217, 66);
+            chkSoundsInColorTimer.Name = "chkSoundsInColorTimer";
+            chkSoundsInColorTimer.Size = new System.Drawing.Size(70, 22);
+            chkSoundsInColorTimer.TabIndex = 184;
+            chkSoundsInColorTimer.Text = "Suoni";
+            toolTip1.SetToolTip(chkSoundsInColorTimer, "Esegue i suoni nel timer a colori");
+            chkSoundsInColorTimer.UseVisualStyleBackColor = true;
+            chkSoundsInColorTimer.CheckedChanged += chkSoundsInColorTimer_CheckedChanged;
             // 
             // lblLastDatabaseModification
             // 
-            this.lblLastDatabaseModification.AutoSize = true;
-            this.lblLastDatabaseModification.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblLastDatabaseModification.ForeColor = System.Drawing.Color.Red;
-            this.lblLastDatabaseModification.Location = new System.Drawing.Point(216, 19);
-            this.lblLastDatabaseModification.Name = "lblLastDatabaseModification";
-            this.lblLastDatabaseModification.Size = new System.Drawing.Size(167, 13);
-            this.lblLastDatabaseModification.TabIndex = 187;
-            this.lblLastDatabaseModification.Text = "lblLastDatabaseModification";
-            this.toolTip1.SetToolTip(this.lblLastDatabaseModification, "Nome del file del database. ");
-            this.lblLastDatabaseModification.Visible = false;
+            lblLastDatabaseModification.AutoSize = true;
+            lblLastDatabaseModification.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            lblLastDatabaseModification.ForeColor = System.Drawing.Color.Red;
+            lblLastDatabaseModification.Location = new System.Drawing.Point(216, 19);
+            lblLastDatabaseModification.Name = "lblLastDatabaseModification";
+            lblLastDatabaseModification.Size = new System.Drawing.Size(167, 13);
+            lblLastDatabaseModification.TabIndex = 187;
+            lblLastDatabaseModification.Text = "lblLastDatabaseModification";
+            toolTip1.SetToolTip(lblLastDatabaseModification, "Nome del file del database. ");
+            lblLastDatabaseModification.Visible = false;
             // 
             // lblStudentChosen
             // 
-            this.lblStudentChosen.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblStudentChosen.BackColor = System.Drawing.Color.Transparent;
-            this.lblStudentChosen.Font = new System.Drawing.Font("Arial Black", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblStudentChosen.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblStudentChosen.Location = new System.Drawing.Point(8, 222);
-            this.lblStudentChosen.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblStudentChosen.Name = "lblStudentChosen";
-            this.lblStudentChosen.Size = new System.Drawing.Size(474, 43);
-            this.lblStudentChosen.TabIndex = 27;
-            this.lblStudentChosen.Text = "Allievo";
-            this.lblStudentChosen.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lblStudentChosen.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            lblStudentChosen.BackColor = System.Drawing.Color.Transparent;
+            lblStudentChosen.Font = new System.Drawing.Font("Arial Black", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            lblStudentChosen.ForeColor = System.Drawing.Color.DarkBlue;
+            lblStudentChosen.Location = new System.Drawing.Point(8, 222);
+            lblStudentChosen.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            lblStudentChosen.Name = "lblStudentChosen";
+            lblStudentChosen.Size = new System.Drawing.Size(474, 43);
+            lblStudentChosen.TabIndex = 27;
+            lblStudentChosen.Text = "Allievo";
+            lblStudentChosen.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblCodYear
             // 
-            this.lblCodYear.AutoSize = true;
-            this.lblCodYear.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblCodYear.Location = new System.Drawing.Point(-1, 5);
-            this.lblCodYear.Name = "lblCodYear";
-            this.lblCodYear.Size = new System.Drawing.Size(82, 18);
-            this.lblCodYear.TabIndex = 48;
-            this.lblCodYear.Text = "Cod.Anno";
+            lblCodYear.AutoSize = true;
+            lblCodYear.ForeColor = System.Drawing.Color.DarkBlue;
+            lblCodYear.Location = new System.Drawing.Point(-1, 5);
+            lblCodYear.Name = "lblCodYear";
+            lblCodYear.Size = new System.Drawing.Size(82, 18);
+            lblCodYear.TabIndex = 48;
+            lblCodYear.Text = "Cod.Anno";
             // 
             // timerQuestion
             // 
-            this.timerQuestion.Interval = 250;
-            this.timerQuestion.Tick += new System.EventHandler(this.timerQuestion_Tick);
+            timerQuestion.Interval = 250;
+            timerQuestion.Tick += timerQuestion_Tick;
             // 
             // picStudent
             // 
-            this.picStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.picStudent.Location = new System.Drawing.Point(10, 222);
-            this.picStudent.Name = "picStudent";
-            this.picStudent.Size = new System.Drawing.Size(558, 510);
-            this.picStudent.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picStudent.TabIndex = 52;
-            this.picStudent.TabStop = false;
-            this.picStudent.Visible = false;
-            this.picStudent.DoubleClick += new System.EventHandler(this.picStudent_DoubleClick);
+            picStudent.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            picStudent.Location = new System.Drawing.Point(10, 222);
+            picStudent.Name = "picStudent";
+            picStudent.Size = new System.Drawing.Size(558, 490);
+            picStudent.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            picStudent.TabIndex = 52;
+            picStudent.TabStop = false;
+            picStudent.Visible = false;
+            picStudent.DoubleClick += picStudent_DoubleClick;
             // 
             // grpSorts
             // 
-            this.grpSorts.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpSorts.Controls.Add(this.rdbDrawByRevengeFactor);
-            this.grpSorts.Controls.Add(this.rdbDrawByOldestFirst);
-            this.grpSorts.Controls.Add(this.rdbDrawNoOfGrades);
-            this.grpSorts.Controls.Add(this.rdbDrawLowGradesFirst);
-            this.grpSorts.Controls.Add(this.rdbSortByAlphbetical);
-            this.grpSorts.Controls.Add(this.rdbDrawByWeightsSum);
-            this.grpSorts.Controls.Add(this.rdbDrawEqualProbability);
-            this.grpSorts.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.grpSorts.ForeColor = System.Drawing.Color.DarkBlue;
-            this.grpSorts.Location = new System.Drawing.Point(696, 38);
-            this.grpSorts.Name = "grpSorts";
-            this.grpSorts.Size = new System.Drawing.Size(216, 179);
-            this.grpSorts.TabIndex = 69;
-            this.grpSorts.TabStop = false;
-            this.grpSorts.Text = "Criteri sorteg. o ordinam.";
+            grpSorts.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            grpSorts.Controls.Add(rdbDrawByRevengeFactor);
+            grpSorts.Controls.Add(rdbDrawByOldestFirst);
+            grpSorts.Controls.Add(rdbDrawNoOfGrades);
+            grpSorts.Controls.Add(rdbDrawLowGradesFirst);
+            grpSorts.Controls.Add(rdbSortByAlphbetical);
+            grpSorts.Controls.Add(rdbDrawByWeightsSum);
+            grpSorts.Controls.Add(rdbDrawEqualProbability);
+            grpSorts.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            grpSorts.ForeColor = System.Drawing.Color.DarkBlue;
+            grpSorts.Location = new System.Drawing.Point(696, 38);
+            grpSorts.Name = "grpSorts";
+            grpSorts.Size = new System.Drawing.Size(216, 179);
+            grpSorts.TabIndex = 69;
+            grpSorts.TabStop = false;
+            grpSorts.Text = "Criteri sorteg. o ordinam.";
             // 
             // btnAssess
             // 
-            this.btnAssess.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAssess.BackColor = System.Drawing.Color.Transparent;
-            this.btnAssess.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnAssess.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnAssess.Location = new System.Drawing.Point(803, 425);
-            this.btnAssess.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnAssess.Name = "btnAssess";
-            this.btnAssess.Size = new System.Drawing.Size(101, 54);
-            this.btnAssess.TabIndex = 30;
-            this.btnAssess.Text = "Valutazione";
-            this.btnAssess.UseVisualStyleBackColor = false;
-            this.btnAssess.Click += new System.EventHandler(this.btnAssess_Click);
+            btnAssess.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnAssess.BackColor = System.Drawing.Color.Transparent;
+            btnAssess.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnAssess.ForeColor = System.Drawing.Color.DarkBlue;
+            btnAssess.Location = new System.Drawing.Point(803, 429);
+            btnAssess.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            btnAssess.Name = "btnAssess";
+            btnAssess.Size = new System.Drawing.Size(94, 48);
+            btnAssess.TabIndex = 30;
+            btnAssess.Text = "Valutaz.";
+            btnAssess.UseVisualStyleBackColor = false;
+            btnAssess.Click += btnAssess_Click;
             // 
             // lblSchoolSubject
             // 
-            this.lblSchoolSubject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblSchoolSubject.AutoSize = true;
-            this.lblSchoolSubject.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblSchoolSubject.Location = new System.Drawing.Point(668, 279);
-            this.lblSchoolSubject.Name = "lblSchoolSubject";
-            this.lblSchoolSubject.Size = new System.Drawing.Size(64, 18);
-            this.lblSchoolSubject.TabIndex = 109;
-            this.lblSchoolSubject.Text = "Materia";
+            lblSchoolSubject.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            lblSchoolSubject.AutoSize = true;
+            lblSchoolSubject.ForeColor = System.Drawing.Color.DarkBlue;
+            lblSchoolSubject.Location = new System.Drawing.Point(668, 279);
+            lblSchoolSubject.Name = "lblSchoolSubject";
+            lblSchoolSubject.Size = new System.Drawing.Size(64, 18);
+            lblSchoolSubject.TabIndex = 109;
+            lblSchoolSubject.Text = "Materia";
             // 
             // lblGradeType
             // 
-            this.lblGradeType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblGradeType.AutoSize = true;
-            this.lblGradeType.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblGradeType.Location = new System.Drawing.Point(666, 224);
-            this.lblGradeType.Name = "lblGradeType";
-            this.lblGradeType.Size = new System.Drawing.Size(131, 18);
-            this.lblGradeType.TabIndex = 110;
-            this.lblGradeType.Text = "Tipo valutazione";
+            lblGradeType.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            lblGradeType.AutoSize = true;
+            lblGradeType.ForeColor = System.Drawing.Color.DarkBlue;
+            lblGradeType.Location = new System.Drawing.Point(666, 224);
+            lblGradeType.Name = "lblGradeType";
+            lblGradeType.Size = new System.Drawing.Size(131, 18);
+            lblGradeType.TabIndex = 110;
+            lblGradeType.Text = "Tipo valutazione";
             // 
             // timerLesson
             // 
-            this.timerLesson.Tick += new System.EventHandler(this.timerLesson_Tick);
+            timerLesson.Tick += timerLesson_Tick;
             // 
             // chkEnableEndLessonWarning
             // 
-            this.chkEnableEndLessonWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkEnableEndLessonWarning.AutoSize = true;
-            this.chkEnableEndLessonWarning.Checked = true;
-            this.chkEnableEndLessonWarning.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkEnableEndLessonWarning.Location = new System.Drawing.Point(396, 403);
-            this.chkEnableEndLessonWarning.Name = "chkEnableEndLessonWarning";
-            this.chkEnableEndLessonWarning.Size = new System.Drawing.Size(174, 22);
-            this.chkEnableEndLessonWarning.TabIndex = 158;
-            this.chkEnableEndLessonWarning.Text = "Allarme fine lezione";
-            this.chkEnableEndLessonWarning.UseVisualStyleBackColor = true;
-            this.chkEnableEndLessonWarning.CheckedChanged += new System.EventHandler(this.chkEnableEndLessonWarning_CheckedChanged);
+            chkEnableEndLessonWarning.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            chkEnableEndLessonWarning.AutoSize = true;
+            chkEnableEndLessonWarning.Checked = true;
+            chkEnableEndLessonWarning.CheckState = System.Windows.Forms.CheckState.Checked;
+            chkEnableEndLessonWarning.Location = new System.Drawing.Point(396, 403);
+            chkEnableEndLessonWarning.Name = "chkEnableEndLessonWarning";
+            chkEnableEndLessonWarning.Size = new System.Drawing.Size(174, 22);
+            chkEnableEndLessonWarning.TabIndex = 158;
+            chkEnableEndLessonWarning.Text = "Allarme fine lezione";
+            chkEnableEndLessonWarning.UseVisualStyleBackColor = true;
+            chkEnableEndLessonWarning.CheckedChanged += chkEnableEndLessonWarning_CheckedChanged;
             // 
             // grpImageSource
             // 
-            this.grpImageSource.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpImageSource.Controls.Add(this.chkLessonsPictures);
-            this.grpImageSource.Controls.Add(this.chkGivenFolder);
-            this.grpImageSource.ForeColor = System.Drawing.Color.DarkBlue;
-            this.grpImageSource.Location = new System.Drawing.Point(572, 67);
-            this.grpImageSource.Name = "grpImageSource";
-            this.grpImageSource.Size = new System.Drawing.Size(118, 64);
-            this.grpImageSource.TabIndex = 158;
-            this.grpImageSource.TabStop = false;
-            this.grpImageSource.Text = "Sorg.immag.";
+            grpImageSource.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            grpImageSource.Controls.Add(chkLessonsPictures);
+            grpImageSource.Controls.Add(chkGivenFolder);
+            grpImageSource.ForeColor = System.Drawing.Color.DarkBlue;
+            grpImageSource.Location = new System.Drawing.Point(572, 67);
+            grpImageSource.Name = "grpImageSource";
+            grpImageSource.Size = new System.Drawing.Size(118, 64);
+            grpImageSource.TabIndex = 158;
+            grpImageSource.TabStop = false;
+            grpImageSource.Text = "Sorg.immag.";
             // 
             // grpChooseDrawSort
             // 
-            this.grpChooseDrawSort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpChooseDrawSort.Controls.Add(this.rdbMustSort);
-            this.grpChooseDrawSort.Controls.Add(this.rdbMustDraw);
-            this.grpChooseDrawSort.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.grpChooseDrawSort.Location = new System.Drawing.Point(696, 0);
-            this.grpChooseDrawSort.Name = "grpChooseDrawSort";
-            this.grpChooseDrawSort.Size = new System.Drawing.Size(216, 33);
-            this.grpChooseDrawSort.TabIndex = 165;
-            this.grpChooseDrawSort.TabStop = false;
+            grpChooseDrawSort.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            grpChooseDrawSort.Controls.Add(rdbMustSort);
+            grpChooseDrawSort.Controls.Add(rdbMustDraw);
+            grpChooseDrawSort.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            grpChooseDrawSort.Location = new System.Drawing.Point(696, 0);
+            grpChooseDrawSort.Name = "grpChooseDrawSort";
+            grpChooseDrawSort.Size = new System.Drawing.Size(216, 33);
+            grpChooseDrawSort.TabIndex = 165;
+            grpChooseDrawSort.TabStop = false;
             // 
             // rdbMustSort
             // 
-            this.rdbMustSort.AutoSize = true;
-            this.rdbMustSort.Location = new System.Drawing.Point(112, 9);
-            this.rdbMustSort.Name = "rdbMustSort";
-            this.rdbMustSort.Size = new System.Drawing.Size(95, 22);
-            this.rdbMustSort.TabIndex = 1;
-            this.rdbMustSort.Text = "Ordinam.";
-            this.rdbMustSort.UseVisualStyleBackColor = true;
+            rdbMustSort.AutoSize = true;
+            rdbMustSort.Location = new System.Drawing.Point(112, 9);
+            rdbMustSort.Name = "rdbMustSort";
+            rdbMustSort.Size = new System.Drawing.Size(95, 22);
+            rdbMustSort.TabIndex = 1;
+            rdbMustSort.Text = "Ordinam.";
+            rdbMustSort.UseVisualStyleBackColor = true;
             // 
             // rdbMustDraw
             // 
-            this.rdbMustDraw.AutoSize = true;
-            this.rdbMustDraw.Checked = true;
-            this.rdbMustDraw.Location = new System.Drawing.Point(6, 9);
-            this.rdbMustDraw.Name = "rdbMustDraw";
-            this.rdbMustDraw.Size = new System.Drawing.Size(99, 22);
-            this.rdbMustDraw.TabIndex = 0;
-            this.rdbMustDraw.TabStop = true;
-            this.rdbMustDraw.Text = "Sorteggio";
-            this.rdbMustDraw.UseVisualStyleBackColor = true;
+            rdbMustDraw.AutoSize = true;
+            rdbMustDraw.Checked = true;
+            rdbMustDraw.Location = new System.Drawing.Point(6, 9);
+            rdbMustDraw.Name = "rdbMustDraw";
+            rdbMustDraw.Size = new System.Drawing.Size(99, 22);
+            rdbMustDraw.TabIndex = 0;
+            rdbMustDraw.TabStop = true;
+            rdbMustDraw.Text = "Sorteggio";
+            rdbMustDraw.UseVisualStyleBackColor = true;
             // 
             // lstTimeInterval
             // 
-            this.lstTimeInterval.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lstTimeInterval.FormattingEnabled = true;
-            this.lstTimeInterval.ItemHeight = 18;
-            this.lstTimeInterval.Items.AddRange(new object[] {
-            "5",
-            "10",
-            "15",
-            "30",
-            "45",
-            "60"});
-            this.lstTimeInterval.Location = new System.Drawing.Point(168, 28);
-            this.lstTimeInterval.Name = "lstTimeInterval";
-            this.lstTimeInterval.Size = new System.Drawing.Size(46, 112);
-            this.lstTimeInterval.TabIndex = 166;
-            this.lstTimeInterval.SelectedIndexChanged += new System.EventHandler(this.lstTimeInterval_SelectedIndexChanged);
-            this.lstTimeInterval.DoubleClick += new System.EventHandler(this.lstTimeInterval_DoubleClick);
+            lstTimeInterval.ForeColor = System.Drawing.Color.DarkBlue;
+            lstTimeInterval.FormattingEnabled = true;
+            lstTimeInterval.ItemHeight = 18;
+            lstTimeInterval.Items.AddRange(new object[] { "05", "10", "15", "30", "45", "60" });
+            lstTimeInterval.Location = new System.Drawing.Point(172, 28);
+            lstTimeInterval.Name = "lstTimeInterval";
+            lstTimeInterval.Size = new System.Drawing.Size(32, 112);
+            lstTimeInterval.TabIndex = 166;
+            lstTimeInterval.SelectedIndexChanged += lstTimeInterval_SelectedIndexChanged;
+            lstTimeInterval.DoubleClick += lstTimeInterval_DoubleClick;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(16, 107);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(48, 13);
-            this.label2.TabIndex = 172;
-            this.label2.Text = "salv.db";
+            label2.AutoSize = true;
+            label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label2.Location = new System.Drawing.Point(16, 107);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(48, 13);
+            label2.TabIndex = 172;
+            label2.Text = "salv.db";
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(11, 64);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(58, 13);
-            this.label7.TabIndex = 178;
-            this.label7.Text = "Id classe";
+            label7.AutoSize = true;
+            label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label7.Location = new System.Drawing.Point(11, 64);
+            label7.Name = "label7";
+            label7.Size = new System.Drawing.Size(58, 13);
+            label7.TabIndex = 178;
+            label7.Text = "Id classe";
             // 
             // label8
             // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label8.Location = new System.Drawing.Point(844, 326);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(41, 13);
-            this.label8.TabIndex = 180;
-            this.label8.Text = "tempo";
+            label8.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            label8.AutoSize = true;
+            label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label8.Location = new System.Drawing.Point(844, 326);
+            label8.Name = "label8";
+            label8.Size = new System.Drawing.Size(41, 13);
+            label8.TabIndex = 180;
+            label8.Text = "tempo";
             // 
             // label9
             // 
-            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label9.Location = new System.Drawing.Point(888, 346);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(26, 13);
-            this.label9.TabIndex = 182;
-            this.label9.Text = "min";
+            label9.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            label9.AutoSize = true;
+            label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label9.Location = new System.Drawing.Point(888, 346);
+            label9.Name = "label9";
+            label9.Size = new System.Drawing.Size(26, 13);
+            label9.TabIndex = 182;
+            label9.Text = "min";
             // 
             // timerPopUp
             // 
-            this.timerPopUp.Tick += new System.EventHandler(this.timerPopUp_Tick);
+            timerPopUp.Tick += timerPopUp_Tick;
             // 
             // dgwStudents
             // 
-            this.dgwStudents.AllowUserToAddRows = false;
-            this.dgwStudents.AllowUserToDeleteRows = false;
-            this.dgwStudents.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgwStudents.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
-            this.dgwStudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgwStudents.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgwStudents.Location = new System.Drawing.Point(8, 222);
-            this.dgwStudents.Name = "dgwStudents";
-            this.dgwStudents.ReadOnly = true;
-            this.dgwStudents.Size = new System.Drawing.Size(382, 509);
-            this.dgwStudents.TabIndex = 185;
-            this.dgwStudents.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwStudents_CellContentClick);
-            this.dgwStudents.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwStudents_CellDoubleClick);
-            this.dgwStudents.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgwStudents_DataBindingComplete);
+            dgwStudents.AllowUserToAddRows = false;
+            dgwStudents.AllowUserToDeleteRows = false;
+            dgwStudents.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            dgwStudents.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
+            dgwStudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgwStudents.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            dgwStudents.Location = new System.Drawing.Point(8, 222);
+            dgwStudents.Name = "dgwStudents";
+            dgwStudents.ReadOnly = true;
+            dgwStudents.Size = new System.Drawing.Size(382, 489);
+            dgwStudents.TabIndex = 185;
+            dgwStudents.CellContentClick += dgwStudents_CellContentClick;
+            dgwStudents.CellDoubleClick += dgwStudents_CellDoubleClick;
+            dgwStudents.DataBindingComplete += dgwStudents_DataBindingComplete;
             // 
             // frmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.PowderBlue;
-            this.ClientSize = new System.Drawing.Size(918, 741);
-            this.Controls.Add(this.lblLastDatabaseModification);
-            this.Controls.Add(this.lblIdStudent);
-            this.Controls.Add(this.txtIdStudent);
-            this.Controls.Add(this.dgwStudents);
-            this.Controls.Add(this.chkSoundsInColorTimer);
-            this.Controls.Add(this.btnTemporary);
-            this.Controls.Add(this.btnRandomNumber);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.txtPopUpQuestionCentralTime);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.chkPopUpQuestionsEnabled);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.txtIdClass);
-            this.Controls.Add(this.btnStudentsNotes);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.txtNStudents);
-            this.Controls.Add(this.btnShowRandomImage);
-            this.Controls.Add(this.btnStartBarTimer);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.picBackgroundSaveRunning);
-            this.Controls.Add(this.btnMosaic);
-            this.Controls.Add(this.btnStartColorTimer);
-            this.Controls.Add(this.txtTimeInterval);
-            this.Controls.Add(this.lstTimeInterval);
-            this.Controls.Add(this.grpChooseDrawSort);
-            this.Controls.Add(this.grpImageSource);
-            this.Controls.Add(this.chkActivateLessonClock);
-            this.Controls.Add(this.chkEnableEndLessonWarning);
-            this.Controls.Add(this.btnOldestGrade);
-            this.Controls.Add(this.btnAssess);
-            this.Controls.Add(this.btnDraw);
-            this.Controls.Add(this.butComeOn);
-            this.Controls.Add(this.btnYearTopics);
-            this.Controls.Add(this.btnCheckNoGrade);
-            this.Controls.Add(this.btnClassesGradesSummary);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnCheckRevenge);
-            this.Controls.Add(this.chkSuspence);
-            this.Controls.Add(this.btnCheckToggle);
-            this.Controls.Add(this.lblVindicationFactor);
-            this.Controls.Add(this.txtRevengeFactor);
-            this.Controls.Add(this.btnVindicationFactorMinus);
-            this.Controls.Add(this.btnVindicationFactorPlus);
-            this.Controls.Add(this.lblDatabaseFile);
-            this.Controls.Add(this.txtAdvanceMinutes);
-            this.Controls.Add(this.txtDurationLesson);
-            this.Controls.Add(this.txtMinuteStartLesson);
-            this.Controls.Add(this.btnLessonTime);
-            this.Controls.Add(this.btnMakeGroups);
-            this.Controls.Add(this.txtQuestion);
-            this.Controls.Add(this.btnQuestion);
-            this.Controls.Add(this.btnStartLinks);
-            this.Controls.Add(this.btnTopicsDone);
-            this.Controls.Add(this.lblGradeType);
-            this.Controls.Add(this.lblSchoolSubject);
-            this.Controls.Add(this.cmbSchoolSubject);
-            this.Controls.Add(this.btnLessonsTopics);
-            this.Controls.Add(this.cmbGradeType);
-            this.Controls.Add(this.btnStudentsGradesSummary);
-            this.Controls.Add(this.btnSetup);
-            this.Controls.Add(this.grpSorts);
-            this.Controls.Add(this.btnPath);
-            this.Controls.Add(this.txtPathImages);
-            this.Controls.Add(this.cmbSchoolYear);
-            this.Controls.Add(this.chkStudentsListVisible);
-            this.Controls.Add(this.chkFotoVisibile);
-            this.Controls.Add(this.chkNomeVisibile);
-            this.Controls.Add(this.pgbTimeQuestion);
-            this.Controls.Add(this.lblCodYear);
-            this.Controls.Add(this.lstClasses);
-            this.Controls.Add(this.btnCheckNone);
-            this.Controls.Add(this.btnCheckAll);
-            this.Controls.Add(this.lblStudentChosen);
-            this.Controls.Add(this.picStudent);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.ForeColor = System.Drawing.Color.DarkBlue;
-            this.HelpButton = true;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.Name = "frmMain";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "SchoolGrades";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
-            this.Load += new System.EventHandler(this.frmMain_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.picBackgroundSaveRunning)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picStudent)).EndInit();
-            this.grpSorts.ResumeLayout(false);
-            this.grpSorts.PerformLayout();
-            this.grpImageSource.ResumeLayout(false);
-            this.grpImageSource.PerformLayout();
-            this.grpChooseDrawSort.ResumeLayout(false);
-            this.grpChooseDrawSort.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgwStudents)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.PowderBlue;
+            ClientSize = new System.Drawing.Size(918, 721);
+            Controls.Add(lblLastDatabaseModification);
+            Controls.Add(lblIdStudent);
+            Controls.Add(txtIdStudent);
+            Controls.Add(dgwStudents);
+            Controls.Add(chkSoundsInColorTimer);
+            Controls.Add(btnTemporary);
+            Controls.Add(btnRandomNumber);
+            Controls.Add(label9);
+            Controls.Add(txtPopUpQuestionCentralTime);
+            Controls.Add(label8);
+            Controls.Add(chkPopUpQuestionsEnabled);
+            Controls.Add(label7);
+            Controls.Add(txtIdClass);
+            Controls.Add(btnStudentsNotes);
+            Controls.Add(label6);
+            Controls.Add(txtNStudents);
+            Controls.Add(btnShowRandomImage);
+            Controls.Add(btnStartBarTimer);
+            Controls.Add(label2);
+            Controls.Add(picBackgroundSaveRunning);
+            Controls.Add(btnMosaic);
+            Controls.Add(btnStartColorTimer);
+            Controls.Add(txtTimeInterval);
+            Controls.Add(lstTimeInterval);
+            Controls.Add(grpChooseDrawSort);
+            Controls.Add(grpImageSource);
+            Controls.Add(chkActivateLessonClock);
+            Controls.Add(chkEnableEndLessonWarning);
+            Controls.Add(btnOldestGrade);
+            Controls.Add(btnAssess);
+            Controls.Add(btnDraw);
+            Controls.Add(butComeOn);
+            Controls.Add(btnYearTopics);
+            Controls.Add(btnCheckNoGrade);
+            Controls.Add(btnClassesGradesSummary);
+            Controls.Add(label4);
+            Controls.Add(label3);
+            Controls.Add(label1);
+            Controls.Add(btnCheckRevenge);
+            Controls.Add(chkSuspence);
+            Controls.Add(btnCheckToggle);
+            Controls.Add(lblVindicationFactor);
+            Controls.Add(txtRevengeFactor);
+            Controls.Add(btnVindicationFactorMinus);
+            Controls.Add(btnVindicationFactorPlus);
+            Controls.Add(lblDatabaseFile);
+            Controls.Add(txtAdvanceMinutes);
+            Controls.Add(txtDurationLesson);
+            Controls.Add(txtMinuteStartLesson);
+            Controls.Add(btnLessonTime);
+            Controls.Add(btnMakeGroups);
+            Controls.Add(txtQuestion);
+            Controls.Add(btnQuestion);
+            Controls.Add(btnStartLinks);
+            Controls.Add(btnTopicsDone);
+            Controls.Add(lblGradeType);
+            Controls.Add(lblSchoolSubject);
+            Controls.Add(cmbSchoolSubject);
+            Controls.Add(btnLessonsTopics);
+            Controls.Add(cmbGradeType);
+            Controls.Add(btnStudentsGradesSummary);
+            Controls.Add(btnSetup);
+            Controls.Add(grpSorts);
+            Controls.Add(btnPath);
+            Controls.Add(txtPathImages);
+            Controls.Add(cmbSchoolYear);
+            Controls.Add(chkStudentsListVisible);
+            Controls.Add(chkFotoVisibile);
+            Controls.Add(chkNomeVisibile);
+            Controls.Add(pgbTimeQuestion);
+            Controls.Add(lblCodYear);
+            Controls.Add(lstClasses);
+            Controls.Add(btnCheckNone);
+            Controls.Add(btnCheckAll);
+            Controls.Add(lblStudentChosen);
+            Controls.Add(picStudent);
+            Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            ForeColor = System.Drawing.Color.DarkBlue;
+            HelpButton = true;
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            Name = "frmMain";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            Text = "SchoolGrades";
+            FormClosing += frmMain_FormClosing;
+            Load += frmMain_Load;
+            ((System.ComponentModel.ISupportInitialize)picBackgroundSaveRunning).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picStudent).EndInit();
+            grpSorts.ResumeLayout(false);
+            grpSorts.PerformLayout();
+            grpImageSource.ResumeLayout(false);
+            grpImageSource.PerformLayout();
+            grpChooseDrawSort.ResumeLayout(false);
+            grpChooseDrawSort.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgwStudents).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

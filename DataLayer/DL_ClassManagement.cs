@@ -123,11 +123,11 @@ namespace SchoolGrades
         }
         internal string CreateOneClassOnlyDatabase(Class Class)
         {
-            string newDatabasePathName = Path.Combine(Class.PathRestrictedApplication , @"SchoolGrades\Data");
+            string newDatabasePathName = Path.Combine(Class.PathRestrictedApplication, @"SchoolGrades\Data");
             if (!Directory.Exists(newDatabasePathName))
                 Directory.CreateDirectory(newDatabasePathName);
 
-            string newDatabaseFullName = Path.Combine(newDatabasePathName ,
+            string newDatabaseFullName = Path.Combine(newDatabasePathName,
                 System.DateTime.Now.ToString("yyyy-MM-dd_HH.mm.ss") +
                 "_" + Class.Abbreviation + "_" + Class.SchoolYear + "_" +
                 Commons.DatabaseFileName_Teacher);
@@ -245,7 +245,7 @@ namespace SchoolGrades
                 cmd.ExecuteNonQuery();
 
                 // null all Special Needs flags (privacy) 
-                cmd = conn.CreateCommand(); 
+                cmd = conn.CreateCommand();
                 cmd.CommandText = "UPDATE Students" +
                     " SET hasSpecialNeeds=null" +
                     ";";
@@ -386,23 +386,41 @@ namespace SchoolGrades
                 // find the key for next picture 
                 int idNextPhoto = NextKey("StudentsPhotos", "idStudentsPhoto");
                 // add the student to the students' table 
-                // start from the second row of the file, first row is descriptions 
+                // start from the second row of the file, first row is descriptions of columns 
                 for (int row = 1; row < StudentsData.GetLength(0); row++)
                 {
-                    int rigap1 = row + 1;
-                    // create new student
-                    cmd.CommandText = "INSERT INTO Students " +
+                    int nColumns = StudentsData.GetLength(1);
+                    int rigap1 = row + 1, dummy;
+                    string query = "INSERT INTO Students " +
                         "(idStudent, lastName, firstName, birthDate, residence, origin, email, birthPlace) " +
-                        "Values (" +
-                        "" + idNextStudent + "," +
-                        SqlString(StudentsData[row, 1]) + "," +
-                        SqlString(StudentsData[row, 2]) + "," +
-                        SqlString(StudentsData[row, 3]) + "," +
-                        SqlString(StudentsData[row, 4]) + "," +
-                        SqlString(StudentsData[row, 5]) + "," +
-                        SqlDate(StudentsData[row, 6]) + "," +
-                        SqlString(StudentsData[row, 7]) + "" +
-                        ");";
+                        "Values (" + idNextStudent;
+                    // create new student
+                    // last name in column 1 
+                    query += "," + SqlString(StudentsData[row, 1])
+                        + "," + SqlString(StudentsData[row, 2]);
+                    // if we have a column 3, it is birth date 
+                    if (nColumns > 3)
+                        query += "," + SqlString(StudentsData[row, 3]);
+                    else
+                        query += ", ''";
+                    if (nColumns > 4)
+                        query += ", ''" + SqlString(StudentsData[row, 4]);
+                    else
+                        query += ", ''";
+                    if (nColumns > 5)
+                        query += ", ''" + SqlString(StudentsData[row, 5]);
+                    else
+                        query += ", ''";
+                    if (nColumns > 6)
+                        query += ", ''" + SqlString(StudentsData[row, 6]);
+                    else
+                        query += ", ''";
+                    if (nColumns > 7)
+                        query += ", ''" + SqlString(StudentsData[row, 7]);
+                    else
+                        query += ", ''";
+                    query += ");";
+                    cmd.CommandText = query;
                     cmd.ExecuteNonQuery();
 
                     // add the new student to the class
@@ -498,7 +516,7 @@ namespace SchoolGrades
                     ";";
                 cmd.CommandText = query;
                 dRead = cmd.ExecuteReader();
-                dRead.Read(); 
+                dRead.Read();
 
                 c = new Class(IdClass, Safe.String(dRead["abbreviation"]), Safe.String(dRead["idSchoolYear"]),
                     Safe.String(dRead["idSchool"]));
@@ -546,7 +564,7 @@ namespace SchoolGrades
                 string query = "SELECT Classes.*" +
                    " FROM Classes" +
                    " WHERE" +
-                   " Classes.idSchoolYear=" + SqlString(IdSchoolYear) + 
+                   " Classes.idSchoolYear=" + SqlString(IdSchoolYear) +
                    " AND Classes.abbreviation=" + SqlString(ClassAbbreviation);
                 if (IdSchool != null && IdSchool != "")
                     query += " AND Classes.idSchool = " + SqlString(IdSchool);
@@ -653,7 +671,7 @@ namespace SchoolGrades
                     y.IdSchoolYear = (string)dRead["idSchoolYear"];
                     y.ShortDescription = Safe.String(dRead["shortDesc"]);
                     y.Notes = Safe.String(dRead["notes"]);
- 
+
                     ly.Add(y);
                 }
                 dRead.Dispose();

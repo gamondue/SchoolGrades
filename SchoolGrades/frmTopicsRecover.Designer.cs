@@ -81,8 +81,9 @@
             checkBox6 = new System.Windows.Forms.CheckBox();
             picSameNodeChangedPosition = new System.Windows.Forms.PictureBox();
             toolTip1 = new System.Windows.Forms.ToolTip(components);
-            btnTemporary = new System.Windows.Forms.Button();
             btnBeheaded = new System.Windows.Forms.Button();
+            btnTemporary = new System.Windows.Forms.Button();
+            button1 = new System.Windows.Forms.Button();
             label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -620,19 +621,6 @@
             picSameNodeChangedPosition.TabIndex = 157;
             picSameNodeChangedPosition.TabStop = false;
             // 
-            // btnTemporary
-            // 
-            btnTemporary.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnTemporary.BackColor = System.Drawing.Color.Red;
-            btnTemporary.ForeColor = System.Drawing.Color.Yellow;
-            btnTemporary.Location = new System.Drawing.Point(588, 106);
-            btnTemporary.Name = "btnTemporary";
-            btnTemporary.Size = new System.Drawing.Size(326, 64);
-            btnTemporary.TabIndex = 165;
-            btnTemporary.Text = "Danger area. This code makes heavy changes to the database and is barely tested.       Backup before saving in this window!";
-            toolTip1.SetToolTip(btnTemporary, "Lancio dei link e programmi legati alla classe");
-            btnTemporary.UseVisualStyleBackColor = false;
-            // 
             // btnBeheaded
             // 
             btnBeheaded.Location = new System.Drawing.Point(84, 120);
@@ -644,6 +632,32 @@
             btnBeheaded.UseCompatibleTextRendering = true;
             btnBeheaded.UseVisualStyleBackColor = true;
             btnBeheaded.Click += btnBeheaded_Click;
+            // 
+            // btnTemporary
+            // 
+            btnTemporary.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnTemporary.BackColor = System.Drawing.Color.Red;
+            btnTemporary.ForeColor = System.Drawing.Color.Yellow;
+            btnTemporary.Location = new System.Drawing.Point(599, 110);
+            btnTemporary.Name = "btnTemporary";
+            btnTemporary.Size = new System.Drawing.Size(315, 64);
+            btnTemporary.TabIndex = 165;
+            btnTemporary.Text = "Danger area. This code makes heavy changes to the database and is barely tested.       Backup before saving in this window!";
+            toolTip1.SetToolTip(btnTemporary, "Lancio dei link e programmi legati alla classe");
+            btnTemporary.UseVisualStyleBackColor = false;
+            // 
+            // button1
+            // 
+            button1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            button1.BackColor = System.Drawing.Color.Red;
+            button1.ForeColor = System.Drawing.Color.Yellow;
+            button1.Location = new System.Drawing.Point(158, 1);
+            button1.Name = "button1";
+            button1.Size = new System.Drawing.Size(436, 36);
+            button1.TabIndex = 168;
+            button1.Text = "PAGINA SPERIMENTALE. Codice non finito e non verificato. ";
+            toolTip1.SetToolTip(button1, "Lancio dei link e programmi legati alla classe");
+            button1.UseVisualStyleBackColor = false;
             // 
             // label3
             // 
@@ -661,6 +675,7 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.PowderBlue;
             ClientSize = new System.Drawing.Size(1266, 652);
+            Controls.Add(button1);
             Controls.Add(btnBeheaded);
             Controls.Add(label3);
             Controls.Add(btnTemporary);
@@ -777,5 +792,6 @@
         private System.Windows.Forms.Button btnTemporary;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnBeheaded;
+        private System.Windows.Forms.Button button1;
     }
 }

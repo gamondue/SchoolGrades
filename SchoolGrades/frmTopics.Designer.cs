@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTopics));
             trwTopics = new System.Windows.Forms.TreeView();
             btnSaveTree = new System.Windows.Forms.Button();
@@ -54,6 +55,7 @@
             chkSearchInDescriptions = new System.Windows.Forms.CheckBox();
             chkCaseInsensitive = new System.Windows.Forms.CheckBox();
             chkAllWord = new System.Windows.Forms.CheckBox();
+            toolTip1 = new System.Windows.Forms.ToolTip(components);
             ((System.ComponentModel.ISupportInitialize)splcHorizontal).BeginInit();
             splcHorizontal.Panel1.SuspendLayout();
             splcHorizontal.Panel2.SuspendLayout();
@@ -68,7 +70,6 @@
             trwTopics.Name = "trwTopics";
             trwTopics.Size = new System.Drawing.Size(475, 510);
             trwTopics.TabIndex = 2;
-            trwTopics.AfterSelect += trwTopics_AfterSelect;
             // 
             // btnSaveTree
             // 
@@ -78,6 +79,7 @@
             btnSaveTree.Size = new System.Drawing.Size(124, 61);
             btnSaveTree.TabIndex = 4;
             btnSaveTree.Text = "Salva argomenti (F5)";
+            toolTip1.SetToolTip(btnSaveTree, "Salvataggio di tutti gli argomenti");
             btnSaveTree.UseVisualStyleBackColor = true;
             btnSaveTree.Click += btnSave_Click;
             // 
@@ -158,6 +160,7 @@
             btnFind.Size = new System.Drawing.Size(124, 61);
             btnFind.TabIndex = 2;
             btnFind.Text = "Trova (F3)";
+            toolTip1.SetToolTip(btnFind, "Effettua ricerca");
             btnFind.UseVisualStyleBackColor = true;
             btnFind.Click += btnFind_Click;
             // 
@@ -170,7 +173,6 @@
             lblExplain.Size = new System.Drawing.Size(267, 13);
             lblExplain.TabIndex = 10;
             lblExplain.Text = "Drag per spostare su nodo padre, Ctrl Drag per fratello. ";
-            lblExplain.Click += lblExplain_Click;
             // 
             // btnDelete
             // 
@@ -180,6 +182,7 @@
             btnDelete.Size = new System.Drawing.Size(124, 61);
             btnDelete.TabIndex = 126;
             btnDelete.Text = "Elimina (Canc)";
+            toolTip1.SetToolTip(btnDelete, "Cancella l'argomento selezionato e tutti i suoi figli");
             btnDelete.UseVisualStyleBackColor = true;
             btnDelete.Click += btnDelete_Click;
             // 
@@ -191,6 +194,7 @@
             btnAddNodeSon.Size = new System.Drawing.Size(124, 61);
             btnAddNodeSon.TabIndex = 127;
             btnAddNodeSon.Text = "Aggiungi figlio (Ins)";
+            toolTip1.SetToolTip(btnAddNodeSon, "Aggiungi nuovo argomento sotto al selezionato");
             btnAddNodeSon.UseVisualStyleBackColor = true;
             btnAddNodeSon.Click += btnAddNode_Click;
             // 
@@ -242,6 +246,7 @@
             btnAddNodeBrother.Size = new System.Drawing.Size(124, 61);
             btnAddNodeBrother.TabIndex = 154;
             btnAddNodeBrother.Text = "Agg. fratello (Shift+Ins)";
+            toolTip1.SetToolTip(btnAddNodeBrother, "Aggiungi nuovo argomento a fianco del selezionato");
             btnAddNodeBrother.UseVisualStyleBackColor = true;
             btnAddNodeBrother.Click += btnAddNodeBrother_Click;
             // 
@@ -253,6 +258,7 @@
             btnFindUnderNode.Size = new System.Drawing.Size(124, 61);
             btnFindUnderNode.TabIndex = 155;
             btnFindUnderNode.Text = "Trova sotto (Shift+F3)";
+            toolTip1.SetToolTip(btnFindUnderNode, "Ricerca sotto il nodo selezionato");
             btnFindUnderNode.UseVisualStyleBackColor = true;
             btnFindUnderNode.Click += btnFindUnderNode_Click;
             // 
@@ -265,6 +271,7 @@
             chkFindAll.Size = new System.Drawing.Size(87, 22);
             chkFindAll.TabIndex = 156;
             chkFindAll.Text = "trova tutti";
+            toolTip1.SetToolTip(chkFindAll, "Trova e segna ogni occorrenza  della stringa");
             chkFindAll.UseVisualStyleBackColor = true;
             // 
             // btnArgFreemind
@@ -322,17 +329,21 @@
             chkSearchInDescriptions.Size = new System.Drawing.Size(97, 22);
             chkSearchInDescriptions.TabIndex = 162;
             chkSearchInDescriptions.Text = "In Descriz.";
+            toolTip1.SetToolTip(chkSearchInDescriptions, "Ricerca anche in descrizione");
             chkSearchInDescriptions.UseVisualStyleBackColor = true;
             // 
             // chkCaseInsensitive
             // 
             chkCaseInsensitive.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             chkCaseInsensitive.AutoSize = true;
+            chkCaseInsensitive.Checked = true;
+            chkCaseInsensitive.CheckState = System.Windows.Forms.CheckState.Checked;
             chkCaseInsensitive.Location = new System.Drawing.Point(566, 87);
             chkCaseInsensitive.Name = "chkCaseInsensitive";
             chkCaseInsensitive.Size = new System.Drawing.Size(82, 22);
             chkCaseInsensitive.TabIndex = 161;
             chkCaseInsensitive.Text = "ma && mi";
+            toolTip1.SetToolTip(chkCaseInsensitive, "Ricerca case insensitive");
             chkCaseInsensitive.UseVisualStyleBackColor = true;
             // 
             // chkAllWord
@@ -344,6 +355,7 @@
             chkAllWord.Size = new System.Drawing.Size(70, 22);
             chkAllWord.TabIndex = 160;
             chkAllWord.Text = "Parola";
+            toolTip1.SetToolTip(chkAllWord, "Ricerca a parola intera");
             chkAllWord.UseVisualStyleBackColor = true;
             // 
             // frmTopics
@@ -419,5 +431,6 @@
         private System.Windows.Forms.CheckBox chkAllWord;
         private System.Windows.Forms.CheckBox chkCaseInSensitive;
         private System.Windows.Forms.CheckBox chkCaseInsensitive;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
