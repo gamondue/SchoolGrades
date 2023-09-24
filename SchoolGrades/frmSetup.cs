@@ -23,11 +23,9 @@ namespace SchoolGrades
             TxtFileDatabase.Text = Path.GetFileName(Commons.PathAndFileDatabase);
             TxtPathImages.Text = Commons.PathImages;
             //TxtPathStartLinks.Text = Commons.PathStartLinks; // not longer used
-            Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
+
             TxtPathDocuments.Text = Commons.PathDocuments;
             chkSaveBackup.Checked = CommonsWinForms.SaveBackupWhenExiting;
-
-
         }
         private void BtnTabelle_Click(object sender, EventArgs e)
         {
@@ -86,7 +84,7 @@ namespace SchoolGrades
                 if (!Directory.Exists(Commons.PathImages))
                     Directory.CreateDirectory(Commons.PathImages);
 
-                // postition 2 was hels by PathStartLinks, that is not longer used,
+                // postition 2 was held by PathStartLinks, that is not longer used,
                 // substituted by PathRestrictedApp  (attribute of the single school class) 
                 //dati[2] = Commons.PathRestrictedApp; 
 
@@ -106,7 +104,7 @@ namespace SchoolGrades
                 CommonsWinForms.SaveBackupWhenExiting = chkSaveBackup.Checked;
                 dati[5] = CommonsWinForms.SaveBackupWhenExiting.ToString();
 
-                Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
+                //////////Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
                 // TODO !!! if the file doesn't exist copies the sample empty database. Eventually redo this code, it is ugly and not functional !!!!
                 ////if(!File.Exists(Commons.PathAndFileDatabase))
                 ////    File.Copy(".\\" + Commons.TeachersDatabaseFileName, Commons.PathAndFileDatabase);

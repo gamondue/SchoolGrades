@@ -329,18 +329,18 @@ namespace SharedWinForms
                     else
                         Commons.PathDocuments = ".";
                 }
-                dati[0] = Commons.DatabaseFileName_Current;
+                dati[0] = Commons.PathAndFileDatabase;
                 dati[1] = Commons.PathImages;
                 //dati[2] = Commons.PathStartLinks;
                 dati[3] = Commons.PathDatabase;
                 dati[4] = Commons.PathDocuments;
                 dati[5] = CommonsWinForms.SaveBackupWhenExiting.ToString();
-                MessageBox.Show("File di configurazione salvato in " + Commons.PathAndFileConfig);
 #if DEBUG
                 TextFile.ArrayToFile(Commons.PathAndFileConfig + "_DEBUG", dati, false);
 #else
                 TextFile.ArrayToFile(Commons.PathAndFileConfig, dati, false);
 #endif
+                MessageBox.Show("File di configurazione salvato in " + Commons.PathAndFileConfig);
             }
             catch (Exception e)
             {

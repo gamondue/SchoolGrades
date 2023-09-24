@@ -103,17 +103,17 @@ namespace SchoolGrades
                 target += 7;
             return from.AddDays(target - start);
         }
-        internal static bool IsValidDate(string input)
+        internal static DateTime GetValidDate(string input)
         {
             if (DateTime.TryParse(input, out DateTime date))
             {
                 // The string is a valid date, and 'date' now contains the parsed value.
-                return true;
+                return date;
             }
             else
             {
                 // The string is not a valid date.
-                return false;
+                return DateTime.MinValue;
             }
         }
         public static object CloneObject(object o)
