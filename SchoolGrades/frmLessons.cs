@@ -518,8 +518,8 @@ namespace SchoolGrades
         {
             if (trwTopics.SelectedNode == null)
             {
-                MessageBox.Show("Scegliere un argomento.\r\n" +
-                    "Verranno evidenziati gli argomenti sotto l'argomento scelto che sono stati fatti");
+                MessageBox.Show("Scegliere un argomento con click.\r\n" +
+                    "Verranno evidenziati gli argomenti fatti sotto l'argomento scelto che sono stati fatti");
                 return;
             }
             List<Topic> listDone = Commons.bl.GetTopicsDoneFromThisTopic(currentClass,
