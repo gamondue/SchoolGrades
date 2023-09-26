@@ -83,13 +83,13 @@
             rdbOrSearch = new System.Windows.Forms.RadioButton();
             btnFindUnderNode = new System.Windows.Forms.Button();
             chkCaseInsensitive = new System.Windows.Forms.CheckBox();
-            BtnSearchAmongTopics = new System.Windows.Forms.Button();
-            btnExport = new System.Windows.Forms.Button();
             chkMarkAllTopicsFound = new System.Windows.Forms.CheckBox();
             btnAddNodeBrother = new System.Windows.Forms.Button();
-            btnLessonAdd = new System.Windows.Forms.Button();
             chkAllWord = new System.Windows.Forms.CheckBox();
             chkSearchInDescriptions = new System.Windows.Forms.CheckBox();
+            BtnSearchAmongTopics = new System.Windows.Forms.Button();
+            btnExport = new System.Windows.Forms.Button();
+            btnLessonAdd = new System.Windows.Forms.Button();
             grpViewTopics.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgwOneLesson).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgwAllLessons).BeginInit();
@@ -217,16 +217,16 @@
             lblLessonDesc.Location = new System.Drawing.Point(229, 71);
             lblLessonDesc.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblLessonDesc.Name = "lblLessonDesc";
-            lblLessonDesc.Size = new System.Drawing.Size(85, 18);
+            lblLessonDesc.Size = new System.Drawing.Size(138, 18);
             lblLessonDesc.TabIndex = 110;
-            lblLessonDesc.Text = "Annotazioni";
+            lblLessonDesc.Text = "Descrizione lezione";
             // 
             // grpViewTopics
             // 
             grpViewTopics.Controls.Add(rdbNotDone);
             grpViewTopics.Controls.Add(rdbAlreadyDone);
             grpViewTopics.Controls.Add(rdbLesson);
-            grpViewTopics.Location = new System.Drawing.Point(12, 23);
+            grpViewTopics.Location = new System.Drawing.Point(113, 141);
             grpViewTopics.Name = "grpViewTopics";
             grpViewTopics.Size = new System.Drawing.Size(150, 112);
             grpViewTopics.TabIndex = 111;
@@ -489,7 +489,6 @@
             // 
             // splitContainerBigVertical.Panel1
             // 
-            splitContainerBigVertical.Panel1.Controls.Add(grpViewTopics);
             splitContainerBigVertical.Panel1.Controls.Add(splitContainerLeftHorizontal);
             splitContainerBigVertical.Panel1.Controls.Add(txtTopicsDigest);
             // 
@@ -509,6 +508,7 @@
             // 
             // splitContainerLeftHorizontal.Panel1
             // 
+            splitContainerLeftHorizontal.Panel1.Controls.Add(grpViewTopics);
             splitContainerLeftHorizontal.Panel1.Controls.Add(dgwAllLessons);
             // 
             // splitContainerLeftHorizontal.Panel2
@@ -665,7 +665,7 @@
             rdbStringSearch.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             rdbStringSearch.AutoSize = true;
             rdbStringSearch.Checked = true;
-            rdbStringSearch.Location = new System.Drawing.Point(885, 202);
+            rdbStringSearch.Location = new System.Drawing.Point(885, 45);
             rdbStringSearch.Name = "rdbStringSearch";
             rdbStringSearch.Size = new System.Drawing.Size(46, 22);
             rdbStringSearch.TabIndex = 148;
@@ -680,7 +680,7 @@
             rdbAndSearch.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             rdbAndSearch.AutoSize = true;
             rdbAndSearch.Enabled = false;
-            rdbAndSearch.Location = new System.Drawing.Point(983, 202);
+            rdbAndSearch.Location = new System.Drawing.Point(983, 45);
             rdbAndSearch.Name = "rdbAndSearch";
             rdbAndSearch.Size = new System.Drawing.Size(50, 22);
             rdbAndSearch.TabIndex = 149;
@@ -694,7 +694,7 @@
             rdbOrSearch.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             rdbOrSearch.AutoSize = true;
             rdbOrSearch.Enabled = false;
-            rdbOrSearch.Location = new System.Drawing.Point(937, 202);
+            rdbOrSearch.Location = new System.Drawing.Point(937, 45);
             rdbOrSearch.Name = "rdbOrSearch";
             rdbOrSearch.Size = new System.Drawing.Size(40, 22);
             rdbOrSearch.TabIndex = 150;
@@ -729,29 +729,6 @@
             toolTip1.SetToolTip(chkCaseInsensitive, "Ricerca case insensitive");
             chkCaseInsensitive.UseVisualStyleBackColor = true;
             // 
-            // BtnSearchAmongTopics
-            // 
-            BtnSearchAmongTopics.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            BtnSearchAmongTopics.Location = new System.Drawing.Point(646, 67);
-            BtnSearchAmongTopics.Name = "BtnSearchAmongTopics";
-            BtnSearchAmongTopics.Size = new System.Drawing.Size(108, 25);
-            BtnSearchAmongTopics.TabIndex = 143;
-            BtnSearchAmongTopics.Text = "Cerca";
-            BtnSearchAmongTopics.UseVisualStyleBackColor = true;
-            BtnSearchAmongTopics.Click += BtnSearchAmongTopics_Click;
-            // 
-            // btnExport
-            // 
-            btnExport.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnExport.ForeColor = System.Drawing.Color.Red;
-            btnExport.Location = new System.Drawing.Point(531, 67);
-            btnExport.Name = "btnExport";
-            btnExport.Size = new System.Drawing.Size(108, 25);
-            btnExport.TabIndex = 151;
-            btnExport.Text = "Export";
-            btnExport.UseVisualStyleBackColor = true;
-            btnExport.Click += btnExport_Click;
-            // 
             // chkMarkAllTopicsFound
             // 
             chkMarkAllTopicsFound.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
@@ -775,16 +752,6 @@
             toolTip1.SetToolTip(btnAddNodeBrother, "Aggiungi nuovo argomento a fianco del selezionato");
             btnAddNodeBrother.UseVisualStyleBackColor = true;
             btnAddNodeBrother.Click += btnAddNodeBrother_Click;
-            // 
-            // btnLessonAdd
-            // 
-            btnLessonAdd.Location = new System.Drawing.Point(125, 122);
-            btnLessonAdd.Name = "btnLessonAdd";
-            btnLessonAdd.Size = new System.Drawing.Size(101, 54);
-            btnLessonAdd.TabIndex = 108;
-            btnLessonAdd.Text = "Nuova lezione";
-            btnLessonAdd.UseVisualStyleBackColor = true;
-            btnLessonAdd.Click += btnLessonAdd_Click;
             // 
             // chkAllWord
             // 
@@ -811,6 +778,39 @@
             chkSearchInDescriptions.Text = "In Descriz.";
             toolTip1.SetToolTip(chkSearchInDescriptions, "Ricerca anche in descrizione");
             chkSearchInDescriptions.UseVisualStyleBackColor = true;
+            // 
+            // BtnSearchAmongTopics
+            // 
+            BtnSearchAmongTopics.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            BtnSearchAmongTopics.Location = new System.Drawing.Point(646, 67);
+            BtnSearchAmongTopics.Name = "BtnSearchAmongTopics";
+            BtnSearchAmongTopics.Size = new System.Drawing.Size(108, 25);
+            BtnSearchAmongTopics.TabIndex = 143;
+            BtnSearchAmongTopics.Text = "Cerca";
+            BtnSearchAmongTopics.UseVisualStyleBackColor = true;
+            BtnSearchAmongTopics.Click += BtnSearchAmongTopics_Click;
+            // 
+            // btnExport
+            // 
+            btnExport.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnExport.ForeColor = System.Drawing.Color.Red;
+            btnExport.Location = new System.Drawing.Point(531, 67);
+            btnExport.Name = "btnExport";
+            btnExport.Size = new System.Drawing.Size(108, 25);
+            btnExport.TabIndex = 151;
+            btnExport.Text = "Export";
+            btnExport.UseVisualStyleBackColor = true;
+            btnExport.Click += btnExport_Click;
+            // 
+            // btnLessonAdd
+            // 
+            btnLessonAdd.Location = new System.Drawing.Point(125, 122);
+            btnLessonAdd.Name = "btnLessonAdd";
+            btnLessonAdd.Size = new System.Drawing.Size(101, 54);
+            btnLessonAdd.TabIndex = 108;
+            btnLessonAdd.Text = "Nuova lezione";
+            btnLessonAdd.UseVisualStyleBackColor = true;
+            btnLessonAdd.Click += btnLessonAdd_Click;
             // 
             // frmLessons
             // 

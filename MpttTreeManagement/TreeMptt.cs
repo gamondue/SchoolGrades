@@ -79,6 +79,7 @@ namespace gamon.TreeMptt
         TextBox txtNodeName;
         TextBox txtNodeDescription;
         TextBox txtSearchString;
+        TextBox txtNodeDigest;
         TextBox txtCodNode;
 
         CheckBox chkSearchInDescriptions;
@@ -117,7 +118,7 @@ namespace gamon.TreeMptt
                 shownTreeView.KeyDown += shownTreeView_KeyDown;
                 txtNodeName.Leave += TxtNodeName_Leave;
                 txtNodeName.TextChanged += TxtNodeName_TextChanged;
-                txtNodeDescription.TextChanged += TxtNodeDescription_TextChanged;
+                txtNodeDescription.Leave += TxtNodeDescription_Leave;
                 if (chkSearchInDescriptions != null)
                     chkSearchInDescriptions.CheckedChanged += SearchCheckBoxes_CheckedChanged;
                 if (chkAllWord != null)
@@ -145,9 +146,7 @@ namespace gamon.TreeMptt
                 functionKeysEnabled = value;
             }
         }
-
         public bool HasChanges { get => hasChanges; set => hasChanges = value; }
-
         internal TreeMptt(DataLayer DataLayer, TreeView TreeViewControl,
             TextBox TxtNodeName, TextBox TxtNodeDescription, TextBox TxtNodeSearchString,
             TextBox TxtNodeDigest, TextBox TxtIdNode,
@@ -162,6 +161,7 @@ namespace gamon.TreeMptt
             txtNodeName = TxtNodeName;
             txtNodeDescription = TxtNodeDescription;
             txtSearchString = TxtNodeSearchString;
+            txtNodeDigest = TxtNodeDigest;
             txtCodNode = TxtIdNode;
 
             chkSearchInDescriptions = ChkSearchInDescriptions;
@@ -212,6 +212,7 @@ namespace gamon.TreeMptt
             {
                 // locks the concurrent modification of synchronizing variables 
                 CommonsWinForms.BackgroundSavingEnabled = false;
+                CommonsWinForms.BackgroundTaskClose = true;
             }
             // all the saving happens under a lock from other tasks
             // this saving waits here until the backgroud task hasn't finished finishing 
@@ -988,13 +989,15 @@ namespace gamon.TreeMptt
         {
             if (!(e.Label == null))
             {
-                //// stop edit selected node
-                //treeView.LabelEdit = false;
-                txtNodeName.Text = e.Label;
                 TreeNode n = shownTreeView.SelectedNode;
                 Topic t = (Topic)(n.Tag);
+                if (e.Label != n.Text)
+                {
+                    hasChanges = true;
+                    t.Changed = true;
+                }
                 t.Name = e.Label;
-                t.Changed = true;
+                txtNodeName.Text = e.Label;
             }
         }
         internal void TreeView_DragEnter(object sender, DragEventArgs e)
@@ -1065,12 +1068,14 @@ namespace gamon.TreeMptt
                             // connect to the brother of the target node 
                             (targetNode.Parent).Nodes.Insert(targetNode.Index, draggedNode);
                             (targetNode.Parent).Expand();
+                            hasChanges = true;
                         }
                         else
                         {
                             // if dragged with no key connect to the parent 
                             targetNode.Nodes.Add(draggedNode);
                             targetNode.Expand();
+                            hasChanges = true;
                         }
                     }
                 }
@@ -1088,18 +1093,18 @@ namespace gamon.TreeMptt
         }
         internal void shownTreeView_KeyDown(object sender, KeyEventArgs e)
         {
-            // editing of nodes is now forbidden 
-            //if (e.KeyCode == Keys.F2)
-            //{
-            //    if (shownTreeView.SelectedNode != null)
-            //    {
-            //        // start edit the selected node
-            //        shownTreeView.LabelEdit = true;
-            //        shownTreeView.SelectedNode.BeginEdit();
-            //    }
-            //    else
-            //        MessageBox.Show("Select the node");
-            //}
+            // editing of nodes is now forbidden
+            if (e.KeyCode == Keys.F2)
+            {
+                if (shownTreeView.SelectedNode != null)
+                {
+                    // start edit the selected node
+                    shownTreeView.LabelEdit = true;
+                    shownTreeView.SelectedNode.BeginEdit();
+                }
+                else
+                    MessageBox.Show("Select the node");
+            }
             if (e.KeyCode == Keys.Insert)
             {
                 if (Control.ModifierKeys == Keys.Shift)
@@ -1131,7 +1136,7 @@ namespace gamon.TreeMptt
                     Topic t = (Topic)e.Node.Tag;
                     string path = dbMptt.GetNodePath(t.LeftNodeOld, t.RightNodeOld);
                     string stringToAdd = GetStringOfJustSomeNodesOfPath(path);
-                    txtSearchString.Text += stringToAdd;
+                    txtNodeDigest.Text += stringToAdd;
                 }
             }
         }
@@ -1147,6 +1152,11 @@ namespace gamon.TreeMptt
                 try
                 {
                     Topic t = (Topic)(TreeView.SelectedNode.Tag);
+                    if (txtNodeName.Text != t.Name)
+                    {
+                        hasChanges = true;
+                        t.Changed = true;
+                    }
                     t.Name = txtNodeName.Text;
                     TreeView.SelectedNode.Text = txtNodeName.Text;
                 }
@@ -1204,19 +1214,23 @@ namespace gamon.TreeMptt
                     {   // if user pushed Enter key
                         txtNodeName.Text = txtNodeName.Text.Substring(0, txtNodeName.Text.Length - 2);
                     }
-                    Topic t = (Topic)(shownTreeView.SelectedNode.Tag);
-                    t.Name = txtNodeName.Text;
-                    t.Changed = true;
+                    //Topic t = (Topic)(shownTreeView.SelectedNode.Tag);
+                    //t.Name = txtNodeName.Text;
+                    //t.Changed = true;
                 }
             }
         }
-        private void TxtNodeDescription_TextChanged(object sender, EventArgs e)
+        private void TxtNodeDescription_Leave(object sender, EventArgs e)
         {
             if (hasNodeBeenSelectedFromTree)
                 return;
             Topic t = (Topic)(shownTreeView.SelectedNode.Tag);
+            if (t.Desc != txtNodeDescription.Text)
+            {
+                hasChanges = true;
+                t.Changed = true;
+            }
             t.Desc = txtNodeDescription.Text;
-            t.Changed = true;
         }
         #endregion
         internal string CreateTextTreeOfDescendants(int? LeftNode, int? RightNode, bool? IncludeTopicsIds)

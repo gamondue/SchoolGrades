@@ -12,8 +12,8 @@ namespace gamon.TreeMptt
 {
     internal class TreeMpttDb
     {
-        // !!!! TODO; turn to generic this tree, such that it can contain any class and not just Topic instances !!!!
         DataLayer dl;
+        // !!!! TODO; turn to generic this tree, such that it can contain any class and not just Topic instances !!!!
         public TreeMpttDb(DataLayer DataAccessLayer)
         {
             dl = DataAccessLayer;
@@ -52,7 +52,8 @@ namespace gamon.TreeMptt
                 // if the saving must finish and the task saving in background, we quit the function 
                 if (!CommonsWinForms.BackgroundSavingEnabled && MustSaveLeftAndRight)
                     return;
-                // this cures a behaviour of the program, not proper functioning on root node's parent node
+                // this cures a behaviour of the program,
+                // not proper functioning on root node's parent node
                 if (t.ParentNodeNew < 0)
                     t.ParentNodeNew = 0;
                 bool changed;
@@ -316,7 +317,7 @@ namespace gamon.TreeMptt
             int brotherNo = 1;
             foreach (TreeNode sonNode in CurrentNode.Nodes)
             {
-                if (!Commons.ProcessingCanContinue()) break;
+                if (!Commons.ProcessingCanContinue()) return;
                 // calls passing the updated count and the list under construction 
                 GenerateNewListOfNodesFromTreeViewControl_Recursive(sonNode,
                     ref nodeCount, ref generatedList, Connection);
