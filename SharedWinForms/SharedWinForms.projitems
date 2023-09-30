@@ -9,7 +9,9 @@
     <Import_RootNamespace>SharedWinForms</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Class1.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CommonsWinForms.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)provapull.xaml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SafeDbWinForms.cs" />
   </ItemGroup>
 </Project>
