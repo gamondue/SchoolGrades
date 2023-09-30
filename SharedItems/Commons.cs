@@ -1,5 +1,5 @@
-﻿using SchoolGrades.BusinessObjects;
-using SharedWinForms;
+﻿//using gamon.TreeMptt;
+using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Security.Cryptography;
+using System.Threading;
 
 namespace SchoolGrades
 {
@@ -56,6 +57,23 @@ namespace SchoolGrades
         internal static string IdSchool = "FOIS01100L";
         internal static bool IsTimerLessonActive { get; set; }
         internal static string PathAndFileDatabase { get => pathAndFileDatabase; set => pathAndFileDatabase = value; }
+
+        // wait time before saving 
+        public static int BackgroundThreadSleepSeconds = 60;
+        // enable Mptt backgroud saving of Left anf Right pointers 
+        public static bool BackgroundSavingEnabled = true;
+        // exit the background task 
+        public static bool BackgroundTaskClose = false;
+        public static bool BackgroundTaskIsSaving = false;
+
+        // lock variable for serialization of access to BackgroundSavingEnabled and BackgroundSavingSafeStatus
+        public static object LockSavingCriticalSections = new object();
+        public static object LockBackgroundSavingVariables = new object();
+        // Thread that concurrently saves the Topics tree
+        internal static Thread BackgroundSaveThread;
+        // Tree object for concurrent saving 
+
+        public static bool SaveBackupWhenExiting;
 
         internal static string CalculateSHA1(string File)
         {
@@ -390,9 +408,9 @@ namespace SchoolGrades
         internal static bool ProcessingCanContinue()
         {
             // if the foreground task is running, we will NOT EVER interrupt it 
-            if (!CommonsWinForms.BackgroundTaskIsSaving) return true;
+            if (!BackgroundTaskIsSaving) return true;
             // if the background is disabled, processing proceed only if enabled 
-            return CommonsWinForms.BackgroundSavingEnabled;
+            return BackgroundSavingEnabled;
 
         }
     }

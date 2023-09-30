@@ -26,15 +26,15 @@ namespace SchoolGrades
         {
             return dl.GetAllAnswersOfAStudentToAQuestionOfThisTest(idStudent, idQuestion, idTest);
         }
-        internal List<Question> GetFilteredQuestionsNotAskedToStudent(Student Student, Class Class, 
-            SchoolSubject Subject, string IdQuestionType, List<Tag> TagsList, 
-            Topic Topic, bool QueryManyTopics, bool TagsAnd, string SearchString, 
+        internal List<Question> GetFilteredQuestionsNotAskedToStudent(Student Student, Class Class,
+            SchoolSubject Subject, string IdQuestionType, List<Tag> TagsList,
+            Topic Topic, bool QueryManyTopics, bool TagsAnd, string SearchString,
             DateTime DateFrom, DateTime DateTo)
         {
             return dl.GetFilteredQuestionsNotAsked(Student, Class, Subject,
                 IdQuestionType, TagsList, Topic, QueryManyTopics, TagsAnd, SearchString, DateFrom, DateTo);
         }
-        internal List<Question> GetFilteredQuestionsAskedToClass(Class Class, SchoolSubject Subject, string KeyQuestionType, 
+        internal List<Question> GetFilteredQuestionsAskedToClass(Class Class, SchoolSubject Subject, string KeyQuestionType,
             List<Tag> TagsList, Topic Topic, bool Checked1, bool Checked2, string Text, DateTime DateFrom, DateTime DateTo)
         {
             return dl.GetFilteredQuestionsAskedToClass(Class, Subject, KeyQuestionType,
@@ -56,7 +56,7 @@ namespace SchoolGrades
         {
             dl.FixQuestionInGrade(currentIdGrade);
         }
-        internal void AddQuestionToTest(Test Test, Question ChosenQuestion)
+        internal void AddQuestionToTest(SchoolGrades.BusinessObjects.SchoolTest Test, Question ChosenQuestion)
         {
             dl.AddQuestionToTest(Test, ChosenQuestion);
         }

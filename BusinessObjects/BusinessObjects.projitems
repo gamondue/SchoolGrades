@@ -29,7 +29,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)StudentAnnotation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StudentsAnswer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tag.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Test.cs" />
+    <Compile Include="..\BusinessObjects\SchoolTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Topic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)User.cs" />
   </ItemGroup>

@@ -1,16 +1,14 @@
 ﻿using SchoolGrades.BusinessObjects;
-using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.Text;
 
 namespace SchoolGrades
 {
     internal partial class DataLayer
     {
-        internal Test GetTestFromRow(DbDataReader Row)
+        internal SchoolGrades.BusinessObjects.SchoolTest GetTestFromRow(DbDataReader Row)
         {
-            Test t = new Test();
+            SchoolGrades.BusinessObjects.SchoolTest t = new SchoolTest();
             t.IdTest = Safe.Int(Row["idTest"]);
             t.Name = Safe.String(Row["name"]);
             t.Desc = Safe.String(Row["desc"]);
@@ -21,9 +19,9 @@ namespace SchoolGrades
 
             return t;
         }
-        internal Test GetTest(int? IdTest)
+        internal SchoolTest GetTest(int? IdTest)
         {
-            Test t = new Test();
+            SchoolTest t = new SchoolTest();
             using (DbConnection conn = Connect())
             {
                 DbDataReader dRead;
@@ -41,9 +39,9 @@ namespace SchoolGrades
             }
             return t;
         }
-        internal List<Test> GetTests()
+        internal List<SchoolTest> GetTests()
         {
-            List<Test> list = new List<Test>();
+            List<SchoolTest> list = new List<SchoolTest>();
             using (DbConnection conn = Connect())
             {
                 DbDataReader dRead;
@@ -57,14 +55,14 @@ namespace SchoolGrades
 
                 while (dRead.Read())
                 {
-                    Test t = GetTestFromRow(dRead);
+                    SchoolTest t = GetTestFromRow(dRead);
                     list.Add(t);
                 }
             }
             return list;
         }
 
-        internal void SaveTest(Test TestToSave)
+        internal void SaveTest(SchoolTest TestToSave)
         {
             using (DbConnection conn = Connect())
             {

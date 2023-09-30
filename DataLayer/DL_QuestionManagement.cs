@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.Text;
 
 namespace SchoolGrades
 {
@@ -127,7 +126,7 @@ namespace SchoolGrades
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM Tests_Questions " +
                     "WHERE IdQuestion=" + IdQuestion +
-                    " AND IdTest=" + IdTest + 
+                    " AND IdTest=" + IdTest +
                     ";";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
@@ -214,7 +213,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal void AddQuestionToTest(Test Test, Question Question)
+        internal void AddQuestionToTest(SchoolGrades.BusinessObjects.SchoolTest Test, Question Question)
         {
             using (DbConnection conn = Connect())
             {
@@ -303,7 +302,7 @@ namespace SchoolGrades
             // if the search string is present, then it must be in the searched field 
             if (SearchString != "")
             {
-                query += " WHERE Questions.text " + SqlLikeStatement(SearchString) + ""; 
+                query += " WHERE Questions.text " + SqlLikeStatement(SearchString) + "";
             }
 
             filteredQuestions = MakeStringForFilteredQuestionsQuery(Tags, Subject.IdSchoolSubject, IdQuestionType,
@@ -398,8 +397,8 @@ namespace SchoolGrades
             }
             return lq;
         }
-        internal List<Question> GetFilteredQuestionsAskedToClass(Class Class, SchoolSubject Subject, string IdQuestionType, 
-            List<Tag> Tags, Topic Topic, bool QueryManyTopics, bool TagsAnd, 
+        internal List<Question> GetFilteredQuestionsAskedToClass(Class Class, SchoolSubject Subject, string IdQuestionType,
+            List<Tag> Tags, Topic Topic, bool QueryManyTopics, bool TagsAnd,
             string SearchString, DateTime DateFrom, DateTime DateTo)
         {
             List<Question> lq = new List<Question>();
