@@ -181,8 +181,8 @@ namespace SchoolGrades
             CommonsWinForms.SaveTreeMptt = new TreeMptt(Commons.dl,
                 null, null, null, null, null, null, picBackgroundSaveRunning,
                 null, null, null, null);
-            CommonsWinForms.BackgroundSaveThread = new Thread(CommonsWinForms.SaveTreeMptt.SaveTreeMpttBackground);
-            CommonsWinForms.BackgroundSaveThread.Start();
+            Commons.BackgroundSaveThread = new Thread(CommonsWinForms.SaveTreeMptt.SaveTreeMpttBackground);
+            Commons.BackgroundSaveThread.Start();
 
 
             //            // if file exists, create the database access objects
@@ -1366,17 +1366,17 @@ namespace SchoolGrades
             CloseThread();
 
             // if a saving of the database with Mptt is running, we close it 
-            if (CommonsWinForms.BackgroundSavingEnabled)
+            if (Commons.BackgroundSavingEnabled)
             {
-                lock (CommonsWinForms.LockBackgroundSavingVariables)
+                lock (Commons.LockBackgroundSavingVariables)
                 {
-                    CommonsWinForms.BackgroundSavingEnabled = false;
-                    CommonsWinForms.BackgroundTaskClose = true;
+                    Commons.BackgroundSavingEnabled = false;
+                    Commons.BackgroundTaskClose = true;
                 }
             }
             // we wait for the saving Thread to finish
             // (it aborts in a point in which status is preserved)  
-            CommonsWinForms.BackgroundSaveThread.Join(3000);
+            Commons.BackgroundSaveThread.Join(3000);
 
             timerLesson.Stop();
             timerPopUp.Stop();
@@ -1387,22 +1387,22 @@ namespace SchoolGrades
             SaveStudentsOfClassIfEligibleHasChanged();
 
             // save in the log folder a copy of the database, if enabled 
-            if (CommonsWinForms.SaveBackupWhenExiting)
+            if (Commons.SaveBackupWhenExiting)
             {
                 File.Copy(Commons.PathAndFileDatabase,
                     Commons.PathLogs + "\\" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") +
                     "_" + Commons.DatabaseFileName_Current);
             }
             //// we wait for the saving Thread to finish
-            //CommonsWinForms.BackgroundSaveThread.Join(30000);  // enormous timeout just for big problems
+            //Commons.BackgroundSaveThread.Join(30000);  // enormous timeout just for big problems
         }
         private void CloseThread()
         {
-            if (CommonsWinForms.BackgroundSaveThread != null)
+            if (Commons.BackgroundSaveThread != null)
             {
                 // we wait for the saving Thread to finish
                 // (it aborts in a point in which status is preserved)  
-                CommonsWinForms.BackgroundSaveThread.Join(10000);
+                Commons.BackgroundSaveThread.Join(10000);
                 timerLesson.Stop();
                 timerPopUp.Stop();
                 timerQuestion.Stop();
