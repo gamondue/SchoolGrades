@@ -25,5 +25,7 @@ namespace SchoolGrades
             //Application.Run(new frmMain(database));
             Application.Run(new frmMain());
         }
+        // devo faer il commit e la pull request 
+        // questi sono dommenti solo per fare dei cambiamenti senza rompere il codice.
     }
 }
