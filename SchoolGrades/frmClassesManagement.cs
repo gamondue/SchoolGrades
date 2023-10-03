@@ -16,7 +16,7 @@ namespace SchoolGrades
 
         DataTable dtClass;
 
-        School currentSchool;
+        School currentSchool; //jhonny
         Class currentClass;
         List<Student> studentsList;
         string idSchoolYear;
