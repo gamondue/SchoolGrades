@@ -24,6 +24,7 @@ namespace SchoolGrades
             //Application.Run(new frmLogin());
             //Application.Run(new frmMain(database));
             Application.Run(new frmMain());
+            //prova
         }
     }
 }
