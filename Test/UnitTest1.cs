@@ -7,6 +7,7 @@ namespace Test
         BusinessLayer bl;
         string dbCampione = @"..\..\..\SchoolGrades_StandardDb.sqlite";
         string dbTest = @"..\..\..\SchoolGrades_TestDb.sqlite";
+        string DbTest = @"..\..\..\SchoolGrades_TestDb.sqlite";
 
         [SetUp]
         public void Setup()
