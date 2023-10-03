@@ -9,7 +9,7 @@ using System.Text;
 namespace SchoolGrades
 {
     internal partial class DataLayer
-    {
+    {//commento
         internal void GetLookupTable(string Table, ref DataSet DSet, ref DataAdapter DAdapt)
         {
             using (DbConnection conn = Connect())
