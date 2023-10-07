@@ -177,7 +177,10 @@ namespace SchoolGrades
         private void btnFind_Click(object sender, EventArgs e)
         {
             // ricerca 
-            topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked,
+            //topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked,
+            //    chkSearchInDescriptions.Checked,
+            //    chkAllWord.Checked, chkCaseInsensitive.Checked);
+                    Commons.bl.FindNodes(topicTreeMptt, txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked,
                 chkSearchInDescriptions.Checked,
                 chkAllWord.Checked, chkCaseInsensitive.Checked);
         }
@@ -189,7 +192,8 @@ namespace SchoolGrades
         }
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            topicTreeMptt.DeleteNodeSelected();
+            //topicTreeMptt.DeleteNodeSelected();
+            Commons.bl.DeleteNodeSelected(topicTreeMptt);
         }
         private void btnSaveTree_Click(object sender, EventArgs e)
         {

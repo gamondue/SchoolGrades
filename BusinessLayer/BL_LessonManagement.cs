@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using gamon.TreeMptt;
 using SchoolGrades.BusinessObjects;
 
 namespace SchoolGrades
@@ -50,5 +51,17 @@ namespace SchoolGrades
         {
             dl.LinkOneImageToLesson(currentImage, currentLesson);
         }
+        internal void DeleteNodeSelected(TreeMptt topicTreeMptt)
+        {
+            topicTreeMptt.DeleteNodeSelected();
+        }
+
+        internal void FindNodes(TreeMptt topicTreeMptt, string txtTopicSearchString, bool chkMarkAllTopicsFound, bool chkSearchInDescriptions, bool chkAllWord, bool chkCaseInsensitive)
+        {
+            topicTreeMptt.FindNodes(txtTopicSearchString, chkMarkAllTopicsFound,
+                chkSearchInDescriptions,
+                chkAllWord, chkCaseInsensitive);
+        }
+
     }
 }
