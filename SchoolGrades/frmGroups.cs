@@ -60,7 +60,7 @@ namespace SchoolGrades
                 MessageBox.Show("Prima di salvare un file, generare i gruppi");
                 return;
             }
-            string fileName = Path.Combine(Commons.PathDatabase , 
+            string fileName = Path.Combine(Commons.PathDatabase,
                 "Groups_" + schoolClass.Abbreviation + "_" + schoolClass.SchoolYear +
                 ".txt");
             TextFile.StringToFile(fileName, txtGroups.Text, false);
@@ -73,26 +73,48 @@ namespace SchoolGrades
             if (txtNGroups.Text == "" || txtStudentsPerGroup.Text == "")
             {
                 MessageBox.Show("Scegliere il numero dei gruppi o degli studenti per gruppo!");
-                return; 
+                return;
             }
-            
-            
 
-            List<Student> listTempStudents;
-            
+            List<Student> ordered = new();
+
             if (rbdGroupsRandom.Checked)
             {
-               
+                ordered = OrderStudentsByRandom();
             }
             else if (rdbGroupsBestGradesTogether.Checked)
             {
-            	
+
             }
             else if (rdbGradesBalanced.Checked)
             {
-                
+
             }
 
+            var groups = GroupStudents(ordered, nGroups, nStudentsPerGroup);
+            // make the string to show groups
+            string groupsString = "";
+            for (int j = 0; j < nGroups; j++)
+            {
+                groupsString += "Gruppo " + (j + 1).ToString() + "\r\n";
+                int nStud = 1;
+                for (int i = 0; i < nStudentsPerGroup; i++)
+                {
+                    if (groups[j, i] != null && groups[j, i] != " " && groups[j, i] != "  ")
+                    {
+                        groupsString += $"{nStud.ToString("00")} - {groups[j, i]} \r\n";
+                        nStud++;
+                    }
+                }
+                groupsString += "\r\n";
+            }
+            groupsString += "\r\n";
+            txtGroups.Text = groupsString;
+        }
+
+        #region Group generation
+        string[,] GroupStudents(List<Student> students, int nof_groups, int groupSize)
+        {
             // create groups into groups array
             string[,] groups = new string[nGroups, nStudentsPerGroup];
             int stud = 0;
@@ -109,32 +131,21 @@ namespace SchoolGrades
                 if (stud == listGroups.Count)
                     break;
             }
-            // make the string to show groups
-            string groupsString = "";
-            for (int j = 0; j < nGroups; j++)
-            {
-                groupsString += "Gruppo " + (j + 1).ToString() + "\r\n";
-                int nStud = 1; 
-                for (int i = 0; i < nStudentsPerGroup; i++)
-                {
-                    if (groups[j, i] != null && groups[j, i] != " " && groups[j, i] != "  ")
-                    {
-                        groupsString += $"{nStud.ToString("00")} - {groups[j, i]} \r\n";
-                        nStud++; 
-                    }
-                }
-                groupsString += "\r\n";
-            }
-            groupsString += "\r\n";
-            txtGroups.Text = groupsString;
+            return groups;
         }
 
-        #region Group generation
-
-        void GenerateRandomGroups()
+        List<Student> OrderStudentsByRandom()
         {
-            // !!!! TODO number of element in group is unbalanced!
-            Commons.bl.GroupStudentsByRandom(ref listStudentsWithWeightedAverage);
+            List<Student> l = Commons.bl.GetStudentsOfClassList(schoolClass.IdClass);
+
+            List<(Student, int)> randomI = new();
+
+            Random r = new();
+            for (int i = 0; i < l.Count; i++)
+            {
+                randomI.Add((l[i], r.Next()));
+            }
+            return randomI.OrderBy(el => el.Item2).Select(t => t.Item1).ToList();
         }
         void GenerateGroupsWeightedAverage()
         {
