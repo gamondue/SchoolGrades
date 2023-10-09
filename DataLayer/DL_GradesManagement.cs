@@ -1,5 +1,6 @@
 ﻿using SchoolGrades.BusinessObjects;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -584,6 +585,11 @@ namespace SchoolGrades
                 dAdapt.Dispose();
             }
             return t;
+        }
+        internal List<Student> GetStudentsOfClass(Class Class)
+        {
+            string query = "select *";
+            throw new NotImplementedException();
         }
         internal List<StudentAndGrade> GetListGradesWeightedAveragesOfClassByName(Class Class, string IdGradeType,
             string IdSchoolSubject, DateTime DateFrom, DateTime DateTo)
