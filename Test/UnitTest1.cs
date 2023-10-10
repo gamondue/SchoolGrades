@@ -8,6 +8,9 @@ namespace Test
         string dbCampione = @"..\..\..\SchoolGrades_StandardDb.sqlite";
         string dbTest = @"..\..\..\SchoolGrades_TestDb.sqlite";
 
+
+        //commento
+
         [SetUp]
         public void Setup()
         {
