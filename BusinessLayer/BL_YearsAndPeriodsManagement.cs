@@ -3,11 +3,54 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Forms;
 
 namespace SchoolGrades
 {
+    
     internal partial class BusinessLayer
     {
+        internal void msgChooseClass()
+        {
+            MessageBox.Show("Scegliere una classe di partenza");           
+        }
+
+        internal void ToDo()
+        {
+            MessageBox.Show("!!!! TO DO !!!!");
+        }
+
+        internal void SiglaClasse()
+        {
+            MessageBox.Show("Scrivere la sigla della nuova classe!");
+        }
+        internal void messaggioAggiustareDati()
+        {
+            MessageBox.Show("Aggiustare i dati della classe e degli studenti\r\nSegnare gli studenti da INCLUDERE " +
+                    "nella nuova classe, con il segno di spunta a sinistra, poi premere 'Genera classe'" +
+                    "\r\nPer aggiungere allievi tornare alla finestra precedente di gestione classi" +
+                    "\r\nPremendo 'Annulla' non si importerà la classe",
+                    "Modifiche classe", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+        }
+
+        internal void resetStudent(string sy, string ca, DataGridViewRow dr)
+        {
+            Student st = (Student)dr.DataBoundItem;
+            st.IdClass = 0;
+            st.RegisterNumber = "";
+            st.SchoolYear = sy;
+            st.ClassAbbreviation = ca;
+
+            st.Disabled = false;
+            st.Eligible = false;
+
+            dr.Cells[0].Value = false;
+        }
+
+        internal void a()
+        {
+
+        }
         internal List<SchoolPeriod> GetSchoolPeriods(string SchoolYear)
         {
             return dl.GetSchoolPeriods(SchoolYear);
@@ -147,5 +190,6 @@ namespace SchoolGrades
             }
             return newClass;  
         }
+       
     }
 }

@@ -19,13 +19,13 @@ namespace SchoolGrades
             InitializeComponent();
 
             currentStudent = Student;
-            isDialog = IsDialog; 
+            isDialog = IsDialog;
         }
         private void frmStudent_Load(object sender, EventArgs e)
         {
-            if(currentStudent != null)
+            if (currentStudent != null)
             {
-                loadStudentData(currentStudent); 
+                loadStudentData(currentStudent);
             }
             if (isDialog)
             {
@@ -33,7 +33,7 @@ namespace SchoolGrades
             }
             else
             {
-                btnChoose.Visible = false; 
+                btnChoose.Visible = false;
             }
         }
         private void loadStudentData(Student currentStudent)
@@ -73,7 +73,7 @@ namespace SchoolGrades
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (currentStudent == null)
-                currentStudent = new Student(); 
+                currentStudent = new Student();
             if (currentStudent.LastName != "" || currentStudent.FirstName != "")
             {
                 currentStudent.LastName = txtLastName.Text;
@@ -93,11 +93,11 @@ namespace SchoolGrades
             else
             {
                 MessageBox.Show("Immettere Nome e Cognome del nuovo allievo");
-                return; 
+                return;
             }
             if (txtIdStudent.Text == "" && (currentStudent.IdStudent == 0 || currentStudent.IdStudent == null))
             {
-                currentStudent.IdStudent = 0; 
+                currentStudent.IdStudent = 0;
             }
             Commons.bl.SaveStudent(currentStudent);
         }
@@ -113,7 +113,7 @@ namespace SchoolGrades
             txtBirthDate.Text = "";
             txtBirthPlace.Text = "";
 
-            picStudent.Image = null; 
+            picStudent.Image = null;
         }
         private void btnChoose_Click(object sender, EventArgs e)
         {
@@ -124,7 +124,7 @@ namespace SchoolGrades
             }
             else
             {
-                MessageBox.Show("Salvare o scegliere lo studente"); 
+                MessageBox.Show("Salvare o scegliere lo studente");
             }
         }
         private void btnFindStudent_Click(object sender, EventArgs e)
@@ -173,12 +173,12 @@ namespace SchoolGrades
         private void btnExitWithoutChoosing_Click(object sender, EventArgs e)
         {
             UserHasChosen = false;
-            this.Close(); 
+            this.Close();
         }
 
         private void btnDeleteStudent_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("DA FARE!!"); 
+            MessageBox.Show("DA FARE!!");
         }
     }
 }

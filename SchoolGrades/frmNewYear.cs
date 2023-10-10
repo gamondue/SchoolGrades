@@ -29,12 +29,17 @@ namespace SchoolGrades
         private void frmNewYear_Load(object sender, EventArgs e)
         {
             loading = true;
+            
             // school data
             currentSchool = Commons.bl.GetSchool(TxtOfficialSchoolAbbreviation.Text);
-            
-            // years's data in combo
+
             List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
             cmbSchoolYearCurrents.DataSource = ly;
+
+            //Rehab was suppose
+            
+            // years's data in combo
+            
             if (ly.Count > 0)
                 cmbSchoolYearCurrents.SelectedItem = ly[ly.Count - 1];
             cmbSchoolYearCurrents.SelectedItem = idStartYear;
@@ -87,8 +92,7 @@ namespace SchoolGrades
             BtnStudentNew.Visible = true;
             if (cmbClasses.Text == "")
             {
-                MessageBox.Show("Scegliere una classe di partenza");
-                return; 
+                Commons.bl.msgChooseClass();
             }
             Class c = (Class)cmbClasses.SelectedItem;
             if (c != null)
@@ -100,27 +104,18 @@ namespace SchoolGrades
                 // check all the student's rows 
                 foreach (DataGridViewRow dr in DgwStudents.Rows)
                 {
-                    Student st = (Student)dr.DataBoundItem;
-                    st.IdClass = 0;
-                    st.RegisterNumber = "";
-                    st.SchoolYear = txtSchoolYearNext.Text;
-                    st.ClassAbbreviation = txtClassAbbreviationNext.Text;
+                    string sy = txtSchoolYearNext.Text;
+                    string ca = txtClassAbbreviationNext.Text;
 
-                    st.Disabled = false;
-                    st.Eligible = false;
-
-                    dr.Cells[0].Value = false;
+                    Commons.bl.resetStudent(sy, ca, dr);
+                    
                 }
                 //txtClassDescriptionNext.Text = currentSchool.Name + " " + txtSchoolYearNext.Text +
                 //    " " + txtClassAbbreviationNext.Text;
                 //txtClassDescriptionNext.Visible = true;
                 //lblClassDescription.Visible = true; 
 
-                MessageBox.Show("Aggiustare i dati della classe e degli studenti\r\nSegnare gli studenti da INCLUDERE " +
-                    "nella nuova classe, con il segno di spunta a sinistra, poi premere 'Genera classe'"+
-                    "\r\nPer aggiungere allievi tornare alla finestra precedente di gestione classi" +
-                    "\r\nPremendo 'Annulla' non si importerà la classe",
-                    "Modifiche classe", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                Commons.bl.messaggioAggiustareDati();
             }
             BtnClassGeneration.Visible = true;
             BtnClassMigration.Visible = false;
@@ -129,8 +124,7 @@ namespace SchoolGrades
         {
             if (txtClassAbbreviationNext.Text == "")
             {
-                MessageBox.Show("Scrivere la sigla della nuova classe!");
-                return; 
+                Commons.bl.SiglaClasse();
             }
 
             if (txtClassDescriptionNext.Text == "")
@@ -168,7 +162,7 @@ namespace SchoolGrades
         }
         private void BtnClassNew_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("!!!! TO DO !!!!"); 
+            Commons.bl.ToDo();
         }
         private void TxtSchoolYearPresent_TextChanged(object sender, EventArgs e)
         {
@@ -212,5 +206,6 @@ namespace SchoolGrades
             frmSchoolYearAndPeriodsManagement f = new frmSchoolYearAndPeriodsManagement(txtSchoolYearNext.Text);
             f.ShowDialog();
         }
+        //rehab was supposed to be a fresh start 🐎🍾
     }
 }
