@@ -96,7 +96,7 @@ namespace SchoolGrades
             string groupsString = "";
             for (int j = 0; j < nGroups; j++)
             {
-                groupsString += "Gruppo " + (j + 1).ToString() + "\r\n";
+                groupsString += "Gruppo " + (j + 1) + "\r\n";
                 int nStud = 1;
                 for (int i = 0; i < nStudentsPerGroup; i++)
                 {
@@ -116,34 +116,33 @@ namespace SchoolGrades
         string[,] GroupStudents(List<Student> students, int nof_groups, int groupSize)
         {
             // create groups into groups array
-            string[,] groups = new string[nGroups, nStudentsPerGroup];
-            int stud = 0;
-            for (int i = 0; i < nGroups; i++)
+            string[,] groups = new string[nof_groups, groupSize];
+
+            int group_i = 0;
+            int group_l = 0;
+
+            foreach (Student s in students)
             {
-                for (int j = 0; j < nStudentsPerGroup; j++)
+                groups[group_i, group_l] = s.LastName + " " + s.FirstName;
+                group_l++;
+
+                if (group_l > groupSize - 1)
                 {
-                    Student s = listGroups[stud];
-                    groups[i, j] = s.LastName + " " + s.FirstName;
-                    stud++;
-                    if (stud == listGroups.Count)
-                        break;
+                    group_l = 0;
+                    group_i++;
                 }
-                if (stud == listGroups.Count)
-                    break;
             }
             return groups;
         }
 
         List<Student> OrderStudentsByRandom()
         {
-            List<Student> l = Commons.bl.GetStudentsOfClassList(schoolClass.IdClass);
-
             List<(Student, int)> randomI = new();
 
             Random r = new();
-            for (int i = 0; i < l.Count; i++)
+            for (int i = 0; i < listGroups.Count; i++)
             {
-                randomI.Add((l[i], r.Next()));
+                randomI.Add((listGroups[i], r.Next()));
             }
             return randomI.OrderBy(el => el.Item2).Select(t => t.Item1).ToList();
         }
