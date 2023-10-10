@@ -122,8 +122,8 @@ namespace SchoolGrades
             else
             {
                 destinationFileName = SourcePathAndFileName;
-                destinationPathAndFileName = Commons.PathImages + "\\" +
-                    LessonImagesFullPath + destinationFileName;
+                destinationPathAndFileName = Path.Combine(Commons.PathImages ,
+                    LessonImagesFullPath ,destinationFileName); 
                 if (File.Exists(destinationPathAndFileName))
                 {
                     // !!!!! find another way to send this message !!!!! 
@@ -142,7 +142,7 @@ namespace SchoolGrades
             // if it doesn't exist, create the folder of the images of the lessons of the class
             if (!Directory.Exists(LessonImagesFullPath))
             {
-                Directory.CreateDirectory(Commons.PathImages + "\\" + LessonImagesFullPath);
+                Directory.CreateDirectory(Path.Combine(Commons.PathImages,LessonImagesFullPath));
             }
             File.Copy(SourcePathAndFileName, destinationPathAndFileName);
             Image.IdImage = 0; // to force creation of a new record
