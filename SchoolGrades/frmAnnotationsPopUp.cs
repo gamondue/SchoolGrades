@@ -21,6 +21,7 @@ namespace SchoolGrades
         }
         private void frmAnnotationsPopUp_Load(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             dgwStudentsAllPopUpAnnotations.DataSource = tableOfActivePopUpAnnotations; 
         }
         private void lblCurrentStudent_Click(object sender, EventArgs e)
@@ -29,6 +30,7 @@ namespace SchoolGrades
         }
         private void dgwStudentsActivePopUpAnnotations_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            //non necessita di incapsulamento
             if (e.RowIndex > -1)
             {
                 dgwStudentsAllPopUpAnnotations.Rows[e.RowIndex].Selected = true;
@@ -36,6 +38,7 @@ namespace SchoolGrades
         }
         private void dgwStudentsAllPopUpAnnotations_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            //non necessita di incapsulamento
             if (e.RowIndex > -1)
             {
                 dgwStudentsAllPopUpAnnotations.Rows[e.RowIndex].Selected = true;
@@ -43,6 +46,7 @@ namespace SchoolGrades
         }
         private void dgwStudentsActivePopUpAnnotations_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            //non necessita di incapsulamento
             if (e.RowIndex >= 0)
             {
                 dgwStudentsAllPopUpAnnotations.Rows[e.RowIndex].Selected = true;

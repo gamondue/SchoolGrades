@@ -22,18 +22,19 @@ namespace SchoolGrades
         }
         TopicChooseFormType formType;
         private SchoolPeriod currentSchoolPeriod;
-        public frmTopicChooseByPeriod(TopicChooseFormType FormType, 
+        public frmTopicChooseByPeriod(TopicChooseFormType FormType,
             Class Class, SchoolSubject Subject)
         {
             InitializeComponent();
             currentClass = Class;
             currentSubject = Subject;
             formType = FormType;
-            TopicChosen = new Topic(); 
-            TopicChosen.Id = 0; 
+            TopicChosen = new Topic();
+            TopicChosen.Id = 0;
         }
         private void frmTopicChooseByPeriod_Load(object sender, EventArgs e)
         {
+            //non incapsulamento
             if (currentSubject != null)
             {
                 dtpEndPeriod.Value = DateTime.Now;
@@ -60,11 +61,12 @@ namespace SchoolGrades
         }
         private void btnSearch_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             DateTime dateFrom;
             if (cmbSchoolPeriod.Text == "")
                 dateFrom = Commons.DateNull;
             else
-                dateFrom = dtpStartPeriod.Value; 
+                dateFrom = dtpStartPeriod.Value;
             topicsDone = Commons.bl.GetTopicsDoneInPeriod(currentClass, currentSubject,
                 dateFrom, dtpEndPeriod.Value);
 
@@ -94,6 +96,7 @@ namespace SchoolGrades
         }
         private void dgwTopics_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            //non necessita di incapsulamento
             if (e.RowIndex > -1)
             {
                 DataGridViewRow value = dgwTopics.Rows[e.RowIndex];
@@ -114,7 +117,7 @@ namespace SchoolGrades
                             oneItemList.Add(topicsDone[e.RowIndex]);
                             frmTopics t = new frmTopics(frmTopics.TopicsFormType.HighlightTopics,
                                 currentClass, currentSubject, null, oneItemList);
-                            t.ShowDialog(); 
+                            t.ShowDialog();
                             t.Dispose();
                             break;
                         }
@@ -123,6 +126,7 @@ namespace SchoolGrades
         }
         private void btnRandomTopic_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento 
             if (topicsDone == null)
             {
                 topicsDone = Commons.bl.GetTopicsDoneInPeriod(currentClass, currentSubject,
@@ -135,14 +139,15 @@ namespace SchoolGrades
                 TopicChosen = topicsDone[index];
                 this.Close();
             }
-            Console.Beep(); 
+            Console.Beep();
         }
         private void btnChoose_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             if (dgwTopics.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Scegliere un argomento nella griglia");
-                return; 
+                return;
             }
             int rowIndex = dgwTopics.SelectedRows[0].Index;
             //DataRow row = ((DataTable)(dgwTopics.DataSource)).Rows[rowIndex];
@@ -172,6 +177,7 @@ namespace SchoolGrades
         }
         private void cmbStandardPeriod_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             currentSchoolPeriod = (SchoolPeriod)(cmbSchoolPeriod.SelectedValue);
             if (currentSchoolPeriod.IdSchoolPeriodType != "N")
             {
@@ -196,10 +202,16 @@ namespace SchoolGrades
         }
         private void dgwTopics_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            //non necessita di incapsulamento
             if (e.RowIndex > -1)
             {
                 dgwTopics.Rows[e.RowIndex].Selected = true;
             }
+        }
+
+        private void lblSchoolSubject_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

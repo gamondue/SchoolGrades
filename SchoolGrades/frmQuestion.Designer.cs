@@ -28,585 +28,578 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmQuestion));
-            this.grpTags = new System.Windows.Forms.GroupBox();
-            this.lstTags = new System.Windows.Forms.ListBox();
-            this.btnRemoveTag = new System.Windows.Forms.Button();
-            this.btnAddTag = new System.Windows.Forms.Button();
-            this.txtQuestionText = new System.Windows.Forms.TextBox();
-            this.lblQuestionText = new System.Windows.Forms.Label();
-            this.grpTopic = new System.Windows.Forms.GroupBox();
-            this.btnChooseByPeriod = new System.Windows.Forms.Button();
-            this.btnChooseTopic = new System.Windows.Forms.Button();
-            this.txtTopic = new System.Windows.Forms.TextBox();
-            this.grpAnswers = new System.Windows.Forms.GroupBox();
-            this.btnImportQuestions = new System.Windows.Forms.Button();
-            this.btnAddAnswer = new System.Windows.Forms.Button();
-            this.dgwAnswers = new System.Windows.Forms.DataGridView();
-            this.grpQuestionImage = new System.Windows.Forms.GroupBox();
-            this.btnChooseFileImage = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.txtQuestionImage = new System.Windows.Forms.TextBox();
-            this.txtImagesPath = new System.Windows.Forms.TextBox();
-            this.btnPathImportImage = new System.Windows.Forms.Button();
-            this.picImage = new System.Windows.Forms.PictureBox();
-            this.lblImageName = new System.Windows.Forms.Label();
-            this.lblImagesPath = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtWeight = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtDuration = new System.Windows.Forms.TextBox();
-            this.btnSaveQuestion = new System.Windows.Forms.Button();
-            this.lblIdQuesion = new System.Windows.Forms.Label();
-            this.txtIdQuestion = new System.Windows.Forms.TextBox();
-            this.lblQuestionType = new System.Windows.Forms.Label();
-            this.lblSchoolSubject = new System.Windows.Forms.Label();
-            this.cmbQuestionType = new System.Windows.Forms.ComboBox();
-            this.cmbSchoolSubject = new System.Windows.Forms.ComboBox();
-            this.lblDifficulty = new System.Windows.Forms.Label();
-            this.txtDifficulty = new System.Windows.Forms.TextBox();
-            this.btnNewQuestion = new System.Windows.Forms.Button();
-            this.btnSaveAndChoose = new System.Windows.Forms.Button();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.grpTags.SuspendLayout();
-            this.grpTopic.SuspendLayout();
-            this.grpAnswers.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgwAnswers)).BeginInit();
-            this.grpQuestionImage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picImage)).BeginInit();
-            this.SuspendLayout();
+            grpTags = new System.Windows.Forms.GroupBox();
+            lstTags = new System.Windows.Forms.ListBox();
+            btnRemoveTag = new System.Windows.Forms.Button();
+            btnAddTag = new System.Windows.Forms.Button();
+            txtQuestionText = new System.Windows.Forms.TextBox();
+            lblQuestionText = new System.Windows.Forms.Label();
+            grpTopic = new System.Windows.Forms.GroupBox();
+            btnChooseByPeriod = new System.Windows.Forms.Button();
+            btnChooseTopic = new System.Windows.Forms.Button();
+            txtTopic = new System.Windows.Forms.TextBox();
+            grpAnswers = new System.Windows.Forms.GroupBox();
+            btnImportQuestions = new System.Windows.Forms.Button();
+            btnAddAnswer = new System.Windows.Forms.Button();
+            dgwAnswers = new System.Windows.Forms.DataGridView();
+            grpQuestionImage = new System.Windows.Forms.GroupBox();
+            btnChooseFileImage = new System.Windows.Forms.Button();
+            button1 = new System.Windows.Forms.Button();
+            txtQuestionImage = new System.Windows.Forms.TextBox();
+            txtImagesPath = new System.Windows.Forms.TextBox();
+            btnPathImportImage = new System.Windows.Forms.Button();
+            picImage = new System.Windows.Forms.PictureBox();
+            lblImageName = new System.Windows.Forms.Label();
+            lblImagesPath = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
+            label4 = new System.Windows.Forms.Label();
+            txtWeight = new System.Windows.Forms.TextBox();
+            label1 = new System.Windows.Forms.Label();
+            txtDuration = new System.Windows.Forms.TextBox();
+            btnSaveQuestion = new System.Windows.Forms.Button();
+            lblIdQuesion = new System.Windows.Forms.Label();
+            txtIdQuestion = new System.Windows.Forms.TextBox();
+            lblQuestionType = new System.Windows.Forms.Label();
+            lblSchoolSubject = new System.Windows.Forms.Label();
+            cmbQuestionType = new System.Windows.Forms.ComboBox();
+            cmbSchoolSubject = new System.Windows.Forms.ComboBox();
+            lblDifficulty = new System.Windows.Forms.Label();
+            txtDifficulty = new System.Windows.Forms.TextBox();
+            btnNewQuestion = new System.Windows.Forms.Button();
+            btnSaveAndChoose = new System.Windows.Forms.Button();
+            toolTip1 = new System.Windows.Forms.ToolTip(components);
+            grpTags.SuspendLayout();
+            grpTopic.SuspendLayout();
+            grpAnswers.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgwAnswers).BeginInit();
+            grpQuestionImage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picImage).BeginInit();
+            SuspendLayout();
             // 
             // grpTags
             // 
-            this.grpTags.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpTags.Controls.Add(this.lstTags);
-            this.grpTags.Controls.Add(this.btnRemoveTag);
-            this.grpTags.Controls.Add(this.btnAddTag);
-            this.grpTags.Location = new System.Drawing.Point(2, 370);
-            this.grpTags.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.grpTags.Name = "grpTags";
-            this.grpTags.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.grpTags.Size = new System.Drawing.Size(203, 310);
-            this.grpTags.TabIndex = 0;
-            this.grpTags.TabStop = false;
-            this.grpTags.Text = "Tags";
+            grpTags.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            grpTags.Controls.Add(lstTags);
+            grpTags.Controls.Add(btnRemoveTag);
+            grpTags.Controls.Add(btnAddTag);
+            grpTags.Location = new System.Drawing.Point(2, 370);
+            grpTags.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            grpTags.Name = "grpTags";
+            grpTags.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            grpTags.Size = new System.Drawing.Size(203, 310);
+            grpTags.TabIndex = 0;
+            grpTags.TabStop = false;
+            grpTags.Text = "Tags";
             // 
             // lstTags
             // 
-            this.lstTags.FormattingEnabled = true;
-            this.lstTags.ItemHeight = 18;
-            this.lstTags.Location = new System.Drawing.Point(6, 50);
-            this.lstTags.Name = "lstTags";
-            this.lstTags.Size = new System.Drawing.Size(191, 256);
-            this.lstTags.TabIndex = 3;
+            lstTags.FormattingEnabled = true;
+            lstTags.ItemHeight = 18;
+            lstTags.Location = new System.Drawing.Point(6, 50);
+            lstTags.Name = "lstTags";
+            lstTags.Size = new System.Drawing.Size(191, 256);
+            lstTags.TabIndex = 3;
             // 
             // btnRemoveTag
             // 
-            this.btnRemoveTag.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemoveTag.Location = new System.Drawing.Point(165, 13);
-            this.btnRemoveTag.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnRemoveTag.Name = "btnRemoveTag";
-            this.btnRemoveTag.Size = new System.Drawing.Size(37, 30);
-            this.btnRemoveTag.TabIndex = 2;
-            this.btnRemoveTag.Text = "-";
-            this.btnRemoveTag.UseVisualStyleBackColor = true;
-            this.btnRemoveTag.Click += new System.EventHandler(this.btnRemoveTag_Click);
+            btnRemoveTag.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnRemoveTag.Location = new System.Drawing.Point(165, 13);
+            btnRemoveTag.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            btnRemoveTag.Name = "btnRemoveTag";
+            btnRemoveTag.Size = new System.Drawing.Size(37, 30);
+            btnRemoveTag.TabIndex = 2;
+            btnRemoveTag.Text = "-";
+            btnRemoveTag.UseVisualStyleBackColor = true;
+            btnRemoveTag.Click += btnRemoveTag_Click;
             // 
             // btnAddTag
             // 
-            this.btnAddTag.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddTag.Location = new System.Drawing.Point(120, 14);
-            this.btnAddTag.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnAddTag.Name = "btnAddTag";
-            this.btnAddTag.Size = new System.Drawing.Size(39, 29);
-            this.btnAddTag.TabIndex = 1;
-            this.btnAddTag.Text = "+";
-            this.btnAddTag.UseVisualStyleBackColor = true;
-            this.btnAddTag.Click += new System.EventHandler(this.btnAddTag_Click);
+            btnAddTag.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnAddTag.Location = new System.Drawing.Point(120, 14);
+            btnAddTag.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            btnAddTag.Name = "btnAddTag";
+            btnAddTag.Size = new System.Drawing.Size(39, 29);
+            btnAddTag.TabIndex = 1;
+            btnAddTag.Text = "+";
+            btnAddTag.UseVisualStyleBackColor = true;
+            btnAddTag.Click += btnAddTag_Click;
             // 
             // txtQuestionText
             // 
-            this.txtQuestionText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtQuestionText.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtQuestionText.Location = new System.Drawing.Point(3, 31);
-            this.txtQuestionText.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtQuestionText.Multiline = true;
-            this.txtQuestionText.Name = "txtQuestionText";
-            this.txtQuestionText.Size = new System.Drawing.Size(908, 161);
-            this.txtQuestionText.TabIndex = 1;
-            this.txtQuestionText.TextChanged += new System.EventHandler(this.txtQuestionText_TextChanged);
+            txtQuestionText.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txtQuestionText.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtQuestionText.Location = new System.Drawing.Point(3, 31);
+            txtQuestionText.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            txtQuestionText.Multiline = true;
+            txtQuestionText.Name = "txtQuestionText";
+            txtQuestionText.Size = new System.Drawing.Size(908, 161);
+            txtQuestionText.TabIndex = 1;
+            txtQuestionText.TextChanged += txtQuestionText_TextChanged;
             // 
             // lblQuestionText
             // 
-            this.lblQuestionText.AutoSize = true;
-            this.lblQuestionText.Location = new System.Drawing.Point(3, 5);
-            this.lblQuestionText.Name = "lblQuestionText";
-            this.lblQuestionText.Size = new System.Drawing.Size(146, 18);
-            this.lblQuestionText.TabIndex = 2;
-            this.lblQuestionText.Text = "Testo della domanda";
+            lblQuestionText.AutoSize = true;
+            lblQuestionText.Location = new System.Drawing.Point(3, 5);
+            lblQuestionText.Name = "lblQuestionText";
+            lblQuestionText.Size = new System.Drawing.Size(146, 18);
+            lblQuestionText.TabIndex = 2;
+            lblQuestionText.Text = "Testo della domanda";
+            lblQuestionText.Click += lblQuestionText_Click;
             // 
             // grpTopic
             // 
-            this.grpTopic.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpTopic.Controls.Add(this.btnChooseByPeriod);
-            this.grpTopic.Controls.Add(this.btnChooseTopic);
-            this.grpTopic.Controls.Add(this.txtTopic);
-            this.grpTopic.Location = new System.Drawing.Point(211, 370);
-            this.grpTopic.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.grpTopic.Name = "grpTopic";
-            this.grpTopic.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.grpTopic.Size = new System.Drawing.Size(781, 70);
-            this.grpTopic.TabIndex = 2;
-            this.grpTopic.TabStop = false;
-            this.grpTopic.Text = "Argomento";
+            grpTopic.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            grpTopic.Controls.Add(btnChooseByPeriod);
+            grpTopic.Controls.Add(btnChooseTopic);
+            grpTopic.Controls.Add(txtTopic);
+            grpTopic.Location = new System.Drawing.Point(211, 370);
+            grpTopic.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            grpTopic.Name = "grpTopic";
+            grpTopic.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            grpTopic.Size = new System.Drawing.Size(781, 70);
+            grpTopic.TabIndex = 2;
+            grpTopic.TabStop = false;
+            grpTopic.Text = "Argomento";
             // 
             // btnChooseByPeriod
             // 
-            this.btnChooseByPeriod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnChooseByPeriod.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChooseByPeriod.Location = new System.Drawing.Point(741, 20);
-            this.btnChooseByPeriod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnChooseByPeriod.Name = "btnChooseByPeriod";
-            this.btnChooseByPeriod.Size = new System.Drawing.Size(34, 34);
-            this.btnChooseByPeriod.TabIndex = 112;
-            this.btnChooseByPeriod.Text = "Per.";
-            this.toolTip1.SetToolTip(this.btnChooseByPeriod, "Argomenti fatti in un periodo");
-            this.btnChooseByPeriod.UseVisualStyleBackColor = true;
-            this.btnChooseByPeriod.Click += new System.EventHandler(this.btnChooseByPeriod_Click);
+            btnChooseByPeriod.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnChooseByPeriod.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            btnChooseByPeriod.Location = new System.Drawing.Point(741, 20);
+            btnChooseByPeriod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            btnChooseByPeriod.Name = "btnChooseByPeriod";
+            btnChooseByPeriod.Size = new System.Drawing.Size(34, 34);
+            btnChooseByPeriod.TabIndex = 112;
+            btnChooseByPeriod.Text = "Per.";
+            toolTip1.SetToolTip(btnChooseByPeriod, "Argomenti fatti in un periodo");
+            btnChooseByPeriod.UseVisualStyleBackColor = true;
+            btnChooseByPeriod.Click += btnChooseByPeriod_Click;
             // 
             // btnChooseTopic
             // 
-            this.btnChooseTopic.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnChooseTopic.Location = new System.Drawing.Point(705, 20);
-            this.btnChooseTopic.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnChooseTopic.Name = "btnChooseTopic";
-            this.btnChooseTopic.Size = new System.Drawing.Size(34, 34);
-            this.btnChooseTopic.TabIndex = 1;
-            this.btnChooseTopic.Text = "..";
-            this.btnChooseTopic.UseVisualStyleBackColor = true;
-            this.btnChooseTopic.Click += new System.EventHandler(this.btnChooseTopic_Click);
+            btnChooseTopic.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnChooseTopic.Location = new System.Drawing.Point(705, 20);
+            btnChooseTopic.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            btnChooseTopic.Name = "btnChooseTopic";
+            btnChooseTopic.Size = new System.Drawing.Size(34, 34);
+            btnChooseTopic.TabIndex = 1;
+            btnChooseTopic.Text = "..";
+            btnChooseTopic.UseVisualStyleBackColor = true;
+            btnChooseTopic.Click += btnChooseTopic_Click;
             // 
             // txtTopic
             // 
-            this.txtTopic.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtTopic.Location = new System.Drawing.Point(6, 25);
-            this.txtTopic.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtTopic.Name = "txtTopic";
-            this.txtTopic.ReadOnly = true;
-            this.txtTopic.Size = new System.Drawing.Size(693, 24);
-            this.txtTopic.TabIndex = 0;
-            this.txtTopic.TextChanged += new System.EventHandler(this.txtTopic_TextChanged);
+            txtTopic.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txtTopic.Location = new System.Drawing.Point(6, 25);
+            txtTopic.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            txtTopic.Name = "txtTopic";
+            txtTopic.ReadOnly = true;
+            txtTopic.Size = new System.Drawing.Size(693, 24);
+            txtTopic.TabIndex = 0;
+            txtTopic.TextChanged += txtTopic_TextChanged;
             // 
             // grpAnswers
             // 
-            this.grpAnswers.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpAnswers.Controls.Add(this.btnImportQuestions);
-            this.grpAnswers.Controls.Add(this.btnAddAnswer);
-            this.grpAnswers.Controls.Add(this.dgwAnswers);
-            this.grpAnswers.Location = new System.Drawing.Point(211, 448);
-            this.grpAnswers.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.grpAnswers.Name = "grpAnswers";
-            this.grpAnswers.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.grpAnswers.Size = new System.Drawing.Size(775, 227);
-            this.grpAnswers.TabIndex = 4;
-            this.grpAnswers.TabStop = false;
-            this.grpAnswers.Text = "Risposte";
+            grpAnswers.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            grpAnswers.Controls.Add(btnImportQuestions);
+            grpAnswers.Controls.Add(btnAddAnswer);
+            grpAnswers.Controls.Add(dgwAnswers);
+            grpAnswers.Location = new System.Drawing.Point(211, 448);
+            grpAnswers.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            grpAnswers.Name = "grpAnswers";
+            grpAnswers.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            grpAnswers.Size = new System.Drawing.Size(775, 227);
+            grpAnswers.TabIndex = 4;
+            grpAnswers.TabStop = false;
+            grpAnswers.Text = "Risposte";
             // 
             // btnImportQuestions
             // 
-            this.btnImportQuestions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnImportQuestions.Enabled = false;
-            this.btnImportQuestions.Location = new System.Drawing.Point(546, 0);
-            this.btnImportQuestions.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnImportQuestions.Name = "btnImportQuestions";
-            this.btnImportQuestions.Size = new System.Drawing.Size(229, 26);
-            this.btnImportQuestions.TabIndex = 106;
-            this.btnImportQuestions.Text = "Importa domande da file";
-            this.btnImportQuestions.UseVisualStyleBackColor = true;
-            this.btnImportQuestions.Click += new System.EventHandler(this.btnImportQuestions_Click);
+            btnImportQuestions.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnImportQuestions.Enabled = false;
+            btnImportQuestions.Location = new System.Drawing.Point(546, 0);
+            btnImportQuestions.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            btnImportQuestions.Name = "btnImportQuestions";
+            btnImportQuestions.Size = new System.Drawing.Size(229, 26);
+            btnImportQuestions.TabIndex = 106;
+            btnImportQuestions.Text = "Importa domande da file";
+            btnImportQuestions.UseVisualStyleBackColor = true;
+            btnImportQuestions.Click += btnImportQuestions_Click;
             // 
             // btnAddAnswer
             // 
-            this.btnAddAnswer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddAnswer.Location = new System.Drawing.Point(77, 0);
-            this.btnAddAnswer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnAddAnswer.Name = "btnAddAnswer";
-            this.btnAddAnswer.Size = new System.Drawing.Size(55, 26);
-            this.btnAddAnswer.TabIndex = 2;
-            this.btnAddAnswer.Text = "+";
-            this.btnAddAnswer.UseVisualStyleBackColor = true;
-            this.btnAddAnswer.Click += new System.EventHandler(this.btnAddAnswer_Click);
+            btnAddAnswer.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnAddAnswer.Location = new System.Drawing.Point(77, 0);
+            btnAddAnswer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            btnAddAnswer.Name = "btnAddAnswer";
+            btnAddAnswer.Size = new System.Drawing.Size(55, 26);
+            btnAddAnswer.TabIndex = 2;
+            btnAddAnswer.Text = "+";
+            btnAddAnswer.UseVisualStyleBackColor = true;
+            btnAddAnswer.Click += btnAddAnswer_Click;
             // 
             // dgwAnswers
             // 
-            this.dgwAnswers.AllowUserToAddRows = false;
-            this.dgwAnswers.AllowUserToDeleteRows = false;
-            this.dgwAnswers.AllowUserToOrderColumns = true;
-            this.dgwAnswers.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgwAnswers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
-            this.dgwAnswers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgwAnswers.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgwAnswers.Location = new System.Drawing.Point(2, 34);
-            this.dgwAnswers.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dgwAnswers.Name = "dgwAnswers";
-            this.dgwAnswers.RowTemplate.Height = 24;
-            this.dgwAnswers.Size = new System.Drawing.Size(767, 190);
-            this.dgwAnswers.TabIndex = 0;
-            this.dgwAnswers.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwAnswers_CellContentClick);
-            this.dgwAnswers.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwAnswers_CellDoubleClick);
+            dgwAnswers.AllowUserToAddRows = false;
+            dgwAnswers.AllowUserToDeleteRows = false;
+            dgwAnswers.AllowUserToOrderColumns = true;
+            dgwAnswers.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            dgwAnswers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
+            dgwAnswers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgwAnswers.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            dgwAnswers.Location = new System.Drawing.Point(2, 34);
+            dgwAnswers.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            dgwAnswers.Name = "dgwAnswers";
+            dgwAnswers.RowTemplate.Height = 24;
+            dgwAnswers.Size = new System.Drawing.Size(767, 190);
+            dgwAnswers.TabIndex = 0;
+            dgwAnswers.CellContentClick += dgwAnswers_CellContentClick;
+            dgwAnswers.CellDoubleClick += dgwAnswers_CellDoubleClick;
             // 
             // grpQuestionImage
             // 
-            this.grpQuestionImage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpQuestionImage.Controls.Add(this.btnChooseFileImage);
-            this.grpQuestionImage.Controls.Add(this.button1);
-            this.grpQuestionImage.Controls.Add(this.txtQuestionImage);
-            this.grpQuestionImage.Controls.Add(this.txtImagesPath);
-            this.grpQuestionImage.Controls.Add(this.btnPathImportImage);
-            this.grpQuestionImage.Controls.Add(this.picImage);
-            this.grpQuestionImage.Controls.Add(this.lblImageName);
-            this.grpQuestionImage.Controls.Add(this.lblImagesPath);
-            this.grpQuestionImage.Controls.Add(this.label2);
-            this.grpQuestionImage.Enabled = false;
-            this.grpQuestionImage.Location = new System.Drawing.Point(1, 255);
-            this.grpQuestionImage.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.grpQuestionImage.Name = "grpQuestionImage";
-            this.grpQuestionImage.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.grpQuestionImage.Size = new System.Drawing.Size(991, 107);
-            this.grpQuestionImage.TabIndex = 2;
-            this.grpQuestionImage.TabStop = false;
-            this.grpQuestionImage.Text = "Immagine della domanda";
+            grpQuestionImage.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            grpQuestionImage.Controls.Add(btnChooseFileImage);
+            grpQuestionImage.Controls.Add(button1);
+            grpQuestionImage.Controls.Add(txtQuestionImage);
+            grpQuestionImage.Controls.Add(txtImagesPath);
+            grpQuestionImage.Controls.Add(btnPathImportImage);
+            grpQuestionImage.Controls.Add(picImage);
+            grpQuestionImage.Controls.Add(lblImageName);
+            grpQuestionImage.Controls.Add(lblImagesPath);
+            grpQuestionImage.Controls.Add(label2);
+            grpQuestionImage.Enabled = false;
+            grpQuestionImage.Location = new System.Drawing.Point(1, 255);
+            grpQuestionImage.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            grpQuestionImage.Name = "grpQuestionImage";
+            grpQuestionImage.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            grpQuestionImage.Size = new System.Drawing.Size(991, 107);
+            grpQuestionImage.TabIndex = 2;
+            grpQuestionImage.TabStop = false;
+            grpQuestionImage.Text = "Immagine della domanda";
             // 
             // btnChooseFileImage
             // 
-            this.btnChooseFileImage.BackColor = System.Drawing.Color.Transparent;
-            this.btnChooseFileImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChooseFileImage.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnChooseFileImage.Location = new System.Drawing.Point(719, 58);
-            this.btnChooseFileImage.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.btnChooseFileImage.Name = "btnChooseFileImage";
-            this.btnChooseFileImage.Size = new System.Drawing.Size(33, 26);
-            this.btnChooseFileImage.TabIndex = 156;
-            this.btnChooseFileImage.Text = "..";
-            this.btnChooseFileImage.UseVisualStyleBackColor = false;
+            btnChooseFileImage.BackColor = System.Drawing.Color.Transparent;
+            btnChooseFileImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnChooseFileImage.ForeColor = System.Drawing.Color.DarkBlue;
+            btnChooseFileImage.Location = new System.Drawing.Point(719, 58);
+            btnChooseFileImage.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            btnChooseFileImage.Name = "btnChooseFileImage";
+            btnChooseFileImage.Size = new System.Drawing.Size(33, 26);
+            btnChooseFileImage.TabIndex = 156;
+            btnChooseFileImage.Text = "..";
+            btnChooseFileImage.UseVisualStyleBackColor = false;
             // 
             // button1
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(756, 33);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(66, 51);
-            this.button1.TabIndex = 114;
-            this.button1.Text = "Imm. lezione";
-            this.button1.UseVisualStyleBackColor = true;
+            button1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            button1.Location = new System.Drawing.Point(756, 33);
+            button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            button1.Name = "button1";
+            button1.Size = new System.Drawing.Size(66, 51);
+            button1.TabIndex = 114;
+            button1.Text = "Imm. lezione";
+            button1.UseVisualStyleBackColor = true;
             // 
             // txtQuestionImage
             // 
-            this.txtQuestionImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtQuestionImage.Location = new System.Drawing.Point(164, 60);
-            this.txtQuestionImage.Margin = new System.Windows.Forms.Padding(4);
-            this.txtQuestionImage.Name = "txtQuestionImage";
-            this.txtQuestionImage.Size = new System.Drawing.Size(549, 24);
-            this.txtQuestionImage.TabIndex = 153;
+            txtQuestionImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtQuestionImage.Location = new System.Drawing.Point(164, 60);
+            txtQuestionImage.Margin = new System.Windows.Forms.Padding(4);
+            txtQuestionImage.Name = "txtQuestionImage";
+            txtQuestionImage.Size = new System.Drawing.Size(549, 24);
+            txtQuestionImage.TabIndex = 153;
             // 
             // txtImagesPath
             // 
-            this.txtImagesPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtImagesPath.Location = new System.Drawing.Point(164, 30);
-            this.txtImagesPath.Margin = new System.Windows.Forms.Padding(4);
-            this.txtImagesPath.Name = "txtImagesPath";
-            this.txtImagesPath.Size = new System.Drawing.Size(549, 24);
-            this.txtImagesPath.TabIndex = 154;
+            txtImagesPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtImagesPath.Location = new System.Drawing.Point(164, 30);
+            txtImagesPath.Margin = new System.Windows.Forms.Padding(4);
+            txtImagesPath.Name = "txtImagesPath";
+            txtImagesPath.Size = new System.Drawing.Size(549, 24);
+            txtImagesPath.TabIndex = 154;
             // 
             // btnPathImportImage
             // 
-            this.btnPathImportImage.BackColor = System.Drawing.Color.Transparent;
-            this.btnPathImportImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPathImportImage.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnPathImportImage.Location = new System.Drawing.Point(719, 28);
-            this.btnPathImportImage.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.btnPathImportImage.Name = "btnPathImportImage";
-            this.btnPathImportImage.Size = new System.Drawing.Size(33, 27);
-            this.btnPathImportImage.TabIndex = 155;
-            this.btnPathImportImage.Text = "..";
-            this.btnPathImportImage.UseVisualStyleBackColor = false;
+            btnPathImportImage.BackColor = System.Drawing.Color.Transparent;
+            btnPathImportImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnPathImportImage.ForeColor = System.Drawing.Color.DarkBlue;
+            btnPathImportImage.Location = new System.Drawing.Point(719, 28);
+            btnPathImportImage.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            btnPathImportImage.Name = "btnPathImportImage";
+            btnPathImportImage.Size = new System.Drawing.Size(33, 27);
+            btnPathImportImage.TabIndex = 155;
+            btnPathImportImage.Text = "..";
+            btnPathImportImage.UseVisualStyleBackColor = false;
             // 
             // picImage
             // 
-            this.picImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picImage.Location = new System.Drawing.Point(830, 13);
-            this.picImage.Name = "picImage";
-            this.picImage.Size = new System.Drawing.Size(155, 88);
-            this.picImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picImage.TabIndex = 134;
-            this.picImage.TabStop = false;
+            picImage.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            picImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            picImage.Location = new System.Drawing.Point(830, 13);
+            picImage.Name = "picImage";
+            picImage.Size = new System.Drawing.Size(155, 88);
+            picImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            picImage.TabIndex = 134;
+            picImage.TabStop = false;
             // 
             // lblImageName
             // 
-            this.lblImageName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblImageName.AutoSize = true;
-            this.lblImageName.Enabled = false;
-            this.lblImageName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblImageName.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblImageName.Location = new System.Drawing.Point(10, 64);
-            this.lblImageName.Name = "lblImageName";
-            this.lblImageName.Size = new System.Drawing.Size(147, 20);
-            this.lblImageName.TabIndex = 107;
-            this.lblImageName.Text = "Nome file immagine";
+            lblImageName.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            lblImageName.AutoSize = true;
+            lblImageName.Enabled = false;
+            lblImageName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            lblImageName.ForeColor = System.Drawing.Color.DarkBlue;
+            lblImageName.Location = new System.Drawing.Point(10, 64);
+            lblImageName.Name = "lblImageName";
+            lblImageName.Size = new System.Drawing.Size(147, 20);
+            lblImageName.TabIndex = 107;
+            lblImageName.Text = "Nome file immagine";
             // 
             // lblImagesPath
             // 
-            this.lblImagesPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblImagesPath.AutoSize = true;
-            this.lblImagesPath.Enabled = false;
-            this.lblImagesPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblImagesPath.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblImagesPath.Location = new System.Drawing.Point(10, 31);
-            this.lblImagesPath.Name = "lblImagesPath";
-            this.lblImagesPath.Size = new System.Drawing.Size(138, 20);
-            this.lblImagesPath.TabIndex = 106;
-            this.lblImagesPath.Text = "Percorso immagini";
+            lblImagesPath.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            lblImagesPath.AutoSize = true;
+            lblImagesPath.Enabled = false;
+            lblImagesPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            lblImagesPath.ForeColor = System.Drawing.Color.DarkBlue;
+            lblImagesPath.Location = new System.Drawing.Point(10, 31);
+            lblImagesPath.Name = "lblImagesPath";
+            lblImagesPath.Size = new System.Drawing.Size(138, 20);
+            lblImagesPath.TabIndex = 106;
+            lblImagesPath.Text = "Percorso immagini";
             // 
             // label2
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Enabled = false;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label2.Location = new System.Drawing.Point(929, -49);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(50, 15);
-            this.label2.TabIndex = 101;
-            this.label2.Text = "Durata";
+            label2.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            label2.AutoSize = true;
+            label2.Enabled = false;
+            label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label2.ForeColor = System.Drawing.Color.DarkBlue;
+            label2.Location = new System.Drawing.Point(929, -49);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(50, 15);
+            label2.TabIndex = 101;
+            label2.Text = "Durata";
             // 
             // label4
             // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.AutoSize = true;
-            this.label4.Enabled = false;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label4.Location = new System.Drawing.Point(917, 10);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(63, 15);
-            this.label4.TabIndex = 97;
-            this.label4.Text = "Peso [%]";
+            label4.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            label4.AutoSize = true;
+            label4.Enabled = false;
+            label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label4.ForeColor = System.Drawing.Color.DarkBlue;
+            label4.Location = new System.Drawing.Point(917, 10);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(63, 15);
+            label4.TabIndex = 97;
+            label4.Text = "Peso [%]";
             // 
             // txtWeight
             // 
-            this.txtWeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtWeight.Location = new System.Drawing.Point(917, 31);
-            this.txtWeight.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtWeight.Name = "txtWeight";
-            this.txtWeight.Size = new System.Drawing.Size(77, 37);
-            this.txtWeight.TabIndex = 96;
-            this.txtWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtWeight.TextChanged += new System.EventHandler(this.txtWeight_TextChanged);
+            txtWeight.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            txtWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            txtWeight.Location = new System.Drawing.Point(917, 31);
+            txtWeight.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            txtWeight.Name = "txtWeight";
+            txtWeight.Size = new System.Drawing.Size(77, 37);
+            txtWeight.TabIndex = 96;
+            txtWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            txtWeight.TextChanged += txtWeight_TextChanged;
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Enabled = false;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label1.Location = new System.Drawing.Point(917, 73);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(69, 15);
-            this.label1.TabIndex = 99;
-            this.label1.Text = "Durata [s]";
+            label1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            label1.AutoSize = true;
+            label1.Enabled = false;
+            label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label1.ForeColor = System.Drawing.Color.DarkBlue;
+            label1.Location = new System.Drawing.Point(917, 73);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(69, 15);
+            label1.TabIndex = 99;
+            label1.Text = "Durata [s]";
             // 
             // txtDuration
             // 
-            this.txtDuration.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDuration.Location = new System.Drawing.Point(917, 93);
-            this.txtDuration.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtDuration.Name = "txtDuration";
-            this.txtDuration.Size = new System.Drawing.Size(77, 37);
-            this.txtDuration.TabIndex = 98;
-            this.txtDuration.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtDuration.TextChanged += new System.EventHandler(this.txtDuration_TextChanged);
+            txtDuration.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            txtDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            txtDuration.Location = new System.Drawing.Point(917, 93);
+            txtDuration.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            txtDuration.Name = "txtDuration";
+            txtDuration.Size = new System.Drawing.Size(77, 37);
+            txtDuration.TabIndex = 98;
+            txtDuration.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            txtDuration.TextChanged += txtDuration_TextChanged;
             // 
             // btnSaveQuestion
             // 
-            this.btnSaveQuestion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveQuestion.Location = new System.Drawing.Point(856, 196);
-            this.btnSaveQuestion.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnSaveQuestion.Name = "btnSaveQuestion";
-            this.btnSaveQuestion.Size = new System.Drawing.Size(66, 51);
-            this.btnSaveQuestion.TabIndex = 2;
-            this.btnSaveQuestion.Text = "Salva";
-            this.btnSaveQuestion.UseVisualStyleBackColor = true;
-            this.btnSaveQuestion.Click += new System.EventHandler(this.btnSaveQuestion_Click);
+            btnSaveQuestion.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnSaveQuestion.Location = new System.Drawing.Point(856, 196);
+            btnSaveQuestion.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            btnSaveQuestion.Name = "btnSaveQuestion";
+            btnSaveQuestion.Size = new System.Drawing.Size(66, 51);
+            btnSaveQuestion.TabIndex = 2;
+            btnSaveQuestion.Text = "Salva";
+            btnSaveQuestion.UseVisualStyleBackColor = true;
+            btnSaveQuestion.Click += btnSaveQuestion_Click;
             // 
             // lblIdQuesion
             // 
-            this.lblIdQuesion.AutoSize = true;
-            this.lblIdQuesion.Location = new System.Drawing.Point(643, 209);
-            this.lblIdQuesion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblIdQuesion.Name = "lblIdQuesion";
-            this.lblIdQuesion.Size = new System.Drawing.Size(55, 18);
-            this.lblIdQuesion.TabIndex = 105;
-            this.lblIdQuesion.Text = "Codice";
+            lblIdQuesion.AutoSize = true;
+            lblIdQuesion.Location = new System.Drawing.Point(643, 209);
+            lblIdQuesion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            lblIdQuesion.Name = "lblIdQuesion";
+            lblIdQuesion.Size = new System.Drawing.Size(55, 18);
+            lblIdQuesion.TabIndex = 105;
+            lblIdQuesion.Text = "Codice";
             // 
             // txtIdQuestion
             // 
-            this.txtIdQuestion.Location = new System.Drawing.Point(702, 206);
-            this.txtIdQuestion.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.txtIdQuestion.Name = "txtIdQuestion";
-            this.txtIdQuestion.ReadOnly = true;
-            this.txtIdQuestion.Size = new System.Drawing.Size(75, 24);
-            this.txtIdQuestion.TabIndex = 104;
-            this.txtIdQuestion.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            txtIdQuestion.Location = new System.Drawing.Point(702, 206);
+            txtIdQuestion.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            txtIdQuestion.Name = "txtIdQuestion";
+            txtIdQuestion.ReadOnly = true;
+            txtIdQuestion.Size = new System.Drawing.Size(75, 24);
+            txtIdQuestion.TabIndex = 104;
+            txtIdQuestion.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lblQuestionType
             // 
-            this.lblQuestionType.AutoSize = true;
-            this.lblQuestionType.Location = new System.Drawing.Point(319, 207);
-            this.lblQuestionType.Name = "lblQuestionType";
-            this.lblQuestionType.Size = new System.Drawing.Size(103, 18);
-            this.lblQuestionType.TabIndex = 108;
-            this.lblQuestionType.Text = "Tipo domanda";
+            lblQuestionType.AutoSize = true;
+            lblQuestionType.Location = new System.Drawing.Point(319, 207);
+            lblQuestionType.Name = "lblQuestionType";
+            lblQuestionType.Size = new System.Drawing.Size(103, 18);
+            lblQuestionType.TabIndex = 108;
+            lblQuestionType.Text = "Tipo domanda";
             // 
             // lblSchoolSubject
             // 
-            this.lblSchoolSubject.AutoSize = true;
-            this.lblSchoolSubject.Location = new System.Drawing.Point(3, 207);
-            this.lblSchoolSubject.Name = "lblSchoolSubject";
-            this.lblSchoolSubject.Size = new System.Drawing.Size(57, 18);
-            this.lblSchoolSubject.TabIndex = 107;
-            this.lblSchoolSubject.Text = "Materia";
+            lblSchoolSubject.AutoSize = true;
+            lblSchoolSubject.Location = new System.Drawing.Point(3, 207);
+            lblSchoolSubject.Name = "lblSchoolSubject";
+            lblSchoolSubject.Size = new System.Drawing.Size(57, 18);
+            lblSchoolSubject.TabIndex = 107;
+            lblSchoolSubject.Text = "Materia";
             // 
             // cmbQuestionType
             // 
-            this.cmbQuestionType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbQuestionType.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbQuestionType.FormattingEnabled = true;
-            this.cmbQuestionType.Location = new System.Drawing.Point(425, 204);
-            this.cmbQuestionType.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cmbQuestionType.Name = "cmbQuestionType";
-            this.cmbQuestionType.Size = new System.Drawing.Size(209, 26);
-            this.cmbQuestionType.TabIndex = 109;
-            this.cmbQuestionType.SelectedIndexChanged += new System.EventHandler(this.cmbQuestionType_SelectedIndexChanged);
+            cmbQuestionType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cmbQuestionType.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            cmbQuestionType.FormattingEnabled = true;
+            cmbQuestionType.Location = new System.Drawing.Point(425, 204);
+            cmbQuestionType.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            cmbQuestionType.Name = "cmbQuestionType";
+            cmbQuestionType.Size = new System.Drawing.Size(209, 26);
+            cmbQuestionType.TabIndex = 109;
+            cmbQuestionType.SelectedIndexChanged += cmbQuestionType_SelectedIndexChanged;
             // 
             // cmbSchoolSubject
             // 
-            this.cmbSchoolSubject.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbSchoolSubject.FormattingEnabled = true;
-            this.cmbSchoolSubject.Location = new System.Drawing.Point(80, 204);
-            this.cmbSchoolSubject.Name = "cmbSchoolSubject";
-            this.cmbSchoolSubject.Size = new System.Drawing.Size(233, 26);
-            this.cmbSchoolSubject.TabIndex = 106;
-            this.cmbSchoolSubject.SelectedIndexChanged += new System.EventHandler(this.cmbSchoolSubject_SelectedIndexChanged);
+            cmbSchoolSubject.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cmbSchoolSubject.FormattingEnabled = true;
+            cmbSchoolSubject.Location = new System.Drawing.Point(80, 204);
+            cmbSchoolSubject.Name = "cmbSchoolSubject";
+            cmbSchoolSubject.Size = new System.Drawing.Size(233, 26);
+            cmbSchoolSubject.TabIndex = 106;
+            cmbSchoolSubject.SelectedIndexChanged += cmbSchoolSubject_SelectedIndexChanged;
             // 
             // lblDifficulty
             // 
-            this.lblDifficulty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblDifficulty.AutoSize = true;
-            this.lblDifficulty.Enabled = false;
-            this.lblDifficulty.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDifficulty.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblDifficulty.Location = new System.Drawing.Point(917, 136);
-            this.lblDifficulty.Name = "lblDifficulty";
-            this.lblDifficulty.Size = new System.Drawing.Size(64, 15);
-            this.lblDifficulty.TabIndex = 111;
-            this.lblDifficulty.Text = "Difficoltà";
+            lblDifficulty.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            lblDifficulty.AutoSize = true;
+            lblDifficulty.Enabled = false;
+            lblDifficulty.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            lblDifficulty.ForeColor = System.Drawing.Color.DarkBlue;
+            lblDifficulty.Location = new System.Drawing.Point(917, 136);
+            lblDifficulty.Name = "lblDifficulty";
+            lblDifficulty.Size = new System.Drawing.Size(64, 15);
+            lblDifficulty.TabIndex = 111;
+            lblDifficulty.Text = "Difficoltà";
             // 
             // txtDifficulty
             // 
-            this.txtDifficulty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDifficulty.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDifficulty.Location = new System.Drawing.Point(917, 155);
-            this.txtDifficulty.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtDifficulty.Name = "txtDifficulty";
-            this.txtDifficulty.Size = new System.Drawing.Size(77, 37);
-            this.txtDifficulty.TabIndex = 110;
-            this.txtDifficulty.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtDifficulty.TextChanged += new System.EventHandler(this.txtDifficulty_TextChanged);
+            txtDifficulty.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            txtDifficulty.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            txtDifficulty.Location = new System.Drawing.Point(917, 155);
+            txtDifficulty.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            txtDifficulty.Name = "txtDifficulty";
+            txtDifficulty.Size = new System.Drawing.Size(77, 37);
+            txtDifficulty.TabIndex = 110;
+            txtDifficulty.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            txtDifficulty.TextChanged += txtDifficulty_TextChanged;
             // 
             // btnNewQuestion
             // 
-            this.btnNewQuestion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNewQuestion.Location = new System.Drawing.Point(784, 196);
-            this.btnNewQuestion.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnNewQuestion.Name = "btnNewQuestion";
-            this.btnNewQuestion.Size = new System.Drawing.Size(66, 51);
-            this.btnNewQuestion.TabIndex = 112;
-            this.btnNewQuestion.Text = "Nuova";
-            this.btnNewQuestion.UseVisualStyleBackColor = true;
-            this.btnNewQuestion.Click += new System.EventHandler(this.btnNewQuestion_Click);
+            btnNewQuestion.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnNewQuestion.Location = new System.Drawing.Point(784, 196);
+            btnNewQuestion.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            btnNewQuestion.Name = "btnNewQuestion";
+            btnNewQuestion.Size = new System.Drawing.Size(66, 51);
+            btnNewQuestion.TabIndex = 112;
+            btnNewQuestion.Text = "Nuova";
+            btnNewQuestion.UseVisualStyleBackColor = true;
+            btnNewQuestion.Click += btnNewQuestion_Click;
             // 
             // btnSaveAndChoose
             // 
-            this.btnSaveAndChoose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveAndChoose.Location = new System.Drawing.Point(928, 196);
-            this.btnSaveAndChoose.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnSaveAndChoose.Name = "btnSaveAndChoose";
-            this.btnSaveAndChoose.Size = new System.Drawing.Size(66, 51);
-            this.btnSaveAndChoose.TabIndex = 113;
-            this.btnSaveAndChoose.Text = "Salva e scegli ";
-            this.btnSaveAndChoose.UseVisualStyleBackColor = true;
-            this.btnSaveAndChoose.Click += new System.EventHandler(this.btnSaveAndChoose_Click);
+            btnSaveAndChoose.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnSaveAndChoose.Location = new System.Drawing.Point(928, 196);
+            btnSaveAndChoose.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            btnSaveAndChoose.Name = "btnSaveAndChoose";
+            btnSaveAndChoose.Size = new System.Drawing.Size(66, 51);
+            btnSaveAndChoose.TabIndex = 113;
+            btnSaveAndChoose.Text = "Salva e scegli ";
+            btnSaveAndChoose.UseVisualStyleBackColor = true;
+            btnSaveAndChoose.Click += btnSaveAndChoose_Click;
             // 
             // frmQuestion
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.PowderBlue;
-            this.ClientSize = new System.Drawing.Size(1000, 682);
-            this.Controls.Add(this.btnSaveAndChoose);
-            this.Controls.Add(this.btnNewQuestion);
-            this.Controls.Add(this.lblDifficulty);
-            this.Controls.Add(this.txtDifficulty);
-            this.Controls.Add(this.lblQuestionType);
-            this.Controls.Add(this.lblSchoolSubject);
-            this.Controls.Add(this.cmbQuestionType);
-            this.Controls.Add(this.cmbSchoolSubject);
-            this.Controls.Add(this.lblIdQuesion);
-            this.Controls.Add(this.txtIdQuestion);
-            this.Controls.Add(this.btnSaveQuestion);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.txtDuration);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.txtWeight);
-            this.Controls.Add(this.grpQuestionImage);
-            this.Controls.Add(this.grpAnswers);
-            this.Controls.Add(this.grpTopic);
-            this.Controls.Add(this.lblQuestionText);
-            this.Controls.Add(this.txtQuestionText);
-            this.Controls.Add(this.grpTags);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ForeColor = System.Drawing.Color.DarkBlue;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "frmQuestion";
-            this.Text = "Domanda";
-            this.Load += new System.EventHandler(this.frmQuestion_Load);
-            this.grpTags.ResumeLayout(false);
-            this.grpTopic.ResumeLayout(false);
-            this.grpTopic.PerformLayout();
-            this.grpAnswers.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgwAnswers)).EndInit();
-            this.grpQuestionImage.ResumeLayout(false);
-            this.grpQuestionImage.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picImage)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.PowderBlue;
+            ClientSize = new System.Drawing.Size(1000, 682);
+            Controls.Add(btnSaveAndChoose);
+            Controls.Add(btnNewQuestion);
+            Controls.Add(lblDifficulty);
+            Controls.Add(txtDifficulty);
+            Controls.Add(lblQuestionType);
+            Controls.Add(lblSchoolSubject);
+            Controls.Add(cmbQuestionType);
+            Controls.Add(cmbSchoolSubject);
+            Controls.Add(lblIdQuesion);
+            Controls.Add(txtIdQuestion);
+            Controls.Add(btnSaveQuestion);
+            Controls.Add(label1);
+            Controls.Add(txtDuration);
+            Controls.Add(label4);
+            Controls.Add(txtWeight);
+            Controls.Add(grpQuestionImage);
+            Controls.Add(grpAnswers);
+            Controls.Add(grpTopic);
+            Controls.Add(lblQuestionText);
+            Controls.Add(txtQuestionText);
+            Controls.Add(grpTags);
+            Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            ForeColor = System.Drawing.Color.DarkBlue;
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            Margin = new System.Windows.Forms.Padding(4);
+            Name = "frmQuestion";
+            Text = "Domanda";
+            Load += frmQuestion_Load;
+            grpTags.ResumeLayout(false);
+            grpTopic.ResumeLayout(false);
+            grpTopic.PerformLayout();
+            grpAnswers.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgwAnswers).EndInit();
+            grpQuestionImage.ResumeLayout(false);
+            grpQuestionImage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)picImage).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

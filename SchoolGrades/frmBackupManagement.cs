@@ -26,6 +26,7 @@ namespace SchoolGrades
         }
         private void frmBackupManagement_Load(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
             CmbSchoolYear.DataSource = ly;
             if (ly.Count > 0)
@@ -37,6 +38,7 @@ namespace SchoolGrades
         }
         private void btnBackupTables_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             //db.BackupTableTsv("SchoolSubjects");
             //db.BackupTableTsv("TestTypes");
             //db.BackupTableTsv("QuestionTypes");
@@ -60,6 +62,7 @@ namespace SchoolGrades
         }
         private void btnClassBackup_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             if (currentClass == null)
             {
                 MessageBox.Show("Scegliere la classe da tenere nel database");
@@ -87,6 +90,7 @@ namespace SchoolGrades
         }
         private void btnRestoreTables_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             //db.RestoreTableTsv("SchoolSubjects", rdbRestoreErasing.Checked);
             //db.RestoreTableTsv("TestTypes", rdbRestoreErasing.Checked);
             //db.RestoreTableTsv("QuestionTypes", rdbRestoreErasing.Checked);
@@ -110,18 +114,21 @@ namespace SchoolGrades
         }
         private void btnBackupTopics_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             //db.BackupTableTsv("Topics");
             Commons.bl.BackupTableXml("Topics");
             MessageBox.Show("Backup argomenti terminato");
         }
         private void btnExportTopics_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             //Topic initial = ((Topic)trwTopics.SelectedNode.Tag);
             string tree = topicTreeMptt.CreateTextTreeOfDescendants(0, int.MaxValue, true);
             TextFile.StringToFile(Commons.PathDatabase + "\\Argomenti.tsv", tree, false);
         }
         private void btnBackupTags_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             //db.BackupTableTsv("Tags");
             Commons.bl.BackupTableXml("Tags");
             MessageBox.Show("Backup Tags terminato");
@@ -168,18 +175,21 @@ namespace SchoolGrades
         }
         private void btnRestoreTopics_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             //db.RestoreTableTsv("Topics", rdbRestoreErasing.Checked);
             Commons.bl.RestoreTableXml("Topics", rdbRestoreErasing.Checked);
             MessageBox.Show("Ripristino argomenti terminato");
         }
         private void btnSaveDatabaseFile_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             File.Copy(Commons.PathAndFileDatabase,
                 Commons.PathDatabase + "\\" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + 
                 "_" + Commons.DatabaseFileName_Current); 
         }
         private void btnRestoreTags_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             //db.RestoreTableTsv("Tags", rdbRestoreErasing.Checked);
             Commons.bl.RestoreTableXml("Tags", rdbRestoreErasing.Checked);
             Commons.bl.BackupAllStudentsDataXml();
@@ -187,31 +197,37 @@ namespace SchoolGrades
         }
         private void btnBackupStudents_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             //db.BackupAllStudentsDataTsv();
             Commons.bl.BackupAllStudentsDataXml();
             MessageBox.Show("Backup studenti terminato");
         }
         private void btnExportTags_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             MessageBox.Show("Da fare");
         }
         private void btnImportTags_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             MessageBox.Show("Da fare");
         }
         private void btnRestoreStudents_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             //db.RestoreAllStudentsDataTsv(rdbRestoreErasing.Checked);
             Commons.bl.RestoreAllStudentsDataXml(rdbRestoreErasing.Checked);
             MessageBox.Show("Ripristino studenti terminato");
         }
         private void btnCompactDatabase_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             Commons.bl.CompactDatabase();
             Application.Exit();
         }
         private void BtnMakeDemo_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             int indexNextClass = lstClasses.SelectedIndex - 1;
             if (indexNextClass < 0)
             {
@@ -259,6 +275,7 @@ namespace SchoolGrades
         }
         private void BtnNewDatabase_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             string newDatabasePathName = Commons.PathDatabase;
             if (!Directory.Exists(newDatabasePathName))
                 Directory.CreateDirectory(newDatabasePathName);

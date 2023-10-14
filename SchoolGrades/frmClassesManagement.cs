@@ -26,7 +26,7 @@ namespace SchoolGrades
         {
             InitializeComponent();
         }
-        private void FrmClassesManagement_Load(object sender, EventArgs e)
+        private void FrmClassesManagement_Load(object sender, EventArgs e) //fatto, non c'è niente da modificare
         {
             isLoading = true;
             // school data
@@ -46,8 +46,9 @@ namespace SchoolGrades
 
             isLoading = false;
         }
-        private void btnImportStudentsOfClass_Click(object sender, EventArgs e)
+        private void btnImportStudentsOfClass_Click(object sender, EventArgs e)// da non toccare
         {
+            //non necessita di incapsulamento
             // give warning to avoid modifying existing class instead of making a new one
             if (Commons.bl.GetClass(currentSchool.IdSchool, idSchoolYear, CmbClasses.Text).Abbreviation != null)
             {
@@ -112,32 +113,36 @@ namespace SchoolGrades
             }
             MessageBox.Show("Importazione terminata");
             this.Close();
-        }
-        private void btnFileChoose_Click(object sender, EventArgs e)
+        } 
+        private void btnFileChoose_Click(object sender, EventArgs e)//da non toccare
         {
+            //non necessita di incapsulamento
             openFileDialog.InitialDirectory = Path.GetDirectoryName(TxtFileOfStudentsImport.Text + "\\");
             DialogResult r = openFileDialog.ShowDialog();
             if (r == System.Windows.Forms.DialogResult.OK)
             {
                 TxtFileOfStudentsImport.Text = openFileDialog.FileName;
             }
-        }
-        private void btnPathImages_Click(object sender, EventArgs e)
+        } 
+        private void btnPathImages_Click(object sender, EventArgs e)//da non toccare
         {
+            //non necessita di incapsulamento
             folderBrowserDialog.SelectedPath = TxtImagesOriginFolder.Text;
             DialogResult r = folderBrowserDialog.ShowDialog();
             if (r == System.Windows.Forms.DialogResult.OK)
             {
                 TxtImagesOriginFolder.Text = folderBrowserDialog.SelectedPath;
             }
-        }
-        private void CmbSchoolYear_SelectedIndexChanged(object sender, EventArgs e)
+        } 
+        private void CmbSchoolYear_SelectedIndexChanged(object sender, EventArgs e)//da non toccare
         {
+            //non necessita di incapsulamento
             idSchoolYear = CmbSchoolYear.SelectedItem.ToString();
             CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
-        }
-        private void btnClassErase_Click(object sender, EventArgs e)
+        } 
+        private void btnClassErase_Click(object sender, EventArgs e)//da non toccare
         {
+            //non necessita di incapsulamento
             if (currentClass == null)
             {
                 MessageBox.Show("Scegliere in 'Sigla classe' una classe da cancellare");
@@ -158,9 +163,10 @@ namespace SchoolGrades
             Commons.bl.EraseClassFromClasses(currentClass);
 
             this.Close();
-        }
-        private void CmbClasses_SelectedIndexChanged(object sender, EventArgs e)
+        } 
+        private void CmbClasses_SelectedIndexChanged(object sender, EventArgs e)//da non toccare
         {
+            //Non toccare
             if (!isLoading)
             {
                 Class c = (Class)CmbClasses.SelectedItem;
@@ -169,7 +175,8 @@ namespace SchoolGrades
                     FillClassData(c);
                 }
             }
-        }
+        } 
+        //NO non farlo, non toccare
         private void CmbClasses_TextChanged(object sender, EventArgs e)
         {
             // !!!! written by the user. It should be fired only when the text part of the combo is manually modified for the first time 
@@ -178,6 +185,7 @@ namespace SchoolGrades
         }
         private void FillClassData(Class Class)
         {
+            //Non toccare
             if (Class != null)
             {
                 dtClass = Commons.bl.GetClassTable(Class.IdClass);
@@ -190,9 +198,10 @@ namespace SchoolGrades
                 currentClass = (Class)CmbClasses.SelectedItem;
                 TxtStartLinksFolder.Text = currentClass.PathRestrictedApplication;
             }
-        }
+        } 
         private void BtnPhotoChange_Click(object sender, EventArgs e)
         {
+            //Non toccare perchè tutta questa parte è interfaccia
             if (DgwStudents.SelectedCells.Count > -1)
             {
                 studentsList = (List<Student>)DgwStudents.DataSource;
@@ -233,9 +242,10 @@ namespace SchoolGrades
             {
                 MessageBox.Show("Scegliere un allievo cui cambiare la foto");
             }
-        }
+        } 
         private void LoadPicture(Student StudentToLoad)
         {
+            //Non necessita di incapsulamento
             try
             {
                 string filePathAndName = Path.Combine(Commons.PathImages,
@@ -249,16 +259,18 @@ namespace SchoolGrades
                 picStudent.Image = null;
                 Console.Beep();
             }
-        }
+        } 
         private void btnNewYear_Click(object sender, EventArgs e)
         {
+            //Non toccare perché ci sono tante Combo class
             frmNewYear f = new frmNewYear(idSchoolYear);
             f.ShowDialog();
             CmbClasses.DataSource = null;
             CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
-        }
+        } //non toccare
         private void btnStudentNew_Click(object sender, EventArgs e)
         {
+            //Non toccare perchè ci sono tanti MessageBox 
             if (CmbClasses.Text == "")
             {
                 MessageBox.Show("Scegliere una classe");
@@ -277,9 +289,10 @@ namespace SchoolGrades
             {
                 MessageBox.Show("Studente non aggiunto alla classe \n(premere 'Scegli' nella finestra appena chiusa)");
             }
-        }
+        }  //non toccare
         private void btnStudentErase_Click(object sender, EventArgs e)
         {
+            //Non toccare perchè sono presenti delle ComboBox
             if (DgwStudents.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Selezionare nella griglia un allievo da cancellare");
@@ -297,9 +310,10 @@ namespace SchoolGrades
                 ((Class)(CmbClasses.SelectedItem)).IdClass);
             DgwStudents.DataSource = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text,
                 idSchoolYear, CmbClasses.Text, false);
-        }
+        }  //non toccare
         private void btnSaveClassAndStudents_Click(object sender, EventArgs e)
         {
+            //Non necessita di incapsulamento
             DataGridViewRow dgr = DgwClass.Rows[0];
             int? idClass = ((Class)CmbClasses.SelectedItem).IdClass;
             Class c = new Class(idClass, CmbClasses.Text, CmbSchoolYear.Text, TxtOfficialSchoolAbbreviation.Text);
@@ -316,6 +330,7 @@ namespace SchoolGrades
         }
         private void btnToggleDisableStudent_Click(object sender, EventArgs e)
         {
+            //Non toccare nulla perchè c'è molto DataBinding
             if (DgwStudents.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Selezionare nella griglia un allievo di cui cambiare lo stato di attivazione");
@@ -333,6 +348,7 @@ namespace SchoolGrades
         }
         private void btnModifyStudent_Click(object sender, EventArgs e)
         {
+            //Non necessita di incapsulamento
             if (DgwStudents.SelectedRows.Count < 1)
             {
                 MessageBox.Show("Selezionare lo studente da modificare");
@@ -349,11 +365,13 @@ namespace SchoolGrades
         }
         private void btnEndingPeriod_Click(object sender, EventArgs e)
         {
+            //Non necessita di incapsulamento
             // make a csv file with all grades and averages 
             MessageBox.Show("TO DO!");
         }
         private void btnCreateEmailAddresses_Click(object sender, EventArgs e)
         {
+            //Non necessita di incapsulamento
             if (currentClass == null)
             {
                 MessageBox.Show("Scegliere la classe per cui generare gli indirizzi email");
@@ -386,10 +404,11 @@ namespace SchoolGrades
         }
         private void DgwStudents_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            //Non necessita di incapsulamento
         }
         private void DgwStudents_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
+            //Non necessita di incapsulamento
             if (e.RowIndex > -1)
             {
                 DataGridViewCell c = DgwStudents.Rows[e.RowIndex].Cells["IdStudent"];
@@ -400,6 +419,7 @@ namespace SchoolGrades
         }
         private void DgwStudents_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            //Non necessita di incapsulamento
             if (e.RowIndex > -1)
             {
                 DgwStudents.Rows[e.RowIndex].Selected = true;
@@ -407,6 +427,7 @@ namespace SchoolGrades
         }
         private void DgwStudents_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            //Non necessita di incapsulamento
             if (e.RowIndex > -1)
             {
                 List<Student> ls = (List<Student>)(DgwStudents.DataSource);
@@ -416,6 +437,7 @@ namespace SchoolGrades
         }
         private void EditStudentsData(Student Student)
         {
+            //Non necessita di incapsulamento
             Student.SchoolYear = currentClass.SchoolYear;
 
             frmStudent fs = new frmStudent(Student, true);
@@ -426,10 +448,11 @@ namespace SchoolGrades
         }
         private void DgwClass_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            //Non necessita di incapsulamento
         }
         private void DgwClass_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            //Non toccare
             if (e.RowIndex > -1)
             {
                 if (e.ColumnIndex == 6) // column of the path; opens the folder with that path 
@@ -440,6 +463,7 @@ namespace SchoolGrades
         }
         private void btnPhotoErase_Click(object sender, EventArgs e)
         {
+            //Non toccare perchè sono 
             if (DgwStudents.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Selezionere l'allievo del quale eliminare la foto");
@@ -452,6 +476,7 @@ namespace SchoolGrades
         }
         private void button15_Click(object sender, EventArgs e)
         {
+            //Non toccare
             folderBrowserDialog.SelectedPath = TxtImagesOriginFolder.Text;
             DialogResult r = folderBrowserDialog.ShowDialog();
             if (r == System.Windows.Forms.DialogResult.OK)
@@ -481,6 +506,7 @@ namespace SchoolGrades
         }
         private void btnStudentsInfoList_Click(object sender, EventArgs e)
         {
+            //Non toccare
             if (currentClass == null)
             {
                 MessageBox.Show("Scegliere la classe per cui generare l'elenco su file");
@@ -507,6 +533,7 @@ namespace SchoolGrades
         }
         private void btnPutNumbers_Click(object sender, EventArgs e)
         {
+            //Non toccare
             int i = 1;
             foreach (Student s in (List<Student>)DgwStudents.DataSource)
             {
@@ -524,6 +551,7 @@ namespace SchoolGrades
         }
         private void btnPathStartLinks_Click(object sender, EventArgs e)
         {
+            //Non toccare
             folderBrowserDialog.SelectedPath = TxtStartLinksFolder.Text;
             DialogResult r = folderBrowserDialog.ShowDialog();
             if (r == System.Windows.Forms.DialogResult.OK)

@@ -18,6 +18,7 @@ namespace SchoolGrades
         }
         private void frmSetup_Load(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             //CommonsWinForms.ReadConfigFile();
             TxtPathDatabase.Text = Commons.PathDatabase;
             TxtFileDatabase.Text = Path.GetFileName(Commons.PathAndFileDatabase);
@@ -29,21 +30,25 @@ namespace SchoolGrades
         }
         private void BtnTabelle_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             frmTables f = new frmTables();
             f.ShowDialog();
         }
         private void BtnClassi_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             frmClassesManagement f = new frmClassesManagement();
             f.ShowDialog();
         }
         private void btnBackupManagement_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             frmBackupManagement f = new frmBackupManagement();
             f.ShowDialog();
         }
         private void btnScegliFile_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             openFileDialog1.InitialDirectory = TxtPathDatabase.Text;
             DialogResult r = openFileDialog1.ShowDialog();
             if (r == System.Windows.Forms.DialogResult.OK)
@@ -56,6 +61,7 @@ namespace SchoolGrades
         }
         private void btnCartellaImmagini_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             folderBrowserDialog1.SelectedPath = TxtPathImages.Text;
             DialogResult r = folderBrowserDialog1.ShowDialog();
             if (r == System.Windows.Forms.DialogResult.OK)
@@ -69,6 +75,7 @@ namespace SchoolGrades
         }
         internal void WriteConfigFile()
         {
+            //non necessita di incapsulamento
             string[] dati = new string[6];
             try
             {
@@ -142,6 +149,7 @@ namespace SchoolGrades
         }
         private void btnPathDatabase_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             folderBrowserDialog1.SelectedPath = TxtPathDatabase.Text;
             DialogResult r = folderBrowserDialog1.ShowDialog();
             if (r == System.Windows.Forms.DialogResult.OK)
@@ -153,17 +161,20 @@ namespace SchoolGrades
         }
         private void btnTopicsManagement_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             frmTopics f = new frmTopics(frmTopics.TopicsFormType.ShowAndManagement, null, null);
             f.ShowDialog();
             f.Dispose();
         }
         private void btnTagsManagement_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             frmTag t = new frmTag(false);
             t.ShowDialog();
         }
         private void btnStartLinksManagenet_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             Class dummy = new Class();
             //dummy.IdSchool = 
             //dummy.SchoolYear = curre
@@ -179,16 +190,19 @@ namespace SchoolGrades
         }
         private void btnTestManagement_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             frmTestManagement frm = new frmTestManagement();
             frm.ShowDialog();
         }
         private void btnRecoverTopics_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             frmTopicsRecover rt = new frmTopicsRecover();
             rt.ShowDialog();
         }
         private void btnPathDocuments_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             folderBrowserDialog1.SelectedPath = TxtPathDocuments.Text;
             DialogResult r = folderBrowserDialog1.ShowDialog();
             if (r == System.Windows.Forms.DialogResult.OK)
@@ -241,17 +255,20 @@ namespace SchoolGrades
         }
         private void btnUsersManagement_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             MessageBox.Show("Form da completare!");
             frmUsersManagement f = new frmUsersManagement();
             f.Show();
         }
         private void btnSchoolPeriodsManagement_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             frmSchoolYearAndPeriodsManagement f = new frmSchoolYearAndPeriodsManagement();
             f.ShowDialog();
         }
         private void btnResetDatabase_Click(object sender, EventArgs e)
         {
+            //non necessita di incapsulamento
             if (MessageBox.Show("ATTENZIONE: devo cancellare TUTTO il database?\n(Tutti i dati verranno persi!)",
                 "CANCELLAZIONE", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
                 == DialogResult.Yes)
