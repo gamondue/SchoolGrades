@@ -65,7 +65,7 @@ namespace SchoolGrades
 
         private void frmQuestion_Load(object sender, EventArgs e)
         {
-            //non necessita di incapsulamento
+            //non necessita di incapsulamento 
             if (currentSubject != null && currentSubject.IdSchoolSubject != null && currentSubject.IdSchoolSubject != "")
             {
                 //string dummyId = currentSubject.IdSchoolSubject;              
