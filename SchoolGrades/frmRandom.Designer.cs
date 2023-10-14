@@ -29,103 +29,103 @@ namespace SchoolGrades
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmRandom));
-            this.txtFrom = new System.Windows.Forms.TextBox();
-            this.txtTo = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.btnDraw = new System.Windows.Forms.Button();
-            this.txtResult = new System.Windows.Forms.TextBox();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.SuspendLayout();
+            txtFrom = new System.Windows.Forms.TextBox();
+            txtTo = new System.Windows.Forms.TextBox();
+            label1 = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
+            btnDraw = new System.Windows.Forms.Button();
+            txtResult = new System.Windows.Forms.TextBox();
+            imageList1 = new System.Windows.Forms.ImageList(components);
+            SuspendLayout();
             // 
             // txtFrom
             // 
-            this.txtFrom.Location = new System.Drawing.Point(12, 32);
-            this.txtFrom.Name = "txtFrom";
-            this.txtFrom.Size = new System.Drawing.Size(100, 33);
-            this.txtFrom.TabIndex = 0;
-            this.txtFrom.Text = "1";
-            this.txtFrom.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            txtFrom.Location = new System.Drawing.Point(12, 32);
+            txtFrom.Name = "txtFrom";
+            txtFrom.Size = new System.Drawing.Size(100, 33);
+            txtFrom.TabIndex = 0;
+            txtFrom.Text = "1";
+            txtFrom.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            txtFrom.TextChanged += txtFrom_TextChanged;
             // 
             // txtTo
             // 
-            this.txtTo.Location = new System.Drawing.Point(137, 32);
-            this.txtTo.Name = "txtTo";
-            this.txtTo.Size = new System.Drawing.Size(100, 33);
-            this.txtTo.TabIndex = 1;
-            this.txtTo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            txtTo.Location = new System.Drawing.Point(137, 32);
+            txtTo.Name = "txtTo";
+            txtTo.Size = new System.Drawing.Size(100, 33);
+            txtTo.TabIndex = 1;
+            txtTo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 4);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 25);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Da";
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(12, 4);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(35, 25);
+            label1.TabIndex = 2;
+            label1.Text = "Da";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.PowderBlue;
-            this.label2.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label2.Location = new System.Drawing.Point(137, 4);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(24, 25);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "A";
+            label2.AutoSize = true;
+            label2.BackColor = System.Drawing.Color.PowderBlue;
+            label2.ForeColor = System.Drawing.Color.DarkBlue;
+            label2.Location = new System.Drawing.Point(137, 4);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(24, 25);
+            label2.TabIndex = 3;
+            label2.Text = "A";
             // 
             // btnDraw
             // 
-            this.btnDraw.Location = new System.Drawing.Point(137, 108);
-            this.btnDraw.Name = "btnDraw";
-            this.btnDraw.Size = new System.Drawing.Size(102, 54);
-            this.btnDraw.TabIndex = 4;
-            this.btnDraw.Text = "Sorteggio";
-            this.btnDraw.UseVisualStyleBackColor = true;
-            this.btnDraw.Click += new System.EventHandler(this.btnDraw_Click);
+            btnDraw.Location = new System.Drawing.Point(137, 108);
+            btnDraw.Name = "btnDraw";
+            btnDraw.Size = new System.Drawing.Size(102, 54);
+            btnDraw.TabIndex = 4;
+            btnDraw.Text = "Sorteggio";
+            btnDraw.UseVisualStyleBackColor = true;
+            btnDraw.Click += btnDraw_Click;
             // 
             // txtResult
             // 
-            this.txtResult.Font = new System.Drawing.Font("Segoe UI", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtResult.Location = new System.Drawing.Point(12, 108);
-            this.txtResult.Name = "txtResult";
-            this.txtResult.ReadOnly = true;
-            this.txtResult.Size = new System.Drawing.Size(100, 54);
-            this.txtResult.TabIndex = 5;
-            this.txtResult.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            txtResult.Font = new System.Drawing.Font("Segoe UI", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtResult.Location = new System.Drawing.Point(12, 108);
+            txtResult.Name = "txtResult";
+            txtResult.ReadOnly = true;
+            txtResult.Size = new System.Drawing.Size(100, 54);
+            txtResult.TabIndex = 5;
+            txtResult.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // imageList1
             // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // frmRandom
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.PowderBlue;
-            this.ClientSize = new System.Drawing.Size(262, 174);
-            this.Controls.Add(this.txtResult);
-            this.Controls.Add(this.btnDraw);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.txtTo);
-            this.Controls.Add(this.txtFrom);
-            this.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ForeColor = System.Drawing.Color.DarkBlue;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.Name = "frmRandom";
-            this.Text = "Numero casuale";
-            this.Load += new System.EventHandler(this.frmRandom_Load);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.PowderBlue;
+            ClientSize = new System.Drawing.Size(262, 174);
+            Controls.Add(txtResult);
+            Controls.Add(btnDraw);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            Controls.Add(txtTo);
+            Controls.Add(txtFrom);
+            Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            ForeColor = System.Drawing.Color.DarkBlue;
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            Name = "frmRandom";
+            Text = "Numero casuale";
+            Load += frmRandom_Load;
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

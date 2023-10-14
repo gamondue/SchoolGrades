@@ -16,6 +16,16 @@ namespace SchoolGrades
         {
             dl.SaveSchoolPeriod(SchoolPeriod);
         }
+        internal string ToDo()
+        {
+            string ToDo ="!!!! TO DO !!!!";
+            return ToDo;
+        }
+        internal string classCreation(string classAbbraviation, string schoolYear)
+        {
+            string msg = "Creazione classe " + classAbbraviation + " " + schoolYear + " terminata";
+            return msg;
+        }
         internal void CreateNewQuadrimesterPeriods(string SchoolYear)
         {
             if (dl.FindIfPeriodsAreAlreadyExisting(SchoolYear))

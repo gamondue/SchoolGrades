@@ -61,10 +61,12 @@ namespace SchoolGrades
         private void btnSearch_Click(object sender, EventArgs e)
         {
             DateTime dateFrom;
+
             if (cmbSchoolPeriod.Text == "")
                 dateFrom = Commons.DateNull;
             else
                 dateFrom = dtpStartPeriod.Value; 
+
             topicsDone = Commons.bl.GetTopicsDoneInPeriod(currentClass, currentSubject,
                 dateFrom, dtpEndPeriod.Value);
 
@@ -129,9 +131,8 @@ namespace SchoolGrades
                     dtpStartPeriod.Value, dtpEndPeriod.Value);
             }
             if (topicsDone.Count > 0)
-            {
-                Random r = new Random();
-                int index = r.Next(topicsDone.Count);
+            {                
+                int index = Commons.bl.random(topicsDone.Count);
                 TopicChosen = topicsDone[index];
                 this.Close();
             }

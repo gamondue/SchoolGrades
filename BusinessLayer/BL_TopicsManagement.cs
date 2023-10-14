@@ -8,6 +8,12 @@ namespace SchoolGrades
 {
     internal partial class BusinessLayer
     {
+        internal int random(int topicsDone)
+        {
+            Random r = new Random();
+            int index = r.Next(topicsDone);
+            return index;
+        }
         internal void CreateAllTopicsDoneFile(string Filename, Class CurrentClass,
             SchoolSubject CurrentSubject, bool IsPlainText)
         {
