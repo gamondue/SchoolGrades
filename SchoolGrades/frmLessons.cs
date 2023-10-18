@@ -177,24 +177,19 @@ namespace SchoolGrades
         private void btnFind_Click(object sender, EventArgs e)
         {
             // ricerca 
-            //topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked,
-            //    chkSearchInDescriptions.Checked,
-            //    chkAllWord.Checked, chkCaseInsensitive.Checked);
-                    Commons.bl.FindNodes(topicTreeMptt, txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked,
+            topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked,
                 chkSearchInDescriptions.Checked,
                 chkAllWord.Checked, chkCaseInsensitive.Checked);
         }
         private void btnAddNode_Click(object sender, EventArgs e)
         {
-            //topicTreeMptt.AddNewNode("Nuovo argomento", true);
-            Commons.bl.AddNewNode(topicTreeMptt, true);
+            topicTreeMptt.AddNewNode("Nuovo argomento", true);
             // set focus to the name textBox
             txtTopicName.Focus();
         }
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            //topicTreeMptt.DeleteNodeSelected();
-            Commons.bl.DeleteNodeSelected(topicTreeMptt);
+            topicTreeMptt.DeleteNodeSelected();
         }
         private void btnSaveTree_Click(object sender, EventArgs e)
         {
@@ -203,8 +198,7 @@ namespace SchoolGrades
                 MessageBox.Show("Nessuna modifica fatta agli argomenti");
                 return;
             }
-            //topicTreeMptt.SaveTreeFromTreeViewByParent();
-            Commons.bl.SaveTreeChanges(topicTreeMptt);
+            topicTreeMptt.SaveTreeFromTreeViewByParent();
             MessageBox.Show("Salvataggio fatto");
         }
         private void ExportSubtreeToClipboard()
@@ -485,7 +479,7 @@ namespace SchoolGrades
                 try
                 {
 
-                    picImage.Load(Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename)); 
+                    picImage.Load(Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename));
                 }
                 catch
                 {
@@ -532,9 +526,8 @@ namespace SchoolGrades
             }
             List<Topic> listDone = Commons.bl.GetTopicsDoneFromThisTopic(currentClass, ((Topic)trwTopics.SelectedNode.Tag), currentSchoolSubject);
             int dummy = 0; bool dummy2 = false;
-            //topicTreeMptt.HighlightNodesInList(trwTopics.Nodes[0],
-            //     listDone, ref dummy, ref dummy2);
-            Commons.bl.HighlineNodesInList(topicTreeMptt, trwTopics, listDone,  dummy,  dummy2);
+            topicTreeMptt.HighlightNodesInList(trwTopics.Nodes[0],
+                 listDone, ref dummy, ref dummy2);
         }
         private void bntLessonErase_Click(object sender, EventArgs e)
         {
@@ -564,7 +557,7 @@ namespace SchoolGrades
         }
         private void btnArgFreemind_Click(object sender, EventArgs e)
         {
-           ExportSubtreeToClipboard();
+            ExportSubtreeToClipboard();
         }
         private void LessonTimer_Tick(object sender, EventArgs e)
         {
@@ -654,8 +647,7 @@ namespace SchoolGrades
         }
         private void btnAddNodeBrother_Click(object sender, EventArgs e)
         {
-            //topicTreeMptt.AddNewNode("Nuovo argomento", false);
-            Commons.bl.AddNewNode(topicTreeMptt, false);
+            topicTreeMptt.AddNewNode("Nuovo argomento", false);
             // set focus to the name textBox
             txtTopicName.Focus();
         }
@@ -663,8 +655,7 @@ namespace SchoolGrades
         {
             //MessageBox.Show("Da fare!");
             //return; 
-            Commons.bl.FindUnderNodes(topicTreeMptt, txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked);
-            //topicTreeMptt.FindNodeUnderNode(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked);
+            topicTreeMptt.FindNodeUnderNode(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked);
         }
         private void chksSearch_CheckedChanged(object sender, EventArgs e)
         {
