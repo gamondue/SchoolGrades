@@ -50,7 +50,7 @@ namespace gamon.TreeMptt
                 if (!Commons.ProcessingCanContinue()) return;
 
                 // if the saving must finish and the task saving in background, we quit the function 
-                if (!CommonsWinForms.BackgroundSavingEnabled && MustSaveLeftAndRight)
+                if (!Commons.BackgroundSavingEnabled && MustSaveLeftAndRight)
                     return;
                 // this cures a behaviour of the program,
                 // not proper functioning on root node's parent node
@@ -298,7 +298,7 @@ namespace gamon.TreeMptt
         internal void GenerateNewListOfNodesFromTreeViewControl_Recursive(TreeNode CurrentNode, ref int nodeCount,
             ref List<Topic> generatedList, DbConnection Connection) // the 2 ref parameters must be passed for recursion
         {
-            if (!CommonsWinForms.BackgroundSavingEnabled && CommonsWinForms.BackgroundTaskIsSaving) return;
+            if (!Commons.BackgroundSavingEnabled && Commons.BackgroundTaskIsSaving) return;
             // visits all the childrens of CurrentNode in the Treeview. 
             // with the Modified Tree Traversal algorithm 
 

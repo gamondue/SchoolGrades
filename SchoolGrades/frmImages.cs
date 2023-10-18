@@ -89,7 +89,7 @@ namespace SchoolGrades
         {
             try
             {
-                picImage.Load(Commons.PathImages + "\\" + currentImage.RelativePathAndFilename);
+                picImage.Load(Path.Combine(Commons.PathImages, currentImage.RelativePathAndFilename));
                 txtCaption.Text = currentImage.Caption;
             }
             catch {
@@ -224,7 +224,7 @@ namespace SchoolGrades
         }
         private void btnSubFolderStorage_Click(object sender, EventArgs e)
         {
-            folderBrowserDialog1.SelectedPath = Commons.PathImages + "\\" + txtSubFolderStorage.Text;
+            folderBrowserDialog1.SelectedPath = Path.Combine(Path.Combine(Commons.PathImages, txtSubFolderStorage.Text));
             DialogResult r = folderBrowserDialog1.ShowDialog();
             if (r == System.Windows.Forms.DialogResult.OK)
             {

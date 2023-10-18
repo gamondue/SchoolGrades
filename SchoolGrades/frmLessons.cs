@@ -165,7 +165,7 @@ namespace SchoolGrades
                 if (listImages != null && listImages.Count > 0)
                     try
                     {
-                        picImage.Load(Commons.PathImages + "\\" + listImages[indexImages].RelativePathAndFilename);
+                        picImage.Load(Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename));
                     }
                     catch { }
                 else
@@ -177,19 +177,24 @@ namespace SchoolGrades
         private void btnFind_Click(object sender, EventArgs e)
         {
             // ricerca 
-            topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked,
+            //topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked,
+            //    chkSearchInDescriptions.Checked,
+            //    chkAllWord.Checked, chkCaseInsensitive.Checked);
+                    Commons.bl.FindNodes(topicTreeMptt, txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked,
                 chkSearchInDescriptions.Checked,
                 chkAllWord.Checked, chkCaseInsensitive.Checked);
         }
         private void btnAddNode_Click(object sender, EventArgs e)
         {
-            topicTreeMptt.AddNewNode("Nuovo argomento", true);
+            //topicTreeMptt.AddNewNode("Nuovo argomento", true);
+            Commons.bl.AddNewNode(topicTreeMptt, true);
             // set focus to the name textBox
             txtTopicName.Focus();
         }
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            topicTreeMptt.DeleteNodeSelected();
+            //topicTreeMptt.DeleteNodeSelected();
+            Commons.bl.DeleteNodeSelected(topicTreeMptt);
         }
         private void btnSaveTree_Click(object sender, EventArgs e)
         {
@@ -198,7 +203,8 @@ namespace SchoolGrades
                 MessageBox.Show("Nessuna modifica fatta agli argomenti");
                 return;
             }
-            topicTreeMptt.SaveTreeFromTreeViewByParent();
+            //topicTreeMptt.SaveTreeFromTreeViewByParent();
+            Commons.bl.SaveTreeChanges(topicTreeMptt);
             MessageBox.Show("Salvataggio fatto");
         }
         private void ExportSubtreeToClipboard()
@@ -413,7 +419,8 @@ namespace SchoolGrades
                 indexImages = 0;
                 if (listImages.Count > 0)
                 {
-                    string nomeFile = Commons.PathImages + "\\" + listImages[indexImages].RelativePathAndFilename;
+
+                    string nomeFile = Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename);
                     try
                     {
                         picImage.Load(nomeFile);
@@ -477,7 +484,8 @@ namespace SchoolGrades
                 indexImages--;
                 try
                 {
-                    picImage.Load(Commons.PathImages + "\\" + listImages[indexImages].RelativePathAndFilename);
+
+                    picImage.Load(Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename)); 
                 }
                 catch
                 {
@@ -492,7 +500,7 @@ namespace SchoolGrades
                 indexImages = ++indexImages % listImages.Count;
                 try
                 {
-                    picImage.Load(Commons.PathImages + "\\" + listImages[indexImages].RelativePathAndFilename);
+                    picImage.Load(Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename));
                 }
                 catch
                 {
@@ -522,11 +530,11 @@ namespace SchoolGrades
                     "Verranno evidenziati gli argomenti fatti sotto l'argomento scelto che sono stati fatti");
                 return;
             }
-            List<Topic> listDone = Commons.bl.GetTopicsDoneFromThisTopic(currentClass,
-                ((Topic)trwTopics.SelectedNode.Tag), currentSchoolSubject);
+            List<Topic> listDone = Commons.bl.GetTopicsDoneFromThisTopic(currentClass, ((Topic)trwTopics.SelectedNode.Tag), currentSchoolSubject);
             int dummy = 0; bool dummy2 = false;
-            topicTreeMptt.HighlightNodesInList(trwTopics.Nodes[0],
-                 listDone, ref dummy, ref dummy2);
+            //topicTreeMptt.HighlightNodesInList(trwTopics.Nodes[0],
+            //     listDone, ref dummy, ref dummy2);
+            Commons.bl.HighlineNodesInList(topicTreeMptt, trwTopics, listDone,  dummy,  dummy2);
         }
         private void bntLessonErase_Click(object sender, EventArgs e)
         {
@@ -556,7 +564,7 @@ namespace SchoolGrades
         }
         private void btnArgFreemind_Click(object sender, EventArgs e)
         {
-            ExportSubtreeToClipboard();
+           ExportSubtreeToClipboard();
         }
         private void LessonTimer_Tick(object sender, EventArgs e)
         {
@@ -646,7 +654,8 @@ namespace SchoolGrades
         }
         private void btnAddNodeBrother_Click(object sender, EventArgs e)
         {
-            topicTreeMptt.AddNewNode("Nuovo argomento", false);
+            //topicTreeMptt.AddNewNode("Nuovo argomento", false);
+            Commons.bl.AddNewNode(topicTreeMptt, false);
             // set focus to the name textBox
             txtTopicName.Focus();
         }
@@ -654,7 +663,8 @@ namespace SchoolGrades
         {
             //MessageBox.Show("Da fare!");
             //return; 
-            topicTreeMptt.FindNodeUnderNode(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked);
+            Commons.bl.FindUnderNodes(topicTreeMptt, txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked);
+            //topicTreeMptt.FindNodeUnderNode(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked);
         }
         private void chksSearch_CheckedChanged(object sender, EventArgs e)
         {

@@ -117,14 +117,14 @@ namespace SchoolGrades
 
             // stop background saving thread when using this form so it will not interfere. 
             // locks a concurrent modification of syncronyzing variables 
-            lock (CommonsWinForms.LockBackgroundSavingVariables)
+            lock (Commons.LockBackgroundSavingVariables)
             {
-                CommonsWinForms.BackgroundSavingEnabled = false;
-                CommonsWinForms.BackgroundTaskClose = true;
+                Commons.BackgroundSavingEnabled = false;
+                Commons.BackgroundTaskClose = true;
             }
             // we wait for the saving Thread to finish
             // (it aborts in a point in which status is preserved)  
-            CommonsWinForms.BackgroundSaveThread.Join(3000);
+            Commons.BackgroundSaveThread.Join(3000);
 
             highligthDifferences();
         }
@@ -329,14 +329,14 @@ namespace SchoolGrades
 
             // abort the background saving that was triggered by SaveTreeFromTreeViewControlByParent
             // locks a concurrent modification of Commons.BackgroundCanStillSaveTopicsTree 
-            lock (CommonsWinForms.LockBackgroundSavingVariables)
+            lock (Commons.LockBackgroundSavingVariables)
             {
-                CommonsWinForms.BackgroundSavingEnabled = false;
-                CommonsWinForms.BackgroundTaskClose = true;
+                Commons.BackgroundSavingEnabled = false;
+                Commons.BackgroundTaskClose = true;
             }
             // we wait for the saving Thread to finish
             // (it aborts in a point in which status is preserved)  
-            CommonsWinForms.BackgroundSaveThread.Join(3000);
+            Commons.BackgroundSaveThread.Join(3000);
 
             // !!!! TODO restart the task on closing the form !!!!
 
@@ -353,8 +353,8 @@ namespace SchoolGrades
         private void startBackgroundSavingTask()
         {
             // re-create and run the Thread that concurrently saves the Topics tree
-            CommonsWinForms.BackgroundSaveThread = new Thread(CommonsWinForms.SaveTreeMptt.SaveTreeMpttBackground);
-            CommonsWinForms.BackgroundSaveThread.Start();
+            Commons.BackgroundSaveThread= new Thread(CommonsWinForms.SaveTreeMptt.SaveTreeMpttBackground);
+            Commons.BackgroundSaveThread.Start();
         }
         private void btnBeheaded_Click(object sender, EventArgs e)
         {
