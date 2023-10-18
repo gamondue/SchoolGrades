@@ -65,6 +65,7 @@ namespace SchoolGrades
         }
         private void CalculateWeightedAverage()
         {
+            // conviene lasciarlo qui visto che questa funzione usa DataTable, che è una classe prettamente di UI.
             if (dgwGrades.DataSource != null)
             {
                 double weightedAverage = 0;
@@ -132,26 +133,11 @@ namespace SchoolGrades
         private void cmbSchoolPeriod_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentSchoolPeriod = (SchoolPeriod)(cmbSchoolPeriod.SelectedValue);
-            if (currentSchoolPeriod.IdSchoolPeriodType != "N")
-            {
-                dtpStartPeriod.Value = (DateTime)currentSchoolPeriod.DateStart;
-                dtpEndPeriod.Value = (DateTime)currentSchoolPeriod.DateFinish;
-            }
-            else if (currentSchoolPeriod.IdSchoolPeriod == "month")
-            {
-                dtpStartPeriod.Value = DateTime.Now.AddMonths(-1);
-                dtpEndPeriod.Value = DateTime.Now;
-            }
-            else if (currentSchoolPeriod.IdSchoolPeriod == "week")
-            {
-                dtpStartPeriod.Value = DateTime.Now.AddDays(-7);
-                dtpEndPeriod.Value = DateTime.Now;
-            }
-            else if (currentSchoolPeriod.IdSchoolPeriod == "year")
-            {
-                dtpStartPeriod.Value = DateTime.Now.AddYears(-1);
-                dtpEndPeriod.Value = DateTime.Now;
-            }
+
+            var res = Commons.bl.CalculateStartAndEndPeriod(currentSchoolPeriod);
+            dtpStartPeriod.Value = res.startPeriod;
+            dtpEndPeriod.Value = res.endPeriod;
+
             RefreshData();
         }
         private void dgwGrades_CellContentClick(object sender, DataGridViewCellEventArgs e)
