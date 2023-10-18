@@ -1,11 +1,7 @@
 ﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
 using System.IO;
-using System.Security.Cryptography.X509Certificates;
-using System.Windows.Forms;
 
 namespace SchoolGrades
 {
@@ -125,8 +121,8 @@ namespace SchoolGrades
             else
             {
                 destinationFileName = SourcePathAndFileName;
-                destinationPathAndFileName = Path.Combine(Commons.PathImages ,
-                    LessonImagesFullPath ,destinationFileName); 
+                destinationPathAndFileName = Path.Combine(Commons.PathImages,
+                    LessonImagesFullPath, destinationFileName);
                 if (File.Exists(destinationPathAndFileName))
                 {
                     // !!!!! find another way to send this message !!!!! 
@@ -145,7 +141,7 @@ namespace SchoolGrades
             // if it doesn't exist, create the folder of the images of the lessons of the class
             if (!Directory.Exists(LessonImagesFullPath))
             {
-                Directory.CreateDirectory(Path.Combine(Commons.PathImages,LessonImagesFullPath));
+                Directory.CreateDirectory(Path.Combine(Commons.PathImages, LessonImagesFullPath));
             }
             File.Copy(SourcePathAndFileName, destinationPathAndFileName);
             Image.IdImage = 0; // to force creation of a new record

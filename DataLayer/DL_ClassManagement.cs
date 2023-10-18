@@ -273,7 +273,7 @@ namespace SchoolGrades
                         try
                         {
                             // destination file not existing or older
-                            File.Copy(Path.Combine(Path.Combine(Commons.PathImages, (string)dReader["photoPath"]), destinationFile));
+                            File.Copy(Path.Combine(Path.Combine(Commons.PathImages, (string)dReader["photoPath"])), destinationFile);
                         }
                         catch { }
                 }
@@ -355,7 +355,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
             // if it doesn't exist, create the folder of classes student's images
-            if (!Directory.Exists(Path.Combine(Commons.PathImages,SchoolYear , ClassAbbreviation)))
+            if (!Directory.Exists(Path.Combine(Commons.PathImages, SchoolYear, ClassAbbreviation)))
             {
                 Directory.CreateDirectory(Path.Combine(Commons.PathImages, SchoolYear, ClassAbbreviation));
             }
