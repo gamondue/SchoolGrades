@@ -208,15 +208,15 @@ namespace gamon.TreeMptt
             DbConnection Connection = dl.Connect();
             // disable the background saving task. When disabled, the concurrent
             // thread will stop modifying the database 
-            lock (CommonsWinForms.LockBackgroundSavingVariables)
+            lock (Commons.LockBackgroundSavingVariables)
             {
                 // locks the concurrent modification of synchronizing variables 
-                CommonsWinForms.BackgroundSavingEnabled = false;
-                CommonsWinForms.BackgroundTaskClose = true;
+                Commons.BackgroundSavingEnabled = false;
+                Commons.BackgroundTaskClose = true;
             }
             // all the saving happens under a lock from other tasks
             // this saving waits here until the backgroud task hasn't finished finishing 
-            lock (CommonsWinForms.LockSavingCriticalSections)
+            lock (Commons.LockSavingCriticalSections)
             {
                 dbMptt.SaveLeftRightConsistent(false, Connection);
                 // save the nodes that have changed any field, except RightNode & Left Node (optional) 
@@ -267,9 +267,9 @@ namespace gamon.TreeMptt
                 }
                 dbMptt.SaveLeftRightConsistent(false, Connection);
             }
-            lock (CommonsWinForms.LockBackgroundSavingVariables)
+            lock (Commons.LockBackgroundSavingVariables)
             {
-                CommonsWinForms.BackgroundSavingEnabled = true;
+                Commons.BackgroundSavingEnabled = true;
             }
             hasChanges = false;
         }
@@ -280,27 +280,27 @@ namespace gamon.TreeMptt
 
             // Starts a loop that finishes when we want to close the thread.
             // Closing will be fired from external, by setting to true BackgroundCanStillSaveTopicsTree
-            while (!CommonsWinForms.BackgroundTaskClose)  // closes task when can't run anymore 
+            while (!Commons.BackgroundTaskClose)  // closes task when can't run anymore 
             {
                 // waits BackgroundThreadSleepTime seconds, watching periodically if it must exit the loop 
-                DateTime endTime = DateTime.Now.AddSeconds(CommonsWinForms.BackgroundThreadSleepSeconds);
+                DateTime endTime = DateTime.Now.AddSeconds(Commons.BackgroundThreadSleepSeconds);
                 while (DateTime.Now < endTime)
                 {
-                    if (CommonsWinForms.BackgroundTaskClose)
+                    if (Commons.BackgroundTaskClose)
                         return;
                     Thread.Sleep(1000);
                 }
                 // check if RightNode & LeftNode are already consistent, if they are, this task 
                 // has nothing to do, so we will skip the modification, then wait again
-                if (!dbMptt.AreLeftAndRightConsistent() && CommonsWinForms.BackgroundSavingEnabled)
+                if (!dbMptt.AreLeftAndRightConsistent() && Commons.BackgroundSavingEnabled)
                 {
                     // start saving in background, in locked condition
                     // other tasks can signal this to abort operation by setting 
                     // Commons.BackgroundSavingEnabled to false
-                    lock (CommonsWinForms.LockSavingCriticalSections)
+                    lock (Commons.LockSavingCriticalSections)
                     {
-                        //CommonsWinForms.BackgroundSavingEnabled = true;
-                        CommonsWinForms.BackgroundTaskIsSaving = true;
+                        //Commons.BackgroundSavingEnabled = true;
+                        Commons.BackgroundTaskIsSaving = true;
                         CommonsWinForms.SwitchPicLed(true);
                         // read the tree by Parent into a new TreeView control
                         // that we aren't showing 
@@ -310,19 +310,19 @@ namespace gamon.TreeMptt
                         // someone else modifies BackgroundSavingEnabled
                         List<Topic> listNodes = new List<Topic>();
                         int nodeCount = 1;
-                        if (CommonsWinForms.BackgroundSavingEnabled)
+                        if (Commons.BackgroundSavingEnabled)
                             // not executed if saving is aborted 
                             dbMptt.GenerateNewListOfNodesFromTreeViewControl_Recursive(hiddenTree.Nodes[0],
                                 ref nodeCount, ref listNodes, null);
-                        if (CommonsWinForms.BackgroundSavingEnabled)
+                        if (Commons.BackgroundSavingEnabled)
                             // not executed if saving is aborted 
                             // in this point delete list cannot have any entry
                             dbMptt.SaveTreeToDb(listNodes, null, true, null);
-                        if (CommonsWinForms.BackgroundSavingEnabled)
+                        if (Commons.BackgroundSavingEnabled)
                             // not executed if saving is aborted 
                             dbMptt.SaveLeftRightConsistent(true, null);
 
-                        CommonsWinForms.BackgroundTaskIsSaving = false;
+                        Commons.BackgroundTaskIsSaving = false;
                     }
                     CommonsWinForms.SwitchPicLed(false);
                 }
