@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)DatabaseInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DL_GeneralFunctions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_SqlStringsGeneration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_AnnotationManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_AnswerManagement.cs" />

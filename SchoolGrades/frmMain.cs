@@ -338,7 +338,7 @@ namespace SchoolGrades
             Commons.dl = new DataLayer(Commons.PathAndFileDatabase);
             if (Commons.dl == null)
                 return false;
-            Commons.bl = new BusinessLayer(Commons.PathAndFileDatabase);
+            Commons.bl = new BusinessLayer();
             if (Commons.bl == null)
                 return false;
             return true;
