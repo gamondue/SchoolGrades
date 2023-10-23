@@ -15,12 +15,19 @@ namespace NUnit_Tests
             Test_Commons.bl = new BusinessLayer();
         }
         [Test]
-        public void T_CreateDatabaseFromExisting()
+        public void T_CreateNewDatabaseFromExisting()
         {
-            Commons.PathAndFileDatabase = Test_Commons.dbCampione;
+            Commons.PathAndFileDatabase = Test_Commons.dbStandard;
             Test_Commons.bl.CreateNewDatabase(Test_Commons.dbTest);
-            Test_Commons.T_RecoverStandardDb(); 
             Assert.That(Test_Commons.dl.ReadFirstRowFirstField("Students") == null);
+            Assert.That(Test_Commons.dl.ReadFirstRowFirstField("Lessons") == null);
+        }
+        [Test]
+        public void T_RecoverDatabaseFromStandard()
+        {
+            Test_Commons.T_RecoverStandardDb();
+            Assert.That(Test_Commons.dl.ReadFirstRowFirstField("Students") != null);
+            Assert.That(Test_Commons.dl.ReadFirstRowFirstField("Lessons") != null);
         }
     }
 }

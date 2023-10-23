@@ -1450,19 +1450,19 @@ namespace SchoolGrades
                 "_" + currentClass.Abbreviation +
                 "_" + currentSubject.IdSchoolSubject + "_" +
                 "all-topics";
+            string createdFile;
             if (MessageBox.Show("Creare un file di testo normale (Sì) od un file per Markdown (No)?",
                 "Tipo di file", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                Commons.bl.CreateAllTopicsDoneFile(filenameNoExtension, currentClass, currentSubject, true);
-                Commons.ProcessStartLink(Path.Combine(Commons.PathDatabase, filenameNoExtension + ".txt"));
-                MessageBox.Show("Creato il file " + filenameNoExtension + ".txt");
+                createdFile = Commons.bl.CreateAllTopicsDoneFile(filenameNoExtension, currentClass, currentSubject, true);
+                Commons.ProcessStartLink(createdFile);
             }
             else
             {
-                Commons.bl.CreateAllTopicsDoneFile(filenameNoExtension, currentClass, currentSubject, false);
-                Commons.ProcessStartLink(Path.Combine(Commons.PathDatabase, filenameNoExtension + ".md"));
-                MessageBox.Show("Creato il file " + filenameNoExtension + ".md");
+                createdFile = Commons.bl.CreateAllTopicsDoneFile(filenameNoExtension, currentClass, currentSubject, false);
+                Commons.ProcessStartLink(createdFile);
             }
+            MessageBox.Show("Creato il file " + createdFile);
         }
         private void chkEnableEndLessonWarning_CheckedChanged(object sender, EventArgs e)
         {
