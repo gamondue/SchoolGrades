@@ -2,13 +2,13 @@
 using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.IO;
 
 namespace SchoolGrades
 {
     internal partial class BusinessLayer
     {
-        internal void CreateAllTopicsDoneFile(string Filename, Class CurrentClass,
+        internal string CreateAllTopicsDoneFile(string Filename, Class CurrentClass,
             SchoolSubject CurrentSubject, bool IsPlainText)
         {
             List<Topic> lt = dl.GetAllTopicsDoneInClassAndSubject(CurrentClass,
@@ -70,10 +70,15 @@ namespace SchoolGrades
                 f += "\r\n";
                 previous = t;
             }
+
+            string createdFile;
+            string path = Path.Combine(CurrentClass.PathRestrictedApplication, @"SchoolGrades\Data");
             if (IsPlainText)
-                TextFile.StringToFile(Commons.PathDatabase + "\\" + Filename + ".txt", f, false);
+                createdFile = Path.Combine(path, Filename + ".txt");
             else
-                TextFile.StringToFile(Commons.PathDatabase + "\\" + Filename + ".md", f, false);
+                createdFile = Path.Combine(path, Filename + ".md");
+            TextFile.StringToFile(createdFile, f, false);
+            return createdFile;
         }
         internal List<Topic> GetTopicsDoneFromThisTopic(Class Class, Topic Tag, SchoolSubject Subject)
         {

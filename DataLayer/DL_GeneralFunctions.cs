@@ -1,8 +1,4 @@
-﻿using SchoolGrades.BusinessObjects;
-using System;
-using System.Data;
-using System.Data.Common;
-using System.Data.SQLite;
+﻿using System.Data.Common;
 
 namespace SchoolGrades
 {
@@ -10,7 +6,7 @@ namespace SchoolGrades
     {
         internal object ReadFirstRowFirstField(string Table)
         {
-            object r; 
+            object r;
             using (DbConnection conn = Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
@@ -18,8 +14,7 @@ namespace SchoolGrades
                 cmd.CommandText = "SELECT * FROM " + Table +
                     " LIMIT 1" +
                     ";";
-                    r = cmd.ExecuteScalar();
-                // TODO !!!! FIX !!!!
+                r = cmd.ExecuteScalar();
             }
             return r;
         }
