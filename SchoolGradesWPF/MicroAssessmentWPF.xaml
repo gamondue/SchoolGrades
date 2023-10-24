@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SchoolGradesWPF"
         mc:Ignorable="d"
-        Title="MicroAssessmentWPF" Height="450" Width="900" Background="PowderBlue">
+        Title="Micro voti" Height="450" Width="900" Background="PowderBlue">
     <Window.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="FontWeight" Value="Bold"></Setter>
@@ -44,7 +44,7 @@
         </Grid.ColumnDefinitions>
         <StackPanel>
             <Label HorizontalAlignment="Center" FontSize="20.25">Allievo</Label>
-            <TextBox Background="LightGray" Height="64"></TextBox>
+            <TextBox Name="TxtQuestionText" Background="LightGray" Height="64"></TextBox>
             <StackPanel Orientation="Horizontal">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -56,9 +56,9 @@
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
                     <Label>Tipo di voto componente (micro valutazione)</Label>
-                    <TextBox Width="325" Grid.Row="1"></TextBox>
+                    <TextBox Name="txtGradeType" Width="325" Grid.Row="1"></TextBox>
                     <Label Grid.Column="2">Tipo del voto complessivo (di riepilogo)</Label>
-                    <TextBox Width="325" Grid.Column="2" Grid.Row="2"></TextBox>
+                    <TextBox Name="txtGradeTypeParent" Width="325" Grid.Column="2" Grid.Row="2"></TextBox>
                 </Grid>
             </StackPanel>
             <Grid>
@@ -80,7 +80,7 @@
                     <ColumnDefinition Width="12*"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <DataGrid Height="100"></DataGrid>
+                <DataGrid Name="DgQuestions" Height="100"></DataGrid>
                 <StackPanel Grid.Column="1">
                     <Button Name="btnEraseMicroGrade">-</Button>
                     <Button Name="BtnSaveGrid">Salva</Button>
@@ -90,12 +90,12 @@
         <StackPanel Grid.Column="2">
             <StackPanel Orientation="Horizontal">
                 <Label>Id allievo: </Label>
-                <TextBox Width="50"></TextBox>
+                <TextBox Name="TxtIdStudent" Width="50"></TextBox>
                 <CheckBox Name="chkHasSpecialNeeds" Margin="5,1">BES</CheckBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label>Materia: </Label>
-                <TextBox Width="107"></TextBox>
+                <TextBox Name="txtSchoolSubject" Width="107"></TextBox>
             </StackPanel>
             <Grid>
                 <Grid.ColumnDefinitions>
