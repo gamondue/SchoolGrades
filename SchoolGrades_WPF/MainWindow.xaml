@@ -111,10 +111,10 @@
 
 
 
-        <Button Grid.Column="2" Grid.Row="5" FontSize="20" Background="White" Margin="10,5,6,5">Ricerca</Button>
-        <Button Grid.Column="3" Grid.Row="5" FontSize="20" Background="White" Margin="10,5,10,5">Pulisci dati</Button>
-        <Button Grid.Column="2" Grid.Row="5" FontSize="20" Background="White" Margin="10,41,6,5" Grid.RowSpan="2">Ricerca omonimi</Button>
-        <Button Grid.Column="3" Grid.Row="5" FontSize="20"  Background="White" Margin="10,41,10,5" Grid.RowSpan="2">Salva</Button>
+        <Button Grid.Column="2" Grid.Row="5" FontSize="20" Background="White" Margin="10,5,6,10">Ricerca</Button>
+        <Button Grid.Column="3" Grid.Row="5" FontSize="20" Background="White" Margin="10,5,10,11">Pulisci dati</Button>
+        <Button Grid.Column="2" Grid.Row="6" FontSize="20" Background="White" Margin="10,2,6,5">Ricerca omonimi</Button>
+        <Button Grid.Column="3" Grid.Row="5" FontSize="20"  Background="White" Margin="10,47,10,5" Grid.RowSpan="2">Salva</Button>
         <Button Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="6" Background="White" FontSize="20" Margin="68,37,80,0" Grid.RowSpan="2">Cancella</Button>
         <Button Grid.Column="4" Grid.Row="6" Background="White" FontSize="20" Grid.RowSpan="2" Margin="10,37,10,0">Esci</Button>
         <Button Grid.Column="5" Grid.Row="6" Background="White" FontSize="20" Grid.RowSpan="2" Margin="10,37,10,0">Scegli</Button>
