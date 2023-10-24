@@ -31,7 +31,7 @@ namespace SchoolGrades
             loading = true;
             // school data
             currentSchool = Commons.bl.GetSchool(TxtOfficialSchoolAbbreviation.Text);
-            
+
             // years's data in combo
             List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
             cmbSchoolYearCurrents.DataSource = ly;
@@ -51,8 +51,8 @@ namespace SchoolGrades
 
             loading = false;
             nextSchoolYear = Commons.bl.GenerateNewYearData(currentSchoolYear);
-            nextClass= Commons.bl.GenerateNewClassData(currentClass);
-            FromClassesToUi(); 
+            nextClass = Commons.bl.GenerateNewClassData(currentClass);
+            FromClassesToUi();
         }
         private void FromClassesToUi()
         {
@@ -64,10 +64,10 @@ namespace SchoolGrades
             txtYearNotesNext.Text = nextSchoolYear.Notes;
 
             if (currentClass != null)
-                txtClassDescriptionCurrent.Text = currentClass.Description; 
+                txtClassDescriptionCurrent.Text = currentClass.Description;
 
             txtClassAbbreviationNext.Text = nextClass.Abbreviation;
-            txtClassDescriptionNext.Text = nextClass.Description; 
+            txtClassDescriptionNext.Text = nextClass.Description;
         }
         private void FromUiToClasses()
         {
@@ -88,7 +88,7 @@ namespace SchoolGrades
             if (cmbClasses.Text == "")
             {
                 MessageBox.Show("Scegliere una classe di partenza");
-                return; 
+                return;
             }
             Class c = (Class)cmbClasses.SelectedItem;
             if (c != null)
@@ -117,7 +117,7 @@ namespace SchoolGrades
                 //lblClassDescription.Visible = true; 
 
                 MessageBox.Show("Aggiustare i dati della classe e degli studenti\r\nSegnare gli studenti da INCLUDERE " +
-                    "nella nuova classe, con il segno di spunta a sinistra, poi premere 'Genera classe'"+
+                    "nella nuova classe, con il segno di spunta a sinistra, poi premere 'Genera classe'" +
                     "\r\nPer aggiungere allievi tornare alla finestra precedente di gestione classi" +
                     "\r\nPremendo 'Annulla' non si importerà la classe",
                     "Modifiche classe", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
@@ -130,7 +130,7 @@ namespace SchoolGrades
             if (txtClassAbbreviationNext.Text == "")
             {
                 MessageBox.Show("Scrivere la sigla della nuova classe!");
-                return; 
+                return;
             }
 
             if (txtClassDescriptionNext.Text == "")
@@ -154,7 +154,7 @@ namespace SchoolGrades
         }
         private void BtnStudentNew_Click(object sender, EventArgs e)
         {
-            frmStudent sf = new frmStudent(null, true); 
+            frmStudent sf = new frmStudent(null, true);
             sf.ShowDialog();
 
             if (sf.UserHasChosen)
@@ -168,7 +168,7 @@ namespace SchoolGrades
         }
         private void BtnClassNew_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("!!!! TO DO !!!!"); 
+            MessageBox.Show("!!!! TO DO !!!!");
         }
         private void TxtSchoolYearPresent_TextChanged(object sender, EventArgs e)
         {
@@ -180,7 +180,7 @@ namespace SchoolGrades
         }
         private void CmbSchoolYear_SelectedIndexChanged(object sender, EventArgs e)
         {
-            currentSchoolYear = (SchoolYear)cmbSchoolYearCurrents.SelectedItem; 
+            currentSchoolYear = (SchoolYear)cmbSchoolYearCurrents.SelectedItem;
             if (!loading)
             {
                 nextSchoolYear = Commons.bl.GenerateNewYearData(currentSchoolYear);
@@ -211,6 +211,11 @@ namespace SchoolGrades
         {
             frmSchoolYearAndPeriodsManagement f = new frmSchoolYearAndPeriodsManagement(txtSchoolYearNext.Text);
             f.ShowDialog();
+        }
+
+        private void txtYearDescriptionCurrent_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

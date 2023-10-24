@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SchoolGrades_WPF"
         mc:Ignorable="d"
-        Title="Nuovo Anno Scolastico" Height="675" Width="1236" Background="PowderBlue" Foreground="DarkBlue">
+        FontFamily="Arial"
+        Title="Nuovo Anno Scolastico" Height="675" Width="1236" Background="PowderBlue" Foreground="Black">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -28,14 +29,33 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <GroupBox Header="Anno Scolastico Precedente" Foreground="Black">
-                <Label>Id Anno</Label>
-
+            <GroupBox Header="Anno Scolastico Precedente">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal"> <!--Per le label-->
+                        <Label Foreground="DarkBlue"  Width="104" Height="20" VerticalContentAlignment="Top" FontSize="9">Id anno</Label>
+                        <Label Foreground="DarkBlue" Margin="7,0" Width="104" Height="20" VerticalContentAlignment="Top" FontSize="9">Descrizione breve</Label>
+                        <Label Foreground="DarkBlue" Margin="4,3" Width="96" Height="20" VerticalContentAlignment="Top" FontSize="9">Note</Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <ComboBox Name="cmbSchoolYearCurrent" Margin="4,3" Width="104" Height="26"/>
+                        <TextBox Name="txtYearDescriptionCurrent" Margin="4,3" Width="104" Height="26" ></TextBox>
+                        <TextBox Name="txtYearNotesCurrent" Margin="4,3" Width="370"></TextBox>
+                    </StackPanel>
+                </StackPanel>
             </GroupBox>
-            <Label Content="Descrizione breve" Grid.ColumnSpan="2" Margin="175,18,443,-18"/>
-            <Label Content="Note" Grid.ColumnSpan="2" Margin="285,19,518,-19"/>
-            <ComboBox Margin="13,42,492,20" Height="26"/>
 
+            <GroupBox Grid.Column="1" Header="Classe Precedente">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Foreground="DarkBlue" Width="118" Height="26">Sigla Classe Prec.</Label>
+                        <Label Foreground="DarkBlue" Width="418" Height="26">Descrizione</Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <ComboBox Name="cmbClasses" Width="116" Height="26"></ComboBox>
+                        <TextBox Width="471" Height="26" Margin="7,0"></TextBox>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
         </Grid>
 
         <Grid Grid.Row="1" >
@@ -47,6 +67,35 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
+
+            <GroupBox Header="Nuovo anno scolastico">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <!--Per le label-->
+                        <Label Foreground="DarkBlue"  Width="104" Height="20" VerticalContentAlignment="Top" FontSize="9">Id nuovo anno</Label>
+                        <Label Foreground="DarkBlue" Margin="7,0" Width="104" Height="20" VerticalContentAlignment="Top" FontSize="9">Descrizione breve</Label>
+                        <Label Foreground="DarkBlue" Margin="4,3" Width="96" Height="20" VerticalContentAlignment="Top" FontSize="9">Note</Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <ComboBox Name="txtSchoolYearNext" Margin="4,3" Width="104" Height="26"/>
+                        <TextBox  Name="txtYearDescriptionNext" Margin="4,3" Width="104" Height="26" ></TextBox>
+                        <TextBox  Name="txtYearNotesNext" Margin="4,3" Width="370"></TextBox>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Grid.Column="1" Header="Nuova Classe">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Foreground="DarkBlue" Width="118" Height="26">Sigla </Label>
+                        <Label Foreground="DarkBlue" Width="418" Height="26">Descrizione</Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <ComboBox Width="116" Height="26"></ComboBox>
+                        <TextBox Width="471" Height="26" Margin="7,0"></TextBox>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
         </Grid>
     </Grid>
 </Window>
