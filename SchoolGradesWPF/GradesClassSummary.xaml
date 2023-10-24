@@ -103,6 +103,6 @@
             <ComboBox Name="cmbSchoolPeriod" Grid.Column="4" Grid.Row="1"></ComboBox>
             <Button Name="btnReadData" Grid.Column="5" Grid.Row="1">Leggi dati</Button>
         </Grid>
-        <DataGrid  Background="Gray" Grid.Row="2" Grid.ColumnSpan="4"></DataGrid>
+        <DataGrid Name="dgGrades" Background="Gray" Grid.Row="2" Grid.ColumnSpan="4"></DataGrid>
     </Grid>
 </Window>

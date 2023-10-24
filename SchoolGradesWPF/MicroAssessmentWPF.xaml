@@ -87,7 +87,7 @@
                     <ColumnDefinition Width="12*"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <DataGrid Name="DgQuestions" Height="100" Background="Gray"></DataGrid>
+                <DataGrid Name="dgQuestions" Height="100" Background="Gray"></DataGrid>
                 <StackPanel Grid.Column="1">
                     <Button Name="btnEraseMicroGrade">-</Button>
                     <Button Name="BtnSaveGrid">Salva</Button>
