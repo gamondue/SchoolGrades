@@ -30,12 +30,12 @@
 
             <GroupBox Header="Anno Scolastico Precedente" Foreground="Black">
                 <Label>Id Anno</Label>
-                
+
             </GroupBox>
             <Label Content="Descrizione breve" Grid.ColumnSpan="2" Margin="175,18,443,-18"/>
             <Label Content="Note" Grid.ColumnSpan="2" Margin="285,19,518,-19"/>
-            <ComboBox Margin="0, 42, 470, 27" Height="26" Width="104"></ComboBox>
-            
+            <ComboBox Margin="13,42,492,20" Height="26"/>
+
         </Grid>
 
         <Grid Grid.Row="1" >
