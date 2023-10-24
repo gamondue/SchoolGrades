@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SchoolGrades_WPF
+namespace SchoolGradesWPF
 {
     /// <summary>
-    /// Logica di interazione per frmAnnotationAboutStudent.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class frmAnnotationAboutStudent : Window
+    public partial class MainWindow : Window
     {
-        public frmAnnotationAboutStudent()
+        public MainWindow()
         {
             InitializeComponent();
         }
