@@ -29,7 +29,7 @@ namespace SchoolGrades
             {
                 // not found an existing student: find a key for the new student
                 s.IdStudent = NextKey("Students", "idStudent");
-                CreateStudent(s); 
+                CreateStudent(s);
             }
             else
             {
@@ -62,8 +62,8 @@ namespace SchoolGrades
                     //" AND (birthPlace=" + SqlDate(StudentToFind.BirthPlace) + " OR birthPlace=NULL)" +
                     ";";
                 dRead = cmd.ExecuteReader();
-                dRead.Read(); 
-                if(dRead.HasRows)
+                dRead.Read();
+                if (dRead.HasRows)
                     s = GetStudentFromRow(dRead);
                 else
                     s = null;
@@ -103,7 +103,7 @@ namespace SchoolGrades
                 " AND Grades.value IS NOT NULL AND Grades.value <> 0" +
                 " AND Grades.Timestamp BETWEEN " + SqlDate(DateFrom) + " AND " + SqlDate(DateTo) +
                 ")" +
-                " AND NOT Students.disabled"; 
+                " AND NOT Students.disabled";
                 query += " AND Classes_Students.idClass=" + Class.IdClass;
                 query += ";";
                 DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
@@ -117,7 +117,7 @@ namespace SchoolGrades
             }
             return t;
         }
-        internal List<Student> GetAllStudentsThatAnsweredToATest(Test Test, Class Class)
+        internal List<Student> GetAllStudentsThatAnsweredToATest(SchoolTest Test, Class Class)
         {
             List<Student> list = new List<Student>();
             using (DbConnection conn = Connect())
@@ -194,13 +194,13 @@ namespace SchoolGrades
                 "SET" +
                 " idStudent=" + Student.IdStudent +
                 ",lastName=" + SqlString(Student.LastName) +
-                ",firstName=" + SqlString(Student.FirstName) + 
-                ",residence=" + SqlString(Student.Residence) + 
+                ",firstName=" + SqlString(Student.FirstName) +
+                ",residence=" + SqlString(Student.Residence) +
                 ",birthDate=" + SqlDate(Student.BirthDate.ToString()) + "" +
-                ",email=" + SqlString(Student.Email) + 
+                ",email=" + SqlString(Student.Email) +
                 //",schoolyear=" + SqlString(Student.SchoolYear) + 
-                ",origin=" + SqlString(Student.Origin) + 
-                ",birthPlace=" + SqlString(Student.BirthPlace) + 
+                ",origin=" + SqlString(Student.Origin) +
+                ",birthPlace=" + SqlString(Student.BirthPlace) +
                 ",drawable=" + SqlBool(Student.Eligible) + "" +
                 ",disabled=" + SqlBool(Student.Disabled) + "" +
                 ",hasSpecialNeeds=" + SqlBool(Student.HasSpecialNeeds) + "" +
@@ -214,7 +214,7 @@ namespace SchoolGrades
                     " SET" +
                     " registerNumber=" + Student.RegisterNumber +
                     " WHERE idStudent=" + Student.IdStudent +
-                    " AND idClass=" + Student.IdClass; 
+                    " AND idClass=" + Student.IdClass;
                 cmd.ExecuteNonQuery();
             }
             cmd.Dispose();
@@ -425,7 +425,7 @@ namespace SchoolGrades
                     Student s = GetStudentFromRow(dRead);
                     s.ClassAbbreviation = (string)dRead["abbreviation"];
                     // read the properties from other tables
-                    s.IdClass = (int)dRead["idClass"]; 
+                    s.IdClass = (int)dRead["idClass"];
                     s.RegisterNumber = Safe.String(dRead["registerNumber"]);
                     ls.Add(s);
                 }
@@ -472,7 +472,7 @@ namespace SchoolGrades
         internal void ToggleDisabledFlagOneStudent(Student Student)
         {
             // if Disabled is null I want it to be true after method
-            if(Student.Disabled == null)
+            if (Student.Disabled == null)
                 Student.Disabled = false;
             using (DbConnection conn = Connect())
             {
@@ -493,7 +493,7 @@ namespace SchoolGrades
             cmd.CommandText = "SELECT idStudentsPhoto FROM StudentsPhotos_Students " +
                 "WHERE idStudent=" + idStudent + " AND (idSchoolYear=" + SqlString(schoolYear) + "" +
                 " OR idSchoolYear=" + SqlString(schoolYear.Replace("-", "")) + // !!!! TEMPORARY: for compatibility with old database. erase this line in future 
-                ")" + 
+                ")" +
                 ";";
             return (int?)cmd.ExecuteScalar();
         }
@@ -594,12 +594,12 @@ namespace SchoolGrades
                 DbDataReader dReader = cmd.ExecuteReader();
                 while (dReader.Read())
                 {
-                    string originFile = Commons.PathImages + "\\" + (string)dReader["imagePath"]; 
+                    string originFile = Commons.PathImages + "\\" + (string)dReader["imagePath"];
                     string filePart = (string)dReader["imagePath"];
                     string partToReplace = filePart.Substring(0, filePart.IndexOf("\\"));
                     filePart = filePart.Replace(partToReplace, Class.SchoolYear + "_" + Class.Abbreviation);
                     string destinationFile = Path.Combine(Commons.PathImages, filePart);
-                    string destinationFolder = Path.GetDirectoryName(destinationFile); 
+                    string destinationFolder = Path.GetDirectoryName(destinationFile);
                     if (!Directory.Exists(destinationFolder))
                     {
                         Directory.CreateDirectory(destinationFolder);
@@ -626,7 +626,7 @@ namespace SchoolGrades
         {
             List<Student> list = new List<Student>();
             // strip daytime from date 
-            string monthAndYear = Date.Month.ToString("00") + "-" + Date.Day.ToString("00"); 
+            string monthAndYear = Date.Month.ToString("00") + "-" + Date.Day.ToString("00");
 
             DbDataReader dRead;
             DbCommand cmd;
@@ -644,14 +644,14 @@ namespace SchoolGrades
                 while (dRead.Read())
                 {
                     Student s = GetStudentFromRow(dRead);
-                    list.Add(s); 
+                    list.Add(s);
                 }
                 dRead.Dispose();
                 cmd.Dispose();
             }
             return list;
         }
-        internal void SaveStudentsAnswer(Student Student, Test Test, Answer Answer,
+        internal void SaveStudentsAnswer(Student Student, SchoolTest Test, Answer Answer,
             bool StudentsBoolAnswer, string StudentsTextAnswer)
         {
             using (DbConnection conn = Connect())
