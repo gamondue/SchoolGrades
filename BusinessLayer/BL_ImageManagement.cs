@@ -18,13 +18,11 @@ namespace SchoolGrades
                 try
                 {
                     // !!!! TODO: FIX: this gives error every time, so currently the program doesn't erase the pictures !!!!
-                    File.Delete(Commons.PathImages + "\\" + Image.RelativePathAndFilename);
+                    File.Delete(Path.Combine(Commons.PathImages , Image.RelativePathAndFilename));
                 }
                 catch (Exception ex)
                 {
-                    string err = "DbLayer|RemoveImageFromLesson|" +
-                        Commons.PathImages + "\\" + Image.RelativePathAndFilename +
-                        ".\r\n" + ex.Message + ex.StackTrace;
+                    string err = "DbLayer|RemoveImageFromLesson|" + Path.Combine( Commons.PathImages ,  Image.RelativePathAndFilename , ex.Message , ex.StackTrace);
                     Commons.ErrorLog(err);
                     Console.Beep(); 
                     //////throw new Exception(err);

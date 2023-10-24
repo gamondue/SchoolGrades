@@ -13,8 +13,8 @@ namespace SchoolGrades
 {
     public partial class frmTestManagement : Form
     {
-        List<Test> listTests = new List<Test>();
-        Test currentTest;
+        List<SchoolTest> listTests = new List<SchoolTest>();
+        SchoolTest currentTest;
         public frmTestManagement()
         {
             InitializeComponent();
@@ -22,7 +22,7 @@ namespace SchoolGrades
 
         private void frmTest_Load(object sender, EventArgs e)
         {
-            currentTest = new Test();
+            currentTest = new SchoolTest();
 
             // !!!!!!!!!!!
             currentTest = Commons.bl.GetTest(1);
@@ -83,8 +83,8 @@ namespace SchoolGrades
             {
                 dgwTests.Rows[e.RowIndex].Selected = true;
 
-                List < Test > ls = (List<Test>)(dgwTests.DataSource);
-                Test currentTest = ls[e.RowIndex];
+                List < SchoolTest > ls = (List<SchoolTest>)(dgwTests.DataSource);
+                SchoolTest currentTest = ls[e.RowIndex];
                 //Test currentTest = new Test();
                 //currentTest = db.GetTest(1); 
 

@@ -269,12 +269,11 @@ namespace SchoolGrades
                     }
                     if (!File.Exists(destinationFile) ||
                         File.GetLastWriteTime(destinationFile)
-                        < File.GetLastWriteTime(Commons.PathImages + "\\" + (string)dReader["photoPath"]))
+                        < File.GetLastWriteTime(Path.Combine(Commons.PathImages, (string)dReader["photoPath"])))
                         try
                         {
                             // destination file not existing or older
-                            File.Copy(Commons.PathImages + "\\" + (string)dReader["photoPath"],
-                                destinationFile);
+                            File.Copy(Path.Combine(Path.Combine(Commons.PathImages, (string)dReader["photoPath"])), destinationFile);
                         }
                         catch { }
                 }
@@ -313,7 +312,7 @@ namespace SchoolGrades
                         // destination file not existing or older
                         try
                         {
-                            File.Copy(Commons.PathImages + "\\" + (string)dReader["imagePath"],
+                            File.Copy(Path.Combine(Commons.PathImages, (string)dReader["imagePath"]),
                                 destinationFile);
                         }
                         catch { }
@@ -356,9 +355,9 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
             // if it doesn't exist, create the folder of classes student's images
-            if (!Directory.Exists(Commons.PathImages + "\\" + SchoolYear + ClassAbbreviation))
+            if (!Directory.Exists(Path.Combine(Commons.PathImages, SchoolYear, ClassAbbreviation)))
             {
-                Directory.CreateDirectory(Commons.PathImages + "\\" + SchoolYear + ClassAbbreviation);
+                Directory.CreateDirectory(Path.Combine(Commons.PathImages, SchoolYear, ClassAbbreviation));
             }
             return idClass;
         }
