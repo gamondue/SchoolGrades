@@ -223,37 +223,36 @@ namespace SchoolGrades
                 MessageBox.Show("Scegliere la classe da usare per generare il database demo");
                 return;
             }
-            if (MessageBox.Show("Verranno generate due classi demo nell'anno corrente, " +
+            if (MessageBox.Show("Verranno generate due classi demo nell'anno corrente, più due classi demmo nell'anno successivo" +
                 "con i dati manipolati della classe selezionata e di quella PRIMA nella lista, e le foto " +
                 "prese da " + Commons.PathImages + "\\DemoPictures.\n\nDevo procedere con la generazione (Sì)" +
                 " od interrompere (No)?","Continua?", MessageBoxButtons.YesNo, 
                 MessageBoxIcon.Question,
                 MessageBoxDefaultButton.Button2) != DialogResult.Yes)
                 return; 
-
             Class otherClass = (Class)lstClasses.Items[lstClasses.SelectedIndex - 1];
 
             string newDatabasePathName = Commons.PathDatabase;
             if (!Directory.Exists(newDatabasePathName))
                 Directory.CreateDirectory(newDatabasePathName);
 
-            string newDatabaseFullName = newDatabasePathName +
-                "\\Demo_SchoolGrades_" + currentClass.SchoolYear + "_" + DateTime.Now.Date.ToString("yy-MM-dd") + ".sqlite";
+            string NewDatabasePathAndFile = Path.Combine(newDatabasePathName, 
+                "Demo_SchoolGrades_" + currentClass.SchoolYear + "_" + DateTime.Now.Date.ToString("yy-MM-dd") + ".sqlite");
 
-            if (File.Exists(newDatabaseFullName))
+            if (File.Exists(NewDatabasePathAndFile))
             {
-                if (System.Windows.Forms.MessageBox.Show("Il file " + newDatabaseFullName + " esiste già." +
+                if (System.Windows.Forms.MessageBox.Show("Il file " + NewDatabasePathAndFile + " esiste già." +
                     "\nDevo re-inizializzarlo (Sì) o non creare il database (No)?", "",
                     System.Windows.Forms.MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    File.Delete(newDatabaseFullName);
+                    File.Delete(NewDatabasePathAndFile);
                 }
                 else
                     return;
             }
-            string fileDatabase = Commons.bl.CreateDemoDatabase(newDatabaseFullName, otherClass, currentClass);
-            MessageBox.Show("Creato il file " + fileDatabase + ", " +
+            Commons.bl.CreateDemoDatabase(NewDatabasePathAndFile, otherClass, currentClass);
+            MessageBox.Show("Creato il file " + NewDatabasePathAndFile + ", " +
                 "che contiene le due classi 1DEMO e 2DEMO, con tutte le foto, " +
                 "le valutazioni e le immagini."); ; 
         }
@@ -263,23 +262,23 @@ namespace SchoolGrades
             if (!Directory.Exists(newDatabasePathName))
                 Directory.CreateDirectory(newDatabasePathName);
 
-            string newDatabaseFullName = newDatabasePathName +
+            string NewDatabasePathName = newDatabasePathName +
                 "\\SchoolGradesNew.sqlite";
 
-            if (File.Exists(newDatabaseFullName))
+            if (File.Exists(NewDatabasePathName))
             {
                 //!!!!TODO make the next code indipendent from UI!!!!
-                if (System.Windows.Forms.MessageBox.Show("Il file " + newDatabaseFullName + " esiste già." +
+                if (System.Windows.Forms.MessageBox.Show("Il file " + NewDatabasePathName + " esiste già." +
                     "\nDevo re-inizializzarlo (Sì) o non creare il database (No)?", "",
                     System.Windows.Forms.MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    File.Delete(newDatabaseFullName);
+                    File.Delete(NewDatabasePathName);
                 }
                 else
                     return;
             }
-            Commons.bl.CreateNewDatabase(newDatabaseFullName);
+            Commons.bl.CreateNewDatabase(NewDatabasePathName);
             MessageBox.Show("Creato nuovo database SchoolGradesNew.sqlite"); 
         }
     }
