@@ -55,6 +55,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Input.xaml.cs">
+      <DependentUpon>Input.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="KnotsToTheComb.xaml.cs">
+      <DependentUpon>KnotsToTheComb.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StartLinksManagement.xaml.cs">
       <DependentUpon>StartLinksManagement.xaml</DependentUpon>
     </Compile>
@@ -70,6 +76,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GradesClassSummary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Input.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="KnotsToTheComb.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

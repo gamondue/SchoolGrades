@@ -91,6 +91,6 @@
             <TextBox Name="TxtStartLink" Grid.Row="1" Grid.Column="1"></TextBox>
             <Button Name="BtnFileToLaunch" Grid.Row="1" Grid.Column="2">..</Button>
         </Grid>
-        <DataGrid Grid.Row="2" Grid.ColumnSpan="2" Background="Gray"></DataGrid>
+        <DataGrid Name="dgLinks" Grid.Row="2" Grid.ColumnSpan="2" Background="Gray"></DataGrid>
     </Grid>
 </Window>
