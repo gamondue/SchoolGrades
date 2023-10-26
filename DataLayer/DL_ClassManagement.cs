@@ -127,14 +127,14 @@ namespace SchoolGrades
             if (!Directory.Exists(newDatabasePathName))
                 Directory.CreateDirectory(newDatabasePathName);
 
-            string newDatabaseFullName = Path.Combine(newDatabasePathName,
+            string NewDatabasePathName = Path.Combine(newDatabasePathName,
                 System.DateTime.Now.ToString("yyyy-MM-dd_HH.mm.ss") +
                 "_" + Class.Abbreviation + "_" + Class.SchoolYear + "_" +
                 Commons.DatabaseFileName_Teacher);
-            File.Copy(Commons.PathAndFileDatabase, newDatabaseFullName);
+            File.Copy(Commons.PathAndFileDatabase, NewDatabasePathName);
 
             // open a local connection to database 
-            DataLayer newDatabaseDl = new DataLayer(newDatabaseFullName);
+            DataLayer newDatabaseDl = new DataLayer(NewDatabasePathName);
 
             // erase all the data of the students of other classes
             using (DbConnection conn = newDatabaseDl.Connect())

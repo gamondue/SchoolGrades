@@ -17,7 +17,6 @@ namespace SchoolGrades
         /// DbClasses and ADO db classes (ADO should be avoided, if possible) 
         /// </summary>
         private string dbName;
-
         #region constructors
         /// <summary>
         /// Constructor of DataLayer class that uses the default database of the program
@@ -501,24 +500,70 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal string CreateDemoDatabase(string newDatabaseFullName, Class Class1, Class Class2)
+        internal void CreateDataInDemoDatabase(DataLayer newDatabaseDl,
+            Class Class1, Class Class2, Class Class3, Class Class4)
         {
             DbCommand cmd;
 
-            File.Copy(Commons.PathAndFileDatabase, newDatabaseFullName);
+            // modify all the data that hasn't been erased
+            // make example start links 
+            using (DbConnection conn = newDatabaseDl.Connect())
+            {
+                // Class1 start links
+                cmd = conn.CreateCommand();
+                int IdStartLink = NextKey("Classes_StartLinks", "IdStartLink");
+                string query = "INSERT INTO Classes_StartLinks" +
+                    "(idStartLink, idClass, startLink, desc)" +
+                    " Values (" + IdStartLink + "," +
+                    Class1.IdClass + "," +
+                    SqlString(@"https://github.com/gamondue/SchoolGrades") + "," +
+                    SqlString("Repo sorgenti") +
+                    ");";
+                cmd.CommandText = query;
+                cmd.ExecuteNonQuery();
+                // Class2 start links
+                IdStartLink = NextKey("Classes_StartLinks", "IdStartLink");
+                query = "INSERT INTO Classes_StartLinks" +
+                    "(idStartLink, idClass, startLink, desc)" +
+                    " Values (" + IdStartLink + "," +
+                    Class1.IdClass + "," +
+                    SqlString(@"http://www.ingmonti.it/") + "," +
+                    SqlString("Sito gamon") +
+                    ");";
+                cmd.CommandText = query;
+                cmd.ExecuteNonQuery();
+                IdStartLink = NextKey("Classes_StartLinks", "IdStartLink");
+                query = "INSERT INTO Classes_StartLinks" +
+                    "(idStartLink, idClass, startLink, desc)" +
+                    " Values (" + IdStartLink + "," +
+                    Class1.IdClass + "," +
+                    SqlString(@".\README.md") + "," +
+                    SqlString("File di testo!") +
+                    ");";
+                cmd.CommandText = query;
+                cmd.ExecuteNonQuery();
 
-            // local instance of a DataLayer to operate on a second database 
-            DataLayer newDatabaseDl = new DataLayer(newDatabaseFullName);
-
-            // erase all the data of the students of other classes
+                // compact the database 
+                cmd.CommandText = "VACUUM;";
+                cmd.ExecuteNonQuery();
+            }
+        }
+        internal void EraseAllNotPertinentDataOfOtherClasses(DataLayer newDatabaseDl, 
+            Class Class1, Class Class2, Class Class3, Class Class4)
+        {
+            DbCommand cmd;
             using (DbConnection conn = newDatabaseDl.Connect()) // connect to the new database, just copied
             {
                 cmd = conn.CreateCommand();
-
                 // erase all the other classes
                 cmd.CommandText = "DELETE FROM Classes" +
                 " WHERE idClass<>" + Class1.IdClass +
-                " AND idClass<>" + Class2.IdClass + ";";
+                " AND idClass<>" + Class2.IdClass;
+                if (Class3 != null)
+                    cmd.CommandText += " AND idClass<>" + Class3.IdClass;
+                if (Class4 != null)
+                    cmd.CommandText += " AND idClass<>" + Class4.IdClass;
+                cmd.CommandText += ";";
                 cmd.ExecuteNonQuery();
 
                 // erase all the lessons of other classes
@@ -526,20 +571,27 @@ namespace SchoolGrades
                     " WHERE idClass<>" + Class1.IdClass +
                     " AND idClass<>" + Class2.IdClass + ";";
                 cmd.ExecuteNonQuery();
-
                 // erase all the students of other classes from the link table
                 cmd.CommandText = "DELETE FROM Classes_Students" +
                  " WHERE idClass<>" + Class1.IdClass +
-                 " AND idClass<>" + Class2.IdClass + ";";
+                 " AND idClass<>" + Class2.IdClass;
+                if (Class3 != null)
+                    cmd.CommandText += " AND idClass<>" + Class3.IdClass;
+                if (Class4 != null)
+                    cmd.CommandText += " AND idClass<>" + Class4.IdClass;
+                cmd.CommandText += ";";
                 cmd.ExecuteNonQuery();
-
                 // erase all the students of other classes 
                 cmd.CommandText = "DELETE FROM Students" +
                     " WHERE idStudent NOT IN" +
                     " (SELECT idStudent FROM Classes_Students" +
                     " WHERE idClass<>" + Class1.IdClass +
-                    " OR idClass<>" + Class2.IdClass +
-                    ");";
+                    " OR idClass<>" + Class2.IdClass;
+                if (Class3 != null)
+                    cmd.CommandText += " OR idClass<>" + Class3.IdClass;
+                if (Class4 != null)
+                    cmd.CommandText += " OR idClass<>" + Class4.IdClass;
+                cmd.CommandText += ");";
                 cmd.ExecuteNonQuery();
 
                 // erase all the annotations, of all classes
@@ -559,8 +611,12 @@ namespace SchoolGrades
                     " WHERE idStudent NOT IN" +
                     " (SELECT idStudent FROM Classes_Students" +
                     " WHERE idClass<>" + Class1.IdClass +
-                    " OR idClass<>" + Class2.IdClass +
-                    ");";
+                    " OR idClass<>" + Class2.IdClass;
+                if (Class3 != null)
+                    cmd.CommandText += " OR idClass<>" + Class3.IdClass;
+                if (Class4 != null)
+                    cmd.CommandText += " OR idClass<>" + Class4.IdClass;
+                cmd.CommandText += ");";
                 cmd.ExecuteNonQuery();
 
                 // erase all the links to photos of other classes' students
@@ -568,8 +624,12 @@ namespace SchoolGrades
                     " WHERE idStudent NOT IN" +
                     " (SELECT idStudent FROM Classes_Students" +
                     " WHERE idClass<>" + Class1.IdClass +
-                    " OR idClass<>" + Class2.IdClass +
-                    ");";
+                    " OR idClass<>" + Class2.IdClass;
+                if (Class3 != null)
+                    cmd.CommandText += " OR idClass<>" + Class3.IdClass;
+                if (Class4 != null)
+                    cmd.CommandText += " OR idClass<>" + Class4.IdClass;
+                cmd.CommandText += ");";
                 cmd.ExecuteNonQuery();
 
                 // erase all the photos of other classes' students
@@ -579,8 +639,12 @@ namespace SchoolGrades
                     " WHERE StudentsPhotos_Students.idStudent = Classes_Students.idStudent" +
                     " AND StudentsPhotos.idStudentsPhoto = StudentsPhotos_Students.idStudentsPhoto" +
                     " AND (Classes_Students.idClass=" + Class1.IdClass +
-                    " OR Classes_Students.idClass=" + Class2.IdClass + ")" +
-                    ");";
+                    " OR Classes_Students.idClass=" + Class2.IdClass;
+                if (Class3 != null)
+                    cmd.CommandText += " OR idClass<>" + Class3.IdClass;
+                if (Class4 != null)
+                    cmd.CommandText += " OR idClass<>" + Class4.IdClass;
+                cmd.CommandText += ");";
                 cmd.ExecuteNonQuery();
 
                 // erase all the images of other classes
@@ -590,8 +654,12 @@ namespace SchoolGrades
                     " WHERE Lessons_Images.idImage = Images.idImage" +
                     " AND Lessons_Images.idLesson = Lessons.idLesson" +
                     " AND (Lessons.idClass=" + Class1.IdClass +
-                    " OR Lessons.idClass=" + Class2.IdClass + ")" +
-                    ");";
+                    " OR Lessons.idClass=" + Class2.IdClass;
+                if (Class3 != null)
+                    cmd.CommandText += " OR idClass<>" + Class3.IdClass;
+                if (Class4 != null)
+                    cmd.CommandText += " OR idClass<>" + Class4.IdClass;
+                cmd.CommandText += ");";
                 cmd.ExecuteNonQuery();
 
                 //erase all links to the images of other classes
@@ -601,8 +669,12 @@ namespace SchoolGrades
                     " WHERE Lessons_Images.idImage = Images.idImage" +
                     " AND Lessons_Images.idLesson = Lessons.idLesson" +
                     " AND (Lessons.idClass=" + Class1.IdClass +
-                    " OR Lessons.idClass=" + Class2.IdClass + ")" +
-                    ");";
+                    " OR Lessons.idClass=" + Class2.IdClass;
+                if (Class3 != null)
+                    cmd.CommandText += " OR idClass<>" + Class3.IdClass;
+                if (Class4 != null)
+                    cmd.CommandText += " OR idClass<>" + Class4.IdClass;
+                cmd.CommandText += ");";
                 cmd.ExecuteNonQuery();
 
                 // erase all the questions of the students of the other classes
@@ -611,27 +683,40 @@ namespace SchoolGrades
                     " WHERE idStudent NOT IN" +
                     " (SELECT DISTINCT idStudent FROM Classes_Students" +
                     " WHERE idClass=" + Class1.IdClass +
-                    " OR idClass=" + Class2.IdClass +
-                    ");";
+                    " OR idClass=" + Class2.IdClass;
+                if (Class3 != null)
+                    cmd.CommandText += " OR idClass<>" + Class3.IdClass;
+                if (Class4 != null)
+                    cmd.CommandText += " OR idClass<>" + Class4.IdClass;
+                cmd.CommandText += ");";
                 cmd.ExecuteNonQuery();
 
                 // erase all the answers  of the students of the other classes
-                // !! StudentsAnswers currently not used !!
+                // !! StudentsAnswers is currently not used !!
                 cmd.CommandText = "DELETE FROM StudentsAnswers" +
                 " WHERE idStudent NOT IN" +
                 " (SELECT idStudent FROM Classes_Students" +
                     " WHERE idClass=" + Class1.IdClass +
-                    " OR idClass=" + Class2.IdClass + ");";
+                    " OR idClass=" + Class2.IdClass;
+                if (Class3 != null)
+                    cmd.CommandText += " OR idClass<>" + Class3.IdClass;
+                if (Class4 != null)
+                    cmd.CommandText += " OR idClass<>" + Class4.IdClass;
+                cmd.CommandText += ");";
                 cmd.ExecuteNonQuery();
 
                 // erase all the tests of students of the other classes
-                // !! StudentsTests currently not used !!
+                // !! StudentsTests is currently not used !!
                 cmd.CommandText = "DELETE FROM StudentsTests" +
                 " WHERE idStudent NOT IN" +
                 " (SELECT idStudent FROM Classes_Students" +
                 " WHERE idClass=" + Class1.IdClass +
-                    " OR idClass=" + Class2.IdClass +
-                ");";
+                    " OR idClass=" + Class2.IdClass;
+                if (Class3 != null)
+                    cmd.CommandText += " OR idClass<>" + Class3.IdClass;
+                if (Class4 != null)
+                    cmd.CommandText += " OR idClass<>" + Class4.IdClass;
+                cmd.CommandText += ");";
                 cmd.ExecuteNonQuery();
 
                 // erase all the topics of other classes' lessons
@@ -639,16 +724,20 @@ namespace SchoolGrades
                     " WHERE idLesson NOT IN" +
                     " (SELECT idLesson from Lessons" +
                     " WHERE idClass=" + Class1.IdClass +
-                    " OR idClass=" + Class2.IdClass +
-                    ");";
+                    " OR idClass=" + Class2.IdClass;
+                if (Class3 != null)
+                    cmd.CommandText += " OR idClass<>" + Class3.IdClass;
+                if (Class4 != null)
+                    cmd.CommandText += " OR idClass<>" + Class4.IdClass;
+                cmd.CommandText += ");";
                 cmd.ExecuteNonQuery();
 
                 // change the data of the classes
-                Class1.Abbreviation = "1DEMO";
-                Class1.Description = "SchoolGrades demo class 1";
+                Class1.Abbreviation = "1DEMO1";
+                Class1.Description = "SchoolGrades demo class 1, year 1";
                 // Class1.SchoolYear = // !!!! shift the data to the destination school year, to be done when year's shifting will be managed!!!!
-                Class1.PathRestrictedApplication = Commons.PathExe + "\\1demo";
-                Class1.IdSchool = Commons.IdSchool; 
+                Class1.PathRestrictedApplication = Commons.PathExe + "\\1demo1";
+                Class1.IdSchool = Commons.IdSchool;
                 Class1.UriWebApp = ""; // ???? decide what to put here ????
                 // SaveClass Class1;
                 string query = "UPDATE Classes" +
@@ -666,8 +755,8 @@ namespace SchoolGrades
                 cmd.ExecuteNonQuery();
 
                 // class 2
-                Class2.Abbreviation = "2DEMO";
-                Class2.Description = "SchoolGrades demo class 2";
+                Class2.Abbreviation = "2DEMO1";
+                Class2.Description = "SchoolGrades demo class 2, year 1";
                 Class2.PathRestrictedApplication = Commons.PathExe + "\\2demo";
                 Class2.IdSchool = Commons.IdSchool;
                 Class2.UriWebApp = ""; // ???? decide what to put here ????
@@ -724,45 +813,12 @@ namespace SchoolGrades
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
-            using (DbConnection conn = newDatabaseDl.Connect())
-            {
-                int IdStartLink = NextKey("Classes_StartLinks", "IdStartLink");
-                string query = "INSERT INTO Classes_StartLinks" +
-                    "(idStartLink, idClass, startLink, desc)" +
-                    " Values (" + IdStartLink + "," +
-                    Class1.IdClass + "," +
-                    SqlString(@"https://github.com/gamondue/SchoolGrades") + "," +
-                    SqlString("Repo sorgenti") +
-                    ");";
-                cmd.CommandText = query;
-                cmd.ExecuteNonQuery();
-                // Class2 start links
-                IdStartLink = NextKey("Classes_StartLinks", "IdStartLink");
-                query = "INSERT INTO Classes_StartLinks" +
-                    "(idStartLink, idClass, startLink, desc)" +
-                    " Values (" + IdStartLink + "," +
-                    Class1.IdClass + "," +
-                    SqlString(@"http://www.ingmonti.it/") + "," +
-                    SqlString("Sito gamon") +
-                    ");";
-                cmd.CommandText = query;
-                cmd.ExecuteNonQuery();
-                IdStartLink = NextKey("Classes_StartLinks", "IdStartLink");
-                query = "INSERT INTO Classes_StartLinks" +
-                    "(idStartLink, idClass, startLink, desc)" +
-                    " Values (" + IdStartLink + "," +
-                    Class1.IdClass + "," +
-                    SqlString(@".\README.md") + "," +
-                    SqlString("File di testo!") +
-                    ");";
-                cmd.CommandText = query;
-                cmd.ExecuteNonQuery();
-
-                // compact the database 
-                cmd.CommandText = "VACUUM;";
-                cmd.ExecuteNonQuery();
-            }
-            return newDatabaseFullName;
+        }
+        internal Class GetThisClassNextYear(Class Class)
+        {
+            string nextYear = Commons.IncreaseIntegersInString(Class.SchoolYear);
+            string nextAbbreviation = Commons.IncreaseIntegersInString(Class.Abbreviation);
+            return GetClass(Class.IdSchool, nextYear, nextAbbreviation); 
         }
         private bool FieldExists(string TableName, string FieldName)
         {
