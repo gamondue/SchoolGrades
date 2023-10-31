@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:SchoolGrades_WPF"
       mc:Ignorable="d" 
       d:DesignHeight="533" d:DesignWidth="400"
-      Title="frmTag" FontSize="14">
+      Title="Tag" FontSize="14">
 
     <Grid Background="PowderBlue" >
 
@@ -17,14 +17,14 @@
 
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="0">
+            <Grid x:Name="txtSearch1" Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="31*"></RowDefinition>
                     <RowDefinition Height="502*"></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <TextBox x:Name="txtSearch" Margin="5"></TextBox>
-                <DataGrid x:Name="dgwExistingTags" Grid.Row="1" Margin="5"></DataGrid>
+                <DataGrid x:Name="dgwExistingTags" Grid.Row="1" Margin="5" Background="DarkGray"></DataGrid>
             </Grid>
 
             <Grid Grid.Column="1">
@@ -42,21 +42,21 @@
                     <RowDefinition Height="303*"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <Label>Ricerca</Label>
+                <Label VerticalAlignment="Bottom">Ricerca</Label>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="1">
-                    <Label Width="117 ">Codice</Label>
-                    <Label Width="117 ">Tag</Label>
+                    <Label x:Name="lblIdTag" Width="117 " VerticalAlignment="Bottom">Codice</Label>
+                    <Label x:Name="lblTag" Width="117 " VerticalAlignment="Bottom">Tag</Label>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="2">
-                    <TextBox Width="107 " Margin="5"></TextBox>
-                    <TextBox Width="107 " Margin="5"></TextBox>
+                    <TextBox x:Name="txtIdTag" Width="107 " Margin="5"></TextBox>
+                    <TextBox x:Name="txtTag" Width="107 " Margin="5"></TextBox>
                 </StackPanel>
 
-                <Label Grid.Row="3">Descrizione</Label>
+                <Label x:Name="lblDesc" Grid.Row="3" VerticalAlignment="Bottom" >Descrizione</Label>
                 
-                <TextBox Grid.Row="4"></TextBox>
+                <TextBox x:Name="txtDesc" Grid.Row="4" Margin="5"></TextBox>
 
                 <Grid Grid.Row="5">
                     <Grid.ColumnDefinitions>
@@ -65,6 +65,10 @@
                         <ColumnDefinition></ColumnDefinition>
 
                     </Grid.ColumnDefinitions>
+
+                    <Button x:Name="btnNew" Grid.Column="0" Margin="7,10,7,260" Height="32">Nuovo</Button>
+                    <Button x:Name="btnSave" Grid.Column="1" Margin="7,10,7,260" Height="32">Salva</Button>
+                    <Button x:Name="btnChoose" Grid.Column="2" Margin="7,10,7,260" Height="32">Scegli</Button>
                 </Grid>
             </Grid>
         </Grid>
