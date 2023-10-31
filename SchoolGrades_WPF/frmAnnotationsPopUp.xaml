@@ -1,4 +1,4 @@
-﻿<Window x:Class="SchoolGrades_WPF.MainWindow"
+﻿<Page x:Class="SchoolGrades_WPF.frmAnnotationsPopUp"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -11,4 +11,4 @@
         <Grid Margin="10,120,10,10" Background="#FFA2A2A2"/>
 
     </Grid>
-</Window>
+</Page>
