@@ -68,7 +68,7 @@
             trwTopics.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             trwTopics.Location = new System.Drawing.Point(0, 4);
             trwTopics.Name = "trwTopics";
-            trwTopics.Size = new System.Drawing.Size(475, 510);
+            trwTopics.Size = new System.Drawing.Size(222, 510);
             trwTopics.TabIndex = 2;
             // 
             // btnSaveTree
@@ -99,7 +99,7 @@
             txtTopicDescription.Multiline = true;
             txtTopicDescription.Name = "txtTopicDescription";
             txtTopicDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            txtTopicDescription.Size = new System.Drawing.Size(475, 110);
+            txtTopicDescription.Size = new System.Drawing.Size(222, 110);
             txtTopicDescription.TabIndex = 4;
             // 
             // txtTopicName
@@ -109,7 +109,7 @@
             txtTopicName.Location = new System.Drawing.Point(0, 39);
             txtTopicName.Multiline = true;
             txtTopicName.Name = "txtTopicName";
-            txtTopicName.Size = new System.Drawing.Size(475, 39);
+            txtTopicName.Size = new System.Drawing.Size(222, 39);
             txtTopicName.TabIndex = 3;
             // 
             // btnChoose
