@@ -7,13 +7,21 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="400" Width="500" Background="LightGray">
     <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="500" Height="500">
-        <CheckBox Click="Button_Click" IsChecked="False" Cursor="Hand" Margin="-1,4,448,473" FontSize="18">R.C.</CheckBox>
-        <CheckBox Click="Button_Click" IsChecked="True" Cursor="Hand" Margin="-1,23,429,450" FontWeight="Bold" FontSize="18" Checked="CheckBox_Checked">Suoni</CheckBox>
-        <TextBox Margin="76,4,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="36" Width="40"></TextBox>
-        <TextBox Margin="126,4,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="36" Width="40"/>
-        <TextBox Margin="76,54,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="36" Width="90"/>
-        <Button Width="66" Height="35" Margin="4,54,430,410">Connect</Button>
-        <Label FontSize="30" Width="22" Height="48" Margin="0,0,308,404" HorizontalAlignment="Right" VerticalAlignment="Bottom">s</Label>
+        <CheckBox Click="Button_Click" IsChecked="False" Cursor="Hand" Margin="0,1,426,470" FontSize="14">R.C.
+            <CheckBox.LayoutTransform>
+                <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
+            </CheckBox.LayoutTransform>
+        </CheckBox>
+        <CheckBox Click="Button_Click" IsChecked="True" Cursor="Hand" Margin="0,28,421,445" FontWeight="Bold" FontSize="12" Checked="CheckBox_Checked">Suoni
+            <CheckBox.LayoutTransform>
+                <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
+            </CheckBox.LayoutTransform>
+        </CheckBox>
+        <TextBox Margin="96,4,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="36" Width="40"></TextBox>
+        <TextBox Margin="146,4,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="36" Width="40"/>
+        <TextBox Margin="96,54,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="36" Width="90"/>
+        <Button Width="66" Height="35" Margin="16,55,418,410">Connect</Button>
+        <Label FontSize="30" Width="22" Height="48" Margin="0,0,288,404" HorizontalAlignment="Right" VerticalAlignment="Bottom">s</Label>
         <Label Margin="238,0,162,401" FontSize="30" FontWeight="SemiBold" Width="100" Height="99.6">First</Label>
         <Label Margin="238,50,162,351" FontSize="30" FontWeight="SemiBold" Width="100" Height="99.6" Content="Next
                "/>
