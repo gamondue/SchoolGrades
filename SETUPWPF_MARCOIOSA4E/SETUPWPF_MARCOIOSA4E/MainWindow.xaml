@@ -1,0 +1,47 @@
+﻿<Window x:Class="SETUPWPF_MARCOIOSA4E.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SETUPWPF_MARCOIOSA4E"
+        mc:Ignorable="d"
+        Title="Setup" Height="370" Width="890">
+    <Grid Background="PowderBlue">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="53*"/>
+            <RowDefinition Height="281*"/>
+        </Grid.RowDefinitions>
+        <Button Content="GESTIONE&#xD;&#xA;TABELLE" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="50" Width="65" Grid.RowSpan="2" Background="White" FontWeight="Bold" BorderBrush="White"/>
+        <Button Content="GESTIONE&#xD;&#xA;CLASSI" HorizontalAlignment="Left" Margin="80,10,0,0" VerticalAlignment="Top" Height="50" Width="65" Grid.RowSpan="2" Background="White" BorderBrush="White" FontWeight="Bold"/>
+        <Button Content="BACKUP E&#xD;&#xA;GEN. FILE" HorizontalAlignment="Left" Margin="150,10,0,0" VerticalAlignment="Top" Height="50" Width="66" Grid.RowSpan="2" Background="White" BorderBrush="White" FontWeight="Bold"/>
+        <Button Content="GESTIONE&#xD;&#xA;ARGOMENTI" HorizontalAlignment="Left" Margin="221,10,0,0" VerticalAlignment="Top" Height="50" Width="66" Grid.RowSpan="2" Background="White" BorderBrush="White" FontWeight="Bold"/>
+        <Button Content="GESTIONE&#xD;&#xA;TAG" HorizontalAlignment="Left" Margin="292,10,0,0" VerticalAlignment="Top" Height="50" Width="65" Grid.RowSpan="2" Background="White" BorderBrush="White" FontWeight="Bold"/>
+        <Button Content="GESTIONE&#xD;&#xA;DOMANDE" HorizontalAlignment="Left" Margin="362,10,0,0" VerticalAlignment="Top" Height="50" Width="67" Grid.RowSpan="2" Background="White" BorderBrush="White" FontWeight="Bold"/>
+        <Button Content="GESTIONE &#xD;&#xA;START LINKS" HorizontalAlignment="Left" Margin="434,10,0,0" VerticalAlignment="Top" Height="50" Width="67" Grid.RowSpan="2" Background="White" BorderBrush="White" FontWeight="Bold"/>
+        <Button Content="GESTIONE &#xD;&#xA;PROVE" HorizontalAlignment="Left" Margin="506,10,0,0" VerticalAlignment="Top" Height="50" Width="67" Grid.RowSpan="2" Background="White" Click="Button_Click" BorderBrush="White" FontWeight="Bold"/>
+        <Button Content="RECOVER&#xD;&#xA;ARGOMENTI" HorizontalAlignment="Left" Margin="578,10,0,0" VerticalAlignment="Top" Height="50" Width="66" Grid.RowSpan="2" Background="White" BorderBrush="White" FontWeight="Bold"/>
+        <Button Content="GESTIONE&#xD;&#xA;UTENTI" HorizontalAlignment="Left" Margin="649,10,0,0" VerticalAlignment="Top" Height="50" Width="67" Grid.RowSpan="2" Background="White" BorderBrush="White" FontWeight="Bold"/>
+        <Button Content="GESTIONE&#xD;&#xA;MATERIE" HorizontalAlignment="Left" Margin="721,10,0,0" VerticalAlignment="Top" Height="50" Width="65" Grid.RowSpan="2" Background="White" BorderBrush="White" FontWeight="Bold"/>
+        <Button Content="GESTIONE &#xD;&#xA;PERIODI" HorizontalAlignment="Left" Margin="791,10,0,0" VerticalAlignment="Top" Height="50" Width="69" Grid.RowSpan="2" Background="White" BorderBrush="White" FontWeight="Bold"/>
+        <Button Content="SALVA&#xD;&#xA;CONFIG." HorizontalAlignment="Left" Margin="791,29,0,0" VerticalAlignment="Top" Height="50" Width="69" Grid.Row="1" Background="White" BorderBrush="White" FontWeight="Bold"/>
+        <Button Content="CARTELLA&#xD;&#xA;CONFIG." HorizontalAlignment="Left" Margin="791,102,0,0" VerticalAlignment="Top" Height="50" Width="69" Grid.Row="1" Background="White" BorderBrush="White" FontWeight="Bold"/>
+        <Button Content="CANCELLA&#xD;&#xA;CONFIG." HorizontalAlignment="Left" Margin="791,180,0,0" VerticalAlignment="Top" Height="49" Width="69" Grid.Row="1" Background="White" BorderBrush="White" FontWeight="Bold"/>
+        <Button Content="USA&#xD;&#xA;DEMO" HorizontalAlignment="Left" Margin="721,102,0,0" VerticalAlignment="Top" Height="50" Width="65" Grid.Row="1" Background="White" BorderBrush="White" FontWeight="Bold"/>
+        <Button Content="RESET &#xA;DATABASE" HorizontalAlignment="Left" Margin="721,180,0,0" VerticalAlignment="Top" Height="50" Width="65" Grid.Row="1" Background="Red" BorderBrush="White" FontWeight="Bold" FontStyle="Italic" Foreground="White"/>
+        <TextBox HorizontalAlignment="Left" Margin="10,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="554" Height="23" Grid.Row="1"/>
+        <TextBox HorizontalAlignment="Left" Margin="10,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="332" Height="23" TextChanged="TextBox_TextChanged" Grid.Row="1"/>
+        <TextBox HorizontalAlignment="Left" Margin="10,161,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="554" Height="23" Grid.Row="1"/>
+        <TextBox HorizontalAlignment="Left" Margin="10,221,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="554" Height="23" TextChanged="TextBox_TextChanged_1" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,24,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="135" FontSize="14" FontWeight="Bold"><Run Text="Cartella"/><Run Language="it-it" Text=" dei dati"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="10,84,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="135" FontSize="14" FontWeight="Bold"><Run Language="it-it" Text="File"/><Run Text=" dei dati"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="10,141,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="166" FontSize="14" FontWeight="Bold"><Run Language="it-it" Text="Cartella delle immagini"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="10,202,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="166" FontSize="14" FontWeight="Bold"><Run Text="Cartella"/><Run Text=" dei "/><Run Language="it-it" Text="documenti"/></TextBlock>
+        <Button Content="---" HorizontalAlignment="Left" Margin="579,32,0,0" VerticalAlignment="Top" Height="50" Width="65" Grid.Row="1" Background="White" BorderBrush="White" FontWeight="Bold"/>
+        <Button Content="---" HorizontalAlignment="Left" Margin="364,90,0,0" VerticalAlignment="Top" Height="50" Width="65" Grid.Row="1" Background="White" BorderBrush="White" FontWeight="Bold"/>
+        <Button Content="---" HorizontalAlignment="Left" Margin="579,148,0,0" VerticalAlignment="Top" Height="50" Width="65" Grid.Row="1" Background="White" BorderBrush="White" FontWeight="Bold"/>
+        <Button Content="---" HorizontalAlignment="Left" Margin="579,208,0,0" VerticalAlignment="Top" Height="50" Width="65" Grid.Row="1" Background="White" BorderBrush="White" FontWeight="Bold"/>
+        <CheckBox Content="Salva database alla chiusura" HorizontalAlignment="Left" Margin="456,103,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="CheckBox_Checked" FontSize="14" FontWeight="Bold"/>
+        <CheckBox Content="Chiedi la password" HorizontalAlignment="Left" Margin="677,244,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="CheckBox_Checked" FontSize="14" FontWeight="Bold"/>
+
+    </Grid>
+</Window>
