@@ -198,5 +198,9 @@ namespace SchoolGrades
         {
 
         }
+    private void txtSumOfWeights_TextChanged()
+        {
+
+        }
     }
 }

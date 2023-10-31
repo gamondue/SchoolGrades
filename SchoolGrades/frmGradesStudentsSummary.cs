@@ -162,5 +162,15 @@ namespace SchoolGrades
                 currentGrade = Commons.bl.GetGrade(currentGrade.IdGrade);
             }
         }
+
+        private void dtpStartPeriod_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dtpEndPeriod_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

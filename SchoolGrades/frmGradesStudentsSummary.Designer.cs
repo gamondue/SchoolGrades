@@ -1,4 +1,6 @@
-﻿namespace SchoolGrades
+﻿using System;
+
+namespace SchoolGrades
 {
     partial class frmGradesStudentsSummary
     {
@@ -19,6 +21,7 @@
             }
             base.Dispose(disposing);
         }
+
 
         #region Windows Form Designer generated code
 
@@ -287,22 +290,24 @@
             dtpEndPeriod.CustomFormat = "yyyy-MM-dd";
             dtpEndPeriod.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             dtpEndPeriod.Location = new System.Drawing.Point(219, 23);
-            dtpEndPeriod.MinDate = new System.DateTime(1800, 1, 1, 0, 0, 0, 0);
+            dtpEndPeriod.MinDate = new DateTime(1800, 1, 1, 0, 0, 0, 0);
             dtpEndPeriod.Name = "dtpEndPeriod";
             dtpEndPeriod.Size = new System.Drawing.Size(111, 24);
             dtpEndPeriod.TabIndex = 155;
-            dtpEndPeriod.Value = new System.DateTime(2019, 6, 7, 0, 0, 0, 0);
+            dtpEndPeriod.Value = new DateTime(2019, 6, 7, 0, 0, 0, 0);
+            dtpEndPeriod.ValueChanged += dtpEndPeriod_ValueChanged;
             // 
             // dtpStartPeriod
             // 
             dtpStartPeriod.CustomFormat = "yyyy-MM-dd";
             dtpStartPeriod.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             dtpStartPeriod.Location = new System.Drawing.Point(62, 23);
-            dtpStartPeriod.MinDate = new System.DateTime(1800, 1, 1, 0, 0, 0, 0);
+            dtpStartPeriod.MinDate = new DateTime(1800, 1, 1, 0, 0, 0, 0);
             dtpStartPeriod.Name = "dtpStartPeriod";
             dtpStartPeriod.Size = new System.Drawing.Size(111, 24);
             dtpStartPeriod.TabIndex = 154;
-            dtpStartPeriod.Value = new System.DateTime(2019, 1, 24, 0, 0, 0, 0);
+            dtpStartPeriod.Value = new DateTime(2019, 1, 24, 0, 0, 0, 0);
+            dtpStartPeriod.ValueChanged += dtpStartPeriod_ValueChanged;
             // 
             // rdbAmongPeriod
             // 
@@ -420,10 +425,11 @@
             txtSumOfWeights.Location = new System.Drawing.Point(796, 86);
             txtSumOfWeights.Margin = new System.Windows.Forms.Padding(4);
             txtSumOfWeights.Name = "txtSumOfWeights";
-            txtSumOfWeights.Size = new System.Drawing.Size(100, 37);
+            txtSumOfWeights.Size = new System.Drawing.Size(104, 37);
             txtSumOfWeights.TabIndex = 150;
             txtSumOfWeights.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             txtSumOfWeights.Visible = false;
+            txtSumOfWeights.TextChanged += txtSumOfWeights_TextChanged;
             // 
             // lblAverage
             // 
@@ -591,6 +597,11 @@
             PerformLayout();
         }
 
+        private void txtSumOfWeights_TextChanged(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
         private System.Windows.Forms.ColorDialog colorDialog1;
@@ -635,4 +646,5 @@
         private System.Windows.Forms.Button btnAddAnnotation;
         private System.Windows.Forms.Label label9;
     }
+
 }
