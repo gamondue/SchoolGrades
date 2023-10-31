@@ -1,0 +1,101 @@
+﻿<Window x:Class="annotationsaboutstudents_gruppo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:annotationsaboutstudents_gruppo"
+        mc:Ignorable="d"
+        Title="Annotazioni sullo studente " Height="654" Width="1015">
+    <Grid Background="PowderBlue">
+
+        <TextBlock Text="Annotazioni su alievi o gruppi" Margin="17,0,17,561" TextAlignment="Center" TextWrapping="Wrap" FontSize="26" FontWeight="Bold" Foreground="DarkBlue"/>
+        <Border BorderBrush="Black" BorderThickness="1" Margin="79,42,79,374" Grid.RowSpan="2" Grid.ColumnSpan="5">
+            <DataGrid Margin="-1,0,125,0" d:ItemsSource="{d:SampleData ItemCount=5}" Background="#FFA0A0A0" />
+        </Border>
+        <TextBlock Margin="833,51,108,572" TextWrapping="Wrap" Text="Anno scol." TextAlignment="Center" Foreground="DarkBlue" FontWeight="Bold" FontSize="14"/>
+        <TextBlock Margin="833,105,108,518" TextWrapping="Wrap" TextAlignment="Center" FontWeight="Bold" Foreground="DarkBlue" FontSize="14"><Run Language="it-it" Text="Id alievo"/></TextBlock>
+        <CheckBox Content="" Height="19" Margin="813,82,186,0" VerticalAlignment="Top"/>
+        <TextBox Margin="842,129,117,485" TextWrapping="Wrap"/>
+        <TextBox Margin="842,76,117,538" TextWrapping="Wrap"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" Height="320" Margin="0,284,0,0" VerticalAlignment="Top" Width="857">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="143*"/>
+                    <RowDefinition Height="175*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock TextWrapping="Wrap" Text="Annotazione" FontSize="18" FontWeight="Bold" Foreground="DarkBlue" Grid.RowSpan="2"/>
+                <CheckBox Content=" visualizza solo le annotazioni attive" HorizontalAlignment="Left" Margin="138,10,0,0" VerticalAlignment="Top" Foreground="DarkBlue"/>
+                <TextBox Margin="10,53,789,66" TextWrapping="Wrap"/>
+                <TextBlock Margin="0,29,781,99" TextWrapping="Wrap" TextAlignment="Center" FontWeight="Bold" Foreground="DarkBlue" FontSize="14" Text="id annot."/>
+                <CheckBox Content="Attiva" HorizontalAlignment="Left" Margin="79,62,0,0" VerticalAlignment="Top" Foreground="DarkBlue"/>
+                <CheckBox Content="Promemoria" HorizontalAlignment="Left" Margin="138,62,0,0" VerticalAlignment="Top" Foreground="DarkBlue"/>
+                <TextBox TextWrapping="Wrap" Margin="0,89,0,159" Grid.RowSpan="2"/>
+                <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,16,0,0" Cursor="Arrow" Background="#FFA0A0A0" Grid.Row="1"/>
+                <GroupBox HorizontalAlignment="Left" Height="66" Header="Annotazioni su singolo" Margin="374,15,0,0" VerticalAlignment="Top" Width="222"/>
+                <GroupBox HorizontalAlignment="Left" Height="62" Header="Annotazioni su gruppo" Margin="596,15,0,0" VerticalAlignment="Top" Width="241">
+
+
+                </GroupBox>
+                <Button Content="     +&#xA; allievo" Margin="384,38,407,70" Background="White" Foreground="DarkBlue" BorderBrush="{x:Null}" FontWeight="Bold" RenderTransformOrigin="0.565,-0.005">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+            </Grid>
+
+
+
+
+
+
+        </Border>
+        <Button Content="   salva&#xA;modifica" Margin="534,323,417,280" Background="White" Foreground="DarkBlue" BorderBrush="{x:Null}" FontWeight="Bold" RenderTransformOrigin="0.47,-0.136">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Content="     -&#xA; allievo" Margin="603,323,348,280" Background="White" Foreground="DarkBlue" BorderBrush="{x:Null}" FontWeight="Bold">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Content="Prepara&#xD;&#xA; nuova" Margin="377,323,582,280" Background="White" Height="35" Foreground="DarkBlue" BorderBrush="{x:Null}" RenderTransformOrigin="0.003,0.578" FontWeight="Bold">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Content="     +&#xA; gruppo" Margin="680,319,271,284" Background="White" Foreground="DarkBlue" BorderBrush="{x:Null}" FontWeight="Bold">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Content="   salva&#xA;modifica" Margin="757,319,194,284" Background="White" Foreground="DarkBlue" BorderBrush="{x:Null}" FontWeight="Bold">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Content="     +&#xA; gruppo" Margin="833,319,118,284" Background="White" Foreground="DarkBlue" BorderBrush="{x:Null}" FontWeight="Bold">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+
+    </Grid>
+</Window>
