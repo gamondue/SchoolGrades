@@ -1,10 +1,7 @@
 ﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Common;
-using System.Data.SQLite;
-using System.IO;
 
 namespace SchoolGrades
 {
@@ -26,7 +23,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal void AddLinkToOldPhoto(int? IdStudent, string IdPreviousSchoolYear, string IdNextSchoolYear)
+        internal void AddLinkToPreviousYearPhoto(int? IdStudent, string IdPreviousSchoolYear, string IdNextSchoolYear)
         {
             using (DbConnection conn = Connect())
             {
@@ -135,7 +132,7 @@ namespace SchoolGrades
                 using (DbConnection conn = Connect())
                 {
                     cmd = conn.CreateCommand();
-                    cmd.CommandText =  "DELETE FROM Classes_StartLinks" +
+                    cmd.CommandText = "DELETE FROM Classes_StartLinks" +
                             " WHERE idStartLink=" + IdStartLink +
                             ";";
                     cmd.ExecuteNonQuery();
@@ -153,7 +150,7 @@ namespace SchoolGrades
         {
             List<StartLink> listOfLinks = new List<StartLink>();
             if (Class == null || Class.IdClass == null)
-                return listOfLinks; 
+                return listOfLinks;
             DbDataReader dRead;
             DbCommand cmd;
             try

@@ -13,6 +13,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)BL_AnswerManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BL_ClassManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BL_ConstructorsAndGeneralMethods.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BL_DemoDatabaseCreation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BL_GradesManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BL_ImageManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BL_LessonManagement.cs" />

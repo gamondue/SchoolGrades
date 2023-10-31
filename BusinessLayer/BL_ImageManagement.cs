@@ -36,7 +36,7 @@ namespace SchoolGrades
         }
         internal void AddLinkToOldPhoto(int? IdStudent, string IdPreviousSchoolYear, string IdNextSchoolYear)
         {
-            dl.AddLinkToOldPhoto(IdStudent, IdPreviousSchoolYear, IdNextSchoolYear);
+            dl.AddLinkToPreviousYearPhoto(IdStudent, IdPreviousSchoolYear, IdNextSchoolYear);
         }
         internal List<Image> GetAllImagesShownToAClassDuringLessons(Class currentClass, SchoolSubject currentSubject, DateTime dateTime, DateTime now)
         {

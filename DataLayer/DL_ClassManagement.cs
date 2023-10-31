@@ -678,5 +678,34 @@ namespace SchoolGrades
             }
             return ly;
         }
+        internal Class GetThisClassNextYear(Class Class)
+        {
+            string nextYear = Commons.IncreaseIntegersInString(Class.SchoolYear);
+            string nextAbbreviation = Commons.IncreaseIntegersInString(Class.Abbreviation);
+            return GetClass(Class.IdSchool, nextYear, nextAbbreviation);
+        }
+        private string BuildAndClauseOnPassedField(List<Class> classes, string FieldName)
+        {
+            // we assume that classes have no nulls 
+            string andClause = string.Empty;
+            foreach (Class c in classes)
+            {
+                andClause += FieldName + "<>" + c.IdClass + " AND ";
+            }
+            andClause = andClause.Substring(0, andClause.Length - 5);
+            return andClause;
+        }
+        private string BuildOrClauseOnPassedField(List<Class> classes, string FieldName)
+        {
+            // we assume that classes have no nulls 
+            string orClause = string.Empty;
+            foreach (Class c in classes)
+            {
+                orClause += FieldName + "=" + c.IdClass + " OR ";
+            }
+            orClause = orClause.Substring(0, orClause.Length - 4);
+            return orClause;
+        }
+
     }
 }

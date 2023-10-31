@@ -109,11 +109,9 @@ namespace SchoolGrades
                 return NamePath;
             }
         }
-        private void ChangeImagesPath(Class Class, DbConnection conn)
+        private void ChangeImagesPath(Class Class, DbCommand cmd)
         {
             DbDataReader dRead;
-            DbCommand cmd = conn.CreateCommand();
-            cmd = conn.CreateCommand();
             cmd.CommandText = "SELECT Images.idImage, Images.imagePath" +
                 " FROM Images" +
                 " JOIN Lessons_Images ON Images.idImage=Lessons_Images.idImage" +
@@ -128,13 +126,12 @@ namespace SchoolGrades
                 int? id = Safe.Int(dRead["idImage"]);
                 string partToReplace = path.Substring(0, path.IndexOf("\\"));
                 path = path.Replace(partToReplace, newFolder);
-                SaveImagePath(id, path, conn);
+                SaveImagePath(id, path, cmd);
             }
             cmd.Dispose();
         }
-        private void SaveImagePath(int? id, string path, DbConnection conn)
+        private void SaveImagePath(int? id, string path, DbCommand cmd)
         {
-            DbCommand cmd = conn.CreateCommand();
             cmd.CommandText = "UPDATE Images" +
             " SET imagePath=" + SqlString(path) + "" +
             " WHERE idImage=" + id +
@@ -142,18 +139,23 @@ namespace SchoolGrades
             cmd.ExecuteNonQuery();
             cmd.Dispose();
         }
-        private void SaveStudentsPhotosPath(int? id, string path, DbConnection conn)
+        private int? SaveDemoStudentPhotoPath(string relativePath, DbCommand cmd)
         {
-            if (id != null)
+            int? id = null;
+            try
             {
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "UPDATE StudentsPhotos" +
-                " SET photoPath=" + SqlString(path) + "" +
-                " WHERE idStudentsPhoto=" + id +
-                ";";
+                cmd.CommandText = "SELECT MAX(idStudentsPhoto) FROM StudentsPhotos;";
+                var varId = (int?)cmd.ExecuteScalar();
+                cmd.CommandText = "INSERT INTO StudentsPhotos" +
+                " (idStudentsPhoto, photoPath)" +
+                " Values (" + SqlInt(id.ToString()) + "," + SqlString(relativePath) + ");";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
+            catch
+            {
+            }
+            return id;
         }
         internal void RemoveImageFromLesson(Lesson Lesson, Image Image, bool AlsoEraseImageFile)
         {
@@ -189,7 +191,7 @@ namespace SchoolGrades
                 DbCommand cmd = conn.CreateCommand();
                 string query;
                 query = "UPDATE Images" +
-                    " SET caption=" + SqlString(Image.Caption) + "" + 
+                    " SET caption=" + SqlString(Image.Caption) + "" +
                     ", imagePath=" + SqlString(Image.RelativePathAndFilename) + "" +
                     " WHERE idImage=" +
                     Image.IdImage +

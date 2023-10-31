@@ -398,35 +398,8 @@ namespace SchoolGrades
             }
             return gt;
         }
-        internal void RandomizeGrades(DbConnection conn)
+        private void SaveGradeValue(int? id, double? grade, DbCommand cmd)
         {
-            DbDataReader dRead;
-            DbCommand cmd = conn.CreateCommand();
-            cmd = conn.CreateCommand();
-            cmd.CommandText = "SELECT * FROM Grades" +
-                ";";
-            dRead = cmd.ExecuteReader();
-            Random rnd = new Random();
-            while (dRead.Read())
-            {
-                double? grade = Safe.Double(dRead["value"]);
-                int? id = Safe.Int(dRead["IdGrade"]);
-                // add to the grade a random delta between -10 and +10 
-                if (grade > 0)
-                {
-                    grade = grade + rnd.NextDouble() * 20 - 10;
-                    if (grade < 10) grade = 10;
-                    if (grade > 100) grade = 100;
-                }
-                else
-                    grade = 0;
-                SaveGradeValue(id, grade, conn);
-            }
-            cmd.Dispose();
-        }
-        private void SaveGradeValue(int? id, double? grade, DbConnection conn)
-        {
-            DbCommand cmd = conn.CreateCommand();
             cmd.CommandText = "UPDATE Grades" +
             " SET value=" + SqlDouble(grade) +
             " WHERE idGrade=" + id +
