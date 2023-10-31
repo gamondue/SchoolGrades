@@ -34,5 +34,10 @@ namespace schoolGrades_4E
         {
 
         }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

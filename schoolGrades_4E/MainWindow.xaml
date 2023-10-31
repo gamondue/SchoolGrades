@@ -6,24 +6,24 @@
         xmlns:local="clr-namespace:schoolGrades_4E"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid Background ="PowderBlue">
-        <TextBlock Background="White" HorizontalAlignment="Left" Margin="10,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="116" Height="20"><Run Language="it-it" Text="FOIS01100L"/></TextBlock>
+    <Grid Background ="PowderBlue" RenderTransformOrigin="0.499,0.415">
+        <TextBlock Background="White" HorizontalAlignment="Left" Margin="10,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="104" Height="20"><Run Language="it-it" Text="FOIS01100L"/></TextBlock>
         <Label Foreground ="DarkBlue" Content="Codice Scuola" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="88"/>
-        <ComboBox HorizontalAlignment="Left" Margin="146,55,0,0" VerticalAlignment="Top" Width="84"/>
-        <ComboBox HorizontalAlignment="Left" Margin="280,54,0,0" VerticalAlignment="Top" Width="78"/>
-        <Label Foreground ="DarkBlue" Content="Anno scolastico" HorizontalAlignment="Left" Margin="146,10,0,0" VerticalAlignment="Top" Width="104"/>
-        <Label Foreground ="DarkBlue" Content="Sigla Classe" HorizontalAlignment="Left" Margin="280,10,0,0" VerticalAlignment="Top" Width="106"/>
-        <TextBlock Background="White" HorizontalAlignment="Left" Margin="383,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" Height="22"/>
-        <Label Foreground ="DarkBlue" Content="Descrizione link" HorizontalAlignment="Left" Margin="428,10,0,0" VerticalAlignment="Top" Width="139"/>
-        <Button Background="White" Foreground ="DarkBlue" Content="+" HorizontalAlignment="Left" Margin="634,55,0,0" VerticalAlignment="Top" Width="40" Click="Button_Click"/>
-        <Button Background="White" Foreground ="DarkBlue" Content="-" HorizontalAlignment="Left" Margin="679,55,0,0" VerticalAlignment="Top" Width="40"/>
-        <Button Background="White" Foreground ="DarkBlue" Content="salva" HorizontalAlignment="Left" Margin="724,55,0,0" VerticalAlignment="Top" Width="66"/>
-        <TextBox Background="DarkGray" HorizontalAlignment="Center" Margin="0,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="780" Height="240" TextChanged="TextBox_TextChanged"/>
-        <TextBlock Background="White" HorizontalAlignment="Left" Margin="130,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="607" Height="27"/>
-        <Label Foreground ="DarkBlue" Content="Cartella start link" HorizontalAlignment="Left" Margin="16,107,0,0" VerticalAlignment="Top" Width="98"/>
-        <Label Foreground ="DarkBlue" Content="Link o file da lanciare" HorizontalAlignment="Left" Margin="16,152,0,0" VerticalAlignment="Top" Width="110"/>
-        <TextBlock Background="White" HorizontalAlignment="Left" Margin="131,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="606" Height="27"/>
-        <Button Background="White" Foreground ="DarkBlue" Content="--" HorizontalAlignment="Left" Margin="742,112,0,0" VerticalAlignment="Top" Height="32" Width="48"/>
-        <Button Background="White" Foreground ="DarkBlue" Content="--" HorizontalAlignment="Left" Margin="742,157,0,0" VerticalAlignment="Top" Height="32" Width="48"/>
+        <ComboBox HorizontalAlignment="Left" Margin="126,41,0,0" VerticalAlignment="Top" Width="84" Height="22"/>
+        <ComboBox HorizontalAlignment="Left" Margin="219,41,0,0" VerticalAlignment="Top" Width="84"/>
+        <Label Foreground ="DarkBlue" Content="Anno scolastico" HorizontalAlignment="Left" Margin="126,10,0,0" VerticalAlignment="Top" Width="104"/>
+        <Label Foreground ="DarkBlue" Content="Sigla Classe" HorizontalAlignment="Left" Margin="219,10,0,0" VerticalAlignment="Top" Width="106"/>
+        <TextBlock Background="White" HorizontalAlignment="Left" Margin="382,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" Height="22"/>
+        <Label Foreground ="DarkBlue" Content="Descrizione link" HorizontalAlignment="Left" Margin="382,10,0,0" VerticalAlignment="Top" Width="139"/>
+        <Button Background="White" Foreground ="DarkBlue" Content="+" HorizontalAlignment="Left" Margin="634,38,0,0" VerticalAlignment="Top" Width="40" Click="Button_Click" Height="27"/>
+        <Button Background="White" Foreground ="DarkBlue" Content="-" HorizontalAlignment="Left" Margin="679,38,0,0" VerticalAlignment="Top" Width="40" Height="27"/>
+        <Button Background="White" Foreground ="DarkBlue" Content="salva" HorizontalAlignment="Left" Margin="724,38,0,0" VerticalAlignment="Top" Width="66" Height="27"/>
+        <Label Foreground ="DarkBlue" Content="Cartella start link" HorizontalAlignment="Left" Margin="16,73,0,0" VerticalAlignment="Top" Width="98"/>
+        <Label Foreground ="DarkBlue" Content="Link o file da lanciare" HorizontalAlignment="Left" Margin="16,113,0,0" VerticalAlignment="Top" Width="110"/>
+        <Button Background="White" Foreground ="DarkBlue" Content="--" HorizontalAlignment="Left" Margin="742,73,0,0" VerticalAlignment="Top" Height="32" Width="48"/>
+        <Button Background="White" Foreground ="DarkBlue" Content="--" HorizontalAlignment="Left" Margin="742,110,0,0" VerticalAlignment="Top" Height="32" Width="48"/>
+        <TextBox HorizontalAlignment="Left" Margin="146,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="591" Height="32"/>
+        <DataGrid d:ItemsSource="{d:SampleData ItemCount=-1}" Margin="10,147,10,10" Background="DarkGray" />
+        <TextBox HorizontalAlignment="Left" Margin="146,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="591" Height="32"/>
     </Grid>
 </Window>
