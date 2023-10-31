@@ -1,0 +1,51 @@
+﻿<Window x:Class="SchoolGrades_WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SchoolGrades_WPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="857">
+    <Grid Background="PowderBlue">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <ComboBox HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top" Width="142"/>
+        <Label Content="&#xD;&#xA;Materia&#xD;&#xA;" HorizontalAlignment="Left" Margin="10,-14,0,0" VerticalAlignment="Top" Height="58" Width="59" Foreground="DarkBlue"/>
+        <ComboBox HorizontalAlignment="Left" Margin="170,33,0,0" VerticalAlignment="Top" Width="142"/>
+        <Label Content="Tipo domanda" HorizontalAlignment="Left" Margin="170,2,0,0" VerticalAlignment="Top" Foreground="DarkBlue"/>
+        <TextBox HorizontalAlignment="Left" Margin="326,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="357" TextChanged="TextBox_TextChanged"/>
+        <Label Content="Testo da ricercare" HorizontalAlignment="Left" Margin="326,0,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="DarkBlue"/>
+        <Button Content="Cerca" HorizontalAlignment="Left" Margin="702,35,0,0" VerticalAlignment="Top" Width="45" Foreground="DarkBlue"/>
+        <Button Content="Pettine" HorizontalAlignment="Left" Margin="752,34,0,0" VerticalAlignment="Top" Click="Button_Click" Width="45" Foreground="DarkBlue"/>
+        <Button Content="Fatto" HorizontalAlignment="Left" Margin="802,35,0,0" VerticalAlignment="Top" Width="45" Foreground="DarkBlue"/>
+        <TextBox HorizontalAlignment="Left" Margin="10,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged_1"/>
+        <TextBox HorizontalAlignment="Left" Margin="148,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="433"/>
+        <Label Content="Argomento per filtro" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Foreground="DarkBlue"/>
+        <RadioButton Content="Un argom." HorizontalAlignment="Left" Margin="646,86,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked" Foreground="DarkBlue"/>
+        <RadioButton Content="Più argom." HorizontalAlignment="Left" Margin="646,106,0,0" VerticalAlignment="Top" Foreground="DarkBlue"/>
+        <Button Content=".." HorizontalAlignment="Left" Margin="730,91,0,0" VerticalAlignment="Top" Width="44" Click="Button_Click_1" Foreground="DarkBlue"/>
+        <Button Content="Per." HorizontalAlignment="Left" Margin="780,91,0,0" VerticalAlignment="Top" Width="40" Click="Button_Click_2" Foreground="DarkBlue"/>
+        <Button Content="-" HorizontalAlignment="Left" Margin="824,91,0,0" VerticalAlignment="Top" Width="28" Foreground="DarkBlue"/>
+        <Button Content="+" HorizontalAlignment="Left" Margin="14,158,0,0" VerticalAlignment="Top" Width="26" Foreground="DarkBlue"/>
+        <Button Content="copia" HorizontalAlignment="Left" Margin="61,158,0,0" VerticalAlignment="Top" Width="47" Foreground="DarkBlue"/>
+        <Label Content="Domande" HorizontalAlignment="Left" Margin="14,127,0,0" VerticalAlignment="Top" Foreground="DarkBlue"/>
+        <Label Content="Periodo degli argomenti delle domande" HorizontalAlignment="Left" Margin="137,127,0,0" VerticalAlignment="Top" Foreground="DarkBlue"/>
+        <Label Content="Inizio" HorizontalAlignment="Left" Margin="137,155,0,0" VerticalAlignment="Top" Foreground="DarkBlue"/>
+        <ComboBox HorizontalAlignment="Left" Margin="192,157,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox HorizontalAlignment="Left" Margin="336,157,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Casuale" HorizontalAlignment="Left" Margin="494,155,0,0" VerticalAlignment="Top" Click="Button_Click_3" Height="26" Width="55" Foreground="DarkBlue"/>
+        <Label Content="Peso nel test" HorizontalAlignment="Left" Margin="580,135,0,0" VerticalAlignment="Top" Foreground="DarkBlue"/>
+        <TextBox HorizontalAlignment="Left" Margin="580,159,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="55" TextChanged="TextBox_TextChanged_2"/>
+        <Button Content="Scegli" HorizontalAlignment="Left" Margin="657,159,0,0" VerticalAlignment="Top" Height="30" Click="Button_Click_4" Width="42" Foreground="DarkBlue"/>
+        <RadioButton Content="Tag Off" HorizontalAlignment="Left" Margin="715,161,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_1" Foreground="DarkBlue"/>
+        <RadioButton Content="Tag AND" HorizontalAlignment="Left" Margin="786,159,0,0" VerticalAlignment="Top" Foreground="DarkBlue"/>
+        <Button Content="+" HorizontalAlignment="Left" Margin="802,183,0,0" VerticalAlignment="Top" Width="22" RenderTransformOrigin="-0.034,0.706" Foreground="DarkBlue"/>
+        <Button Content="-" HorizontalAlignment="Left" Margin="830,183,0,0" VerticalAlignment="Top" Width="22" RenderTransformOrigin="1.427,-0.031" Foreground="DarkBlue"/>
+        <TextBox HorizontalAlignment="Left" Margin="714,217,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="138" Height="207" Text="IstTags"/>
+        <Label Content="Tags per filtro" HorizontalAlignment="Left" Margin="704,181,0,0" VerticalAlignment="Top" Width="83" Foreground="DarkBlue"/>
+        <DataGrid d:ItemsSource="{d:SampleData ItemCount=0}" Margin="0,194,158,0" SelectionChanged="DataGrid_SelectionChanged"/>
+
+    </Grid>
+</Window>
