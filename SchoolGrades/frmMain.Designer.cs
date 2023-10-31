@@ -1330,7 +1330,7 @@
             dgwStudents.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
             dgwStudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgwStudents.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            dgwStudents.Location = new System.Drawing.Point(8, 222);
+            dgwStudents.Location = new System.Drawing.Point(-1, 224);
             dgwStudents.Name = "dgwStudents";
             dgwStudents.ReadOnly = true;
             dgwStudents.Size = new System.Drawing.Size(382, 489);
