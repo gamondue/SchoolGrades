@@ -1,19 +1,13 @@
 ﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SchoolGrades
 {
     public partial class frmTestGrading : Form
     {
-        Test currentTest;
+        SchoolTest currentTest;
         Class currentClass;
         Student currentStudent;
         Question currentQuestion;
@@ -29,7 +23,7 @@ namespace SchoolGrades
             currentTest = Commons.bl.GetTest(1); //!!!!!!!!!!!!!!
             currentClass = Commons.bl.GetClass(Commons.IdSchool, "19-20", "IFTS"); //!!!!!!!!!!!!!!
 
-            GradeTest(); 
+            GradeTest();
             RefreshUi();
         }
 
@@ -44,7 +38,7 @@ namespace SchoolGrades
             int gridRow = 0, gridColumn = 0;
             GridAddData(gridRow, gridColumn, "Domande e risposte");
             gridRow++;
-            gridColumn = 1; 
+            gridColumn = 1;
 
             List<Answer> correctQuestionAnswers;
             // showing the correct answers and weights of the questions
@@ -70,11 +64,11 @@ namespace SchoolGrades
 
                 // show the weight of the question
                 GridAddData(gridRow + correctQuestionAnswers.Count + 1, gridColumn, "Peso della domanda");
-                GridAddData(gridRow + correctQuestionAnswers.Count + 1, gridColumn +1, q.Weight.ToString());
+                GridAddData(gridRow + correctQuestionAnswers.Count + 1, gridColumn + 1, q.Weight.ToString());
                 gridColumn += 3;
             }
             gridRow += 7;
-            gridColumn = 0; 
+            gridColumn = 0;
             GridAddData(gridRow, gridColumn, "Correzione delle risposte degli allievi");
             gridRow++;
             // showing and grading the answers of the students
@@ -108,7 +102,7 @@ namespace SchoolGrades
                                 (correctQuestionAnswers[iCorrectAnswer].Text));
                         bool found = false;
                         int budgetDecreaseForThisAnswer;
-                        int iStudentAnswer; 
+                        int iStudentAnswer;
                         // scan all the answers that the current student has given to this question 
                         for (iStudentAnswer = 0; iStudentAnswer < studentsQuestionAnswers.Count;
                             iStudentAnswer++)
@@ -117,15 +111,15 @@ namespace SchoolGrades
                                 studentsQuestionAnswers[iStudentAnswer].IdAnswer)
                             {
                                 found = true;
-                                break; 
+                                break;
                             }
                         }
                         if (found)
-                        { 
+                        {
                             if (correctQuestionAnswers[iCorrectAnswer].IsCorrect ==
                                 studentsQuestionAnswers[iStudentAnswer].StudentsBoolAnswer)
                             {   // if answer is correct it doesn't decrease the budget
-                                budgetDecreaseForThisAnswer = 0; 
+                                budgetDecreaseForThisAnswer = 0;
                             }
                             else
                             {   // if not correct it decreases the budget of ErrorCost
@@ -138,7 +132,7 @@ namespace SchoolGrades
                         else
                         {   // no answer: question is spoiled 
                             budgetDecreaseForThisAnswer = 100;
-                            budgetOfQuestion -= budgetDecreaseForThisAnswer; 
+                            budgetOfQuestion -= budgetDecreaseForThisAnswer;
                             GridAddData(gridRow + iCorrectAnswer + 1, gridColumn + 1, "No ans");
                         }
                         GridAddData(gridRow + iCorrectAnswer + 1, gridColumn + 2,
@@ -172,13 +166,13 @@ namespace SchoolGrades
         private void GridAddData(int GridRow, int GridColumn, string DataToShow)
         {
             // if you don't do the next, it would add the row as the first row
-            dgwTestResults.AllowUserToAddRows = false;  
+            dgwTestResults.AllowUserToAddRows = false;
             while (dgwTestResults.Columns.Count <= GridColumn)
             {
                 dgwTestResults.Columns.Add("", "");
             }
             while (dgwTestResults.Rows.Count <= GridRow)
-            {   
+            {
                 dgwTestResults.Rows.Add("", "");
             }
             dgwTestResults.Rows[GridRow].Cells[GridColumn].Value = DataToShow;
@@ -193,19 +187,19 @@ namespace SchoolGrades
         {
             dgwTestResults.Columns.Clear();
             dgwTestResults.Rows.Clear();
-            GradeTest(); 
+            GradeTest();
         }
 
         private void dgwTestResults_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
             {
-                txtCurrentCell.Text = dgwTestResults.SelectedCells[0].Value.ToString(); 
+                txtCurrentCell.Text = dgwTestResults.SelectedCells[0].Value.ToString();
             }
         }
         private void btnMakeFile_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("TODO !!!!"); 
+            MessageBox.Show("TODO !!!!");
         }
     }
 }
