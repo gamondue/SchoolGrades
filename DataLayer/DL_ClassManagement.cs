@@ -127,14 +127,14 @@ namespace SchoolGrades
             if (!Directory.Exists(newDatabasePathName))
                 Directory.CreateDirectory(newDatabasePathName);
 
-            string newDatabaseFullName = Path.Combine(newDatabasePathName,
+            string NewDatabasePathName = Path.Combine(newDatabasePathName,
                 System.DateTime.Now.ToString("yyyy-MM-dd_HH.mm.ss") +
                 "_" + Class.Abbreviation + "_" + Class.SchoolYear + "_" +
                 Commons.DatabaseFileName_Teacher);
-            File.Copy(Commons.PathAndFileDatabase, newDatabaseFullName);
+            File.Copy(Commons.PathAndFileDatabase, NewDatabasePathName);
 
             // open a local connection to database 
-            DataLayer newDatabaseDl = new DataLayer(newDatabaseFullName);
+            DataLayer newDatabaseDl = new DataLayer(NewDatabasePathName);
 
             // erase all the data of the students of other classes
             using (DbConnection conn = newDatabaseDl.Connect())
@@ -269,12 +269,11 @@ namespace SchoolGrades
                     }
                     if (!File.Exists(destinationFile) ||
                         File.GetLastWriteTime(destinationFile)
-                        < File.GetLastWriteTime(Commons.PathImages + "\\" + (string)dReader["photoPath"]))
+                        < File.GetLastWriteTime(Path.Combine(Commons.PathImages, (string)dReader["photoPath"])))
                         try
                         {
                             // destination file not existing or older
-                            File.Copy(Commons.PathImages + "\\" + (string)dReader["photoPath"],
-                                destinationFile);
+                            File.Copy(Path.Combine(Path.Combine(Commons.PathImages, (string)dReader["photoPath"])), destinationFile);
                         }
                         catch { }
                 }
@@ -313,7 +312,7 @@ namespace SchoolGrades
                         // destination file not existing or older
                         try
                         {
-                            File.Copy(Commons.PathImages + "\\" + (string)dReader["imagePath"],
+                            File.Copy(Path.Combine(Commons.PathImages, (string)dReader["imagePath"]),
                                 destinationFile);
                         }
                         catch { }
@@ -356,9 +355,9 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
             // if it doesn't exist, create the folder of classes student's images
-            if (!Directory.Exists(Commons.PathImages + "\\" + SchoolYear + ClassAbbreviation))
+            if (!Directory.Exists(Path.Combine(Commons.PathImages, SchoolYear, ClassAbbreviation)))
             {
-                Directory.CreateDirectory(Commons.PathImages + "\\" + SchoolYear + ClassAbbreviation);
+                Directory.CreateDirectory(Path.Combine(Commons.PathImages, SchoolYear, ClassAbbreviation));
             }
             return idClass;
         }

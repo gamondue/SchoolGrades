@@ -80,7 +80,7 @@ namespace SchoolGrades
 
             if (rbdGroupsRandom.Checked)
             {
-                ordered = OrderStudentsByRandom();
+                ordered = Commons.bl.OrderStudentsByRandom(listGroups);
             }
             else if (rdbGroupsBestGradesTogether.Checked)
             {
@@ -91,61 +91,11 @@ namespace SchoolGrades
 
             }
 
-            var groups = GroupStudents(ordered, nGroups, nStudentsPerGroup);
-            // make the string to show groups
-            string groupsString = "";
-            for (int j = 0; j < nGroups; j++)
-            {
-                groupsString += "Gruppo " + (j + 1) + "\r\n";
-                int nStud = 1;
-                for (int i = 0; i < nStudentsPerGroup; i++)
-                {
-                    if (groups[j, i] != null && groups[j, i] != " " && groups[j, i] != "  ")
-                    {
-                        groupsString += $"{nStud.ToString("00")} - {groups[j, i]} \r\n";
-                        nStud++;
-                    }
-                }
-                groupsString += "\r\n";
-            }
-            groupsString += "\r\n";
-            txtGroups.Text = groupsString;
+            txtGroups.Text = Commons.bl.GroupStudents_Formatted(ordered, nGroups, nStudentsPerGroup);
         }
 
         #region Group generation
-        string[,] GroupStudents(List<Student> students, int nof_groups, int groupSize)
-        {
-            // create groups into groups array
-            string[,] groups = new string[nof_groups, groupSize];
-
-            int group_i = 0;
-            int group_l = 0;
-
-            foreach (Student s in students)
-            {
-                groups[group_i, group_l] = s.LastName + " " + s.FirstName;
-                group_l++;
-
-                if (group_l > groupSize - 1)
-                {
-                    group_l = 0;
-                    group_i++;
-                }
-            }
-            return groups;
-        }
-
-        List<Student> OrderStudentsByRandom()
-        {
-            List<(Student, int)> randomI = new();
-
-            Random r = new();
-            for (int i = 0; i < listGroups.Count; i++)
-            {
-                randomI.Add((listGroups[i], r.Next()));
-            }
-            return randomI.OrderBy(el => el.Item2).Select(t => t.Item1).ToList();
-        }
+        // TODO
         void GenerateGroupsWeightedAverage()
         {
             // Balanced component option should use a better algorithm (current one doesn't make the best to balace groups). 
@@ -175,6 +125,7 @@ namespace SchoolGrades
             }
             listGroups = l;
         }
+        // TODO
         void GenerateGroupsHighestGradesTogether()
         {
             // Balanced component option should use a better algorithm (current one doesn't make the best to balace groups). 
@@ -208,7 +159,6 @@ namespace SchoolGrades
             listGroups = l;
         }
         #endregion
-
 
         #region Events
         private void txtStudentsPerGroup_TextChanged(object sender, EventArgs e)

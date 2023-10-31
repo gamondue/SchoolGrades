@@ -47,10 +47,11 @@ namespace gamon
 
         bool playSoundEffects;
         public string FormCaption { get => this.Text; set => this.Text = value; }
-        public bool PlaySoundEffects {
-            get 
+        public bool PlaySoundEffects
+        {
+            get
             {
-                return playSoundEffects; 
+                return playSoundEffects;
             }
             set
             {
@@ -64,7 +65,7 @@ namespace gamon
         {
             InitializeComponent();
 
-            PlaySoundEffects = SoundEffectsInTimer; 
+            PlaySoundEffects = SoundEffectsInTimer;
             timeTotalSeconds = Convert.ToSingle(txtIntervalNext.Text);
             secondsFirst = SecondsFirst;
             secondsSecond = SecondsSecond;
@@ -73,7 +74,7 @@ namespace gamon
         private void ColorTimer_Load(object sender, EventArgs e)
         {
             lastFormSize = GetFormArea(this.Size);
-            SetLabelsSizeAndPosition(); 
+            SetLabelsSizeAndPosition();
 
             this.Text += " v." + System.Diagnostics.FileVersionInfo.GetVersionInfo
                     (System.Reflection.Assembly.GetExecutingAssembly().Location)
@@ -85,7 +86,7 @@ namespace gamon
                 btnStartFirstInterval_Click(null, null);
             }
 
-            SetInitialColor(); 
+            SetInitialColor();
 
             btnConnect.BackColor = currentColor;
 
@@ -287,7 +288,7 @@ namespace gamon
                 txtCountDown.Text = Convert.ToString(timeTotalSeconds * 60.0);
                 timer1.Enabled = true;
 
-                SetInitialColor(); 
+                SetInitialColor();
 
                 if (clientConnected)
                     ClientTcp.Write("BEGIN");
@@ -394,14 +395,14 @@ namespace gamon
         {
             if (isLoading)
             {
-                return; 
+                return;
             }
             SetLabelsSizeAndPosition();
 
             float scaleFactor = (float)GetFormArea(this.Size) / (float)lastFormSize;
 
             // scale font in minute's and second's labels
-            lblMinutesLeft.Font = new Font(lblMinutesLeft.Font.FontFamily.Name, 
+            lblMinutesLeft.Font = new Font(lblMinutesLeft.Font.FontFamily.Name,
                 lblMinutesLeft.Font.Size * scaleFactor);
             lblSecondsLeft.Font = new Font(lblSecondsLeft.Font.FontFamily.Name,
                 lblSecondsLeft.Font.Size * scaleFactor);
@@ -446,7 +447,7 @@ namespace gamon
 
         private void chkSoundsInColorTimer_CheckedChanged(object sender, EventArgs e)
         {
-            playSoundEffects = chkSoundsInColorTimer.Checked; 
+            playSoundEffects = chkSoundsInColorTimer.Checked;
         }
     }
 }
