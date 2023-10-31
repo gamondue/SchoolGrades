@@ -109,5 +109,28 @@ namespace SchoolGrades
         {
             return dl.GetGradesOfClass(currentClass, idGradeType, idSchoolSubject, value1, value2);
         }
+        internal (DateTime startPeriod, DateTime endPeriod) CalculateStartAndEndPeriod(SchoolPeriod period)
+        {
+            if (period.IdSchoolPeriodType != "N")
+            {
+                return ((DateTime)period.DateStart, (DateTime)period.DateFinish);
+            }
+            else if (period.IdSchoolPeriod == "month")
+            {
+                return (DateTime.Now.AddMonths(-1), DateTime.Now);
+            }
+            else if (period.IdSchoolPeriod == "week")
+            {
+                return (DateTime.Now.AddDays(-7), DateTime.Now);
+            }
+            else if (period.IdSchoolPeriod == "year")
+            {
+                return (DateTime.Now.AddYears(-1), DateTime.Now);
+            }
+            else
+            {
+                return (DateTime.MinValue, DateTime.MaxValue);
+            }
+        }
    }
 }
