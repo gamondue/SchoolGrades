@@ -17,6 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolGrades", "SchoolGrade
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "BusinessObjects", "BusinessObjects\BusinessObjects.shproj", "{FC67D93E-C273-48FB-B183-DFA07592452E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolGrades_WPF", "SchoolGrades_WPF\SchoolGrades_WPF\SchoolGrades_WPF.csproj", "{049E27C0-FFB7-4F4B-A7CD-FD0B3364DDDD}"
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnit_Tests", "NUnit_Tests\NUnit_Tests.csproj", "{B05D9161-AEFF-42B0-8967-8FB771C7D395}"
 EndProject
 Global
