@@ -1,23 +1,19 @@
 ﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
 using System.IO;
-using System.Security.Cryptography.X509Certificates;
-using System.Windows.Forms;
 
 namespace SchoolGrades
 {
     internal partial class BusinessLayer
     {
         internal bool IsDataLayerFunctioning
-        { 
-            get {
-                return dl.IsTableReadable("Lessons"); 
-            } 
+        {
+            get
+            {
+                return dl.IsTableReadable("Lessons");
+            }
         }
-
         internal List<StartLink> GetStartLinksOfClass(Class Class)
         {
             return dl.GetStartLinksOfClass(Class);
@@ -79,10 +75,10 @@ namespace SchoolGrades
             }
             //currentImage.Caption = txtCaption.Text;
             currentImage.Caption = ImageCaption;
-            
+
             Commons.bl.LinkOneImageToLesson(currentImage, Lesson);
         }
-        private void copyFileToImagesAndLinkToLessons(string SourcePathAndFileName, string LessonImagesFullPath, 
+        private void copyFileToImagesAndLinkToLessons(string SourcePathAndFileName, string LessonImagesFullPath,
             string LessonImagesRelativePath, Lesson Lesson, Class Class, Image Image, bool AutoRename, bool MantainOldFileName)
         {
             string ext = Path.GetExtension(SourcePathAndFileName);
@@ -99,7 +95,7 @@ namespace SchoolGrades
             if (AutoRename)
             {
                 string tempFileName;
-                string oldFilename = Path.GetFileName(SourcePathAndFileName); 
+                string oldFilename = Path.GetFileName(SourcePathAndFileName);
                 if (MantainOldFileName)
                     tempFileName = ((DateTime)Lesson.Date).ToString("yyyy-MM-dd") + "_" +
                         Lesson.IdSchoolSubject + "-xggR" +
@@ -116,20 +112,21 @@ namespace SchoolGrades
                 {
                     if (!Directory.Exists(LessonImagesFullPath))
                         Directory.CreateDirectory(LessonImagesFullPath);
-                    destinationPathAndFileName = Path.Combine(LessonImagesFullPath, 
+                    destinationPathAndFileName = Path.Combine(LessonImagesFullPath,
                         tempFileName.Replace("xggR", (i++).ToString("00")));
                 } while (File.Exists(destinationPathAndFileName));
                 destinationFileName = tempFileName.Replace("xggR", (--i).ToString("00"));
-                Image.RelativePathAndFilename = Path.Combine (LessonImagesRelativePath, destinationFileName);
+                Image.RelativePathAndFilename = Path.Combine(LessonImagesRelativePath, destinationFileName);
             }
-            else 
+            else
             {
                 destinationFileName = SourcePathAndFileName;
-                destinationPathAndFileName = Commons.PathImages + "\\" +
-                    LessonImagesFullPath + destinationFileName;
+                destinationPathAndFileName = Path.Combine(Commons.PathImages,
+                    LessonImagesFullPath, destinationFileName);
                 if (File.Exists(destinationPathAndFileName))
                 {
-                    MessageBox.Show("Il file " + destinationPathAndFileName + " esiste già.");
+                    // !!!!! find another way to send this message !!!!! 
+                    //MessageBox.Show("Il file " + destinationPathAndFileName + " esiste già.");
                     return;
                 }
                 Image.RelativePathAndFilename = LessonImagesFullPath + destinationFileName;
@@ -137,13 +134,14 @@ namespace SchoolGrades
 
             if (!File.Exists(SourcePathAndFileName))
             {
-                MessageBox.Show("Il file " + SourcePathAndFileName + " non esiste!");
+                // !!!!! find another way to send this message !!!!! 
+                //MessageBox.Show("Il file " + SourcePathAndFileName + " non esiste!");
                 return;
             }
             // if it doesn't exist, create the folder of the images of the lessons of the class
             if (!Directory.Exists(LessonImagesFullPath))
             {
-                Directory.CreateDirectory(Commons.PathImages + "\\" + LessonImagesFullPath);
+                Directory.CreateDirectory(Path.Combine(Commons.PathImages, LessonImagesFullPath));
             }
             File.Copy(SourcePathAndFileName, destinationPathAndFileName);
             Image.IdImage = 0; // to force creation of a new record

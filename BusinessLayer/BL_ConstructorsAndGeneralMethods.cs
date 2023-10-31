@@ -1,9 +1,5 @@
-﻿using gamon;
-using SchoolGrades.BusinessObjects;
-using System;
-using System.Collections.Generic;
+﻿using SchoolGrades.BusinessObjects;
 using System.IO;
-using System.Text;
 
 namespace SchoolGrades
 {
@@ -18,33 +14,28 @@ namespace SchoolGrades
         // create the next after the program that is using this has read the configuration file 
         DataLayer dl; // must be instantiated after reading config file! 
 
-        internal string NameAndPathDatabase { get; }
+        // internal string NameAndPathDatabase { get; }
 
         /// <summary>
         /// Incapsulates the business rules for users' management
         /// part of the class that contains the constructors and the general methods
         /// </summary>
         ///  
-        /// // ???? maybe we should NOT pass this parameter, it is database dependant ????
-        internal BusinessLayer(string PathAndFile) 
+        internal BusinessLayer() 
         {
-            dl = Commons.dl;
-            if (dl.NameAndPathDatabase == null)
-            {
-                this.NameAndPathDatabase = null;
-                return; 
-            }
-            this.NameAndPathDatabase = PathAndFile;
+            this.dl = Commons.dl;
         }
-        internal void CreateNewDatabase(string NewDatabasePathName)
+        internal DataLayer CreateNewDatabase(string NewDatabasePathName)
         {
+            if (File.Exists(NewDatabasePathName))
+                File.Delete(NewDatabasePathName);
             File.Copy(Commons.PathAndFileDatabase, NewDatabasePathName);
 
             // local instance of a DataLayer to operate on a second database 
             DataLayer newDatabaseDl = new DataLayer(NewDatabasePathName);
 
-            newDatabaseDl.CreateNewDatabase(); 
-            return;
+            newDatabaseDl.CreateNewDatabase();
+            return newDatabaseDl;
         }
         internal School GetSchool(string OfficialSchoolAbbreviation)
         {
@@ -58,9 +49,21 @@ namespace SchoolGrades
         {
             return dl.CreateOneClassOnlyDatabase(currentClass);
         }
-        internal string CreateDemoDatabase(string newDatabasePathName, Class currentClass, Class otherClass)
+        internal void CreateDemoDatabase(string NewDatabasePathAndName, 
+            Class currentClass, Class otherClass)
         {
-            return dl.CreateDemoDatabase(newDatabasePathName, currentClass, otherClass);
+            // local instance of a DataLayer to operate on a second database 
+            DataLayer newDatabaseDl = new DataLayer(NewDatabasePathAndName);
+            File.Copy(Commons.PathAndFileDatabase, NewDatabasePathAndName);
+
+            // gets this same class in next year (if any..)
+            Class Class3 = dl.GetThisClassNextYear(currentClass);
+            Class Class4 = dl.GetThisClassNextYear(otherClass);
+            // erase all the data of other classes
+            dl.EraseAllNotPertinentDataOfOtherClasses(newDatabaseDl, currentClass, otherClass,
+                Class3, Class4);
+            dl.CreateDataInDemoDatabase(newDatabaseDl, currentClass, otherClass,
+                Class3, Class4);
         }
         internal void PurgeDatabase()
         {

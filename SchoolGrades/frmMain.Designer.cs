@@ -881,7 +881,7 @@
             btnTemporary.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnTemporary.BackColor = System.Drawing.Color.Red;
             btnTemporary.ForeColor = System.Drawing.Color.Yellow;
-            btnTemporary.Location = new System.Drawing.Point(412, 163);
+            btnTemporary.Location = new System.Drawing.Point(409, 168);
             btnTemporary.Name = "btnTemporary";
             btnTemporary.Size = new System.Drawing.Size(91, 54);
             btnTemporary.TabIndex = 164;

@@ -1,4 +1,3 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
@@ -18,6 +17,9 @@ EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "BusinessObjects", "BusinessObjects\BusinessObjects.shproj", "{FC67D93E-C273-48FB-B183-DFA07592452E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "frmMain", "frmMain\frmMain.csproj", "{CC7DA4E7-D9CB-4115-9A96-B1DAD5DA5B6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NUnit_Tests", "NUnit_Tests\NUnit_Tests.csproj", "{B05D9161-AEFF-42B0-8967-8FB771C7D395}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolGrades_WPF", "SchoolGrades_WPF\SchoolGrades_WPF.csproj", "{6BC34EDE-F85A-4585-A9EE-1F7D6BDD978B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,6 +93,10 @@ Global
 		BusinessLayer\BusinessLayer.projitems*{737a759a-6c1f-4bd7-a682-390c8b018712}*SharedItemsImports = 13
 		SharedItems\SharedItems.projitems*{a5dc5853-0eb8-493e-804d-d596d841aa2d}*SharedItemsImports = 13
 		MpttTreeManagement\MpttTreeManagement.projitems*{aea6904a-a8b6-4602-8946-03df79cbbd30}*SharedItemsImports = 13
+		BusinessLayer\BusinessLayer.projitems*{b05d9161-aeff-42b0-8967-8fb771c7d395}*SharedItemsImports = 5
+		BusinessObjects\BusinessObjects.projitems*{b05d9161-aeff-42b0-8967-8fb771c7d395}*SharedItemsImports = 5
+		DataLayer\DataLayer.projitems*{b05d9161-aeff-42b0-8967-8fb771c7d395}*SharedItemsImports = 5
+		SharedItems\SharedItems.projitems*{b05d9161-aeff-42b0-8967-8fb771c7d395}*SharedItemsImports = 5
 		SharedWinForms\SharedWinForms.projitems*{bdb76e62-3474-4529-b85d-2ebe40c7befb}*SharedItemsImports = 13
 		BusinessObjects\BusinessObjects.projitems*{fc67d93e-c273-48fb-b183-dfa07592452e}*SharedItemsImports = 13
 	EndGlobalSection

@@ -111,7 +111,7 @@ namespace SchoolGrades
         {
             return dl.GetIdStudentsNonGraded(currentClass, currentGradeType, currentSubject);
         }
-        internal void SaveStudentsAnswer(Student Student, Test Test, Answer Answer, bool IsChecked, string StudentsTextAnswer)
+        internal void SaveStudentsAnswer(Student Student, SchoolTest Test, Answer Answer, bool IsChecked, string StudentsTextAnswer)
         {
             dl.SaveStudentsAnswer(Student, Test, Answer, IsChecked, StudentsTextAnswer);
         }

@@ -5,7 +5,6 @@ using SchoolGrades.BusinessObjects;
 using System;
 using System.Drawing;
 using System.IO;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace SharedWinForms
@@ -13,24 +12,7 @@ namespace SharedWinForms
     public static class CommonsWinForms
     {
         internal static PictureBox globalPicLed;
-
-        // wait time before saving 
-        public static int BackgroundThreadSleepSeconds = 60;
-        // enable Mptt backgroud saving of Left anf Right pointers 
-        public static bool BackgroundSavingEnabled = true;
-        // exit the background task 
-        public static bool BackgroundTaskClose = false;
-        public static bool BackgroundTaskIsSaving = false;
-
-        // lock variable for serialization of access to BackgroundSavingEnabled and BackgroundSavingSafeStatus
-        public static object LockSavingCriticalSections = new object();
-        public static object LockBackgroundSavingVariables = new object();
-        // Thread that concurrently saves the Topics tree
-        internal static Thread BackgroundSaveThread;
-        // Tree object for concurrent saving 
         internal static TreeMptt SaveTreeMptt;
-
-        public static bool SaveBackupWhenExiting;
 
         internal static void SaveCurrentValuesOfAllControls(Control ParentControl, ref string PathAndFile)
         {
@@ -289,7 +271,7 @@ namespace SharedWinForms
                     // with another field will show up. You have to add some data in.config file. 
                     try
                     {
-                        SharedWinForms.CommonsWinForms.SaveBackupWhenExiting = bool.Parse(dati[5]);
+                        Commons.SaveBackupWhenExiting = bool.Parse(dati[5]);
                         return true;
                     }
                     catch
@@ -334,7 +316,7 @@ namespace SharedWinForms
                 //dati[2] = Commons.PathStartLinks;
                 dati[3] = Commons.PathDatabase;
                 dati[4] = Commons.PathDocuments;
-                dati[5] = CommonsWinForms.SaveBackupWhenExiting.ToString();
+                dati[5] = Commons.SaveBackupWhenExiting.ToString();
 #if DEBUG
                 TextFile.ArrayToFile(Commons.PathAndFileConfig + "_DEBUG", dati, false);
 #else
