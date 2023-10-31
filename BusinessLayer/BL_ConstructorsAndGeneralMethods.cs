@@ -28,14 +28,14 @@ namespace SchoolGrades
         internal DataLayer CreateNewDatabase(string NewDatabasePathName)
         {
             if (File.Exists(NewDatabasePathName))
-                File.Delete(NewDatabasePathName); 
+                File.Delete(NewDatabasePathName);
             File.Copy(Commons.PathAndFileDatabase, NewDatabasePathName);
 
             // local instance of a DataLayer to operate on a second database 
             DataLayer newDatabaseDl = new DataLayer(NewDatabasePathName);
 
             newDatabaseDl.CreateNewDatabase();
-            return newDatabaseDl; 
+            return newDatabaseDl;
         }
         internal School GetSchool(string OfficialSchoolAbbreviation)
         {
@@ -49,9 +49,21 @@ namespace SchoolGrades
         {
             return dl.CreateOneClassOnlyDatabase(currentClass);
         }
-        internal string CreateDemoDatabase(string newDatabasePathName, Class currentClass, Class otherClass)
+        internal void CreateDemoDatabase(string NewDatabasePathAndName, 
+            Class currentClass, Class otherClass)
         {
-            return dl.CreateDemoDatabase(newDatabasePathName, currentClass, otherClass);
+            // local instance of a DataLayer to operate on a second database 
+            DataLayer newDatabaseDl = new DataLayer(NewDatabasePathAndName);
+            File.Copy(Commons.PathAndFileDatabase, NewDatabasePathAndName);
+
+            // gets this same class in next year (if any..)
+            Class Class3 = dl.GetThisClassNextYear(currentClass);
+            Class Class4 = dl.GetThisClassNextYear(otherClass);
+            // erase all the data of other classes
+            dl.EraseAllNotPertinentDataOfOtherClasses(newDatabaseDl, currentClass, otherClass,
+                Class3, Class4);
+            dl.CreateDataInDemoDatabase(newDatabaseDl, currentClass, otherClass,
+                Class3, Class4);
         }
         internal void PurgeDatabase()
         {
