@@ -29,7 +29,7 @@
         <Button Content="Button" HorizontalAlignment="Left" Margin="314,372,0,0" VerticalAlignment="Top" Height="38" Width="97"/>
         <Button Content="Button" HorizontalAlignment="Left" Margin="414,372,0,0" VerticalAlignment="Top" Height="38" Width="96"/>
         <Label Content="Database con solo una classe" HorizontalAlignment="Left" Height="27" Margin="10,273,0,0" VerticalAlignment="Top" Width="171"/>
-        <RadioButton Content="RadioButton" GroupName="myGroup" HorizontalAlignment="Left" Height="54" Margin="148,120,0,0" VerticalAlignment="Top" Width="175" Checked="RadioButton_Checked"/>
-        <RadioButton Content="RadioButton" GroupName="myGroup" HorizontalAlignment="Left" Height="54" Margin="148,147,0,0" VerticalAlignment="Top" Width="176" Checked="RadioButton_Checked"/>
+        <RadioButton Content="A" GroupName="myGroup" HorizontalAlignment="Left" Height="54" Margin="148,120,0,0" VerticalAlignment="Top" Width="175" Checked="RadioButton_Checked"/>
+        <RadioButton Content="B" GroupName="myGroup" HorizontalAlignment="Left" Height="54" Margin="148,147,0,0" VerticalAlignment="Top" Width="176" Checked="RadioButton_Checked"/>
     </Grid>
 </Window>
