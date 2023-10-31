@@ -5,8 +5,65 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:yhbui"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="450" Width="450">
+    <Grid Background="PowderBlue">
+        <RadioButton Margin="10,33,309,0" VerticalAlignment="Top" Foreground="#FF150EF3" >Materie
+            <RadioButton.LayoutTransform>
+                <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
+            </RadioButton.LayoutTransform>
+
+
+        </RadioButton>
+
+        <RadioButton Margin="10,65,262,0" VerticalAlignment="Top" Foreground="#FF150EF3" >Tipo di prove
+            <RadioButton.LayoutTransform>
+                <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
+            </RadioButton.LayoutTransform>
+        </RadioButton>
+
+
+        <RadioButton Margin="10,110,241,0" VerticalAlignment="Top" Foreground="#FF150EF3" Checked="RadioButton_Checked" >Tipi di domande
+            <RadioButton.LayoutTransform>
+                <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
+            </RadioButton.LayoutTransform>
+        </RadioButton>
+
+
+        <RadioButton Margin="10,158,241,0" VerticalAlignment="Top" Foreground="#FF150EF3" Checked="RadioButton_Checked" >Tipi di risposte
+            <RadioButton.LayoutTransform>
+                <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
+            </RadioButton.LayoutTransform>
+        </RadioButton>
+
+
+        <RadioButton Margin="10,190,241,0" VerticalAlignment="Top" Foreground="#FF150EF3" Checked="RadioButton_Checked" >Tipi di voti
+            <RadioButton.LayoutTransform>
+                <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
+            </RadioButton.LayoutTransform>
+        </RadioButton>
+
+
+        <RadioButton Margin="10,244,241,0" VerticalAlignment="Top" Foreground="#FF150EF3" Checked="RadioButton_Checked" >Categorie di voti
+            <RadioButton.LayoutTransform>
+                <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
+            </RadioButton.LayoutTransform>
+        </RadioButton>
+
+
+        <RadioButton Margin="10,304,241,0" VerticalAlignment="Top" Foreground="#FF150EF3" Checked="RadioButton_Checked" >Scuole
+            <RadioButton.LayoutTransform>
+                <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
+            </RadioButton.LayoutTransform>
+        </RadioButton>
+
+        <RadioButton Margin="10,365,241,0" VerticalAlignment="Top" Foreground="#FF150EF3" Checked="RadioButton_Checked" >Anni scolastici
+            <RadioButton.LayoutTransform>
+                <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
+            </RadioButton.LayoutTransform>
+        </RadioButton>
+
+
+        <Button Margin="281,147,42,177" Background="White" Content="Apri tabella" FontSize="23" Foreground="#FF0027FF"    >   </Button>
 
     </Grid>
 </Window>
