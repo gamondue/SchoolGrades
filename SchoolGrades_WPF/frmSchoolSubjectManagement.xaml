@@ -9,9 +9,9 @@
       Title="frmSchoolSubjectManagement">
 
     <Grid Background="PowderBlue">
-        <Button Background="White" Foreground="DarkBlue" Content="Salva" HorizontalAlignment="Left" Margin="709,10,0,0" VerticalAlignment="Top" Click="Button_Click" Height="44" Width="69" RenderTransformOrigin="0.934,0.585"/>
-        <Button Background="White" Foreground="DarkBlue" Content="+" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Click" Height="44" Width="54" Margin="487,10,0,0" RenderTransformOrigin="0.016,2.322"/>
-        <Button Background="White" Foreground="DarkBlue" Content="-" HorizontalAlignment="Left" Margin="556,10,0,0" VerticalAlignment="Top" Click="Button_Click" Height="44" Width="54"/>
+        <Button Background="White" Foreground="DarkBlue" Content="Salva" HorizontalAlignment="Left" Margin="709,10,0,0" VerticalAlignment="Top" Height="44" Width="69" RenderTransformOrigin="0.934,0.585"/>
+        <Button Background="White" Foreground="DarkBlue" Content="+" HorizontalAlignment="Left" VerticalAlignment="Top" Height="44" Width="54" Margin="487,10,0,0" RenderTransformOrigin="0.016,2.322"/>
+        <Button Background="White" Foreground="DarkBlue" Content="-" HorizontalAlignment="Left" Margin="556,10,0,0" VerticalAlignment="Top" Height="44" Width="54"/>
         <DataGrid Background="Gray" d:ItemsSource="{d:SampleData ItemCount=0}" Margin="10,63,90,10"/>
 
     </Grid>
