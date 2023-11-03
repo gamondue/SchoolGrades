@@ -109,6 +109,10 @@ Global
 		SharedItems\SharedItems.projitems*{14583d93-e4dd-4e30-8d6d-194727a795d3}*SharedItemsImports = 5
 		SharedWinForms\SharedWinForms.projitems*{14583d93-e4dd-4e30-8d6d-194727a795d3}*SharedItemsImports = 5
 		DataLayer\DataLayer.projitems*{2447d414-6ddb-4193-bd6d-fd70165b57be}*SharedItemsImports = 13
+		BusinessLayer\BusinessLayer.projitems*{6bc34ede-f85a-4585-a9ee-1f7d6bdd978b}*SharedItemsImports = 5
+		BusinessObjects\BusinessObjects.projitems*{6bc34ede-f85a-4585-a9ee-1f7d6bdd978b}*SharedItemsImports = 5
+		DataLayer\DataLayer.projitems*{6bc34ede-f85a-4585-a9ee-1f7d6bdd978b}*SharedItemsImports = 5
+		SharedItems\SharedItems.projitems*{6bc34ede-f85a-4585-a9ee-1f7d6bdd978b}*SharedItemsImports = 5
 		BusinessLayer\BusinessLayer.projitems*{737a759a-6c1f-4bd7-a682-390c8b018712}*SharedItemsImports = 13
 		SharedItems\SharedItems.projitems*{a5dc5853-0eb8-493e-804d-d596d841aa2d}*SharedItemsImports = 13
 		MpttTreeManagement\MpttTreeManagement.projitems*{aea6904a-a8b6-4602-8946-03df79cbbd30}*SharedItemsImports = 13

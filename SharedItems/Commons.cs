@@ -344,7 +344,6 @@ namespace SchoolGrades
                 }
             }
             Console.Beep();
-
             return Error;
         }
         enum State

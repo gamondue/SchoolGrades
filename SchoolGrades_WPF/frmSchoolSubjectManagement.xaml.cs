@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace SchoolGrades_WPF
 {
@@ -11,11 +10,6 @@ namespace SchoolGrades_WPF
         public frmSchoolSubjectManagement()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

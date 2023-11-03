@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Text;
 
 namespace SchoolGrades
 {
@@ -26,7 +25,7 @@ namespace SchoolGrades
         }
         internal int? SaveStudent(Student Student, DbConnection conn = null)
         {
-            if(Student.IdStudent == null || Student.IdStudent == 0)
+            if (Student.IdStudent == null || Student.IdStudent == 0)
             {
                 // creation 
                 return dl.CreateStudent(Student);
@@ -89,7 +88,7 @@ namespace SchoolGrades
         }
         internal void EraseStudentsPhoto(int IdStudent, string SchoolYear)
         {
-            dl.EraseStudentsPhoto(IdStudent, SchoolYear); 
+            dl.EraseStudentsPhoto(IdStudent, SchoolYear);
         }
         internal void ToggleDisabledFlagOneStudent(Student DisablingStudent)
         {
@@ -117,7 +116,7 @@ namespace SchoolGrades
         }
         internal List<Student> FindStudentsOnBirthday(Class Class, DateTime Date)
         {
-            return dl.GetStudentsOnBirthday(Class, Date); 
+            return dl.GetStudentsOnBirthday(Class, Date);
         }
     }
 }

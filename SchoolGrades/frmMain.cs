@@ -184,7 +184,6 @@ namespace SchoolGrades
             Commons.BackgroundSaveThread = new Thread(CommonsWinForms.SaveTreeMptt.SaveTreeMpttBackground);
             Commons.BackgroundSaveThread.Start();
 
-
             //            // if file exists, create the database access objects
             //            else if (!CreateBusinessAndDataLayer())
             //            {
