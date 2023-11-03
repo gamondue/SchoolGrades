@@ -3,11 +3,11 @@
 namespace SchoolGrades_WPF
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AnnotationPopup.xaml
     /// </summary>
-    public partial class frmLesson : Window
+    public partial class frmAnnotationsPopup : Window
     {
-        public frmLesson()
+        public frmAnnotationsPopup()
         {
             InitializeComponent();
         }

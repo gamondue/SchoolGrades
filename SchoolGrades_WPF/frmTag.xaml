@@ -6,8 +6,7 @@
       xmlns:local="clr-namespace:SchoolGrades_WPF"
       mc:Ignorable="d" 
       d:DesignHeight="533" d:DesignWidth="400"
-      Title="frmTag" FontSize="14">
-
+      Title="Tag" FontSize="14">
     <Grid Background="PowderBlue" >
 
         <Grid>
@@ -32,7 +31,7 @@
                     <RowDefinition Height="27*"></RowDefinition>
                     <RowDefinition Height="32*"></RowDefinition>
                     <RowDefinition Height="40*"></RowDefinition>
-                    
+
 
 
                     <RowDefinition Height="31*"></RowDefinition>
@@ -53,11 +52,8 @@
                     <TextBox Width="107 " Margin="5"></TextBox>
                     <TextBox Width="107 " Margin="5"></TextBox>
                 </StackPanel>
-
                 <Label Grid.Row="3">Descrizione</Label>
-                
                 <TextBox Grid.Row="4"></TextBox>
-
                 <Grid Grid.Row="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>

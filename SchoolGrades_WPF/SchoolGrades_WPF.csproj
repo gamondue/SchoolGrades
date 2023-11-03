@@ -7,4 +7,16 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <Import Project="..\BusinessLayer\BusinessLayer.projitems" Label="Shared" />
+
+  <Import Project="..\BusinessObjects\BusinessObjects.projitems" Label="Shared" />
+
+  <Import Project="..\DataLayer\DataLayer.projitems" Label="Shared" />
+
+  <Import Project="..\SharedItems\SharedItems.projitems" Label="Shared" />
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
+  </ItemGroup>
+
 </Project>

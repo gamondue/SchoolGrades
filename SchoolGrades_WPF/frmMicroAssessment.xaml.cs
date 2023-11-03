@@ -3,11 +3,11 @@
 namespace SchoolGrades_WPF
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Logica di interazione per MicroAssessmentWPF.xaml
     /// </summary>
-    public partial class frmLesson : Window
+    public partial class frmMicroAssessment : Window
     {
-        public frmLesson()
+        public frmMicroAssessment()
         {
             InitializeComponent();
         }
