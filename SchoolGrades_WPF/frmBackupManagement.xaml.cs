@@ -3,11 +3,11 @@
 namespace SchoolGrades_WPF
 {
     /// <summary>
-    /// Interaction logic for frmEditLookupTable.xaml
+    /// Logica di interazione per frmBackupManagement.xaml
     /// </summary>
-    public partial class frmEditLookupTable : Window
+    public partial class frmBackupManagement : Window
     {
-        public frmEditLookupTable()
+        public frmBackupManagement()
         {
             InitializeComponent();
         }
