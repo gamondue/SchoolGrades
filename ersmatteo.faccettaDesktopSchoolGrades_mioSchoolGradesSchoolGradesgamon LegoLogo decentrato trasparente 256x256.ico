@@ -1,0 +1,206 @@
+[33mcommit 434e6944837534526229be537c26f5234e4cf564[m[33m ([m[1;36mHEAD -> [m[1;32mWpf_4F[m[33m)[m
+Author: Matteo Faccetta <matteo.faccetta.stud@ispascalcomandini.it>
+Date:   Tue Oct 24 13:56:51 2023 +0200
+
+    Creazione Finestre
+
+[33mcommit 28b0ffe241e89e2aff71ed1d28c7d3071e8ed0b6[m
+Author: Matteo Faccetta <matteo.faccetta.stud@ispascalcomandini.it>
+Date:   Tue Oct 24 12:15:09 2023 +0200
+
+    Creato SchoolGradesWPF
+
+[33mcommit 5a5c3f7d2969af00184450133ed06b693cd0d41d[m
+Author: Matteo Faccetta <matteo.faccetta.stud@ispascalcomandini.it>
+Date:   Tue Oct 17 13:58:04 2023 +0200
+
+    Creazione Window frmNewYear
+
+[33mcommit 210c071a43cb5d6bceab001193e2aeb4ba2a7704[m
+Author: Matteo Faccetta <matteo.faccetta.stud@ispascalcomandini.it>
+Date:   Tue Oct 17 13:06:00 2023 +0200
+
+    Creato WPF4F
+
+[33mcommit 020c7f82ed2cdcae021722364ff746b9d132cc38[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Merge: 94619eb 4640c68
+Author: Gabriele MONTI <gamondue@users.noreply.github.com>
+Date:   Thu Oct 12 01:02:00 2023 +0200
+
+    Merge pull request #101 from SaraCappelli/main
+    
+    Random groups' assignment fixed
+
+[33mcommit 4640c686e747e8e34ef2b8c5812dee9432960a01[m
+Author: Sara Cappelli <SARA.CAPPELLI@local.ittcesena.it>
+Date:   Tue Oct 10 11:38:23 2023 +0200
+
+    gruppi randomici funzionanti
+
+[33mcommit d344004c2647d698656e0d64d5bab1005b66be7c[m
+Author: Sara Cappelli <SARA.CAPPELLI@local.ittcesena.it>
+Date:   Mon Oct 9 12:57:47 2023 +0200
+
+    generazione gruppi random con sort
+
+[33mcommit 2ed8d8f414f668ff5e1e891017d522e17c3d0891[m
+Author: Sara Cappelli <SARA.CAPPELLI@local.ittcesena.it>
+Date:   Sat Oct 7 09:48:55 2023 +0200
+
+    ff
+
+[33mcommit 94619eb34889823c37b6c2228b013513b238eb52[m
+Author: Gabriele MONTI <gamondue@gmail.com>
+Date:   Tue Sep 26 02:07:02 2023 +0200
+
+    v.0.54.1.6 bug fixes in TreeView
+    
+    Re-abilitated  the editing in place of tree nodes with F2
+    Fixed saving of the tree only if has been changed.
+    Fixed the writing of the Topics digests in the wrong textbox.
+    
+    Still we can't interrupt effectively backgorund saving of tree when we hit the button for saving from foreground.
+
+[33mcommit fbae19faf53616554fd46213110355d0dfa5caec[m
+Author: Gabriele MONTI <gamondue@gmail.com>
+Date:   Sun Sep 24 18:19:09 2023 +0200
+
+    v.0.54.1.5 distribuita. Configution file management now working.
+    
+    Adjusted management of default databases in configuration file, based on the kind "user".
+
+[33mcommit 905a51e183516416aeeb57f4263e8145efd8a236[m
+Author: Gabriele MONTI <gamondue@gmail.com>
+Date:   Fri Sep 22 02:18:24 2023 +0200
+
+    v. 0.54.1.5 ripristinato funzionamento del combo anni scolastici in frmMain.
+    
+    Il comportamento in assenza di file di configurazione o database è ancora non funzionante e commentato .
+    Saving of Topics tree only if modified.
+    The import file of a new school class is now more flexible (the file can lack some columns)
+
+[33mcommit 8a73061447e27e9474faa6ebd3c611ff326ad894[m
+Author: Gabriele MONTI <gamondue@gmail.com>
+Date:   Fri Jul 21 19:05:36 2023 +0200
+
+    Fixed the saving of the tree, in previous versioni wasn't working.
+    
+    The saving must be tested ad improved.
+    The interruption of backgroud saving must be improved since now the syncronous saving waits until the end of background saving!
+
+[33mcommit d384f08e2b2cb83f63c3a5c4ce23fa06e8929a14[m
+Author: Gabriele MONTI <gamondue@gmail.com>
+Date:   Wed Jul 19 16:01:08 2023 +0200
+
+    v.0.54.1.4 aggiunte ricerche per parola e Maiuscolo/Minuscolo
+    
+    Refactoring di nome di metodo da SqlStringLike a SqlLikeStatement
+    UI frmLessons: trovato posto per i nuovi checkBox di ricerca ed oscurati i radioButton di ricerca che non avevano ancora codice dietro (Text || &&)
+
+[33mcommit 0aa9693853d5b206eff671d3288c3e8c4c37b252[m
+Author: Gabriele MONTI <gamondue@gmail.com>
+Date:   Sat Jun 17 02:44:12 2023 +0200
+
+    Sync commit. NOT WORKING.
+    
+    Work on the data in database the first time (non existing configuration file.FileInfo
+    Added new class DatabaInfo, that wshouòd keep ptrack of the names that permit connection to the database.
+
+[33mcommit 420eb5fa9a64620f219d289f1ddce64f2544b90f[m
+Author: Gabriele MONTI <gamondue@gmail.com>
+Date:   Sun May 7 23:55:19 2023 +0200
+
+    Fixed some errors. Doesn't save config file correctly.
+    
+    Added Commons.DatabaseFileName_Current. It's use is probably buggy.
+    Added a test to check i DataLayer i working.
+    Introduced some Path.Combine from the old code.
+
+[33mcommit 53ae10ac19ccdcbdf00303fee7ef0cd28d5749fc[m
+Author: gamondue <ing@ingmonti.it>
+Date:   Sun May 7 20:55:47 2023 +0200
+
+    Improved the management of the configuration file.
+    
+    Choese the righrt default database based on being a Teache, Demo or student program-
+    When was working, suddenly the main FOrm doesn't show anymore.Probelm wuith the backgrpoud task to fix!
+
+[33mcommit 2f4591e411638a532382b6785999584e3f03d594[m
+Author: Gabriele MONTI <gamondue@gmail.com>
+Date:   Tue Feb 28 02:22:46 2023 +0100
+
+    v.0.54.1.2 (possibly) solved the problem of lock of picture in frmClassesManagement
+    
+    The picture in the Image Control was staying locked and the program was fialing when changing it.
+
+[33mcommit c102d0e5538c3b7662499fd6c839c4fdf801e393[m
+Author: Gabriele MONTI <gamondue@gmail.com>
+Date:   Wed Feb 22 00:07:19 2023 +0100
+
+    v.0.54.1.1 tree in frmTopics anchored to the right of the Form.
+
+[33mcommit 81f908196e2a2215bcbdd61c8f7d97b4a59abff3[m
+Author: Gabriele MONTI <gamondue@gmail.com>
+Date:   Fri Feb 17 02:17:31 2023 +0100
+
+    v.0.54.1.0. two minor fixes.
+    
+    Fix in PathRestrictedApplication management.
+    Fix in lesson images  path management.
+
+[33mcommit 9b4b8c8d5b8871d0320a866c390cf27e17077d3f[m
+Author: Gabriele MONTI <gamondue@gmail.com>
+Date:   Thu Feb 2 02:21:21 2023 +0100
+
+    v.0.5.0.9 fixes in frmImages. Added Happy Birthday. Split container in frmTopics.
+    
+    frmImages: put under try catch a strange behaviour when saving with a new text of . Why it behaves in that fashoin was NOT understood.
+    Added Happy Birthday functionality: when it is the Birthsday of a students, the window with the student's data is open and "Happy Birthday" is played. .
+    Added horizontal split Container in frmTopics.
+    Removed the unhooking of events from TreeMptt, because the behaviour was akward. .
+
+[33mcommit aeb7ee7df27710e30d0d3983137e65765ee9610f[m
+Author: Gabriele MONTI <gamondue@gmail.com>
+Date:   Fri Jan 27 02:51:59 2023 +0100
+
+    Added show of birthdate of students.
+    
+    Some grids are now readonly. fixes in frmKnotsToTheComb
+
+[33mcommit a6ebd318f7cd8b06f688bb919a4e2fc6a09eb1ac[m
+Merge: ff9119b c45521a
+Author: Gabriele MONTI <gamondue@gmail.com>
+Date:   Sun Dec 11 17:53:22 2022 +0100
+
+    Merge branch 'main' of https://github.com/gamondue/SchoolGrades
+
+[33mcommit ff9119b924cac51bb4405b78f8f5e7cfb4c4f0a0[m
+Author: Gabriele MONTI <gamondue@gmail.com>
+Date:   Sun Dec 11 17:53:06 2022 +0100
+
+    Fixed error with IsDisabled field in Student management
+
+[33mcommit c45521ab0f8228c014e74befc3c95e3fa08561c1[m
+Author: gamondue <ing@ingmonti.it>
+Date:   Wed Dec 7 17:05:31 2022 +0100
+
+    v.0.54.0.6 fixed two errors.
+    
+    Fixed program stop in frmTopics when choosing a question from all questions.
+    Modification of question' text when the question is modified, in frmMicroAssessment.
+
+[33mcommit 946653894410337010e2b19c451a43835e80b575[m
+Author: Gabriele MONTI <gamondue@gmail.com>
+Date:   Tue Nov 15 02:39:06 2022 +0100
+
+    v.0.54.0.5 Added search of questions and question choose from  frmTopics.  Fixes in change of image of a student.  Refactored the constructor of frmBackupManagement. Migrated to BusinessLayer AddImageToLesson(), justLinkFileToLesson() and copyFileToImagesAndLinkToLessons()
+
+[33mcommit c93d764a922ffd84beb51f27ecc850edb642c7a3[m
+Author: Gabriele MONTI <gamondue@gmail.com>
+Date:   Wed Oct 12 00:34:48 2022 +0200
+
+    v.0.53.0.4 improvements in management of students' photos.
+
+[33mcommit 98f433365ca2cf4066d0fd4de1be6ea4b1e380c5[m
+Author: Gabriele MONTI <gamondue@gmail.com>
+Date:   S
