@@ -3,11 +3,11 @@
 namespace SchoolGrades_WPF
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Logica di interazione per frmBackupManagement.xaml
     /// </summary>
-    public partial class frmLesson : Window
+    public partial class frmBackupManagement : Window
     {
-        public frmLesson()
+        public frmBackupManagement()
         {
             InitializeComponent();
         }
