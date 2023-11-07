@@ -24,5 +24,10 @@ namespace SchoolGrades_WPF
         {
             InitializeComponent();
         }
+
+        private void btnClassNew_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

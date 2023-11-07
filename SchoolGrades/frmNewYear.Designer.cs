@@ -94,6 +94,7 @@
             TxtOfficialSchoolAbbreviation.TabIndex = 98;
             TxtOfficialSchoolAbbreviation.Text = "FOIS01100L";
             TxtOfficialSchoolAbbreviation.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            TxtOfficialSchoolAbbreviation.TextChanged += TxtOfficialSchoolAbbreviation_TextChanged;
             // 
             // label4
             // 

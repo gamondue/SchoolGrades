@@ -12,6 +12,7 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition Height="0.3*"></RowDefinition>
             <RowDefinition Height="4.5*"></RowDefinition>
         </Grid.RowDefinitions>
 
@@ -31,15 +32,16 @@
 
             <GroupBox Header="Anno Scolastico Precedente">
                 <StackPanel>
-                    <StackPanel Orientation="Horizontal"> <!--Per le label-->
+                    <StackPanel Orientation="Horizontal">
+                        <!--Per le label-->
                         <Label Foreground="DarkBlue"  Width="104" Height="20" VerticalContentAlignment="Top" FontSize="9">Id anno</Label>
                         <Label Foreground="DarkBlue" Margin="7,0" Width="104" Height="20" VerticalContentAlignment="Top" FontSize="9">Descrizione breve</Label>
                         <Label Foreground="DarkBlue" Margin="4,3" Width="96" Height="20" VerticalContentAlignment="Top" FontSize="9">Note</Label>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <ComboBox Name="cmbSchoolYearCurrent" Margin="4,3" Width="104" Height="26"/>
-                        <TextBox Name="txtYearDescriptionCurrent" Margin="4,3" Width="104" Height="26" ></TextBox>
-                        <TextBox Name="txtYearNotesCurrent" Margin="4,3" Width="370"></TextBox>
+                        <ComboBox Background="White" Name="cmbSchoolYearCurrent" Margin="4,3" Width="104" Height="26"/>
+                        <TextBox Background="White" Name="txtYearDescriptionCurrent" Margin="4,3" Width="104" Height="26" ></TextBox>
+                        <TextBox Background="White" Name="txtYearNotesCurrent" Margin="4,3" Width="370"></TextBox>
                     </StackPanel>
                 </StackPanel>
             </GroupBox>
@@ -51,8 +53,8 @@
                         <Label Foreground="DarkBlue" Width="418" Height="26">Descrizione</Label>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <ComboBox Name="cmbClasses" Width="116" Height="26"></ComboBox>
-                        <TextBox Width="471" Height="26" Margin="7,0"></TextBox>
+                        <ComboBox Background="White" Name="cmbClasses" Width="116" Height="26"></ComboBox>
+                        <TextBox Name="txtClassDescriptionCurrent" Width="471" Height="26" Margin="7,0"></TextBox>
                     </StackPanel>
                 </StackPanel>
             </GroupBox>
@@ -77,7 +79,7 @@
                         <Label Foreground="DarkBlue" Margin="4,3" Width="96" Height="20" VerticalContentAlignment="Top" FontSize="9">Note</Label>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <ComboBox Name="txtSchoolYearNext" Margin="4,3" Width="104" Height="26"/>
+                        <ComboBox Background="White" Name="txtSchoolYearNext" Margin="4,3" Width="104" Height="26"/>
                         <TextBox  Name="txtYearDescriptionNext" Margin="4,3" Width="104" Height="26" ></TextBox>
                         <TextBox  Name="txtYearNotesNext" Margin="4,3" Width="370"></TextBox>
                     </StackPanel>
@@ -87,15 +89,60 @@
             <GroupBox Grid.Column="1" Header="Nuova Classe">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <Label Foreground="DarkBlue" Width="118" Height="26">Sigla </Label>
+                        <Label Foreground="DarkBlue" Width="118" Height="26">Sigla</Label>
                         <Label Foreground="DarkBlue" Width="418" Height="26">Descrizione</Label>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <ComboBox Width="116" Height="26"></ComboBox>
-                        <TextBox Width="471" Height="26" Margin="7,0"></TextBox>
+                        <ComboBox Background="White" Name="txtClassAbbreviationNext" Width="116" Height="26"></ComboBox>
+                        <TextBox Name="txtClassDescriptionNext" Width="471" Height="26" Margin="7,0"></TextBox>
                     </StackPanel>
                 </StackPanel>
             </GroupBox>
         </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.8*"></ColumnDefinition>
+                <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                <ColumnDefinition Width="1.5*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Horizontal" >
+                <Label Margin="15,2">Codice Scuola</Label>
+                <TextBox Background="White" HorizontalContentAlignment="Center" Name="TxtOfficialSchoolAbbreviation" Width="157" Height="24" VerticalAlignment="Top" Margin="15,2" FontSize="15" Foreground="Black" Text="FOIS01100L"></TextBox>
+            </StackPanel>
+
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <Button Name="btnClassNew" Width="94" Height="72" Margin="7, 6" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Click="btnClassNew_Click">
+                    <Button.Content>
+                        <TextBlock  FontSize="20" TextWrapping="Wrap" TextAlignment="Center" Padding="9"  Width="90" Height="68" Background="White" Foreground="DarkBlue">Nuova Classe</TextBlock>
+                    </Button.Content>
+                </Button>
+                <Button Name="btnStudentNew" Width="94" Height="72" Margin="1, 6" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Click="btnStudentNew_Click">
+                    <Button.Content>
+                        <TextBlock  FontSize="20" TextWrapping="Wrap" TextAlignment="Center" Padding="9"  Width="90" Height="68" Background="White" Foreground="DarkBlue">Nuovo Allievo</TextBlock>
+                    </Button.Content>
+                </Button>
+                <Button Name="btnClassGeneration" Width="94" Height="72" Margin="31, 6" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Click="btnClassGeneration_Click">
+                    <Button.Content>
+                        <TextBlock  FontSize="20" TextWrapping="Wrap" TextAlignment="Center" Padding="9"  Width="90" Height="68" Background="White" Foreground="DarkBlue">Genera Classe</TextBlock>
+                    </Button.Content>
+                </Button>
+                <Button Name="btnClassMirgration" Width="94" Height="72" Margin="92, 6. 1, 6" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Click="btnClassMirgration_Click">
+                    <Button.Content>
+                        <TextBlock  FontSize="20" TextWrapping="Wrap" TextAlignment="Center" Padding="9"  Width="90" Height="68" Background="White" Foreground="DarkBlue">Nuovo Allievo</TextBlock>
+                    </Button.Content>
+                </Button>
+                <Button Name="btnAssociateSchoolPeriodToTheYear" Width="94" Height="72" Margin="1, 6" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Click="btnAssociateSchoolPeriodToTheYear_Click">
+                    <Button.Content>
+                        <TextBlock  FontSize="15" TextWrapping="Wrap" TextAlignment="Center" Padding="9"  Width="90" Height="68" Background="White" Foreground="DarkBlue">Prepara Periodi Dell'Anno</TextBlock>
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <Label Grid.Row="3" Foreground="DarkBlue">Allievi da INCLUDERE nella classe successiva</Label>
+
+        <DataGrid Grid.Row="5" Margin="10,0,10,10" Name="DgwStudent" Background="#A0A0A0"></DataGrid>
     </Grid>
 </Window>
