@@ -106,7 +106,7 @@
 
 
 
-        <CheckBox Grid.Column="2" Grid.Row="3" FontSize="13" Margin="0,68,0,0" Grid.RowSpan="2">Disabilitato1</CheckBox>
+        <CheckBox Grid.Column="2" Grid.Row="3" FontSize="13" Margin="0,68,0,0" Grid.RowSpan="2">Disabilitato</CheckBox>
         <CheckBox Grid.Column="3" Grid.Row="3" FontSize="13" Margin="0,68,0,0" Grid.RowSpan="2">BES/DSA</CheckBox>
 
 
