@@ -25,6 +25,9 @@
             <TextBox x:Name="txtSchoolYear" Grid.Column="1" HorizontalAlignment="Right" Margin="10,10,20,120" Height="27" Width="100"></TextBox>
             <Label x:Name="label2" Grid.Column="1" HorizontalAlignment="Right" FontWeight="Bold" Margin="0,70,18,0" FontSize="16" Foreground="DarkBlue">Id Allievo</Label>
             <TextBox x:Name="txtIdStudent" Grid.Column="1" HorizontalAlignment="Right" Margin="10,0,20,0" Height="27" Width="100"></TextBox>
+            <Button x:Name="btnPrepareNew" Grid.Column="1" Background="White" Height="40" Width="120" HorizontalAlignment="Right" Margin="0,130,18,20">
+                <Label Foreground="DarkBlue" FontWeight="Bold" FontSize="14"> Prepara Nuova</Label>
+            </Button>
         </Grid>
         <Border Grid.Column="1" Grid.Row="1" BorderBrush="DarkGray" Margin="10,11,150,11" BorderThickness="1">
             <DataGrid x:Name="dgwStudents"  Background="LightGray" FontSize="15" ColumnHeaderHeight="18"></DataGrid>
@@ -35,35 +38,47 @@
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label x:Name="label5" Margin="4,0,0,0" FontSize="21" FontWeight="Bold" Foreground="DarkBlue">Annotazione</Label>
-                        <CheckBox x:Name="chkShowOnlyActive" IsChecked="True" Margin="20,10,0,0" FontSize="16" Foreground="DarkBlue">Visualizza solo le annotazioni attive</CheckBox>
+                        <CheckBox x:Name="chkShowOnlyActive" IsChecked="True" Margin="10,10,0,0" FontSize="14" Foreground="DarkBlue">Visualizza solo le annotazioni attive</CheckBox>
                     </StackPanel>
                     <StackPanel>
-                        <Label x:Name="label4" Margin="3,1,0,0" FontSize="16" Foreground="DarkBlue">ID Annotazione</Label>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBox x:Name="txtIdAnnotation" Height="23" Width="115" HorizontalAlignment="Left" Margin="6,0,0,0"></TextBox>
-                        <CheckBox x:Name="chkCurrentActive" Margin="7,7,0,0" FontSize="16" Foreground="DarkBlue">Attiva</CheckBox>
-                        <CheckBox x:Name="chkPopUp"  Margin="7,7,0,0" FontSize="16" Foreground="DarkBlue">Promemoria</CheckBox>
-                    </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label x:Name="label4" Margin="3,1,0,0" FontSize="14" Foreground="DarkBlue">ID Annotazione</Label>
+                            <TextBox x:Name="txtIdAnnotation" Height="23" Width="115" HorizontalAlignment="Left" Margin="6,0,0,0"></TextBox>
+                            <CheckBox x:Name="chkCurrentActive" Margin="7,7,0,0" FontSize="14" Foreground="DarkBlue">Attiva</CheckBox>
+                            <CheckBox x:Name="chkPopUp"  Margin="7,7,0,0" FontSize="14" Foreground="DarkBlue">Promemoria</CheckBox>
+                        </StackPanel>
+                        <GroupBox x:Name="grpSingleButtons" Margin="6,0,0,0" Header="Annotazione su singolo" FontSize="16" Width="385" Height="70" HorizontalAlignment="Left">
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="btnAddAnnotationStudent" Margin="6,2,0,2"  Background="White">
+                                    <Label Margin=" 10,0" FontWeight="Bold" Foreground="DarkBlue"> + Allievo</Label>
+                                </Button>
+                                <Button x:Name="btnSaveModificationsStudent" Margin="12,2,12,2" Background="White" HorizontalAlignment="Center">
+                                    <Label  Margin=" 10,0" FontWeight="Bold" Foreground="DarkBlue"> Salva  Modifica</Label>
+                                </Button>
+                                <Button x:Name="btnRemoveAnnotationStudent"  Margin="0,2,0,2" Background="White" HorizontalAlignment="Right">
+                                    <Label Margin=" 10,0" FontWeight="Bold" Foreground="DarkBlue"> - Allievo</Label>
+                                </Button>
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox x:Name="groupBox1" Margin="6,0" Header="Annotazione su gruppo" FontSize="16" Width="385" Height="70" HorizontalAlignment="Left">
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="btnAddAnnotationGroup" Margin="3,2,0,2"  Background="White">
+                                    <Label Margin=" 10,0" FontWeight="Bold" Foreground="DarkBlue">+ Gruppo</Label>
+                                </Button>
+                                <Button x:Name="btnSaveModificationsGroup" Margin="8,2,8,2" Background="White" HorizontalAlignment="Center">
+                                    <Label  Margin=" 10,0" FontWeight="Bold" Foreground="DarkBlue">Salva  Modifica</Label>
+                                </Button>
+                                <Button x:Name="btnRemoveAnnotationGroup" Margin="0,2,0,2" Background="White" HorizontalAlignment="Right">
+                                    <Label Margin=" 10,0" FontWeight="Bold" Foreground="DarkBlue">- Gruppo</Label>
+                                </Button>
+                            </StackPanel>
+                        </GroupBox>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <GroupBox Margin="6" Header="Annotazione su singolo" FontSize="16">
-                            <StackPanel Orientation="Horizontal">
-                                <Button>
-                                    <Button.Content>
-                                        <TextBlock TextWrapping="Wrap"> + allievo</TextBlock>
-                                    </Button.Content>
-                                </Button>
-                                <Button>
-                                    salva modifica
-                                </Button>
-                                <Button> - allievo</Button>
-                            </StackPanel>
-                        </GroupBox>
-                        <GroupBox Margin="6" Header="Annotazione su gruppo" FontSize="16">
-
-                        </GroupBox>
+                    <StackPanel>
+                        <TextBox x:Name="txtAnnotation" Margin="10,0,0,0" Width="438" Height="30"></TextBox>
+                        <DataGrid x:Name="dgwNotes" Margin="10,0,0,0" Height="173" Background="LightGray"></DataGrid>
                     </StackPanel>
                     <StackPanel></StackPanel>
                 </StackPanel>
