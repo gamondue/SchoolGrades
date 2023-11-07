@@ -5,8 +5,70 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SchoolGrades_WPF"
         mc:Ignorable="d"
-        Title="Window1" Height="450" Width="800">
+        Title="Risposta" Height="478" Width="1270" Background="PowderBlue">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition>
+
+            </ColumnDefinition>
+            <ColumnDefinition>
+
+            </ColumnDefinition>
+            <ColumnDefinition>
+
+            </ColumnDefinition>
+            <ColumnDefinition>
+
+            </ColumnDefinition>
+            <ColumnDefinition>
+
+            </ColumnDefinition>
+            <ColumnDefinition>
+
+            </ColumnDefinition>
+            <ColumnDefinition>
+
+            </ColumnDefinition>
+            <ColumnDefinition>
+
+            </ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32*">
+
+            </RowDefinition>
+            <RowDefinition Height="32*">
+
+            </RowDefinition>
+            <RowDefinition Height="167*">
+
+            </RowDefinition>
+
+        </Grid.RowDefinitions>
+
+
+        <TextBlock Grid.Column="0" Grid.Row="0" FontSize="22" Grid.RowSpan="2" Margin="22,30,30,30">
+            Codice
+        </TextBlock>
+        <TextBox Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="10,64,10,32"/>
+
+
+        <TextBlock Grid.Column="1" Grid.Row="0" FontSize="22" Grid.RowSpan="2" Margin="22,30,30,30">
+            Domanda
+        </TextBlock>
+        <TextBox Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Margin="10,64,10,32"/>
+
+
+        <TextBlock Grid.Column="2" Grid.Row="0" FontSize="22" Grid.RowSpan="2" Margin="22,30,14,30">
+            Costo errore
+        </TextBlock>
+        <TextBox Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Margin="10,64,10,32"/>
+
+        <GroupBox Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="158,0,0,0">
+            <RadioButton Height="101">Aperta</RadioButton>
+        </GroupBox>
+        
         
     </Grid>
 </Window>
