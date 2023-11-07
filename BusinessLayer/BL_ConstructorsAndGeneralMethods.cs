@@ -10,7 +10,7 @@ namespace SchoolGrades
         /// the User's Interface
         /// Porting code from DbAndBusinness class and classes within BusinessLayer is work in progress 
         /// </summary>
-        
+
         // create the next after the program that is using this has read the configuration file 
         DataLayer dl; // must be instantiated after reading config file! 
 
@@ -21,21 +21,21 @@ namespace SchoolGrades
         /// part of the class that contains the constructors and the general methods
         /// </summary>
         ///  
-        internal BusinessLayer() 
+        internal BusinessLayer()
         {
             this.dl = Commons.dl;
         }
         internal DataLayer CreateNewDatabase(string NewDatabasePathName)
         {
             if (File.Exists(NewDatabasePathName))
-                File.Delete(NewDatabasePathName); 
+                File.Delete(NewDatabasePathName);
             File.Copy(Commons.PathAndFileDatabase, NewDatabasePathName);
 
             // local instance of a DataLayer to operate on a second database 
             DataLayer newDatabaseDl = new DataLayer(NewDatabasePathName);
 
             newDatabaseDl.CreateNewDatabase();
-            return newDatabaseDl; 
+            return newDatabaseDl;
         }
         internal School GetSchool(string OfficialSchoolAbbreviation)
         {
@@ -49,13 +49,9 @@ namespace SchoolGrades
         {
             return dl.CreateOneClassOnlyDatabase(currentClass);
         }
-        internal string CreateDemoDatabase(string newDatabasePathName, Class currentClass, Class otherClass)
-        {
-            return dl.CreateDemoDatabase(newDatabasePathName, currentClass, otherClass);
-        }
         internal void PurgeDatabase()
         {
-            dl.PurgeDatabase(); 
+            dl.PurgeDatabase();
         }
     }
 }

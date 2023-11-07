@@ -127,14 +127,14 @@ namespace SchoolGrades
             if (!Directory.Exists(newDatabasePathName))
                 Directory.CreateDirectory(newDatabasePathName);
 
-            string newDatabaseFullName = Path.Combine(newDatabasePathName,
+            string NewDatabasePathName = Path.Combine(newDatabasePathName,
                 System.DateTime.Now.ToString("yyyy-MM-dd_HH.mm.ss") +
                 "_" + Class.Abbreviation + "_" + Class.SchoolYear + "_" +
                 Commons.DatabaseFileName_Teacher);
-            File.Copy(Commons.PathAndFileDatabase, newDatabaseFullName);
+            File.Copy(Commons.PathAndFileDatabase, NewDatabasePathName);
 
             // open a local connection to database 
-            DataLayer newDatabaseDl = new DataLayer(newDatabaseFullName);
+            DataLayer newDatabaseDl = new DataLayer(NewDatabasePathName);
 
             // erase all the data of the students of other classes
             using (DbConnection conn = newDatabaseDl.Connect())
@@ -678,5 +678,34 @@ namespace SchoolGrades
             }
             return ly;
         }
+        internal Class GetThisClassNextYear(Class Class)
+        {
+            string nextYear = Commons.IncreaseIntegersInString(Class.SchoolYear);
+            string nextAbbreviation = Commons.IncreaseIntegersInString(Class.Abbreviation);
+            return GetClass(Class.IdSchool, nextYear, nextAbbreviation);
+        }
+        private string BuildAndClauseOnPassedField(List<Class> classes, string FieldName)
+        {
+            // we assume that classes have no nulls 
+            string andClause = string.Empty;
+            foreach (Class c in classes)
+            {
+                andClause += FieldName + "<>" + c.IdClass + " AND ";
+            }
+            andClause = andClause.Substring(0, andClause.Length - 5);
+            return andClause;
+        }
+        private string BuildOrClauseOnPassedField(List<Class> classes, string FieldName)
+        {
+            // we assume that classes have no nulls 
+            string orClause = string.Empty;
+            foreach (Class c in classes)
+            {
+                orClause += FieldName + "=" + c.IdClass + " OR ";
+            }
+            orClause = orClause.Substring(0, orClause.Length - 4);
+            return orClause;
+        }
+
     }
 }
