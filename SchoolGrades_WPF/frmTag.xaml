@@ -7,12 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="533" d:DesignWidth="400"
       Title="Tag" FontSize="14">
-<<<<<<< HEAD
-=======
-
->>>>>>> 87f1473d04bd4177e6049948791c77e1a44fd0a4
     <Grid Background="PowderBlue" >
-
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="33*"></ColumnDefinition>
@@ -20,44 +15,25 @@
 
             </Grid.ColumnDefinitions>
 
-<<<<<<< HEAD
             <Grid Grid.Column="0">
-=======
             <Grid x:Name="txtSearch1" Grid.Column="0">
->>>>>>> 87f1473d04bd4177e6049948791c77e1a44fd0a4
                 <Grid.RowDefinitions>
                     <RowDefinition Height="31*"></RowDefinition>
                     <RowDefinition Height="502*"></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <TextBox x:Name="txtSearch" Margin="5"></TextBox>
-<<<<<<< HEAD
-                <DataGrid x:Name="dgwExistingTags" Grid.Row="1" Margin="5"></DataGrid>
-=======
                 <DataGrid x:Name="dgwExistingTags" Grid.Row="1" Margin="5" Background="DarkGray"></DataGrid>
->>>>>>> 87f1473d04bd4177e6049948791c77e1a44fd0a4
             </Grid>
-
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="27*"></RowDefinition>
                     <RowDefinition Height="32*"></RowDefinition>
                     <RowDefinition Height="40*"></RowDefinition>
-<<<<<<< HEAD
-
-=======
-                    
->>>>>>> 87f1473d04bd4177e6049948791c77e1a44fd0a4
-
-
                     <RowDefinition Height="31*"></RowDefinition>
-
                     <RowDefinition Height="100*"></RowDefinition>
-
                     <RowDefinition Height="303*"></RowDefinition>
                 </Grid.RowDefinitions>
-
-<<<<<<< HEAD
                 <Label>Ricerca</Label>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="1">
@@ -71,7 +47,6 @@
                 </StackPanel>
                 <Label Grid.Row="3">Descrizione</Label>
                 <TextBox Grid.Row="4"></TextBox>
-=======
                 <Label VerticalAlignment="Bottom">Ricerca</Label>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="1">
@@ -88,7 +63,6 @@
                 
                 <TextBox x:Name="txtDesc" Grid.Row="4" Margin="5"></TextBox>
 
->>>>>>> 87f1473d04bd4177e6049948791c77e1a44fd0a4
                 <Grid Grid.Row="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
@@ -96,13 +70,9 @@
                         <ColumnDefinition></ColumnDefinition>
 
                     </Grid.ColumnDefinitions>
-<<<<<<< HEAD
-=======
-
                     <Button x:Name="btnNew" Grid.Column="0" Margin="7,10,7,260" Height="32">Nuovo</Button>
                     <Button x:Name="btnSave" Grid.Column="1" Margin="7,10,7,260" Height="32">Salva</Button>
                     <Button x:Name="btnChoose" Grid.Column="2" Margin="7,10,7,260" Height="32">Scegli</Button>
->>>>>>> 87f1473d04bd4177e6049948791c77e1a44fd0a4
                 </Grid>
             </Grid>
         </Grid>
