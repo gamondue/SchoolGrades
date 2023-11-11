@@ -1,6 +1,5 @@
 ﻿using SchoolGrades;
 using SchoolGrades.BusinessObjects;
-using SharedWinForms;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -495,7 +494,7 @@ namespace gamon.TreeMptt
                     query = "PRAGMA case_sensitive_like=ON;";
                 if (!SearchInDescriptions)
                     query += "SELECT * FROM Topics" +
-                        " WHERE " + dl.SqlLikeStatementWithOptions("name", SearchText, SearchWholeWord) + ";";
+                        " WHERE " + dl.SqlLikeStatementWithOptions("name", SearchText, SearchWholeWord);
                 else
                     query += "SELECT * FROM Topics" +
                         " WHERE " + dl.SqlLikeStatementWithOptions("name", SearchText, SearchWholeWord) +
