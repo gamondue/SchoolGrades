@@ -86,7 +86,7 @@ namespace SchoolGrades
             //topicTreeMptt = new TopicTreeMptt(listTopicsBefore, trwTopics,
             topicTreeMptt = new TreeMptt(Commons.dl, trwTopics,
                 txtTopicName, txtTopicDescription, txtTopicSearchString, txtTopicsDigest,
-                null, CommonsWinForms.globalPicLed, chkSearchInDescriptions, chkAllWord,
+                null, CommonsWinForms.globalPicLed, chkSearchInDescriptions, chkVerbatimString,
                 chkCaseInsensitive, chkMarkAllTopicsFound,
                 DragDropEffects.Copy);
             topicTreeMptt.AddNodesToTreeviewByBestMethod();
@@ -179,7 +179,7 @@ namespace SchoolGrades
             // ricerca 
             topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked,
                 chkSearchInDescriptions.Checked,
-                chkAllWord.Checked, chkCaseInsensitive.Checked);
+                chkVerbatimString.Checked, chkCaseInsensitive.Checked);
         }
         private void btnAddNode_Click(object sender, EventArgs e)
         {
@@ -667,7 +667,7 @@ namespace SchoolGrades
                 topicTreeMptt.ResetSearch();
                 topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked,
                     chkSearchInDescriptions.Checked,
-                    chkAllWord.Checked, chkCaseInsensitive.Checked);
+                    chkVerbatimString.Checked, chkCaseInsensitive.Checked);
             }
         }
     }

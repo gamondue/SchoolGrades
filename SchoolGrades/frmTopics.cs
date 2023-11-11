@@ -93,7 +93,7 @@ namespace SchoolGrades
             topicTreeMptt = new TreeMptt(Commons.dl, trwTopics,
                 txtTopicName, txtTopicDescription, txtTopicSearchString, null,
                 null, CommonsWinForms.globalPicLed, chkSearchInDescriptions,
-                chkAllWord, chkCaseInsensitive, chkFindAll, DragDropEffects.Copy);
+                chkVerbatimString, chkCaseInsensitive, chkFindAll, DragDropEffects.Copy);
             // list read from database 
             topicTreeMptt.AddNodesToTreeviewByBestMethod();
             switch (formType)
@@ -212,7 +212,7 @@ namespace SchoolGrades
         {
             topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkFindAll.Checked,
                 chkSearchInDescriptions.Checked,
-                chkAllWord.Checked, chkCaseInsensitive.Checked);
+                chkVerbatimString.Checked, chkCaseInsensitive.Checked);
         }
         private System.Windows.Forms.TreeNode FindTopicName(int Key, System.Windows.Forms.TreeNode StartNode)
         {
