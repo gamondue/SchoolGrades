@@ -90,6 +90,7 @@
             BtnSearchAmongTopics = new System.Windows.Forms.Button();
             btnExport = new System.Windows.Forms.Button();
             btnLessonAdd = new System.Windows.Forms.Button();
+            chkAllWord = new System.Windows.Forms.CheckBox();
             grpViewTopics.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgwOneLesson).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgwAllLessons).BeginInit();
@@ -725,7 +726,7 @@
             chkCaseInsensitive.Name = "chkCaseInsensitive";
             chkCaseInsensitive.Size = new System.Drawing.Size(82, 22);
             chkCaseInsensitive.TabIndex = 157;
-            chkCaseInsensitive.Text = "ma && mi";
+            chkCaseInsensitive.Text = "Ma && mi";
             toolTip1.SetToolTip(chkCaseInsensitive, "Ricerca con maiuscole e minuscole ");
             chkCaseInsensitive.UseVisualStyleBackColor = true;
             // 
@@ -757,7 +758,7 @@
             // 
             chkVerbatimString.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             chkVerbatimString.AutoSize = true;
-            chkVerbatimString.Location = new System.Drawing.Point(881, 247);
+            chkVerbatimString.Location = new System.Drawing.Point(880, 247);
             chkVerbatimString.Name = "chkVerbatimString";
             chkVerbatimString.Size = new System.Drawing.Size(69, 22);
             chkVerbatimString.TabIndex = 156;
@@ -771,11 +772,11 @@
             chkSearchInDescriptions.AutoSize = true;
             chkSearchInDescriptions.Checked = true;
             chkSearchInDescriptions.CheckState = System.Windows.Forms.CheckState.Checked;
-            chkSearchInDescriptions.Location = new System.Drawing.Point(910, 226);
+            chkSearchInDescriptions.Location = new System.Drawing.Point(880, 228);
             chkSearchInDescriptions.Name = "chkSearchInDescriptions";
-            chkSearchInDescriptions.Size = new System.Drawing.Size(97, 22);
+            chkSearchInDescriptions.Size = new System.Drawing.Size(82, 22);
             chkSearchInDescriptions.TabIndex = 158;
-            chkSearchInDescriptions.Text = "In Descriz.";
+            chkSearchInDescriptions.Text = "Descriz.";
             toolTip1.SetToolTip(chkSearchInDescriptions, "Ricerca anche in descrizione");
             chkSearchInDescriptions.UseVisualStyleBackColor = true;
             // 
@@ -812,12 +813,25 @@
             btnLessonAdd.UseVisualStyleBackColor = true;
             btnLessonAdd.Click += btnLessonAdd_Click;
             // 
+            // chkAllWord
+            // 
+            chkAllWord.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            chkAllWord.AutoSize = true;
+            chkAllWord.Location = new System.Drawing.Point(959, 228);
+            chkAllWord.Name = "chkAllWord";
+            chkAllWord.Size = new System.Drawing.Size(70, 22);
+            chkAllWord.TabIndex = 159;
+            chkAllWord.Text = "Parola";
+            toolTip1.SetToolTip(chkAllWord, "Ricerca a parola intera");
+            chkAllWord.UseVisualStyleBackColor = true;
+            // 
             // frmLessons
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.PowderBlue;
             ClientSize = new System.Drawing.Size(1032, 667);
+            Controls.Add(chkAllWord);
             Controls.Add(chkSearchInDescriptions);
             Controls.Add(chkCaseInsensitive);
             Controls.Add(chkVerbatimString);
@@ -967,5 +981,6 @@
         private System.Windows.Forms.CheckBox chkVerbatimString;
         private System.Windows.Forms.CheckBox chkSearchInDescriptions;
         private System.Windows.Forms.TextBox txtTopicSearchString;
+        private System.Windows.Forms.CheckBox chkAllWord;
     }
 }

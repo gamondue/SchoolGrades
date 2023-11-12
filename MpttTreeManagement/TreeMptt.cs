@@ -83,6 +83,7 @@ namespace gamon.TreeMptt
         TextBox txtCodNode;
 
         CheckBox chkSearchInDescriptions;
+        CheckBox chkVerbatimString;
         CheckBox chkAllWord;
         CheckBox chkCaseInsensitive;
         CheckBox chkMarkAllTopicsFound;
@@ -127,6 +128,9 @@ namespace gamon.TreeMptt
                     chkCaseInsensitive.CheckedChanged += SearchCheckBoxes_CheckedChanged;
                 if (chkMarkAllTopicsFound != null)
                     chkMarkAllTopicsFound.CheckedChanged += chkMarkAllTopicsFound_CheckedChanged;
+                if (chkVerbatimString != null)
+                    chkVerbatimString.CheckedChanged += chkVerbatimString_CheckedChanged;
+
                 //}
                 //else
                 //{
@@ -150,7 +154,7 @@ namespace gamon.TreeMptt
         internal TreeMptt(DataLayer DataLayer, TreeView TreeViewControl,
             TextBox TxtNodeName, TextBox TxtNodeDescription, TextBox TxtNodeSearchString,
             TextBox TxtNodeDigest, TextBox TxtIdNode,
-            PictureBox LedPictureBox, CheckBox ChkSearchInDescriptions,
+            PictureBox LedPictureBox, CheckBox ChkSearchInDescriptions, CheckBox ChkVerbatimString,
             CheckBox ChkAllWord, CheckBox ChkCaseInsensitive, CheckBox ChkMarkAllNodesFound,
             System.Windows.Forms.DragDropEffects TypeOfDragAndDrop = System.Windows.Forms.DragDropEffects.Move)
         {
@@ -167,6 +171,7 @@ namespace gamon.TreeMptt
             chkSearchInDescriptions = ChkSearchInDescriptions;
             chkAllWord = ChkAllWord;
             chkCaseInsensitive = ChkCaseInsensitive;
+            chkVerbatimString = ChkVerbatimString;
             chkMarkAllTopicsFound = ChkMarkAllNodesFound;
 
             if (shownTreeView != null)
@@ -449,13 +454,14 @@ namespace gamon.TreeMptt
         }
         #endregion
         #region methods that search in the tree
-        internal void FindNodes(string TextToFind, bool ColorAllNodesFound, bool SearchInDescriptions = true,
-            bool SearchWholeWord = false, bool SearchCaseInsensitive = false)
+        internal void FindNodes(string TextToFind, bool ColorAllNodesFound, bool SearchInDescriptions,
+            bool SearchWholeWord, bool SearchCaseInsensitive, bool SearchVerbatimString)
         {
             markAllInSearch = ColorAllNodesFound;
             if (previousSearch != TextToFind)
             {
-                found = dbMptt.FindNodesLike(TextToFind, SearchInDescriptions, SearchWholeWord, SearchCaseInsensitive);
+                found = dbMptt.FindNodesLike(TextToFind, SearchInDescriptions, SearchWholeWord,
+                    SearchCaseInsensitive, SearchVerbatimString);
                 indexDone = 0;
                 if (markAllInSearch)
                 {
@@ -940,7 +946,7 @@ namespace gamon.TreeMptt
         internal void CheckGeneralKeysForTree(KeyEventArgs e, string ToFind)
         {
             if (e.KeyCode == Keys.F3)
-                FindNodes(ToFind, markAllInSearch);
+                FindNodes(ToFind, markAllInSearch, true, false, false, false);
             if (e.KeyCode == Keys.F5)
             {
                 SaveTreeFromTreeViewByParent();
@@ -1307,9 +1313,14 @@ namespace gamon.TreeMptt
             // command a new search for the next search 
             ResetSearch();
             FindNodes(txtSearchString.Text, chkMarkAllTopicsFound.Checked, chkSearchInDescriptions.Checked,
-                chkAllWord.Checked, chkCaseInsensitive.Checked);
+                chkAllWord.Checked, chkCaseInsensitive.Checked, chkVerbatimString.Checked);
         }
         private void chkMarkAllTopicsFound_CheckedChanged(object sender, EventArgs e)
+        {
+            // command a new search for the next search 
+            ResetSearch();
+        }
+        private void chkVerbatimString_CheckedChanged(object sender, EventArgs e)
         {
             // command a new search for the next search 
             ResetSearch();

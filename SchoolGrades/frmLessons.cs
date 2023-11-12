@@ -87,7 +87,7 @@ namespace SchoolGrades
             topicTreeMptt = new TreeMptt(Commons.dl, trwTopics,
                 txtTopicName, txtTopicDescription, txtTopicSearchString, txtTopicsDigest,
                 null, CommonsWinForms.globalPicLed, chkSearchInDescriptions, chkVerbatimString,
-                chkCaseInsensitive, chkMarkAllTopicsFound,
+                chkAllWord, chkCaseInsensitive, chkMarkAllTopicsFound,
                 DragDropEffects.Copy);
             topicTreeMptt.AddNodesToTreeviewByBestMethod();
 
@@ -178,8 +178,8 @@ namespace SchoolGrades
         {
             // ricerca 
             topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked,
-                chkSearchInDescriptions.Checked,
-                chkVerbatimString.Checked, chkCaseInsensitive.Checked);
+                chkSearchInDescriptions.Checked, chkAllWord.Checked,
+                chkCaseInsensitive.Checked, chkVerbatimString.Checked);
         }
         private void btnAddNode_Click(object sender, EventArgs e)
         {
@@ -445,7 +445,8 @@ namespace SchoolGrades
         private void checkGeneralKeysForTopicsTree(KeyEventArgs e)
         {
             if (e.KeyCode == Keys.F3)
-                topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked);
+                topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked,
+                    true, false, false, false);
             if (e.KeyCode == Keys.F5)
             {
                 btnSaveTree_Click(null, null);
@@ -463,7 +464,8 @@ namespace SchoolGrades
             }
 
             if (e.KeyCode == Keys.F3)
-                topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked);
+                topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked,
+                    true, false, false, false);
             if (e.KeyCode == Keys.F5)
             {
                 btnSaveTree_Click(null, null);
@@ -666,8 +668,8 @@ namespace SchoolGrades
                 // fire a new search 
                 topicTreeMptt.ResetSearch();
                 topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked,
-                    chkSearchInDescriptions.Checked,
-                    chkVerbatimString.Checked, chkCaseInsensitive.Checked);
+                    chkSearchInDescriptions.Checked, chkVerbatimString.Checked,
+                    chkCaseInsensitive.Checked, chkVerbatimString.Checked);
             }
         }
     }
