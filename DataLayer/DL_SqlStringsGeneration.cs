@@ -46,7 +46,7 @@ namespace SchoolGrades
             return temp;
         }
         internal string SqlLikeStatementWithOptions(string FieldName, string SearchText,
-            bool SearchVerbatimString = false)
+            bool SearchWholeWord = false, bool SearchVerbatimString = false)
         {
             if (SearchText == null) return "null";
             SearchText = SearchText.Replace("'", "''");
@@ -55,9 +55,17 @@ namespace SchoolGrades
             if (SearchVerbatimString)
             {
                 statement = FieldName + "='" + SearchText + "'";
+                return statement;
+            }
+            if (SearchWholeWord)
+            {   // search words separated by " " with all the possibilities
+                statement = FieldName + " LIKE '" + SearchText + " %'"; // word at the beginning 
+                statement += " OR " + FieldName + " LIKE '% " + SearchText + "'"; // word at the end 
+                statement += " OR " + FieldName + " LIKE '% " + SearchText + " %'"; // word in the middle 
+                statement += " OR " + FieldName + " = '" + SearchText + "'"; // word as the whole string 
             }
             else
-                // ricerca sensitive con sottostringa 
+                // search with any substring also in the middle of the "word" searched  
                 statement = FieldName + " LIKE '%" + SearchText + "%'";
             return statement;
         }

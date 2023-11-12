@@ -92,8 +92,8 @@ namespace SchoolGrades
         {
             topicTreeMptt = new TreeMptt(Commons.dl, trwTopics,
                 txtTopicName, txtTopicDescription, txtTopicSearchString, null,
-                null, CommonsWinForms.globalPicLed, chkSearchInDescriptions,
-                chkVerbatimString, chkCaseInsensitive, chkFindAll, DragDropEffects.Copy);
+                null, CommonsWinForms.globalPicLed, chkSearchInDescriptions, chkVerbatimString,
+                chkAllWord, chkCaseInsensitive, chkFindAll, DragDropEffects.Copy);
             // list read from database 
             topicTreeMptt.AddNodesToTreeviewByBestMethod();
             switch (formType)
@@ -211,8 +211,8 @@ namespace SchoolGrades
         private void btnFind_Click(object sender, EventArgs e)
         {
             topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkFindAll.Checked,
-                chkSearchInDescriptions.Checked,
-                chkVerbatimString.Checked, chkCaseInsensitive.Checked);
+                chkSearchInDescriptions.Checked, chkAllWord.Checked,
+                chkCaseInsensitive.Checked, chkVerbatimString.Checked);
         }
         private System.Windows.Forms.TreeNode FindTopicName(int Key, System.Windows.Forms.TreeNode StartNode)
         {
@@ -222,7 +222,7 @@ namespace SchoolGrades
         {
             //if (e.KeyCode == Keys.Return || e.KeyCode == Keys.F3)
             if (e.KeyCode == Keys.F3)
-                topicTreeMptt.FindNodes(txtTopicSearchString.Text, false);
+                topicTreeMptt.FindNodes(txtTopicSearchString.Text, false, true, false, false, false);
             if (e.KeyCode == Keys.F5)
             {
                 btnSave_Click(null, null);
