@@ -45,18 +45,12 @@
                     <TextBox Width="107 " Margin="5"></TextBox>
                     <TextBox Width="107 " Margin="5"></TextBox>
                 </StackPanel>
-                <Label Grid.Row="3">Descrizione</Label>
                 <TextBox Grid.Row="4"></TextBox>
                 <Label VerticalAlignment="Bottom">Ricerca</Label>
 
-                <StackPanel Orientation="Horizontal" Grid.Row="1">
-                    <Label x:Name="lblIdTag" Width="117 " VerticalAlignment="Bottom">Codice</Label>
-                    <Label x:Name="lblTag" Width="117 " VerticalAlignment="Bottom">Tag</Label>
-                </StackPanel>
-
                 <StackPanel Orientation="Horizontal" Grid.Row="2">
-                    <TextBox x:Name="txtIdTag" Width="107 " Margin="5"></TextBox>
-                    <TextBox x:Name="txtTag" Width="107 " Margin="5"></TextBox>
+                <TextBox x:Name="txtIdTag" Width="107 " Margin="5"></TextBox>
+                <TextBox x:Name="txtTag" Width="107 " Margin="5"></TextBox>
                 </StackPanel>
 
                 <Label x:Name="lblDesc" Grid.Row="3" VerticalAlignment="Bottom" >Descrizione</Label>
@@ -76,5 +70,6 @@
                 </Grid>
             </Grid>
         </Grid>
+    </Grid>
     </Grid>
 </Page>
