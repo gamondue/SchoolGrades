@@ -356,7 +356,7 @@
             chkVerbatimString.Size = new System.Drawing.Size(69, 22);
             chkVerbatimString.TabIndex = 160;
             chkVerbatimString.Text = "Esatta";
-            toolTip1.SetToolTip(chkVerbatimString, "Ricerca della stringa esatta o di una sottostringa");
+            toolTip1.SetToolTip(chkVerbatimString, "Ricerca della stringa esatta");
             chkVerbatimString.UseVisualStyleBackColor = true;
             // 
             // chkAllWord

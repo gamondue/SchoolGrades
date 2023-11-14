@@ -87,10 +87,10 @@
             btnAddNodeBrother = new System.Windows.Forms.Button();
             chkVerbatimString = new System.Windows.Forms.CheckBox();
             chkSearchInDescriptions = new System.Windows.Forms.CheckBox();
+            chkAllWord = new System.Windows.Forms.CheckBox();
             BtnSearchAmongTopics = new System.Windows.Forms.Button();
             btnExport = new System.Windows.Forms.Button();
             btnLessonAdd = new System.Windows.Forms.Button();
-            chkAllWord = new System.Windows.Forms.CheckBox();
             grpViewTopics.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgwOneLesson).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgwAllLessons).BeginInit();
@@ -763,7 +763,7 @@
             chkVerbatimString.Size = new System.Drawing.Size(69, 22);
             chkVerbatimString.TabIndex = 156;
             chkVerbatimString.Text = "Esatta";
-            toolTip1.SetToolTip(chkVerbatimString, "Ricerca della stringa esatta o di una sottostringa");
+            toolTip1.SetToolTip(chkVerbatimString, "Ricerca della stringa esatta");
             chkVerbatimString.UseVisualStyleBackColor = true;
             // 
             // chkSearchInDescriptions
@@ -779,6 +779,18 @@
             chkSearchInDescriptions.Text = "Descriz.";
             toolTip1.SetToolTip(chkSearchInDescriptions, "Ricerca anche in descrizione");
             chkSearchInDescriptions.UseVisualStyleBackColor = true;
+            // 
+            // chkAllWord
+            // 
+            chkAllWord.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            chkAllWord.AutoSize = true;
+            chkAllWord.Location = new System.Drawing.Point(959, 228);
+            chkAllWord.Name = "chkAllWord";
+            chkAllWord.Size = new System.Drawing.Size(70, 22);
+            chkAllWord.TabIndex = 159;
+            chkAllWord.Text = "Parola";
+            toolTip1.SetToolTip(chkAllWord, "Ricerca a parola intera");
+            chkAllWord.UseVisualStyleBackColor = true;
             // 
             // BtnSearchAmongTopics
             // 
@@ -812,18 +824,6 @@
             btnLessonAdd.Text = "Nuova lezione";
             btnLessonAdd.UseVisualStyleBackColor = true;
             btnLessonAdd.Click += btnLessonAdd_Click;
-            // 
-            // chkAllWord
-            // 
-            chkAllWord.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            chkAllWord.AutoSize = true;
-            chkAllWord.Location = new System.Drawing.Point(959, 228);
-            chkAllWord.Name = "chkAllWord";
-            chkAllWord.Size = new System.Drawing.Size(70, 22);
-            chkAllWord.TabIndex = 159;
-            chkAllWord.Text = "Parola";
-            toolTip1.SetToolTip(chkAllWord, "Ricerca a parola intera");
-            chkAllWord.UseVisualStyleBackColor = true;
             // 
             // frmLessons
             // 
