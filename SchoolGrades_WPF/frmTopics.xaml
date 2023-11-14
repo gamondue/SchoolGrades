@@ -1,0 +1,60 @@
+﻿<Window x:Class="SchoolGrades_WPF.frmTopics"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SchoolGrades_WPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="771" Width="670" MaxHeight="771" MaxWidth="670" MinHeight="771" MinWidth="670">
+    <Grid HorizontalAlignment="Center" Width="670" Background="PowderBlue">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Name="TreeWiev" Width="450">
+
+            </ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="500"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <TreeView Name="trwTopics" Margin="10"></TreeView>
+            </Grid>
+
+            <Grid Grid.Row="1" Margin="10">
+                <TextBlock Foreground="DarkBlue">Drag per spostare su nodo padre, Ctrl Drag per fratello.</TextBlock>
+                <TextBlock FontSize="16" Margin="0,15,0,0" Foreground="DarkBlue">Argomento</TextBlock>
+                <TextBox Name="txtTopicName" Margin="0,40,0,146" BorderBrush="Black" Foreground="DarkBlue"/>
+                <TextBlock FontSize="16" Margin="0,80,0,0" Foreground="DarkBlue">Descrizione</TextBlock>
+                <TextBlock Name="txtTopicDescription" Height="100" Margin="0,100,0,0" Background="White" Foreground="DarkBlue"></TextBlock>
+            </Grid>
+
+
+        </Grid>
+        <Grid Grid.Column="1">
+
+            <TextBlock Foreground="DarkBlue" FontSize="15" Margin="5,5,0,0">Trova :</TextBlock>
+            <TextBox Margin="60,5,25,702" Foreground="DarkBlue" />
+            <CheckBox Name="chkFindAll" Margin="5,55,0,0">trova tutti</CheckBox>
+            <CheckBox Name="chkSearchInDescription" Margin="5,75,0,0">In Desc.</CheckBox>
+            <CheckBox Name="chkAllWorld" Margin="85,55,0,0">Parola</CheckBox>
+            <CheckBox Name="chkCaseInsensitive" Margin="85,75,0,0">ma e mi</CheckBox>
+
+            <Button Name="btnFind" Margin="25,95,25,615">Trova (F3)</Button>
+            <Button Name="btnFindUnderNode" Margin="25,145,25,560" RenderTransformOrigin="0.512,-0.09">Trova Sotto (Shift+F3)</Button>
+            <Button Name="btnSave" Margin="25,200,25,500" >Salva argomenti</Button>
+            <Button Name="btnAddNode" Margin="25,260,25,435" >Aggiungi Figlio (Ins)</Button>
+            <Button Name="btnAddNodeBrother" Margin="25,325,25,370" >Aggiungi Fratello (Shift + Ins)</Button>
+            <Button Name="btnChoose" Margin="25,390,25,305" >Scegli</Button>
+            <Button Name="btnArgFreemind" Margin="25,455,25,240" >Argom. Freemind</Button>
+            <Button Name="btnQuestions" Margin="25,520,25,175" >Domande</Button>
+            <Button Name="btnDelete" Margin="25,585,25,110" >Elimina (Canc)</Button>
+
+        </Grid>
+
+
+    </Grid>
+</Window>
