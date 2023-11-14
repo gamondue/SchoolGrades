@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SchoolGrades_WPF"
         mc:Ignorable="d"
-        Title="Domanda" Height="700" Width="800" Background="PowderBlue">
+        Title="Domanda" Height="700" Width="1000" Background="PowderBlue">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="FontSize" Value="15"></Setter>
@@ -33,9 +33,9 @@
     </Window.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="0.7*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid>
             <Grid.RowDefinitions>
@@ -72,11 +72,11 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition Width="2*"></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
                     <ColumnDefinition Width="2*"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Label>Materia</Label>
                 <ComboBox Name="cmbSchoolSubject" Grid.Column="1"></ComboBox>
@@ -87,8 +87,90 @@
                 <StackPanel Orientation="Horizontal" Grid.Column="6">
                     <Button Name="btnNewQuestion">Nuova</Button>
                     <Button Name="btnSaveQuestion">Salva</Button>
-                    <Button>Salva e scegli</Button>
+                    <Button Name="btnSaveAndChoose">Salva e scegli</Button>
                 </StackPanel>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="700"></ColumnDefinition>
+                <ColumnDefinition Width="125"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <StackPanel.Resources>
+                    <Style TargetType="TextBox">
+                        <Setter Property="Margin" Value="5,0,0,0"></Setter>
+                        <Setter Property="FontSize" Value="15"></Setter>
+                    </Style>
+                </StackPanel.Resources>
+                <StackPanel Orientation="Horizontal">
+                    <Label>Percorso immagini</Label>
+                    <TextBox Name="txtImagesPath" Width="500"></TextBox>
+                    <Button Name="btnPathImportImage">..</Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label>Nome file immagine</Label>
+                    <TextBox Name="txtQuestionImage" Width="500"></TextBox>
+                    <Button Name="btnChooseFileImage">..</Button>
+                </StackPanel>
+            </StackPanel>
+            <Button Grid.Column="1" Margin="10">Imm. lezione</Button>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <GroupBox Header="Tags">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Button Name="btnAddTag">+</Button>
+                        <Button Name="btnRemoveTag" Grid.Column="1">-</Button>
+                    </Grid>
+                    <ListBox Name="lstTags" Grid.Row="1" Grid.ColumnSpan="2"></ListBox>
+                </Grid>
+            </GroupBox>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <GroupBox Header="Argomento">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Name="txtTopic"></TextBox>
+                        <Button Name="btnChooseTopic" Grid.Column="1">..</Button>
+                        <Button Name="btnChooseByPeriod" Grid.Column="2">Per.</Button>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="Risposte" Grid.Row="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="35"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Button Name="btnAddAnswer" HorizontalAlignment="Left" Width="40">+</Button>
+                        <Button Name="btnImportQuestions" HorizontalAlignment="Right">Importa domande da file</Button>
+                        <DataGrid Grid.Row="1" Background="Gray" Margin="5"></DataGrid>
+                    </Grid>
+                </GroupBox>
             </Grid>
         </Grid>
     </Grid>
