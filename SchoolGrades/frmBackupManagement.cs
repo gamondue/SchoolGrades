@@ -10,7 +10,7 @@ namespace SchoolGrades
 {
     public partial class frmBackupManagement : Form
     {
-        TreeMptt topicTreeMptt; 
+        TreeMptt topicTreeMptt;
 
         private string schoolYear;
         Class currentClass;
@@ -21,7 +21,7 @@ namespace SchoolGrades
 
             TreeMpttDb dbMptt = new TreeMpttDb(Commons.dl);
 
-            topicTreeMptt = new TreeMptt(Commons.dl, null, null, null, null, null, 
+            topicTreeMptt = new TreeMptt(Commons.dl, null, null, null, null, null,
                 null, null, null, null, null, null, DragDropEffects.None);
         }
         private void frmBackupManagement_Load(object sender, EventArgs e)
@@ -63,13 +63,13 @@ namespace SchoolGrades
             if (currentClass == null)
             {
                 MessageBox.Show("Scegliere la classe da tenere nel database");
-                return; 
+                return;
             }
             string imagesFolder = Commons.bl.CreateOneClassOnlyDatabase(currentClass);
             if (imagesFolder != "")
                 Commons.ProcessStartLink(imagesFolder);
             else
-                MessageBox.Show("Cartella del database della classe non trovata"); 
+                MessageBox.Show("Cartella del database della classe non trovata");
             //MessageBox.Show("Fatto"); 
         }
         private void cmbSchoolYear_SelectedIndexChanged(object sender, EventArgs e)
@@ -130,24 +130,24 @@ namespace SchoolGrades
         {
             // !!!! TODO fix using Regex.Split(string, ...) !!!!
             MessageBox.Show("To fix!");
-            return; 
+            return;
 
-            List<Topic> ListTopics = new List<Topic>(); 
+            List<Topic> ListTopics = new List<Topic>();
             string[] topics = TextFile.FileToArray(Commons.PathDatabase + "\\Argomenti_DA IMPORTARE.tsv");
-            if(topics == null)
+            if (topics == null)
             {
-                MessageBox.Show("Non è stato possibile aprire il file Argomenti_DA IMPORTARE.tsv"); 
-                return; 
+                MessageBox.Show("Non è stato possibile aprire il file Argomenti_DA IMPORTARE.tsv");
+                return;
             }
-            foreach(string line in topics)
+            foreach (string line in topics)
             {
                 Topic t = new Topic();
-                string[] fields = line.Split('\t'); 
+                string[] fields = line.Split('\t');
                 // count tabs in the beginning of the line
-                int nTabs = 0; 
-                while (fields[nTabs] == "" && nTabs < fields.Length-1)
+                int nTabs = 0;
+                while (fields[nTabs] == "" && nTabs < fields.Length - 1)
                 {
-                    nTabs++; 
+                    nTabs++;
                 }
                 if (fields[nTabs] != "")
                 {
@@ -155,15 +155,15 @@ namespace SchoolGrades
                     // (not used for other in this phase)
                     t.ParentNodeNew = nTabs;  // it is the level count 
                     t.Name = fields[nTabs++];
-                    if(nTabs < fields.Length && fields[nTabs] != "")
+                    if (nTabs < fields.Length && fields[nTabs] != "")
                         t.Desc = fields[nTabs];
                     ListTopics.Add(t);
                 }
             }
-            MessageBox.Show("Salvare per rendere definitiva l'importazione."); 
-            frmTopics ft = new frmTopics(frmTopics.TopicsFormType.ImportWithErase, 
+            MessageBox.Show("Salvare per rendere definitiva l'importazione.");
+            frmTopics ft = new frmTopics(frmTopics.TopicsFormType.ImportWithErase,
                 null, null, null, ListTopics);
-            ft.ShowDialog(); 
+            ft.ShowDialog();
             ft.Dispose();
         }
         private void btnRestoreTopics_Click(object sender, EventArgs e)
@@ -175,8 +175,8 @@ namespace SchoolGrades
         private void btnSaveDatabaseFile_Click(object sender, EventArgs e)
         {
             File.Copy(Commons.PathAndFileDatabase,
-                Commons.PathDatabase + "\\" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + 
-                "_" + Commons.DatabaseFileName_Current); 
+                Commons.PathDatabase + "\\" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") +
+                "_" + Commons.DatabaseFileName_Current);
         }
         private void btnRestoreTags_Click(object sender, EventArgs e)
         {
@@ -226,17 +226,17 @@ namespace SchoolGrades
             if (MessageBox.Show("Verranno generate due classi demo nell'anno corrente, più due classi demmo nell'anno successivo" +
                 "con i dati manipolati della classe selezionata e di quella PRIMA nella lista, e le foto " +
                 "prese da " + Commons.PathImages + "\\DemoPictures.\n\nDevo procedere con la generazione (Sì)" +
-                " od interrompere (No)?","Continua?", MessageBoxButtons.YesNo, 
+                " od interrompere (No)?", "Continua?", MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question,
                 MessageBoxDefaultButton.Button2) != DialogResult.Yes)
-                return; 
+                return;
             Class otherClass = (Class)lstClasses.Items[lstClasses.SelectedIndex - 1];
 
             string newDatabasePathName = Commons.PathDatabase;
             if (!Directory.Exists(newDatabasePathName))
                 Directory.CreateDirectory(newDatabasePathName);
 
-            string NewDatabasePathAndFile = Path.Combine(newDatabasePathName, 
+            string NewDatabasePathAndFile = Path.Combine(newDatabasePathName,
                 "Demo_SchoolGrades_" + currentClass.SchoolYear + "_" + DateTime.Now.Date.ToString("yy-MM-dd") + ".sqlite");
 
             if (File.Exists(NewDatabasePathAndFile))
@@ -254,7 +254,7 @@ namespace SchoolGrades
             Commons.bl.CreateDemoDatabase(NewDatabasePathAndFile, otherClass, currentClass);
             MessageBox.Show("Creato il file " + NewDatabasePathAndFile + ", " +
                 "che contiene le due classi 1DEMO e 2DEMO, con tutte le foto, " +
-                "le valutazioni e le immagini."); ; 
+                "le valutazioni e le immagini."); ;
         }
         private void BtnNewDatabase_Click(object sender, EventArgs e)
         {
@@ -279,7 +279,12 @@ namespace SchoolGrades
                     return;
             }
             Commons.bl.CreateNewDatabase(NewDatabasePathName);
-            MessageBox.Show("Creato nuovo database SchoolGradesNew.sqlite"); 
+            MessageBox.Show("Creato nuovo database SchoolGradesNew.sqlite");
+        }
+
+        private void grpOnlyOneClass_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

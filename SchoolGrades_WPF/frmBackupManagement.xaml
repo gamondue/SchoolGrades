@@ -1,0 +1,35 @@
+﻿<Window x:Class="SchoolGrades_WPF.frmBackupManagement"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SchoolGrades_WPF"
+        mc:Ignorable="d"
+        Title="Gestione Backup" Height="450" Width="520"
+        Background="PowderBlue">
+
+    <Grid>
+        <Button Content="Backup tabelle" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="50" Width="120" x:Name="btnBackupTables"/>
+        <Button Content="Backup agromenti" HorizontalAlignment="Left" Margin="137,10,0,0" VerticalAlignment="Top" Height="50" Width="120" x:Name="btnBackupTopics" />
+        <Button Content="Backup tag" HorizontalAlignment="Left" Margin="263,10,0,0" VerticalAlignment="Top" Height="50" Width="120" x:Name="btnBackupTags"/>
+        <Button Content="Backup allievi" HorizontalAlignment="Left" Margin="390,10,0,0" VerticalAlignment="Top" Height="50" Width="120" x:Name="btnBackupStudents" />
+        <Button Content="Restore tabelle" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" Height="50" Width="120" x:Name="btnRestoreTables" />
+        <Button Content="Restore argomenti" HorizontalAlignment="Left" Margin="137,65,0,0" VerticalAlignment="Top" Height="50" Width="120" x:Name="btnRestoreTopics" />
+        <Button Content="Restore tag" HorizontalAlignment="Left" Margin="263,65,0,0" VerticalAlignment="Top" Height="50" Width="120" x:Name="btnRestoreTags" />
+        <Button Content="Restore allievi" HorizontalAlignment="Left" Margin="390,65,0,0" VerticalAlignment="Top" Height="50" Width="120" x:Name="btnRestoreStudents" />
+        <Button Content="Export agromenti" HorizontalAlignment="Left" Margin="132,194,0,0" VerticalAlignment="Top" Height="33" Width="124" x:Name="btnExportTopics" />
+        <Button Content="Export tag" HorizontalAlignment="Left" Margin="264,194,0,0" VerticalAlignment="Top" Height="33" Width="119" x:Name="btnExportTags"  />
+        <ListBox HorizontalAlignment="Left" Height="105" Margin="112,305,0,0" VerticalAlignment="Top" Width="187" x:Name="lstClasses" />
+        <ComboBox HorizontalAlignment="Left" Height="24" Margin="10,305,0,0" VerticalAlignment="Top" Width="96" RenderTransformOrigin="0.494,-0.442" x:Name="CmbSchoolYear" />
+        <Button Content="Import argomenti" HorizontalAlignment="Left" Margin="132,230,0,0" VerticalAlignment="Top" Height="32" Width="124" x:Name="btnImportTopics"  />
+        <Button Content="Import tag" HorizontalAlignment="Left" Margin="264,230,0,0" VerticalAlignment="Top" Height="32" Width="119" x:Name="btnImportTags" />
+        <Button Content="Genera Database classe" HorizontalAlignment="Left" Margin="10,360,0,0" VerticalAlignment="Top" Height="50" Width="91" x:Name="btnClassBackup"/>
+        <Button Content="Nuovo Database (da Zero)" HorizontalAlignment="Left" Margin="314,330,0,0" VerticalAlignment="Top" Height="38" Width="97" x:Name="BtnNewDatabase"/>
+        <Button Content="Compatta Database" HorizontalAlignment="Left" Margin="414,330,0,0" VerticalAlignment="Top" Height="38" Width="96" x:Name="btnCompactDatabase"/>
+        <Button Content="Genera Dati Demo" HorizontalAlignment="Left" Margin="314,372,0,0" VerticalAlignment="Top" Height="38" Width="97" x:Name="btnMakeDemo"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="414,372,0,0" VerticalAlignment="Top" Height="38" Width="96" x:Name="btnSaveDatabaseFile"/>
+        <Label Content="Database con solo una classe" HorizontalAlignment="Left" Height="27" Margin="10,273,0,0" VerticalAlignment="Top" Width="171"/>
+        <RadioButton Content="Restore con cancellazione" GroupName="myGroup" HorizontalAlignment="Left" Height="54" Margin="148,120,0,0" VerticalAlignment="Top" Width="175" x:Name="rdbRestoreErasing"/>
+        <RadioButton Content="Restore con aggiunta" GroupName="myGroup" HorizontalAlignment="Left" Height="54" Margin="148,147,0,0" VerticalAlignment="Top" Width="176" x:Name="rdbRestoreWithAdd"/>
+    </Grid>
+</Window>
