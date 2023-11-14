@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SchoolGrades_WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid Background="LightBlue">
+        Title="Annotazioni sullo studente" Height="450" Width="800">
+    <Grid Background="PowderBlue">
         <Grid.RowDefinitions>
             <RowDefinition Height="70"></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -37,34 +37,58 @@
         </Grid>
         <Grid Grid.Row="2" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="35"></RowDefinition>
                 <RowDefinition Height="25"></RowDefinition>
+                <RowDefinition Height="20"></RowDefinition>
                 <RowDefinition Height="25"></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="57"></ColumnDefinition>
-                <ColumnDefinition Width="55"></ColumnDefinition>
-                <ColumnDefinition Width="155"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="65"></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition Width="70"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <TextBlock  Grid.ColumnSpan="2" FontSize="14" FontWeight="Bold" Foreground="DarkBlue" Margin="5,5">Annotazione</TextBlock>
-            <CheckBox Grid.Row="0" Grid.Column="2"  Margin="0,10"></CheckBox>
-            <TextBlock Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Foreground="DarkBlue" Margin="20,10">visualizza solo le annotazioni attive</TextBlock>
+            <CheckBox Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="0,10" Content="visualizza solo le annotazioni attive" Foreground="DarkBlue"></CheckBox>
             <TextBlock Grid.Row="1" Foreground="DarkBlue" Margin="5,0">Id annot.</TextBlock>
-            <Button VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="3" Grid.Row="1" Grid.RowSpan="2" Width="55" Height="35" Content="Prepara nuova" Background="White" Foreground="DarkBlue"></Button>
-            <GroupBox Grid.Row="1" Grid.RowSpan="2" Grid.Column="4">
-                <Button Width="50" Height="30" Background="White">+ allievo</Button>
-                <!--<Button Width="50" Height="30" Background="White">salva</Button>-->
+            <Button VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="3" Grid.Row="1" Grid.RowSpan="2" Width="55" Height="35" Content="Nuova" Background="White" Foreground="DarkBlue" Margin="5"></Button>
+            <GroupBox Grid.Row="0" Grid.RowSpan="3" Grid.Column="4" Header="Annotazioni su singolo" Margin="5,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Width="50" Height="30" Background="White" Foreground="DarkBlue">+ allievo</Button>
+                    <Button Grid.Column="1" Width="50" Height="30" Background="White" Foreground="DarkBlue">salva</Button>
+                    <Button Grid.Column="2" Width="50" Height="30" Background="White" Foreground="DarkBlue">- allievo</Button>
+                </Grid>
             </GroupBox>
-            <GroupBox Grid.Row="1" Grid.RowSpan="2" Grid.Column="5">
-
+            <GroupBox Grid.Row="0" Grid.RowSpan="3" Grid.Column="5" Header="Annotazioni sul gruppo" Margin="5,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Width="55" Height="30" Background="White" Foreground="DarkBlue" Margin="5">+ gruppo</Button>
+                    <Button Grid.Column="1" Width="55" Height="30" Background="White" Foreground="DarkBlue" Margin="5">salva</Button>
+                    <Button Grid.Column="2" Width="55" Height="30" Background="White" Foreground="DarkBlue" Margin="5">- gruppo</Button>
+                </Grid>
             </GroupBox>
-            <TextBox Grid.Row="2" Margin="1"></TextBox>
-            <CheckBox ></CheckBox>
+            <TextBox Grid.Row="2" Margin="5,0,0,0"></TextBox>
+            <CheckBox Grid.Row="2" Grid.Column="1" Content="Attiva" Foreground="DarkBlue" Margin="5,5"></CheckBox>
+            <CheckBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Content="Promemoria" Foreground="DarkBlue" Margin="0,5"></CheckBox>
+            <DataGrid HorizontalAlignment="left" Grid.Row="3" Grid.RowSpan="6" Grid.ColumnSpan="6" Width="790" Margin="5,5" Background="DarkGray" BorderThickness="1" BorderBrush="Black"></DataGrid>
         </Grid>
     </Grid>
 </Window>
