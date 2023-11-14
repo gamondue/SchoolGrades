@@ -1,0 +1,151 @@
+﻿<Window x:Class="SchoolGrades_WPF.frmClassesManagement"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SchoolGrades_WPF"
+        mc:Ignorable="d"
+        Title="Gestione Classi" Height="450" Width="800" Background="PowderBlue">
+    <StackPanel Orientation="Vertical">
+
+        <StackPanel Orientation="Horizontal">
+
+            <StackPanel Orientation="Vertical">
+                <Label Margin="5,0" Name="label4">Codice scuola</Label>
+                <TextBox Margin="5,0" IsReadOnly="True">FOIS01100L</TextBox>
+            </StackPanel>
+
+            <StackPanel>
+                <Label>Anno scolastico</Label>
+                <ComboBox Margin="5,0"></ComboBox>
+            </StackPanel>
+
+            <StackPanel>
+                <Label>Sigla classe</Label>
+                <ComboBox Margin=" 5,0"></ComboBox>
+            </StackPanel>
+
+            <StackPanel>
+                <Label>Descrizione classe</Label>
+                <TextBox IsReadOnly="True" Width="500"></TextBox>
+            </StackPanel>
+            
+        </StackPanel>
+
+        <GroupBox Header="Importazione classi da file">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                        <Label>File dati da cui importare</Label>
+                        <TextBox Width="300"></TextBox>
+                        <Button Background="White" Width="30" Margin="5,0">..</Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label>Cartella origine immagini</Label>
+                        <TextBox Width="300"></TextBox>
+                        <Button Background="White" Width="30" Margin="5,0">..</Button>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical">
+                    <RadioButton Margin="0,5">Foto presenti</RadioButton>
+                    <RadioButton>Richiesta foto</RadioButton>
+                    <RadioButton Margin="0,5">Nessuna foto</RadioButton>
+                </StackPanel>
+
+                <Button Margin="10" Background="White">Importa classe</Button>
+            </StackPanel>
+        </GroupBox>
+
+        <StackPanel Orientation="Horizontal">
+            <Button Width="60" Background="White" Margin="5">
+                <Button.Content>
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Center" Background="Transparent">Nuovo allievo</TextBlock>
+                </Button.Content>
+            </Button>
+            
+            <Button Width="60" Background="White" Margin="5">
+                <Button.Content>
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Center" Background="Transparent">Elimina allievo</TextBlock>
+                </Button.Content>
+            </Button>
+
+            <Image Width="60"></Image>
+            
+            <Button Width="60" Background="White" Margin="5">
+                <Button.Content>
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Center" Background="Transparent">Cambia foto allievo</TextBlock>
+                </Button.Content>
+            </Button>
+            
+            <Button Width="60" Background="White" Margin="5">
+                <Button.Content>
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Center" Background="Transparent">Elimina foto allievo</TextBlock>
+                </Button.Content>
+            </Button>
+            <Button Width="60" Background="White" Margin="5">
+                <Button.Content>
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Center" Background="Transparent">Cambia abilitaz. allievo</TextBlock>
+                </Button.Content>
+            </Button>
+            <Button Width="60" Background="White" Margin="5">
+                <Button.Content>
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Center" Background="Transparent">Modifica allievo</TextBlock>
+                </Button.Content>
+            </Button>
+            <Button Width="60" Background="White" Margin="5">
+                <Button.Content>
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Center" Background="Transparent">Numeri registro</TextBlock>
+                </Button.Content>
+            </Button>
+            <Button Width="60" Background="White" Margin="5">
+                <Button.Content>
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Center" Background="Transparent">Elimina classe</TextBlock>
+                </Button.Content>
+            </Button>
+            <Button Width="60" Background="White" Margin="5">
+                <Button.Content>
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Center" Background="Transparent">Fine periodo</TextBlock>
+                </Button.Content>
+            </Button>
+            <Button Width="60" Background="White" Margin="5">
+                <Button.Content>
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Center" Background="Transparent">Nuovo anno</TextBlock>
+                </Button.Content>
+            </Button>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <Label>Cartella start links</Label>
+            <TextBox Width="300"/>
+            <Button Width="60" Background="White" Margin="5">
+                <Button.Content>
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Center" Background="Transparent">..</TextBlock>
+                </Button.Content>
+            </Button>
+            <Button Width="60" Background="White" Margin="5">
+                <Button.Content>
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Center" Background="Transparent">Elenco</TextBlock>
+                </Button.Content>
+            </Button>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <Label VerticalContentAlignment="Bottom" Margin="0,0,15,0">Dati classe (F2 per modificare)</Label>
+
+            <StackPanel>
+                <Label>Pattern per generazione email</Label>
+                <TextBox></TextBox>
+            </StackPanel>
+
+            <Button Margin="7" Background="White">Indir. Email</Button>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <DataGrid Height="50" Width="600" Margin="7"></DataGrid>
+            <Button Margin="7" Background="White">Salva classe e studenti</Button>
+        </StackPanel>
+
+        <DataGrid Margin="7" Height="90"></DataGrid>
+    </StackPanel>
+</Window>
