@@ -147,5 +147,25 @@ namespace SchoolGrades
             Image.IdImage = 0; // to force creation of a new record
             Commons.bl.LinkOneImageToLesson(Image, Lesson);
         }
+        internal string GetNewestAmongFilesWithDateInName(string DatabasePath)
+        {
+            if (!Directory.Exists(DatabasePath))
+            {
+                return null;
+            }
+            string[] files = Directory.GetFiles(DatabasePath);
+            DateTime newestFileDate = DateTime.MinValue;
+            string newestFileNameAndPath = "";
+            foreach (string file in files)
+            {
+                DateTime thisFileDate = Commons.GetValidDateFromString(Path.GetFileName(file).Substring(0, 10));
+                if (thisFileDate > newestFileDate)
+                {
+                    newestFileDate = thisFileDate;
+                    newestFileNameAndPath = file;
+                }
+            }
+            return newestFileNameAndPath;
+        }
     }
 }
