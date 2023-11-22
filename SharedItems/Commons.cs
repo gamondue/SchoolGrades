@@ -121,7 +121,7 @@ namespace SchoolGrades
                 target += 7;
             return from.AddDays(target - start);
         }
-        internal static DateTime GetValidDate(string input)
+        internal static DateTime GetValidDateFromString(string input)
         {
             if (DateTime.TryParse(input, out DateTime date))
             {
@@ -412,6 +412,24 @@ namespace SchoolGrades
             // if the background is disabled, processing proceed only if enabled 
             return BackgroundSavingEnabled;
 
+        }
+        internal static void CreatePaths()
+        {
+            if (!Directory.Exists(Commons.PathConfig))
+                Directory.CreateDirectory(Commons.PathConfig);
+            if (!Directory.Exists(Commons.PathLogs))
+                Directory.CreateDirectory(Commons.PathLogs);
+            if (!Directory.Exists(Commons.PathImages))
+                Directory.CreateDirectory(Commons.PathImages);
+            if (!Directory.Exists(Commons.PathDatabase))
+                Directory.CreateDirectory(Commons.PathDatabase);
+            if (!Directory.Exists(Commons.PathDocuments))
+            {
+                if (Commons.PathDocuments != "")
+                    Directory.CreateDirectory(Commons.PathDocuments);
+                else
+                    Commons.PathDocuments = ".";
+            }
         }
     }
 }
