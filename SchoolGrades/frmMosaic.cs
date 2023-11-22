@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace SchoolGrades
@@ -78,8 +79,8 @@ namespace SchoolGrades
         {
             try
             {
-                PictureContainer.Image = System.Drawing.Image.FromFile(Commons.PathImages + "\\" +
-                    Commons.bl.GetFilePhoto(ShowingStudent.IdStudent, SchoolYear));
+                PictureContainer.Image = System.Drawing.Image.FromFile(Path.Combine(Commons.PathImages, 
+                    Commons.bl.GetFilePhoto(ShowingStudent.IdStudent, SchoolYear)));
             }
             catch
             {
