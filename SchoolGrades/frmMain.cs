@@ -100,8 +100,11 @@ namespace SchoolGrades
                     if (!File.Exists(configuredPathAndFile))
                     {
                         // the file in config file doesn't exist in the filesystem 
-                        messagePrompt = "Il file configurato:\n" + Commons.PathAndFileDatabase + "\nnon esiste!\n";
-                        MessageBox.Show(messagePrompt);
+                        messagePrompt = "Il file di database configurato:\n" + Commons.PathAndFileDatabase + "\nnon esiste!\n" +
+                            "Sceglierne uno nella prossima finestra.";
+                        MessageBox.Show(messagePrompt); 
+                        FrmSetup f = new FrmSetup();
+                        f.Show(); 
                         return;
                     }
                     else
@@ -184,7 +187,6 @@ namespace SchoolGrades
             Commons.BackgroundSaveThread = new Thread(CommonsWinForms.SaveTreeMptt.SaveTreeMpttBackground);
             Commons.BackgroundSaveThread.Start();
 
-
             //            // if file exists, create the database access objects
             //            else if (!CreateBusinessAndDataLayer())
             //            {
@@ -211,7 +213,6 @@ namespace SchoolGrades
             //                "\nnon contiene il nome del file del database.\n";
             //        }
             //    }
-
 
             if (!File.Exists(Commons.PathAndFileDatabase))
                 return;
@@ -302,14 +303,18 @@ namespace SchoolGrades
                 return proposedDemoDatabaseFile;
             }
             // look for the newest "ISO date at left" filename in folder
-            newDatabaseFileName = GetNewestFileNameWithDate(proposedDatabasePath);
+            newDatabaseFileName = GetNewestAmongFilesWithDateInName(proposedDatabasePath);
             if (newDatabaseFileName != "")
                 return newDatabaseFileName;
             else
                 return "";
         }
-        private string GetNewestFileNameWithDate(string DatabasePath)
+        private string GetNewestAmongFilesWithDateInName(string DatabasePath)
         {
+            if (!Directory.Exists(DatabasePath))
+            {
+                return null; 
+            }
             string[] files = Directory.GetFiles(DatabasePath);
             DateTime newestFileDate = DateTime.MinValue;
             string newestFileNameAndPath = "";
