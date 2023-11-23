@@ -19,10 +19,6 @@ namespace SchoolGrades
             currentClass = Class;
             currentStudents = Commons.bl.GetStudentsOfClassList(Commons.IdSchool,
                 currentClass.SchoolYear, currentClass.Abbreviation, false);
-        }
-
-        private void frmMosaic_Load(object sender, EventArgs e)
-        {
             // creation of pictures 
             foreach (Student s in currentStudents)
             {
@@ -37,7 +33,6 @@ namespace SchoolGrades
             }
             ResizePictures(); 
         }
-
         private void ResizePictures()
         {
             int xNumPictures = 7;

@@ -6,7 +6,17 @@
         xmlns:local="clr-namespace:SchoolGrades_WPF"
         mc:Ignorable="d"
         Title="Mosaico delle foto" Height="545" Width="916">
-    <Grid Background="PowderBlue">
-        <TextBox Width="311" Height="29" Name="txtStudentsName"></TextBox>
+    <Grid x:Name="PictureGrid" Background="PowderBlue">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBox Width="311" Height="29" x:Name="txtStudentsName" 
+                 Text="Nome e cognome" Margin="302,250,302,250"/>
     </Grid>
 </Window>

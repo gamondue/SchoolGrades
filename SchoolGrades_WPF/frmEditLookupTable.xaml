@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SchoolGrades_WPF"
         mc:Ignorable="d"
-        Title="Gestione tabelle" Height="450" Width="1000" Background="PowderBlue">
+        Title="Gestione tabelle" Height="450" Width="1000" Background="PowderBlue" Loaded="frmEditLookupTable_Load" Closing="frmEditLookupTable_Closing">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="FontSize" Value="14"></Setter>
@@ -25,6 +25,6 @@
             <RowDefinition Height="8*"></RowDefinition>
         </Grid.RowDefinitions>
         <Button Name="btnSave" HorizontalAlignment="Right" Margin="5">Salva</Button>
-        <DataGrid Name="dgTable" Grid.Row="1" Background="Gray"></DataGrid>
+        <DataGrid Name="dgwTable" Grid.Row="1" Background="Gray"></DataGrid>
     </Grid>
 </Window>

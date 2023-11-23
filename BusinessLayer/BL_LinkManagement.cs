@@ -85,7 +85,7 @@ namespace SchoolGrades
             //LessonImagesPath = Class.SchoolYear +
             //        Class.Abbreviation + "\\Lessons" +
             //        "\\" + Lesson.IdSchoolSubject; ;
-            //if (rdbAutoRename.Checked)
+            //if (rdbAutoRename.IsChecked)
             //if (AutoRename)
             //    //LessonImagesPath = txtSubFolderStorage.Text + "\\"; // + currentLesson.IdSchoolSubject;
             //    LessonImagesPath = LessonImagesPath + "\\"; // + currentLesson.IdSchoolSubject;
