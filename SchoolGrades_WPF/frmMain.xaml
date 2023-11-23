@@ -1,0 +1,65 @@
+﻿<Window x:Class="SchoolGrades_WPF.frmMain"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SchoolGrades_WPF"
+        mc:Ignorable="d"
+        Title="SchoolGrades" Height="450" Width="800">
+    <Grid Background="PowderBlue" Margin="-9,0,9,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="83*"/>
+            <ColumnDefinition Width="207*"/>
+            <ColumnDefinition Width="130*"/>
+            <ColumnDefinition Width="380*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock HorizontalAlignment="Center" Margin="0,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Caladea" FontWeight="Bold" Foreground="DarkBlue" FontSize="14"><Run Language="it-it" Text="Cod.Anno"/></TextBlock>
+        <TextBlock HorizontalAlignment="Center" Margin="0,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Foreground="DarkBlue"><Run Language="it-it" Text="Id classe"/></TextBlock>
+        <TextBlock HorizontalAlignment="Center" Margin="0,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Foreground="DarkBlue" FontSize="9"><Run Language="it-it" Text="salv .db"/></TextBlock>
+        <TextBox HorizontalAlignment="Center" Margin="0,65,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="30" FontFamily="Caladea" FontWeight="Bold" TextAlignment="Center" Foreground="DarkBlue" BorderBrush="#FFF5F0F0"/>
+        <Button Content="" HorizontalAlignment="Center" Margin="0,96,0,0" VerticalAlignment="Top" Width="18" Background="DarkGray" BorderBrush="#FF131212" BorderThickness="0.5,0.5,0.5,0.5" Height="9"/>
+        <ListBox x:Name="lstClasses" HorizontalAlignment="Left" Height="100" Background="PowderBlue" 
+                 Margin="1,5,0,0" VerticalAlignment="Top" Width="78" BorderBrush="#FF404040" 
+                 MouseDoubleClick="lstClasses_DoubleClick" Grid.Column="1" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+        <TextBox x:Name="txtTimeInterval" HorizontalAlignment="Left" Margin="84,5,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="30" FontFamily="Microsoft Sans Serif" FontWeight="Bold" TextAlignment="Center" Foreground="DarkBlue" BorderBrush="#FF404040" Grid.Column="1"/>
+        <TextBox HorizontalAlignment="Left" Margin="87,21,0,0" TextWrapping="Wrap" Text="05&#xA;10&#xA;15&#xA;30&#xA;45&#xA;60" VerticalAlignment="Top" Width="24" FontFamily="Microsoft Sans Serif" TextAlignment="Center" Foreground="DarkBlue" BorderBrush="#FF404040" FontWeight="Bold" Grid.Column="1"/>
+        <TextBlock x:Name="lblDatabaseFile" HorizontalAlignment="Left" Margin="119,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Foreground="Red" FontSize="8" RenderTransformOrigin="0.503,-0.031" Grid.Column="1"><Run Language="it-it" Text="IblDatabaseFile"/></TextBlock>
+        <TextBlock x:Name="lblLastDatabaseModification" HorizontalAlignment="Left" Margin="119,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Foreground="Red" FontSize="8" Grid.ColumnSpan="2" Grid.Column="1"><Run Text="Ibl"/><Run Language="it-it" Text="Last"/><Run Text="Databas"/><Run Language="it-it" Text="eModification"/></TextBlock>
+        <TextBox x:Name="NON_TEXT_" HorizontalAlignment="Left" Margin="119,29,0,0" TextWrapping="Wrap" Text="T.colori" VerticalAlignment="Top" Width="50" FontFamily="Microsoft Sans Serif" FontWeight="Bold" TextAlignment="Center" Foreground="DarkBlue" BorderBrush="#FFF5F0F0" Grid.Column="1"/>
+        <TextBox HorizontalAlignment="Left" Margin="178,29,0,0" TextWrapping="Wrap" Text="T.barra" VerticalAlignment="Top" Width="47" FontFamily="Microsoft Sans Serif" FontWeight="Bold" TextAlignment="Center" Foreground="DarkBlue" BorderBrush="#FFF5F0F0" Grid.ColumnSpan="2" Grid.Column="1"/>
+        <CheckBox x:Name="chkSoundsInColorTimer" Content="Suoni" HorizontalAlignment="Left" Height="16" Margin="115,48,0,0" VerticalAlignment="Top" Width="54" Foreground="DarkBlue" Background="#FF005FB8" BorderBrush="#FFECECEC" IsChecked="True" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Grid.Column="1"/>
+        <CheckBox Content="Foto visibile" HorizontalAlignment="Left" Height="16" Margin="178,65,0,0" VerticalAlignment="Top" Width="93" Foreground="DarkBlue" FontWeight="Bold" Background="#FF005FB8" BorderBrush="#FFECECEC" IsChecked="True" FontFamily="Microsoft Sans Serif" Grid.ColumnSpan="2" Grid.Column="1"/>
+        <CheckBox Content="Lista visibile" HorizontalAlignment="Left" Height="16" Margin="178,82,0,0" VerticalAlignment="Top" Width="93" Foreground="DarkBlue" FontWeight="Bold" Background="#FF005FB8" BorderBrush="#FFECECEC" IsChecked="True" FontFamily="Microsoft Sans Serif" Grid.ColumnSpan="2" Grid.Column="1"/>
+        <CheckBox Content="Nome visibile" HorizontalAlignment="Left" Height="16" Margin="178,47,0,0" VerticalAlignment="Top" Width="101" Foreground="DarkBlue" FontWeight="Bold" Background="#FF005FB8" BorderBrush="#FFECECEC" IsChecked="True" FontFamily="Microsoft Sans Serif" Grid.ColumnSpan="2" Grid.Column="1"/>
+        <CheckBox Content="cartella" HorizontalAlignment="Left" Height="16" Margin="105,79,0,0" VerticalAlignment="Top" Width="62" Foreground="DarkBlue" FontWeight="Bold" Background="White" FontSize="11" BorderBrush="#FFECECEC" IsChecked="False" Panel.ZIndex="2" Grid.Column="3"/>
+        <CheckBox Content="Lista visibile" HorizontalAlignment="Left" Height="16" Margin="132,350,0,0" VerticalAlignment="Top" Width="87" Foreground="DarkBlue" FontWeight="Bold" Background="#FF00AABF" FontSize="11" BorderBrush="#FFECECEC" IsChecked="True" Grid.Column="3"/>
+        <CheckBox Content="Lista visibile" HorizontalAlignment="Left" Height="16" Margin="41,404,0,0" VerticalAlignment="Top" Width="87" Foreground="DarkBlue" FontWeight="Bold" Background="#FF00AABF" FontSize="11" BorderBrush="#FFECECEC" IsChecked="True" Grid.Column="3"/>
+        <TextBox HorizontalAlignment="Left" Height="17" Margin="10,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="419" BorderBrush="#FFDEDBDB" Grid.ColumnSpan="4"/>
+        <ProgressBar HorizontalAlignment="Left" Height="17" Margin="10,126,0,0" VerticalAlignment="Top" Width="454" Grid.ColumnSpan="4"/>
+        <TextBox HorizontalAlignment="Left" Height="17" Margin="10,143,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="454" BorderBrush="#FFDEDBDB" Grid.ColumnSpan="4"/>
+        <Button Content="Gruppi" HorizontalAlignment="Left" Height="44" Margin="83,46,0,0" VerticalAlignment="Top" Width="85" Background="White" BorderBrush="#FFDEDBDB" Foreground="DarkBlue" FontWeight="Bold" FontFamily="Microsoft Sans Serif" Grid.Column="2" Grid.ColumnSpan="2"/>
+        <Button Content=".." HorizontalAlignment="Left" Height="17" Margin="16,109,0,0" VerticalAlignment="Top" Width="28" Background="White" BorderBrush="#FFDEDBDB" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Microsoft Sans Serif" Grid.Column="3"/>
+        <DataGrid x:Name="dgwStudents" HorizontalAlignment="Left" Height="261" Margin="10,163,0,0" 
+              VerticalAlignment="Top" Width="260" Background="#FFA0A0A0" Grid.ColumnSpan="2"
+              ItemsSource="{Binding Source=currentStudentsList}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Cognome" Binding="{Binding LastName}"/>
+                <DataGridTextColumn Header="Nome" Binding="{Binding FirstName}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Inizio lezione" HorizontalAlignment="Left" Height="44" Margin="36,163,0,0" VerticalAlignment="Top" Width="82" Background="White" BorderBrush="#FFDEDBDB" Foreground="DarkBlue" FontWeight="Bold" FontFamily="Microsoft Sans Serif" HorizontalContentAlignment="Center" Grid.Column="2"/>
+        <Button Content="Setup&#xA;" HorizontalAlignment="Left" Height="40" Margin="103,5,0,0" VerticalAlignment="Top" Width="80" Background="White" BorderBrush="#FFDEDBDB" Foreground="DarkBlue" FontWeight="Bold" FontFamily="Microsoft Sans Serif" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Grid.Column="3"/>
+        <GroupBox Header="Sorg.immag." Margin="99,46,193,329" Foreground="DarkBlue" FontWeight="Bold" FontSize="11" MinWidth="16" Background="PowderBlue" Panel.ZIndex="1" Grid.Column="3">
+            <CheckBox Content="lezioni" HorizontalAlignment="Left" Height="16" VerticalAlignment="Top" Width="63" Foreground="DarkBlue" FontWeight="Bold" Background="#FF00AABF" FontSize="11" BorderBrush="#FFECECEC" IsChecked="True"/>
+        </GroupBox>
+        <Button x:Name="btnRandomNumber" Content="Immagine &#xD;&#xA;  casuale" HorizontalAlignment="Left" Height="44" Margin="84,109,0,0" VerticalAlignment="Top" Width="92" Background="White" BorderBrush="#FFDEDBDB" Foreground="DarkBlue" FontWeight="Bold" FontFamily="Microsoft Sans Serif" HorizontalContentAlignment="Center" Click="btnRandomNumber_Click" Grid.Column="3"/>
+        <Button Content="Numero casuale" HorizontalAlignment="Left" Height="39" Margin="84,158,0,0" VerticalAlignment="Top" Width="96" Background="White" BorderBrush="#FFDEDBDB" Foreground="DarkBlue" FontWeight="Bold" FontFamily="Microsoft Sans Serif" HorizontalContentAlignment="Center" Grid.Column="3"/>
+        <Button x:Name="btnStartColorTimer" Content="T.colori" Foreground="DarkBlue" HorizontalAlignment="Left" Margin="119,67,0,0" VerticalAlignment="Top" Click="btnStartColorTimer_Click" Height="20" Width="50" Grid.Column="1"/>
+        <TextBlock x:Name="lblSchoolSubject" HorizontalAlignment="Left" Margin="0,257,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Foreground="DarkBlue" Grid.Column="3" Text="Materia"/>
+        <TextBlock x:Name="lblGradeType" HorizontalAlignment="Left" Margin="0,213,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Foreground="DarkBlue" Grid.Column="3" Text="Tipo valutazione"/>
+        <Button x:Name="btnTemporary" Content="Test" HorizontalAlignment="Center" Margin="0,120,0,0" VerticalAlignment="Top" Height="31" Width="59" Grid.Column="2" Background="Red" Foreground="Yellow" RenderTransformOrigin="6.44,13.102" Click="btnTemporary_Click"/>
+        <ComboBox x:Name="cmbSchoolSubject" Grid.Column="2" HorizontalAlignment="Left" Margin="129,271,0,0" VerticalAlignment="Top" Width="181" Grid.ColumnSpan="2"/>
+        <ComboBox x:Name="cmbGradeType" Grid.Column="3" HorizontalAlignment="Left" Margin="0,232,0,0" VerticalAlignment="Top" Width="180"/>
+        <ComboBox x:Name="cmbSchoolYear" HorizontalAlignment="Center" Margin="0,23,0,0" VerticalAlignment="Top" Width="62"/>
+    </Grid>
+</Window>

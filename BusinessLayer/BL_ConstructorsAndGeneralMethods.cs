@@ -1,9 +1,5 @@
-﻿using gamon;
-using SchoolGrades.BusinessObjects;
-using System;
-using System.Collections.Generic;
+﻿using SchoolGrades.BusinessObjects;
 using System.IO;
-using System.Text;
 
 namespace SchoolGrades
 {
@@ -18,33 +14,28 @@ namespace SchoolGrades
         // create the next after the program that is using this has read the configuration file 
         DataLayer dl; // must be instantiated after reading config file! 
 
-        internal string NameAndPathDatabase { get; }
+        // internal string NameAndPathDatabase { get; }
 
         /// <summary>
         /// Incapsulates the business rules for users' management
         /// part of the class that contains the constructors and the general methods
         /// </summary>
         ///  
-        /// // ???? maybe we should NOT pass this parameter, it is database dependant ????
-        internal BusinessLayer(string PathAndFile) 
+        internal BusinessLayer() 
         {
-            dl = Commons.dl;
-            if (dl.NameAndPathDatabase == null)
-            {
-                this.NameAndPathDatabase = null;
-                return; 
-            }
-            this.NameAndPathDatabase = PathAndFile;
+            this.dl = Commons.dl;
         }
-        internal void CreateNewDatabase(string NewDatabasePathName)
+        internal DataLayer CreateNewDatabase(string NewDatabasePathName)
         {
+            if (File.Exists(NewDatabasePathName))
+                File.Delete(NewDatabasePathName); 
             File.Copy(Commons.PathAndFileDatabase, NewDatabasePathName);
 
             // local instance of a DataLayer to operate on a second database 
             DataLayer newDatabaseDl = new DataLayer(NewDatabasePathName);
 
-            newDatabaseDl.CreateNewDatabase(); 
-            return;
+            newDatabaseDl.CreateNewDatabase();
+            return newDatabaseDl; 
         }
         internal School GetSchool(string OfficialSchoolAbbreviation)
         {

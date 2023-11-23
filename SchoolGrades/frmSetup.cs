@@ -1,6 +1,5 @@
 ﻿using gamon;
 using SchoolGrades.BusinessObjects;
-using SharedWinForms;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -25,7 +24,7 @@ namespace SchoolGrades
             //TxtPathStartLinks.Text = Commons.PathStartLinks; // not longer used
 
             TxtPathDocuments.Text = Commons.PathDocuments;
-            chkSaveBackup.Checked = CommonsWinForms.SaveBackupWhenExiting;
+            chkSaveBackup.Checked = Commons.SaveBackupWhenExiting;
         }
         private void BtnTabelle_Click(object sender, EventArgs e)
         {
@@ -101,8 +100,8 @@ namespace SchoolGrades
                         Commons.PathDocuments = ".";
                 }
 
-                CommonsWinForms.SaveBackupWhenExiting = chkSaveBackup.Checked;
-                dati[5] = CommonsWinForms.SaveBackupWhenExiting.ToString();
+                Commons.SaveBackupWhenExiting = chkSaveBackup.Checked;
+                dati[5] = Commons.SaveBackupWhenExiting.ToString();
 
                 //////////Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
                 // TODO !!! if the file doesn't exist copies the sample empty database. Eventually redo this code, it is ugly and not functional !!!!
