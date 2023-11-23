@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace SchoolGrades_WPF
 {
     /// <summary>
-    /// Logica di interazione per frmGrade.xaml
+    /// Logica di interazione per frmTestGrading.xaml
     /// </summary>
-    public partial class frmGrade : Window
+    public partial class frmTestGrading : Page
     {
-        public frmGrade()
+        public frmTestGrading()
         {
             InitializeComponent();
         }

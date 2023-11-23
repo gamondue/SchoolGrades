@@ -32,8 +32,8 @@
                 </StackPanel>
 
                 <StackPanel Grid.Column="1">
-                    <TextBox Name="txtIdSchoolPeriod" Margin="0,2,0,5" Height="25"></TextBox>
-                    <TextBox Name="txtIdSchoolYear" Margin="0,10,0,0" Height="25"></TextBox>
+                    <TextBox Name="txtIdSchoolPeriod" Margin="0,2,0,5" Height="25" TextChanged="txtIdSchoolPeriod_TextChanged"></TextBox>
+                    <TextBox Name="txtSchoolYear" Margin="0,10,0,0" Height="25" TextChanged="txtSchoolYear_TextChanged" ></TextBox>
                 </StackPanel>
 
                 <GroupBox x:Name="gprPeriodOfQuestionsTopics" Grid.Column="2" Header="Date del periodo scolastico" FontSize="13">
@@ -67,7 +67,7 @@
                     <ComboBox Name="cmbSchoolPeriodTypes" Margin="0,10,0,0" Height="25"></ComboBox>
                 </StackPanel>
 
-                <Button x:Name="btnSaveSchoolPeriod" Grid.Column="5" Margin="20,10" FontSize="14">Salva Periodo</Button>
+                <Button x:Name="btnSaveSchoolPeriod" Grid.Column="5" Margin="20,10" FontSize="14" Click="btnSaveSchoolPeriod_Click">Salva Periodo</Button>
             </Grid>
 
             <Grid Grid.Row="1">
@@ -82,7 +82,7 @@
                     <RadioButton Name="rdbTrimester" Height="29" FontSize="14">trimestri</RadioButton>
                 </StackPanel>
 
-                <Button Name="btnNewYear" Grid.Column="1" Margin="5" FontSize="14">Nuovo Anno</Button>
+                <Button Name="btnNewYear" Grid.Column="1" Margin="5" FontSize="14" Click="btnNewYear_Click">Nuovo Anno</Button>
                 <GroupBox Grid.Column="2" x:Name="txtDescription" Header="Descrizione" FontSize="13">
                     <TextBox x:Name="txtDescription1"></TextBox>
                 </GroupBox>
@@ -96,10 +96,10 @@
                 </Grid.ColumnDefinitions>
 
 
-                <DataGrid x:Name="dgwSchoolPeriods"></DataGrid>
+                <DataGrid x:Name="dgwSchoolPeriods" MouseDoubleClick="dgwSchoolPeriods_MouseDoubleClick" SelectionChanged="dgwSchoolPeriods_SelectionChanged" ></DataGrid>
                 <StackPanel Grid.Column="1">
-                    <Button x:Name="btnNewPeriod" Width="50" Panel.ZIndex="50" Height="50" Margin="20" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Center" >+</Button>
-                    <Button x:Name="btnDeletePeriod" Width="50" Panel.ZIndex="50" Height="50" Margin="20" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center">-</Button>
+                    <Button x:Name="btnNewPeriod" Width="50" Panel.ZIndex="50" Height="50" Margin="20" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnNewPeriod_Click" >+</Button>
+                    <Button x:Name="btnDeletePeriod" Width="50" Panel.ZIndex="50" Height="50" Margin="20" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnDeletePeriod_Click">-</Button>
                 </StackPanel>
             </Grid>
 

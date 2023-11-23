@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace SchoolGrades_WPF
 {
     /// <summary>
-    /// Logica di interazione per frmGrade.xaml
+    /// Logica di interazione per frmAnswer.xaml
     /// </summary>
-    public partial class frmGrade : Window
+    public partial class frmAnswer : Window
     {
-        public frmGrade()
+        public frmAnswer()
         {
             InitializeComponent();
         }

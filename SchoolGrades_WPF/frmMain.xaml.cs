@@ -82,7 +82,7 @@ namespace SchoolGrades_WPF
 
             //CommonsWinForms.globalPicLed = picBackgroundSaveRunning;
 
-            //if (chkActivateLessonClock.Checked)
+            //if (chkActivateLessonClock.IsChecked)
             //{
             //    CalculateTimesForEndLessonWarning();
             //    timerLesson.Start();
@@ -214,6 +214,8 @@ namespace SchoolGrades_WPF
         private void btnTemporary_Click(object sender, RoutedEventArgs e)
         {
             // Start a specific form to test it 
+            frmMosaic f = new frmMosaic(currentClass); 
+            f.Show();
         }
         public void ShowStudentsOfClass()
         {

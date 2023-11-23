@@ -5,9 +5,9 @@ namespace SchoolGrades_WPF
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class frmLesson : Window
+    public partial class frmLessons : Window
     {
-        public frmLesson()
+        public frmLessons()
         {
             InitializeComponent();
         }
