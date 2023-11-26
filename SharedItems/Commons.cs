@@ -235,7 +235,7 @@ namespace SchoolGrades
                     if (link.Link.Substring(0, 4) == "http" || link.Link.Contains(".exe"))
                         startLink = link.Link;
                     else
-                        startLink = Class.PathRestrictedApplication + "\\" + link;
+                        startLink = Path.Combine(Class.PathRestrictedApplication, link.Link);
                     Commons.ProcessStartLink(startLink);
                 }
                 catch

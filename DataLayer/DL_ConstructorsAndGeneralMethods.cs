@@ -315,8 +315,8 @@ namespace SchoolGrades
             //string[,] dati = FileDiTesto.FileInMatrice(Commons.PathDatabase +
             //    "\\" + TableName + ".tsv", '\t',
             //    out fieldsNames, out fieldTypes);
-            string dati = TextFile.FileToString(Commons.PathDatabase +
-                "\\" + TableName + ".tsv");
+            string dati = TextFile.FileToString(Path.Combine(Commons.PathDatabase,
+                TableName + ".tsv"));
             if (dati is null)
                 return;
             using (DbConnection conn = Connect())

@@ -506,8 +506,11 @@ namespace SchoolGrades
         {
             try
             {
-                string pictureFile = Commons.PathImages + "\\" +
-                Commons.bl.GetFilePhoto(Chosen.IdStudent, schoolYear);
+                string pictureFile = Commons.bl.GetFilePhoto(Chosen.IdStudent, schoolYear);
+                if (pictureFile != null)
+                {
+                    pictureFile = Path.Combine(Commons.PathImages, pictureFile);
+                }
                 picStudent.Image = System.Drawing.Image.FromFile(pictureFile);
             }
             catch
@@ -1330,8 +1333,8 @@ namespace SchoolGrades
             if (Commons.SaveBackupWhenExiting)
             {
                 File.Copy(Commons.PathAndFileDatabase,
-                    Commons.PathLogs + "\\" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") +
-                    "_" + Commons.DatabaseFileName_Current);
+                    Path.Combine(Commons.PathLogs, DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") +
+                    "_" + Commons.DatabaseFileName_Current));
             }
             //// we wait for the saving Thread to finish
             //Commons.BackgroundSaveThread.Join(30000);  // enormous timeout just for big problems

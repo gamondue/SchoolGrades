@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.IO;
 
 namespace SchoolGrades
 {
@@ -111,51 +112,70 @@ namespace SchoolGrades
         }
         private void ChangeImagesPath(Class Class, DbCommand cmd)
         {
+            // find 
             DbDataReader dRead;
             cmd.CommandText = "SELECT Images.idImage, Images.imagePath" +
                 " FROM Images" +
                 " JOIN Lessons_Images ON Images.idImage=Lessons_Images.idImage" +
                 " JOIN Lessons ON Lessons.idLesson = Lessons_Images.idLesson" +
                 " WHERE Lessons.idClass=" + Class.IdClass +
+                " LIMIT 1" +
             ";";
             dRead = cmd.ExecuteReader();
+            dRead.Read();
+            string originalPath = Path.GetDirectoryName(Safe.String(dRead["imagePath"]));
+            string originalFolder = originalPath.Substring(0, originalPath.IndexOf("\\"));
+            dRead.Close();
             string newFolder = Class.SchoolYear + "_" + Class.Abbreviation;
-            while (dRead.Read())
-            {
-                string path = Safe.String(dRead["imagePath"]);
-                int? id = Safe.Int(dRead["idImage"]);
-                string partToReplace = path.Substring(0, path.IndexOf("\\"));
-                path = path.Replace(partToReplace, newFolder);
-                SaveImagePath(id, path, cmd);
-            }
-            cmd.Dispose();
-        }
-        private void SaveImagePath(int? id, string path, DbCommand cmd)
-        {
+
+            // replace the folder name in Images path 
             cmd.CommandText = "UPDATE Images" +
-            " SET imagePath=" + SqlString(path) + "" +
-            " WHERE idImage=" + id +
+                " SET imagePath=REPLACE(Images.imagePath,'" + originalFolder + "','" + newFolder + "')" +
+            " FROM Images Img" +
+            " JOIN Lessons_Images ON Img.IdImage=Lessons_Images.idImage" +
+            " JOIN Lessons ON Lessons.idLesson=Lessons_Images.idLesson" +
+            " WHERE Lessons.idClass=" + Class.IdClass +
             ";";
             cmd.ExecuteNonQuery();
-            cmd.Dispose();
+        }
+        private void SaveImagePath(int? id, string path)
+        {
+            string query;
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd1 = conn.CreateCommand();
+                query = "UPDATE Images" +
+                " SET imagePath=" + SqlString(path) + "" +
+                " WHERE idImage=" + id +
+                ";";
+                cmd1.CommandText = query;
+                cmd1.ExecuteNonQuery();
+            }
         }
         private int? SaveDemoStudentPhotoPath(string relativePath, DbCommand cmd)
         {
-            int? id = null;
+            int? nextId = null;
             try
             {
                 cmd.CommandText = "SELECT MAX(idStudentsPhoto) FROM StudentsPhotos;";
-                var varId = (int?)cmd.ExecuteScalar();
+                var firstColumn = cmd.ExecuteScalar();
+                if (firstColumn != DBNull.Value)
+                {
+                    nextId = int.Parse(firstColumn.ToString()) + 1;
+                }
+                else
+                {
+                    nextId = 1;
+                }
                 cmd.CommandText = "INSERT INTO StudentsPhotos" +
                 " (idStudentsPhoto, photoPath)" +
-                " Values (" + SqlInt(id.ToString()) + "," + SqlString(relativePath) + ");";
+                " Values (" + SqlInt(nextId.ToString()) + "," + SqlString(relativePath) + ");";
                 cmd.ExecuteNonQuery();
-                cmd.Dispose();
             }
-            catch
+            catch (Exception ex)
             {
             }
-            return id;
+            return nextId;
         }
         internal void RemoveImageFromLesson(Lesson Lesson, Image Image, bool AlsoEraseImageFile)
         {
@@ -182,7 +202,6 @@ namespace SchoolGrades
                 }
                 cmd.Dispose();
             }
-
         }
         internal void SaveImage(Image Image)
         {
@@ -229,7 +248,7 @@ namespace SchoolGrades
         }
         /// <summary>
         /// Creates a new Image in Images and links it to the lesson
-        /// If the image has an id != 0, it exists and is not created 
+        /// If the image has an nextId != 0, it exists and is not created 
         /// </summary>
         /// <param name="Image"></param>
         /// <param name="Lesson"></param>
