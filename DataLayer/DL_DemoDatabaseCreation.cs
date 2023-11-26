@@ -244,7 +244,7 @@ namespace SchoolGrades
                 }
                 else
                     grade = 0;
-                SaveGradeValue(id, grade, cmd);
+                SaveGradeValue(id, grade);
             }
             cmd.Dispose();
         }
@@ -254,26 +254,27 @@ namespace SchoolGrades
             List<Student> StudentsInClass = GetStudentsOfClass(Class.IdClass, cmd);
 
             // rename the students' names according to the names found in the image files 
-            string[] OriginalDemoPictures = Directory.GetFiles(Commons.PathImages + "\\DemoPictures\\");
+            string[] OriginalDemoStudentPictures = Directory.GetFiles(Path.Combine(Commons.PathImages, "DemoPictures\\"));
             // start assigning the names from a random image
             Random rnd = new Random();
 
             int pictureIndex;
             string lastName;
             string firstName;
+            // copy the students "photos" taking the name of the student from the name of the file 
             foreach (Student s in StudentsInClass)
             {
                 do
                 {   // avoid the same name and picture for different students 
-                    pictureIndex = rnd.Next(0, OriginalDemoPictures.Length - 1);
-                    string justFileName = Path.GetFileName(OriginalDemoPictures[pictureIndex]);
+                    pictureIndex = rnd.Next(0, OriginalDemoStudentPictures.Length - 1);
+                    string justFileName = Path.GetFileName(OriginalDemoStudentPictures[pictureIndex]);
                     string fileWithNoExtension = justFileName.Substring(0, justFileName.LastIndexOf('.'));
                     string[] wordsInFileName = (Path.GetFileName(fileWithNoExtension)).Split(' ');
                     lastName = "";
                     firstName = "";
                     foreach (string word in wordsInFileName)
                     {
-                        // last name in picture must be upper case 
+                        // last name in picture filename must be upper case 
                         if (word == word.ToUpper())
                         {
                             lastName += " " + word;
@@ -301,71 +302,69 @@ namespace SchoolGrades
                 s.SchoolYear = null;
                 s.Sum = 0;
                 UpdateStudent(s, cmd);
-                // save the image with standard name in the folder of the demo class
-                string fileExtension = Path.GetExtension(OriginalDemoPictures[pictureIndex]);
-                string folder = Commons.PathImages + "\\" + Class.SchoolYear + "_" + Class.Abbreviation + "\\";
+                // save the image with standard name in the outFolder of the demo class
+                string fileExtension = Path.GetExtension(OriginalDemoStudentPictures[pictureIndex]);
+                string outFolder = Path.Combine(Commons.PathImages, Class.SchoolYear + "_" + Class.Abbreviation + "\\");
                 string filename = s.LastName + "_" + s.FirstName + "_" + Class.Abbreviation + Class.SchoolYear + fileExtension;
-                if (!Directory.Exists(folder))
+                if (!Directory.Exists(outFolder))
                 {
-                    Directory.CreateDirectory(folder);
+                    Directory.CreateDirectory(outFolder);
                 }
-                if (File.Exists(folder + filename))
+                if (File.Exists(outFolder + filename))
                 {
-                    File.Delete(folder + filename);
+                    File.Delete(outFolder + filename);
                 }
                 // save student pictures' paths in table StudentsPhotos
-                string relativePathAndFile = Path.Combine(Class.SchoolYear + "_" + Class.Abbreviation, filename);
-                string absolutePathAndFile = Path.Combine(Commons.PathImages, relativePathAndFile);
-                File.Copy(OriginalDemoPictures[pictureIndex], absolutePathAndFile);
-                int? idImage = SaveDemoStudentPhotoPath(relativePathAndFile, cmd);
+                string relativeOutPathAndFile = Path.Combine(Class.SchoolYear + "_" + Class.Abbreviation, filename);
+                string absoluteOutPathAndFile = Path.Combine(Commons.PathImages, relativeOutPathAndFile);
+                File.Copy(OriginalDemoStudentPictures[pictureIndex], absoluteOutPathAndFile);
+                int? idImage = SaveDemoStudentPhotoPath(relativeOutPathAndFile, cmd);
                 AddLinkPhotoToStudent(s.IdStudent, idImage, Class.SchoolYear, cmd);
-                // copy all the lessons images files that aren't already there or that have a newer date 
-                string query = "SELECT Images.imagePath, Classes.pathRestrictedApplication" +
-                " FROM Images" +
-                    " JOIN Lessons_Images ON Lessons_Images.idImage=Images.idImage" +
-                    " JOIN Lessons ON Lessons_Images.idLesson=Lessons.idLesson" +
-                    " JOIN Classes ON Classes.idClass=Lessons.idClass" +
-                    " WHERE Lessons.idClass=" + Class.IdClass +
-                    ";";
-                //DbCommand cmd = new SQLiteCommand(query);
-                //cmd.Connection = conn;
-                DbDataReader dReader = cmd.ExecuteReader();
-                while (dReader.Read())
-                {
-                    string originFile = Commons.PathImages + "\\" + (string)dReader["imagePath"];
-                    string filePart = (string)dReader["imagePath"];
-                    string partToReplace = filePart.Substring(0, filePart.IndexOf("\\"));
-                    filePart = filePart.Replace(partToReplace, Class.SchoolYear + "_" + Class.Abbreviation);
-                    string destinationFile = Path.Combine(Commons.PathImages, filePart);
-                    string destinationFolder = Path.GetDirectoryName(destinationFile);
-                    if (!Directory.Exists(destinationFolder))
-                    {
-                        Directory.CreateDirectory(destinationFolder);
-                    }
-                    if (!File.Exists(destinationFile) ||
-                        File.GetLastWriteTime(destinationFile) < File.GetLastWriteTime(originFile))
-                        // destination file not existing or older
-                        try
-                        {
-                            File.Copy(originFile, destinationFile);
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.Beep();
-                        }
-                }
-                dReader.Dispose();
-
-                if (++pictureIndex >= OriginalDemoPictures.Length)
+                if (++pictureIndex >= OriginalDemoStudentPictures.Length)
                     pictureIndex = 0;
             }
+            // copy all the lessons images files that aren't already there or that have a newer date 
+            string query = "SELECT Images.imagePath, Classes.pathRestrictedApplication" +
+            " FROM Images" +
+                " JOIN Lessons_Images ON Lessons_Images.idImage=Images.idImage" +
+                " JOIN Lessons ON Lessons_Images.idLesson=Lessons.idLesson" +
+                " JOIN Classes ON Classes.idClass=Lessons.idClass" +
+                " WHERE Lessons.idClass=" + Class.IdClass +
+                ";";
+            cmd.CommandText = query;
+            DbDataReader dReader = cmd.ExecuteReader();
+            while (dReader.Read())
+            {
+                string finalPart = (string)dReader["imagePath"];
+                string originalPathAndFile = Path.Combine(Commons.PathImages, finalPart);
+                string partToBeReplaced = finalPart.Substring(0, finalPart.IndexOf("\\"));
+                string destinationPathAndFile = originalPathAndFile.Replace(partToBeReplaced, Class.SchoolYear + "_" + Class.Abbreviation);
+                string destinationFolder = Path.GetDirectoryName(destinationPathAndFile);
+                if (!Directory.Exists(destinationFolder))
+                {
+                    Directory.CreateDirectory(destinationFolder);
+                }
+                if (!File.Exists(destinationPathAndFile) ||
+                    File.GetLastWriteTime(destinationPathAndFile) < File.GetLastWriteTime(originalPathAndFile))
+                    // destination file not existing or older
+                    try
+                    {
+                        File.Copy(originalPathAndFile, destinationPathAndFile);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.Beep();
+                    }
+            }
+            dReader.Close();
         }
         private void AddLinkPhotoToStudent(int? idStudent, int? idStudentsPhoto, string schoolYear, DbCommand cmd)
         {
+            cmd.CommandText = "";
             cmd.CommandText = "INSERT INTO StudentsPhotos_Students" +
-                " (idStudentsPhoto, idStudent, idSchoolYear)" +
-                    "Values(" + SqlInt(idStudent) + "," + SqlInt(idStudentsPhoto) + "," + SqlString(schoolYear) + ")" +
-                ";";
+            " (idStudentsPhoto, idStudent, idSchoolYear)" +
+                "Values(" + SqlInt(idStudentsPhoto) + "," + SqlInt(idStudent) + "," + SqlString(schoolYear) + ")" +
+            ";";
             cmd.ExecuteNonQuery();
         }
         private bool isDuplicate(string lastName, string firstName, List<Student> StudentsInClass)

@@ -398,14 +398,17 @@ namespace SchoolGrades
             }
             return gt;
         }
-        private void SaveGradeValue(int? id, double? grade, DbCommand cmd)
+        private void SaveGradeValue(int? id, double? grade)
         {
-            cmd.CommandText = "UPDATE Grades" +
-            " SET value=" + SqlDouble(grade) +
-            " WHERE idGrade=" + id +
-            ";";
-            cmd.ExecuteNonQuery();
-            cmd.Dispose();
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE Grades" +
+                " SET value=" + SqlDouble(grade) +
+                " WHERE idGrade=" + id +
+                ";";
+                cmd.ExecuteNonQuery();
+            }
         }
         internal void EraseGrade(int? KeyGrade)
         {

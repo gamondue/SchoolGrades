@@ -366,7 +366,6 @@ namespace SchoolGrades
             DbConnection conn;
             List<Student> l = new List<Student>();
             bool leaveConnectionOpen = true;
-
             if (cmd == null)
             {
                 conn = Connect();
@@ -381,12 +380,12 @@ namespace SchoolGrades
             ";";
             cmd.CommandText = query;
             dRead = cmd.ExecuteReader();
-
             while (dRead.Read())
             {
                 Student s = GetStudentFromRow(dRead);
                 l.Add(s);
             }
+            dRead.Close();
             if (!leaveConnectionOpen)
             {
                 cmd.Dispose();
