@@ -1,7 +1,4 @@
-﻿using Microsoft.VisualBasic;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
 namespace SchoolGrades
 {
@@ -48,21 +45,27 @@ namespace SchoolGrades
             temp = "LIKE '%" + temp + "%'";
             return temp;
         }
-        internal string SqlLikeStatementWithOptions(string FieldName, string SearchText, 
-            bool SearchWholeWord = false)
+        internal string SqlLikeStatementWithOptions(string FieldName, string SearchText,
+            bool SearchWholeWord = false, bool SearchVerbatimString = false)
         {
             if (SearchText == null) return "null";
-            string statement = SearchText.Replace("'", "''");
+            SearchText = SearchText.Replace("'", "''");
+            string statement;
 
-            if (SearchWholeWord)
+            if (SearchVerbatimString)
             {
-                statement =           FieldName + " LIKE '" + SearchText + " %'";
-                statement += " OR " + FieldName + " LIKE '% " + SearchText + "'";
-                statement += " OR " + FieldName + " LIKE '% " + SearchText + " %'";
-                statement += " OR " + FieldName + " = '" + SearchText + "'";
+                statement = FieldName + "='" + SearchText + "'";
+                return statement;
+            }
+            if (SearchWholeWord)
+            {   // search words separated by " " with all the possibilities
+                statement = FieldName + " LIKE '" + SearchText + " %'"; // word at the beginning 
+                statement += " OR " + FieldName + " LIKE '% " + SearchText + "'"; // word at the end 
+                statement += " OR " + FieldName + " LIKE '% " + SearchText + " %'"; // word in the middle 
+                statement += " OR " + FieldName + " = '" + SearchText + "'"; // word as the whole string 
             }
             else
-                // ricerca sensitive con sottostringa 
+                // search with any substring also in the middle of the "word" searched  
                 statement = FieldName + " LIKE '%" + SearchText + "%'";
             return statement;
         }
@@ -96,7 +99,7 @@ namespace SchoolGrades
         internal string SqlDouble(object Number)
         {
             if (Number == null)
-                return "null"; 
+                return "null";
             // restituisce null se dà errore, perchè viene usato con double? 
             try
             {
@@ -104,7 +107,7 @@ namespace SchoolGrades
             }
             catch
             {
-                return "null"; 
+                return "null";
             }
         }
         internal string SqlFloat(float Number)
@@ -115,7 +118,7 @@ namespace SchoolGrades
             }
             catch
             {
-                return "null"; 
+                return "null";
             }
         }
         internal string SqlFloat(string Number)
@@ -126,7 +129,7 @@ namespace SchoolGrades
             }
             catch
             {
-                return "null"; 
+                return "null";
             }
         }
         internal string SqlInt(string Number)
@@ -155,7 +158,7 @@ namespace SchoolGrades
                 return "null";
             }
         }
-        internal string CleanStringForQuery (string Query)
+        internal string CleanStringForQuery(string Query)
         {
             // pulisce la stringa dalle andate a capo e dai tab 
             Query = Query.Replace("\t", " ");
@@ -165,7 +168,7 @@ namespace SchoolGrades
 
             while (Query.Contains("  "))
                 Query = Query.Replace("  ", " ");
-            return Query; 
+            return Query;
         }
         public string SqlDate(string Date)
         {

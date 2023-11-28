@@ -1,5 +1,6 @@
 ﻿using SchoolGrades;
 using SchoolGrades.BusinessObjects;
+using SharedWpf;
 using System;
 using System.Data;
 using System.Windows;
@@ -43,6 +44,8 @@ namespace SchoolGrades_WPF
             currentSchoolSubject = Subject;
             currentQuestion = Question;
             LessonTimer = new DispatcherTimer();
+
+            frmMicroAssessment_Loaded();
         }
         public frmMicroAssessment(int IdGrade)
         {
@@ -59,6 +62,8 @@ namespace SchoolGrades_WPF
 
             currentSchoolSubject = Commons.bl.GetSchoolSubject(currentGrade.IdSchoolSubject);
             currentQuestion = Commons.bl.GetQuestionById(currentGrade.IdQuestion);
+
+            frmMicroAssessment_Loaded();
         }
         #endregion
 
@@ -66,7 +71,7 @@ namespace SchoolGrades_WPF
         Grade currentGrade = new Grade();
         internal Grade CurrentGrade { get => currentGrade; set => currentGrade = value; }
 
-        private void frmMicroAssessment_Loaded(object sender, RoutedEventArgs e)
+        private void frmMicroAssessment_Loaded()
         {
             if (currentStudent is null)
             {
@@ -74,11 +79,8 @@ namespace SchoolGrades_WPF
                 this.Close();
                 return;
             }
-
-            //if (currentGradeType != null)
             txtGradeType.Text = currentGradeType.Name;
 
-            //currentMacroGrade = db.GetGrade(currentGradeType.IdGradeTypeParent);
             currentYear = currentClass.SchoolYear;
             txtSchoolSubject.Text = currentSchoolSubject.IdSchoolSubject;
             currentMacroGrade = null;
@@ -104,9 +106,7 @@ namespace SchoolGrades_WPF
                 txtGradeTypeParent.Text = "----";
                 txtIdMacroGrade.Text = "----";
             }
-
             idGradeType = currentGradeType.IdGradeType;
-
             TxtIdStudent.Text = currentStudent.IdStudent.ToString();
             ShowStudentsDataAndAverages();
 
@@ -125,14 +125,13 @@ namespace SchoolGrades_WPF
             {
             }
 
-            //this.BackColor = Commons.ColorFromNumber(currentSchoolSubject);
-            System.Drawing.Color BackColor = Commons.ColorFromNumber(currentSchoolSubject);
+            //this.BackColor = CommonsWpf.ColorFromNumber(currentSchoolSubject);
+            Color BackColor = CommonsWpf.ColorFromNumber(currentSchoolSubject);
             this.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(BackColor.A, BackColor.R, BackColor.G, BackColor.B));
             LessonTimer.Interval = new TimeSpan(0, 0, 1);
             if (Commons.IsTimerLessonActive)
                 LessonTimer.Start();
         }
-
         private void ShowStudentsDataAndAverages()
         {
             // student's label
@@ -176,7 +175,6 @@ namespace SchoolGrades_WPF
             defaultWeight = currentGradeType.DefaultWeight;
             txtMacroGradeWeight.Text = defaultWeight.ToString();
         }
-
         private void trkbWeight_Scroll(object sender, EventArgs e)
         {
             txtMicroGradeWeight.Text = trkbWeight.Value.ToString();
@@ -356,7 +354,7 @@ namespace SchoolGrades_WPF
             //    DisplayCurrentQuestion();
             //    // put the question chosen also in the main form
             //    if (callingForm != null)
-            //        callingForm.CurrentQuestion = choice.ChosenQuestion;
+            //        callingForm.currentQuestion = choice.ChosenQuestion;
             //}
             //else
             //{
@@ -470,7 +468,6 @@ namespace SchoolGrades_WPF
         {
 
         }
-
         private void lblStudent_Click(object sender, EventArgs e)
         {
 

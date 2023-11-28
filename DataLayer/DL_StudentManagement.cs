@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SQLite;
-using System.IO;
 
 namespace SchoolGrades
 {
@@ -181,15 +180,16 @@ namespace SchoolGrades
         /// </summary>
         /// <param name="Student">The student we want to update</param>
         /// <param name="conn">Optional connection that is used if present</param>
-        internal int? UpdateStudent(Student Student, DbConnection conn = null)
+        internal int? UpdateStudent(Student Student, DbCommand cmd = null)
         {
+            DbConnection conn;
             bool leaveConnectionOpen = true;
-            if (conn == null)
+            if (cmd == null)
             {
                 conn = Connect();
+                cmd = conn.CreateCommand();
                 leaveConnectionOpen = false;
             }
-            DbCommand cmd = conn.CreateCommand();
             cmd.CommandText = "UPDATE Students " +
                 "SET" +
                 " idStudent=" + Student.IdStudent +
@@ -217,11 +217,11 @@ namespace SchoolGrades
                     " AND idClass=" + Student.IdClass;
                 cmd.ExecuteNonQuery();
             }
-            cmd.Dispose();
             if (!leaveConnectionOpen)
             {
-                conn.Close();
-                conn.Dispose();
+                cmd.Dispose();
+                //conn.Close();
+                //conn.Dispose();
             }
             return Student.IdStudent;
         }
@@ -361,18 +361,18 @@ namespace SchoolGrades
         /// <param name="conn">Connection already open on a database different from standard. 
         /// If not null this connection is left open</param>
         /// <returns>List of the </returns>
-        internal List<Student> GetStudentsOfClass(int? IdClass, DbConnection conn)
+        internal List<Student> GetStudentsOfClass(int? IdClass, DbCommand cmd)
         {
+            DbConnection conn;
             List<Student> l = new List<Student>();
             bool leaveConnectionOpen = true;
-
-            if (conn == null)
+            if (cmd == null)
             {
                 conn = Connect();
+                cmd = conn.CreateCommand();
                 leaveConnectionOpen = false;
             }
             DbDataReader dRead;
-            DbCommand cmd = conn.CreateCommand();
             string query = "SELECT Students.*" +
                 " FROM Students" +
                 " JOIN Classes_Students ON Classes_Students.idStudent=Students.idStudent" +
@@ -380,16 +380,17 @@ namespace SchoolGrades
             ";";
             cmd.CommandText = query;
             dRead = cmd.ExecuteReader();
-
             while (dRead.Read())
             {
                 Student s = GetStudentFromRow(dRead);
                 l.Add(s);
             }
+            dRead.Close();
             if (!leaveConnectionOpen)
             {
-                conn.Close();
-                conn.Dispose();
+                cmd.Dispose();
+                //conn.Close();
+                //conn.Dispose();
             }
             return l;
         }
@@ -514,113 +515,6 @@ namespace SchoolGrades
                 key = (int?)cmd.ExecuteScalar();
             }
             return key;
-        }
-        private void RenameStudentsNamesFromPictures(Class Class, DbConnection conn)
-        {
-            // get the "previous" students from database 
-            List<Student> StudentsInClass = GetStudentsOfClass(Class.IdClass, conn);
-
-            // rename the students' names according to the names found in the image files 
-            string[] OriginalDemoPictures = Directory.GetFiles(Commons.PathImages + "\\DemoPictures\\");
-            // start assigning the names from a random image
-            Random rnd = new Random();
-            int pictureIndex = rnd.Next(0, OriginalDemoPictures.Length - 1);
-            foreach (Student s in StudentsInClass)
-            {
-                string justFileName = Path.GetFileName(OriginalDemoPictures[pictureIndex]);
-                string fileWithNoExtension = justFileName.Substring(0, justFileName.LastIndexOf('.'));
-                string[] wordsInFileName = (Path.GetFileName(fileWithNoExtension)).Split(' ');
-                string lastName = "";
-                string firstName = "";
-                foreach (string word in wordsInFileName)
-                {
-                    if (word == word.ToUpper())
-                    {
-                        lastName += " " + word;
-                    }
-                    else
-                    {
-                        firstName += " " + word;
-                    }
-                }
-                lastName = lastName.Trim();
-                firstName = firstName.Trim();
-
-                s.LastName = lastName;
-                s.FirstName = firstName;
-                s.BirthDate = null;
-                s.BirthPlace = null;
-                s.ClassAbbreviation = "";
-                s.Email = "";
-                s.IdClass = 0;
-                s.ArithmeticMean = 0;
-                s.RegisterNumber = null;
-                s.Residence = null;
-                s.RevengeFactorCounter = 0;
-                s.Origin = null;
-                s.SchoolYear = null;
-                s.Sum = 0;
-                UpdateStudent(s, conn);
-
-                // save the image with standard name in the folder of the demo class
-                string fileExtension = Path.GetExtension(OriginalDemoPictures[pictureIndex]);
-                string folder = Commons.PathImages + "\\" + Class.SchoolYear + "_" + Class.Abbreviation + "\\";
-                string filename = s.LastName + "_" + s.FirstName + "_" + Class.Abbreviation + Class.SchoolYear + fileExtension;
-                if (!Directory.Exists(folder))
-                {
-                    Directory.CreateDirectory(folder);
-                }
-                if (File.Exists(folder + filename))
-                {
-                    File.Delete(folder + filename);
-                }
-                File.Copy(OriginalDemoPictures[pictureIndex], folder + filename);
-
-                // change student pictures' paths in table StudentsPhotos
-                string relativePathAndFile = Class.SchoolYear + "_" + Class.Abbreviation + "\\" + filename;
-                int? idImage = GetStudentsPhotoId(s.IdStudent, Class.SchoolYear, conn);
-                SaveStudentsPhotosPath(idImage, relativePathAndFile, conn);
-
-                // copy all the lessons images files that aren't already there or that have a newer date 
-                string query = "SELECT Images.imagePath, Classes.pathRestrictedApplication" +
-                " FROM Images" +
-                    " JOIN Lessons_Images ON Lessons_Images.idImage=Images.idImage" +
-                    " JOIN Lessons ON Lessons_Images.idLesson=Lessons.idLesson" +
-                    " JOIN Classes ON Classes.idClass=Lessons.idClass" +
-                    " WHERE Lessons.idClass=" + Class.IdClass +
-                    ";";
-                DbCommand cmd = new SQLiteCommand(query);
-                cmd.Connection = conn;
-                DbDataReader dReader = cmd.ExecuteReader();
-                while (dReader.Read())
-                {
-                    string originFile = Commons.PathImages + "\\" + (string)dReader["imagePath"];
-                    string filePart = (string)dReader["imagePath"];
-                    string partToReplace = filePart.Substring(0, filePart.IndexOf("\\"));
-                    filePart = filePart.Replace(partToReplace, Class.SchoolYear + "_" + Class.Abbreviation);
-                    string destinationFile = Path.Combine(Commons.PathImages, filePart);
-                    string destinationFolder = Path.GetDirectoryName(destinationFile);
-                    if (!Directory.Exists(destinationFolder))
-                    {
-                        Directory.CreateDirectory(destinationFolder);
-                    }
-                    if (!File.Exists(destinationFile) ||
-                        File.GetLastWriteTime(destinationFile) < File.GetLastWriteTime(originFile))
-                        // destination file not existing or older
-                        try
-                        {
-                            File.Copy(originFile, destinationFile);
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.Beep();
-                        }
-                }
-                dReader.Dispose();
-
-                if (++pictureIndex >= OriginalDemoPictures.Length)
-                    pictureIndex = 0;
-            }
         }
         internal List<Student> GetStudentsOnBirthday(Class Class, DateTime Date)
         {

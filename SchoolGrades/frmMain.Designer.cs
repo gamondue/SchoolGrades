@@ -555,7 +555,7 @@
             btnTopicsDone.Name = "btnTopicsDone";
             btnTopicsDone.Size = new System.Drawing.Size(94, 48);
             btnTopicsDone.TabIndex = 112;
-            btnTopicsDone.Text = "Argomenti fatti";
+            btnTopicsDone.Text = "Argom. fatti";
             toolTip1.SetToolTip(btnTopicsDone, "Apre pagina ricerca argomenti già spiegati nel programma didattico");
             btnTopicsDone.UseVisualStyleBackColor = false;
             btnTopicsDone.Click += btnTopicsDone_Click;

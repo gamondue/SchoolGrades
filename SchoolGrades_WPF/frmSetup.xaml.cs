@@ -30,14 +30,11 @@ namespace SchoolGrades_WPF
             //chkSaveBackup.IsChecked = Commons.SaveBackupWhenExiting;
         }
 
-
-
         private void btnTabelle_Click(object sender, RoutedEventArgs e)
         {
-            //frmTables f = new frmTables();
-            //f.ShowDialog();
+            frmTables f = new frmTables();
+            f.ShowDialog();
         }
-
         private void btnClassi_Click(object sender, RoutedEventArgs e)
         {
             //frmClassesManagement f = new frmClassesManagement();

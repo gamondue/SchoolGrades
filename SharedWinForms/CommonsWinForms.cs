@@ -14,6 +14,8 @@ namespace SharedWinForms
         internal static PictureBox globalPicLed;
         internal static TreeMptt SaveTreeMptt;
 
+        private static Color ColorNoSubject = Color.PowderBlue;
+
         internal static void SaveCurrentValuesOfAllControls(Control ParentControl, ref string PathAndFile)
         {
             string fileContent = "";
@@ -331,6 +333,16 @@ namespace SharedWinForms
                 throw new FileNotFoundException(err);
                 //return;
             }
+        }
+        internal static Color ColorFromNumber(SchoolSubject Subject)
+        {
+            if (Subject == null || Subject.Color == null || Subject.Color == 0)
+                return ColorNoSubject;
+            // extract the color components from the RGB number
+            Color bgColor = Color.FromArgb((int)(Subject.Color & 0xFF0000) >> 16,
+                (int)(Subject.Color & 0xFF00) >> 8,
+                (int)Subject.Color & 0xFF);
+            return bgColor;
         }
     }
 }

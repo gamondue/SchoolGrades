@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace SchoolGrades
@@ -19,6 +20,10 @@ namespace SchoolGrades
             currentClass = Class;
             currentStudents = Commons.bl.GetStudentsOfClassList(Commons.IdSchool,
                 currentClass.SchoolYear, currentClass.Abbreviation, false);
+        }
+
+        private void frmMosaic_Load(object sender, EventArgs e)
+        {
             // creation of pictures 
             foreach (Student s in currentStudents)
             {
@@ -33,6 +38,7 @@ namespace SchoolGrades
             }
             ResizePictures(); 
         }
+
         private void ResizePictures()
         {
             int xNumPictures = 7;
@@ -73,8 +79,8 @@ namespace SchoolGrades
         {
             try
             {
-                PictureContainer.Image = System.Drawing.Image.FromFile(Commons.PathImages + "\\" +
-                    Commons.bl.GetFilePhoto(ShowingStudent.IdStudent, SchoolYear));
+                PictureContainer.Image = System.Drawing.Image.FromFile(Path.Combine(Commons.PathImages, 
+                    Commons.bl.GetFilePhoto(ShowingStudent.IdStudent, SchoolYear)));
             }
             catch
             {

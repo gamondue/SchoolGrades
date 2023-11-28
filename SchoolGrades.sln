@@ -18,6 +18,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "BusinessObjects", "Business
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolGrades_WPF", "SchoolGrades_WPF\SchoolGrades_WPF.csproj", "{26E83547-D975-4667-9FC8-80F966B704C7}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedWpf", "SharedWpf\SharedWpf.shproj", "{44F49343-1A0F-4D62-BD7B-8B04467A8D17}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,8 @@ Global
 		BusinessObjects\BusinessObjects.projitems*{26e83547-d975-4667-9fc8-80f966b704c7}*SharedItemsImports = 5
 		DataLayer\DataLayer.projitems*{26e83547-d975-4667-9fc8-80f966b704c7}*SharedItemsImports = 5
 		SharedItems\SharedItems.projitems*{26e83547-d975-4667-9fc8-80f966b704c7}*SharedItemsImports = 5
+		SharedWpf\SharedWpf.projitems*{26e83547-d975-4667-9fc8-80f966b704c7}*SharedItemsImports = 5
+		SharedWpf\SharedWpf.projitems*{44f49343-1a0f-4d62-bd7b-8b04467a8d17}*SharedItemsImports = 13
 		BusinessLayer\BusinessLayer.projitems*{737a759a-6c1f-4bd7-a682-390c8b018712}*SharedItemsImports = 13
 		SharedItems\SharedItems.projitems*{a5dc5853-0eb8-493e-804d-d596d841aa2d}*SharedItemsImports = 13
 		MpttTreeManagement\MpttTreeManagement.projitems*{aea6904a-a8b6-4602-8946-03df79cbbd30}*SharedItemsImports = 13

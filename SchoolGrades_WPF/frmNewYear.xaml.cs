@@ -3,7 +3,6 @@ using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace SchoolGrades_WPF
 {
@@ -124,7 +123,7 @@ namespace SchoolGrades_WPF
                     "Modifiche classe", MessageBoxButton.OKCancel, MessageBoxImage.Question);
             }
             btnClassGeneration.Visibility = Visibility.Visible;
-            btnClassMirgration.Visibility = Visibility.Hidden;
+            btnClassMigration.Visibility = Visibility.Hidden;
         }
         private void BtnClassGeneration_Click(object sender, EventArgs e)
         {
@@ -195,7 +194,7 @@ namespace SchoolGrades_WPF
         {
             if (!loading)
             {
-                btnClassMirgration.Visibility = Visibility.Visible;
+                btnClassMigration.Visibility = Visibility.Visible;
                 currentClass = (Class)cmbClasses.SelectedItem;
                 try
                 {
@@ -214,7 +213,30 @@ namespace SchoolGrades_WPF
             f.ShowDialog();
         }
 
-        
+        private void btnClassGeneration_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAssociateSchoolPeriodToTheYear_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnClassMigration_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnClassNew_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnStudentNew_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
 

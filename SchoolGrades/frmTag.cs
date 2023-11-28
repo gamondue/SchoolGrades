@@ -27,16 +27,15 @@ namespace SchoolGrades
             {
                 btnChoose.Visible = true;
             }
-            else
-            {
+            else {
                 btnChoose.Visible = false;
             }
         }
 
         private void frmTag_Load(object sender, EventArgs e)
         {
-            listTags = new List<Tag>();
-            if (txtIdTag.Text == "")
+            listTags = new List<Tag>(); 
+            if (txtIdTag.Text  == "")
             {
                 btnSave.Enabled = false;
                 btnChoose.Enabled = false;
@@ -51,13 +50,13 @@ namespace SchoolGrades
                 dgwExistingTags.DataSource = listTags;
                 dgwExistingTags.Columns[0].Visible = false;
                 dgwExistingTags.Columns[2].Visible = false;
-                dgwExistingTags.Refresh();
+                dgwExistingTags.Refresh(); 
             }
         }
         private void btnSave_Click(object sender, EventArgs e)
         {
             Commons.bl.SaveTag(currentTag);
-            btnChoose.Enabled = true;
+            btnChoose.Enabled = true; 
         }
 
         private void txtTag_TextChanged(object sender, EventArgs e)
@@ -74,29 +73,24 @@ namespace SchoolGrades
         {
             txtIdTag.Text = Commons.bl.CreateNewTag(currentTag).ToString();
             btnChoose.Enabled = false;
-            btnSave.Enabled = true;
+            btnSave.Enabled = true; 
         }
 
         private void dgwExistingTags_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             Tag t = listTags[e.RowIndex];
-            currentTag = t;
+            currentTag = t; 
             txtDesc.Text = t.Desc;
             txtIdTag.Text = t.IdTag.ToString();
             txtTag.Text = t.TagName;
             btnChoose.Enabled = true;
-            btnSave.Enabled = true;
+            btnSave.Enabled = true; 
         }
 
         private void btnChoose_Click(object sender, EventArgs e)
         {
-            haveChosen = true;
-            this.Close();
-        }
-
-        private void dgwExistingTags_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
+            haveChosen = true; 
+            this.Close(); 
         }
     }
 }

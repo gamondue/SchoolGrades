@@ -1,5 +1,6 @@
 ﻿using SchoolGrades;
 using SchoolGrades.BusinessObjects;
+using SharedWpf;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -32,9 +33,9 @@ namespace SchoolGrades_WPF
 
         internal Question ChosenQuestion { get => chosenQuestion; set => chosenQuestion = value; }
         public frmMicroAssessment ParentForm { get; }
-internal frmQuestionChoose(SchoolSubject SchoolSubject, Class Class,
-            Student Student = null, Question Question = null,
-            frmMicroAssessment MicroAssessmentParent = null, frmMain MainParent = null)
+        internal frmQuestionChoose(SchoolSubject SchoolSubject, Class Class,
+                    Student Student = null, Question Question = null,
+                    frmMicroAssessment MicroAssessmentParent = null, frmMain MainParent = null)
         {
             InitializeComponent();
 
@@ -64,19 +65,19 @@ internal frmQuestionChoose(SchoolSubject SchoolSubject, Class Class,
         {
             cmbSchoolSubject.SelectedValue = "";
 
-          //  lstTags.ItemsSource = tagsList;
+            //  lstTags.ItemsSource = tagsList;
 
-          //  List<SchoolPeriod> listPeriods = Commons.bl.GetSchoolPeriods(currentClass.SchoolYear);
-          //  cmbSchoolPeriod.ItemsSource = listPeriods;
+            //  List<SchoolPeriod> listPeriods = Commons.bl.GetSchoolPeriods(currentClass.SchoolYear);
+            //  cmbSchoolPeriod.ItemsSource = listPeriods;
             // select the combo item of the partial period of the DateTime.Now
-          //  foreach (SchoolPeriod sp in listPeriods)
-          //  {
-           //     if (sp.DateFinish > DateTime.Now && sp.DateStart < DateTime.Now
-          //          && sp.IdSchoolPeriodType == "P")
-          //      {
-          //          cmbSchoolPeriod.SelectedItem = sp;
-          //      }
-           // }
+            //  foreach (SchoolPeriod sp in listPeriods)
+            //  {
+            //     if (sp.DateFinish > DateTime.Now && sp.DateStart < DateTime.Now
+            //          && sp.IdSchoolPeriodType == "P")
+            //      {
+            //          cmbSchoolPeriod.SelectedItem = sp;
+            //      }
+            // }
 
             isLoading = false;
             // if the query would include too many rows, don't do it 
@@ -85,13 +86,13 @@ internal frmQuestionChoose(SchoolSubject SchoolSubject, Class Class,
 
             if (currentTopic != null && previousQuestion != null)
             {
-           //     txtTopic.Text = dbMptt.GetNodePath(previousQuestion.IdTopic);
+                //     txtTopic.Text = dbMptt.GetNodePath(previousQuestion.IdTopic);
                 txtTopicCode.Text = currentTopic.Id.ToString();
                 updateQuestions();
             }
-          //  LessonTimer.Interval = 1000;
+            //  LessonTimer.Interval = 1000;
             if (Commons.IsTimerLessonActive) { }
-           //     LessonTimer.Start();
+            //     LessonTimer.Start();
         }
 
         private void btnAddQuestion_Click(object sender, RoutedEventArgs e)
@@ -101,14 +102,14 @@ internal frmQuestionChoose(SchoolSubject SchoolSubject, Class Class,
             {
                 q.IdQuestionType = ((QuestionType)cmbQuestionTypes.SelectedItem).IdQuestionType;
             }
-           //frmQuestion domanda = new frmQuestion(frmQuestion.QuestionFormType.CreateSeveralQuestions,
-           //     q, currentSubject, currentClass, currentTopic);
-           // domanda.ShowDialog();
+            //frmQuestion domanda = new frmQuestion(frmQuestion.QuestionFormType.CreateSeveralQuestions,
+            //     q, currentSubject, currentClass, currentTopic);
+            // domanda.ShowDialog();
 
-         //   if (domanda.UserHasChosen)
-        //    {
-        //        ChosenQuestion = domanda.currentQuestion;
-                this.Close();
+            //   if (domanda.UserHasChosen)
+            //    {
+            //        ChosenQuestion = domanda.currentQuestion;
+            this.Close();
             updateQuestions();
         }
 
@@ -167,8 +168,8 @@ internal frmQuestionChoose(SchoolSubject SchoolSubject, Class Class,
         private void cmbSchoolSubject_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             currentSubject = (SchoolSubject)cmbSchoolSubject.SelectedItem; // new SchoolSubject();
-            System.Drawing.Color BackColor = Commons.ColorFromNumber(currentSubject);
-            this.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(BackColor.A, BackColor.R, BackColor.G, BackColor.B)); 
+            Color BackColor = CommonsWpf.ColorFromNumber(currentSubject);
+            this.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(BackColor.A, BackColor.R, BackColor.G, BackColor.B));
             updateQuestions();
         }
 
@@ -199,7 +200,7 @@ internal frmQuestionChoose(SchoolSubject SchoolSubject, Class Class,
             List<Topic> oneItemList = new List<Topic>();
             oneItemList.Add(chosenTopic);
             //frmTopics f = new frmTopics(frmTopics.TopicsFormType.ChooseTopic,
-             //   currentClass, currentSubject, null, oneItemList);
+            //   currentClass, currentSubject, null, oneItemList);
 
             //f.ShowDialog();
             //if (f.UserHasChosen)
