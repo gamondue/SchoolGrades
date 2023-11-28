@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SchoolGrades_WPF"
         mc:Ignorable="d"
-        Title="SchoolGrades" Height="450" Width="800">
+        Title="SchoolGrades" Height="500" Width="800">
     <Grid Background="PowderBlue">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="76*"/>
@@ -17,7 +17,7 @@
         <TextBlock x:Name="lblCodYear" HorizontalAlignment="Left" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Foreground="DarkBlue" FontSize="14"><Run Language="it-it" Text="Cod.Anno"/></TextBlock>
         <TextBlock HorizontalAlignment="Left" Margin="17,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Foreground="DarkBlue"><Run Language="it-it" Text="Id classe"/></TextBlock>
         <TextBlock HorizontalAlignment="Left" Margin="25,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Foreground="DarkBlue" FontSize="9"><Run Language="it-it" Text="salv .db"/></TextBlock>
-        <ComboBox x:Name="cmbSchoolYear" Margin="10,21,4,393" BorderBrush="Black" Background="White" RenderTransformOrigin="0.527,-0.464"/>
+        <ComboBox x:Name="cmbSchoolYear" Margin="10,21,4,0" BorderBrush="Black" Background="White" RenderTransformOrigin="0.527,-0.464" Height="20" VerticalAlignment="Top"/>
         <TextBox x:Name="txtIdClass" HorizontalAlignment="Left" Margin="26,65,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="30" FontFamily="Caladea" FontWeight="Bold" TextAlignment="Center" Foreground="DarkBlue" BorderBrush="#FFF5F0F0"/>
         <Button x:Name="picBackgroundSaveRunning" Content="" HorizontalAlignment="Left" Margin="32,96,0,0" VerticalAlignment="Top" Width="18" Background="DarkGray" BorderBrush="#FF131212" BorderThickness="0.5,0.5,0.5,0.5" Height="9"/>
         <TextBox x:Name="txtTimeInterval" HorizontalAlignment="Left" Margin="33,5,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="30" FontFamily="Microsoft Sans Serif" FontWeight="Bold" TextAlignment="Center" Foreground="DarkBlue" BorderBrush="#FF404040" Grid.Column="2"/>
@@ -26,18 +26,14 @@
         <TextBlock x:Name="lblLastDatabaseModification" HorizontalAlignment="Left" Margin="68,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Foreground="Red" FontSize="8" Grid.Column="2"><Run Text="Ibl"/><Run Language="it-it" Text="Last"/><Run Text="Databas"/><Run Language="it-it" Text="eModification"/></TextBlock>
         <CheckBox x:Name="chkSoundsInColorTimer" Content="Suoni" HorizontalAlignment="Center" Height="16" Margin="0,48,0,0" VerticalAlignment="Top" Width="54" Foreground="DarkBlue" Background="#FF005FB8" BorderBrush="#FFECECEC" IsChecked="True" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Grid.Column="2"/>
         <CheckBox x:Name="chkFotoVisibile" Content="Foto visibile" HorizontalAlignment="Left" Height="16" Margin="127,65,0,0" VerticalAlignment="Top" Width="93" Foreground="DarkBlue" FontWeight="Bold" Background="#FF005FB8" BorderBrush="#FFECECEC" IsChecked="True" FontFamily="Microsoft Sans Serif" Grid.Column="2" Grid.ColumnSpan="2"/>
-        <CheckBox x:Name="chkStudentsListVisible" Content="Lista visibile" HorizontalAlignment="Left" Height="16" Margin="127,82,0,0" VerticalAlignment="Top" Width="93" Foreground="DarkBlue" FontWeight="Bold" Background="#FF005FB8" BorderBrush="#FFECECEC" IsChecked="True" FontFamily="Microsoft Sans Serif" Grid.Column="2" Grid.ColumnSpan="2"/>
+        <CheckBox x:Name="chkStudentsListVisible" Content="Lista visibile" HorizontalAlignment="Left" Height="16" Margin="127,82,0,0" VerticalAlignment="Top" Width="93" Foreground="DarkBlue" FontWeight="Bold" Background="#FF005FB8" BorderBrush="#FFECECEC" IsChecked="True" FontFamily="Microsoft Sans Serif" Grid.Column="2" Grid.ColumnSpan="2" Checked="chkStudentsListVisible_Checked" Unchecked="chkStudentsListVisible_Unchecked"/>
         <CheckBox x:Name="chkNomeVisibile" Content="Nome visibile" HorizontalAlignment="Left" Height="16" Margin="127,47,0,0" VerticalAlignment="Top" Width="101" Foreground="DarkBlue" FontWeight="Bold" Background="#FF005FB8" BorderBrush="#FFECECEC" IsChecked="True" FontFamily="Microsoft Sans Serif" Grid.Column="2" Grid.ColumnSpan="2"/>
         <CheckBox x:Name="chkGivenFolder" Content="cartella" HorizontalAlignment="Left" Height="16" Margin="4,75,0,0" VerticalAlignment="Top" Width="62" Foreground="DarkBlue" FontWeight="Bold" Background="White" FontSize="11" BorderBrush="#FFECECEC" IsChecked="False" Panel.ZIndex="2" Grid.Column="4"/>
         <TextBox x:Name="txtPathImages" HorizontalAlignment="Left" Height="17" Margin="10,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="419" BorderBrush="#FFDEDBDB" Grid.ColumnSpan="4"/>
         <ProgressBar x:Name="pgbTimeQuestion" HorizontalAlignment="Left" Height="17" Margin="10,126,0,0" VerticalAlignment="Top" Width="454" Grid.ColumnSpan="4"/>
         <TextBox x:Name="txtQuestion" HorizontalAlignment="Left" Height="17" Margin="10,143,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="454" BorderBrush="#FFDEDBDB" Grid.ColumnSpan="4"/>
-        <Button x:Name="btnMakeGroups" Content="Gruppi" HorizontalAlignment="Left" Height="44" Margin="41,509,0,0" 
-                VerticalAlignment="Top" Width="85" Background="White" BorderBrush="#FFDEDBDB" Foreground="DarkBlue" 
-                FontWeight="Bold" FontFamily="Microsoft Sans Serif" Click="btnMakeGroups_Click" Grid.Column="2"/>
         <Button x:Name="btnPath" Content=".." HorizontalAlignment="Left" Height="17" Margin="118,109,0,0" VerticalAlignment="Top" Width="28" Background="White" BorderBrush="#FFDEDBDB" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Microsoft Sans Serif" Grid.Column="3"/>
-        <DataGrid x:Name="dgwStudents" HorizontalAlignment="Left" Height="261" Margin="10,163,0,0" 
-              VerticalAlignment="Top" Width="260" Background="#FFA0A0A0" Grid.ColumnSpan="3"
+        <DataGrid x:Name="dgwStudents" Margin="10,163,48,10" Background="#FFA0A0A0" Grid.ColumnSpan="3"
               ItemsSource="{Binding Source=currentStudentsList}" SelectionChanged="dgwStudents_SelectionChanged"
                   MouseDoubleClick="dgwStudents_MouseDoubleClick">
             <DataGrid.Columns>
@@ -47,7 +43,7 @@
         </DataGrid>
         <Button x:Name="btnLessonTime" Content="Inizio lezione" HorizontalAlignment="Left" Height="44" Margin="8,163,0,0" VerticalAlignment="Top" Width="82" Background="White" BorderBrush="#FFDEDBDB" Foreground="DarkBlue" FontWeight="Bold" FontFamily="Microsoft Sans Serif" HorizontalContentAlignment="Center" Grid.Column="3"/>
         <Button x:Name="btnSetup" Content="Setup&#xA;" HorizontalAlignment="Left" Height="40" Margin="201,5,0,0" VerticalAlignment="Top" Width="84" Background="White" BorderBrush="#FFDEDBDB" Foreground="DarkBlue" FontFamily="Microsoft Sans Serif" HorizontalContentAlignment="Center" Click="btnSetup_Click" VerticalContentAlignment="Bottom" FontWeight="Bold" FontSize="11" Grid.Column="3" Grid.ColumnSpan="2"/>
-        <GroupBox x:Name="grpImageSource" Header="Sorg.immag." Margin="201,42,193,333" Foreground="DarkBlue" FontWeight="Bold" FontSize="11" MinWidth="16" Background="PowderBlue" Panel.ZIndex="1" Grid.Column="3" Grid.ColumnSpan="2">
+        <GroupBox x:Name="grpImageSource" Header="Sorg.immag." Margin="201,42,193,0" Foreground="DarkBlue" FontWeight="Bold" FontSize="11" MinWidth="16" Background="PowderBlue" Panel.ZIndex="1" Grid.Column="3" Grid.ColumnSpan="2" Height="59" VerticalAlignment="Top">
             <CheckBox x:Name="chkLessonsPictures" Content="lezioni" HorizontalAlignment="Left" Height="16" VerticalAlignment="Top" Width="63" Foreground="DarkBlue" FontWeight="Bold" Background="#FF005FB8" FontSize="11" BorderBrush="#FFECECEC" IsChecked="True"/>
         </GroupBox>
         <Button x:Name="btnShowRandomImage" Content="Immagine &#xD;&#xA;  casuale" HorizontalAlignment="Left" Height="34" Margin="3,106,0,0" VerticalAlignment="Top" Width="70" Background="White" BorderBrush="#FFDEDBDB" Foreground="DarkBlue" FontFamily="Microsoft Sans Serif" 
@@ -113,6 +109,9 @@
         <ListBox x:Name="lstClasses" HorizontalAlignment="Left" Height="100" Background="PowderBlue" 
             Margin="8,5,0,0" VerticalAlignment="Top" Width="78" BorderBrush="#FF404040" 
             MouseDoubleClick="lstClasses_DoubleClick" Grid.Column="1" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.ColumnSpan="2"/>
-        <Image x:Name="picStudent" Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="243" Margin="0,177,0,0" VerticalAlignment="Top" Width="400"/>
+        <Image x:Name="picStudent" Grid.ColumnSpan="4" Margin="0,177,95,3"/>
+        <Button x:Name="btnMakeGroups" Content="Gruppi" HorizontalAlignment="Left" Height="44" Margin="90,53,0,0" 
+            VerticalAlignment="Top" Width="84" Background="White" BorderBrush="#FFDEDBDB" Foreground="DarkBlue" 
+            FontWeight="Bold" FontFamily="Microsoft Sans Serif" Click="btnMakeGroups_Click" Grid.Column="3" RenderTransformOrigin="2.402,-2.735"/>
     </Grid>
 </Window>
