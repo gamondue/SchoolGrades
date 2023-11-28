@@ -96,7 +96,7 @@
                 </Grid.ColumnDefinitions>
 
 
-                <DataGrid x:Name="dgwSchoolPeriods" MouseDoubleClick="dgwSchoolPeriods_MouseDoubleClick" SelectionChanged="dgwSchoolPeriods_SelectionChanged" ></DataGrid>
+                <DataGrid x:Name="dgwSchoolPeriods" MouseDoubleClick="dgwSchoolPeriods_MouseDoubleClick" SelectionChanged="dgwSchoolPeriods_SelectionChanged" />
                 <StackPanel Grid.Column="1">
                     <Button x:Name="btnNewPeriod" Width="50" Panel.ZIndex="50" Height="50" Margin="20" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnNewPeriod_Click" >+</Button>
                     <Button x:Name="btnDeletePeriod" Width="50" Panel.ZIndex="50" Height="50" Margin="20" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnDeletePeriod_Click">-</Button>

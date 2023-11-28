@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace SchoolGrades_WPF
 {
@@ -214,7 +216,7 @@ namespace SchoolGrades_WPF
         private void btnTemporary_Click(object sender, RoutedEventArgs e)
         {
             // Start a specific form to test it 
-            frmMosaic f = new frmMosaic(currentClass); 
+            frmMosaic f = new frmMosaic(currentClass);
             f.Show();
         }
         public void ShowStudentsOfClass()
@@ -287,6 +289,67 @@ namespace SchoolGrades_WPF
             //        Index++;
             //    }
             //}
+        }
+        private void dgwStudents_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
+        }
+        private void dgwStudents_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            DataGrid grid = (DataGrid)sender;
+            if (grid != null)
+            {
+                int RowIndex = grid.SelectedIndex;
+                if (RowIndex > -1)
+                {
+                    currentClass.CurrentStudent = currentStudentsList[RowIndex];
+                    currentStudent = currentClass.CurrentStudent;
+                    currentStudent.SchoolYear = currentClass.SchoolYear;
+                    loadStudentsData(currentStudent);
+                    dgwStudents.Visibility = Visibility.Hidden;
+                }
+            }
+        }
+        private void loadStudentsData(Student Student)
+        {
+            ////////if (chkStudentsListVisible.Checked)
+            loadPicture(Student);
+            ////////chkStudentsListVisible.Checked = false;
+            ////////lblStudentChosen.Text = Student.ToString();
+            ////////txtRevengeFactor.Text = Student.RevengeFactorCounter.ToString();
+            ////////txtIdStudent.Text = Student.IdStudent.ToString();
+        }
+        private void loadPicture(Student Chosen)
+        {
+            try
+            {
+                string pictureFile = Path.Combine(Commons.PathImages, Commons.bl.GetFilePhoto(Chosen.IdStudent, schoolYear));
+                var uriSource = new Uri(pictureFile, UriKind.Absolute);
+                picStudent.Source = new BitmapImage(uriSource);
+            }
+            catch
+            {
+                picStudent.Source = null;
+                Console.Beep();
+            }
+        }
+        private void btnMakeGroups_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnSetup_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void btnQuestion_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void btnMosaic_Click(object sender, RoutedEventArgs e)
+        {
+            frmMosaic f = new frmMosaic(currentClass);
+            f.Show();
         }
     }
 }

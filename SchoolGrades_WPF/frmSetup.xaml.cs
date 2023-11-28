@@ -1,32 +1,17 @@
-﻿using gamon;
-using Microsoft.Win32;
-using SchoolGrades;
+﻿using SchoolGrades;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SchoolGrades_WPF
 {
     /// <summary>
     /// Logica di interazione per frmSetup.xaml
     /// </summary>
-    public partial class frmSetup : Page
+    public partial class frmSetup : Window
     {
         public bool NewDatabaseFile { get; private set; }
 
-      
+
         public frmSetup()
         {
             InitializeComponent();
@@ -45,7 +30,7 @@ namespace SchoolGrades_WPF
             //chkSaveBackup.IsChecked = Commons.SaveBackupWhenExiting;
         }
 
-       
+
 
         private void btnTabelle_Click(object sender, RoutedEventArgs e)
         {
@@ -61,7 +46,6 @@ namespace SchoolGrades_WPF
 
         private void btnBackupManagement_Click(object sender, RoutedEventArgs e)
         {
-
             frmBackupManagement f = new frmBackupManagement();
             f.ShowDialog();
         }
@@ -73,67 +57,67 @@ namespace SchoolGrades_WPF
 
         internal void WriteConfigFile()
         {
-//            string[] dati = new string[6];
-//            try
-//            {
-//                if (!Directory.Exists(Commons.PathConfig))
-//                    Directory.CreateDirectory(Commons.PathConfig);
+            //            string[] dati = new string[6];
+            //            try
+            //            {
+            //                if (!Directory.Exists(Commons.PathConfig))
+            //                    Directory.CreateDirectory(Commons.PathConfig);
 
-//                if (!Directory.Exists(Commons.PathLogs))
-//                    Directory.CreateDirectory(Commons.PathLogs);
+            //                if (!Directory.Exists(Commons.PathLogs))
+            //                    Directory.CreateDirectory(Commons.PathLogs);
 
-//                Commons.DatabaseFileName_Current = dati[0] = TxtFileDatabase.Text;
+            //                Commons.DatabaseFileName_Current = dati[0] = TxtFileDatabase.Text;
 
-//                Commons.PathImages = dati[1] = TxtPathImages.Text;
-//                if (!Directory.Exists(Commons.PathImages))
-//                    Directory.CreateDirectory(Commons.PathImages);
+            //                Commons.PathImages = dati[1] = TxtPathImages.Text;
+            //                if (!Directory.Exists(Commons.PathImages))
+            //                    Directory.CreateDirectory(Commons.PathImages);
 
-//                // postition 2 was held by PathStartLinks, that is not longer used,
-//                // substituted by PathRestrictedApp  (attribute of the single school class) 
-//                //dati[2] = Commons.PathRestrictedApp; 
+            //                // postition 2 was held by PathStartLinks, that is not longer used,
+            //                // substituted by PathRestrictedApp  (attribute of the single school class) 
+            //                //dati[2] = Commons.PathRestrictedApp; 
 
-//                Commons.PathDatabase = dati[3] = TxtPathDatabase.Text;
-//                if (!Directory.Exists(Commons.PathDatabase))
-//                    Directory.CreateDirectory(Commons.PathDatabase);
+            //                Commons.PathDatabase = dati[3] = TxtPathDatabase.Text;
+            //                if (!Directory.Exists(Commons.PathDatabase))
+            //                    Directory.CreateDirectory(Commons.PathDatabase);
 
-//                Commons.PathDocuments = dati[4] = TxtPathDocuments.Text;
-//                if (!Directory.Exists(Commons.PathDocuments))
-//                {
-//                    if (Commons.PathDocuments != "")
-//                        Directory.CreateDirectory(Commons.PathDocuments);
-//                    else
-//                        Commons.PathDocuments = ".";
-//                }
+            //                Commons.PathDocuments = dati[4] = TxtPathDocuments.Text;
+            //                if (!Directory.Exists(Commons.PathDocuments))
+            //                {
+            //                    if (Commons.PathDocuments != "")
+            //                        Directory.CreateDirectory(Commons.PathDocuments);
+            //                    else
+            //                        Commons.PathDocuments = ".";
+            //                }
 
-//                Commons.SaveBackupWhenExiting = chkSaveBackup.IsChecked;
-//                dati[5] = Commons.SaveBackupWhenExiting.ToString();
+            //                Commons.SaveBackupWhenExiting = chkSaveBackup.IsChecked;
+            //                dati[5] = Commons.SaveBackupWhenExiting.ToString();
 
-//                //////////Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
-//                // TODO !!! if the file doesn't exist copies the sample empty database. Eventually redo this code, it is ugly and not functional !!!!
-//                ////if(!File.Exists(Commons.PathAndFileDatabase))
-//                ////    File.Copy(".\\" + Commons.TeachersDatabaseFileName, Commons.PathAndFileDatabase);
-//#if DEBUG
-//                TextFile.ArrayToFile(Commons.PathAndFileConfig + "_DEBUG", dati, false);
-//#else
-//                TextFile.ArrayToFile(Commons.PathAndFileConfig, dati, false);
-//#endif
+            //                //////////Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
+            //                // TODO !!! if the file doesn't exist copies the sample empty database. Eventually redo this code, it is ugly and not functional !!!!
+            //                ////if(!File.Exists(Commons.PathAndFileDatabase))
+            //                ////    File.Copy(".\\" + Commons.TeachersDatabaseFileName, Commons.PathAndFileDatabase);
+            //#if DEBUG
+            //                TextFile.ArrayToFile(Commons.PathAndFileConfig + "_DEBUG", dati, false);
+            //#else
+            //                TextFile.ArrayToFile(Commons.PathAndFileConfig, dati, false);
+            //#endif
 
-//                MessageBox.Show("File di configurazione salvato in " + Commons.PathAndFileConfig +
-//                    "\n\nIl programma verrà chiuso.");
+            //                MessageBox.Show("File di configurazione salvato in " + Commons.PathAndFileConfig +
+            //                    "\n\nIl programma verrà chiuso.");
 
-//                Application.Exit();
-//            }
-//            catch (Exception e)
-//            {
-//                string err = "WriteConfigFile(): " + e.Message;
-//                Commons.ErrorLog(err);
-//                throw new Exception(err);
-//                //throw new FileNotFoundException(@"[Error in program's directories] \r\n" + e.Message);
-//                //return;
-//            }
-//            //Application.Exit();
-//            NewDatabaseFile = true;
-//            this.Close();
+            //                Application.Exit();
+            //            }
+            //            catch (Exception e)
+            //            {
+            //                string err = "WriteConfigFile(): " + e.Message;
+            //                Commons.ErrorLog(err);
+            //                throw new Exception(err);
+            //                //throw new FileNotFoundException(@"[Error in program's directories] \r\n" + e.Message);
+            //                //return;
+            //            }
+            //            //Application.Exit();
+            //            NewDatabaseFile = true;
+            //            this.Close();
         }
 
         private void btnPathDatabase_Click(object sender, RoutedEventArgs e)
@@ -173,10 +157,10 @@ namespace SchoolGrades_WPF
 
         private void btnQuestionManagement_Click(object sender, RoutedEventArgs e)
         {
-        //    //frmQuestion form = new frmQuestion(frmQuestion.QuestionFormType.CreateSeveralQuestions,
-        //    //    null, null, null, null); 
-        //    frmQuestionChoose form = new frmQuestionChoose(null, null, null);
-        //    form.ShowDialog();
+            //    //frmQuestion form = new frmQuestion(frmQuestion.QuestionFormType.CreateSeveralQuestions,
+            //    //    null, null, null, null); 
+            //    frmQuestionChoose form = new frmQuestionChoose(null, null, null);
+            //    form.ShowDialog();
         }
 
         private void btnTestManagement_Click(object sender, RoutedEventArgs e)
@@ -231,11 +215,24 @@ namespace SchoolGrades_WPF
             f.ShowDialog();
         }
 
+        private void TextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
 
+        }
 
+        private void TextBox_TextChanged_1(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
 
-      
+        }
 
+        private void TextBox_TextChanged_2(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
 
+        }
+
+        private void TextBox_TextChanged_3(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+
+        }
     }
 }

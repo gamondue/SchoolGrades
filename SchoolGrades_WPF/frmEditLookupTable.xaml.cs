@@ -1,7 +1,7 @@
-﻿using System.Data.Common;
+﻿using SchoolGrades;
 using System.Data;
+using System.Data.Common;
 using System.Windows;
-using SchoolGrades;
 
 namespace SchoolGrades_WPF
 {
@@ -51,6 +51,10 @@ namespace SchoolGrades_WPF
             //            db.CreateLookupTableRow(table, idTable, riga);
             //    }
             //}
+        }
+        private void frmEditLookupTable_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
         }
     }
 }

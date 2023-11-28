@@ -1,9 +1,8 @@
-﻿using System.Windows;
+﻿using SchoolGrades;
 using SchoolGrades.BusinessObjects;
-using SchoolGrades;
 using System;
 using System.Data;
-using System.Drawing;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -129,7 +128,7 @@ namespace SchoolGrades_WPF
             //this.BackColor = Commons.ColorFromNumber(currentSchoolSubject);
             System.Drawing.Color BackColor = Commons.ColorFromNumber(currentSchoolSubject);
             this.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(BackColor.A, BackColor.R, BackColor.G, BackColor.B));
-            LessonTimer.Interval = new TimeSpan(0,0,1);
+            LessonTimer.Interval = new TimeSpan(0, 0, 1);
             if (Commons.IsTimerLessonActive)
                 LessonTimer.Start();
         }
@@ -381,22 +380,22 @@ namespace SchoolGrades_WPF
         //}
         private void DgwQuestions_CellClick(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if (e.RowIndex > -1)
-            {
-                if ((DataTable)(DgwQuestions.ItemsSource) != null)
-                {
-                    DataRow row = ((DataTable)DgwQuestions.ItemsSource).Rows[e.RowIndex];
-                    ReadCurrentGradeAndQuestionFromGridRow(row);
-                    txtMicroGradeWeight.Text = currentGrade.Weight.ToString();
-                    txtMicroGrade.Text = ((double)currentGrade.Value).ToString("#.#");
-                    if (currentQuestion != null)
-                        TxtQuestionText.Text = currentQuestion.Text;
-                    else
-                        TxtQuestionText.Text = "";
+            ////////if (e.RowIndex > -1)
+            ////////{
+            ////////    if ((DataTable)(DgwQuestions.ItemsSource) != null)
+            ////////    {
+            ////////        DataRow row = ((DataTable)DgwQuestions.ItemsSource).Rows[e.RowIndex];
+            ////////        ReadCurrentGradeAndQuestionFromGridRow(row);
+            ////////        txtMicroGradeWeight.Text = currentGrade.Weight.ToString();
+            ////////        txtMicroGrade.Text = ((double)currentGrade.Value).ToString("#.#");
+            ////////        if (currentQuestion != null)
+            ////////            TxtQuestionText.Text = currentQuestion.Text;
+            ////////        else
+            ////////            TxtQuestionText.Text = "";
 
-                    DgwQuestions.Rows[e.RowIndex].Selected = true;
-                }
-            }
+            ////////        DgwQuestions.Rows[e.RowIndex].Selected = true;
+            ////////    }
+            ////////}
         }
         private void ReadCurrentGradeAndQuestionFromGridRow(DataRow row)
         {
@@ -412,45 +411,45 @@ namespace SchoolGrades_WPF
             }
             currentGrade = Commons.bl.GetGrade(Safe.Int(row["idGrade"]));
 
-            this.Refresh();
+            ////////this.Refresh();
         }
-        private void DgwQuestions_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-        }
+        //////////private void DgwQuestions_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        //////////{
+        //////////}
         private void btnEraseMicroGrade_Click(object sender, EventArgs e)
         {
-            if (DgwQuestions.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Per cancellarla, selezionare una domanda dalla griglia.");
-                return;
-            }
-            DataGridViewRow row = (DgwQuestions.SelectedRows[0]);
-            Commons.bl.EraseGrade(Safe.Int(row.Cells["idGrade"].Value));
-            ShowStudentsDataAndAverages();
+            //////////////if (DgwQuestions.SelectedRows.Count == 0)
+            //////////////{
+            //////////////    MessageBox.Show("Per cancellarla, selezionare una domanda dalla griglia.");
+            //////////////    return;
+            //////////////}
+            //////////////DataGridViewRow row = (DgwQuestions.SelectedRows[0]);
+            //////////////Commons.bl.EraseGrade(Safe.Int(row.Cells["idGrade"].Value));
+            //////////////ShowStudentsDataAndAverages();
         }
         private void btnFlushQuestion_Click(object sender, EventArgs e)
         {
             currentQuestion = null;
             TxtQuestionText.Text = "";
         }
-        private void frmMicroAssessment_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            //currentQuestion = 
-        }
+        //////////////private void frmMicroAssessment_FormClosing(object sender, FormClosingEventArgs e)
+        //////////////{
+        //////////////    //currentQuestion = 
+        //////////////}
         private void LessonTimer_Tick(object sender, EventArgs e)
         {
-            lblLessonTime.BackColor = ((frmMain)Application.OpenForms[0]).CurrentLessonTimeColor;
+            ////////lblLessonTime.BackColor = ((frmMain)Application.OpenForms[0]).CurrentLessonTimeColor;
         }
         private void BtnSaveGrade(object sender, EventArgs e)
         {
-            if (DgwQuestions.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Selezionare una domanda dalla griglia, per poterla salvare.");
-                ShowStudentsDataAndAverages();
-                return;
-            }
-            DataRow row = ((DataTable)DgwQuestions.ItemsSource).Rows[DgwQuestions.SelectedRows[0].Index];
-            ReadCurrentGradeAndQuestionFromGridRow(row);
+            //////////if (DgwQuestions.SelectedRows.Count == 0)
+            //////////{
+            //////////    MessageBox.Show("Selezionare una domanda dalla griglia, per poterla salvare.");
+            //////////    ShowStudentsDataAndAverages();
+            //////////    return;
+            //////////}
+            //////////DataRow row = ((DataTable)DgwQuestions.ItemsSource).Rows[DgwQuestions.SelectedRows[0].Index];
+            //////////ReadCurrentGradeAndQuestionFromGridRow(row);
             currentGrade = ReadUI(currentGrade);
             currentGrade.IdGrade = Commons.bl.SaveMicroGrade(currentGrade);
             ShowStudentsDataAndAverages();
@@ -461,11 +460,11 @@ namespace SchoolGrades_WPF
         }
         private void TxtQuestionText_DoubleClick(object sender, EventArgs e)
         {
-            frmQuestion f = new frmQuestion(frmQuestion.QuestionFormType.EditOneQuestion,
-                currentQuestion, currentSchoolSubject, currentClass, null);
-            f.ShowDialog();
-            if (f.UserHasChosen)
-                TxtQuestionText.Text = f.currentQuestion.Text;
+            //////////frmQuestion f = new frmQuestion(frmQuestion.QuestionFormType.EditOneQuestion,
+            //////////    currentQuestion, currentSchoolSubject, currentClass, null);
+            //////////f.ShowDialog();
+            //////////if (f.UserHasChosen)
+            //////////    TxtQuestionText.Text = f.currentQuestion.Text;
         }
         private void txtIdMacroGrade_TextChanged(object sender, EventArgs e)
         {
