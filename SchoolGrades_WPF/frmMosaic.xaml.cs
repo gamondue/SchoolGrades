@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows;
+﻿using SchoolGrades;
 using SchoolGrades.BusinessObjects;
-using SchoolGrades;
-using SGImage = SchoolGrades.BusinessObjects.Image;
-using WPFImage = System.Windows.Controls.Image;
-using System.Windows.Media.Imaging;
-using System.Windows.Controls;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
+using WPFImage = System.Windows.Controls.Image;
 
 namespace SchoolGrades_WPF
 {
@@ -30,55 +29,39 @@ namespace SchoolGrades_WPF
 
             // with a grid of seven colums, we set the number of rows,
             // given the number of students
-            int nGridRows = currentStudents.Count / 7; 
-            for (int row = 0; row < nGridRows; row++) {
+            int nGridRows = currentStudents.Count / 7 + 1;
+            int nGridCols = 7;
+            // adding the rows in the Grid
+            for (int row = 0; row < nGridRows; row++)
+            {
                 PictureGrid.RowDefinitions.Add(new RowDefinition());
             }
             // creation of pictures 
-            int i = 0; 
+            int i = 0, rowIndex = 0, columnIndex = 0;
             foreach (Student s in currentStudents)
             {
-                WPFImage pic = new WPFImage();
-                BitmapImage bitmapImage = new BitmapImage();
-                //pic.BorderStyle = BorderStyle.FixedSingle;
-                //pic.SizeMode = ImageSizeMode.Zoom;
-                pic.Tag = s.LastName + " " + s.FirstName;
-                PictureGrid.Children.Add(pic);
-                pic.Stretch = System.Windows.Media.Stretch.Uniform; 
-                int row = i / 7;
-                int column = i % 7;
-                Grid.SetRow(pic, row);
-                Grid.SetColumn(pic, column);
-                loadPicture(s, currentClass.SchoolYear, pic);
-                PictureGrid.Children.Add(pic);
+                rowIndex = i / 7;
+                columnIndex = i % 7;
+                WPFImage image = null;
+                try
+                {
+                    Uri fileUri = new Uri(Path.Combine(Commons.PathImages,
+                    Commons.bl.GetFilePhoto(s.IdStudent, s.SchoolYear)));
+                    //image = new WPFImage { Source = imageSource };
+                    image = new WPFImage();
+                    image.Source = new BitmapImage(fileUri);
+                }
+                catch
+                {
+                    image.Source = null;
+                    Console.Beep();
+                }
+                PictureGrid.Children.Add(image);
 
-                //currentPictures.Add(pic);
-                //this.Controls.Add(pic);
-                i++; 
+                Grid.SetRow(image, rowIndex);
+                Grid.SetColumn(image, columnIndex);
+                i++;
             }
-            ResizePictures();
-        }
-        private void ResizePictures()
-        {
-            //int xNumPictures = 7;
-            //int yNumPictures = (int)(Math.Ceiling((double)currentStudents.Count / xNumPictures));
-            //int xStep = this.ClientRectangle.Width / xNumPictures;
-            //int yStep = this.ClientRectangle.Height / yNumPictures;
-            //int nRow = 0, nCol = 0;
-            //foreach (WPFImage pic in currentPictures)
-            //{
-            //    pic.Location = new Point(nCol * xStep, nRow * yStep);
-            //    pic.Size = new Size(xStep, yStep);
-            //    pic.MouseDown += new System.Windows.Forms.MouseEventHandler(pictures_MouseDown);
-            //    pic.MouseUp += new System.Windows.Forms.MouseEventHandler(pictures_MouseUp);
-            //    nCol++;
-            //    if (nCol == xNumPictures)
-            //    {
-            //        nRow++;
-            //        nCol = 0;
-            //    }
-            //}
-            //this.Refresh();
         }
         private void pictures_MouseUp(object sender, EventArgs e)
         {
@@ -89,25 +72,7 @@ namespace SchoolGrades_WPF
             WPFImage pic = (WPFImage)sender;
             txtStudentsName.Text = pic.Tag.ToString();
             //txtStudentsName.Location = new Point(pic.Location.X, pic.Location.Y + pic.Height / 2);
-            txtStudentsName.Visibility = Visibility.Visible; 
-        }
-        private void loadPicture(Student ShowingStudent, string SchoolYear, WPFImage PictureContainer)
-        {
-            try
-            {
-                Uri fileUri = new Uri(Path.Combine(Commons.PathImages,
-                Commons.bl.GetFilePhoto(ShowingStudent.IdStudent, SchoolYear)));
-                PictureContainer.Source = new BitmapImage(fileUri);
-            }
-            catch
-            {
-                PictureContainer.Source = null;
-                Console.Beep();
-            }
-        }
-        private void frmMosaic_Resize(object sender, EventArgs e)
-        {
-            ResizePictures();
+            txtStudentsName.Visibility = Visibility.Visible;
         }
     }
 }

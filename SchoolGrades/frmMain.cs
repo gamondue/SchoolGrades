@@ -1558,8 +1558,8 @@ namespace SchoolGrades
         }
         private void btnTemporary_Click(object sender, EventArgs e)
         {
-            //frmTestGrading fg = new frmTestGrading();
-            //fg.Show();
+            frmMosaic fg = new frmMosaic(currentClass);
+            fg.Show();
             ////Student dummyStudent = new Student();
             ////dummyStudent.IdStudent = 388;
             ////dummyStudent.LastName = "Dummy"; 

@@ -1,0 +1,60 @@
+﻿<Window x:Class="SchoolGrades_WPF.frmTables"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SchoolGrades_WPF"
+        mc:Ignorable="d"
+        Title="frmTables" Height="450" Width="800">
+    <Grid Background="PowderBlue">
+        <RadioButton Margin="10,33,309,0" VerticalAlignment="Top" Foreground="#FF150EF3" >Materie
+            <RadioButton.LayoutTransform>
+                <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
+            </RadioButton.LayoutTransform>
+        </RadioButton>
+
+        <RadioButton Margin="10,65,262,0" VerticalAlignment="Top" Foreground="#FF150EF3" >Tipo di prove
+            <RadioButton.LayoutTransform>
+                <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
+            </RadioButton.LayoutTransform>
+        </RadioButton>
+
+
+        <RadioButton Margin="10,110,241,0" VerticalAlignment="Top" Foreground="#FF150EF3">Tipi di domande
+            <RadioButton.LayoutTransform>
+                <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
+            </RadioButton.LayoutTransform>
+        </RadioButton>
+        <RadioButton Margin="10,158,241,0" VerticalAlignment="Top" Foreground="#FF150EF3">Tipi di risposte
+            <RadioButton.LayoutTransform>
+                <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
+            </RadioButton.LayoutTransform>
+        </RadioButton>
+
+
+        <RadioButton Margin="10,190,241,0" VerticalAlignment="Top" Foreground="#FF150EF3">Tipi di voti
+            <RadioButton.LayoutTransform>
+                <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
+            </RadioButton.LayoutTransform>
+        </RadioButton>
+
+
+        <RadioButton Margin="10,244,241,0" VerticalAlignment="Top" Foreground="#FF150EF3">Categorie di voti
+            <RadioButton.LayoutTransform>
+                <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
+            </RadioButton.LayoutTransform>
+        </RadioButton>
+        <RadioButton Margin="10,304,241,0" VerticalAlignment="Top" Foreground="#FF150EF3">Scuole
+            <RadioButton.LayoutTransform>
+                <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
+            </RadioButton.LayoutTransform>
+        </RadioButton>
+
+        <RadioButton Margin="10,365,241,0" VerticalAlignment="Top" Foreground="#FF150EF3">Anni scolastici
+            <RadioButton.LayoutTransform>
+                <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
+            </RadioButton.LayoutTransform>
+        </RadioButton>
+        <Button Margin="281,147,42,177" Background="White" Content="Apri tabella" FontSize="23" Foreground="#FF0027FF"    ></Button>
+    </Grid>
+</Window>

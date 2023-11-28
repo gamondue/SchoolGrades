@@ -1,10 +1,8 @@
 ﻿using SchoolGrades;
 using SchoolGrades.BusinessObjects;
 using System;
-using System.Data;
 using System.Windows;
 using System.Windows.Controls;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace SchoolGrades_WPF
 {
@@ -37,7 +35,7 @@ namespace SchoolGrades_WPF
             cmbSchoolPeriodTypes.SelectedValue = "P";
         }
 
-       
+
 
         private void btnNewPeriod_Click(object sender, RoutedEventArgs e)
         {
@@ -64,7 +62,7 @@ namespace SchoolGrades_WPF
             return;
         }
 
-       
+
 
         //private void dgwSchoolPeriods_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         //{
@@ -84,7 +82,7 @@ namespace SchoolGrades_WPF
 
         private void btnNewYear_Click(object sender, RoutedEventArgs e)
         {
-            if(txtSchoolYear.Text == "")
+            if (txtSchoolYear.Text == "")
             {
                 MessageBox.Show("Scrivere il codice dell'anno precedente nella casella 'Anno'");
                 return;
@@ -123,7 +121,31 @@ namespace SchoolGrades_WPF
             currentSchoolPeriod.IdSchoolPeriodType = ((SchoolPeriodType)cmbSchoolPeriodTypes.SelectedItem).IdSchoolPeriodType;
         }
 
-  
+        private void txtIdSchoolPeriod_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void txtSchoolYear_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void dgwSchoolPeriods_PreviewMouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void dgwSchoolPeriods_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void dgwSchoolPeriods_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+
+        }
+
 
         //private void WriteToUi()
         //{
