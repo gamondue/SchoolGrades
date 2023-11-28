@@ -32,6 +32,7 @@ namespace SchoolGrades_WPF
         Question currentQuestion;
         GradeType currentGradeType;
         Class currentClass;
+        private bool loading = true;
 
         public frmMain()
         {
@@ -63,6 +64,7 @@ namespace SchoolGrades_WPF
             btnTemporary.Visible = false;
 #endif
             frmMain_Load();
+            loading = false;
         }
         private void frmMain_Load()
         {
@@ -306,7 +308,7 @@ namespace SchoolGrades_WPF
                     currentStudent = currentClass.CurrentStudent;
                     currentStudent.SchoolYear = currentClass.SchoolYear;
                     loadStudentsData(currentStudent);
-                    dgwStudents.Visibility = Visibility.Hidden;
+                    chkStudentsListVisible.Visibility = Visibility.Hidden;
                 }
             }
         }
@@ -337,7 +339,6 @@ namespace SchoolGrades_WPF
         {
 
         }
-
         private void btnSetup_Click(object sender, RoutedEventArgs e)
         {
 
@@ -345,6 +346,24 @@ namespace SchoolGrades_WPF
         private void btnQuestion_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+        private void chkStudentsListVisible_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (loading) return;
+                dgwStudents.Visibility = Visibility.Hidden;
+                ////////lblStudentChosen.Visibility = Visibility.Visible;
+                picStudent.Visibility = Visibility.Visible;
+                ////////lblIdStudent.Visibility = Visibility.Visible;
+                ////////txtIdStudent.Visibility = Visibility.Visible;
+        }
+        private void chkStudentsListVisible_Checked(object sender, RoutedEventArgs e)
+        {
+            if (loading) return;
+                dgwStudents.Visibility = Visibility.Visible;
+                //////////lblStudentChosen.Visibility = Visibility.Hidden;
+                picStudent.Visibility = Visibility.Hidden;
+                //////////lblIdStudent.Visibility = Visibility.Hidden;
+                //////////txtIdStudent.Visibility = Visibility.Hidden;
         }
         private void btnMosaic_Click(object sender, RoutedEventArgs e)
         {
