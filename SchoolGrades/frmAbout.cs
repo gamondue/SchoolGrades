@@ -7,17 +7,17 @@ using SchoolGrades;
 
 namespace gamon
 {
-    /// <summary>
-    /// Descrizione di riepilogo per frmAbout.
-    /// </summary>
-    public class frmAbout : Form
-    {
-        public Label lblData;
-        public ToolTip ToolTip1;
-        public Label lblVersione;
-        public Timer Timer1;
-        public Label lblAssemblyTitle;
-        public Label lblAssemblyDescription;
+	/// <summary>
+	/// Descrizione di riepilogo per frmAbout.
+	/// </summary>
+	public class frmAbout : Form
+	{
+        public System.Windows.Forms.Label lblData;
+		public System.Windows.Forms.ToolTip ToolTip1;
+		public System.Windows.Forms.Label lblVersione;
+        public System.Windows.Forms.Timer Timer1;
+		public System.Windows.Forms.Label lblAssemblyTitle;
+		public System.Windows.Forms.Label lblAssemblyDescription;
         public Label label1;
         public Label label3;
         private Panel panel1;
@@ -25,233 +25,243 @@ namespace gamon
         public Label label4;
         public Label label5;
         private PictureBox pictureBox1;
-        private IContainer components;
-        public frmAbout()
-        {
-            //
-            // Necessario per il supporto di Progettazione Windows Form
-            //
-            InitializeComponent();
+        private System.ComponentModel.IContainer components;
+		public frmAbout()
+		{
+			//
+			// Necessario per il supporto di Progettazione Windows Form
+			//
+			InitializeComponent();
 
-            // costruttore
-        }
-        /// <summary>
-        /// Pulire le risorse in uso.
-        /// </summary>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (components != null)
-                {
-                    components.Dispose();
-                }
-            }
-            base.Dispose(disposing);
-        }
-        #region Codice generato da Progettazione Windows Form
-        /// <summary>
-        /// Metodo necessario per il supporto della finestra di progettazione. Non modificare
-        /// il contenuto del metodo con l'editor di codice.
-        /// </summary>
-        private void InitializeComponent()
-        {
-            components = new Container();
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(frmAbout));
-            lblData = new Label();
-            lblAssemblyTitle = new Label();
-            ToolTip1 = new ToolTip(components);
-            lblVersione = new Label();
-            Timer1 = new Timer(components);
-            lblAssemblyDescription = new Label();
-            label1 = new Label();
-            label3 = new Label();
-            panel1 = new Panel();
-            label5 = new Label();
-            label4 = new Label();
-            label2 = new Label();
-            pictureBox1 = new PictureBox();
-            panel1.SuspendLayout();
-            ((ISupportInitialize)pictureBox1).BeginInit();
-            SuspendLayout();
+			// costruttore
+		}
+		/// <summary>
+		/// Pulire le risorse in uso.
+		/// </summary>
+		protected override void Dispose( bool disposing )
+		{
+			if( disposing )
+			{
+				if(components != null)
+				{
+					components.Dispose();
+				}
+			}
+			base.Dispose( disposing );
+		}
+		#region Codice generato da Progettazione Windows Form
+		/// <summary>
+		/// Metodo necessario per il supporto della finestra di progettazione. Non modificare
+		/// il contenuto del metodo con l'editor di codice.
+		/// </summary>
+		private void InitializeComponent()
+		{
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAbout));
+            this.lblData = new System.Windows.Forms.Label();
+            this.lblAssemblyTitle = new System.Windows.Forms.Label();
+            this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.lblVersione = new System.Windows.Forms.Label();
+            this.Timer1 = new System.Windows.Forms.Timer(this.components);
+            this.lblAssemblyDescription = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.SuspendLayout();
             // 
             // lblData
             // 
-            lblData.BackColor = System.Drawing.Color.White;
-            lblData.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            lblData.ForeColor = System.Drawing.Color.Black;
-            lblData.Location = new System.Drawing.Point(304, 206);
-            lblData.Name = "lblData";
-            lblData.RightToLeft = RightToLeft.No;
-            lblData.Size = new System.Drawing.Size(313, 24);
-            lblData.TabIndex = 16;
-            lblData.Text = "lblData";
-            lblData.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            lblData.Visible = false;
+            this.lblData.BackColor = System.Drawing.Color.White;
+            this.lblData.Cursor = System.Windows.Forms.Cursors.Default;
+            this.lblData.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblData.ForeColor = System.Drawing.Color.Black;
+            this.lblData.Location = new System.Drawing.Point(304, 206);
+            this.lblData.Name = "lblData";
+            this.lblData.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblData.Size = new System.Drawing.Size(313, 24);
+            this.lblData.TabIndex = 16;
+            this.lblData.Text = "lblData";
+            this.lblData.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lblData.Visible = false;
             // 
             // lblAssemblyTitle
             // 
-            lblAssemblyTitle.BackColor = System.Drawing.Color.White;
-            lblAssemblyTitle.Font = new System.Drawing.Font("Verdana", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            lblAssemblyTitle.ForeColor = System.Drawing.Color.Black;
-            lblAssemblyTitle.Location = new System.Drawing.Point(304, 74);
-            lblAssemblyTitle.Name = "lblAssemblyTitle";
-            lblAssemblyTitle.RightToLeft = RightToLeft.No;
-            lblAssemblyTitle.Size = new System.Drawing.Size(313, 47);
-            lblAssemblyTitle.TabIndex = 17;
-            lblAssemblyTitle.Text = "lblAssemblyTitle";
-            lblAssemblyTitle.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lblAssemblyTitle.BackColor = System.Drawing.Color.White;
+            this.lblAssemblyTitle.Cursor = System.Windows.Forms.Cursors.Default;
+            this.lblAssemblyTitle.Font = new System.Drawing.Font("Verdana", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblAssemblyTitle.ForeColor = System.Drawing.Color.Black;
+            this.lblAssemblyTitle.Location = new System.Drawing.Point(304, 74);
+            this.lblAssemblyTitle.Name = "lblAssemblyTitle";
+            this.lblAssemblyTitle.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblAssemblyTitle.Size = new System.Drawing.Size(313, 47);
+            this.lblAssemblyTitle.TabIndex = 17;
+            this.lblAssemblyTitle.Text = "lblAssemblyTitle";
+            this.lblAssemblyTitle.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // lblVersione
             // 
-            lblVersione.BackColor = System.Drawing.Color.White;
-            lblVersione.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            lblVersione.ForeColor = System.Drawing.Color.Black;
-            lblVersione.Location = new System.Drawing.Point(296, 170);
-            lblVersione.Name = "lblVersione";
-            lblVersione.RightToLeft = RightToLeft.No;
-            lblVersione.Size = new System.Drawing.Size(328, 36);
-            lblVersione.TabIndex = 11;
-            lblVersione.Text = "Versione ";
-            lblVersione.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lblVersione.BackColor = System.Drawing.Color.White;
+            this.lblVersione.Cursor = System.Windows.Forms.Cursors.Default;
+            this.lblVersione.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblVersione.ForeColor = System.Drawing.Color.Black;
+            this.lblVersione.Location = new System.Drawing.Point(296, 170);
+            this.lblVersione.Name = "lblVersione";
+            this.lblVersione.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblVersione.Size = new System.Drawing.Size(328, 36);
+            this.lblVersione.TabIndex = 11;
+            this.lblVersione.Text = "Versione ";
+            this.lblVersione.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // Timer1
             // 
-            Timer1.Enabled = true;
-            Timer1.Interval = 5000;
-            Timer1.Tick += Timer1_Tick;
+            this.Timer1.Enabled = true;
+            this.Timer1.Interval = 5000;
+            this.Timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
             // lblAssemblyDescription
             // 
-            lblAssemblyDescription.BackColor = System.Drawing.Color.White;
-            lblAssemblyDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            lblAssemblyDescription.ForeColor = System.Drawing.Color.Black;
-            lblAssemblyDescription.Location = new System.Drawing.Point(296, 121);
-            lblAssemblyDescription.Name = "lblAssemblyDescription";
-            lblAssemblyDescription.RightToLeft = RightToLeft.No;
-            lblAssemblyDescription.Size = new System.Drawing.Size(328, 49);
-            lblAssemblyDescription.TabIndex = 10;
-            lblAssemblyDescription.Text = "lblAssemblyDescription";
-            lblAssemblyDescription.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lblAssemblyDescription.BackColor = System.Drawing.Color.White;
+            this.lblAssemblyDescription.Cursor = System.Windows.Forms.Cursors.Default;
+            this.lblAssemblyDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblAssemblyDescription.ForeColor = System.Drawing.Color.Black;
+            this.lblAssemblyDescription.Location = new System.Drawing.Point(296, 121);
+            this.lblAssemblyDescription.Name = "lblAssemblyDescription";
+            this.lblAssemblyDescription.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblAssemblyDescription.Size = new System.Drawing.Size(328, 49);
+            this.lblAssemblyDescription.TabIndex = 10;
+            this.lblAssemblyDescription.Text = "lblAssemblyDescription";
+            this.lblAssemblyDescription.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label1
             // 
-            label1.BackColor = System.Drawing.Color.White;
-            label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            label1.ForeColor = System.Drawing.Color.Black;
-            label1.Location = new System.Drawing.Point(342, 230);
-            label1.Name = "label1";
-            label1.RightToLeft = RightToLeft.No;
-            label1.Size = new System.Drawing.Size(239, 30);
-            label1.TabIndex = 23;
-            label1.Text = "prof. Gabriele MONTI";
-            label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label1.BackColor = System.Drawing.Color.White;
+            this.label1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(342, 230);
+            this.label1.Name = "label1";
+            this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label1.Size = new System.Drawing.Size(239, 30);
+            this.label1.TabIndex = 23;
+            this.label1.Text = "prof. Gabriele MONTI";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label3
             // 
-            label3.BackColor = System.Drawing.Color.White;
-            label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            label3.ForeColor = System.Drawing.Color.Black;
-            label3.Location = new System.Drawing.Point(317, 271);
-            label3.Name = "label3";
-            label3.RightToLeft = RightToLeft.No;
-            label3.Size = new System.Drawing.Size(307, 26);
-            label3.TabIndex = 21;
-            label3.Text = "ITT Pascal - Cesena";
-            label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label3.BackColor = System.Drawing.Color.White;
+            this.label3.Cursor = System.Windows.Forms.Cursors.Default;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(317, 271);
+            this.label3.Name = "label3";
+            this.label3.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label3.Size = new System.Drawing.Size(307, 26);
+            this.label3.TabIndex = 21;
+            this.label3.Text = "ITT Pascal - Cesena";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // panel1
             // 
-            panel1.Anchor = AnchorStyles.None;
-            panel1.BorderStyle = BorderStyle.FixedSingle;
-            panel1.Controls.Add(label5);
-            panel1.Controls.Add(label4);
-            panel1.Controls.Add(label2);
-            panel1.Controls.Add(label1);
-            panel1.Controls.Add(label3);
-            panel1.Controls.Add(lblData);
-            panel1.Controls.Add(lblAssemblyTitle);
-            panel1.Controls.Add(lblVersione);
-            panel1.Controls.Add(lblAssemblyDescription);
-            panel1.Controls.Add(pictureBox1);
-            panel1.Location = new System.Drawing.Point(11, 11);
-            panel1.Name = "panel1";
-            panel1.Size = new System.Drawing.Size(658, 384);
-            panel1.TabIndex = 24;
+            this.panel1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.lblData);
+            this.panel1.Controls.Add(this.lblAssemblyTitle);
+            this.panel1.Controls.Add(this.lblVersione);
+            this.panel1.Controls.Add(this.lblAssemblyDescription);
+            this.panel1.Controls.Add(this.pictureBox1);
+            this.panel1.Location = new System.Drawing.Point(11, 11);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(658, 384);
+            this.panel1.TabIndex = 24;
             // 
             // label5
             // 
-            label5.BackColor = System.Drawing.Color.White;
-            label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            label5.ForeColor = System.Drawing.Color.Black;
-            label5.Location = new System.Drawing.Point(349, 308);
-            label5.Name = "label5";
-            label5.RightToLeft = RightToLeft.No;
-            label5.Size = new System.Drawing.Size(223, 26);
-            label5.TabIndex = 27;
-            label5.Text = "ITALIA";
-            label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label5.BackColor = System.Drawing.Color.White;
+            this.label5.Cursor = System.Windows.Forms.Cursors.Default;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label5.ForeColor = System.Drawing.Color.Black;
+            this.label5.Location = new System.Drawing.Point(349, 308);
+            this.label5.Name = "label5";
+            this.label5.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label5.Size = new System.Drawing.Size(223, 26);
+            this.label5.TabIndex = 27;
+            this.label5.Text = "ITALIA";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label4
             // 
-            label4.BackColor = System.Drawing.Color.White;
-            label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            label4.ForeColor = System.Drawing.Color.Black;
-            label4.Location = new System.Drawing.Point(342, 345);
-            label4.Name = "label4";
-            label4.RightToLeft = RightToLeft.No;
-            label4.Size = new System.Drawing.Size(239, 29);
-            label4.TabIndex = 26;
-            label4.Text = "prof@ingmonti.it";
-            label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label4.BackColor = System.Drawing.Color.White;
+            this.label4.Cursor = System.Windows.Forms.Cursors.Default;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(342, 345);
+            this.label4.Name = "label4";
+            this.label4.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label4.Size = new System.Drawing.Size(239, 29);
+            this.label4.TabIndex = 26;
+            this.label4.Text = "prof@ingmonti.it";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label2
             // 
-            label2.BackColor = System.Drawing.Color.Transparent;
-            label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            label2.ForeColor = System.Drawing.SystemColors.ControlText;
-            label2.Location = new System.Drawing.Point(5, 27);
-            label2.Name = "label2";
-            label2.RightToLeft = RightToLeft.No;
-            label2.Size = new System.Drawing.Size(642, 47);
-            label2.TabIndex = 25;
-            label2.Text = "Questo programma è gratuito. L'Autore non fornisce alcuna forma di garanzia, nè di funzionalità, nè di rispondenza alle esigenze dell'utente.  ";
-            label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Cursor = System.Windows.Forms.Cursors.Default;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label2.Location = new System.Drawing.Point(5, 27);
+            this.label2.Name = "label2";
+            this.label2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label2.Size = new System.Drawing.Size(642, 47);
+            this.label2.TabIndex = 25;
+            this.label2.Text = "Questo programma è gratuito. L\'Autore non fornisce alcuna forma di garanzia, nè d" +
+    "i funzionalità, nè di rispondenza alle esigenze dell\'utente.  ";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = (System.Drawing.Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new System.Drawing.Point(-1, -1);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new System.Drawing.Size(307, 315);
-            pictureBox1.TabIndex = 28;
-            pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(-1, -1);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(307, 315);
+            this.pictureBox1.TabIndex = 28;
+            this.pictureBox1.TabStop = false;
             // 
             // frmAbout
             // 
-            AutoScaleBaseSize = new System.Drawing.Size(6, 16);
-            BackColor = System.Drawing.Color.White;
-            BackgroundImageLayout = ImageLayout.None;
-            ClientSize = new System.Drawing.Size(680, 403);
-            Controls.Add(panel1);
-            FormBorderStyle = FormBorderStyle.None;
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
-            MaximizeBox = false;
-            MinimizeBox = false;
-            Name = "frmAbout";
-            ShowInTaskbar = false;
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "About";
-            Activated += frmAbout_Activated;
-            Load += frmAbout_Load;
-            panel1.ResumeLayout(false);
-            ((ISupportInitialize)pictureBox1).EndInit();
-            ResumeLayout(false);
-        }
-        #endregion
-        private void frmAbout_Load(object sender, EventArgs e)
-        {
+            this.AutoScaleBaseSize = new System.Drawing.Size(6, 16);
+            this.BackColor = System.Drawing.Color.White;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ClientSize = new System.Drawing.Size(680, 403);
+            this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "frmAbout";
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "About";
+            this.Activated += new System.EventHandler(this.frmAbout_Activated);
+            this.Load += new System.EventHandler(this.frmAbout_Load);
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.ResumeLayout(false);
+
+		}
+		#endregion
+		private void frmAbout_Load(object sender, System.EventArgs e)
+		{
             lblAssemblyTitle.Text = System.Diagnostics.FileVersionInfo.GetVersionInfo
                     (System.Reflection.Assembly.GetExecutingAssembly().Location)
                     .FileDescription;
@@ -259,23 +269,18 @@ namespace gamon
                     (System.Reflection.Assembly.GetExecutingAssembly().Location)
                     .Comments;
             string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            lblVersione.Text += version;
+            lblVersione.Text += version; 
             lblData.Text = Commons.DateCompiled().ToString();
-        }
-        private void frmAbout_Activated(object sender, EventArgs e)
-        {
-            Timer1.Enabled = false;
-            Timer1.Interval = 4000;
-            Timer1.Enabled = true;
-        }
-        private void Timer1_Tick(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
+		}
+		private void frmAbout_Activated(object sender, System.EventArgs e)
+		{
+			Timer1.Enabled = false;
+			Timer1.Interval = 4000;
+			Timer1.Enabled = true;
+		}
+		private void Timer1_Tick(object sender, System.EventArgs e)
+		{
+			this.Close();
+		}
     }
 }

@@ -128,7 +128,7 @@
                         <TextBlock  FontSize="20" TextWrapping="Wrap" TextAlignment="Center" Padding="9"  Width="90" Height="68" Background="White" Foreground="DarkBlue">Genera Classe</TextBlock>
                     </Button.Content>
                 </Button>
-                <Button Name="btnClassMirgration" Width="94" Height="72" Margin="92, 6. 1, 6" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Click="btnClassMirgration_Click">
+                <Button Name="btnClassMigration" Width="94" Height="72" Margin="92, 6. 1, 6" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Click="btnClassMigration_Click">
                     <Button.Content>
                         <TextBlock  FontSize="20" TextWrapping="Wrap" TextAlignment="Center" Padding="9"  Width="90" Height="68" Background="White" Foreground="DarkBlue">Nuovo Allievo</TextBlock>
                     </Button.Content>

@@ -1,6 +1,5 @@
 ﻿using SchoolGrades;
 using SchoolGrades.BusinessObjects;
-using SharedWinForms;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -481,7 +480,7 @@ namespace gamon.TreeMptt
             return t;
         }
         internal List<Topic> FindNodesLike(string SearchText, bool SearchInDescriptions,
-            bool SearchWholeWord, bool SearchCaseInsensitive)
+            bool SearchWholeWord, bool SearchCaseInsensitive, bool SearchVerbatimString)
         {
             List<Topic> found = new List<Topic>();
             using (DbConnection conn = dl.Connect())
@@ -495,11 +494,11 @@ namespace gamon.TreeMptt
                     query = "PRAGMA case_sensitive_like=ON;";
                 if (!SearchInDescriptions)
                     query += "SELECT * FROM Topics" +
-                        " WHERE " + dl.SqlLikeStatementWithOptions("name", SearchText, SearchWholeWord) + ";";
+                        " WHERE " + dl.SqlLikeStatementWithOptions("name", SearchText, SearchWholeWord, SearchVerbatimString);
                 else
                     query += "SELECT * FROM Topics" +
-                        " WHERE " + dl.SqlLikeStatementWithOptions("name", SearchText, SearchWholeWord) +
-                        " OR " + dl.SqlLikeStatementWithOptions("desc", SearchText, SearchWholeWord);
+                        " WHERE " + dl.SqlLikeStatementWithOptions("name", SearchText, SearchWholeWord, SearchVerbatimString) +
+                        " OR " + dl.SqlLikeStatementWithOptions("desc", SearchText, SearchWholeWord, SearchVerbatimString);
                 query += " ORDER BY leftNode ASC;";
                 cmd.CommandText += query;
                 dRead = cmd.ExecuteReader();

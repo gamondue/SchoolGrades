@@ -9,7 +9,7 @@ namespace SchoolGrades
     {
         internal List<Class> GetClassesOfYear(string IdSchool, string SchoolYear)
         {
-            return dl.GetClassesOfYear(IdSchool, SchoolYear); 
+            return dl.GetClassesOfYear(IdSchool, SchoolYear);
         }
         internal string CreateFileAllTopicsOfTheClass(Class Class, SchoolSubject Subject)
         {
@@ -83,7 +83,7 @@ namespace SchoolGrades
                 fileContent += "\r\n";
                 previous = t;
             }
-            return fileContent; 
+            return fileContent;
         }
         internal int? CreateClassAndStudents(string[,] StudentsData, string ClassAbbreviation, string ClassDescription,
             string SchoolYear, string OfficialSchoolAbbreviation, bool LinkPhoto)
@@ -140,14 +140,14 @@ namespace SchoolGrades
             if (IdClass != null)
                 return dl.GetClassById(IdClass);
             else
-                return null; 
+                return null;
         }
         internal List<SchoolYear> GetSchoolYearsThatHaveClasses()
         {
             List<SchoolYear> ly = dl.GetSchoolYearsThatHaveClasses();
             return ly;
         }
-        internal void GenerateNewClassFromPrevious(List<Student> StudentsOfNewClass, string ClassAbbreviation, 
+        internal void GenerateNewClassFromPrevious(List<Student> StudentsOfNewClass, string ClassAbbreviation,
             string ClassDescription, SchoolYear SchoolYear, string IdPreviousSchoolYear, string OfficialSchoolAbbreviation)
         {
             // add the new school year to the database, if it doesn't already exist 
@@ -155,7 +155,7 @@ namespace SchoolGrades
             // create the new class
             int classCode = Commons.bl.CreateClass(ClassAbbreviation, ClassDescription,
                 SchoolYear.IdSchoolYear, OfficialSchoolAbbreviation);
-            int studentDone = 1; 
+            int studentDone = 1;
             foreach (Student s in StudentsOfNewClass)
             {
                 s.RegisterNumber = studentDone.ToString();
@@ -164,6 +164,10 @@ namespace SchoolGrades
                 Commons.bl.UpdateStudent(s);
                 studentDone++;
             }
+        }
+        internal Class GetThisClassNextYear(Class Class)
+        {
+            return dl.GetThisClassNextYear(Class);
         }
     }
 }

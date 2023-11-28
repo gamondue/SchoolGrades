@@ -85,8 +85,9 @@
             chkCaseInsensitive = new System.Windows.Forms.CheckBox();
             chkMarkAllTopicsFound = new System.Windows.Forms.CheckBox();
             btnAddNodeBrother = new System.Windows.Forms.Button();
-            chkAllWord = new System.Windows.Forms.CheckBox();
+            chkVerbatimString = new System.Windows.Forms.CheckBox();
             chkSearchInDescriptions = new System.Windows.Forms.CheckBox();
+            chkAllWord = new System.Windows.Forms.CheckBox();
             BtnSearchAmongTopics = new System.Windows.Forms.Button();
             btnExport = new System.Windows.Forms.Button();
             btnLessonAdd = new System.Windows.Forms.Button();
@@ -725,8 +726,8 @@
             chkCaseInsensitive.Name = "chkCaseInsensitive";
             chkCaseInsensitive.Size = new System.Drawing.Size(82, 22);
             chkCaseInsensitive.TabIndex = 157;
-            chkCaseInsensitive.Text = "ma && mi";
-            toolTip1.SetToolTip(chkCaseInsensitive, "Ricerca case insensitive");
+            chkCaseInsensitive.Text = "Ma && mi";
+            toolTip1.SetToolTip(chkCaseInsensitive, "Ricerca con maiuscole e minuscole ");
             chkCaseInsensitive.UseVisualStyleBackColor = true;
             // 
             // chkMarkAllTopicsFound
@@ -753,17 +754,17 @@
             btnAddNodeBrother.UseVisualStyleBackColor = true;
             btnAddNodeBrother.Click += btnAddNodeBrother_Click;
             // 
-            // chkAllWord
+            // chkVerbatimString
             // 
-            chkAllWord.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            chkAllWord.AutoSize = true;
-            chkAllWord.Location = new System.Drawing.Point(880, 247);
-            chkAllWord.Name = "chkAllWord";
-            chkAllWord.Size = new System.Drawing.Size(70, 22);
-            chkAllWord.TabIndex = 156;
-            chkAllWord.Text = "Parola";
-            toolTip1.SetToolTip(chkAllWord, "Ricerca a parola intera");
-            chkAllWord.UseVisualStyleBackColor = true;
+            chkVerbatimString.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            chkVerbatimString.AutoSize = true;
+            chkVerbatimString.Location = new System.Drawing.Point(880, 247);
+            chkVerbatimString.Name = "chkVerbatimString";
+            chkVerbatimString.Size = new System.Drawing.Size(69, 22);
+            chkVerbatimString.TabIndex = 156;
+            chkVerbatimString.Text = "Esatta";
+            toolTip1.SetToolTip(chkVerbatimString, "Ricerca della stringa esatta");
+            chkVerbatimString.UseVisualStyleBackColor = true;
             // 
             // chkSearchInDescriptions
             // 
@@ -771,13 +772,25 @@
             chkSearchInDescriptions.AutoSize = true;
             chkSearchInDescriptions.Checked = true;
             chkSearchInDescriptions.CheckState = System.Windows.Forms.CheckState.Checked;
-            chkSearchInDescriptions.Location = new System.Drawing.Point(910, 226);
+            chkSearchInDescriptions.Location = new System.Drawing.Point(880, 228);
             chkSearchInDescriptions.Name = "chkSearchInDescriptions";
-            chkSearchInDescriptions.Size = new System.Drawing.Size(97, 22);
+            chkSearchInDescriptions.Size = new System.Drawing.Size(82, 22);
             chkSearchInDescriptions.TabIndex = 158;
-            chkSearchInDescriptions.Text = "In Descriz.";
+            chkSearchInDescriptions.Text = "Descriz.";
             toolTip1.SetToolTip(chkSearchInDescriptions, "Ricerca anche in descrizione");
             chkSearchInDescriptions.UseVisualStyleBackColor = true;
+            // 
+            // chkAllWord
+            // 
+            chkAllWord.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            chkAllWord.AutoSize = true;
+            chkAllWord.Location = new System.Drawing.Point(959, 228);
+            chkAllWord.Name = "chkAllWord";
+            chkAllWord.Size = new System.Drawing.Size(70, 22);
+            chkAllWord.TabIndex = 159;
+            chkAllWord.Text = "Parola";
+            toolTip1.SetToolTip(chkAllWord, "Ricerca a parola intera");
+            chkAllWord.UseVisualStyleBackColor = true;
             // 
             // BtnSearchAmongTopics
             // 
@@ -818,9 +831,10 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.PowderBlue;
             ClientSize = new System.Drawing.Size(1032, 667);
+            Controls.Add(chkAllWord);
             Controls.Add(chkSearchInDescriptions);
             Controls.Add(chkCaseInsensitive);
-            Controls.Add(chkAllWord);
+            Controls.Add(chkVerbatimString);
             Controls.Add(btnFindUnderNode);
             Controls.Add(btnAddNodeBrother);
             Controls.Add(chkMarkAllTopicsFound);
@@ -964,8 +978,9 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox chkMaiuscoleMinuscole;
         private System.Windows.Forms.CheckBox chkCaseInsensitive;
-        private System.Windows.Forms.CheckBox chkAllWord;
+        private System.Windows.Forms.CheckBox chkVerbatimString;
         private System.Windows.Forms.CheckBox chkSearchInDescriptions;
         private System.Windows.Forms.TextBox txtTopicSearchString;
+        private System.Windows.Forms.CheckBox chkAllWord;
     }
 }

@@ -179,7 +179,7 @@ namespace SchoolGrades
         {
             currentSubject = (SchoolSubject)cmbSchoolSubject.SelectedItem; // new SchoolSubject();
 
-            this.BackColor = Commons.ColorFromNumber(currentSubject);
+            this.BackColor = CommonsWinForms.ColorFromNumber(currentSubject);
 
             updateQuestions();
         }

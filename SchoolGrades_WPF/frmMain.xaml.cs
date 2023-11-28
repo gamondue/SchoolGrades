@@ -1,10 +1,12 @@
 ﻿using SchoolGrades;
 using SchoolGrades.BusinessObjects;
+using SharedWpf;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace SchoolGrades_WPF
@@ -32,6 +34,8 @@ namespace SchoolGrades_WPF
         Question currentQuestion;
         GradeType currentGradeType;
         Class currentClass;
+        SchoolSubject currentSubject;
+
         private bool loading = true;
 
         public frmMain()
@@ -71,6 +75,13 @@ namespace SchoolGrades_WPF
             lblDatabaseFile.Visibility = Visibility.Visible;
             lblLastDatabaseModification.Visibility = Visibility.Visible;
             lblLastDatabaseModification.Text = File.GetLastWriteTime(Commons.PathAndFileDatabase).ToString("yyyy-MM-dd HH:mm:ss");
+
+            lstTimeInterval.Items.Add(5);
+            lstTimeInterval.Items.Add(10);
+            lstTimeInterval.Items.Add(15);
+            lstTimeInterval.Items.Add(30);
+            lstTimeInterval.Items.Add(45);
+            lstTimeInterval.Items.Add(60);
 
             school = Commons.bl.GetSchool(Commons.IdSchool);
             if (school == null)
@@ -129,20 +140,25 @@ namespace SchoolGrades_WPF
                 return proposedDemoDatabaseFile;
             }
             // look for the newest "ISO date at left" filename in folder
-            newDatabaseFileName = GetNewestFileNameWithDate(proposedDatabasePath);
+            newDatabaseFileName = GetNewestAmongFilesWithDateInName(proposedDatabasePath);
+            newDatabaseFileName = Commons.GetNewestAmongFilesWithDateInName(proposedDatabasePath);
             if (newDatabaseFileName != "")
                 return newDatabaseFileName;
             else
                 return "";
         }
-        private string GetNewestFileNameWithDate(string DatabasePath)
+        private string GetNewestAmongFilesWithDateInName(string DatabasePath)
         {
+            if (!Directory.Exists(DatabasePath))
+            {
+                return null;
+            }
             string[] files = Directory.GetFiles(DatabasePath);
             DateTime newestFileDate = DateTime.MinValue;
             string newestFileNameAndPath = "";
             foreach (string file in files)
             {
-                DateTime thisFileDate = Commons.GetValidDate(Path.GetFileName(file).Substring(0, 10));
+                DateTime thisFileDate = Commons.GetValidDateFromString(Path.GetFileName(file).Substring(0, 10));
                 if (thisFileDate > newestFileDate)
                 {
                     newestFileDate = thisFileDate;
@@ -350,25 +366,84 @@ namespace SchoolGrades_WPF
         private void chkStudentsListVisible_Unchecked(object sender, RoutedEventArgs e)
         {
             if (loading) return;
-                dgwStudents.Visibility = Visibility.Hidden;
-                ////////lblStudentChosen.Visibility = Visibility.Visible;
-                picStudent.Visibility = Visibility.Visible;
-                ////////lblIdStudent.Visibility = Visibility.Visible;
-                ////////txtIdStudent.Visibility = Visibility.Visible;
+            dgwStudents.Visibility = Visibility.Hidden;
+            ////////lblStudentChosen.Visibility = Visibility.Visible;
+            picStudent.Visibility = Visibility.Visible;
+            ////////lblIdStudent.Visibility = Visibility.Visible;
+            ////////txtIdStudent.Visibility = Visibility.Visible;
         }
         private void chkStudentsListVisible_Checked(object sender, RoutedEventArgs e)
         {
             if (loading) return;
-                dgwStudents.Visibility = Visibility.Visible;
-                //////////lblStudentChosen.Visibility = Visibility.Hidden;
-                picStudent.Visibility = Visibility.Hidden;
-                //////////lblIdStudent.Visibility = Visibility.Hidden;
-                //////////txtIdStudent.Visibility = Visibility.Hidden;
+            dgwStudents.Visibility = Visibility.Visible;
+            //////////lblStudentChosen.Visibility = Visibility.Hidden;
+            picStudent.Visibility = Visibility.Hidden;
+            //////////lblIdStudent.Visibility = Visibility.Hidden;
+            //////////txtIdStudent.Visibility = Visibility.Hidden;
         }
         private void btnMosaic_Click(object sender, RoutedEventArgs e)
         {
             frmMosaic f = new frmMosaic(currentClass);
             f.Show();
+        }
+        private void btnAssess_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentClass is null)
+            {
+                MessageBox.Show("Selezionare una classe");
+                return;
+            }
+            if (cmbGradeType.Text == "")
+            {
+                MessageBox.Show("Selezionare un tipo di valutazione");
+                return;
+            }
+            if (currentClass.CurrentStudent is null)
+            {
+                MessageBox.Show("Selezionare un allievo da valutare");
+                return;
+            }
+            if (currentSubject == null)
+            {
+                MessageBox.Show("Selezionare una materia");
+                return;
+            }
+            currentGradeType = ((GradeType)cmbGradeType.SelectedItem);
+            if (currentGradeType.IdGradeTypeParent == "")
+            {
+                MessageBox.Show("Con il tipo di valutazione scelto non si può fare la media.\r\n " +
+                    "Selezionare un tipo di valutazione corretto");
+                return;
+            }
+            frmMicroAssessment grade = new frmMicroAssessment(this,
+                currentClass, currentClass.CurrentStudent,
+                currentGradeType, currentSubject, currentQuestion);
+            //grade.ShowDialog();
+            grade.Show();
+
+            if (grade.CurrentQuestion != null)
+            {
+                currentQuestion = grade.CurrentQuestion;
+                txtQuestion.Text = currentQuestion.Text;
+                //////////lstTimeInterval.Text = currentQuestion.Duration.ToString();
+                // start the timer if the question has a timer
+                if (currentQuestion.Duration != null && currentQuestion.Duration > 0)
+                {
+                    btnStartColorTimer_Click(null, null);
+                }
+            }
+        }
+        private void cmbSchoolSubject_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            currentSubject = (SchoolSubject)cmbSchoolSubject.SelectedItem;
+            if (currentSubject.Name == null)
+                currentSubject = null;
+            Color BackColor = CommonsWpf.ColorFromNumber(currentSubject);
+            SolidColorBrush br = new SolidColorBrush(System.Windows.Media.Color.FromArgb(BackColor.A, BackColor.R, BackColor.G, BackColor.B));
+            this.Background = br;
+            lstClasses.Background = br;
+            lstTimeInterval.Background = br;
+            lblCodYear.Background = br;
         }
     }
 }

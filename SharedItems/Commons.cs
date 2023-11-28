@@ -121,7 +121,7 @@ namespace SchoolGrades
                 target += 7;
             return from.AddDays(target - start);
         }
-        internal static DateTime GetValidDate(string input)
+        internal static DateTime GetValidDateFromString(string input)
         {
             if (DateTime.TryParse(input, out DateTime date))
             {
@@ -235,7 +235,7 @@ namespace SchoolGrades
                     if (link.Link.Substring(0, 4) == "http" || link.Link.Contains(".exe"))
                         startLink = link.Link;
                     else
-                        startLink = Class.PathRestrictedApplication + "\\" + link;
+                        startLink = Path.Combine(Class.PathRestrictedApplication, link.Link);
                     Commons.ProcessStartLink(startLink);
                 }
                 catch
@@ -412,6 +412,44 @@ namespace SchoolGrades
             // if the background is disabled, processing proceed only if enabled 
             return BackgroundSavingEnabled;
 
+        }
+        internal static void CreatePaths()
+        {
+            if (!Directory.Exists(Commons.PathConfig))
+                Directory.CreateDirectory(Commons.PathConfig);
+            if (!Directory.Exists(Commons.PathLogs))
+                Directory.CreateDirectory(Commons.PathLogs);
+            if (!Directory.Exists(Commons.PathImages))
+                Directory.CreateDirectory(Commons.PathImages);
+            if (!Directory.Exists(Commons.PathDatabase))
+                Directory.CreateDirectory(Commons.PathDatabase);
+            if (!Directory.Exists(Commons.PathDocuments))
+            {
+                if (Commons.PathDocuments != "")
+                    Directory.CreateDirectory(Commons.PathDocuments);
+                else
+                    Commons.PathDocuments = ".";
+            }
+        }
+        internal static string GetNewestAmongFilesWithDateInName(string DatabasePath)
+        {
+            if (!Directory.Exists(DatabasePath))
+            {
+                return null;
+            }
+            string[] files = Directory.GetFiles(DatabasePath);
+            DateTime newestFileDate = DateTime.MinValue;
+            string newestFileNameAndPath = "";
+            foreach (string file in files)
+            {
+                DateTime thisFileDate = Commons.GetValidDateFromString(Path.GetFileName(file).Substring(0, 10));
+                if (thisFileDate > newestFileDate)
+                {
+                    newestFileDate = thisFileDate;
+                    newestFileNameAndPath = file;
+                }
+            }
+            return newestFileNameAndPath;
         }
     }
 }
