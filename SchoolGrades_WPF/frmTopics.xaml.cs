@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace SchoolGrades_WPF
 {
     /// <summary>
-    /// Interaction logic for KnotsToTheComb.xaml
+    /// Interaction logic for Topics.xaml
     /// </summary>
-    public partial class frmKnotsToTheComb : Window
+    public partial class frmTopics : Window
     {
-        public frmKnotsToTheComb()
+        public frmTopics()
         {
             InitializeComponent();
         }

@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 namespace SchoolGrades_WPF
 {
     /// <summary>
-    /// Logica di interazione per frmStartLinksManagement.xaml
+    /// Interaction logic for StartLinksManagement.xaml
     /// </summary>
     public partial class frmStartLinksManagement : Window
     {

@@ -1,0 +1,98 @@
+﻿<Window x:Class="SchoolGrades_WPF.frmLessons"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SchoolGrades_WPF"
+        mc:Ignorable="d"
+        Title="Lezioni" Height="600" Width="1000">
+    <StackPanel Orientation="Horizontal" Background="PowderBlue">
+        <!-- DataGridView e TreeView -->
+        <StackPanel Orientation="Vertical" Width="800" >
+            <StackPanel  Orientation="Horizontal" Margin="10,10,10,0">
+                <TextBlock Width="90" Margin="0,0,5,0">Codice Scuola</TextBlock>
+                <TextBlock Width="90" Margin="5,0">Anno Scol.</TextBlock>
+                <TextBlock Width="90" Margin="5,0">Sigla Classe</TextBlock>
+                <TextBlock Width="90" Margin="5,0">Materia</TextBlock>
+                <Button Background="White" Margin="200,0,5,0" Width="90">Cart. Immag.</Button>
+                <Button Background="White" Margin="5,0" Width="90">Start links</Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="10,0,10,0">
+                <TextBlock Background="White" Width="90" Margin="0,0,5,0">
+                    
+                </TextBlock>
+                <TextBlock Background="White" Width="90" Margin="5,0">
+
+                </TextBlock>
+                <TextBlock Background="White" Width="90" Margin="5,0">
+
+                </TextBlock>
+                <TextBlock Background="White" Width="500" Margin="5,0">
+
+                </TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="10,10,10,0">
+                <TextBlock Width="110" Margin="0,0,5,0">Cod. Lezione</TextBlock>
+                <TextBlock Width="110" Margin="5,0">Data</TextBlock>
+                <TextBlock Width="120" Margin="5,0">Descrizione Lezione</TextBlock>
+                <Button Width="80" Margin="80,0,10,0">Export</Button>
+                <Button Width="80" Margin="10,0">Cerca</Button>
+                <Button Width="80" Margin="10,0">Clipboard</Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="80" Margin="10,0,10,10">
+                <StackPanel Orientation="Vertical" Width="110" Margin="0,0,5,0">
+                    <TextBox Height="20"></TextBox>
+                    <Button Height="40" Margin="0,15,0,0" Background="White" >Elimina Lezione</Button>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Width="110" Margin="5,0">
+                    <DatePickerTextBox Height="20"></DatePickerTextBox>
+                    <Button Height="40" Margin="0,15,0,0" Background="White" >Nuova lezione</Button>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Width="460">
+                    <TextBox Height="70" Margin="5"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="5,0">
+                    <Button Height="50" Margin="0,10,0,5" Background="White">Salva Lezione</Button>
+                    <Image Height="10"></Image>
+                </StackPanel>           
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="400" Margin="10,0">
+                <StackPanel Orientation="Vertical" Width="295" Margin="0,0,5,0">
+                    <TextBox Height="65" Margin="0,5"></TextBox>
+                    <DataGrid Height="200" Margin="0,5" Background="Gray"></DataGrid>
+                    <DataGrid Height="100" Margin="0,5" Background="Gray"></DataGrid>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Width="495" Margin="5,0">
+                    <TextBox Height="300" Margin="0,0,0,5"></TextBox>
+                    <TextBox Height="80" Margin="0,5,0,0"></TextBox>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Width="200">
+            <Image Height="85" Margin="10"></Image>
+            <StackPanel Orientation="Horizontal">
+                <Button Width="20" Height="20" Margin="5,0">←</Button>
+                <Button Width="20" Height="20" Margin="5,0">→</Button>
+                <Button Width="100" Height="50" Margin="20,0">Immagini e docs</Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="5,0">Trova</TextBlock>
+                <CheckBox Margin="90,0,0,0">Tutti</CheckBox>
+            </StackPanel>
+            <TextBox Margin="5" Height="35"></TextBox>
+            <CheckBox HorizontalContentAlignment="Center" Margin="5,0">In Descrizione</CheckBox>
+            <StackPanel Orientation="Horizontal" Margin="5,0">
+                <CheckBox >Parola</CheckBox>
+                <CheckBox Margin="30,0">ma E mi</CheckBox>
+            </StackPanel>
+            <Button Height="30" Background="White" Margin="5,0">Trova (F3)</Button>
+            <Button Height="30" Background="White" Margin="5">Trova sotto (Shift+F3)</Button>
+            <Button Height="30" Background="White" Margin="5">Salva Argomenti (F5)</Button>
+            <Button Height="30" Background="White" Margin="5">Aggiungi figlio (Ins)</Button>
+            <Button Height="30" Background="White" Margin="5">Agg. fratello (Shift+Ins)</Button>
+            <Button Height="30" Background="White" Margin="5">Argomenti fatti</Button>
+            <Button Height="30" Background="White" Margin="5">Argomenti Freemind</Button>
+            <Button Height="30" Background="White" Margin="5">Elimina (Canc)</Button>
+        </StackPanel>
+    </StackPanel>
+</Window>

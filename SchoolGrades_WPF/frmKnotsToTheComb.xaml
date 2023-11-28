@@ -5,14 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SchoolGrades_WPF"
         mc:Ignorable="d"
-        Title="XXXXXXXXXXXXXX" Height="450" Width="800">
-    <Grid Background="PowderBlue">
-        <ComboBox HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Width="136"/>
-        <Button Content="Riparato" HorizontalAlignment="Left" Margin="616,33,0,0" VerticalAlignment="Top" Foreground="#FF2248A4" Height="40" Width="79" BorderBrush="White" Background="White" FontSize="16"/>
-        <Button Content="Scegli" HorizontalAlignment="Left" Margin="700,33,0,0" VerticalAlignment="Top" Width="76" Foreground="#FF264692" Height="40" BorderBrush="White" Background="White" FontSize="16"/>
-        <TextBlock HorizontalAlignment="Left" Margin="10,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FF0B2179" FontWeight="Bold" Height="19" Width="68" FontSize="16"><Run Language="it-it" Text="Materia"/></TextBlock>
-        <TextBlock HorizontalAlignment="Left" Margin="343,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="52" Width="135" FontSize="36" Foreground="#FF0B2179" FontWeight="Bold"><Run Language="it-it" Text="Allievo" /></TextBlock>
-        <TextBox HorizontalAlignment="Center" Margin="0,86,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="780" Height="64"/>
-        <DataGrid d:ItemsSource="{d:SampleData ItemCount=0}" Margin="10,155,10,10" Background="Gray"/>
+        Title="Nodi al pettine!" Height="500" Width="900" Background="PowderBlue">
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="15"></Setter>
+            <Setter Property="Foreground" Value="DarkBlue"></Setter>
+            <Setter Property="Padding" Value="1"></Setter>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="15"></Setter>
+            <Setter Property="Foreground" Value="DarkBlue"></Setter>
+            <Setter Property="Margin" Value="5,20"></Setter>
+            <Setter Property="Padding" Value="5"></Setter>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="2"></Setter>
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="0,5"></Setter>
+            <Setter Property="FontSize" Value="15"></Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <Label>Materia</Label>
+            <ComboBox Name="cmbSchoolSubject"></ComboBox>
+        </StackPanel>
+        <Label Name="lblStudent" FontWeight="Bold" FontSize="24" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">Allievo</Label>
+        <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Right">
+            <Button Name="btnFix">Riparato</Button>
+            <Button Name="btnChoose">Scegli</Button>
+        </StackPanel>
+        <TextBox Name="txtQuestionText" Grid.Row="1" Grid.ColumnSpan="3"></TextBox>
+        <DataGrid Name="dgQuestions" Grid.Row="2" Grid.ColumnSpan="3" Background="Gray"></DataGrid>
     </Grid>
 </Window>

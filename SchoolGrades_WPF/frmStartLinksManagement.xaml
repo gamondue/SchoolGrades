@@ -5,25 +5,92 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SchoolGrades_WPF"
         mc:Ignorable="d"
-        Title="frmStartLinksManagement" Height="450" Width="800">
-    <Grid Background ="PowderBlue" RenderTransformOrigin="0.499,0.415">
-        <TextBlock Background="White" HorizontalAlignment="Left" Margin="10,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="104" Height="20"><Run Language="it-it" Text="FOIS01100L"/></TextBlock>
-        <Label Foreground ="DarkBlue" Content="Codice Scuola" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="88"/>
-        <ComboBox HorizontalAlignment="Left" Margin="126,41,0,0" VerticalAlignment="Top" Width="84" Height="22"/>
-        <ComboBox HorizontalAlignment="Left" Margin="219,41,0,0" VerticalAlignment="Top" Width="84"/>
-        <Label Foreground ="DarkBlue" Content="Anno scolastico" HorizontalAlignment="Left" Margin="126,10,0,0" VerticalAlignment="Top" Width="104"/>
-        <Label Foreground ="DarkBlue" Content="Sigla Classe" HorizontalAlignment="Left" Margin="219,10,0,0" VerticalAlignment="Top" Width="106"/>
-        <TextBlock Background="White" HorizontalAlignment="Left" Margin="382,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" Height="22"/>
-        <Label Foreground ="DarkBlue" Content="Descrizione link" HorizontalAlignment="Left" Margin="382,10,0,0" VerticalAlignment="Top" Width="139"/>
-        <Button Background="White" Foreground ="DarkBlue" Content="+" HorizontalAlignment="Left" Margin="634,38,0,0" VerticalAlignment="Top" Width="40" Height="27"/>
-        <Button Background="White" Foreground ="DarkBlue" Content="-" HorizontalAlignment="Left" Margin="679,38,0,0" VerticalAlignment="Top" Width="40" Height="27"/>
-        <Button Background="White" Foreground ="DarkBlue" Content="salva" HorizontalAlignment="Left" Margin="724,38,0,0" VerticalAlignment="Top" Width="66" Height="27"/>
-        <Label Foreground ="DarkBlue" Content="Cartella start link" HorizontalAlignment="Left" Margin="16,73,0,0" VerticalAlignment="Top" Width="98"/>
-        <Label Foreground ="DarkBlue" Content="Link o file da lanciare" HorizontalAlignment="Left" Margin="16,113,0,0" VerticalAlignment="Top" Width="110"/>
-        <Button Background="White" Foreground ="DarkBlue" Content="--" HorizontalAlignment="Left" Margin="742,73,0,0" VerticalAlignment="Top" Height="32" Width="48"/>
-        <Button Background="White" Foreground ="DarkBlue" Content="--" HorizontalAlignment="Left" Margin="742,110,0,0" VerticalAlignment="Top" Height="32" Width="48"/>
-        <TextBox HorizontalAlignment="Left" Margin="146,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="591" Height="32"/>
-        <DataGrid d:ItemsSource="{d:SampleData ItemCount=-1}" Margin="10,147,10,10" Background="DarkGray" />
-        <TextBox HorizontalAlignment="Left" Margin="146,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="591" Height="32"/>
+        Title="Start links" Height="650" Width="950" Background="PowderBlue">
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="15"></Setter>
+            <Setter Property="Foreground" Value="DarkBlue"></Setter>
+            <Setter Property="Padding" Value="1"></Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="0,0,5,2"></Setter>
+            <Setter Property="FontSize" Value="15"></Setter>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="14"></Setter>
+            <Setter Property="Foreground" Value="DarkBlue"></Setter>
+            <Setter Property="Margin" Value="5,0"></Setter>
+            <Setter Property="Padding" Value="10,0"></Setter>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="2"></Setter>
+                </Style>
+            </Style.Resources>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel.Resources>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Margin" Value="0,0,5,0"></Setter>
+                </Style>
+            </StackPanel.Resources>
+            <StackPanel>
+                <Label>Codice Scuola</Label>
+                <TextBox Name="TxtOfficialSchoolAbbreviation"></TextBox>
+            </StackPanel>
+            <StackPanel>
+                <Label>Anno scolastico</Label>
+                <ComboBox Name="CmbSchoolYear"></ComboBox>
+            </StackPanel>
+            <StackPanel>
+                <Label>Sigla classe</Label>
+                <ComboBox Name="CmbClasses"></ComboBox>
+            </StackPanel>
+        </StackPanel>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label>Descrizione link</Label>
+            <TextBox Name="TxtLinkDescription" Grid.Row="1"></TextBox>
+            <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center">
+                <Button Name="btnAddLink">+</Button>
+                <Button Name="btnRemoveLink">-</Button>
+                <Button Name="btnSaveLinks">Salva</Button>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1" Grid.ColumnSpan="2" Margin="0,1">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="7*"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label>Cartella start link</Label>
+            <Label Grid.Row="1">Link o file da lanciare</Label>
+            <TextBox Name="TxtPathStartLink" Grid.Column="1"></TextBox>
+            <Button Name="BtnChooseStartLink" Grid.Column="2">..</Button>
+            <TextBox Name="TxtStartLink" Grid.Row="1" Grid.Column="1"></TextBox>
+            <Button Name="BtnFileToLaunch" Grid.Row="1" Grid.Column="2">..</Button>
+        </Grid>
+        <DataGrid Name="dgLinks" Grid.Row="2" Grid.ColumnSpan="2" Background="Gray"></DataGrid>
     </Grid>
 </Window>

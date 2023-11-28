@@ -10,24 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPF_4E_Ventrucci
+namespace SchoolGrades_WPF
 {
     /// <summary>
-    /// Logica di interazione per frmSchoolSubjectManagement.xaml
+    /// Logica di interazione per frmAbout.xaml
     /// </summary>
-    public partial class frmSchoolSubjectManagement : Page
+    public partial class frmAbout : Window
     {
-        public frmSchoolSubjectManagement()
+        public frmAbout()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

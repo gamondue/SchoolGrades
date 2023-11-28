@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 namespace SchoolGrades_WPF
 {
     /// <summary>
-    /// Logica di interazione per frmInput.xaml
+    /// Interaction logic for Input.xaml
     /// </summary>
     public partial class frmInput : Window
     {

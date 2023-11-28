@@ -3,11 +3,11 @@
 namespace SchoolGrades_WPF
 {
     /// <summary>
-    /// Logica di interazione per frmColorTimer.xaml
+    /// Logica di interazione per frmLogin.xaml
     /// </summary>
-    public partial class frmColorTimer : Window
+    public partial class frmLogin : Window
     {
-        public frmColorTimer()
+        public frmLogin()
         {
             InitializeComponent();
         }
