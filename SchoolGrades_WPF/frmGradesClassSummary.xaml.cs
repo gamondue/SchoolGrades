@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SchoolGrades.BusinessObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,20 @@ namespace SchoolGrades_WPF
     /// </summary>
     public partial class frmGradesClassSummary : Window
     {
+        private Class currentClass;
+        private GradeType currentGradeType;
+        private SchoolSubject currentSubject;
+
         public frmGradesClassSummary()
         {
             InitializeComponent();
+        }
+
+        public frmGradesClassSummary(Class currentClass, GradeType currentGradeType, SchoolSubject currentSubject)
+        {
+            this.currentClass = currentClass;
+            this.currentGradeType = currentGradeType;
+            this.currentSubject = currentSubject;
         }
     }
 }

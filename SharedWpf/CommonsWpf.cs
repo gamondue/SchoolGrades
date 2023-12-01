@@ -1,4 +1,6 @@
 ﻿using SchoolGrades.BusinessObjects;
+using SchoolGrades_WPF;
+using System;
 using System.Windows;
 using System.Windows.Media;
 
@@ -60,6 +62,11 @@ namespace SharedWpf
             byte blue = (byte)(Subject.Color & 0xFF);
             Color bgColor = Color.FromRgb(red, green, blue);
             return bgColor;
+        }
+
+        internal static void RestoreCurrentValuesOfAllControls(frmMain frmMain, string file)
+        {
+            throw new NotImplementedException();
         }
     }
 }

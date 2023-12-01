@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SchoolGrades.BusinessObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,10 @@ namespace SchoolGrades_WPF
         public frmStudent()
         {
             InitializeComponent();
+        }
+
+        public frmStudent(Student s, bool v)
+        {
         }
     }
 }

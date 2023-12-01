@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Data;
+using System.Windows;
 
 namespace SchoolGrades_WPF
 {
@@ -10,6 +11,10 @@ namespace SchoolGrades_WPF
         public frmAnnotationsPopup()
         {
             InitializeComponent();
+        }
+
+        public frmAnnotationsPopup(DataTable popUpAnnotations)
+        {
         }
     }
 }
