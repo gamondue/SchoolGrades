@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using SchoolGrades.BusinessObjects;
+using System.Windows;
 
 namespace SchoolGrades_WPF
 {
@@ -10,6 +11,10 @@ namespace SchoolGrades_WPF
         public frmLessons()
         {
             InitializeComponent();
+        }
+
+        public frmLessons(Class currentClass, SchoolSubject selectedItem, bool v)
+        {
         }
     }
 }
