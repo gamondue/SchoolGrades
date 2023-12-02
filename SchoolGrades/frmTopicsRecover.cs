@@ -38,8 +38,8 @@ namespace SchoolGrades
             txtPathOldDatabase.Text = Commons.PathDatabase;
             txtFileNewDatabase.Text = Commons.DatabaseFileName_Current;
 
-            DataLayer dlNew = new DataLayer(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
-            treeNew = new TreeMptt(dlNew, trwNewTopics,
+            string fileDatabase = txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text;
+            treeNew = new TreeMptt(fileDatabase, trwNewTopics,
                 txtNewTopicName, txtNewDescription, txtSearchNew, null, txtCodNewTopic,
                 CommonsWinForms.globalPicLed, null, null, null, null, null, DragDropEffects.Copy);
             treeNew.Name = "treeNew";
@@ -73,9 +73,9 @@ namespace SchoolGrades
                 txtPathNewDatabase.Text = Path.GetDirectoryName(openFileDialog1.FileName);
             }
 
-            DataLayer dlNew = new DataLayer(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
+            string databaseNew = txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text;
 
-            treeNew = new TreeMptt(dlNew, trwNewTopics,
+            treeNew = new TreeMptt(databaseNew, trwNewTopics,
                 txtNewTopicName, txtNewDescription, null, null, txtCodNewTopic,
                 CommonsWinForms.globalPicLed, null, null, null, null, null, DragDropEffects.Copy);
             treeNew.AddNodesToTreeviewByBestMethod();
@@ -106,9 +106,9 @@ namespace SchoolGrades
                 Console.Beep();
                 return;
             }
-            DataLayer dlOld = new DataLayer(txtPathOldDatabase.Text + "\\" + txtFileOldDatabase.Text);
+            string databaseOld = txtPathOldDatabase.Text + "\\" + txtFileOldDatabase.Text;
 
-            treeOld = new TreeMptt(dlOld, trwOldTopics,
+            treeOld = new TreeMptt(databaseOld, trwOldTopics,
                 txtOldTopicName, txtOldDescription, txtSearchOld, null, txtCodOldTopic,
                 CommonsWinForms.globalPicLed, null, null, null, null, null,
                 DragDropEffects.Copy);

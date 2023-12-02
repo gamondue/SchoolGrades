@@ -113,9 +113,9 @@ namespace SchoolGrades
         }
         internal void AddSchoolYearIfNotExists(SchoolYear NewSchoolYear)
         {
-            if (Commons.dl.SchoolYearExists(NewSchoolYear.IdSchoolYear))
+            if (dl.SchoolYearExists(NewSchoolYear.IdSchoolYear))
                 return;
-            Commons.dl.AddSchoolYear(NewSchoolYear); 
+            dl.AddSchoolYear(NewSchoolYear); 
         }
         internal SchoolYear GenerateNewYearData(SchoolYear CurrentYear)
         {

@@ -25,7 +25,7 @@ namespace SchoolGrades
         ///  
         internal BusinessLayer()
         {
-            this.dl = Commons.dl;
+            dl = new DataLayer(Commons.PathAndFileDatabase);
         }
         internal DataLayer CreateNewDatabase(string NewDatabasePathName)
         {

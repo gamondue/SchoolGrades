@@ -12,25 +12,26 @@ namespace gamon.TreeMptt
     internal class TreeMpttDb
     {
         DataLayer dl;
+        DbConnection localDbConnection; 
         // !!!! TODO; turn to generic this tree, such that it can contain any class and not just Topic instances !!!!
-        public TreeMpttDb(DataLayer DataAccessLayer)
+        public TreeMpttDb(string Database)
         {
-            dl = DataAccessLayer;
+            dl = new DataLayer(Database);
         }
         internal void SaveTreeToDb(List<Topic> ListTopicsAfter, List<Topic> ListTopicsDeleted,
-            bool MustSaveLeftAndRight, DbConnection Connection)
+            bool MustSaveLeftAndRight)
         {
             // connection can come from outside to avoid opening and closing it every time 
             // if Connection is null, the connection must be opened and closed locally 
             bool locallyOpened = false;
-            if (Connection == null)
+            if (localDbConnection == null)
             {
                 locallyOpened = true;
-                Connection = dl.Connect();
+                localDbConnection = dl.Connect();
             }
-            DbCommand cmd = Connection.CreateCommand();
+            DbCommand cmd = localDbConnection.CreateCommand();
 
-            SaveLeftRightConsistent(false, Connection);
+            SaveLeftRightConsistent(false);
 
             if (ListTopicsDeleted != null)
             {
@@ -69,39 +70,38 @@ namespace gamon.TreeMptt
                 {
                     if (t.Id != null && t.Id > 1)
                     {
-                        dl.UpdateTopic(t, Connection);
+                        dl.UpdateTopic(t, localDbConnection);
                     }
                     else
                     {
-                        dl.InsertTopic(t, Connection);
+                        dl.InsertTopic(t, localDbConnection);
                     }
                 }
             }
             cmd.Dispose();
             if (locallyOpened)
             {
-                Connection.Close();
+                localDbConnection.Close();
             }
         }
-        internal void SaveLeftRightConsistent(bool IsConsistent, DbConnection Connection)
+        internal void SaveLeftRightConsistent(bool IsConsistent)
         {
+            bool locallyOpened = false;
+            if (localDbConnection  == null)
+            {
+                localDbConnection = dl.Connect(); 
+            }
             // connection can come from outside to avoid opening and closing it every time 
             // if Connection is null, the connection must be opened and closed locally 
-            bool locallyOpened = false;
-            if (Connection == null)
-            {
-                locallyOpened = true;
-                Connection = dl.Connect();
-            }
             // SQL operation serial
-            DbCommand cmd = Connection.CreateCommand();
+            DbCommand cmd = localDbConnection.CreateCommand();
             cmd.CommandText = "UPDATE Flags" +
                 " SET areLeftRightConsistent=" + IsConsistent.ToString();
             cmd.ExecuteNonQuery();
             cmd.Dispose();
             if (locallyOpened)
             {
-                Connection.Close();
+                localDbConnection.Close();
             }
         }
         internal bool AreLeftAndRightConsistent()
@@ -188,7 +188,7 @@ namespace gamon.TreeMptt
             DbConnection Connection = dl.Connect();
             // read the first topic of the tree
             // in this program this list should have just one element 
-            List<Topic> firstNodes = GetNodesRoots(null);
+            List<Topic> firstNodes = GetNodesRoots();
             // traverse the tree in list from database, numbering according to Modified Preorder Tree Traversal algorithm
             // if the numbers of right or left nodes are different from those written in the database, then update the database
 
@@ -200,7 +200,7 @@ namespace gamon.TreeMptt
             // then we save left and right anyway 
             UdpateTopicMptt(firstNodes[0].Id, 0, nodeCount);
             // restore status of "consistent" flag
-            SaveLeftRightConsistent(true, Connection);
+            SaveLeftRightConsistent(true);
         }
         private void SetRightAndLeftInOneLevel(Topic ParentNode, ref int NodeCount)
         {
@@ -252,15 +252,15 @@ namespace gamon.TreeMptt
                 cmd.Dispose();
             }
         }
-        internal List<Topic> GetNodesRoots(DbConnection Connection)
+        internal List<Topic> GetNodesRoots()
         {
             // connection can come from outside to avoid opening and closing it every time 
             // if Connection is null, the connection must be opened and closed locally 
             bool locallyOpened = false;
-            if (Connection == null)
+            if (localDbConnection == null)
             {
                 locallyOpened = true;
-                Connection = dl.Connect();
+                localDbConnection = dl.Connect();
             }
             // finds all the nodes that don't have a parent
             // so you can fit the Treeview of a Win Form program, that is multiroot
@@ -268,13 +268,13 @@ namespace gamon.TreeMptt
             // would complicate the database 
             List<Topic> lt = new List<Topic>();
 
-            DbCommand cmd = Connection.CreateCommand();
+            DbCommand cmd = localDbConnection.CreateCommand();
             string query = "SELECT *" +
                 " FROM Topics" +
                 " WHERE parentNode<=0" +
                 " ORDER BY childNumber;";
             cmd = new SQLiteCommand(query);
-            cmd.Connection = Connection;
+            cmd.Connection = localDbConnection;
             DbDataReader dRead = cmd.ExecuteReader();
 
             while (dRead.Read())
@@ -286,17 +286,21 @@ namespace gamon.TreeMptt
             cmd.Dispose();
             if (locallyOpened)
             {
-                Connection.Close();
+                localDbConnection.Close();
             }
             return lt;
         }
-        internal void AddChildrenNodesToTreeViewFromDatabase(TreeNode ParentNode, int Level, DbConnection Connection)
+        internal void AddChildrenNodesToTreeViewFromDatabase(TreeNode ParentNode, int Level)
         {
-            GetChildren_Recursive(ParentNode, Level, Connection);
+            GetChildren_Recursive(ParentNode, Level);
         }
         internal void GenerateNewListOfNodesFromTreeViewControl_Recursive(TreeNode CurrentNode, ref int nodeCount,
-            ref List<Topic> generatedList, DbConnection Connection) // the 2 ref parameters must be passed for recursion
+            ref List<Topic> generatedList) // the 2 ref parameters must be passed for recursion
         {
+            if (localDbConnection == null)
+            {
+                localDbConnection = dl.Connect(); 
+            }
             if (!Commons.BackgroundSavingEnabled && Commons.BackgroundTaskIsSaving) return;
             // visits all the childrens of CurrentNode in the Treeview. 
             // with the Modified Tree Traversal algorithm 
@@ -319,7 +323,7 @@ namespace gamon.TreeMptt
                 if (!Commons.ProcessingCanContinue()) return;
                 // calls passing the updated count and the list under construction 
                 GenerateNewListOfNodesFromTreeViewControl_Recursive(sonNode,
-                    ref nodeCount, ref generatedList, Connection);
+                    ref nodeCount, ref generatedList);
                 ((Topic)sonNode.Tag).ParentNodeNew = ct.Id;
                 ((Topic)sonNode.Tag).ChildNumberNew = brotherNo++;
             }
@@ -359,16 +363,21 @@ namespace gamon.TreeMptt
             int nodeCount = 1;
             // recursive function
             GenerateNewListOfNodesFromTreeViewControl_Recursive(CurrentNode,
-                ref nodeCount, ref generatedList, Connection);
+                ref nodeCount, ref generatedList);
             dl.SaveTopicsFromScratch(generatedList);
         }
-        private void GetChildren_Recursive(TreeNode ParentNode, int Level, DbConnection Connection)
+        private void GetChildren_Recursive(TreeNode ParentNode, int Level)
         {
+            if (localDbConnection == null)
+            {
+                localDbConnection = dl.Connect();
+            }
+
             // connection can come from outside to avoid opening and closing it every time 
             // if it is null, the connection must be opened locally 
 
             // recursively retrieve all direct children of ParentNode  
-            List<Topic> lt = GetNodesChildsByParent(((Topic)ParentNode.Tag), Connection);
+            List<Topic> lt = GetNodesChildsByParent(((Topic)ParentNode.Tag));
             List<Topic> SortedList = lt.OrderBy(o => o.ChildNumberOld).ToList();
             foreach (Topic t in SortedList)
             {
@@ -377,7 +386,7 @@ namespace gamon.TreeMptt
                 n.Tag = t;
                 n.Text = t.Name;
                 ParentNode.Nodes.Add(n);
-                GetChildren_Recursive(n, Level++, Connection);
+                GetChildren_Recursive(n, Level++);
             }
         }
         internal List<Topic> GetNodesChildsByParent(Topic ParentNode, DbConnection Connection = null)
@@ -544,6 +553,18 @@ namespace gamon.TreeMptt
                     }
                 }
                 cmd.Dispose();
+            }
+        }
+        internal bool IsTopicAlreadyTaught(Topic tag)
+        {
+            return dl.IsTopicAlreadyTaught(tag); 
+        }
+        internal void ConnectionClose()
+        {
+            if (localDbConnection != null)
+            {
+                localDbConnection.Close();
+                localDbConnection.Dispose();
             }
         }
     }

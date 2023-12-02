@@ -140,7 +140,7 @@ namespace SchoolGrades
                     }
                 }
             }
-            CreateBusinessAndDataLayer();
+            CreateBusinessLayer();
 
             List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
             cmbSchoolYear.DataSource = ly;
@@ -154,11 +154,6 @@ namespace SchoolGrades
             // fill the combo of School subjects
             List<SchoolSubject> listSubjects = Commons.bl.GetListSchoolSubjects(true);
             cmbSchoolSubject.DataSource = listSubjects;
-        }
-
-        private void CreateDatabasePaths(string proposedDebugDatabaseFile)
-        {
-
         }
         private void StartNewConfigurationForm()
         {
@@ -192,7 +187,7 @@ namespace SchoolGrades
         private void frmMain_Load(object sender, EventArgs e)
         {
             // start the Thread that concurrently saves the Topics tree
-            CommonsWinForms.SaveTreeMptt = new TreeMptt(Commons.dl,
+            CommonsWinForms.SaveTreeMptt = new TreeMptt(Commons.PathAndFileDatabase, 
                 null, null, null, null, null, null, picBackgroundSaveRunning,
                 null, null, null, null, null);
             Commons.BackgroundSaveThread = new Thread(CommonsWinForms.SaveTreeMptt.SaveTreeMpttBackground);
@@ -300,7 +295,7 @@ namespace SchoolGrades
             }
             return newestFileNameAndPath;
         }
-        private bool CreateBusinessAndDataLayer()
+        private bool CreateBusinessLayer()
         {
             // create Business and Data layer objects, to be used throughout the program
             // keep this order of creation. Create after reading config file
@@ -311,12 +306,13 @@ namespace SchoolGrades
                 throw new System.IO.FileNotFoundException(err);
                 return false;
             }
-            Commons.dl = new DataLayer(Commons.PathAndFileDatabase);
-            if (Commons.dl == null)
-                return false;
             Commons.bl = new BusinessLayer();
             if (Commons.bl == null)
                 return false;
+            // DataLayer is created by Busuness Layer
+            //Commons.dl = new DataLayer(Commons.PathAndFileDatabase);
+            //if (Commons.dl == null)
+            //    return false;
             return true;
         }
         static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)

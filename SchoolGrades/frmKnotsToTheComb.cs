@@ -20,7 +20,7 @@ namespace SchoolGrades
         public frmKnotsToTheComb(frmMicroAssessment GrandparentForm, int? IdStudent, SchoolSubject SchoolSubject, string Year)
         {
             InitializeComponent();
-            currentStudent = Commons.dl.GetStudent(IdStudent);
+            currentStudent = Commons.bl.GetStudent(IdStudent);
             lblStudent.Text = currentStudent.LastName + " " + currentStudent.FirstName; 
             currentIdSchoolYear = Year;
             currentSubject = SchoolSubject;
@@ -29,7 +29,7 @@ namespace SchoolGrades
             // fills the lookup tables' combos
             cmbSchoolSubject.DisplayMember = "Name";
             cmbSchoolSubject.ValueMember = "idSchoolSubject";
-            cmbSchoolSubject.DataSource = Commons.dl.GetListSchoolSubjects(true);
+            cmbSchoolSubject.DataSource = Commons.bl.GetListSchoolSubjects(true);
 
             currentSubject = SchoolSubject; 
             ChosenQuestion = null; 
@@ -42,7 +42,7 @@ namespace SchoolGrades
         }
         private void RefreshData()
         {
-            dgwQuestions.DataSource = Commons.dl.GetUnfixedGrades(currentStudent, currentSubject.IdSchoolSubject, 60);
+            dgwQuestions.DataSource = Commons.bl.GetUnfixedGrades(currentStudent, currentSubject.IdSchoolSubject, 60);
         }
         private void DgwQuestions_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {

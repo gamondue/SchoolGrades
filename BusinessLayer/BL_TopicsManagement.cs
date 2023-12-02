@@ -96,5 +96,11 @@ namespace SchoolGrades
         {
             return dl.GetTopicsDoneInPeriod(Class, Subject, DateFrom, DateTo);
         }
+
+        internal object GetUnfixedGrades(Student Student, string IdSchoolSubject,
+            int Threshold)
+        {
+            return dl.GetUnfixedGrades(Student, IdSchoolSubject, Threshold);
+        }
     }
 }

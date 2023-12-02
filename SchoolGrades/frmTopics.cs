@@ -90,7 +90,7 @@ namespace SchoolGrades
         }
         private void frmTopics_Load(object sender, EventArgs e)
         {
-            topicTreeMptt = new TreeMptt(Commons.dl, trwTopics,
+            topicTreeMptt = new TreeMptt(Commons.PathAndFileDatabase, trwTopics,
                 txtTopicName, txtTopicDescription, txtTopicSearchString, null,
                 null, CommonsWinForms.globalPicLed, chkSearchInDescriptions, chkVerbatimString,
                 chkAllWord, chkCaseInsensitive, chkFindAll, DragDropEffects.Copy);

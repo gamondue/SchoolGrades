@@ -35,7 +35,7 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
-            dbMptt = new TreeMpttDb(Commons.dl);
+            dbMptt = new TreeMpttDb(Commons.PathAndFileDatabase);
             this.ParentForm = MicroAssessmentParent; 
             // fills the lookup tables' combos
             cmbSchoolSubject.DisplayMember = "Name";
