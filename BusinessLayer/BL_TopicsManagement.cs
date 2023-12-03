@@ -96,5 +96,13 @@ namespace SchoolGrades
         {
             return dl.GetTopicsDoneInPeriod(Class, Subject, DateFrom, DateTo);
         }
+        internal bool IsTopicAlreadyTaught(Topic Topic)
+        {
+            return dl.IsTopicAlreadyTaught(Topic);
+        }
+        internal void SaveTopicsFromScratch(List<Topic> TopicsList)
+        {
+            dl.SaveTopicsFromScratch(TopicsList); 
+        }
     }
 }
