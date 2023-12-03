@@ -19,15 +19,15 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10,0,10,0">
                 <TextBlock Background="White" Width="90" Margin="0,0,5,0">
-                    
-                </TextBlock>
-                <TextBlock Background="White" Width="90" Margin="5,0">
 
                 </TextBlock>
-                <TextBlock Background="White" Width="90" Margin="5,0">
+                <TextBlock x:Name="txtSchoolYear" Background="White" Width="90" Margin="5,0">
 
                 </TextBlock>
-                <TextBlock Background="White" Width="500" Margin="5,0">
+                <TextBlock x:Name="txtClass" Background="White" Width="90" Margin="5,0">
+
+                </TextBlock>
+                <TextBlock x:Name="txtSchoolSubject" Background="White" Width="500" Margin="5,0">
 
                 </TextBlock>
             </StackPanel>
@@ -41,58 +41,60 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="80" Margin="10,0,10,10">
                 <StackPanel Orientation="Vertical" Width="110" Margin="0,0,5,0">
-                    <TextBox Height="20"></TextBox>
-                    <Button Height="40" Margin="0,15,0,0" Background="White" >Elimina Lezione</Button>
+                    <TextBox x:Name="txtLessonCode" Height="20"></TextBox>
+                    <Button x:Name="bntLessonErase" Height="40" Margin="0,15,0,0" Background="White" >Elimina Lezione</Button>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Width="110" Margin="5,0">
-                    <DatePickerTextBox Height="20"></DatePickerTextBox>
-                    <Button Height="40" Margin="0,15,0,0" Background="White" >Nuova lezione</Button>
+                    <DatePickerTextBox x:Name="dtpLessonDate" Height="20"></DatePickerTextBox>
+                    <Button x:Name="btnLessonAdd" Height="40" Margin="0,15,0,0" Background="White" >Nuova lezione</Button>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Width="460">
-                    <TextBox Height="70" Margin="5"></TextBox>
+                    <TextBox x:Name="TxtLessonDesc" Height="70" Margin="5"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Margin="5,0">
-                    <Button Height="50" Margin="0,10,0,5" Background="White">Salva Lezione</Button>
-                    <Image Height="10"></Image>
-                </StackPanel>           
+                    <Image Height="10"/>
+                </StackPanel>
+                <Button x:Name="btnLessonSave" Width="68" Height="36" Content="Salva Lezione"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="400" Margin="10,0">
                 <StackPanel Orientation="Vertical" Width="295" Margin="0,0,5,0">
-                    <TextBox Height="65" Margin="0,5"></TextBox>
-                    <DataGrid Height="200" Margin="0,5" Background="Gray"></DataGrid>
-                    <DataGrid Height="100" Margin="0,5" Background="Gray"></DataGrid>
+                    <TextBox x:Name="txtTopicsDigest" Height="65" Margin="0,5"></TextBox>
+                    <DataGrid x:Name="dgwAllLessons" Height="200" Margin="0,5" Background="Gray"></DataGrid>
+                    <DataGrid x:Name="dgwOneLesson" Height="100" Margin="0,5" Background="Gray"></DataGrid>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Width="495" Margin="5,0">
-                    <TextBox Height="300" Margin="0,0,0,5"></TextBox>
-                    <TextBox Height="80" Margin="0,5,0,0"></TextBox>
+                    <TextBox x:Name="txtTopicName" TextWrapping="Wrap" Text="TextBox" Width="456"/>
+                    <TextBox x:Name="trwTopics" Height="268"/>
+                    <TextBox x:Name="txtTopicDescription" Height="70" RenderTransformOrigin="0.503,1.265" Width="456"/>
                 </StackPanel>
             </StackPanel>
         </StackPanel>
         <StackPanel Orientation="Vertical" Width="200">
-            <Image Height="85" Margin="10"></Image>
+            <Image x:Name="picImage" Height="85" Margin="10"></Image>
             <StackPanel Orientation="Horizontal">
                 <Button Width="20" Height="20" Margin="5,0">←</Button>
                 <Button Width="20" Height="20" Margin="5,0">→</Button>
-                <Button Width="100" Height="50" Margin="20,0">Immagini e docs</Button>
+                <Button x:Name="btnManageImages" Width="100" Height="50" Margin="20,0">Immagini e docs</Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Margin="5,0">Trova</TextBlock>
-                <CheckBox Margin="90,0,0,0">Tutti</CheckBox>
+                <CheckBox x:Name="chkMarkAllTopicsFound" Margin="90,0,0,0">Tutti</CheckBox>
             </StackPanel>
-            <TextBox Margin="5" Height="35"></TextBox>
-            <CheckBox HorizontalContentAlignment="Center" Margin="5,0">In Descrizione</CheckBox>
+            <TextBox x:Name="txtTopicSearchString" Margin="5" Height="35"></TextBox>
+            <CheckBox x:Name="chkSearchInDescriptions" HorizontalContentAlignment="Center" Width="98" Content="In Descrizione"/>
             <StackPanel Orientation="Horizontal" Margin="5,0">
-                <CheckBox >Parola</CheckBox>
-                <CheckBox Margin="30,0">ma E mi</CheckBox>
+                <CheckBox x:Name="chkAllWord" >Parola</CheckBox>
+                <CheckBox x:Name="chkCaseInsensitive" Margin="30,0">ma E mi</CheckBox>
+                <CheckBox x:Name="chkVerbatimString" Content="Esatta" />
             </StackPanel>
             <Button Height="30" Background="White" Margin="5,0">Trova (F3)</Button>
             <Button Height="30" Background="White" Margin="5">Trova sotto (Shift+F3)</Button>
-            <Button Height="30" Background="White" Margin="5">Salva Argomenti (F5)</Button>
-            <Button Height="30" Background="White" Margin="5">Aggiungi figlio (Ins)</Button>
-            <Button Height="30" Background="White" Margin="5">Agg. fratello (Shift+Ins)</Button>
+            <Button x:Name="btnSaveTree" Height="30" Background="White" Margin="5" Click="Button_Click">Salva Argomenti (F5)</Button>
+            <Button x:Name="btnAddNodeSon" Height="30" Background="White" Margin="5">Aggiungi figlio (Ins)</Button>
+            <Button x:Name="btnAddNodeBrother" Height="30" Background="White" Margin="5">Agg. fratello (Shift+Ins)</Button>
             <Button Height="30" Background="White" Margin="5">Argomenti fatti</Button>
             <Button Height="30" Background="White" Margin="5">Argomenti Freemind</Button>
-            <Button Height="30" Background="White" Margin="5">Elimina (Canc)</Button>
+            <Button x:Name="btnDelete" Height="30" Background="White" Margin="5">Elimina (Canc)</Button>
         </StackPanel>
     </StackPanel>
 </Window>

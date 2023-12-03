@@ -17,6 +17,10 @@
 
   <Import Project="..\SharedWpf\SharedWpf.projitems" Label="Shared" />
 
+  <Import Project="..\TreeMpttWpf\TreeMpttWpf.projitems" Label="Shared" />
+
+  <Import Project="..\..\SchoolGrades_WPF_4F\TreeMpttManagement\MpttTreeManagement.projitems" Label="Shared" />
+
   <ItemGroup>
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
   </ItemGroup>
