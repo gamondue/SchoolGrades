@@ -49,7 +49,7 @@ namespace SchoolGrades
                     currentSubject = null;
                 else
                 {
-                    Color bgColor = Commons.ColorFromNumber(currentSubject);
+                    Color bgColor = CommonsWinForms.ColorFromNumber(currentSubject);
                     this.BackColor = bgColor;
                 }
                 currentClass = Class;
@@ -66,7 +66,7 @@ namespace SchoolGrades
                     currentSubject = null;
                 else
                 {
-                    Color bgColor = Commons.ColorFromNumber(currentSubject);
+                    Color bgColor = CommonsWinForms.ColorFromNumber(currentSubject);
                     this.BackColor = bgColor;
                 }
                 if (formType == TopicsFormType.HighlightTopics)
