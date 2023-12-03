@@ -93,7 +93,7 @@ namespace SchoolGrades
 
             RefreshTopicsChecksAndImages();
 
-            this.BackColor = Commons.ColorFromNumber(currentSchoolSubject);
+            this.BackColor = CommonsWinForms.ColorFromNumber(currentSchoolSubject);
 
             LessonTimer.Interval = 1000;
             LessonTimer.Start();

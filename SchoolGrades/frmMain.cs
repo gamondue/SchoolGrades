@@ -1111,7 +1111,7 @@ namespace SchoolGrades
             currentSubject = (SchoolSubject)cmbSchoolSubject.SelectedItem;
             if (currentSubject.Name == null)
                 currentSubject = null;
-            Color bgColor = Commons.ColorFromNumber(currentSubject);
+            Color bgColor = CommonsWinForms.ColorFromNumber(currentSubject);
             this.BackColor = bgColor;
             lstClasses.BackColor = bgColor;
             lstTimeInterval.BackColor = bgColor;

@@ -323,7 +323,7 @@ namespace SchoolGrades
                 if (++pictureIndex >= OriginalDemoStudentPictures.Length)
                     pictureIndex = 0;
             }
-            // copy all the lessons images files that aren't already there or that have a newer date 
+            // copy all the lessons images files
             string query = "SELECT Images.imagePath, Classes.pathRestrictedApplication" +
             " FROM Images" +
                 " JOIN Lessons_Images ON Lessons_Images.idImage=Images.idImage" +
