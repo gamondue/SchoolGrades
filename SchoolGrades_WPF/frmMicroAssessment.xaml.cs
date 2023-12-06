@@ -1,6 +1,6 @@
 ﻿using SchoolGrades;
 using SchoolGrades.BusinessObjects;
-using SharedWpf;
+using Shared;
 using System;
 using System.Data;
 using System.Windows;

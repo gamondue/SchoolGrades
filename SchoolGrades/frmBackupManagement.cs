@@ -19,7 +19,7 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
-            TreeMpttDb dbMptt = new TreeMpttDb(Commons.dl);
+            TreeMpttDb dbMptt = new TreeMpttDb();
 
             topicTreeMptt = new TreeMptt(Commons.dl, null, null, null, null, null,
                 null, null, null, null, null, null, null, DragDropEffects.None);

@@ -1,5 +1,5 @@
 ﻿using SchoolGrades.BusinessObjects;
-using SharedWinForms;
+using Shared;
 using System;
 using System.Data;
 using System.Drawing;

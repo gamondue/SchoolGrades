@@ -1,6 +1,6 @@
 ﻿using gamon.TreeMptt;
 using SchoolGrades.BusinessObjects;
-using SharedWinForms;
+using Shared;
 using System;
 using System.Collections.Generic;
 using System.Data;
