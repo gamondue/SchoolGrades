@@ -60,7 +60,7 @@
                 </Button>
 
                 <Button Name="btnQuestionManagement" Margin="7" Grid.Column="5" Background="White" Click="btnQuestionManagement_Click">
-                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White">Gestione domande</TextBox>
+                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White" TextChanged="TextBox_TextChanged_4">Gestione domande</TextBox>
                 </Button>
 
                 <Button Name="btnStartLimksManagement" Margin="7" Grid.Column="6" Background="White" Click="btnStartLimksManagement_Click">

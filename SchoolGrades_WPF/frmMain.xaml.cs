@@ -1108,22 +1108,22 @@ namespace SchoolGrades_WPF
             if (!CommonsWpf.CheckIfSubjectChosen(currentSubject))
                 return;
             // open read only the forms after the first. 
-            ////////////if (listLessons.Count > 0)
-            ////////////{
-            ////////////    // delete from listLessons those forms that have been closed
-            ////////////    int i = 0;
-            ////////////    while (i < listLessons.Count)
-            ////////////    {
-            ////////////        frmLessons fl = listLessons[i];
-            ////////////        if (fl.IsFormClosed)
-            ////////////        {
-            ////////////            listLessons.Remove(fl);
-            ////////////            fl.Dispose();
-            ////////////            i--;
-            ////////////        }
-            ////////////        i++;
-            ////////////    }
-            ////////////}
+            if (listLessons.Count > 0)
+            {
+                // delete from listLessons those forms that have been closed
+                int i = 0;
+                while (i < listLessons.Count)
+                {
+                    frmLessons fl = listLessons[i];
+                    if (fl.IsFormClosed)
+                    {
+                        listLessons.Remove(fl);
+                        fl.Dispose();
+                        i--;
+                    }
+                    i++;
+                }
+            }
             frmLessons flt;
             if (listLessons.Count == 0)
                 flt = new frmLessons(currentClass, (SchoolSubject)cmbSchoolSubject.SelectedItem,
