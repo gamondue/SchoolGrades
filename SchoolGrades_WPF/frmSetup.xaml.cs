@@ -231,5 +231,10 @@ namespace SchoolGrades_WPF
         {
 
         }
+
+        private void TextBox_TextChanged_4(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+
+        }
     }
 }

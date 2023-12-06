@@ -23,18 +23,6 @@ Versions with numbers under 0.50 were made with .Net Framework.</PackageReleaseN
     <IsPublishable>False</IsPublishable>
   </PropertyGroup>
 
-  <Import Project="..\SharedItems\SharedItems.projitems" Label="Shared" />
-
-  <Import Project="..\MpttTreeManagement\MpttTreeManagement.projitems" Label="Shared" />
-
-  <Import Project="..\DataLayer\DataLayer.projitems" Label="Shared" />
-
-  <Import Project="..\BusinessLayer\BusinessLayer.projitems" Label="Shared" />
-
-  <Import Project="..\SharedWinForms\SharedWinForms.projitems" Label="Shared" />
-
-  <Import Project="..\BusinessObjects\BusinessObjects.projitems" Label="Shared" />
-
   <ItemGroup>
     <COMReference Include="SpeechLib">
       <WrapperTool>tlbimp</WrapperTool>
@@ -62,5 +50,19 @@ Versions with numbers under 0.50 were made with .Net Framework.</PackageReleaseN
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
+
+  <Import Project="..\BusinessLayer\BusinessLayer.projitems" Label="Shared" />
+
+  <Import Project="..\BusinessObjects\BusinessObjects.projitems" Label="Shared" />
+
+  <Import Project="..\SharedItems\SharedItems.projitems" Label="Shared" />
+
+  <Import Project="..\DataLayer\DataLayer.projitems" Label="Shared" />
+
+  <Import Project="..\SharedWinForms\SharedWinForms.projitems" Label="Shared" />
+
+  <Import Project="..\TreeMpttManagement\MpttTreeManagement.projitems" Label="Shared" />
+
+  <Import Project="..\TreeMpttWinForms\TreeMpttWinForms.projitems" Label="Shared" />
 
 </Project>
