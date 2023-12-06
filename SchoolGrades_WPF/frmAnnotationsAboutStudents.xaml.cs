@@ -30,7 +30,7 @@ namespace SchoolGrades_WPF
             this.chosenStudents = ChosenStudents;
             dgwStudents.ItemsSource = ChosenStudents;
         }
-        private void frmStudentsNotes_Load(object sender, EventArgs e)
+        private void frmStudentsNotes_Load(object sender, RoutedEventArgs e)
         {
             txtSchoolYear.Text = idSchoolYear;
             yearUsed = idSchoolYear;
@@ -88,7 +88,7 @@ namespace SchoolGrades_WPF
             if (currentAnnotation.IsPopUp == null) currentAnnotation.IsPopUp = false;
             currentAnnotation.IsPopUp = chkPopUp.IsChecked;
         }
-        private void txtSchoolYear_TextChanged(object sender, EventArgs e)
+        private void txtSchoolYear_TextChanged(object sender, RoutedEventArgs e)
         {
             //ReadUI(); 
             //RefreshUI();
@@ -101,7 +101,7 @@ namespace SchoolGrades_WPF
         {
 
         }
-        ////////private void dgwNotes_CellClick(object sender, DataGridViewCellEventArgs e)
+        ////////private void dgwNotes_CellClick(object sender, RoutedEventArgs e)
         ////////{
         ////////    if (e.RowIndex > -1)
         ////////    {
@@ -123,7 +123,7 @@ namespace SchoolGrades_WPF
     //////////        }
     //////////    }
     //////////}
-    ////////private void btnAddAnnotation_Click(object sender, EventArgs e)
+    ////////private void btnAddAnnotation_Click(object sender, RoutedEventArgs e)
     ////////    {
     ////////        ReadUI();
     ////////        currentAnnotation.InstantTaken = DateTime.Now;
@@ -192,7 +192,7 @@ namespace SchoolGrades_WPF
     ////////          yearUsed, chkShowOnlyActive.IsChecked);
     ////////        RefreshUI();
     ////////    }
-    ////////    private void chkUseSchoolYear_CheckedChanged(object sender, EventArgs e)
+    ////////    private void chkUseSchoolYear_CheckedChanged(object sender, RoutedEventArgs e)
     ////////    {
     ////////        if (chkUseSchoolYear.IsChecked)
     ////////        {
@@ -207,7 +207,7 @@ namespace SchoolGrades_WPF
     ////////        dgwNotes.ItemsSource = Commons.bl.AnnotationsAboutThisStudent(currentStudent,
     ////////                yearUsed, chkShowOnlyActive.IsChecked);
     ////////    }
-    ////////    private void btnAddAnnotationStudent_Click(object sender, EventArgs e)
+    ////////    private void btnAddAnnotationStudent_Click(object sender, RoutedEventArgs e)
     ////////    {
     ////////        if (txtAnnotation.Text == "")
     ////////        {
@@ -226,7 +226,7 @@ namespace SchoolGrades_WPF
     ////////        SaveAnnotations(false);
     ////////        RefreshUI();
     ////////    }
-    ////////    private void btnAddAnnotationGroup_Click(object sender, EventArgs e)
+    ////////    private void btnAddAnnotationGroup_Click(object sender, RoutedEventArgs e)
     ////////    {
     ////////        if (txtAnnotation.Text == "")
     ////////        {
@@ -238,7 +238,7 @@ namespace SchoolGrades_WPF
     ////////        SaveAnnotations(true);
     ////////        RefreshUI();
     ////////    }
-    ////////    private void btnRemoveAnnotationStudent_Click(object sender, EventArgs e)
+    ////////    private void btnRemoveAnnotationStudent_Click(object sender, RoutedEventArgs e)
     ////////    {
     ////////        if (txtIdAnnotation.Text == "")
     ////////        {
@@ -252,7 +252,7 @@ namespace SchoolGrades_WPF
     ////////            RefreshUI();
     ////////        };
     ////////    }
-    ////////    private void btnRemoveAnnotationGroup_Click(object sender, EventArgs e)
+    ////////    private void btnRemoveAnnotationGroup_Click(object sender, RoutedEventArgs e)
     ////////    {
     ////////        if (txtAnnotation.Text == "")
     ////////        {
@@ -269,7 +269,7 @@ namespace SchoolGrades_WPF
     ////////            RefreshUI();
     ////////        };
     ////////    }
-    ////////    private void btnSaveModificationsStudent_Click(object sender, EventArgs e)
+    ////////    private void btnSaveModificationsStudent_Click(object sender, RoutedEventArgs e)
     ////////    {
     ////////        if (txtIdAnnotation.Text == "")
     ////////        {
@@ -285,7 +285,7 @@ namespace SchoolGrades_WPF
     ////////        currentAnnotation.IdAnnotation = Commons.bl.SaveAnnotation(currentAnnotation, currentStudent);
     ////////        RefreshUI();
     ////////    }
-    ////////    private void btnSaveModificationsGroup_Click(object sender, EventArgs e)
+    ////////    private void btnSaveModificationsGroup_Click(object sender, RoutedEventArgs e)
     ////////    {
     ////////        // !!!! think how to make this !!!!
     ////////        MessageBox.Show("Da fare!");
@@ -307,12 +307,12 @@ namespace SchoolGrades_WPF
     ////////        ////}
     ////////        ////RefreshUI();
     ////////    }
-    ////////    private void btnNew_Click(object sender, EventArgs e)
+    ////////    private void btnNew_Click(object sender, RoutedEventArgs e)
     ////////    {
     ////////        txtIdAnnotation.Text = "";
     ////////        txtAnnotation.Text = "";
     ////////    }
-    ////////    private void chkShowOnlyActive_CheckedChanged(object sender, EventArgs e)
+    ////////    private void chkShowOnlyActive_CheckedChanged(object sender, RoutedEventArgs e)
     ////////    {
     ////////        ReadUI();
     ////////        if (currentStudent.IdStudent != null)
@@ -324,19 +324,19 @@ namespace SchoolGrades_WPF
     ////////        }
     ////////        RefreshUI();
     ////////    }
-    ////////    private void dgwStudents_CellContentClick(object sender, DataGridViewCellEventArgs e)
+    ////////    private void dgwStudents_CellContentClick(object sender, RoutedEventArgs e)
     ////////    {
 
     ////////    }
-    ////////    private void dgwStudents_CellClick(object sender, DataGridViewCellEventArgs e)
+    ////////    private void dgwStudents_CellClick(object sender, RoutedEventArgs e)
     ////////    {
 
     ////////    }
-    ////////    private void dgwStudents_RowLeave(object sender, DataGridViewCellEventArgs e)
+    ////////    private void dgwStudents_RowLeave(object sender, RoutedEventArgs e)
     ////////    {
 
     ////////    }
-    ////////    private void dgwStudents_RowEnter(object sender, DataGridViewCellEventArgs e)
+    ////////    private void dgwStudents_RowEnter(object sender, RoutedEventArgs e)
     ////////    {
     ////////        if (e.RowIndex > -1)
     ////////        {
@@ -345,7 +345,7 @@ namespace SchoolGrades_WPF
     ////////            ShowAnnotationsOfCurrentStudent();
     ////////        }
     ////////    }
-    ////////    private void chkCurrentActive_CheckedChanged(object sender, EventArgs e)
+    ////////    private void chkCurrentActive_CheckedChanged(object sender, RoutedEventArgs e)
     ////////    {
     ////////        if (chkCurrentActive.IsChecked == false)
     ////////        {

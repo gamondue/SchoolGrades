@@ -42,9 +42,6 @@ namespace gamon.TreeMptt
         BusinessLayer bl;
         // class that encapsulates the data access to the tree nodes 
         TreeMpttDb dbMptt;
-        // datalayer for other data access
-        //// !! we should avoid using the next, so the tree could be in another DBMS type !!
-        //DataLayer dl;
 
         private bool hasChanges = false;
         bool markAllInSearch = false;
@@ -162,7 +159,6 @@ namespace gamon.TreeMptt
             CheckBox ChkAllWord, CheckBox ChkCaseInsensitive, CheckBox ChkMarkAllNodesFound,
             System.Windows.Forms.DragDropEffects TypeOfDragAndDrop = System.Windows.Forms.DragDropEffects.Move)
         {
-            ////dl = DataLayer;
             bl = Commons.bl; 
             dbMptt = new TreeMpttDb();
             shownTreeView = TreeViewControl;
@@ -201,7 +197,6 @@ namespace gamon.TreeMptt
         #region methods that save the tree
         internal void SaveTreeFromScratch()
         {
-            //DbConnection Connection = dl.Connect();
             int nodeCount = 1;
             List<Topic> listTopicsAfter = new List<Topic>();
             // recursive function
@@ -225,7 +220,7 @@ namespace gamon.TreeMptt
                 Commons.BackgroundTaskClose = true;
             }
             // all the saving happens under a lock from other tasks
-            // this saving waits here until the backgroud task hasn't finished finishing 
+            // this saving waits here until the background task hasn't finished finishing 
             lock (Commons.LockSavingCriticalSections)
             {
                 dbMptt.SaveLeftRightConsistent(false);

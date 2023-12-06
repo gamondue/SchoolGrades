@@ -10,5 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)CommonsWpf.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SafeDbWpf.cs" />
   </ItemGroup>
 </Project>

@@ -25,7 +25,7 @@ namespace SchoolGrades_WPF
             InitializeComponent();
             Text = NewAbbreviation;
         }
-        private void frmSchoolPeriodsManagement_Load(object sender, EventArgs e)
+        private void frmSchoolPeriodsManagement_Load(object sender, RoutedEventArgs e)
         {
             RefreshGrid();
 

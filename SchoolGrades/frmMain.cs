@@ -233,7 +233,7 @@ namespace SchoolGrades
                 timerLesson.Start();
             }
 
-            string file = Commons.PathLogs + @"\frmMain_parameters.txt";
+            string file = Path.Combine(Commons.PathLogs, "frmMain_parameters.txt");
             CommonsWinForms.RestoreCurrentValuesOfAllControls(this, file);
 
             txtNStudents.Text = "";
@@ -573,7 +573,7 @@ namespace SchoolGrades
                     // TODO 
                 }
                 // show popup annotations of the students of the class
-                DataTable popUpAnnotations = Commons.bl.GetAnnotationsOfClasss(currentClass.IdClass, true, true);
+                DataTable popUpAnnotations = Commons.bl.GetAnnotationsOfClass(currentClass.IdClass, true, true);
                 if (popUpAnnotations.Rows.Count > 0)
                 {
                     frmAnnotationsPopUp f = new frmAnnotationsPopUp(popUpAnnotations);

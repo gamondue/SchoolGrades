@@ -127,7 +127,7 @@ namespace SchoolGrades_WPF
 
         private void btnExportTopics_Click(object sender, RoutedEventArgs e)
         {
-            //Topic initial = ((Topic)trwTopics.SelectedNode.Tag);
+            //Topic initial = ((Topic)trwTopics.SelectedItem.Tag);
             //string tree = topicTreeMptt.CreateTextTreeOfDescendants(0, int.MaxValue, true);
             //TextFile.StringToFile(Commons.PathDatabase + "\\Argomenti.tsv", tree, false);
         }

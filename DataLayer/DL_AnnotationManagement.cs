@@ -164,7 +164,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal DataTable GetAnnotationsOfClasss(int? IdClass, 
+        internal DataTable GetAnnotationsOfClass(int? IdClass, 
             bool IncludeAlsoNonActive, bool IncludeJustPopUp)
         {
             DataTable table = new DataTable(); 

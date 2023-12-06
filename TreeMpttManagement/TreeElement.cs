@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace gamon.TreeMptt
+﻿namespace gamon.TreeMptt
 {
     class TreeNodeMpttMapDb
     {
@@ -23,17 +19,17 @@ namespace gamon.TreeMptt
         string name;
         string desc;
 
-        public int? Id { get => id; set => id = value; }
-        public int? LeftNodeOld { get => leftNodeOld; set => leftNodeOld = value; }
-        public int? RightNodeOld { get => rightNodeOld; set => rightNodeOld = value; }
-        public int? LeftNodeNew { get => leftNodeNew; set => leftNodeNew = value; }
-        public int? RightNodeNew { get => rightNodeNew; set => rightNodeNew = value; }
-        public string Name { get => name; set => name = value; }
-        public string Desc { get => desc; set => desc = value; }
-        public int? ParentNodeOld { get => parentNodeNew; set => parentNodeNew = value; }
-        public int? ParentNodeNew { get => parentNodeOld; set => parentNodeOld = value; }
-        public int? ChildNumberOld { get => childNumberOld; set => childNumberOld = value; }
-        public int? ChildNumberNew { get => childNumberNew; set => childNumberNew = value; }
-        public bool? Changed { get; internal set; }
+        //public int? Id { get => id; set => id = value; }
+        //public int? LeftNodeOld { get => leftNodeOld; set => leftNodeOld = value; }
+        //public int? RightNodeOld { get => rightNodeOld; set => rightNodeOld = value; }
+        //public int? LeftNodeNew { get => leftNodeNew; set => leftNodeNew = value; }
+        //public int? RightNodeNew { get => rightNodeNew; set => rightNodeNew = value; }
+        //public string Name { get => name; set => name = value; }
+        //public string Desc { get => desc; set => desc = value; }
+        //public int? ParentNodeOld { get => parentNodeNew; set => parentNodeNew = value; }
+        //public int? ParentNodeNew { get => parentNodeOld; set => parentNodeOld = value; }
+        //public int? ChildNumberOld { get => childNumberOld; set => childNumberOld = value; }
+        //public int? ChildNumberNew { get => childNumberNew; set => childNumberNew = value; }
+        //public bool? Changed { get; internal set; }
     }
 }

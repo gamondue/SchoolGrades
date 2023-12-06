@@ -3,7 +3,6 @@ using SchoolGrades.BusinessObjects;
 using Shared;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
 using System.Windows.Forms;
 
@@ -434,8 +433,8 @@ namespace SchoolGrades
         {
             if (e.RowIndex > -1)
             {
-                DataRow row = ((DataTable)(dgwOneLesson.DataSource)).Rows[e.RowIndex];
-                topicTreeMptt.FindNodeById((int)row["idTopic"]);
+                Topic row = ((List<Topic>)dgwOneLesson.DataSource)[e.RowIndex];
+                topicTreeMptt.FindNodeById(row.Id);
             }
         }
         private void frmLessonsTopics_KeyDown(object sender, KeyEventArgs e)

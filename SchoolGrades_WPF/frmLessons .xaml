@@ -8,7 +8,7 @@
         Title="Lezioni" Height="600" Width="1000">
     <StackPanel Orientation="Horizontal" Background="PowderBlue">
         <!-- DataGridView e TreeView -->
-        <StackPanel Orientation="Vertical" Width="800" >
+        <StackPanel Orientation="Vertical" Width="794" >
             <StackPanel  Orientation="Horizontal" Margin="10,10,10,0">
                 <TextBlock Width="90" Margin="0,0,5,0">Codice Scuola</TextBlock>
                 <TextBlock Width="90" Margin="5,0">Anno Scol.</TextBlock>
@@ -19,16 +19,12 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10,0,10,0">
                 <TextBlock Background="White" Width="90" Margin="0,0,5,0">
-
                 </TextBlock>
                 <TextBlock x:Name="txtSchoolYear" Background="White" Width="90" Margin="5,0">
-
                 </TextBlock>
                 <TextBlock x:Name="txtClass" Background="White" Width="90" Margin="5,0">
-
                 </TextBlock>
                 <TextBlock x:Name="txtSchoolSubject" Background="White" Width="500" Margin="5,0">
-
                 </TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10,10,10,0">
@@ -62,14 +58,16 @@
                     <DataGrid x:Name="dgwAllLessons" Height="200" Margin="0,5" Background="Gray"></DataGrid>
                     <DataGrid x:Name="dgwOneLesson" Height="100" Margin="0,5" Background="Gray"></DataGrid>
                 </StackPanel>
-                <StackPanel Orientation="Vertical" Width="495" Margin="5,0">
+                <StackPanel Orientation="Vertical" Width="481" Margin="5,0"
+                            HorizontalAlignment="Left" VerticalAlignment="Bottom">
                     <TextBox x:Name="txtTopicName" TextWrapping="Wrap" Text="TextBox" Width="456"/>
-                    <TextBox x:Name="trwTopics" Height="268"/>
+                    <TreeView x:Name="trwTopics" Height="294" Width="471" >
+                    </TreeView>
                     <TextBox x:Name="txtTopicDescription" Height="70" RenderTransformOrigin="0.503,1.265" Width="456"/>
                 </StackPanel>
             </StackPanel>
         </StackPanel>
-        <StackPanel Orientation="Vertical" Width="200">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Image x:Name="picImage" Height="85" Margin="10"></Image>
             <StackPanel Orientation="Horizontal">
                 <Button Width="20" Height="20" Margin="5,0">←</Button>
@@ -89,7 +87,7 @@
             </StackPanel>
             <Button Height="30" Background="White" Margin="5,0">Trova (F3)</Button>
             <Button Height="30" Background="White" Margin="5">Trova sotto (Shift+F3)</Button>
-            <Button x:Name="btnSaveTree" Height="30" Background="White" Margin="5" Click="Button_Click">Salva Argomenti (F5)</Button>
+            <Button x:Name="btnSaveTree" Height="30" Background="White" Margin="5">Salva Argomenti (F5)</Button>
             <Button x:Name="btnAddNodeSon" Height="30" Background="White" Margin="5">Aggiungi figlio (Ins)</Button>
             <Button x:Name="btnAddNodeBrother" Height="30" Background="White" Margin="5">Agg. fratello (Shift+Ins)</Button>
             <Button Height="30" Background="White" Margin="5">Argomenti fatti</Button>

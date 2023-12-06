@@ -175,16 +175,16 @@ namespace SchoolGrades_WPF
             defaultWeight = currentGradeType.DefaultWeight;
             txtMacroGradeWeight.Text = defaultWeight.ToString();
         }
-        private void trkbWeight_Scroll(object sender, EventArgs e)
+        private void trkbWeight_Scroll(object sender, RoutedEventArgs e)
         {
             txtMicroGradeWeight.Text = trkbWeight.Value.ToString();
         }
-        private void trkbGrade_Scroll(object sender, EventArgs e)
+        private void trkbGrade_Scroll(object sender, RoutedEventArgs e)
         {
             txtMicroGrade.Text = ((double)trkbGrade.Value).ToString("#.#");
         }
         int previousQuestionCode = int.MinValue;
-        private void btnSaveMicroGrade_Click(object sender, EventArgs e)
+        private void btnSaveMicroGrade_Click(object sender, RoutedEventArgs e)
         {
             if (currentQuestion == null || currentQuestion.IdQuestion == 0
                 || currentQuestion.IdQuestion == previousQuestionCode)
@@ -269,7 +269,7 @@ namespace SchoolGrades_WPF
             ShowStudentsDataAndAverages();
             return Grade;
         }
-        private void btnNewMacroGrade_Click(object sender, EventArgs e)
+        private void btnNewMacroGrade_Click(object sender, RoutedEventArgs e)
         {
             if (DgwQuestions.Items.Count > 0)
             {
@@ -288,7 +288,7 @@ namespace SchoolGrades_WPF
             txtWeightsSum.Text = "";
             txtMacroGradeWeight.Text = "";
         }
-        private void txtWeight_TextChanged(object sender, EventArgs e)
+        private void txtWeight_TextChanged(object sender, RoutedEventArgs e)
         {
             int peso = 0;
             int.TryParse(txtMicroGradeWeight.Text, out peso);
@@ -297,7 +297,7 @@ namespace SchoolGrades_WPF
                 trkbWeight.Value = peso;
             }
         }
-        private void txtGrade_TextChanged(object sender, EventArgs e)
+        private void txtGrade_TextChanged(object sender, RoutedEventArgs e)
         {
             float voto = 0;
             float.TryParse(txtMicroGrade.Text, out voto);
@@ -306,7 +306,7 @@ namespace SchoolGrades_WPF
                 trkbGrade.Value = (int)voto;
             }
         }
-        private void btnSaveMacroGrade_Click(object sender, EventArgs e)
+        private void btnSaveMacroGrade_Click(object sender, RoutedEventArgs e)
         {
             double weight;
             double.TryParse(txtWeightsSum.Text, out weight);
@@ -341,7 +341,7 @@ namespace SchoolGrades_WPF
                 MessageBox.Show("Questo voticino non ha un voto che lo comprende.\r\tCreare un voto.");
             }
         }
-        private void btnQuestionChoose_Click(object sender, EventArgs e)
+        private void btnQuestionChoose_Click(object sender, RoutedEventArgs e)
         {
             // we don't pass the currentSubject because it is better to start from any type of question
             //frmQuestionChoose choice = new frmQuestionChoose(currentSchoolSubject,           !!!! Repo non aggiornata e quindi no QuestionChoose !!!!
@@ -368,11 +368,11 @@ namespace SchoolGrades_WPF
             TxtQuestionText.Text = currentQuestion.Text;
             txtMicroGradeWeight.Text = currentQuestion.Weight.ToString();
         }
-        private void btnNoQuestion_Click(object sender, EventArgs e)
+        private void btnNoQuestion_Click(object sender, RoutedEventArgs e)
         {
             currentQuestion = null;
         }
-        //private void DgwQuestions_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        //private void DgwQuestions_CellContentClick(object sender, RoutedEventArgs e)
         //{
 
         //}
@@ -411,10 +411,10 @@ namespace SchoolGrades_WPF
 
             ////////this.Refresh();
         }
-        //////////private void DgwQuestions_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        //////////private void DgwQuestions_CellDoubleClick(object sender, RoutedEventArgs e)
         //////////{
         //////////}
-        private void btnEraseMicroGrade_Click(object sender, EventArgs e)
+        private void btnEraseMicroGrade_Click(object sender, RoutedEventArgs e)
         {
             //////////////if (DgwQuestions.SelectedRows.Count == 0)
             //////////////{
@@ -425,7 +425,7 @@ namespace SchoolGrades_WPF
             //////////////Commons.bl.EraseGrade(Safe.Int(row.Cells["idGrade"].Value));
             //////////////ShowStudentsDataAndAverages();
         }
-        private void btnFlushQuestion_Click(object sender, EventArgs e)
+        private void btnFlushQuestion_Click(object sender, RoutedEventArgs e)
         {
             currentQuestion = null;
             TxtQuestionText.Text = "";
@@ -434,11 +434,11 @@ namespace SchoolGrades_WPF
         //////////////{
         //////////////    //currentQuestion = 
         //////////////}
-        private void LessonTimer_Tick(object sender, EventArgs e)
+        private void LessonTimer_Tick(object sender, RoutedEventArgs e)
         {
             ////////lblLessonTime.BackColor = ((frmMain)Application.OpenForms[0]).CurrentLessonTimeColor;
         }
-        private void BtnSaveGrade(object sender, EventArgs e)
+        private void BtnSaveGrade(object sender, RoutedEventArgs e)
         {
             //////////if (DgwQuestions.SelectedRows.Count == 0)
             //////////{
@@ -452,11 +452,11 @@ namespace SchoolGrades_WPF
             currentGrade.IdGrade = Commons.bl.SaveMicroGrade(currentGrade);
             ShowStudentsDataAndAverages();
         }
-        private void TxtQuestionText_TextChanged(object sender, EventArgs e)
+        private void TxtQuestionText_TextChanged(object sender, RoutedEventArgs e)
         {
 
         }
-        private void TxtQuestionText_DoubleClick(object sender, EventArgs e)
+        private void TxtQuestionText_DoubleClick(object sender, RoutedEventArgs e)
         {
             //////////frmQuestion f = new frmQuestion(frmQuestion.QuestionFormType.EditOneQuestion,
             //////////    currentQuestion, currentSchoolSubject, currentClass, null);
@@ -464,11 +464,11 @@ namespace SchoolGrades_WPF
             //////////if (f.UserHasChosen)
             //////////    TxtQuestionText.Text = f.currentQuestion.Text;
         }
-        private void txtIdMacroGrade_TextChanged(object sender, EventArgs e)
+        private void txtIdMacroGrade_TextChanged(object sender, RoutedEventArgs e)
         {
 
         }
-        private void lblStudent_Click(object sender, EventArgs e)
+        private void lblStudent_Click(object sender, RoutedEventArgs e)
         {
 
         }
