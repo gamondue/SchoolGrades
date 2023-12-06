@@ -1,4 +1,4 @@
-Ôªøusing SchoolGrades;
+using SchoolGrades;
 using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
@@ -31,7 +31,7 @@ namespace gamon.TreeMptt
         /// With MPTT we can use single queries to retrive subtrees. 
         /// With MPTT we can have all the nodes that stay under a given node with just two tests
         /// 
-        ///  made by Gabriele MONTI - Forl√¨ - Italia
+        ///  made by Gabriele MONTI - ForlÏ - Italia
         /// </summary>
         /// 
 
@@ -949,7 +949,7 @@ namespace gamon.TreeMptt
                 if (((Topic)te.Tag).Id != null)
                     if (dl.IsTopicAlreadyTaught((Topic)te.Tag))
                     {
-                        if (MessageBox.Show("Questo argomento √® gi√† stato fatto in qualche lezione\n" +
+                        if (MessageBox.Show("Questo argomento Ë gi‡ stato fatto in qualche lezione\n" +
                             "Lo cancello lo stesso?", "Attenzione!", MessageBoxButtons.YesNo,
                             MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) ==
                             DialogResult.No)
