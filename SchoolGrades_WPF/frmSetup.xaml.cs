@@ -18,7 +18,7 @@ namespace SchoolGrades_WPF
             NewDatabaseFile = false;
         }
 
-        private void frmSetup_Load(object sender, EventArgs e)
+        private void frmSetup_Load(object sender, RoutedEventArgs e)
         {
             ////CommonsWinForms.ReadConfigFile();
             //TxtPathDatabase.Text = Commons.PathDatabase;

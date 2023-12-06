@@ -220,10 +220,10 @@ namespace SchoolGrades_WPF
             lblLastDatabaseModification.Visibility = Visibility.Visible;
             lblLastDatabaseModification.Text = File.GetLastWriteTime(Commons.PathAndFileDatabase).ToString("yyyy-MM-dd HH:mm:ss");
 #if !DEBUG
-            // capture every exception for exception logging
-            Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
+            //////////// capture every exception for exception logging
+            //////////Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-            btnTemporary.Visible = false;
+            btnTemporary.Visibility = Visibility.Hidden;
 #endif
             school = Commons.bl.GetSchool(Commons.IdSchool);
             if (school == null)
@@ -245,7 +245,7 @@ namespace SchoolGrades_WPF
                 //////////timerLesson.Start();
             }
 
-            string file = Commons.PathLogs + @"\frmMain_parameters.txt";
+            string file = Path.Combine(Commons.PathLogs, "frmMain_parameters.txt");
             ////////////CommonsWpf.RestoreCurrentValuesOfAllControls(this, file);
 
             txtNStudents.Text = "";
@@ -586,7 +586,7 @@ namespace SchoolGrades_WPF
                     // TODO 
                 }
                 // show popup annotations of the students of the class
-                DataTable popUpAnnotations = Commons.bl.GetAnnotationsOfClasss(currentClass.IdClass, true, true);
+                DataTable popUpAnnotations = Commons.bl.GetAnnotationsOfClass(currentClass.IdClass, true, true);
                 if (popUpAnnotations.Rows.Count > 0)
                 {
                     frmAnnotationsPopup f = new frmAnnotationsPopup(popUpAnnotations);
@@ -1118,7 +1118,7 @@ namespace SchoolGrades_WPF
                     if (fl.IsFormClosed)
                     {
                         listLessons.Remove(fl);
-                        fl.Dispose();
+                        //fl.Dispose();
                         i--;
                     }
                     i++;
@@ -1710,7 +1710,7 @@ namespace SchoolGrades_WPF
         {
             //MessageBox.Show("Chiudere la finestra timer a colori per cambiare lo stato dei suoni"); 
         }
-        ////////////private void dgwStudents_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        ////////////private void dgwStudents_CellContentClick(object sender, RoutedEventArgs e)
         ////////////{
         ////////////    if (e.RowIndex > -1)
         ////////////    {
@@ -1843,7 +1843,7 @@ namespace SchoolGrades_WPF
             //        // TODO 
             //    }
             //// show popup annotations of the students of the class
-            //DataTable popUpAnnotations = Commons.bl.GetAnnotationsOfClasss(currentClass.IdClass, true, true);
+            //DataTable popUpAnnotations = Commons.bl.GetAnnotationsOfClass(currentClass.IdClass, true, true);
             //if (popUpAnnotations.Rows.Count > 0)
             //{
             //    frmAnnotationsPopUp f = new frmAnnotationsPopUp(popUpAnnotations);

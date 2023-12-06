@@ -27,7 +27,7 @@ namespace SchoolGrades_WPF
             idStartYear = IdStartYear;
         }
 
-        private void frmNewYear_Load(object sender, EventArgs e)
+        private void frmNewYear_Load(object sender, RoutedEventArgs e)
         {
             loading = true;
             // school data
@@ -83,7 +83,7 @@ namespace SchoolGrades_WPF
             nextClass.Abbreviation = txtClassAbbreviationNext.Text;
             nextClass.Description = txtClassDescriptionNext.Text;
         }
-        private void BtnClassMigration_Click(object sender, EventArgs e)
+        private void BtnClassMigration_Click(object sender, RoutedEventArgs e)
         {
             BtnStudentNew.Visibility = Visibility.Visible;
             if (cmbClasses.Text == "")
@@ -125,7 +125,7 @@ namespace SchoolGrades_WPF
             btnClassGeneration.Visibility = Visibility.Visible;
             btnClassMigration.Visibility = Visibility.Hidden;
         }
-        private void BtnClassGeneration_Click(object sender, EventArgs e)
+        private void BtnClassGeneration_Click(object sender, RoutedEventArgs e)
         {
             if (txtClassAbbreviationNext.Text == "")
             {
@@ -152,7 +152,7 @@ namespace SchoolGrades_WPF
             //BtnStudentNew.Visible = false;
             FromUiToClasses();
         }
-        //private void BtnStudentNew_Click(object sender, EventArgs e)
+        //private void BtnStudentNew_Click(object sender, RoutedEventArgs e)
         //{
         //    frmStudent sf = new frmStudent(null, true);
         //    sf.ShowDialog();
@@ -166,19 +166,19 @@ namespace SchoolGrades_WPF
         //        DgwStudents.Items.Clear();
         //    }
         //}
-        private void BtnClassNew_Click(object sender, EventArgs e)
+        private void BtnClassNew_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("!!!! TO DO !!!!");
         }
-        private void TxtSchoolYearPresent_TextChanged(object sender, EventArgs e)
+        private void TxtSchoolYearPresent_TextChanged(object sender, RoutedEventArgs e)
         {
 
         }
-        private void TxtSchoolYearPresent_Leave(object sender, EventArgs e)
+        private void TxtSchoolYearPresent_Leave(object sender, RoutedEventArgs e)
         {
 
         }
-        private void CmbSchoolYear_SelectedIndexChanged(object sender, EventArgs e)
+        private void CmbSchoolYear_SelectedIndexChanged(object sender, RoutedEventArgs e)
         {
             currentSchoolYear = (SchoolYear)cmbSchoolYearCurrents.SelectedItem;
             if (!loading)
@@ -190,7 +190,7 @@ namespace SchoolGrades_WPF
                     currentSchool.IdSchool, currentSchoolYear.IdSchoolYear);
             }
         }
-        private void CmbClasses_SelectedIndexChanged(object sender, EventArgs e)
+        private void CmbClasses_SelectedIndexChanged(object sender, RoutedEventArgs e)
         {
             if (!loading)
             {
@@ -207,7 +207,7 @@ namespace SchoolGrades_WPF
                 FromClassesToUi();
             }
         }
-        private void btnAssociateSchoolPeriodsToTheYear_Click(object sender, EventArgs e)
+        private void btnAssociateSchoolPeriodsToTheYear_Click(object sender, RoutedEventArgs e)
         {
             frmSchoolYearAndPeriodsManagement f = new frmSchoolYearAndPeriodsManagement(txtSchoolYearNext.Text);
             f.ShowDialog();

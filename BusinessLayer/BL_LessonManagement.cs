@@ -26,7 +26,7 @@ namespace SchoolGrades
         {
             dl.SaveLesson(currentLesson);
         }
-        internal object GetTopicsOfOneLessonOfClass(Class currentClass, Lesson currentLesson)
+        internal List<Topic> GetTopicsOfOneLessonOfClass(Class currentClass, Lesson currentLesson)
         {
             return dl.GetTopicsOfOneLessonOfClass(currentClass, currentLesson);
         }

@@ -63,11 +63,11 @@ namespace SchoolGrades_WPF
                 i++;
             }
         }
-        private void pictures_MouseUp(object sender, EventArgs e)
+        private void pictures_MouseUp(object sender, RoutedEventArgs e)
         {
             txtStudentsName.Visibility = Visibility.Hidden;
         }
-        private void pictures_MouseDown(object sender, EventArgs e)
+        private void pictures_MouseDown(object sender, RoutedEventArgs e)
         {
             WPFImage pic = (WPFImage)sender;
             txtStudentsName.Text = pic.Tag.ToString();
