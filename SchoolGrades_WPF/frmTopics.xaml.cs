@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SchoolGrades.BusinessObjects;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SchoolGrades_WPF
 {
@@ -19,9 +8,22 @@ namespace SchoolGrades_WPF
     /// </summary>
     public partial class frmTopics : Window
     {
+        public enum TopicsFormType
+        {
+            ShowAndManagement,
+            HighlightTopics,
+            ImportWithErase,
+            ImportWithoutErase,
+            SearchTopics,
+            ChooseTopic
+        }
         public frmTopics()
         {
             InitializeComponent();
+        }
+
+        public frmTopics(object highlightTopics, Class currentClass, SchoolSubject currentSubject, Question currentQuestion, object value, frmMain frmMain)
+        {
         }
     }
 }

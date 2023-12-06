@@ -50,16 +50,16 @@ namespace SchoolGrades_WPF
                     //image = new WPFImage { Source = imageSource };
                     image = new WPFImage();
                     image.Source = new BitmapImage(fileUri);
+                    PictureGrid.Children.Add(image);
+
+                    Grid.SetRow(image, rowIndex);
+                    Grid.SetColumn(image, columnIndex);
                 }
                 catch
                 {
-                    image.Source = null;
+                    image = null;
                     Console.Beep();
                 }
-                PictureGrid.Children.Add(image);
-
-                Grid.SetRow(image, rowIndex);
-                Grid.SetColumn(image, columnIndex);
                 i++;
             }
         }
