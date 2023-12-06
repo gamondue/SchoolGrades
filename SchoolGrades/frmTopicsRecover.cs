@@ -41,7 +41,7 @@ namespace SchoolGrades
             DataLayer dlNew = new DataLayer(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
             treeNew = new TreeMptt(dlNew, trwNewTopics,
                 txtNewTopicName, txtNewDescription, txtSearchNew, null, txtCodNewTopic,
-                CommonsWinForms.globalPicLed, null, null, null, null, DragDropEffects.Copy);
+                CommonsWinForms.globalPicLed, null, null, null, null, null, DragDropEffects.Copy);
             treeNew.Name = "treeNew";
             treeNew.AddNodesToTreeviewByBestMethod();
             treeNew.ClearBackColorOnClick = false;
@@ -77,7 +77,7 @@ namespace SchoolGrades
 
             treeNew = new TreeMptt(dlNew, trwNewTopics,
                 txtNewTopicName, txtNewDescription, null, null, txtCodNewTopic,
-                CommonsWinForms.globalPicLed, null, null, null, null, DragDropEffects.Copy);
+                CommonsWinForms.globalPicLed, null, null, null, null, null, DragDropEffects.Copy);
             treeNew.AddNodesToTreeviewByBestMethod();
             treeNew.ClearBackColorOnClick = false;
 
@@ -110,7 +110,8 @@ namespace SchoolGrades
 
             treeOld = new TreeMptt(dlOld, trwOldTopics,
                 txtOldTopicName, txtOldDescription, txtSearchOld, null, txtCodOldTopic,
-                CommonsWinForms.globalPicLed, null, null, null, null, DragDropEffects.Copy);
+                CommonsWinForms.globalPicLed, null, null, null, null, null,
+                DragDropEffects.Copy);
             treeOld.Name = "treeOld";
             treeOld.AddNodesToTreeviewByBestMethod();
             treeOld.ClearBackColorOnClick = false;
@@ -317,11 +318,11 @@ namespace SchoolGrades
         }
         private void btnFindNew_Click(object sender, EventArgs e)
         {
-            treeNew.FindNodes(txtSearchNew.Text, false);
+            treeNew.FindNodes(txtSearchNew.Text, false, true, false, false, false);
         }
         private void btnFindOld_Click(object sender, EventArgs e)
         {
-            treeOld.FindNodes(txtSearchOld.Text, false);
+            treeOld.FindNodes(txtSearchOld.Text, false, true, false, false, false);
         }
         private void BtnSaveNewTree_Click(object sender, EventArgs e)
         {
@@ -353,7 +354,7 @@ namespace SchoolGrades
         private void startBackgroundSavingTask()
         {
             // re-create and run the Thread that concurrently saves the Topics tree
-            Commons.BackgroundSaveThread= new Thread(CommonsWinForms.SaveTreeMptt.SaveTreeMpttBackground);
+            Commons.BackgroundSaveThread = new Thread(CommonsWinForms.SaveTreeMptt.SaveTreeMpttBackground);
             Commons.BackgroundSaveThread.Start();
         }
         private void btnBeheaded_Click(object sender, EventArgs e)

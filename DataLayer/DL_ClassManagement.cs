@@ -262,7 +262,8 @@ namespace SchoolGrades
                 DbDataReader dReader = cmd.ExecuteReader();
                 while (dReader.Read())
                 {
-                    string destinationFile = Class.PathRestrictedApplication + "\\SchoolGrades\\Images\\" + (string)dReader["photoPath"];
+                    string destinationFile = Path.Combine(Class.PathRestrictedApplication,
+                        "SchoolGrades", "Images" + (string)dReader["photoPath"]);
                     if (!Directory.Exists(Path.GetDirectoryName(destinationFile)))
                     {
                         Directory.CreateDirectory(Path.GetDirectoryName(destinationFile));
@@ -300,15 +301,16 @@ namespace SchoolGrades
                         Console.Beep();
                         break;
                     }
-                    string destinationFile = (string)dReader["pathRestrictedApplication"] +
-                        "\\SchoolGrades\\" + "Images" + "\\" + (string)dReader["imagePath"];
+                    string destinationFile = Path.Combine((string)dReader["pathRestrictedApplication"],
+                        "SchoolGrades", "Images", (string)dReader["imagePath"]);
                     if (!Directory.Exists(Path.GetDirectoryName(destinationFile)))
                     {
                         Directory.CreateDirectory(Path.GetDirectoryName(destinationFile));
                     }
                     if (!File.Exists(destinationFile) ||
                         File.GetLastWriteTime(destinationFile)
-                        < File.GetLastWriteTime(Commons.PathImages + "\\" + (string)dReader["imagePath"]))
+                        < File.GetLastWriteTime(Path.Combine(Commons.PathImages,
+                        (string)dReader["imagePath"])))
                         // destination file not existing or older
                         try
                         {
@@ -431,8 +433,9 @@ namespace SchoolGrades
 
                     if (LinkPhoto)
                     {
-                        string photoPath = SchoolYear + ClassAbbreviation + "\\" + StudentsData[row, 1] + "_" +
-                            StudentsData[row, 2] + "_" + ClassAbbreviation + SchoolYear + ".jpg";  // !! TODO here we should put the actual file extension!!
+                        string photoPath = Path.Combine(SchoolYear + ClassAbbreviation,
+                            StudentsData[row, 1] + "_" + StudentsData[row, 2] + "_" +
+                            ClassAbbreviation + SchoolYear + ".jpg");  // !! TODO here we should put the actual file extension!!
                         // aggiunge la foto alle foto
                         cmd.CommandText = "INSERT INTO StudentsPhotos " +
                             "(idStudentsPhoto, photoPath)" +
@@ -678,5 +681,34 @@ namespace SchoolGrades
             }
             return ly;
         }
+        internal Class GetThisClassNextYear(Class Class)
+        {
+            string nextYear = Commons.IncreaseIntegersInString(Class.SchoolYear);
+            string nextAbbreviation = Commons.IncreaseIntegersInString(Class.Abbreviation);
+            return GetClass(Class.IdSchool, nextYear, nextAbbreviation);
+        }
+        private string BuildAndClauseOnPassedField(List<Class> classes, string FieldName)
+        {
+            // we assume that classes have no nulls 
+            string andClause = string.Empty;
+            foreach (Class c in classes)
+            {
+                andClause += FieldName + "<>" + c.IdClass + " AND ";
+            }
+            andClause = andClause.Substring(0, andClause.Length - 5);
+            return andClause;
+        }
+        private string BuildOrClauseOnPassedField(List<Class> classes, string FieldName)
+        {
+            // we assume that classes have no nulls 
+            string orClause = string.Empty;
+            foreach (Class c in classes)
+            {
+                orClause += FieldName + "=" + c.IdClass + " OR ";
+            }
+            orClause = orClause.Substring(0, orClause.Length - 4);
+            return orClause;
+        }
+
     }
 }

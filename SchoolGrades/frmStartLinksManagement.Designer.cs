@@ -29,280 +29,284 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmStartLinksManagement));
-            DgwLinks = new System.Windows.Forms.DataGridView();
-            lblStartLink = new System.Windows.Forms.Label();
-            TxtStartLink = new System.Windows.Forms.TextBox();
-            btnSaveLinks = new System.Windows.Forms.Button();
-            btnRemoveLink = new System.Windows.Forms.Button();
-            btnAddLink = new System.Windows.Forms.Button();
-            label3 = new System.Windows.Forms.Label();
-            CmbClasses = new System.Windows.Forms.ComboBox();
-            label7 = new System.Windows.Forms.Label();
-            CmbSchoolYear = new System.Windows.Forms.ComboBox();
-            TxtOfficialSchoolAbbreviation = new System.Windows.Forms.TextBox();
-            label4 = new System.Windows.Forms.Label();
-            label5 = new System.Windows.Forms.Label();
-            TxtLinkDescription = new System.Windows.Forms.TextBox();
-            label6 = new System.Windows.Forms.Label();
-            BtnChooseStartLink = new System.Windows.Forms.Button();
-            BtnFileToLaunch = new System.Windows.Forms.Button();
-            folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            TxtPathStartLink = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)DgwLinks).BeginInit();
-            SuspendLayout();
+            this.DgwLinks = new System.Windows.Forms.DataGridView();
+            this.lblStartLink = new System.Windows.Forms.Label();
+            this.TxtStartLink = new System.Windows.Forms.TextBox();
+            this.btnSaveLinks = new System.Windows.Forms.Button();
+            this.btnRemoveLink = new System.Windows.Forms.Button();
+            this.btnAddLink = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.CmbClasses = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.CmbSchoolYear = new System.Windows.Forms.ComboBox();
+            this.TxtOfficialSchoolAbbreviation = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.TxtLinkDescription = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.BtnChooseStartLink = new System.Windows.Forms.Button();
+            this.BtnFileToLaunch = new System.Windows.Forms.Button();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.TxtPathStartLink = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.DgwLinks)).BeginInit();
+            this.SuspendLayout();
             // 
             // DgwLinks
             // 
-            DgwLinks.AllowUserToAddRows = false;
-            DgwLinks.AllowUserToDeleteRows = false;
-            DgwLinks.AllowUserToOrderColumns = true;
-            DgwLinks.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            DgwLinks.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
-            DgwLinks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            DgwLinks.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            DgwLinks.Location = new System.Drawing.Point(0, 135);
-            DgwLinks.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            DgwLinks.Name = "DgwLinks";
-            DgwLinks.RowTemplate.Height = 24;
-            DgwLinks.Size = new System.Drawing.Size(946, 509);
-            DgwLinks.TabIndex = 1;
-            DgwLinks.CellClick += DgwLinks_CellClick;
-            DgwLinks.CellContentClick += DgwLinks_CellContentClick;
-            DgwLinks.CellDoubleClick += DgwLinks_CellDoubleClick;
-            DgwLinks.RowEnter += DgwLinks_RowEnter;
+            this.DgwLinks.AllowUserToAddRows = false;
+            this.DgwLinks.AllowUserToDeleteRows = false;
+            this.DgwLinks.AllowUserToOrderColumns = true;
+            this.DgwLinks.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DgwLinks.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
+            this.DgwLinks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DgwLinks.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.DgwLinks.Location = new System.Drawing.Point(0, 135);
+            this.DgwLinks.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.DgwLinks.Name = "DgwLinks";
+            this.DgwLinks.RowTemplate.Height = 24;
+            this.DgwLinks.Size = new System.Drawing.Size(946, 509);
+            this.DgwLinks.TabIndex = 1;
+            this.DgwLinks.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgwLinks_CellClick);
+            this.DgwLinks.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgwLinks_CellContentClick);
+            this.DgwLinks.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgwLinks_CellDoubleClick);
+            this.DgwLinks.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgwLinks_RowEnter);
             // 
             // lblStartLink
             // 
-            lblStartLink.AutoSize = true;
-            lblStartLink.Location = new System.Drawing.Point(0, 107);
-            lblStartLink.Name = "lblStartLink";
-            lblStartLink.Size = new System.Drawing.Size(145, 18);
-            lblStartLink.TabIndex = 7;
-            lblStartLink.Text = "Link o file da lanciare";
+            this.lblStartLink.AutoSize = true;
+            this.lblStartLink.Location = new System.Drawing.Point(0, 107);
+            this.lblStartLink.Name = "lblStartLink";
+            this.lblStartLink.Size = new System.Drawing.Size(145, 18);
+            this.lblStartLink.TabIndex = 7;
+            this.lblStartLink.Text = "Link o file da lanciare";
             // 
             // TxtStartLink
             // 
-            TxtStartLink.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            TxtStartLink.Location = new System.Drawing.Point(151, 104);
-            TxtStartLink.Name = "TxtStartLink";
-            TxtStartLink.Size = new System.Drawing.Size(739, 24);
-            TxtStartLink.TabIndex = 6;
-            TxtStartLink.TextChanged += txtStartLink_TextChanged;
-            TxtStartLink.DoubleClick += txtStartLink_DoubleClick;
+            this.TxtStartLink.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TxtStartLink.Location = new System.Drawing.Point(151, 104);
+            this.TxtStartLink.Name = "TxtStartLink";
+            this.TxtStartLink.Size = new System.Drawing.Size(739, 24);
+            this.TxtStartLink.TabIndex = 6;
+            this.TxtStartLink.TextChanged += new System.EventHandler(this.txtStartLink_TextChanged);
+            this.TxtStartLink.DoubleClick += new System.EventHandler(this.txtStartLink_DoubleClick);
             // 
             // btnSaveLinks
             // 
-            btnSaveLinks.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnSaveLinks.Location = new System.Drawing.Point(880, 37);
-            btnSaveLinks.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            btnSaveLinks.Name = "btnSaveLinks";
-            btnSaveLinks.Size = new System.Drawing.Size(66, 30);
-            btnSaveLinks.TabIndex = 10;
-            btnSaveLinks.Text = "salva";
-            btnSaveLinks.UseVisualStyleBackColor = true;
-            btnSaveLinks.Click += btnSaveLinks_Click;
+            this.btnSaveLinks.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSaveLinks.Location = new System.Drawing.Point(880, 37);
+            this.btnSaveLinks.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnSaveLinks.Name = "btnSaveLinks";
+            this.btnSaveLinks.Size = new System.Drawing.Size(66, 30);
+            this.btnSaveLinks.TabIndex = 10;
+            this.btnSaveLinks.Text = "salva";
+            this.btnSaveLinks.UseVisualStyleBackColor = true;
+            this.btnSaveLinks.Click += new System.EventHandler(this.btnSaveLinks_Click);
             // 
             // btnRemoveLink
             // 
-            btnRemoveLink.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnRemoveLink.Location = new System.Drawing.Point(837, 37);
-            btnRemoveLink.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            btnRemoveLink.Name = "btnRemoveLink";
-            btnRemoveLink.Size = new System.Drawing.Size(37, 30);
-            btnRemoveLink.TabIndex = 9;
-            btnRemoveLink.Text = "-";
-            btnRemoveLink.UseVisualStyleBackColor = true;
-            btnRemoveLink.Click += btnRemoveLink_Click;
+            this.btnRemoveLink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRemoveLink.Location = new System.Drawing.Point(837, 37);
+            this.btnRemoveLink.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnRemoveLink.Name = "btnRemoveLink";
+            this.btnRemoveLink.Size = new System.Drawing.Size(37, 30);
+            this.btnRemoveLink.TabIndex = 9;
+            this.btnRemoveLink.Text = "-";
+            this.btnRemoveLink.UseVisualStyleBackColor = true;
+            this.btnRemoveLink.Click += new System.EventHandler(this.btnRemoveLink_Click);
             // 
             // btnAddLink
             // 
-            btnAddLink.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnAddLink.Location = new System.Drawing.Point(792, 38);
-            btnAddLink.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            btnAddLink.Name = "btnAddLink";
-            btnAddLink.Size = new System.Drawing.Size(39, 29);
-            btnAddLink.TabIndex = 8;
-            btnAddLink.Text = "+";
-            btnAddLink.UseVisualStyleBackColor = true;
-            btnAddLink.Click += btnAddLink_Click;
+            this.btnAddLink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddLink.Location = new System.Drawing.Point(792, 38);
+            this.btnAddLink.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnAddLink.Name = "btnAddLink";
+            this.btnAddLink.Size = new System.Drawing.Size(39, 29);
+            this.btnAddLink.TabIndex = 8;
+            this.btnAddLink.Text = "+";
+            this.btnAddLink.UseVisualStyleBackColor = true;
+            this.btnAddLink.Click += new System.EventHandler(this.btnAddLink_Click);
             // 
             // label3
             // 
-            label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(0, 77);
-            label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(117, 18);
-            label3.TabIndex = 14;
-            label3.Text = "Cartella start link";
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(0, 77);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(117, 18);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "Cartella start link";
             // 
             // CmbClasses
             // 
-            CmbClasses.FormattingEnabled = true;
-            CmbClasses.Location = new System.Drawing.Point(272, 37);
-            CmbClasses.Name = "CmbClasses";
-            CmbClasses.Size = new System.Drawing.Size(102, 26);
-            CmbClasses.TabIndex = 84;
-            CmbClasses.SelectedIndexChanged += CmbClasses_SelectedIndexChanged;
+            this.CmbClasses.FormattingEnabled = true;
+            this.CmbClasses.Location = new System.Drawing.Point(272, 37);
+            this.CmbClasses.Name = "CmbClasses";
+            this.CmbClasses.Size = new System.Drawing.Size(102, 26);
+            this.CmbClasses.TabIndex = 84;
+            this.CmbClasses.SelectedIndexChanged += new System.EventHandler(this.CmbClasses_SelectedIndexChanged);
             // 
             // label7
             // 
-            label7.AutoSize = true;
-            label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            label7.ForeColor = System.Drawing.Color.DarkBlue;
-            label7.Location = new System.Drawing.Point(156, 16);
-            label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label7.Name = "label7";
-            label7.Size = new System.Drawing.Size(114, 18);
-            label7.TabIndex = 90;
-            label7.Text = "Anno scolastico";
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.DarkBlue;
+            this.label7.Location = new System.Drawing.Point(156, 16);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(114, 18);
+            this.label7.TabIndex = 90;
+            this.label7.Text = "Anno scolastico";
             // 
             // CmbSchoolYear
             // 
-            CmbSchoolYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            CmbSchoolYear.ForeColor = System.Drawing.Color.DarkBlue;
-            CmbSchoolYear.FormattingEnabled = true;
-            CmbSchoolYear.Location = new System.Drawing.Point(159, 37);
-            CmbSchoolYear.Margin = new System.Windows.Forms.Padding(4);
-            CmbSchoolYear.Name = "CmbSchoolYear";
-            CmbSchoolYear.Size = new System.Drawing.Size(89, 25);
-            CmbSchoolYear.TabIndex = 83;
-            CmbSchoolYear.SelectedIndexChanged += CmbSchoolYear_SelectedIndexChanged;
+            this.CmbSchoolYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CmbSchoolYear.ForeColor = System.Drawing.Color.DarkBlue;
+            this.CmbSchoolYear.FormattingEnabled = true;
+            this.CmbSchoolYear.Location = new System.Drawing.Point(159, 37);
+            this.CmbSchoolYear.Margin = new System.Windows.Forms.Padding(4);
+            this.CmbSchoolYear.Name = "CmbSchoolYear";
+            this.CmbSchoolYear.Size = new System.Drawing.Size(89, 25);
+            this.CmbSchoolYear.TabIndex = 83;
+            this.CmbSchoolYear.SelectedIndexChanged += new System.EventHandler(this.CmbSchoolYear_SelectedIndexChanged);
             // 
             // TxtOfficialSchoolAbbreviation
             // 
-            TxtOfficialSchoolAbbreviation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            TxtOfficialSchoolAbbreviation.Location = new System.Drawing.Point(2, 38);
-            TxtOfficialSchoolAbbreviation.Margin = new System.Windows.Forms.Padding(4);
-            TxtOfficialSchoolAbbreviation.Name = "TxtOfficialSchoolAbbreviation";
-            TxtOfficialSchoolAbbreviation.ReadOnly = true;
-            TxtOfficialSchoolAbbreviation.Size = new System.Drawing.Size(135, 24);
-            TxtOfficialSchoolAbbreviation.TabIndex = 89;
-            TxtOfficialSchoolAbbreviation.Text = "FOIS01100L";
-            TxtOfficialSchoolAbbreviation.TextChanged += TxtOfficialSchoolAbbreviation_TextChanged;
+            this.TxtOfficialSchoolAbbreviation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtOfficialSchoolAbbreviation.Location = new System.Drawing.Point(2, 38);
+            this.TxtOfficialSchoolAbbreviation.Margin = new System.Windows.Forms.Padding(4);
+            this.TxtOfficialSchoolAbbreviation.Name = "TxtOfficialSchoolAbbreviation";
+            this.TxtOfficialSchoolAbbreviation.ReadOnly = true;
+            this.TxtOfficialSchoolAbbreviation.Size = new System.Drawing.Size(135, 24);
+            this.TxtOfficialSchoolAbbreviation.TabIndex = 89;
+            this.TxtOfficialSchoolAbbreviation.Text = "FOIS01100L";
             // 
             // label4
             // 
-            label4.AutoSize = true;
-            label4.ForeColor = System.Drawing.Color.DarkBlue;
-            label4.Location = new System.Drawing.Point(0, 16);
-            label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(105, 18);
-            label4.TabIndex = 88;
-            label4.Text = "Codice Scuola";
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.DarkBlue;
+            this.label4.Location = new System.Drawing.Point(0, 16);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(105, 18);
+            this.label4.TabIndex = 88;
+            this.label4.Text = "Codice Scuola";
             // 
             // label5
             // 
-            label5.AutoSize = true;
-            label5.ForeColor = System.Drawing.Color.DarkBlue;
-            label5.Location = new System.Drawing.Point(473, 19);
-            label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(113, 18);
-            label5.TabIndex = 87;
-            label5.Text = "Descrizione link";
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.DarkBlue;
+            this.label5.Location = new System.Drawing.Point(473, 19);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(113, 18);
+            this.label5.TabIndex = 87;
+            this.label5.Text = "Descrizione link";
             // 
             // TxtLinkDescription
             // 
-            TxtLinkDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            TxtLinkDescription.Location = new System.Drawing.Point(476, 41);
-            TxtLinkDescription.Margin = new System.Windows.Forms.Padding(4);
-            TxtLinkDescription.Name = "TxtLinkDescription";
-            TxtLinkDescription.Size = new System.Drawing.Size(309, 24);
-            TxtLinkDescription.TabIndex = 85;
+            this.TxtLinkDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtLinkDescription.Location = new System.Drawing.Point(476, 41);
+            this.TxtLinkDescription.Margin = new System.Windows.Forms.Padding(4);
+            this.TxtLinkDescription.Name = "TxtLinkDescription";
+            this.TxtLinkDescription.Size = new System.Drawing.Size(309, 24);
+            this.TxtLinkDescription.TabIndex = 85;
             // 
             // label6
             // 
-            label6.AutoSize = true;
-            label6.ForeColor = System.Drawing.Color.DarkBlue;
-            label6.Location = new System.Drawing.Point(269, 16);
-            label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label6.Name = "label6";
-            label6.Size = new System.Drawing.Size(90, 18);
-            label6.TabIndex = 86;
-            label6.Text = "Sigla Classe";
+            this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.DarkBlue;
+            this.label6.Location = new System.Drawing.Point(269, 16);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(90, 18);
+            this.label6.TabIndex = 86;
+            this.label6.Text = "Sigla Classe";
             // 
             // BtnChooseStartLink
             // 
-            BtnChooseStartLink.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            BtnChooseStartLink.BackColor = System.Drawing.Color.Transparent;
-            BtnChooseStartLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            BtnChooseStartLink.ForeColor = System.Drawing.Color.DarkBlue;
-            BtnChooseStartLink.Location = new System.Drawing.Point(892, 70);
-            BtnChooseStartLink.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            BtnChooseStartLink.Name = "BtnChooseStartLink";
-            BtnChooseStartLink.Size = new System.Drawing.Size(54, 32);
-            BtnChooseStartLink.TabIndex = 148;
-            BtnChooseStartLink.Text = "..";
-            BtnChooseStartLink.UseVisualStyleBackColor = false;
-            BtnChooseStartLink.Visible = false;
-            BtnChooseStartLink.Click += BtnPathRetrictedApplication_Click;
+            this.BtnChooseStartLink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnChooseStartLink.BackColor = System.Drawing.Color.Transparent;
+            this.BtnChooseStartLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnChooseStartLink.ForeColor = System.Drawing.Color.DarkBlue;
+            this.BtnChooseStartLink.Location = new System.Drawing.Point(892, 70);
+            this.BtnChooseStartLink.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.BtnChooseStartLink.Name = "BtnChooseStartLink";
+            this.BtnChooseStartLink.Size = new System.Drawing.Size(54, 32);
+            this.BtnChooseStartLink.TabIndex = 148;
+            this.BtnChooseStartLink.Text = "..";
+            this.BtnChooseStartLink.UseVisualStyleBackColor = false;
+            this.BtnChooseStartLink.Visible = false;
+            this.BtnChooseStartLink.Click += new System.EventHandler(this.BtnPathRetrictedApplication_Click);
             // 
             // BtnFileToLaunch
             // 
-            BtnFileToLaunch.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            BtnFileToLaunch.BackColor = System.Drawing.Color.Transparent;
-            BtnFileToLaunch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            BtnFileToLaunch.ForeColor = System.Drawing.Color.DarkBlue;
-            BtnFileToLaunch.Location = new System.Drawing.Point(892, 100);
-            BtnFileToLaunch.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            BtnFileToLaunch.Name = "BtnFileToLaunch";
-            BtnFileToLaunch.Size = new System.Drawing.Size(54, 32);
-            BtnFileToLaunch.TabIndex = 149;
-            BtnFileToLaunch.Text = "..";
-            BtnFileToLaunch.UseVisualStyleBackColor = false;
-            BtnFileToLaunch.Click += BtnFileToLaunch_Click;
+            this.BtnFileToLaunch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnFileToLaunch.BackColor = System.Drawing.Color.Transparent;
+            this.BtnFileToLaunch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnFileToLaunch.ForeColor = System.Drawing.Color.DarkBlue;
+            this.BtnFileToLaunch.Location = new System.Drawing.Point(892, 100);
+            this.BtnFileToLaunch.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.BtnFileToLaunch.Name = "BtnFileToLaunch";
+            this.BtnFileToLaunch.Size = new System.Drawing.Size(54, 32);
+            this.BtnFileToLaunch.TabIndex = 149;
+            this.BtnFileToLaunch.Text = "..";
+            this.BtnFileToLaunch.UseVisualStyleBackColor = false;
+            this.BtnFileToLaunch.Click += new System.EventHandler(this.BtnFileToLaunch_Click);
             // 
             // openFileDialog
             // 
-            openFileDialog.FileName = "openFileDialog1";
+            this.openFileDialog.FileName = "openFileDialog1";
             // 
             // TxtPathStartLink
             // 
-            TxtPathStartLink.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            TxtPathStartLink.Location = new System.Drawing.Point(123, 74);
-            TxtPathStartLink.Name = "TxtPathStartLink";
-            TxtPathStartLink.ReadOnly = true;
-            TxtPathStartLink.Size = new System.Drawing.Size(767, 24);
-            TxtPathStartLink.TabIndex = 13;
-            TxtPathStartLink.TextChanged += TxtPathStartLink_TextChanged;
-            TxtPathStartLink.DoubleClick += TxtPathStartLink_DoubleClick;
+            this.TxtPathStartLink.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TxtPathStartLink.Location = new System.Drawing.Point(123, 74);
+            this.TxtPathStartLink.Name = "TxtPathStartLink";
+            this.TxtPathStartLink.ReadOnly = true;
+            this.TxtPathStartLink.Size = new System.Drawing.Size(767, 24);
+            this.TxtPathStartLink.TabIndex = 13;
+            this.TxtPathStartLink.TextChanged += new System.EventHandler(this.TxtPathStartLink_TextChanged);
+            this.TxtPathStartLink.DoubleClick += new System.EventHandler(this.TxtPathStartLink_DoubleClick);
             // 
             // frmStartLinksManagement
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            BackColor = System.Drawing.Color.PowderBlue;
-            ClientSize = new System.Drawing.Size(948, 647);
-            Controls.Add(BtnFileToLaunch);
-            Controls.Add(BtnChooseStartLink);
-            Controls.Add(CmbClasses);
-            Controls.Add(label7);
-            Controls.Add(CmbSchoolYear);
-            Controls.Add(TxtOfficialSchoolAbbreviation);
-            Controls.Add(label4);
-            Controls.Add(label5);
-            Controls.Add(TxtLinkDescription);
-            Controls.Add(label6);
-            Controls.Add(label3);
-            Controls.Add(TxtPathStartLink);
-            Controls.Add(btnSaveLinks);
-            Controls.Add(btnRemoveLink);
-            Controls.Add(btnAddLink);
-            Controls.Add(lblStartLink);
-            Controls.Add(TxtStartLink);
-            Controls.Add(DgwLinks);
-            Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            ForeColor = System.Drawing.Color.DarkBlue;
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
-            Margin = new System.Windows.Forms.Padding(4);
-            Name = "frmStartLinksManagement";
-            Text = "Start links";
-            Load += frmStartLinksManagement_Load;
-            ((System.ComponentModel.ISupportInitialize)DgwLinks).EndInit();
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.PowderBlue;
+            this.ClientSize = new System.Drawing.Size(948, 647);
+            this.Controls.Add(this.BtnFileToLaunch);
+            this.Controls.Add(this.BtnChooseStartLink);
+            this.Controls.Add(this.CmbClasses);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.CmbSchoolYear);
+            this.Controls.Add(this.TxtOfficialSchoolAbbreviation);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.TxtLinkDescription);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.TxtPathStartLink);
+            this.Controls.Add(this.btnSaveLinks);
+            this.Controls.Add(this.btnRemoveLink);
+            this.Controls.Add(this.btnAddLink);
+            this.Controls.Add(this.lblStartLink);
+            this.Controls.Add(this.TxtStartLink);
+            this.Controls.Add(this.DgwLinks);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ForeColor = System.Drawing.Color.DarkBlue;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Name = "frmStartLinksManagement";
+            this.Text = "Start links";
+            this.Load += new System.EventHandler(this.frmStartLinksManagement_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.DgwLinks)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion

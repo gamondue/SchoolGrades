@@ -1,8 +1,8 @@
+using gamon.gamon;
 using System;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Threading;
-using gamon.gamon;
+using System.Windows.Forms;
 
 namespace gamon
 {
@@ -33,14 +33,14 @@ namespace gamon
         int tcpPort;
 
         // Threading 
-        ThreadServerReceiver oggettoRicevitore = null;
-        Thread threadRicevitore;
+        ThreadServerReceiver receivingObjectForThead = null;
+        Thread receivingThread;
         private bool clientConnected = false;
         private bool serverConnected = false;
         private string comandoAttuale;
         private string passwordDalClient;
 
-        private bool primoComando = false;
+        private bool firstCommand = false;
         private int nTentativi = 3;
 
         private int lastFormSize;
@@ -172,14 +172,14 @@ namespace gamon
         }
         private void VerifyExternalCommands()
         {
-            if (oggettoRicevitore != null)
+            if (receivingObjectForThead != null)
             {
-                if (oggettoRicevitore.NuovoComando)
+                if (receivingObjectForThead.newCommand)
                 {
-                    oggettoRicevitore.NuovoComando = false;
-                    comandoAttuale = oggettoRicevitore.Comando;
+                    receivingObjectForThead.newCommand = false;
+                    comandoAttuale = receivingObjectForThead.command;
                     // primo contatto dal client: deve essere la password
-                    if (primoComando)
+                    if (firstCommand)
                     {
                         passwordDalClient = comandoAttuale.Substring(2);
                         if (nTentativi > 0)
@@ -196,7 +196,7 @@ namespace gamon
                             // password corretta
 
                         }
-                        primoComando = false;
+                        firstCommand = false;
                     } // non primo comando
                     else
                     {   // parse del comando "non password"
@@ -356,26 +356,26 @@ namespace gamon
                 password = f.txtInput3.Text;
 
                 // istanzia un oggetto della classe che contiene il codice da eseguire in thread
-                oggettoRicevitore = new ThreadServerReceiver(ipOrDns, tcpPort, password);
+                receivingObjectForThead = new ThreadServerReceiver(ipOrDns, tcpPort, password);
                 // crea il thread Inizia()
-                threadRicevitore = new Thread(oggettoRicevitore.Inizia);
+                receivingThread = new Thread(receivingObjectForThead.StartColorTimerThread);
                 serverConnected = true;
                 chkServer.Enabled = false;
                 btnConnect.Enabled = false;
 
                 timer1.Enabled = true;
                 // fa partire il thread Inizia()
-                threadRicevitore.Start();
+                receivingThread.Start();
 
-                primoComando = true;
+                firstCommand = true;
             }
             else // server non checked
             {
-                if (oggettoRicevitore != null)
+                if (receivingObjectForThead != null)
                 {
-                    oggettoRicevitore.RequestStop();
+                    receivingObjectForThead.RequestStop();
                     ServerTcp.Close();
-                    oggettoRicevitore = null;
+                    receivingObjectForThead = null;
                     serverConnected = false;
                     chkServer.Enabled = true;
                     btnConnect.Enabled = true;
@@ -384,10 +384,10 @@ namespace gamon
         }
         private void ColorTimer_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (oggettoRicevitore != null)
+            if (receivingObjectForThead != null)
             {
-                oggettoRicevitore.RequestStop();
-                oggettoRicevitore = null;
+                receivingObjectForThead.RequestStop();
+                receivingObjectForThead = null;
             }
             ServerTcp.Close();
         }

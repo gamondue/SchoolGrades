@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SharedWinForms;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -234,7 +235,7 @@ namespace SchoolGrades
             ////////{
             ////////    bgColor = Color.PowderBlue;
             ////////}
-            this.BackColor = Commons.ColorFromNumber(currentSubject);
+            this.BackColor = CommonsWinForms.ColorFromNumber(currentSubject);
         }
 
         private void cmbQuestionType_SelectedIndexChanged(object sender, EventArgs e)

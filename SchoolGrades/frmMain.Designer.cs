@@ -555,7 +555,7 @@
             btnTopicsDone.Name = "btnTopicsDone";
             btnTopicsDone.Size = new System.Drawing.Size(94, 48);
             btnTopicsDone.TabIndex = 112;
-            btnTopicsDone.Text = "Argomenti fatti";
+            btnTopicsDone.Text = "Argom. fatti";
             toolTip1.SetToolTip(btnTopicsDone, "Apre pagina ricerca argomenti già spiegati nel programma didattico");
             btnTopicsDone.UseVisualStyleBackColor = false;
             btnTopicsDone.Click += btnTopicsDone_Click;
@@ -881,7 +881,7 @@
             btnTemporary.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnTemporary.BackColor = System.Drawing.Color.Red;
             btnTemporary.ForeColor = System.Drawing.Color.Yellow;
-            btnTemporary.Location = new System.Drawing.Point(409, 168);
+            btnTemporary.Location = new System.Drawing.Point(412, 163);
             btnTemporary.Name = "btnTemporary";
             btnTemporary.Size = new System.Drawing.Size(91, 54);
             btnTemporary.TabIndex = 164;
@@ -1330,7 +1330,7 @@
             dgwStudents.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
             dgwStudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgwStudents.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            dgwStudents.Location = new System.Drawing.Point(-1, 224);
+            dgwStudents.Location = new System.Drawing.Point(8, 222);
             dgwStudents.Name = "dgwStudents";
             dgwStudents.ReadOnly = true;
             dgwStudents.Size = new System.Drawing.Size(382, 489);
