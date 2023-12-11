@@ -81,15 +81,18 @@
                 </StackPanel>
                 <TextBox Name="txtTopicSearchString" Grid.Row="2" Grid.ColumnSpan="2"></TextBox>
             </Grid>
-            <CheckBox Name="chkSearchInDescriptions" HorizontalAlignment="Center">In Descriz.</CheckBox>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <CheckBox Name="chkAllWord">Parola</CheckBox>
-                <CheckBox Name="chkCaseInsensitive" Content="ma &amp; mi"></CheckBox>
+                <CheckBox x:Name="chkSearchInDescriptions" Content="In Descriz."/>
+                <CheckBox x:Name="chkAllWord" Content="Parola"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <CheckBox x:Name="chkCaseInsensitive" Content="Esatta"/>
+                <CheckBox x:Name="chkVerbatimString" Content="ma &amp; mi"/>
             </StackPanel>
             <Button Name="btnFind">Trova (F3)</Button>
             <Button Name="btnFindUnderNode">Trova sotto (Shift+F3)</Button>
             <Button Name="btnSaveTree">Salva argomenti (F5)</Button>
-            <Button Name="btnAddNodeSon">Aggiungi figlio (Ins)</Button>
+            <Button Name="btnAddNodeSon" Click="btnAddNodeSon_Click">Aggiungi figlio (Ins)</Button>
             <Button Name="btnAddNodeBrother">Aggiungi fratello (Shift+Ins)</Button>
             <Button Name="btnChoose">Scegli</Button>
             <Button Name="btnArgFreemind">Argomento Freemind</Button>

@@ -40,19 +40,19 @@
                 </Grid.ColumnDefinitions>
 
                 <Button Name="btnTabelle" Margin="7" Grid.Column="0" Background="White" Click="btnTabelle_Click">
-                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White" TextChanged="TextBox_TextChanged" >Gestione tabelle</TextBox>
+                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White">Gestione tabelle</TextBox>
                 </Button>
 
                 <Button Name="btnClassi" Margin="7" Grid.Column="1" Background="White" Click="btnClassi_Click">
-                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White" TextChanged="TextBox_TextChanged_1">Gestione classi</TextBox>
+                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White">Gestione classi</TextBox>
                 </Button>
 
                 <Button Name="btnBackupManagement" Margin="7" Grid.Column="2" Background="White" Click="btnBackupManagement_Click">
-                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White" TextChanged="TextBox_TextChanged_2">Backup e gen.file</TextBox>
+                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White">Backup e gen.file</TextBox>
                 </Button>
 
                 <Button Name="btnTopicsManagement" Margin="7" Grid.Column="3" Background="White" Click="btnTopicsManagement_Click">
-                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White" TextChanged="TextBox_TextChanged_3">Gestione argomenti</TextBox>
+                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White">Gestione argomenti</TextBox>
                 </Button>
 
                 <Button Name="btnTagsManagement" Margin="7" Grid.Column="4" Background="White" Click="btnTagsManagement_Click">
@@ -60,7 +60,7 @@
                 </Button>
 
                 <Button Name="btnQuestionManagement" Margin="7" Grid.Column="5" Background="White" Click="btnQuestionManagement_Click">
-                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White" TextChanged="TextBox_TextChanged_4">Gestione domande</TextBox>
+                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White">Gestione domande</TextBox>
                 </Button>
 
                 <Button Name="btnStartLimksManagement" Margin="7" Grid.Column="6" Background="White" Click="btnStartLimksManagement_Click">

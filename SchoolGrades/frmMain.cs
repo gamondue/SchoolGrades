@@ -24,7 +24,7 @@ namespace SchoolGrades
 
         private string schoolYear;
 
-        //bool formInitializing = true;
+        bool formInitializing = true;
         //bool firstTime = true;
 
         Student currentStudent;
@@ -247,7 +247,7 @@ namespace SchoolGrades
             txtIdStudent.Visible = false;
 
             lblDatabaseFile.Text = Path.GetFileName(Commons.PathAndFileDatabase);
-            //formInitializing = false;
+            formInitializing = false;
         }
         private string GetNewDatabaseFilename(string proposedDatabasePath)
         {
@@ -379,7 +379,7 @@ namespace SchoolGrades
         private void loadStudentsData(Student Student)
         {
             //if (chkStudentsListVisible.Checked)
-            loadPicture(Student);
+            loadStudentsPicture(Student);
             chkStudentsListVisible.Checked = false;
             lblStudentChosen.Text = Student.ToString();
             txtRevengeFactor.Text = Student.RevengeFactorCounter.ToString();
@@ -502,7 +502,7 @@ namespace SchoolGrades
             if (dgwStudents.Visible)
                 AllCheckRevenge();
         }
-        private void loadPicture(Student Chosen)
+        private void loadStudentsPicture(Student Chosen)
         {
             try
             {
@@ -584,8 +584,7 @@ namespace SchoolGrades
         }
         private void chkFotoVisibile_CheckedChanged(object sender, EventArgs e)
         {
-            //fotoVisibile = chkFotoVisibile.Checked;
-            picStudent.Visible = chkFotoVisibile.Checked;
+            picStudent.Visible = chkPhotoVisibile.Checked;
         }
         private void chkStudentsListVisible_CheckedChanged(object sender, EventArgs e)
         {
@@ -618,16 +617,17 @@ namespace SchoolGrades
             //}
             //firstTime = true;
         }
-        private void btnSalvaInterrogati_Click(object sender, EventArgs e)
-        {
-            SaveStudentsOfClassIfEligibleHasChanged();
-        }
+        //private void btnSalvaInterrogati_Click(object sender, EventArgs e)
+        //{
+        //    SaveStudentsOfClassIfEligibleHasChanged();
+        //}
         private void btnPath_Click(object sender, EventArgs e)
         {
             folderBrowserDialog.SelectedPath = txtPathImages.Text;
             DialogResult r = folderBrowserDialog.ShowDialog();
             if (r == System.Windows.Forms.DialogResult.OK)
             {
+
                 txtPathImages.Text = folderBrowserDialog.SelectedPath;
             }
         }
@@ -1647,7 +1647,7 @@ namespace SchoolGrades
                         // make a question to a random student
                         // draws the student wiyh the criterion set in the U.I. 
                         btnComeOn_Click(null, null);
-                        chkFotoVisibile.Checked = true;
+                        chkPhotoVisibile.Checked = true;
                         btnAssess_Click(null, null);
                         // tell the user that he has a new student chosen 
                         Console.Beep(400, 800);

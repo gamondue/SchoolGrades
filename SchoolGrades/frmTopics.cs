@@ -188,10 +188,16 @@ namespace SchoolGrades
 
             MessageBox.Show("Salvataggio fatto");
         }
-        private void btnAddNode_Click(object sender, EventArgs e)
+        private void btnAddNodeSon_Click(object sender, EventArgs e)
         {
             // add a completely new node
             System.Windows.Forms.TreeNode t = topicTreeMptt.AddNewNode("Nuovo argomento", true);
+            txtTopicName.Focus();
+        }
+        private void btnAddNodeBrother_Click(object sender, EventArgs e)
+        {
+            topicTreeMptt.AddNewNode("Nuovo argomento", false);
+            // set focus to the name textBox
             txtTopicName.Focus();
         }
         private void btnDelete_Click(object sender, EventArgs e)
@@ -227,12 +233,6 @@ namespace SchoolGrades
             {
                 btnSave_Click(null, null);
             }
-        }
-        private void btnAddNodeBrother_Click(object sender, EventArgs e)
-        {
-            topicTreeMptt.AddNewNode("Nuovo argomento", false);
-            // set focus to the name textBox
-            txtTopicName.Focus();
         }
         private void btnFindUnderNode_Click(object sender, EventArgs e)
         {

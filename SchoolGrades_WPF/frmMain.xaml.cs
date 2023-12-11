@@ -29,7 +29,7 @@ namespace SchoolGrades_WPF
 
         private string schoolYear;
 
-        //bool formInitializing = true;
+        private bool wndInitializing = true;
         //bool firstTime = true;
 
         Student currentStudent;
@@ -89,8 +89,6 @@ namespace SchoolGrades_WPF
             Commons.PathAndFileDatabase = Path.Combine(Commons.PathExe, "Data",
                 "Demo_SchoolGrades.sqlite");
             Commons.PathImages = Path.Combine(Commons.PathExe, "Images");
-
-            CreateBusinessAndDataLayer();
 
             // manage the configuration file 
             string messagePrompt = "";
@@ -152,6 +150,7 @@ namespace SchoolGrades_WPF
             //////////////        }
             //////////////    }
             //////////////}
+            CreateBusinessAndDataLayer();
 
             List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
             cmbSchoolYear.ItemsSource = ly;
@@ -237,7 +236,7 @@ namespace SchoolGrades_WPF
             if (lstClasses.ItemsSource == null)
                 return;
 
-            //////////CommonsWpf.globalPicLed = picBackgroundSaveRunning;
+            CommonsWpf.globalPicLed = picBackgroundSaveRunning;
 
             if ((bool)chkActivateLessonClock.IsChecked)
             {
@@ -259,8 +258,7 @@ namespace SchoolGrades_WPF
             //////////txtIdStudent.Visible = false;
 
             lblDatabaseFile.Text = Path.GetFileName(Commons.PathAndFileDatabase);
-
-            loading = false;
+            wndInitializing = false;
         }
         private string GetNewDatabaseFilename(string proposedDatabasePath)
         {
@@ -392,13 +390,13 @@ namespace SchoolGrades_WPF
         private void loadStudentsData(Student Student)
         {
             //if ((bool) chkStudentsListVisible.IsChecked)
-            loadPicture(Student);
+            loadStudentsPicture(Student);
             chkStudentsListVisible.IsChecked = false;
             lblStudentChosen.Content = Student.ToString();
             txtRevengeFactor.Text = Student.RevengeFactorCounter.ToString();
             txtIdStudent.Text = Student.IdStudent.ToString();
         }
-        private void btnDraw_Click(object sender, RoutedEventArgs e)
+        private void btnDrawOrSort_Click(object sender, RoutedEventArgs e)
         {
             // read checksigns from the grid
             ReadCheckSignsIntoCurrentStudentsList();
@@ -515,7 +513,7 @@ namespace SchoolGrades_WPF
             if (dgwStudents.Visibility == Visibility.Visible)
                 AllCheckRevenge();
         }
-        private void loadPicture(Student Chosen)
+        private void loadStudentsPicture(Student Chosen)
         {
             try
             {
@@ -597,15 +595,14 @@ namespace SchoolGrades_WPF
         }
         private void chkFotoVisibile_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            //fotoVisibile = chkFotoVisibile.IsChecked;
-            if ((bool)chkFotoVisibile.IsChecked)
+            if ((bool)chkPhotoVisibile.IsChecked)
                 picStudent.Visibility = Visibility.Visible;
             else
                 picStudent.Visibility = Visibility.Hidden;
         }
         private void chkStudentsListVisible_Unchecked(object sender, RoutedEventArgs e)
         {
-            if (loading) return;
+            if (wndInitializing) return;
             dgwStudents.Visibility = Visibility.Hidden;
             lblStudentChosen.Visibility = Visibility.Visible;
             picStudent.Visibility = Visibility.Visible;
@@ -614,7 +611,7 @@ namespace SchoolGrades_WPF
         }
         private void chkStudentsListVisible_Checked(object sender, RoutedEventArgs e)
         {
-            if (loading) return;
+            if (wndInitializing) return;
             dgwStudents.Visibility = Visibility.Visible;
             lblStudentChosen.Visibility = Visibility.Hidden;
             picStudent.Visibility = Visibility.Hidden;
@@ -624,7 +621,7 @@ namespace SchoolGrades_WPF
         private void cmbSchoolYear_SelectedIndexChanged(object sender, RoutedEventArgs e)
         {
             frmMain_Load();
-            //if (!formInitializing && firstTime)
+            //if (!wndInitializing && firstTime)
             //{
             //    firstTime = false;
             //    //    AllTheInitializations();
@@ -644,10 +641,10 @@ namespace SchoolGrades_WPF
             //}
             //firstTime = true;
         }
-        private void btnSalvaInterrogati_Click(object sender, RoutedEventArgs e)
-        {
-            SaveStudentsOfClassIfEligibleHasChanged();
-        }
+        //private void btnSalvaInterrogati_Click(object sender, RoutedEventArgs e)
+        //{
+        //    SaveStudentsOfClassIfEligibleHasChanged();
+        //}
         private void btnPath_Click(object sender, RoutedEventArgs e)
         {
             ////////////folderBrowserDialog.SelectedPath = txtPathImages.Text;
@@ -662,8 +659,6 @@ namespace SchoolGrades_WPF
         List<string> filesInFolder = new List<string>();
         int indexImage = 0;
         private DateTime nextPopUpQuestionTime;
-        private bool loading = true;
-
         private void BtnShowRandomImage_Click(object sender, RoutedEventArgs e)
         {
             if (filesInFolder.Count == 0 || currentClass != lastClass || currentSubject != lastSubject
@@ -1146,7 +1141,6 @@ namespace SchoolGrades_WPF
             lstTimeInterval.Background = br;
             lblCodYear.Background = br;
         }
-
         private void btnTopicsDone_Click(object sender, RoutedEventArgs e)
         {
             if (!CommonsWpf.CheckIfClassChosen(currentClass))
@@ -1678,7 +1672,7 @@ namespace SchoolGrades_WPF
                         // make a question to a random student
                         // draws the student wiyh the criterion set in the U.I. 
                         btnComeOn_Click(null, null);
-                        chkFotoVisibile.IsChecked = true;
+                        chkPhotoVisibile.IsChecked = true;
                         btnAssess_Click(null, null);
                         // tell the user that he has a new student chosen 
                         Console.Beep(400, 800);
@@ -1801,7 +1795,6 @@ namespace SchoolGrades_WPF
             ////////////    }
             ////////////}
         }
-
         private void lstClasses_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             picStudent.Source = null;
@@ -1809,7 +1802,6 @@ namespace SchoolGrades_WPF
             chkStudentsListVisible.IsChecked = true;
             dgwStudents.ItemsSource = null;
         }
-
         private void lstClasses_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             //SaveStudentsOfClassIfEligibleHasChanged();

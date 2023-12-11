@@ -1,5 +1,4 @@
 ﻿using SchoolGrades;
-using System;
 using System.Windows;
 
 namespace SchoolGrades_WPF
@@ -29,7 +28,6 @@ namespace SchoolGrades_WPF
             //TxtPathDocuments.Text = Commons.PathDocuments;
             //chkSaveBackup.IsChecked = Commons.SaveBackupWhenExiting;
         }
-
         private void btnTabelle_Click(object sender, RoutedEventArgs e)
         {
             frmTables f = new frmTables();
@@ -40,18 +38,15 @@ namespace SchoolGrades_WPF
             //frmClassesManagement f = new frmClassesManagement();
             //f.ShowDialog();
         }
-
         private void btnBackupManagement_Click(object sender, RoutedEventArgs e)
         {
             frmBackupManagement f = new frmBackupManagement();
             f.ShowDialog();
         }
-
         private void btnSaveConfiguration_Click(object sender, RoutedEventArgs e)
         {
             WriteConfigFile();
         }
-
         internal void WriteConfigFile()
         {
             //            string[] dati = new string[6];
@@ -116,7 +111,6 @@ namespace SchoolGrades_WPF
             //            NewDatabaseFile = true;
             //            this.Close();
         }
-
         private void btnPathDatabase_Click(object sender, RoutedEventArgs e)
         {
             //folderBrowserDialog1.SelectedPath = TxtPathDatabase.Text;
@@ -128,20 +122,16 @@ namespace SchoolGrades_WPF
             //Commons.PathDatabase = TxtPathDatabase.Text;
             //Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
         }
-
         private void btnTopicsManagement_Click(object sender, RoutedEventArgs e)
         {
-            //frmTopics f = new frmTopics(frmTopics.TopicsFormType.ShowAndManagement, null, null);
-            //f.ShowDialog();
-            //f.Dispose();
+            frmTopics f = new frmTopics(frmTopics.TopicsFormType.ShowAndManagement, null, null);
+            f.ShowDialog();
         }
-
         private void btnTagsManagement_Click(object sender, RoutedEventArgs e)
         {
             //frmTag t = new frmTag(false);
             //t.ShowDialog();
         }
-
         private void btnStartLimksManagement_Click(object sender, RoutedEventArgs e)
         {
 
@@ -151,7 +141,6 @@ namespace SchoolGrades_WPF
             //frmStartLinksManagement frm = new frmStartLinksManagement(dummy);
             //frm.ShowDialog();
         }
-
         private void btnQuestionManagement_Click(object sender, RoutedEventArgs e)
         {
             //    //frmQuestion form = new frmQuestion(frmQuestion.QuestionFormType.CreateSeveralQuestions,
@@ -159,20 +148,17 @@ namespace SchoolGrades_WPF
             //    frmQuestionChoose form = new frmQuestionChoose(null, null, null);
             //    form.ShowDialog();
         }
-
         private void btnTestManagement_Click(object sender, RoutedEventArgs e)
         {
             //frmTestManagement frm = new frmTestManagement();
             //frm.ShowDialog();
         }
-
         private void btnRecoverTopics_Click(object sender, RoutedEventArgs e)
         {
 
             //frmTopicsRecover rt = new frmTopicsRecover();
             //rt.ShowDialog();
         }
-
         private void btnPathDocument_Click(object sender, RoutedEventArgs e)
         {
             //folderBrowserDialog1.SelectedPath = TxtPathDocuments.Text;
@@ -182,20 +168,17 @@ namespace SchoolGrades_WPF
             //    TxtPathDocuments.Text = folderBrowserDialog1.SelectedPath;
             //}
         }
-
         private void btnEraseConfigurationFile_Click(object sender, RoutedEventArgs e)
         {
             //File.Delete(Commons.PathAndFileConfig);
             ////this.Close();
             //Application.Exit();
         }
-
         private void btnSchoolSubjectManagement_Click(object sender, RoutedEventArgs e)
         {
             //frmSchoolSubjectManagement f = new frmSchoolSubjectManagement();
             //f.ShowDialog();
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("ATTENZIONE: devo cancellare TUTTO il database?\n(Tutti i dati verranno persi!)",
@@ -205,36 +188,10 @@ namespace SchoolGrades_WPF
                 Commons.bl.PurgeDatabase();
             }
         }
-
         private void btnSchoolPeriodsManagement_Click(object sender, RoutedEventArgs e)
         {
             frmSchoolYearAndPeriodsManagement f = new frmSchoolYearAndPeriodsManagement();
             f.ShowDialog();
-        }
-
-        private void TextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-
-        }
-
-        private void TextBox_TextChanged_1(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-
-        }
-
-        private void TextBox_TextChanged_2(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-
-        }
-
-        private void TextBox_TextChanged_3(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-
-        }
-
-        private void TextBox_TextChanged_4(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-
         }
     }
 }

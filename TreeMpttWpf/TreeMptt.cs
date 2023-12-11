@@ -45,6 +45,7 @@ namespace gamon.TreeMptt
 
         private bool hasChanges = false;
         bool markAllInSearch = false;
+        private bool checkSignOnNodes;
 
         BusinessLayer bl = Commons.bl;
 
@@ -59,10 +60,10 @@ namespace gamon.TreeMptt
         //private CheckBox chkVerbatimString;
         //private CheckBox chkAllWord;
         //private CheckBox chkCaseInsensitive;
-        //private CheckBox chkMarkAllTopicsFound;
+        //private CheckBox chkMarkAllNodesFound;
         //private DragDropEffects copy;
 
-        //public TreeMptt(TextBox trwTopics, TextBox txtTopicName, TextBox txtTopicDescription, TextBox txtTopicSearchString, TextBox txtTopicsDigest, object value, Image globalPicLed, CheckBox chkSearchInDescriptions, CheckBox chkVerbatimString, CheckBox chkAllWord, CheckBox chkCaseInsensitive, CheckBox chkMarkAllTopicsFound, DragDropEffects copy)
+        //public TreeMptt(TextBox trwTopics, TextBox txtTopicName, TextBox txtTopicDescription, TextBox txtTopicSearchString, TextBox txtTopicsDigest, object value, Image globalPicLed, CheckBox chkSearchInDescriptions, CheckBox chkVerbatimString, CheckBox chkAllWord, CheckBox chkCaseInsensitive, CheckBox chkMarkAllNodesFound, DragDropEffects copy)
         //{
         //    this.trwTopics = trwTopics;
         //    this.txtTopicName = txtTopicName;
@@ -75,7 +76,7 @@ namespace gamon.TreeMptt
         //    this.chkVerbatimString = chkVerbatimString;
         //    this.chkAllWord = chkAllWord;
         //    this.chkCaseInsensitive = chkCaseInsensitive;
-        //    this.chkMarkAllTopicsFound = chkMarkAllTopicsFound;
+        //    this.chkMarkAllNodesFound = chkMarkAllNodesFound;
         //    this.copy = copy;
         //}
 
@@ -120,7 +121,7 @@ namespace gamon.TreeMptt
         CheckBox chkVerbatimString;
         CheckBox chkAllWord;
         CheckBox chkCaseInsensitive;
-        CheckBox chkMarkAllTopicsFound;
+        CheckBox chkMarkAllNodesFound;
         #endregion
 
         #region coloring of the nodes
@@ -169,10 +170,10 @@ namespace gamon.TreeMptt
                     chkCaseInsensitive.Checked += SearchCheckBoxes_CheckedChanged;
                     chkCaseInsensitive.Unchecked += SearchCheckBoxes_CheckedChanged;
                 }
-                if (chkMarkAllTopicsFound != null)
+                if (chkMarkAllNodesFound != null)
                 {
-                    chkMarkAllTopicsFound.Checked += chkMarkAllTopicsFound_CheckedChanged;
-                    chkMarkAllTopicsFound.Unchecked += chkMarkAllTopicsFound_CheckedChanged;
+                    chkMarkAllNodesFound.Checked += chkMarkAllTopicsFound_CheckedChanged;
+                    chkMarkAllNodesFound.Unchecked += chkMarkAllTopicsFound_CheckedChanged;
                 }
                 if (chkVerbatimString != null)
                 {
@@ -199,7 +200,7 @@ namespace gamon.TreeMptt
             }
         }
         public bool HasChanges { get => hasChanges; set => hasChanges = value; }
-        internal TreeMptt(DataLayer DataLayer, TreeView TreeViewControl,
+        internal TreeMptt(TreeView TreeViewControl,
             TextBox TxtNodeName, TextBox TxtNodeDescription, TextBox TxtNodeSearchString,
             TextBox TxtNodeDigest, TextBox TxtIdNode,
             Rectangle LedImage, CheckBox ChkSearchInDescriptions, CheckBox ChkVerbatimString,
@@ -221,7 +222,7 @@ namespace gamon.TreeMptt
             chkAllWord = ChkAllWord;
             chkCaseInsensitive = ChkCaseInsensitive;
             chkVerbatimString = ChkVerbatimString;
-            chkMarkAllTopicsFound = ChkMarkAllNodesFound;
+            chkMarkAllNodesFound = ChkMarkAllNodesFound;
 
             if (shownTreeView != null)
             {
@@ -304,7 +305,7 @@ namespace gamon.TreeMptt
                 // according to the difference between old and new values, new 
                 // nodes are empty, so they will save. Left and Right will be 
                 // saved by a concurrent Thread, so here the third parameter is false
-                dbMptt.SaveTreeToDb(listItemsAfter, listItemsDeleted, false);
+                dbMptt.SaveTreeToDb(listItemsAfter, listItemsDeleted, false, true);
                 // Left-Right status left on "inconsistent" if we were NOT saving leftNode and rightNode
                 // or if we quit this method breaking the loops. 
                 // Update listTopicsBefore by taking it from the treeview 
@@ -371,7 +372,7 @@ namespace gamon.TreeMptt
                         if (Commons.BackgroundSavingEnabled)
                             // not executed if saving is aborted 
                             // in this point delete list cannot have any entry
-                            dbMptt.SaveTreeToDb(listNodes, null, true);
+                            dbMptt.SaveTreeToDb(listNodes, null, true, true);
                         if (Commons.BackgroundSavingEnabled)
                             // not executed if saving is aborted 
                             dbMptt.SaveLeftRightConsistent(true);
@@ -456,7 +457,7 @@ namespace gamon.TreeMptt
             // NOT DONE! 
             // (this program treats only one root node because with MPTT having more than one root 
             // would complicate the database, hence this list must have only one node 
-            List<Topic> lt = dbMptt.GetNodesRoots();
+            List<Topic> lt = dbMptt.GetNodesRoots(false);
 
             // if a connection is passed, keep the connection open during the tree traversal, 
             // in order to increase the performance 
@@ -497,9 +498,13 @@ namespace gamon.TreeMptt
         }
         #endregion
         #region methods that search in the tree
-        internal void FindNodes(string TextToFind, bool ColorAllNodesFound, bool SearchInDescriptions,
-            bool SearchWholeWord, bool SearchCaseInsensitive, bool SearchVerbatimString)
+        internal void FindNodes(string TextToFind)
         {
+            bool ColorAllNodesFound = (bool)chkMarkAllNodesFound.IsChecked;
+            bool SearchInDescriptions = (bool)chkSearchInDescriptions.IsChecked;
+            bool SearchWholeWord = (bool)chkAllWord.IsChecked;
+            bool SearchCaseInsensitive = (bool)chkCaseInsensitive.IsChecked;
+            bool SearchVerbatimString = (bool)chkVerbatimString.IsChecked;
             markAllInSearch = ColorAllNodesFound;
             if (previousSearch != TextToFind)
             {
@@ -548,57 +553,57 @@ namespace gamon.TreeMptt
             }
             previousSearch = TextToFind;
         }
-        internal void FindNodeUnderNode(string TextToFind, bool ColorAllNodesFound)
+        internal void FindNodeUnderNode(string TextToFind)
         {
-            // TODO !!!! make this option !!!!
-            //markAllInSearch = MarkAllFound;
-            //if (previousSearch != TextToFind)
-            //{
-            //    // first search: find all the occurencies of the string 
-            //    found = dbMptt.FindTopicsLike(TextToFind);
+            //////////// TODO!!!! make this option!!!!          
+            //////////markAllInSearch = (bool)chkMarkAllNodesFound.IsChecked;
+            //////////if (previousSearch != TextToFind)
+            //////////{
+            //////////    // first search: find all the occurencies of the string 
+            //////////    found = dbMptt.FindTopicsLike(TextToFind);
 
-            //    indexDone = 0;
-            //    previousSearch = TextToFind;
+            //////////    indexDone = 0;
+            //////////    previousSearch = TextToFind;
 
-            //    if (markAllInSearch)
-            //    {
-            //        int dummy = 0; bool bDummy = false;
-            //        // !!!! the following doesn't work. Highlight only a few of the results. Probably this "found" list of found is noo in Mptt order !!!! 
-            //        HighlightTopicsInList(shownTreeView.Items[0], found, ref dummy, ref bDummy);
-            //        ClearBackColorOnClick = false;
-            //    }
-            //}
-            //else
-            //{
-            //    // same search, find the next occurence of the same string 
-            //    indexDone++;
-            //    if (!markAllInSearch)
-            //    {
-            //        shownTreeView.Items[0].Collapse(); // selection will expand
-            //    }
-            //    // if the results are finished: bring back to the first 
-            //    if (found == null)
-            //        return;
-            //    if (indexDone >= found.Count)
-            //        indexDone = 0;
-            //}
-            //TreeViewItem f = null;
-            //if (found.Count > 0)
-            //{
-            //    f = FindNodeRecursivelyById(shownTreeView.Items[0], found[indexDone]);
-            //    if (f != null)
-            //    {
-            //        shownTreeView.Select();
-            //        shownTreeView.SelectedItem = f;
-            //        f.Background = colorOfFoundItem;
-            //    }
-            //    else
-            //        MessageBox.Show("Non trovato");
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Non trovato");
-            //}
+            //////////    if (markAllInSearch)
+            //////////    {
+            //////////        int dummy = 0; bool bDummy = false;
+            //////////        // !!!! the following doesn't work. Highlight only a few of the results. Probably this "found" list of found is noo in Mptt order !!!! 
+            //////////        HighlightTopicsInList(shownTreeView.Items[0], found, ref dummy, ref bDummy);
+            //////////        ClearBackColorOnClick = false;
+            //////////    }
+            //////////}
+            //////////else
+            //////////{
+            //////////    // same search, find the next occurence of the same string 
+            //////////    indexDone++;
+            //////////    if (!markAllInSearch)
+            //////////    {
+            //////////        shownTreeView.Items[0].Collapse(); // selection will expand
+            //////////    }
+            //////////    // if the results are finished: bring back to the first 
+            //////////    if (found == null)
+            //////////        return;
+            //////////    if (indexDone >= found.Count)
+            //////////        indexDone = 0;
+            //////////}
+            //////////TreeViewItem f = null;
+            //////////if (found.Count > 0)
+            //////////{
+            //////////    f = FindNodeRecursivelyById(shownTreeView.Items[0], found[indexDone]);
+            //////////    if (f != null)
+            //////////    {
+            //////////        shownTreeView.Select();
+            //////////        shownTreeView.SelectedItem = f;
+            //////////        f.Background = colorOfFoundItem;
+            //////////    }
+            //////////    else
+            //////////        MessageBox.Show("Non trovato");
+            //////////}
+            //////////else
+            //////////{
+            //////////    MessageBox.Show("Non trovato");
+            //////////}
         }
         internal TreeViewItem FindNodeById(int? IdItem)
         {
@@ -930,12 +935,15 @@ namespace gamon.TreeMptt
             }
             UiNode.IsSelected = true;
             txtNodeName.Text = nodeNew.Name;
-            //txtNodeName.Focus();
             txtNodeDescription.Text = "";
             txtNodeName.SelectionLength = txtNodeName.Text.Length;
             if (txtCodNode != null)
                 txtCodNode.Text = nodeNew.Id.ToString();
             // start edit in the selected node
+
+
+            txtNodeName.Focus();
+
             return UiNode;
         }
         internal void DeleteNodeById_Recursive(TreeViewItem ParentNode)
@@ -1214,9 +1222,8 @@ namespace gamon.TreeMptt
                 }
             }
         }
-        string previousText = "";
-        private bool checkSignOnNodes;
 
+        string previousText = "";
         private void TxtNodeName_TextChanged(object sender, RoutedEventArgs e)
         {
             // if the change is due to selection in the tree, don't change
@@ -1358,8 +1365,7 @@ namespace gamon.TreeMptt
 
             // command a new search for the next search 
             ResetSearch();
-            FindNodes(txtSearchString.Text, (bool)chkMarkAllTopicsFound.IsChecked, (bool)chkSearchInDescriptions.IsChecked,
-                (bool)chkAllWord.IsChecked, (bool)chkCaseInsensitive.IsChecked, (bool)chkVerbatimString.IsChecked);
+            FindNodes(txtSearchString.Text);
         }
         private void chkMarkAllTopicsFound_CheckedChanged(object sender, RoutedEventArgs e)
         {
@@ -1382,7 +1388,7 @@ namespace gamon.TreeMptt
 
             // recursively retrieve all direct children of ParentNode  
             // get childs keeping the connection open
-            List<Topic> lt = dbMptt.GetNodesChildsByParent(((Topic)ParentNode.Tag));
+            List<Topic> lt = dbMptt.GetNodesChildsByParent(((Topic)ParentNode.Tag), false);
             List<Topic> SortedList = lt.OrderBy(o => o.ChildNumberOld).ToList();
             foreach (Topic t in SortedList)
             {
@@ -1447,7 +1453,7 @@ namespace gamon.TreeMptt
             generatedList.Add(CurrentNode);
             int brotherNo = 1;
             // find all son nodes of current node (list is ordered by childNumber) 
-            List<Topic> listChilds = dbMptt.GetNodesChildsByParent(CurrentNode);
+            List<Topic> listChilds = dbMptt.GetNodesChildsByParent(CurrentNode, false);
             foreach (Topic sonNode in listChilds)
             {
                 if (!Commons.ProcessingCanContinue()) return;
@@ -1477,6 +1483,24 @@ namespace gamon.TreeMptt
                 }
             };
             return item;
+        }
+        public void ExportSubtreeToClipboard()
+        {
+            TreeViewItem item = (TreeViewItem)(shownTreeView.SelectedItem);
+            if (item.Tag == null)
+            {
+                MessageBox.Show("Scegliere un argomento.\r\n" +
+                    "Verranno messi in clipboard gli argomenti dell'albero sotto l'argomento scelto");
+                return;
+            }
+            string tree = null;
+            Topic InitialNode = (Topic)item.Tag;
+
+            ExportSubtreeToText(InitialNode);
+
+            Clipboard.SetText(tree);
+
+            MessageBox.Show("Albero copiato nella clipboard");
         }
     }
 }
