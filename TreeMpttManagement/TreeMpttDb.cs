@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SQLite;
-using System.Linq;
 
 namespace gamon.TreeMptt
 {
@@ -19,14 +18,12 @@ namespace gamon.TreeMptt
             dl = Commons.dl;
         }
         internal void SaveTreeToDb(List<Topic> ListTopicsAfter, List<Topic> ListTopicsDeleted,
-            bool MustSaveLeftAndRight)
+            bool MustSaveLeftAndRight, bool CloseWhenEnding)
         {
             // connection can come from outside to avoid opening and closing it every time 
             // if localConnection is null, the connection must be opened and closed locally 
-            bool locallyOpened = false;
             if (localConnection == null)
             {
-                locallyOpened = true;
                 localConnection = dl.Connect();
             }
             DbCommand cmd = localConnection.CreateCommand();
@@ -77,11 +74,8 @@ namespace gamon.TreeMptt
                     }
                 }
             }
-            cmd.Dispose();
-            if (locallyOpened)
-            {
-                localConnection.Close();
-            }
+            //cmd.Dispose();
+            CloseConnection(CloseWhenEnding);
         }
         internal void SaveLeftRightConsistent(bool IsConsistent)
         {
@@ -188,7 +182,7 @@ namespace gamon.TreeMptt
             DbConnection Connection = dl.Connect();
             // read the first topic of the tree
             // in this program this list should have just one element 
-            List<Topic> firstNodes = GetNodesRoots();
+            List<Topic> firstNodes = GetNodesRoots(false);
             // traverse the tree in list from database, numbering according to Modified Preorder Tree Traversal algorithm
             // if the numbers of right or left nodes are different from those written in the database, then update the database
 
@@ -221,7 +215,7 @@ namespace gamon.TreeMptt
             // find all son nodes of current node (list is ordered by childNumber) 
             // takes from the database, which could be unmodified 
             // !!!! TODO: keep the connection open !!!!
-            List<Topic> listChilds = GetNodesChildsByParent(ParentNode);
+            List<Topic> listChilds = GetNodesChildsByParent(ParentNode, false);
             foreach (Topic sonNode in listChilds)  // list Childs are taken from the database 
             {
                 if (!Commons.ProcessingCanContinue()) return;
@@ -252,7 +246,7 @@ namespace gamon.TreeMptt
                 cmd.Dispose();
             }
         }
-        internal List<Topic> GetNodesRoots()
+        internal List<Topic> GetNodesRoots(bool CloseConnectionEnding)
         {
             // connection can come from outside to avoid opening and closing it every time 
             // if localConnection is null, the connection must be opened and closed locally 
@@ -285,43 +279,38 @@ namespace gamon.TreeMptt
             dRead.Dispose();
             cmd.Dispose();
             // if I opened the connection, I close it 
-            if (locallyOpened) 
+            if (locallyOpened && CloseConnectionEnding)
             {
                 localConnection.Close();
             }
             return lt;
         }
-        internal List<Topic> GetNodesChildsByParent(Topic ParentNode)
+        internal List<Topic> GetNodesChildsByParent(Topic ParentNode, bool CloseConnectionWhenEnding)
         {
             // connection can come from outside to avoid opening and closing it every time 
             // if localConnection is null, the connection must be opened and closed locally 
-            bool locallyOpened = false; 
             if (localConnection == null)
             {
-                locallyOpened = true;
                 localConnection = dl.Connect();
-                localConnection.Open(); 
+                localConnection.Open();
             }
             List<Topic> lt = new List<Topic>();
             DbCommand cmd = localConnection.CreateCommand();
-            cmd.Connection = localConnection;
             string query = "SELECT *" +
                 " FROM Topics" +
                 " WHERE parentNode=" + ParentNode.Id +
                 " ORDER BY childNumber";
             cmd = new SQLiteCommand(query);
+            cmd.Connection = localConnection;
             DbDataReader dRead = cmd.ExecuteReader();
             while (dRead.Read())
             {
                 Topic t = dl.GetTopicFromRow(dRead);
                 lt.Add(t);
             }
-            dRead.Dispose();
-            cmd.Dispose();
-            if (locallyOpened)
-            {
-                localConnection.Close();
-            }
+            //dRead.Dispose();
+            //cmd.Dispose();
+            CloseConnection(CloseConnectionWhenEnding);
             return lt;
         }
         internal List<Topic> GetNodesAncestors(int? LeftNode, int? RightNode)
@@ -460,11 +449,19 @@ namespace gamon.TreeMptt
         }
         internal int? CreateNewTopic(Topic ct)
         {
-            return  dl.CreateNewTopic(ct);
+            return dl.CreateNewTopic(ct);
         }
         internal List<Topic> GetNodesByParentFromDatabase()
         {
-            return dl.GetNodesByParentFromDatabase(); 
+            return dl.GetNodesByParentFromDatabase();
+        }
+        internal void CloseConnection(bool Close)
+        {
+            if (localConnection != null && !(localConnection.State == System.Data.ConnectionState.Closed) && Close)
+            {
+                localConnection.Close();
+                localConnection.Dispose();
+            }
         }
     }
 }

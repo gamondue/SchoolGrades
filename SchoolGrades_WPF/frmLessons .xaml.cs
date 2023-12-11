@@ -89,11 +89,10 @@ namespace SchoolGrades_WPF
             // load data in datagrids
             RefreshLessons(currentLessonsGridIndex);
 
-            topicTreeMptt = new TreeMptt(Commons.dl, trwTopics,
-                txtTopicName, txtTopicDescription, txtTopicSearchString, txtTopicsDigest,
-                null, CommonsWpf.globalPicLed, chkSearchInDescriptions, chkVerbatimString,
-                chkAllWord, chkCaseInsensitive, chkMarkAllTopicsFound,
-                DragDropEffects.Copy, true);
+            topicTreeMptt = new TreeMptt(trwTopics, txtTopicName, txtTopicDescription,
+                txtTopicSearchString, txtTopicsDigest, null, CommonsWpf.globalPicLed,
+                chkSearchInDescriptions, chkVerbatimString, chkAllWord, chkCaseInsensitive,
+                chkMarkAllTopicsFound, DragDropEffects.Copy, true);
             topicTreeMptt.AddNodesToTreeviewByBestMethod();
 
             RefreshTopicsChecksAndImages();
@@ -181,9 +180,7 @@ namespace SchoolGrades_WPF
         private void btnFind_Click(object sender, RoutedEventArgs e)
         {
             // ricerca 
-            ////////topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked,
-            ////////    chkSearchInDescriptions.Checked, chkAllWord.Checked,
-            ////////    chkCaseInsensitive.Checked, chkVerbatimString.Checked);
+            topicTreeMptt.FindNodes(txtTopicSearchString.Text);
         }
         private void btnAddNode_Click(object sender, RoutedEventArgs e)
         {
@@ -205,24 +202,24 @@ namespace SchoolGrades_WPF
             topicTreeMptt.SaveTreeFromTreeViewByParent();
             MessageBox.Show("Salvataggio fatto");
         }
-        private void ExportSubtreeToClipboard()
-        {
-            TreeViewItem item = (TreeViewItem)(trwTopics.SelectedItem);
-            if (item.Tag == null)
-            {
-                MessageBox.Show("Scegliere un argomento.\r\n" +
-                    "Verranno messi in clipboard gli argomenti dell'albero sotto l'argomento scelto");
-                return;
-            }
-            string tree = null;
-            Topic InitialNode = (Topic)item.Tag;
+        //private void ExportSubtreeToClipboard()
+        //{
+        //    TreeViewItem item = (TreeViewItem)(trwTopics.SelectedItem);
+        //    if (item.Tag == null)
+        //    {
+        //        MessageBox.Show("Scegliere un argomento.\r\n" +
+        //            "Verranno messi in clipboard gli argomenti dell'albero sotto l'argomento scelto");
+        //        return;
+        //    }
+        //    string tree = null;
+        //    Topic InitialNode = (Topic)item.Tag;
 
-            topicTreeMptt.ExportSubtreeToText(InitialNode);
+        //    topicTreeMptt.ExportSubtreeToText(InitialNode);
 
-            Clipboard.SetText(tree);
+        //    Clipboard.SetText(tree);
 
-            MessageBox.Show("Albero copiato nella clipboard");
-        }
+        //    MessageBox.Show("Albero copiato nella clipboard");
+        //}
         private void btnLessonAdd_Click(object sender, RoutedEventArgs e)
         {
             //////////dtpLessonDate.IsVisible = true;
@@ -447,7 +444,7 @@ namespace SchoolGrades_WPF
         private void checkGeneralKeysForTopicsTree(KeyEventArgs e)
         {
             ////////if (e.KeyCode == Keys.F3)
-            ////////    topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked,
+            ////////    topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllNodesFound.IsChecked,
             ////////        true, false, false, false);
             ////////if (e.KeyCode == Keys.F5)
             ////////{
@@ -466,7 +463,7 @@ namespace SchoolGrades_WPF
             ////////}
 
             ////////if (e.KeyCode == Keys.F3)
-            ////////    topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked,
+            ////////    topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllNodesFound.IsChecked,
             ////////        true, false, false, false);
             ////////if (e.KeyCode == Keys.F5)
             ////////{
@@ -560,7 +557,8 @@ namespace SchoolGrades_WPF
         }
         private void btnArgFreemind_Click(object sender, RoutedEventArgs e)
         {
-            ExportSubtreeToClipboard();
+            //ExportSubtreeToClipboard();
+            topicTreeMptt.ExportSubtreeToClipboard();
         }
         private void LessonTimer_Tick(object sender, RoutedEventArgs e)
         {
@@ -652,13 +650,13 @@ namespace SchoolGrades_WPF
         {
             topicTreeMptt.AddNewNode("Nuovo argomento", false);
             // set focus to the name textBox
-            txtTopicName.Focus();
+            ////txtTopicName.Focus();
         }
         private void btnFindUnderNode_Click(object sender, RoutedEventArgs e)
         {
             //MessageBox.Show("Da fare!");
             //return; 
-            //////////topicTreeMptt.FindNodeUnderNode(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked);
+            topicTreeMptt.FindNodeUnderNode(txtTopicSearchString.Text);
         }
         private void chksSearch_CheckedChanged(object sender, RoutedEventArgs e)
         {
@@ -667,10 +665,8 @@ namespace SchoolGrades_WPF
                 // event fired when any of the checkboxes related to search is changed 
 
                 // fire a new search 
-                ////////topicTreeMptt.ResetSearch();
-                ////////topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked,
-                ////////    chkSearchInDescriptions.Checked, chkVerbatimString.Checked,
-                ////////    chkCaseInsensitive.Checked, chkVerbatimString.Checked);
+                topicTreeMptt.ResetSearch();
+                topicTreeMptt.FindNodes(txtTopicSearchString.Text);
             }
         }
     }
