@@ -103,7 +103,7 @@ namespace SchoolGrades_WPF
                 txtTopicDescription, txtTopicSearchString, null,
                 null, CommonsWpf.globalPicLed, chkSearchInDescriptions,
                 chkVerbatimString, chkAllWord, chkCaseInsensitive,
-                chkFindAll, DragDropEffects.Copy);
+                chkFindAll, DragDropEffects.Copy, false);
             // list read from database 
             topicTreeMptt.AddNodesToTreeviewByBestMethod();
             switch (formType)
