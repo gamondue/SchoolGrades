@@ -8,6 +8,8 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
+using Image = System.Windows.Controls.Image;
 
 namespace SchoolGrades_WPF
 {
@@ -152,30 +154,44 @@ namespace SchoolGrades_WPF
         }
         private void RefreshTopicsChecksAndImages()
         {
-            //////////if (topicTreeMptt != null)
-            //////////{
-            //////////    topicTreeMptt.UncheckAllItemsUnderNode_Recursive((TreeViewItem)trwTopics.Items[0]);
-            //////////    // gets and checks the topics of the current lesson 
-            //////////    List<Topic> TopicsToCheck = Commons.bl.GetTopicsOfLesson(currentLesson.IdLesson);
-            //////////    int dummy = 0;
-            //////////    bool dummy2 = false;
-            //////////    topicTreeMptt.CheckItemsInList_Recursive((TreeViewItem)trwTopics.Items[0],
-            //////////    TopicsToCheck, ref dummy, ref dummy2);
+            if (topicTreeMptt != null)
+            {
+                topicTreeMptt.UncheckAllItemsUnderNode_Recursive((TreeViewItem)trwTopics.Items[0]);
+                // gets and checks the topics of the current lesson 
+                List<Topic> TopicsToCheck = Commons.bl.GetTopicsOfLesson(currentLesson.IdLesson);
+                int dummy = 0;
+                bool dummy2 = false;
+                topicTreeMptt.CheckItemsInList_Recursive((TreeViewItem)trwTopics.Items[0],
+                TopicsToCheck, ref dummy, ref dummy2);
 
-            //////////    // gets the images associated with this lesson
-            //////////    listImages = Commons.bl.GetListLessonsImages(currentLesson);
-            //////////    // shows the fist image
-            //////////    if (listImages != null && listImages.Count > 0)
-            //////////        try
-            //////////        {
-            //////////            picImage.Load(Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename));
-            //////////        }
-            //////////        catch { }
-            //////////    else
-            //////////    {
-            //////////        picImage.Image = null;
-            //////////    }
-            //////////}
+                // gets the images associated with this lesson
+                listImages = Commons.bl.GetListLessonsImages(currentLesson);
+                // shows the first image
+                if (listImages != null && listImages.Count > 0)
+                    try
+                    {
+                        loadLessonsPicture(picImage,
+                            Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename));
+                    }
+                    catch { }
+                else
+                {
+                    picImage.Source = null;
+                }
+            }
+        }
+        private void loadLessonsPicture(Image ImageControl, string PicturePathAndFile)
+        {
+            try
+            {
+                var uriSource = new Uri(PicturePathAndFile, UriKind.Absolute);
+                ImageControl.Source = new BitmapImage(uriSource);
+            }
+            catch
+            {
+                ImageControl.Source = null;
+                //Console.Beep();
+            }
         }
         private void btnFind_Click(object sender, RoutedEventArgs e)
         {
@@ -571,37 +587,34 @@ namespace SchoolGrades_WPF
         ////////{
 
         ////////}
-        ////////private void DgwAllLessons_RowEnter(object sender, RoutedEventArgs e)
-        ////////{
-        ////////    if (e.RowIndex > -1)
-        ////////    {
-        ////////        dgwAllLessons.Rows[e.RowIndex].Selected = true;
+        private void dgwAllLessons_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DataGrid grid = (DataGrid)sender;
+            if (grid != null)
+            {
+                int RowIndex = grid.SelectedIndex;
+                if (RowIndex > -1)
+                {
 
-        ////////        txtTopicsDigest.Text = "";
-        ////////        List<Lesson> l = ((List<Lesson>)(dgwAllLessons.ItemsSource));
+                    txtTopicsDigest.Text = "";
+                    List<Lesson> l = ((List<Lesson>)(dgwAllLessons.ItemsSource));
 
-        ////////        if (currentLesson.IdLesson != l[e.RowIndex].IdLesson)
-        ////////        {
-        ////////            currentLesson.IdLesson = l[e.RowIndex].IdLesson;
-        ////////            currentLesson.Note = l[e.RowIndex].Note;
-        ////////            currentLesson.Date = l[e.RowIndex].Date;
+                    if (currentLesson.IdLesson != l[RowIndex].IdLesson)
+                    {
+                        currentLesson.IdLesson = l[RowIndex].IdLesson;
+                        currentLesson.Note = l[RowIndex].Note;
+                        currentLesson.Date = l[RowIndex].Date;
 
-        ////////            TxtLessonDesc.Text = currentLesson.Note;
-        ////////            dtpLessonDate.Value = (DateTime)currentLesson.Date;
-        ////////            txtLessonCode.Text = currentLesson.IdLesson.ToString();
+                        TxtLessonDesc.Text = currentLesson.Note;
+                        dtpLessonDate.Text = ((DateTime)currentLesson.Date).ToString();
+                        txtLessonCode.Text = currentLesson.IdLesson.ToString();
 
-        ////////            RefreshTopicsInOneLesson();
-        ////////            RefreshTopicsChecksAndImages();
-        ////////        }
-        ////////    }
-        ////////}
-        ////////private void DgwAllLessons_CellClick(object sender, RoutedEventArgs e)
-        ////////{
-        ////////    if (e.RowIndex > -1)
-        ////////    {
-        ////////        dgwAllLessons.Rows[e.RowIndex].Selected = true;
-        ////////    }
-        ////////}
+                        RefreshTopicsInOneLesson();
+                        RefreshTopicsChecksAndImages();
+                    }
+                }
+            }
+        }
         ////////private void BtnSearchAmongTopics_Click(object sender, RoutedEventArgs e)
         ////////{
         ////////    int rowToBeSearchedIndex;
