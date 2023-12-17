@@ -8,6 +8,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Image = System.Windows.Controls.Image;
 
@@ -34,7 +35,8 @@ namespace SchoolGrades_WPF
         private SchoolSubject currentSchoolSubject;
 
         bool isFormClosed = false;
-        private int currentLessonsGridIndex;
+        private int currentIndexLessonsGrid;
+        private Lesson currentRowLessonsGrid;
 
         public bool IsFormClosed { get => isFormClosed; set => isFormClosed = value; }
         public frmLessons(Class CurrentClass, SchoolSubject SchoolSubject, bool ReadOnly)
@@ -53,7 +55,7 @@ namespace SchoolGrades_WPF
             if (ReadOnly)
             {
                 btnSaveTree.IsEnabled = false;
-                btnAddNodeSon.IsEnabled = false;
+                btnAddNode.IsEnabled = false;
                 btnDelete.IsEnabled = false;
                 btnLessonAdd.IsEnabled = false;
                 btnLessonSave.IsEnabled = false;
@@ -66,7 +68,7 @@ namespace SchoolGrades_WPF
         private void frmLessons_Load()
         {
             //txtLessonDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
-            ////////dtpLessonDate.Value = new DateTime(1980, 01, 01);
+            dtpLessonDate.SelectedDate = new DateTime(1980, 01, 01);
 
             txtSchoolYear.Text = currentClass.SchoolYear;
             txtClass.Text = currentClass.Abbreviation;
@@ -76,7 +78,7 @@ namespace SchoolGrades_WPF
             if (dummyLesson.IdSchoolSubject != null)
             {
                 txtLessonCode.Text = dummyLesson.IdLesson.ToString();
-                //////////dtpLessonDate.Value = (DateTime)dummyLesson.Date;
+                dtpLessonDate.SelectedDate = (DateTime)dummyLesson.Date;
                 TxtLessonDesc.Text = dummyLesson.Note;
 
                 currentLesson.IdLesson = dummyLesson.IdLesson;
@@ -87,9 +89,9 @@ namespace SchoolGrades_WPF
             {
                 //dtpLessonDate.IsVisible = false; 
             }
-            currentLessonsGridIndex = 0;
+            currentIndexLessonsGrid = 0;
             // load data in datagrids
-            RefreshLessons(currentLessonsGridIndex);
+            RefreshLessons(currentIndexLessonsGrid);
 
             topicTreeMptt = new TreeMptt(trwTopics, txtTopicName, txtTopicDescription,
                 txtTopicSearchString, txtTopicsDigest, null, CommonsWpf.globalPicLed,
@@ -99,7 +101,9 @@ namespace SchoolGrades_WPF
 
             RefreshTopicsChecksAndImages();
 
-            ////////this.BackColor = CommonsWpf.ColorFromNumber(currentSchoolSubject);
+            System.Windows.Media.Color c = CommonsWpf.ColorFromNumber(currentSchoolSubject);
+            SolidColorBrush br = new SolidColorBrush(System.Windows.Media.Color.FromArgb(c.A, c.R, c.G, c.B)); 
+            this.Background =  br;
 
             ////////LessonTimer.Interval = 1000;
             ////////LessonTimer.Start();
@@ -114,8 +118,9 @@ namespace SchoolGrades_WPF
             {
                 try
                 {
-                    ////////dgwAllLessons.ClearSelection();
-                    ////////dgwAllLessons.Rows[IndexInLessons].Selected = true;
+                    // are these useful in WPF? 
+                    //dgwAllLessons.ClearSelection();
+                    //dgwAllLessons.Rows[IndexInLessons].Selected = true;
                 }
                 catch
                 {
@@ -163,7 +168,6 @@ namespace SchoolGrades_WPF
                 bool dummy2 = false;
                 topicTreeMptt.CheckItemsInList_Recursive((TreeViewItem)trwTopics.Items[0],
                 TopicsToCheck, ref dummy, ref dummy2);
-
                 // gets the images associated with this lesson
                 listImages = Commons.bl.GetListLessonsImages(currentLesson);
                 // shows the first image
@@ -238,72 +242,72 @@ namespace SchoolGrades_WPF
         //}
         private void btnLessonAdd_Click(object sender, RoutedEventArgs e)
         {
-            //////////dtpLessonDate.IsVisible = true;
-            // if dtpLessonDate has its default date, no lesson is present in database 
+            //dtpLessonDate.IsVisible = true;
+            //if dtpLessonDate has its default date, no lesson is present in database
             DateTime dummy = new DateTime(1980, 1, 1);
-            ////////if (dtpLessonDate.Value.Date == dummy.Date)
-            ////////{
-            ////////    // first time, no lesson present, put current date in the control
-            ////////    // the control will be used to know the date of the new lesson 
-            ////////    dtpLessonDate.Value = DateTime.Now;
-            ////////    currentLesson.Date = dtpLessonDate.Value;
-            ////////    return;
-            ////////}
-            ////////else
-            ////////{
-            ////////    if (currentLesson.Date != dtpLessonDate.Value)
-            ////////    {
-            ////////        // date of current lesson and date in control dtpLessonDate are different
-            ////////        // hence the user has changed the date to save a new lesson in a date different 
-            ////////        // from today
-            ////////        // ask for confirmation of saving in the new date
-            ////////        if (MessageBox.Show("Creare una nuova lezione nella data del\n" +
-            ////////            dtpLessonDate.Value.ToString("dd-MM-yyyy") + " (Sì)\n" +
-            ////////            "Non salvare nulla (No)",
-            ////////            "Creazione in data diversa")
-            ////////            == MessageBoxResult.No)
-            ////////        {
-            ////////            return;
-            ////////        }
-            ////////    }
-            ////////    else
-            ////////    {
-            ////////        // the date of the current lesson is the same displayed
-            ////////        // then we'll create a new lesson for today 
-            ////////        if (MessageBox.Show("Creare una nuova lezione nella data di oggi (Sì)" +
-            ////////            "\nNon salvare nulla (No)",
-            ////////            "Creazione in data odierna")
-            ////////            == MessageBoxResult.No)
-            ////////        {
-            ////////            return;
-            ////////        }
-            ////////        else
-            ////////        {
-            ////////            // create the new lesson today 
-            ////////            dtpLessonDate.Value = DateTime.Now;
-            ////////        }
-            ////////    }
-            ////////}
-            ////////Lesson l = Commons.bl.GetLessonInDate(currentClass, currentSchoolSubject.IdSchoolSubject,
-            ////////    dtpLessonDate.Value);
+            if (dtpLessonDate.SelectedDate == dummy.Date)
+            {
+                // first time, no lesson present, put current date in the control
+                // the control will be used to know the date of the new lesson 
+                dtpLessonDate.SelectedDate = DateTime.Now;
+                currentLesson.Date = dtpLessonDate.SelectedDate;
+                return;
+            }
+            else
+            {
+                if (currentLesson.Date != dtpLessonDate.SelectedDate)
+                {
+                    // date of current lesson and date in control dtpLessonDate are different
+                    // hence the user has changed the date to save a new lesson in a date different 
+                    // from today
+                    // ask for confirmation of saving in the new date
+                    if (MessageBox.Show("Creare una nuova lezione nella data del\n" +
+                        dtpLessonDate.SelectedDate + " (Sì)\n" +
+                        "Non salvare nulla (No)",
+                        "Creazione in data diversa")
+                        == MessageBoxResult.No)
+                    {
+                        return;
+                    }
+                }
+                else
+                {
+                    // the date of the current lesson is the same displayed
+                    // then we'll create a new lesson for today 
+                    if (MessageBox.Show("Creare una nuova lezione nella data di oggi (Sì)" +
+                        "\nNon salvare nulla (No)",
+                        "Creazione in data odierna")
+                        == MessageBoxResult.No)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        // create the new lesson today 
+                        dtpLessonDate.SelectedDate = DateTime.Now;
+                    }
+                }
+            }
+            Lesson l = Commons.bl.GetLessonInDate(currentClass, currentSchoolSubject.IdSchoolSubject,
+                (DateTime)dtpLessonDate.SelectedDate);
 
-            ////////if (l.IdLesson > 0)
-            ////////{
-            ////////    // found a lesson with the same date => block creation of the new lesson
-            ////////    MessageBox.Show("Il programma non registra due lezioni diverse nello stesso giorno.\n" +
-            ////////        "Nulla verrà salvato ora. Usare il bottone 'Salva'.",
-            ////////        "ATTENZIONE");
-            ////////    return;
-            ////////}
+            if (l.IdLesson > 0)
+            {
+                // found a lesson with the same date => block creation of the new lesson
+                MessageBox.Show("Il programma non registra due lezioni diverse nello stesso giorno.\n" +
+                    "Nulla verrà salvato ora. Usare il bottone 'Salva'.",
+                    "ATTENZIONE");
+                return;
+            }
             currentLesson = new Lesson();
-            //////////currentLesson.Date = dtpLessonDate.Value;
+            currentLesson.Date = dtpLessonDate.SelectedDate;
             currentLesson.IdClass = currentClass.IdClass;
             currentLesson.IdSchoolSubject = currentSchoolSubject.IdSchoolSubject;
             currentLesson.IdSchoolYear = txtSchoolYear.Text;
             currentLesson.IdLesson = Commons.bl.NewLesson(currentLesson);
             TxtLessonDesc.Text = "";
             txtLessonCode.Text = currentLesson.IdLesson.ToString();
-            //////////dtpLessonDate.Value = (DateTime)currentLesson.Date;
+            dtpLessonDate.SelectedDate = (DateTime)currentLesson.Date;
             topicTreeMptt.UncheckAllItemsUnderNode_Recursive((TreeViewItem)trwTopics.Items[0]);
 
             //  refresh database data in grids 
@@ -315,59 +319,58 @@ namespace SchoolGrades_WPF
         //}
         private void btnLessonSave_Click(object sender, RoutedEventArgs e)
         {
-            ////////int currentLessonsGridIndex = -1;
-            ////////////////if (dgwAllLessons.CurrentRow != null)
-            ////////////////{
-            ////////////////    currentLessonsGridIndex = dgwAllLessons.CurrentRow.Index;
-            ////////////////}
-            ////////btnLessonSave.IsEnabled = false;
-            ////////// save anyway (should be better to control if it is necessary)  
-            ////////if (!topicTreeMptt.HasChanges)
-            ////////{
-            ////////    MessageBox.Show("Nessuna modifica fatta agli argomenti");
-            ////////}
-            ////////else
-            ////////    topicTreeMptt.SaveTreeFromTreeViewByParent();
+            //int currentIndexLessonsGrid = -1;
+            //if (dgwAllLessons.SelectedItem != null)
+            //{
+            //    currentIndexLessonsGrid = ((TreeViewItem)dgwAllLessons.Items[currentIndexLessonsGrid]).index;
+            //}
+            btnLessonSave.IsEnabled = false;
+            // save anyway (should be better to control if it is necessary)  
+            if (!topicTreeMptt.HasChanges)
+            {
+                MessageBox.Show("Nessuna modifica fatta agli argomenti");
+            }
+            else
+                topicTreeMptt.SaveTreeFromTreeViewByParent();
 
-            ////////if (txtLessonCode.Text == "")
-            ////////{
-            ////////    MessageBox.Show("ATTENZIONE: Creare una nuova lezione!");
-            ////////    btnLessonSave.IsEnabled = true;
-            ////////    return;
-            ////////}
+            if (txtLessonCode.Text == "")
+            {
+                MessageBox.Show("ATTENZIONE: Creare una nuova lezione!");
+                btnLessonSave.IsEnabled = true;
+                return;
+            }
 
-            ////////if (dtpLessonDate.Value.Day != DateTime.Now.Day)
-            ////////{
-            ////////    if (MessageBox.Show("La data della lezione non è quella di oggi." +
-            ////////        "\r\nVuoi salvarla comunque (Sì) o non salvarla (No)?",
-            ////////        "")
-            ////////        == MessageBoxResult.No)
-            ////////    {
-            ////////        btnLessonSave.IsEnabled = true;
-            ////////        return;
-            ////////    }
-            ////////}
-            ////////////////currentLesson.Date = dtpLessonDate.Value;
-            ////////currentLesson.Note = TxtLessonDesc.Text;
+            if (((DateTime)dtpLessonDate.SelectedDate).Day != DateTime.Now.Day)
+            {
+                if (MessageBox.Show("La data della lezione non è quella di oggi." +
+                    "\r\nVuoi salvarla comunque (Sì) o non salvarla (No)?",
+                    "", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                {
+                    btnLessonSave.IsEnabled = true;
+                    return;
+                }
+            }
+            currentLesson.Date = dtpLessonDate.SelectedDate;
+            currentLesson.Note = TxtLessonDesc.Text;
 
-            ////////// save the lesson (the topics could have been changed)
-            ////////Commons.bl.SaveLesson(currentLesson);
+            // save the lesson (the topics could have been changed)
+            Commons.bl.SaveLesson(currentLesson);
 
-            ////////// save the topics of the lesson
-            ////////// we find the checked items in treeviw, we start from the beginning 
-            ////////List<Topic> topicsOfTheLesson = new List<Topic>();
-            ////////int dummy = 0;
-            ////////topicTreeMptt.FindCheckedItems_Recursive((TreeViewItem)trwTopics.Items[0],
-            ////////    topicsOfTheLesson, ref dummy);
-            ////////if (topicsOfTheLesson.Count > 0)
-            ////////    Commons.bl.SaveTopicsOfLesson(currentLesson.IdLesson, topicsOfTheLesson);
+            // save the topics of the lesson
+            // we find the checked items in treeviw, we start from the beginning 
+            List<Topic> topicsOfTheLesson = new List<Topic>();
+            int dummy = 0;
+            topicTreeMptt.FindCheckedItems_Recursive((TreeViewItem)trwTopics.Items[0],
+                topicsOfTheLesson, ref dummy);
+            if (topicsOfTheLesson.Count > 0)
+                Commons.bl.SaveTopicsOfLesson(currentLesson.IdLesson, topicsOfTheLesson);
 
-            //////////  refresh database data in grids 
-            ////////if (currentLessonsGridIndex != -1)
-            ////////    RefreshLessons(currentLessonsGridIndex);
-            ////////RefreshTopicsChecksAndImages();
+            //  refresh database data in grids 
+            if (currentIndexLessonsGrid != -1)
+                RefreshLessons(currentIndexLessonsGrid);
+            RefreshTopicsChecksAndImages();
 
-            ////////btnLessonSave.IsEnabled = true;
+            btnLessonSave.IsEnabled = true;
         }
         private void btnCopyToClipboard_Click(object sender, RoutedEventArgs e)
         {
@@ -419,40 +422,42 @@ namespace SchoolGrades_WPF
                 MessageBox.Show("Creare prima una nuova lezione");
                 return;
             }
-            //////////frmImages fi = new frmImages(frmImages.ImagesFormType.NormalManagement
-            //////////    , currentLesson, currentClass, listImages, currentSchoolSubject);
-            //////////fi.ShowDialog();
+            ////////frmImages fi = new frmImages(frmImages.ImagesFormType.NormalManagement
+            ////////    , currentLesson, currentClass, listImages, currentSchoolSubject);
+            ////////fi.ShowDialog();
             listImages = Commons.bl.GetListLessonsImages(currentLesson);
             if (listImages.Count > 0)
             {
-                //////////indexImages = 0;
-                //////////if (listImages.Count > 0)
-                //////////{
+                indexImages = 0;
+                if (listImages.Count > 0)
+                {
 
-                //////////    string nomeFile = Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename);
-                //////////    try
-                //////////    {
-                //////////        picImage.Load(nomeFile);
-                //////////    }
-                //////////    catch
-                //////////    {
-                //////////        MessageBox.Show("Non è possible aprire il file " + nomeFile + " !");
-                //////////    }
-                //////////}
+                    string nomeFile = Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename);
+                    try
+                    {
+                        loadLessonsPicture(picImage,
+                            Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename));
+                        //picImage.Load(nomeFile);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Non è possible aprire il file " + nomeFile + " !");
+                    }
+                }
             }
             else
             {
-                ////////picImage.Image = null;
+                picImage.Source = null;
             }
         }
-        private void dgwOneLesson_CellContentClick(object sender, RoutedEventArgs e)
-        {
-            //////////if (e.RowIndex > -1)
-            //////////{
-            //////////    Topic row = ((List<Topic>)dgwOneLesson.ItemsSource)[e.RowIndex];
-            //////////    topicTreeMptt.FindNodeById(row.Id);
-            //////////}
-        }
+        //private void dgwOneLesson_CellContentClick(object sender, RoutedEventArgs e)
+        //{
+        //    ////////if (e.RowIndex > -1)
+        //    ////////{
+        //    ////////    Topic row = ((List<Topic>)dgwOneLesson.ItemsSource)[e.RowIndex];
+        //    ////////    topicTreeMptt.FindNodeById(row.Id);
+        //    ////////}
+        //}
         private void frmLessonsTopics_KeyDown(object sender, KeyEventArgs e)
         {
             checkGeneralKeysForTopicsTree(e);
@@ -495,8 +500,9 @@ namespace SchoolGrades_WPF
                 indexImages--;
                 try
                 {
-
-                    ////////picImage.Load(Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename));
+                    loadLessonsPicture(picImage,
+                        Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename));
+                    //picImage.Load(Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename));
                 }
                 catch
                 {
@@ -511,7 +517,9 @@ namespace SchoolGrades_WPF
                 indexImages = ++indexImages % listImages.Count;
                 try
                 {
-                    //////////picImage.Load(Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename));
+                    loadLessonsPicture(picImage,
+                        Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename));
+                    //picImage.Load(Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename));
                 }
                 catch
                 {
@@ -521,43 +529,43 @@ namespace SchoolGrades_WPF
         }
         private void btnTopicsNotDone_Click(object sender, RoutedEventArgs e)
         {
-            //////if (trwTopics.SelectedItem == null)
-            //////{
-            //////    MessageBox.Show("Scegliere un argomento.\r\n" +
-            //////        "Verranno evidenziati gli argomenti sotto l'argomento scelto che NON sono stati fatti");
-            //////    return;
-            //////}
-            //////List<Topic> listNonDone = Commons.bl.GetTopicsNotDoneFromThisTopic(currentClass,
-            //////    ((Topic)trwTopics.SelectedItem.Tag), currentSchoolSubject);
-            //////int dummy = 0; bool dummy2 = false;
-            //////topicTreeMptt.HighlightNodesInList(trwTopics.Items[0],
-            //////     listNonDone, ref dummy, ref dummy2);
+            if (trwTopics.SelectedItem == null)
+            {
+                MessageBox.Show("Scegliere un argomento.\r\n" +
+                    "Verranno evidenziati gli argomenti sotto l'argomento scelto che NON sono stati fatti");
+                return;
+            }
+            List<Topic> listNonDone = Commons.bl.GetTopicsNotDoneFromThisTopic(currentClass,
+                (Topic)((TreeViewItem)trwTopics.SelectedItem).Tag, currentSchoolSubject);
+            int dummy = 0; bool dummy2 = false;
+            topicTreeMptt.HighlightNodesInList((TreeViewItem)trwTopics.Items[0],
+                 listNonDone, ref dummy, ref dummy2);
         }
         private void btnTopicsDone_Click(object sender, RoutedEventArgs e)
         {
-            ////////if (trwTopics.SelectedItem == null)
-            ////////{
-            ////////    MessageBox.Show("Scegliere un argomento con click.\r\n" +
-            ////////        "Verranno evidenziati gli argomenti fatti sotto l'argomento scelto che sono stati fatti");
-            ////////    return;
-            ////////}
-            ////////List<Topic> listDone = Commons.bl.GetTopicsDoneFromThisTopic(currentClass, ((Topic)trwTopics.SelectedItem.Tag), currentSchoolSubject);
-            ////////int dummy = 0; bool dummy2 = false;
-            ////////topicTreeMptt.HighlightNodesInList(trwTopics.Items[0],
-            ////////     listDone, ref dummy, ref dummy2);
+            if (trwTopics.SelectedItem == null)
+            {
+                MessageBox.Show("Scegliere un argomento con click.\r\n" +
+                    "Verranno evidenziati gli argomenti fatti sotto l'argomento scelto che sono stati fatti");
+                return;
+            }
+            List<Topic> listDone = Commons.bl.GetTopicsDoneFromThisTopic(currentClass, ((Topic)((TreeViewItem)trwTopics.SelectedItem).Tag), currentSchoolSubject);
+            int dummy = 0; bool dummy2 = false;
+            topicTreeMptt.HighlightNodesInList((TreeViewItem)trwTopics.Items[0],
+                 listDone, ref dummy, ref dummy2);
         }
         private void bntLessonErase_Click(object sender, RoutedEventArgs e)
         {
-            ////////if (MessageBox.Show("Vuole davvero  eliminare la lezione:\r\n" + txtLessonCode.Text +
-            ////////    ",'" + TxtLessonDesc.Text + "'?", "Cancellazione")
-            ////////    != MessageBoxResult.Yes)
-            ////////{
-            ////////    return;
-            ////////}
-            ////////currentLessonsGridIndex = dgwAllLessons.CurrentRow.Index;
-            ////////// !! TODO !! add message box to ask for image files deletion
-            ////////Commons.bl.EraseLesson(int.Parse(txtLessonCode.Text), false);
-            ////////RefreshLessons(currentLessonsGridIndex);
+            if (MessageBox.Show("Vuole davvero  eliminare la lezione:\r\n" + txtLessonCode.Text +
+                ",'" + TxtLessonDesc.Text + "'?", "Cancellazione")
+                != MessageBoxResult.Yes)
+            {
+                return;
+            }
+            currentRowLessonsGrid = (Lesson)dgwAllLessons.Items[currentIndexLessonsGrid];
+            // !! TODO !! add message box to ask for image files deletion
+            Commons.bl.EraseLesson(int.Parse(txtLessonCode.Text), false);
+            RefreshLessons(currentIndexLessonsGrid);
         }
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
@@ -583,10 +591,6 @@ namespace SchoolGrades_WPF
             ////////    lblLessonTime.BackColor = ((frmMain)Application.OpenForms[0]).CurrentLessonTimeColor;
             ////////}
         }
-        ////////private void DgwAllLessons_CellContentClick(object sender, RoutedEventArgs e)
-        ////////{
-
-        ////////}
         private void dgwAllLessons_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DataGrid grid = (DataGrid)sender;
@@ -615,33 +619,33 @@ namespace SchoolGrades_WPF
                 }
             }
         }
-        ////////private void BtnSearchAmongTopics_Click(object sender, RoutedEventArgs e)
-        ////////{
-        ////////    int rowToBeSearchedIndex;
+        //////private void BtnSearchAmongTopics_Click(object sender, RoutedEventArgs e)
+        //////{
+        //////    int rowToBeSearchedIndex;
 
-        ////////    if (dgwAllLessons.SelectedRows == null)
-        ////////        rowToBeSearchedIndex = 0;
-        ////////    else
-        ////////        rowToBeSearchedIndex = dgwAllLessons.SelectedRows[0].Index;
-        ////////    int indexWhenBeginning = rowToBeSearchedIndex;
-        ////////    rowToBeSearchedIndex = ++rowToBeSearchedIndex % dgwAllLessons.Rows.Count;
-        ////////    bool allScanned = false;
-        ////////    while (!allScanned)
-        ////////    {
-        ////////        DataGridViewRow row = dgwAllLessons.Rows[rowToBeSearchedIndex];
-        ////////        if (((string)row.Cells["Note"].Value).Contains(txtTopicsDigest.Text))
-        ////////        {
-        ////////            dgwAllLessons.ClearSelection();
-        ////////            row.Selected = true;
-        ////////            break;
-        ////////        }
-        ////////        rowToBeSearchedIndex = ++rowToBeSearchedIndex % dgwAllLessons.Rows.Count;
-        ////////        if (rowToBeSearchedIndex == indexWhenBeginning)
-        ////////            allScanned = true;
-        ////////    }
+        //////    if (dgwAllLessons.SelectedRows == null)
+        //////        rowToBeSearchedIndex = 0;
+        //////    else
+        //////        rowToBeSearchedIndex = dgwAllLessons.SelectedRows[0].Index;
+        //////    int indexWhenBeginning = rowToBeSearchedIndex;
+        //////    rowToBeSearchedIndex = ++rowToBeSearchedIndex % dgwAllLessons.Rows.Count;
+        //////    bool allScanned = false;
+        //////    while (!allScanned)
+        //////    {
+        //////        DataGridViewRow row = dgwAllLessons.Rows[rowToBeSearchedIndex];
+        //////        if (((string)row.Cells["Note"].Value).Contains(txtTopicsDigest.Text))
+        //////        {
+        //////            dgwAllLessons.ClearSelection();
+        //////            row.Selected = true;
+        //////            break;
+        //////        }
+        //////        rowToBeSearchedIndex = ++rowToBeSearchedIndex % dgwAllLessons.Rows.Count;
+        //////        if (rowToBeSearchedIndex == indexWhenBeginning)
+        //////            allScanned = true;
+        //////    }
 
-        ////////}
-        private void BtnOpenImagesFolder_Click(object sender, RoutedEventArgs e)
+        //////}
+        private void btnOpenImagesFolder_Click(object sender, RoutedEventArgs e)
         {
             string folder = Path.Combine(Commons.PathImages,
                 currentClass.SchoolYear + currentClass.Abbreviation,

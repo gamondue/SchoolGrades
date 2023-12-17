@@ -73,31 +73,31 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label>Trova</Label>
-                <CheckBox Name="chkFindAll" VerticalAlignment="Center" Grid.Column="1" HorizontalAlignment="Right">Trova tutti</CheckBox>
+                <CheckBox x:Name="chkFindAll" VerticalAlignment="Center" Grid.Column="1" HorizontalAlignment="Right">Trova tutti</CheckBox>
                 <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2">
-                    <RadioButton Name="rdbStringSearch">Txt</RadioButton>
-                    <RadioButton Name="rdbOrSearch">||</RadioButton>
-                    <RadioButton Name="rdbAndSearch" Content="&amp;&amp;&amp;&amp;"/>
+                    <RadioButton Name="rdbStringSearch" IsEnabled="False">Txt</RadioButton>
+                    <RadioButton Name="rdbOrSearch" IsEnabled="False">||</RadioButton>
+                    <RadioButton Name="rdbAndSearch" Content="&amp;&amp;&amp;&amp;" IsEnabled="False"/>
                 </StackPanel>
                 <TextBox Name="txtTopicSearchString" Grid.Row="2" Grid.ColumnSpan="2"></TextBox>
             </Grid>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <CheckBox x:Name="chkSearchInDescriptions" Content="In Descriz."/>
+                <CheckBox x:Name="chkSearchInDescriptions" Content="In Descriz." IsChecked="True"/>
                 <CheckBox x:Name="chkAllWord" Content="Parola"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <CheckBox x:Name="chkCaseInsensitive" Content="Esatta"/>
-                <CheckBox x:Name="chkVerbatimString" Content="ma &amp; mi"/>
+                <CheckBox x:Name="chkVerbatimString" Content="ma &amp; mi" IsChecked="True"/>
             </StackPanel>
-            <Button Name="btnFind">Trova (F3)</Button>
-            <Button Name="btnFindUnderNode">Trova sotto (Shift+F3)</Button>
-            <Button Name="btnSaveTree">Salva argomenti (F5)</Button>
-            <Button Name="btnAddNodeSon" Click="btnAddNodeSon_Click">Aggiungi figlio (Ins)</Button>
-            <Button Name="btnAddNodeBrother">Aggiungi fratello (Shift+Ins)</Button>
-            <Button Name="btnChoose">Scegli</Button>
-            <Button Name="btnArgFreemind">Argomento Freemind</Button>
-            <Button Name="btnQuestions">Domande</Button>
-            <Button Name="btnDelete">Elimina (Canc)</Button>
+            <Button x:Name="btnFind" Click="btnFind_Click">Trova (F3)</Button>
+            <Button x:Name="btnFindUnderNode" Click="btnFindUnderNode_Click">Trova sotto (Shift+F3)</Button>
+            <Button x:Name="btnSaveTree" Click="btnSaveTree_Click">Salva argomenti (F5)</Button>
+            <Button x:Name="btnAddNodeSon" Click="btnAddNodeSon_Click">Aggiungi figlio (Ins)</Button>
+            <Button x:Name="btnAddNodeBrother" Click="btnAddNodeBrother_Click">Aggiungi fratello (Shift+Ins)</Button>
+            <Button x:Name="btnChoose" Click="btnChoose_Click">Scegli</Button>
+            <Button x:Name="btnArgFreemind" Click="btnArgFreemind_Click">Argomento Freemind</Button>
+            <Button x:Name="btnQuestions" Click="btnQuestions_Click">Domande</Button>
+            <Button x:Name="btnDelete" Click="btnDelete_Click">Elimina (Canc)</Button>
         </StackPanel>
     </Grid>
 </Window>

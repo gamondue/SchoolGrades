@@ -49,11 +49,6 @@ namespace gamon.TreeMptt
 
         BusinessLayer bl = Commons.bl;
 
-        //private TextBox trwTopics;
-        //private TextBox txtTopicName;
-        //private TextBox txtTopicDescription;
-        //private TextBox txtTopicSearchString;
-        //private TextBox txtTopicsDigest;
         //private object value;
         //private Image globalPicLed;
         //private CheckBox chkSearchInDescriptions;
@@ -66,8 +61,6 @@ namespace gamon.TreeMptt
         //public TreeMptt(TextBox trwTopics, TextBox txtTopicName, TextBox txtTopicDescription, TextBox txtTopicSearchString, TextBox txtTopicsDigest, object value, Image globalPicLed, CheckBox chkSearchInDescriptions, CheckBox chkVerbatimString, CheckBox chkAllWord, CheckBox chkCaseInsensitive, CheckBox chkMarkAllNodesFound, DragDropEffects copy)
         //{
         //    this.trwTopics = trwTopics;
-        //    this.txtTopicName = txtTopicName;
-        //    this.txtTopicDescription = txtTopicDescription;
         //    this.txtTopicSearchString = txtTopicSearchString;
         //    this.txtTopicsDigest = txtTopicsDigest;
         //    this.value = value;
@@ -228,17 +221,17 @@ namespace gamon.TreeMptt
             {
                 FunctionKeysEnabled = true;
 
-                //////////shownTreeView.LabelEdit = false;
-                //////////// for drag & drop 
-                //////////shownTreeView.AllowDrop = true;
-                //////////shownTreeView.ItemDrag += TreeView_ItemDrag;
-                //////////shownTreeView.DragDrop += TreeView_DragDrop;
-                //////////shownTreeView.DragEnter += TreeView_DragEnter;
-                //////////shownTreeView.DragLeave += TreeView_DragLeave;
-                // for object that will be dragged:
+                //////shownTreeView.LabelEdit = false;
+                //////// for drag & drop 
+                //////shownTreeView.AllowDrop = true;
+                //////shownTreeView.ItemDrag += TreeView_ItemDrag;
+                //////shownTreeView.DragDrop += TreeView_DragDrop;
+                //////shownTreeView.DragEnter += TreeView_DragEnter;
+                //////shownTreeView.DragLeave += TreeView_DragLeave;
+                ////////for object that will be dragged:
                 //////shownTreeView.MouseDown += (sender, args) => DoDragDrop(TheSampleLabel.Text, DragDropEffects.Copy);
 
-                txtNodeName.LostFocus += txtNodeName_LostFocus;
+               txtNodeName.LostFocus += txtNodeName_LostFocus;
                 txtNodeDescription.LostFocus += txtNodeDescription_LostFocus;
             }
             typeOfDragAndDrop = TypeOfDragAndDrop;
@@ -640,19 +633,20 @@ namespace gamon.TreeMptt
         internal void FindCheckedItems_Recursive(TreeViewItem currentNode,
             List<Topic> checkedTopicsFound, ref int ListIndex)
         {
-            //////////// visits all the childrens of CurrentNode, addind to the list those 
-            //////////// that are checked in the treeview 
-            //////////foreach (TreeViewItem sonNode in currentNode.Items)
-            //////////{
-            //////////    if (sonNode.IsChecked)
-            //////////    {
-            //////////        Topic newTopic = (Topic)sonNode.Tag;
-            //////////        checkedTopicsFound.Add(newTopic);
-            //////////    }
-            //////////    FindCheckedItems_Recursive(sonNode, checkedTopicsFound, ref ListIndex);
-            //////////}
-
-            //////////return;
+            if (!putCheckSignsOnNodes)
+                return;
+            // visits all the childrens of CurrentNode, adding to the list those 
+            // that are checked in the treeview 
+            foreach (TreeViewItem sonNode in currentNode.Items)
+            {
+                StackPanel s = (StackPanel)sonNode.Header;               
+                if ((bool)((CheckBox)s.Children[0]).IsChecked)
+                {
+                    checkedTopicsFound.Add((Topic)sonNode.Tag);
+                }
+                FindCheckedItems_Recursive(sonNode, checkedTopicsFound, ref ListIndex);
+            }
+            return;
         }
         #endregion
         #region methods that color nodes 
@@ -856,7 +850,8 @@ namespace gamon.TreeMptt
         #region manage the treeview nodes' checking 
         internal void UncheckAllItemsUnderNode_Recursive(TreeViewItem currentNode)
         {
-            ////////////currentNode.Checked = false;
+            StackPanel s = currentNode.Header as StackPanel;
+            ((CheckBox)(s.Children[0])).IsChecked = false;
             foreach (TreeViewItem sonNode in currentNode.Items)
             {
                 // recursion 
@@ -878,10 +873,12 @@ namespace gamon.TreeMptt
                 foundInThisBranch = false;
                 if (ListIndex == ItemsToCheck.Count)
                     return;
-                if (ItemsToCheck[ListIndex].Id == ((Topic)sonNode.Tag).Id)
+                Topic nodeContent = (Topic)sonNode.Tag;
+                if (ItemsToCheck[ListIndex].Id == nodeContent.Id)
                 {   // found item to check 
-                    ////////////sonNode.Checked = true;
-                    //sonNode.IsExpanded = true;
+                    StackPanel s = (StackPanel)sonNode.Header;
+                    ((CheckBox)s.Children[0]).IsChecked = true; 
+                    sonNode.IsExpanded = true;
                     sonNode.BringIntoView();
                     foundInThisBranch = true;
                     ListIndex++;
@@ -924,7 +921,7 @@ namespace gamon.TreeMptt
             nodeNew.Name = Text;
             nodeNew.LeftNodeOld = nodeNew.RightNodeOld = -1;
             UiNode = new TreeViewItem();
-            UiNode.Name = nodeNew.Name;
+            UiNode.Header = nodeNew.Name;
             UiNode.Tag = nodeNew;
 
             if (shownTreeView.SelectedItem == null)
@@ -942,10 +939,7 @@ namespace gamon.TreeMptt
             if (txtCodNode != null)
                 txtCodNode.Text = nodeNew.Id.ToString();
             // start edit in the selected node
-
-
             txtNodeName.Focus();
-
             return UiNode;
         }
         internal void DeleteNodeById_Recursive(TreeViewItem ParentNode)
@@ -1224,7 +1218,6 @@ namespace gamon.TreeMptt
                 }
             }
         }
-
         string previousText = "";
         private void TxtNodeName_TextChanged(object sender, RoutedEventArgs e)
         {
@@ -1473,33 +1466,22 @@ namespace gamon.TreeMptt
             TreeViewItem item = new TreeViewItem();
             // Create a new StackPanel for text and checkbox 
             StackPanel stackPanel = new StackPanel();
+            stackPanel.Name = "NodeUi";
             stackPanel.Orientation = Orientation.Horizontal;
             if (putCheckSignsOnNodes)
             {
                 CheckBox CheckBox = new CheckBox();
                 CheckBox.IsChecked = false;
+                // Children[0] is the CheckBox
                 stackPanel.Children.Add(CheckBox);
             }
             TextBlock TextBlock = new();
             TextBlock.Text = Node.Name;
+            // Children[1] is the TextBlock
             stackPanel.Children.Add(TextBlock);
             //Debug.Print(((TextBlock)stackPanel.Children[0]).Text);
-
             item.Header = stackPanel;
             item.Tag = Node;
-
-            //TreeViewItem item = new TreeViewItem
-            //{
-            //    Header = new StackPanel
-            //    {
-            //        Orientation = Orientation.Horizontal,
-            //        Children =
-            //        {
-            //            new CheckBox { IsChecked = false },
-            //            new TextBlock { Text = Node.Name}
-            //        }
-            //    }
-            //};
             return item;
         }
         public void ExportSubtreeToClipboard()

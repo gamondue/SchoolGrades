@@ -2,6 +2,7 @@
 using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.Data.SQLite;
 
@@ -82,7 +83,7 @@ namespace gamon.TreeMptt
             // connection can come from outside to avoid opening and closing it every time 
             // if localConnection is null, the connection must be opened and closed locally 
             bool locallyOpened = false;
-            if (localConnection == null)
+            if (localConnection == null || !(localConnection.State == ConnectionState.Open))
             {
                 locallyOpened = true;
                 localConnection = dl.Connect();

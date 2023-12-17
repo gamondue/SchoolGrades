@@ -188,7 +188,7 @@ namespace SchoolGrades_WPF
             //topicTreeMptt.LoadTreeFromDatabase();
             UserHasChosen = false;
         }
-        private void btnSave_Click(object sender, EventArgs e)
+        private void btnSaveTree_Click(object sender, EventArgs e)
         {
             if (!topicTreeMptt.HasChanges)
             {
@@ -233,7 +233,7 @@ namespace SchoolGrades_WPF
             //////////    topicTreeMptt.FindNodes(txtTopicSearchString.Text, false, true, false, false, false);
             //////////if (e.KeyCode == Keys.F5)
             //////////{
-            //////////    btnSave_Click(null, null);
+            //////////    btnSaveTree_Click(null, null);
             //////////}
         }
         private void btnAddNodeSon_Click(object sender, RoutedEventArgs e)

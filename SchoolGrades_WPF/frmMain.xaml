@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SchoolGrades_WPF"
         mc:Ignorable="d"
-        Title="SchoolGrades" Height="700" Width="800">
-    <Grid Background="PowderBlue">
+        Title="SchoolGrades" Height="700" Width="800" Background="PowderBlue">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="76*"/>
             <ColumnDefinition Width="58*"/>

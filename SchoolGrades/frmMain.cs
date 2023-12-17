@@ -192,9 +192,8 @@ namespace SchoolGrades
         private void frmMain_Load(object sender, EventArgs e)
         {
             // start the Thread that concurrently saves the Topics tree
-            CommonsWinForms.SaveTreeMptt = new TreeMptt(Commons.dl,
-                null, null, null, null, null, null, picBackgroundSaveRunning,
-                null, null, null, null, null);
+            CommonsWinForms.SaveTreeMptt = new TreeMptt(null, null, null, null, null, null, 
+                picBackgroundSaveRunning, null, null, null, null, null);
             Commons.BackgroundSaveThread = new Thread(CommonsWinForms.SaveTreeMptt.SaveTreeMpttBackground);
             Commons.BackgroundSaveThread.Start();
 
