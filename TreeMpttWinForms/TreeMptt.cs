@@ -130,7 +130,6 @@ namespace gamon.TreeMptt
                     chkMarkAllTopicsFound.CheckedChanged += chkMarkAllTopicsFound_CheckedChanged;
                 if (chkVerbatimString != null)
                     chkVerbatimString.CheckedChanged += chkVerbatimString_CheckedChanged;
-
                 //}
                 //else
                 //{
@@ -151,12 +150,13 @@ namespace gamon.TreeMptt
             }
         }
         public bool HasChanges { get => hasChanges; set => hasChanges = value; }
-        internal TreeMptt(DataLayer DataLayer, TreeView TreeViewControl,
+        internal TreeMptt(TreeView TreeViewControl,
             TextBox TxtNodeName, TextBox TxtNodeDescription, TextBox TxtNodeSearchString,
             TextBox TxtNodeDigest, TextBox TxtIdNode,
             PictureBox LedPictureBox, CheckBox ChkSearchInDescriptions, CheckBox ChkVerbatimString,
             CheckBox ChkAllWord, CheckBox ChkCaseInsensitive, CheckBox ChkMarkAllNodesFound,
-            System.Windows.Forms.DragDropEffects TypeOfDragAndDrop = System.Windows.Forms.DragDropEffects.Move)
+            System.Windows.Forms.DragDropEffects TypeOfDragAndDrop = System.Windows.Forms.DragDropEffects.Move
+           )
         {
             bl = Commons.bl;
             dbMptt = new TreeMpttDb();
@@ -321,7 +321,7 @@ namespace gamon.TreeMptt
                         if (Commons.BackgroundSavingEnabled)
                             // not executed if saving is aborted 
                             // in this point delete list cannot have any entry
-                            dbMptt.SaveTreeToDb(listNodes, null, true, true);
+                            dbMptt.SaveTreeToDb(listNodes, null, true, false);
                         if (Commons.BackgroundSavingEnabled)
                             // not executed if saving is aborted 
                             dbMptt.SaveLeftRightConsistent(true);
@@ -585,7 +585,7 @@ namespace gamon.TreeMptt
         internal void FindCheckedItems_Recursive(TreeNode currentNode,
             List<Topic> checkedTopicsFound, ref int ListIndex)
         {
-            // visits all the childrens of CurrentNode, addind to the list those 
+            // visits all the childrens of CurrentNode, adding to the list those 
             // that are checked in the treeview 
             foreach (TreeNode sonNode in currentNode.Nodes)
             {
