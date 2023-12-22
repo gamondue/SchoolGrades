@@ -102,8 +102,8 @@ namespace SchoolGrades_WPF
             RefreshTopicsChecksAndImages();
 
             System.Windows.Media.Color c = CommonsWpf.ColorFromNumber(currentSchoolSubject);
-            SolidColorBrush br = new SolidColorBrush(System.Windows.Media.Color.FromArgb(c.A, c.R, c.G, c.B)); 
-            this.Background =  br;
+            SolidColorBrush br = new SolidColorBrush(System.Windows.Media.Color.FromArgb(c.A, c.R, c.G, c.B));
+            this.Background = br;
 
             ////////LessonTimer.Interval = 1000;
             ////////LessonTimer.Start();
@@ -626,7 +626,7 @@ namespace SchoolGrades_WPF
         //////    if (dgwAllLessons.SelectedRows == null)
         //////        rowToBeSearchedIndex = 0;
         //////    else
-        //////        rowToBeSearchedIndex = dgwAllLessons.SelectedRows[0].Index;
+        //////        rowToBeSearchedIndex = dgwAllLessons.SelectedItems[0].Index;
         //////    int indexWhenBeginning = rowToBeSearchedIndex;
         //////    rowToBeSearchedIndex = ++rowToBeSearchedIndex % dgwAllLessons.Rows.Count;
         //////    bool allScanned = false;

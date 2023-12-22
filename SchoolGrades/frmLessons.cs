@@ -83,7 +83,7 @@ namespace SchoolGrades
             RefreshLessons(currentLessonsGridIndex);
 
             //topicTreeMptt = new TopicTreeMptt(listTopicsBefore, trwTopics,
-            topicTreeMptt = new TreeMptt(Commons.dl, trwTopics,
+            topicTreeMptt = new TreeMptt(trwTopics,
                 txtTopicName, txtTopicDescription, txtTopicSearchString, txtTopicsDigest,
                 null, CommonsWinForms.globalPicLed, chkSearchInDescriptions, chkVerbatimString,
                 chkAllWord, chkCaseInsensitive, chkMarkAllTopicsFound,

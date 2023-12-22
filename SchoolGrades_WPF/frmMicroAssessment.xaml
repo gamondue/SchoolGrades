@@ -87,10 +87,10 @@
                     <ColumnDefinition Width="12*"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <DataGrid Name="DgwQuestions" Background="Gray" SelectionChanged="DgwQuestions_CellClick" Margin="0,0,5,-251"/>
+                <DataGrid x:Name="dgwQuestions" Background="Gray" SelectionChanged="dgwQuestions_CellClick" Margin="0,0,5,-251"/>
                 <StackPanel Grid.Column="1">
-                    <Button Name="btnEraseMicroGrade">-</Button>
-                    <Button Name="BtnSaveGrid">Salva</Button>
+                    <Button x:Name="btnEraseMicroGrade" Click="btnEraseMicroGrade_Click">-</Button>
+                    <Button x:Name="btnSaveMicrogradeFromGrid" Click="SaveMicrogradeFromGrid_Click">Salva</Button>
                 </StackPanel>
             </Grid>
         </StackPanel>
@@ -115,7 +115,7 @@
                 <Button Name="btnFlushQuestion" Padding="5" Margin="3">-</Button>
                 <Button Name="btnQuestionChoose" Padding="5" Margin="3">Scelta domanda</Button>
             </StackPanel>
-            <Button Name="btnSaveMicroGrade" Margin="5">Nuova micro valutazione</Button>
+            <Button Name="btnSaveMicroGrade" Margin="5" Click="btnSaveMacroGrade_Click">Nuova micro valutazione</Button>
             <Label Style="{DynamicResource voti}">Peso domanda</Label>
             <TextBox Name="txtMicroGradeWeight"></TextBox>
             <Label Style="{DynamicResource voti}">Voto domanda</Label>
