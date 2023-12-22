@@ -204,7 +204,7 @@ namespace SchoolGrades_WPF
         private void frmMain_Load()
         {
             // start the Thread that concurrently saves the Topics tree
-            CommonsWpf.SaveTreeMptt = new TreeMptt(null, null, null, null, null, null, 
+            CommonsWpf.SaveTreeMptt = new TreeMptt(null, null, null, null, null, null,
                 picBackgroundSaveRunning, null, null, null, null, null);
             Commons.BackgroundSaveThread = new Thread(CommonsWpf.SaveTreeMptt.SaveTreeMpttBackground);
             Commons.BackgroundSaveThread.Start();
@@ -580,7 +580,7 @@ namespace SchoolGrades_WPF
                 {
                     frmStudent f = new frmStudent(s, false);
                     f.Show();
-                    // put full screen ther form 
+                    // put full screen the form 
                     // TODO 
                 }
                 // show popup annotations of the students of the class
@@ -682,7 +682,7 @@ namespace SchoolGrades_WPF
                     //List<Image> lessonImages = db.GetAllImagesShownToAClassDuringLessons(currentClass, currentSubject);
                     List<SchoolGrades.BusinessObjects.Image> lessonImages = Commons.bl.GetAllImagesShownToAClassDuringLessons(currentClass, currentSubject,
                         DateTime.Now.AddMonths(-8), DateTime.Now);
-                    // add the path & filename of the files foud to the list of those that we can draw
+                    // add the path & filename of the files found to the list of those that we can draw
                     foreach (SchoolGrades.BusinessObjects.Image i in lessonImages)
                     {
                         filesInFolder.Add(Path.Combine(Commons.PathImages, i.RelativePathAndFilename));
@@ -1756,44 +1756,6 @@ namespace SchoolGrades_WPF
         {
             dgwStudents.ItemsSource = null;
             dgwStudents.ItemsSource = currentStudentsList;
-
-            ////////////if (dgwStudents.Columns.Count > 0)
-            ////////////{
-            ////////////    dgwStudents.Columns[1].Visible = false;
-
-            ////////////    //dgwStudents.Columns[4].Visible = false;
-            ////////////    dgwStudents.Columns[5].Visible = false;
-            ////////////    dgwStudents.Columns[6].Visible = false;
-            ////////////    dgwStudents.Columns[7].Visible = false;
-            ////////////    dgwStudents.Columns[8].Visible = false;
-            ////////////    dgwStudents.Columns[9].Visible = false;
-            ////////////    dgwStudents.Columns[10].Visible = false;
-            ////////////    dgwStudents.Columns[11].Visible = false;
-            ////////////    dgwStudents.Columns[12].Visible = false;
-            ////////////    dgwStudents.Columns[13].Visible = false;
-            ////////////    dgwStudents.Columns[14].Visible = false;
-            ////////////    dgwStudents.Columns[15].Visible = false;
-            ////////////    dgwStudents.Columns[16].Visible = false;
-
-            ////////////    dgwStudents.Columns[18].Visible = false;
-            ////////////    dgwStudents.Columns[19].Visible = false;
-
-            ////////////    dgwStudents.Columns[20].Visible = false;
-            ////////////    int Index = 0;
-            ////////////    foreach (Student s in currentStudentsList)
-            ////////////    {
-            ////////////        // "manually" set the check columm (0)
-            ////////////        if (s.Eligible == true)
-            ////////////        {
-            ////////////            dgwStudents.Rows[Index].Cells[0].Value = true;
-            ////////////        }
-            ////////////        else
-            ////////////        {
-            ////////////            dgwStudents.Rows[Index].Cells[0].Value = false;
-            ////////////        }
-            ////////////        Index++;
-            ////////////    }
-            ////////////}
         }
         private void lstClasses_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

@@ -231,7 +231,7 @@ namespace gamon.TreeMptt
                 ////////for object that will be dragged:
                 //////shownTreeView.MouseDown += (sender, args) => DoDragDrop(TheSampleLabel.Text, DragDropEffects.Copy);
 
-               txtNodeName.LostFocus += txtNodeName_LostFocus;
+                txtNodeName.LostFocus += txtNodeName_LostFocus;
                 txtNodeDescription.LostFocus += txtNodeDescription_LostFocus;
             }
             typeOfDragAndDrop = TypeOfDragAndDrop;
@@ -518,10 +518,10 @@ namespace gamon.TreeMptt
             {
                 // same search, find the next occurence of the same string 
                 indexDone++;
-                if (!markAllInSearch)
-                {
-                    ((TreeViewItem)shownTreeView.Items[0]).IsExpanded = false;
-                }
+                //if (!markAllInSearch)
+                //{
+                //    ((TreeViewItem)shownTreeView.Items[0]).IsExpanded = false;
+                //}
                 // if the results are finished: bring back to the first 
                 if (found == null)
                     return;
@@ -536,6 +536,8 @@ namespace gamon.TreeMptt
                 {
                     f.IsSelected = true;
                     f.Background = colorOfFoundItem;
+                    f.IsExpanded = true;
+                    f.BringIntoView();
                 }
                 else
                     MessageBox.Show("Non trovato");
@@ -639,7 +641,7 @@ namespace gamon.TreeMptt
             // that are checked in the treeview 
             foreach (TreeViewItem sonNode in currentNode.Items)
             {
-                StackPanel s = (StackPanel)sonNode.Header;               
+                StackPanel s = (StackPanel)sonNode.Header;
                 if ((bool)((CheckBox)s.Children[0]).IsChecked)
                 {
                     checkedTopicsFound.Add((Topic)sonNode.Tag);
@@ -877,7 +879,7 @@ namespace gamon.TreeMptt
                 if (ItemsToCheck[ListIndex].Id == nodeContent.Id)
                 {   // found item to check 
                     StackPanel s = (StackPanel)sonNode.Header;
-                    ((CheckBox)s.Children[0]).IsChecked = true; 
+                    ((CheckBox)s.Children[0]).IsChecked = true;
                     sonNode.IsExpanded = true;
                     sonNode.BringIntoView();
                     foundInThisBranch = true;

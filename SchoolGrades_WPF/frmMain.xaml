@@ -37,12 +37,14 @@
         <TextBox x:Name="txtQuestion" HorizontalAlignment="Left" Height="17" Margin="10,143,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="454" BorderBrush="#FFDEDBDB" Grid.ColumnSpan="4"/>
         <Button x:Name="btnPath" Content=".." HorizontalAlignment="Left" Height="17" Margin="118,109,0,0" VerticalAlignment="Top" Width="28" Background="White" BorderBrush="#FFDEDBDB" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Microsoft Sans Serif" Grid.Column="3"/>
         <DataGrid x:Name="dgwStudents" Margin="10,163,48,10" Background="#FFA0A0A0" Grid.ColumnSpan="3"
-              ItemsSource="{Binding Source=currentStudentsList}" SelectionChanged="dgwStudents_SelectionChanged"
-                  MouseDoubleClick="dgwStudents_MouseDoubleClick">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Cognome" Binding="{Binding LastName}"/>
-                <DataGridTextColumn Header="Nome" Binding="{Binding FirstName}"/>
-            </DataGrid.Columns>
+            ItemsSource="{Binding currentStudentsList}" 
+            SelectionChanged="dgwStudents_SelectionChanged"
+            MouseDoubleClick="dgwStudents_MouseDoubleClick"
+            AutoGenerateColumns="True">
+            <DataGridCheckBoxColumn Header="" Binding="{Binding drawable}"/>
+            <DataGridTextColumn Header="Cognome" Binding="{Binding lastName}"/>
+            <DataGridTextColumn Header="Nome" Binding="{Binding firstName}"/>
+            <DataGridTextColumn Header="F.V." Binding="{Binding VFCounter}"/>
         </DataGrid>
         <Button x:Name="btnLessonTime" Content="Inizio lezione" HorizontalAlignment="Left" Height="44" Margin="8,163,0,0" VerticalAlignment="Top" Width="82" Background="White" BorderBrush="#FFDEDBDB" Foreground="DarkBlue" FontWeight="Bold" FontFamily="Microsoft Sans Serif" HorizontalContentAlignment="Center" Grid.Column="3"/>
         <Button x:Name="btnSetup" Content="Setup&#xA;" HorizontalAlignment="Left" Height="40" Margin="201,5,0,0" VerticalAlignment="Top" Width="84" Background="White" BorderBrush="#FFDEDBDB" Foreground="DarkBlue" FontFamily="Microsoft Sans Serif" HorizontalContentAlignment="Center" Click="btnSetup_Click" VerticalContentAlignment="Bottom" FontWeight="Bold" FontSize="11" Grid.Column="3" Grid.ColumnSpan="2"/>
@@ -118,9 +120,16 @@
         <Button x:Name="btnMakeGroups" Content="Gruppi" HorizontalAlignment="Left" Height="44" Margin="90,53,0,0" 
             VerticalAlignment="Top" Width="84" Background="White" BorderBrush="#FFDEDBDB" Foreground="DarkBlue" 
             FontWeight="Bold" FontFamily="Microsoft Sans Serif" Click="btnMakeGroups_Click" Grid.Column="3" RenderTransformOrigin="2.402,-2.735"/>
-        <ListBox x:Name="lstTimeInterval" Grid.Column="2" d:ItemsSource="{d:SampleData ItemCount=5}" Height="137" 
+        <ListBox x:Name="lstTimeInterval" Grid.Column="2" Height="137" 
                  Foreground="DarkBlue" VerticalAlignment="Top" Margin="33,21,0,0" HorizontalAlignment="Left" 
-                 HorizontalContentAlignment="Center" Width="30"/>
+                 HorizontalContentAlignment="Center" Width="30" IsSynchronizedWithCurrentItem="False">
+            <ListBoxItem Content="05"/>
+            <ListBoxItem Content="10"/>
+            <ListBoxItem Content="15"/>
+            <ListBoxItem Content="30"/>
+            <ListBoxItem Content="45"/>
+            <ListBoxItem Content="60"/>
+        </ListBox>
         <Label x:Name="lblStudentChosen" Content="" Grid.ColumnSpan="4" Height="39" Margin="10,168,10,0" VerticalAlignment="Top"
                FontSize="40"/>
         <TextBox x:Name="txtIdStudent" Grid.Column="3" HorizontalAlignment="Right" Margin="0,196,2,0" 
