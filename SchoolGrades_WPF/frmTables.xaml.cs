@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SchoolGrades_WPF
 {
@@ -19,9 +9,29 @@ namespace SchoolGrades_WPF
     /// </summary>
     public partial class frmTables : Window
     {
+        private string idTable;
+        private string table;
+
         public frmTables()
         {
             InitializeComponent();
+        }
+        private void btnOpen_Click(object sender, EventArgs e)
+        {
+            frmEditLookupTable f = new frmEditLookupTable(table, idTable);
+            f.ShowDialog();
+        }
+        private void rdb_CheckedChanged(object sender, EventArgs e)
+        {
+            table = ((RadioButton)sender).Name.Substring(3);
+            idTable = "id" + table;
+            idTable = idTable.Substring(0, idTable.Length - 1);
+            if (table == "GradeCategories")
+                idTable = "idGradeCategory";
+        }
+        private void frmTables_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

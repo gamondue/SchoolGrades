@@ -4,6 +4,7 @@ using Shared;
 using System;
 using System.Data;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -345,28 +346,27 @@ namespace SchoolGrades_WPF
         private void btnQuestionChoose_Click(object sender, RoutedEventArgs e)
         {
             // we don't pass the currentSubject because it is better to start from any type of question
-            //frmQuestionChoose choice = new frmQuestionChoose(currentSchoolSubject,           !!!! Repo non aggiornata e quindi no QuestionChoose !!!!
-            //    currentClass, currentStudent, currentQuestion);
-            //choice.ShowDialog();
-            //if (choice.ChosenQuestion.Text != null && choice.ChosenQuestion.Text != "")
-            //    currentQuestion = choice.ChosenQuestion;
-            //if (currentQuestion != null)
-            //{
-            //    DisplayCurrentQuestion();
-            //    // put the question chosen also in the main form
-            //    if (callingForm != null)
-            //        callingForm.currentQuestion = choice.ChosenQuestion;
-            //}
-            //else
-            //{
-            //    TxtQuestionText.Text = "";
-            //    txtMicroGradeWeight.Text = "";
-            //}
-            //txtMicroGrade.Text = "";
+            frmQuestionChoose choice = new frmQuestionChoose(currentSchoolSubject,                 currentClass, currentStudent, currentQuestion);
+            choice.ShowDialog();
+            if (choice.ChosenQuestion.Text != null && choice.ChosenQuestion.Text != "")
+                currentQuestion = choice.ChosenQuestion;
+            if (currentQuestion != null)
+            {
+                DisplayCurrentQuestion();
+                // put the question chosen also in the main form
+                if (callingForm != null)
+                    callingForm.currentQuestion = choice.ChosenQuestion;
+            }
+            else
+            {
+                txtQuestionText.Text = "";
+                txtMicroGradeWeight.Text = "";
+            }
+            txtMicroGrade.Text = "";
         }
         internal void DisplayCurrentQuestion()
         {
-            TxtQuestionText.Text = currentQuestion.Text;
+            txtQuestionText.Text = currentQuestion.Text;
             txtMicroGradeWeight.Text = currentQuestion.Weight.ToString();
         }
         private void btnNoQuestion_Click(object sender, RoutedEventArgs e)
@@ -379,24 +379,24 @@ namespace SchoolGrades_WPF
         //}
         private void dgwQuestions_CellClick(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            ////////if (e.RowIndex > -1)
-            ////////{
-            ////////    if ((DataTable)(dgwQuestions.ItemsSource) != null)
-            ////////    {
-            ////////        DataRow row = ((DataTable)dgwQuestions.ItemsSource).Rows[e.RowIndex];
-            ////////        ReadCurrentGradeAndQuestionFromGridRow(row);
-            ////////        txtMicroGradeWeight.Text = currentGrade.Weight.ToString();
-            ////////        txtMicroGrade.Text = ((double)currentGrade.Value).ToString("#.#");
-            ////////        if (currentQuestion != null)
-            ////////            TxtQuestionText.Text = currentQuestion.Text;
-            ////////        else
-            ////////            TxtQuestionText.Text = "";
-
-            ////////        dgwQuestions.Rows[e.RowIndex].Selected = true;
-            ////////    }
-            ////////}
+            DataGrid grid = (DataGrid)sender;
+            if (grid != null)
+            {
+                int RowIndex = grid.SelectedIndex;
+                if (RowIndex > -1)
+                {
+                    DataRowView q = (DataRowView)grid.Items[RowIndex];
+                    ReadCurrentGradeAndQuestionFromGridRow(q);
+                    txtMicroGradeWeight.Text = currentGrade.Weight.ToString();
+                    txtMicroGrade.Text = ((double)currentGrade.Value).ToString("#.#");
+                    if (currentQuestion != null)
+                        txtQuestionText.Text = currentQuestion.Text;
+                    else
+                        txtQuestionText.Text = "";
+                }
+            }
         }
-        private void ReadCurrentGradeAndQuestionFromGridRow(DataRow row)
+        private void ReadCurrentGradeAndQuestionFromGridRow(DataRowView row)
         {
             int? Id = Safe.Int(row["IdQuestion"]);
             if (Id != null)
@@ -429,7 +429,7 @@ namespace SchoolGrades_WPF
         private void btnFlushQuestion_Click(object sender, RoutedEventArgs e)
         {
             currentQuestion = null;
-            TxtQuestionText.Text = "";
+            txtQuestionText.Text = "";
         }
         //////////////private void frmMicroAssessment_FormClosing(object sender, FormClosingEventArgs e)
         //////////////{
@@ -455,13 +455,13 @@ namespace SchoolGrades_WPF
             currentGrade.IdGrade = Commons.bl.SaveMicroGrade(currentGrade);
             ShowStudentsDataAndAverages();
         }
-        private void TxtQuestionText_DoubleClick(object sender, RoutedEventArgs e)
+        private void txtQuestionText_DoubleClick(object sender, RoutedEventArgs e)
         {
             ////////frmQuestion f = new frmQuestion(frmQuestion.QuestionFormType.EditOneQuestion,
             ////////    currentQuestion, currentSchoolSubject, currentClass, null);
             ////////f.ShowDialog();
             ////////if (f.UserHasChosen)
-            ////////    TxtQuestionText.Text = f.currentQuestion.Text;
+            ////////    txtQuestionText.Text = f.currentQuestion.Text;
         }
     }
 }
