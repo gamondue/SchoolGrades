@@ -3,17 +3,8 @@ using SchoolGrades;
 using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SchoolGrades_WPF
 {
@@ -52,12 +43,12 @@ namespace SchoolGrades_WPF
             List<QuestionType> listQuestions = Commons.bl.GetListQuestionTypes(true);
             cmbQuestionType.DisplayMember = "Name";
             cmbQuestionType.ValueMember = "idQuestionType";
-            cmbQuestionType.DataSource = listQuestions;
+            cmbQuestionType.ItemsSource = listQuestions;
 
             List<SchoolSubject> listSubjects = Commons.bl.GetListSchoolSubjects(true);
             cmbSchoolSubject.DisplayMember = "Name";
             cmbSchoolSubject.ValueMember = "idSchoolSubject";
-            cmbSchoolSubject.DataSource = listSubjects;
+            cmbSchoolSubject.ItemsSource = listSubjects;
 
             currentClass = Class;
             currentSubject = Subject;
@@ -113,7 +104,7 @@ namespace SchoolGrades_WPF
                 txtWeight.Text = currentQuestion.Weight.ToString();
                 txtDifficulty.Text = currentQuestion.Difficulty.ToString();
                 tagsList = Commons.bl.TagsOfAQuestion(currentQuestion.IdQuestion);
-                lstTags.DataSource = tagsList;
+                lstTags.ItemsSource = tagsList;
                 Commons.LastTagsChosen = tagsList;
 
                 // show the path of the topic of the question 
@@ -121,7 +112,7 @@ namespace SchoolGrades_WPF
                     txtTopic.Text = dbMptt.GetNodePath(currentTopic.Id);
 
                 answersList = Commons.bl.GetAnswersOfAQuestion(currentQuestion.IdQuestion);
-                dgwAnswers.DataSource = answersList;
+                dgwAnswers.ItemsSource = answersList;
             }
             else
             {
@@ -148,7 +139,7 @@ namespace SchoolGrades_WPF
         private void RefreshData()
         {
             answersList = Commons.bl.GetAnswersOfAQuestion(currentQuestion.IdQuestion);
-            dgwAnswers.DataSource = answersList;
+            dgwAnswers.ItemsSource = answersList;
         }
 
         private void btnSaveQuestion_Click(object sender, EventArgs e)
@@ -162,13 +153,13 @@ namespace SchoolGrades_WPF
 
         private void txtQuestionText_TextChanged(object sender, EventArgs e)
         {
-            txtQuestionText.BackColor = Color.White;
+            txtQuestionText.Background = Color.White;
             currentQuestion.Text = txtQuestionText.Text;
         }
 
         private void txtWeight_TextChanged(object sender, EventArgs e)
         {
-            txtWeight.BackColor = Color.White;
+            txtWeight.Background = Color.White;
             try
             {
                 currentQuestion.Weight = int.Parse(txtWeight.Text);
@@ -182,7 +173,7 @@ namespace SchoolGrades_WPF
 
         private void txtDuration_TextChanged(object sender, EventArgs e)
         {
-            txtDuration.BackColor = Color.White;
+            txtDuration.Background = Color.White;
             try
             {
                 currentQuestion.Duration = int.Parse(txtDuration.Text);
@@ -204,8 +195,8 @@ namespace SchoolGrades_WPF
             else
             {
                 tagsList.Remove((Tag)lstTags.SelectedItem);
-                lstTags.DataSource = null;
-                lstTags.DataSource = tagsList;
+                lstTags.ItemsSource = null;
+                lstTags.ItemsSource = tagsList;
                 Commons.LastTagsChosen = tagsList;
             }
         }
@@ -219,19 +210,19 @@ namespace SchoolGrades_WPF
                 Commons.bl.AddTagToQuestion(currentQuestion.IdQuestion, t.currentTag.IdTag);
                 t.Dispose();
                 tagsList = Commons.bl.TagsOfAQuestion(currentQuestion.IdQuestion);
-                lstTags.DataSource = tagsList;
+                lstTags.ItemsSource = tagsList;
                 Commons.LastTagsChosen = tagsList;
             }
         }
 
-        private void dgwAnswers_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dgwAnswers_CellDoubleClick(object sender, RoutedEvent e)
         {
-            Answer a = answersList[e.RowIndex];
+            Answer a = answersList[RowIndex];
             frmAnswer f = new frmAnswer(a);
             f.ShowDialog();
 
             answersList = Commons.bl.GetAnswersOfAQuestion(currentQuestion.IdQuestion);
-            dgwAnswers.DataSource = answersList;
+            dgwAnswers.ItemsSource = answersList;
         }
 
         private void cmbSchoolSubject_SelectedIndexChanged(object sender, EventArgs e)
@@ -248,7 +239,7 @@ namespace SchoolGrades_WPF
             ////////{
             ////////    bgColor = Color.PowderBlue;
             ////////}
-            this.BackColor = CommonsWinForms.ColorFromNumber(currentSubject);
+            this.Background = CommonsWinForms.ColorFromNumber(currentSubject);
         }
 
         private void cmbQuestionType_SelectedIndexChanged(object sender, EventArgs e)
@@ -298,7 +289,7 @@ namespace SchoolGrades_WPF
 
         private void txtDifficulty_TextChanged(object sender, EventArgs e)
         {
-            txtDifficulty.BackColor = Color.White;
+            txtDifficulty.Background = Color.White;
             try
             {
                 currentQuestion.Difficulty = int.Parse(txtDifficulty.Text);
@@ -315,7 +306,7 @@ namespace SchoolGrades_WPF
             MessageBox.Show("Da Fare!!!!");
         }
 
-        private void dgwAnswers_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgwAnswers_CellContentClick(object sender, RoutedEvent e)
         {
 
         }
@@ -348,18 +339,18 @@ namespace SchoolGrades_WPF
             //currentQuestion.image
             currentQuestion.Text = txtQuestionText.Text;
 
-            txtQuestionText.BackColor = coloreCambiato;
-            txtDifficulty.BackColor = coloreCambiato;
-            txtDuration.BackColor = coloreCambiato;
-            txtWeight.BackColor = coloreCambiato;
-            txtQuestionText.BackColor = coloreCambiato;
-            txtTopic.BackColor = coloreCambiato;
-            txtIdQuestion.BackColor = Color.Red;
+            txtQuestionText.Background = coloreCambiato;
+            txtDifficulty.Background = coloreCambiato;
+            txtDuration.Background = coloreCambiato;
+            txtWeight.Background = coloreCambiato;
+            txtQuestionText.Background = coloreCambiato;
+            txtTopic.Background = coloreCambiato;
+            txtIdQuestion.Background = Color.Red;
         }
 
         private void txtTopic_TextChanged(object sender, EventArgs e)
         {
-            txtTopic.BackColor = Color.White;
+            txtTopic.Background = Color.White;
         }
 
         private void btnSaveAndChoose_Click(object sender, EventArgs e)
@@ -382,13 +373,13 @@ namespace SchoolGrades_WPF
                 currentQuestion.IdTopic = currentTopic.Id;
 
             Commons.bl.SaveQuestion(currentQuestion);
-            txtQuestionText.BackColor = plainColor;
-            txtIdQuestion.BackColor = plainColor;
-            txtDifficulty.BackColor = plainColor;
-            txtDuration.BackColor = plainColor;
-            txtWeight.BackColor = plainColor;
-            txtQuestionText.BackColor = plainColor;
-            txtTopic.BackColor = plainColor;
+            txtQuestionText.Background = plainColor;
+            txtIdQuestion.Background = plainColor;
+            txtDifficulty.Background = plainColor;
+            txtDuration.Background = plainColor;
+            txtWeight.Background = plainColor;
+            txtQuestionText.Background = plainColor;
+            txtTopic.Background = plainColor;
         }
     }
 }

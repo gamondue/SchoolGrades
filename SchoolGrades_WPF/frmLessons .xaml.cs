@@ -452,9 +452,11 @@ namespace SchoolGrades_WPF
         }
         //private void dgwOneLesson_CellContentClick(object sender, RoutedEventArgs e)
         //{
-        //    ////////if (e.RowIndex > -1)
+        //    ////////            DataGrid grid = (DataGrid)sender;
+        //////////int RowIndex = grid.SelectedIndex;
+        //////////    if (RowIndex > -1)
         //    ////////{
-        //    ////////    Topic row = ((List<Topic>)dgwOneLesson.ItemsSource)[e.RowIndex];
+        //    ////////    Topic row = ((List<Topic>)dgwOneLesson.ItemsSource)[RowIndex];
         //    ////////    topicTreeMptt.FindNodeById(row.Id);
         //    ////////}
         //}
@@ -557,7 +559,7 @@ namespace SchoolGrades_WPF
         private void bntLessonErase_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("Vuole davvero  eliminare la lezione:\r\n" + txtLessonCode.Text +
-                ",'" + TxtLessonDesc.Text + "'?", "Cancellazione")
+                ",'" + TxtLessonDesc.Text + "'?", "Cancellazione", MessageBoxButton.YesNo)
                 != MessageBoxResult.Yes)
             {
                 return;
@@ -588,7 +590,7 @@ namespace SchoolGrades_WPF
         {
             ////////if (Application.OpenForms[0] != null)
             ////////{
-            ////////    lblLessonTime.BackColor = ((frmMain)Application.OpenForms[0]).CurrentLessonTimeColor;
+            ////////    lblLessonTime.Background = ((frmMain)Application.OpenForms[0]).CurrentLessonTimeColor;
             ////////}
         }
         private void dgwAllLessons_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -623,7 +625,7 @@ namespace SchoolGrades_WPF
         //////{
         //////    int rowToBeSearchedIndex;
 
-        //////    if (dgwAllLessons.SelectedRows == null)
+        //////    if (dgwAllLessons.SelectedItems == null)
         //////        rowToBeSearchedIndex = 0;
         //////    else
         //////        rowToBeSearchedIndex = dgwAllLessons.SelectedItems[0].Index;
@@ -632,7 +634,7 @@ namespace SchoolGrades_WPF
         //////    bool allScanned = false;
         //////    while (!allScanned)
         //////    {
-        //////        DataGridViewRow row = dgwAllLessons.Rows[rowToBeSearchedIndex];
+        //////        DataGridRow row = dgwAllLessons.Rows[rowToBeSearchedIndex];
         //////        if (((string)row.Cells["Note"].Value).Contains(txtTopicsDigest.Text))
         //////        {
         //////            dgwAllLessons.ClearSelection();

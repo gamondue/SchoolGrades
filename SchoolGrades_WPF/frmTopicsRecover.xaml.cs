@@ -1,10 +1,11 @@
 ﻿using gamon.TreeMptt;
-using Microsoft.Win32;
 using SchoolGrades;
-using System.Collections.Generic;
-using System.Threading;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading;
 using System.Windows;
+using System.Windows.Media;
 
 namespace SchoolGrades_WPF
 {
@@ -20,13 +21,13 @@ namespace SchoolGrades_WPF
         //DbAndBusiness dbOld;
         DataLayer dl;
 
-        Color colorNewOnly = Color.LightBlue;
-        Color colorOldOnly = Color.Orange;
-        Color colorSameId = Color.Red;
-        Color colorSameName = Color.Lime;
-        Color colorSameDesc = Color.LimeGreen;
-        Color colorSameNodeChangedParent = Color.DarkOliveGreen;
-        Color colorSameNodeChangedPosition = Color.GreenYellow;
+        SolidColorBrush colorNewOnly = Brushes.LightBlue;
+        SolidColorBrush colorOldOnly = Brushes.Orange;
+        SolidColorBrush colorSameId = Brushes.Red;
+        SolidColorBrush colorSameName = Brushes.Lime;
+        SolidColorBrush colorSameDesc = Brushes.LimeGreen;
+        SolidColorBrush colorSameNodeChangedParent = Brushes.DarkOliveGreen;
+        SolidColorBrush colorSameNodeChangedPosition = Brushes.GreenYellow;
 
         public frmTopicsRecover()
         {
@@ -47,13 +48,13 @@ namespace SchoolGrades_WPF
             treeNew.AddNodesToTreeviewByBestMethod();
             treeNew.ClearBackColorOnClick = false;
 
-            picNewOnly.BackColor = colorNewOnly;
-            picOldOnly.BackColor = colorOldOnly;
-            picSameId.BackColor = colorSameId;
-            picSameName.BackColor = colorSameName;
-            picSameDesc.BackColor = colorSameDesc;
-            picSameNodeChangedParent.BackColor = colorSameNodeChangedParent;
-            picSameNodeChangedPosition.BackColor = colorSameNodeChangedPosition;
+            picNewOnly.Background = colorNewOnly;
+            picOldOnly.Background = colorOldOnly;
+            picSameId.Background = colorSameId;
+            picSameName.Background = colorSameName;
+            picSameDesc.Background = colorSameDesc;
+            picSameNodeChangedParent.Background = colorSameNodeChangedParent;
+            picSameNodeChangedPosition.Background = colorSameNodeChangedPosition;
         }
         private void btnPathNewDatabase_Click(object sender, EventArgs e)
         {
@@ -160,15 +161,15 @@ namespace SchoolGrades_WPF
                 {
                     if (topicNew.Name != topicOld.Name)
                     {
-                        nodeNew.BackColor = colorSameId;
-                        nodeOld.BackColor = colorSameId;
+                        nodeNew.Background = colorSameId;
+                        nodeOld.Background = colorSameId;
                         nodeNew.Parent.Expand();
                         nodeOld.Expand();
                     }
                     if (topicNew.Name == topicOld.Name && topicNew.Desc != topicOld.Desc)
                     {
-                        nodeNew.BackColor = colorSameName;
-                        nodeOld.BackColor = colorSameName;
+                        nodeNew.Background = colorSameName;
+                        nodeOld.Background = colorSameName;
                         try
                         {
                             nodeNew.Parent.Expand();
@@ -180,19 +181,19 @@ namespace SchoolGrades_WPF
                     {
                         if (topicNew.ParentNodeOld == topicOld.ParentNodeOld)
                         {
-                            nodeNew.BackColor = colorSameDesc;
-                            nodeOld.BackColor = colorSameDesc;
+                            nodeNew.Background = colorSameDesc;
+                            nodeOld.Background = colorSameDesc;
                         }
                         else
                         {
-                            nodeNew.BackColor = colorSameNodeChangedParent;
-                            nodeOld.BackColor = colorSameNodeChangedParent;
+                            nodeNew.Background = colorSameNodeChangedParent;
+                            nodeOld.Background = colorSameNodeChangedParent;
                         }
                     }
                     if (topicNew.ChildNumberOld == topicOld.ChildNumberOld)
                     {
-                        nodeNew.BackColor = colorSameNodeChangedPosition;
-                        nodeOld.BackColor = colorSameNodeChangedPosition;
+                        nodeNew.Background = colorSameNodeChangedPosition;
+                        nodeOld.Background = colorSameNodeChangedPosition;
                     }
                     if (indexScanNew == nodesNew.Count - 1 || indexScanOld == nodesOld.Count - 1)
                         break;
@@ -227,7 +228,7 @@ namespace SchoolGrades_WPF
                 {
                     // the current new node in not in the old tree
                     // we mark this node with "only in new" color 
-                    nodeNew.BackColor = colorNewOnly;
+                    nodeNew.Background = colorNewOnly;
                     nodeNew.Parent.Expand();
                     // we go to the next new node 
                     indexScanNew++;
@@ -273,11 +274,11 @@ namespace SchoolGrades_WPF
                 {
                     if (tOld.Name != tNew.Name || tOld.Desc != tNew.Desc)
                     {
-                        if (chkCheckChangesSameId.Checked)
+                        if (chkCheckChangesSameId.IsChecked)
                             if (MessageBox.Show("Record diversi con lo stesso Id\r\n" +
                                 "Nuovo record = " + tNew.Id + " " + tNew.Name + " " + tNew.Desc + "\r\n" +
                                 "Vecchio record = " + tOld.Id + " " + tOld.Name + " " + tOld.Desc + "\r\n" +
-                                "Sovrascrivere il nuovo record con il vecchio?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                                "Sovrascrivere il nuovo record con il vecchio?", "", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                             {
                                 // ???? should we save Left Right and Parent ????" 
                                 dlNew.UpdateTopic(tOld, null);
@@ -286,12 +287,12 @@ namespace SchoolGrades_WPF
                 }
                 else
                 {
-                    if (chkErasedId.Checked)
+                    if (chkErasedId.IsChecked)
                     {
                         if (MessageBox.Show("Id non presente nel nuovo database\r\n" +
                             "Nuovo record = " + tNew.Id + " " + tNew.Name + " " + tNew.Desc + "\r\n" +
                             "Vecchio record = " + tOld.Id + " " + tOld.Name + " " + tOld.Desc + "\r\n" +
-                            "Aggiungere il vecchio record nel nuovo database?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                            "Aggiungere il vecchio record nel nuovo database?", "", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                         {
                             // ???? should we save Left Right and Parent ????" 
                             dlNew.InsertTopic(tOld, null);
@@ -344,7 +345,7 @@ namespace SchoolGrades_WPF
 
             MessageBox.Show("Fatto");
         }
-        private void frmTopicsRecover_FormClosing(object sender, FormClosingEventArgs e)
+        private void frmTopicsRecover_FormClosing(object sender, RoutedEvent e)
         {
             // when the form closes, we restart the background saving task
             // that we have left off when this form was open

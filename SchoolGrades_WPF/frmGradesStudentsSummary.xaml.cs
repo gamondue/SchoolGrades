@@ -1,18 +1,11 @@
-﻿using SchoolGrades.BusinessObjects;
+﻿using SchoolGrades;
+using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SchoolGrades_WPF
 {
@@ -58,31 +51,31 @@ namespace SchoolGrades_WPF
             List<GradeType> listGrades = Commons.bl.GetListGradeTypes();
             cmbGradeType.DisplayMember = "Name";
             cmbGradeType.ValueMember = "idGradeType";
-            cmbGradeType.DataSource = listGrades;
+            cmbGradeType.ItemsSource = listGrades;
             cmbGradeType.SelectedValue = currentGradeType.IdGradeType;
 
             List<SchoolSubject> listSubjects = Commons.bl.GetListSchoolSubjects(false);
             cmbSchoolSubjects.DisplayMember = "Name";
             cmbSchoolSubjects.ValueMember = "idSchoolSubject";
-            cmbSchoolSubjects.DataSource = listSubjects;
+            cmbSchoolSubjects.ItemsSource = listSubjects;
             cmbSchoolSubjects.SelectedValue = currentSchoolSubject.IdSchoolSubject;
 
             List<SchoolPeriod> listPeriods = Commons.bl.GetSchoolPeriods(currentSchoolYear);
-            cmbSchoolPeriod.DataSource = listPeriods;
+            cmbSchoolPeriod.ItemsSource = listPeriods;
 
-            dgwNotes.DataSource = Commons.bl.AnnotationsAboutThisStudent(currentStudent, currentSchoolYear,
-                chkShowOnlyActive.Checked);
+            dgwNotes.ItemsSource = Commons.bl.AnnotationsAboutThisStudent(currentStudent, currentSchoolYear,
+                chkShowOnlyActive.IsChecked);
             TxtIdStudent.Text = currentStudent.IdStudent.ToString();
             RefreshData();
         }
         private void CalculateWeightedAverage()
         {
             // conviene lasciarlo qui visto che questa funzione usa DataTable, che è una classe prettamente di UI.
-            if (dgwGrades.DataSource != null)
+            if (dgwGrades.ItemsSource != null)
             {
                 double weightedAverage = 0;
                 double sumOfWeights = 0;
-                foreach (DataRow row in ((DataTable)dgwGrades.DataSource).Rows)
+                foreach (DataRow row in ((DataTable)dgwGrades.ItemsSource).Rows)
                 {
                     weightedAverage += (double)row["grade"] * (double)row["weight"];
                     sumOfWeights += (double)row["weight"];
@@ -96,9 +89,9 @@ namespace SchoolGrades_WPF
                 txtWeightedAverage.Text = "";
             }
         }
-        private void frmGradesSummary_FormClosing(object sender, FormClosingEventArgs e)
+        private void frmGradesSummary_FormClosing(object sender, RoutedEvent e)
         {
-            DataTable t = (DataTable)dgwGrades.DataSource;
+            DataTable t = (DataTable)(dgwGrades.ItemsSource);
             if (t != null)
             {
                 //t.AcceptChanges();
@@ -122,10 +115,10 @@ namespace SchoolGrades_WPF
         {
             if (cmbGradeType.SelectedItem != null && cmbSchoolSubjects.SelectedItem != null)
             {
-                dgwGrades.DataSource = Commons.bl.GetGradesOfStudent(currentStudent, currentSchoolYear,
+                dgwGrades.ItemsSource = Commons.bl.GetGradesOfStudent(currentStudent, currentSchoolYear,
                     ((GradeType)(cmbGradeType.SelectedItem)).IdGradeType,
                     ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
-                    dtpStartPeriod.Value, dtpEndPeriod.Value
+                    dtpStartPeriod.SelectedDate, dtpEndPeriod.SelectedDate
                     );
             }
             CalculateWeightedAverage();
@@ -139,7 +132,7 @@ namespace SchoolGrades_WPF
             string IdCurrentSubject = ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject;
             int col = (int)Commons.bl.GetSchoolSubject(IdCurrentSubject).Color;
             Color bgColor = Color.FromArgb((col & 0xFF0000) >> 16, (col & 0xFF00) >> 8, col & 0xFF);
-            this.BackColor = bgColor;
+            this.Background = bgColor;
             RefreshData();
         }
         private void cmbSchoolPeriod_SelectedIndexChanged(object sender, EventArgs e)
@@ -147,30 +140,32 @@ namespace SchoolGrades_WPF
             currentSchoolPeriod = (SchoolPeriod)(cmbSchoolPeriod.SelectedValue);
 
             var res = Commons.bl.CalculateStartAndEndPeriod(currentSchoolPeriod);
-            dtpStartPeriod.Value = res.startPeriod;
-            dtpEndPeriod.Value = res.endPeriod;
+            dtpStartPeriod.SelectedDate = res.startPeriod;
+            dtpEndPeriod.SelectedDate = res.endPeriod;
 
             RefreshData();
         }
-        private void dgwGrades_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgwGrades_CellContentClick(object sender, RoutedEvent e)
         {
 
         }
-        private void dgwVoti_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        private void dgwVoti_CellEndEdit(object sender, RoutedEvent e)
         {
             CalculateWeightedAverage();
         }
-        private void dgwGrades_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dgwGrades_CellDoubleClick(object sender, RoutedEvent e)
         {
             frmGrade f = new frmGrade(currentStudent, currentGrade);
             f.Show();
         }
-        private void dgwGrades_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dgwGrades_CellClick(object sender, RoutedEvent e)
         {
-            if (e.RowIndex > 0)
+            DataGrid grid = (DataGrid)sender;
+            int RowIndex = grid.SelectedIndex;
+            if (RowIndex > -1)
             {
-                dgwGrades.Rows[e.RowIndex].Selected = true;
-                currentGrade.IdGrade = (int?)dgwGrades.Rows[e.RowIndex].Cells["IdGrade"].Value;
+                dgwGrades.Items[RowIndex].Selected = true;
+                currentGrade.IdGrade = (int?)dgwGrades.Items[RowIndex].Cells["IdGrade"].Value;
                 currentGrade = Commons.bl.GetGrade(currentGrade.IdGrade);
             }
         }

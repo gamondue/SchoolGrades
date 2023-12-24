@@ -126,7 +126,7 @@ namespace SchoolGrades_WPF
             {
             }
 
-            //this.BackColor = CommonsWpf.ColorFromNumber(currentSchoolSubject);
+            //this.Background = CommonsWpf.ColorFromNumber(currentSchoolSubject);
             Color BackColor = CommonsWpf.ColorFromNumber(currentSchoolSubject);
             this.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(BackColor.A, BackColor.R, BackColor.G, BackColor.B));
             LessonTimer.Interval = new TimeSpan(0, 0, 1);
@@ -437,7 +437,7 @@ namespace SchoolGrades_WPF
         //////////////}
         private void LessonTimer_Tick(object sender, RoutedEventArgs e)
         {
-            ////////lblLessonTime.BackColor = ((frmMain)Application.OpenForms[0]).CurrentLessonTimeColor;
+            ////////lblLessonTime.Background = ((frmMain)Application.OpenForms[0]).CurrentLessonTimeColor;
         }
         private void BtnSaveGrade(object sender, RoutedEventArgs e)
         {

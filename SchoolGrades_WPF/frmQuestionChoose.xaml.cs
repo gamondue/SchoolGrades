@@ -1,10 +1,10 @@
-﻿using gamon.TreeMptt;
-using SchoolGrades;
+﻿using SchoolGrades;
 using SchoolGrades.BusinessObjects;
 using Shared;
 using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 //using gamon.TreeMptt;
 
@@ -61,7 +61,7 @@ namespace SchoolGrades_WPF
             {
                 //currentTopic = Commons.bl.GetTopicById(Question.IdTopic);
             }
-            frmQuestionChoose_Loaded(); 
+            frmQuestionChoose_Loaded();
         }
         private void frmQuestionChoose_Loaded()
         {
@@ -359,19 +359,23 @@ namespace SchoolGrades_WPF
             if (txtSearchText.Text.Length > 3)
                 updateQuestions();
         }
-        //private void dgwQuestions_CellClick(object sender, DataGridViewCellEventArgs e)
+        //private void dgwQuestions_CellClick(object sender, RoutedEvent e)
         //{
-        //    if (e.RowIndex > -1)
+        //                DataGrid grid = (DataGrid)sender;
+        //int RowIndex = grid.SelectedIndex;
+        //    if (RowIndex > -1)
         //    {
-        //        dgwQuestions.Rows[e.RowIndex].Selected = true;
+        //        dgwQuestions.Rows[RowIndex].Selected = true;
         //    }
         //}
         private void dgwQuestions_CellDoubleClick(object sender, RoutedEventArgs e)
         {
-            if (e.RowIndex > -1)
+            DataGrid grid = (DataGrid)sender;
+            int RowIndex = grid.SelectedIndex;
+            if (RowIndex > -1)
             {
-                List<Question> ls = (List<Question>)(dgwQuestions.DataSource);
-                Question question = ls[e.RowIndex];
+                List<Question> ls = (List<Question>)(dgwQuestions.ItemsSource);
+                Question question = ls[RowIndex];
 
                 Topic topic = Commons.bl.GetTopicById(question.IdTopic);
 
@@ -388,7 +392,7 @@ namespace SchoolGrades_WPF
         private void LessonTimer_Tick(object sender, EventArgs e)
         {
             //// TODO !!!! avoid this interrupt when the timer is disabled in main form !!!!
-            //LblLessonTime.BackColor = ((frmMain)Application.OpenForms[0]).CurrentLessonTimeColor;
+            //LblLessonTime.Background = ((frmMain)Application.OpenForms[0]).CurrentLessonTimeColor;
         }
         //private void btnSearch_Click(object sender, EventArgs e)
         //{
@@ -396,8 +400,8 @@ namespace SchoolGrades_WPF
         //}
         private void btnQuestionsDone_Click(object sender, EventArgs e)
         {
-            //dgwQuestions.DataSource = db.GetFilteredQuestions(tagsList, keySubject,
-            //    keyQuestionType, currentTopic, rdbManyTopics.Checked, rdbAnd.Checked);
+            //dgwQuestions.ItemsSource = db.GetFilteredQuestions(tagsList, keySubject,
+            //    keyQuestionType, currentTopic, rdbManyTopics.IsChecked, rdbAnd.IsChecked);
             DateTime dateFrom = dtpStartPeriod.Value;
             DateTime dateTo = dtpEndPeriod.Value;
             if (cmbSchoolPeriod.Text == "")
@@ -408,9 +412,9 @@ namespace SchoolGrades_WPF
                 currentTopic = new Topic();
             List<Question> l = Commons.bl.GetFilteredQuestionsAskedToClass(currentClass,
                 currentSubject, keyQuestionType, tagsList, currentTopic,
-                rdbManyTopics.Checked, rdbAnd.Checked, txtSearchText.Text,
+                rdbManyTopics.IsChecked, rdbAnd.IsChecked, txtSearchText.Text,
                 dateFrom, dateTo);
-            dgwQuestions.DataSource = l;
+            dgwQuestions.ItemsSource = l;
         }
         private void btnKnotsToTheComb_Click(object sender, EventArgs e)
         {

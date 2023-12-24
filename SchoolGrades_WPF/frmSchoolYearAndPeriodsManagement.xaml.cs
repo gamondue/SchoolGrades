@@ -1,6 +1,5 @@
 ﻿using SchoolGrades;
 using SchoolGrades.BusinessObjects;
-using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -66,9 +65,11 @@ namespace SchoolGrades_WPF
 
         //private void dgwSchoolPeriods_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         //{
-        //    if (e.RowIndex > -1)
+        //                DataGrid grid = (DataGrid)sender;
+        //int RowIndex = grid.SelectedIndex;
+        //    if (RowIndex > -1)
         //    {
-        //        dgwSchoolPeriods.Rows[e.RowIndex].Selected = true;
+        //        dgwSchoolPeriods.Rows[RowIndex].Selected = true;
         //        WriteToUi();
         //    }
         //}
@@ -98,13 +99,6 @@ namespace SchoolGrades_WPF
             }
             RefreshGrid();
         }
-
-
-
-
-
-
-
         private void RefreshGrid()
         {
             dgwSchoolPeriods.ItemsSource = Commons.bl.GetSchoolPeriods(null);

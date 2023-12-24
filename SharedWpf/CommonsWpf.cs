@@ -56,8 +56,8 @@ namespace Shared
             //////////                NamesAndValues += ((CheckBox)c).IsChecked.ToString();
             //////////            else
             //////////                ////////////NamesAndValues += c.Text;
-            //////////                //if (c is DataGridView)
-            //////////                //    SaveTableContent((DataGridView)c);
+            //////////                //if (c is DataGrid)
+            //////////                //    SaveTableContent((DataGrid)c);
             //////////                NamesAndValues += "\n";
             //////////        }
             //////////    }
@@ -111,8 +111,8 @@ namespace Shared
             //////////            }
             //////////            else
             //////////            {
-            //////////                //if (c is DataGridView)
-            //////////                //    RestoreTableContent((DataGridView)c);
+            //////////                //if (c is DataGrid)
+            //////////                //    RestoreTableContent((DataGrid)c);
             //////////                if (c is TextBox)
             //////////                    ((TextBox)c).Text = NamesAndValues[Index, 1];
             //////////                else if (c is RadioButton)
@@ -139,7 +139,7 @@ namespace Shared
             //DataSet ds = new DataSet("DataSet_" + grid.Name);
             //ds.ReadXml(Comuni.PathFileConfigurazione + fileIni);
             //DataTable dt = ds.Tables[0];
-            //grid.DataSource = dt;
+            //grid.ItemsSource = dt;
 
             ////////string fileIni = ComuniZ.PrefissoAzienda + grid.Name + ".ini";
 
@@ -173,7 +173,7 @@ namespace Shared
             //}
             //object[] cellValues = new object[grid.Columns.Count];
             //// valori
-            //foreach (DataGridViewRow rigaGrid in grid.Rows)
+            //foreach (DataGridRow rigaGrid in grid.Rows)
             //{
             //    for (int i = 0; i < rigaGrid.Cells.Count; i++)
             //    {

@@ -1,18 +1,8 @@
 ﻿using SchoolGrades.BusinessObjects;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SchoolGrades_WPF
 {
@@ -61,13 +51,13 @@ namespace SchoolGrades_WPF
             txtBirthDate.Text = currentStudent.BirthDate.ToString();
             txtBirthPlace.Text = currentStudent.BirthPlace;
             if (currentStudent.Disabled != null)
-                chkDisabled.Checked = (bool)currentStudent.Disabled;
+                chkDisabled.IsChecked = (bool)currentStudent.Disabled;
             else
-                chkDisabled.Checked = false;
+                chkDisabled.IsChecked = false;
             if (currentStudent.HasSpecialNeeds != null)
-                chkHasSpecialNeeds.Checked = (bool)currentStudent.HasSpecialNeeds;
+                chkHasSpecialNeeds.IsChecked = (bool)currentStudent.HasSpecialNeeds;
             else
-                chkHasSpecialNeeds.Checked = false;
+                chkHasSpecialNeeds.IsChecked = false;
 
             loadPicture(currentStudent);
         }
@@ -94,8 +84,8 @@ namespace SchoolGrades_WPF
                 currentStudent.Residence = txtResidence.Text;
                 currentStudent.Origin = txtOrigin.Text;
                 currentStudent.Email = txtEmail.Text;
-                currentStudent.Disabled = chkDisabled.Checked;
-                currentStudent.HasSpecialNeeds = chkHasSpecialNeeds.Checked;
+                currentStudent.Disabled = chkDisabled.IsChecked;
+                currentStudent.HasSpecialNeeds = chkHasSpecialNeeds.IsChecked;
                 try
                 {
                     currentStudent.BirthDate = DateTime.Parse(txtBirthDate.Text);
@@ -143,36 +133,40 @@ namespace SchoolGrades_WPF
         private void btnFindStudent_Click(object sender, EventArgs e)
         {
             DataTable dt = Commons.bl.FindStudentsLike(txtLastName.Text, txtFirstName.Text);
-            dgwSearchedStudents.DataSource = dt;
+            dgwSearchedStudents.ItemsSource = dt;
         }
 
         private void btnFindHomonym_Click(object sender, EventArgs e)
         {
             DataTable dt = Commons.bl.GetStudentsSameName(txtLastName.Text, txtFirstName.Text);
-            dgwSearchedStudents.DataSource = dt;
+            dgwSearchedStudents.ItemsSource = dt;
         }
 
-        private void dgwSearchedStudents_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dgwSearchedStudents_CellClick(object sender, RoutedEvent e)
         {
-            if (e.RowIndex > -1)
+            DataGrid grid = (DataGrid)sender;
+            int RowIndex = grid.SelectedIndex;
+            if (RowIndex > -1)
             {
-                int key = (int)((DataTable)(dgwSearchedStudents.DataSource)).Rows[e.RowIndex]["idStudent"];
+                int key = (int)((DataTable)(dgwSearchedStudents.ItemsSource)).Rows[RowIndex]["idStudent"];
                 Student s = Commons.bl.GetStudent(key);
                 loadStudentData(s);
                 currentStudent = s;
             }
         }
 
-        private void dgwSearchedStudents_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgwSearchedStudents_CellContentClick(object sender, RoutedEvent e)
         {
 
         }
 
-        private void dgwSearchedStudents_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dgwSearchedStudents_CellDoubleClick(object sender, RoutedEvent e)
         {
-            if (e.RowIndex > -1)
+            DataGrid grid = (DataGrid)sender;
+            int RowIndex = grid.SelectedIndex;
+            if (RowIndex > -1)
             {
-                int key = (int)((DataTable)(dgwSearchedStudents.DataSource)).Rows[e.RowIndex]["idStudent"];
+                int key = (int)((DataTable)(dgwSearchedStudents.ItemsSource)).Rows[RowIndex]["idStudent"];
                 Student s = Commons.bl.GetStudent(key);
                 loadStudentData(s);
                 currentStudent = s;

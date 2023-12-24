@@ -12,6 +12,6 @@
             <RowDefinition Height="7*"></RowDefinition>
         </Grid.RowDefinitions>
         <Label FontSize="20" FontWeight="Bold" Foreground="DarkBlue">Annotazioni in evidenza</Label>
-        <DataGrid Name="dgStudentsAllPopUpAnnotations" Grid.Row="1" Background="Gray"></DataGrid>
+        <DataGrid x:Name="dgwStudentsAllPopUpAnnotations" Grid.Row="1" Background="Gray"></DataGrid>
     </Grid>
 </Window>

@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SchoolGrades;
+using SchoolGrades.BusinessObjects;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SchoolGrades_WPF
 {
@@ -42,7 +35,7 @@ namespace SchoolGrades_WPF
             // fills the lookup tables' combos
             cmbSchoolSubject.DisplayMember = "Name";
             cmbSchoolSubject.ValueMember = "idSchoolSubject";
-            cmbSchoolSubject.DataSource = Commons.dl.GetListSchoolSubjects(true);
+            cmbSchoolSubject.ItemsSource = Commons.dl.GetListSchoolSubjects(true);
 
             currentSubject = SchoolSubject;
             ChosenQuestion = null;
@@ -55,44 +48,48 @@ namespace SchoolGrades_WPF
         }
         private void RefreshData()
         {
-            dgwQuestions.DataSource = Commons.dl.GetUnfixedGrades(currentStudent, currentSubject.IdSchoolSubject, 60);
+            dgwQuestions.ItemsSource = Commons.dl.GetUnfixedGrades(currentStudent, currentSubject.IdSchoolSubject, 60);
         }
-        private void DgwQuestions_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void DgwQuestions_CellContentClick(object sender, RoutedEvent e)
         {
 
         }
-        private void DgwQuestions_RowEnter(object sender, DataGridViewCellEventArgs e)
+        private void DgwQuestions_RowEnter(object sender, RoutedEvent e)
         {
-            if (e.RowIndex > -1)
+            DataGrid grid = (DataGrid)sender;
+            int RowIndex = grid.SelectedIndex;
+            if (RowIndex > -1)
             {
-                DataGridViewRow r = dgwQuestions.Rows[e.RowIndex];
+                DataGridRow r = dgwQuestions.Rows[RowIndex];
                 txtQuestionText.Text = (string)r.Cells["Text"].Value;
                 currentIdGrade = (int)r.Cells["IdQuestion"].Value;
             }
         }
-        private void DgwQuestions_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void DgwQuestions_CellClick(object sender, RoutedEvent e)
         {
-            if (e.RowIndex > -1)
+            DataGrid grid = (DataGrid)sender;
+            int RowIndex = grid.SelectedIndex;
+            if (RowIndex > -1)
             {
-                dgwQuestions.Rows[e.RowIndex].Selected = true;
+                dgwQuestions.Rows[RowIndex].Selected = true;
             }
         }
-        private void DgwQuestions_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void DgwQuestions_CellDoubleClick(object sender, RoutedEvent e)
         {
             // choose this question
             // !!!! TODO !!!!
         }
         private void BtnFix_Click(object sender, EventArgs e)
         {
-            if (dgwQuestions.SelectedRows.Count == 0)
+            if (dgwQuestions.SelectedItems.Count == 0)
             {
                 MessageBox.Show("Selezionare la domanda che è stata riparata");
                 return;
             }
-            DataGridViewRow r = dgwQuestions.SelectedRows[0];
+            DataGridRow r = dgwQuestions.SelectedItems[0];
             currentIdGrade = (int)r.Cells["IdGrade"].Value;
             if (MessageBox.Show("La domanda '" + (string)r.Cells["Text"].Value + "' è stata riparata?", "Riparazione domanda",
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 Commons.bl.FixQuestionInGrade(currentIdGrade);
                 RefreshData();
@@ -100,10 +97,10 @@ namespace SchoolGrades_WPF
         }
         private void btnChoose_Click(object sender, EventArgs e)
         {
-            if (dgwQuestions.SelectedRows.Count > 0)
+            if (dgwQuestions.SelectedItems.Count > 0)
             {
-                //int key = int.Parse(dgwQuestions.SelectedRows[0].Cells[6].Value.ToString());
-                int key = (int)dgwQuestions.SelectedRows[0].Cells[6].Value;
+                //int key = int.Parse(dgwQuestions.SelectedItems[0].Cells[6].Value.ToString());
+                int key = (int)dgwQuestions.SelectedItems[0].Cells[6].Value;
                 ChosenQuestion = Commons.bl.GetQuestionById(key);
                 if (grandparentForm != null)
                 {
@@ -122,7 +119,7 @@ namespace SchoolGrades_WPF
         private void cmbSchoolSubject_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentSubject = (SchoolSubject)cmbSchoolSubject.SelectedItem;
-            this.BackColor = CommonsWinForms.ColorFromNumber(currentSubject);
+            this.Background = CommonsWinForms.ColorFromNumber(currentSubject);
             RefreshData();
         }
     }

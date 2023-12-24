@@ -1,17 +1,10 @@
-﻿using System;
+﻿using SchoolGrades;
+using SchoolGrades.BusinessObjects;
+using System;
 using System.Collections.Generic;
-using System.Formats.Asn1;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SchoolGrades_WPF
 {
@@ -59,7 +52,7 @@ namespace SchoolGrades_WPF
 
             }
             List<SchoolPeriod> listPeriods = Commons.bl.GetSchoolPeriods(currentClass.SchoolYear);
-            cmbSchoolPeriod.DataSource = listPeriods;
+            cmbSchoolPeriod.ItemsSource = listPeriods;
             // select the combo item of the partial period of the DateTime.Now
             foreach (SchoolPeriod sp in listPeriods)
             {
@@ -80,8 +73,8 @@ namespace SchoolGrades_WPF
             topicsDone = Commons.bl.GetTopicsDoneInPeriod(currentClass, currentSubject,
                 dateFrom, dtpEndPeriod.Value);
 
-            dgwTopics.DataSource = topicsDone;
-            //if (chkVisualizePath.Checked)
+            dgwTopics.ItemsSource = topicsDone;
+            //if (chkVisualizePath.IsChecked)
             //    dgwTopics.Columns[0].Visible = true;
             //else
             //    dgwTopics.Columns[0].Visible = false;
@@ -100,22 +93,24 @@ namespace SchoolGrades_WPF
             dgwTopics.Columns[11].Visible = false;
             dgwTopics.Columns[12].Visible = false;
         }
-        private void dgwTopics_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgwTopics_CellContentClick(object sender, RoutedEvent e)
         {
 
         }
-        private void dgwTopics_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dgwTopics_CellContentDoubleClick(object sender, RoutedEvent e)
         {
-            if (e.RowIndex > -1)
+            DataGrid grid = (DataGrid)sender;
+            int RowIndex = grid.SelectedIndex;
+            if (RowIndex > -1)
             {
-                DataGridViewRow value = dgwTopics.Rows[e.RowIndex];
+                DataGridRow value = dgwTopics.Rows[RowIndex];
                 switch (formType)
                 {
                     case (TopicChooseFormType.ChooseTopicOnExit):
                         {
                             if (value != null)
                             {
-                                TopicChosen = topicsDone[e.RowIndex];
+                                TopicChosen = topicsDone[RowIndex];
                                 this.Close();
                             }
                             break;
@@ -123,11 +118,11 @@ namespace SchoolGrades_WPF
                     case (TopicChooseFormType.OpenTopicOnExit):
                         {
                             List<Topic> oneItemList = new List<Topic>();
-                            oneItemList.Add(topicsDone[e.RowIndex]);
+                            oneItemList.Add(topicsDone[RowIndex]);
                             frmTopics t = new frmTopics(frmTopics.TopicsFormType.HighlightTopics,
                                 currentClass, currentSubject, null, oneItemList);
                             t.ShowDialog();
-                            t.Dispose();
+                            //t.Dispose();
                             break;
                         }
                 }
@@ -151,14 +146,14 @@ namespace SchoolGrades_WPF
         }
         private void btnChoose_Click(object sender, EventArgs e)
         {
-            if (dgwTopics.SelectedRows.Count == 0)
+            if (dgwTopics.SelectedItems.Count == 0)
             {
                 MessageBox.Show("Scegliere un argomento nella griglia");
                 return;
             }
-            int rowIndex = dgwTopics.SelectedRows[0].Index;
-            //DataRow row = ((DataTable)(dgwTopics.DataSource)).Rows[rowIndex];
-            DataGridViewRow value = dgwTopics.Rows[rowIndex];
+            int rowIndex = dgwTopics.SelectedItems[0].Index;
+            //DataRow row = ((DataTable)(dgwTopics.ItemsSource)).Rows[rowIndex];
+            DataGridRow value = dgwTopics.Rows[rowIndex];
             switch (formType)
             {
                 case (TopicChooseFormType.ChooseTopicOnExit):
@@ -206,11 +201,13 @@ namespace SchoolGrades_WPF
                 dtpEndPeriod.Value = DateTime.Now;
             }
         }
-        private void dgwTopics_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dgwTopics_CellClick(object sender, RoutedEvent e)
         {
-            if (e.RowIndex > -1)
+            DataGrid grid = (DataGrid)sender;
+            int RowIndex = grid.SelectedIndex;
+            if (RowIndex > -1)
             {
-                dgwTopics.Rows[e.RowIndex].Selected = true;
+                dgwTopics.Rows[RowIndex].Selected = true;
             }
         }
     }

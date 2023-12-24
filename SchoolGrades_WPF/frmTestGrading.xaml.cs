@@ -1,7 +1,8 @@
 ﻿using SchoolGrades.BusinessObjects;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace SchoolGrades_WPF
 {
@@ -189,9 +190,11 @@ namespace SchoolGrades_WPF
             dgwTestResults.Rows.Clear();
             GradeTest();
         }
-        private void dgwTestResults_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgwTestResults_CellContentClick(object sender, RoutedEvent e)
         {
-            if (e.RowIndex > -1)
+            DataGrid grid = (DataGrid)sender;
+            int RowIndex = grid.SelectedIndex;
+            if (RowIndex > -1)
             {
                 txtCurrentCell.Text = dgwTestResults.SelectedCells[0].Value.ToString();
             }

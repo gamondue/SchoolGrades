@@ -13,7 +13,7 @@
             //////////if (field is CheckState)
             //////////{
             //////////    CheckState f = (CheckState)field;
-            //////////    if (f == CheckState.Checked)
+            //////////    if (f == CheckState.IsChecked)
             //////////        return true;
             //////////    if (f == CheckState.Unchecked)
             //////////        return false;

@@ -150,27 +150,27 @@ namespace gamon.TreeMptt
                 txtNodeDescription.LostFocus += TxtNodeDescription_Leave;
                 if (chkSearchInDescriptions != null)
                 {
-                    chkSearchInDescriptions.Checked += SearchCheckBoxes_CheckedChanged;
+                    chkSearchInDescriptions.IsChecked += SearchCheckBoxes_CheckedChanged;
                     chkSearchInDescriptions.Unchecked += SearchCheckBoxes_CheckedChanged;
                 }
                 if (chkAllWord != null)
                 {
-                    chkAllWord.Checked += SearchCheckBoxes_CheckedChanged;
+                    chkAllWord.IsChecked += SearchCheckBoxes_CheckedChanged;
                     chkAllWord.Unchecked += SearchCheckBoxes_CheckedChanged;
                 }
                 if (chkCaseInsensitive != null)
                 {
-                    chkCaseInsensitive.Checked += SearchCheckBoxes_CheckedChanged;
+                    chkCaseInsensitive.IsChecked += SearchCheckBoxes_CheckedChanged;
                     chkCaseInsensitive.Unchecked += SearchCheckBoxes_CheckedChanged;
                 }
                 if (chkMarkAllNodesFound != null)
                 {
-                    chkMarkAllNodesFound.Checked += chkMarkAllTopicsFound_CheckedChanged;
+                    chkMarkAllNodesFound.IsChecked += chkMarkAllTopicsFound_CheckedChanged;
                     chkMarkAllNodesFound.Unchecked += chkMarkAllTopicsFound_CheckedChanged;
                 }
                 if (chkVerbatimString != null)
                 {
-                    chkVerbatimString.Checked += chkVerbatimString_CheckedChanged;
+                    chkVerbatimString.IsChecked += chkVerbatimString_CheckedChanged;
                     chkVerbatimString.Unchecked += chkVerbatimString_CheckedChanged;
                 }
                 //}
@@ -965,7 +965,7 @@ namespace gamon.TreeMptt
                     if (bl.IsTopicAlreadyTaught((Topic)te.Tag))
                     {
                         //if (MessageBox.Show("Questo argomento è già stato fatto in qualche lezione\n" +
-                        //    "Lo cancello lo stesso?", "Attenzione!", MessageBoxButtons.YesNo,
+                        //    "Lo cancello lo stesso?", "Attenzione!", MessageBoxButton.YesNo,
                         //    MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) ==
                         //    MessageBoxResult.No)
                         if (MessageBox.Show("Questo argomento è già stato fatto in qualche lezione\n" +
@@ -1183,7 +1183,7 @@ namespace gamon.TreeMptt
         }
         internal void shownTreeView_AfterCheck(object sender, RoutedEventArgs e)
         {
-            //////////if (e.Node.Checked)
+            //////////if (e.Node.IsChecked)
             //////////{
             //////////    if (txtSearchString != null)
             //////////    {
@@ -1241,7 +1241,7 @@ namespace gamon.TreeMptt
                 )
             {
                 //if (MessageBox.Show("Testo formattato come un albero di FreeMind.\nDevo importare un sottoalbero in questo punto?",
-                //    "", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                //    "", MessageBoxButton.YesNo, MessageBoxImage.Question,
                 //    MessageBoxDefaultButton.Button1)
                 //    == MessageBoxResult.Yes)
                 if (MessageBox.Show("Testo formattato come un albero di FreeMind.\nDevo importare un sottoalbero in questo punto?")

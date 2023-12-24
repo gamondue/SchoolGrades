@@ -27,7 +27,7 @@ namespace SchoolGrades_WPF
             this.label1.Text = Label1;
             this.label2.Text = Label2;
             this.label3.Text = Label3;
-            this.BackColor = BackColor;
+            this.Background = BackColor;
             if (ThirdIsPassword)
                 txtInput3.PasswordChar = '*';
         }

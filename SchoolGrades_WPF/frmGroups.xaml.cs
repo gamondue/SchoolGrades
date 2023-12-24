@@ -45,7 +45,7 @@ namespace SchoolGrades_WPF
             schoolGrade = Grade;
 
             List<SchoolPeriod> listPeriods = Commons.bl.GetSchoolPeriods(Class.SchoolYear);
-            cmbSchoolPeriod.DataSource = listPeriods;
+            cmbSchoolPeriod.ItemsSource = listPeriods;
             // select the combo item of the partial period of the DateTime.Now
             foreach (SchoolPeriod sp in listPeriods)
             {
@@ -88,15 +88,15 @@ namespace SchoolGrades_WPF
 
             List<Student> ordered = new();
 
-            if (rbdGroupsRandom.Checked)
+            if (rbdGroupsRandom.IsChecked)
             {
                 ordered = Commons.bl.OrderStudentsByRandom(listGroups);
             }
-            else if (rdbGroupsBestGradesTogether.Checked)
+            else if (rdbGroupsBestGradesTogether.IsChecked)
             {
 
             }
-            else if (rdbGradesBalanced.Checked)
+            else if (rdbGradesBalanced.IsChecked)
             {
 
             }
@@ -232,17 +232,17 @@ namespace SchoolGrades_WPF
         }
         private void rbdTypeOfGroupings_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbdGroupsRandom.Checked)
+            if (rbdGroupsRandom.IsChecked)
             {
-                grpPeriodOfQuestionsTopics.Enabled = false;
+                grpPeriodOfQuestionsTopics.IsEnabled = false;
             }
-            else if (rdbGroupsBestGradesTogether.Checked)
+            else if (rdbGroupsBestGradesTogether.IsChecked)
             {
-                grpPeriodOfQuestionsTopics.Enabled = true;
+                grpPeriodOfQuestionsTopics.IsEnabled = true;
             }
-            else if (rdbGradesBalanced.Checked)
+            else if (rdbGradesBalanced.IsChecked)
             {
-                grpPeriodOfQuestionsTopics.Enabled = true;
+                grpPeriodOfQuestionsTopics.IsEnabled = true;
             }
         }
 

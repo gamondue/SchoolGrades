@@ -1,10 +1,10 @@
-﻿using SchoolGrades.BusinessObjects;
-using System.Windows;
-using gamon;
+﻿using gamon;
+using SchoolGrades;
+using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using SchoolGrades;
+using System.Windows;
 
 namespace SchoolGrades_WPF
 {
@@ -241,9 +241,9 @@ namespace SchoolGrades_WPF
             //if (MessageBox.Show("Verranno generate due classi demo nell'anno corrente, " +
             //    "con i dati manipolati della classe selezionata e di quella PRIMA nella lista, e le foto " +
             //    "prese da " + Commons.PathImages + "\\DemoPictures.\n\nDevo procedere con la generazione (Sì)" +
-            //" od interrompere (No)?", "Continua?", MessageBoxButtons.YesNo,
-            //MessageBoxIcon.Question,
-            //MessageBoxDefaultButton.Button2) != DialogResult.Yes)
+            //" od interrompere (No)?", "Continua?", MessageBoxButton.YesNo,
+            //MessageBoxImage.Question,
+            //MessageBoxDefaultButton.Button2) != MessageBoxResult.Yes)
             return;
 
             Class otherClass = (Class)lstClasses.Items[lstClasses.SelectedIndex - 1];
@@ -259,8 +259,8 @@ namespace SchoolGrades_WPF
             //{
             //if (System.Windows.Forms.MessageBox.Show("Il file " + newDatabaseFullName + " esiste già." +
             //"\nDevo re-inizializzarlo (Sì) o non creare il database (No)?", "",
-            //System.Windows.Forms.MessageBoxButtons.YesNo,
-            //MessageBoxIcon.Question) == DialogResult.Yes)
+            //System.Windows.Forms.MessageBoxButton.YesNo,
+            //MessageBoxImage.Question) == MessageBoxResult.Yes)
             //{
             // File.Delete(newDatabaseFullName);
             //}
@@ -287,8 +287,8 @@ namespace SchoolGrades_WPF
                 //!!!!TODO make the next code indipendent from UI!!!!
                 //       if (System.Windows.Forms.MessageBox.Show("Il file " + newDatabaseFullName + " esiste già." +
                 //           "\nDevo re-inizializzarlo (Sì) o non creare il database (No)?", "",
-                //           System.Windows.Forms.MessageBoxButtons.YesNo,
-                //           MessageBoxIcon.Question) == DialogResult.Yes)
+                //           System.Windows.Forms.MessageBoxButton.YesNo,
+                //           MessageBoxImage.Question) == MessageBoxResult.Yes)
                 //       {
                 //           File.Delete(newDatabaseFullName);
                 //       }

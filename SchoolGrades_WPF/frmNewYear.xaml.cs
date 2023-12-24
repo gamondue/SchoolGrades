@@ -137,7 +137,7 @@ namespace SchoolGrades_WPF
                 txtClassDescriptionNext.Text = currentSchool.Desc + " " + txtSchoolYearNext.Text + " " + txtClassAbbreviationNext.Text;
 
             List<Student> SelectedStudents = new List<Student>();
-            //foreach (DataGridViewRow r in DgwStudents.Rows)
+            //foreach (DataGridRow r in DgwStudents.Rows)
             //{
             //    // don't include students whose rows are non checked
             //    if ((bool)r.Cells["SaveThisStudent"].Value == true)
