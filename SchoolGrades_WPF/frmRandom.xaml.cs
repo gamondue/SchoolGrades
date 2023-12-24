@@ -19,9 +19,23 @@ namespace SchoolGrades_WPF
     /// </summary>
     public partial class frmRandom : Window
     {
+        Random rnd = new Random();
         public frmRandom()
         {
             InitializeComponent();
         }
+        private void btnDraw_Click(object sender, EventArgs e)
+        {
+            // !!!! TODO protect program from user's bad input !!!! 
+            //int randomNumber = rnd.Next(int.Parse(txtFrom.Text), int.Parse(txtTo.Text.ToString())+1);
+            int randomNumber = Commons.bl.RandomNumber(int.Parse(txtFrom.Text), int.Parse(txtTo.Text.ToString()) + 1);
+            txtResult.Text = randomNumber.ToString();
+            if (txtResult.BackColor == Color.Goldenrod)
+                txtResult.BackColor = Color.YellowGreen;
+            else
+                txtResult.BackColor = Color.Goldenrod;
+            Clipboard.SetText(txtResult.Text);
+        }
+
     }
 }

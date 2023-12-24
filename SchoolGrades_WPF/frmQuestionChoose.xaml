@@ -39,7 +39,7 @@
             </StackPanel>
             <StackPanel Grid.Column="2" Margin="5,0">
                 <Label Name="lblSearchText">Testo da ricercare</Label>
-                <TextBox Name="txtSearchText"></TextBox>
+                <TextBox Name="txtSearchText" TextChanged="txtSearchText_TextChanged"></TextBox>
             </StackPanel>
             <StackPanel Grid.Row="1" Orientation="Horizontal" Grid.ColumnSpan="3">
                 <StackPanel>
@@ -73,9 +73,9 @@
             <Grid Grid.Column="3" Grid.RowSpan="3">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
-                        <Button Height="20" Width="55" Margin="5">Cerca</Button>
-                        <Button Height="20" Width="55" Margin="5">Pettine</Button>
-                        <Button Height="20" Width="55" Margin="5">Fatte</Button>
+                        <Button x:Name="btnSearch" Height="20" Width="55" Margin="5" Click="Button_Click">Cerca</Button>
+                        <Button x:Name="btnKnotsToTheComb" Height="20" Width="55" Margin="5" Click="btnKnotsToTheComb_Click_1">Pettine</Button>
+                        <Button x:Name="btnQuestionsDone" Height="20" Width="55" Margin="5">Fatte</Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <StackPanel>

@@ -168,7 +168,7 @@
                         </Grid.RowDefinitions>
                         <Button Name="btnAddAnswer" HorizontalAlignment="Left" Width="40">+</Button>
                         <Button Name="btnImportQuestions" HorizontalAlignment="Right">Importa domande da file</Button>
-                        <DataGrid Grid.Row="1" Background="Gray" Margin="5"></DataGrid>
+                        <DataGrid x:Name="dgwAnswers" Grid.Row="1" Background="Gray" Margin="5"></DataGrid>
                     </Grid>
                 </GroupBox>
             </Grid>

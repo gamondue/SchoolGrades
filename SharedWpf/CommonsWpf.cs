@@ -232,18 +232,13 @@ namespace Shared
         {
             // lights on or off the Rectangle used as an Activity LED 
 
-            //globalPicLed.Invoke(new Action(() =>
-            //{
-            //    if (IsLedLit)
-            //        globalPicLed.Fill = Brushes.Red;           // LED lit
-            //    else
-            //        globalPicLed.Fill = Brushes.DarkGray;      // LED off
-            //}));
-
-            if (IsLedLit)
-                globalPicLed.Fill = Brushes.Red;           // LED lit
-            else
-                globalPicLed.Fill = Brushes.DarkGray;      // LED off
+            //////////globalPicLed.Invoke(new Action(() =>
+            //////////{
+            //////////    if (IsLedLit)
+            //////////        globalPicLed.Fill = Brushes.Red;           // LED lit
+            //////////    else
+            //////////        globalPicLed.Fill = Brushes.DarkGray;      // LED off
+            //////////}));
         }
         internal static bool ReadConfigData()
         {

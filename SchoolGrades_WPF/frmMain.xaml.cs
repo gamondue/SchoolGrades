@@ -1,4 +1,5 @@
-﻿using gamon.TreeMptt;
+﻿//using gamon.TreeMptt;
+using gamon.TreeMptt;
 using SchoolGrades;
 using SchoolGrades.BusinessObjects;
 using Shared;
@@ -34,7 +35,7 @@ namespace SchoolGrades_WPF
         //bool firstTime = true;
 
         Student currentStudent;
-        Question currentQuestion;
+        internal Question currentQuestion;
         GradeType currentGradeType;
         Class currentClass;
 
@@ -204,10 +205,12 @@ namespace SchoolGrades_WPF
         private void frmMain_Load()
         {
             // start the Thread that concurrently saves the Topics tree
-            CommonsWpf.SaveTreeMptt = new TreeMptt(null, null, null, null, null, null,
-                picBackgroundSaveRunning, null, null, null, null, null);
-            Commons.BackgroundSaveThread = new Thread(CommonsWpf.SaveTreeMptt.SaveTreeMpttBackground);
-            Commons.BackgroundSaveThread.Start();
+
+            //////////Commons.BackgroundSaveThread = new Thread(CommonsWpf.SaveTreeMptt.SaveTreeMpttBackground);
+            //////////Commons.BackgroundSaveThread.Start();
+            
+            //////////TreeMpttNoUi tree = new TreeMpttNoUi();
+            //////////tree.SaveTreeMpttBackground();
 
             if (!File.Exists(Commons.PathAndFileDatabase))
                 return;

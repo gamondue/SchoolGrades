@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using SchoolGrades.BusinessObjects;
+using System.Collections.Generic;
+using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace SchoolGrades_WPF
@@ -8,14 +11,79 @@ namespace SchoolGrades_WPF
     /// </summary>
     public partial class frmTag : Window
     {
-        public frmTag()
+        List<Tag> listTags;
+        internal Tag currentTag = new Tag();
+        bool isDialog;
+        public bool haveChosen = false;
+
+        public frmTag(bool IsDialog)
         {
             InitializeComponent();
+
+            isDialog = IsDialog;
+            if (isDialog)
+            {
+                btnChoose.Visible = true;
+            }
+            else
+            {
+                btnChoose.Visible = false;
+            }
         }
-
-        private void dgwExistingTags_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void frmTag_Load(object sender, EventArgs e)
         {
-
+            listTags = new List<Tag>();
+            if (txtIdTag.Text == "")
+            {
+                btnSave.Enabled = false;
+                btnChoose.Enabled = false;
+            }
+        }
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            txtTag.Text = txtSearch.Text;
+            if (txtSearch.Text.Length > 0)
+            {
+                listTags = Commons.bl.GetTagsContaining(txtSearch.Text);
+                dgwExistingTags.DataSource = listTags;
+                dgwExistingTags.Columns[0].Visible = false;
+                dgwExistingTags.Columns[2].Visible = false;
+                dgwExistingTags.Refresh();
+            }
+        }
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            Commons.bl.SaveTag(currentTag);
+            btnChoose.Enabled = true;
+        }
+        private void txtTag_TextChanged(object sender, EventArgs e)
+        {
+            currentTag.TagName = txtTag.Text;
+        }
+        private void txtDesc_TextChanged(object sender, EventArgs e)
+        {
+            currentTag.Desc = txtDesc.Text;
+        }
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            txtIdTag.Text = Commons.bl.CreateNewTag(currentTag).ToString();
+            btnChoose.Enabled = false;
+            btnSave.Enabled = true;
+        }
+        private void dgwExistingTags_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Tag t = listTags[e.RowIndex];
+            currentTag = t;
+            txtDesc.Text = t.Desc;
+            txtIdTag.Text = t.IdTag.ToString();
+            txtTag.Text = t.TagName;
+            btnChoose.Enabled = true;
+            btnSave.Enabled = true;
+        }
+        private void btnChoose_Click(object sender, EventArgs e)
+        {
+            haveChosen = true;
+            this.Close();
         }
     }
 }

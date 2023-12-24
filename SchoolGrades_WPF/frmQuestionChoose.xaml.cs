@@ -1,4 +1,5 @@
-﻿using SchoolGrades;
+﻿using gamon.TreeMptt;
+using SchoolGrades;
 using SchoolGrades.BusinessObjects;
 using Shared;
 using System;
@@ -44,12 +45,12 @@ namespace SchoolGrades_WPF
             // fills the lookup tables' combos
             cmbSchoolSubject.ItemsSource = "Name";
             cmbSchoolSubject.SelectedItem = "idSchoolSubject";
-            //cmbSchoolSubject.ItemsSource = Commons.bl.GetListSchoolSubjects(true);
+            cmbSchoolSubject.ItemsSource = Commons.bl.GetListSchoolSubjects(true);
 
-            //List<QuestionType> lq = Commons.bl.GetListQuestionTypes(true);
+            List<QuestionType> lq = Commons.bl.GetListQuestionTypes(true);
             cmbQuestionTypes.ItemsSource = "Name";
             cmbQuestionTypes.SelectedItem = "idQuestionType";
-            //cmbQuestionTypes.ItemsSource = lq;
+            cmbQuestionTypes.ItemsSource = lq;
 
             //currentSubject = SchoolSubject; 
             currentSubject = null;
@@ -60,24 +61,25 @@ namespace SchoolGrades_WPF
             {
                 //currentTopic = Commons.bl.GetTopicById(Question.IdTopic);
             }
+            frmQuestionChoose_Loaded(); 
         }
-        private void frmQuestionChoose_Loaded(object sender, RoutedEventArgs e)
+        private void frmQuestionChoose_Loaded()
         {
             cmbSchoolSubject.SelectedValue = "";
 
-            //  lstTags.ItemsSource = tagsList;
+            lstTags.ItemsSource = tagsList;
 
-            //  List<SchoolPeriod> listPeriods = Commons.bl.GetSchoolPeriods(currentClass.SchoolYear);
-            //  cmbSchoolPeriod.ItemsSource = listPeriods;
+            List<SchoolPeriod> listPeriods = Commons.bl.GetSchoolPeriods(currentClass.SchoolYear);
+            cmbSchoolPeriod.ItemsSource = listPeriods;
             // select the combo item of the partial period of the DateTime.Now
-            //  foreach (SchoolPeriod sp in listPeriods)
-            //  {
-            //     if (sp.DateFinish > DateTime.Now && sp.DateStart < DateTime.Now
-            //          && sp.IdSchoolPeriodType == "P")
-            //      {
-            //          cmbSchoolPeriod.SelectedItem = sp;
-            //      }
-            // }
+            foreach (SchoolPeriod sp in listPeriods)
+            {
+                if (sp.DateFinish > DateTime.Now && sp.DateStart < DateTime.Now
+                     && sp.IdSchoolPeriodType == "P")
+                {
+                    cmbSchoolPeriod.SelectedItem = sp;
+                }
+            }
 
             isLoading = false;
             // if the query would include too many rows, don't do it 
@@ -94,7 +96,6 @@ namespace SchoolGrades_WPF
             if (Commons.IsTimerLessonActive) { }
             //     LessonTimer.Start();
         }
-
         private void btnAddQuestion_Click(object sender, RoutedEventArgs e)
         {
             Question q = new Question();
@@ -102,31 +103,30 @@ namespace SchoolGrades_WPF
             {
                 q.IdQuestionType = ((QuestionType)cmbQuestionTypes.SelectedItem).IdQuestionType;
             }
-            //frmQuestion domanda = new frmQuestion(frmQuestion.QuestionFormType.CreateSeveralQuestions,
-            //     q, currentSubject, currentClass, currentTopic);
-            // domanda.ShowDialog();
+            frmQuestion domanda = new frmQuestion(frmQuestion.QuestionFormType.CreateSeveralQuestions,
+                 q, currentSubject, currentClass, currentTopic);
+            domanda.ShowDialog();
 
-            //   if (domanda.UserHasChosen)
-            //    {
-            //        ChosenQuestion = domanda.currentQuestion;
-            this.Close();
+            if (domanda.UserHasChosen)
+            {
+                ChosenQuestion = domanda.currentQuestion;
+                this.Close();
+            }
             updateQuestions();
         }
-
         private void btnAddTag_Click(object sender, RoutedEventArgs e)
         {
-            //frmTag t = new frmTag(true);
-            //t.ShowDialog();
-            //if (t.haveChosen)
-            //{
-            //    tagsList.Add(t.currentTag);
-            //    lstTags.ItemsSource = null;
-            //    lstTags.ItemsSource = tagsList;
-            //    Commons.LastTagsChosen = tagsList;
-            //}
-            updateQuestions();
+            //////////frmTag t = new frmTag(true);
+            //////////t.ShowDialog();
+            //////////if (t.haveChosen)
+            //////////{
+            //////////    tagsList.Add(t.currentTag);
+            //////////    lstTags.ItemsSource = null;
+            //////////    lstTags.ItemsSource = tagsList;
+            //////////    Commons.LastTagsChosen = tagsList;
+            //////////}
+            //////////updateQuestions();
         }
-
         private void btnCopyQuestion_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Function not implemented yet");
@@ -147,37 +147,33 @@ namespace SchoolGrades_WPF
 
             LoadDatagrids(keySubject, keyQuestionType);
         }
-
         private void btnRemoveTag_Click(object sender, RoutedEventArgs e)
         {
-            if (lstTags.SelectedItem == null)
-            {
-                MessageBox.Show("Evidenziare il tag che si vuole eliminare");
-                return;
-            }
-            else
-            {
-                tagsList.Remove((Tag)lstTags.SelectedItem);
-                lstTags.ItemsSource = null;
-                lstTags.ItemsSource = tagsList;
-                Commons.LastTagsChosen = tagsList;
-            }
-            updateQuestions();
+            //////////if (lstTags.SelectedItem == null)
+            //////////{
+            //////////    MessageBox.Show("Evidenziare il tag che si vuole eliminare");
+            //////////    return;
+            //////////}
+            //////////else
+            //////////{
+            //////////    tagsList.Remove((Tag)lstTags.SelectedItem);
+            //////////    lstTags.ItemsSource = null;
+            //////////    lstTags.ItemsSource = tagsList;
+            //////////    Commons.LastTagsChosen = tagsList;
+            //////////}
+            //////////updateQuestions();
         }
-
-        private void cmbSchoolSubject_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void cmbSchoolSubject_SelectionChanged(object sender, RoutedEventArgs e)
         {
             currentSubject = (SchoolSubject)cmbSchoolSubject.SelectedItem; // new SchoolSubject();
             Color BackColor = CommonsWpf.ColorFromNumber(currentSubject);
             this.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(BackColor.A, BackColor.R, BackColor.G, BackColor.B));
             updateQuestions();
         }
-
-        private void cmbQuestionTypes_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void cmbQuestionTypes_SelectionChanged(object sender, RoutedEventArgs e)
         {
             updateQuestions();
         }
-
         private void btnChoose_Click(object sender, RoutedEventArgs e)
         {
             if (dgwQuestions.SelectedItems.Count > 0)
@@ -193,27 +189,25 @@ namespace SchoolGrades_WPF
                 return;
             }
         }
-
         private void btnChooseTopic_Click(object sender, RoutedEventArgs e)
         {
             Topic chosenTopic = currentTopic;
             List<Topic> oneItemList = new List<Topic>();
             oneItemList.Add(chosenTopic);
-            //frmTopics f = new frmTopics(frmTopics.TopicsFormType.ChooseTopic,
-            //   currentClass, currentSubject, null, oneItemList);
+            frmTopics f = new frmTopics(frmTopics.TopicsFormType.ChooseTopic,
+               currentClass, currentSubject, null, oneItemList);
 
-            //f.ShowDialog();
-            //if (f.UserHasChosen)
-            //{
-            //    chosenTopic = f.ChosenTopic;
-            //    currentTopic = chosenTopic;
-            //    txtTopic.Text = dbMptt.GetNodePath(chosenTopic.Id);
-            //    txtTopicCode.Text = chosenTopic.Id.ToString();
-            //    updateQuestions();
-            //}
-            //f.Dispose();
+            f.ShowDialog();
+            if (f.UserHasChosen)
+            {
+                chosenTopic = f.ChosenTopic;
+                currentTopic = chosenTopic;
+                txtTopic.Text = dbMptt.GetNodePath(chosenTopic.Id);
+                txtTopicCode.Text = chosenTopic.Id.ToString();
+                updateQuestions();
+            }
+            f.Dispose();
         }
-
         private void btnDontUseTopic_Click(object sender, RoutedEventArgs e)
         {
             currentTopic = null;
@@ -222,7 +216,6 @@ namespace SchoolGrades_WPF
 
             updateQuestions();
         }
-
         private void btnChooseByPeriod_Click(object sender, RoutedEventArgs e)
         {
             if (currentClass == null)
@@ -231,30 +224,29 @@ namespace SchoolGrades_WPF
                 return;
             }
             Topic chosenTopic;
-            //frmTopicChooseByPeriod f = new frmTopicChooseByPeriod(
-            //    frmTopicChooseByPeriod.TopicChooseFormType.ChooseTopicOnExit,
-            //    currentClass, currentSubject);
-            //f.ShowDialog();
-            //if (f.TopicChosen != null)
-            //{
-            //    chosenTopic = f.TopicChosen;
-            //    currentTopic = chosenTopic;
-            //    txtTopic.Text = dbMptt.GetNodePath(chosenTopic.Id);
-            //    txtTopicCode.Text = chosenTopic.Id.ToString();
-            //    updateQuestions();
-            //}
-            //f.Dispose();
+            frmTopicChooseByPeriod f = new frmTopicChooseByPeriod(
+                frmTopicChooseByPeriod.TopicChooseFormType.ChooseTopicOnExit,
+                currentClass, currentSubject);
+            f.ShowDialog();
+            if (f.TopicChosen != null)
+            {
+                chosenTopic = f.TopicChosen;
+                currentTopic = chosenTopic;
+                txtTopic.Text = dbMptt.GetNodePath(chosenTopic.Id);
+                txtTopicCode.Text = chosenTopic.Id.ToString();
+                updateQuestions();
+            }
+            f.Dispose();
         }
-
         private void btnRandomQuestion_Click(object sender, RoutedEventArgs e)
         {
             Random r = new Random();
-            //if (currentStudent == null)
-            //{
-            //    MessageBox.Show("Studente non definito\r\n" + 
-            //        "Non è possibile scegliere fra le domande fatte ad uno studente");
-            //    return; 
-            //}
+            //////////if (currentStudent == null)
+            //////////{
+            //////////    MessageBox.Show("Studente non definito\r\n" + 
+            //////////        "Non è possibile scegliere fra le domande fatte ad uno studente");
+            //////////    return; 
+            //////////}
             DateTime dateFrom = dtpStartPeriod.SelectedDate.Value;
             DateTime dateTo = dtpEndPeriod.SelectedDate.Value;
             List<Question> listAskedInThisLesson = Commons.bl.GetFilteredQuestionsNotAskedToStudent
@@ -299,17 +291,22 @@ namespace SchoolGrades_WPF
             }
             this.Close();
         }
-
         private void rdbOr_Click(object sender, RoutedEventArgs e)
         {
             updateQuestions();
         }
-
+        //private void rdbOr_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    updateQuestions();
+        //}
         private void rdbOneTopic_Click(object sender, RoutedEventArgs e)
         {
             updateQuestions();
         }
-
+        //private void rdbOneTopic_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    updateQuestions();
+        //}
         private void LoadDatagrids(string keySubject, string keyQuestionType)
         {
             //dgwQuestions.ItemsSource = db.GetFilteredQuestions(tagsList, keySubject,
@@ -328,6 +325,112 @@ namespace SchoolGrades_WPF
                 dateFrom, dateTo);
             dgwQuestions.ItemsSource = l;
         }
+        private void cmbSchoolPeriod_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            currentSchoolPeriod = (SchoolPeriod)(cmbSchoolPeriod.SelectedValue);
+            if (currentSchoolPeriod.IdSchoolPeriodType != "N")
+            {
+                dtpStartPeriod.Value = (DateTime)currentSchoolPeriod.DateStart;
+                dtpEndPeriod.Value = (DateTime)currentSchoolPeriod.DateFinish;
+            }
+            else if (currentSchoolPeriod.IdSchoolPeriod == "month")
+            {
+                dtpStartPeriod.Value = DateTime.Now.AddMonths(-1);
+                dtpEndPeriod.Value = DateTime.Now;
+            }
+            else if (currentSchoolPeriod.IdSchoolPeriod == "week")
+            {
+                dtpStartPeriod.Value = DateTime.Now.AddDays(-7);
+                dtpEndPeriod.Value = DateTime.Now;
+            }
+            else if (currentSchoolPeriod.IdSchoolPeriod == "year")
+            {
+                dtpStartPeriod.Value = DateTime.Now.AddYears(-1);
+                dtpEndPeriod.Value = DateTime.Now;
+            }
+            updateQuestions();
+        }
+        //private void rdbOr_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    updateQuestions();
+        //}
+        private void txtSearchText_TextChanged(object sender, EventArgs e)
+        {
+            if (txtSearchText.Text.Length > 3)
+                updateQuestions();
+        }
+        //private void dgwQuestions_CellClick(object sender, DataGridViewCellEventArgs e)
+        //{
+        //    if (e.RowIndex > -1)
+        //    {
+        //        dgwQuestions.Rows[e.RowIndex].Selected = true;
+        //    }
+        //}
+        private void dgwQuestions_CellDoubleClick(object sender, RoutedEventArgs e)
+        {
+            if (e.RowIndex > -1)
+            {
+                List<Question> ls = (List<Question>)(dgwQuestions.DataSource);
+                Question question = ls[e.RowIndex];
 
+                Topic topic = Commons.bl.GetTopicById(question.IdTopic);
+
+                SchoolSubject subject = Commons.bl.GetSchoolSubject(question.IdSchoolSubject);
+
+                frmQuestion frm = new frmQuestion(
+                    frmQuestion.QuestionFormType.EditOneQuestion,
+                    question, subject, currentClass, topic);
+                frm.ShowDialog();
+
+                frmQuestionChoose_Load(null, null);
+            }
+        }
+        private void LessonTimer_Tick(object sender, EventArgs e)
+        {
+            //// TODO !!!! avoid this interrupt when the timer is disabled in main form !!!!
+            //LblLessonTime.BackColor = ((frmMain)Application.OpenForms[0]).CurrentLessonTimeColor;
+        }
+        //private void btnSearch_Click(object sender, EventArgs e)
+        //{
+        //    updateQuestions();
+        //}
+        private void btnQuestionsDone_Click(object sender, EventArgs e)
+        {
+            //dgwQuestions.DataSource = db.GetFilteredQuestions(tagsList, keySubject,
+            //    keyQuestionType, currentTopic, rdbManyTopics.Checked, rdbAnd.Checked);
+            DateTime dateFrom = dtpStartPeriod.Value;
+            DateTime dateTo = dtpEndPeriod.Value;
+            if (cmbSchoolPeriod.Text == "")
+                dateFrom = Commons.DateNull;
+            if (currentSubject == null)
+                currentSubject = new SchoolSubject();
+            if (currentTopic == null)
+                currentTopic = new Topic();
+            List<Question> l = Commons.bl.GetFilteredQuestionsAskedToClass(currentClass,
+                currentSubject, keyQuestionType, tagsList, currentTopic,
+                rdbManyTopics.Checked, rdbAnd.Checked, txtSearchText.Text,
+                dateFrom, dateTo);
+            dgwQuestions.DataSource = l;
+        }
+        private void btnKnotsToTheComb_Click(object sender, EventArgs e)
+        {
+            if (!CommonsWinForms.CheckIfStudentChosen(currentStudent))
+            {
+                return;
+            }
+            if (!CommonsWinForms.CheckIfSubjectChosen(currentSubject))
+            {
+                return;
+            }
+
+            frmKnotsToTheComb frm = new frmKnotsToTheComb(ParentForm, currentStudent.IdStudent, currentSubject,
+                currentClass.SchoolYear);
+            frm.ShowDialog();
+            if (frm.ChosenQuestion != null)
+            {
+                chosenQuestion = frm.ChosenQuestion;
+                this.Close();
+            }
+        }
     }
 }
