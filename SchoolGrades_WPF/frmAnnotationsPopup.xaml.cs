@@ -1,14 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using SchoolGrades;
+using SchoolGrades.BusinessObjects;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace SchoolGrades_WPF
 {
     /// <summary>
     /// Interaction logic for AnnotationPopup.xaml
     /// </summary>
-    public partial class frmAnnotationsPopup : Window
+    internal partial class frmAnnotationsPopup : Window
     {
         internal DataTable tableOfActivePopUpAnnotations;
 
@@ -20,34 +23,23 @@ namespace SchoolGrades_WPF
         }
         private void frmAnnotationsPopUp_Load(object sender, EventArgs e)
         {
-            dgwStudentsAllPopUpAnnotations.DataSource = tableOfActivePopUpAnnotations;
+            dgwStudentsAllPopUpAnnotations.ItemsSource = tableOfActivePopUpAnnotations;
         }
         private void lblCurrentStudent_Click(object sender, EventArgs e)
         {
 
         }
-        private void dgwStudentsActivePopUpAnnotations_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgwStudentsActivePopUpAnnotations_CellDoubleClick(object sender, RoutedEvent e)
         {
-            if (e.RowIndex > -1)
+            DataGrid grid = (DataGrid)sender;
+            int RowIndex = grid.SelectedIndex;
+            if (RowIndex > -1)
             {
-                dgwStudentsAllPopUpAnnotations.Rows[e.RowIndex].Selected = true;
-            }
-        }
-        private void dgwStudentsAllPopUpAnnotations_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex > -1)
-            {
-                dgwStudentsAllPopUpAnnotations.Rows[e.RowIndex].Selected = true;
-            }
-        }
-        private void dgwStudentsActivePopUpAnnotations_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                dgwStudentsAllPopUpAnnotations.Rows[e.RowIndex].Selected = true;
-                if (dgwStudentsAllPopUpAnnotations.SelectedRows.Count > 0)
+                //dgwStudentsAllPopUpAnnotations.Items[RowIndex].Selected = true;
+                dgwStudentsAllPopUpAnnotations.Items[RowIndex].Selected = true;
+                if (dgwStudentsAllPopUpAnnotations.SelectedItems.Count > 0)
                 {
-                    int idStudent = (int)dgwStudentsAllPopUpAnnotations.SelectedRows[0].Cells["IdStudent"].Value;
+                    int idStudent = (int)dgwStudentsAllPopUpAnnotations.SelectedItems[0].Cells["IdStudent"].Value;
                     Student s = Commons.bl.GetStudent(idStudent);
                     List<Student> SingleStudent = new List<Student>();
                     SingleStudent.Add(s);

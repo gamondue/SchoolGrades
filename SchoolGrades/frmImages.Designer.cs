@@ -28,567 +28,559 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dgwLessonsImages = new System.Windows.Forms.DataGridView();
-            this.picImage = new System.Windows.Forms.PictureBox();
-            this.txtLessonDesc = new System.Windows.Forms.TextBox();
-            this.txtSchoolSubject = new System.Windows.Forms.TextBox();
-            this.lblLessonDesc = new System.Windows.Forms.Label();
-            this.lblLessonDate = new System.Windows.Forms.Label();
-            this.lblLessonCode = new System.Windows.Forms.Label();
-            this.txtLessonCode = new System.Windows.Forms.TextBox();
-            this.lblSchoolYear = new System.Windows.Forms.Label();
-            this.txtSchoolYear = new System.Windows.Forms.TextBox();
-            this.txtClass = new System.Windows.Forms.TextBox();
-            this.txtOfficialSchoolAbbreviation = new System.Windows.Forms.TextBox();
-            this.lblSchoolCode = new System.Windows.Forms.Label();
-            this.lblClassAbbreviation = new System.Windows.Forms.Label();
-            this.lblSchoolSubject = new System.Windows.Forms.Label();
-            this.txtLessonDate = new System.Windows.Forms.TextBox();
-            this.txtPathImportImage = new System.Windows.Forms.TextBox();
-            this.btnPathImportImage = new System.Windows.Forms.Button();
-            this.lblFileImportName = new System.Windows.Forms.Label();
-            this.txtFileImportImage = new System.Windows.Forms.TextBox();
-            this.lblPathDatabase = new System.Windows.Forms.Label();
-            this.btnAddImage = new System.Windows.Forms.Button();
-            this.rdbAutoRename = new System.Windows.Forms.RadioButton();
-            this.rdbManualRename = new System.Windows.Forms.RadioButton();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.btnChooseFileImage = new System.Windows.Forms.Button();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.txtCaption = new System.Windows.Forms.TextBox();
-            this.lblSubFolderStorage = new System.Windows.Forms.Label();
-            this.txtSubFolderStorage = new System.Windows.Forms.TextBox();
-            this.btnSubFolderStorage = new System.Windows.Forms.Button();
-            this.chkMantainOldFileName = new System.Windows.Forms.CheckBox();
-            this.btnRemoveImage = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.btnPrevious = new System.Windows.Forms.Button();
-            this.btnNext = new System.Windows.Forms.Button();
-            this.btnPreviousImage = new System.Windows.Forms.Button();
-            this.btnNextImage = new System.Windows.Forms.Button();
-            this.btnFirstImage = new System.Windows.Forms.Button();
-            this.btnLastImage = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dgwLessonsImages)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            this.SuspendLayout();
+            dgwLessonsImages = new System.Windows.Forms.DataGridView();
+            picImage = new System.Windows.Forms.PictureBox();
+            txtLessonDesc = new System.Windows.Forms.TextBox();
+            txtSchoolSubject = new System.Windows.Forms.TextBox();
+            lblLessonDesc = new System.Windows.Forms.Label();
+            lblLessonDate = new System.Windows.Forms.Label();
+            lblLessonCode = new System.Windows.Forms.Label();
+            txtLessonCode = new System.Windows.Forms.TextBox();
+            lblSchoolYear = new System.Windows.Forms.Label();
+            txtSchoolYear = new System.Windows.Forms.TextBox();
+            txtClass = new System.Windows.Forms.TextBox();
+            txtOfficialSchoolAbbreviation = new System.Windows.Forms.TextBox();
+            lblSchoolCode = new System.Windows.Forms.Label();
+            lblClassAbbreviation = new System.Windows.Forms.Label();
+            lblSchoolSubject = new System.Windows.Forms.Label();
+            txtLessonDate = new System.Windows.Forms.TextBox();
+            txtPathImportImage = new System.Windows.Forms.TextBox();
+            btnPathImportImage = new System.Windows.Forms.Button();
+            lblFileImportName = new System.Windows.Forms.Label();
+            txtFileImportImage = new System.Windows.Forms.TextBox();
+            lblPathDatabase = new System.Windows.Forms.Label();
+            btnAddImage = new System.Windows.Forms.Button();
+            rdbAutoRename = new System.Windows.Forms.RadioButton();
+            rdbManualRename = new System.Windows.Forms.RadioButton();
+            folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            btnChooseFileImage = new System.Windows.Forms.Button();
+            openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            txtCaption = new System.Windows.Forms.TextBox();
+            lblSubFolderStorage = new System.Windows.Forms.Label();
+            txtSubFolderStorage = new System.Windows.Forms.TextBox();
+            btnSubFolderStorage = new System.Windows.Forms.Button();
+            chkMantainOldFileName = new System.Windows.Forms.CheckBox();
+            btnRemoveImage = new System.Windows.Forms.Button();
+            btnSave = new System.Windows.Forms.Button();
+            splitContainer1 = new System.Windows.Forms.SplitContainer();
+            btnPrevious = new System.Windows.Forms.Button();
+            btnNext = new System.Windows.Forms.Button();
+            btnPreviousImage = new System.Windows.Forms.Button();
+            btnNextImage = new System.Windows.Forms.Button();
+            btnFirstImage = new System.Windows.Forms.Button();
+            btnLastImage = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)dgwLessonsImages).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picImage).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
+            splitContainer1.Panel1.SuspendLayout();
+            splitContainer1.Panel2.SuspendLayout();
+            splitContainer1.SuspendLayout();
+            SuspendLayout();
             // 
             // dgwLessonsImages
             // 
-            this.dgwLessonsImages.AllowUserToAddRows = false;
-            this.dgwLessonsImages.AllowUserToDeleteRows = false;
-            this.dgwLessonsImages.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgwLessonsImages.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
-            this.dgwLessonsImages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgwLessonsImages.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgwLessonsImages.Location = new System.Drawing.Point(0, 0);
-            this.dgwLessonsImages.MultiSelect = false;
-            this.dgwLessonsImages.Name = "dgwLessonsImages";
-            this.dgwLessonsImages.ReadOnly = true;
-            this.dgwLessonsImages.Size = new System.Drawing.Size(1221, 90);
-            this.dgwLessonsImages.TabIndex = 128;
-            this.dgwLessonsImages.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwLessonsImages_CellClick);
-            this.dgwLessonsImages.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwLessonsImages_CellContentClick);
-            this.dgwLessonsImages.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwLessonsImages_CellDoubleClick);
-            this.dgwLessonsImages.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwLessonsImages_RowEnter);
+            dgwLessonsImages.AllowUserToAddRows = false;
+            dgwLessonsImages.AllowUserToDeleteRows = false;
+            dgwLessonsImages.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            dgwLessonsImages.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
+            dgwLessonsImages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgwLessonsImages.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            dgwLessonsImages.Location = new System.Drawing.Point(0, 0);
+            dgwLessonsImages.MultiSelect = false;
+            dgwLessonsImages.Name = "dgwLessonsImages";
+            dgwLessonsImages.ReadOnly = true;
+            dgwLessonsImages.Size = new System.Drawing.Size(1221, 90);
+            dgwLessonsImages.TabIndex = 128;
+            dgwLessonsImages.CellClick += dgwLessonsImages_CellClick;
+            dgwLessonsImages.CellContentClick += dgwLessonsImages_CellContentClick;
+            dgwLessonsImages.CellDoubleClick += dgwLessonsImages_CellDoubleClick;
+            dgwLessonsImages.RowEnter += dgwLessonsImages_RowEnter;
             // 
             // picImage
             // 
-            this.picImage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.picImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picImage.Location = new System.Drawing.Point(0, 3);
-            this.picImage.Name = "picImage";
-            this.picImage.Size = new System.Drawing.Size(1221, 282);
-            this.picImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picImage.TabIndex = 129;
-            this.picImage.TabStop = false;
-            this.picImage.Click += new System.EventHandler(this.picImage_Click);
-            this.picImage.DoubleClick += new System.EventHandler(this.picImage_DoubleClick);
+            picImage.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            picImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            picImage.Location = new System.Drawing.Point(0, 3);
+            picImage.Name = "picImage";
+            picImage.Size = new System.Drawing.Size(1221, 282);
+            picImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            picImage.TabIndex = 129;
+            picImage.TabStop = false;
+            picImage.Click += picImage_Click;
+            picImage.DoubleClick += picImage_DoubleClick;
             // 
             // txtLessonDesc
             // 
-            this.txtLessonDesc.Location = new System.Drawing.Point(285, 79);
-            this.txtLessonDesc.Name = "txtLessonDesc";
-            this.txtLessonDesc.ReadOnly = true;
-            this.txtLessonDesc.Size = new System.Drawing.Size(357, 24);
-            this.txtLessonDesc.TabIndex = 142;
+            txtLessonDesc.Location = new System.Drawing.Point(285, 79);
+            txtLessonDesc.Name = "txtLessonDesc";
+            txtLessonDesc.ReadOnly = true;
+            txtLessonDesc.Size = new System.Drawing.Size(357, 24);
+            txtLessonDesc.TabIndex = 142;
             // 
             // txtSchoolSubject
             // 
-            this.txtSchoolSubject.Enabled = false;
-            this.txtSchoolSubject.Location = new System.Drawing.Point(356, 30);
-            this.txtSchoolSubject.Name = "txtSchoolSubject";
-            this.txtSchoolSubject.ReadOnly = true;
-            this.txtSchoolSubject.Size = new System.Drawing.Size(286, 24);
-            this.txtSchoolSubject.TabIndex = 141;
+            txtSchoolSubject.Enabled = false;
+            txtSchoolSubject.Location = new System.Drawing.Point(356, 30);
+            txtSchoolSubject.Name = "txtSchoolSubject";
+            txtSchoolSubject.ReadOnly = true;
+            txtSchoolSubject.Size = new System.Drawing.Size(286, 24);
+            txtSchoolSubject.TabIndex = 141;
             // 
             // lblLessonDesc
             // 
-            this.lblLessonDesc.AutoSize = true;
-            this.lblLessonDesc.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblLessonDesc.Location = new System.Drawing.Point(282, 58);
-            this.lblLessonDesc.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblLessonDesc.Name = "lblLessonDesc";
-            this.lblLessonDesc.Size = new System.Drawing.Size(170, 18);
-            this.lblLessonDesc.TabIndex = 140;
-            this.lblLessonDesc.Text = "Annotazioni sulla lezione";
+            lblLessonDesc.AutoSize = true;
+            lblLessonDesc.ForeColor = System.Drawing.Color.DarkBlue;
+            lblLessonDesc.Location = new System.Drawing.Point(282, 58);
+            lblLessonDesc.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblLessonDesc.Name = "lblLessonDesc";
+            lblLessonDesc.Size = new System.Drawing.Size(170, 18);
+            lblLessonDesc.TabIndex = 140;
+            lblLessonDesc.Text = "Annotazioni sulla lezione";
             // 
             // lblLessonDate
             // 
-            this.lblLessonDate.AutoSize = true;
-            this.lblLessonDate.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblLessonDate.Location = new System.Drawing.Point(105, 58);
-            this.lblLessonDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblLessonDate.Name = "lblLessonDate";
-            this.lblLessonDate.Size = new System.Drawing.Size(39, 18);
-            this.lblLessonDate.TabIndex = 139;
-            this.lblLessonDate.Text = "Data";
+            lblLessonDate.AutoSize = true;
+            lblLessonDate.ForeColor = System.Drawing.Color.DarkBlue;
+            lblLessonDate.Location = new System.Drawing.Point(105, 58);
+            lblLessonDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblLessonDate.Name = "lblLessonDate";
+            lblLessonDate.Size = new System.Drawing.Size(39, 18);
+            lblLessonDate.TabIndex = 139;
+            lblLessonDate.Text = "Data";
             // 
             // lblLessonCode
             // 
-            this.lblLessonCode.AutoSize = true;
-            this.lblLessonCode.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblLessonCode.Location = new System.Drawing.Point(-1, 58);
-            this.lblLessonCode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblLessonCode.Name = "lblLessonCode";
-            this.lblLessonCode.Size = new System.Drawing.Size(92, 18);
-            this.lblLessonCode.TabIndex = 138;
-            this.lblLessonCode.Text = "Cod.Lezione";
+            lblLessonCode.AutoSize = true;
+            lblLessonCode.ForeColor = System.Drawing.Color.DarkBlue;
+            lblLessonCode.Location = new System.Drawing.Point(-1, 58);
+            lblLessonCode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblLessonCode.Name = "lblLessonCode";
+            lblLessonCode.Size = new System.Drawing.Size(92, 18);
+            lblLessonCode.TabIndex = 138;
+            lblLessonCode.Text = "Cod.Lezione";
             // 
             // txtLessonCode
             // 
-            this.txtLessonCode.Enabled = false;
-            this.txtLessonCode.Location = new System.Drawing.Point(2, 79);
-            this.txtLessonCode.Name = "txtLessonCode";
-            this.txtLessonCode.ReadOnly = true;
-            this.txtLessonCode.Size = new System.Drawing.Size(100, 24);
-            this.txtLessonCode.TabIndex = 137;
-            this.txtLessonCode.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            txtLessonCode.Enabled = false;
+            txtLessonCode.Location = new System.Drawing.Point(2, 79);
+            txtLessonCode.Name = "txtLessonCode";
+            txtLessonCode.ReadOnly = true;
+            txtLessonCode.Size = new System.Drawing.Size(100, 24);
+            txtLessonCode.TabIndex = 137;
+            txtLessonCode.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lblSchoolYear
             // 
-            this.lblSchoolYear.AutoSize = true;
-            this.lblSchoolYear.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblSchoolYear.Location = new System.Drawing.Point(141, 9);
-            this.lblSchoolYear.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblSchoolYear.Name = "lblSchoolYear";
-            this.lblSchoolYear.Size = new System.Drawing.Size(84, 18);
-            this.lblSchoolYear.TabIndex = 136;
-            this.lblSchoolYear.Text = "Anno Scol. ";
+            lblSchoolYear.AutoSize = true;
+            lblSchoolYear.ForeColor = System.Drawing.Color.DarkBlue;
+            lblSchoolYear.Location = new System.Drawing.Point(141, 9);
+            lblSchoolYear.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblSchoolYear.Name = "lblSchoolYear";
+            lblSchoolYear.Size = new System.Drawing.Size(84, 18);
+            lblSchoolYear.TabIndex = 136;
+            lblSchoolYear.Text = "Anno Scol. ";
             // 
             // txtSchoolYear
             // 
-            this.txtSchoolYear.Enabled = false;
-            this.txtSchoolYear.Location = new System.Drawing.Point(144, 30);
-            this.txtSchoolYear.Name = "txtSchoolYear";
-            this.txtSchoolYear.ReadOnly = true;
-            this.txtSchoolYear.Size = new System.Drawing.Size(100, 24);
-            this.txtSchoolYear.TabIndex = 135;
+            txtSchoolYear.Enabled = false;
+            txtSchoolYear.Location = new System.Drawing.Point(144, 30);
+            txtSchoolYear.Name = "txtSchoolYear";
+            txtSchoolYear.ReadOnly = true;
+            txtSchoolYear.Size = new System.Drawing.Size(100, 24);
+            txtSchoolYear.TabIndex = 135;
             // 
             // txtClass
             // 
-            this.txtClass.Enabled = false;
-            this.txtClass.Location = new System.Drawing.Point(250, 30);
-            this.txtClass.Name = "txtClass";
-            this.txtClass.ReadOnly = true;
-            this.txtClass.Size = new System.Drawing.Size(100, 24);
-            this.txtClass.TabIndex = 134;
+            txtClass.Enabled = false;
+            txtClass.Location = new System.Drawing.Point(250, 30);
+            txtClass.Name = "txtClass";
+            txtClass.ReadOnly = true;
+            txtClass.Size = new System.Drawing.Size(100, 24);
+            txtClass.TabIndex = 134;
             // 
             // txtOfficialSchoolAbbreviation
             // 
-            this.txtOfficialSchoolAbbreviation.Enabled = false;
-            this.txtOfficialSchoolAbbreviation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtOfficialSchoolAbbreviation.Location = new System.Drawing.Point(2, 30);
-            this.txtOfficialSchoolAbbreviation.Margin = new System.Windows.Forms.Padding(4);
-            this.txtOfficialSchoolAbbreviation.Name = "txtOfficialSchoolAbbreviation";
-            this.txtOfficialSchoolAbbreviation.ReadOnly = true;
-            this.txtOfficialSchoolAbbreviation.Size = new System.Drawing.Size(135, 24);
-            this.txtOfficialSchoolAbbreviation.TabIndex = 133;
-            this.txtOfficialSchoolAbbreviation.Text = "FOIS01100L";
+            txtOfficialSchoolAbbreviation.Enabled = false;
+            txtOfficialSchoolAbbreviation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtOfficialSchoolAbbreviation.Location = new System.Drawing.Point(2, 30);
+            txtOfficialSchoolAbbreviation.Margin = new System.Windows.Forms.Padding(4);
+            txtOfficialSchoolAbbreviation.Name = "txtOfficialSchoolAbbreviation";
+            txtOfficialSchoolAbbreviation.ReadOnly = true;
+            txtOfficialSchoolAbbreviation.Size = new System.Drawing.Size(135, 24);
+            txtOfficialSchoolAbbreviation.TabIndex = 133;
+            txtOfficialSchoolAbbreviation.Text = "FOIS01100L";
             // 
             // lblSchoolCode
             // 
-            this.lblSchoolCode.AutoSize = true;
-            this.lblSchoolCode.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblSchoolCode.Location = new System.Drawing.Point(-1, 9);
-            this.lblSchoolCode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblSchoolCode.Name = "lblSchoolCode";
-            this.lblSchoolCode.Size = new System.Drawing.Size(105, 18);
-            this.lblSchoolCode.TabIndex = 132;
-            this.lblSchoolCode.Text = "Codice Scuola";
+            lblSchoolCode.AutoSize = true;
+            lblSchoolCode.ForeColor = System.Drawing.Color.DarkBlue;
+            lblSchoolCode.Location = new System.Drawing.Point(-1, 9);
+            lblSchoolCode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblSchoolCode.Name = "lblSchoolCode";
+            lblSchoolCode.Size = new System.Drawing.Size(105, 18);
+            lblSchoolCode.TabIndex = 132;
+            lblSchoolCode.Text = "Codice Scuola";
             // 
             // lblClassAbbreviation
             // 
-            this.lblClassAbbreviation.AutoSize = true;
-            this.lblClassAbbreviation.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblClassAbbreviation.Location = new System.Drawing.Point(247, 9);
-            this.lblClassAbbreviation.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblClassAbbreviation.Name = "lblClassAbbreviation";
-            this.lblClassAbbreviation.Size = new System.Drawing.Size(90, 18);
-            this.lblClassAbbreviation.TabIndex = 131;
-            this.lblClassAbbreviation.Text = "Sigla Classe";
+            lblClassAbbreviation.AutoSize = true;
+            lblClassAbbreviation.ForeColor = System.Drawing.Color.DarkBlue;
+            lblClassAbbreviation.Location = new System.Drawing.Point(247, 9);
+            lblClassAbbreviation.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblClassAbbreviation.Name = "lblClassAbbreviation";
+            lblClassAbbreviation.Size = new System.Drawing.Size(90, 18);
+            lblClassAbbreviation.TabIndex = 131;
+            lblClassAbbreviation.Text = "Sigla Classe";
             // 
             // lblSchoolSubject
             // 
-            this.lblSchoolSubject.AutoSize = true;
-            this.lblSchoolSubject.Location = new System.Drawing.Point(353, 9);
-            this.lblSchoolSubject.Name = "lblSchoolSubject";
-            this.lblSchoolSubject.Size = new System.Drawing.Size(57, 18);
-            this.lblSchoolSubject.TabIndex = 130;
-            this.lblSchoolSubject.Text = "Materia";
+            lblSchoolSubject.AutoSize = true;
+            lblSchoolSubject.Location = new System.Drawing.Point(353, 9);
+            lblSchoolSubject.Name = "lblSchoolSubject";
+            lblSchoolSubject.Size = new System.Drawing.Size(57, 18);
+            lblSchoolSubject.TabIndex = 130;
+            lblSchoolSubject.Text = "Materia";
             // 
             // txtLessonDate
             // 
-            this.txtLessonDate.Location = new System.Drawing.Point(108, 79);
-            this.txtLessonDate.Name = "txtLessonDate";
-            this.txtLessonDate.ReadOnly = true;
-            this.txtLessonDate.Size = new System.Drawing.Size(171, 24);
-            this.txtLessonDate.TabIndex = 143;
+            txtLessonDate.Location = new System.Drawing.Point(108, 79);
+            txtLessonDate.Name = "txtLessonDate";
+            txtLessonDate.ReadOnly = true;
+            txtLessonDate.Size = new System.Drawing.Size(171, 24);
+            txtLessonDate.TabIndex = 143;
             // 
             // txtPathImportImage
             // 
-            this.txtPathImportImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtPathImportImage.Location = new System.Drawing.Point(2, 130);
-            this.txtPathImportImage.Margin = new System.Windows.Forms.Padding(4);
-            this.txtPathImportImage.Name = "txtPathImportImage";
-            this.txtPathImportImage.Size = new System.Drawing.Size(640, 24);
-            this.txtPathImportImage.TabIndex = 146;
-            this.txtPathImportImage.TextChanged += new System.EventHandler(this.txtPathImportImage_TextChanged);
-            this.txtPathImportImage.DoubleClick += new System.EventHandler(this.txtPathImportImage_DoubleClick);
+            txtPathImportImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtPathImportImage.Location = new System.Drawing.Point(2, 130);
+            txtPathImportImage.Margin = new System.Windows.Forms.Padding(4);
+            txtPathImportImage.Name = "txtPathImportImage";
+            txtPathImportImage.Size = new System.Drawing.Size(640, 24);
+            txtPathImportImage.TabIndex = 146;
+            txtPathImportImage.TextChanged += txtPathImportImage_TextChanged;
+            txtPathImportImage.DoubleClick += txtPathImportImage_DoubleClick;
             // 
             // btnPathImportImage
             // 
-            this.btnPathImportImage.BackColor = System.Drawing.Color.Transparent;
-            this.btnPathImportImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnPathImportImage.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnPathImportImage.Location = new System.Drawing.Point(652, 121);
-            this.btnPathImportImage.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.btnPathImportImage.Name = "btnPathImportImage";
-            this.btnPathImportImage.Size = new System.Drawing.Size(54, 40);
-            this.btnPathImportImage.TabIndex = 147;
-            this.btnPathImportImage.Text = "..";
-            this.btnPathImportImage.UseVisualStyleBackColor = false;
-            this.btnPathImportImage.Click += new System.EventHandler(this.btnPathImportImage_Click);
+            btnPathImportImage.BackColor = System.Drawing.Color.Transparent;
+            btnPathImportImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnPathImportImage.ForeColor = System.Drawing.Color.DarkBlue;
+            btnPathImportImage.Location = new System.Drawing.Point(652, 121);
+            btnPathImportImage.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            btnPathImportImage.Name = "btnPathImportImage";
+            btnPathImportImage.Size = new System.Drawing.Size(54, 40);
+            btnPathImportImage.TabIndex = 147;
+            btnPathImportImage.Text = "..";
+            btnPathImportImage.UseVisualStyleBackColor = false;
+            btnPathImportImage.Click += btnPathImportImage_Click;
             // 
             // lblFileImportName
             // 
-            this.lblFileImportName.AutoSize = true;
-            this.lblFileImportName.Location = new System.Drawing.Point(-1, 158);
-            this.lblFileImportName.Name = "lblFileImportName";
-            this.lblFileImportName.Size = new System.Drawing.Size(326, 18);
-            this.lblFileImportName.TabIndex = 145;
-            this.lblFileImportName.Text = "File dell\'immagine o del documento da importare";
+            lblFileImportName.AutoSize = true;
+            lblFileImportName.Location = new System.Drawing.Point(-1, 158);
+            lblFileImportName.Name = "lblFileImportName";
+            lblFileImportName.Size = new System.Drawing.Size(326, 18);
+            lblFileImportName.TabIndex = 145;
+            lblFileImportName.Text = "File dell'immagine o del documento da importare";
             // 
             // txtFileImportImage
             // 
-            this.txtFileImportImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtFileImportImage.Location = new System.Drawing.Point(2, 179);
-            this.txtFileImportImage.Margin = new System.Windows.Forms.Padding(4);
-            this.txtFileImportImage.Name = "txtFileImportImage";
-            this.txtFileImportImage.Size = new System.Drawing.Size(344, 24);
-            this.txtFileImportImage.TabIndex = 144;
+            txtFileImportImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtFileImportImage.Location = new System.Drawing.Point(2, 179);
+            txtFileImportImage.Margin = new System.Windows.Forms.Padding(4);
+            txtFileImportImage.Name = "txtFileImportImage";
+            txtFileImportImage.Size = new System.Drawing.Size(344, 24);
+            txtFileImportImage.TabIndex = 144;
             // 
             // lblPathDatabase
             // 
-            this.lblPathDatabase.AutoSize = true;
-            this.lblPathDatabase.Location = new System.Drawing.Point(-1, 108);
-            this.lblPathDatabase.Name = "lblPathDatabase";
-            this.lblPathDatabase.Size = new System.Drawing.Size(323, 18);
-            this.lblPathDatabase.TabIndex = 148;
-            this.lblPathDatabase.Text = "Cartella importazione di immagine o documento";
+            lblPathDatabase.AutoSize = true;
+            lblPathDatabase.Location = new System.Drawing.Point(-1, 108);
+            lblPathDatabase.Name = "lblPathDatabase";
+            lblPathDatabase.Size = new System.Drawing.Size(323, 18);
+            lblPathDatabase.TabIndex = 148;
+            lblPathDatabase.Text = "Cartella importazione di immagine o documento";
             // 
             // btnAddImage
             // 
-            this.btnAddImage.BackColor = System.Drawing.Color.Transparent;
-            this.btnAddImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnAddImage.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnAddImage.Location = new System.Drawing.Point(586, 165);
-            this.btnAddImage.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.btnAddImage.Name = "btnAddImage";
-            this.btnAddImage.Size = new System.Drawing.Size(54, 40);
-            this.btnAddImage.TabIndex = 149;
-            this.btnAddImage.Text = "+";
-            this.btnAddImage.UseVisualStyleBackColor = false;
-            this.btnAddImage.Click += new System.EventHandler(this.btnAddImage_Click);
+            btnAddImage.BackColor = System.Drawing.Color.Transparent;
+            btnAddImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnAddImage.ForeColor = System.Drawing.Color.DarkBlue;
+            btnAddImage.Location = new System.Drawing.Point(586, 165);
+            btnAddImage.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            btnAddImage.Name = "btnAddImage";
+            btnAddImage.Size = new System.Drawing.Size(54, 40);
+            btnAddImage.TabIndex = 149;
+            btnAddImage.Text = "+";
+            btnAddImage.UseVisualStyleBackColor = false;
+            btnAddImage.Click += btnAddImage_Click;
             // 
             // rdbAutoRename
             // 
-            this.rdbAutoRename.AutoSize = true;
-            this.rdbAutoRename.Checked = true;
-            this.rdbAutoRename.Location = new System.Drawing.Point(420, 165);
-            this.rdbAutoRename.Name = "rdbAutoRename";
-            this.rdbAutoRename.Size = new System.Drawing.Size(167, 22);
-            this.rdbAutoRename.TabIndex = 150;
-            this.rdbAutoRename.TabStop = true;
-            this.rdbAutoRename.Text = "Nome file automatico";
-            this.rdbAutoRename.UseVisualStyleBackColor = true;
-            this.rdbAutoRename.CheckedChanged += new System.EventHandler(this.rdbAutoRename_CheckedChanged);
+            rdbAutoRename.AutoSize = true;
+            rdbAutoRename.Checked = true;
+            rdbAutoRename.Location = new System.Drawing.Point(420, 165);
+            rdbAutoRename.Name = "rdbAutoRename";
+            rdbAutoRename.Size = new System.Drawing.Size(167, 22);
+            rdbAutoRename.TabIndex = 150;
+            rdbAutoRename.TabStop = true;
+            rdbAutoRename.Text = "Nome file automatico";
+            rdbAutoRename.UseVisualStyleBackColor = true;
+            rdbAutoRename.CheckedChanged += rdbAutoRename_CheckedChanged;
             // 
             // rdbManualRename
             // 
-            this.rdbManualRename.AutoSize = true;
-            this.rdbManualRename.Location = new System.Drawing.Point(420, 183);
-            this.rdbManualRename.Name = "rdbManualRename";
-            this.rdbManualRename.Size = new System.Drawing.Size(137, 22);
-            this.rdbManualRename.TabIndex = 151;
-            this.rdbManualRename.Text = "Stesso nome file";
-            this.rdbManualRename.UseVisualStyleBackColor = true;
-            this.rdbManualRename.CheckedChanged += new System.EventHandler(this.rdbManualRename_CheckedChanged);
+            rdbManualRename.AutoSize = true;
+            rdbManualRename.Location = new System.Drawing.Point(420, 183);
+            rdbManualRename.Name = "rdbManualRename";
+            rdbManualRename.Size = new System.Drawing.Size(137, 22);
+            rdbManualRename.TabIndex = 151;
+            rdbManualRename.Text = "Stesso nome file";
+            rdbManualRename.UseVisualStyleBackColor = true;
+            rdbManualRename.CheckedChanged += rdbManualRename_CheckedChanged;
             // 
             // btnChooseFileImage
             // 
-            this.btnChooseFileImage.BackColor = System.Drawing.Color.Transparent;
-            this.btnChooseFileImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnChooseFileImage.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnChooseFileImage.Location = new System.Drawing.Point(357, 165);
-            this.btnChooseFileImage.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.btnChooseFileImage.Name = "btnChooseFileImage";
-            this.btnChooseFileImage.Size = new System.Drawing.Size(54, 40);
-            this.btnChooseFileImage.TabIndex = 152;
-            this.btnChooseFileImage.Text = "..";
-            this.btnChooseFileImage.UseVisualStyleBackColor = false;
-            this.btnChooseFileImage.Click += new System.EventHandler(this.btnChooseFileImage_Click);
+            btnChooseFileImage.BackColor = System.Drawing.Color.Transparent;
+            btnChooseFileImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnChooseFileImage.ForeColor = System.Drawing.Color.DarkBlue;
+            btnChooseFileImage.Location = new System.Drawing.Point(357, 165);
+            btnChooseFileImage.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            btnChooseFileImage.Name = "btnChooseFileImage";
+            btnChooseFileImage.Size = new System.Drawing.Size(54, 40);
+            btnChooseFileImage.TabIndex = 152;
+            btnChooseFileImage.Text = "..";
+            btnChooseFileImage.UseVisualStyleBackColor = false;
+            btnChooseFileImage.Click += btnChooseFileImage_Click;
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
+            openFileDialog1.FileName = "openFileDialog1";
             // 
             // txtCaption
             // 
-            this.txtCaption.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtCaption.Location = new System.Drawing.Point(0, 292);
-            this.txtCaption.Margin = new System.Windows.Forms.Padding(4);
-            this.txtCaption.Name = "txtCaption";
-            this.txtCaption.Size = new System.Drawing.Size(1221, 24);
-            this.txtCaption.TabIndex = 153;
+            txtCaption.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txtCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtCaption.Location = new System.Drawing.Point(0, 292);
+            txtCaption.Margin = new System.Windows.Forms.Padding(4);
+            txtCaption.Name = "txtCaption";
+            txtCaption.Size = new System.Drawing.Size(1221, 24);
+            txtCaption.TabIndex = 153;
             // 
             // lblSubFolderStorage
             // 
-            this.lblSubFolderStorage.AutoSize = true;
-            this.lblSubFolderStorage.Location = new System.Drawing.Point(713, 108);
-            this.lblSubFolderStorage.Name = "lblSubFolderStorage";
-            this.lblSubFolderStorage.Size = new System.Drawing.Size(274, 18);
-            this.lblSubFolderStorage.TabIndex = 155;
-            this.lblSubFolderStorage.Text = "Sottocartella memorizzazione immagine";
-            this.lblSubFolderStorage.Visible = false;
+            lblSubFolderStorage.AutoSize = true;
+            lblSubFolderStorage.Location = new System.Drawing.Point(713, 108);
+            lblSubFolderStorage.Name = "lblSubFolderStorage";
+            lblSubFolderStorage.Size = new System.Drawing.Size(274, 18);
+            lblSubFolderStorage.TabIndex = 155;
+            lblSubFolderStorage.Text = "Sottocartella memorizzazione immagine";
+            lblSubFolderStorage.Visible = false;
             // 
             // txtSubFolderStorage
             // 
-            this.txtSubFolderStorage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtSubFolderStorage.Location = new System.Drawing.Point(716, 130);
-            this.txtSubFolderStorage.Margin = new System.Windows.Forms.Padding(4);
-            this.txtSubFolderStorage.Name = "txtSubFolderStorage";
-            this.txtSubFolderStorage.Size = new System.Drawing.Size(440, 24);
-            this.txtSubFolderStorage.TabIndex = 154;
-            this.txtSubFolderStorage.Visible = false;
-            this.txtSubFolderStorage.TextChanged += new System.EventHandler(this.txtSubFolderStorage_TextChanged);
-            this.txtSubFolderStorage.DoubleClick += new System.EventHandler(this.txtSubFolderStorage_DoubleClick);
+            txtSubFolderStorage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtSubFolderStorage.Location = new System.Drawing.Point(716, 130);
+            txtSubFolderStorage.Margin = new System.Windows.Forms.Padding(4);
+            txtSubFolderStorage.Name = "txtSubFolderStorage";
+            txtSubFolderStorage.Size = new System.Drawing.Size(440, 24);
+            txtSubFolderStorage.TabIndex = 154;
+            txtSubFolderStorage.Visible = false;
+            txtSubFolderStorage.TextChanged += txtSubFolderStorage_TextChanged;
+            txtSubFolderStorage.DoubleClick += txtSubFolderStorage_DoubleClick;
             // 
             // btnSubFolderStorage
             // 
-            this.btnSubFolderStorage.BackColor = System.Drawing.Color.Transparent;
-            this.btnSubFolderStorage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnSubFolderStorage.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnSubFolderStorage.Location = new System.Drawing.Point(1166, 121);
-            this.btnSubFolderStorage.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.btnSubFolderStorage.Name = "btnSubFolderStorage";
-            this.btnSubFolderStorage.Size = new System.Drawing.Size(54, 40);
-            this.btnSubFolderStorage.TabIndex = 156;
-            this.btnSubFolderStorage.Text = "..";
-            this.btnSubFolderStorage.UseVisualStyleBackColor = false;
-            this.btnSubFolderStorage.Visible = false;
-            this.btnSubFolderStorage.Click += new System.EventHandler(this.btnSubFolderStorage_Click);
+            btnSubFolderStorage.BackColor = System.Drawing.Color.Transparent;
+            btnSubFolderStorage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnSubFolderStorage.ForeColor = System.Drawing.Color.DarkBlue;
+            btnSubFolderStorage.Location = new System.Drawing.Point(1166, 121);
+            btnSubFolderStorage.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            btnSubFolderStorage.Name = "btnSubFolderStorage";
+            btnSubFolderStorage.Size = new System.Drawing.Size(54, 40);
+            btnSubFolderStorage.TabIndex = 156;
+            btnSubFolderStorage.Text = "..";
+            btnSubFolderStorage.UseVisualStyleBackColor = false;
+            btnSubFolderStorage.Visible = false;
+            btnSubFolderStorage.Click += btnSubFolderStorage_Click;
             // 
             // chkMantainOldFileName
             // 
-            this.chkMantainOldFileName.AutoSize = true;
-            this.chkMantainOldFileName.Checked = true;
-            this.chkMantainOldFileName.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkMantainOldFileName.Location = new System.Drawing.Point(883, 174);
-            this.chkMantainOldFileName.Name = "chkMantainOldFileName";
-            this.chkMantainOldFileName.Size = new System.Drawing.Size(207, 22);
-            this.chkMantainOldFileName.TabIndex = 158;
-            this.chkMantainOldFileName.Text = "conserva nome file vecchio";
-            this.chkMantainOldFileName.UseVisualStyleBackColor = true;
-            this.chkMantainOldFileName.Visible = false;
+            chkMantainOldFileName.AutoSize = true;
+            chkMantainOldFileName.Checked = true;
+            chkMantainOldFileName.CheckState = System.Windows.Forms.CheckState.Checked;
+            chkMantainOldFileName.Location = new System.Drawing.Point(883, 174);
+            chkMantainOldFileName.Name = "chkMantainOldFileName";
+            chkMantainOldFileName.Size = new System.Drawing.Size(207, 22);
+            chkMantainOldFileName.TabIndex = 158;
+            chkMantainOldFileName.Text = "conserva nome file vecchio";
+            chkMantainOldFileName.UseVisualStyleBackColor = true;
+            chkMantainOldFileName.Visible = false;
             // 
             // btnRemoveImage
             // 
-            this.btnRemoveImage.BackColor = System.Drawing.Color.Transparent;
-            this.btnRemoveImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnRemoveImage.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnRemoveImage.Location = new System.Drawing.Point(652, 165);
-            this.btnRemoveImage.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.btnRemoveImage.Name = "btnRemoveImage";
-            this.btnRemoveImage.Size = new System.Drawing.Size(54, 40);
-            this.btnRemoveImage.TabIndex = 159;
-            this.btnRemoveImage.Text = "-";
-            this.btnRemoveImage.UseVisualStyleBackColor = false;
-            this.btnRemoveImage.Click += new System.EventHandler(this.btnRemoveImage_Click);
+            btnRemoveImage.BackColor = System.Drawing.Color.Transparent;
+            btnRemoveImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnRemoveImage.ForeColor = System.Drawing.Color.DarkBlue;
+            btnRemoveImage.Location = new System.Drawing.Point(652, 165);
+            btnRemoveImage.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            btnRemoveImage.Name = "btnRemoveImage";
+            btnRemoveImage.Size = new System.Drawing.Size(54, 40);
+            btnRemoveImage.TabIndex = 159;
+            btnRemoveImage.Text = "-";
+            btnRemoveImage.UseVisualStyleBackColor = false;
+            btnRemoveImage.Click += btnRemoveImage_Click;
             // 
             // btnSave
             // 
-            this.btnSave.BackColor = System.Drawing.Color.Transparent;
-            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnSave.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnSave.Location = new System.Drawing.Point(652, 71);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(54, 40);
-            this.btnSave.TabIndex = 160;
-            this.btnSave.Text = "Salva";
-            this.btnSave.UseVisualStyleBackColor = false;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            btnSave.BackColor = System.Drawing.Color.Transparent;
+            btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnSave.ForeColor = System.Drawing.Color.DarkBlue;
+            btnSave.Location = new System.Drawing.Point(652, 71);
+            btnSave.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new System.Drawing.Size(54, 40);
+            btnSave.TabIndex = 160;
+            btnSave.Text = "Salva";
+            btnSave.UseVisualStyleBackColor = false;
+            btnSave.Click += btnSave_Click;
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(0, 215);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            splitContainer1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            splitContainer1.Location = new System.Drawing.Point(0, 215);
+            splitContainer1.Name = "splitContainer1";
+            splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.dgwLessonsImages);
+            splitContainer1.Panel1.Controls.Add(dgwLessonsImages);
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.picImage);
-            this.splitContainer1.Panel2.Controls.Add(this.txtCaption);
-            this.splitContainer1.Size = new System.Drawing.Size(1221, 417);
-            this.splitContainer1.SplitterDistance = 93;
-            this.splitContainer1.TabIndex = 161;
+            splitContainer1.Panel2.Controls.Add(picImage);
+            splitContainer1.Panel2.Controls.Add(txtCaption);
+            splitContainer1.Size = new System.Drawing.Size(1221, 417);
+            splitContainer1.SplitterDistance = 93;
+            splitContainer1.TabIndex = 161;
             // 
             // btnPrevious
             // 
-            this.btnPrevious.Location = new System.Drawing.Point(651, 24);
-            this.btnPrevious.Name = "btnPrevious";
-            this.btnPrevious.Size = new System.Drawing.Size(26, 34);
-            this.btnPrevious.TabIndex = 163;
-            this.btnPrevious.Text = "<";
-            this.btnPrevious.UseVisualStyleBackColor = true;
+            btnPrevious.Location = new System.Drawing.Point(651, 24);
+            btnPrevious.Name = "btnPrevious";
+            btnPrevious.Size = new System.Drawing.Size(26, 34);
+            btnPrevious.TabIndex = 163;
+            btnPrevious.Text = "<";
+            btnPrevious.UseVisualStyleBackColor = true;
             // 
             // btnNext
             // 
-            this.btnNext.Location = new System.Drawing.Point(680, 24);
-            this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(26, 34);
-            this.btnNext.TabIndex = 162;
-            this.btnNext.Text = ">";
-            this.btnNext.UseVisualStyleBackColor = true;
+            btnNext.Location = new System.Drawing.Point(680, 24);
+            btnNext.Name = "btnNext";
+            btnNext.Size = new System.Drawing.Size(26, 34);
+            btnNext.TabIndex = 162;
+            btnNext.Text = ">";
+            btnNext.UseVisualStyleBackColor = true;
             // 
             // btnPreviousImage
             // 
-            this.btnPreviousImage.Location = new System.Drawing.Point(757, 168);
-            this.btnPreviousImage.Name = "btnPreviousImage";
-            this.btnPreviousImage.Size = new System.Drawing.Size(36, 34);
-            this.btnPreviousImage.TabIndex = 166;
-            this.btnPreviousImage.Text = "<";
-            this.btnPreviousImage.UseVisualStyleBackColor = true;
-            this.btnPreviousImage.Click += new System.EventHandler(this.btnPreviousImage_Click);
+            btnPreviousImage.Location = new System.Drawing.Point(757, 168);
+            btnPreviousImage.Name = "btnPreviousImage";
+            btnPreviousImage.Size = new System.Drawing.Size(36, 34);
+            btnPreviousImage.TabIndex = 166;
+            btnPreviousImage.Text = "<";
+            btnPreviousImage.UseVisualStyleBackColor = true;
+            btnPreviousImage.Click += btnPreviousImage_Click;
             // 
             // btnNextImage
             // 
-            this.btnNextImage.Location = new System.Drawing.Point(799, 168);
-            this.btnNextImage.Name = "btnNextImage";
-            this.btnNextImage.Size = new System.Drawing.Size(36, 34);
-            this.btnNextImage.TabIndex = 165;
-            this.btnNextImage.Text = ">";
-            this.btnNextImage.UseVisualStyleBackColor = true;
-            this.btnNextImage.Click += new System.EventHandler(this.btnNextImage_Click);
+            btnNextImage.Location = new System.Drawing.Point(799, 168);
+            btnNextImage.Name = "btnNextImage";
+            btnNextImage.Size = new System.Drawing.Size(36, 34);
+            btnNextImage.TabIndex = 165;
+            btnNextImage.Text = ">";
+            btnNextImage.UseVisualStyleBackColor = true;
+            btnNextImage.Click += btnNextImage_Click;
             // 
             // btnFirstImage
             // 
-            this.btnFirstImage.Location = new System.Drawing.Point(715, 168);
-            this.btnFirstImage.Name = "btnFirstImage";
-            this.btnFirstImage.Size = new System.Drawing.Size(36, 34);
-            this.btnFirstImage.TabIndex = 168;
-            this.btnFirstImage.Text = "<<";
-            this.btnFirstImage.UseVisualStyleBackColor = true;
-            this.btnFirstImage.Click += new System.EventHandler(this.btnFirstImage_Click);
+            btnFirstImage.Location = new System.Drawing.Point(715, 168);
+            btnFirstImage.Name = "btnFirstImage";
+            btnFirstImage.Size = new System.Drawing.Size(36, 34);
+            btnFirstImage.TabIndex = 168;
+            btnFirstImage.Text = "<<";
+            btnFirstImage.UseVisualStyleBackColor = true;
+            btnFirstImage.Click += btnFirstImage_Click;
             // 
             // btnLastImage
             // 
-            this.btnLastImage.Location = new System.Drawing.Point(841, 168);
-            this.btnLastImage.Name = "btnLastImage";
-            this.btnLastImage.Size = new System.Drawing.Size(36, 34);
-            this.btnLastImage.TabIndex = 167;
-            this.btnLastImage.Text = ">>";
-            this.btnLastImage.UseVisualStyleBackColor = true;
-            this.btnLastImage.Click += new System.EventHandler(this.btnLastImage_Click);
+            btnLastImage.Location = new System.Drawing.Point(841, 168);
+            btnLastImage.Name = "btnLastImage";
+            btnLastImage.Size = new System.Drawing.Size(36, 34);
+            btnLastImage.TabIndex = 167;
+            btnLastImage.Text = ">>";
+            btnLastImage.UseVisualStyleBackColor = true;
+            btnLastImage.Click += btnLastImage_Click;
             // 
             // frmImages
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.PowderBlue;
-            this.ClientSize = new System.Drawing.Size(1226, 632);
-            this.Controls.Add(this.btnFirstImage);
-            this.Controls.Add(this.btnLastImage);
-            this.Controls.Add(this.btnPreviousImage);
-            this.Controls.Add(this.btnNextImage);
-            this.Controls.Add(this.btnPrevious);
-            this.Controls.Add(this.btnNext);
-            this.Controls.Add(this.splitContainer1);
-            this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.btnRemoveImage);
-            this.Controls.Add(this.chkMantainOldFileName);
-            this.Controls.Add(this.btnSubFolderStorage);
-            this.Controls.Add(this.lblSubFolderStorage);
-            this.Controls.Add(this.txtSubFolderStorage);
-            this.Controls.Add(this.btnChooseFileImage);
-            this.Controls.Add(this.rdbManualRename);
-            this.Controls.Add(this.rdbAutoRename);
-            this.Controls.Add(this.btnAddImage);
-            this.Controls.Add(this.lblPathDatabase);
-            this.Controls.Add(this.txtPathImportImage);
-            this.Controls.Add(this.btnPathImportImage);
-            this.Controls.Add(this.lblFileImportName);
-            this.Controls.Add(this.txtFileImportImage);
-            this.Controls.Add(this.txtLessonDate);
-            this.Controls.Add(this.txtLessonDesc);
-            this.Controls.Add(this.txtSchoolSubject);
-            this.Controls.Add(this.lblLessonDesc);
-            this.Controls.Add(this.lblLessonDate);
-            this.Controls.Add(this.lblLessonCode);
-            this.Controls.Add(this.txtLessonCode);
-            this.Controls.Add(this.lblSchoolYear);
-            this.Controls.Add(this.txtSchoolYear);
-            this.Controls.Add(this.txtClass);
-            this.Controls.Add(this.txtOfficialSchoolAbbreviation);
-            this.Controls.Add(this.lblSchoolCode);
-            this.Controls.Add(this.lblClassAbbreviation);
-            this.Controls.Add(this.lblSchoolSubject);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ForeColor = System.Drawing.Color.DarkBlue;
-            this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "frmImages";
-            this.Text = "Immagini";
-            this.Load += new System.EventHandler(this.frmImages_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmImages_KeyDown);
-            ((System.ComponentModel.ISupportInitialize)(this.dgwLessonsImages)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picImage)).EndInit();
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.PowderBlue;
+            ClientSize = new System.Drawing.Size(1226, 632);
+            Controls.Add(btnFirstImage);
+            Controls.Add(btnLastImage);
+            Controls.Add(btnPreviousImage);
+            Controls.Add(btnNextImage);
+            Controls.Add(btnPrevious);
+            Controls.Add(btnNext);
+            Controls.Add(splitContainer1);
+            Controls.Add(btnSave);
+            Controls.Add(btnRemoveImage);
+            Controls.Add(chkMantainOldFileName);
+            Controls.Add(btnSubFolderStorage);
+            Controls.Add(lblSubFolderStorage);
+            Controls.Add(txtSubFolderStorage);
+            Controls.Add(btnChooseFileImage);
+            Controls.Add(rdbManualRename);
+            Controls.Add(rdbAutoRename);
+            Controls.Add(btnAddImage);
+            Controls.Add(lblPathDatabase);
+            Controls.Add(txtPathImportImage);
+            Controls.Add(btnPathImportImage);
+            Controls.Add(lblFileImportName);
+            Controls.Add(txtFileImportImage);
+            Controls.Add(txtLessonDate);
+            Controls.Add(txtLessonDesc);
+            Controls.Add(txtSchoolSubject);
+            Controls.Add(lblLessonDesc);
+            Controls.Add(lblLessonDate);
+            Controls.Add(lblLessonCode);
+            Controls.Add(txtLessonCode);
+            Controls.Add(lblSchoolYear);
+            Controls.Add(txtSchoolYear);
+            Controls.Add(txtClass);
+            Controls.Add(txtOfficialSchoolAbbreviation);
+            Controls.Add(lblSchoolCode);
+            Controls.Add(lblClassAbbreviation);
+            Controls.Add(lblSchoolSubject);
+            Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            ForeColor = System.Drawing.Color.DarkBlue;
+            KeyPreview = true;
+            Margin = new System.Windows.Forms.Padding(4);
+            Name = "frmImages";
+            Text = "Immagini";
+            Load += frmImages_Load;
+            KeyDown += frmImages_KeyDown;
+            ((System.ComponentModel.ISupportInitialize)dgwLessonsImages).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picImage).EndInit();
+            splitContainer1.Panel1.ResumeLayout(false);
+            splitContainer1.Panel2.ResumeLayout(false);
+            splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
+            splitContainer1.ResumeLayout(false);
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

@@ -55,8 +55,8 @@
                 <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <StackPanel>
-            <RadioButton Name="rbdMissing">Mancanti</RadioButton>
-            <RadioButton Name="rbdShowGrades">Voti</RadioButton>
+            <RadioButton x:Name="rdbMissing">Mancanti</RadioButton>
+            <RadioButton x:Name="rdbShowGrades">Voti</RadioButton>
             <RadioButton Name="rdbShowWeightedGrades">Medie</RadioButton>
             <RadioButton Name="rdbShowWeights">Pesi</RadioButton>
             <RadioButton Name="rdbShowWeightsOnOpenGrades">Pesi aperti</RadioButton>
@@ -103,6 +103,6 @@
             <ComboBox Name="cmbSchoolPeriod" Grid.Column="4" Grid.Row="1"></ComboBox>
             <Button Name="btnReadData" Grid.Column="5" Grid.Row="1">Leggi dati</Button>
         </Grid>
-        <DataGrid Name="dgGrades" Background="Gray" Grid.Row="2" Grid.ColumnSpan="4"></DataGrid>
+        <DataGrid x:Name="dgwGrades" Background="Gray" Grid.Row="2" Grid.ColumnSpan="4"></DataGrid>
     </Grid>
 </Window>

@@ -1,6 +1,5 @@
 using SchoolGrades;
 using SchoolGrades.BusinessObjects;
-using System;
 using System.Collections.Generic;
 using System.Windows;
 
@@ -103,11 +102,13 @@ namespace SchoolGrades_WPF
         }
         ////////private void dgwNotes_CellClick(object sender, RoutedEventArgs e)
         ////////{
-        ////////    if (e.RowIndex > -1)
+        ////////DataGrid grid = (DataGrid)sender;
+        ////////int RowIndex = grid.SelectedIndex;
+        ////////    if (RowIndex > -1)
         ////////    {
-        ////////        dgwNotes.Rows[e.RowIndex].Selected = true;
+        ////////        dgwNotes.Rows[RowIndex].Selected = true;
 
-        ////////        currentAnnotation = ((List<StudentAnnotation>)dgwNotes.ItemsSource)[e.RowIndex];
+        ////////        currentAnnotation = ((List<StudentAnnotation>)dgwNotes.ItemsSource)[RowIndex];
         ////////    }
         ////////    WriteUI();
     }
@@ -196,12 +197,12 @@ namespace SchoolGrades_WPF
     ////////    {
     ////////        if (chkUseSchoolYear.IsChecked)
     ////////        {
-    ////////            txtSchoolYear.Enabled = true;
+    ////////            txtSchoolYear.IsEnabled = true;
     ////////            yearUsed = txtSchoolYear.Text;
     ////////        }
     ////////        else
     ////////        {
-    ////////            txtSchoolYear.Enabled = true;
+    ////////            txtSchoolYear.IsEnabled = true;
     ////////            yearUsed = null;
     ////////        }
     ////////        dgwNotes.ItemsSource = Commons.bl.AnnotationsAboutThisStudent(currentStudent,
@@ -217,7 +218,7 @@ namespace SchoolGrades_WPF
     ////////        if (txtIdAnnotation.Text != "")
     ////////        {   // an Id is already there 
     ////////            if (MessageBox.Show("Devo creare una nuova annotazione con lo stesso testo della precedente?",
-    ////////                "", MessageBoxButtons.YesNo) == DialogResult.No)
+    ////////                "", MessageBoxButton.YesNo) == MessageBoxResult.No)
     ////////                return;
     ////////        }
     ////////        ReadUI();
@@ -246,7 +247,7 @@ namespace SchoolGrades_WPF
     ////////            return;
     ////////        }
     ////////        if (MessageBox.Show($"Sicuro di cancellare l'annotazione {currentAnnotation.IdAnnotation}, '{currentAnnotation.Annotation}'?",
-    ////////            "Attenzione", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+    ////////            "Attenzione", MessageBoxButton.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == MessageBoxResult.Yes)
     ////////        {
     ////////            Commons.bl.EraseAnnotationById(currentAnnotation.IdAnnotation);
     ////////            RefreshUI();
@@ -260,7 +261,7 @@ namespace SchoolGrades_WPF
     ////////            return;
     ////////        }
     ////////        if (MessageBox.Show($"Cancellazione di tutte le annotazioni '{txtAnnotation.Text}' in tutti gli allievi della griglia?",
-    ////////                "Attenzione", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+    ////////                "Attenzione", MessageBoxButton.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == MessageBoxResult.Yes)
     ////////        {
     ////////            foreach (Student s in chosenStudents)
     ////////            {
@@ -338,10 +339,15 @@ namespace SchoolGrades_WPF
     ////////    }
     ////////    private void dgwStudents_RowEnter(object sender, RoutedEventArgs e)
     ////////    {
-    ////////        if (e.RowIndex > -1)
+    ////////                    DataGrid grid = (DataGrid)sender;
+    ////////int RowIndex = grid.SelectedIndex;
+    ////////        if (RowIndex > -1)
+    ////////DataGrid grid = (DataGrid)sender;
+    ////////int RowIndex = grid.SelectedIndex;
+    ////////        if (RowIndex > -1)
     ////////        {
-    ////////            dgwStudents.Rows[e.RowIndex].Selected = true;
-    ////////            currentStudent = chosenStudents[e.RowIndex];
+    ////////            dgwStudents.Rows[RowIndex].Selected = true;
+    ////////            currentStudent = chosenStudents[RowIndex];
     ////////            ShowAnnotationsOfCurrentStudent();
     ////////        }
     ////////    }

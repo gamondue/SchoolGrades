@@ -1,8 +1,7 @@
 ﻿using SchoolGrades.BusinessObjects;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace SchoolGrades_WPF
 {
@@ -35,8 +34,8 @@ namespace SchoolGrades_WPF
             listTags = new List<Tag>();
             if (txtIdTag.Text == "")
             {
-                btnSave.Enabled = false;
-                btnChoose.Enabled = false;
+                btnSave.IsEnabled = false;
+                btnChoose.IsEnabled = false;
             }
         }
         private void txtSearch_TextChanged(object sender, EventArgs e)
@@ -45,7 +44,7 @@ namespace SchoolGrades_WPF
             if (txtSearch.Text.Length > 0)
             {
                 listTags = Commons.bl.GetTagsContaining(txtSearch.Text);
-                dgwExistingTags.DataSource = listTags;
+                dgwExistingTags.ItemsSource = listTags;
                 dgwExistingTags.Columns[0].Visible = false;
                 dgwExistingTags.Columns[2].Visible = false;
                 dgwExistingTags.Refresh();
@@ -54,7 +53,7 @@ namespace SchoolGrades_WPF
         private void btnSave_Click(object sender, EventArgs e)
         {
             Commons.bl.SaveTag(currentTag);
-            btnChoose.Enabled = true;
+            btnChoose.IsEnabled = true;
         }
         private void txtTag_TextChanged(object sender, EventArgs e)
         {
@@ -67,18 +66,18 @@ namespace SchoolGrades_WPF
         private void btnNew_Click(object sender, EventArgs e)
         {
             txtIdTag.Text = Commons.bl.CreateNewTag(currentTag).ToString();
-            btnChoose.Enabled = false;
-            btnSave.Enabled = true;
+            btnChoose.IsEnabled = false;
+            btnSave.IsEnabled = true;
         }
-        private void dgwExistingTags_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dgwExistingTags_CellDoubleClick(object sender, RoutedEvent e)
         {
-            Tag t = listTags[e.RowIndex];
+            Tag t = listTags[RowIndex];
             currentTag = t;
             txtDesc.Text = t.Desc;
             txtIdTag.Text = t.IdTag.ToString();
             txtTag.Text = t.TagName;
-            btnChoose.Enabled = true;
-            btnSave.Enabled = true;
+            btnChoose.IsEnabled = true;
+            btnSave.IsEnabled = true;
         }
         private void btnChoose_Click(object sender, EventArgs e)
         {

@@ -1,6 +1,6 @@
 ﻿using SchoolGrades.BusinessObjects;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -30,27 +30,29 @@ namespace SchoolGrades_WPF
         }
         private void RefreshUi()
         {
-            dgwQuestions.DataSource = Commons.bl.GetAllQuestionsOfATest(currentTest.IdTest);
-            dgwClassStudents.DataSource = Commons.bl.GetStudentsOfClassList(Commons.IdSchool,
+            dgwQuestions.ItemsSource = Commons.bl.GetAllQuestionsOfATest(currentTest.IdTest);
+            dgwClassStudents.ItemsSource = Commons.bl.GetStudentsOfClassList(Commons.IdSchool,
                 currentClass.SchoolYear, currentClass.Abbreviation, false);
         }
-        private void dgwQuestions_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgwQuestions_CellContentClick(object sender, RoutedEvent e)
         {
 
         }
-        private void dgwQuestions_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dgwQuestions_CellClick(object sender, RoutedEvent e)
         {
-            if (e.RowIndex > -1)
+            DataGrid grid = (DataGrid)sender;
+            int RowIndex = grid.SelectedIndex;
+            if (RowIndex > -1)
             {
-                dgwQuestions.Rows[e.RowIndex].Selected = true;
+                dgwQuestions.Rows[RowIndex].Selected = true;
 
-                List<Question> listQuestions = (List<Question>)(dgwQuestions.DataSource);
-                currentQuestion = listQuestions[e.RowIndex];
+                List<Question> listQuestions = (List<Question>)(dgwQuestions.ItemsSource);
+                currentQuestion = listQuestions[RowIndex];
 
                 txtQuestion.Text = currentQuestion.Text;
 
                 List<Answer> listAnswers = Commons.bl.GetAnswersOfAQuestion(currentQuestion.IdQuestion);
-                dgwAnswers.DataSource = listAnswers;
+                dgwAnswers.ItemsSource = listAnswers;
                 // erase all previous radio buttons in grpStudentsAnswers
                 grpStudentsAnswers.Visible = false;
                 while (grpStudentsAnswers.Controls.Count > 0)
@@ -83,23 +85,25 @@ namespace SchoolGrades_WPF
                 }
             }
         }
-        private void dgwClassStudents_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgwClassStudents_CellContentClick(object sender, RoutedEvent e)
         {
 
         }
-        private void dgwClassStudents_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dgwClassStudents_CellClick(object sender, RoutedEvent e)
         {
-            if (e.RowIndex > -1)
+            DataGrid grid = (DataGrid)sender;
+            int RowIndex = grid.SelectedIndex;
+            if (RowIndex > -1)
             {
                 if (currentQuestion == null || currentQuestion.IdQuestion == null)
                 {
                     MessageBox.Show("Scegliere una domanda");
                     return;
                 }
-                dgwClassStudents.Rows[e.RowIndex].Selected = true;
+                dgwClassStudents.Rows[RowIndex].Selected = true;
 
-                List<Student> ls = (List<Student>)(dgwClassStudents.DataSource);
-                currentStudent = ls[e.RowIndex];
+                List<Student> ls = (List<Student>)(dgwClassStudents.ItemsSource);
+                currentStudent = ls[RowIndex];
 
                 fillCheckBoxes();
             }
@@ -119,12 +123,12 @@ namespace SchoolGrades_WPF
                 int i = 0;
                 foreach (StudentsAnswer sa in ans)
                 {
-                    ((CheckBox)grpStudentsAnswers.Controls[i]).Checked = (bool)sa.StudentsBoolAnswer;
+                    ((CheckBox)grpStudentsAnswers.Controls[i]).IsChecked = (bool)sa.StudentsBoolAnswer;
                     i++;
                 }
             }
         }
-        private void dgwClassStudents_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dgwClassStudents_CellDoubleClick(object sender, RoutedEvent e)
         {
 
         }
@@ -135,7 +139,7 @@ namespace SchoolGrades_WPF
                 MessageBox.Show("Scegliere uno studente");
                 return;
             }
-            List<Answer> la = (List<Answer>)dgwAnswers.DataSource;
+            List<Answer> la = (List<Answer>)dgwAnswers.ItemsSource;
             for (int i = 0; i < la.Count; i++)
             {
                 Answer a = la[i];
@@ -143,13 +147,13 @@ namespace SchoolGrades_WPF
                 {
                     RadioButton rb = (RadioButton)grpStudentsAnswers.Controls[i];
                     Commons.bl.SaveStudentsAnswer(currentStudent, currentTest, a,
-                        rb.Checked, null);
+                        rb.IsChecked, null);
                 }
                 else
                 {
                     CheckBox cb = (CheckBox)grpStudentsAnswers.Controls[i];
                     Commons.bl.SaveStudentsAnswer(currentStudent, currentTest, a,
-                        cb.Checked, null);
+                        cb.IsChecked, null);
                 }
             }
         }
@@ -158,23 +162,25 @@ namespace SchoolGrades_WPF
             frmTestGrading fg = new frmTestGrading();
             fg.Show();
         }
-        private void dgwAnswers_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgwAnswers_CellContentClick(object sender, RoutedEvent e)
         {
 
         }
 
-        private void dgwAnswers_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dgwAnswers_CellClick(object sender, RoutedEvent e)
         {
-            dgwAnswers.Rows[e.RowIndex].Selected = true;
+            dgwAnswers.Rows[RowIndex].Selected = true;
         }
-        private void dgwAnswers_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dgwAnswers_CellDoubleClick(object sender, RoutedEvent e)
         {
-            if (e.RowIndex > -1)
+            DataGrid grid = (DataGrid)sender;
+            int RowIndex = grid.SelectedIndex;
+            if (RowIndex > -1)
             {
-                dgwAnswers.Rows[e.RowIndex].Selected = true;
+                dgwAnswers.Rows[RowIndex].Selected = true;
 
-                List<Answer> ls = (List<Answer>)(dgwAnswers.DataSource);
-                Answer a = ls[e.RowIndex];
+                List<Answer> ls = (List<Answer>)(dgwAnswers.ItemsSource);
+                Answer a = ls[RowIndex];
 
                 Question q = Commons.bl.GetQuestionById(a.IdQuestion);
                 frmQuestion fq = new frmQuestion(frmQuestion.QuestionFormType.EditOneQuestion,
@@ -182,7 +188,7 @@ namespace SchoolGrades_WPF
                 fq.Show();
             }
         }
-        private void dgwQuestions_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dgwQuestions_CellDoubleClick(object sender, RoutedEvent e)
         {
             frmQuestion fc = new frmQuestion(
                 frmQuestion.QuestionFormType.EditOneQuestion, currentQuestion, null, null, null);

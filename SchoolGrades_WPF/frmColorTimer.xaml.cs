@@ -1,6 +1,6 @@
 ﻿using gamon;
-using System.Threading;
 using System;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -22,10 +22,10 @@ namespace SchoolGrades_WPF
         private double secondsSecond;
         float timeLeftSeconds;
 
-        Color initialColor = Color.Lime;
-        //Color coloreIniziale = Color.Green;
-        Color finalColor = Color.Red;
-        Color currentColor;
+        SolidColorBrush initialColor = Brushes.Lime;
+        //SolidColorBrush coloreIniziale = Brushes.Green;
+        SolidColorBrush finalColor = Brushes.Red;
+        SolidColorBrush currentColor;
 
         float spanHue;          // differenza di tinta da coprire
         float spanSaturation;   // differenza di saturazione da coprire
@@ -50,7 +50,7 @@ namespace SchoolGrades_WPF
         private int lastFormSize;
 
         bool playSoundEffects;
-        public string FormCaption { get => this.Text; set => this.Text = value; }
+        public string FormCaption { get => this.Content; set => this.Content = value; }
         public bool PlaySoundEffects
         {
             get
@@ -60,11 +60,9 @@ namespace SchoolGrades_WPF
             set
             {
                 playSoundEffects = value;
-                chkSoundsInColorTimer.Checked = value;
+                //////////chkSoundsInColorTimer.IsChecked = value;
             }
         }
-
-
         public ColorTimer(double SecondsFirst, double SecondsSecond, bool SoundEffectsInTimer)
         {
             InitializeComponent();
@@ -74,13 +72,12 @@ namespace SchoolGrades_WPF
             secondsFirst = SecondsFirst;
             secondsSecond = SecondsSecond;
         }
-
         private void ColorTimer_Load(object sender, EventArgs e)
         {
             lastFormSize = GetFormArea(this.Size);
             SetLabelsSizeAndPosition();
 
-            this.Text += " v." + System.Diagnostics.FileVersionInfo.GetVersionInfo
+            this.Content += " v." + System.Diagnostics.FileVersionInfo.GetVersionInfo
                     (System.Reflection.Assembly.GetExecutingAssembly().Location)
                     .ProductVersion;
             if (secondsFirst != 0)
@@ -92,9 +89,9 @@ namespace SchoolGrades_WPF
 
             SetInitialColor();
 
-            btnConnect.BackColor = currentColor;
+            btnConnect.Background = currentColor;
 
-            spanHue = finalColor.GetHue() - initialColor.GetHue(); // differenza di tinta da coprire
+            //////////spanHue = finalColor.GetHue() - initialColor.GetHue(); // differenza di tinta da coprire
             //spanSaturation = coloreFinale.GetSaturation() - coloreIniziale.GetSaturation(); // differenza da coprire
             spanSaturation = 0;
             //spanLuminance = coloreFinale.GetBrightness() - coloreIniziale.GetBrightness(); // differenza da coprire
@@ -109,7 +106,7 @@ namespace SchoolGrades_WPF
                 VerifyExternalCommands();
 
                 timeLeftSeconds = Convert.ToSingle(txtCountDown.Text);
-                timeLeftSeconds -= timer1.Interval / 1000;
+                //////////timeLeftSeconds -= timer1.Interval / 1000;
                 if (timeLeftSeconds < 0) timeLeftSeconds = Convert.ToSingle(txtIntervalNext.Text) * 60;
                 txtCountDown.Text = Convert.ToString(timeLeftSeconds);
 
@@ -126,11 +123,11 @@ namespace SchoolGrades_WPF
                 AForge.Imaging.HSL colHSL = new AForge.Imaging.HSL();
 
                 // cambia colore dal colore iniziale a quello finale
-                colHSL.Hue = (int)(initialColor.GetHue() + spanHue * (timeTotalSeconds * 60 - timeLeftSeconds) / (timeTotalSeconds * 60));
-                colHSL.Saturation = initialColor.GetSaturation() + spanSaturation * (timeTotalSeconds * 60 - timeLeftSeconds) / (timeTotalSeconds * 60);
-                colHSL.Luminance = initialColor.GetBrightness() + spanLuminance * (timeTotalSeconds * 60 - timeLeftSeconds) / timeTotalSeconds;
-                AForge.Imaging.ColorConverter.HSL2RGB(colHSL, colRGB);
-                currentColor = colRGB.Color;
+                ////////colHSL.Hue = (int)(initialColor.GetHue() + spanHue * (timeTotalSeconds * 60 - timeLeftSeconds) / (timeTotalSeconds * 60));
+                ////////colHSL.Saturation = initialColor.GetSaturation() + spanSaturation * (timeTotalSeconds * 60 - timeLeftSeconds) / (timeTotalSeconds * 60);
+                ////////colHSL.Luminance = initialColor.GetBrightness() + spanLuminance * (timeTotalSeconds * 60 - timeLeftSeconds) / timeTotalSeconds;
+                ////////AForge.Imaging.ColorConverter.HSL2RGB(colHSL, colRGB);
+                ////////currentColor = colRGB.Color;
                 try
                 {
                     progressBar1.Value = (int)((timeTotalSeconds * 60 - timeLeftSeconds) / (timeTotalSeconds * 60) * 100.0F);
@@ -139,13 +136,13 @@ namespace SchoolGrades_WPF
                 catch
                 {
                 }
-                this.BackColor = currentColor;
-                btnStartNextInterval.BackColor = currentColor;
-                btnStartFirstInterval.BackColor = currentColor;
-                lblMinutesLeft.BackColor = currentColor;
-                lblSecondsLeft.BackColor = currentColor;
+                this.Background = currentColor;
+                btnStartNextInterval.Background = currentColor;
+                btnStartFirstInterval.Background = currentColor;
+                lblMinutesLeft.Background = currentColor;
+                lblSecondsLeft.Background = currentColor;
 
-                btnConnect.BackColor = currentColor;
+                btnConnect.Background = currentColor;
 
                 if (timeLeftSeconds < timeTotalSeconds * 0.2 * 60.0 && !alarmClock)
                 {
@@ -224,7 +221,7 @@ namespace SchoolGrades_WPF
                         }
                         else if (comandoAttuale.IndexOf("Collegamento interrotto") > -1)
                         {
-                            chkServer.Checked = false;
+                            chkServer.IsChecked = false;
                         }
                     }
                 }
@@ -232,7 +229,7 @@ namespace SchoolGrades_WPF
         }
         private void txtIntervallo_TextChanged(object sender, EventArgs e)
         {
-            timer1.Enabled = false;  // per evitare corse
+            //////////timer1.IsEnabled = false;  // per evitare corse
             try
             {
                 // aggiorna la durata ed anche il tempo rimasto, togliendogli il
@@ -255,7 +252,7 @@ namespace SchoolGrades_WPF
             }
             if (clientConnected)
                 ClientTcp.Write("INT1" + txtIntervalNext.Text);
-            timer1.Enabled = true;
+            //////////timer1.IsEnabled = true;
         }
         private void txtIntervalloIniziale_TextChanged(object sender, EventArgs e)
         {
@@ -270,7 +267,7 @@ namespace SchoolGrades_WPF
                 timeLeftSeconds = timeTotalSeconds * 60;
                 txtCountDown.Text = timeLeftSeconds.ToString();
 
-                timer1.Enabled = true;
+                //////////timer1.IsEnabled = true;
 
                 SetInitialColor();
             }
@@ -290,7 +287,7 @@ namespace SchoolGrades_WPF
                 txtCountDown.Text = timeLeftSeconds.ToString();
 
                 txtCountDown.Text = Convert.ToString(timeTotalSeconds * 60.0);
-                timer1.Enabled = true;
+                //////////timer1.IsEnabled = true;
 
                 SetInitialColor();
 
@@ -303,12 +300,12 @@ namespace SchoolGrades_WPF
         }
         private void SetInitialColor()
         {
-            this.BackColor = initialColor;
-            btnStartNextInterval.BackColor = initialColor;
-            btnStartFirstInterval.BackColor = initialColor;
+            this.Background = initialColor;
+            btnStartNextInterval.Background = initialColor;
+            btnStartFirstInterval.Background = initialColor;
 
-            lblSecondsLeft.BackColor = initialColor;
-            lblMinutesLeft.BackColor = initialColor;
+            lblSecondsLeft.Background = initialColor;
+            lblMinutesLeft.Background = initialColor;
 
             currentColor = initialColor;
         }
@@ -337,64 +334,64 @@ namespace SchoolGrades_WPF
                 MessageBox.Show("Collegamento impossibile \n" + ex.Message);
                 return;
             }
-            chkServer.Enabled = false;
-            btnConnect.Enabled = false;
+            chkServer.IsEnabled = false;
+            btnConnect.IsEnabled = false;
             clientConnected = true;
         }
         private void chkServer_CheckedChanged(object sender, EventArgs e)
         {
-            if (chkServer.Checked)
-            {
-                frmInput f = new frmInput("IP Address or DNS name", "TCP Port", "Password",
-                    initialColor, true);
-                f.txtInput1.Text = "127.0.0.1";
-                f.txtInput2.Text = "27759";
-                f.txtInput3.Text = password;
-                if (f.ShowDialog() == DialogResult.Cancel)
-                {
-                    chkServer.Checked = false;
-                    return;
-                }
-                string ipOrDns = f.txtInput1.Text;
-                int tcpPort = Convert.ToInt16(f.txtInput2.Text);
-                password = f.txtInput3.Text;
+            //////////if (chkServer.IsChecked)
+            //////////{
+            //////////    frmInput f = new frmInput("IP Address or DNS name", "TCP Port", "Password",
+            //////////        initialColor, true);
+            //////////    f.txtInput1.Text = "127.0.0.1";
+            //////////    f.txtInput2.Text = "27759";
+            //////////    f.txtInput3.Text = password;
+            //////////    if (f.ShowDialog() == DialogResult.Cancel)
+            //////////    {
+            //////////        chkServer.IsChecked = false;
+            //////////        return;
+            //////////    }
+            //////////    string ipOrDns = f.txtInput1.Text;
+            //////////    int tcpPort = Convert.ToInt16(f.txtInput2.Text);
+            //////////    password = f.txtInput3.Text;
 
-                // istanzia un oggetto della classe che contiene il codice da eseguire in thread
-                receivingObjectForThead = new ThreadServerReceiver(ipOrDns, tcpPort, password);
-                // crea il thread Inizia()
-                receivingThread = new Thread(receivingObjectForThead.StartColorTimerThread);
-                serverConnected = true;
-                chkServer.Enabled = false;
-                btnConnect.Enabled = false;
+            //////////    // istanzia un oggetto della classe che contiene il codice da eseguire in thread
+            //////////    receivingObjectForThead = new ThreadServerReceiver(ipOrDns, tcpPort, password);
+            //////////    // crea il thread Inizia()
+            //////////    receivingThread = new Thread(receivingObjectForThead.StartColorTimerThread);
+            //////////    serverConnected = true;
+            //////////    chkServer.IsEnabled = false;
+            //////////    btnConnect.IsEnabled = false;
 
-                timer1.Enabled = true;
-                // fa partire il thread Inizia()
-                receivingThread.Start();
+            //////////    //////////timer1.IsEnabled = true;
+            //////////    // fa partire il thread Inizia()
+            //////////    receivingThread.Start();
 
-                firstCommand = true;
-            }
-            else // server non checked
-            {
-                if (receivingObjectForThead != null)
-                {
-                    receivingObjectForThead.RequestStop();
-                    ServerTcp.Close();
-                    receivingObjectForThead = null;
-                    serverConnected = false;
-                    chkServer.Enabled = true;
-                    btnConnect.Enabled = true;
-                }
-            }
+            //////////    firstCommand = true;
+            //////////}
+            //////////else // server non checked
+            //////////{
+            //////////    if (receivingObjectForThead != null)
+            //////////    {
+            //////////        receivingObjectForThead.RequestStop();
+            //////////        ServerTcp.Close();
+            //////////        receivingObjectForThead = null;
+            //////////        serverConnected = false;
+            //////////        chkServer.IsEnabled = true;
+            //////////        btnConnect.IsEnabled = true;
+            //////////    }
+            //////////}
         }
-        private void ColorTimer_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (receivingObjectForThead != null)
-            {
-                receivingObjectForThead.RequestStop();
-                receivingObjectForThead = null;
-            }
-            ServerTcp.Close();
-        }
+        //////////private void ColorTimer_FormClosing(object sender, FormClosingEventArgs e)
+        //////////{
+        //////////    if (receivingObjectForThead != null)
+        //////////    {
+        //////////        receivingObjectForThead.RequestStop();
+        //////////        receivingObjectForThead = null;
+        //////////    }
+        //////////    ServerTcp.Close();
+        //////////}
         private void ColorTimer_Resize(object sender, EventArgs e)
         {
             if (isLoading)
@@ -403,55 +400,56 @@ namespace SchoolGrades_WPF
             }
             SetLabelsSizeAndPosition();
 
-            float scaleFactor = (float)GetFormArea(this.Size) / (float)lastFormSize;
+            //////////float scaleFactor = (float)GetFormArea(this.Size) / (float)lastFormSize;
 
             // scale font in minute's and second's labels
-            lblMinutesLeft.Font = new Font(lblMinutesLeft.Font.FontFamily.Name,
-                lblMinutesLeft.Font.Size * scaleFactor);
-            lblSecondsLeft.Font = new Font(lblSecondsLeft.Font.FontFamily.Name,
-                lblSecondsLeft.Font.Size * scaleFactor);
+            //////////lblMinutesLeft.Font = new Font(lblMinutesLeft.Font.FontFamily.Name,
+            //////////    lblMinutesLeft.Font.Size * scaleFactor);
+            //////////lblSecondsLeft.Font = new Font(lblSecondsLeft.Font.FontFamily.Name,
+            //////////    lblSecondsLeft.Font.Size * scaleFactor);
 
-            // ResizeAllFontsInControls(this.Controls, scaleFactor);
+            //////////// ResizeAllFontsInControls(this.Controls, scaleFactor);
 
-            lastFormSize = GetFormArea(this.Size);
+            //////////lastFormSize = GetFormArea(this.Size);
         }
         private void SetLabelsSizeAndPosition()
         {
-            int Y = btnStartFirstInterval.Location.Y + btnStartFirstInterval.Size.Height;
-            int height = this.Size.Height - Y;
-            int width = (int)(this.Size.Width / 2);
-            lblMinutesLeft.Size = new Size(width, height);
-            lblSecondsLeft.Size = new Size(width, height);
-            lblMinutesLeft.Location = new Point(0, Y);
-            lblSecondsLeft.Location = new Point(width, Y);
+            ////////int Y = btnStartFirstInterval.Location.Y + btnStartFirstInterval.Size.Height;
+            ////////int height = this.Size.Height - Y;
+            ////////int width = (int)(this.Size.Width / 2);
+            ////////lblMinutesLeft.Size = new Size(width, height);
+            ////////lblSecondsLeft.Size = new Size(width, height);
+            ////////lblMinutesLeft.Location = new Point(0, Y);
+            ////////lblSecondsLeft.Location = new Point(width, Y);
         }
         private int GetFormArea(Size size)
         {
-            return size.Height * size.Width;
+            //////////return size.Height * size.Width;
+            return 0;
         }
         private void ResizeAllFontsInControls(Control.ControlCollection coll, float scaleFactor)
         {
-            foreach (Control c in coll)
-            {
-                if (c.HasChildren)
-                {
-                    ResizeAllFontsInControls(c.Controls, scaleFactor);
-                }
-                else
-                {
-                    //if (c.GetType().ToString() == "System.Windows.Form.Label")
-                    if (true)
-                    {
-                        // scale font
-                        c.Font = new Font(c.Font.FontFamily.Name, c.Font.Size * scaleFactor);
-                    }
-                }
-            }
+            ////////foreach (Control c in coll)
+            ////////{
+            ////////    if (c.HasChildren)
+            ////////    {
+            ////////        ResizeAllFontsInControls(c.Controls, scaleFactor);
+            ////////    }
+            ////////    else
+            ////////    {
+            ////////        //if (c.GetType().ToString() == "System.Windows.Form.Label")
+            ////////        if (true)
+            ////////        {
+            ////////            // scale font
+            ////////            c.Font = new Font(c.Font.FontFamily.Name, c.Font.Size * scaleFactor);
+            ////////        }
+            ////////    }
+            ////////}
         }
 
         private void chkSoundsInColorTimer_CheckedChanged(object sender, EventArgs e)
         {
-            playSoundEffects = chkSoundsInColorTimer.Checked;
+            playSoundEffects = chkSoundsInColorTimer.IsChecked;
         }
     }
 }

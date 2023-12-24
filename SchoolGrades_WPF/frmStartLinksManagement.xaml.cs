@@ -1,18 +1,9 @@
-﻿using Microsoft.Win32;
-using SchoolGrades;
+﻿using SchoolGrades;
+using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SchoolGrades_WPF
 {
@@ -36,7 +27,7 @@ namespace SchoolGrades_WPF
         {
             loading = true;
             List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
-            CmbSchoolYear.DataSource = ly;
+            CmbSchoolYear.ItemsSource = ly;
             if (ly.Count > 0)
                 CmbSchoolYear.SelectedItem = ly[ly.Count - 1];
             //TxtPathStartLink.Text = currentClass.PathRestrictedApplication;
@@ -50,47 +41,53 @@ namespace SchoolGrades_WPF
         {
             if (!loading)
             {
-                DgwLinks.DataSource = null;
-                DgwLinks.DataSource = Commons.bl.GetStartLinksOfClass(currentClass);
+                DgwLinks.ItemsSource = null;
+                DgwLinks.ItemsSource = Commons.bl.GetStartLinksOfClass(currentClass);
             }
         }
-        private void DgwLinks_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void DgwLinks_CellContentClick(object sender, RoutedEvent e)
         {
 
         }
-        private void DgwLinks_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void DgwLinks_CellClick(object sender, RoutedEvent e)
         {
-            if (e.RowIndex > -1)
+            DataGrid grid = (DataGrid)sender;
+            int RowIndex = grid.SelectedIndex;
+            if (RowIndex > -1)
             {
-                DgwLinks.Rows[e.RowIndex].Selected = true;
-                currentLink = ((List<StartLink>)DgwLinks.DataSource)[e.RowIndex];
+                DgwLinks.Rows[RowIndex].Selected = true;
+                currentLink = ((List<StartLink>)DgwLinks.ItemsSource)[RowIndex];
             }
         }
-        private void DgwLinks_RowEnter(object sender, DataGridViewCellEventArgs e)
+        private void DgwLinks_RowEnter(object sender, RoutedEvent e)
         {
-            if (e.RowIndex > -1)
+            DataGrid grid = (DataGrid)sender;
+            int RowIndex = grid.SelectedIndex;
+            if (RowIndex > -1)
             {
-                List<StartLink> l = (List<StartLink>)DgwLinks.DataSource;
+                List<StartLink> l = (List<StartLink>)DgwLinks.ItemsSource;
 
-                TxtStartLink.Text = Safe.String(l[e.RowIndex].Link);
+                TxtStartLink.Text = Safe.String(l[RowIndex].Link);
 
-                TxtLinkDescription.Text = Safe.String(l[e.RowIndex].Desc);
-                currentIdStartLink = Safe.Int(l[e.RowIndex].IdStartLink);
-                currentClass.IdClass = Safe.Int(l[e.RowIndex].IdClass);
+                TxtLinkDescription.Text = Safe.String(l[RowIndex].Desc);
+                currentIdStartLink = Safe.Int(l[RowIndex].IdStartLink);
+                currentClass.IdClass = Safe.Int(l[RowIndex].IdClass);
             }
         }
-        private void DgwLinks_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void DgwLinks_CellDoubleClick(object sender, RoutedEvent e)
         {
-            if (e.RowIndex > -1)
+            DataGrid grid = (DataGrid)sender;
+            int RowIndex = grid.SelectedIndex;
+            if (RowIndex > -1)
             {
                 try
                 {
-                    StartLink row = ((List<StartLink>)(DgwLinks.DataSource))[e.RowIndex];
+                    StartLink row = ((List<StartLink>)(DgwLinks.ItemsSource))[RowIndex];
                     Class clickedClass = Commons.bl.GetClassById((int)row.IdClass);
                     if (row.Link.Substring(0, 4) == "http" || row.Link.Contains(".exe"))
                         Commons.ProcessStartLink(row.Link);
                     else
-                        Commons.ProcessStartLink(Path.Combine(clickedClass.PathRestrictedApplication, row.Link));
+                        Commons.ProcessStartLink(System.IO.Path.Combine(clickedClass.PathRestrictedApplication, row.Link));
                 }
                 catch (Exception ex)
                 {
@@ -132,7 +129,7 @@ namespace SchoolGrades_WPF
                 if (TxtStartLink.Text.Substring(0, 4) == "http")
                     Commons.ProcessStartLink(TxtStartLink.Text);
                 else
-                    Commons.ProcessStartLink(Path.Combine(currentClass.PathRestrictedApplication, TxtStartLink.Text));
+                    Commons.ProcessStartLink(System.IO.Path.Combine(currentClass.PathRestrictedApplication, TxtStartLink.Text));
             }
             catch
             {
@@ -153,13 +150,13 @@ namespace SchoolGrades_WPF
                 }
                 else
                 {
-                    DgwLinks.DataSource = null;
+                    DgwLinks.ItemsSource = null;
                 }
             }
         }
         private void CmbSchoolYear_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text,
+            CmbClasses.ItemsSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text,
                     CmbSchoolYear.SelectedItem.ToString());
             if (!loading)
             {
@@ -186,10 +183,10 @@ namespace SchoolGrades_WPF
             // !!!! code currently non executed
             folderBrowserDialog1.SelectedPath = TxtPathStartLink.Text;
             DialogResult r = folderBrowserDialog1.ShowDialog();
-            if (r == System.Windows.Forms.DialogResult.OK)
+            if (r == MessageBoxResult.OK)
             {
                 if (MessageBox.Show("Si deve cambiare la cartella dei link?\n(i link a documenti già presenti non funzioneranno più!)",
-                    "Attenzione!", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                    "Attenzione!", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxDefaultButton.Button2) == MessageBoxResult.Yes)
                 {
                     TxtPathStartLink.Text = folderBrowserDialog1.SelectedPath;
                     Commons.bl.UpdatePathStartLinkOfClass(currentClass, TxtPathStartLink.Text);

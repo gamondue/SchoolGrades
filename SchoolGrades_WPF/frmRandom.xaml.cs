@@ -30,10 +30,10 @@ namespace SchoolGrades_WPF
             //int randomNumber = rnd.Next(int.Parse(txtFrom.Text), int.Parse(txtTo.Text.ToString())+1);
             int randomNumber = Commons.bl.RandomNumber(int.Parse(txtFrom.Text), int.Parse(txtTo.Text.ToString()) + 1);
             txtResult.Text = randomNumber.ToString();
-            if (txtResult.BackColor == Color.Goldenrod)
-                txtResult.BackColor = Color.YellowGreen;
+            if (txtResult.Background == Color.Goldenrod)
+                txtResult.Background = Color.YellowGreen;
             else
-                txtResult.BackColor = Color.Goldenrod;
+                txtResult.Background = Color.Goldenrod;
             Clipboard.SetText(txtResult.Text);
         }
 

@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SchoolGrades;
+using SchoolGrades.BusinessObjects;
+using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Xml.Linq;
 
 namespace SchoolGrades_WPF
 {
@@ -46,8 +36,8 @@ namespace SchoolGrades_WPF
             txtIdQuestion.Text = currentAnswer.IdQuestion.ToString();
             txtErrorCost.Text = currentAnswer.ErrorCost.ToString();
             txtText.Text = currentAnswer.Text;
-            rdbIsOpenAnswer.Checked = (bool)currentAnswer.IsOpenAnswer;
-            rdbIsCorrect.Checked = (bool)currentAnswer.IsCorrect;
+            rdbIsOpenAnswer.IsChecked = (bool)currentAnswer.IsOpenAnswer;
+            rdbIsCorrect.IsChecked = (bool)currentAnswer.IsCorrect;
         }
         private void txtErrorCost_TextChanged(object sender, EventArgs e)
         {
@@ -66,11 +56,11 @@ namespace SchoolGrades_WPF
         }
         private void rdbIsOpenAnswer_CheckedChanged(object sender, EventArgs e)
         {
-            currentAnswer.IsOpenAnswer = rdbIsOpenAnswer.Checked;
+            currentAnswer.IsOpenAnswer = rdbIsOpenAnswer.IsChecked;
         }
         private void rdbIsCorrect_CheckedChanged(object sender, EventArgs e)
         {
-            currentAnswer.IsCorrect = rdbIsCorrect.Checked;
+            currentAnswer.IsCorrect = rdbIsCorrect.IsChecked;
         }
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -91,7 +81,7 @@ namespace SchoolGrades_WPF
             Commons.bl.SaveAnswer(currentAnswer);
             this.Close();
         }
-        private void frmAnswer_FormClosing(object sender, FormClosingEventArgs e)
+        private void frmAnswer_FormClosing(object sender, RoutedEvent e)
         {
             // id I close without having saved, I don't save! 
             // to signal the calling program tha it has'nt to save, I put 0 in the answer code

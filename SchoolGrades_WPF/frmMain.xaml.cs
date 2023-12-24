@@ -1,5 +1,4 @@
 ﻿//using gamon.TreeMptt;
-using gamon.TreeMptt;
 using SchoolGrades;
 using SchoolGrades.BusinessObjects;
 using Shared;
@@ -208,7 +207,7 @@ namespace SchoolGrades_WPF
 
             //////////Commons.BackgroundSaveThread = new Thread(CommonsWpf.SaveTreeMptt.SaveTreeMpttBackground);
             //////////Commons.BackgroundSaveThread.Start();
-            
+
             //////////TreeMpttNoUi tree = new TreeMpttNoUi();
             //////////tree.SaveTreeMpttBackground();
 
@@ -1530,10 +1529,10 @@ namespace SchoolGrades_WPF
         private void chkActivateLessonClock_CheckedChanged(object sender, RoutedEventArgs e)
         {
             ////////////if ((bool)chkActivateLessonClock.IsChecked)
-            ////////////    timerLesson.Enabled = true;
+            ////////////    timerLesson.IsEnabled = true;
             ////////////else
             ////////////{
-            ////////////    timerLesson.Enabled = false;
+            ////////////    timerLesson.IsEnabled = false;
             ////////////    CurrentLessonTimeColor = Color.Transparent;
             ////////////    btnLessonTime.Background = CurrentLessonTimeColor;
             ////////////}
@@ -1630,7 +1629,7 @@ namespace SchoolGrades_WPF
         private void chkPopUpQuestionsEnabled_CheckedChanged(object sender, RoutedEventArgs e)
         {
             ////////////timerPopUp.Interval = 1;
-            ////////////timerPopUp.Enabled = chkPopUpQuestionsEnabled.IsChecked;
+            ////////////timerPopUp.IsEnabled = chkPopUpQuestionsEnabled.IsChecked;
             ////////////if (timerPopUp.Enabled)
             ////////////{
             ////////////    SetNewPopUpOfStudentToQuestion();
@@ -1648,7 +1647,7 @@ namespace SchoolGrades_WPF
             double minutesToTheNextQuestion = PopUpQuestionCentralTime - random.NextDouble() *
                 PopUpQuestionCentralTime * displacementTime / 4;
             nextPopUpQuestionTime = DateTime.Now.AddMinutes(minutesToTheNextQuestion);
-            //////////timerPopUp.Enabled = true;
+            //////////timerPopUp.IsEnabled = true;
         }
         private void txtPopUpQuestionCentralTime_TextChanged(object sender, RoutedEventArgs e)
         {
@@ -1661,7 +1660,7 @@ namespace SchoolGrades_WPF
         {
             if (nextPopUpQuestionTime <= DateTime.Now)
             {
-                //////////timerPopUp.Enabled = false;
+                //////////timerPopUp.IsEnabled = false;
                 if (currentClass == null)
                 {
                     Console.Beep(1000, 500);
@@ -1709,11 +1708,14 @@ namespace SchoolGrades_WPF
         }
         ////////////private void dgwStudents_CellContentClick(object sender, RoutedEventArgs e)
         ////////////{
-        ////////////    if (e.RowIndex > -1)
+        //////////// DataGrid grid = (DataGrid)sender;
+        ////////////int RowIndex = grid.SelectedIndex;
+        ////////////    if (RowIndex > -1)
+        ////////////    {
         ////////////    {
         ////////////        if (dgwStudents.CurrentCell.ColumnIndex == 0)
         ////////////        {
-        ////////////            currentStudentsList[e.RowIndex].Eligible = !currentStudentsList[e.RowIndex].Eligible;
+        ////////////            currentStudentsList[RowIndex].Eligible = !currentStudentsList[RowIndex].Eligible;
         ////////////            if (currentStudentsList == null)
         ////////////                return;
 
@@ -1728,17 +1730,14 @@ namespace SchoolGrades_WPF
         private void dgwStudents_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             DataGrid grid = (DataGrid)sender;
-            if (grid != null)
+            int RowIndex = grid.SelectedIndex;
+            if (RowIndex > -1)
             {
-                int RowIndex = grid.SelectedIndex;
-                if (RowIndex > -1)
-                {
-                    currentClass.CurrentStudent = currentStudentsList[RowIndex];
-                    currentStudent = currentClass.CurrentStudent;
-                    currentStudent.SchoolYear = currentClass.SchoolYear;
-                    loadStudentsData(currentStudent);
-                    chkStudentsListVisible.Visibility = Visibility.Hidden;
-                }
+                currentClass.CurrentStudent = currentStudentsList[RowIndex];
+                currentStudent = currentClass.CurrentStudent;
+                currentStudent.SchoolYear = currentClass.SchoolYear;
+                loadStudentsData(currentStudent);
+                chkStudentsListVisible.Visibility = Visibility.Hidden;
             }
         }
         ////////////private void dgwStudents_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
@@ -1831,7 +1830,7 @@ namespace SchoolGrades_WPF
         private void ReadCheckSignsIntoCurrentStudentsList()
         {
             int i = 0;
-            ////////////foreach (DataGridViewRow r in dgwStudents.Rows)
+            ////////////foreach (DataGridRow r in dgwStudents.Rows)
             ////////////{
             ////////////    currentStudentsList[i].Eligible = (bool)r.Cells[0].Value;
             ////////////}

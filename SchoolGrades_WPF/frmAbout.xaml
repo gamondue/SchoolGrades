@@ -10,10 +10,11 @@
 
         <TextBlock></TextBlock>
         <TextBlock HorizontalAlignment="Center" FontSize="12" FontWeight="Bold">Questo programma è gratuito. L'Autore non fornisce alcuna forma di garanzia, nè di funzionalità, nè di rispondenza alle esigenze dell'utente.</TextBlock>
-        <TextBlock Margin="300,30,0,0" FontSize="30" HorizontalAlignment="Center" FontWeight="Bold">lblAssemblyTitle</TextBlock>
-        <TextBlock Margin="300,70,0,0" HorizontalAlignment="Center" FontSize="25">lblAssemblyDescription</TextBlock>
-        <TextBlock Margin="300,110,0,0" HorizontalAlignment="Center" FontSize="20">Versione</TextBlock>
-        <TextBlock Margin="300,150,0,0" HorizontalAlignment="Center" FontSize="20">lblData</TextBlock>
+        <TextBlock x:Name="lblAssemblyTitle" Margin="434,30,0,364" FontSize="30" HorizontalAlignment="Left" FontWeight="Bold">lblAssemblyTitle</TextBlock>
+        <TextBlock x:Name="lblAssemblyDescription" Margin="421,70,0,329" HorizontalAlignment="Left" FontSize="25">lblAssemblyDescription</TextBlock>
+        <TextBlock x:Name="lblVersione" Margin="512,110,0,300" HorizontalAlignment="Left" FontSize="20">Versione</TextBlock>
+        <TextBlock x:Name="lblData" Margin="512,155,0,0" HorizontalAlignment="Left" FontSize="20" Height="25" 
+                   VerticalAlignment="Top" Width="70" Text="lblData"/>
         <TextBlock Margin="300,200,0,0" HorizontalAlignment="Center" FontSize="25" FontWeight="bold">prof. Gabriele MONTI</TextBlock>
         <TextBlock Margin="300,250,0,0" HorizontalAlignment="Center" FontSize="25" FontWeight="bold">ITT Pascal - Cesena</TextBlock>
         <TextBlock Margin="300,300,0,0" HorizontalAlignment="Center" FontSize="25" FontWeight="bold">ITALIA</TextBlock>

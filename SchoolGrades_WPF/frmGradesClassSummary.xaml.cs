@@ -1,17 +1,10 @@
-﻿using SchoolGrades.BusinessObjects;
+﻿using SchoolGrades;
+using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace SchoolGrades_WPF
@@ -39,15 +32,15 @@ namespace SchoolGrades_WPF
             List<GradeType> listGradeTypes = Commons.bl.GetListGradeTypes();
             cmbSummaryGradeType.DisplayMember = "Name";
             cmbSummaryGradeType.ValueMember = "idGradeType";
-            cmbSummaryGradeType.DataSource = listGradeTypes;
+            cmbSummaryGradeType.ItemsSource = listGradeTypes;
 
             List<SchoolSubject> listSubjects = Commons.bl.GetListSchoolSubjects(false);
             cmbSchoolSubjects.DisplayMember = "Name";
             cmbSchoolSubjects.ValueMember = "idSchoolSubject";
-            cmbSchoolSubjects.DataSource = listSubjects;
+            cmbSchoolSubjects.ItemsSource = listSubjects;
 
             List<SchoolPeriod> listPeriods = Commons.bl.GetSchoolPeriods(Class.SchoolYear);
-            cmbSchoolPeriod.DataSource = listPeriods;
+            cmbSchoolPeriod.ItemsSource = listPeriods;
             // select the combo item of the partial period of the DateTime.Now
             foreach (SchoolPeriod sp in listPeriods)
             {
@@ -78,7 +71,7 @@ namespace SchoolGrades_WPF
         private void cmbSchoolSubjects_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentSubject = ((SchoolSubject)(cmbSchoolSubjects.SelectedItem));
-            this.BackColor = CommonsWinForms.ColorFromNumber(currentSubject);
+            this.Background = CommonsWinForms.ColorFromNumber(currentSubject);
         }
         private void cmbPeriodo_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -90,32 +83,32 @@ namespace SchoolGrades_WPF
             {
                 if (rdb == rdbMissing)
                 {
-                    dgwGrades.DataSource = Commons.bl.GetStudentsWithNoMicrogrades(currentClass,
+                    dgwGrades.ItemsSource = Commons.bl.GetStudentsWithNoMicrogrades(currentClass,
                         ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                         ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
-                        dtpStartPeriod.Value, dtpEndPeriod.Value
+                        dtpStartPeriod.SelectedDate, dtpEndPeriod.SelectedDate
                         );
                 }
                 if (rdb == rdbShowGrades)
                 {
-                    dgwGrades.DataSource = Commons.bl.GetGradesOfClass(currentClass,
+                    dgwGrades.ItemsSource = Commons.bl.GetGradesOfClass(currentClass,
                         ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                         ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
-                        dtpStartPeriod.Value, dtpEndPeriod.Value
+                        dtpStartPeriod.SelectedDate, dtpEndPeriod.SelectedDate
                         );
                     lblSum.Text = "";
                     txtSummaryDatum.Text = "";
                 }
                 else if (rdb == rdbShowWeights)
                 {
-                    dgwGrades.DataSource = Commons.bl.GetWeightedAveragesOfClass(currentClass,
+                    dgwGrades.ItemsSource = Commons.bl.GetWeightedAveragesOfClass(currentClass,
                         ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                         ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
-                        dtpStartPeriod.Value, dtpEndPeriod.Value
+                        dtpStartPeriod.SelectedDate, dtpEndPeriod.SelectedDate
                         );
                     double sumLeftToClose = 0;
                     double maxGradesFraction = 0;
-                    foreach (DataRow row in ((DataTable)dgwGrades.DataSource).Rows)
+                    foreach (DataRow row in ((DataTable)dgwGrades.ItemsSource).Rows)
                     {
                         double gf = (double)row["GradesFraction"];
                         if (gf > maxGradesFraction)
@@ -128,20 +121,20 @@ namespace SchoolGrades_WPF
                 }
                 else if (rdb == rdbShowWeightedGrades)
                 {
-                    dgwGrades.DataSource = Commons.bl.GetGradesWeightedAveragesOfClassByAverage(currentClass,
+                    dgwGrades.ItemsSource = Commons.bl.GetGradesWeightedAveragesOfClassByAverage(currentClass,
                         ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                         ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
-                        dtpStartPeriod.Value, dtpEndPeriod.Value
+                        dtpStartPeriod.SelectedDate, dtpEndPeriod.SelectedDate
                         );
                     lblSum.Text = "";
                     txtSummaryDatum.Text = "";
                 }
                 else if (rdb == rdbShowWeightsOnOpenGrades)
                 {
-                    dgwGrades.DataSource = Commons.bl.GetGradesWeightsOfClassOnOpenGrades(currentClass,
+                    dgwGrades.ItemsSource = Commons.bl.GetGradesWeightsOfClassOnOpenGrades(currentClass,
                         ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType,
                         ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
-                        dtpStartPeriod.Value, dtpEndPeriod.Value
+                        dtpStartPeriod.SelectedDate, dtpEndPeriod.SelectedDate
                         );
                     lblSum.Text = "";
                     txtSummaryDatum.Text = "";
@@ -149,11 +142,11 @@ namespace SchoolGrades_WPF
                     setRowNumbers(dgwGrades);
                 }
             }
-            txtNStudents.Text = ((DataTable)dgwGrades.DataSource).Rows.Count.ToString();
+            txtNStudents.Text = ((DataTable)dgwGrades.ItemsSource).Rows.Count.ToString();
         }
-        private void setRowNumbers(DataGridView dgv)
+        private void setRowNumbers(DataGrid dgv)
         {
-            foreach (DataGridViewRow row in dgv.Rows)
+            foreach (DataGridRow row in dgv.Items)
             {
                 row.HeaderCell.Value = (row.Index + 1).ToString();
             }
@@ -163,8 +156,8 @@ namespace SchoolGrades_WPF
             currentSchoolPeriod = (SchoolPeriod)(cmbSchoolPeriod.SelectedValue);
 
             var res = Commons.bl.CalculateStartAndEndPeriod(currentSchoolPeriod);
-            dtpStartPeriod.Value = res.startPeriod;
-            dtpEndPeriod.Value = res.endPeriod;
+            dtpStartPeriod.SelectedDate = res.startPeriod;
+            dtpEndPeriod.SelectedDate = res.endPeriod;
 
             RetrieveData(FindCheckedRadioButton());
         }
@@ -173,7 +166,7 @@ namespace SchoolGrades_WPF
             RadioButton rdbFound = null;
             foreach (RadioButton rdb in grpChosenQuery.Controls)
             {
-                if (rdb.Checked)
+                if (rdb.IsChecked)
                 {
                     rdbFound = rdb;
                     break;
@@ -211,36 +204,40 @@ namespace SchoolGrades_WPF
                 currentSubject + "_" +
                 ((GradeType)(cmbSummaryGradeType.SelectedItem)).IdGradeType + "_" +
                 tipoTabella + "_" +
-                dtpStartPeriod.Value.ToString("yyyy.MM.dd_") + dtpEndPeriod.Value.ToString("yyyy.MM.dd") +
+                dtpStartPeriod.SelectedDate.ToString("yyyy.MM.dd_") + dtpEndPeriod.SelectedDate.ToString("yyyy.MM.dd") +
                 ".csv");
-            Commons.bl.SaveTableOnCvs((DataTable)dgwGrades.DataSource, FileName);
+            Commons.bl.SaveTableOnCvs((DataTable)dgwGrades.ItemsSource, FileName);
             MessageBox.Show("Creato file: " + FileName);
         }
-        private void dgwGrades_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgwGrades_CellContentClick(object sender, RoutedEvent e)
         {
         }
-        private void dgwGrades_CellClick(object sender, DataGridViewCellEventArgs e)
+        //private void dgwGrades_CellClick(object sender, RoutedEvent e)
+        //{
+        //                DataGrid grid = (DataGrid)sender;
+        //int RowIndex = grid.SelectedIndex;
+        //    if (RowIndex > -1)
+        //    {
+        //        dgwGrades.Items[RowIndex].Selected = true;
+        //    }
+        //}
+        private void dgwGrades_CellDoubleClick(object sender, RoutedEvent e)
         {
-            if (e.RowIndex > -1)
-            {
-                dgwGrades.Rows[e.RowIndex].Selected = true;
-            }
-        }
-        private void dgwGrades_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex > -1)
+            DataGrid grid = (DataGrid)sender;
+            int RowIndex = grid.SelectedIndex;
+            if (RowIndex > -1)
             {
                 try
                 {
-                    if (!rdbMissing.Checked)
+                    if (!rdbMissing.IsChecked)
                     {
-                        int IdQuestion = (int)dgwGrades.Rows[e.RowIndex].Cells[0].Value;
+                        int IdQuestion = (int)dgwGrades.Items[RowIndex].Cells[0].Value;
                         frmMicroAssessment fg = new frmMicroAssessment(IdQuestion);
                         fg.Show();
                     }
                     else
                     {
-                        int IdStudent = (int)dgwGrades.Rows[e.RowIndex].Cells[0].Value;
+                        int IdStudent = (int)dgwGrades.Items[RowIndex].Cells[0].Value;
                         Student currentStudent = Commons.bl.GetStudent(IdStudent);
                         frmMicroAssessment fg = new frmMicroAssessment(null,
                             currentClass, currentStudent,
@@ -264,23 +261,23 @@ namespace SchoolGrades_WPF
         }
         private RadioButton ActiveRadioButton()
         {
-            if (rdbMissing.Checked)
+            if ((bool)rdbMissing.IsChecked)
             {
                 return rdbMissing;
             }
-            if (rdbShowGrades.Checked)
+            if ((bool)rdbShowGrades.IsChecked)
             {
                 return rdbShowGrades;
             }
-            if (rdbShowWeightedGrades.Checked)
+            if ((bool)rdbShowWeightedGrades.IsChecked)
             {
                 return rdbShowWeightedGrades;
             }
-            if (rdbShowWeights.Checked)
+            if ((bool)rdbShowWeights.IsChecked)
             {
                 return rdbShowWeights;
             }
-            if (rdbShowWeightsOnOpenGrades.Checked)
+            if ((bool)rdbShowWeightsOnOpenGrades.IsChecked)
             {
                 return rdbShowWeightsOnOpenGrades;
 
