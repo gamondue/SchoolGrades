@@ -32,11 +32,11 @@ namespace SchoolGrades_WPF
             }
             if (isDialog)
             {
-                btnChoose.Visible = true;
+                btnChoose.Visibility = Visibility.Visible;
             }
             else
             {
-                btnChoose.Visible = false;
+                btnChoose.Visibility = Visibility.Hidden;
             }
         }
         private void loadStudentData(Student currentStudent)
@@ -148,7 +148,7 @@ namespace SchoolGrades_WPF
             int RowIndex = grid.SelectedIndex;
             if (RowIndex > -1)
             {
-                int key = (int)((DataTable)(dgwSearchedStudents.ItemsSource)).Rows[RowIndex]["idStudent"];
+                int key = (int)((DataTable)(dgwSearchedStudents.ItemsSource)).Items[RowIndex]["idStudent"];
                 Student s = Commons.bl.GetStudent(key);
                 loadStudentData(s);
                 currentStudent = s;
@@ -166,7 +166,7 @@ namespace SchoolGrades_WPF
             int RowIndex = grid.SelectedIndex;
             if (RowIndex > -1)
             {
-                int key = (int)((DataTable)(dgwSearchedStudents.ItemsSource)).Rows[RowIndex]["idStudent"];
+                int key = (int)((DataTable)(dgwSearchedStudents.ItemsSource)).Items[RowIndex]["idStudent"];
                 Student s = Commons.bl.GetStudent(key);
                 loadStudentData(s);
                 currentStudent = s;

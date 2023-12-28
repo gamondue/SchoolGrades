@@ -60,7 +60,7 @@ namespace SchoolGrades_WPF
             int RowIndex = grid.SelectedIndex;
             if (RowIndex > -1)
             {
-                DataGridRow r = dgwQuestions.Rows[RowIndex];
+                DataGridRow r = dgwQuestions.Items[RowIndex];
                 txtQuestionText.Text = (string)r.Cells["Text"].Value;
                 currentIdGrade = (int)r.Cells["IdQuestion"].Value;
             }
@@ -71,7 +71,7 @@ namespace SchoolGrades_WPF
             int RowIndex = grid.SelectedIndex;
             if (RowIndex > -1)
             {
-                dgwQuestions.Rows[RowIndex].Selected = true;
+                dgwQuestions.Items[RowIndex].Selected = true;
             }
         }
         private void DgwQuestions_CellDoubleClick(object sender, RoutedEvent e)

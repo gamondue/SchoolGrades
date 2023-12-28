@@ -113,8 +113,8 @@ namespace SchoolGrades_WPF
                 }
                 //txtClassDescriptionNext.Text = currentSchool.Name + " " + txtSchoolYearNext.Text +
                 //    " " + txtClassAbbreviationNext.Text;
-                //txtClassDescriptionNext.Visible = true;
-                //lblClassDescription.Visible = true; 
+                //txtClassDescriptionNext.Visibility = Visibility.Visible;
+                //lblClassDescription.Visibility = Visibility.Visible; 
                 DgwStudents.Items.Clear();
                 MessageBox.Show("Aggiustare i dati della classe e degli studenti\r\nSegnare gli studenti da INCLUDERE " +
                     "nella nuova classe, con il segno di spunta a sinistra, poi premere 'Genera classe'" +
@@ -137,7 +137,7 @@ namespace SchoolGrades_WPF
                 txtClassDescriptionNext.Text = currentSchool.Desc + " " + txtSchoolYearNext.Text + " " + txtClassAbbreviationNext.Text;
 
             List<Student> SelectedStudents = new List<Student>();
-            //foreach (DataGridRow r in DgwStudents.Rows)
+            //foreach (DataGridRow r in DgwStudents.Items)
             //{
             //    // don't include students whose rows are non checked
             //    if ((bool)r.Cells["SaveThisStudent"].Value == true)
@@ -149,7 +149,7 @@ namespace SchoolGrades_WPF
                 nextSchoolYear, cmbSchoolYearCurrents.Text, TxtOfficialSchoolAbbreviation.Text);
 
             MessageBox.Show("Creazione classe " + txtClassAbbreviationNext.Text + " " + txtSchoolYearNext.Text + " terminata");
-            //BtnStudentNew.Visible = false;
+            //BtnStudentNew.Visibility = Visibility.Hidden;
             FromUiToClasses();
         }
         //private void BtnStudentNew_Click(object sender, RoutedEventArgs e)

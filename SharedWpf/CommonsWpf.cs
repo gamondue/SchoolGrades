@@ -2,13 +2,13 @@
 using gamon.TreeMptt;
 using SchoolGrades;
 using SchoolGrades.BusinessObjects;
-using SchoolGrades_WPF;
 using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Shapes;
+using System.Windows.Media.Imaging;
+using Rectangle = System.Windows.Shapes.Rectangle;
 
 namespace Shared
 {
@@ -17,7 +17,7 @@ namespace Shared
         internal static Rectangle globalPicLed;
         internal static TreeMptt SaveTreeMptt;
 
-        private static Color ColorNoSubject = Colors.PowderBlue;
+        private static System.Windows.Media.Color ColorNoSubject = Colors.PowderBlue;
 
         internal static void SaveCurrentValuesOfAllControls(Control ParentControl, ref string PathAndFile)
         {
@@ -148,12 +148,12 @@ namespace Shared
             ////////DataTable dt = ds.Tables[0];
 
             ////////int j = 0;
-            ////////foreach (DataRow riga in dt.Rows)
+            ////////foreach (DataRow riga in dt.Items)
             ////////{
-            ////////    grid.Rows.Add();
+            ////////    grid.Items.Add();
             ////////    for (int i = 0; i < riga.ItemArray.Length; i++)
             ////////    {
-            ////////        grid.Rows[j].Cells[i].Value = riga.ItemArray[i];
+            ////////        grid.Items[j].Cells[i].Value = riga.ItemArray[i];
             ////////    }
             ////////    j++;
             ////////}
@@ -168,19 +168,19 @@ namespace Shared
             //DataTable dt = new DataTable();
             //foreach (DataGridViewColumn column in grid.Columns)
             //{
-            //    dt.Columns.Add(grid.Rows[0].Cells[j].ToString());
+            //    dt.Columns.Add(grid.Items[0].Cells[j].ToString());
             //    j++;
             //}
             //object[] cellValues = new object[grid.Columns.Count];
             //// valori
-            //foreach (DataGridRow rigaGrid in grid.Rows)
+            //foreach (DataGridRow rigaGrid in grid.Items)
             //{
             //    for (int i = 0; i < rigaGrid.Cells.Count; i++)
             //    {
-            //        //dt.Rows[j].ItemArray = rigaGrid.Cells[i].Value;
+            //        //dt.Items[j].ItemArray = rigaGrid.Cells[i].Value;
             //        cellValues[i] = rigaGrid.Cells[i].Value;
             //    }
-            //    dt.Rows.Add(cellValues);
+            //    dt.Items.Add(cellValues);
             //}
             //ds.Tables.Add(dt);
             //ds.WriteXml(ComuniZ.PathFileConfigurazione + fileIni);
@@ -224,7 +224,7 @@ namespace Shared
             }
             return true;
         }
-        internal static void RestoreCurrentValuesOfAllControls(frmMain frmMain, string file)
+        internal static void RestoreCurrentValuesOfAllControls(Window window, string file)
         {
             throw new NotImplementedException();
         }
@@ -337,7 +337,7 @@ namespace Shared
                 //return;
             }
         }
-        internal static Color ColorFromNumber(SchoolSubject Subject)
+        internal static System.Windows.Media.Color ColorFromNumber(SchoolSubject Subject)
         {
             if (Subject == null || Subject.Color == null || Subject.Color == 0)
                 return ColorNoSubject;
@@ -345,8 +345,25 @@ namespace Shared
             byte red = (byte)((Subject.Color & 0xFF0000) >> 16);
             byte green = (byte)((Subject.Color & 0xFF00) >> 8);
             byte blue = (byte)(Subject.Color & 0xFF);
-            Color bgColor = Color.FromRgb(red, green, blue);
+            System.Windows.Media.Color bgColor = System.Windows.Media.Color.FromRgb(red, green, blue);
             return bgColor;
+        }
+        internal static SolidColorBrush BrushFromColor(System.Windows.Media.Color Color)
+        {
+            return new SolidColorBrush(Color);
+        }
+        internal static void loadPicture(System.Windows.Controls.Image ImageControl, string PicturePathAndFile)
+        {
+            try
+            {
+                var uriSource = new Uri(PicturePathAndFile, UriKind.Absolute);
+                ImageControl.Source = new BitmapImage(uriSource);
+            }
+            catch
+            {
+                ImageControl.Source = null;
+                Console.Beep();
+            }
         }
     }
 }

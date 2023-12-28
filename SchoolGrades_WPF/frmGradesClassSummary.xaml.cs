@@ -1,10 +1,12 @@
 ﻿using SchoolGrades;
 using SchoolGrades.BusinessObjects;
+using Shared;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Shapes;
 
 namespace SchoolGrades_WPF
@@ -57,8 +59,8 @@ namespace SchoolGrades_WPF
         private void frmGradesClassSummary_Load(object sender, EventArgs e)
         {
             // classes label  
-            lblCurrentClass.Text = currentClass.ToString();
-            lblSum.Text = "";
+            lblCurrentClass.Content = currentClass.ToString();
+            lblSum.Content = "";
 
             cmbSummaryGradeType.SelectedValue = currentGradeType.IdGradeType;
             cmbSchoolSubjects.SelectedValue = currentSubject.IdSchoolSubject;
@@ -71,7 +73,8 @@ namespace SchoolGrades_WPF
         private void cmbSchoolSubjects_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentSubject = ((SchoolSubject)(cmbSchoolSubjects.SelectedItem));
-            this.Background = CommonsWinForms.ColorFromNumber(currentSubject);
+            Color b = CommonsWpf.ColorFromNumber(currentSubject);
+            this.Background = CommonsWpf.BrushFromColor(b);
         }
         private void cmbPeriodo_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -96,7 +99,7 @@ namespace SchoolGrades_WPF
                         ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
                         dtpStartPeriod.SelectedDate, dtpEndPeriod.SelectedDate
                         );
-                    lblSum.Text = "";
+                    lblSum.Content = "";
                     txtSummaryDatum.Text = "";
                 }
                 else if (rdb == rdbShowWeights)
@@ -108,7 +111,7 @@ namespace SchoolGrades_WPF
                         );
                     double sumLeftToClose = 0;
                     double maxGradesFraction = 0;
-                    foreach (DataRow row in ((DataTable)dgwGrades.ItemsSource).Rows)
+                    foreach (DataRow row in ((DataTable)dgwGrades.ItemsSource).Items)
                     {
                         double gf = (double)row["GradesFraction"];
                         if (gf > maxGradesFraction)
@@ -116,7 +119,7 @@ namespace SchoolGrades_WPF
                         sumLeftToClose += (double)row["LeftToCloseAssesments"];
                     }
                     int nGrades = (int)Math.Round(maxGradesFraction + 0.10);
-                    lblSum.Text = "Mancanti a fine giro";
+                    lblSum.Content = "Mancanti a fine giro";
                     txtSummaryDatum.Text = (sumLeftToClose / nGrades).ToString("#.00");
                 }
                 else if (rdb == rdbShowWeightedGrades)
@@ -126,7 +129,7 @@ namespace SchoolGrades_WPF
                         ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
                         dtpStartPeriod.SelectedDate, dtpEndPeriod.SelectedDate
                         );
-                    lblSum.Text = "";
+                    lblSum.Content = "";
                     txtSummaryDatum.Text = "";
                 }
                 else if (rdb == rdbShowWeightsOnOpenGrades)
@@ -136,13 +139,13 @@ namespace SchoolGrades_WPF
                         ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
                         dtpStartPeriod.SelectedDate, dtpEndPeriod.SelectedDate
                         );
-                    lblSum.Text = "";
+                    lblSum.Content = "";
                     txtSummaryDatum.Text = "";
 
                     setRowNumbers(dgwGrades);
                 }
             }
-            txtNStudents.Text = ((DataTable)dgwGrades.ItemsSource).Rows.Count.ToString();
+            txtNStudents.Text = ((DataTable)dgwGrades.ItemsSource).Items.Count.ToString();
         }
         private void setRowNumbers(DataGrid dgv)
         {
@@ -197,7 +200,7 @@ namespace SchoolGrades_WPF
         private void btnSaveOnFile_Click(object sender, EventArgs e)
         {
             // find the kind of table we have to save
-            string tipoTabella = FindCheckedRadioButton().Text;
+            string tipoTabella = (RadioButton)(FindCheckedRadioButton()).Content;
             //temp = "'" + temp + "'";
             string FileName = Path.Combine(Commons.PathDatabase,
                 DateTime.Now.ToString("yyyy.MM.dd_") + currentClass.Abbreviation + "_" +

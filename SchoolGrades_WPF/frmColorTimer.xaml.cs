@@ -2,7 +2,6 @@
 using System;
 using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace SchoolGrades_WPF
@@ -50,7 +49,7 @@ namespace SchoolGrades_WPF
         private int lastFormSize;
 
         bool playSoundEffects;
-        public string FormCaption { get => this.Content; set => this.Content = value; }
+        //////////public string FormCaption { get => this.Content; set => this.Content = value; }
         public bool PlaySoundEffects
         {
             get
@@ -63,7 +62,7 @@ namespace SchoolGrades_WPF
                 //////////chkSoundsInColorTimer.IsChecked = value;
             }
         }
-        public ColorTimer(double SecondsFirst, double SecondsSecond, bool SoundEffectsInTimer)
+        public frmColorTimer(double SecondsFirst, double SecondsSecond, bool SoundEffectsInTimer)
         {
             InitializeComponent();
 
@@ -74,7 +73,7 @@ namespace SchoolGrades_WPF
         }
         private void ColorTimer_Load(object sender, EventArgs e)
         {
-            lastFormSize = GetFormArea(this.Size);
+            ////////////lastFormSize = GetFormArea(this.Size);
             SetLabelsSizeAndPosition();
 
             this.Content += " v." + System.Diagnostics.FileVersionInfo.GetVersionInfo
@@ -311,32 +310,32 @@ namespace SchoolGrades_WPF
         }
         private void btnConnect_Click(object sender, EventArgs e)
         {
-            frmInput f = new frmInput("IP Address or DNS name", "TCP Port", "Password (!! watch: it is sniffable !!)",
-                initialColor, true);
-            f.txtInput1.Text = "127.0.0.1";
-            f.txtInput2.Text = "27759";
-            f.txtInput3.Text = password;
+            //////////frmInput f = new frmInput("IP Address or DNS name", "TCP Port", "Password (!! watch: it is sniffable !!)",
+            //////////    initialColor, true);
+            //////////f.txtInput1.Text = "127.0.0.1";
+            //////////f.txtInput2.Text = "27759";
+            //////////f.txtInput3.Text = password;
 
-            if (f.ShowDialog() == DialogResult.Cancel) return;
+            //////////if (f.ShowDialog() == DialogResult.Cancel) return;
 
-            string ipOrDns = f.txtInput1.Text;
-            int tcpPort = Convert.ToInt16(f.txtInput2.Text);
-            password = f.txtInput3.Text;
+            //////////string ipOrDns = f.txtInput1.Text;
+            //////////int tcpPort = Convert.ToInt16(f.txtInput2.Text);
+            //////////password = f.txtInput3.Text;
 
-            try
-            {
-                //ClientTcp.Connect(ipOrDns, tcpPort, password);
-                ClientTcp.Connect(ipOrDns, tcpPort);
-                ClientTcp.Write("PW" + password);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Collegamento impossibile \n" + ex.Message);
-                return;
-            }
-            chkServer.IsEnabled = false;
-            btnConnect.IsEnabled = false;
-            clientConnected = true;
+            //////////try
+            //////////{
+            //////////    //ClientTcp.Connect(ipOrDns, tcpPort, password);
+            //////////    ClientTcp.Connect(ipOrDns, tcpPort);
+            //////////    ClientTcp.Write("PW" + password);
+            //////////}
+            //////////catch (Exception ex)
+            //////////{
+            //////////    MessageBox.Show("Collegamento impossibile \n" + ex.Message);
+            //////////    return;
+            //////////}
+            //////////chkServer.IsEnabled = false;
+            //////////btnConnect.IsEnabled = false;
+            //////////clientConnected = true;
         }
         private void chkServer_CheckedChanged(object sender, EventArgs e)
         {
@@ -427,29 +426,28 @@ namespace SchoolGrades_WPF
             //////////return size.Height * size.Width;
             return 0;
         }
-        private void ResizeAllFontsInControls(Control.ControlCollection coll, float scaleFactor)
-        {
-            ////////foreach (Control c in coll)
-            ////////{
-            ////////    if (c.HasChildren)
-            ////////    {
-            ////////        ResizeAllFontsInControls(c.Controls, scaleFactor);
-            ////////    }
-            ////////    else
-            ////////    {
-            ////////        //if (c.GetType().ToString() == "System.Windows.Form.Label")
-            ////////        if (true)
-            ////////        {
-            ////////            // scale font
-            ////////            c.Font = new Font(c.Font.FontFamily.Name, c.Font.Size * scaleFactor);
-            ////////        }
-            ////////    }
-            ////////}
-        }
-
+        ////////private void ResizeAllFontsInControls(Control.ControlCollection coll, float scaleFactor)
+        ////////{
+        ////////    ////////foreach (Control c in coll)
+        ////////    ////////{
+        ////////    ////////    if (c.HasChildren)
+        ////////    ////////    {
+        ////////    ////////        ResizeAllFontsInControls(c.Controls, scaleFactor);
+        ////////    ////////    }
+        ////////    ////////    else
+        ////////    ////////    {
+        ////////    ////////        //if (c.GetType().ToString() == "System.Windows.Form.Label")
+        ////////    ////////        if (true)
+        ////////    ////////        {
+        ////////    ////////            // scale font
+        ////////    ////////            c.Font = new Font(c.Font.FontFamily.Name, c.Font.Size * scaleFactor);
+        ////////    ////////        }
+        ////////    ////////    }
+        ////////    ////////}
+        ////////}
         private void chkSoundsInColorTimer_CheckedChanged(object sender, EventArgs e)
         {
-            playSoundEffects = chkSoundsInColorTimer.IsChecked;
+            playSoundEffects = (bool)chkSoundsInColorTimer.IsChecked;
         }
     }
 }

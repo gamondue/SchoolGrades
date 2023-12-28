@@ -31,7 +31,7 @@ namespace SchoolGrades_WPF
             currentGradeType = GradeType;
             currentSchoolSubject = SchoolSubject;
 
-            lblCurrentStudent.Text = $"{Student.LastName} {Student.FirstName}";
+            lblCurrentStudent.Content = $"{Student.LastName} {Student.FirstName}";
             currentAnnotation = new StudentAnnotation();
         }
         private void frmGradesStudentsSummary_Load(object sender, EventArgs e)
@@ -43,7 +43,7 @@ namespace SchoolGrades_WPF
             }
 
             // student's name label 
-            lblCurrentStudent.Text = currentStudent.ToString();
+            lblCurrentStudent.Content = currentStudent.ToString();
             TxtIdStudent.Text = currentStudent.IdStudent.ToString();
             //lblSum.Text = "";
 
@@ -64,7 +64,7 @@ namespace SchoolGrades_WPF
             cmbSchoolPeriod.ItemsSource = listPeriods;
 
             dgwNotes.ItemsSource = Commons.bl.AnnotationsAboutThisStudent(currentStudent, currentSchoolYear,
-                chkShowOnlyActive.IsChecked);
+                (bool)chkShowOnlyActive.IsChecked);
             TxtIdStudent.Text = currentStudent.IdStudent.ToString();
             RefreshData();
         }
@@ -75,7 +75,7 @@ namespace SchoolGrades_WPF
             {
                 double weightedAverage = 0;
                 double sumOfWeights = 0;
-                foreach (DataRow row in ((DataTable)dgwGrades.ItemsSource).Rows)
+                foreach (DataRow row in ((DataTable)dgwGrades.ItemsSource).Items)
                 {
                     weightedAverage += (double)row["grade"] * (double)row["weight"];
                     sumOfWeights += (double)row["weight"];
@@ -98,7 +98,7 @@ namespace SchoolGrades_WPF
                 DataTable modifiche = t.GetChanges();
                 if (modifiche != null)
                 {
-                    foreach (DataRow riga in modifiche.Rows)
+                    foreach (DataRow riga in modifiche.Items)
                     {
                         // crea un nuovo voto per ciascuna riga salvata
                         // il vecchio voto assume peso 0, il nuovo, lo stesso peso della riga precedente

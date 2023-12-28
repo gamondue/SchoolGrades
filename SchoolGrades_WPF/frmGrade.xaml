@@ -20,27 +20,27 @@
             
             <StackPanel Orientation="Vertical">
                 <Label>Id allievo</Label>
-                <TextBox Width="75" Margin="5"></TextBox>
+                <TextBox x:Name="txtIdStudent" Width="75" Margin="5"></TextBox>
             </StackPanel>
             <StackPanel>
                 <Label>Materia</Label>
-                <TextBox Width="75" Margin="5"></TextBox>
+                <TextBox x:Name="txtSchoolSubject" Width="75" Margin="5"></TextBox>
             </StackPanel>
 
-            <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" FontSize="30" Width="450">Allievo</Label>
+            <Label x:Name="lblStudent" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" FontSize="30" Width="450">Allievo</Label>
 
             <StackPanel Orientation="Vertical">
                 <Label>Peso</Label>
-                <TextBox Width="75"></TextBox>
+                <TextBox x:Name="txtGradeWeight" Width="75"></TextBox>
             </StackPanel>
             
         </StackPanel>
 
         <StackPanel Orientation="Horizontal">
-            <TextBox Width="620" Height="50"></TextBox>
+            <TextBox x:Name="txtQuestionText" Width="620" Height="50"></TextBox>
             <StackPanel Orientation="Vertical">
                 <Label>Valutazione</Label>
-                <TextBox></TextBox>
+                <TextBox x:Name="txtGrade"></TextBox>
             </StackPanel>
         </StackPanel>
     </StackPanel>

@@ -43,7 +43,7 @@ namespace SchoolGrades_WPF
             //DataTable modifiche = t.GetChanges();
             //if (modifiche != null)
             //{
-            //    foreach (DataRow riga in modifiche.Rows)
+            //    foreach (DataRow riga in modifiche.Items)
             //    {
             //        if (riga.RowState == DataRowState.Modified)
             //            db.UpdateLookupTableRow(table, idTable, riga);

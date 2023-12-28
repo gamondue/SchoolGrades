@@ -13,7 +13,7 @@
 
 
         <StackPanel Orientation="Horizontal">
-            <TextBox x:Name="txtTotalStudentsToGroup1" Margin="5,10,20,10" Width="125" IsReadOnly="True">4F 23-24</TextBox>
+            <TextBox x:Name="txtClass" Margin="5,10,20,10" Width="125" IsReadOnly="True">4F 23-24</TextBox>
             <Button x:Name="btnCreateFileGroups" Grid.Column="1" Width="55" Height="32" Background="White">Crea File</Button>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
