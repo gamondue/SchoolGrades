@@ -44,7 +44,7 @@ namespace SchoolGrades_WPF
             int RowIndex = grid.SelectedIndex;
             if (RowIndex > -1)
             {
-                dgwQuestions.Rows[RowIndex].Selected = true;
+                dgwQuestions.Items[RowIndex].Selected = true;
 
                 List<Question> listQuestions = (List<Question>)(dgwQuestions.ItemsSource);
                 currentQuestion = listQuestions[RowIndex];
@@ -54,12 +54,12 @@ namespace SchoolGrades_WPF
                 List<Answer> listAnswers = Commons.bl.GetAnswersOfAQuestion(currentQuestion.IdQuestion);
                 dgwAnswers.ItemsSource = listAnswers;
                 // erase all previous radio buttons in grpStudentsAnswers
-                grpStudentsAnswers.Visible = false;
+                grpStudentsAnswers.Visibility = Visibility.Hidden;
                 while (grpStudentsAnswers.Controls.Count > 0)
                 {
                     grpStudentsAnswers.Controls[0].Dispose();
                 }
-                grpStudentsAnswers.Visible = true;
+                grpStudentsAnswers.Visibility = Visibility.Visible;
 
                 // the next database field must be managed, today it ISN'T!!!
                 currentQuestion.IsMutex = false; // !!!!!!!!!!!!!!!!!!!!!!!!!! remove before publishing anything
@@ -100,7 +100,7 @@ namespace SchoolGrades_WPF
                     MessageBox.Show("Scegliere una domanda");
                     return;
                 }
-                dgwClassStudents.Rows[RowIndex].Selected = true;
+                dgwClassStudents.Items[RowIndex].Selected = true;
 
                 List<Student> ls = (List<Student>)(dgwClassStudents.ItemsSource);
                 currentStudent = ls[RowIndex];
@@ -169,7 +169,7 @@ namespace SchoolGrades_WPF
 
         private void dgwAnswers_CellClick(object sender, RoutedEvent e)
         {
-            dgwAnswers.Rows[RowIndex].Selected = true;
+            dgwAnswers.Items[RowIndex].Selected = true;
         }
         private void dgwAnswers_CellDoubleClick(object sender, RoutedEvent e)
         {
@@ -177,7 +177,7 @@ namespace SchoolGrades_WPF
             int RowIndex = grid.SelectedIndex;
             if (RowIndex > -1)
             {
-                dgwAnswers.Rows[RowIndex].Selected = true;
+                dgwAnswers.Items[RowIndex].Selected = true;
 
                 List<Answer> ls = (List<Answer>)(dgwAnswers.ItemsSource);
                 Answer a = ls[RowIndex];

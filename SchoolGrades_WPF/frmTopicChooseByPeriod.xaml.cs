@@ -75,23 +75,23 @@ namespace SchoolGrades_WPF
 
             dgwTopics.ItemsSource = topicsDone;
             //if (chkVisualizePath.IsChecked)
-            //    dgwTopics.Columns[0].Visible = true;
+            //    dgwTopics.Columns[0].Visibility = Visibility.Visible;
             //else
-            //    dgwTopics.Columns[0].Visible = false;
+            //    dgwTopics.Columns[0].Visibility = Visibility.Hidden;
 
-            dgwTopics.Columns[0].Visible = true;
-            dgwTopics.Columns[1].Visible = false;
-            dgwTopics.Columns[2].Visible = false;
-            dgwTopics.Columns[3].Visible = false;
-            dgwTopics.Columns[4].Visible = false;
-            dgwTopics.Columns[5].Visible = false;
-            dgwTopics.Columns[6].Visible = true;
-            dgwTopics.Columns[7].Visible = true;
-            dgwTopics.Columns[8].Visible = false;
-            dgwTopics.Columns[9].Visible = false;
-            dgwTopics.Columns[10].Visible = false;
-            dgwTopics.Columns[11].Visible = false;
-            dgwTopics.Columns[12].Visible = false;
+            dgwTopics.Columns[0].Visibility = Visibility.Visible;
+            dgwTopics.Columns[1].Visibility = Visibility.Hidden;
+            dgwTopics.Columns[2].Visibility = Visibility.Hidden;
+            dgwTopics.Columns[3].Visibility = Visibility.Hidden;
+            dgwTopics.Columns[4].Visibility = Visibility.Hidden;
+            dgwTopics.Columns[5].Visibility = Visibility.Hidden;
+            dgwTopics.Columns[6].Visibility = Visibility.Visible;
+            dgwTopics.Columns[7].Visibility = Visibility.Visible;
+            dgwTopics.Columns[8].Visibility = Visibility.Hidden;
+            dgwTopics.Columns[9].Visibility = Visibility.Hidden;
+            dgwTopics.Columns[10].Visibility = Visibility.Hidden;
+            dgwTopics.Columns[11].Visibility = Visibility.Hidden;
+            dgwTopics.Columns[12].Visibility = Visibility.Hidden;
         }
         private void dgwTopics_CellContentClick(object sender, RoutedEvent e)
         {
@@ -103,7 +103,7 @@ namespace SchoolGrades_WPF
             int RowIndex = grid.SelectedIndex;
             if (RowIndex > -1)
             {
-                DataGridRow value = dgwTopics.Rows[RowIndex];
+                DataGridRow value = dgwTopics.Items[RowIndex];
                 switch (formType)
                 {
                     case (TopicChooseFormType.ChooseTopicOnExit):
@@ -152,8 +152,8 @@ namespace SchoolGrades_WPF
                 return;
             }
             int rowIndex = dgwTopics.SelectedItems[0].Index;
-            //DataRow row = ((DataTable)(dgwTopics.ItemsSource)).Rows[rowIndex];
-            DataGridRow value = dgwTopics.Rows[rowIndex];
+            //DataRow row = ((DataTable)(dgwTopics.ItemsSource)).Items[rowIndex];
+            DataGridRow value = dgwTopics.Items[rowIndex];
             switch (formType)
             {
                 case (TopicChooseFormType.ChooseTopicOnExit):
@@ -207,7 +207,7 @@ namespace SchoolGrades_WPF
             int RowIndex = grid.SelectedIndex;
             if (RowIndex > -1)
             {
-                dgwTopics.Rows[RowIndex].Selected = true;
+                dgwTopics.Items[RowIndex].Selected = true;
             }
         }
     }

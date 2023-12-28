@@ -214,7 +214,7 @@ namespace Shared
             }
             return true;
         }
-        internal static bool CheckIfStudentChosen(Student CurrentStudent)
+        public static bool CheckIfStudentChosen(Student CurrentStudent)
         {
             if (CurrentStudent == null)
             {
@@ -336,7 +336,7 @@ namespace Shared
                 //return;
             }
         }
-        internal static Color ColorFromNumber(SchoolSubject Subject)
+        public static Color ColorFromNumber(SchoolSubject Subject)
         {
             if (Subject == null || Subject.Color == null || Subject.Color == 0)
                 return ColorNoSubject;

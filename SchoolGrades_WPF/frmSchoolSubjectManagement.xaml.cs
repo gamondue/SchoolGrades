@@ -26,7 +26,7 @@ namespace SchoolGrades_WPF
         {
             subjectList = Commons.bl.GetListSchoolSubjects(false);
             DgwSubjects.ItemsSource = subjectList;
-            DgwSubjects.Columns["OldId"].Visible = false;
+            DgwSubjects.Columns["OldId"].Visibility = Visibility.Hidden;
         }
 
         private void btn_CellContentClick(object sender, RoutedEvent e)
@@ -40,7 +40,7 @@ namespace SchoolGrades_WPF
             int RowIndex = grid.SelectedIndex;
             if (RowIndex > -1)
             {
-                DgwSubjects.Rows[RowIndex].Selected = true;
+                DgwSubjects.Items[RowIndex].Selected = true;
                 subjectList = ((List<SchoolSubject>)DgwSubjects.ItemsSource);
                 currentSubject = subjectList[RowIndex];
                 if (currentSubject.Color != null)
@@ -53,11 +53,11 @@ namespace SchoolGrades_WPF
         private void DgwSubjects_CellLeave(object sender, RoutedEvent e)
         {
             if (e.ColumnIndex == 0
-                && (DgwSubjects.Rows[RowIndex].Cells["OldId"].Value != DgwSubjects.Rows[RowIndex].Cells["IdSchoolSubject"].Value
-                    || DgwSubjects.Rows[RowIndex].Cells["OldId"].Value == null)
+                && (DgwSubjects.Items[RowIndex].Cells["OldId"].Value != DgwSubjects.Items[RowIndex].Cells["IdSchoolSubject"].Value
+                    || DgwSubjects.Items[RowIndex].Cells["OldId"].Value == null)
                 )
             {
-                object newKey = DgwSubjects.Rows[RowIndex].Cells["IdSchoolSubject"].Value;
+                object newKey = DgwSubjects.Items[RowIndex].Cells["IdSchoolSubject"].Value;
                 if (newKey != null)
                 {
                     string warning = Commons.bl.CheckNewKeySchoolSubject(newKey.ToString());

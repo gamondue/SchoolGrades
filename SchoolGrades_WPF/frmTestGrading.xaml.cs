@@ -36,7 +36,7 @@ namespace SchoolGrades_WPF
             List<Student> studentsThatAnswered = Commons.bl.GetAllStudentsThatAnsweredToATest(currentTest, currentClass);
             List<Question> allQuestions = Commons.bl.GetAllQuestionsOfATest(currentTest.IdTest);
 
-            dgwTestResults.Rows.Clear();        // !!!! erase when fully debugged //
+            dgwTestResults.Items.Clear();        // !!!! erase when fully debugged //
             dgwTestResults.Columns.Clear();     // !!!! erase when fully debugged //
 
             int gridRow = 0, gridColumn = 0;
@@ -174,11 +174,11 @@ namespace SchoolGrades_WPF
             {
                 dgwTestResults.Columns.Add("", "");
             }
-            while (dgwTestResults.Rows.Count <= GridRow)
+            while (dgwTestResults.Items.Count <= GridRow)
             {
-                dgwTestResults.Rows.Add("", "");
+                dgwTestResults.Items.Add("", "");
             }
-            dgwTestResults.Rows[GridRow].Cells[GridColumn].Value = DataToShow;
+            dgwTestResults.Items[GridRow].Cells[GridColumn].Value = DataToShow;
         }
         private void RefreshUi()
         {
@@ -187,7 +187,7 @@ namespace SchoolGrades_WPF
         private void btnRecalc_Click(object sender, EventArgs e)
         {
             dgwTestResults.Columns.Clear();
-            dgwTestResults.Rows.Clear();
+            dgwTestResults.Items.Clear();
             GradeTest();
         }
         private void dgwTestResults_CellContentClick(object sender, RoutedEvent e)

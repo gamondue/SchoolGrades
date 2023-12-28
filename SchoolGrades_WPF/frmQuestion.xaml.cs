@@ -79,13 +79,13 @@ namespace SchoolGrades_WPF
             {
                 case QuestionFormType.CreateSeveralQuestions:
                     {
-                        btnNewQuestion.Visible = true;
+                        btnNewQuestion.Visibility = Visibility.Visible;
                         btnSaveQuestion.Text = "Salva";
                         break;
                     }
                 case QuestionFormType.EditOneQuestion:
                     {
-                        btnNewQuestion.Visible = false;
+                        btnNewQuestion.Visibility = Visibility.Hidden;
                         btnSaveQuestion.Text = "Salva e Esci";
                         break;
                     }

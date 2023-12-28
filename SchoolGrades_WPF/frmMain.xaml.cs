@@ -191,7 +191,7 @@ namespace SchoolGrades_WPF
             //////////////bool fileRead = CommonsWpf.ReadConfigData();
             //////////////if (!fileRead || !File.Exists(Commons.PathAndFileDatabase))
             //////////////{
-            //////////////    MessageBox.Show("Configurare il programma!", "SchoolGrades", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //////////////    MessageBox.Show("Configurare il programma!", "SchoolGrades", MessageBoxButtons.OK, MessageBoxImage.Error);
             //////////////}
             //////////////else
             //////////////{
@@ -255,9 +255,9 @@ namespace SchoolGrades_WPF
             //////////lblStudentChosen.BringToFront();
             //////////lblIdStudent.BringToFront();
             //////////txtIdStudent.BringToFront();
-            //////////lblStudentChosen.Visible = false;
-            //////////lblIdStudent.Visible = false;
-            //////////txtIdStudent.Visible = false;
+            //////////lblStudentChosen.Visibility = Visibility.Hidden;
+            //////////lblIdStudent.Visibility = Visibility.Hidden;
+            //////////txtIdStudent.Visibility = Visibility.Hidden;
 
             lblDatabaseFile.Text = Path.GetFileName(Commons.PathAndFileDatabase);
             wndInitializing = false;
@@ -589,7 +589,7 @@ namespace SchoolGrades_WPF
                 DataTable popUpAnnotations = Commons.bl.GetAnnotationsOfClass(currentClass.IdClass, true, true);
                 if (popUpAnnotations.Rows.Count > 0)
                 {
-                    frmAnnotationsPopup f = new frmAnnotationsPopup(popUpAnnotations);
+                    frmAnnotationsPopUp f = new frmAnnotationsPopUp(popUpAnnotations);
                     //f.StartPosition = FormStartPosition.CenterParent;
                     f.Show();
                 }
@@ -1800,7 +1800,7 @@ namespace SchoolGrades_WPF
             //    }
             //// show popup annotations of the students of the class
             //DataTable popUpAnnotations = Commons.bl.GetAnnotationsOfClass(currentClass.IdClass, true, true);
-            //if (popUpAnnotations.Rows.Count > 0)
+            //if (popUpAnnotations.Items.Count > 0)
             //{
             //    frmAnnotationsPopUp f = new frmAnnotationsPopUp(popUpAnnotations);
             //    f.StartPosition = FormStartPosition.CenterParent;
@@ -1830,7 +1830,7 @@ namespace SchoolGrades_WPF
         private void ReadCheckSignsIntoCurrentStudentsList()
         {
             int i = 0;
-            ////////////foreach (DataGridRow r in dgwStudents.Rows)
+            ////////////foreach (DataGridRow r in dgwStudents.Items)
             ////////////{
             ////////////    currentStudentsList[i].Eligible = (bool)r.Cells[0].Value;
             ////////////}

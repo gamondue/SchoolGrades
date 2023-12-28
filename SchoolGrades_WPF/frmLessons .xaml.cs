@@ -9,8 +9,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using Image = System.Windows.Controls.Image;
 
 namespace SchoolGrades_WPF
 {
@@ -120,7 +118,7 @@ namespace SchoolGrades_WPF
                 {
                     // are these useful in WPF? 
                     //dgwAllLessons.ClearSelection();
-                    //dgwAllLessons.Rows[IndexInLessons].Selected = true;
+                    //dgwAllLessons.Items[IndexInLessons].Selected = true;
                 }
                 catch
                 {
@@ -174,7 +172,7 @@ namespace SchoolGrades_WPF
                 if (listImages != null && listImages.Count > 0)
                     try
                     {
-                        loadLessonsPicture(picImage,
+                        CommonsWpf.loadPicture(picImage,
                             Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename));
                     }
                     catch { }
@@ -182,19 +180,6 @@ namespace SchoolGrades_WPF
                 {
                     picImage.Source = null;
                 }
-            }
-        }
-        private void loadLessonsPicture(Image ImageControl, string PicturePathAndFile)
-        {
-            try
-            {
-                var uriSource = new Uri(PicturePathAndFile, UriKind.Absolute);
-                ImageControl.Source = new BitmapImage(uriSource);
-            }
-            catch
-            {
-                ImageControl.Source = null;
-                //Console.Beep();
             }
         }
         private void btnFind_Click(object sender, RoutedEventArgs e)
@@ -435,7 +420,7 @@ namespace SchoolGrades_WPF
                     string nomeFile = Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename);
                     try
                     {
-                        loadLessonsPicture(picImage,
+                        CommonsWpf.loadPicture(picImage,
                             Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename));
                         //picImage.Load(nomeFile);
                     }
@@ -502,7 +487,7 @@ namespace SchoolGrades_WPF
                 indexImages--;
                 try
                 {
-                    loadLessonsPicture(picImage,
+                    CommonsWpf.loadPicture(picImage,
                         Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename));
                     //picImage.Load(Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename));
                 }
@@ -519,7 +504,7 @@ namespace SchoolGrades_WPF
                 indexImages = ++indexImages % listImages.Count;
                 try
                 {
-                    loadLessonsPicture(picImage,
+                    CommonsWpf.loadPicture(picImage,
                         Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename));
                     //picImage.Load(Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename));
                 }
@@ -630,18 +615,18 @@ namespace SchoolGrades_WPF
         //////    else
         //////        rowToBeSearchedIndex = dgwAllLessons.SelectedItems[0].Index;
         //////    int indexWhenBeginning = rowToBeSearchedIndex;
-        //////    rowToBeSearchedIndex = ++rowToBeSearchedIndex % dgwAllLessons.Rows.Count;
+        //////    rowToBeSearchedIndex = ++rowToBeSearchedIndex % dgwAllLessons.Items.Count;
         //////    bool allScanned = false;
         //////    while (!allScanned)
         //////    {
-        //////        DataGridRow row = dgwAllLessons.Rows[rowToBeSearchedIndex];
+        //////        DataGridRow row = dgwAllLessons.Items[rowToBeSearchedIndex];
         //////        if (((string)row.Cells["Note"].Value).Contains(txtTopicsDigest.Text))
         //////        {
         //////            dgwAllLessons.ClearSelection();
         //////            row.Selected = true;
         //////            break;
         //////        }
-        //////        rowToBeSearchedIndex = ++rowToBeSearchedIndex % dgwAllLessons.Rows.Count;
+        //////        rowToBeSearchedIndex = ++rowToBeSearchedIndex % dgwAllLessons.Items.Count;
         //////        if (rowToBeSearchedIndex == indexWhenBeginning)
         //////            allScanned = true;
         //////    }

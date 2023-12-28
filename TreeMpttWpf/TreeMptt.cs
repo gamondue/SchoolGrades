@@ -966,7 +966,7 @@ namespace gamon.TreeMptt
                     {
                         //if (MessageBox.Show("Questo argomento è già stato fatto in qualche lezione\n" +
                         //    "Lo cancello lo stesso?", "Attenzione!", MessageBoxButton.YesNo,
-                        //    MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) ==
+                        //    MessageBoxImage.Information, MessageBoxDefaultButton.Button2) ==
                         //    MessageBoxResult.No)
                         if (MessageBox.Show("Questo argomento è già stato fatto in qualche lezione\n" +
                             "Lo cancello lo stesso?", "Attenzione!") ==

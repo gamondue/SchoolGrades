@@ -69,7 +69,7 @@ namespace SchoolGrades_WPF
         //int RowIndex = grid.SelectedIndex;
         //    if (RowIndex > -1)
         //    {
-        //        dgwSchoolPeriods.Rows[RowIndex].Selected = true;
+        //        dgwSchoolPeriods.Items[RowIndex].Selected = true;
         //        WriteToUi();
         //    }
         //}

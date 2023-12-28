@@ -150,7 +150,7 @@ namespace SchoolGrades_WPF
             dgwQuestions.ItemsSource = T.AsDataView();
             double weightedSum = 0;
             double sumOfWeights = 0;
-            foreach (DataRow riga in T.Rows)
+            foreach (DataRow riga in T.Items)
             {
                 weightedSum += (double)riga["value"] * (double)riga["weight"];
                 sumOfWeights += (double)riga["weight"];

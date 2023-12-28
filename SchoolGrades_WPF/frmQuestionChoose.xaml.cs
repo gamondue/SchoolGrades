@@ -365,7 +365,7 @@ namespace SchoolGrades_WPF
         //int RowIndex = grid.SelectedIndex;
         //    if (RowIndex > -1)
         //    {
-        //        dgwQuestions.Rows[RowIndex].Selected = true;
+        //        dgwQuestions.Items[RowIndex].Selected = true;
         //    }
         //}
         private void dgwQuestions_CellDoubleClick(object sender, RoutedEventArgs e)

@@ -27,7 +27,7 @@
         <Label Content="Cartella importazione di immagine o documento" Foreground="Blue" FontSize="10" HorizontalAlignment="Left" Margin="15,90,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtPathImportImage" HorizontalAlignment="Left" Margin="15,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="408"/>
         <Button x:Name="btnPathImportImage" Content="--" Background="White" Foreground="Blue" FontWeight="Bold" FontSize="10" HorizontalAlignment="Left" Margin="438,113,0,0" VerticalAlignment="Top" Height="18" Width="28"/>
-        <Label Content="sottocartella memorizzazione immagine" Foreground="Blue" FontSize="10" HorizontalAlignment="Left" Margin="485,90,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblSubFolderStorage" Content="sottocartella memorizzazione immagine" Foreground="Blue" FontSize="10" HorizontalAlignment="Left" Margin="485,90,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtSubFolderStorage" HorizontalAlignment="Left" Margin="485,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="212"/>
         <Button x:Name="btnSubFolderStorage" Content="--" Background="White" Foreground="Blue" FontWeight="Bold" FontSize="10" HorizontalAlignment="Left" Margin="722,113,0,0" VerticalAlignment="Top" Height="18" Width="28"/>
         <Label Content="File dell'immagine o del documento da importare" Foreground="Blue" FontSize="10" HorizontalAlignment="Left" Margin="15,131,0,0" VerticalAlignment="Top"/>

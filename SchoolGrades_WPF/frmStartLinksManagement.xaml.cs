@@ -55,7 +55,7 @@ namespace SchoolGrades_WPF
             int RowIndex = grid.SelectedIndex;
             if (RowIndex > -1)
             {
-                DgwLinks.Rows[RowIndex].Selected = true;
+                DgwLinks.Items[RowIndex].Selected = true;
                 currentLink = ((List<StartLink>)DgwLinks.ItemsSource)[RowIndex];
             }
         }

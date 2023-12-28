@@ -72,7 +72,7 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <Label Grid.Column="1" FontSize="25">Class</Label>
+            <Label x:Name="lblCurrentClass" Grid.Column="1" FontSize="25">Class</Label>
             <Label Grid.Row="1">Riepilogo dei voti di tipo</Label>
             <Label Grid.Row="2">Materia</Label>
             <ComboBox Name="cmbSummaryGradeType" Grid.Row="1" Grid.Column="1"></ComboBox>
@@ -91,7 +91,7 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <Label Style="{DynamicResource SmallText}" VerticalAlignment="Bottom">lblSum</Label>
+            <Label x:Name="lblSum" Style="{DynamicResource SmallText}" VerticalAlignment="Bottom">lblSum</Label>
             <TextBox Name="txtSummaryDatum" Grid.Row="1"></TextBox>
             <Label Style="{DynamicResource SmallText}" VerticalAlignment="Bottom" Grid.Column="1">n. Allievi</Label>
             <TextBox Name="txtNStudents" Grid.Row="1" Grid.Column="1"></TextBox>

@@ -1,11 +1,14 @@
-﻿using SchoolGrades;
+﻿using Microsoft.Win32;
+using SchoolGrades;
 using SchoolGrades.BusinessObjects;
+using Shared;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using Path = System.IO.Path;
 //using Image = System
 
@@ -65,8 +68,8 @@ namespace SchoolGrades_WPF
 
             if (type == ImagesFormType.ShowImage)
             {
-                picImage.Location = new System.Drawing.Point(0, 0);
-                picImage.Size = this.Size;
+                //////////picImage.Location = new System.Drawing.Point(0, 0);
+                //////////picImage.Size = this.Size;
                 currentImage = listImages[0];
                 loadCurrentImage();
                 //picImage.Load(Commons.PathImages + "\\"+ listImages[0].RelativePathAndFilename);
@@ -87,8 +90,8 @@ namespace SchoolGrades_WPF
 
             if (currentSubject != null)
             {
-                int col = (int)currentSubject.Color;
-                this.Background = CommonsWinForms.ColorFromNumber(currentSubject);
+                Color col = CommonsWpf.ColorFromNumber(currentSubject);
+                this.Background = CommonsWpf.BrushFromColor(col);
                 rdbAutoRename_CheckedChanged(null, null);
             }
         }
@@ -96,7 +99,7 @@ namespace SchoolGrades_WPF
         {
             try
             {
-                picImage.Load(System.IO.Path.Combine(Commons.PathImages, currentImage.RelativePathAndFilename));
+                CommonsWpf.loadPicture(picImage, System.IO.Path.Combine(Commons.PathImages, currentImage.RelativePathAndFilename));
                 txtCaption.Text = currentImage.Caption;
             }
             catch
@@ -115,28 +118,29 @@ namespace SchoolGrades_WPF
         }
         private void btnPathImportImage_Click(object sender, EventArgs e)
         {
-            folderBrowserDialog1.SelectedPath = txtPathImportImage.Text;
-            DialogResult r = folderBrowserDialog1.ShowDialog();
-            if (r == System.Windows.Forms.DialogResult.OK)
+            OpenFileDialog fileBrowser = new();
+            bool? result = fileBrowser.ShowDialog();
+            if (result == true)
             {
-                txtPathImportImage.Text = folderBrowserDialog1.SelectedPath;
+                txtPathImportImage.Text = fileBrowser.FileName; ;
             }
         }
         private void btnChooseFileImage_Click(object sender, EventArgs e)
         {
-            openFileDialog1.FileName = "";
-            openFileDialog1.InitialDirectory = txtPathImportImage.Text;
-            DialogResult r = openFileDialog1.ShowDialog();
-            if (r == System.Windows.Forms.DialogResult.OK)
+            var dialog = new OpenFileDialog();
+            dialog.FileName = "";
+            dialog.InitialDirectory = txtPathImportImage.Text;
+            bool? result = dialog.ShowDialog();
+            if (result == true)
             {
-                txtFileImportImage.Text = Path.GetFileName(openFileDialog1.FileName);
-                txtPathImportImage.Text = Path.GetDirectoryName(openFileDialog1.FileName);
+                txtFileImportImage.Text = Path.GetFileName(dialog.FileName);
+                txtPathImportImage.Text = Path.GetDirectoryName(dialog.FileName);
             }
-            if (openFileDialog1.FileName != "")
+            if (dialog.FileName != "")
             {
                 try
                 {
-                    picImage.Load(openFileDialog1.FileName);
+                    CommonsWpf.loadPicture(picImage, dialog.FileName);
                     List<string> captions = Commons.bl.GetCaptionsOfThisImage(txtFileImportImage.Text);
                     if (captions.Count > 0)
                         // this SHOULD take the last caption that this image has had
@@ -169,22 +173,23 @@ namespace SchoolGrades_WPF
                 {   // save an image
                     currentImage.Caption = txtCaption.Text;
                     Commons.bl.AddImageToLesson(sourcePathAndFileName, lessonImagesPath, txtSubFolderStorage.Text,
-                        currentLesson, currentClass, currentImage, rdbAutoRename.Checked, chkMantainOldFileName.Checked);
+                        currentLesson, currentClass, currentImage, (bool)rdbAutoRename.IsChecked,
+                        (bool)chkMantainOldFileName.IsChecked);
                     try
                     {
-                        picImage.Load(sourcePathAndFileName);
+                        CommonsWpf.loadPicture(picImage, sourcePathAndFileName);
                     }
                     catch
                     {
                         Console.Beep();
                     };
                     // goto the last in the grid (the one just added) 
-                    currentIndexInImages = dgwLessonsImages.Rows.Count;
+                    currentIndexInImages = dgwLessonsImages.Items.Count;
                     if (currentIndexInImages < 0)
                         currentIndexInImages = 0;
                     refreshUi(currentIndexInImages);
                     // load data from the last 
-                    currentImage = ((List<SchoolGrades.BusinessObjects.Image>)dgwLessonsImages.ItemsSource)[dgwLessonsImages.Rows.Count - 1];
+                    currentImage = ((List<SchoolGrades.BusinessObjects.Image>)dgwLessonsImages.ItemsSource)[dgwLessonsImages.Items.Count - 1];
                     loadCurrentImage();
                 }
                 else
@@ -203,9 +208,9 @@ namespace SchoolGrades_WPF
                 MessageBox.Show("Selezionare nella griglia un'immagine da cancellare");
                 return;
             }
-            picImage.Image = null;
+            CommonsWpf.loadPicture(picImage, "");
             // read from grid the data of the image to delete
-            currentImage = ((List<SchoolGrades.BusinessObjects.Image>)dgwLessonsImages.ItemsSource)[dgwLessonsImages.SelectedItems[0].Index];
+            currentImage = (SchoolGrades.BusinessObjects.Image)dgwLessonsImages.SelectedItem;
             MessageBoxResult r = MessageBox.Show(" (Sì) Cancella anche il FILE dell'immagine '" + currentImage.Caption + "';" +
                 "\n (No) Cancella il solo collegamento a questa lezione; " +
                 "\n (Annulla) Non cancella nulla.",
@@ -231,11 +236,16 @@ namespace SchoolGrades_WPF
         }
         private void btnSubFolderStorage_Click(object sender, EventArgs e)
         {
-            folderBrowserDialog1.SelectedPath = Path.Combine(Path.Combine(Commons.PathImages, txtSubFolderStorage.Text));
-            DialogResult r = folderBrowserDialog1.ShowDialog();
-            if (r == System.Windows.Forms.DialogResult.OK)
-            {
-                string subPath = folderBrowserDialog1.SelectedPath;
+            OpenFolderDialog dialog = new();
+            dialog.Multiselect = false;
+            dialog.Title = "Scegli una cartella";
+            bool? result = dialog.ShowDialog();
+            if (result == true)
+            {   // recupera la path completa della cartella selezionata dall'utente
+                string fullPathToFolder = dialog.FolderName;
+                // prende solo il nome della cartella selezionata, senza il resto della Path 
+                string folderNameOnly = dialog.SafeFolderName;
+                string subPath = dialog.FolderName;
                 subPath = subPath.Remove(0, Commons.PathImages.Length + 1);
                 txtSubFolderStorage.Text = subPath;
             }
@@ -246,7 +256,7 @@ namespace SchoolGrades_WPF
             {
                 try
                 {
-                    int localIndex = dgwLessonsImages.SelectedItems[0].Index;
+                    int localIndex = dgwLessonsImages.SelectedIndex = 0;
                     currentImage.Caption = txtCaption.Text;
                     if (imageChanged)
                     {
@@ -260,8 +270,8 @@ namespace SchoolGrades_WPF
                     currentImage = ((List<SchoolGrades.BusinessObjects.Image>)dgwLessonsImages.ItemsSource)[localIndex];
                     loadCurrentImage();
                     //txtCaption.Text = currentImage.Caption;
-                    //DgwLessonsImages.Rows[localIndex].Selected = false;
-                    //DgwLessonsImages.Rows[localIndex].Selected = true;                    
+                    //DgwLessonsImages.Items[localIndex].Selected = false;
+                    //DgwLessonsImages.Items[localIndex].Selected = true;                    
                 }
                 catch (Exception ex)
                 {
@@ -280,25 +290,25 @@ namespace SchoolGrades_WPF
         }
         private void rdbAutoRename_CheckedChanged(object sender, EventArgs e)
         {
-            if (rdbAutoRename.Checked)
+            if ((bool)rdbAutoRename.IsChecked)
             {
-                lblSubFolderStorage.Visible = true;
-                txtSubFolderStorage.Visible = true;
-                btnSubFolderStorage.Visible = true;
-                chkMantainOldFileName.Visible = true;
-                this.Size = new System.Drawing.Size(1240, 768);
+                lblSubFolderStorage.Visibility = Visibility.Visible;
+                txtSubFolderStorage.Visibility = Visibility.Visible;
+                btnSubFolderStorage.Visibility = Visibility.Visible;
+                chkMantainOldFileName.Visibility = Visibility.Visible;
+                //////////this.Size = new System.Drawing.Size(1240, 768);
                 txtSubFolderStorage.Text = lessonImagesPath;
             }
         }
         private void rdbManualRename_CheckedChanged(object sender, EventArgs e)
         {
-            if (rdbManualRename.Checked)
+            if ((bool)rdbManualRename.IsChecked)
             {
-                lblSubFolderStorage.Visible = false;
-                txtSubFolderStorage.Visible = false;
-                btnSubFolderStorage.Visible = false;
-                chkMantainOldFileName.Visible = false;
-                this.Size = new System.Drawing.Size(724, 768);
+                lblSubFolderStorage.Visibility = Visibility.Hidden;
+                txtSubFolderStorage.Visibility = Visibility.Hidden;
+                btnSubFolderStorage.Visibility = Visibility.Hidden;
+                chkMantainOldFileName.Visibility = Visibility.Hidden;
+                //////////this.Size = new System.Drawing.Size(724, 768);
             }
         }
         private void txtSubFolderStorage_TextChanged(object sender, EventArgs e)
@@ -316,13 +326,13 @@ namespace SchoolGrades_WPF
         private void refreshUi(int IndexInImages)
         {
             // refresh images in grid
-            List<BusinessObjects.Image> l = Commons.bl.GetListLessonsImages(currentLesson);
+            List<SchoolGrades.BusinessObjects.Image> l = Commons.bl.GetListLessonsImages(currentLesson);
             dgwLessonsImages.ItemsSource = l;
             if (l.Count > 0)
             {
                 try
                 {
-                    dgwLessonsImages.Rows[IndexInImages].Selected = true;
+                    dgwLessonsImages.SelectedIndex = IndexInImages;
                 }
                 catch
                 {
@@ -331,86 +341,99 @@ namespace SchoolGrades_WPF
             }
             else
             {
-                picImage.Image = null;
+                CommonsWpf.loadPicture(picImage, "");
                 txtCaption.Text = "";
             }
             txtFileImportImage.Text = "";
         }
         private void frmImages_KeyDown(object sender, KeyEventArgs e)
         {
-            //////////if (e.KeyCode == Keys.Escape)
-            //////////{
-            //////////    this.WindowState = FormWindowState.Normal;
-            //////////    this.TopMost = false;
-            //////////    this.FormBorderStyle = FormBorderStyle.Sizable;
-            //////////}
+            ////////////////DataGrid grid = (DataGrid)sender;
+            ////////////////int RowIndex = grid.SelectedIndex;
+            ////////////////if (RowIndex > -1)
+            //////{
+            //////    //////////{
+            //////    //////////    this.WindowState = FormWindowState.Normal;
+            //////    //////////    this.TopMost = false;
+            //////    //////////    this.FormBorderStyle = FormBorderStyle.Sizable;
+            //////    //////////}
+            //////    ///}
+            //////}
         }
         private void previousImage()
         {
             if (listImages.Count > 0)
             {
-                dgwLessonsImages.Rows[currentIndexInImages].Selected = false;
+                dgwLessonsImages.SelectedItem = null;
                 if (currentIndexInImages == 0)
                     currentIndexInImages = listImages.Count;
                 currentIndexInImages--;
-                currentImage = (BusinessObjects.Image)listImages[currentIndexInImages];
+                currentImage = (SchoolGrades.BusinessObjects.Image)listImages[currentIndexInImages];
                 loadCurrentImage();
-                dgwLessonsImages.Rows[currentIndexInImages].Selected = true;
+                dgwLessonsImages.SelectedIndex = currentIndexInImages;
             }
         }
         private void nextImage()
         {
             if (listImages.Count > 0)
             {
-                dgwLessonsImages.Rows[currentIndexInImages].Selected = false;
+                dgwLessonsImages.SelectedIndex = currentIndexInImages;
                 currentIndexInImages = ++currentIndexInImages % listImages.Count;
-                currentImage = (BusinessObjects.Image)listImages[currentIndexInImages];
+                currentImage = (SchoolGrades.BusinessObjects.Image)listImages[currentIndexInImages];
                 loadCurrentImage();
-                dgwLessonsImages.Rows[currentIndexInImages].Selected = true;
+                dgwLessonsImages.SelectedIndex = currentIndexInImages;
             }
         }
         private void lastImage()
         {
             if (listImages.Count > 0)
             {
-                dgwLessonsImages.Rows[currentIndexInImages].Selected = false;
+                dgwLessonsImages.SelectedIndex = currentIndexInImages;
                 currentIndexInImages = listImages.Count - 1;
                 currentImage = (SchoolGrades.BusinessObjects.Image)listImages[currentIndexInImages];
                 loadCurrentImage();
-                dgwLessonsImages.Rows[currentIndexInImages].Selected = true;
+                dgwLessonsImages.SelectedIndex = currentIndexInImages;
             }
         }
         private void firstImage()
         {
             if (listImages.Count > 0)
             {
-                dgwLessonsImages.Rows[currentIndexInImages].Selected = false;
+                dgwLessonsImages.SelectedIndex = currentIndexInImages;
                 currentIndexInImages = 0;
                 currentImage = (SchoolGrades.BusinessObjects.Image)listImages[currentIndexInImages];
                 loadCurrentImage();
-                dgwLessonsImages.Rows[currentIndexInImages].Selected = true;
+                dgwLessonsImages.SelectedIndex = currentIndexInImages;
             }
         }
         private void grpPeriodOfQuestionsTopics_Enter(object sender, EventArgs e) { }
         private void dgwLessonsImages_CellContentClick(object sender, RoutedEvent e) { }
         private void dgwLessonsImages_CellClick(object sender, RoutedEvent e)
         {
-            //if (e.RowIndex > -1)
+            //DataGrid grid = (DataGrid)sender;
+            //int RowIndex = grid.SelectedIndex;
+            //if (RowIndex > -1)
             //{
-            //    DgwLessonsImages.Rows[e.RowIndex].Selected = true;
-            //    currentIndexInImages = e.RowIndex;
-            //    currentImage = ((List<DbClasses.Image>)DgwLessonsImages.ItemsSource)[e.RowIndex];
-            //    LoadImage();
+            //    //{
+            //    //    DgwLessonsImages.Items[RowIndex].Selected = true;
+            //    //    currentIndexInImages = RowIndex;
+            //    //    currentImage = ((List<DbClasses.Image>)DgwLessonsImages.ItemsSource)[RowIndex];
+            //    //    LoadImage();
+            //    //}
             //}
         }
         private void dgwLessonsImages_RowEnter(object sender, RoutedEvent e)
         {
-            if (e.RowIndex > -1)
+            DataGrid grid = (DataGrid)sender;
+            int RowIndex = grid.SelectedIndex;
+            if (RowIndex > -1)
             {
-                dgwLessonsImages.Rows[e.RowIndex].Selected = true;
-                currentImage = ((List<BusinessObjects.Image>)dgwLessonsImages.ItemsSource)[e.RowIndex];
-                currentIndexInImages = e.RowIndex;
-                loadCurrentImage();
+                {
+                    dgwLessonsImages.SelectedIndex = RowIndex;
+                    currentImage = ((List<SchoolGrades.BusinessObjects.Image>)dgwLessonsImages.ItemsSource)[RowIndex];
+                    currentIndexInImages = RowIndex;
+                    loadCurrentImage();
+                }
             }
         }
         private void dgwLessonsImages_CellDoubleClick(object sender, RoutedEvent e)

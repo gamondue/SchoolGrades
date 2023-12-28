@@ -22,11 +22,11 @@ namespace SchoolGrades_WPF
             isDialog = IsDialog;
             if (isDialog)
             {
-                btnChoose.Visible = true;
+                btnChoose.Visibility = Visibility.Visible;
             }
             else
             {
-                btnChoose.Visible = false;
+                btnChoose.Visibility = Visibility.Hidden;
             }
         }
         private void frmTag_Load(object sender, EventArgs e)
@@ -45,8 +45,8 @@ namespace SchoolGrades_WPF
             {
                 listTags = Commons.bl.GetTagsContaining(txtSearch.Text);
                 dgwExistingTags.ItemsSource = listTags;
-                dgwExistingTags.Columns[0].Visible = false;
-                dgwExistingTags.Columns[2].Visible = false;
+                dgwExistingTags.Columns[0].Visibility = Visibility.Hidden;
+                dgwExistingTags.Columns[2].Visibility = Visibility.Hidden;
                 dgwExistingTags.Refresh();
             }
         }

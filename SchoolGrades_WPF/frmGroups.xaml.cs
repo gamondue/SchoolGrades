@@ -1,17 +1,10 @@
-﻿using SchoolGrades.BusinessObjects;
+﻿using SchoolGrades;
+using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
-using System.Formats.Asn1;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace SchoolGrades_WPF
@@ -56,8 +49,6 @@ namespace SchoolGrades_WPF
                 }
             }
         }
-
-
         private void frmGroups_Load(object sender, EventArgs e)
         {
             txtTotalStudentsToGroup.Text = listGroups.Count.ToString();
