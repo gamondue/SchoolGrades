@@ -337,14 +337,14 @@ namespace Shared
                 //return;
             }
         }
-        internal static System.Windows.Media.Color ColorFromNumber(SchoolSubject Subject)
+        internal static System.Windows.Media.Color ColorFromNumber(int? ColorNumber)
         {
-            if (Subject == null || Subject.Color == null || Subject.Color == 0)
+            if (ColorNumber == null || ColorNumber == null)
                 return ColorNoSubject;
             // extract the color components from the RGB number
-            byte red = (byte)((Subject.Color & 0xFF0000) >> 16);
-            byte green = (byte)((Subject.Color & 0xFF00) >> 8);
-            byte blue = (byte)(Subject.Color & 0xFF);
+            byte red = (byte)((ColorNumber & 0xFF0000) >> 16);
+            byte green = (byte)((ColorNumber & 0xFF00) >> 8);
+            byte blue = (byte)(ColorNumber & 0xFF);
             System.Windows.Media.Color bgColor = System.Windows.Media.Color.FromRgb(red, green, blue);
             return bgColor;
         }

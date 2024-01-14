@@ -72,7 +72,7 @@ namespace SchoolGrades_WPF
         private void cmbSchoolSubjects_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentSubject = ((SchoolSubject)(cmbSchoolSubjects.SelectedItem));
-            Color b = CommonsWpf.ColorFromNumber(currentSubject);
+            Color b = CommonsWpf.ColorFromNumber(currentSubject.Color);
             this.Background = CommonsWpf.BrushFromColor(b);
         }
         private void cmbPeriodo_SelectedIndexChanged(object sender, EventArgs e)
@@ -156,7 +156,7 @@ namespace SchoolGrades_WPF
         {
             foreach (DataGridRow row in dgv.Items)
             {
-                row.HeaderCell.Value = (row.Index + 1).ToString();
+                //////////row.HeaderCell.Value = (row.Index + 1).ToString();
             }
         }
         private void cmbSchoolPeriod_SelectedIndexChanged(object sender, EventArgs e)
@@ -172,8 +172,9 @@ namespace SchoolGrades_WPF
         private RadioButton FindCheckedRadioButton()
         {
             RadioButton rdbFound = null;
-            foreach (RadioButton rdb in grpChosenQuery.Controls)
+            foreach (object o in stkChosenQuery.Children)
             {
+                RadioButton rdb = (RadioButton)o;
                 if ((bool)rdb.IsChecked)
                 {
                     rdbFound = rdb;

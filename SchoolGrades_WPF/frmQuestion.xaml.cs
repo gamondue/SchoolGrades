@@ -243,7 +243,7 @@ namespace SchoolGrades_WPF
             ////////{
             ////////    bgColor = Color.PowderBlue;
             ////////}
-            this.Background = CommonsWpf.BrushFromColor(CommonsWpf.ColorFromNumber(currentSubject));
+            this.Background = CommonsWpf.BrushFromColor(CommonsWpf.ColorFromNumber(currentSubject.Color));
         }
 
         private void cmbQuestionType_SelectedIndexChanged(object sender, EventArgs e)

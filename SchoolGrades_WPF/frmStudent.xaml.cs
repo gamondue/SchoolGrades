@@ -1,5 +1,6 @@
 ﻿using SchoolGrades;
 using SchoolGrades.BusinessObjects;
+using Shared;
 using System;
 using System.Data;
 using System.Windows;
@@ -66,12 +67,12 @@ namespace SchoolGrades_WPF
         {
             try
             {
-                picStudent.Image = System.Drawing.Image.FromFile(Commons.PathImages + "\\" +
-                    Commons.bl.GetFilePhoto(StudentToLoad.IdStudent, StudentToLoad.SchoolYear));
+                CommonsWpf.loadPicture(picStudent, System.IO.Path.Combine(Commons.PathImages,
+                    Commons.bl.GetFilePhoto(StudentToLoad.IdStudent, StudentToLoad.SchoolYear)));
             }
             catch
             {
-                picStudent.Image = null;
+                //picStudent.Image = null;
             }
         }
         private void btnSave_Click(object sender, EventArgs e)
@@ -117,7 +118,7 @@ namespace SchoolGrades_WPF
             txtBirthDate.Text = "";
             txtBirthPlace.Text = "";
 
-            picStudent.Image = null;
+            //picStudent.Image = null;
         }
         private void btnChoose_Click(object sender, EventArgs e)
         {

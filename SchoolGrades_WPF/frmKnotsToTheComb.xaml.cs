@@ -125,7 +125,7 @@ namespace SchoolGrades_WPF
         private void cmbSchoolSubject_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentSubject = (SchoolSubject)cmbSchoolSubject.SelectedItem;
-            this.Background = CommonsWpf.BrushFromColor(CommonsWpf.ColorFromNumber(currentSubject));
+            this.Background = CommonsWpf.BrushFromColor(CommonsWpf.ColorFromNumber(currentSubject.Color));
             RefreshData();
         }
     }

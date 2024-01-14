@@ -44,25 +44,28 @@
     </Window.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="5*"></RowDefinition>
+            <RowDefinition Height="17*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="14*"/>
+            <RowDefinition Height="85*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <StackPanel>
-            <RadioButton x:Name="rdbMissing">Mancanti</RadioButton>
-            <RadioButton x:Name="rdbShowGrades">Voti</RadioButton>
-            <RadioButton Name="rdbShowWeightedGrades">Medie</RadioButton>
-            <RadioButton Name="rdbShowWeights">Pesi</RadioButton>
-            <RadioButton Name="rdbShowWeightsOnOpenGrades">Pesi aperti</RadioButton>
-        </StackPanel>
+        <GroupBox x:Name="grpChosenQuery">
+            <StackPanel x:Name="stkChosenQuery">
+                <RadioButton x:Name="rdbMissing">Mancanti</RadioButton>
+                <RadioButton x:Name="rdbShowGrades">Voti</RadioButton>
+                <RadioButton x:Name="rdbShowWeightedGrades">Medie</RadioButton>
+                <RadioButton x:Name="rdbShowWeights">Pesi</RadioButton>
+                <RadioButton x:Name="rdbShowWeightsOnOpenGrades">Pesi aperti</RadioButton>
+            </StackPanel>
+        </GroupBox>
         <Button HorizontalAlignment="Right" VerticalAlignment="Bottom">Salva su file CSV</Button>
-        <Grid Grid.Column="1" Grid.ColumnSpan="3" Margin="10,0">
+        <Grid Grid.Column="1" Grid.ColumnSpan="3" Margin="10,0,10,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"></ColumnDefinition>
                 <ColumnDefinition Width="4*"></ColumnDefinition>
@@ -78,7 +81,7 @@
             <ComboBox Name="cmbSummaryGradeType" Grid.Row="1" Grid.Column="1"></ComboBox>
             <ComboBox Name="cmbSchoolSubjects" Grid.Row="2" Grid.Column="1"></ComboBox>
         </Grid>
-        <Grid Grid.Row="1" Grid.ColumnSpan="4" Margin="0,10">
+        <Grid Grid.Row="1" Grid.ColumnSpan="4" Margin="0,10" Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
@@ -103,6 +106,6 @@
             <ComboBox Name="cmbSchoolPeriod" Grid.Column="4" Grid.Row="1"></ComboBox>
             <Button Name="btnReadData" Grid.Column="5" Grid.Row="1">Leggi dati</Button>
         </Grid>
-        <DataGrid x:Name="dgwGrades" Background="Gray" Grid.Row="2" Grid.ColumnSpan="4"></DataGrid>
+        <DataGrid x:Name="dgwGrades" Background="Gray" Grid.Row="2" Grid.ColumnSpan="4" Margin="0,84,0,0" Grid.RowSpan="2"></DataGrid>
     </Grid>
 </Window>

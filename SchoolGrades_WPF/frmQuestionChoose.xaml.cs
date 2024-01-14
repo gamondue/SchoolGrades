@@ -1,4 +1,5 @@
-﻿using SchoolGrades;
+﻿using gamon.TreeMptt;
+using SchoolGrades;
 using SchoolGrades.BusinessObjects;
 using Shared;
 using System;
@@ -15,7 +16,7 @@ namespace SchoolGrades_WPF
     /// </summary>
     public partial class frmQuestionChoose : Window
     {
-        //TreeMpttDb dbMptt;
+        TreeMpttDb dbMptt;
 
         List<Tag> tagsList = new List<Tag>();
 
@@ -166,7 +167,7 @@ namespace SchoolGrades_WPF
         private void cmbSchoolSubject_SelectionChanged(object sender, RoutedEventArgs e)
         {
             currentSubject = (SchoolSubject)cmbSchoolSubject.SelectedItem; // new SchoolSubject();
-            Color BackColor = CommonsWpf.ColorFromNumber(currentSubject);
+            Color BackColor = CommonsWpf.ColorFromNumber(currentSubject.Color);
             this.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(BackColor.A, BackColor.R, BackColor.G, BackColor.B));
             updateQuestions();
         }
@@ -386,7 +387,7 @@ namespace SchoolGrades_WPF
                     question, subject, currentClass, topic);
                 frm.ShowDialog();
 
-                frmQuestionChoose_Load(null, null);
+                frmQuestionChoose_Loaded();
             }
         }
         private void LessonTimer_Tick(object sender, EventArgs e)

@@ -1,5 +1,6 @@
 ﻿using SchoolGrades;
 using SchoolGrades.BusinessObjects;
+using Shared;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -131,9 +132,8 @@ namespace SchoolGrades_WPF
                 return;
             }
             string IdCurrentSubject = ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject;
-            int col = (int)Commons.bl.GetSchoolSubject(IdCurrentSubject).Color;
-            SolidColorBrush bgColor = Color.FromArgb(255, (col & 0xFF0000) >> 16, (col & 0xFF00) >> 8, col & 0xFF);
-            this.Background = bgColor;
+            Color bgColor = CommonsWpf.ColorFromNumber(Commons.bl.GetSchoolSubject(IdCurrentSubject).Color);
+            this.Background = CommonsWpf.BrushFromColor(bgColor);
             RefreshData();
         }
         private void cmbSchoolPeriod_SelectedIndexChanged(object sender, EventArgs e)
