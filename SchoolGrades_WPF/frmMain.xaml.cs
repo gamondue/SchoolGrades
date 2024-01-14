@@ -94,63 +94,63 @@ namespace SchoolGrades_WPF
             // manage the configuration file 
             string messagePrompt = "";
             // read configuration file, if doesn't work run configuration 
-            //////////////bool fileRead = CommonsWpf.ReadConfigData();
-            //////////////if (!fileRead)
-            //////////////{
-            //////////////    // config file is unexistent or unreadable
-            //////////////    StartNewConfigurationForm();
-            //////////////    CloseProgramWhileTestingIfConfigurationFileIsRight();
-            //////////////}
-            //////////////else
-            //////////////{
-            //////////////    // config file has been read
-            //////////////    string configuredPathAndFile = Commons.PathAndFileDatabase;
-            //////////////    string configuredFileName = Path.GetFileName(configuredPathAndFile);
-            //////////////    if (configuredPathAndFile != null)
-            //////////////    {
-            //////////////        // in Commons.PathAndFileDatabase we have a name for the database file 
-            //////////////        // checks if the file exists
-            //////////////        if (!File.Exists(configuredPathAndFile))
-            //////////////        {
-            //////////////            // the file in config file doesn't exist in the filesystem 
-            //////////////            messagePrompt = "Il file di database configurato:\n" + Commons.PathAndFileDatabase + "\nnon è accessibile!\n" +
-            //////////////                "Sceglierne uno nella prossima finestra.";
-            //////////////            MessageBox.Show(messagePrompt);
-            //////////////            frmSetup f = new frmSetup();
-            //////////////            f.ShowDialog();
-            //////////////            CloseProgramWhileTestingIfConfigurationFileIsRight();
-            //////////////        }
-            //////////////        else
-            //////////////        {
-            //////////////            // the configured file exists, if it is a file for a single class,
-            //////////////            // check if a more recent file exists and ask the user if she wants to
-            //////////////            // pass to the new file 
-            //////////////            DateTime fileDateInName = Commons.GetValidDateFromString(configuredFileName.Substring(0, 10));
-            //////////////            if (fileDateInName != DateTime.MinValue)
-            //////////////            {
-            //////////////                // we found the class database with fileDate in the beginning of the name
-            //////////////                // lets look if in the database folder a newer file exists
-            //////////////                string newestFileName = GetNewDatabaseFilename(Path.GetDirectoryName(configuredPathAndFile));
-            //////////////                // if the newest file is different from the current 
-            //////////////                // propose to get it as the database 
-            //////////////                if (Path.GetFileName(newestFileName) != configuredFileName && newestFileName != "")
-            //////////////                {
-            //////////////                    messagePrompt = "Trovato un file di database più nuovo " +
-            //////////////                        "rispetto a quello attualmente utilizzato.\n" +
-            //////////////                        "Devo usare\n" + Commons.PathAndFileDatabase + "\ncome database?\n";
-            //////////////                    if (MessageBox.Show(messagePrompt, "SchoolGrades")
-            //////////////                        == MessageBoxResult.Yes)
-            //////////////                    {
-            //////////////                        Commons.PathAndFileDatabase = newestFileName;
-            //////////////                        Commons.bl.WriteConfigData();
-            //////////////                        MessageBox.Show("File di configurazione salvato in " + Commons.PathAndFileConfig);
-            //////////////                    }
-            //////////////                    return;
-            //////////////                }
-            //////////////            }
-            //////////////        }
-            //////////////    }
-            //////////////}
+            bool fileRead = CommonsWpf.ReadConfigData();
+            if (!fileRead)
+            {
+                // config file is unexistent or unreadable
+                StartNewConfigurationForm();
+                CloseProgramWhileTestingIfConfigurationFileIsRight();
+            }
+            else
+            {
+                // config file has been read
+                string configuredPathAndFile = Commons.PathAndFileDatabase;
+                string configuredFileName = Path.GetFileName(configuredPathAndFile);
+                if (configuredPathAndFile != null)
+                {
+                    // in Commons.PathAndFileDatabase we have a name for the database file 
+                    // checks if the file exists
+                    if (!File.Exists(configuredPathAndFile))
+                    {
+                        // the file in config file doesn't exist in the filesystem 
+                        messagePrompt = "Il file di database configurato:\n" + Commons.PathAndFileDatabase + "\nnon è accessibile!\n" +
+                            "Sceglierne uno nella prossima finestra.";
+                        MessageBox.Show(messagePrompt);
+                        frmSetup f = new frmSetup();
+                        f.ShowDialog();
+                        CloseProgramWhileTestingIfConfigurationFileIsRight();
+                    }
+                    else
+                    {
+                        // the configured file exists, if it is a file for a single class,
+                        // check if a more recent file exists and ask the user if she wants to
+                        // pass to the new file 
+                        DateTime fileDateInName = Commons.GetValidDateFromString(configuredFileName.Substring(0, 10));
+                        if (fileDateInName != DateTime.MinValue)
+                        {
+                            // we found the class database with fileDate in the beginning of the name
+                            // lets look if in the database folder a newer file exists
+                            string newestFileName = GetNewDatabaseFilename(Path.GetDirectoryName(configuredPathAndFile));
+                            // if the newest file is different from the current 
+                            // propose to get it as the database 
+                            if (Path.GetFileName(newestFileName) != configuredFileName && newestFileName != "")
+                            {
+                                messagePrompt = "Trovato un file di database più nuovo " +
+                                    "rispetto a quello attualmente utilizzato.\n" +
+                                    "Devo usare\n" + Commons.PathAndFileDatabase + "\ncome database?\n";
+                                if (MessageBox.Show(messagePrompt, "SchoolGrades")
+                                    == MessageBoxResult.Yes)
+                                {
+                                    Commons.PathAndFileDatabase = newestFileName;
+                                    Commons.bl.WriteConfigData();
+                                    MessageBox.Show("File di configurazione salvato in " + Commons.PathAndFileConfig);
+                                }
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
             CreateBusinessAndDataLayer();
 
             List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
@@ -1136,7 +1136,7 @@ namespace SchoolGrades_WPF
             currentSubject = (SchoolSubject)cmbSchoolSubject.SelectedItem;
             if (currentSubject.Name == null)
                 currentSubject = null;
-            Color BackColor = CommonsWpf.ColorFromNumber(currentSubject);
+            Color BackColor = CommonsWpf.ColorFromNumber(currentSubject.Color);
             SolidColorBrush br = new SolidColorBrush(System.Windows.Media.Color.FromArgb(BackColor.A, BackColor.R, BackColor.G, BackColor.B));
             this.Background = br;
             lstClasses.Background = br;

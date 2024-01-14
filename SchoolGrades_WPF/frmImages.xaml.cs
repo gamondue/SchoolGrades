@@ -90,7 +90,7 @@ namespace SchoolGrades_WPF
 
             if (currentSubject != null)
             {
-                Color col = CommonsWpf.ColorFromNumber(currentSubject);
+                Color col = CommonsWpf.ColorFromNumber(currentSubject.Color);
                 this.Background = CommonsWpf.BrushFromColor(col);
                 rdbAutoRename_CheckedChanged(null, null);
             }

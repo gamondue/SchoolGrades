@@ -99,7 +99,7 @@ namespace SchoolGrades_WPF
 
             RefreshTopicsChecksAndImages();
 
-            System.Windows.Media.Color c = CommonsWpf.ColorFromNumber(currentSchoolSubject);
+            System.Windows.Media.Color c = CommonsWpf.ColorFromNumber(currentSchoolSubject.Color);
             SolidColorBrush br = new SolidColorBrush(System.Windows.Media.Color.FromArgb(c.A, c.R, c.G, c.B));
             this.Background = br;
 

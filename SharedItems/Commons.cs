@@ -299,8 +299,7 @@ namespace SchoolGrades
         // This routine decodes them.
         {
 
-            System.Version v =
-            System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            System.Version v = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
 
             // v.Build is days since Jan. 1, 2000
             // v.Revision*2 is seconds since local midnight

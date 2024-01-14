@@ -127,7 +127,7 @@ namespace SchoolGrades_WPF
             }
 
             //this.Background = CommonsWpf.ColorFromNumber(currentSchoolSubject);
-            Color BackColor = CommonsWpf.ColorFromNumber(currentSchoolSubject);
+            Color BackColor = CommonsWpf.ColorFromNumber(currentSchoolSubject.Color);
             this.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(BackColor.A, BackColor.R, BackColor.G, BackColor.B));
             LessonTimer.Interval = new TimeSpan(0, 0, 1);
             if (Commons.IsTimerLessonActive)

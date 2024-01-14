@@ -1,11 +1,9 @@
 ﻿using SchoolGrades;
 using SchoolGrades.BusinessObjects;
-using Shared;
 using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace SchoolGrades_WPF
 {
@@ -48,8 +46,8 @@ namespace SchoolGrades_WPF
                 if (currentSubject.Color != null)
                 {
                     int color = (int)currentSubject.Color;
-                    picSubjectColor.Fill = CommonsWpf.BrushFromColor(Color.FromArgb(255, (byte)((color & 0xFF0000) >> 16),
-                        (byte)((color & 0xFF00) >> 8), (byte)(color & 0xFF)));
+                    //////////picSubjectColor.Fill = CommonsWpf.BrushFromColor(Color.FromArgb(255, (byte)((color & 0xFF0000) >> 16),
+                    //////////    (byte)((color & 0xFF00) >> 8), (byte)(color & 0xFF)));
                 }
             }
         }
@@ -77,10 +75,11 @@ namespace SchoolGrades_WPF
         }
         private void picSubjectColor_Click(object sender, EventArgs e)
         {
-            colorDialog1.Color = picSubjectColor.Background;
-            colorDialog1.ShowDialog();
-            picSubjectColor.Background = colorDialog1.Color;
-            currentSubject.Color = colorDialog1.Color.ToArgb();
+            // !!!! TODO !!!! ???? use the ColorPicker control from the Extended WPF Toolkit ????
+            //////////colorDialog1.Color = picSubjectColor.Background;
+            //////////colorDialog1.ShowDialog();
+            //////////picSubjectColor.Background = colorDialog1.Color;
+            //////////currentSubject.Color = colorDialog1.Color.ToArgb();
         }
         private void btnSave_Click(object sender, EventArgs e)
         {

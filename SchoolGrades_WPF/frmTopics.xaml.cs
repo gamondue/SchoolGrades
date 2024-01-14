@@ -55,7 +55,7 @@ namespace SchoolGrades_WPF
                     currentSubject = null;
                 else
                 {
-                    Color BackColor = CommonsWpf.ColorFromNumber(currentSubject);
+                    Color BackColor = CommonsWpf.ColorFromNumber(currentSubject.Color);
                     SolidColorBrush br = new SolidColorBrush(System.Windows.Media.Color.FromArgb(BackColor.A, BackColor.R, BackColor.G, BackColor.B));
                     this.Background = br;
                 }
@@ -73,7 +73,7 @@ namespace SchoolGrades_WPF
                     currentSubject = null;
                 else
                 {
-                    Color bgColor = CommonsWpf.ColorFromNumber(currentSubject);
+                    Color bgColor = CommonsWpf.ColorFromNumber(currentSubject.Color);
                     SolidColorBrush br = new SolidColorBrush(bgColor);
                     this.Background = br;
                 }
