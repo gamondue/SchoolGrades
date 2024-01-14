@@ -150,27 +150,27 @@ namespace gamon.TreeMptt
                 txtNodeDescription.LostFocus += TxtNodeDescription_Leave;
                 if (chkSearchInDescriptions != null)
                 {
-                    chkSearchInDescriptions.IsChecked += SearchCheckBoxes_CheckedChanged;
+                    chkSearchInDescriptions.Checked += SearchCheckBoxes_CheckedChanged;
                     chkSearchInDescriptions.Unchecked += SearchCheckBoxes_CheckedChanged;
                 }
                 if (chkAllWord != null)
                 {
-                    chkAllWord.IsChecked += SearchCheckBoxes_CheckedChanged;
+                    chkAllWord.Checked += SearchCheckBoxes_CheckedChanged;
                     chkAllWord.Unchecked += SearchCheckBoxes_CheckedChanged;
                 }
                 if (chkCaseInsensitive != null)
                 {
-                    chkCaseInsensitive.IsChecked += SearchCheckBoxes_CheckedChanged;
+                    chkCaseInsensitive.Checked += SearchCheckBoxes_CheckedChanged;
                     chkCaseInsensitive.Unchecked += SearchCheckBoxes_CheckedChanged;
                 }
                 if (chkMarkAllNodesFound != null)
                 {
-                    chkMarkAllNodesFound.IsChecked += chkMarkAllTopicsFound_CheckedChanged;
+                    chkMarkAllNodesFound.Checked += chkMarkAllTopicsFound_CheckedChanged;
                     chkMarkAllNodesFound.Unchecked += chkMarkAllTopicsFound_CheckedChanged;
                 }
                 if (chkVerbatimString != null)
                 {
-                    chkVerbatimString.IsChecked += chkVerbatimString_CheckedChanged;
+                    chkVerbatimString.Checked += chkVerbatimString_CheckedChanged;
                     chkVerbatimString.Unchecked += chkVerbatimString_CheckedChanged;
                 }
                 //}

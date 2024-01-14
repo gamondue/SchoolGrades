@@ -1,7 +1,9 @@
-﻿using SchoolGrades;
+﻿using Microsoft.Win32;
+using SchoolGrades;
 using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -55,7 +57,7 @@ namespace SchoolGrades_WPF
             int RowIndex = grid.SelectedIndex;
             if (RowIndex > -1)
             {
-                DgwLinks.Items[RowIndex].Selected = true;
+                //////////DgwLinks.Items[RowIndex].Selected= true;
                 currentLink = ((List<StartLink>)DgwLinks.ItemsSource)[RowIndex];
             }
         }
@@ -181,14 +183,15 @@ namespace SchoolGrades_WPF
             // !!!! Keep BtnPathRetrictedApplication button non visible until then.
 
             // !!!! code currently non executed
-            folderBrowserDialog1.SelectedPath = TxtPathStartLink.Text;
-            DialogResult r = folderBrowserDialog1.ShowDialog();
-            if (r == MessageBoxResult.OK)
+            OpenFileDialog folderBrowserDialog1 = new OpenFileDialog();
+            folderBrowserDialog1.InitialDirectory = TxtPathStartLink.Text;
+            bool? r = folderBrowserDialog1.ShowDialog();
+            if (r == true)
             {
                 if (MessageBox.Show("Si deve cambiare la cartella dei link?\n(i link a documenti già presenti non funzioneranno più!)",
-                    "Attenzione!", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxDefaultButton.Button2) == MessageBoxResult.Yes)
+                    "Attenzione!", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
                 {
-                    TxtPathStartLink.Text = folderBrowserDialog1.SelectedPath;
+                    TxtPathStartLink.Text = Path.GetFullPath(folderBrowserDialog1.FileName);
                     Commons.bl.UpdatePathStartLinkOfClass(currentClass, TxtPathStartLink.Text);
                 }
             }
@@ -196,11 +199,12 @@ namespace SchoolGrades_WPF
         private void BtnFileToLaunch_Click(object sender, EventArgs e)
         {
             string folderStartLinks = TxtPathStartLink.Text;
-            openFileDialog.InitialDirectory = folderStartLinks;
-            DialogResult r = openFileDialog.ShowDialog();
-            if (r == System.Windows.Forms.DialogResult.OK)
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.InitialDirectory = folderStartLinks;
+            bool? chosen = ofd.ShowDialog();
+            if (chosen == true)
             {
-                TxtStartLink.Text = openFileDialog.FileName.Replace(folderStartLinks, "").Substring(1);
+                TxtStartLink.Text = ofd.FileName.Replace(folderStartLinks, "").Substring(1);
             }
         }
         private void TxtLinkedFile_TextChanged(object sender, EventArgs e)

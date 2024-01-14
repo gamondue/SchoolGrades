@@ -49,14 +49,14 @@ namespace SchoolGrades_WPF
 
             // fill the combos of lookup tables
             List<GradeType> listGrades = Commons.bl.GetListGradeTypes();
-            cmbGradeType.DisplayMember = "Name";
-            cmbGradeType.ValueMember = "idGradeType";
+            cmbGradeType.DisplayMemberPath = "Name";
+            cmbGradeType.SelectedValuePath = "idGradeType";
             cmbGradeType.ItemsSource = listGrades;
             cmbGradeType.SelectedValue = currentGradeType.IdGradeType;
 
             List<SchoolSubject> listSubjects = Commons.bl.GetListSchoolSubjects(false);
-            cmbSchoolSubjects.DisplayMember = "Name";
-            cmbSchoolSubjects.ValueMember = "idSchoolSubject";
+            cmbSchoolSubjects.DisplayMemberPath = "Name";
+            cmbSchoolSubjects.SelectedValuePath = "idSchoolSubject";
             cmbSchoolSubjects.ItemsSource = listSubjects;
             cmbSchoolSubjects.SelectedValue = currentSchoolSubject.IdSchoolSubject;
 
@@ -75,7 +75,7 @@ namespace SchoolGrades_WPF
             {
                 double weightedAverage = 0;
                 double sumOfWeights = 0;
-                foreach (DataRow row in ((DataTable)dgwGrades.ItemsSource).Items)
+                foreach (DataRow row in ((DataTable)dgwGrades.ItemsSource).Rows)
                 {
                     weightedAverage += (double)row["grade"] * (double)row["weight"];
                     sumOfWeights += (double)row["weight"];
@@ -91,21 +91,21 @@ namespace SchoolGrades_WPF
         }
         private void frmGradesSummary_FormClosing(object sender, RoutedEvent e)
         {
-            DataTable t = (DataTable)(dgwGrades.ItemsSource);
-            if (t != null)
-            {
-                //t.AcceptChanges();
-                DataTable modifiche = t.GetChanges();
-                if (modifiche != null)
-                {
-                    foreach (DataRow riga in modifiche.Items)
-                    {
-                        // crea un nuovo voto per ciascuna riga salvata
-                        // il vecchio voto assume peso 0, il nuovo, lo stesso peso della riga precedente
-                        Commons.bl.CloneGrade(riga);
-                    }
-                }
-            }
+            //////////DataTable t = (DataTable)(dgwGrades.ItemsSource);
+            //////////if (t != null)
+            //////////{
+            //////////    //t.AcceptChanges();
+            //////////    DataTable modifiche = t.GetChanges();
+            //////////    if (modifiche != null)
+            //////////    {
+            //////////        foreach (DataRow riga in modifiche.Items)
+            //////////        {
+            //////////            // crea un nuovo voto per ciascuna riga salvata
+            //////////            // il vecchio voto assume peso 0, il nuovo, lo stesso peso della riga precedente
+            //////////            Commons.bl.CloneGrade(riga);
+            //////////        }
+            //////////    }
+            //////////}
         }
         private void cmbGradeType_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -115,10 +115,11 @@ namespace SchoolGrades_WPF
         {
             if (cmbGradeType.SelectedItem != null && cmbSchoolSubjects.SelectedItem != null)
             {
-                dgwGrades.ItemsSource = Commons.bl.GetGradesOfStudent(currentStudent, currentSchoolYear,
+                dgwGrades.ItemsSource = (System.Collections.IEnumerable)
+                    Commons.bl.GetGradesOfStudent(currentStudent, currentSchoolYear,
                     ((GradeType)(cmbGradeType.SelectedItem)).IdGradeType,
                     ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject,
-                    dtpStartPeriod.SelectedDate, dtpEndPeriod.SelectedDate
+                    dtpStartPeriod.SelectedDate.Value, dtpEndPeriod.SelectedDate.Value
                     );
             }
             CalculateWeightedAverage();
@@ -131,7 +132,7 @@ namespace SchoolGrades_WPF
             }
             string IdCurrentSubject = ((SchoolSubject)(cmbSchoolSubjects.SelectedItem)).IdSchoolSubject;
             int col = (int)Commons.bl.GetSchoolSubject(IdCurrentSubject).Color;
-            Color bgColor = Color.FromArgb((col & 0xFF0000) >> 16, (col & 0xFF00) >> 8, col & 0xFF);
+            SolidColorBrush bgColor = Color.FromArgb(255, (col & 0xFF0000) >> 16, (col & 0xFF00) >> 8, col & 0xFF);
             this.Background = bgColor;
             RefreshData();
         }
@@ -164,8 +165,8 @@ namespace SchoolGrades_WPF
             int RowIndex = grid.SelectedIndex;
             if (RowIndex > -1)
             {
-                dgwGrades.Items[RowIndex].Selected = true;
-                currentGrade.IdGrade = (int?)dgwGrades.Items[RowIndex].Cells["IdGrade"].Value;
+                //////////dgwGrades.Items[RowIndex].Selected = true;
+                currentGrade.IdGrade = (int?)((Grade)dgwGrades.Items[RowIndex]).IdGrade;
                 currentGrade = Commons.bl.GetGrade(currentGrade.IdGrade);
             }
         }

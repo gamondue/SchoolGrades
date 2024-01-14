@@ -1,7 +1,9 @@
-﻿using SchoolGrades.BusinessObjects;
+﻿using SchoolGrades;
+using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace SchoolGrades_WPF
 {
@@ -47,7 +49,7 @@ namespace SchoolGrades_WPF
                 dgwExistingTags.ItemsSource = listTags;
                 dgwExistingTags.Columns[0].Visibility = Visibility.Hidden;
                 dgwExistingTags.Columns[2].Visibility = Visibility.Hidden;
-                dgwExistingTags.Refresh();
+                //dgwExistingTags.Refresh();
             }
         }
         private void btnSave_Click(object sender, EventArgs e)
@@ -71,6 +73,8 @@ namespace SchoolGrades_WPF
         }
         private void dgwExistingTags_CellDoubleClick(object sender, RoutedEvent e)
         {
+            DataGrid grid = (DataGrid)sender;
+            int RowIndex = grid.SelectedIndex;
             Tag t = listTags[RowIndex];
             currentTag = t;
             txtDesc.Text = t.Desc;

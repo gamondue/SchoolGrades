@@ -2,7 +2,6 @@
 using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -41,8 +40,8 @@ namespace SchoolGrades_WPF
         {
             if (currentSubject != null)
             {
-                dtpEndPeriod.Value = DateTime.Now;
-                dtpStartPeriod.Value = dtpEndPeriod.Value.AddDays(-7);
+                dtpEndPeriod.SelectedDate = DateTime.Now;
+                dtpStartPeriod.SelectedDate = dtpEndPeriod.SelectedDate.Value.AddDays(-7);
                 txtSchoolSubject.Text = currentSubject.IdSchoolSubject;
                 txtClass.Text = currentClass.Abbreviation;
                 txtSchoolYear.Text = currentClass.SchoolYear;
@@ -69,9 +68,9 @@ namespace SchoolGrades_WPF
             if (cmbSchoolPeriod.Text == "")
                 dateFrom = Commons.DateNull;
             else
-                dateFrom = dtpStartPeriod.Value;
+                dateFrom = dtpStartPeriod.SelectedDate.Value;
             topicsDone = Commons.bl.GetTopicsDoneInPeriod(currentClass, currentSubject,
-                dateFrom, dtpEndPeriod.Value);
+                dateFrom, dtpEndPeriod.SelectedDate.Value);
 
             dgwTopics.ItemsSource = topicsDone;
             //if (chkVisualizePath.IsChecked)
@@ -103,7 +102,7 @@ namespace SchoolGrades_WPF
             int RowIndex = grid.SelectedIndex;
             if (RowIndex > -1)
             {
-                DataGridRow value = dgwTopics.Items[RowIndex];
+                DataGridRow value = (DataGridRow)dgwTopics.Items[RowIndex];
                 switch (formType)
                 {
                     case (TopicChooseFormType.ChooseTopicOnExit):
@@ -133,7 +132,7 @@ namespace SchoolGrades_WPF
             if (topicsDone == null)
             {
                 topicsDone = Commons.bl.GetTopicsDoneInPeriod(currentClass, currentSubject,
-                    dtpStartPeriod.Value, dtpEndPeriod.Value);
+                    dtpStartPeriod.SelectedDate.Value, dtpEndPeriod.SelectedDate.Value);
             }
             if (topicsDone.Count > 0)
             {
@@ -151,9 +150,9 @@ namespace SchoolGrades_WPF
                 MessageBox.Show("Scegliere un argomento nella griglia");
                 return;
             }
-            int rowIndex = dgwTopics.SelectedItems[0].Index;
-            //DataRow row = ((DataTable)(dgwTopics.ItemsSource)).Items[rowIndex];
-            DataGridRow value = dgwTopics.Items[rowIndex];
+            int rowIndex = dgwTopics.SelectedIndex;
+            //DataGridRow value = dgwTopics.Items[rowIndex];
+            DataGridRow value = (DataGridRow)dgwTopics.Items[rowIndex];
             switch (formType)
             {
                 case (TopicChooseFormType.ChooseTopicOnExit):
@@ -172,7 +171,7 @@ namespace SchoolGrades_WPF
                         frmTopics t = new frmTopics(frmTopics.TopicsFormType.HighlightTopics,
                             currentClass, currentSubject, null, oneItemList);
                         t.ShowDialog();
-                        t.Dispose();
+                        //t.Dispose();
                         break;
                     }
             }
@@ -182,23 +181,23 @@ namespace SchoolGrades_WPF
             currentSchoolPeriod = (SchoolPeriod)(cmbSchoolPeriod.SelectedValue);
             if (currentSchoolPeriod.IdSchoolPeriodType != "N")
             {
-                dtpStartPeriod.Value = (DateTime)currentSchoolPeriod.DateStart;
-                dtpEndPeriod.Value = (DateTime)currentSchoolPeriod.DateFinish;
+                dtpStartPeriod.SelectedDate = (DateTime)currentSchoolPeriod.DateStart;
+                dtpEndPeriod.SelectedDate = (DateTime)currentSchoolPeriod.DateFinish;
             }
             else if (currentSchoolPeriod.IdSchoolPeriod == "month")
             {
-                dtpStartPeriod.Value = DateTime.Now.AddMonths(-1);
-                dtpEndPeriod.Value = DateTime.Now;
+                dtpStartPeriod.SelectedDate = DateTime.Now.AddMonths(-1);
+                dtpEndPeriod.SelectedDate = DateTime.Now;
             }
             else if (currentSchoolPeriod.IdSchoolPeriod == "week")
             {
-                dtpStartPeriod.Value = DateTime.Now.AddDays(-7);
-                dtpEndPeriod.Value = DateTime.Now;
+                dtpStartPeriod.SelectedDate = DateTime.Now.AddDays(-7);
+                dtpEndPeriod.SelectedDate = DateTime.Now;
             }
             else if (currentSchoolPeriod.IdSchoolPeriod == "year")
             {
-                dtpStartPeriod.Value = DateTime.Now.AddYears(-1);
-                dtpEndPeriod.Value = DateTime.Now;
+                dtpStartPeriod.SelectedDate = DateTime.Now.AddYears(-1);
+                dtpEndPeriod.SelectedDate = DateTime.Now;
             }
         }
         private void dgwTopics_CellClick(object sender, RoutedEvent e)
@@ -207,7 +206,7 @@ namespace SchoolGrades_WPF
             int RowIndex = grid.SelectedIndex;
             if (RowIndex > -1)
             {
-                dgwTopics.Items[RowIndex].Selected = true;
+                //////////dgwTopics.Items[RowIndex].Selected = true;
             }
         }
     }

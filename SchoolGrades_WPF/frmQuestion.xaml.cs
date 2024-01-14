@@ -1,9 +1,11 @@
 ﻿using gamon.TreeMptt;
 using SchoolGrades;
 using SchoolGrades.BusinessObjects;
+using Shared;
 using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace SchoolGrades_WPF
@@ -41,13 +43,13 @@ namespace SchoolGrades_WPF
 
             // fills the lookup tables' combos
             List<QuestionType> listQuestions = Commons.bl.GetListQuestionTypes(true);
-            cmbQuestionType.DisplayMember = "Name";
-            cmbQuestionType.ValueMember = "idQuestionType";
+            cmbQuestionType.DisplayMemberPath = "Name";
+            cmbQuestionType.SelectedValuePath = "idQuestionType";
             cmbQuestionType.ItemsSource = listQuestions;
 
             List<SchoolSubject> listSubjects = Commons.bl.GetListSchoolSubjects(true);
-            cmbSchoolSubject.DisplayMember = "Name";
-            cmbSchoolSubject.ValueMember = "idSchoolSubject";
+            cmbSchoolSubject.DisplayMemberPath = "Name";
+            cmbSchoolSubject.SelectedValuePath = "idSchoolSubject";
             cmbSchoolSubject.ItemsSource = listSubjects;
 
             currentClass = Class;
@@ -80,13 +82,13 @@ namespace SchoolGrades_WPF
                 case QuestionFormType.CreateSeveralQuestions:
                     {
                         btnNewQuestion.Visibility = Visibility.Visible;
-                        btnSaveQuestion.Text = "Salva";
+                        btnSaveQuestion.Content = "Salva";
                         break;
                     }
                 case QuestionFormType.EditOneQuestion:
                     {
                         btnNewQuestion.Visibility = Visibility.Hidden;
-                        btnSaveQuestion.Text = "Salva e Esci";
+                        btnSaveQuestion.Content = "Salva e Esci";
                         break;
                     }
             }
@@ -153,13 +155,13 @@ namespace SchoolGrades_WPF
 
         private void txtQuestionText_TextChanged(object sender, EventArgs e)
         {
-            txtQuestionText.Background = Color.White;
+            txtQuestionText.Background = Brushes.White;
             currentQuestion.Text = txtQuestionText.Text;
         }
 
         private void txtWeight_TextChanged(object sender, EventArgs e)
         {
-            txtWeight.Background = Color.White;
+            txtWeight.Background = Brushes.White;
             try
             {
                 currentQuestion.Weight = int.Parse(txtWeight.Text);
@@ -173,7 +175,7 @@ namespace SchoolGrades_WPF
 
         private void txtDuration_TextChanged(object sender, EventArgs e)
         {
-            txtDuration.Background = Color.White;
+            txtDuration.Background = Brushes.White;
             try
             {
                 currentQuestion.Duration = int.Parse(txtDuration.Text);
@@ -208,7 +210,7 @@ namespace SchoolGrades_WPF
             if (t.haveChosen)
             {
                 Commons.bl.AddTagToQuestion(currentQuestion.IdQuestion, t.currentTag.IdTag);
-                t.Dispose();
+                //t.Dispose();
                 tagsList = Commons.bl.TagsOfAQuestion(currentQuestion.IdQuestion);
                 lstTags.ItemsSource = tagsList;
                 Commons.LastTagsChosen = tagsList;
@@ -217,6 +219,8 @@ namespace SchoolGrades_WPF
 
         private void dgwAnswers_CellDoubleClick(object sender, RoutedEvent e)
         {
+            DataGrid grid = (DataGrid)sender;
+            int RowIndex = grid.SelectedIndex;
             Answer a = answersList[RowIndex];
             frmAnswer f = new frmAnswer(a);
             f.ShowDialog();
@@ -239,7 +243,7 @@ namespace SchoolGrades_WPF
             ////////{
             ////////    bgColor = Color.PowderBlue;
             ////////}
-            this.Background = CommonsWinForms.ColorFromNumber(currentSubject);
+            this.Background = CommonsWpf.BrushFromColor(CommonsWpf.ColorFromNumber(currentSubject));
         }
 
         private void cmbQuestionType_SelectedIndexChanged(object sender, EventArgs e)
@@ -263,7 +267,7 @@ namespace SchoolGrades_WPF
                 currentQuestion.IdTopic = chosenTopic.Id;
                 txtTopic.Text = dbMptt.GetNodePath(currentTopic.Id);
             }
-            f.Dispose();
+            //f.Dispose();
         }
 
         private void btnChooseByPeriod_Click(object sender, EventArgs e)
@@ -284,12 +288,12 @@ namespace SchoolGrades_WPF
                 currentTopic = chosenTopic;
                 txtTopic.Text = dbMptt.GetNodePath(chosenTopic.Id);
             }
-            f.Dispose();
+            //f.Dispose();
         }
 
         private void txtDifficulty_TextChanged(object sender, EventArgs e)
         {
-            txtDifficulty.Background = Color.White;
+            txtDifficulty.Background = Brushes.White;
             try
             {
                 currentQuestion.Difficulty = int.Parse(txtDifficulty.Text);
@@ -313,7 +317,7 @@ namespace SchoolGrades_WPF
 
         private void btnNewQuestion_Click(object sender, EventArgs e)
         {
-            Color coloreCambiato = Color.Beige;
+            SolidColorBrush coloreCambiato = Brushes.Beige;
 
             // starts a new question "copying" the current one. 
             // by erasing its id it will be saved as new at save. 
@@ -345,12 +349,12 @@ namespace SchoolGrades_WPF
             txtWeight.Background = coloreCambiato;
             txtQuestionText.Background = coloreCambiato;
             txtTopic.Background = coloreCambiato;
-            txtIdQuestion.Background = Color.Red;
+            txtIdQuestion.Background = Brushes.Red;
         }
 
         private void txtTopic_TextChanged(object sender, EventArgs e)
         {
-            txtTopic.Background = Color.White;
+            txtTopic.Background = Brushes.White;
         }
 
         private void btnSaveAndChoose_Click(object sender, EventArgs e)
@@ -363,7 +367,7 @@ namespace SchoolGrades_WPF
 
         private void SaveQuestion()
         {
-            Color plainColor = Color.White;
+            SolidColorBrush plainColor = Brushes.White;
             if (currentQuestion.IdQuestion == 0)
             {
                 Question q = Commons.bl.CreateNewVoidQuestion();

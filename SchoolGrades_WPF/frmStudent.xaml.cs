@@ -1,4 +1,5 @@
-﻿using SchoolGrades.BusinessObjects;
+﻿using SchoolGrades;
+using SchoolGrades.BusinessObjects;
 using System;
 using System.Data;
 using System.Windows;
@@ -133,13 +134,13 @@ namespace SchoolGrades_WPF
         private void btnFindStudent_Click(object sender, EventArgs e)
         {
             DataTable dt = Commons.bl.FindStudentsLike(txtLastName.Text, txtFirstName.Text);
-            dgwSearchedStudents.ItemsSource = dt;
+            dgwSearchedStudents.ItemsSource = (System.Collections.IEnumerable)dt;
         }
 
         private void btnFindHomonym_Click(object sender, EventArgs e)
         {
             DataTable dt = Commons.bl.GetStudentsSameName(txtLastName.Text, txtFirstName.Text);
-            dgwSearchedStudents.ItemsSource = dt;
+            dgwSearchedStudents.ItemsSource = (System.Collections.IEnumerable)dt;
         }
 
         private void dgwSearchedStudents_CellClick(object sender, RoutedEvent e)
@@ -148,7 +149,7 @@ namespace SchoolGrades_WPF
             int RowIndex = grid.SelectedIndex;
             if (RowIndex > -1)
             {
-                int key = (int)((DataTable)(dgwSearchedStudents.ItemsSource)).Items[RowIndex]["idStudent"];
+                int key = (int)((DataTable)(dgwSearchedStudents.ItemsSource)).Rows[RowIndex]["idStudent"];
                 Student s = Commons.bl.GetStudent(key);
                 loadStudentData(s);
                 currentStudent = s;
@@ -166,7 +167,7 @@ namespace SchoolGrades_WPF
             int RowIndex = grid.SelectedIndex;
             if (RowIndex > -1)
             {
-                int key = (int)((DataTable)(dgwSearchedStudents.ItemsSource)).Items[RowIndex]["idStudent"];
+                int key = (int)((DataTable)(dgwSearchedStudents.ItemsSource)).Rows[RowIndex]["idStudent"];
                 Student s = Commons.bl.GetStudent(key);
                 loadStudentData(s);
                 currentStudent = s;

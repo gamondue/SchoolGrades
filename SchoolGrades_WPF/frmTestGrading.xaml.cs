@@ -1,4 +1,5 @@
-﻿using SchoolGrades.BusinessObjects;
+﻿using SchoolGrades;
+using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -168,17 +169,17 @@ namespace SchoolGrades_WPF
         }
         private void GridAddData(int GridRow, int GridColumn, string DataToShow)
         {
-            // if you don't do the next, it would add the row as the first row
-            dgwTestResults.AllowUserToAddRows = false;
-            while (dgwTestResults.Columns.Count <= GridColumn)
-            {
-                dgwTestResults.Columns.Add("", "");
-            }
-            while (dgwTestResults.Items.Count <= GridRow)
-            {
-                dgwTestResults.Items.Add("", "");
-            }
-            dgwTestResults.Items[GridRow].Cells[GridColumn].Value = DataToShow;
+            //////////// if you don't do the next, it would add the row as the first row
+            //////////dgwTestResults.AllowUserToAddRows = false;
+            //////////while (dgwTestResults.Columns.Count <= GridColumn)
+            //////////{
+            //////////    dgwTestResults.Columns.Add("", "");
+            //////////}
+            //////////while (dgwTestResults.Items.Count <= GridRow)
+            //////////{
+            //////////    dgwTestResults.Items.Add("", "");
+            //////////}
+            //////////dgwTestResults.Items[GridRow].Cells[GridColumn].Value = DataToShow;
         }
         private void RefreshUi()
         {
@@ -196,7 +197,8 @@ namespace SchoolGrades_WPF
             int RowIndex = grid.SelectedIndex;
             if (RowIndex > -1)
             {
-                txtCurrentCell.Text = dgwTestResults.SelectedCells[0].Value.ToString();
+                //txtCurrentCell.Text = dgwTestResults.SelectedCells[0].Value.ToString();
+                ////////////txtCurrentCell.Text = ((TestResult)(dgwTestResults.SelectedValue)).;
             }
         }
         private void btnMakeFile_Click(object sender, EventArgs e)

@@ -49,6 +49,6 @@
             <Button Name="btnChoose">Scegli</Button>
         </StackPanel>
         <TextBox Name="txtQuestionText" Grid.Row="1" Grid.ColumnSpan="3"></TextBox>
-        <DataGrid Name="dgQuestions" Grid.Row="2" Grid.ColumnSpan="3" Background="Gray"></DataGrid>
+        <DataGrid x:Name="dgwQuestions" Grid.Row="2" Grid.ColumnSpan="3" Background="Gray"></DataGrid>
     </Grid>
 </Window>

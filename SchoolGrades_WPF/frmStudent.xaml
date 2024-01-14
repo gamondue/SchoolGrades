@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SchoolGrades_WPF"
         mc:Ignorable="d"
         Title="Gestione Studenti" Height="450" Width="800">
-    <Grid Background="PowderBlue" Margin="0,0,0,-6">
+    <Grid Background="PowderBlue" Margin="0,0,0,-80">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="170">
 
@@ -61,53 +61,53 @@
         <TextBlock Grid.Column="0" FontSize="18" Margin="10,0,10,0">
             Cod.allievo
         </TextBlock>
-        <TextBox Grid.Column="0" Margin="10,28,39,0" Height="27" VerticalAlignment="Top" />
+        <TextBox x:Name="txtIdStudent" Grid.Column="0" Margin="10,28,39,0" Height="27" VerticalAlignment="Top" />
 
         <TextBlock Grid.Column="1" FontSize="18" Margin="10,0,10,0">
             Cognome
         </TextBlock>
-        <TextBox Grid.Column="1" Margin="10,28,10,0" Height="27" VerticalAlignment="Top" />
+        <TextBox x:Name="txtLastName" Grid.Column="1" Margin="10,28,10,0" Height="27" VerticalAlignment="Top" />
 
         <TextBlock Grid.Column="2" FontSize="18" Margin="10,0,10,0">
             Nome
         </TextBlock>
-        <TextBox Grid.Column="2" Grid.ColumnSpan="2" Margin="10,28,38,0" Height="27" VerticalAlignment="Top" />
+        <TextBox x:Name="txtFirstName" Grid.Column="2" Grid.ColumnSpan="2" Margin="10,28,38,0" Height="27" VerticalAlignment="Top" />
 
         <TextBlock Grid.Row="1" FontSize="18" Margin="10,0,10,13">
             email
         </TextBlock>
-        <TextBox Grid.Row="1" Grid.ColumnSpan="2" Margin="10,28,19,0" Height="27" VerticalAlignment="Top" />
+        <TextBox x:Name="txtEmail" Grid.Row="1" Grid.ColumnSpan="2" Margin="10,28,19,0" Height="27" VerticalAlignment="Top" />
 
         <TextBlock Grid.Column="2" Grid.Row="1" FontSize="18" Margin="10,0,10,13">
             Residenza
         </TextBlock>
-        <TextBox Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" Margin="10,28,38,0" Height="27" VerticalAlignment="Top" />
+        <TextBox x:Name="txtResidence" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" Margin="10,28,38,0" Height="27" VerticalAlignment="Top" />
 
         <TextBlock Grid.Column="0" Grid.Row="2" FontSize="18" Margin="10,0,10,6">
             Posto di nascita
         </TextBlock>
-        <TextBox Grid.ColumnSpan="2" Grid.Row="2" Margin="10,28,19,0" Height="27" VerticalAlignment="Top" Grid.RowSpan="2" />
+        <TextBox x:Name="txtBirthPlace" Grid.ColumnSpan="2" Grid.Row="2" Margin="10,28,19,0" Height="27" VerticalAlignment="Top" Grid.RowSpan="2" />
 
         <TextBlock Grid.Column="2" Grid.Row="2" FontSize="18" Margin="10,0,126,6" Grid.ColumnSpan="2">
             Data di nascita
         </TextBlock>
-        <TextBox Grid.Column="2" Grid.Row="2" Margin="10,28,14,0" Height="27" VerticalAlignment="Top" Grid.RowSpan="2" />
+        <TextBox x:Name="txtBirthDate" Grid.Column="2" Grid.Row="2" Margin="10,28,14,0" Height="27" VerticalAlignment="Top" Grid.RowSpan="2" />
 
         <TextBlock Grid.Column="3" Grid.Row="3" FontSize="18" Margin="10,0,10,0">
             Provenienza
         </TextBlock>
-        <TextBox Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="3" Margin="10,0,38,0" Height="27" VerticalAlignment="Center" />
+        <TextBox x:Name="txtOrigin" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="3" Margin="10,0,38,0" Height="27" VerticalAlignment="Center" />
 
         <TextBlock Grid.Column="0" Grid.Row="3" FontSize="18" Margin="10,68,10,15" Grid.RowSpan="2">
             Allievi trovati
         </TextBlock>
 
-        <ListBox Grid.Row="4" Grid.RowSpan="4" Grid.ColumnSpan="2" Background="DarkGray" Margin="10,30,10,10"></ListBox>
+        <DataGrid x:Name="dgwSearchedStudents" Grid.Row="4" Grid.RowSpan="4" Grid.ColumnSpan="2" Background="DarkGray" Margin="10,30,10,10"></DataGrid>
 
 
 
-        <CheckBox Grid.Column="2" Grid.Row="3" FontSize="13" Margin="0,68,0,0" Grid.RowSpan="2">Disabilitato</CheckBox>
-        <CheckBox Grid.Column="3" Grid.Row="3" FontSize="13" Margin="0,68,0,0" Grid.RowSpan="2">BES/DSA</CheckBox>
+        <CheckBox x:Name="chkDisabled" Grid.Column="2" Grid.Row="3" FontSize="13" Margin="0,68,0,0" Grid.RowSpan="2">Disabilitato</CheckBox>
+        <CheckBox x:Name="chkHasSpecialNeeds" Grid.Column="3" Grid.Row="3" FontSize="13" Margin="0,68,0,0" Grid.RowSpan="2">BES/DSA</CheckBox>
 
 
 
@@ -117,8 +117,8 @@
         <Button Grid.Column="3" Grid.Row="5" FontSize="20"  Background="White" Margin="10,47,10,5" Grid.RowSpan="2">Salva</Button>
         <Button Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="6" Background="White" FontSize="20" Margin="68,37,80,0" Grid.RowSpan="2">Cancella</Button>
         <Button Grid.Column="4" Grid.Row="6" Background="White" FontSize="20" Grid.RowSpan="2" Margin="10,37,10,0">Esci</Button>
-        <Button Grid.Column="5" Grid.Row="6" Background="White" FontSize="20" Grid.RowSpan="2" Margin="10,37,10,0">Scegli</Button>
+        <Button x:Name="btnChoose" Grid.Column="5" Grid.Row="6" Background="White" FontSize="20" Grid.RowSpan="2" Margin="10,37,10,0">Scegli</Button>
 
-        <Image Grid.Row="0" Grid.RowSpan="5" Grid.Column="4" Grid.ColumnSpan="2" Margin="0,6,0,0"></Image>
+        <Image x:Name="picStudent" Grid.Row="0" Grid.RowSpan="5" Grid.Column="4" Grid.ColumnSpan="2" Margin="0,6,0,0"></Image>
     </Grid>
 </Window>

@@ -10,7 +10,7 @@
         <Label Content="Codice Scuola" Foreground="Blue" FontSize="10" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,2,0,0"/>
         <Label Content="Anno Scol." Foreground="Blue" FontSize="10" HorizontalAlignment="Left" Margin="134,2,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtOfficialSchoolAbbreviation" HorizontalAlignment="Left" FontSize="10" Margin="15,28,0,0" TextWrapping="Wrap" Text="FOIS01100L" VerticalAlignment="Top" Width="106"/>
-        <TextBox x:Name="txtSchoolYear" HorizontalAlignment="Left" FontSize="10" Margin="134,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" TextChanged="TextBox_TextChanged"/>
+        <TextBox x:Name="txtSchoolYear" HorizontalAlignment="Left" FontSize="10" Margin="134,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75"/>
         <Label Content="Sigla Classe" Foreground="Blue" FontSize="10" HorizontalAlignment="Left" Margin="226,2,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtClass" HorizontalAlignment="Left" FontSize="10" Margin="226,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="72"/>
         <Label Content="Materia" Foreground="Blue" FontSize="10" HorizontalAlignment="Left" Margin="303,2,0,0" VerticalAlignment="Top"/>

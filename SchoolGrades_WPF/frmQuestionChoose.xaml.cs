@@ -206,7 +206,7 @@ namespace SchoolGrades_WPF
                 txtTopicCode.Text = chosenTopic.Id.ToString();
                 updateQuestions();
             }
-            f.Dispose();
+            //f.Dispose();
         }
         private void btnDontUseTopic_Click(object sender, RoutedEventArgs e)
         {
@@ -236,7 +236,7 @@ namespace SchoolGrades_WPF
                 txtTopicCode.Text = chosenTopic.Id.ToString();
                 updateQuestions();
             }
-            f.Dispose();
+            //f.Dispose();
         }
         private void btnRandomQuestion_Click(object sender, RoutedEventArgs e)
         {
@@ -330,23 +330,23 @@ namespace SchoolGrades_WPF
             currentSchoolPeriod = (SchoolPeriod)(cmbSchoolPeriod.SelectedValue);
             if (currentSchoolPeriod.IdSchoolPeriodType != "N")
             {
-                dtpStartPeriod.Value = (DateTime)currentSchoolPeriod.DateStart;
-                dtpEndPeriod.Value = (DateTime)currentSchoolPeriod.DateFinish;
+                dtpStartPeriod.SelectedDate = (DateTime)currentSchoolPeriod.DateStart;
+                dtpEndPeriod.SelectedDate = (DateTime)currentSchoolPeriod.DateFinish;
             }
             else if (currentSchoolPeriod.IdSchoolPeriod == "month")
             {
-                dtpStartPeriod.Value = DateTime.Now.AddMonths(-1);
-                dtpEndPeriod.Value = DateTime.Now;
+                dtpStartPeriod.SelectedDate = DateTime.Now.AddMonths(-1);
+                dtpEndPeriod.SelectedDate = DateTime.Now;
             }
             else if (currentSchoolPeriod.IdSchoolPeriod == "week")
             {
-                dtpStartPeriod.Value = DateTime.Now.AddDays(-7);
-                dtpEndPeriod.Value = DateTime.Now;
+                dtpStartPeriod.SelectedDate = DateTime.Now.AddDays(-7);
+                dtpEndPeriod.SelectedDate = DateTime.Now;
             }
             else if (currentSchoolPeriod.IdSchoolPeriod == "year")
             {
-                dtpStartPeriod.Value = DateTime.Now.AddYears(-1);
-                dtpEndPeriod.Value = DateTime.Now;
+                dtpStartPeriod.SelectedDate = DateTime.Now.AddYears(-1);
+                dtpEndPeriod.SelectedDate = DateTime.Now;
             }
             updateQuestions();
         }
@@ -402,8 +402,8 @@ namespace SchoolGrades_WPF
         {
             //dgwQuestions.ItemsSource = db.GetFilteredQuestions(tagsList, keySubject,
             //    keyQuestionType, currentTopic, rdbManyTopics.IsChecked, rdbAnd.IsChecked);
-            DateTime dateFrom = dtpStartPeriod.Value;
-            DateTime dateTo = dtpEndPeriod.Value;
+            DateTime dateFrom = dtpStartPeriod.SelectedDate.Value;
+            DateTime dateTo = dtpEndPeriod.SelectedDate.Value;
             if (cmbSchoolPeriod.Text == "")
                 dateFrom = Commons.DateNull;
             if (currentSubject == null)
@@ -412,17 +412,17 @@ namespace SchoolGrades_WPF
                 currentTopic = new Topic();
             List<Question> l = Commons.bl.GetFilteredQuestionsAskedToClass(currentClass,
                 currentSubject, keyQuestionType, tagsList, currentTopic,
-                rdbManyTopics.IsChecked, rdbAnd.IsChecked, txtSearchText.Text,
+                (bool)rdbManyTopics.IsChecked, (bool)rdbAnd.IsChecked, txtSearchText.Text,
                 dateFrom, dateTo);
             dgwQuestions.ItemsSource = l;
         }
         private void btnKnotsToTheComb_Click(object sender, EventArgs e)
         {
-            if (!CommonsWinForms.CheckIfStudentChosen(currentStudent))
+            if (!CommonsWpf.CheckIfStudentChosen(currentStudent))
             {
                 return;
             }
-            if (!CommonsWinForms.CheckIfSubjectChosen(currentSubject))
+            if (!CommonsWpf.CheckIfSubjectChosen(currentSubject))
             {
                 return;
             }

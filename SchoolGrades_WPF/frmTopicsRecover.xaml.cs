@@ -1,5 +1,7 @@
 ﻿using gamon.TreeMptt;
 using SchoolGrades;
+using SchoolGrades.BusinessObjects;
+using Shared;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -43,7 +45,7 @@ namespace SchoolGrades_WPF
             DataLayer dlNew = new DataLayer(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
             treeNew = new TreeMptt(trwNewTopics,
                 txtNewTopicName, txtNewDescription, txtSearchNew, null, txtCodNewTopic,
-                CommonsWinForms.globalPicLed, null, null, null, null, null, DragDropEffects.Copy);
+                CommonsWpf.globalPicLed, null, null, null, null, null, DragDropEffects.Copy);
             treeNew.Name = "treeNew";
             treeNew.AddNodesToTreeviewByBestMethod();
             treeNew.ClearBackColorOnClick = false;
@@ -79,7 +81,7 @@ namespace SchoolGrades_WPF
 
             treeNew = new TreeMptt(trwNewTopics,
                 txtNewTopicName, txtNewDescription, null, null, txtCodNewTopic,
-                CommonsWinForms.globalPicLed, null, null, null, null, null, DragDropEffects.Copy);
+                CommonsWpf.globalPicLed, null, null, null, null, null, DragDropEffects.Copy);
             treeNew.AddNodesToTreeviewByBestMethod();
             treeNew.ClearBackColorOnClick = false;
 
@@ -112,7 +114,7 @@ namespace SchoolGrades_WPF
 
             treeOld = new TreeMptt(trwOldTopics,
                 txtOldTopicName, txtOldDescription, txtSearchOld, null, txtCodOldTopic,
-                CommonsWinForms.globalPicLed, null, null, null, null, null,
+                CommonsWpf.globalPicLed, null, null, null, null, null,
                 DragDropEffects.Copy);
             treeOld.Name = "treeOld";
             treeOld.AddNodesToTreeviewByBestMethod();
@@ -356,7 +358,7 @@ namespace SchoolGrades_WPF
         private void startBackgroundSavingTask()
         {
             // re-create and run the Thread that concurrently saves the Topics tree
-            Commons.BackgroundSaveThread = new Thread(CommonsWinForms.SaveTreeMptt.SaveTreeMpttBackground);
+            Commons.BackgroundSaveThread = new Thread(CommonsWpf.SaveTreeMptt.SaveTreeMpttBackground);
             Commons.BackgroundSaveThread.Start();
         }
         private void btnBeheaded_Click(object sender, EventArgs e)
