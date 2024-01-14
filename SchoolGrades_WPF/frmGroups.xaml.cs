@@ -1,11 +1,11 @@
-﻿using SchoolGrades;
+﻿using gamon;
+using SchoolGrades;
 using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Shapes;
 
 namespace SchoolGrades_WPF
 {
@@ -61,14 +61,12 @@ namespace SchoolGrades_WPF
                 MessageBox.Show("Prima di salvare un file, generare i gruppi");
                 return;
             }
-            string fileName = Path.Combine(Commons.PathDatabase,
+            string fileName = System.IO.Path.Combine(Commons.PathDatabase,
                 "Groups_" + schoolClass.Abbreviation + "_" + schoolClass.SchoolYear +
                 ".txt");
             TextFile.StringToFile(fileName, txtGroups.Text, false);
             Commons.ProcessStartLink(fileName);
         }
-
-
         private void btnCreateGroups_Click(object sender, EventArgs e)
         {
             if (txtNGroups.Text == "" || txtStudentsPerGroup.Text == "")
@@ -79,15 +77,15 @@ namespace SchoolGrades_WPF
 
             List<Student> ordered = new();
 
-            if (rbdGroupsRandom.IsChecked)
+            if ((bool)rbdGroupsRandom.IsChecked)
             {
                 ordered = Commons.bl.OrderStudentsByRandom(listGroups);
             }
-            else if (rdbGroupsBestGradesTogether.IsChecked)
+            else if ((bool)rdbGroupsBestGradesTogether.IsChecked)
             {
 
             }
-            else if (rdbGradesBalanced.IsChecked)
+            else if ((bool)rdbGradesBalanced.IsChecked)
             {
 
             }
@@ -101,7 +99,7 @@ namespace SchoolGrades_WPF
         {
             // Balanced component option should use a better algorithm (current one doesn't make the best to balace groups). 
             List<StudentAndGrade> l_weighted = Commons.bl.GetListGradesWeightedAveragesOfClassByName(schoolClass, schoolGrade.IdGradeType,
-                schoolSubject.IdSchoolSubject, dtpStartPeriod.Value, dtpEndPeriod.Value);
+                schoolSubject.IdSchoolSubject, dtpStartPeriod.SelectedDate.Value, dtpEndPeriod.SelectedDate.Value);
 
             // sort list by WeightedAverage
             l_weighted = l_weighted.OrderBy(item => item.WeightedAverage).ToList();
@@ -131,7 +129,7 @@ namespace SchoolGrades_WPF
         {
             // Balanced component option should use a better algorithm (current one doesn't make the best to balace groups). 
             List<StudentAndGrade> l_weighted = Commons.bl.GetListGradesWeightedAveragesOfClassByName(schoolClass, schoolGrade.IdGradeType,
-                schoolSubject.IdSchoolSubject, dtpStartPeriod.Value, dtpEndPeriod.Value);
+                schoolSubject.IdSchoolSubject, dtpStartPeriod.SelectedDate.Value, dtpEndPeriod.SelectedDate.Value);
 
             // sort list by WeightedAverage
             l_weighted = l_weighted.OrderBy(item => item.WeightedAverage).ToList();
@@ -198,23 +196,23 @@ namespace SchoolGrades_WPF
             currentSchoolPeriod = (SchoolPeriod)(cmbSchoolPeriod.SelectedValue);
             if (currentSchoolPeriod.IdSchoolPeriodType != "N")
             {
-                dtpStartPeriod.Value = (DateTime)currentSchoolPeriod.DateStart;
-                dtpEndPeriod.Value = (DateTime)currentSchoolPeriod.DateFinish;
+                dtpStartPeriod.SelectedDate = (DateTime)currentSchoolPeriod.DateStart;
+                dtpEndPeriod.SelectedDate = (DateTime)currentSchoolPeriod.DateFinish;
             }
             else if (currentSchoolPeriod.IdSchoolPeriod == "month")
             {
-                dtpStartPeriod.Value = DateTime.Now.AddMonths(-1);
-                dtpEndPeriod.Value = DateTime.Now;
+                dtpStartPeriod.SelectedDate = DateTime.Now.AddMonths(-1);
+                dtpEndPeriod.SelectedDate = DateTime.Now;
             }
             else if (currentSchoolPeriod.IdSchoolPeriod == "week")
             {
-                dtpStartPeriod.Value = DateTime.Now.AddDays(-7);
-                dtpEndPeriod.Value = DateTime.Now;
+                dtpStartPeriod.SelectedDate = DateTime.Now.AddDays(-7);
+                dtpEndPeriod.SelectedDate = DateTime.Now;
             }
             else if (currentSchoolPeriod.IdSchoolPeriod == "year")
             {
-                dtpStartPeriod.Value = DateTime.Now.AddYears(-1);
-                dtpEndPeriod.Value = DateTime.Now;
+                dtpStartPeriod.SelectedDate = DateTime.Now.AddYears(-1);
+                dtpEndPeriod.SelectedDate = DateTime.Now;
             }
         }
         private void grpGroups_Enter(object sender, EventArgs e)
@@ -223,20 +221,19 @@ namespace SchoolGrades_WPF
         }
         private void rbdTypeOfGroupings_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbdGroupsRandom.IsChecked)
+            if ((bool)rbdGroupsRandom.IsChecked)
             {
                 grpPeriodOfQuestionsTopics.IsEnabled = false;
             }
-            else if (rdbGroupsBestGradesTogether.IsChecked)
+            else if ((bool)rdbGroupsBestGradesTogether.IsChecked)
             {
                 grpPeriodOfQuestionsTopics.IsEnabled = true;
             }
-            else if (rdbGradesBalanced.IsChecked)
+            else if ((bool)rdbGradesBalanced.IsChecked)
             {
                 grpPeriodOfQuestionsTopics.IsEnabled = true;
             }
         }
-
         private void dtpStartPeriod_ValueChanged(object sender, EventArgs e)
         {
 

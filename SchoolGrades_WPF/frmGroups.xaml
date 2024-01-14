@@ -31,7 +31,7 @@
                 <TextBox x:Name="txtTotalStudentsToGroup" Width="45" VerticalAlignment="Bottom"></TextBox>
             </StackPanel>
 
-            <GroupBox>
+            <GroupBox x:Name="grpPeriodOfQuestionsTopics">
                 <GroupBox.Header>Periodo dei voti</GroupBox.Header>
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
@@ -68,7 +68,7 @@
             </Button>
         </StackPanel>
 
-        <RichTextBox x:Name="txtGroups" Height="500"></RichTextBox>
+        <TextBox x:Name="txtGroups" Height="500"></TextBox>
 
     </StackPanel>
 </Window>

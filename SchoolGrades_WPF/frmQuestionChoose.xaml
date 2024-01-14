@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SchoolGrades_WPF"
         mc:Ignorable="d"
-        Title="frmQuestionChoose" Height="450" Width="800" Background="PowderBlue" Loaded="frmQuestionChoose_Loaded">
+        Title="frmQuestionChoose" Height="450" Width="800" Background="PowderBlue">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="Foreground" Value="DarkBlue"></Setter>
@@ -73,8 +73,8 @@
             <Grid Grid.Column="3" Grid.RowSpan="3">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
-                        <Button x:Name="btnSearch" Height="20" Width="55" Margin="5" Click="Button_Click">Cerca</Button>
-                        <Button x:Name="btnKnotsToTheComb" Height="20" Width="55" Margin="5" Click="btnKnotsToTheComb_Click_1">Pettine</Button>
+                        <Button x:Name="btnSearch" Height="20" Width="55" Margin="5">Cerca</Button>
+                        <Button x:Name="btnKnotsToTheComb" Height="20" Width="55" Margin="5" Click="btnKnotsToTheComb_Click">Pettine</Button>
                         <Button x:Name="btnQuestionsDone" Height="20" Width="55" Margin="5">Fatte</Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">

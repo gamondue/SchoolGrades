@@ -8,19 +8,19 @@
         Background="PowderBlue">
     <Grid>
         <Label Content="Codice Test" Foreground="DarkBlue" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Margin="10,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+        <TextBox x:Name="txtIdTest" HorizontalAlignment="Left" Margin="10,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
         <Label Content="Codice Classe" Foreground="DarkBlue" HorizontalAlignment="Left" Margin="85,10,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Margin="91,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Margin="91,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
         <Label Content="Domande" Foreground="DarkBlue" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Margin="85,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="291" Height="33"/>
+        <TextBox x:Name="txtQuestion" HorizontalAlignment="Left" Margin="85,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="291" Height="33"/>
         <Label Content="Risposte" Foreground="DarkBlue" HorizontalAlignment="Left" Margin="376,74,0,0" VerticalAlignment="Top"/>
-        <DataGrid Background="DarkGray" Margin="10,97,424,298"/>
-        <DataGrid Background="DarkGray" Margin="381,97,0,283"/>
+        <DataGrid x:Name="dgwQuestions" Background="DarkGray" Margin="10,97,424,298"/>
+        <DataGrid x:Name="dgwAnswers" Background="DarkGray" Margin="381,97,0,283"/>
         <Label Content="Allievi della classe" Foreground="DarkBlue" HorizontalAlignment="Left" Margin="10,426,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Margin="112,429,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" Height="20"/>
-        <DataGrid Background="DarkGray" Margin="10,454,424,15"/>
-        <GroupBox Header="Risposte allievo" Margin="381,444,0,15"/>
-        <Button Content="Valuta Test" Background="White" HorizontalAlignment="Left" Margin="706,25,0,0" VerticalAlignment="Top" Height="31"/>
-        <Button Content="Salva" Background="White" HorizontalAlignment="Left" Margin="318,429,0,0" VerticalAlignment="Top" Height="20" Width="55"/>
+        <TextBox x:Name="txtStudent" HorizontalAlignment="Left" Margin="112,429,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" Height="20"/>
+        <DataGrid x:Name="dgwClassStudents" Background="DarkGray" Margin="10,454,424,15"/>
+        <GroupBox x:Name="grpStudentsAnswers" Header="Risposte allievo" Margin="381,444,0,15"/>
+        <Button x:Name="btnGradeAllTest" Content="Valuta Test" Background="White" HorizontalAlignment="Left" Margin="689,25,0,0" VerticalAlignment="Top" Height="31" Width="77"/>
+        <Button x:Name="btnSaveStudentsAnswers" Content="Salva" Background="White" HorizontalAlignment="Left" Margin="318,429,0,0" VerticalAlignment="Top" Height="20" Width="55"/>
     </Grid>
 </Window>

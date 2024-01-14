@@ -1,4 +1,5 @@
-﻿using SchoolGrades.BusinessObjects;
+﻿using SchoolGrades;
+using SchoolGrades.BusinessObjects;
 using System;
 using System.Windows;
 

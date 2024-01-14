@@ -8,6 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="frmTopicsRecover.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="frmTopicsRecover.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
   </ItemGroup>
 

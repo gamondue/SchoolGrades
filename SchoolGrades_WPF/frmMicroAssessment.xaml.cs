@@ -150,7 +150,7 @@ namespace SchoolGrades_WPF
             dgwQuestions.ItemsSource = T.AsDataView();
             double weightedSum = 0;
             double sumOfWeights = 0;
-            foreach (DataRow riga in T.Items)
+            foreach (DataRow riga in T.Rows)
             {
                 weightedSum += (double)riga["value"] * (double)riga["weight"];
                 sumOfWeights += (double)riga["weight"];
@@ -346,7 +346,7 @@ namespace SchoolGrades_WPF
         private void btnQuestionChoose_Click(object sender, RoutedEventArgs e)
         {
             // we don't pass the currentSubject because it is better to start from any type of question
-            frmQuestionChoose choice = new frmQuestionChoose(currentSchoolSubject,                 currentClass, currentStudent, currentQuestion);
+            frmQuestionChoose choice = new frmQuestionChoose(currentSchoolSubject, currentClass, currentStudent, currentQuestion);
             choice.ShowDialog();
             if (choice.ChosenQuestion.Text != null && choice.ChosenQuestion.Text != "")
                 currentQuestion = choice.ChosenQuestion;

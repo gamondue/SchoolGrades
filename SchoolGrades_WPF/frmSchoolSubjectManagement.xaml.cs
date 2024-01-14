@@ -1,9 +1,11 @@
 ﻿using SchoolGrades;
 using SchoolGrades.BusinessObjects;
+using Shared;
 using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace SchoolGrades_WPF
 {
@@ -26,7 +28,7 @@ namespace SchoolGrades_WPF
         {
             subjectList = Commons.bl.GetListSchoolSubjects(false);
             DgwSubjects.ItemsSource = subjectList;
-            DgwSubjects.Columns["OldId"].Visibility = Visibility.Hidden;
+            ////////////DgwSubjects.Columns["OldId"].Visibility = Visibility.Hidden;
         }
 
         private void btn_CellContentClick(object sender, RoutedEvent e)
@@ -40,31 +42,35 @@ namespace SchoolGrades_WPF
             int RowIndex = grid.SelectedIndex;
             if (RowIndex > -1)
             {
-                DgwSubjects.Items[RowIndex].Selected = true;
+                //////////DgwSubjects.Items[RowIndex].Selected = true;
                 subjectList = ((List<SchoolSubject>)DgwSubjects.ItemsSource);
                 currentSubject = subjectList[RowIndex];
                 if (currentSubject.Color != null)
                 {
                     int color = (int)currentSubject.Color;
-                    picSubjectColor.Background = Color.FromArgb((color & 0xFF0000) >> 16, (color & 0xFF00) >> 8, color & 0xFF);
+                    picSubjectColor.Fill = CommonsWpf.BrushFromColor(Color.FromArgb(255, (byte)((color & 0xFF0000) >> 16),
+                        (byte)((color & 0xFF00) >> 8), (byte)(color & 0xFF)));
                 }
             }
         }
         private void DgwSubjects_CellLeave(object sender, RoutedEvent e)
         {
-            if (e.ColumnIndex == 0
-                && (DgwSubjects.Items[RowIndex].Cells["OldId"].Value != DgwSubjects.Items[RowIndex].Cells["IdSchoolSubject"].Value
-                    || DgwSubjects.Items[RowIndex].Cells["OldId"].Value == null)
+            DataGrid grid = (DataGrid)sender;
+            int RowIndex = grid.SelectedIndex;
+            int columnIndex = grid.Columns.IndexOf(grid.CurrentColumn);
+            SchoolSubject subject = (SchoolSubject)grid.Items[RowIndex];
+            if (columnIndex == 0
+                && (subject.OldId != subject.IdSchoolSubject || subject.OldId == null)
                 )
             {
-                object newKey = DgwSubjects.Items[RowIndex].Cells["IdSchoolSubject"].Value;
+                object newKey = subject.IdSchoolSubject;
                 if (newKey != null)
                 {
                     string warning = Commons.bl.CheckNewKeySchoolSubject(newKey.ToString());
                     if (warning != "")
                     {
                         MessageBox.Show(warning);
-                        DgwSubjects[e.ColumnIndex, RowIndex].Value = "";
+                        ////////////DgwSubjects[columnIndex, RowIndex].Value = "";
                     }
                 }
             }

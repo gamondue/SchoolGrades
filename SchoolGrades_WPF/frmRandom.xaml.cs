@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SchoolGrades;
+using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SchoolGrades_WPF
 {
@@ -28,12 +19,13 @@ namespace SchoolGrades_WPF
         {
             // !!!! TODO protect program from user's bad input !!!! 
             //int randomNumber = rnd.Next(int.Parse(txtFrom.Text), int.Parse(txtTo.Text.ToString())+1);
-            int randomNumber = Commons.bl.RandomNumber(int.Parse(txtFrom.Text), int.Parse(txtTo.Text.ToString()) + 1);
+            int randomNumber = Commons.bl.RandomNumber(int.Parse(txtFrom.Text),
+                int.Parse(txtTo.Text.ToString()) + 1);
             txtResult.Text = randomNumber.ToString();
-            if (txtResult.Background == Color.Goldenrod)
-                txtResult.Background = Color.YellowGreen;
+            if (txtResult.Background == Brushes.Goldenrod)
+                txtResult.Background = Brushes.YellowGreen;
             else
-                txtResult.Background = Color.Goldenrod;
+                txtResult.Background = Brushes.Goldenrod;
             Clipboard.SetText(txtResult.Text);
         }
 

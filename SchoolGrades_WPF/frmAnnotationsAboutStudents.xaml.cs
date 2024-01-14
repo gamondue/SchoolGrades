@@ -143,7 +143,7 @@ namespace SchoolGrades_WPF
             {
                 if (!SaveMany)
                 {
-                    if (!CommonsWinForms.CheckIfStudentChosen(currentStudent))
+                    if (!CommonsWpf.CheckIfStudentChosen(currentStudent))
                         return;
                     currentAnnotation.IdAnnotation = null;
                     currentAnnotation.IdAnnotation = Commons.bl.SaveAnnotation(currentAnnotation, currentStudent);
