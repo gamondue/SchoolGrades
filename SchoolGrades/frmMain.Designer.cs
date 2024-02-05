@@ -288,7 +288,7 @@
             chkPhotoVisibile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             chkPhotoVisibile.ForeColor = System.Drawing.Color.DarkBlue;
             chkPhotoVisibile.Location = new System.Drawing.Point(297, 91);
-            chkPhotoVisibile.Name = "chkFotoVisibile";
+            chkPhotoVisibile.Name = "chkPhotoVisibile";
             chkPhotoVisibile.Size = new System.Drawing.Size(118, 22);
             chkPhotoVisibile.TabIndex = 16;
             chkPhotoVisibile.Text = "Foto visibile";
