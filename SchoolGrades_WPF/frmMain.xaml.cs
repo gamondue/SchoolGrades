@@ -31,7 +31,7 @@ namespace SchoolGrades_WPF
         private string schoolYear;
 
         private bool wndInitializing = true;
-        //bool firstTime = true;
+        bool firstTime = true;
 
         Student currentStudent;
         internal Question currentQuestion;
@@ -168,39 +168,6 @@ namespace SchoolGrades_WPF
 
             frmMain_Load();
         }
-        private void CreateDatabasePaths(string proposedDebugDatabaseFile)
-        {
-
-        }
-        private void StartNewConfigurationForm()
-        {
-            // something didn't work, we must choose a good filename for the database file
-            string messagePrompt = "Il file di configurazione " + Commons.PathAndFileConfig +
-                "\nnon esiste o non è leggibile.\n" +
-                "\nSistemare le cartelle con il percorso dei file, " +
-                "poi scegliere il file di dati .sqlite e premere 'Salva configurazione'," +
-                "\nI nomi scelti dal programma dovrebbero essere giusti.";
-            Commons.PathAndFileDatabase = GetNewDatabaseFilename(Path.Combine(Commons.PathExe, "Data"));
-            MessageBox.Show(messagePrompt, "SchoolGrades");
-            frmSetup f = new frmSetup();
-            f.ShowDialog();
-        }
-        private void CloseProgramWhileTestingIfConfigurationFileIsRight()
-        {
-            // read the config file once again 
-            //////////////bool fileRead = CommonsWpf.ReadConfigData();
-            //////////////if (!fileRead || !File.Exists(Commons.PathAndFileDatabase))
-            //////////////{
-            //////////////    MessageBox.Show("Configurare il programma!", "SchoolGrades", MessageBoxButtons.OK, MessageBoxImage.Error);
-            //////////////}
-            //////////////else
-            //////////////{
-            //////////////    MessageBox.Show("Il programma verrà chiuso. Alla ripartenza funzionerà regolarmente.");
-            //////////////}
-            CloseBackgroundThread();
-            StopAllTimers();
-            this.Close();
-        }
         private void frmMain_Load()
         {
             // start the Thread that concurrently saves the Topics tree
@@ -261,6 +228,35 @@ namespace SchoolGrades_WPF
 
             lblDatabaseFile.Text = Path.GetFileName(Commons.PathAndFileDatabase);
             wndInitializing = false;
+        }
+        private void StartNewConfigurationForm()
+        {
+            // something didn't work, we must choose a good filename for the database file
+            string messagePrompt = "Il file di configurazione " + Commons.PathAndFileConfig +
+                "\nnon esiste o non è leggibile.\n" +
+                "\nSistemare le cartelle con il percorso dei file, " +
+                "poi scegliere il file di dati .sqlite e premere 'Salva configurazione'," +
+                "\nI nomi scelti dal programma dovrebbero essere giusti.";
+            Commons.PathAndFileDatabase = GetNewDatabaseFilename(Path.Combine(Commons.PathExe, "Data"));
+            MessageBox.Show(messagePrompt, "SchoolGrades");
+            frmSetup f = new frmSetup();
+            f.ShowDialog();
+        }
+        private void CloseProgramWhileTestingIfConfigurationFileIsRight()
+        {
+            // read the config file once again 
+            //////////////bool fileRead = CommonsWpf.ReadConfigData();
+            //////////////if (!fileRead || !File.Exists(Commons.PathAndFileDatabase))
+            //////////////{
+            //////////////    MessageBox.Show("Configurare il programma!", "SchoolGrades", MessageBoxButtons.OK, MessageBoxImage.Error);
+            //////////////}
+            //////////////else
+            //////////////{
+            //////////////    MessageBox.Show("Il programma verrà chiuso. Alla ripartenza funzionerà regolarmente.");
+            //////////////}
+            CloseBackgroundThread();
+            StopAllTimers();
+            this.Close();
         }
         private string GetNewDatabaseFilename(string proposedDatabasePath)
         {
@@ -602,7 +598,7 @@ namespace SchoolGrades_WPF
             else
                 picStudent.Visibility = Visibility.Hidden;
         }
-        private void chkStudentsListVisible_Unchecked(object sender, RoutedEventArgs e)
+        private void chkStudentsListVisible_CheckedChanged(object sender, RoutedEventArgs e)
         {
             if (wndInitializing) return;
             dgwStudents.Visibility = Visibility.Hidden;
@@ -611,37 +607,28 @@ namespace SchoolGrades_WPF
             lblIdStudent.Visibility = Visibility.Visible;
             txtIdStudent.Visibility = Visibility.Visible;
         }
-        private void chkStudentsListVisible_Checked(object sender, RoutedEventArgs e)
-        {
-            if (wndInitializing) return;
-            dgwStudents.Visibility = Visibility.Visible;
-            lblStudentChosen.Visibility = Visibility.Hidden;
-            picStudent.Visibility = Visibility.Hidden;
-            lblIdStudent.Visibility = Visibility.Hidden;
-            txtIdStudent.Visibility = Visibility.Hidden;
-        }
         private void cmbSchoolYear_SelectedIndexChanged(object sender, RoutedEventArgs e)
         {
-            frmMain_Load();
-            //if (!wndInitializing && firstTime)
-            //{
-            //    firstTime = false;
-            //    //    AllTheInitializations();
-            //    List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
-            //    cmbSchoolYear.ItemsSource = ly;
+            if (!wndInitializing && firstTime)
+            {
+                firstTime = false;
+                //List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
+                //cmbSchoolYear.ItemsSource = ly;
 
-            //    if (ly.Count > 0)
-            //        cmbSchoolYear.SelectedItem = ly[ly.Count - 1];
+                //if (ly.Count > 0)
+                //    cmbSchoolYear.SelectedItem = ly[ly.Count - 1];
 
-            //    // fill the combo of grade types 
-            //    List<GradeType> ListGradeTypes = Commons.bl.GetListGradeTypes();
-            //    cmbGradeType.ItemsSource = ListGradeTypes;
+                // fill the combo of grade types 
+                List<GradeType> ListGradeTypes = Commons.bl.GetListGradeTypes();
+                cmbGradeType.ItemsSource = ListGradeTypes;
 
-            //    // fill the combo of School subjects
-            //    List<SchoolSubject> listSubjects = Commons.bl.GetListSchoolSubjects(true);
-            //    cmbSchoolSubject.ItemsSource = listSubjects;
-            //}
-            //firstTime = true;
+                // fill the combo of School subjects
+                List<SchoolSubject> listSubjects = Commons.bl.GetListSchoolSubjects(true);
+                cmbSchoolSubject.ItemsSource = listSubjects;
+
+                frmMain_Load();
+            }
+            firstTime = true;
         }
         //private void btnSalvaInterrogati_Click(object sender, RoutedEventArgs e)
         //{
@@ -1139,9 +1126,12 @@ namespace SchoolGrades_WPF
             Color BackColor = CommonsWpf.ColorFromNumber(currentSubject.Color);
             SolidColorBrush br = new SolidColorBrush(System.Windows.Media.Color.FromArgb(BackColor.A, BackColor.R, BackColor.G, BackColor.B));
             this.Background = br;
-            lstClasses.Background = br;
-            lstTimeInterval.Background = br;
+            //  lstClasses.Background = br;
+            //lstTimeInterval.Background = br;
             lblCodYear.Background = br;
+            grpImageSource.Background = br;
+            grpChooseDrawSort.Background = br;
+            grpSorts.Background = br;
         }
         private void btnTopicsDone_Click(object sender, RoutedEventArgs e)
         {
