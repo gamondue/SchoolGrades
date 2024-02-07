@@ -1,0 +1,54 @@
+﻿<Window x:Class="SchoolGrades_WPF.frmKnotsToTheComb"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SchoolGrades_WPF"
+        mc:Ignorable="d"
+        Title="Nodi al pettine!" Height="500" Width="900" Background="PowderBlue">
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="15"></Setter>
+            <Setter Property="Foreground" Value="DarkBlue"></Setter>
+            <Setter Property="Padding" Value="1"></Setter>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="15"></Setter>
+            <Setter Property="Foreground" Value="DarkBlue"></Setter>
+            <Setter Property="Margin" Value="5,20"></Setter>
+            <Setter Property="Padding" Value="5"></Setter>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="2"></Setter>
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="0,5"></Setter>
+            <Setter Property="FontSize" Value="15"></Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <Label>Materia</Label>
+            <ComboBox Name="cmbSchoolSubject"></ComboBox>
+        </StackPanel>
+        <Label Name="lblStudent" FontWeight="Bold" FontSize="24" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">Allievo</Label>
+        <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Right">
+            <Button Name="btnFix">Riparato</Button>
+            <Button Name="btnChoose">Scegli</Button>
+        </StackPanel>
+        <TextBox Name="txtQuestionText" Grid.Row="1" Grid.ColumnSpan="3"></TextBox>
+        <DataGrid x:Name="dgwQuestions" Grid.Row="2" Grid.ColumnSpan="3" Background="Gray"></DataGrid>
+    </Grid>
+</Window>

@@ -1,4 +1,4 @@
-﻿using SharedWinForms;
+﻿using Shared;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -34,7 +34,7 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
-            dbMptt = new TreeMpttDb(Commons.dl);
+            dbMptt = new TreeMpttDb();
 
             // fills the lookup tables' combos
             List<QuestionType> listQuestions = Commons.bl.GetListQuestionTypes(true);

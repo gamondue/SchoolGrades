@@ -1,0 +1,22 @@
+﻿<Window x:Class="SchoolGrades_WPF.frmMosaic"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SchoolGrades_WPF"
+        mc:Ignorable="d"
+        Title="Mosaico delle foto" Height="545" Width="916">
+    <Grid x:Name="PictureGrid" Background="PowderBlue">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBox Width="311" Height="29" x:Name="txtStudentsName" 
+                 Text="Nome e cognome" Margin="302,250,302,250"/>
+    </Grid>
+</Window>

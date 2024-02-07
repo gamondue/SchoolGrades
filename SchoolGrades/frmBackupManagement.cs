@@ -19,9 +19,9 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
-            TreeMpttDb dbMptt = new TreeMpttDb(Commons.dl);
+            TreeMpttDb dbMptt = new TreeMpttDb();
 
-            topicTreeMptt = new TreeMptt(Commons.dl, null, null, null, null, null,
+            topicTreeMptt = new TreeMptt(null, null, null, null, null,
                 null, null, null, null, null, null, null, DragDropEffects.None);
         }
         private void frmBackupManagement_Load(object sender, EventArgs e)

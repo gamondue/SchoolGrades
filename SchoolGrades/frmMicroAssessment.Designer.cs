@@ -28,639 +28,625 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMicroAssessment));
-            this.txtMicroGrade = new System.Windows.Forms.TextBox();
-            this.trkbGrade = new System.Windows.Forms.TrackBar();
-            this.trkbWeight = new System.Windows.Forms.TrackBar();
-            this.lblGrade = new System.Windows.Forms.Label();
-            this.lblWeight = new System.Windows.Forms.Label();
-            this.btnSaveMicroGrade = new System.Windows.Forms.Button();
-            this.txtMicroGradeWeight = new System.Windows.Forms.TextBox();
-            this.txtAverageMicroQuestions = new System.Windows.Forms.TextBox();
-            this.btnNewMacroGrade = new System.Windows.Forms.Button();
-            this.btnSaveMacroGrade = new System.Windows.Forms.Button();
-            this.txtWeightsSum = new System.Windows.Forms.TextBox();
-            this.lblAverageMicroQuestions = new System.Windows.Forms.Label();
-            this.lblWeightsSum = new System.Windows.Forms.Label();
-            this.txtIdMacroGrade = new System.Windows.Forms.TextBox();
-            this.lblStudent = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.TxtQuestionText = new System.Windows.Forms.TextBox();
-            this.btnQuestionChoose = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtMacroGradeWeight = new System.Windows.Forms.TextBox();
-            this.txtGradeType = new System.Windows.Forms.TextBox();
-            this.txtGradeTypeParent = new System.Windows.Forms.TextBox();
-            this.lblGradeType = new System.Windows.Forms.Label();
-            this.lblGradeTypeParent = new System.Windows.Forms.Label();
-            this.lblSchoolSubject = new System.Windows.Forms.Label();
-            this.txtSchoolSubject = new System.Windows.Forms.TextBox();
-            this.btnEraseMicroGrade = new System.Windows.Forms.Button();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btnFlushQuestion = new System.Windows.Forms.Button();
-            this.BtnSaveGrid = new System.Windows.Forms.Button();
-            this.TxtIdStudent = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.DgwQuestions = new System.Windows.Forms.DataGridView();
-            this.LessonTimer = new System.Windows.Forms.Timer(this.components);
-            this.lblLessonTime = new System.Windows.Forms.Label();
-            this.picStudent = new System.Windows.Forms.PictureBox();
-            this.chkHasSpecialNeeds = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.trkbGrade)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkbWeight)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DgwQuestions)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picStudent)).BeginInit();
-            this.SuspendLayout();
+            txtMicroGrade = new System.Windows.Forms.TextBox();
+            trkbGrade = new System.Windows.Forms.TrackBar();
+            trkbWeight = new System.Windows.Forms.TrackBar();
+            lblGrade = new System.Windows.Forms.Label();
+            lblWeight = new System.Windows.Forms.Label();
+            btnSaveMicroGrade = new System.Windows.Forms.Button();
+            txtMicroGradeWeight = new System.Windows.Forms.TextBox();
+            txtAverageMicroQuestions = new System.Windows.Forms.TextBox();
+            btnNewMacroGrade = new System.Windows.Forms.Button();
+            btnSaveMacroGrade = new System.Windows.Forms.Button();
+            txtWeightsSum = new System.Windows.Forms.TextBox();
+            lblAverageMicroQuestions = new System.Windows.Forms.Label();
+            lblWeightsSum = new System.Windows.Forms.Label();
+            txtIdMacroGrade = new System.Windows.Forms.TextBox();
+            lblStudent = new System.Windows.Forms.Label();
+            label3 = new System.Windows.Forms.Label();
+            TxtQuestionText = new System.Windows.Forms.TextBox();
+            btnQuestionChoose = new System.Windows.Forms.Button();
+            label4 = new System.Windows.Forms.Label();
+            txtMacroGradeWeight = new System.Windows.Forms.TextBox();
+            txtGradeType = new System.Windows.Forms.TextBox();
+            txtGradeTypeParent = new System.Windows.Forms.TextBox();
+            lblGradeType = new System.Windows.Forms.Label();
+            lblGradeTypeParent = new System.Windows.Forms.Label();
+            lblSchoolSubject = new System.Windows.Forms.Label();
+            txtSchoolSubject = new System.Windows.Forms.TextBox();
+            btnEraseMicroGrade = new System.Windows.Forms.Button();
+            toolTip1 = new System.Windows.Forms.ToolTip(components);
+            btnFlushQuestion = new System.Windows.Forms.Button();
+            btnSaveMicrogradeFromGrid = new System.Windows.Forms.Button();
+            TxtIdStudent = new System.Windows.Forms.TextBox();
+            label1 = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
+            label5 = new System.Windows.Forms.Label();
+            DgwQuestions = new System.Windows.Forms.DataGridView();
+            LessonTimer = new System.Windows.Forms.Timer(components);
+            lblLessonTime = new System.Windows.Forms.Label();
+            picStudent = new System.Windows.Forms.PictureBox();
+            chkHasSpecialNeeds = new System.Windows.Forms.CheckBox();
+            ((System.ComponentModel.ISupportInitialize)trkbGrade).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trkbWeight).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)DgwQuestions).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picStudent).BeginInit();
+            SuspendLayout();
             // 
             // txtMicroGrade
             // 
-            this.txtMicroGrade.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMicroGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtMicroGrade.Location = new System.Drawing.Point(927, 295);
-            this.txtMicroGrade.Margin = new System.Windows.Forms.Padding(4);
-            this.txtMicroGrade.Name = "txtMicroGrade";
-            this.txtMicroGrade.Size = new System.Drawing.Size(124, 37);
-            this.txtMicroGrade.TabIndex = 2;
-            this.txtMicroGrade.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip1.SetToolTip(this.txtMicroGrade, "Valutazione del microvoto corrente");
-            this.txtMicroGrade.TextChanged += new System.EventHandler(this.txtGrade_TextChanged);
+            txtMicroGrade.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            txtMicroGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            txtMicroGrade.Location = new System.Drawing.Point(927, 295);
+            txtMicroGrade.Margin = new System.Windows.Forms.Padding(4);
+            txtMicroGrade.Name = "txtMicroGrade";
+            txtMicroGrade.Size = new System.Drawing.Size(124, 37);
+            txtMicroGrade.TabIndex = 2;
+            txtMicroGrade.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            toolTip1.SetToolTip(txtMicroGrade, "Valutazione del microvoto corrente");
+            txtMicroGrade.TextChanged += txtGrade_TextChanged;
             // 
             // trkbGrade
             // 
-            this.trkbGrade.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.trkbGrade.LargeChange = 10;
-            this.trkbGrade.Location = new System.Drawing.Point(71, 270);
-            this.trkbGrade.Margin = new System.Windows.Forms.Padding(4);
-            this.trkbGrade.Maximum = 100;
-            this.trkbGrade.Name = "trkbGrade";
-            this.trkbGrade.Size = new System.Drawing.Size(851, 45);
-            this.trkbGrade.SmallChange = 5;
-            this.trkbGrade.TabIndex = 5;
-            this.trkbGrade.Value = 10;
-            this.trkbGrade.Scroll += new System.EventHandler(this.trkbGrade_Scroll);
+            trkbGrade.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            trkbGrade.LargeChange = 10;
+            trkbGrade.Location = new System.Drawing.Point(71, 270);
+            trkbGrade.Margin = new System.Windows.Forms.Padding(4);
+            trkbGrade.Maximum = 100;
+            trkbGrade.Name = "trkbGrade";
+            trkbGrade.Size = new System.Drawing.Size(851, 45);
+            trkbGrade.SmallChange = 5;
+            trkbGrade.TabIndex = 5;
+            trkbGrade.Value = 10;
+            trkbGrade.Scroll += trkbGrade_Scroll;
             // 
             // trkbWeight
             // 
-            this.trkbWeight.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.trkbWeight.LargeChange = 10;
-            this.trkbWeight.Location = new System.Drawing.Point(71, 217);
-            this.trkbWeight.Margin = new System.Windows.Forms.Padding(4);
-            this.trkbWeight.Maximum = 100;
-            this.trkbWeight.Name = "trkbWeight";
-            this.trkbWeight.Size = new System.Drawing.Size(851, 45);
-            this.trkbWeight.SmallChange = 5;
-            this.trkbWeight.TabIndex = 4;
-            this.trkbWeight.Value = 20;
-            this.trkbWeight.Scroll += new System.EventHandler(this.trkbWeight_Scroll);
+            trkbWeight.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            trkbWeight.LargeChange = 10;
+            trkbWeight.Location = new System.Drawing.Point(71, 217);
+            trkbWeight.Margin = new System.Windows.Forms.Padding(4);
+            trkbWeight.Maximum = 100;
+            trkbWeight.Name = "trkbWeight";
+            trkbWeight.Size = new System.Drawing.Size(851, 45);
+            trkbWeight.SmallChange = 5;
+            trkbWeight.TabIndex = 4;
+            trkbWeight.Value = 20;
+            trkbWeight.Scroll += trkbWeight_Scroll;
             // 
             // lblGrade
             // 
-            this.lblGrade.AutoSize = true;
-            this.lblGrade.Enabled = false;
-            this.lblGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblGrade.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblGrade.Location = new System.Drawing.Point(10, 270);
-            this.lblGrade.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblGrade.Name = "lblGrade";
-            this.lblGrade.Size = new System.Drawing.Size(35, 15);
-            this.lblGrade.TabIndex = 74;
-            this.lblGrade.Text = "Voto";
-            this.toolTip1.SetToolTip(this.lblGrade, "Valutazione del microvoto corrente");
+            lblGrade.AutoSize = true;
+            lblGrade.Enabled = false;
+            lblGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            lblGrade.ForeColor = System.Drawing.Color.DarkBlue;
+            lblGrade.Location = new System.Drawing.Point(10, 270);
+            lblGrade.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblGrade.Name = "lblGrade";
+            lblGrade.Size = new System.Drawing.Size(35, 15);
+            lblGrade.TabIndex = 74;
+            lblGrade.Text = "Voto";
+            toolTip1.SetToolTip(lblGrade, "Valutazione del microvoto corrente");
             // 
             // lblWeight
             // 
-            this.lblWeight.AutoSize = true;
-            this.lblWeight.Enabled = false;
-            this.lblWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblWeight.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblWeight.Location = new System.Drawing.Point(10, 217);
-            this.lblWeight.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblWeight.Name = "lblWeight";
-            this.lblWeight.Size = new System.Drawing.Size(39, 15);
-            this.lblWeight.TabIndex = 73;
-            this.lblWeight.Text = "Peso";
-            this.toolTip1.SetToolTip(this.lblWeight, "Peso del microvoto corrente");
+            lblWeight.AutoSize = true;
+            lblWeight.Enabled = false;
+            lblWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            lblWeight.ForeColor = System.Drawing.Color.DarkBlue;
+            lblWeight.Location = new System.Drawing.Point(10, 217);
+            lblWeight.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblWeight.Name = "lblWeight";
+            lblWeight.Size = new System.Drawing.Size(39, 15);
+            lblWeight.TabIndex = 73;
+            lblWeight.Text = "Peso";
+            toolTip1.SetToolTip(lblWeight, "Peso del microvoto corrente");
             // 
             // btnSaveMicroGrade
             // 
-            this.btnSaveMicroGrade.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveMicroGrade.BackColor = System.Drawing.Color.Transparent;
-            this.btnSaveMicroGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnSaveMicroGrade.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnSaveMicroGrade.Location = new System.Drawing.Point(944, 151);
-            this.btnSaveMicroGrade.Margin = new System.Windows.Forms.Padding(6);
-            this.btnSaveMicroGrade.Name = "btnSaveMicroGrade";
-            this.btnSaveMicroGrade.Size = new System.Drawing.Size(95, 58);
-            this.btnSaveMicroGrade.TabIndex = 3;
-            this.btnSaveMicroGrade.Text = "Nuova micro valutazione";
-            this.toolTip1.SetToolTip(this.btnSaveMicroGrade, "Salva un nuovo microvoto che contribuisce alla media pesata sul voto \"padre\"");
-            this.btnSaveMicroGrade.UseVisualStyleBackColor = false;
-            this.btnSaveMicroGrade.Click += new System.EventHandler(this.btnSaveMicroGrade_Click);
+            btnSaveMicroGrade.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnSaveMicroGrade.BackColor = System.Drawing.Color.Transparent;
+            btnSaveMicroGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnSaveMicroGrade.ForeColor = System.Drawing.Color.DarkBlue;
+            btnSaveMicroGrade.Location = new System.Drawing.Point(944, 151);
+            btnSaveMicroGrade.Margin = new System.Windows.Forms.Padding(6);
+            btnSaveMicroGrade.Name = "btnSaveMicroGrade";
+            btnSaveMicroGrade.Size = new System.Drawing.Size(95, 58);
+            btnSaveMicroGrade.TabIndex = 3;
+            btnSaveMicroGrade.Text = "Nuova micro valutazione";
+            toolTip1.SetToolTip(btnSaveMicroGrade, "Salva un nuovo microvoto che contribuisce alla media pesata sul voto \"padre\"");
+            btnSaveMicroGrade.UseVisualStyleBackColor = false;
+            btnSaveMicroGrade.Click += btnSaveMicroGradeFromGrid_Click;
             // 
             // txtMicroGradeWeight
             // 
-            this.txtMicroGradeWeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMicroGradeWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtMicroGradeWeight.Location = new System.Drawing.Point(927, 235);
-            this.txtMicroGradeWeight.Margin = new System.Windows.Forms.Padding(4);
-            this.txtMicroGradeWeight.Name = "txtMicroGradeWeight";
-            this.txtMicroGradeWeight.Size = new System.Drawing.Size(124, 37);
-            this.txtMicroGradeWeight.TabIndex = 1;
-            this.txtMicroGradeWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip1.SetToolTip(this.txtMicroGradeWeight, "Peso del microvoto corrente");
-            this.txtMicroGradeWeight.TextChanged += new System.EventHandler(this.txtWeight_TextChanged);
+            txtMicroGradeWeight.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            txtMicroGradeWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            txtMicroGradeWeight.Location = new System.Drawing.Point(927, 235);
+            txtMicroGradeWeight.Margin = new System.Windows.Forms.Padding(4);
+            txtMicroGradeWeight.Name = "txtMicroGradeWeight";
+            txtMicroGradeWeight.Size = new System.Drawing.Size(124, 37);
+            txtMicroGradeWeight.TabIndex = 1;
+            txtMicroGradeWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            toolTip1.SetToolTip(txtMicroGradeWeight, "Peso del microvoto corrente");
+            txtMicroGradeWeight.TextChanged += txtWeight_TextChanged;
             // 
             // txtAverageMicroQuestions
             // 
-            this.txtAverageMicroQuestions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtAverageMicroQuestions.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtAverageMicroQuestions.Location = new System.Drawing.Point(927, 414);
-            this.txtAverageMicroQuestions.Margin = new System.Windows.Forms.Padding(4);
-            this.txtAverageMicroQuestions.Name = "txtAverageMicroQuestions";
-            this.txtAverageMicroQuestions.Size = new System.Drawing.Size(124, 37);
-            this.txtAverageMicroQuestions.TabIndex = 6;
-            this.txtAverageMicroQuestions.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip1.SetToolTip(this.txtAverageMicroQuestions, "Media pesata di tutti i microvoti visualizzati. Salvata nel voto complessivo. Si " +
-        "può modificare. ");
+            txtAverageMicroQuestions.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            txtAverageMicroQuestions.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            txtAverageMicroQuestions.Location = new System.Drawing.Point(927, 414);
+            txtAverageMicroQuestions.Margin = new System.Windows.Forms.Padding(4);
+            txtAverageMicroQuestions.Name = "txtAverageMicroQuestions";
+            txtAverageMicroQuestions.Size = new System.Drawing.Size(124, 37);
+            txtAverageMicroQuestions.TabIndex = 6;
+            txtAverageMicroQuestions.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            toolTip1.SetToolTip(txtAverageMicroQuestions, "Media pesata di tutti i microvoti visualizzati. Salvata nel voto complessivo. Si può modificare. ");
             // 
             // btnNewMacroGrade
             // 
-            this.btnNewMacroGrade.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNewMacroGrade.BackColor = System.Drawing.Color.Transparent;
-            this.btnNewMacroGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnNewMacroGrade.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnNewMacroGrade.Location = new System.Drawing.Point(944, 647);
-            this.btnNewMacroGrade.Margin = new System.Windows.Forms.Padding(6);
-            this.btnNewMacroGrade.Name = "btnNewMacroGrade";
-            this.btnNewMacroGrade.Size = new System.Drawing.Size(95, 57);
-            this.btnNewMacroGrade.TabIndex = 10;
-            this.btnNewMacroGrade.Text = "Nuovo voto sint.";
-            this.toolTip1.SetToolTip(this.btnNewMacroGrade, "Genera il codice di un nuovo voto \"padre\" sotto il quele staranno i prossimi  mic" +
-        "rovoti");
-            this.btnNewMacroGrade.UseVisualStyleBackColor = false;
-            this.btnNewMacroGrade.Click += new System.EventHandler(this.btnNewMacroGrade_Click);
+            btnNewMacroGrade.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnNewMacroGrade.BackColor = System.Drawing.Color.Transparent;
+            btnNewMacroGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnNewMacroGrade.ForeColor = System.Drawing.Color.DarkBlue;
+            btnNewMacroGrade.Location = new System.Drawing.Point(944, 647);
+            btnNewMacroGrade.Margin = new System.Windows.Forms.Padding(6);
+            btnNewMacroGrade.Name = "btnNewMacroGrade";
+            btnNewMacroGrade.Size = new System.Drawing.Size(95, 57);
+            btnNewMacroGrade.TabIndex = 10;
+            btnNewMacroGrade.Text = "Nuovo voto sint.";
+            toolTip1.SetToolTip(btnNewMacroGrade, "Genera il codice di un nuovo voto \"padre\" sotto il quele staranno i prossimi  microvoti");
+            btnNewMacroGrade.UseVisualStyleBackColor = false;
+            btnNewMacroGrade.Click += btnNewMacroGrade_Click;
             // 
             // btnSaveMacroGrade
             // 
-            this.btnSaveMacroGrade.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveMacroGrade.BackColor = System.Drawing.Color.Transparent;
-            this.btnSaveMacroGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnSaveMacroGrade.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnSaveMacroGrade.Location = new System.Drawing.Point(944, 581);
-            this.btnSaveMacroGrade.Margin = new System.Windows.Forms.Padding(6);
-            this.btnSaveMacroGrade.Name = "btnSaveMacroGrade";
-            this.btnSaveMacroGrade.Size = new System.Drawing.Size(95, 59);
-            this.btnSaveMacroGrade.TabIndex = 9;
-            this.btnSaveMacroGrade.Text = "Salva voto di sintesi";
-            this.toolTip1.SetToolTip(this.btnSaveMacroGrade, "Chiude le microvalutazioni salvando \"voto complessivo\" come voto \"padre\" ");
-            this.btnSaveMacroGrade.UseVisualStyleBackColor = false;
-            this.btnSaveMacroGrade.Click += new System.EventHandler(this.btnSaveMacroGrade_Click);
+            btnSaveMacroGrade.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnSaveMacroGrade.BackColor = System.Drawing.Color.Transparent;
+            btnSaveMacroGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnSaveMacroGrade.ForeColor = System.Drawing.Color.DarkBlue;
+            btnSaveMacroGrade.Location = new System.Drawing.Point(944, 581);
+            btnSaveMacroGrade.Margin = new System.Windows.Forms.Padding(6);
+            btnSaveMacroGrade.Name = "btnSaveMacroGrade";
+            btnSaveMacroGrade.Size = new System.Drawing.Size(95, 59);
+            btnSaveMacroGrade.TabIndex = 9;
+            btnSaveMacroGrade.Text = "Salva voto di sintesi";
+            toolTip1.SetToolTip(btnSaveMacroGrade, "Chiude le microvalutazioni salvando \"voto complessivo\" come voto \"padre\" ");
+            btnSaveMacroGrade.UseVisualStyleBackColor = false;
+            btnSaveMacroGrade.Click += btnSaveMacroGrade_Click;
             // 
             // txtWeightsSum
             // 
-            this.txtWeightsSum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtWeightsSum.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtWeightsSum.Location = new System.Drawing.Point(927, 474);
-            this.txtWeightsSum.Margin = new System.Windows.Forms.Padding(4);
-            this.txtWeightsSum.Name = "txtWeightsSum";
-            this.txtWeightsSum.ReadOnly = true;
-            this.txtWeightsSum.Size = new System.Drawing.Size(124, 37);
-            this.txtWeightsSum.TabIndex = 7;
-            this.txtWeightsSum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip1.SetToolTip(this.txtWeightsSum, "Somma dei pesi dei microvoti visualizzati");
+            txtWeightsSum.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            txtWeightsSum.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            txtWeightsSum.Location = new System.Drawing.Point(927, 474);
+            txtWeightsSum.Margin = new System.Windows.Forms.Padding(4);
+            txtWeightsSum.Name = "txtWeightsSum";
+            txtWeightsSum.ReadOnly = true;
+            txtWeightsSum.Size = new System.Drawing.Size(124, 37);
+            txtWeightsSum.TabIndex = 7;
+            txtWeightsSum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            toolTip1.SetToolTip(txtWeightsSum, "Somma dei pesi dei microvoti visualizzati");
             // 
             // lblAverageMicroQuestions
             // 
-            this.lblAverageMicroQuestions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblAverageMicroQuestions.AutoSize = true;
-            this.lblAverageMicroQuestions.Enabled = false;
-            this.lblAverageMicroQuestions.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblAverageMicroQuestions.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblAverageMicroQuestions.Location = new System.Drawing.Point(941, 395);
-            this.lblAverageMicroQuestions.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblAverageMicroQuestions.Name = "lblAverageMicroQuestions";
-            this.lblAverageMicroQuestions.Size = new System.Drawing.Size(97, 15);
-            this.lblAverageMicroQuestions.TabIndex = 86;
-            this.lblAverageMicroQuestions.Text = "Voto di sintesi";
-            this.toolTip1.SetToolTip(this.lblAverageMicroQuestions, "Media pesata di tutti i microvoti visualizzati. Salvata nel voto complessivo. Si " +
-        "può modificare. ");
+            lblAverageMicroQuestions.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            lblAverageMicroQuestions.AutoSize = true;
+            lblAverageMicroQuestions.Enabled = false;
+            lblAverageMicroQuestions.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            lblAverageMicroQuestions.ForeColor = System.Drawing.Color.DarkBlue;
+            lblAverageMicroQuestions.Location = new System.Drawing.Point(941, 395);
+            lblAverageMicroQuestions.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblAverageMicroQuestions.Name = "lblAverageMicroQuestions";
+            lblAverageMicroQuestions.Size = new System.Drawing.Size(97, 15);
+            lblAverageMicroQuestions.TabIndex = 86;
+            lblAverageMicroQuestions.Text = "Voto di sintesi";
+            toolTip1.SetToolTip(lblAverageMicroQuestions, "Media pesata di tutti i microvoti visualizzati. Salvata nel voto complessivo. Si può modificare. ");
             // 
             // lblWeightsSum
             // 
-            this.lblWeightsSum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblWeightsSum.AutoSize = true;
-            this.lblWeightsSum.Enabled = false;
-            this.lblWeightsSum.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblWeightsSum.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblWeightsSum.Location = new System.Drawing.Point(914, 455);
-            this.lblWeightsSum.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblWeightsSum.Name = "lblWeightsSum";
-            this.lblWeightsSum.Size = new System.Drawing.Size(151, 15);
-            this.lblWeightsSum.TabIndex = 87;
-            this.lblWeightsSum.Text = "Somma pesi domande";
-            this.toolTip1.SetToolTip(this.lblWeightsSum, "Somma dei pesi dei microvoti visualizzati");
+            lblWeightsSum.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            lblWeightsSum.AutoSize = true;
+            lblWeightsSum.Enabled = false;
+            lblWeightsSum.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            lblWeightsSum.ForeColor = System.Drawing.Color.DarkBlue;
+            lblWeightsSum.Location = new System.Drawing.Point(914, 455);
+            lblWeightsSum.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblWeightsSum.Name = "lblWeightsSum";
+            lblWeightsSum.Size = new System.Drawing.Size(151, 15);
+            lblWeightsSum.TabIndex = 87;
+            lblWeightsSum.Text = "Somma pesi domande";
+            toolTip1.SetToolTip(lblWeightsSum, "Somma dei pesi dei microvoti visualizzati");
             // 
             // txtIdMacroGrade
             // 
-            this.txtIdMacroGrade.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtIdMacroGrade.Location = new System.Drawing.Point(927, 364);
-            this.txtIdMacroGrade.Margin = new System.Windows.Forms.Padding(4);
-            this.txtIdMacroGrade.Name = "txtIdMacroGrade";
-            this.txtIdMacroGrade.ReadOnly = true;
-            this.txtIdMacroGrade.Size = new System.Drawing.Size(124, 24);
-            this.txtIdMacroGrade.TabIndex = 88;
-            this.txtIdMacroGrade.TabStop = false;
-            this.txtIdMacroGrade.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip1.SetToolTip(this.txtIdMacroGrade, "Codice del voto \"padre\", sotto il quale stanno tuttu queste microvalutazioni ");
-            this.txtIdMacroGrade.TextChanged += new System.EventHandler(this.txtIdMacroGrade_TextChanged);
+            txtIdMacroGrade.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            txtIdMacroGrade.Location = new System.Drawing.Point(927, 364);
+            txtIdMacroGrade.Margin = new System.Windows.Forms.Padding(4);
+            txtIdMacroGrade.Name = "txtIdMacroGrade";
+            txtIdMacroGrade.ReadOnly = true;
+            txtIdMacroGrade.Size = new System.Drawing.Size(124, 24);
+            txtIdMacroGrade.TabIndex = 88;
+            txtIdMacroGrade.TabStop = false;
+            txtIdMacroGrade.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            toolTip1.SetToolTip(txtIdMacroGrade, "Codice del voto \"padre\", sotto il quale stanno tuttu queste microvalutazioni ");
             // 
             // lblStudent
             // 
-            this.lblStudent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblStudent.BackColor = System.Drawing.Color.Transparent;
-            this.lblStudent.Font = new System.Drawing.Font("Arial Black", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblStudent.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblStudent.Location = new System.Drawing.Point(89, 12);
-            this.lblStudent.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lblStudent.Name = "lblStudent";
-            this.lblStudent.Size = new System.Drawing.Size(743, 59);
-            this.lblStudent.TabIndex = 89;
-            this.lblStudent.Text = "Allievo";
-            this.lblStudent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lblStudent.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            lblStudent.BackColor = System.Drawing.Color.Transparent;
+            lblStudent.Font = new System.Drawing.Font("Arial Black", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            lblStudent.ForeColor = System.Drawing.Color.DarkBlue;
+            lblStudent.Location = new System.Drawing.Point(89, 12);
+            lblStudent.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            lblStudent.Name = "lblStudent";
+            lblStudent.Size = new System.Drawing.Size(743, 59);
+            lblStudent.TabIndex = 89;
+            lblStudent.Text = "Allievo";
+            lblStudent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label3
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.AutoSize = true;
-            this.label3.Enabled = false;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label3.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label3.Location = new System.Drawing.Point(925, 345);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(128, 15);
-            this.label3.TabIndex = 90;
-            this.label3.Text = "Cod. voto di sintesi";
-            this.toolTip1.SetToolTip(this.label3, "Codice del voto \"padre\", sotto il quale stanno tuttu queste microvalutazioni ");
+            label3.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            label3.AutoSize = true;
+            label3.Enabled = false;
+            label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label3.ForeColor = System.Drawing.Color.DarkBlue;
+            label3.Location = new System.Drawing.Point(925, 345);
+            label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(128, 15);
+            label3.TabIndex = 90;
+            label3.Text = "Cod. voto di sintesi";
+            toolTip1.SetToolTip(label3, "Codice del voto \"padre\", sotto il quale stanno tuttu queste microvalutazioni ");
             // 
             // TxtQuestionText
             // 
-            this.TxtQuestionText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TxtQuestionText.Location = new System.Drawing.Point(10, 77);
-            this.TxtQuestionText.Margin = new System.Windows.Forms.Padding(4);
-            this.TxtQuestionText.Multiline = true;
-            this.TxtQuestionText.Name = "TxtQuestionText";
-            this.TxtQuestionText.ReadOnly = true;
-            this.TxtQuestionText.Size = new System.Drawing.Size(903, 64);
-            this.TxtQuestionText.TabIndex = 91;
-            this.TxtQuestionText.TextChanged += new System.EventHandler(this.TxtQuestionText_TextChanged);
-            this.TxtQuestionText.DoubleClick += new System.EventHandler(this.TxtQuestionText_DoubleClick);
+            TxtQuestionText.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            TxtQuestionText.Location = new System.Drawing.Point(10, 77);
+            TxtQuestionText.Margin = new System.Windows.Forms.Padding(4);
+            TxtQuestionText.Multiline = true;
+            TxtQuestionText.Name = "TxtQuestionText";
+            TxtQuestionText.ReadOnly = true;
+            TxtQuestionText.Size = new System.Drawing.Size(903, 64);
+            TxtQuestionText.TabIndex = 91;
+            TxtQuestionText.DoubleClick += TxtQuestionText_DoubleClick;
             // 
             // btnQuestionChoose
             // 
-            this.btnQuestionChoose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnQuestionChoose.BackColor = System.Drawing.Color.Transparent;
-            this.btnQuestionChoose.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnQuestionChoose.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnQuestionChoose.Location = new System.Drawing.Point(972, 83);
-            this.btnQuestionChoose.Margin = new System.Windows.Forms.Padding(6);
-            this.btnQuestionChoose.Name = "btnQuestionChoose";
-            this.btnQuestionChoose.Size = new System.Drawing.Size(95, 56);
-            this.btnQuestionChoose.TabIndex = 92;
-            this.btnQuestionChoose.Text = "Scelta domanda";
-            this.toolTip1.SetToolTip(this.btnQuestionChoose, "Apre la finestra che fa scegliere una domanda");
-            this.btnQuestionChoose.UseVisualStyleBackColor = false;
-            this.btnQuestionChoose.Click += new System.EventHandler(this.btnQuestionChoose_Click);
+            btnQuestionChoose.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnQuestionChoose.BackColor = System.Drawing.Color.Transparent;
+            btnQuestionChoose.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnQuestionChoose.ForeColor = System.Drawing.Color.DarkBlue;
+            btnQuestionChoose.Location = new System.Drawing.Point(972, 83);
+            btnQuestionChoose.Margin = new System.Windows.Forms.Padding(6);
+            btnQuestionChoose.Name = "btnQuestionChoose";
+            btnQuestionChoose.Size = new System.Drawing.Size(95, 56);
+            btnQuestionChoose.TabIndex = 92;
+            btnQuestionChoose.Text = "Scelta domanda";
+            toolTip1.SetToolTip(btnQuestionChoose, "Apre la finestra che fa scegliere una domanda");
+            btnQuestionChoose.UseVisualStyleBackColor = false;
+            btnQuestionChoose.Click += btnQuestionChoose_Click;
             // 
             // label4
             // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.AutoSize = true;
-            this.label4.Enabled = false;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label4.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label4.Location = new System.Drawing.Point(924, 515);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(131, 15);
-            this.label4.TabIndex = 95;
-            this.label4.Text = "Peso voto di sintesi";
-            this.toolTip1.SetToolTip(this.label4, "Peso che verrà assegnato al voto \"padre\" quando  si salverà il voto complessivo");
+            label4.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            label4.AutoSize = true;
+            label4.Enabled = false;
+            label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label4.ForeColor = System.Drawing.Color.DarkBlue;
+            label4.Location = new System.Drawing.Point(924, 515);
+            label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(131, 15);
+            label4.TabIndex = 95;
+            label4.Text = "Peso voto di sintesi";
+            toolTip1.SetToolTip(label4, "Peso che verrà assegnato al voto \"padre\" quando  si salverà il voto complessivo");
             // 
             // txtMacroGradeWeight
             // 
-            this.txtMacroGradeWeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMacroGradeWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtMacroGradeWeight.Location = new System.Drawing.Point(927, 534);
-            this.txtMacroGradeWeight.Margin = new System.Windows.Forms.Padding(4);
-            this.txtMacroGradeWeight.Name = "txtMacroGradeWeight";
-            this.txtMacroGradeWeight.Size = new System.Drawing.Size(124, 37);
-            this.txtMacroGradeWeight.TabIndex = 8;
-            this.txtMacroGradeWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip1.SetToolTip(this.txtMacroGradeWeight, "Peso che verrà assegnato al voto \"padre\" quando  si salverà il voto complessivo");
+            txtMacroGradeWeight.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            txtMacroGradeWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            txtMacroGradeWeight.Location = new System.Drawing.Point(927, 534);
+            txtMacroGradeWeight.Margin = new System.Windows.Forms.Padding(4);
+            txtMacroGradeWeight.Name = "txtMacroGradeWeight";
+            txtMacroGradeWeight.Size = new System.Drawing.Size(124, 37);
+            txtMacroGradeWeight.TabIndex = 8;
+            txtMacroGradeWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            toolTip1.SetToolTip(txtMacroGradeWeight, "Peso che verrà assegnato al voto \"padre\" quando  si salverà il voto complessivo");
             // 
             // txtGradeType
             // 
-            this.txtGradeType.Location = new System.Drawing.Point(10, 172);
-            this.txtGradeType.Margin = new System.Windows.Forms.Padding(4);
-            this.txtGradeType.Multiline = true;
-            this.txtGradeType.Name = "txtGradeType";
-            this.txtGradeType.ReadOnly = true;
-            this.txtGradeType.Size = new System.Drawing.Size(454, 37);
-            this.txtGradeType.TabIndex = 96;
+            txtGradeType.Location = new System.Drawing.Point(10, 172);
+            txtGradeType.Margin = new System.Windows.Forms.Padding(4);
+            txtGradeType.Multiline = true;
+            txtGradeType.Name = "txtGradeType";
+            txtGradeType.ReadOnly = true;
+            txtGradeType.Size = new System.Drawing.Size(454, 37);
+            txtGradeType.TabIndex = 96;
             // 
             // txtGradeTypeParent
             // 
-            this.txtGradeTypeParent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtGradeTypeParent.Location = new System.Drawing.Point(471, 172);
-            this.txtGradeTypeParent.Margin = new System.Windows.Forms.Padding(4);
-            this.txtGradeTypeParent.Multiline = true;
-            this.txtGradeTypeParent.Name = "txtGradeTypeParent";
-            this.txtGradeTypeParent.ReadOnly = true;
-            this.txtGradeTypeParent.Size = new System.Drawing.Size(442, 37);
-            this.txtGradeTypeParent.TabIndex = 97;
+            txtGradeTypeParent.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txtGradeTypeParent.Location = new System.Drawing.Point(471, 172);
+            txtGradeTypeParent.Margin = new System.Windows.Forms.Padding(4);
+            txtGradeTypeParent.Multiline = true;
+            txtGradeTypeParent.Name = "txtGradeTypeParent";
+            txtGradeTypeParent.ReadOnly = true;
+            txtGradeTypeParent.Size = new System.Drawing.Size(442, 37);
+            txtGradeTypeParent.TabIndex = 97;
             // 
             // lblGradeType
             // 
-            this.lblGradeType.AutoSize = true;
-            this.lblGradeType.Enabled = false;
-            this.lblGradeType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblGradeType.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblGradeType.Location = new System.Drawing.Point(7, 153);
-            this.lblGradeType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblGradeType.Name = "lblGradeType";
-            this.lblGradeType.Size = new System.Drawing.Size(295, 15);
-            this.lblGradeType.TabIndex = 98;
-            this.lblGradeType.Text = "Tipo di voto componente (micro valutazione) ";
+            lblGradeType.AutoSize = true;
+            lblGradeType.Enabled = false;
+            lblGradeType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            lblGradeType.ForeColor = System.Drawing.Color.DarkBlue;
+            lblGradeType.Location = new System.Drawing.Point(7, 153);
+            lblGradeType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblGradeType.Name = "lblGradeType";
+            lblGradeType.Size = new System.Drawing.Size(295, 15);
+            lblGradeType.TabIndex = 98;
+            lblGradeType.Text = "Tipo di voto componente (micro valutazione) ";
             // 
             // lblGradeTypeParent
             // 
-            this.lblGradeTypeParent.AutoSize = true;
-            this.lblGradeTypeParent.Enabled = false;
-            this.lblGradeTypeParent.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblGradeTypeParent.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblGradeTypeParent.Location = new System.Drawing.Point(471, 153);
-            this.lblGradeTypeParent.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblGradeTypeParent.Name = "lblGradeTypeParent";
-            this.lblGradeTypeParent.Size = new System.Drawing.Size(259, 15);
-            this.lblGradeTypeParent.TabIndex = 99;
-            this.lblGradeTypeParent.Text = "Tipo del voto complessivo (di riepilogo)";
+            lblGradeTypeParent.AutoSize = true;
+            lblGradeTypeParent.Enabled = false;
+            lblGradeTypeParent.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            lblGradeTypeParent.ForeColor = System.Drawing.Color.DarkBlue;
+            lblGradeTypeParent.Location = new System.Drawing.Point(471, 153);
+            lblGradeTypeParent.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblGradeTypeParent.Name = "lblGradeTypeParent";
+            lblGradeTypeParent.Size = new System.Drawing.Size(259, 15);
+            lblGradeTypeParent.TabIndex = 99;
+            lblGradeTypeParent.Text = "Tipo del voto complessivo (di riepilogo)";
             // 
             // lblSchoolSubject
             // 
-            this.lblSchoolSubject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblSchoolSubject.AutoSize = true;
-            this.lblSchoolSubject.Enabled = false;
-            this.lblSchoolSubject.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblSchoolSubject.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblSchoolSubject.Location = new System.Drawing.Point(910, 6);
-            this.lblSchoolSubject.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblSchoolSubject.Name = "lblSchoolSubject";
-            this.lblSchoolSubject.Size = new System.Drawing.Size(56, 15);
-            this.lblSchoolSubject.TabIndex = 110;
-            this.lblSchoolSubject.Text = "Materia";
+            lblSchoolSubject.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            lblSchoolSubject.AutoSize = true;
+            lblSchoolSubject.Enabled = false;
+            lblSchoolSubject.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            lblSchoolSubject.ForeColor = System.Drawing.Color.DarkBlue;
+            lblSchoolSubject.Location = new System.Drawing.Point(910, 6);
+            lblSchoolSubject.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblSchoolSubject.Name = "lblSchoolSubject";
+            lblSchoolSubject.Size = new System.Drawing.Size(56, 15);
+            lblSchoolSubject.TabIndex = 110;
+            lblSchoolSubject.Text = "Materia";
             // 
             // txtSchoolSubject
             // 
-            this.txtSchoolSubject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSchoolSubject.Location = new System.Drawing.Point(915, 24);
-            this.txtSchoolSubject.Name = "txtSchoolSubject";
-            this.txtSchoolSubject.ReadOnly = true;
-            this.txtSchoolSubject.Size = new System.Drawing.Size(152, 24);
-            this.txtSchoolSubject.TabIndex = 111;
-            this.txtSchoolSubject.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip1.SetToolTip(this.txtSchoolSubject, "Materia di questa valutazione");
+            txtSchoolSubject.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            txtSchoolSubject.Location = new System.Drawing.Point(915, 24);
+            txtSchoolSubject.Name = "txtSchoolSubject";
+            txtSchoolSubject.ReadOnly = true;
+            txtSchoolSubject.Size = new System.Drawing.Size(152, 24);
+            txtSchoolSubject.TabIndex = 111;
+            txtSchoolSubject.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            toolTip1.SetToolTip(txtSchoolSubject, "Materia di questa valutazione");
             // 
             // btnEraseMicroGrade
             // 
-            this.btnEraseMicroGrade.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEraseMicroGrade.BackColor = System.Drawing.Color.Transparent;
-            this.btnEraseMicroGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnEraseMicroGrade.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnEraseMicroGrade.Location = new System.Drawing.Point(863, 318);
-            this.btnEraseMicroGrade.Margin = new System.Windows.Forms.Padding(6);
-            this.btnEraseMicroGrade.Name = "btnEraseMicroGrade";
-            this.btnEraseMicroGrade.Size = new System.Drawing.Size(50, 37);
-            this.btnEraseMicroGrade.TabIndex = 112;
-            this.btnEraseMicroGrade.Text = "-";
-            this.toolTip1.SetToolTip(this.btnEraseMicroGrade, "Elimina la valutazione selezionata nella tabella");
-            this.btnEraseMicroGrade.UseVisualStyleBackColor = false;
-            this.btnEraseMicroGrade.Click += new System.EventHandler(this.btnEraseMicroGrade_Click);
+            btnEraseMicroGrade.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnEraseMicroGrade.BackColor = System.Drawing.Color.Transparent;
+            btnEraseMicroGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnEraseMicroGrade.ForeColor = System.Drawing.Color.DarkBlue;
+            btnEraseMicroGrade.Location = new System.Drawing.Point(863, 318);
+            btnEraseMicroGrade.Margin = new System.Windows.Forms.Padding(6);
+            btnEraseMicroGrade.Name = "btnEraseMicroGrade";
+            btnEraseMicroGrade.Size = new System.Drawing.Size(50, 37);
+            btnEraseMicroGrade.TabIndex = 112;
+            btnEraseMicroGrade.Text = "-";
+            toolTip1.SetToolTip(btnEraseMicroGrade, "Elimina la valutazione selezionata nella tabella");
+            btnEraseMicroGrade.UseVisualStyleBackColor = false;
+            btnEraseMicroGrade.Click += btnEraseMicroGrade_Click;
             // 
             // btnFlushQuestion
             // 
-            this.btnFlushQuestion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFlushQuestion.BackColor = System.Drawing.Color.Transparent;
-            this.btnFlushQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnFlushQuestion.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btnFlushQuestion.Location = new System.Drawing.Point(929, 83);
-            this.btnFlushQuestion.Margin = new System.Windows.Forms.Padding(6);
-            this.btnFlushQuestion.Name = "btnFlushQuestion";
-            this.btnFlushQuestion.Size = new System.Drawing.Size(37, 56);
-            this.btnFlushQuestion.TabIndex = 113;
-            this.btnFlushQuestion.Text = "-";
-            this.toolTip1.SetToolTip(this.btnFlushQuestion, "Elimina la domanda scelta");
-            this.btnFlushQuestion.UseVisualStyleBackColor = false;
-            this.btnFlushQuestion.Click += new System.EventHandler(this.btnFlushQuestion_Click);
+            btnFlushQuestion.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnFlushQuestion.BackColor = System.Drawing.Color.Transparent;
+            btnFlushQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnFlushQuestion.ForeColor = System.Drawing.Color.DarkBlue;
+            btnFlushQuestion.Location = new System.Drawing.Point(929, 83);
+            btnFlushQuestion.Margin = new System.Windows.Forms.Padding(6);
+            btnFlushQuestion.Name = "btnFlushQuestion";
+            btnFlushQuestion.Size = new System.Drawing.Size(37, 56);
+            btnFlushQuestion.TabIndex = 113;
+            btnFlushQuestion.Text = "-";
+            toolTip1.SetToolTip(btnFlushQuestion, "Elimina la domanda scelta");
+            btnFlushQuestion.UseVisualStyleBackColor = false;
+            btnFlushQuestion.Click += btnFlushQuestion_Click;
             // 
-            // BtnSaveGrid
+            // btnSaveMicrogradeFromGrid
             // 
-            this.BtnSaveGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnSaveGrid.BackColor = System.Drawing.Color.Transparent;
-            this.BtnSaveGrid.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.BtnSaveGrid.ForeColor = System.Drawing.Color.DarkBlue;
-            this.BtnSaveGrid.Location = new System.Drawing.Point(863, 367);
-            this.BtnSaveGrid.Margin = new System.Windows.Forms.Padding(6);
-            this.BtnSaveGrid.Name = "BtnSaveGrid";
-            this.BtnSaveGrid.Size = new System.Drawing.Size(50, 37);
-            this.BtnSaveGrid.TabIndex = 144;
-            this.BtnSaveGrid.Text = "Salva";
-            this.toolTip1.SetToolTip(this.BtnSaveGrid, "Salva la valutazione selezionata nella tabella");
-            this.BtnSaveGrid.UseVisualStyleBackColor = false;
-            this.BtnSaveGrid.Click += new System.EventHandler(this.BtnSaveGrade);
+            btnSaveMicrogradeFromGrid.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnSaveMicrogradeFromGrid.BackColor = System.Drawing.Color.Transparent;
+            btnSaveMicrogradeFromGrid.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnSaveMicrogradeFromGrid.ForeColor = System.Drawing.Color.DarkBlue;
+            btnSaveMicrogradeFromGrid.Location = new System.Drawing.Point(863, 367);
+            btnSaveMicrogradeFromGrid.Margin = new System.Windows.Forms.Padding(6);
+            btnSaveMicrogradeFromGrid.Name = "btnSaveMicrogradeFromGrid";
+            btnSaveMicrogradeFromGrid.Size = new System.Drawing.Size(50, 37);
+            btnSaveMicrogradeFromGrid.TabIndex = 144;
+            btnSaveMicrogradeFromGrid.Text = "Salva";
+            toolTip1.SetToolTip(btnSaveMicrogradeFromGrid, "Salva la valutazione selezionata nella tabella");
+            btnSaveMicrogradeFromGrid.UseVisualStyleBackColor = false;
+            btnSaveMicrogradeFromGrid.Click += btnSaveMicroGradeFromGrid_Click;
             // 
             // TxtIdStudent
             // 
-            this.TxtIdStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.TxtIdStudent.Location = new System.Drawing.Point(836, 24);
-            this.TxtIdStudent.Margin = new System.Windows.Forms.Padding(4);
-            this.TxtIdStudent.Name = "TxtIdStudent";
-            this.TxtIdStudent.ReadOnly = true;
-            this.TxtIdStudent.Size = new System.Drawing.Size(77, 24);
-            this.TxtIdStudent.TabIndex = 147;
-            this.TxtIdStudent.TabStop = false;
-            this.TxtIdStudent.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip1.SetToolTip(this.TxtIdStudent, "Codice del voto \"padre\", sotto il quale stanno tuttu queste microvalutazioni ");
+            TxtIdStudent.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            TxtIdStudent.Location = new System.Drawing.Point(836, 24);
+            TxtIdStudent.Margin = new System.Windows.Forms.Padding(4);
+            TxtIdStudent.Name = "TxtIdStudent";
+            TxtIdStudent.ReadOnly = true;
+            TxtIdStudent.Size = new System.Drawing.Size(77, 24);
+            TxtIdStudent.TabIndex = 147;
+            TxtIdStudent.TabStop = false;
+            TxtIdStudent.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            toolTip1.SetToolTip(TxtIdStudent, "Codice del voto \"padre\", sotto il quale stanno tuttu queste microvalutazioni ");
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Enabled = false;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label1.Location = new System.Drawing.Point(833, 6);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 15);
-            this.label1.TabIndex = 148;
-            this.label1.Text = "Id allievo";
-            this.toolTip1.SetToolTip(this.label1, "Media pesata di tutti i microvoti visualizzati. Salvata nel voto complessivo. Si " +
-        "può modificare. ");
+            label1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            label1.AutoSize = true;
+            label1.Enabled = false;
+            label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label1.ForeColor = System.Drawing.Color.DarkBlue;
+            label1.Location = new System.Drawing.Point(833, 6);
+            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(65, 15);
+            label1.TabIndex = 148;
+            label1.Text = "Id allievo";
+            toolTip1.SetToolTip(label1, "Media pesata di tutti i microvoti visualizzati. Salvata nel voto complessivo. Si può modificare. ");
             // 
             // label2
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Enabled = false;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label2.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label2.Location = new System.Drawing.Point(938, 216);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(103, 15);
-            this.label2.TabIndex = 150;
-            this.label2.Text = "Peso domanda";
-            this.toolTip1.SetToolTip(this.label2, "Codice del voto \"padre\", sotto il quale stanno tuttu queste microvalutazioni ");
+            label2.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            label2.AutoSize = true;
+            label2.Enabled = false;
+            label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label2.ForeColor = System.Drawing.Color.DarkBlue;
+            label2.Location = new System.Drawing.Point(938, 216);
+            label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(103, 15);
+            label2.TabIndex = 150;
+            label2.Text = "Peso domanda";
+            toolTip1.SetToolTip(label2, "Codice del voto \"padre\", sotto il quale stanno tuttu queste microvalutazioni ");
             // 
             // label5
             // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.Enabled = false;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label5.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label5.Location = new System.Drawing.Point(940, 276);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(99, 15);
-            this.label5.TabIndex = 151;
-            this.label5.Text = "Voto domanda";
-            this.toolTip1.SetToolTip(this.label5, "Codice del voto \"padre\", sotto il quale stanno tuttu queste microvalutazioni ");
+            label5.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            label5.AutoSize = true;
+            label5.Enabled = false;
+            label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label5.ForeColor = System.Drawing.Color.DarkBlue;
+            label5.Location = new System.Drawing.Point(940, 276);
+            label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label5.Name = "label5";
+            label5.Size = new System.Drawing.Size(99, 15);
+            label5.TabIndex = 151;
+            label5.Text = "Voto domanda";
+            toolTip1.SetToolTip(label5, "Codice del voto \"padre\", sotto il quale stanno tuttu queste microvalutazioni ");
             // 
             // DgwQuestions
             // 
-            this.DgwQuestions.AllowUserToAddRows = false;
-            this.DgwQuestions.AllowUserToDeleteRows = false;
-            this.DgwQuestions.AllowUserToOrderColumns = true;
-            this.DgwQuestions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.DgwQuestions.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
-            this.DgwQuestions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DgwQuestions.Location = new System.Drawing.Point(10, 318);
-            this.DgwQuestions.Name = "DgwQuestions";
-            this.DgwQuestions.Size = new System.Drawing.Size(852, 386);
-            this.DgwQuestions.TabIndex = 114;
-            this.DgwQuestions.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgwQuestions_CellClick);
-            this.DgwQuestions.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgwQuestions_CellContentClick);
-            this.DgwQuestions.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgwQuestions_CellDoubleClick);
+            DgwQuestions.AllowUserToAddRows = false;
+            DgwQuestions.AllowUserToDeleteRows = false;
+            DgwQuestions.AllowUserToOrderColumns = true;
+            DgwQuestions.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            DgwQuestions.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
+            DgwQuestions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            DgwQuestions.Location = new System.Drawing.Point(10, 318);
+            DgwQuestions.Name = "DgwQuestions";
+            DgwQuestions.Size = new System.Drawing.Size(852, 386);
+            DgwQuestions.TabIndex = 114;
+            DgwQuestions.CellClick += DgwQuestions_CellClick;
+            DgwQuestions.CellContentClick += DgwQuestions_CellContentClick;
+            DgwQuestions.CellContentDoubleClick += DgwQuestions_CellDoubleClick;
             // 
             // LessonTimer
             // 
-            this.LessonTimer.Enabled = true;
-            this.LessonTimer.Tick += new System.EventHandler(this.LessonTimer_Tick);
+            LessonTimer.Enabled = true;
+            LessonTimer.Tick += LessonTimer_Tick;
             // 
             // lblLessonTime
             // 
-            this.lblLessonTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblLessonTime.BackColor = System.Drawing.Color.Transparent;
-            this.lblLessonTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblLessonTime.Enabled = false;
-            this.lblLessonTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblLessonTime.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblLessonTime.Location = new System.Drawing.Point(990, 57);
-            this.lblLessonTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblLessonTime.Name = "lblLessonTime";
-            this.lblLessonTime.Size = new System.Drawing.Size(77, 15);
-            this.lblLessonTime.TabIndex = 143;
-            this.lblLessonTime.Text = "      ";
+            lblLessonTime.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            lblLessonTime.BackColor = System.Drawing.Color.Transparent;
+            lblLessonTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            lblLessonTime.Enabled = false;
+            lblLessonTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            lblLessonTime.ForeColor = System.Drawing.Color.DarkBlue;
+            lblLessonTime.Location = new System.Drawing.Point(990, 57);
+            lblLessonTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblLessonTime.Name = "lblLessonTime";
+            lblLessonTime.Size = new System.Drawing.Size(77, 15);
+            lblLessonTime.TabIndex = 143;
+            lblLessonTime.Text = "      ";
             // 
             // picStudent
             // 
-            this.picStudent.Location = new System.Drawing.Point(10, 1);
-            this.picStudent.Name = "picStudent";
-            this.picStudent.Size = new System.Drawing.Size(78, 76);
-            this.picStudent.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picStudent.TabIndex = 145;
-            this.picStudent.TabStop = false;
+            picStudent.Location = new System.Drawing.Point(10, 1);
+            picStudent.Name = "picStudent";
+            picStudent.Size = new System.Drawing.Size(78, 76);
+            picStudent.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            picStudent.TabIndex = 145;
+            picStudent.TabStop = false;
             // 
             // chkHasSpecialNeeds
             // 
-            this.chkHasSpecialNeeds.AutoSize = true;
-            this.chkHasSpecialNeeds.ForeColor = System.Drawing.Color.DarkBlue;
-            this.chkHasSpecialNeeds.Location = new System.Drawing.Point(836, 55);
-            this.chkHasSpecialNeeds.Name = "chkHasSpecialNeeds";
-            this.chkHasSpecialNeeds.Size = new System.Drawing.Size(69, 22);
-            this.chkHasSpecialNeeds.TabIndex = 149;
-            this.chkHasSpecialNeeds.Text = "BES ..";
-            this.chkHasSpecialNeeds.UseVisualStyleBackColor = true;
+            chkHasSpecialNeeds.AutoSize = true;
+            chkHasSpecialNeeds.ForeColor = System.Drawing.Color.DarkBlue;
+            chkHasSpecialNeeds.Location = new System.Drawing.Point(836, 55);
+            chkHasSpecialNeeds.Name = "chkHasSpecialNeeds";
+            chkHasSpecialNeeds.Size = new System.Drawing.Size(69, 22);
+            chkHasSpecialNeeds.TabIndex = 149;
+            chkHasSpecialNeeds.Text = "BES ..";
+            chkHasSpecialNeeds.UseVisualStyleBackColor = true;
             // 
             // frmMicroAssessment
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.PowderBlue;
-            this.ClientSize = new System.Drawing.Size(1070, 715);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.chkHasSpecialNeeds);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.TxtIdStudent);
-            this.Controls.Add(this.picStudent);
-            this.Controls.Add(this.BtnSaveGrid);
-            this.Controls.Add(this.lblLessonTime);
-            this.Controls.Add(this.DgwQuestions);
-            this.Controls.Add(this.btnFlushQuestion);
-            this.Controls.Add(this.btnEraseMicroGrade);
-            this.Controls.Add(this.txtSchoolSubject);
-            this.Controls.Add(this.lblSchoolSubject);
-            this.Controls.Add(this.lblGradeTypeParent);
-            this.Controls.Add(this.lblGradeType);
-            this.Controls.Add(this.txtGradeTypeParent);
-            this.Controls.Add(this.txtGradeType);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.txtMacroGradeWeight);
-            this.Controls.Add(this.btnQuestionChoose);
-            this.Controls.Add(this.TxtQuestionText);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.lblStudent);
-            this.Controls.Add(this.txtIdMacroGrade);
-            this.Controls.Add(this.lblWeightsSum);
-            this.Controls.Add(this.lblAverageMicroQuestions);
-            this.Controls.Add(this.txtWeightsSum);
-            this.Controls.Add(this.btnSaveMacroGrade);
-            this.Controls.Add(this.txtAverageMicroQuestions);
-            this.Controls.Add(this.btnNewMacroGrade);
-            this.Controls.Add(this.btnSaveMicroGrade);
-            this.Controls.Add(this.txtMicroGrade);
-            this.Controls.Add(this.txtMicroGradeWeight);
-            this.Controls.Add(this.trkbGrade);
-            this.Controls.Add(this.trkbWeight);
-            this.Controls.Add(this.lblGrade);
-            this.Controls.Add(this.lblWeight);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "frmMicroAssessment";
-            this.Text = "Micro voti";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMicroAssessment_FormClosing);
-            this.Load += new System.EventHandler(this.frmMicroAssessment_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.trkbGrade)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkbWeight)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DgwQuestions)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picStudent)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.PowderBlue;
+            ClientSize = new System.Drawing.Size(1070, 715);
+            Controls.Add(label5);
+            Controls.Add(label2);
+            Controls.Add(chkHasSpecialNeeds);
+            Controls.Add(label1);
+            Controls.Add(TxtIdStudent);
+            Controls.Add(picStudent);
+            Controls.Add(btnSaveMicrogradeFromGrid);
+            Controls.Add(lblLessonTime);
+            Controls.Add(DgwQuestions);
+            Controls.Add(btnFlushQuestion);
+            Controls.Add(btnEraseMicroGrade);
+            Controls.Add(txtSchoolSubject);
+            Controls.Add(lblSchoolSubject);
+            Controls.Add(lblGradeTypeParent);
+            Controls.Add(lblGradeType);
+            Controls.Add(txtGradeTypeParent);
+            Controls.Add(txtGradeType);
+            Controls.Add(label4);
+            Controls.Add(txtMacroGradeWeight);
+            Controls.Add(btnQuestionChoose);
+            Controls.Add(TxtQuestionText);
+            Controls.Add(label3);
+            Controls.Add(lblStudent);
+            Controls.Add(txtIdMacroGrade);
+            Controls.Add(lblWeightsSum);
+            Controls.Add(lblAverageMicroQuestions);
+            Controls.Add(txtWeightsSum);
+            Controls.Add(btnSaveMacroGrade);
+            Controls.Add(txtAverageMicroQuestions);
+            Controls.Add(btnNewMacroGrade);
+            Controls.Add(btnSaveMicroGrade);
+            Controls.Add(txtMicroGrade);
+            Controls.Add(txtMicroGradeWeight);
+            Controls.Add(trkbGrade);
+            Controls.Add(trkbWeight);
+            Controls.Add(lblGrade);
+            Controls.Add(lblWeight);
+            Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            Margin = new System.Windows.Forms.Padding(4);
+            Name = "frmMicroAssessment";
+            Text = "Micro voti";
+            FormClosing += frmMicroAssessment_FormClosing;
+            Load += frmMicroAssessment_Load;
+            ((System.ComponentModel.ISupportInitialize)trkbGrade).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trkbWeight).EndInit();
+            ((System.ComponentModel.ISupportInitialize)DgwQuestions).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picStudent).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -697,7 +683,7 @@
         private System.Windows.Forms.DataGridView DgwQuestions;
         private System.Windows.Forms.Timer LessonTimer;
         private System.Windows.Forms.Label lblLessonTime;
-        private System.Windows.Forms.Button BtnSaveGrid;
+        private System.Windows.Forms.Button btnSaveMicrogradeFromGrid;
         private System.Windows.Forms.PictureBox picStudent;
         private System.Windows.Forms.TextBox TxtIdStudent;
         private System.Windows.Forms.Label label1;

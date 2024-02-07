@@ -1,6 +1,6 @@
 ﻿using gamon.TreeMptt;
 using SchoolGrades.BusinessObjects;
-using SharedWinForms;
+using Shared;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -39,7 +39,7 @@ namespace SchoolGrades
             txtFileNewDatabase.Text = Commons.DatabaseFileName_Current;
 
             DataLayer dlNew = new DataLayer(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
-            treeNew = new TreeMptt(dlNew, trwNewTopics,
+            treeNew = new TreeMptt(trwNewTopics,
                 txtNewTopicName, txtNewDescription, txtSearchNew, null, txtCodNewTopic,
                 CommonsWinForms.globalPicLed, null, null, null, null, null, DragDropEffects.Copy);
             treeNew.Name = "treeNew";
@@ -75,7 +75,7 @@ namespace SchoolGrades
 
             DataLayer dlNew = new DataLayer(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
 
-            treeNew = new TreeMptt(dlNew, trwNewTopics,
+            treeNew = new TreeMptt(trwNewTopics,
                 txtNewTopicName, txtNewDescription, null, null, txtCodNewTopic,
                 CommonsWinForms.globalPicLed, null, null, null, null, null, DragDropEffects.Copy);
             treeNew.AddNodesToTreeviewByBestMethod();
@@ -108,7 +108,7 @@ namespace SchoolGrades
             }
             DataLayer dlOld = new DataLayer(txtPathOldDatabase.Text + "\\" + txtFileOldDatabase.Text);
 
-            treeOld = new TreeMptt(dlOld, trwOldTopics,
+            treeOld = new TreeMptt(trwOldTopics,
                 txtOldTopicName, txtOldDescription, txtSearchOld, null, txtCodOldTopic,
                 CommonsWinForms.globalPicLed, null, null, null, null, null,
                 DragDropEffects.Copy);

@@ -1,0 +1,74 @@
+﻿<Window x:Class="SchoolGrades_WPF.frmGroups"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SchoolGrades_WPF"
+        mc:Ignorable="d"
+        Title="Gruppi" Height="703" Width="420">
+    <Window.Background>
+        <SolidColorBrush Color="PowderBlue"></SolidColorBrush>
+    </Window.Background>
+    <StackPanel Orientation="Vertical">
+
+
+        <StackPanel Orientation="Horizontal">
+            <TextBox x:Name="txtClass" Margin="5,10,20,10" Width="125" IsReadOnly="True">4F 23-24</TextBox>
+            <Button x:Name="btnCreateFileGroups" Grid.Column="1" Width="55" Height="32" Background="White">Crea File</Button>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <GroupBox>
+                <GroupBox.Header>Criteri raggruppamento</GroupBox.Header>
+                <StackPanel>
+                    <RadioButton x:Name="rbdGroupsRandom">A caso</RadioButton>
+                    <RadioButton x:Name="rdbGroupsBestGradesTogether">Voti alti insieme</RadioButton>
+                    <RadioButton x:Name="rdbGradesBalanced">Voti equilibrati</RadioButton>
+                </StackPanel>
+            </GroupBox>
+
+            <StackPanel Orientation="Vertical">
+                <Label VerticalAlignment="Bottom">All. da raggr.</Label>
+                <TextBox x:Name="txtTotalStudentsToGroup" Width="45" VerticalAlignment="Bottom"></TextBox>
+            </StackPanel>
+
+            <GroupBox x:Name="grpPeriodOfQuestionsTopics">
+                <GroupBox.Header>Periodo dei voti</GroupBox.Header>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label>Inizio</Label>
+                        <DatePicker x:Name="dtpStartPeriod"></DatePicker>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label>Fine</Label>
+                        <DatePicker x:Name="dtpEndPeriod"></DatePicker>
+                    </StackPanel>
+                    <ComboBox x:Name="cmbSchoolPeriod">
+                        <ComboBoxItem>22-23</ComboBoxItem>
+                        <ComboBoxItem>23-24</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+
+            <StackPanel Margin="0,0,23,0">
+                <StackPanel Orientation="Horizontal">
+                    <Label>Allievi/gruppo</Label>
+                    <TextBox x:Name="txtStudentsPerGroup" Width="40" Height="20"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Width="85">N gruppi</Label>
+                    <TextBox x:Name="txtNGroups" Width="40" Height="20"></TextBox>
+                </StackPanel>
+            </StackPanel>
+
+            <Button x:Name="btnCreateGroups" Height="40" Width="60" Background="White">
+                <TextBlock TextWrapping="Wrap" TextAlignment="Center" Background="Transparent" Text="Crea Gruppi"/>
+            </Button>
+        </StackPanel>
+
+        <TextBox x:Name="txtGroups" Height="500"></TextBox>
+
+    </StackPanel>
+</Window>

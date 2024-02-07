@@ -1,0 +1,128 @@
+﻿<Window x:Class="SchoolGrades_WPF.frmLessons"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SchoolGrades_WPF"
+        mc:Ignorable="d"
+        Title="Lezioni" Height="600" Width="1000"
+        Background="PowderBlue">
+    <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Horizontal" Margin="10,10,10,0">
+            <Label Width="90" Margin="5,0">Anno Scol.</Label>
+            <Label Width="90" Margin="5,0">Sigla Classe</Label>
+            <Label Width="90" Content="Codice Scuola"/>
+            <Button Background="White" Margin="200,0,5,0" Width="90">Cart. Immag.</Button>
+            <Button Background="White" Margin="5,0" Width="90">Start links</Button>
+            <Label Width="90" Content="Materia"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="10,0,10,0">
+            <TextBlock Background="White" Width="90" Margin="0,0,5,0">
+            </TextBlock>
+            <TextBlock x:Name="txtSchoolYear" Background="White" Width="90" Margin="5,0">
+            </TextBlock>
+            <TextBlock x:Name="txtClass" Background="White" Width="90" Margin="5,0">
+            </TextBlock>
+            <TextBlock x:Name="txtSchoolSubject" Background="White" Width="500" Margin="5,0">
+            </TextBlock>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Vertical" Width="794" >
+                <StackPanel Orientation="Horizontal" Margin="10,10,10,0">
+                    <TextBlock Width="110" Margin="0,0,5,0">Cod. Lezione</TextBlock>
+                    <TextBlock Width="110" Margin="5,0">Data</TextBlock>
+                    <TextBlock Width="120" Margin="5,0">Descrizione Lezione</TextBlock>
+                    <!--<Button x:Name="btnExport" Width="80" Margin="80,0,10,0" 
+                        IsEnabled="False">Export</Button>-->
+                    <!--<Button  x:Name="BtnSearchAmongTopics" Width="80" Margin="10,0" 
+                         Click="BtnSearchAmongTopics_Click">Cerca</Button>-->
+                    <Button x:Name="btnCopyToClipboard" Width="80" Margin="10,0" 
+                        Click="btnCopyToClipboard_Click">Clipboard</Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Height="80" Margin="10,0,10,10">
+                    <StackPanel Orientation="Vertical" Width="110" Margin="0,0,5,0">
+                        <TextBox x:Name="txtLessonCode" Height="20"></TextBox>
+                        <Button x:Name="bntLessonErase" Height="40" Margin="0,15,0,0" Background="White" 
+                            Click="bntLessonErase_Click">Elimina Lezione</Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Width="110" Margin="5,0">
+                        <DatePicker x:Name="dtpLessonDate" Width="105"/>
+                        <Button x:Name="btnLessonAdd" Height="40" Margin="0,15,0,0" Background="White" 
+                            Click="btnLessonAdd_Click">Nuova lezione</Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Width="460">
+                        <TextBox x:Name="TxtLessonDesc" Height="70" Margin="5"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="5,0">
+                        <Image Height="10"/>
+                    </StackPanel>
+                    <Button x:Name="btnLessonSave" Width="68" Height="36" Content="Salva Lezione" 
+                        Click="btnLessonSave_Click"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Height="400" Margin="10,0">
+                    <StackPanel Orientation="Vertical" Width="295" Margin="0,0,5,0">
+                        <TextBox x:Name="txtTopicsDigest" Height="65" Margin="0,5"></TextBox>
+                        <DataGrid x:Name="dgwAllLessons" Height="200" Margin="0,5" Background="Gray" 
+                                  SelectionChanged="dgwAllLessons_SelectionChanged">
+                        </DataGrid>
+                        <DataGrid x:Name="dgwOneLesson" Height="100" Margin="0,5" Background="Gray"></DataGrid>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Width="481" Margin="5,0"
+                            HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                        <TreeView x:Name="trwTopics" Height="294" Width="471" />
+                        <TextBox x:Name="txtTopicName" TextWrapping="Wrap" Text="TextBox" Width="456"/>
+                        <TextBox x:Name="txtTopicDescription" Height="70" RenderTransformOrigin="0.503,1.265" Width="456"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image x:Name="picImage" Height="85" Margin="10"></Image>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="btnPrevious" Width="20" Height="20" Margin="5,0" Click="btnPrevious_Click">←</Button>
+                    <Button x:Name="btnNext" Width="20" Height="20" Margin="5,0" Click="btnNext_Click">→</Button>
+                    <Button x:Name="btnManageImages" Width="100" Height="50" Margin="20,0">Immagini e docs</Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="5,0">Trova</TextBlock>
+                    <CheckBox x:Name="chkMarkAllTopicsFound" Margin="90,0,0,0">Tutti</CheckBox>
+                </StackPanel>
+                <TextBox x:Name="txtTopicSearchString" Margin="5" Height="35" Width="178"></TextBox>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <CheckBox Grid.Row="0" Grid.Column="0" x:Name="chkSearchInDescriptions" HorizontalAlignment="Left"  HorizontalContentAlignment="Left" 
+                                  Width="98" Content="In Descrizione" Checked="chksSearch_CheckedChanged" Unchecked="chksSearch_CheckedChanged" IsChecked="True"/>
+                    <CheckBox Grid.Row="0" Grid.Column="1" x:Name="chkVerbatimString" HorizontalAlignment="Left" HorizontalContentAlignment="Left"
+                          Content="Esatta" Checked="chksSearch_CheckedChanged" Unloaded="chksSearch_CheckedChanged" />
+                    <CheckBox Grid.Row="1" Grid.Column="0" x:Name="chkAllWord" HorizontalAlignment="Left" HorizontalContentAlignment="Left" 
+                          Unchecked="chksSearch_CheckedChanged" Checked="chksSearch_CheckedChanged" >Parola</CheckBox>
+                    <CheckBox Grid.Row="1" Grid.Column="1" x:Name="chkCaseInsensitive" HorizontalAlignment="Left" 
+                          HorizontalContentAlignment="Left" Margin="30,0" Checked="chksSearch_CheckedChanged" 
+                          Unchecked="chksSearch_CheckedChanged" IsChecked="True">ma E mi</CheckBox>
+                </Grid>
+                <Button x:Name="btnFind" Height="30" Background="White" Margin="5,0" Width="135" Click="btnFind_Click"
+                    >Trova (F3)</Button>
+                <Button x:Name="btnFindUnderNode" Height="30" Background="White" Margin="5" Click="btnFindUnderNode_Click"
+                    Width="135">Trova sotto (Shift+F3)</Button>
+                <Button x:Name="btnSaveTree" Height="30" Width="135" Background="White" Margin="5" 
+                    Click="btnSaveTree_Click">Salva Argomenti (F5)</Button>
+                <Button x:Name="btnAddNode" Height="30" Width="135" Background="White" 
+                    Click="btnAddNode_Click" Margin="5">Aggiungi figlio (Ins)</Button>
+                <Button x:Name="btnAddNodeBrother" Height="30" Width="135" Background="White" Margin="5"
+                    Click="btnAddNodeBrother_Click">Agg. fratello (Shift+Ins)</Button>
+                <Button x:Name="btnTopicsDone" Height="30" Background="White" Width="135" 
+                    Click="btnTopicsDone_Click" Margin="5">Argomenti fatti</Button>
+                <Button x:Name="btnArgFreemind" Height="30" Background="White" Width="135" 
+                    Click="btnArgFreemind_Click" Margin="5">Argomenti Freemind</Button>
+                <Button x:Name="btnDelete" Width="135" Height="30" Background="White" 
+                    Click="btnDelete_Click" Margin="5">Elimina (Canc)</Button>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</Window>

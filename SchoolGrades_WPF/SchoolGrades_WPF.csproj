@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="frmTopicsRecover.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="frmTopicsRecover.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SchoolGrades\SchoolGrades.csproj" />
+  </ItemGroup>
+
+  <Import Project="..\BusinessLayer\BusinessLayer.projitems" Label="Shared" />
+
+  <Import Project="..\BusinessObjects\BusinessObjects.projitems" Label="Shared" />
+
+  <Import Project="..\DataLayer\DataLayer.projitems" Label="Shared" />
+
+  <Import Project="..\SharedItems\SharedItems.projitems" Label="Shared" />
+
+  <Import Project="..\TreeMpttManagement\MpttTreeManagement.projitems" Label="Shared" />
+
+  <Import Project="..\SharedWpf\SharedWpf.projitems" Label="Shared" />
+
+  <Import Project="..\TreeMpttWpf\TreeMpttWpf.projitems" Label="Shared" />
+</Project>

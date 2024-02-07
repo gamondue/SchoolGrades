@@ -1,0 +1,111 @@
+﻿<Window x:Class="SchoolGrades_WPF.frmGradesClassSummary"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SchoolGrades_WPF"
+        mc:Ignorable="d"
+        Title="Riepilogo voti classe" Height="750" Width="950" Background="PowderBlue">
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="15"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+            <Setter Property="Foreground" Value="DarkBlue"></Setter>
+            <Setter Property="Padding" Value="1"></Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="0,0,5,0"></Setter>
+        </Style>
+        <Style TargetType="Label" x:Key="SmallText">
+            <Setter Property="FontSize" Value="15"></Setter>
+            <Setter Property="FontWeight" Value="Normal"></Setter>
+            <Setter Property="Foreground" Value="DarkBlue"></Setter>
+            <Setter Property="Padding" Value="1"></Setter>
+        </Style>
+        <Style TargetType="RadioButton">
+            <Setter Property="FontSize" Value="15"></Setter>
+            <Setter Property="FontWeight" Value="SemiBold"></Setter>
+            <Setter Property="Foreground" Value="DarkBlue"></Setter>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="14"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+            <Setter Property="Foreground" Value="DarkBlue"></Setter>
+            <Setter Property="Padding" Value="5"></Setter>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="2"></Setter>
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Margin" Value="0,5,5,5"></Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="17*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="14*"/>
+            <RowDefinition Height="85*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <GroupBox x:Name="grpChosenQuery">
+            <StackPanel x:Name="stkChosenQuery">
+                <RadioButton x:Name="rdbMissing">Mancanti</RadioButton>
+                <RadioButton x:Name="rdbShowGrades">Voti</RadioButton>
+                <RadioButton x:Name="rdbShowWeightedGrades">Medie</RadioButton>
+                <RadioButton x:Name="rdbShowWeights">Pesi</RadioButton>
+                <RadioButton x:Name="rdbShowWeightsOnOpenGrades">Pesi aperti</RadioButton>
+            </StackPanel>
+        </GroupBox>
+        <Button HorizontalAlignment="Right" VerticalAlignment="Bottom">Salva su file CSV</Button>
+        <Grid Grid.Column="1" Grid.ColumnSpan="3" Margin="10,0,10,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+                <ColumnDefinition Width="4*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label x:Name="lblCurrentClass" Grid.Column="1" FontSize="25">Class</Label>
+            <Label Grid.Row="1">Riepilogo dei voti di tipo</Label>
+            <Label Grid.Row="2">Materia</Label>
+            <ComboBox Name="cmbSummaryGradeType" Grid.Row="1" Grid.Column="1"></ComboBox>
+            <ComboBox Name="cmbSchoolSubjects" Grid.Row="2" Grid.Column="1"></ComboBox>
+        </Grid>
+        <Grid Grid.Row="1" Grid.ColumnSpan="4" Margin="0,10" Grid.RowSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label x:Name="lblSum" Style="{DynamicResource SmallText}" VerticalAlignment="Bottom">lblSum</Label>
+            <TextBox Name="txtSummaryDatum" Grid.Row="1"></TextBox>
+            <Label Style="{DynamicResource SmallText}" VerticalAlignment="Bottom" Grid.Column="1">n. Allievi</Label>
+            <TextBox Name="txtNStudents" Grid.Row="1" Grid.Column="1"></TextBox>
+            <Label Style="{DynamicResource SmallText}" Foreground="Black" Grid.Column="2" Grid.ColumnSpan="2">Periodo dei voti</Label>
+            <Label Style="{DynamicResource SmallText}" VerticalAlignment="Bottom" Grid.Column="2">Inizio</Label>
+            <Label Style="{DynamicResource SmallText}" VerticalAlignment="Bottom" Grid.Column="3">Fine</Label>
+            <DatePicker Name="dtpStartPeriod" Grid.Column="2" Grid.Row="1"></DatePicker>
+            <DatePicker Name="dtpEndPeriod" Grid.Column="3" Grid.Row="1"></DatePicker>
+            <ComboBox Name="cmbSchoolPeriod" Grid.Column="4" Grid.Row="1"></ComboBox>
+            <Button Name="btnReadData" Grid.Column="5" Grid.Row="1">Leggi dati</Button>
+        </Grid>
+        <DataGrid x:Name="dgwGrades" Background="Gray" Grid.Row="2" Grid.ColumnSpan="4" Margin="0,84,0,0" Grid.RowSpan="2"></DataGrid>
+    </Grid>
+</Window>

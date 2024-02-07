@@ -197,7 +197,7 @@
             btnAddNodeSon.Text = "Aggiungi figlio (Ins)";
             toolTip1.SetToolTip(btnAddNodeSon, "Aggiungi nuovo argomento sotto al selezionato");
             btnAddNodeSon.UseVisualStyleBackColor = true;
-            btnAddNodeSon.Click += btnAddNode_Click;
+            btnAddNodeSon.Click += btnAddNodeSon_Click;
             // 
             // rdbOrSearch
             // 
