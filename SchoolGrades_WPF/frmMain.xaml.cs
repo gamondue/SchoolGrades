@@ -86,10 +86,10 @@ namespace SchoolGrades_WPF
 
             Commons.CreatePaths();
 
-            // !!!! TEMPORARY: set fixed file paths and names !!!! 
-            Commons.PathAndFileDatabase = Path.Combine(Commons.PathExe, "Data",
-                "Demo_SchoolGrades.sqlite");
-            Commons.PathImages = Path.Combine(Commons.PathExe, "Images");
+            //// !!!! TEMPORARY: set fixed file paths and names !!!! 
+            //Commons.PathAndFileDatabase = Path.Combine(Commons.PathExe, "Data",
+            //    "Demo_SchoolGrades.sqlite");
+            //Commons.PathImages = Path.Combine(Commons.PathExe, "Images");
 
             // manage the configuration file 
             string messagePrompt = "";
@@ -328,13 +328,13 @@ namespace SchoolGrades_WPF
                 return false;
             return true;
         }
-        ////////////static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
-        ////////////{
-        ////////////    string err = sender.GetType().Name + " " + e.Exception.Message +
-        ////////////        "\r\n" + e.Exception.StackTrace;
-        ////////////    Commons.ErrorLog(err);
-        ////////////    throw new Exception(err);
-        ////////////}
+        static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
+        {
+            string err = sender.GetType().Name + " " + e.Exception.Message +
+                "\r\n" + e.Exception.StackTrace;
+            Commons.ErrorLog(err);
+            throw new Exception(err);
+        }
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             if (sender != null)
