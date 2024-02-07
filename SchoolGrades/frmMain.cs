@@ -1,7 +1,7 @@
 using gamon;
 using gamon.TreeMptt;
 using SchoolGrades.BusinessObjects;
-using SharedWinForms;
+using Shared;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -192,8 +192,7 @@ namespace SchoolGrades
         private void frmMain_Load(object sender, EventArgs e)
         {
             // start the Thread that concurrently saves the Topics tree
-            CommonsWinForms.SaveTreeMptt = new TreeMptt(Commons.dl,
-                null, null, null, null, null, null, picBackgroundSaveRunning,
+            CommonsWinForms.SaveTreeMptt = new TreeMptt(null, null, null, null, null, null, picBackgroundSaveRunning,
                 null, null, null, null, null);
             Commons.BackgroundSaveThread = new Thread(CommonsWinForms.SaveTreeMptt.SaveTreeMpttBackground);
             Commons.BackgroundSaveThread.Start();
@@ -233,7 +232,7 @@ namespace SchoolGrades
                 timerLesson.Start();
             }
 
-            string file = Commons.PathLogs + @"\frmMain_parameters.txt";
+            string file = Path.Combine(Commons.PathLogs, "frmMain_parameters.txt");
             CommonsWinForms.RestoreCurrentValuesOfAllControls(this, file);
 
             txtNStudents.Text = "";
@@ -379,7 +378,7 @@ namespace SchoolGrades
         private void loadStudentsData(Student Student)
         {
             //if (chkStudentsListVisible.Checked)
-            loadPicture(Student);
+            loadStudentsPicture(Student);
             chkStudentsListVisible.Checked = false;
             lblStudentChosen.Text = Student.ToString();
             txtRevengeFactor.Text = Student.RevengeFactorCounter.ToString();
@@ -502,7 +501,7 @@ namespace SchoolGrades
             if (dgwStudents.Visible)
                 AllCheckRevenge();
         }
-        private void loadPicture(Student Chosen)
+        private void loadStudentsPicture(Student Chosen)
         {
             try
             {
@@ -573,7 +572,7 @@ namespace SchoolGrades
                     // TODO 
                 }
                 // show popup annotations of the students of the class
-                DataTable popUpAnnotations = Commons.bl.GetAnnotationsOfClasss(currentClass.IdClass, true, true);
+                DataTable popUpAnnotations = Commons.bl.GetAnnotationsOfClass(currentClass.IdClass, true, true);
                 if (popUpAnnotations.Rows.Count > 0)
                 {
                     frmAnnotationsPopUp f = new frmAnnotationsPopUp(popUpAnnotations);
@@ -584,8 +583,7 @@ namespace SchoolGrades
         }
         private void chkFotoVisibile_CheckedChanged(object sender, EventArgs e)
         {
-            //fotoVisibile = chkFotoVisibile.Checked;
-            picStudent.Visible = chkFotoVisibile.Checked;
+            picStudent.Visible = chkPhotoVisibile.Checked;
         }
         private void chkStudentsListVisible_CheckedChanged(object sender, EventArgs e)
         {
@@ -618,16 +616,17 @@ namespace SchoolGrades
             //}
             //firstTime = true;
         }
-        private void btnSalvaInterrogati_Click(object sender, EventArgs e)
-        {
-            SaveStudentsOfClassIfEligibleHasChanged();
-        }
+        //private void btnSalvaInterrogati_Click(object sender, EventArgs e)
+        //{
+        //    SaveStudentsOfClassIfEligibleHasChanged();
+        //}
         private void btnPath_Click(object sender, EventArgs e)
         {
             folderBrowserDialog.SelectedPath = txtPathImages.Text;
             DialogResult r = folderBrowserDialog.ShowDialog();
             if (r == System.Windows.Forms.DialogResult.OK)
             {
+
                 txtPathImages.Text = folderBrowserDialog.SelectedPath;
             }
         }
@@ -1647,7 +1646,7 @@ namespace SchoolGrades
                         // make a question to a random student
                         // draws the student wiyh the criterion set in the U.I. 
                         btnComeOn_Click(null, null);
-                        chkFotoVisibile.Checked = true;
+                        chkPhotoVisibile.Checked = true;
                         btnAssess_Click(null, null);
                         // tell the user that he has a new student chosen 
                         Console.Beep(400, 800);

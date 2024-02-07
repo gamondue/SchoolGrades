@@ -1,0 +1,177 @@
+﻿<Window x:Class="SchoolGrades_WPF.frmQuestion"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SchoolGrades_WPF"
+        mc:Ignorable="d"
+        Title="Domanda" Height="700" Width="1000" Background="PowderBlue">
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="15"></Setter>
+            <Setter Property="Foreground" Value="DarkBlue"></Setter>
+            <Setter Property="Padding" Value="1"></Setter>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="15"></Setter>
+            <Setter Property="Foreground" Value="DarkBlue"></Setter>
+            <Setter Property="Margin" Value="5,0"></Setter>
+            <Setter Property="Padding" Value="5,0"></Setter>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="2"></Setter>
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="0,0,5,0"></Setter>
+            <Setter Property="FontSize" Value="15"></Setter>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Margin" Value="1"></Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="0.7*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="4*"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="6*"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Name="lblQuestionText">Testo della domanda</Label>
+            <TextBox Name="txtQuestionText" Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
+            <StackPanel Grid.Row="1" Grid.Column="1">
+                <StackPanel.Resources>
+                    <Style TargetType="TextBox">
+                        <Setter Property="Margin" Value="0,5,5,0"></Setter>
+                        <Setter Property="FontSize" Value="15"></Setter>
+                    </Style>
+                    <Style TargetType="Label">
+                        <Setter Property="FontSize" Value="15"></Setter>
+                        <Setter Property="Foreground" Value="DarkBlue"></Setter>
+                        <Setter Property="Padding" Value="1"></Setter>
+                    </Style>
+                </StackPanel.Resources>
+                <Label>Peso [%]</Label>
+                <TextBox Name="txtWeight"></TextBox>
+                <Label>Durata [s]</Label>
+                <TextBox Name="txtDuration"></TextBox>
+                <Label>Difficoltà</Label>
+                <TextBox Name="txtDifficulty"></TextBox>
+            </StackPanel>
+            <Grid Grid.Row="2" Grid.ColumnSpan="2" Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label>Materia</Label>
+                <ComboBox Name="cmbSchoolSubject" Grid.Column="1"></ComboBox>
+                <Label Grid.Column="2">Tipo domanda</Label>
+                <ComboBox Name="cmbQuestionType" Grid.Column="3"></ComboBox>
+                <Label Grid.Column="4">Codice</Label>
+                <TextBox Name="txtIdQuestion" Grid.Column="5"></TextBox>
+                <StackPanel Orientation="Horizontal" Grid.Column="6">
+                    <Button Name="btnNewQuestion">Nuova</Button>
+                    <Button Name="btnSaveQuestion">Salva</Button>
+                    <Button Name="btnSaveAndChoose">Salva e scegli</Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="700"></ColumnDefinition>
+                <ColumnDefinition Width="125"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <StackPanel.Resources>
+                    <Style TargetType="TextBox">
+                        <Setter Property="Margin" Value="5,0,0,0"></Setter>
+                        <Setter Property="FontSize" Value="15"></Setter>
+                    </Style>
+                </StackPanel.Resources>
+                <StackPanel Orientation="Horizontal">
+                    <Label>Percorso immagini</Label>
+                    <TextBox Name="txtImagesPath" Width="500"></TextBox>
+                    <Button Name="btnPathImportImage">..</Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label>Nome file immagine</Label>
+                    <TextBox Name="txtQuestionImage" Width="500"></TextBox>
+                    <Button Name="btnChooseFileImage">..</Button>
+                </StackPanel>
+            </StackPanel>
+            <Button Grid.Column="1" Margin="10">Imm. lezione</Button>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <GroupBox Header="Tags">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Button Name="btnAddTag">+</Button>
+                        <Button Name="btnRemoveTag" Grid.Column="1">-</Button>
+                    </Grid>
+                    <ListBox Name="lstTags" Grid.Row="1" Grid.ColumnSpan="2"></ListBox>
+                </Grid>
+            </GroupBox>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <GroupBox Header="Argomento">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Name="txtTopic"></TextBox>
+                        <Button Name="btnChooseTopic" Grid.Column="1">..</Button>
+                        <Button Name="btnChooseByPeriod" Grid.Column="2">Per.</Button>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="Risposte" Grid.Row="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="35"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Button Name="btnAddAnswer" HorizontalAlignment="Left" Width="40">+</Button>
+                        <Button Name="btnImportQuestions" HorizontalAlignment="Right">Importa domande da file</Button>
+                        <DataGrid x:Name="dgwAnswers" Grid.Row="1" Background="Gray" Margin="5"></DataGrid>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

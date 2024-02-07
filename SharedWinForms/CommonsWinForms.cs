@@ -7,7 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
-namespace SharedWinForms
+namespace Shared
 {
     public static class CommonsWinForms
     {
@@ -203,7 +203,6 @@ namespace SharedWinForms
             }
             return true;
         }
-
         internal static bool CheckIfClassChosen(Class CurrentClass)
         {
             // Commons.CurrentClass 
@@ -215,7 +214,7 @@ namespace SharedWinForms
             }
             return true;
         }
-        internal static bool CheckIfStudentChosen(Student CurrentStudent)
+        public static bool CheckIfStudentChosen(Student CurrentStudent)
         {
             if (CurrentStudent == null)
             {
@@ -227,15 +226,18 @@ namespace SharedWinForms
         }
         internal static void SwitchPicLed(bool IsLedLit)
         {
-            // lights on or off the PictureBox used as an Activity LED 
-            globalPicLed.Invoke(new Action(() =>
-            {
-                if (IsLedLit)
-                    globalPicLed.BackColor = Color.Red;           // LED lit
-                else
-                    globalPicLed.BackColor = Color.DarkGray;      // LED off
-            }));
-            Application.DoEvents();
+            try
+            {             // lights on or off the PictureBox used as an Activity LED 
+                globalPicLed.Invoke(new Action(() =>
+                {
+                    if (IsLedLit)
+                        globalPicLed.BackColor = Color.Red;           // LED lit
+                    else
+                        globalPicLed.BackColor = Color.DarkGray;      // LED off
+                }));
+                Application.DoEvents();
+            }
+            catch { }
         }
         internal static bool ReadConfigData()
         {
@@ -334,7 +336,7 @@ namespace SharedWinForms
                 //return;
             }
         }
-        internal static Color ColorFromNumber(SchoolSubject Subject)
+        public static Color ColorFromNumber(SchoolSubject Subject)
         {
             if (Subject == null || Subject.Color == null || Subject.Color == 0)
                 return ColorNoSubject;

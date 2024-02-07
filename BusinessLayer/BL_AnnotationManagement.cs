@@ -1,9 +1,6 @@
 ﻿using SchoolGrades.BusinessObjects;
-using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
-using System.Text;
 
 namespace SchoolGrades
 {
@@ -29,9 +26,9 @@ namespace SchoolGrades
         {
             dl.EraseAnnotationByText(Text, Student);
         }
-        internal DataTable GetAnnotationsOfClasss(int? idClass, bool IncludeAlsoNonActive, bool IncludeJustPopUp)
+        internal DataTable GetAnnotationsOfClass(int? idClass, bool IncludeAlsoNonActive, bool IncludeJustPopUp)
         {
-            return dl.GetAnnotationsOfClasss(idClass, IncludeAlsoNonActive, IncludeJustPopUp);
+            return dl.GetAnnotationsOfClass(idClass, IncludeAlsoNonActive, IncludeJustPopUp);
         }
     }
 }

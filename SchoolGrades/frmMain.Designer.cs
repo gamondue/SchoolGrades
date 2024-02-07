@@ -41,7 +41,7 @@
             lstClasses = new System.Windows.Forms.ListBox();
             pgbTimeQuestion = new System.Windows.Forms.ProgressBar();
             chkNomeVisibile = new System.Windows.Forms.CheckBox();
-            chkFotoVisibile = new System.Windows.Forms.CheckBox();
+            chkPhotoVisibile = new System.Windows.Forms.CheckBox();
             chkStudentsListVisible = new System.Windows.Forms.CheckBox();
             cmbSchoolYear = new System.Windows.Forms.ComboBox();
             txtPathImages = new System.Windows.Forms.TextBox();
@@ -280,21 +280,21 @@
             chkNomeVisibile.UseVisualStyleBackColor = true;
             chkNomeVisibile.CheckedChanged += chkNomeVisibile_CheckedChanged;
             // 
-            // chkFotoVisibile
+            // chkPhotoVisibile
             // 
-            chkFotoVisibile.AutoSize = true;
-            chkFotoVisibile.Checked = true;
-            chkFotoVisibile.CheckState = System.Windows.Forms.CheckState.Checked;
-            chkFotoVisibile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            chkFotoVisibile.ForeColor = System.Drawing.Color.DarkBlue;
-            chkFotoVisibile.Location = new System.Drawing.Point(297, 91);
-            chkFotoVisibile.Name = "chkFotoVisibile";
-            chkFotoVisibile.Size = new System.Drawing.Size(118, 22);
-            chkFotoVisibile.TabIndex = 16;
-            chkFotoVisibile.Text = "Foto visibile";
-            toolTip1.SetToolTip(chkFotoVisibile, "Visualizza la foto dell'allievo");
-            chkFotoVisibile.UseVisualStyleBackColor = true;
-            chkFotoVisibile.CheckedChanged += chkFotoVisibile_CheckedChanged;
+            chkPhotoVisibile.AutoSize = true;
+            chkPhotoVisibile.Checked = true;
+            chkPhotoVisibile.CheckState = System.Windows.Forms.CheckState.Checked;
+            chkPhotoVisibile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            chkPhotoVisibile.ForeColor = System.Drawing.Color.DarkBlue;
+            chkPhotoVisibile.Location = new System.Drawing.Point(297, 91);
+            chkPhotoVisibile.Name = "chkPhotoVisibile";
+            chkPhotoVisibile.Size = new System.Drawing.Size(118, 22);
+            chkPhotoVisibile.TabIndex = 16;
+            chkPhotoVisibile.Text = "Foto visibile";
+            toolTip1.SetToolTip(chkPhotoVisibile, "Visualizza la foto dell'allievo");
+            chkPhotoVisibile.UseVisualStyleBackColor = true;
+            chkPhotoVisibile.CheckedChanged += chkFotoVisibile_CheckedChanged;
             // 
             // chkStudentsListVisible
             // 
@@ -1412,7 +1412,7 @@
             Controls.Add(txtPathImages);
             Controls.Add(cmbSchoolYear);
             Controls.Add(chkStudentsListVisible);
-            Controls.Add(chkFotoVisibile);
+            Controls.Add(chkPhotoVisibile);
             Controls.Add(chkNomeVisibile);
             Controls.Add(pgbTimeQuestion);
             Controls.Add(lblCodYear);
@@ -1457,7 +1457,7 @@
         private System.Windows.Forms.Timer timerQuestion;
         private System.Windows.Forms.PictureBox picStudent;
         private System.Windows.Forms.CheckBox chkNomeVisibile;
-        private System.Windows.Forms.CheckBox chkFotoVisibile;
+        private System.Windows.Forms.CheckBox chkPhotoVisibile;
         private System.Windows.Forms.CheckBox chkStudentsListVisible;
         private System.Windows.Forms.ComboBox CmbSchoolYear;
         private System.Windows.Forms.TextBox txtPathImages;
