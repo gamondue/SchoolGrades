@@ -24,7 +24,7 @@ namespace SchoolGrades
 
         private string schoolYear;
 
-        bool formInitializing = true;
+        //bool formInitializing = true;
         //bool firstTime = true;
 
         Student currentStudent;
@@ -192,8 +192,8 @@ namespace SchoolGrades
         private void frmMain_Load(object sender, EventArgs e)
         {
             // start the Thread that concurrently saves the Topics tree
-            CommonsWinForms.SaveTreeMptt = new TreeMptt(null, null, null, null, null, null,
-                picBackgroundSaveRunning, null, null, null, null, null);
+            CommonsWinForms.SaveTreeMptt = new TreeMptt(null, null, null, null, null, null, picBackgroundSaveRunning,
+                null, null, null, null, null);
             Commons.BackgroundSaveThread = new Thread(CommonsWinForms.SaveTreeMptt.SaveTreeMpttBackground);
             Commons.BackgroundSaveThread.Start();
 
@@ -246,7 +246,7 @@ namespace SchoolGrades
             txtIdStudent.Visible = false;
 
             lblDatabaseFile.Text = Path.GetFileName(Commons.PathAndFileDatabase);
-            formInitializing = false;
+            //formInitializing = false;
         }
         private string GetNewDatabaseFilename(string proposedDatabasePath)
         {
