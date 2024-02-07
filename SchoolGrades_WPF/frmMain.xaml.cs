@@ -379,6 +379,7 @@ namespace SchoolGrades_WPF
             if (currentClass.CurrentStudent != null)
             {
                 loadStudentsData(currentClass.CurrentStudent);
+                chkStudentsListVisible.IsChecked = false;
             }
             else
             {
@@ -537,7 +538,8 @@ namespace SchoolGrades_WPF
         }
         private void chkNomeVisibile_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            if ((bool)chkNomeVisibile.IsChecked)
+            if (!this.IsLoaded) { return; }
+            if ((bool)chkNameVisible.IsChecked)
                 lblStudentChosen.Visibility = Visibility.Visible;
             else
                 lblStudentChosen.Visibility = Visibility.Hidden;
@@ -591,8 +593,9 @@ namespace SchoolGrades_WPF
                 }
             }
         }
-        private void chkFotoVisibile_CheckedChanged(object sender, RoutedEventArgs e)
+        private void chkPhotoVisibile_CheckedChanged(object sender, RoutedEventArgs e)
         {
+            if (!this.IsLoaded) return;
             if ((bool)chkPhotoVisibile.IsChecked)
                 picStudent.Visibility = Visibility.Visible;
             else
@@ -601,11 +604,24 @@ namespace SchoolGrades_WPF
         private void chkStudentsListVisible_CheckedChanged(object sender, RoutedEventArgs e)
         {
             if (wndInitializing) return;
-            dgwStudents.Visibility = Visibility.Hidden;
-            lblStudentChosen.Visibility = Visibility.Visible;
-            picStudent.Visibility = Visibility.Visible;
-            lblIdStudent.Visibility = Visibility.Visible;
-            txtIdStudent.Visibility = Visibility.Visible;
+            if ((bool)chkStudentsListVisible.IsChecked)
+            {
+                dgwStudents.Visibility = Visibility.Visible;
+                lblStudentChosen.Visibility = Visibility.Hidden;
+                picStudent.Visibility = Visibility.Hidden;
+                lblIdStudent.Visibility = Visibility.Hidden;
+                txtIdStudent.Visibility = Visibility.Hidden;
+                stckLessonTime.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                dgwStudents.Visibility = Visibility.Hidden;
+                lblStudentChosen.Visibility = Visibility.Visible;
+                picStudent.Visibility = Visibility.Visible;
+                lblIdStudent.Visibility = Visibility.Visible;
+                txtIdStudent.Visibility = Visibility.Visible;
+                stckLessonTime.Visibility = Visibility.Hidden;
+            }
         }
         private void cmbSchoolYear_SelectedIndexChanged(object sender, RoutedEventArgs e)
         {
@@ -1057,7 +1073,6 @@ namespace SchoolGrades_WPF
                 currentGradeType, (SchoolSubject)cmbSchoolSubject.SelectedItem);
             f.Show();
         }
-
         private void btnOldestGrade_Click(object sender, RoutedEventArgs e)
         {
             // gets all the list, but we are interested only to the first, the oldest
@@ -1727,7 +1742,9 @@ namespace SchoolGrades_WPF
                 currentStudent = currentClass.CurrentStudent;
                 currentStudent.SchoolYear = currentClass.SchoolYear;
                 loadStudentsData(currentStudent);
-                chkStudentsListVisible.Visibility = Visibility.Hidden;
+                chkStudentsListVisible.IsChecked = false;
+                dgwStudents.Visibility = Visibility.Hidden;
+                picStudent.Visibility = Visibility.Visible;
             }
         }
         ////////////private void dgwStudents_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
@@ -1763,39 +1780,40 @@ namespace SchoolGrades_WPF
             //txtIdClass.Text = currentClass.IdClass.ToString();
 
             ShowStudentsOfClass();
-            //if (currentStudentsList != null)
-            //    txtNStudents.Text = currentStudentsList.Count.ToString();
-            //else
-            //    txtNStudents.Text = "";
+            if (currentStudentsList != null)
+                txtNStudents.Text = currentStudentsList.Count.ToString();
+            else
+                txtNStudents.Text = "";
 
-            //// play Happy Birthday when a student has his BirthDay
-            //List<Student> celebrated = Commons.bl.FindStudentsOnBirthday(currentClass, DateTime.Now);
-            //if (celebrated.Count > 0)
-            //{
-            //    try
-            //    {
-            //        suonatore.SoundLocation = ".\\Auguri.wav";
-            //        suonatore.Play();
-            //    }
-            //    catch
-            //    {
-            //        Console.Beep(220, 1000);
-            //    }
-            //    foreach (Student s in celebrated)
-            //    {
-            //        frmStudent f = new frmStudent(s, false);
-            //        f.Show();
-            //        // put full screen ther form 
-            //        // TODO 
-            //    }
-            //// show popup annotations of the students of the class
-            //DataTable popUpAnnotations = Commons.bl.GetAnnotationsOfClass(currentClass.IdClass, true, true);
-            //if (popUpAnnotations.Items.Count > 0)
-            //{
-            //    frmAnnotationsPopUp f = new frmAnnotationsPopUp(popUpAnnotations);
-            //    f.StartPosition = FormStartPosition.CenterParent;
-            //    f.Show();
-            //}
+            // play Happy Birthday when a student has his BirthDay
+            List<Student> celebrated = Commons.bl.FindStudentsOnBirthday(currentClass, DateTime.Now);
+            if (celebrated.Count > 0)
+            {
+                try
+                {
+                    suonatore.SoundLocation = ".\\Auguri.wav";
+                    suonatore.Play();
+                }
+                catch
+                {
+                    Console.Beep(220, 1000);
+                }
+                foreach (Student s in celebrated)
+                {
+                    frmStudent f = new frmStudent(s, false);
+                    f.Show();
+                    // put full screen ther form 
+                    // TODO 
+                }
+                //// show popup annotations of the students of the class
+                //DataTable popUpAnnotations = Commons.bl.GetAnnotationsOfClass(currentClass.IdClass, true, true);
+                //if (popUpAnnotations.Items.Count > 0)
+                //{
+                //    frmAnnotationsPopUp f = new frmAnnotationsPopUp(popUpAnnotations);
+                //    //f.StartPosition = FormStartPosition.CenterParent;
+                //    f.Show();
+                //}
+            }
         }
         private void CopyCheckedStatusIntoEligiblesList()
         {

@@ -87,7 +87,8 @@
                     <ColumnDefinition Width="12*"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <DataGrid x:Name="dgwQuestions" Background="Gray" SelectionChanged="dgwQuestions_CellClick" Margin="0,0,5,-251"/>
+                <DataGrid x:Name="dgwQuestions" Background="Gray" SelectionChanged="dgwQuestions_CellClick"
+                          IsReadOnly="True" Margin="0,0,5,-251"/>
                 <StackPanel Grid.Column="1">
                     <Button x:Name="btnEraseMicroGrade" Click="btnEraseMicroGrade_Click">-</Button>
                     <Button x:Name="btnSaveMicrogradeFromGrid" Click="SaveMicrogradeFromGrid_Click">Salva</Button>
