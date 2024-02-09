@@ -1,4 +1,5 @@
 ﻿//using gamon.TreeMptt;
+using gamon;
 using SchoolGrades;
 using SchoolGrades.BusinessObjects;
 using Shared;
@@ -11,6 +12,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
+using WinFormsColor = System.Drawing.Color;
+using WpfColor = System.Windows.Media.Color;
 
 namespace SchoolGrades_WPF
 {
@@ -40,6 +44,10 @@ namespace SchoolGrades_WPF
 
         Random random = new Random();
 
+        DispatcherTimer timerQuestion = new DispatcherTimer();
+        DispatcherTimer timerLesson = new DispatcherTimer();
+        DispatcherTimer timerPopUp = new DispatcherTimer();
+
         System.Media.SoundPlayer suonatore = new System.Media.SoundPlayer();
         public Student CurrentStudent
         {
@@ -51,13 +59,13 @@ namespace SchoolGrades_WPF
 
         #region fields of the ColorTimer
         int ticksPassed;
-        AForge.Imaging.RGB colRGB = new AForge.Imaging.RGB();
-        AForge.Imaging.HSL colHSL = new AForge.Imaging.HSL();
+        ColorHelper.RGB colRGB = new ColorHelper.RGB();
+        ColorHelper.HSL colHSL = new ColorHelper.HSL();
 
-        Brush startColor = Brushes.Lime;
+        WinFormsColor startColor = WinFormsColor.Lime;
         //Brush finalColor = Brushes.Green;
-        Brush finalColor = Brushes.Red;
-        public Color CurrentLessonTimeColor;
+        WinFormsColor finalColor = WinFormsColor.Red;
+        public WinFormsColor CurrentLessonTimeColor;
 
         float spanHue;          // Hue span to cover from start time to end
         float spanSaturation;   // Saturation to cover from start time to end
@@ -85,11 +93,6 @@ namespace SchoolGrades_WPF
             this.Title += " v. " + version;
 
             Commons.CreatePaths();
-
-            //// !!!! TEMPORARY: set fixed file paths and names !!!! 
-            //Commons.PathAndFileDatabase = Path.Combine(Commons.PathExe, "Data",
-            //    "Demo_SchoolGrades.sqlite");
-            //Commons.PathImages = Path.Combine(Commons.PathExe, "Images");
 
             // manage the configuration file 
             string messagePrompt = "";
@@ -188,8 +191,8 @@ namespace SchoolGrades_WPF
             lblLastDatabaseModification.Visibility = Visibility.Visible;
             lblLastDatabaseModification.Text = File.GetLastWriteTime(Commons.PathAndFileDatabase).ToString("yyyy-MM-dd HH:mm:ss");
 #if !DEBUG
-            //////////// capture every exception for exception logging
-            //////////Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
+            // capture every exception for exception logging
+            Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             btnTemporary.Visibility = Visibility.Hidden;
 #endif
@@ -218,13 +221,15 @@ namespace SchoolGrades_WPF
 
             txtNStudents.Text = "";
 
-            //////////picStudent.BringToFront();
-            //////////lblStudentChosen.BringToFront();
-            //////////lblIdStudent.BringToFront();
-            //////////txtIdStudent.BringToFront();
-            //////////lblStudentChosen.Visibility = Visibility.Hidden;
-            //////////lblIdStudent.Visibility = Visibility.Hidden;
-            //////////txtIdStudent.Visibility = Visibility.Hidden;
+            // picStudent.BringToFront(); // BringToFront() doesn't exist in WPF 
+            Panel.SetZIndex(picStudent, 1000);
+            //lblStudentChosen.BringToFront();
+            lblStudentChosen.Visibility = Visibility.Hidden;
+            Panel.SetZIndex(lblStudentChosen, 1000);
+            //lblIdStudent.Visibility = Visibility.Hidden;
+            Panel.SetZIndex(lblIdStudent, 1000);
+            //txtIdStudent.Visibility = Visibility.Hidden;
+            Panel.SetZIndex(txtIdStudent, 1000);
 
             lblDatabaseFile.Text = Path.GetFileName(Commons.PathAndFileDatabase);
             wndInitializing = false;
@@ -245,15 +250,15 @@ namespace SchoolGrades_WPF
         private void CloseProgramWhileTestingIfConfigurationFileIsRight()
         {
             // read the config file once again 
-            //////////////bool fileRead = CommonsWpf.ReadConfigData();
-            //////////////if (!fileRead || !File.Exists(Commons.PathAndFileDatabase))
-            //////////////{
-            //////////////    MessageBox.Show("Configurare il programma!", "SchoolGrades", MessageBoxButtons.OK, MessageBoxImage.Error);
-            //////////////}
-            //////////////else
-            //////////////{
-            //////////////    MessageBox.Show("Il programma verrà chiuso. Alla ripartenza funzionerà regolarmente.");
-            //////////////}
+            bool fileRead = CommonsWpf.ReadConfigData();
+            if (!fileRead || !File.Exists(Commons.PathAndFileDatabase))
+            {
+                MessageBox.Show("Configurare il programma!", "SchoolGrades");
+            }
+            else
+            {
+                MessageBox.Show("Il programma verrà chiuso. Alla ripartenza funzionerà regolarmente.");
+            }
             CloseBackgroundThread();
             StopAllTimers();
             this.Close();
@@ -468,7 +473,7 @@ namespace SchoolGrades_WPF
             {
                 CurrentQuestion = grade.CurrentQuestion;
                 txtQuestion.Text = CurrentQuestion.Text;
-                ////////////lstTimeInterval.Text = CurrentQuestion.Duration.ToString();
+                txtTimeInterval.Text = CurrentQuestion.Duration.ToString();
                 // start the timer if the question has a timer
                 if (CurrentQuestion.Duration != null && CurrentQuestion.Duration > 0)
                 {
@@ -529,8 +534,8 @@ namespace SchoolGrades_WPF
         private void timerQuestion_Tick(object sender, RoutedEventArgs e)
         {
             ticksPassed++;
-            //////////int msPassati = ticksPassed * timerQuestion.Interval;
-            //////////if (msPassati <= pgbTimeQuestion.Maximum) pgbTimeQuestion.Value = pgbTimeQuestion.Maximum - msPassati;
+            int msPassati = ticksPassed * timerQuestion.Interval.Milliseconds;
+            if (msPassati <= pgbTimeQuestion.Maximum) pgbTimeQuestion.Value = pgbTimeQuestion.Maximum - msPassati;
         }
         private void lstNames_SelectedIndexChanged(object sender, RoutedEventArgs e)
         {
@@ -705,7 +710,7 @@ namespace SchoolGrades_WPF
             {
                 Console.Beep();
             }
-            ////////////ToggleTimerBar(txtTimeInterval.Text);
+            ToggleTimerBar(txtTimeInterval.Text);
         }
         // show the lists in list boxes
         public void ShowStudentsOfClass()
@@ -1138,8 +1143,8 @@ namespace SchoolGrades_WPF
             currentSubject = (SchoolSubject)cmbSchoolSubject.SelectedItem;
             if (currentSubject.Name == null)
                 currentSubject = null;
-            Color BackColor = CommonsWpf.ColorFromNumber(currentSubject.Color);
-            SolidColorBrush br = new SolidColorBrush(System.Windows.Media.Color.FromArgb(BackColor.A, BackColor.R, BackColor.G, BackColor.B));
+            WpfColor BackColor = CommonsWpf.ColorFromNumber(currentSubject.Color);
+            SolidColorBrush br = new SolidColorBrush(WpfColor.FromArgb(BackColor.A, BackColor.R, BackColor.G, BackColor.B));
             this.Background = br;
             //  lstClasses.Background = br;
             //lstTimeInterval.Background = br;
@@ -1179,29 +1184,29 @@ namespace SchoolGrades_WPF
             }
             ////////////scelta.Dispose();
         }
-        ////////////private void pgbTimeQuestion_Click(object sender, RoutedEventArgs e)
-        ////////////{
-        ////////////    ToggleTimerBar(txtTimeInterval.Text);
-        ////////////}
-        ////////////private void ToggleTimerBar(string Time)
-        ////////////{
-        ////////////    if (timerQuestion.Enabled && pgbTimeQuestion.Value > 0)
-        ////////////    {
-        ////////////        timerQuestion.Stop();
-        ////////////        pgbTimeQuestion.Value = 0;
-        ////////////    }
-        ////////////    else
-        ////////////    {
-        ////////////        int value = -1;
-        ////////////        int.TryParse(txtTimeInterval.Text, out value);
-        ////////////        if (value > 01)
-        ////////////        {
-        ////////////            ticksPassed = 0;
-        ////////////            pgbTimeQuestion.Maximum = int.Parse(Time) * 1000;
-        ////////////            timerQuestion.Start();
-        ////////////        }
-        ////////////    }
-        ////////////}
+        private void pgbTimeQuestion_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleTimerBar(txtTimeInterval.Text);
+        }
+        private void ToggleTimerBar(string Time)
+        {
+            if (timerQuestion.IsEnabled && pgbTimeQuestion.Value > 0)
+            {
+                timerQuestion.Stop();
+                pgbTimeQuestion.Value = 0;
+            }
+            else
+            {
+                int value = -1;
+                int.TryParse(txtTimeInterval.Text, out value);
+                if (value > 01)
+                {
+                    ticksPassed = 0;
+                    pgbTimeQuestion.Maximum = int.Parse(Time) * 1000;
+                    timerQuestion.Start();
+                }
+            }
+        }
         private void btnMakeGroups_Click(object sender, RoutedEventArgs e)
         {
             if (!CommonsWpf.CheckIfClassChosen(currentClass))
@@ -1391,9 +1396,9 @@ namespace SchoolGrades_WPF
         }
         private void StopAllTimers()
         {
-            ////////timerLesson.Stop();
-            ////////timerPopUp.Stop();
-            ////////timerQuestion.Stop();
+            timerLesson.Stop();
+            timerPopUp.Stop();
+            timerQuestion.Stop();
         }
         private void btnClassesGradesSummary_Click(object sender, RoutedEventArgs e)
         {
@@ -1481,14 +1486,14 @@ namespace SchoolGrades_WPF
 
             ticksToMinutesFactor = (float)(1.0 / 60.0) / 10000000;
 
-            ////////////// Hue difference to cover
-            ////////////spanHue = finalColor.GetHue() - startColor.GetHue();
-            ////////////// Saturation difference to cover
-            //////////////spanSaturation = coloreFinale.GetSaturation() - coloreIniziale.GetSaturation(); 
-            ////////////spanSaturation = 0;
-            ////////////// Luminance difference to cover
-            //////////////spanLuminance = coloreFinale.GetBrightness() - coloreIniziale.GetBrightness();
-            ////////////spanLuminance = 0;
+            // Hue difference to cover
+            spanHue = finalColor.GetHue() - startColor.GetHue();
+            // Saturation difference to cover
+            //spanSaturation = coloreFinale.GetSaturation() - coloreIniziale.GetSaturation(); 
+            spanSaturation = 0;
+            // Luminance difference to cover
+            //spanLuminance = coloreFinale.GetBrightness() - coloreIniziale.GetBrightness();
+            spanLuminance = 0;
 
             alarmNotFired = true;
         }
@@ -1515,33 +1520,36 @@ namespace SchoolGrades_WPF
             }
             if (timeLeftMinutes >= 0)
             {
-                ////////////// changes color from startColor to finalColor
-                ////////////colHSL.Hue = (int)(startColor.GetHue() + spanHue * (timeLessonMinutes - timeLeftMinutes) / (timeLessonMinutes));
-                ////////////colHSL.Saturation = startColor.GetSaturation() + spanSaturation * (timeLessonMinutes - timeLeftMinutes) / (timeLessonMinutes);
-                ////////////colHSL.Luminance = startColor.GetBrightness() + spanLuminance * (timeLessonMinutes - timeLeftMinutes) / timeLessonMinutes;
-                ////////////AForge.Imaging.ColorConverter.HSL2RGB(colHSL, colRGB);
-                ////////////CurrentLessonTimeColor = colRGB.Color;
+                WpfColor BackColor = CommonsWpf.ColorFromNumber(currentSubject.Color);
+                SolidColorBrush br = new SolidColorBrush(WpfColor.FromArgb(BackColor.A, BackColor.R, BackColor.G, BackColor.B));
 
-                ////////////btnLessonTime.Background = CurrentLessonTimeColor;
+                // changes color from startColor to finalColor
+                colHSL.Hue = (int)(startColor.GetHue() + spanHue * (timeLessonMinutes - timeLeftMinutes) / (timeLessonMinutes));
+                colHSL.Saturation = startColor.GetSaturation() + spanSaturation * (timeLessonMinutes - timeLeftMinutes) / (timeLessonMinutes);
+                colHSL.Luminance = startColor.GetBrightness() + spanLuminance * (timeLessonMinutes - timeLeftMinutes) / timeLessonMinutes;
+                ColorHelper.ColorConverter.HSL2RGB(colHSL, colRGB);
+                CurrentLessonTimeColor = colRGB.Color;
+
+                btnLessonTime.Background = CommonsWpf.WinFormsToWpfBrush(CurrentLessonTimeColor);
             }
             else
             {
-                ////////////timerLesson.Stop();
-                ////////////CurrentLessonTimeColor = Color.Transparent;
-                ////////////btnLessonTime.Background = CurrentLessonTimeColor;
+                timerLesson.Stop();
+                CurrentLessonTimeColor = WinFormsColor.Transparent;
+                btnLessonTime.Background = CommonsWpf.WinFormsToWpfBrush(CurrentLessonTimeColor);
             }
         }
         private void chkActivateLessonClock_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            ////////////if ((bool)chkActivateLessonClock.IsChecked)
-            ////////////    timerLesson.IsEnabled = true;
-            ////////////else
-            ////////////{
-            ////////////    timerLesson.IsEnabled = false;
-            ////////////    CurrentLessonTimeColor = Color.Transparent;
-            ////////////    btnLessonTime.Background = CurrentLessonTimeColor;
-            ////////////}
-            ////////////Commons.IsTimerLessonActive = chkActivateLessonClock.IsChecked;
+            if ((bool)chkActivateLessonClock.IsChecked)
+                timerLesson.IsEnabled = true;
+            else
+            {
+                timerLesson.IsEnabled = false;
+                CurrentLessonTimeColor = WinFormsColor.Transparent;
+                btnLessonTime.Background = CommonsWpf.WinFormsToWpfBrush(CurrentLessonTimeColor);
+            }
+            Commons.IsTimerLessonActive = (bool)chkActivateLessonClock.IsChecked;
         }
         private void btnTemporary_Click(object sender, RoutedEventArgs e)
         {
@@ -1573,19 +1581,19 @@ namespace SchoolGrades_WPF
             ListBox lb = (ListBox)sender;
             txtTimeInterval.Text = lb.SelectedItem.ToString();
         }
-        ////////////private void lstTimeInterval_DoubleClick(object sender, RoutedEventArgs e)
-        ////////////{
-        ////////////    ToggleTimerBar(txtTimeInterval.Text);
-        ////////////}
+        private void lstTimeInterval_DoubleClick(object sender, RoutedEventArgs e)
+        {
+            ToggleTimerBar(txtTimeInterval.Text);
+        }
         private void StartColorTimer(bool SoundEffectsInTimer)
         {
-            //////////double t = double.Parse(txtTimeInterval.Text);
-            //////////ColorTimer ft = new ColorTimer(t / 60, t / 60, SoundEffectsInTimer);
-            //////////if (currentStudent != null)
-            //////////{
-            //////////    ft.FormCaption = ft.FormCaption.Replace("gamon", currentStudent.LastName);
-            //////////}
-            //////////ft.Show();
+            double t = double.Parse(txtTimeInterval.Text);
+            ColorTimer ft = new ColorTimer(t / 60, t / 60, SoundEffectsInTimer);
+            if (currentStudent != null)
+            {
+                ft.FormCaption = ft.FormCaption.Replace("gamon", currentStudent.LastName);
+            }
+            ft.Show();
         }
         private void btnStartColorTimer_Click(object sender, RoutedEventArgs e)
         {
@@ -1598,10 +1606,10 @@ namespace SchoolGrades_WPF
             frmMosaic f = new frmMosaic(currentClass);
             f.Show();
         }
-        ////////////private void btnStartBarTimer_Click(object sender, RoutedEventArgs e)
-        ////////////{
-        ////////////    ToggleTimerBar(txtTimeInterval.Text);
-        ////////////}
+        private void btnStartBarTimer_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleTimerBar(txtTimeInterval.Text);
+        }
         private void btnStudentsNotes_Click(object sender, RoutedEventArgs e)
         {
             if (!CommonsWpf.CheckIfClassChosen(currentClass))
@@ -1633,12 +1641,12 @@ namespace SchoolGrades_WPF
         }
         private void chkPopUpQuestionsEnabled_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            ////////////timerPopUp.Interval = 1;
-            ////////////timerPopUp.IsEnabled = chkPopUpQuestionsEnabled.IsChecked;
-            ////////////if (timerPopUp.Enabled)
-            ////////////{
-            ////////////    SetNewPopUpOfStudentToQuestion();
-            ////////////}
+            timerPopUp.Interval = new TimeSpan(0, 0, 1);
+            timerPopUp.IsEnabled = (bool)chkPopUpQuestionsEnabled.IsChecked;
+            if (timerPopUp.IsEnabled)
+            {
+                SetNewPopUpOfStudentToQuestion();
+            }
         }
         private void SetNewPopUpOfStudentToQuestion()
         {
@@ -1656,16 +1664,16 @@ namespace SchoolGrades_WPF
         }
         private void txtPopUpQuestionCentralTime_TextChanged(object sender, RoutedEventArgs e)
         {
-            //////////if (timerPopUp.Enabled)
-            //////////{
-            //////////    SetNewPopUpOfStudentToQuestion();
-            //////////}
+            if (timerPopUp.IsEnabled)
+            {
+                SetNewPopUpOfStudentToQuestion();
+            }
         }
         private void timerPopUp_Tick(object sender, RoutedEventArgs e)
         {
             if (nextPopUpQuestionTime <= DateTime.Now)
             {
-                //////////timerPopUp.IsEnabled = false;
+                timerPopUp.IsEnabled = false;
                 if (currentClass == null)
                 {
                     Console.Beep(1000, 500);

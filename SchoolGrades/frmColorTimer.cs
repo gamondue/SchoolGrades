@@ -59,8 +59,6 @@ namespace gamon
                 chkSoundsInColorTimer.Checked = value;
             }
         }
-
-
         public ColorTimer(double SecondsFirst, double SecondsSecond, bool SoundEffectsInTimer)
         {
             InitializeComponent();
@@ -70,7 +68,6 @@ namespace gamon
             secondsFirst = SecondsFirst;
             secondsSecond = SecondsSecond;
         }
-
         private void ColorTimer_Load(object sender, EventArgs e)
         {
             lastFormSize = GetFormArea(this.Size);
@@ -118,14 +115,14 @@ namespace gamon
                 //Color nuovo;
                 //nuovo.
 
-                AForge.Imaging.RGB colRGB = new AForge.Imaging.RGB();
-                AForge.Imaging.HSL colHSL = new AForge.Imaging.HSL();
+                ColorHelper.RGB colRGB = new ColorHelper.RGB();
+                ColorHelper.HSL colHSL = new ColorHelper.HSL();
 
                 // cambia colore dal colore iniziale a quello finale
                 colHSL.Hue = (int)(initialColor.GetHue() + spanHue * (timeTotalSeconds * 60 - timeLeftSeconds) / (timeTotalSeconds * 60));
                 colHSL.Saturation = initialColor.GetSaturation() + spanSaturation * (timeTotalSeconds * 60 - timeLeftSeconds) / (timeTotalSeconds * 60);
                 colHSL.Luminance = initialColor.GetBrightness() + spanLuminance * (timeTotalSeconds * 60 - timeLeftSeconds) / timeTotalSeconds;
-                AForge.Imaging.ColorConverter.HSL2RGB(colHSL, colRGB);
+                ColorHelper.ColorConverter.HSL2RGB(colHSL, colRGB);
                 currentColor = colRGB.Color;
                 try
                 {
@@ -444,7 +441,6 @@ namespace gamon
                 }
             }
         }
-
         private void chkSoundsInColorTimer_CheckedChanged(object sender, EventArgs e)
         {
             playSoundEffects = chkSoundsInColorTimer.Checked;

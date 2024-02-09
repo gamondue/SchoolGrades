@@ -45,8 +45,8 @@ namespace SchoolGrades
 
         #region fields of the ColorTimer
         int ticksPassed;
-        AForge.Imaging.RGB colRGB = new AForge.Imaging.RGB();
-        AForge.Imaging.HSL colHSL = new AForge.Imaging.HSL();
+        ColorHelper.RGB colRGB = new ColorHelper.RGB();
+        ColorHelper.HSL colHSL = new ColorHelper.HSL();
 
         Color startColor = Color.Lime;
         //Color finalColor = Color.Green;
@@ -1486,7 +1486,7 @@ namespace SchoolGrades
                 colHSL.Hue = (int)(startColor.GetHue() + spanHue * (timeLessonMinutes - timeLeftMinutes) / (timeLessonMinutes));
                 colHSL.Saturation = startColor.GetSaturation() + spanSaturation * (timeLessonMinutes - timeLeftMinutes) / (timeLessonMinutes);
                 colHSL.Luminance = startColor.GetBrightness() + spanLuminance * (timeLessonMinutes - timeLeftMinutes) / timeLessonMinutes;
-                AForge.Imaging.ColorConverter.HSL2RGB(colHSL, colRGB);
+                ColorHelper.ColorConverter.HSL2RGB(colHSL, colRGB);
                 CurrentLessonTimeColor = colRGB.Color;
 
                 btnLessonTime.BackColor = CurrentLessonTimeColor;

@@ -9,6 +9,8 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Rectangle = System.Windows.Shapes.Rectangle;
+using WinFormsColor = System.Drawing.Color;
+using WpfColor = System.Windows.Media.Color;
 
 namespace Shared
 {
@@ -16,8 +18,7 @@ namespace Shared
     {
         internal static Rectangle globalPicLed;
         internal static TreeMptt SaveTreeMptt;
-
-        private static System.Windows.Media.Color ColorNoSubject = Colors.PowderBlue;
+        internal static WpfColor ColorNoSubject = Colors.PowderBlue;
 
         internal static void SaveCurrentValuesOfAllControls(Control ParentControl, ref string PathAndFile)
         {
@@ -337,7 +338,7 @@ namespace Shared
                 //return;
             }
         }
-        internal static System.Windows.Media.Color ColorFromNumber(int? ColorNumber)
+        internal static WpfColor ColorFromNumber(int? ColorNumber)
         {
             if (ColorNumber == null || ColorNumber == null)
                 return ColorNoSubject;
@@ -348,7 +349,7 @@ namespace Shared
             System.Windows.Media.Color bgColor = System.Windows.Media.Color.FromRgb(red, green, blue);
             return bgColor;
         }
-        internal static SolidColorBrush BrushFromColor(System.Windows.Media.Color Color)
+        internal static SolidColorBrush BrushFromColor(WpfColor Color)
         {
             return new SolidColorBrush(Color);
         }
@@ -364,6 +365,12 @@ namespace Shared
                 ImageControl.Source = null;
                 Console.Beep();
             }
+        }
+        internal static WinFormsColor WpfToWinFormsColor(WpfColor color) => WinFormsColor.FromArgb(color.A, color.R, color.G, color.B);
+        internal static WpfColor WinFormsToWpfColor(WinFormsColor color) => WpfColor.FromArgb(color.A, color.R, color.G, color.B);
+        internal static Brush WinFormsToWpfBrush(WinFormsColor winFormsColor)
+        {
+            return new SolidColorBrush(WinFormsToWpfColor(winFormsColor));
         }
     }
 }

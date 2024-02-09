@@ -87,22 +87,24 @@
         <TextBlock x:Name="lblDatabaseFile" 
                    Grid.Column="2" Grid.ColumnSpan="5"
                    Text="lblDatabaseFile" Margin="5,5,0,0"
+                   Height="12"
                    HorizontalAlignment="Left" VerticalAlignment="Top" 
                    FontWeight="Bold" 
                    Foreground="Red" FontSize="9" 
-                   Height="12" Width="64"/>
+                   />
         <TextBlock x:Name="lblLastDatabaseModification" 
                    Grid.Column="2" Grid.ColumnSpan="5"
                    Text="lblLastDatabaseModification" Margin="5,20,0,0"
+                   Height="12"
                    HorizontalAlignment="Left" VerticalAlignment="Top" 
                    FontWeight="Bold" 
                    Foreground="Red" FontSize="9" 
-                   Height="12" Width="121"/>
+                   />
         <Button x:Name="btnStartColorTimer" Grid.Column="2" Margin="0,40,0,0" 
                 Content="T.colori" 
                 HorizontalAlignment="Left" VerticalAlignment="Top" 
                 Height="22" Width="50" 
-                FontWeight="Bold" Foreground="DarkBlue"/>
+                FontWeight="Bold" Foreground="DarkBlue" Click="btnStartColorTimer_Click"/>
         <CheckBox x:Name="chkSoundsInColorTimer" Grid.Column="2"
                   Content="Suoni" 
                   HorizontalAlignment="Left" VerticalAlignment="Center" 
