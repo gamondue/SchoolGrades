@@ -1,8 +1,9 @@
 ﻿using gamon;
+using Shared;
 using System;
 using System.Threading;
 using System.Windows;
-using System.Windows.Media;
+using WinFormsColor = System.Drawing.Color;
 
 namespace SchoolGrades_WPF
 {
@@ -21,10 +22,10 @@ namespace SchoolGrades_WPF
         private double secondsSecond;
         float timeLeftSeconds;
 
-        SolidColorBrush initialColor = Brushes.Lime;
-        //SolidColorBrush coloreIniziale = Brushes.Green;
-        SolidColorBrush finalColor = Brushes.Red;
-        SolidColorBrush currentColor;
+        WinFormsColor initialColor = WinFormsColor.Lime;
+        WinFormsColor coloreIniziale = WinFormsColor.Green;
+        WinFormsColor finalColor = WinFormsColor.Red;
+        WinFormsColor currentColor;
 
         float spanHue;          // differenza di tinta da coprire
         float spanSaturation;   // differenza di saturazione da coprire
@@ -88,7 +89,7 @@ namespace SchoolGrades_WPF
 
             SetInitialColor();
 
-            btnConnect.Background = currentColor;
+            btnConnect.Background = CommonsWpf.WinFormsToWpfBrush(currentColor);
 
             //////////spanHue = finalColor.GetHue() - initialColor.GetHue(); // differenza di tinta da coprire
             //spanSaturation = coloreFinale.GetSaturation() - coloreIniziale.GetSaturation(); // differenza da coprire
@@ -118,15 +119,15 @@ namespace SchoolGrades_WPF
                 //Color nuovo;
                 //nuovo.
 
-                AForge.Imaging.RGB colRGB = new AForge.Imaging.RGB();
-                AForge.Imaging.HSL colHSL = new AForge.Imaging.HSL();
+                ColorHelper.RGB colRGB = new ColorHelper.RGB();
+                ColorHelper.HSL colHSL = new ColorHelper.HSL();
 
                 // cambia colore dal colore iniziale a quello finale
-                ////////colHSL.Hue = (int)(initialColor.GetHue() + spanHue * (timeTotalSeconds * 60 - timeLeftSeconds) / (timeTotalSeconds * 60));
-                ////////colHSL.Saturation = initialColor.GetSaturation() + spanSaturation * (timeTotalSeconds * 60 - timeLeftSeconds) / (timeTotalSeconds * 60);
-                ////////colHSL.Luminance = initialColor.GetBrightness() + spanLuminance * (timeTotalSeconds * 60 - timeLeftSeconds) / timeTotalSeconds;
-                ////////AForge.Imaging.ColorConverter.HSL2RGB(colHSL, colRGB);
-                ////////currentColor = colRGB.Color;
+                colHSL.Hue = (int)(initialColor.GetHue() + spanHue * (timeTotalSeconds * 60 - timeLeftSeconds) / (timeTotalSeconds * 60));
+                colHSL.Saturation = initialColor.GetSaturation() + spanSaturation * (timeTotalSeconds * 60 - timeLeftSeconds) / (timeTotalSeconds * 60);
+                colHSL.Luminance = initialColor.GetBrightness() + spanLuminance * (timeTotalSeconds * 60 - timeLeftSeconds) / timeTotalSeconds;
+                ColorHelper.ColorConverter.HSL2RGB(colHSL, colRGB);
+                currentColor = colRGB.Color;
                 try
                 {
                     progressBar1.Value = (int)((timeTotalSeconds * 60 - timeLeftSeconds) / (timeTotalSeconds * 60) * 100.0F);
@@ -135,13 +136,13 @@ namespace SchoolGrades_WPF
                 catch
                 {
                 }
-                this.Background = currentColor;
-                btnStartNextInterval.Background = currentColor;
-                btnStartFirstInterval.Background = currentColor;
-                lblMinutesLeft.Background = currentColor;
-                lblSecondsLeft.Background = currentColor;
+                this.Background = CommonsWpf.WinFormsToWpfBrush(currentColor);
+                btnStartNextInterval.Background = CommonsWpf.WinFormsToWpfBrush(currentColor);
+                btnStartFirstInterval.Background = CommonsWpf.WinFormsToWpfBrush(currentColor);
+                lblMinutesLeft.Background = CommonsWpf.WinFormsToWpfBrush(currentColor);
+                lblSecondsLeft.Background = CommonsWpf.WinFormsToWpfBrush(currentColor);
 
-                btnConnect.Background = currentColor;
+                btnConnect.Background = CommonsWpf.WinFormsToWpfBrush(currentColor);
 
                 if (timeLeftSeconds < timeTotalSeconds * 0.2 * 60.0 && !alarmClock)
                 {
@@ -299,12 +300,12 @@ namespace SchoolGrades_WPF
         }
         private void SetInitialColor()
         {
-            this.Background = initialColor;
-            btnStartNextInterval.Background = initialColor;
-            btnStartFirstInterval.Background = initialColor;
+            this.Background = CommonsWpf.WinFormsToWpfBrush(initialColor);
+            btnStartNextInterval.Background = CommonsWpf.WinFormsToWpfBrush(initialColor);
+            btnStartFirstInterval.Background = CommonsWpf.WinFormsToWpfBrush(initialColor);
 
-            lblSecondsLeft.Background = initialColor;
-            lblMinutesLeft.Background = initialColor;
+            lblSecondsLeft.Background = CommonsWpf.WinFormsToWpfBrush(initialColor);
+            lblMinutesLeft.Background = CommonsWpf.WinFormsToWpfBrush(initialColor);
 
             currentColor = initialColor;
         }

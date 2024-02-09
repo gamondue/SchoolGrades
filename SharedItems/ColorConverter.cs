@@ -1,13 +1,6 @@
-// AForge Image Processing Library
-//
-// Copyright  Andrew Kirillov, 2005-2006
-// andrew.kirillov@gmail.com
-//
-
-namespace AForge.Imaging
+namespace ColorHelper
 {
     using System;
-    using System.Drawing;
 
     /// <summary>
     /// RGB components
@@ -52,7 +45,7 @@ namespace AForge.Imaging
         /// </summary>
         public System.Drawing.Color Color
         {
-            get { return Color.FromArgb(Red, Green, Blue); }
+            get { return System.Drawing.Color.FromArgb(Red, Green, Blue); }
             set
             {
                 Red = value.R;
@@ -200,9 +193,6 @@ namespace AForge.Imaging
             this.Cr = Math.Max(-0.5, Math.Min(0.5, cr));
         }
     }
-
-
-
     /// <summary>
     /// Color converter - converts colors from different color spaces
     /// </summary>
