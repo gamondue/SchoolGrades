@@ -554,7 +554,6 @@ namespace SchoolGrades_WPF
             picStudent.Source = null;
             lblStudentChosen.Content = "";
             chkStudentsListVisible.IsChecked = true;
-            dgwStudents.ItemsSource = null;
         }
         private void lstClasses_DoubleClick(object sender, RoutedEventArgs e)
         {
@@ -657,19 +656,19 @@ namespace SchoolGrades_WPF
         //}
         private void btnPath_Click(object sender, RoutedEventArgs e)
         {
-            ////////////folderBrowserDialog.SelectedPath = txtPathImages.Text;
-            ////////////MessageBoxResult r = folderBrowserDialog.ShowDialog();
-            ////////////if (r == MessageBoxResult.OK)
-            ////////////{
-            ////////////    txtPathImages.Text = folderBrowserDialog.SelectedPath;
-            ////////////}
+            //////////folderBrowserDialog.SelectedPath = txtPathImages.Text;
+            //////////MessageBoxResult r = folderBrowserDialog.ShowDialog();
+            //////////if (r == MessageBoxResult.OK)
+            //////////{
+            //////////    txtPathImages.Text = folderBrowserDialog.SelectedPath;
+            //////////}
         }
         Class lastClass = new Class();
         SchoolSubject lastSubject = new SchoolSubject();
         List<string> filesInFolder = new List<string>();
         int indexImage = 0;
         private DateTime nextPopUpQuestionTime;
-        private void BtnShowRandomImage_Click(object sender, RoutedEventArgs e)
+        private void btnShowRandomImage_Click(object sender, RoutedEventArgs e)
         {
             if (filesInFolder.Count == 0 || currentClass != lastClass || currentSubject != lastSubject
                 || indexImage == filesInFolder.Count)
@@ -717,13 +716,13 @@ namespace SchoolGrades_WPF
         {
             if (lstClasses.SelectedItem != null)
             {
+                dgwStudents.ItemsSource = null;
                 currentStudentsList = Commons.bl.GetStudentsOfClassList(school.OfficialSchoolAbbreviation, schoolYear,
                     lstClasses.SelectedItem.ToString(), false);
+                dgwStudents.ItemsSource = currentStudentsList;
                 eligiblesList.Clear();
-
                 if (currentStudentsList == null)
                     return;
-
                 RefreshStudentsGrid();
             }
         }
@@ -1355,27 +1354,27 @@ namespace SchoolGrades_WPF
             frmStudent fs = new frmStudent(currentStudent, true);
             fs.ShowDialog();
         }
-        ////////////private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
-        ////////////{
-        ////////////    if (!File.Exists(Commons.PathAndFileDatabase))
-        ////////////        return;
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (!File.Exists(Commons.PathAndFileDatabase))
+                return;
 
-        ////////////    CloseBackgroundThread();
+            CloseBackgroundThread();
 
-        ////////////    string file = Commons.PathLogs + @"\frmMain_parameters.txt";
-        ////////////    CommonsWpf.SaveCurrentValuesOfAllControls(this, ref file);
-        ////////////    SaveStudentsOfClassIfEligibleHasChanged();
+            string file = Commons.PathLogs + @"\frmMain_parameters.txt";
+            CommonsWpf.SaveCurrentValuesOfAllControls(this, ref file);
+            SaveStudentsOfClassIfEligibleHasChanged();
 
-        ////////////    // save in the log folder a copy of the database, if enabled 
-        ////////////    if (Commons.SaveBackupWhenExiting)
-        ////////////    {
-        ////////////        File.Copy(Commons.PathAndFileDatabase,
-        ////////////            Path.Combine(Commons.PathLogs, DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") +
-        ////////////            "_" + Commons.DatabaseFileName_Current));
-        ////////////    }
-        ////////////    //// we wait for the saving Thread to finish
-        ////////////    //Commons.BackgroundSaveThread.Join(30000);  // enormous timeout just for big problems
-        ////////////}
+            // save in the log folder a copy of the database, if enabled 
+            if (Commons.SaveBackupWhenExiting)
+            {
+                File.Copy(Commons.PathAndFileDatabase,
+                    Path.Combine(Commons.PathLogs, DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") +
+                    "_" + Commons.DatabaseFileName_Current));
+            }
+            //// we wait for the saving Thread to finish
+            //Commons.BackgroundSaveThread.Join(30000);  // enormous timeout just for big problems
+        }
         private void CloseBackgroundThread()
         {
             // if a saving of the database with Mptt is running, we close it 
@@ -1422,6 +1421,10 @@ namespace SchoolGrades_WPF
                 return;
             }
             if (!CommonsWpf.CheckIfSubjectChosen(currentSubject))
+            {
+                return;
+            }
+            if (!CommonsWpf.CheckIfTypeOfAssessmentChosen(currentGradeType))
             {
                 return;
             }
@@ -1771,8 +1774,7 @@ namespace SchoolGrades_WPF
         ////////////}
         private void RefreshStudentsGrid()
         {
-            dgwStudents.ItemsSource = null;
-            dgwStudents.ItemsSource = currentStudentsList;
+            dgwStudents.Items.Refresh();
         }
         private void lstClasses_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -1813,14 +1815,14 @@ namespace SchoolGrades_WPF
                     // put full screen ther form 
                     // TODO 
                 }
-                //// show popup annotations of the students of the class
-                //DataTable popUpAnnotations = Commons.bl.GetAnnotationsOfClass(currentClass.IdClass, true, true);
-                //if (popUpAnnotations.Items.Count > 0)
-                //{
-                //    frmAnnotationsPopUp f = new frmAnnotationsPopUp(popUpAnnotations);
-                //    //f.StartPosition = FormStartPosition.CenterParent;
-                //    f.Show();
-                //}
+                // show popup annotations of the students of the class
+                DataTable popUpAnnotations = Commons.bl.GetAnnotationsOfClass(currentClass.IdClass, true, true);
+                if (popUpAnnotations.Rows.Count > 0)
+                {
+                    frmAnnotationsPopUp f = new frmAnnotationsPopUp(popUpAnnotations);
+                    //f.StartPosition = FormStartPosition.CenterParent;
+                    f.Show();
+                }
             }
         }
         private void CopyCheckedStatusIntoEligiblesList()

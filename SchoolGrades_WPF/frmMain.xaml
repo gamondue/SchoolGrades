@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="SchoolGrades" Height="749" Width="1000" 
         Background="PowderBlue" Foreground="DarkBlue" 
-        Margin="5,3,0,0">
+        Margin="5,3,0,0" Closing="Window_Closing">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="155"/>
@@ -181,7 +181,7 @@
                         Content="Immagine &#xA;  casuale" 
                         Height="40" Width="80"  
                         Foreground="DarkBlue" FontWeight="Bold" FontSize="11"
-                        HorizontalContentAlignment="Center"/>
+                        HorizontalContentAlignment="Center" Click="btnShowRandomImage_Click"/>
             <Button x:Name="btnRandomNumber" 
                         Content="Numero&#xA;casuale" 
                         Height="40" Width="80"
@@ -191,7 +191,7 @@
             <Button x:Name="btnStartLinks" 
                         Content="Start links" 
                         Height="40" Width="80"
-                        Foreground="DarkBlue" FontWeight="Bold" FontSize="11"
+                        Foreground="DarkBlue" FontWeight="Bold" FontSize="11" Click="btnStartLinks_Click"
                         />
             <Button x:Name="btnMosaic" 
                         Content="Mosaico" 
@@ -201,7 +201,7 @@
             <Button x:Name="btnCheckToggle"
                         Content="cambio X" 
                         Height="40" Width="80" 
-                        Foreground="DarkBlue" FontWeight="Bold" FontSize="11"
+                        Foreground="DarkBlue" FontWeight="Bold" FontSize="11" Click="btnCheckToggle_Click"
                         />
             <Button x:Name="btnCheckRevenge" 
                         Content="X di vendetta" 
@@ -211,18 +211,18 @@
             <Button x:Name="btnCheckNoGrade" 
                         Content="X no voti" 
                         Height="40" Width="80" 
-                        Foreground="DarkBlue" FontWeight="Bold" FontSize="11" 
+                        Foreground="DarkBlue" FontWeight="Bold" FontSize="11" Click="btnCheckNoGrade_Click" 
                         />
             <Button x:Name="btnCheckAll" 
                     Content="X tutti" 
                     Height="40" Width="80"
                     Foreground="DarkBlue" FontWeight="Bold" 
                     HorizontalContentAlignment="Center" 
-                    FontSize="11" Grid.Column="5" Grid.Row="1"/>
+                    FontSize="11" Grid.Column="5" Grid.Row="1" Click="btnCheckAll_Click"/>
             <Button x:Name="btnCheckNone" 
                         Height="40" Width="80"
                         Content="X nessuno" 
-                        Foreground="DarkBlue" FontWeight="Bold" FontSize="11" 
+                        Foreground="DarkBlue" FontWeight="Bold" FontSize="11" Click="btnCheckNone_Click" 
                         />
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Column="6" Grid.RowSpan="3">
@@ -372,13 +372,13 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="btnVindicationFactorPlus" Grid.Row="0" Grid.Column="0"
+                    <Button x:Name="btnRevengeFactorPlus" Grid.Row="0" Grid.Column="0"
                             Content="FV++" 
-                            Foreground="DarkBlue" FontWeight="Bold" FontSize="11" />
-                    <Button x:Name="btnVindicationFactorMinus" Grid.Row="1" Grid.Column="0"
+                            Foreground="DarkBlue" FontWeight="Bold" FontSize="11" Click="btnRevengeFactorPlus_Click" />
+                    <Button x:Name="btnRevengeFactorMinus" Grid.Row="1" Grid.Column="0"
                             Foreground="DarkBlue" FontWeight="Bold" FontSize="11" 
-                            Content="FV--"/>
-                    <Label x:Name="lblVindicationFactor" Grid.Row="0" Grid.Column="1"
+                            Content="FV--" Click="btnRevengeFactorMinus_Click"/>
+                    <Label x:Name="lblRevengeFactor" Grid.Row="0" Grid.Column="1"
                              Content="F.V." VerticalContentAlignment="Bottom"
                              VerticalAlignment="Bottom" HorizontalContentAlignment="Center"
                              Foreground="DarkBlue" FontWeight="Bold" FontSize="8"/>
@@ -442,12 +442,15 @@
                   Background="#FFA0A0A0" 
                   SelectionChanged="dgwStudents_SelectionChanged"
                   MouseDoubleClick="dgwStudents_MouseDoubleClick"
-                  IsReadOnly="True"
-                  AutoGenerateColumns="True">
-            <!--<DataGridCheckBoxColumn Header="" Binding="{Binding drawable}"/>
-            <DataGridTextColumn Header="Nome" Binding="{Binding firstName}"/>
-            <DataGridTextColumn Header="Cognome" Binding="{Binding lastName}"/>
-            <DataGridTextColumn Header="F.V." Binding="{Binding VFCounter}"/>-->
+                  AutoGenerateColumns="False"
+                  DataContext="currentStudentsList"
+                  ItemsSource="{Binding}">
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn Header="P" Binding="{Binding Path=Eligible}" Width="20" IsReadOnly="False"/>
+                <DataGridTextColumn Header="Cognome" Binding="{Binding Path=LastName}" Width="*" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Nome" Binding="{Binding Path=FirstName}" Width="*" IsReadOnly="True"/>
+                <DataGridTextColumn Header="F.V." Binding="{Binding Path=RevengeFactorCounter}" Width="30" IsReadOnly="True"/>
+            </DataGrid.Columns>
         </DataGrid>
         <StackPanel x:Name="stckIdStudent" Grid.Row="2" Grid.Column="0">
             <TextBlock x:Name="lblIdStudent" 
@@ -475,7 +478,7 @@
                 Content="Inizio lezione" 
                 Height="40" Width="80" 
                 HorizontalAlignment="Left"
-                Foreground="DarkBlue" FontWeight="Bold"/>
+                Foreground="DarkBlue" FontWeight="Bold" Click="btnLessonTime_Click"/>
             <StackPanel Orientation="Horizontal" Margin="6">
                 <TextBlock
                 Text="Minuto inizio"
