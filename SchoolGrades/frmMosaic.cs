@@ -77,6 +77,8 @@ namespace SchoolGrades
 
         private void loadPicture(Student ShowingStudent, string SchoolYear, PictureBox PictureContainer)
         {
+            txtStudentsName.Text = ShowingStudent.IdStudent.ToString();
+            Console.WriteLine(SchoolYear);
             try
             {
                 PictureContainer.Image = System.Drawing.Image.FromFile(Path.Combine(Commons.PathImages, 
