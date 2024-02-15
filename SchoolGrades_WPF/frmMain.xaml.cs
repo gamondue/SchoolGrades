@@ -191,10 +191,10 @@ namespace SchoolGrades_WPF
             lblLastDatabaseModification.Visibility = Visibility.Visible;
             lblLastDatabaseModification.Text = File.GetLastWriteTime(Commons.PathAndFileDatabase).ToString("yyyy-MM-dd HH:mm:ss");
 #if !DEBUG
-            // capture every exception for exception logging
-            Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
-            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-            btnTemporary.Visibility = Visibility.Hidden;
+            //// capture every exception for exception logging
+            //Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
+            //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+            //btnTemporary.Visibility = Visibility.Hidden;
 #endif
             school = Commons.bl.GetSchool(Commons.IdSchool);
             if (school == null)
@@ -541,7 +541,7 @@ namespace SchoolGrades_WPF
         {
 
         }
-        private void chkNomeVisibile_CheckedChanged(object sender, RoutedEventArgs e)
+        private void chkNomeIsVisibile_CheckedChanged(object sender, RoutedEventArgs e)
         {
             if (!this.IsLoaded) { return; }
             if ((bool)chkNameVisible.IsChecked)

@@ -123,8 +123,8 @@
                       Height="16" Width="102" 
                       FontWeight="Bold" Foreground="DarkBlue"
                       IsChecked="True"
-                      Checked="chkNomeVisibile_CheckedChanged" 
-                      Unchecked="chkNomeVisibile_CheckedChanged"/>
+                      Checked="chkNomeIsVisibile_CheckedChanged" 
+                      Unchecked="chkNomeIsVisibile_CheckedChanged"/>
             <CheckBox x:Name="chkPhotoVisibile"  
                       Content="Foto visibile" 
                       HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center"
