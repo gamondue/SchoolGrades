@@ -21,7 +21,6 @@ namespace SchoolGrades
             currentStudents = Commons.bl.GetStudentsOfClassList(Commons.IdSchool,
                 currentClass.SchoolYear, currentClass.Abbreviation, false);
         }
-
         private void frmMosaic_Load(object sender, EventArgs e)
         {
             // creation of pictures 
@@ -38,7 +37,6 @@ namespace SchoolGrades
             }
             ResizePictures(); 
         }
-
         private void ResizePictures()
         {
             int xNumPictures = 7;
@@ -61,12 +59,10 @@ namespace SchoolGrades
             }
             this.Refresh();
         }
-
         private void pictures_MouseUp(object sender, EventArgs e)
         {
             txtStudentsName.Visible = false;
         }
-
         private void pictures_MouseDown(object sender, EventArgs e)
         {
             PictureBox pic = (PictureBox)sender; 
@@ -74,7 +70,6 @@ namespace SchoolGrades
             txtStudentsName.Location = new Point(pic.Location.X, pic.Location.Y + pic.Height / 2); 
             txtStudentsName.Visible = true; 
         }
-
         private void loadPicture(Student ShowingStudent, string SchoolYear, PictureBox PictureContainer)
         {
             txtStudentsName.Text = ShowingStudent.IdStudent.ToString();
