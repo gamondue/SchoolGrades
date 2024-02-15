@@ -40,7 +40,7 @@
             btnCheckNone = new System.Windows.Forms.Button();
             lstClasses = new System.Windows.Forms.ListBox();
             pgbTimeQuestion = new System.Windows.Forms.ProgressBar();
-            chkNomeVisibile = new System.Windows.Forms.CheckBox();
+            chkNameIsVisible = new System.Windows.Forms.CheckBox();
             chkPhotoVisibile = new System.Windows.Forms.CheckBox();
             chkStudentsListVisible = new System.Windows.Forms.CheckBox();
             cmbSchoolYear = new System.Windows.Forms.ComboBox();
@@ -264,21 +264,21 @@
             toolTip1.SetToolTip(pgbTimeQuestion, "Barra tempo per la risposta, Click  per far partire il cronometro.");
             pgbTimeQuestion.Click += pgbTimeQuestion_Click;
             // 
-            // chkNomeVisibile
+            // chkNameIsVisible
             // 
-            chkNomeVisibile.AutoSize = true;
-            chkNomeVisibile.Checked = true;
-            chkNomeVisibile.CheckState = System.Windows.Forms.CheckState.Checked;
-            chkNomeVisibile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            chkNomeVisibile.ForeColor = System.Drawing.Color.DarkBlue;
-            chkNomeVisibile.Location = new System.Drawing.Point(297, 66);
-            chkNomeVisibile.Name = "chkNomeVisibile";
-            chkNomeVisibile.Size = new System.Drawing.Size(128, 22);
-            chkNomeVisibile.TabIndex = 14;
-            chkNomeVisibile.Text = "Nome visibile";
-            toolTip1.SetToolTip(chkNomeVisibile, "Visualizza il nome dell'allievo");
-            chkNomeVisibile.UseVisualStyleBackColor = true;
-            chkNomeVisibile.CheckedChanged += chkNomeVisibile_CheckedChanged;
+            chkNameIsVisible.AutoSize = true;
+            chkNameIsVisible.Checked = true;
+            chkNameIsVisible.CheckState = System.Windows.Forms.CheckState.Checked;
+            chkNameIsVisible.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            chkNameIsVisible.ForeColor = System.Drawing.Color.DarkBlue;
+            chkNameIsVisible.Location = new System.Drawing.Point(297, 66);
+            chkNameIsVisible.Name = "chkNomeVisibile";
+            chkNameIsVisible.Size = new System.Drawing.Size(128, 22);
+            chkNameIsVisible.TabIndex = 14;
+            chkNameIsVisible.Text = "Nome visibile";
+            toolTip1.SetToolTip(chkNameIsVisible, "Visualizza il nome dell'allievo");
+            chkNameIsVisible.UseVisualStyleBackColor = true;
+            chkNameIsVisible.CheckedChanged += chkNameIsVisible_CheckedChanged;
             // 
             // chkPhotoVisibile
             // 
@@ -294,7 +294,7 @@
             chkPhotoVisibile.Text = "Foto visibile";
             toolTip1.SetToolTip(chkPhotoVisibile, "Visualizza la foto dell'allievo");
             chkPhotoVisibile.UseVisualStyleBackColor = true;
-            chkPhotoVisibile.CheckedChanged += chkFotoVisibile_CheckedChanged;
+            chkPhotoVisibile.CheckedChanged += chkPhotoVisibible_CheckedChanged;
             // 
             // chkStudentsListVisible
             // 
@@ -1413,7 +1413,7 @@
             Controls.Add(cmbSchoolYear);
             Controls.Add(chkStudentsListVisible);
             Controls.Add(chkPhotoVisibile);
-            Controls.Add(chkNomeVisibile);
+            Controls.Add(chkNameIsVisible);
             Controls.Add(pgbTimeQuestion);
             Controls.Add(lblCodYear);
             Controls.Add(lstClasses);
@@ -1456,7 +1456,7 @@
         private System.Windows.Forms.ProgressBar pgbTimeQuestion;
         private System.Windows.Forms.Timer timerQuestion;
         private System.Windows.Forms.PictureBox picStudent;
-        private System.Windows.Forms.CheckBox chkNomeVisibile;
+        private System.Windows.Forms.CheckBox chkNameIsVisible;
         private System.Windows.Forms.CheckBox chkPhotoVisibile;
         private System.Windows.Forms.CheckBox chkStudentsListVisible;
         private System.Windows.Forms.ComboBox CmbSchoolYear;

@@ -528,9 +528,9 @@ namespace SchoolGrades
         {
 
         }
-        private void chkNomeVisibile_CheckedChanged(object sender, EventArgs e)
+        private void chkNameIsVisible_CheckedChanged(object sender, EventArgs e)
         {
-            lblStudentChosen.Visible = chkNomeVisibile.Checked;
+            lblStudentChosen.Visible = chkNameIsVisible.Checked;
         }
         private void lstClassi_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -581,7 +581,7 @@ namespace SchoolGrades
                 }
             }
         }
-        private void chkFotoVisibile_CheckedChanged(object sender, EventArgs e)
+        private void chkPhotoVisibible_CheckedChanged(object sender, EventArgs e)
         {
             picStudent.Visible = chkPhotoVisibile.Checked;
         }
