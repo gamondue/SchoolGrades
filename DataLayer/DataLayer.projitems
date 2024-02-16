@@ -9,6 +9,7 @@
     <Import_RootNamespace>DataLayer</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)abstract.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DatabaseInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_DemoDatabaseCreation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_GeneralFunctions.cs" />
@@ -32,5 +33,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)DL_TopicsManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_UserManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_YearsAndPeriodsManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqLite\SqLite_DataLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqlServer\SqlServer_DataLayer.cs" />
   </ItemGroup>
 </Project>

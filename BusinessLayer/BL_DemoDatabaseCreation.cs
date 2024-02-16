@@ -21,7 +21,7 @@ namespace SchoolGrades
             List<Class> classesToRetain)
         {
             // local instance of a DataLayer to operate on a second database 
-            DataLayer newDatabaseDl = new DataLayer(NewDatabasePathAndName);
+            DataLayer newDatabaseDl = Commons.SetDataLayer(NewDatabasePathAndName);
             File.Copy(Commons.PathAndFileDatabase, NewDatabasePathAndName);
 
             // erase all the data of classes other than those passed 

@@ -2,7 +2,7 @@
 
 namespace SchoolGrades
 {
-    internal partial class DataLayer
+    public abstract partial class DataLayer
     {
         #region functions that prepare the value of a variable to be used in a SQL statement 
         internal string SqlString(string String)

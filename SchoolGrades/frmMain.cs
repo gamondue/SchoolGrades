@@ -310,7 +310,7 @@ namespace SchoolGrades
                 throw new System.IO.FileNotFoundException(err);
                 return false;
             }
-            Commons.dl = new DataLayer(Commons.PathAndFileDatabase);
+            Commons.dl = Commons.SetDataLayer(Commons.PathAndFileDatabase);
             if (Commons.dl == null)
                 return false;
             Commons.bl = new BusinessLayer();

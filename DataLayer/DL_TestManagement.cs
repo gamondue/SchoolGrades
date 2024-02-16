@@ -4,7 +4,7 @@ using System.Data.Common;
 
 namespace SchoolGrades
 {
-    internal partial class DataLayer
+    public abstract partial class DataLayer
     {
         internal SchoolGrades.BusinessObjects.SchoolTest GetTestFromRow(DbDataReader Row)
         {

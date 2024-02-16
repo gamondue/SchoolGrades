@@ -7,7 +7,7 @@ using System.Data.SQLite;
 
 namespace SchoolGrades
 {
-    internal partial class DataLayer
+    public abstract partial class DataLayer
     {
         internal Lesson GetLessonFromRow(DbDataReader dRead)
         {

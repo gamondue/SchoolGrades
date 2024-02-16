@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace SchoolGrades
 {
-    internal partial class DataLayer
+    public abstract partial class DataLayer
     {
         internal User GetUser(string Username)
         {

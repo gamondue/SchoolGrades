@@ -10,7 +10,7 @@ using System.IO;
 
 namespace SchoolGrades
 {
-    internal partial class DataLayer
+    public abstract partial class DataLayer
     {
         /// <summary>
         /// Data Access Layer: abstracts the access to dbms using to transfer data 

@@ -4,6 +4,7 @@ using System.Text;
 
 namespace SchoolGrades
 {
+    // currently not used
     internal class DatabaseInfo
     {
         internal string Name_Teacher { get; set; }

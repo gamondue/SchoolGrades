@@ -6,7 +6,7 @@ using System.IO;
 
 namespace SchoolGrades
 {
-    internal partial class DataLayer
+    public abstract partial class DataLayer
     {
         internal List<Image> GetAllImagesShownToAClassDuringLessons(Class Class, SchoolSubject Subject,
             DateTime DateStart = default(DateTime), DateTime DateFinish = default(DateTime))

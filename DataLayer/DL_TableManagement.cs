@@ -5,7 +5,7 @@ using System.Data.SQLite;
 
 namespace SchoolGrades
 {
-    internal partial class DataLayer
+    public abstract partial class DataLayer
     {
         internal void GetLookupTable(string Table, ref DataSet DSet, ref DataAdapter DAdapt)
         {

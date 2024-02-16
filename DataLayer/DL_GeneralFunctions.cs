@@ -2,7 +2,7 @@
 
 namespace SchoolGrades
 {
-    internal partial class DataLayer
+    public abstract partial class DataLayer
     {
         internal object ReadFirstRowFirstField(string Table)
         {
