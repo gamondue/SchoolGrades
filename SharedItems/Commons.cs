@@ -301,13 +301,13 @@ namespace SchoolGrades
 
             System.Version v = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
 
-            // v.Build is days since Jan. 1, 2000
-            // v.Revision*2 is seconds since local midnight
+            // DataBaseName.Build is days since Jan. 1, 2000
+            // DataBaseName.Revision*2 is seconds since local midnight
             // (NEVER daylight saving time)
 
             //DateTime t = new DateTime(
-            //    v.Build * TimeSpan.TicksPerDay +
-            //    v.Revision * TimeSpan.TicksPerSecond * 2
+            //    DataBaseName.Build * TimeSpan.TicksPerDay +
+            //    DataBaseName.Revision * TimeSpan.TicksPerSecond * 2
             //).AddYears(1999);
 
             DateTime t = new DateTime(
@@ -449,6 +449,15 @@ namespace SchoolGrades
                 }
             }
             return newestFileNameAndPath;
+        }
+        internal static DataLayer SetDataLayer(string DataBaseName)
+        {
+#if SQLSERVER
+            DataLayer dlNew = new SqlDataLayer(DataBaseName);
+#else
+            DataLayer dlNew = new SqLite_DataLayer(DataBaseName);
+            return dlNew; 
+#endif
         }
     }
 }

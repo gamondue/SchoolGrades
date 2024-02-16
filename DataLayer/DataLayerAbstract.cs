@@ -1,45 +1,6 @@
-﻿using SchoolGrades.BusinessObjects;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-using System.Data.SQLite;
-using System.Text;
-
-namespace SchoolGrades
-{
-    public abstract partial class DataLayer
-    {
-        internal List<StudentAnnotation> AnnotationsAboutThisStudent(Student currentStudent, string IdSchoolYear,
+ internal List<StudentAnnotation> AnnotationsAboutThisStudent(Student currentStudent, string IdSchoolYear,
             bool IncludeOnlyActiveAnnotations)
-        {
-            if (currentStudent == null)
-                return null;
-            List<StudentAnnotation> la = new List<StudentAnnotation>();
-            using (DbConnection conn = Connect())
-            {
-                DbDataReader dRead;
-                DbCommand cmd = conn.CreateCommand();
-                string query = "SELECT *" +
-                    " FROM StudentsAnnotations" +
-                    " WHERE StudentsAnnotations.idStudent=" + currentStudent.IdStudent;
-                if (IdSchoolYear != null && IdSchoolYear != "")
-                    query += " AND idSchoolYear=" + IdSchoolYear;
-                if (IncludeOnlyActiveAnnotations)
-                    query += " AND isActive=true";
-                query += " ORDER BY instantTaken DESC, instantClosed DESC";
-                query += ";";
-                cmd.CommandText = query;
-                dRead = cmd.ExecuteReader();
-                while (dRead.Read())
-                {
-                    StudentAnnotation a = GetAnnotationFromRow(dRead);
-                    la.Add(a);
-                }
-            }
-            return la;
-        }
-        internal int? UpdateAnnotationsGroup(StudentAnnotation currentAnnotation, Student currentStudent)
+ internal int? UpdateAnnotationsGroup(StudentAnnotation currentAnnotation, Student currentStudent)
         {
             throw new NotImplementedException();
         }
@@ -195,5 +156,4 @@ namespace SchoolGrades
             }
             return table;
         }
-    }
-}
+ 

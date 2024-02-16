@@ -6,7 +6,7 @@ using System.Data.SQLite;
 
 namespace SchoolGrades
 {
-    internal partial class DataLayer
+    public abstract partial class DataLayer
     {
         /// <summary>
         /// Gets the record of the Topic from the database, 

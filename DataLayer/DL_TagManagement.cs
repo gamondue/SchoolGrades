@@ -7,7 +7,7 @@ using System.Text;
 
 namespace SchoolGrades
 {
-    internal partial class  DataLayer
+    internal abstract partial class  DataLayer
     {
         internal List<Tag> GetTagsContaining(string Pattern)
         {

@@ -9,7 +9,7 @@ using System.Text;
 
 namespace SchoolGrades
 {
-    internal partial class DataLayer
+    public abstract partial class DataLayer
     {
         internal StudentsAnswer GetStudentsAnswerFromRow(DbDataReader Row)
         {

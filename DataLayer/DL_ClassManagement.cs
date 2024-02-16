@@ -8,7 +8,7 @@ using System.IO;
 
 namespace SchoolGrades
 {
-    internal partial class DataLayer
+    public abstract partial class DataLayer
     {
         internal void DeleteOneStudentFromClass(int? IdDeletingStudent, int? IdClass)
         {
@@ -134,7 +134,7 @@ namespace SchoolGrades
             File.Copy(Commons.PathAndFileDatabase, NewDatabasePathName);
 
             // open a local connection to database 
-            DataLayer newDatabaseDl = new DataLayer(NewDatabasePathName);
+            DataLayer newDatabaseDl = Commons.SetDataLayer(NewDatabasePathName);
 
             // erase all the data of the students of other classes
             using (DbConnection conn = newDatabaseDl.Connect())

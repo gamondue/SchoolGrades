@@ -325,9 +325,9 @@ namespace SchoolGrades_WPF
                 throw new System.IO.FileNotFoundException(err);
                 return false;
             }
-            Commons.dl = new DataLayer(Commons.PathAndFileDatabase);
-            if (Commons.dl == null)
-                return false;
+            //Commons.dl = new DataLayer(Commons.PathAndFileDatabase);
+            //if (Commons.dl == null)
+            //    return false;
             Commons.bl = new BusinessLayer();
             if (Commons.bl == null)
                 return false;

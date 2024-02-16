@@ -5,7 +5,7 @@ using System.Data.Common;
 
 namespace SchoolGrades
 {
-    internal partial class DataLayer
+    public abstract partial class DataLayer
     {
         private string MakeStringForFilteredQuestionsQuery(List<Tag> Tags, string IdSchoolSubject,
             string IdQuestionType, Topic QuestionsTopic, bool QueryManyTopics, bool TagsAnd)

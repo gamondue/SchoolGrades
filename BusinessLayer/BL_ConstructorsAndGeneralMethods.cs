@@ -29,15 +29,17 @@ namespace SchoolGrades
         }
         internal DataLayer CreateNewDatabase(string NewDatabasePathName)
         {
-            if (File.Exists(NewDatabasePathName))
-                File.Delete(NewDatabasePathName);
-            File.Copy(Commons.PathAndFileDatabase, NewDatabasePathName);
+            ////if (File.Exists(NewDatabasePathName))
+            ////    File.Delete(NewDatabasePathName);
+            ////File.Copy(Commons.PathAndFileDatabase, NewDatabasePathName);
 
-            // local instance of a DataLayer to operate on a second database 
-            DataLayer newDatabaseDl = new DataLayer(NewDatabasePathName);
+            ////// local instance of a DataLayer to operate on a second database 
 
-            newDatabaseDl.CreateNewDatabase();
-            return newDatabaseDl;
+            ////DataLayer newDatabaseDl = new SqLite_DataLayer(NewDatabasePathName);
+
+            ////newDatabaseDl.CreateNewDatabase();
+            ////return newDatabaseDl;
+            return null; 
         }
         internal School GetSchool(string OfficialSchoolAbbreviation)
         {
