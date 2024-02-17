@@ -41,7 +41,7 @@ namespace SchoolGrades_WPF
         {
             InitializeComponent();
 
-            //dbMptt = new TreeMpttDb(Commons.dl);
+            //dbMptt = new TreeMpttDb(dl);
             this.ParentForm = MicroAssessmentParent;
             // fills the lookup tables' combos
             cmbSchoolSubject.ItemsSource = "Name";

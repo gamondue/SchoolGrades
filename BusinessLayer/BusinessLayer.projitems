@@ -29,5 +29,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)BL_UserManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BL_GroupsManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BL_DrawManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BusinessLayer.cs" />
   </ItemGroup>
 </Project>

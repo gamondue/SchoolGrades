@@ -6,14 +6,14 @@ using System.Data.SQLite;
 
 namespace SchoolGrades
 {
-    public abstract partial class DataLayer
+    internal partial class SqLite_DataLayer : DataLayer
     {
         /// <summary>
         /// Gets the record of the Topic from the database, 
         /// </summary>
         /// <param name="dRead"></param>
         /// <returns></returns>
-        internal Topic GetTopicFromRow(DbDataReader dRead)
+        internal override Topic GetTopicFromRow(DbDataReader dRead)
         {
             Topic t = new Topic();
             t.Id = Safe.Int(dRead["IdTopic"]);
@@ -31,7 +31,7 @@ namespace SchoolGrades
 
             return t;
         }
-        internal int CreateNewTopic(Topic NewTopic)
+        internal override int CreateNewTopic(Topic NewTopic)
         {
             int nextId;
             using (DbConnection conn = Connect())
@@ -54,7 +54,7 @@ namespace SchoolGrades
             }
             return nextId;
         }
-        internal void EraseAllTopics()
+        internal override void EraseAllTopics()
         {
             using (DbConnection conn = Connect())
             {   // erase all the topics
@@ -64,7 +64,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal Topic GetTopicById(int? idTopic)
+        internal override Topic GetTopicById(int? idTopic)
         {
             Topic t = new Topic();
             using (DbConnection conn = Connect())
@@ -85,7 +85,7 @@ namespace SchoolGrades
             }
             return t;
         }
-        internal List<Topic> GetTopics()
+        internal override List<Topic> GetTopics()
         {
             List<Topic> lt = new List<Topic>();
             using (DbConnection conn = Connect())
@@ -107,7 +107,7 @@ namespace SchoolGrades
             }
             return lt;
         }
-        internal bool IsTopicAlreadyTaught(Topic Topic)
+        internal override bool IsTopicAlreadyTaught(Topic Topic)
         {
             using (DbConnection conn = Connect())
             {
@@ -121,7 +121,7 @@ namespace SchoolGrades
                 return (result != null);
             }
         }
-        internal List<Topic> GetTopicsDoneFromThisTopic(Class Class, Topic StartTopic,
+        internal override List<Topic> GetTopicsDoneFromThisTopic(Class Class, Topic StartTopic,
             SchoolSubject Subject)
         {
             // node numbering according to Modified Preorder Tree Traversal algorithm
@@ -157,7 +157,7 @@ namespace SchoolGrades
             }
             return l;
         }
-        internal List<Topic> GetTopicsNotDoneFromThisTopic(Class Class, Topic StartTopic,
+        internal override List<Topic> GetTopicsNotDoneFromThisTopic(Class Class, Topic StartTopic,
             SchoolSubject Subject)
         {
             // node numbering according to Modified Preorder Tree Traversal algorithm
@@ -200,7 +200,7 @@ namespace SchoolGrades
             }
             return l;
         }
-        internal List<Topic> GetAllTopicsDoneInClassAndSubject(Class Class,
+        internal override List<Topic> GetAllTopicsDoneInClassAndSubject(Class Class,
             SchoolSubject Subject,
             DateTime DateStart = default(DateTime), DateTime DateFinish = default(DateTime))
         {
@@ -234,7 +234,7 @@ namespace SchoolGrades
             }
             return l;
         }
-        internal List<Topic> GetTopicsDoneInPeriod(Class currentClass, SchoolSubject currentSubject,
+        internal override List<Topic> GetTopicsDoneInPeriod(Class currentClass, SchoolSubject currentSubject,
             DateTime DateFrom, DateTime DateTo)
         {
             List<Topic> lt = new List<Topic>();
@@ -295,12 +295,12 @@ namespace SchoolGrades
             }
             return lt;
         }
-        internal int GetTopicDescendantsNumber(int? LeftNode, int? RightNode)
+        internal override int GetTopicDescendantsNumber(int? LeftNode, int? RightNode)
         {
             // node numbering according to Modified Preorder Tree Traversal algorithm
             return ((int)RightNode - (int)LeftNode - 1) / 2;
         }
-        internal void UpdateTopic(Topic t, DbConnection conn)
+        internal override void UpdateTopic(Topic t, DbConnection conn)
         {
             bool leaveConnectionOpen = true;
             if (conn == null)
@@ -327,7 +327,7 @@ namespace SchoolGrades
                 conn.Dispose();
             }
         }
-        internal void InsertTopic(Topic t, DbConnection Conn)
+        internal override void InsertTopic(Topic t, DbConnection Conn)
         {
             if (t.Id == null || t.Id == 0)
             {
@@ -363,7 +363,7 @@ namespace SchoolGrades
                 }
             }
         }
-        internal List<Topic> GetNodesByParentFromDatabase()
+        internal override List<Topic> GetNodesByParentFromDatabase()
         {
             // node order according to parents' order (parentNode and childNumber)
             List<Topic> l = new List<Topic>();
@@ -386,7 +386,7 @@ namespace SchoolGrades
             }
             return l;
         }
-        internal void SaveTopicsFromScratch(List<Topic> ListTopics)
+        internal override void SaveTopicsFromScratch(List<Topic> ListTopics)
         {
             using (DbConnection conn = Connect())
             {

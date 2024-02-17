@@ -8,9 +8,9 @@ using System.Text;
 
 namespace SchoolGrades
 {
-    public abstract partial class DataLayer
+    internal partial class SqLite_DataLayer : DataLayer
     {
-        internal List<StudentAnnotation> AnnotationsAboutThisStudent(Student currentStudent, string IdSchoolYear,
+        internal override List<StudentAnnotation> AnnotationsAboutThisStudent(Student currentStudent, string IdSchoolYear,
             bool IncludeOnlyActiveAnnotations)
         {
             if (currentStudent == null)
@@ -39,11 +39,11 @@ namespace SchoolGrades
             }
             return la;
         }
-        internal int? UpdateAnnotationsGroup(StudentAnnotation currentAnnotation, Student currentStudent)
+        internal override int? UpdateAnnotationsGroup(StudentAnnotation currentAnnotation, Student currentStudent)
         {
             throw new NotImplementedException();
         }
-        internal void EraseAnnotationByText(string AnnotationText, Student Student)
+        internal override void EraseAnnotationByText(string AnnotationText, Student Student)
         {
             using (DbConnection conn = Connect())
             {
@@ -56,7 +56,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal int? SaveAnnotation(StudentAnnotation Annotation, Student s)
+        internal override int? SaveAnnotation(StudentAnnotation Annotation, Student s)
         {
             using (DbConnection conn = Connect())
             {
@@ -112,7 +112,7 @@ namespace SchoolGrades
             }
             return Annotation.IdAnnotation;
         }
-        internal StudentAnnotation GetAnnotation(int? IdAnnotation)
+        internal override StudentAnnotation GetAnnotation(int? IdAnnotation)
         {
             StudentAnnotation a;
             if (IdAnnotation == null)
@@ -134,7 +134,7 @@ namespace SchoolGrades
             }
             return a;
         }
-        private StudentAnnotation GetAnnotationFromRow(DbDataReader Row)
+        internal override StudentAnnotation GetAnnotationFromRow(DbDataReader Row)
         {
             StudentAnnotation a = new StudentAnnotation();
             a.IdAnnotation = Safe.Int(Row["idAnnotation"]);
@@ -152,7 +152,7 @@ namespace SchoolGrades
             }
             return a;
         }
-        internal void EraseAnnotationById(int? IdAnnotation)
+        internal override void EraseAnnotationById(int? IdAnnotation)
         {
             using (DbConnection conn = Connect())
             {
@@ -164,7 +164,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal DataTable GetAnnotationsOfClass(int? IdClass, 
+        internal override DataTable GetAnnotationsOfClass(int? IdClass, 
             bool IncludeAlsoNonActive, bool IncludeJustPopUp)
         {
             DataTable table = new DataTable(); 

@@ -7,9 +7,9 @@ using System.Diagnostics;
 
 namespace SchoolGrades
 {
-    public abstract partial class DataLayer
+    internal partial class SqLite_DataLayer : DataLayer
     {
-        internal User GetUser(string Username)
+        internal override User GetUser(string Username)
         {
             User t = new User(Username, "");
             using (DbConnection conn = Connect())
@@ -28,7 +28,7 @@ namespace SchoolGrades
             }
             return t;
         }
-        internal List<User> GetAllUsers()
+        internal override List<User> GetAllUsers()
         {
             List<User> l = new List<User>(); 
             using (DbConnection conn = Connect())
@@ -49,7 +49,7 @@ namespace SchoolGrades
             }
             return l;
         }
-        private User GetUserFromRow(DbDataReader dRead)
+        internal override User GetUserFromRow(DbDataReader dRead)
         {
             User u = null; 
             if (dRead.HasRows)
@@ -70,7 +70,7 @@ namespace SchoolGrades
             }
             return u;
         }
-        internal void ChangePassword(User User)
+        internal override void ChangePassword(User User)
         {
             using (DbConnection conn = Connect())
             {
@@ -86,7 +86,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal void CreateUser(User User)
+        internal override void CreateUser(User User)
         {
             using (DbConnection conn = Connect())
             {
@@ -109,7 +109,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal void UpdateUser(User User)
+        internal override void UpdateUser(User User)
         {
             using (DbConnection conn = Connect())
             {

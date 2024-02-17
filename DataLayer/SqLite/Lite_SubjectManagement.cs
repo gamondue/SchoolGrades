@@ -7,16 +7,16 @@ using System.Text;
 
 namespace SchoolGrades
 {
-    public abstract partial class DataLayer
+    internal partial class SqLite_DataLayer : DataLayer
     {
-        internal void SaveSubjects(List<SchoolSubject> SubjectList)
+        internal override void SaveSubjects(List<SchoolSubject> SubjectList)
         {
             foreach (SchoolSubject s in SubjectList)
             {
                 SaveSubject(s);
             }
         }
-        internal string SaveSubject(SchoolSubject Subject)
+        internal override string SaveSubject(SchoolSubject Subject)
         {
             if (Subject.Desc != "" && Subject.Desc != null)
             {
@@ -59,7 +59,7 @@ namespace SchoolGrades
             }
             return Subject.IdSchoolSubject;
         }
-        internal SchoolSubject GetSchoolSubject(string IdSchoolSubject)
+        internal override SchoolSubject GetSchoolSubject(string IdSchoolSubject)
         {
             SchoolSubject subject = new SchoolSubject();
             DbDataReader dRead;
@@ -85,7 +85,7 @@ namespace SchoolGrades
             dRead.Dispose();
             return subject;
         }
-        internal List<SchoolSubject> GetListSchoolSubjects(bool IncludeANullObject)
+        internal override List<SchoolSubject> GetListSchoolSubjects(bool IncludeANullObject)
         {
             List<SchoolSubject> lss = new List<SchoolSubject>();
             if (IncludeANullObject)
@@ -144,7 +144,7 @@ namespace SchoolGrades
             dRead.Dispose();
             return lss;
         }
-        internal void EraseSchoolSubjectById(string IdSchoolSubject)
+        internal override void EraseSchoolSubjectById(string IdSchoolSubject)
         {
             using (DbConnection conn = Connect())
             {

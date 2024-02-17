@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SchoolGrades
+﻿namespace SchoolGrades.BusinessObjects
 {
     // currently not used
     internal class DatabaseInfo

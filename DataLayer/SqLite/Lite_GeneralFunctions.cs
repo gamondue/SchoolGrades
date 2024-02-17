@@ -2,9 +2,9 @@
 
 namespace SchoolGrades
 {
-    public abstract partial class DataLayer
+    internal partial class SqLite_DataLayer : DataLayer
     {
-        internal object ReadFirstRowFirstField(string Table)
+        internal override object ReadFirstRowFirstField(string Table)
         {
             object r;
             using (DbConnection conn = Connect())

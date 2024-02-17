@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
-using System.Text;
 
 namespace SchoolGrades
 {
@@ -33,7 +31,7 @@ namespace SchoolGrades
         {
             return dl.GetQuestionById(idQuestion);
         }
-        internal Grade LastOpenGradeOfStudent(Student Student, string SchoolYear, 
+        internal Grade LastOpenGradeOfStudent(Student Student, string SchoolYear,
             SchoolSubject Subject, string IdGradeTypeParent)
         {
             return dl.LastOpenGradeOfStudent(Student, SchoolYear, Subject, IdGradeTypeParent);
@@ -68,7 +66,7 @@ namespace SchoolGrades
         }
         internal List<GradeType> GetListGradeTypes()
         {
-            return dl.GetListGradeTypes(); 
+            return dl.GetListGradeTypes();
         }
         internal void CloneGrade(DataRow Row)
         {
@@ -109,6 +107,10 @@ namespace SchoolGrades
         {
             return dl.GetGradesOfClass(currentClass, idGradeType, idSchoolSubject, value1, value2);
         }
+        internal object GetUnfixedGrades(Student currentStudent, string idSchoolSubject, double Threshold)
+        {
+            return dl.GetUnfixedGrades(currentStudent, idSchoolSubject, Threshold);
+        }
         internal (DateTime startPeriod, DateTime endPeriod) CalculateStartAndEndPeriod(SchoolPeriod period)
         {
             if (period.IdSchoolPeriodType != "N")
@@ -132,5 +134,5 @@ namespace SchoolGrades
                 return (DateTime.MinValue, DateTime.MaxValue);
             }
         }
-   }
+    }
 }

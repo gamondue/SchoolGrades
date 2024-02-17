@@ -10,47 +10,22 @@ using System.IO;
 
 namespace SchoolGrades
 {
-    public abstract partial class DataLayer
+    internal partial class SqLite_DataLayer : DataLayer
     {
         /// <summary>
         /// Data Access Layer: abstracts the access to dbms using to transfer data 
         /// DbClasses and ADO db classes (ADO should be avoided, if possible) 
         /// </summary>
-        private string dbName;
-        #region constructors
-        /// <summary>
-        /// Constructor of DataLayer class that uses the default database of the program
-        /// Assumes that the file exists.
-        /// </summary>
-        internal DataLayer()
-        {
-            // ???? is next if() useful ????
-            if (!System.IO.File.Exists(Commons.PathAndFileDatabase))
-            {
-                string err = @"[" + Commons.PathAndFileDatabase + " not in the current nor in the dev directory]";
-                Commons.ErrorLog(err);
-                throw new System.IO.FileNotFoundException(err);
+        internal string dbName;
 
-            }
-            dbName = Commons.PathAndFileDatabase;
-        }
-        /// <summary>
-        /// Constructor of DataLayer class that get from outside the databases to use
-        /// Assumes that the file exists.
-        /// </summary>
-        internal DataLayer(string PathAndFile)
-        {
-            dbName = PathAndFile;
-        }
-        #endregion
         #region properties
-        internal string NameAndPathDatabase
-        {
-            get { return dbName; }
-            //set { nomeEPathDatabase = value; }
-        }
+        //internal string NameAndPathDatabase
+        //{
+        //    get { return dbName; }
+        //    //set { nomeEPathDatabase = value; }
+        //}
         #endregion
-        internal DbConnection Connect()
+        internal override DbConnection Connect()
         {
             DbConnection connection;
             try
@@ -72,7 +47,7 @@ namespace SchoolGrades
             }
             return connection;
         }
-        public int nFieldDbDataReader(string NomeCampo, DbDataReader dr)
+        internal override int nFieldDbDataReader(string NomeCampo, DbDataReader dr)
         {
             for (int i = 0; i < dr.FieldCount; i++)
             {
@@ -83,7 +58,7 @@ namespace SchoolGrades
             }
             return -1;
         }
-        internal void CompactDatabase()
+        internal override void CompactDatabase()
         {
             using (DbConnection conn = Connect())
             {
@@ -95,7 +70,7 @@ namespace SchoolGrades
             }
             //Application.Exit();
         }
-        internal School GetSchool(string OfficialSchoolAbbreviation)
+        internal override School GetSchool(string OfficialSchoolAbbreviation)
         {
             // !!!! TODO read school info from the database !!!!
             School news = new School();
@@ -106,7 +81,7 @@ namespace SchoolGrades
             news.OfficialSchoolAbbreviation = Commons.IdSchool;
             return news;
         }
-        internal int NextKey(string Table, string KeyName)
+        internal override int NextKey(string Table, string KeyName)
         {
             int nextId;
             using (DbConnection conn = Connect())
@@ -126,7 +101,7 @@ namespace SchoolGrades
             }
             return nextId;
         }
-        internal bool CheckKeyExistence
+        internal override bool CheckKeyExistence
             (string TableName, string KeyName, string KeyValue)
         {
             using (DbConnection conn = Connect())
@@ -147,7 +122,7 @@ namespace SchoolGrades
                 }
             }
         }
-        internal void CreateNewDatabase()
+        internal override void CreateNewDatabase()
         {
             DbCommand cmd;
             // erase all the data on all the tables
@@ -204,7 +179,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal void BackupAllStudentsDataTsv()
+        internal override void BackupAllStudentsDataTsv()
         {
             BackupTableTsv("Students");
             BackupTableTsv("StudentsPhotos");
@@ -212,7 +187,7 @@ namespace SchoolGrades
             BackupTableTsv("Classes_Students");
             BackupTableTsv("Grades");
         }
-        internal void BackupAllStudentsDataXml()
+        internal override void BackupAllStudentsDataXml()
         {
             BackupTableXml("Students");
             BackupTableXml("StudentsPhotos");
@@ -220,7 +195,7 @@ namespace SchoolGrades
             BackupTableXml("Classes_Students");
             BackupTableXml("Grades");
         }
-        internal void RestoreAllStudentsDataTsv(bool MustErase)
+        internal override void RestoreAllStudentsDataTsv(bool MustErase)
         {
             RestoreTableTsv("Students", MustErase);
             RestoreTableTsv("StudentsPhotos", MustErase);
@@ -228,7 +203,7 @@ namespace SchoolGrades
             RestoreTableTsv("Classes_Students", MustErase);
             RestoreTableTsv("Grades", MustErase);
         }
-        internal void RestoreAllStudentsDataXml(bool MustErase)
+        internal override void RestoreAllStudentsDataXml(bool MustErase)
         {
             RestoreTableXml("Students", MustErase);
             RestoreTableXml("StudentsPhotos", MustErase);
@@ -236,7 +211,7 @@ namespace SchoolGrades
             RestoreTableXml("Classes_Students", MustErase);
             RestoreTableXml("Grades", MustErase);
         }
-        internal void BackupTableTsv(string TableName)
+        internal override void BackupTableTsv(string TableName)
         {
             DbDataReader dRead;
             DbCommand cmd;
@@ -286,7 +261,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal void BackupTableXml(string TableName)
+        internal override void BackupTableXml(string TableName)
         {
             DataAdapter dAdapt;
             DataSet dSet = new DataSet();
@@ -308,7 +283,7 @@ namespace SchoolGrades
                 dSet.Dispose();
             }
         }
-        internal void RestoreTableTsv(string TableName, bool EraseBefore)
+        internal override void RestoreTableTsv(string TableName, bool EraseBefore)
         {
             List<string> fieldNames;
             List<string> fieldTypes = new List<string>();
@@ -432,7 +407,7 @@ namespace SchoolGrades
                 //cmd.Dispose();
             }
         }
-        internal void RestoreTableXml(string TableName, bool EraseBefore)
+        internal override void RestoreTableXml(string TableName, bool EraseBefore)
         {
             DataSet dSet = new DataSet();
             DataTable t = null;
@@ -500,7 +475,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        private bool FieldExists(string TableName, string FieldName)
+        internal override bool FieldExists(string TableName, string FieldName)
         {
             // watch if field isPopUp exist in the database
             DataTable table = new DataTable();
@@ -523,7 +498,7 @@ namespace SchoolGrades
             }
             return fieldExists;
         }
-        internal bool IsTableReadable(string Table)
+        internal override bool IsTableReadable(string Table)
         {
             try
             {

@@ -9,30 +9,29 @@
     <Import_RootNamespace>DataLayer</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)abstract.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DatabaseInfo.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DL_DemoDatabaseCreation.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DL_GeneralFunctions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_DemoDatabaseCreation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_GeneralFunctions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DL_SqlStringsGeneration.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DL_AnnotationManagement.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DL_AnswerManagement.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DL_ClassManagement.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DL_ConstructorsAndGeneralMethods.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DL_GradesManagement.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DL_ImageManagement.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DL_LessonManagement.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DL_LinkManagement.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DL_PeriodManagement.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DL_QuestionManagement.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DL_SqlToCreateDatabase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DL_StudentManagement.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DL_SubjectManagement.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DL_TableManagement.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DL_TagManagement.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DL_TestManagement.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DL_TopicsManagement.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DL_UserManagement.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DL_YearsAndPeriodsManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_AnnotationManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_AnswerManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_ClassManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_ConstructorsAndGeneralMethods.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_GradesManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_ImageManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_LessonManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_LinkManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_PeriodManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_QuestionManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_SqlToCreateDatabase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_StudentManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_SubjectManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_TableManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_TagManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_TestManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_TopicsManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_UserManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_YearsAndPeriodsManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SqLite\SqLite_DataLayer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SqlServer\SqlServer_DataLayer.cs" />
   </ItemGroup>

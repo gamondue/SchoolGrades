@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Common;
 using System.IO;
-using System.Text;
 
 namespace SchoolGrades
 {
-	public abstract partial class DataLayer
-	{
-		string creationScript = @"
+    internal partial class SqLite_DataLayer : DataLayer
+    {
+        string creationScript = @"
 CREATE TABLE 'Answers' (
 	'idAnswer'	INT NOT NULL,
 	'idQuestion'	INT NOT NULL,
@@ -387,36 +385,36 @@ CREATE TABLE 'UsersCategories' (
 	PRIMARY KEY('idUserCategory')
 );";
 
-		private void CreateNewDatabase(string dbName)
-		{
-			// making new, means erasing existent! 
-			if (File.Exists(dbName))
-				File.Delete(dbName);
+        // special override, only in this class 
+        internal override void CreateNewDatabase(string dbName)
+        {
+            // making new, means erasing existent! 
+            if (File.Exists(dbName))
+                File.Delete(dbName);
 
-			// when the file does not exist 
-			// Microsoft.Data.Sqlite creates the file at first connection
-			DbConnection c = Connect();
-			c.Close();
-			c.Dispose();
+            // when the file does not exist 
+            // Microsoft.Data.Sqlite creates the file at first connection
+            DbConnection c = Connect();
+            c.Close();
+            c.Dispose();
 
-			try
-			{
-				using (DbConnection conn = Connect())
-				{
-					DbCommand cmd = conn.CreateCommand();
+            try
+            {
+                using (DbConnection conn = Connect())
+                {
+                    DbCommand cmd = conn.CreateCommand();
 
-					cmd.CommandText = creationScript;
-					cmd.ExecuteNonQuery();
-					conn.Close(); 
-					cmd.Dispose();
-				}
-				// !!!! TODO fill the tables of enumerations
-			}
-			catch (Exception ex)
-			{
-				//Common.LogOfProgram.Error("Sqlite_DataAndGeneral | CreateNewDatabase", ex);
-			}
-		}
-
-	}
+                    cmd.CommandText = creationScript;
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                    cmd.Dispose();
+                }
+                // !!!! TODO fill the tables of enumerations
+            }
+            catch (Exception ex)
+            {
+                //Common.LogOfProgram.Error("Sqlite_DataAndGeneral | CreateNewDatabase", ex);
+            }
+        }
+    }
 }

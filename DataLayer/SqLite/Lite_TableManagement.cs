@@ -5,9 +5,9 @@ using System.Data.SQLite;
 
 namespace SchoolGrades
 {
-    public abstract partial class DataLayer
+    internal partial class SqLite_DataLayer : DataLayer
     {
-        internal void GetLookupTable(string Table, ref DataSet DSet, ref DataAdapter DAdapt)
+        internal override void GetLookupTable(string Table, ref DataSet DSet, ref DataAdapter DAdapt)
         {
             using (DbConnection conn = Connect())
             {
@@ -20,7 +20,7 @@ namespace SchoolGrades
                 DSet.Dispose();
             }
         }
-        internal void SaveTableOnCsv(DataTable Table, string FileName)
+        internal override void SaveTableOnCsv(DataTable Table, string FileName)
         {
             string fileContent = "";
             foreach (DataColumn col in Table.Columns)
@@ -38,7 +38,7 @@ namespace SchoolGrades
             }
             TextFile.StringToFile(FileName, fileContent, false);
         }
-        internal void CreateLookupTableRow(string Table, string IdTable, DataRow Row)
+        internal override void CreateLookupTableRow(string Table, string IdTable, DataRow Row)
         {
             // !!!! TODO !!!! GENERALIZZARE A TABELLE CON NOMI DEI CAMPI ARBITRARI E FAR FUNZIONARE !!!!
             string query;

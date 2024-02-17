@@ -1,9 +1,7 @@
-﻿using System;
+﻿using SchoolGrades.BusinessObjects;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
-using System.Text;
-using SchoolGrades.BusinessObjects;
 
 namespace SchoolGrades
 {

@@ -7,9 +7,9 @@ using System.Data.SQLite;
 
 namespace SchoolGrades
 {
-    public abstract partial class DataLayer
+    internal partial class SqLite_DataLayer : DataLayer
     {
-        internal Grade GetGrade(int? IdGrade)
+        internal override Grade GetGrade(int? IdGrade)
         {
             Grade g = null;
             using (DbConnection conn = Connect())
@@ -28,7 +28,7 @@ namespace SchoolGrades
             }
             return g;
         }
-        internal void SaveMacroGrade(int? IdStudent, int? IdParent,
+        internal override void SaveMacroGrade(int? IdStudent, int? IdParent,
             double Grade, double Weight, string IdSchoolYear,
             string IdSchoolSubject)
         {
@@ -49,7 +49,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal void GetGradeAndStudentFromIdGrade(ref Grade Grade, ref Student Student)
+        internal override void GetGradeAndStudentFromIdGrade(ref Grade Grade, ref Student Student)
         {
             using (DbConnection conn = Connect())
             {
@@ -71,7 +71,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal double GetDefaultWeightOfGradeType(string IdGradeType)
+        internal override double GetDefaultWeightOfGradeType(string IdGradeType)
         {
             double d;
             using (DbConnection conn = Connect())
@@ -90,7 +90,7 @@ namespace SchoolGrades
         /// of another grade which has value greater than zero
         /// </summary>
         /// <param Name="IdStudent"></param> student's Id
-        internal DataTable GetMicroGradesOfStudentWithMacroOpen(int? IdStudent, string IdSchoolYear,
+        internal override DataTable GetMicroGradesOfStudentWithMacroOpen(int? IdStudent, string IdSchoolYear,
             string IdGradeType, string IdSchoolSubject)
         {
             using (DbConnection conn = Connect())
@@ -131,7 +131,7 @@ namespace SchoolGrades
                 return DSet.Tables[0];
             }
         }
-        internal DataTable GetSubGradesOfGrade(int? IdGrade)
+        internal override DataTable GetSubGradesOfGrade(int? IdGrade)
         {
             DataTable t;
             using (DbConnection conn = Connect())
@@ -153,7 +153,7 @@ namespace SchoolGrades
             }
             return t;
         }
-        internal Student GetWeightedAveragesOfStudent(Student Student, string stringKey1, string stringKey2, DateTime value1, DateTime value2)
+        internal override Student GetWeightedAveragesOfStudent(Student Student, string stringKey1, string stringKey2, DateTime value1, DateTime value2)
         {
 
             //List<StudentAndGrade> l = new List<StudentAndGrade>(); 
@@ -194,7 +194,7 @@ namespace SchoolGrades
             //}
             return Student;
         }
-        internal DataTable GetGradesOfClass(Class Class,
+        internal override DataTable GetGradesOfClass(Class Class,
              string IdGradeType, string IdSchoolSubject,
              DateTime DateFrom, DateTime DateTo)
         {
@@ -236,7 +236,7 @@ namespace SchoolGrades
         /// </summary>
         /// <param Name="id"></param>
         /// <returns></returns>
-        internal List<Grade> CountNonClosedMicroGrades(Class Class, GradeType GradeType)
+        internal override List<Grade> CountNonClosedMicroGrades(Class Class, GradeType GradeType)
         {
             DbDataReader dRead;
             DbCommand cmd;
@@ -265,7 +265,7 @@ namespace SchoolGrades
             }
             return ls;
         }
-        internal Grade LastOpenGradeOfStudent(Student Student, string IdSchoolYear,
+        internal override Grade LastOpenGradeOfStudent(Student Student, string IdSchoolYear,
             SchoolSubject SchoolSubject, string IdGradeType)
         {
             DbDataReader dRead;
@@ -293,7 +293,7 @@ namespace SchoolGrades
             }
             return g;
         }
-        internal void CloneGrade(DataRow Riga)
+        internal override void CloneGrade(DataRow Riga)
         {
             using (DbConnection conn = Connect())
             {
@@ -331,7 +331,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal List<GradeType> GetListGradeTypes()
+        internal override List<GradeType> GetListGradeTypes()
         {
             List<GradeType> lg = new List<GradeType>();
             using (DbConnection conn = Connect())
@@ -350,7 +350,7 @@ namespace SchoolGrades
                 return lg;
             }
         }
-        internal void DeleteValueOfGrade(int IdGrade)
+        internal override void DeleteValueOfGrade(int IdGrade)
         {
             using (DbConnection conn = Connect())
             {
@@ -365,7 +365,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal GradeType GetGradeTypeFromRow(DbDataReader Row)
+        internal override GradeType GetGradeTypeFromRow(DbDataReader Row)
         {
             if (Row.HasRows)
             {
@@ -380,7 +380,7 @@ namespace SchoolGrades
             }
             return null;
         }
-        internal GradeType GetGradeType(string IdGradeType)
+        internal override GradeType GetGradeType(string IdGradeType)
         {
             GradeType gt = null;
             using (DbConnection conn = Connect())
@@ -398,7 +398,7 @@ namespace SchoolGrades
             }
             return gt;
         }
-        private void SaveGradeValue(int? id, double? grade)
+        internal override void SaveGradeValue(int? id, double? grade)
         {
             using (DbConnection conn = Connect())
             {
@@ -410,7 +410,7 @@ namespace SchoolGrades
                 cmd.ExecuteNonQuery();
             }
         }
-        internal void EraseGrade(int? KeyGrade)
+        internal override void EraseGrade(int? KeyGrade)
         {
             using (DbConnection conn = Connect())
             {
@@ -422,7 +422,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal Grade GetGradeFromRow(DbDataReader Row)
+        internal override Grade GetGradeFromRow(DbDataReader Row)
         {
             Grade g = new Grade();
             g.IdGrade = (int)Row["idGrade"];
@@ -440,7 +440,7 @@ namespace SchoolGrades
             //g.DummyInt = (int)Row["dummyInt"]; 
             return g;
         }
-        internal DataTable GetGradesOfStudent(Student Student, string SchoolYear, string IdGradeType, string IdSchoolSubject, DateTime DateFrom, DateTime DateTo)
+        internal override DataTable GetGradesOfStudent(Student Student, string SchoolYear, string IdGradeType, string IdSchoolSubject, DateTime DateFrom, DateTime DateTo)
         {
             DataTable t;
             using (DbConnection conn = Connect())
@@ -477,11 +477,11 @@ namespace SchoolGrades
             }
             return t;
         }
-        internal object GetGradesWeightsOfStudentOnOpenGrades(Student currentStudent, string stringKey1, string stringKey2, DateTime value1, DateTime value2)
+        internal override object GetGradesWeightsOfStudentOnOpenGrades(Student currentStudent, string stringKey1, string stringKey2, DateTime value1, DateTime value2)
         {
             throw new NotImplementedException();
         }
-        internal DataTable GetWeightedAveragesOfClassByGradesFraction(Class Class,
+        internal override DataTable GetWeightedAveragesOfClassByGradesFraction(Class Class,
             string IdGradeType, string IdSchoolSubject, DateTime DateFrom, DateTime DateTo)
         {
             DataTable t;
@@ -516,7 +516,7 @@ namespace SchoolGrades
             }
             return t;
         }
-        internal DataTable GetGradesWeightedAveragesOfClassByAverage(Class Class, string IdGradeType,
+        internal override DataTable GetGradesWeightedAveragesOfClassByAverage(Class Class, string IdGradeType,
             string IdSchoolSubject, DateTime DateFrom, DateTime DateTo)
         {
             DataTable t;
@@ -560,7 +560,7 @@ namespace SchoolGrades
             }
             return t;
         }
-        internal List<StudentAndGrade> GetListGradesWeightedAveragesOfClassByName(Class Class, string IdGradeType,
+        internal override List<StudentAndGrade> GetListGradesWeightedAveragesOfClassByName(Class Class, string IdGradeType,
             string IdSchoolSubject, DateTime DateFrom, DateTime DateTo)
         {
             //DataTable t;
@@ -610,7 +610,7 @@ namespace SchoolGrades
             }
             return l;
         }
-        internal DataTable GetUnfixedGrades(Student Student, string IdSchoolSubject,
+        internal override DataTable GetUnfixedGrades(Student Student, string IdSchoolSubject,
             double Threshold)
         {
             DataTable t;
@@ -647,7 +647,7 @@ namespace SchoolGrades
         /// <param name="IdGradeType"></param>
         /// <param name="IdSchoolSubject"></param>
         /// <returns></returns>
-        internal DataTable GetMacroGradesOfStudentClosed(int? IdStudent, string IdSchoolYear,
+        internal override DataTable GetMacroGradesOfStudentClosed(int? IdStudent, string IdSchoolYear,
             string IdGradeType, string IdSchoolSubject)
         {
             DataTable t;
@@ -675,7 +675,7 @@ namespace SchoolGrades
             }
             return t;
         }
-        internal int CreateMacroGrade(ref Grade Grade, Student Student, string IdMicroGradeType)
+        internal override int CreateMacroGrade(ref Grade Grade, Student Student, string IdMicroGradeType)
         {
             int key = NextKey("Grades", "idGrade");
             using (DbConnection conn = Connect())
@@ -708,7 +708,7 @@ namespace SchoolGrades
             }
             return key;
         }
-        internal int? SaveMicroGrade(Grade Grade)
+        internal override int? SaveMicroGrade(Grade Grade)
         {
             using (DbConnection conn = Connect())
             {
@@ -758,12 +758,12 @@ namespace SchoolGrades
             }
             return Grade.IdGrade;
         }
-        internal object GetGradesWeightedAveragesOfStudent(Student currentStudent,
+        internal override object GetGradesWeightedAveragesOfStudent(Student currentStudent,
             string stringKey1, string stringKey2, DateTime value1, DateTime value2)
         {
             throw new NotImplementedException();
         }
-        internal List<Couple> GetGradesOldestInClass(Class Class,
+        internal override List<Couple> GetGradesOldestInClass(Class Class,
             GradeType GradeType, SchoolSubject SchoolSubject)
         {
             List<Couple> couples = new List<Couple>();
@@ -802,7 +802,7 @@ namespace SchoolGrades
             }
             return couples;
         }
-        internal DataTable GetGradesWeightsOfClassOnOpenGrades(Class Class,
+        internal override DataTable GetGradesWeightsOfClassOnOpenGrades(Class Class,
             string IdGradeType, string IdSchoolSubject, DateTime DateFrom, DateTime DateTo)
         {
             DataTable t;

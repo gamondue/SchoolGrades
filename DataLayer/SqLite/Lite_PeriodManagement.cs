@@ -6,9 +6,9 @@ using System.Text;
 
 namespace SchoolGrades
 {
-    public abstract partial class DataLayer
+    internal partial class SqLite_DataLayer : DataLayer
     {
-        internal List<SchoolPeriod> GetSchoolPeriodsOfDate(DateTime Date)
+        internal override List<SchoolPeriod> GetSchoolPeriodsOfDate(DateTime Date)
         {
             List<SchoolPeriod> l = new List<SchoolPeriod>();
             using (DbConnection conn = Connect())
@@ -30,7 +30,7 @@ namespace SchoolGrades
             }
             return l;
         }
-        internal List<SchoolPeriod> GetSchoolPeriods(string IdSchoolYear)
+        internal override List<SchoolPeriod> GetSchoolPeriods(string IdSchoolYear)
         {
             List<SchoolPeriod> l = new List<SchoolPeriod>();
             using (DbConnection conn = Connect())
@@ -57,7 +57,7 @@ namespace SchoolGrades
             }
             return l;
         }
-        internal SchoolPeriod GetOneSchoolPeriodFromRow(DbDataReader Row)
+        internal override SchoolPeriod GetOneSchoolPeriodFromRow(DbDataReader Row)
         {
             SchoolPeriod p = new SchoolPeriod();
             p.IdSchoolPeriodType = Safe.String(Row["idSchoolPeriodType"]);
@@ -72,7 +72,7 @@ namespace SchoolGrades
             p.IdSchoolYear = Safe.String(Row["idSchoolYear"]);
             return p;
         }
-        internal void SaveSchoolPeriod(SchoolPeriod SchoolPeriod)
+        internal override void SaveSchoolPeriod(SchoolPeriod SchoolPeriod)
         {
             if (FindIfIdIsAlreadyExisting(SchoolPeriod.IdSchoolPeriod))
             {
@@ -83,7 +83,7 @@ namespace SchoolGrades
                 CreateSchoolPeriod(SchoolPeriod); 
             }
         }
-        internal void CreateSchoolPeriod(SchoolPeriod SchoolPeriod)
+        internal override void CreateSchoolPeriod(SchoolPeriod SchoolPeriod)
         {
             using (DbConnection conn = Connect())
             {
@@ -107,7 +107,7 @@ namespace SchoolGrades
             }
             return;
         }
-        internal void UpdateSchoolPeriod(SchoolPeriod SchoolPeriod)
+        internal override void UpdateSchoolPeriod(SchoolPeriod SchoolPeriod)
         {
             using (DbConnection conn = Connect())
             {
@@ -129,7 +129,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal void DeleteSchoolPeriod(string IdSchoolPeriod)
+        internal override void DeleteSchoolPeriod(string IdSchoolPeriod)
         {
             using (DbConnection conn = Connect())
             {
@@ -143,7 +143,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal bool FindIfPeriodsAreAlreadyExisting(string SchoolYear)
+        internal override bool FindIfPeriodsAreAlreadyExisting(string SchoolYear)
         {
             using (DbConnection conn = Connect())
             {
@@ -156,7 +156,7 @@ namespace SchoolGrades
                 //return onlyColumn != DBNull.Value;
             }
         }
-        internal bool FindIfIdIsAlreadyExisting(string IdSchoolPeriod)
+        internal override bool FindIfIdIsAlreadyExisting(string IdSchoolPeriod)
         {
             using (DbConnection conn = Connect())
             {
@@ -168,7 +168,7 @@ namespace SchoolGrades
                 return onlyColumn != null;
             }
         }
-        internal List<SchoolPeriodType> GetSchoolPeriodTypes()
+        internal override List<SchoolPeriodType> GetSchoolPeriodTypes()
         {
             List<SchoolPeriodType> l = new List<SchoolPeriodType>();
             using (DbConnection conn = Connect())

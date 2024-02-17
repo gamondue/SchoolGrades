@@ -7,9 +7,9 @@ using System.Data.SQLite;
 
 namespace SchoolGrades
 {
-    public abstract partial class DataLayer
+    internal partial class SqLite_DataLayer : DataLayer
     {
-        internal Lesson GetLessonFromRow(DbDataReader dRead)
+        internal override Lesson GetLessonFromRow(DbDataReader dRead)
         {
             Lesson l = new Lesson();
             l.IdLesson = Safe.Int(dRead["IdLesson"]);
@@ -21,7 +21,7 @@ namespace SchoolGrades
 
             return l;
         }
-        internal int NewLesson(Lesson Lesson)
+        internal override int NewLesson(Lesson Lesson)
         {
             int key;
             using (DbConnection conn = Connect())
@@ -47,7 +47,7 @@ namespace SchoolGrades
             }
             return key;
         }
-        internal void SaveLesson(Lesson Lesson)
+        internal override void SaveLesson(Lesson Lesson)
         {
             using (DbConnection conn = Connect())
             {
@@ -67,7 +67,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal List<Topic> GetTopicsOfOneLessonOfClass(Class Class, Lesson Lesson)
+        internal override List<Topic> GetTopicsOfOneLessonOfClass(Class Class, Lesson Lesson)
         {
             List<Topic> topics = new();
             using (DbConnection conn = Connect())
@@ -97,7 +97,7 @@ namespace SchoolGrades
             }
             return topics;
         }
-        internal DataTable GetLessonsOfClass(Class Class, Lesson Lesson)
+        internal override DataTable GetLessonsOfClass(Class Class, Lesson Lesson)
         {
             DataTable t;
             using (DbConnection conn = Connect())
@@ -121,7 +121,7 @@ namespace SchoolGrades
             }
             return t;
         }
-        internal List<Lesson> GetLessonsOfClass(Class Class, string IdSchoolSubject,
+        internal override List<Lesson> GetLessonsOfClass(Class Class, string IdSchoolSubject,
             bool OrderByAscendingDate)
         {
             List<Lesson> lessons = new List<Lesson>();
@@ -152,7 +152,7 @@ namespace SchoolGrades
             }
             return lessons;
         }
-        internal Lesson GetLastLesson(Lesson CurrentLesson)
+        internal override Lesson GetLastLesson(Lesson CurrentLesson)
         {
             using (DbConnection conn = Connect())
             {
@@ -179,7 +179,7 @@ namespace SchoolGrades
                 return l;
             }
         }
-        internal Lesson GetLessonInDate(Class Class, string IdSubject,
+        internal override Lesson GetLessonInDate(Class Class, string IdSubject,
             DateTime Date)
         {
             Lesson l = new Lesson();
@@ -206,7 +206,7 @@ namespace SchoolGrades
             }
             return l;
         }
-        internal void EraseLesson(int? IdLesson, bool AlsoEraseImageFiles)
+        internal override void EraseLesson(int? IdLesson, bool AlsoEraseImageFiles)
         {
             using (DbConnection conn = Connect())
             {
@@ -244,7 +244,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal List<Topic> GetTopicsOfLesson(int? IdLesson)
+        internal override List<Topic> GetTopicsOfLesson(int? IdLesson)
         {
             List<Topic> topicsOfTheLesson = new List<Topic>();
             if (IdLesson == null)
@@ -275,7 +275,7 @@ namespace SchoolGrades
             }
             return topicsOfTheLesson;
         }
-        internal void SaveTopicsOfLesson(int? IdLesson, List<Topic> topicsOfTheLesson)
+        internal override void SaveTopicsOfLesson(int? IdLesson, List<Topic> topicsOfTheLesson)
         {
             using (DbConnection conn = Connect())
             {
@@ -316,7 +316,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal List<Image> GetLessonsImagesList(Lesson Lesson)
+        internal override List<Image> GetLessonsImagesList(Lesson Lesson)
         {
             if (Lesson.IdLesson == null)
                 return null;
@@ -355,7 +355,7 @@ namespace SchoolGrades
         /// <param name="Image"></param>
         /// <param name="Lesson"></param>
         /// <returns></returns>
-        internal int? LinkOneImageToLesson(Image Image, Lesson Lesson)
+        internal override int? LinkOneImageToLesson(Image Image, Lesson Lesson)
         {
             using (DbConnection conn = Connect())
             {
@@ -395,7 +395,7 @@ namespace SchoolGrades
             }
             return Image.IdImage;
         }
-        internal List<Topic> GetTopicsDoneInClassInPeriod(Class Class,
+        internal override List<Topic> GetTopicsDoneInClassInPeriod(Class Class,
             SchoolSubject Subject,
             DateTime? DateStart, DateTime? DateFinish)
         {

@@ -4,9 +4,9 @@ using System.Data.Common;
 
 namespace SchoolGrades
 {
-    public abstract partial class DataLayer
+    internal partial class SqLite_DataLayer : DataLayer
     {
-        internal SchoolGrades.BusinessObjects.SchoolTest GetTestFromRow(DbDataReader Row)
+        internal override SchoolGrades.BusinessObjects.SchoolTest GetTestFromRow(DbDataReader Row)
         {
             SchoolGrades.BusinessObjects.SchoolTest t = new SchoolTest();
             t.IdTest = Safe.Int(Row["idTest"]);
@@ -19,7 +19,7 @@ namespace SchoolGrades
 
             return t;
         }
-        internal SchoolTest GetTest(int? IdTest)
+        internal override SchoolTest GetTest(int? IdTest)
         {
             SchoolTest t = new SchoolTest();
             using (DbConnection conn = Connect())
@@ -39,7 +39,7 @@ namespace SchoolGrades
             }
             return t;
         }
-        internal List<SchoolTest> GetTests()
+        internal override List<SchoolTest> GetTests()
         {
             List<SchoolTest> list = new List<SchoolTest>();
             using (DbConnection conn = Connect())
@@ -62,7 +62,7 @@ namespace SchoolGrades
             return list;
         }
 
-        internal void SaveTest(SchoolTest TestToSave)
+        internal override void SaveTest(SchoolTest TestToSave)
         {
             using (DbConnection conn = Connect())
             {

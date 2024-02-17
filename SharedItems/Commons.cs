@@ -14,7 +14,7 @@ namespace SchoolGrades
     public static class Commons
     {
         internal static BusinessLayer bl;
-        internal static DataLayer dl;
+        //internal static DataLayer dl;
         // program's default path and files. Overridden by the config file "schgrd.cfg", when it exists
         internal static string PathUser = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
         internal static string PathAndFileExe = System.Reflection.Assembly.GetExecutingAssembly().CodeBase.Substring(8);
@@ -34,7 +34,7 @@ namespace SchoolGrades
         internal static string PathImages = Path.Combine(PathExe, "Images");
         internal static string PathDocuments = Path.Combine(PathExe, "Docs");
 
-        // !!!! usare DbInfo !!!!
+        // !!!! TODO use DbInfo !!!!
         //internal static DatabaseInfo DbInfo = new();
         //DatabaseInfo.
         //    . = "SchoolGrades.sqlite";
@@ -453,11 +453,11 @@ namespace SchoolGrades
         internal static DataLayer SetDataLayer(string DataBaseName)
         {
 #if SQLSERVER
-            DataLayer dlNew = new SqlDataLayer(DataBaseName);
+            DataLayer dlNew = new SqlServer_DataLayer(DataBaseName);
 #else
-            DataLayer dlNew = new SqLite_DataLayer(DataBaseName);
-            return dlNew; 
+            SqLite_DataLayer dlNew = new SqLite_DataLayer(DataBaseName);
 #endif
+            return dlNew;
         }
     }
 }

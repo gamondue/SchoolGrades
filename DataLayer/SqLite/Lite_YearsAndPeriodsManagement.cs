@@ -6,9 +6,9 @@ using System.Text;
 
 namespace SchoolGrades
 {
-    public abstract partial class DataLayer
+    internal partial class SqLite_DataLayer : DataLayer
     {
-        internal bool SchoolYearExists(string idSchoolYear)
+        internal override bool SchoolYearExists(string idSchoolYear)
         {
             using (DbConnection conn = Connect())
             {
@@ -21,7 +21,7 @@ namespace SchoolGrades
                 return (result != null);
             }
         }
-        internal void AddSchoolYear(SchoolYear newSchoolYear)
+        internal override void AddSchoolYear(SchoolYear newSchoolYear)
         {
             using (DbConnection conn = Connect())
             {

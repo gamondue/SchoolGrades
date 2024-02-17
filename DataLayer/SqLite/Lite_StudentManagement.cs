@@ -7,9 +7,9 @@ using System.Data.SQLite;
 
 namespace SchoolGrades
 {
-    public abstract partial class DataLayer
+    internal partial class SqLite_DataLayer : DataLayer
     {
-        internal Student CreateStudentFromStringMatrix(string[,] StudentData, int? StudentRow)
+        internal override Student CreateStudentFromStringMatrix(string[,] StudentData, int? StudentRow)
         {
             // look if exists a student with same name, last name, birth date and place
             Student s = new Student();
@@ -46,7 +46,7 @@ namespace SchoolGrades
             }
             return s;
         }
-        private Student GetStudent(Student StudentToFind)
+        internal override Student GetStudent(Student StudentToFind)
         {
             Student s;
             using (DbConnection conn = Connect())
@@ -71,7 +71,7 @@ namespace SchoolGrades
             }
             return s;
         }
-        internal DataTable GetStudentsWithNoMicrogrades(Class Class, string IdGradeType, string IdSchoolSubject,
+        internal override DataTable GetStudentsWithNoMicrogrades(Class Class, string IdGradeType, string IdSchoolSubject,
             DateTime DateFrom, DateTime DateTo)
         {
             DataTable t;
@@ -116,7 +116,7 @@ namespace SchoolGrades
             }
             return t;
         }
-        internal List<Student> GetAllStudentsThatAnsweredToATest(SchoolTest Test, Class Class)
+        internal override List<Student> GetAllStudentsThatAnsweredToATest(SchoolTest Test, Class Class)
         {
             List<Student> list = new List<Student>();
             using (DbConnection conn = Connect())
@@ -141,14 +141,14 @@ namespace SchoolGrades
             }
             return list;
         }
-        internal int? SaveStudent(Student Student)
+        internal override int? SaveStudent(Student Student)
         {
             if (Student.IdStudent != null)
                 return UpdateStudent(Student);
             else
                 return CreateStudent(Student);
         }
-        internal int? CreateStudent(Student Student)
+        internal override int? CreateStudent(Student Student)
         {
             // trova una chiave da assegnare al nuovo studente
             int idStudent = NextKey("Students", "idStudent");
@@ -180,7 +180,7 @@ namespace SchoolGrades
         /// </summary>
         /// <param name="Student">The student we want to update</param>
         /// <param name="conn">Optional connection that is used if present</param>
-        internal int? UpdateStudent(Student Student, DbCommand cmd = null)
+        internal override int? UpdateStudent(Student Student, DbCommand cmd = null)
         {
             DbConnection conn;
             bool leaveConnectionOpen = true;
@@ -225,14 +225,14 @@ namespace SchoolGrades
             }
             return Student.IdStudent;
         }
-        //internal void SaveStudentsOfList(List<Student> studentsList, DbConnection conn)
+        //internal override void SaveStudentsOfList(List<Student> studentsList, DbConnection conn)
         //{
         //    foreach (Student s in studentsList)
         //    {
         //        SaveStudent(s, conn);
         //    }
         //}
-        internal Student GetStudent(int? IdStudent)
+        internal override Student GetStudent(int? IdStudent)
         {
             Student s = new Student();
             using (DbConnection conn = Connect())
@@ -251,7 +251,7 @@ namespace SchoolGrades
             }
             return s;
         }
-        internal Student GetStudentFromRow(DbDataReader Row)
+        internal override Student GetStudentFromRow(DbDataReader Row)
         {
             Student s = new Student();
             s.IdStudent = (int)Row["IdStudent"];
@@ -269,7 +269,7 @@ namespace SchoolGrades
             s.RevengeFactorCounter = Safe.Int(Row["VFCounter"]);
             return s;
         }
-        internal DataTable GetStudentsSameName(string LastName, string FirstName)
+        internal override DataTable GetStudentsSameName(string LastName, string FirstName)
         {
             DataTable t;
             using (DbConnection conn = Connect())
@@ -294,7 +294,7 @@ namespace SchoolGrades
             }
             return t;
         }
-        internal DataTable FindStudentsLike(string LastName, string FirstName)
+        internal override DataTable FindStudentsLike(string LastName, string FirstName)
         {
             DataTable t;
             using (DbConnection conn = Connect())
@@ -332,7 +332,7 @@ namespace SchoolGrades
             }
             return t;
         }
-        internal void PutStudentInClass(int? IdStudent, int? IdClass)
+        internal override void PutStudentInClass(int? IdStudent, int? IdClass)
         {
             using (DbConnection conn = Connect())
             {
@@ -361,7 +361,7 @@ namespace SchoolGrades
         /// <param name="conn">Connection already open on a database different from standard. 
         /// If not null this connection is left open</param>
         /// <returns>List of the </returns>
-        internal List<Student> GetStudentsOfClass(int? IdClass, DbCommand cmd)
+        internal override List<Student> GetStudentsOfClass(int? IdClass, DbCommand cmd)
         {
             DbConnection conn;
             List<Student> l = new List<Student>();
@@ -394,7 +394,7 @@ namespace SchoolGrades
             }
             return l;
         }
-        internal List<Student> GetStudentsOfClassList(string Scuola, string Anno,
+        internal override List<Student> GetStudentsOfClassList(string Scuola, string Anno,
             string SiglaClasse, bool IncludeNonActiveStudents)
         {
             DbDataReader dRead;
@@ -435,7 +435,7 @@ namespace SchoolGrades
             }
             return ls;
         }
-        internal List<int> GetIdStudentsNonGraded(Class Class,
+        internal override List<int> GetIdStudentsNonGraded(Class Class,
             GradeType GradeType, SchoolSubject SchoolSubject)
         {
             List<int> keys = new List<int>();
@@ -470,7 +470,7 @@ namespace SchoolGrades
             }
             return keys;
         }
-        internal void ToggleDisabledFlagOneStudent(Student Student)
+        internal override void ToggleDisabledFlagOneStudent(Student Student)
         {
             // if Disabled is null I want it to be true after method
             if (Student.Disabled == null)
@@ -488,7 +488,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        private Nullable<int> GetStudentsPhotoId(int? idStudent, string schoolYear, DbConnection conn)
+        internal override Nullable<int> GetStudentsPhotoId(int? idStudent, string schoolYear, DbConnection conn)
         {
             DbCommand cmd = conn.CreateCommand();
             cmd.CommandText = "SELECT idStudentsPhoto FROM StudentsPhotos_Students " +
@@ -498,7 +498,7 @@ namespace SchoolGrades
                 ";";
             return (int?)cmd.ExecuteScalar();
         }
-        private int? StudentHasAnswered(int? IdAnswer, int? IdTest, int? IdStudent)
+        internal override int? StudentHasAnswered(int? IdAnswer, int? IdTest, int? IdStudent)
         {
             int? key;
             using (DbConnection conn = Connect())
@@ -516,7 +516,7 @@ namespace SchoolGrades
             }
             return key;
         }
-        internal List<Student> GetStudentsOnBirthday(Class Class, DateTime Date)
+        internal override List<Student> GetStudentsOnBirthday(Class Class, DateTime Date)
         {
             List<Student> list = new List<Student>();
             // strip daytime from date 
@@ -545,7 +545,7 @@ namespace SchoolGrades
             }
             return list;
         }
-        internal void SaveStudentsAnswer(Student Student, SchoolTest Test, Answer Answer,
+        internal override void SaveStudentsAnswer(Student Student, SchoolTest Test, Answer Answer,
             bool StudentsBoolAnswer, string StudentsTextAnswer)
         {
             using (DbConnection conn = Connect())
