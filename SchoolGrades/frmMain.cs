@@ -140,7 +140,7 @@ namespace SchoolGrades
                     }
                 }
             }
-            CreateBusinessAndDataLayer();
+            CreateBusinessLayer();
 
             List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
             cmbSchoolYear.DataSource = ly;
@@ -299,9 +299,9 @@ namespace SchoolGrades
             }
             return newestFileNameAndPath;
         }
-        private bool CreateBusinessAndDataLayer()
+        private bool CreateBusinessLayer()
         {
-            // create Business and Data layer objects, to be used throughout the program
+            // create Business layer object, to be used throughout the program
             // keep this order of creation. Create after reading config file
             if (!System.IO.File.Exists(Commons.PathAndFileDatabase))
             {
@@ -310,9 +310,6 @@ namespace SchoolGrades
                 throw new System.IO.FileNotFoundException(err);
                 return false;
             }
-            Commons.dl = Commons.SetDataLayer(Commons.PathAndFileDatabase);
-            if (Commons.dl == null)
-                return false;
             Commons.bl = new BusinessLayer();
             if (Commons.bl == null)
                 return false;

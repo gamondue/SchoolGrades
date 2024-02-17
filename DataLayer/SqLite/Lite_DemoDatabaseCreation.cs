@@ -6,9 +6,9 @@ using System.IO;
 
 namespace SchoolGrades
 {
-    public abstract partial class DataLayer
+    internal partial class SqLite_DataLayer : DataLayer
     {
-        internal void EraseAllNotConcerningDataOfOtherClasses(DataLayer newDatabaseDl, List<Class> Classes)
+        internal override void EraseAllNotConcerningDataOfOtherClasses(DataLayer newDatabaseDl, List<Class> Classes)
         {
             DbCommand cmd;
             using (DbConnection conn = newDatabaseDl.Connect()) // connect to the new database, just copied
@@ -167,7 +167,7 @@ namespace SchoolGrades
                 //cmd.Dispose();
             }
         }
-        internal void CreateDemoDataInDatabase(DataLayer newDatabaseDl, List<Class> Classes)
+        internal override void CreateDemoDataInDatabase(DataLayer newDatabaseDl, List<Class> Classes)
         {
             DbCommand cmd;
             string query;
@@ -224,7 +224,7 @@ namespace SchoolGrades
                 cmd.ExecuteNonQuery();
             }
         }
-        private void RandomizeGrades(DbCommand cmd)
+        internal override void RandomizeGrades(DbCommand cmd)
         {
             DbDataReader dRead;
             cmd.CommandText = "SELECT * FROM Grades" +
@@ -248,7 +248,7 @@ namespace SchoolGrades
             }
             cmd.Dispose();
         }
-        private void RenameStudentsNamesAndManagePictures(Class Class, DbCommand cmd)
+        internal override void RenameStudentsNamesAndManagePictures(Class Class, DbCommand cmd)
         {
             // get the "previous" students from database 
             List<Student> StudentsInClass = GetStudentsOfClass(Class.IdClass, cmd);
@@ -358,7 +358,7 @@ namespace SchoolGrades
             }
             dReader.Close();
         }
-        private void AddLinkPhotoToStudent(int? idStudent, int? idStudentsPhoto, string schoolYear, DbCommand cmd)
+        internal override void AddLinkPhotoToStudent(int? idStudent, int? idStudentsPhoto, string schoolYear, DbCommand cmd)
         {
             cmd.CommandText = "";
             cmd.CommandText = "INSERT INTO StudentsPhotos_Students" +
@@ -367,7 +367,7 @@ namespace SchoolGrades
             ";";
             cmd.ExecuteNonQuery();
         }
-        private bool isDuplicate(string lastName, string firstName, List<Student> StudentsInClass)
+        internal override bool isDuplicate(string lastName, string firstName, List<Student> StudentsInClass)
         {
             bool found = false;
             foreach (Student s in StudentsInClass)

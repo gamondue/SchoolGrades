@@ -1,15 +1,13 @@
 ﻿using SchoolGrades.BusinessObjects;
-using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SQLite;
-using System.Text;
 
 namespace SchoolGrades
 {
-    internal abstract partial class  DataLayer
+    internal partial class SqLite_DataLayer : DataLayer
     {
-        internal List<Tag> GetTagsContaining(string Pattern)
+        internal override List<Tag> GetTagsContaining(string Pattern)
         {
             DbDataReader dRead;
             DbCommand cmd;
@@ -39,7 +37,7 @@ namespace SchoolGrades
             return TagList;
         }
 
-        internal int? CreateNewTag(Tag CurrentTag)
+        internal override int? CreateNewTag(Tag CurrentTag)
         {
             // trova una chiave da assegnare alla nuova domanda
             CurrentTag.IdTag = NextKey("Tags", "IdTag");
@@ -57,8 +55,7 @@ namespace SchoolGrades
             }
             return CurrentTag.IdTag;
         }
-
-        internal void SaveTag(Tag CurrentTag)
+        internal override void SaveTag(Tag CurrentTag)
         {
             using (DbConnection conn = Connect())
             {
@@ -74,7 +71,7 @@ namespace SchoolGrades
             }
         }
 
-        internal List<Tag> TagsOfAQuestion(int? IdQuestion)
+        internal override List<Tag> TagsOfAQuestion(int? IdQuestion)
         {
             DbDataReader dRead;
             DbCommand cmd;
@@ -103,7 +100,7 @@ namespace SchoolGrades
             return l;
         }
 
-        internal void AddTagToQuestion(int? IdQuestion, int? IdTag)
+        internal override void AddTagToQuestion(int? IdQuestion, int? IdTag)
         {
             using (DbConnection conn = Connect())
             {

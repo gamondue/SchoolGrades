@@ -8,9 +8,9 @@ using System.IO;
 
 namespace SchoolGrades
 {
-    public abstract partial class DataLayer
+    internal partial class SqLite_DataLayer : DataLayer
     {
-        internal void DeleteOneStudentFromClass(int? IdDeletingStudent, int? IdClass)
+        internal override void DeleteOneStudentFromClass(int? IdDeletingStudent, int? IdClass)
         {
             using (DbConnection conn = Connect())
             {
@@ -23,7 +23,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal void EraseAllStudentsOfAClass(Class Class)
+        internal override void EraseAllStudentsOfAClass(Class Class)
         {
             using (DbConnection conn = Connect())
             {
@@ -85,7 +85,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal void EraseClassFromClasses(Class Class)
+        internal override void EraseClassFromClasses(Class Class)
         {
             //EraseAllStudentsOfAClass(Class); 
             using (DbConnection conn = Connect())
@@ -121,7 +121,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal string CreateOneClassOnlyDatabase(Class Class)
+        internal override string CreateOneClassOnlyDatabase(Class Class)
         {
             string newDatabasePathName = Path.Combine(Class.PathRestrictedApplication, @"SchoolGrades\Data");
             if (!Directory.Exists(newDatabasePathName))
@@ -328,7 +328,7 @@ namespace SchoolGrades
             }
             return Class.PathRestrictedApplication;
         }
-        internal int CreateClass(string ClassAbbreviation, string ClassDescription, string SchoolYear,
+        internal override int CreateClass(string ClassAbbreviation, string ClassDescription, string SchoolYear,
             string IdSchool)
         {
             // find a key for the new class
@@ -363,7 +363,7 @@ namespace SchoolGrades
             }
             return idClass;
         }
-        internal int CreateClassAndStudents(string[,] StudentsData, string ClassAbbreviation,
+        internal override int CreateClassAndStudents(string[,] StudentsData, string ClassAbbreviation,
                     string ClassDescription, string SchoolYear, string OfficialSchoolAbbreviation,
                     bool LinkPhoto)
         {
@@ -458,7 +458,7 @@ namespace SchoolGrades
             }
             return idClass;
         }
-        internal List<Class> GetClassesOfYear(string School, string Year)
+        internal override List<Class> GetClassesOfYear(string School, string Year)
         {
             DbDataReader dRead;
             DbCommand cmd;
@@ -487,7 +487,7 @@ namespace SchoolGrades
             }
             return lc;
         }
-        internal DataTable GetClassTable(int? idClass)
+        internal override DataTable GetClassTable(int? idClass)
         {
             DataTable t;
             using (DbConnection conn = Connect())
@@ -505,7 +505,7 @@ namespace SchoolGrades
             }
             return t;
         }
-        internal Class GetClassById(int? IdClass)
+        internal override Class GetClassById(int? IdClass)
         {
             Class c = null;
             using (DbConnection conn = Connect())
@@ -530,7 +530,7 @@ namespace SchoolGrades
             }
             return c;
         }
-        internal DataTable GetClassDataTable(string IdSchool, string IdSchoolYear, string ClassAbbreviation)
+        internal override DataTable GetClassDataTable(string IdSchool, string IdSchoolYear, string ClassAbbreviation)
         {
             DataTable t;
             using (DbConnection conn = Connect())
@@ -555,7 +555,7 @@ namespace SchoolGrades
             }
             return t;
         }
-        internal Class GetClass(string IdSchool, string IdSchoolYear, string ClassAbbreviation)
+        internal override Class GetClass(string IdSchool, string IdSchoolYear, string ClassAbbreviation)
         {
             Class c = new Class();
             using (DbConnection conn = Connect())
@@ -583,7 +583,7 @@ namespace SchoolGrades
             }
             return c;
         }
-        internal Class GetClassOfStudent(string IdSchool, string SchoolYearCode, Student Student)
+        internal override Class GetClassOfStudent(string IdSchool, string SchoolYearCode, Student Student)
         {
             Class c = new Class();
             using (DbConnection conn = Connect())
@@ -610,7 +610,7 @@ namespace SchoolGrades
             }
             return c;
         }
-        internal void SaveClass(Class Class)
+        internal override void SaveClass(Class Class)
         {
             //bool leaveConnectionOpen = true;
             //if (conn == null)
@@ -637,7 +637,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal void GetClassFromRow(Class Class, DbDataReader Row)
+        internal override void GetClassFromRow(Class Class, DbDataReader Row)
         {
             if (Class == null)
                 Class = new Class();
@@ -649,7 +649,7 @@ namespace SchoolGrades
             Class.UriWebApp = Safe.String(Row["uriWebApp"]);
             Class.Description = Safe.String(Row["desc"]);
         }
-        internal List<SchoolYear> GetSchoolYearsThatHaveClasses()
+        internal override List<SchoolYear> GetSchoolYearsThatHaveClasses()
         {
             DbDataReader dRead;
             DbCommand cmd;
@@ -681,34 +681,11 @@ namespace SchoolGrades
             }
             return ly;
         }
-        internal Class GetThisClassNextYear(Class Class)
+        internal override Class GetThisClassNextYear(Class Class)
         {
             string nextYear = Commons.IncreaseIntegersInString(Class.SchoolYear);
             string nextAbbreviation = Commons.IncreaseIntegersInString(Class.Abbreviation);
             return GetClass(Class.IdSchool, nextYear, nextAbbreviation);
         }
-        private string BuildAndClauseOnPassedField(List<Class> classes, string FieldName)
-        {
-            // we assume that classes have no nulls 
-            string andClause = string.Empty;
-            foreach (Class c in classes)
-            {
-                andClause += FieldName + "<>" + c.IdClass + " AND ";
-            }
-            andClause = andClause.Substring(0, andClause.Length - 5);
-            return andClause;
-        }
-        private string BuildOrClauseOnPassedField(List<Class> classes, string FieldName)
-        {
-            // we assume that classes have no nulls 
-            string orClause = string.Empty;
-            foreach (Class c in classes)
-            {
-                orClause += FieldName + "=" + c.IdClass + " OR ";
-            }
-            orClause = orClause.Substring(0, orClause.Length - 4);
-            return orClause;
-        }
-
     }
 }

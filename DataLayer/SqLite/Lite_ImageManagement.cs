@@ -6,9 +6,9 @@ using System.IO;
 
 namespace SchoolGrades
 {
-    public abstract partial class DataLayer
+    internal partial class SqLite_DataLayer : DataLayer
     {
-        internal List<Image> GetAllImagesShownToAClassDuringLessons(Class Class, SchoolSubject Subject,
+        internal override List<Image> GetAllImagesShownToAClassDuringLessons(Class Class, SchoolSubject Subject,
             DateTime DateStart = default(DateTime), DateTime DateFinish = default(DateTime))
         {
             List<Image> images = new List<Image>();
@@ -44,7 +44,7 @@ namespace SchoolGrades
             }
             return images;
         }
-        internal List<string> GetCaptionsOfThisImage(string FileName)
+        internal override List<string> GetCaptionsOfThisImage(string FileName)
         {
             List<string> captions = new List<string>();
 
@@ -68,7 +68,7 @@ namespace SchoolGrades
             }
             return captions;
         }
-        internal void EraseStudentsPhoto(int? IdStudent, string SchoolYear)
+        internal override void EraseStudentsPhoto(int? IdStudent, string SchoolYear)
         {
             using (DbConnection conn = Connect())
             {
@@ -81,7 +81,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal string GetFilePhoto(int? IdStudent, string SchoolYear)
+        internal override string GetFilePhoto(int? IdStudent, string SchoolYear)
         {
             using (DbConnection conn = Connect())
             {
@@ -110,7 +110,7 @@ namespace SchoolGrades
                 return NamePath;
             }
         }
-        private void ChangeImagesPath(Class Class, DbCommand cmd)
+        internal override void ChangeImagesPath(Class Class, DbCommand cmd)
         {
             // find 
             DbDataReader dRead;
@@ -138,7 +138,7 @@ namespace SchoolGrades
             ";";
             cmd.ExecuteNonQuery();
         }
-        private void SaveImagePath(int? id, string path)
+        internal override void SaveImagePath(int? id, string path)
         {
             string query;
             using (DbConnection conn = Connect())
@@ -152,7 +152,7 @@ namespace SchoolGrades
                 cmd1.ExecuteNonQuery();
             }
         }
-        private int? SaveDemoStudentPhotoPath(string relativePath, DbCommand cmd)
+        internal override int? SaveDemoStudentPhotoPath(string relativePath, DbCommand cmd)
         {
             int? nextId = null;
             try
@@ -177,7 +177,7 @@ namespace SchoolGrades
             }
             return nextId;
         }
-        internal void RemoveImageFromLesson(Lesson Lesson, Image Image, bool AlsoEraseImageFile)
+        internal override void RemoveImageFromLesson(Lesson Lesson, Image Image, bool AlsoEraseImageFile)
         {
             // delete from the link table
             string query;
@@ -203,7 +203,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal void SaveImage(Image Image)
+        internal override void SaveImage(Image Image)
         {
             using (DbConnection conn = Connect())
             {
@@ -221,7 +221,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal Image FindImageWithGivenFile(string PathAndFileNameOfImage)
+        internal override Image FindImageWithGivenFile(string PathAndFileNameOfImage)
         {
             Image i = new Image();
             using (DbConnection conn = Connect())
@@ -253,7 +253,7 @@ namespace SchoolGrades
         /// <param name="Image"></param>
         /// <param name="Lesson"></param>
         /// <returns></returns>
-        internal int? LinkOneImage(Image Image, Lesson Lesson)
+        internal override int? LinkOneImage(Image Image, Lesson Lesson)
         {
             using (DbConnection conn = Connect())
             {

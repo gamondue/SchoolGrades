@@ -1,17 +1,15 @@
 ﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Common;
 using System.Data.SQLite;
 using System.IO;
-using System.Text;
 
 namespace SchoolGrades
 {
-    public abstract partial class DataLayer
+    internal partial class SqLite_DataLayer : DataLayer
     {
-        internal StudentsAnswer GetStudentsAnswerFromRow(DbDataReader Row)
+        internal override StudentsAnswer GetStudentsAnswerFromRow(DbDataReader Row)
         {
             StudentsAnswer a = new StudentsAnswer();
             a.IdAnswer = Safe.Int(Row["IdAnswer"]);
@@ -23,7 +21,7 @@ namespace SchoolGrades
 
             return a;
         }
-        internal List<StudentsAnswer> GetAllAnswersOfAStudentToAQuestionOfThisTest(
+        internal override List<StudentsAnswer> GetAllAnswersOfAStudentToAQuestionOfThisTest(
             int? IdStudent, int? IdQuestion, int? IdTest)
         {
             List<StudentsAnswer> list = new List<StudentsAnswer>();
@@ -52,7 +50,7 @@ namespace SchoolGrades
             }
             return list;
         }
-        internal void AddAnswerToQuestion(int? idQuestion, int? idAnswer)
+        internal override void AddAnswerToQuestion(int? idQuestion, int? idAnswer)
         {
             using (DbConnection conn = Connect())
             {
@@ -65,7 +63,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal void PurgeDatabase()
+        internal override void PurgeDatabase()
         {
             try
             {
@@ -76,7 +74,7 @@ namespace SchoolGrades
                 ////////Common.LogOfProgram.Error("Sqlite_DataLayerConstructorsAndGeneral | SaveParameter", ex);
             };
         }
-        internal List<Answer> GetAllCorrectAnswersToThisQuestionOfThisTest(int? IdQuestion, int? IdTest)
+        internal override List<Answer> GetAllCorrectAnswersToThisQuestionOfThisTest(int? IdQuestion, int? IdTest)
         {
             List<Answer> list = new List<Answer>();
             using (DbConnection conn = Connect())
@@ -95,13 +93,13 @@ namespace SchoolGrades
                 dRead = cmd.ExecuteReader();
                 while (dRead.Read())
                 {
-                    Answer a =  GetAnswerFromRow(dRead);
+                    Answer a = GetAnswerFromRow(dRead);
                     list.Add(a);
                 }
             }
             return list;
         }
-        internal Answer GetAnswerFromRow(DbDataReader Row)
+        internal override Answer GetAnswerFromRow(DbDataReader Row)
         {
             Answer a = new Answer();
             a.IdAnswer = Safe.Int(Row["IdAnswer"]);
@@ -115,7 +113,7 @@ namespace SchoolGrades
 
             return a;
         }
-        internal int CreateAnswer(Answer currentAnswer)
+        internal override int CreateAnswer(Answer currentAnswer)
         {
             // trova una chiave da assegnare alla nuova domanda
             int codice = NextKey("Answers", "idAnswer");
@@ -137,7 +135,7 @@ namespace SchoolGrades
             }
             return codice;
         }
-        internal void SaveAnswer(Answer currentAnswer)
+        internal override void SaveAnswer(Answer currentAnswer)
         {
             using (DbConnection conn = Connect())
             {
@@ -155,7 +153,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal List<Answer> GetAnswersOfAQuestion(int? idQuestion)
+        internal override List<Answer> GetAnswersOfAQuestion(int? idQuestion)
         {
             List<Answer> l = new List<Answer>();
             DbDataReader dRead;

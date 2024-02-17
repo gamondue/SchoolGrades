@@ -16,7 +16,7 @@ namespace gamon.TreeMptt
         // !!!! TODO; turn to generic this tree, such that it can contain any class and not just Topic instances !!!!
         public TreeMpttDb()
         {
-            dl = Commons.dl;
+            ////////////dl = dl;
         }
         internal void SaveTreeToDb(List<Topic> ListTopicsAfter, List<Topic> ListTopicsDeleted,
             bool MustSaveLeftAndRight, bool CloseWhenEnding)
@@ -25,7 +25,7 @@ namespace gamon.TreeMptt
             // if localConnection is null, the connection must be opened and closed locally 
             if (localConnection == null)
             {
-                localConnection = dl.Connect();
+                ////////////localConnection = dl.Connect();
             }
             DbCommand cmd = localConnection.CreateCommand();
             SaveLeftRightConsistent(false);

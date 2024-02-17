@@ -5,9 +5,9 @@ using System.Data.Common;
 
 namespace SchoolGrades
 {
-    public abstract partial class DataLayer
+    internal partial class SqLite_DataLayer : DataLayer
     {
-        internal void UpdatePathStartLinkOfClass(Class currentClass, string text)
+        internal override void UpdatePathStartLinkOfClass(Class currentClass, string text)
         {
             // !!!! currently not used, because pathStartLink field does not exist yet in the database !!!!
             using (DbConnection conn = Connect())
@@ -23,7 +23,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal void AddLinkToPreviousYearPhoto(int? IdStudent, string IdPreviousSchoolYear, string IdNextSchoolYear)
+        internal override void AddLinkToPreviousYearPhoto(int? IdStudent, string IdPreviousSchoolYear, string IdNextSchoolYear)
         {
             using (DbConnection conn = Connect())
             {
@@ -50,7 +50,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal int LinkOnePhoto(Student Student, Class Class, string RelativePathAndFilePhoto)
+        internal override int LinkOnePhoto(Student Student, Class Class, string RelativePathAndFilePhoto)
         {
             // find the key for next photo
             int keyPhoto = NextKey("StudentsPhotos", "idStudentsPhoto");
@@ -81,7 +81,7 @@ namespace SchoolGrades
             }
             return keyPhoto;
         }
-        internal int? SaveStartLink(int? IdStartLink, int? IdClass, string SchoolYear,
+        internal override int? SaveStartLink(int? IdStartLink, int? IdClass, string SchoolYear,
             string StartLink, string Desc)
         {
             try
@@ -124,7 +124,7 @@ namespace SchoolGrades
             }
             return IdStartLink;
         }
-        internal void DeleteStartLink(Nullable<int> IdStartLink)
+        internal override void DeleteStartLink(Nullable<int> IdStartLink)
         {
             DbCommand cmd = null;
             try
@@ -146,7 +146,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal List<StartLink> GetStartLinksOfClass(Class Class)
+        internal override List<StartLink> GetStartLinksOfClass(Class Class)
         {
             List<StartLink> listOfLinks = new List<StartLink>();
             if (Class == null || Class.IdClass == null)

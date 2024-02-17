@@ -5,9 +5,9 @@ using System.Data.Common;
 
 namespace SchoolGrades
 {
-    public abstract partial class DataLayer
+    internal partial class SqLite_DataLayer : DataLayer
     {
-        private string MakeStringForFilteredQuestionsQuery(List<Tag> Tags, string IdSchoolSubject,
+        internal override string MakeStringForFilteredQuestionsQuery(List<Tag> Tags, string IdSchoolSubject,
             string IdQuestionType, Topic QuestionsTopic, bool QueryManyTopics, bool TagsAnd)
         {
             string query = "SELECT DISTINCT Questions.idQuestion" +
@@ -82,7 +82,7 @@ namespace SchoolGrades
             }
             return query;
         }
-        internal List<Question> GetAllQuestionsOfATest(int? IdTest)
+        internal override List<Question> GetAllQuestionsOfATest(int? IdTest)
         {
             List<Question> lq = new List<Question>();
             using (DbConnection conn = Connect())
@@ -104,7 +104,7 @@ namespace SchoolGrades
             }
             return lq;
         }
-        internal void FixQuestionInGrade(int? IdGrade)
+        internal override void FixQuestionInGrade(int? IdGrade)
         {
             using (DbConnection conn = Connect())
             {
@@ -119,7 +119,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal void RemoveQuestionFromTest(int? IdQuestion, int? IdTest)
+        internal override void RemoveQuestionFromTest(int? IdQuestion, int? IdTest)
         {
             using (DbConnection conn = Connect())
             {
@@ -132,7 +132,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        private Question GetQuestionFromRow(DbDataReader Row)
+        internal override Question GetQuestionFromRow(DbDataReader Row)
         {
             Question q = new Question();
             q.Difficulty = Safe.Int(Row["Difficulty"]);
@@ -152,7 +152,7 @@ namespace SchoolGrades
 
             return q;
         }
-        internal Question GetQuestionById(int? IdQuestion)
+        internal override Question GetQuestionById(int? IdQuestion)
         {
             Question question = new Question();
             if (IdQuestion == 0)
@@ -188,7 +188,7 @@ namespace SchoolGrades
             }
             return question;
         }
-        internal void SaveQuestion(Question Question)
+        internal override void SaveQuestion(Question Question)
         {
             using (DbConnection conn = Connect())
             {
@@ -213,7 +213,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal void AddQuestionToTest(SchoolGrades.BusinessObjects.SchoolTest Test, Question Question)
+        internal override void AddQuestionToTest(SchoolGrades.BusinessObjects.SchoolTest Test, Question Question)
         {
             using (DbConnection conn = Connect())
             {
@@ -228,7 +228,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal List<QuestionType> GetListQuestionTypes(bool IncludeANullObject)
+        internal override List<QuestionType> GetListQuestionTypes(bool IncludeANullObject)
         {
             List<QuestionType> l = new List<QuestionType>();
             if (IncludeANullObject)
@@ -257,7 +257,7 @@ namespace SchoolGrades
                 return l;
             }
         }
-        internal Question CreateNewVoidQuestion()
+        internal override Question CreateNewVoidQuestion()
         {
             // trova una chiave da assegnare alla nuova domanda
             Question q = new Question();
@@ -286,7 +286,7 @@ namespace SchoolGrades
         /// <param name="Student"></param>
         /// <param name="Subject"></param>
         /// <returns></returns>
-        internal List<Question> GetFilteredQuestionsNotAsked(Student Student, Class Class,
+        internal override List<Question> GetFilteredQuestionsNotAsked(Student Student, Class Class,
             SchoolSubject Subject, string IdQuestionType, List<Tag> Tags, Topic Topic,
             bool QueryManyTopics, bool TagsAnd, string SearchString,
             DateTime DateFrom, DateTime DateTo)
@@ -397,7 +397,7 @@ namespace SchoolGrades
             }
             return lq;
         }
-        internal List<Question> GetFilteredQuestionsAskedToClass(Class Class, SchoolSubject Subject, string IdQuestionType,
+        internal override List<Question> GetFilteredQuestionsAskedToClass(Class Class, SchoolSubject Subject, string IdQuestionType,
             List<Tag> Tags, Topic Topic, bool QueryManyTopics, bool TagsAnd,
             string SearchString, DateTime DateFrom, DateTime DateTo)
         {

@@ -1,14 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SchoolGrades
+﻿namespace SchoolGrades
 {
-    public class SqLite_DataLayer : DataLayer
+    internal partial class SqLite_DataLayer : DataLayer
     {
-        SqLite_DataLayer(string DatabaseName) 
-        { 
-
+        private string nomeEPathDatabase;
+        #region constructors
+        /// <summary>
+        /// Constructor of DataLayer class that uses the default database of the program
+        /// Assumes that the file exists.
+        /// </summary>
+        internal SqLite_DataLayer()
+        {
+            // ???? is next if() useful ????
+            if (!System.IO.File.Exists(Commons.PathAndFileDatabase))
+            {
+                string err = @"[" + Commons.PathAndFileDatabase + " not in the current nor in the dev directory]";
+                Commons.ErrorLog(err);
+                throw new System.IO.FileNotFoundException(err);
+            }
+            dbName = Commons.PathAndFileDatabase;
+        }
+        /// <summary>
+        /// Constructor of DataLayer class that get from outside the databases to use
+        /// Assumes that the file exists.
+        /// </summary>
+        internal SqLite_DataLayer(string PathAndFile)
+        {
+            dbName = PathAndFile;
+        }
+        #endregion
+        internal string NameAndPathDatabase
+        {
+            get { return dbName; }
+            set { nomeEPathDatabase = value; }
         }
     }
 }
