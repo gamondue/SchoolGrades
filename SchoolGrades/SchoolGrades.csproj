@@ -37,7 +37,7 @@ Versions with numbers under 0.50 were made with .Net Framework.</PackageReleaseN
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NUnit" Version="4.0.1" />
+    <PackageReference Include="NUnit" Version="4.1.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
   </ItemGroup>

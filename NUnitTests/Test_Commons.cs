@@ -2,7 +2,7 @@
 
 namespace NUnitDbTests
 {
-    internal static class Helpers
+    internal static class Test_Commons
     {
         internal static DataLayer dl;
     }
