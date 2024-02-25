@@ -36,7 +36,6 @@ namespace SchoolGrades
             }
             return TagList;
         }
-
         internal override int? CreateNewTag(Tag CurrentTag)
         {
             // trova una chiave da assegnare alla nuova domanda
@@ -70,7 +69,6 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-
         internal override List<Tag> TagsOfAQuestion(int? IdQuestion)
         {
             DbDataReader dRead;
@@ -99,7 +97,6 @@ namespace SchoolGrades
             }
             return l;
         }
-
         internal override void AddTagToQuestion(int? IdQuestion, int? IdTag)
         {
             using (DbConnection conn = Connect())
