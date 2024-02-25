@@ -82,6 +82,17 @@ namespace SchoolGrades
 
             // manage the configuration file 
             string messagePrompt = "";
+#if SQL_SERVER
+            // SQL server database filename
+#if !DEBUG
+            // at the end of the development phase use a debug database
+            Commons.PathAndFileDatabase = "SchoolGrades"; 
+#else
+            Commons.PathAndFileDatabase = "SchoolGrades";
+#endif
+
+#else
+            // SQLite database filename reading 
             // read configuration file, if doesn't work run configuration 
             bool fileRead = CommonsWinForms.ReadConfigData();
             if (!fileRead)
@@ -140,8 +151,12 @@ namespace SchoolGrades
                     }
                 }
             }
-            CreateBusinessLayer();
+#endif
 
+            CreateBusinessLayer();
+            Commons.bl.GetSchoolYearsThatHaveClasses();
+            // da togliere dopo che DataLayer SQL server funziona
+#if !SQL_SERVER
             List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
             cmbSchoolYear.DataSource = ly;
             if (ly.Count > 0)
@@ -154,6 +169,7 @@ namespace SchoolGrades
             // fill the combo of School subjects
             List<SchoolSubject> listSubjects = Commons.bl.GetListSchoolSubjects(true);
             cmbSchoolSubject.DataSource = listSubjects;
+#endif
         }
 
         private void CreateDatabasePaths(string proposedDebugDatabaseFile)
@@ -212,6 +228,9 @@ namespace SchoolGrades
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             btnTemporary.Visible = false;
 #endif
+
+            // da togliere dopo che DataLayer SQL server funziona
+#if !SQL_SERVER
             school = Commons.bl.GetSchool(Commons.IdSchool);
             if (school == null)
                 return;
@@ -223,7 +242,7 @@ namespace SchoolGrades
 
             if (lstClasses.DataSource == null)
                 return;
-
+#endif
             CommonsWinForms.globalPicLed = picBackgroundSaveRunning;
 
             if (chkActivateLessonClock.Checked)
@@ -302,6 +321,7 @@ namespace SchoolGrades
         private bool CreateBusinessLayer()
         {
             // create Business layer object, to be used throughout the program
+#if !SQL_SERVER
             // keep this order of creation. Create after reading config file
             if (!System.IO.File.Exists(Commons.PathAndFileDatabase))
             {
@@ -310,6 +330,7 @@ namespace SchoolGrades
                 throw new System.IO.FileNotFoundException(err);
                 return false;
             }
+#endif
             Commons.bl = new BusinessLayer();
             if (Commons.bl == null)
                 return false;
@@ -1509,15 +1530,12 @@ namespace SchoolGrades
         }
         private void btnTemporary_Click(object sender, EventArgs e)
         {
-            frmBackupManagement f = new();
-            f.Show();
-            //Student dummyStudent = new Student();
-            //dummyStudent.IdStudent = 388;
-            //dummyStudent.LastName = "Dummy"; 
-
-            //frmStudentsAnnotations f = new frmStudentsAnnotations(dummyStudent, 
-            //    null);
-            //f.Show();
+            SchoolYear sy = new();
+            sy.IdSchoolYear = "23-24";
+            sy.Notes = "Anno di prova";
+            sy.ShortDescription = "2023-2024";
+            sy.Notes = "Anno scolastico introdotto per sola prova";
+            Commons.bl.AddSchoolYearIfNotExists(sy);
         }
         private void btnLessonTime_Click(object sender, EventArgs e)
         {

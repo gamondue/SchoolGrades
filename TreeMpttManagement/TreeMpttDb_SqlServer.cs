@@ -8,13 +8,13 @@ using System.Data.SQLite;
 
 namespace gamon.TreeMptt
 {
-    internal class TreeMpttDb
+    internal class TreeMpttDb_SqlServer
     {
         DataLayer dl;
         private DbConnection localConnection;
 
         // !!!! TODO; turn to generic this tree, such that it can contain any class and not just Topic instances !!!!
-        public TreeMpttDb()
+        public TreeMpttDb_SqlServer()
         {
             ////////////dl = dl;
         }

@@ -452,7 +452,7 @@ namespace SchoolGrades
         }
         internal static DataLayer SetDataLayer(string DataBaseName)
         {
-#if SQLSERVER
+#if SQL_SERVER
             DataLayer dlNew = new SqlServer_DataLayer(DataBaseName);
 #else
             SqLite_DataLayer dlNew = new SqLite_DataLayer(DataBaseName);

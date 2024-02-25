@@ -2,7 +2,8 @@
 {
     internal partial class SqLite_DataLayer : DataLayer
     {
-        private string nomeEPathDatabase;
+        private string dbName;
+        private string nameAndPathDatabase;
         #region constructors
         /// <summary>
         /// Constructor of DataLayer class that uses the default database of the program
@@ -31,7 +32,7 @@
         internal string NameAndPathDatabase
         {
             get { return dbName; }
-            set { nomeEPathDatabase = value; }
+            set { nameAndPathDatabase = value; }
         }
     }
 }

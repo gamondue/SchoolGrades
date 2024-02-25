@@ -1,19 +1,19 @@
-﻿using Shared;
+﻿using gamon.TreeMptt;
+using SchoolGrades.BusinessObjects;
+using Shared;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using gamon.TreeMptt;
-using SchoolGrades.BusinessObjects;
 
 namespace SchoolGrades
 {
     public partial class frmQuestion : Form
     {
-        TreeMpttDb dbMptt;
+        TreeMpttDb_SqLite dbMptt;
 
         internal Question currentQuestion = new Question();
-        internal bool UserHasChosen; 
+        internal bool UserHasChosen;
 
         List<Tag> tagsList;
         List<Answer> answersList;
@@ -29,12 +29,16 @@ namespace SchoolGrades
         }
         QuestionFormType formType;
 
-        internal frmQuestion(QuestionFormType Type, Question Question, 
+        internal frmQuestion(QuestionFormType Type, Question Question,
             SchoolSubject Subject, Class Class, Topic Topic)
         {
             InitializeComponent();
 
-            dbMptt = new TreeMpttDb();
+#if SQL_SERVER
+            TreeMpttDb_SqlServer dbMptt = new();
+#else
+            TreeMpttDb_SqLite dbMptt = new TreeMpttDb_SqLite();
+#endif
 
             // fills the lookup tables' combos
             List<QuestionType> listQuestions = Commons.bl.GetListQuestionTypes(true);
@@ -49,7 +53,7 @@ namespace SchoolGrades
 
             currentClass = Class;
             currentSubject = Subject;
-            currentQuestion = Question; 
+            currentQuestion = Question;
             formType = Type;
             if (formType == QuestionFormType.EditOneQuestion)
             {
@@ -107,12 +111,13 @@ namespace SchoolGrades
                 // show the path of the topic of the question 
                 if (currentTopic != null)
                     txtTopic.Text = dbMptt.GetNodePath(currentTopic.Id);
-                
+
                 answersList = Commons.bl.GetAnswersOfAQuestion(currentQuestion.IdQuestion);
                 dgwAnswers.DataSource = answersList;
-            }else
+            }
+            else
             {
-                currentQuestion = new Question(); 
+                currentQuestion = new Question();
             }
 
             txtImagesPath.Text = Commons.PathImages;
@@ -129,7 +134,7 @@ namespace SchoolGrades
 
             RefreshData();
 
-            List<Answer> answers = Commons.bl.GetAnswersOfAQuestion(currentQuestion.IdQuestion); 
+            List<Answer> answers = Commons.bl.GetAnswersOfAQuestion(currentQuestion.IdQuestion);
         }
 
         private void RefreshData()
@@ -140,7 +145,7 @@ namespace SchoolGrades
 
         private void btnSaveQuestion_Click(object sender, EventArgs e)
         {
-            SaveQuestion(); 
+            SaveQuestion();
             UserHasChosen = false;
 
             if (formType == QuestionFormType.EditOneQuestion)
@@ -163,7 +168,7 @@ namespace SchoolGrades
             catch
             {
                 currentQuestion.Weight = 0;
-                txtWeight.Text = ""; 
+                txtWeight.Text = "";
             }
         }
 
@@ -177,7 +182,7 @@ namespace SchoolGrades
             catch
             {
                 currentQuestion.Duration = 0;
-                txtDuration.Text = ""; 
+                txtDuration.Text = "";
             }
         }
 
@@ -246,9 +251,9 @@ namespace SchoolGrades
         private void btnChooseTopic_Click(object sender, EventArgs e)
         {
             Topic chosenTopic;
-            chosenTopic = currentTopic; 
+            chosenTopic = currentTopic;
             List<Topic> oneItemList = new List<Topic>();
-            oneItemList.Add(chosenTopic); 
+            oneItemList.Add(chosenTopic);
             frmTopics f = new frmTopics(frmTopics.TopicsFormType.HighlightTopics,
                 currentClass, currentSubject, null, oneItemList);
             f.ShowDialog();
@@ -256,18 +261,18 @@ namespace SchoolGrades
             {
                 chosenTopic = f.ChosenTopic;
                 currentTopic = chosenTopic;
-                currentQuestion.IdTopic= chosenTopic.Id;
-                txtTopic.Text = dbMptt.GetNodePath(currentTopic.Id); 
+                currentQuestion.IdTopic = chosenTopic.Id;
+                txtTopic.Text = dbMptt.GetNodePath(currentTopic.Id);
             }
             f.Dispose();
         }
 
         private void btnChooseByPeriod_Click(object sender, EventArgs e)
         {
-            if (currentClass== null)
+            if (currentClass == null)
             {
                 MessageBox.Show("Scegliere una classe per avere gli argomenti fatti dalla classe");
-                return; 
+                return;
             }
             Topic chosenTopic;
             frmTopicChooseByPeriod f = new frmTopicChooseByPeriod(
@@ -299,7 +304,7 @@ namespace SchoolGrades
 
         private void btnImportQuestions_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Da Fare!!!!"); 
+            MessageBox.Show("Da Fare!!!!");
         }
 
         private void dgwAnswers_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -316,12 +321,12 @@ namespace SchoolGrades
             currentQuestion.IdQuestion = 0;
             txtIdQuestion.Text = "0";
 
-            int dummyInt; 
+            int dummyInt;
             int.TryParse(txtDifficulty.Text, out dummyInt);
-            currentQuestion.Difficulty = dummyInt; 
+            currentQuestion.Difficulty = dummyInt;
             int.TryParse(txtDuration.Text, out dummyInt);
             currentQuestion.Duration = dummyInt;
-            double dummyDouble; 
+            double dummyDouble;
             double.TryParse(txtWeight.Text, out dummyDouble);
             currentQuestion.Weight = dummyDouble;
 
@@ -333,7 +338,7 @@ namespace SchoolGrades
 
             //currentQuestion.idTopic = currentQuestion.idQuestion;
             //currentQuestion.image
-            currentQuestion.Text = txtQuestionText.Text; 
+            currentQuestion.Text = txtQuestionText.Text;
 
             txtQuestionText.BackColor = coloreCambiato;
             txtDifficulty.BackColor = coloreCambiato;
@@ -351,8 +356,8 @@ namespace SchoolGrades
 
         private void btnSaveAndChoose_Click(object sender, EventArgs e)
         {
-            SaveQuestion(); 
-            UserHasChosen = true; 
+            SaveQuestion();
+            UserHasChosen = true;
 
             this.Close();
         }
