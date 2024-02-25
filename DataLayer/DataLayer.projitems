@@ -33,6 +33,27 @@
     <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_UserManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_YearsAndPeriodsManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SqLite\SqLite_DataLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqlServer\Serv_AnnotationManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqlServer\Serv_AnswerManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqlServer\Serv_ClassManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqlServer\Serv_ConstructorsAndGeneralMethods.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqlServer\Serv_DemoDatabaseCreation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqlServer\Serv_GeneralFunctions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqlServer\Serv_GradesManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqlServer\Serv_ImageManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqlServer\Serv_LessonManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqlServer\Serv_LinkManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqlServer\Serv_PeriodManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqlServer\Serv_QuestionManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqlServer\Serv_SqlToCreateDatabase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqlServer\Serv_StudentManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqlServer\Serv_SubjectManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqlServer\Serv_TableManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqlServer\Serv_TagManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqlServer\Serv_TestManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqlServer\Serv_TopicsManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqlServer\Serv_UserManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqlServer\Serv_YearsAndPeriodsManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SqlServer\SqlServer_DataLayer.cs" />
   </ItemGroup>
 </Project>

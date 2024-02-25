@@ -4,13 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SQLite;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 
 namespace SchoolGrades
 {
-    internal partial class SqLite_DataLayer : DataLayer
+    internal partial class SqlServer_DataLayer : DataLayer
     {
         /// <summary>
         /// Data Access Layer: abstracts the access to dbms using to transfer data 
@@ -28,8 +28,10 @@ namespace SchoolGrades
             DbConnection connection;
             try
             {
-                connection = new SQLiteConnection("Data Source=" + dbName +
-                ";version=3;new=False;datetimeformat=CurrentCulture");
+                string connectionStringSqlServer = "SERVER=localhost;UID=sa;PWD=burbero2023;" +
+                    "Database=" + dbName + ";TrustServerCertificate=true;";
+                //string connectionStringSqlServer = "SERVER=localhost;UID=sa;PWD=burbero2023;TrustServerCertificate=true;";
+                connection = new SqlConnection(connectionStringSqlServer);
                 connection.Open();
             }
             catch (Exception ex)
@@ -40,7 +42,7 @@ namespace SchoolGrades
                 //Log calling method name
                 Commons.ErrorLog("Connect Method in: " + stackTrace.GetFrame(1).GetMethod().Name);
 #endif
-                Commons.ErrorLog("Error connecting to the database: " + ex.Message + "\r\nFile SQLIte>: " + dbName + " " + "\n");
+                Commons.ErrorLog("Error connecting to the database: " + ex.Message + "\r\nFile SQL server: " + dbName + " " + "\n");
                 connection = null;
             }
             return connection;
@@ -219,7 +221,7 @@ namespace SchoolGrades
             {
                 string query = "SELECT *" +
                     " FROM " + TableName + " ";
-                cmd = new SQLiteCommand(query);
+                cmd = new SqlCommand(query);
                 cmd.Connection = conn;
                 dRead = cmd.ExecuteReader();
                 int y = 0;
@@ -269,7 +271,7 @@ namespace SchoolGrades
 
             using (DbConnection conn = Connect())
             {
-                dAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
+                dAdapt = new SqlDataAdapter(query, (SqlConnection)conn);
                 dSet = new DataSet("GetTable");
                 dAdapt.Fill(dSet);
                 t = dSet.Tables[0];

@@ -21,7 +21,7 @@ namespace SchoolGrades_WPF
         {
             InitializeComponent();
 
-            //TreeMpttDb dbMptt = new TreeMpttDb(dl);
+            //TreeMpttDb_SqLite dbMptt = new TreeMpttDb_SqLite(dl);
 
             //topicTreeMptt = new TreeMptt(Cooms.dl, null, null, null, null, null,
             // null, null, null, null, null, null, DragDropEffects.None);
