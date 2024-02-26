@@ -6,7 +6,7 @@
         private string nameDatabase;
         internal SqlServer_DataLayer(string DatabaseName)
         {
-            dbName = Commons.PathAndFileDatabase;
+            dbName = DatabaseName;
         }
         internal string NameAndPathDatabase
         {

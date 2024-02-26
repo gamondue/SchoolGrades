@@ -4,9 +4,9 @@ using System.IO;
 
 namespace SchoolGrades
 {
-    internal partial class SqLite_DataLayer : DataLayer
-    {
-        string creationScript = @"
+	internal partial class SqLite_DataLayer : DataLayer
+	{
+		string creationScript = @"
 CREATE TABLE 'Answers' (
 	'idAnswer'	INT NOT NULL,
 	'idQuestion'	INT NOT NULL,
@@ -384,9 +384,8 @@ CREATE TABLE 'UsersCategories' (
 	'desc'	VARCHAR(255),
 	PRIMARY KEY('idUserCategory')
 );";
-
         // special override, only in this class 
-        internal override void CreateNewDatabase(string dbName)
+        internal override void CreateNewDatabaseFromScratch(string dbName)
         {
             // making new, means erasing existent! 
             if (File.Exists(dbName))
@@ -413,7 +412,7 @@ CREATE TABLE 'UsersCategories' (
             }
             catch (Exception ex)
             {
-                //Common.LogOfProgram.Error("Sqlite_DataAndGeneral | CreateNewDatabase", ex);
+                //Common.LogOfProgram.Error("Sqlite_DataAndGeneral | CreateNewDatabaseFromExisting", ex);
             }
         }
     }

@@ -21,6 +21,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
   </ItemGroup>
 
   <Import Project="..\BusinessObjects\BusinessObjects.projitems" Label="Shared" />
@@ -30,5 +32,7 @@
   <Import Project="..\TreeMpttManagement\MpttTreeManagement.projitems" Label="Shared" />
 
   <Import Project="..\SharedItems\SharedItems.projitems" Label="Shared" />
+
+  <Import Project="..\BusinessLayer\BusinessLayer.projitems" Label="Shared" />
 
 </Project>

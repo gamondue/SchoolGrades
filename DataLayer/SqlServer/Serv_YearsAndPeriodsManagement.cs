@@ -21,16 +21,16 @@ namespace SchoolGrades
 
     internal partial class SqlServer_DataLayer : DataLayer
     {
-        internal void CreateTableSchoolYears()
+        internal override void CreateTableSchoolYears()
         {
             using (DbConnection conn = Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 // Tabella: SchoolYears
-                cmd.CommandText = @"CREATE TABLE SchoolYears (
-                    'idSchoolYear' VARCHAR(4) NOT NULL,
-                    'shortDesc' VARCHAR(10) NULL,
-                    'notes' VARCHAR(255) NULL,
+                cmd.CommandText = @"CREATE TABLE IF NOT EXISTS SchoolYears 
+                    (idSchoolYear VARCHAR(4) NOT NULL,
+                    shortDesc VARCHAR(10) NULL,
+                    notes VARCHAR(255) NULL,
                     PRIMARY KEY(idSchoolYear));";
                 cmd.ExecuteNonQuery();
             }

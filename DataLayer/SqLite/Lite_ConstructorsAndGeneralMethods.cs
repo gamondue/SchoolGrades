@@ -120,7 +120,8 @@ namespace SchoolGrades
                 }
             }
         }
-        internal override void CreateNewDatabase()
+
+        internal override void CreateNewDatabaseFromExisting()
         {
             DbCommand cmd;
             // erase all the data on all the tables

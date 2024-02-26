@@ -27,7 +27,7 @@ namespace SchoolGrades
 
             ////DataLayer newDatabaseDl = new SqLite_DataLayer(NewDatabasePathName);
 
-            ////newDatabaseDl.CreateNewDatabase();
+            ////newDatabaseDl.CreateNewDatabaseFromExisting();
             ////return newDatabaseDl;
             return null;
         }
