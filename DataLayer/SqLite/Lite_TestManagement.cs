@@ -6,9 +6,9 @@ namespace SchoolGrades
 {
     internal partial class SqLite_DataLayer : DataLayer
     {
-        internal override SchoolGrades.BusinessObjects.SchoolTest GetTestFromRow(DbDataReader Row)
+        internal override SchoolTest GetTestFromRow(DbDataReader Row)
         {
-            SchoolGrades.BusinessObjects.SchoolTest t = new SchoolTest();
+            SchoolTest t = new SchoolTest();
             t.IdTest = Safe.Int(Row["idTest"]);
             t.Name = Safe.String(Row["name"]);
             t.Desc = Safe.String(Row["desc"]);
@@ -61,7 +61,6 @@ namespace SchoolGrades
             }
             return list;
         }
-
         internal override void SaveTest(SchoolTest TestToSave)
         {
             using (DbConnection conn = Connect())

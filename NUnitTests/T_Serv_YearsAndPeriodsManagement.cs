@@ -1,3 +1,4 @@
+using SchoolGrades;
 using SchoolGrades.BusinessObjects;
 
 namespace NUnitDbTests
@@ -7,7 +8,11 @@ namespace NUnitDbTests
         [SetUp]
         public void Setup()
         {
-
+#if SQL_SERVER
+            Test_Commons.dl = new SqlServer_DataLayer("SchoolGrades");
+#else
+            Test_Commons.dl = new SqLite_DataLayer();
+#endif 
         }
         [Test]
         public void T_TableSchoolYears()
@@ -16,7 +21,6 @@ namespace NUnitDbTests
 
             SchoolYear sy = new();
             sy.IdSchoolYear = "23-24";
-            sy.Notes = "Anno di prova";
             sy.ShortDescription = "2023-2024";
             sy.Notes = "Anno scolastico introdotto per sola prova";
             Assert.That(!Test_Commons.dl.SchoolYearExists(sy.IdSchoolYear));
@@ -25,7 +29,6 @@ namespace NUnitDbTests
             List<SchoolYear> list = Test_Commons.dl.GetSchoolYearsThatHaveClasses();
             // Assert the results
             // !!!! TODO
-
         }
     }
 }

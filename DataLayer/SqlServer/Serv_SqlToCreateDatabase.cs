@@ -415,7 +415,7 @@ CREATE TABLE 'UsersCategories' (
             }
             catch (Exception ex)
             {
-                //Common.LogOfProgram.Error("SQL server_DataAndGeneral | CreateNewDatabase", ex);
+                //Common.LogOfProgram.Error("SQL server_DataAndGeneral | CreateNewDatabaseFromExisting", ex);
             }
         }
     }

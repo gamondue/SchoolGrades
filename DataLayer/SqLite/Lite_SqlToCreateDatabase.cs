@@ -413,7 +413,7 @@ CREATE TABLE 'UsersCategories' (
             }
             catch (Exception ex)
             {
-                //Common.LogOfProgram.Error("Sqlite_DataAndGeneral | CreateNewDatabase", ex);
+                //Common.LogOfProgram.Error("Sqlite_DataAndGeneral | CreateNewDatabaseFromExisting", ex);
             }
         }
     }
