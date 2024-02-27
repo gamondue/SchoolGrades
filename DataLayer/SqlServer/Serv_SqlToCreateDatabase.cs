@@ -17,7 +17,8 @@ namespace SchoolGrades
                 {
                     DbCommand cmd = conn.CreateCommand();
                     cmd.CommandText = "IF NOT EXISTS (SELECT 1 FROM sys.databases WHERE [name]='" + dbName + "')" +
-                        " CREATE DATABASE " + dbName + " USE " + dbName + ";";
+                        " CREATE DATABASE " + dbName + ";";
+                    //cmd.CommandText = "CREATE DATABASE " + dbName + ";";
                     cmd.ExecuteNonQuery();
                     if (creationScript != "")
                     {

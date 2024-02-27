@@ -1,3 +1,6 @@
+using SchoolGrades;
+using SchoolGrades.BusinessObjects;
+
 namespace NUnitDbTests
 {
     public class T_Database_GeneralOperations
@@ -5,10 +8,14 @@ namespace NUnitDbTests
         [SetUp]
         public void Setup()
         {
-            //// business layer to test 
-            //Test_Commons.bl = new BusinessLayer();
-
+            Test_Commons.SetDataLayer(); 
         }
+        [Test]
+        public void T_CreateDatabase()
+        {
+            Test_Commons.dl.CreateNewDatabaseFromScratch(Test_Commons.dbTest);
+        }
+        //[Test]
         //public void T_CreateNewDatabaseFromExisting()
         //{
         //    Commons.PathAndFileDatabase = Test_Commons.dbStandard;
