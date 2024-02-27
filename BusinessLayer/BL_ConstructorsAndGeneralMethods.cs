@@ -17,7 +17,7 @@ namespace SchoolGrades
 
         // internal string NameAndPathDatabase { get; }
 
-        internal DataLayer CreateNewDatabase(string NewDatabasePathName)
+        internal DataLayer CreateNewDatabaseFromExisting(string NewDatabasePathName)
         {
             ////if (File.Exists(NewDatabasePathName))
             ////    File.Delete(NewDatabasePathName);
@@ -27,7 +27,7 @@ namespace SchoolGrades
 
             ////DataLayer newDatabaseDl = new SqLite_DataLayer(NewDatabasePathName);
 
-            ////newDatabaseDl.CreateNewDatabase();
+            ////newDatabaseDl.CreateNewDatabaseFromExisting();
             ////return newDatabaseDl;
             return null;
         }

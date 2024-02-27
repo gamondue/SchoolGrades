@@ -295,7 +295,7 @@ namespace SchoolGrades_WPF
                 //       else
                 //           return;
             }
-            Commons.bl.CreateNewDatabase(newDatabaseFullName);
+            Commons.bl.CreateNewDatabaseFromExisting(newDatabaseFullName);
             MessageBox.Show("Creato nuovo database SchoolGradesNew.sqlite");
         }
     }

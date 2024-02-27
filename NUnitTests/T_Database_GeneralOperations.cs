@@ -1,7 +1,4 @@
-using NUnitDbTests;
-using SchoolGrades;
-
-namespace NUnit_Tests
+namespace NUnitDbTests
 {
     public class T_Database_GeneralOperations
     {
@@ -10,17 +7,13 @@ namespace NUnit_Tests
         {
             //// business layer to test 
             //Test_Commons.bl = new BusinessLayer();
-#if SQL_SERVER
-            Test_Commons.dl = new SqlServer_DataLayer("SchoolGrades");
-#else
-            Helpers.dl = new SqLite_DataLayer();
-#endif 
+
         }
         //[Test]
         //public void T_CreateNewDatabaseFromExisting()
         //{
         //    Commons.PathAndFileDatabase = Test_Commons.dbStandard;
-        //    Test_Commons.bl.CreateNewDatabase(Test_Commons.dbTest);
+        //    Test_Commons.bl.CreateNewDatabaseFromExisting(Test_Commons.dbTest);
         //    Assert.That(Test_Commons.dl.ReadFirstRowFirstField("Students") == null);
         //    Assert.That(Test_Commons.dl.ReadFirstRowFirstField("Lessons") == null);
         //}

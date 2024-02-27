@@ -284,7 +284,7 @@ namespace SchoolGrades
                 else
                     return;
             }
-            Commons.bl.CreateNewDatabase(NewDatabasePathName);
+            Commons.bl.CreateNewDatabaseFromExisting(NewDatabasePathName);
             MessageBox.Show("Creato nuovo database SchoolGradesNew.sqlite");
         }
     }
