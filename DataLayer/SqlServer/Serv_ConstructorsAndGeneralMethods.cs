@@ -30,7 +30,6 @@ namespace SchoolGrades
             {
                 string connectionStringSqlServer = "SERVER=localhost;UID=sa;PWD=burbero2023;" +
                     "Database=" + dbName + ";TrustServerCertificate=true;";
-                //string connectionStringSqlServer = "SERVER=localhost;UID=sa;PWD=burbero2023;TrustServerCertificate=true;";
                 connection = new SqlConnection(connectionStringSqlServer);
                 connection.Open();
             }
@@ -54,7 +53,6 @@ namespace SchoolGrades
             {
                 string connectionStringSqlServer = "SERVER=localhost;UID=sa;PWD=burbero2023;" +
                     "TrustServerCertificate=true;";
-                //string connectionStringSqlServer = "SERVER=localhost;UID=sa;PWD=burbero2023;TrustServerCertificate=true;";
                 connection = new SqlConnection(connectionStringSqlServer);
                 connection.Open();
             }
@@ -71,8 +69,6 @@ namespace SchoolGrades
             }
             return connection;
         }
-
-
         internal override int nFieldDbDataReader(string NomeCampo, DbDataReader dr)
         {
             for (int i = 0; i < dr.FieldCount; i++)

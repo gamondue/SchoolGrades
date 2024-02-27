@@ -1,4 +1,5 @@
 ﻿using SchoolGrades.BusinessObjects;
+using System;
 using System.Data.Common;
 
 namespace SchoolGrades
@@ -23,16 +24,23 @@ namespace SchoolGrades
     {
         internal override void CreateTableSchoolYears()
         {
-            using (DbConnection conn = Connect())
+            try
             {
-                DbCommand cmd = conn.CreateCommand();
-                // Tabella: SchoolYears
-                cmd.CommandText = @"CREATE TABLE IF NOT EXISTS SchoolYears 
-                    (idSchoolYear VARCHAR(4) NOT NULL,
+                using (DbConnection conn = Connect())
+                {
+                    DbCommand cmd = conn.CreateCommand();
+                    // Tabella: SchoolYears
+                    cmd.CommandText = @"CREATE TABLE SchoolYears 
+                    (idSchoolYear VARCHAR(5) NOT NULL,
                     shortDesc VARCHAR(10) NULL,
                     notes VARCHAR(255) NULL,
                     PRIMARY KEY(idSchoolYear));";
-                cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
         internal override bool SchoolYearExists(string idSchoolYear)
@@ -40,7 +48,7 @@ namespace SchoolGrades
             using (DbConnection conn = Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT TOP 1 idSchoolYear" +
+                cmd.CommandText = "SELECT  1 idSchoolYear" +
                     " FROM SchoolYears" +
                     " WHERE idSchoolYear='" + idSchoolYear + "'" +
                     ";";
