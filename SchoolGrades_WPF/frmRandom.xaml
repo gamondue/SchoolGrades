@@ -1,0 +1,17 @@
+﻿<Window x:Class="SchoolGrades_WPF.frmRandom"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SchoolGrades_WPF"
+        mc:Ignorable="d"
+        Title="Numero casuale" Height="175" Width="193" ResizeMode="CanMinimize" Background="PowderBlue">
+    <Grid>
+        <TextBox x:Name="txtFrom" HorizontalAlignment="Left" FontSize="20" Margin="10,44,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="57" Height="37"/>
+        <TextBox x:Name="txtTo" HorizontalAlignment="Left" FontSize="20" Margin="115,43,0,79" TextWrapping="Wrap" Width="50" Height="37"/>
+        <TextBox x:Name="txtResult" HorizontalAlignment="Left" FontSize="20" Margin="10,102,0,0" TextWrapping="Wrap" Width="57" Height="42"/>
+        <Button x:Name="btnDraw" Content="Sorteggio" HorizontalAlignment="Left" FontSize="14" Background="White" Foreground="DarkBlue" Margin="100,110,0,0" VerticalAlignment="Top" Height="39" Width="65"/>
+        <Label Content="Da" HorizontalAlignment="Left" FontSize="20" Foreground="DarkBlue" Margin="10,7,0,0" VerticalAlignment="Top"/>
+        <Label Content="A" HorizontalAlignment="Left" FontSize="20" Foreground="DarkBlue" Margin="115,6,0,0" VerticalAlignment="Top"/>
+    </Grid>
+</Window>

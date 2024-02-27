@@ -1,8 +1,8 @@
+using gamon.gamon;
 using System;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Threading;
-using gamon.gamon;
+using System.Windows.Forms;
 
 namespace gamon
 {
@@ -33,24 +33,25 @@ namespace gamon
         int tcpPort;
 
         // Threading 
-        ThreadServerReceiver oggettoRicevitore = null;
-        Thread threadRicevitore;
+        ThreadServerReceiver receivingObjectForThead = null;
+        Thread receivingThread;
         private bool clientConnected = false;
         private bool serverConnected = false;
         private string comandoAttuale;
         private string passwordDalClient;
 
-        private bool primoComando = false;
+        private bool firstCommand = false;
         private int nTentativi = 3;
 
         private int lastFormSize;
 
         bool playSoundEffects;
         public string FormCaption { get => this.Text; set => this.Text = value; }
-        public bool PlaySoundEffects {
-            get 
+        public bool PlaySoundEffects
+        {
+            get
             {
-                return playSoundEffects; 
+                return playSoundEffects;
             }
             set
             {
@@ -58,22 +59,19 @@ namespace gamon
                 chkSoundsInColorTimer.Checked = value;
             }
         }
-
-
         public ColorTimer(double SecondsFirst, double SecondsSecond, bool SoundEffectsInTimer)
         {
             InitializeComponent();
 
-            PlaySoundEffects = SoundEffectsInTimer; 
+            PlaySoundEffects = SoundEffectsInTimer;
             timeTotalSeconds = Convert.ToSingle(txtIntervalNext.Text);
             secondsFirst = SecondsFirst;
             secondsSecond = SecondsSecond;
         }
-
         private void ColorTimer_Load(object sender, EventArgs e)
         {
             lastFormSize = GetFormArea(this.Size);
-            SetLabelsSizeAndPosition(); 
+            SetLabelsSizeAndPosition();
 
             this.Text += " v." + System.Diagnostics.FileVersionInfo.GetVersionInfo
                     (System.Reflection.Assembly.GetExecutingAssembly().Location)
@@ -85,7 +83,7 @@ namespace gamon
                 btnStartFirstInterval_Click(null, null);
             }
 
-            SetInitialColor(); 
+            SetInitialColor();
 
             btnConnect.BackColor = currentColor;
 
@@ -117,14 +115,14 @@ namespace gamon
                 //Color nuovo;
                 //nuovo.
 
-                AForge.Imaging.RGB colRGB = new AForge.Imaging.RGB();
-                AForge.Imaging.HSL colHSL = new AForge.Imaging.HSL();
+                ColorHelper.RGB colRGB = new ColorHelper.RGB();
+                ColorHelper.HSL colHSL = new ColorHelper.HSL();
 
                 // cambia colore dal colore iniziale a quello finale
                 colHSL.Hue = (int)(initialColor.GetHue() + spanHue * (timeTotalSeconds * 60 - timeLeftSeconds) / (timeTotalSeconds * 60));
                 colHSL.Saturation = initialColor.GetSaturation() + spanSaturation * (timeTotalSeconds * 60 - timeLeftSeconds) / (timeTotalSeconds * 60);
                 colHSL.Luminance = initialColor.GetBrightness() + spanLuminance * (timeTotalSeconds * 60 - timeLeftSeconds) / timeTotalSeconds;
-                AForge.Imaging.ColorConverter.HSL2RGB(colHSL, colRGB);
+                ColorHelper.ColorConverter.HSL2RGB(colHSL, colRGB);
                 currentColor = colRGB.Color;
                 try
                 {
@@ -171,14 +169,14 @@ namespace gamon
         }
         private void VerifyExternalCommands()
         {
-            if (oggettoRicevitore != null)
+            if (receivingObjectForThead != null)
             {
-                if (oggettoRicevitore.NuovoComando)
+                if (receivingObjectForThead.newCommand)
                 {
-                    oggettoRicevitore.NuovoComando = false;
-                    comandoAttuale = oggettoRicevitore.Comando;
+                    receivingObjectForThead.newCommand = false;
+                    comandoAttuale = receivingObjectForThead.command;
                     // primo contatto dal client: deve essere la password
-                    if (primoComando)
+                    if (firstCommand)
                     {
                         passwordDalClient = comandoAttuale.Substring(2);
                         if (nTentativi > 0)
@@ -195,7 +193,7 @@ namespace gamon
                             // password corretta
 
                         }
-                        primoComando = false;
+                        firstCommand = false;
                     } // non primo comando
                     else
                     {   // parse del comando "non password"
@@ -287,7 +285,7 @@ namespace gamon
                 txtCountDown.Text = Convert.ToString(timeTotalSeconds * 60.0);
                 timer1.Enabled = true;
 
-                SetInitialColor(); 
+                SetInitialColor();
 
                 if (clientConnected)
                     ClientTcp.Write("BEGIN");
@@ -355,26 +353,26 @@ namespace gamon
                 password = f.txtInput3.Text;
 
                 // istanzia un oggetto della classe che contiene il codice da eseguire in thread
-                oggettoRicevitore = new ThreadServerReceiver(ipOrDns, tcpPort, password);
+                receivingObjectForThead = new ThreadServerReceiver(ipOrDns, tcpPort, password);
                 // crea il thread Inizia()
-                threadRicevitore = new Thread(oggettoRicevitore.Inizia);
+                receivingThread = new Thread(receivingObjectForThead.StartColorTimerThread);
                 serverConnected = true;
                 chkServer.Enabled = false;
                 btnConnect.Enabled = false;
 
                 timer1.Enabled = true;
                 // fa partire il thread Inizia()
-                threadRicevitore.Start();
+                receivingThread.Start();
 
-                primoComando = true;
+                firstCommand = true;
             }
             else // server non checked
             {
-                if (oggettoRicevitore != null)
+                if (receivingObjectForThead != null)
                 {
-                    oggettoRicevitore.RequestStop();
+                    receivingObjectForThead.RequestStop();
                     ServerTcp.Close();
-                    oggettoRicevitore = null;
+                    receivingObjectForThead = null;
                     serverConnected = false;
                     chkServer.Enabled = true;
                     btnConnect.Enabled = true;
@@ -383,10 +381,10 @@ namespace gamon
         }
         private void ColorTimer_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (oggettoRicevitore != null)
+            if (receivingObjectForThead != null)
             {
-                oggettoRicevitore.RequestStop();
-                oggettoRicevitore = null;
+                receivingObjectForThead.RequestStop();
+                receivingObjectForThead = null;
             }
             ServerTcp.Close();
         }
@@ -394,14 +392,14 @@ namespace gamon
         {
             if (isLoading)
             {
-                return; 
+                return;
             }
             SetLabelsSizeAndPosition();
 
             float scaleFactor = (float)GetFormArea(this.Size) / (float)lastFormSize;
 
             // scale font in minute's and second's labels
-            lblMinutesLeft.Font = new Font(lblMinutesLeft.Font.FontFamily.Name, 
+            lblMinutesLeft.Font = new Font(lblMinutesLeft.Font.FontFamily.Name,
                 lblMinutesLeft.Font.Size * scaleFactor);
             lblSecondsLeft.Font = new Font(lblSecondsLeft.Font.FontFamily.Name,
                 lblSecondsLeft.Font.Size * scaleFactor);
@@ -443,10 +441,9 @@ namespace gamon
                 }
             }
         }
-
         private void chkSoundsInColorTimer_CheckedChanged(object sender, EventArgs e)
         {
-            playSoundEffects = chkSoundsInColorTimer.Checked; 
+            playSoundEffects = chkSoundsInColorTimer.Checked;
         }
     }
 }

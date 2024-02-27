@@ -1,6 +1,6 @@
-﻿using System;
+﻿using SchoolGrades.BusinessObjects;
+using System;
 using System.Collections.Generic;
-using SchoolGrades.BusinessObjects;
 
 namespace SchoolGrades
 {
@@ -26,7 +26,7 @@ namespace SchoolGrades
         {
             dl.SaveLesson(currentLesson);
         }
-        internal object GetTopicsOfOneLessonOfClass(Class currentClass, Lesson currentLesson)
+        internal List<Topic> GetTopicsOfOneLessonOfClass(Class currentClass, Lesson currentLesson)
         {
             return dl.GetTopicsOfOneLessonOfClass(currentClass, currentLesson);
         }
@@ -40,11 +40,11 @@ namespace SchoolGrades
         }
         internal void EraseLesson(int? IdLesson, bool AlsoEraseImageFiles)
         {
-            dl.EraseLesson(IdLesson, AlsoEraseImageFiles); 
+            dl.EraseLesson(IdLesson, AlsoEraseImageFiles);
         }
         internal int? NewLesson(Lesson currentLesson)
         {
-            return dl.NewLesson(currentLesson); 
+            return dl.NewLesson(currentLesson);
         }
         internal void LinkOneImageToLesson(Image currentImage, Lesson currentLesson)
         {

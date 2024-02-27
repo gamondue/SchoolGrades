@@ -1,9 +1,9 @@
 ﻿using SchoolGrades.BusinessObjects;
+using Shared;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace SchoolGrades
 {
@@ -14,9 +14,9 @@ namespace SchoolGrades
         List<BusinessObjects.Image> listImages;
         private Lesson currentLesson;
         private Class currentClass;
-        private BusinessObjects.Image currentImage; 
+        private BusinessObjects.Image currentImage;
         private SchoolSubject currentSubject;
-        private bool imageChanged = false; 
+        private bool imageChanged = false;
 
         ImagesFormType type;
         private string lessonImagesPath;
@@ -29,7 +29,7 @@ namespace SchoolGrades
             NormalManagement,
             ShowImage,
         }
-        public frmImages(ImagesFormType Type, Lesson Lesson, Class Class, 
+        public frmImages(ImagesFormType Type, Lesson Lesson, Class Class,
             List<SchoolGrades.BusinessObjects.Image> Images, SchoolSubject Subject)
         {
             InitializeComponent();
@@ -37,7 +37,7 @@ namespace SchoolGrades
             listImages = Images;
             currentLesson = Lesson;
             currentClass = Class;
-            currentSubject = Subject; 
+            currentSubject = Subject;
 
             type = Type;
             lessonImagesPath = currentClass.SchoolYear +
@@ -54,7 +54,7 @@ namespace SchoolGrades
             txtLessonCode.Text = currentLesson.IdLesson.ToString(); ;
             txtLessonDesc.Text = currentLesson.Note;
 
-            refreshUi(currentIndexInImages); 
+            refreshUi(currentIndexInImages);
 
             if (type == ImagesFormType.ShowImage)
             {
@@ -81,7 +81,7 @@ namespace SchoolGrades
             if (currentSubject != null)
             {
                 int col = (int)currentSubject.Color;
-                this.BackColor = Commons.ColorFromNumber(currentSubject);
+                this.BackColor = CommonsWinForms.ColorFromNumber(currentSubject);
                 rdbAutoRename_CheckedChanged(null, null);
             }
         }
@@ -89,12 +89,13 @@ namespace SchoolGrades
         {
             try
             {
-                picImage.Load(Commons.PathImages + "\\" + currentImage.RelativePathAndFilename);
+                picImage.Load(Path.Combine(Commons.PathImages, currentImage.RelativePathAndFilename));
                 txtCaption.Text = currentImage.Caption;
             }
-            catch {
-                Console.Beep(); 
-            }; 
+            catch
+            {
+                Console.Beep();
+            };
         }
         private void txtPathImportImage_TextChanged(object sender, EventArgs e)
         {
@@ -102,7 +103,7 @@ namespace SchoolGrades
         }
         private void txtPathImportImage_DoubleClick(object sender, EventArgs e)
         {
-            if(txtPathImportImage.Text != "")
+            if (txtPathImportImage.Text != "")
                 Commons.ProcessStartLink(txtPathImportImage.Text);
         }
         private void btnPathImportImage_Click(object sender, EventArgs e)
@@ -116,7 +117,7 @@ namespace SchoolGrades
         }
         private void btnChooseFileImage_Click(object sender, EventArgs e)
         {
-            openFileDialog1.FileName = ""; 
+            openFileDialog1.FileName = "";
             openFileDialog1.InitialDirectory = txtPathImportImage.Text;
             DialogResult r = openFileDialog1.ShowDialog();
             if (r == System.Windows.Forms.DialogResult.OK)
@@ -136,16 +137,16 @@ namespace SchoolGrades
                         txtCaption.Text = captions[captions.Count - 1];
                     else
                         txtCaption.Text = "";
-                    string currentImage = Path.Combine(txtPathImportImage.Text, txtFileImportImage.Text); 
+                    string currentImage = Path.Combine(txtPathImportImage.Text, txtFileImportImage.Text);
                     if (currentImage != oldImage)
                     {
-                        imageChanged = true; 
+                        imageChanged = true;
                     }
-                    oldImage = currentImage; 
+                    oldImage = currentImage;
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Immagine non caricata.\nFormato non supportato?"); 
+                    MessageBox.Show("Immagine non caricata.\nFormato non supportato?");
                 }
             }
         }
@@ -155,12 +156,12 @@ namespace SchoolGrades
             {
                 string sourcePathAndFileName = txtPathImportImage.Text + "\\" +
                     txtFileImportImage.Text;
-                string lessonImagesPath = Path.Combine(Commons.PathImages, txtSubFolderStorage.Text); 
+                string lessonImagesPath = Path.Combine(Commons.PathImages, txtSubFolderStorage.Text);
                 string extension = Path.GetExtension(sourcePathAndFileName);
                 if (extension == ".jpg" || extension == ".jpeg" || extension == ".png")
                 {   // save an image
                     currentImage.Caption = txtCaption.Text;
-                    Commons.bl.AddImageToLesson(sourcePathAndFileName, lessonImagesPath, txtSubFolderStorage.Text, 
+                    Commons.bl.AddImageToLesson(sourcePathAndFileName, lessonImagesPath, txtSubFolderStorage.Text,
                         currentLesson, currentClass, currentImage, rdbAutoRename.Checked, chkMantainOldFileName.Checked);
                     try
                     {
@@ -210,7 +211,7 @@ namespace SchoolGrades
             else if (r == DialogResult.No)
                 Commons.bl.RemoveImageFromLesson(currentLesson, currentImage, false);
             else
-                return; 
+                return;
 
             if (currentIndexInImages > 0)
                 currentIndexInImages = oldIndex - 1;
@@ -224,7 +225,7 @@ namespace SchoolGrades
         }
         private void btnSubFolderStorage_Click(object sender, EventArgs e)
         {
-            folderBrowserDialog1.SelectedPath = Commons.PathImages + "\\" + txtSubFolderStorage.Text;
+            folderBrowserDialog1.SelectedPath = Path.Combine(Path.Combine(Commons.PathImages, txtSubFolderStorage.Text));
             DialogResult r = folderBrowserDialog1.ShowDialog();
             if (r == System.Windows.Forms.DialogResult.OK)
             {
@@ -268,7 +269,7 @@ namespace SchoolGrades
         }
         private void picImage_DoubleClick(object sender, EventArgs e)
         {
-            Commons.ProcessStartLink(Path.Combine(Commons.PathImages,  
+            Commons.ProcessStartLink(Path.Combine(Commons.PathImages,
                 currentImage.RelativePathAndFilename));
         }
         private void rdbAutoRename_CheckedChanged(object sender, EventArgs e)
@@ -304,12 +305,12 @@ namespace SchoolGrades
             if (txtSubFolderStorage.Text != "" && Directory.Exists(directory))
                 Commons.ProcessStartLink(directory);
             else
-                Console.Beep(); 
+                Console.Beep();
         }
         private void refreshUi(int IndexInImages)
         {
             // refresh images in grid
-            List<BusinessObjects.Image> l = Commons.bl.GetListLessonsImages(currentLesson); 
+            List<BusinessObjects.Image> l = Commons.bl.GetListLessonsImages(currentLesson);
             dgwLessonsImages.DataSource = l;
             if (l.Count > 0)
             {
@@ -325,9 +326,9 @@ namespace SchoolGrades
             else
             {
                 picImage.Image = null;
-                txtCaption.Text = ""; 
+                txtCaption.Text = "";
             }
-            txtFileImportImage.Text = ""; 
+            txtFileImportImage.Text = "";
         }
         private void frmImages_KeyDown(object sender, KeyEventArgs e)
         {
@@ -384,7 +385,7 @@ namespace SchoolGrades
                 dgwLessonsImages.Rows[currentIndexInImages].Selected = true;
             }
         }
-        private void grpPeriodOfQuestionsTopics_Enter(object sender, EventArgs e) {}
+        private void grpPeriodOfQuestionsTopics_Enter(object sender, EventArgs e) { }
         private void dgwLessonsImages_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
         private void dgwLessonsImages_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -408,16 +409,16 @@ namespace SchoolGrades
         }
         private void dgwLessonsImages_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            string RelativePath = Path.GetDirectoryName(currentImage.RelativePathAndFilename); 
-            Commons.ProcessStartLink(Path.Combine(Commons.PathImages , RelativePath));
+            string RelativePath = Path.GetDirectoryName(currentImage.RelativePathAndFilename);
+            Commons.ProcessStartLink(Path.Combine(Commons.PathImages, RelativePath));
         }
         private void btnNextImage_Click(object sender, EventArgs e)
         {
-            nextImage(); 
+            nextImage();
         }
         private void btnPreviousImage_Click(object sender, EventArgs e)
         {
-            previousImage(); 
+            previousImage();
         }
         private void btnFirstImage_Click(object sender, EventArgs e)
         {
@@ -425,7 +426,7 @@ namespace SchoolGrades
         }
         private void btnLastImage_Click(object sender, EventArgs e)
         {
-            lastImage(); 
+            lastImage();
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿using SchoolGrades.BusinessObjects;
-using SharedWinForms;
+﻿//using gamon.TreeMptt;
+using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Security.Cryptography;
+using System.Threading;
 
 namespace SchoolGrades
 {
@@ -57,6 +58,23 @@ namespace SchoolGrades
         internal static bool IsTimerLessonActive { get; set; }
         internal static string PathAndFileDatabase { get => pathAndFileDatabase; set => pathAndFileDatabase = value; }
 
+        // wait time before saving 
+        public static int BackgroundThreadSleepSeconds = 60;
+        // enable Mptt backgroud saving of Left anf Right pointers 
+        public static bool BackgroundSavingEnabled = true;
+        // exit the background task 
+        public static bool BackgroundTaskClose = false;
+        public static bool BackgroundTaskIsSaving = false;
+
+        // lock variable for serialization of access to BackgroundSavingEnabled and BackgroundSavingSafeStatus
+        public static object LockSavingCriticalSections = new object();
+        public static object LockBackgroundSavingVariables = new object();
+        // Thread that concurrently saves the Topics tree
+        internal static Thread BackgroundSaveThread;
+        // Tree object for concurrent saving 
+
+        public static bool SaveBackupWhenExiting;
+
         internal static string CalculateSHA1(string File)
         {
             try
@@ -103,7 +121,7 @@ namespace SchoolGrades
                 target += 7;
             return from.AddDays(target - start);
         }
-        internal static DateTime GetValidDate(string input)
+        internal static DateTime GetValidDateFromString(string input)
         {
             if (DateTime.TryParse(input, out DateTime date))
             {
@@ -217,7 +235,7 @@ namespace SchoolGrades
                     if (link.Link.Substring(0, 4) == "http" || link.Link.Contains(".exe"))
                         startLink = link.Link;
                     else
-                        startLink = Class.PathRestrictedApplication + "\\" + link;
+                        startLink = Path.Combine(Class.PathRestrictedApplication, link.Link);
                     Commons.ProcessStartLink(startLink);
                 }
                 catch
@@ -281,8 +299,7 @@ namespace SchoolGrades
         // This routine decodes them.
         {
 
-            System.Version v =
-            System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            System.Version v = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
 
             // v.Build is days since Jan. 1, 2000
             // v.Revision*2 is seconds since local midnight
@@ -390,10 +407,48 @@ namespace SchoolGrades
         internal static bool ProcessingCanContinue()
         {
             // if the foreground task is running, we will NOT EVER interrupt it 
-            if (!CommonsWinForms.BackgroundTaskIsSaving) return true;
+            if (!BackgroundTaskIsSaving) return true;
             // if the background is disabled, processing proceed only if enabled 
-            return CommonsWinForms.BackgroundSavingEnabled;
+            return BackgroundSavingEnabled;
 
+        }
+        internal static void CreatePaths()
+        {
+            if (!Directory.Exists(Commons.PathConfig))
+                Directory.CreateDirectory(Commons.PathConfig);
+            if (!Directory.Exists(Commons.PathLogs))
+                Directory.CreateDirectory(Commons.PathLogs);
+            if (!Directory.Exists(Commons.PathImages))
+                Directory.CreateDirectory(Commons.PathImages);
+            if (!Directory.Exists(Commons.PathDatabase))
+                Directory.CreateDirectory(Commons.PathDatabase);
+            if (!Directory.Exists(Commons.PathDocuments))
+            {
+                if (Commons.PathDocuments != "")
+                    Directory.CreateDirectory(Commons.PathDocuments);
+                else
+                    Commons.PathDocuments = ".";
+            }
+        }
+        internal static string GetNewestAmongFilesWithDateInName(string DatabasePath)
+        {
+            if (!Directory.Exists(DatabasePath))
+            {
+                return null;
+            }
+            string[] files = Directory.GetFiles(DatabasePath);
+            DateTime newestFileDate = DateTime.MinValue;
+            string newestFileNameAndPath = "";
+            foreach (string file in files)
+            {
+                DateTime thisFileDate = Commons.GetValidDateFromString(Path.GetFileName(file).Substring(0, 10));
+                if (thisFileDate > newestFileDate)
+                {
+                    newestFileDate = thisFileDate;
+                    newestFileNameAndPath = file;
+                }
+            }
+            return newestFileNameAndPath;
         }
     }
 }

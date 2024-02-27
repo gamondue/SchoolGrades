@@ -63,7 +63,7 @@ namespace SchoolGrades
             {
                 MessageBox.Show("Selezionare un allievo");
                 this.Close();
-                return; 
+                return;
             }
 
             //if (currentGradeType != null)
@@ -116,7 +116,7 @@ namespace SchoolGrades
             }
 
             this.BackColor = Commons.ColorFromNumber(currentSchoolSubject);
-            LessonTimer.Interval = 1000; 
+            LessonTimer.Interval = 1000;
             if (Commons.IsTimerLessonActive)
                 LessonTimer.Start();
         }
@@ -124,12 +124,12 @@ namespace SchoolGrades
         {
             // student's label
             lblStudent.Text = currentStudent.ToString();
-            if(currentStudent.HasSpecialNeeds!= null && currentStudent.HasSpecialNeeds == true)
-                chkHasSpecialNeeds.Checked = true; 
+            if (currentStudent.HasSpecialNeeds != null && currentStudent.HasSpecialNeeds == true)
+                chkHasSpecialNeeds.Checked = true;
             if (currentGrade.Weight != null)
                 txtMicroGradeWeight.Text = ((double)currentGrade.Weight).ToString("#.##");
-            if(currentGrade.Value != null)
-                txtMicroGrade.Text = ((double)currentGrade.Value).ToString("#.#"); 
+            if (currentGrade.Value != null)
+                txtMicroGrade.Text = ((double)currentGrade.Value).ToString("#.#");
 
             DataTable T = Commons.bl.GetMicroGradesOfStudentWithMacroOpen(currentStudent.IdStudent, currentYear, currentGradeType.IdGradeType,
                 currentSchoolSubject.IdSchoolSubject);
@@ -147,9 +147,9 @@ namespace SchoolGrades
                 txtWeightsSum.BackColor = Color.Lime;
             else if (sumOfWeights > 45)
                 txtWeightsSum.BackColor = Color.Orange;
-            else if(sumOfWeights > 66)
+            else if (sumOfWeights > 66)
                 txtWeightsSum.BackColor = Color.Yellow;
-            else 
+            else
                 txtWeightsSum.BackColor = Color.White;
 
             double weightedAverage = weightedSum / sumOfWeights;
@@ -172,9 +172,9 @@ namespace SchoolGrades
             txtMicroGrade.Text = ((double)trkbGrade.Value).ToString("#.#");
         }
         int previousQuestionCode = int.MinValue;
-        private void btnSaveMicroGrade_Click(object sender, EventArgs e)
+        private void btnSaveMicroGradeFromGrid_Click(object sender, EventArgs e)
         {
-            if(currentQuestion == null || currentQuestion.IdQuestion == 0 
+            if (currentQuestion == null || currentQuestion.IdQuestion == 0
                 || currentQuestion.IdQuestion == previousQuestionCode)
             {
                 if (MessageBox.Show("Non hai scelto la domanda." +
@@ -182,11 +182,11 @@ namespace SchoolGrades
                     "Attenzione", MessageBoxButtons.YesNo, MessageBoxIcon.Information,
                     MessageBoxDefaultButton.Button1)
                     == DialogResult.No)
-                    return; 
+                    return;
                 else
                 {
                     currentQuestion = new Question();
-                    currentQuestion.IdQuestion = 0; 
+                    currentQuestion.IdQuestion = 0;
                 }
             }
             int keyParent = 0;
@@ -195,9 +195,9 @@ namespace SchoolGrades
             {
                 MessageBox.Show("Prima di assegnare voti parziali, generare un nuovo voto di sintesi\n" +
                     "(\"Nuovo voto\")");
-                return;  
+                return;
             }
-            Grade gradeParent = Commons.bl.GetGrade(keyParent); 
+            Grade gradeParent = Commons.bl.GetGrade(keyParent);
             if (txtIdMacroGrade.Text != "" && (DgwQuestions.Rows.Count == 0))
             {
                 if (gradeParent.Value > 0)
@@ -219,15 +219,15 @@ namespace SchoolGrades
             currentGrade = ReadUI(currentGrade);
             // erase IdGrade to save a new record 
             currentGrade.IdGrade = null;
-            currentGrade.Timestamp = DateTime.Now; 
+            currentGrade.Timestamp = DateTime.Now;
             currentGrade.IdGrade = Commons.bl.SaveMicroGrade(currentGrade);
 
             // remember that this question has already been done 
             if (currentQuestion.IdQuestion != 0)
                 Commons.QuestionsAlreadyMadeThisTime.Add(currentQuestion);
-            ShowStudentsDataAndAverages(); 
+            ShowStudentsDataAndAverages();
             // goto the last row
-            DgwQuestions.ClearSelection(); 
+            DgwQuestions.ClearSelection();
             DgwQuestions.Rows[DgwQuestions.Rows.Count - 1].Selected = true;
         }
         private bool GradeAndWeightExist()
@@ -240,10 +240,10 @@ namespace SchoolGrades
             {
                 MessageBox.Show("Scrivere un voto ed un peso");
                 return false;
-            } 
+            }
             else
             {
-                return true; 
+                return true;
             }
         }
         private Grade ReadUI(Grade Grade)
@@ -259,26 +259,26 @@ namespace SchoolGrades
             Grade.IdSchoolSubject = currentSchoolSubject.IdSchoolSubject;
 
             ShowStudentsDataAndAverages();
-            return Grade; 
+            return Grade;
         }
-        private void btnNewMacroGrade_Click(object sender, EventArgs e) 
+        private void btnNewMacroGrade_Click(object sender, EventArgs e)
         {
             if (DgwQuestions.Rows.Count > 0)
             {
                 MessageBox.Show("Prima di creare un nuovo voto di sintesi, " +
                     "chiudere quello che è attualmente aperto", "Creazione nuovo voto non consentita");
-                return; 
+                return;
             }
             currentMacroGrade.IdSchoolSubject = currentSchoolSubject.IdSchoolSubject;
             currentMacroGrade.IdSchoolYear = currentYear;
 
-            idQuestionParent = Commons.bl.CreateMacroGrade(ref currentMacroGrade 
+            idQuestionParent = Commons.bl.CreateMacroGrade(ref currentMacroGrade
                 , currentStudent, idGradeType);
             txtIdMacroGrade.Text = idQuestionParent.ToString();
             txtIdMacroGrade.BackColor = Color.White;
             txtAverageMicroQuestions.Text = "";
             txtWeightsSum.Text = "";
-            txtMacroGradeWeight.Text = ""; 
+            txtMacroGradeWeight.Text = "";
         }
         private void txtWeight_TextChanged(object sender, EventArgs e)
         {
@@ -286,25 +286,25 @@ namespace SchoolGrades
             int.TryParse(txtMicroGradeWeight.Text, out peso);
             if (peso >= 0 && peso <= 100)
             {
-                trkbWeight.Value = peso; 
+                trkbWeight.Value = peso;
             }
         }
         private void txtGrade_TextChanged(object sender, EventArgs e)
         {
             float voto = 0;
-            float.TryParse(txtMicroGrade.Text, out voto); 
+            float.TryParse(txtMicroGrade.Text, out voto);
             if (voto >= 10 && voto <= 100)
             {
-                trkbGrade.Value = (int) voto;
+                trkbGrade.Value = (int)voto;
             }
         }
         private void btnSaveMacroGrade_Click(object sender, EventArgs e)
         {
-            double weight; 
+            double weight;
             double.TryParse(txtWeightsSum.Text, out weight);
 
             if (MessageBox.Show("Assegnazione del voto indicato come nuovo voto complessivo",
-                "Attenzione", MessageBoxButtons.YesNo,MessageBoxIcon.Exclamation) 
+                "Attenzione", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
                 == DialogResult.No)
                 return;
 
@@ -323,36 +323,37 @@ namespace SchoolGrades
             if (txtIdMacroGrade.Text != "")  // if we have a macrograde 
             {
                 Commons.bl.SaveMacroGrade(currentStudent.IdStudent, (int?)int.Parse(txtIdMacroGrade.Text),
-                    average, weight, currentYear, 
+                    average, weight, currentYear,
                     currentSchoolSubject.IdSchoolSubject);
                 //txtIdMacroGrade.Text = "";
                 ShowStudentsDataAndAverages();
             }
             else
             {
-                MessageBox.Show("Questo voticino non ha un voto che lo comprende.\r\tCreare un voto."); 
+                MessageBox.Show("Questo voticino non ha un voto che lo comprende.\r\tCreare un voto.");
             }
         }
         private void btnQuestionChoose_Click(object sender, EventArgs e)
         {
             // we don't pass the currentSubject because it is better to start from any type of question
-            frmQuestionChoose choice = new frmQuestionChoose(currentSchoolSubject, 
+            frmQuestionChoose choice = new frmQuestionChoose(currentSchoolSubject,
                 currentClass, currentStudent, currentQuestion);
             choice.ShowDialog();
             if (choice.ChosenQuestion.Text != null && choice.ChosenQuestion.Text != "")
                 currentQuestion = choice.ChosenQuestion;
             if (currentQuestion != null)
             {
-                DisplayCurrentQuestion(); 
+                DisplayCurrentQuestion();
                 // put the question chosen also in the main form
                 if (callingForm != null)
-                    callingForm.CurrentQuestion = choice.ChosenQuestion; 
-            } else
+                    callingForm.CurrentQuestion = choice.ChosenQuestion;
+            }
+            else
             {
                 TxtQuestionText.Text = "";
                 txtMicroGradeWeight.Text = "";
             }
-            txtMicroGrade.Text = "";    
+            txtMicroGrade.Text = "";
         }
         internal void DisplayCurrentQuestion()
         {
@@ -361,7 +362,7 @@ namespace SchoolGrades
         }
         private void btnNoQuestion_Click(object sender, EventArgs e)
         {
-            currentQuestion = null; 
+            currentQuestion = null;
         }
         private void DgwQuestions_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -395,12 +396,12 @@ namespace SchoolGrades
             }
             else
             {
-                currentQuestion = new Question(); 
+                currentQuestion = new Question();
                 currentQuestion.IdQuestion = null;
             }
             currentGrade = Commons.bl.GetGrade(Safe.Int(row["idGrade"]));
 
-            this.Refresh(); 
+            this.Refresh();
         }
         private void DgwQuestions_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -410,7 +411,7 @@ namespace SchoolGrades
             if (DgwQuestions.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Per cancellarla, selezionare una domanda dalla griglia.");
-                return; 
+                return;
             }
             DataGridViewRow row = (DgwQuestions.SelectedRows[0]);
             Commons.bl.EraseGrade(Safe.Int(row.Cells["idGrade"].Value));
@@ -419,7 +420,7 @@ namespace SchoolGrades
         private void btnFlushQuestion_Click(object sender, EventArgs e)
         {
             currentQuestion = null;
-            TxtQuestionText.Text = ""; 
+            TxtQuestionText.Text = "";
         }
         private void frmMicroAssessment_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -427,7 +428,7 @@ namespace SchoolGrades
         }
         private void LessonTimer_Tick(object sender, EventArgs e)
         {
-            lblLessonTime.BackColor = ((frmMain)Application.OpenForms[0]).CurrentLessonTimeColor; 
+            lblLessonTime.BackColor = ((frmMain)Application.OpenForms[0]).CurrentLessonTimeColor;
         }
         private void BtnSaveGrade(object sender, EventArgs e)
         {
@@ -437,15 +438,11 @@ namespace SchoolGrades
                 ShowStudentsDataAndAverages();
                 return;
             }
-            DataRow row = ((DataTable) DgwQuestions.DataSource).Rows[DgwQuestions.SelectedRows[0].Index];
+            DataRow row = ((DataTable)DgwQuestions.DataSource).Rows[DgwQuestions.SelectedRows[0].Index];
             ReadCurrentGradeAndQuestionFromGridRow(row);
-            currentGrade = ReadUI(currentGrade); 
+            currentGrade = ReadUI(currentGrade);
             currentGrade.IdGrade = Commons.bl.SaveMicroGrade(currentGrade);
             ShowStudentsDataAndAverages();
-        }
-        private void TxtQuestionText_TextChanged(object sender, EventArgs e)
-        {
-
         }
         private void TxtQuestionText_DoubleClick(object sender, EventArgs e)
         {
@@ -453,11 +450,7 @@ namespace SchoolGrades
                 currentQuestion, currentSchoolSubject, currentClass, null);
             f.ShowDialog();
             if (f.UserHasChosen)
-                TxtQuestionText.Text = f.currentQuestion.Text; 
-        }
-        private void txtIdMacroGrade_TextChanged(object sender, EventArgs e)
-        {
-
+                TxtQuestionText.Text = f.currentQuestion.Text;
         }
     }
 }

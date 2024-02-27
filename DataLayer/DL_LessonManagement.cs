@@ -1,8 +1,8 @@
-﻿using System;
+﻿using SchoolGrades.BusinessObjects;
+using System;
 using System.Collections.Generic;
-using SchoolGrades.BusinessObjects;
-using System.Data.Common;
 using System.Data;
+using System.Data.Common;
 using System.Data.SQLite;
 
 namespace SchoolGrades
@@ -59,7 +59,7 @@ namespace SchoolGrades
                 " idClass=" + Lesson.IdClass + "," +
                 " idSchoolSubject='" + Lesson.IdSchoolSubject + "'," +
                 " idSchoolYear='" + Lesson.IdSchoolYear + "'," +
-                " note=" + SqlString(Lesson.Note) + 
+                " note=" + SqlString(Lesson.Note) +
                 " WHERE idLesson=" + Lesson.IdLesson +
                 ";";
                 cmd.ExecuteNonQuery();
@@ -67,13 +67,13 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal DataTable GetTopicsOfOneLessonOfClass(Class Class, Lesson Lesson)
+        internal List<Topic> GetTopicsOfOneLessonOfClass(Class Class, Lesson Lesson)
         {
-            DataTable t;
+            List<Topic> topics = new();
             using (DbConnection conn = Connect())
             {
-                DataAdapter dAdapt;
-                DataSet dSet = new DataSet();
+                DbDataReader dRead;
+                DbCommand cmd = conn.CreateCommand();
                 string query = "SELECT Topics.* FROM Lessons" +
                     " LEFT JOIN Lessons_Topics ON Lessons.IdLesson = Lessons_Topics.idLesson" +
                     " LEFT JOIN Topics ON Topics.idTopic = Lessons_Topics.idTopic" +
@@ -84,15 +84,18 @@ namespace SchoolGrades
                     //" GROUP BY Lessons.idLesson" +
                     " ORDER BY Lessons.date DESC" +
                     ";";
-                dAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                dSet = new DataSet("GetOnLessonOfClass");
-                dAdapt.Fill(dSet);
-                t = dSet.Tables[0];
-
-                dAdapt.Dispose();
-                dSet.Dispose();
+                cmd.CommandText = query;
+                dRead = cmd.ExecuteReader();
+                Topic t = new();
+                while (dRead.Read())
+                {
+                    t = GetTopicFromRow(dRead);
+                    topics.Add(t);
+                }
+                cmd.Dispose();
+                dRead.Dispose();
             }
-            return t;
+            return topics;
         }
         internal DataTable GetLessonsOfClass(Class Class, Lesson Lesson)
         {
@@ -118,7 +121,7 @@ namespace SchoolGrades
             }
             return t;
         }
-        internal List<Lesson> GetLessonsOfClass(Class Class, string IdSchoolSubject, 
+        internal List<Lesson> GetLessonsOfClass(Class Class, string IdSchoolSubject,
             bool OrderByAscendingDate)
         {
             List<Lesson> lessons = new List<Lesson>();
@@ -374,9 +377,9 @@ namespace SchoolGrades
                 {
                     query = "UPDATE Images" +
                         " SET " +
-                        " imagePath="+ SqlString(Image.RelativePathAndFilename) + "," +
+                        " imagePath=" + SqlString(Image.RelativePathAndFilename) + "," +
                         " caption=" + SqlString(Image.Caption) + "" +
-                        " WHERE idImage="+ Image.IdImage + 
+                        " WHERE idImage=" + Image.IdImage +
                         ";";
                     cmd.CommandText = query;
                     cmd.ExecuteNonQuery();

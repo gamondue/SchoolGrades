@@ -15,4 +15,4 @@ Try making requests for new features, although you'll have to be very patient to
 
 I will be grateful to you if you do pull requests with the code that fixes the bug or implements the new functionality.
 
-In the spring of 2021 I used the program and GitHub as school exercises for some of my classes at school, so many of the pull requests are only instrumental to those school exercises. 
+In the spring of 2021 and in the Fall of 2023 I used the program and GitHub as school exercises for some of my classes at school, so many of the pull requests are only instrumental to those school exercises. 

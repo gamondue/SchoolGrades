@@ -1,6 +1,5 @@
 ﻿using gamon;
 using SchoolGrades.BusinessObjects;
-using SharedWinForms;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -25,7 +24,7 @@ namespace SchoolGrades
             //TxtPathStartLinks.Text = Commons.PathStartLinks; // not longer used
 
             TxtPathDocuments.Text = Commons.PathDocuments;
-            chkSaveBackup.Checked = CommonsWinForms.SaveBackupWhenExiting;
+            chkSaveBackup.Checked = Commons.SaveBackupWhenExiting;
         }
         private void BtnTabelle_Click(object sender, EventArgs e)
         {
@@ -72,37 +71,16 @@ namespace SchoolGrades
             string[] dati = new string[6];
             try
             {
-                if (!Directory.Exists(Commons.PathConfig))
-                    Directory.CreateDirectory(Commons.PathConfig);
-
-                if (!Directory.Exists(Commons.PathLogs))
-                    Directory.CreateDirectory(Commons.PathLogs);
-
                 Commons.DatabaseFileName_Current = dati[0] = TxtFileDatabase.Text;
-
-                Commons.PathImages = dati[1] = TxtPathImages.Text;
-                if (!Directory.Exists(Commons.PathImages))
-                    Directory.CreateDirectory(Commons.PathImages);
 
                 // postition 2 was held by PathStartLinks, that is not longer used,
                 // substituted by PathRestrictedApp  (attribute of the single school class) 
                 //dati[2] = Commons.PathRestrictedApp; 
-
                 Commons.PathDatabase = dati[3] = TxtPathDatabase.Text;
-                if (!Directory.Exists(Commons.PathDatabase))
-                    Directory.CreateDirectory(Commons.PathDatabase);
-
+                Commons.PathImages = dati[1] = TxtPathImages.Text;
                 Commons.PathDocuments = dati[4] = TxtPathDocuments.Text;
-                if (!Directory.Exists(Commons.PathDocuments))
-                {
-                    if (Commons.PathDocuments != "")
-                        Directory.CreateDirectory(Commons.PathDocuments);
-                    else
-                        Commons.PathDocuments = ".";
-                }
-
-                CommonsWinForms.SaveBackupWhenExiting = chkSaveBackup.Checked;
-                dati[5] = CommonsWinForms.SaveBackupWhenExiting.ToString();
+                Commons.SaveBackupWhenExiting = chkSaveBackup.Checked;
+                dati[5] = Commons.SaveBackupWhenExiting.ToString();
 
                 //////////Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
                 // TODO !!! if the file doesn't exist copies the sample empty database. Eventually redo this code, it is ugly and not functional !!!!
