@@ -27,8 +27,8 @@ namespace SchoolGrades
             {
                 DbCommand cmd = conn.CreateCommand();
                 // Tabella: SchoolYears
-                cmd.CommandText = @"CREATE TABLE SchoolYears (
-                    idSchoolYear VARCHAR(4) NOT NULL,
+                cmd.CommandText = @"CREATE TABLE IF NOT EXISTS SchoolYears 
+                    (idSchoolYear VARCHAR(4) NOT NULL,
                     shortDesc VARCHAR(10) NULL,
                     notes VARCHAR(255) NULL,
                     PRIMARY KEY(idSchoolYear));";

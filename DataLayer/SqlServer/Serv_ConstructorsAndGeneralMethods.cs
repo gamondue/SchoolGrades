@@ -47,6 +47,32 @@ namespace SchoolGrades
             }
             return connection;
         }
+        internal DbConnection ConnectNoDatabase()
+        {
+            DbConnection connection;
+            try
+            {
+                string connectionStringSqlServer = "SERVER=localhost;UID=sa;PWD=burbero2023;" +
+                    "TrustServerCertificate=true;";
+                //string connectionStringSqlServer = "SERVER=localhost;UID=sa;PWD=burbero2023;TrustServerCertificate=true;";
+                connection = new SqlConnection(connectionStringSqlServer);
+                connection.Open();
+            }
+            catch (Exception ex)
+            {
+#if DEBUG
+                //Get call stack
+                StackTrace stackTrace = new StackTrace();
+                //Log calling method name
+                Commons.ErrorLog("Connect Method in: " + stackTrace.GetFrame(1).GetMethod().Name);
+#endif
+                Commons.ErrorLog("Error connecting to the database: " + ex.Message + "\r\nFile SQL server: " + dbName + " " + "\n");
+                connection = null;
+            }
+            return connection;
+        }
+
+
         internal override int nFieldDbDataReader(string NomeCampo, DbDataReader dr)
         {
             for (int i = 0; i < dr.FieldCount; i++)
@@ -122,7 +148,7 @@ namespace SchoolGrades
                 }
             }
         }
-        internal override void CreateNewDatabase()
+        internal override void CreateNewDatabaseFromExisting()
         {
             DbCommand cmd;
             // erase all the data on all the tables

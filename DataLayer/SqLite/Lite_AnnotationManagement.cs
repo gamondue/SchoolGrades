@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SQLite;
-using System.Text;
 
 namespace SchoolGrades
 {
@@ -185,7 +184,7 @@ namespace SchoolGrades
                 if (IncludeJustPopUp && FieldExists("StudentsAnnotations", "isPopUp")) 
                     query += " AND isPopUp=true";
                 query += ";";
-                dAdapter = new SQLiteDataAdapter(query, (System.Data.SQLite.SQLiteConnection)conn);
+                dAdapter = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
 
                 dAdapter.Fill(dSet);
                 table = dSet.Tables[0];

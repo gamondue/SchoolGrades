@@ -9,7 +9,6 @@ namespace NUnitDbTests
             //Test_Commons.bl = new BusinessLayer();
 
         }
-        //[Test]
         //public void T_CreateNewDatabaseFromExisting()
         //{
         //    Commons.PathAndFileDatabase = Test_Commons.dbStandard;
