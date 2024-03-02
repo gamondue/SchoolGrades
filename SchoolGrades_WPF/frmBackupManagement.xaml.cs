@@ -21,7 +21,7 @@ namespace SchoolGrades_WPF
         {
             InitializeComponent();
 
-            //TreeMpttDb dbMptt = new TreeMpttDb(Commons.dl);
+            //TreeMpttDb_SqLite dbMptt = new TreeMpttDb_SqLite(dl);
 
             //topicTreeMptt = new TreeMptt(Cooms.dl, null, null, null, null, null,
             // null, null, null, null, null, null, DragDropEffects.None);
@@ -295,7 +295,7 @@ namespace SchoolGrades_WPF
                 //       else
                 //           return;
             }
-            Commons.bl.CreateNewDatabase(newDatabaseFullName);
+            Commons.bl.CreateNewDatabaseFromExisting(newDatabaseFullName);
             MessageBox.Show("Creato nuovo database SchoolGradesNew.sqlite");
         }
     }

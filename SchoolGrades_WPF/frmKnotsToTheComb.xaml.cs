@@ -26,7 +26,7 @@ namespace SchoolGrades_WPF
         public frmKnotsToTheComb(frmMicroAssessment GrandparentForm, int? IdStudent, SchoolSubject SchoolSubject, string Year)
         {
             InitializeComponent();
-            currentStudent = Commons.dl.GetStudent(IdStudent);
+            currentStudent = Commons.bl.GetStudent(IdStudent);
             lblStudent.Content = currentStudent.LastName + " " + currentStudent.FirstName;
             currentIdSchoolYear = Year;
             currentSubject = SchoolSubject;
@@ -35,7 +35,7 @@ namespace SchoolGrades_WPF
             // fills the lookup tables' combos
             cmbSchoolSubject.DisplayMemberPath = "Name";
             cmbSchoolSubject.SelectedValuePath = "idSchoolSubject";
-            cmbSchoolSubject.ItemsSource = Commons.dl.GetListSchoolSubjects(true);
+            cmbSchoolSubject.ItemsSource = Commons.bl.GetListSchoolSubjects(true);
 
             currentSubject = SchoolSubject;
             ChosenQuestion = null;
@@ -49,9 +49,7 @@ namespace SchoolGrades_WPF
         private void RefreshData()
         {
             dgwQuestions.ItemsSource = (System.Collections.IEnumerable)
-
-
-                Commons.dl.GetUnfixedGrades(currentStudent, currentSubject.IdSchoolSubject, 60);
+            Commons.bl.GetUnfixedGrades(currentStudent, currentSubject.IdSchoolSubject, 60);
         }
         private void DgwQuestions_CellContentClick(object sender, RoutedEvent e)
         {

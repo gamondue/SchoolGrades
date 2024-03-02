@@ -10,7 +10,6 @@ namespace SchoolGrades
         /// <summary>
         /// Business Layer: implements the business rules of the program indipendently from 
         /// the User's Interface
-        /// Porting code from DbAndBusinness class and classes within BusinessLayer is work in progress 
         /// </summary>
 
         // create the next after the program that is using this has read the configuration file 
@@ -18,26 +17,19 @@ namespace SchoolGrades
 
         // internal string NameAndPathDatabase { get; }
 
-        /// <summary>
-        /// Incapsulates the business rules for users' management
-        /// part of the class that contains the constructors and the general methods
-        /// </summary>
-        ///  
-        internal BusinessLayer()
+        internal DataLayer CreateNewDatabaseFromExisting(string NewDatabasePathName)
         {
-            this.dl = Commons.dl;
-        }
-        internal DataLayer CreateNewDatabase(string NewDatabasePathName)
-        {
-            if (File.Exists(NewDatabasePathName))
-                File.Delete(NewDatabasePathName);
-            File.Copy(Commons.PathAndFileDatabase, NewDatabasePathName);
+            ////if (File.Exists(NewDatabasePathName))
+            ////    File.Delete(NewDatabasePathName);
+            ////File.Copy(Commons.PathAndFileDatabase, NewDatabasePathName);
 
-            // local instance of a DataLayer to operate on a second database 
-            DataLayer newDatabaseDl = new DataLayer(NewDatabasePathName);
+            ////// local instance of a DataLayer to operate on a second database 
 
-            newDatabaseDl.CreateNewDatabase();
-            return newDatabaseDl;
+            ////DataLayer newDatabaseDl = new SqLite_DataLayer(NewDatabasePathName);
+
+            ////newDatabaseDl.CreateNewDatabaseFromExisting();
+            ////return newDatabaseDl;
+            return null;
         }
         internal School GetSchool(string OfficialSchoolAbbreviation)
         {
