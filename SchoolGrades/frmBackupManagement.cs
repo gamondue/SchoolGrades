@@ -1,16 +1,16 @@
-﻿using SchoolGrades.BusinessObjects;
-using gamon;
+﻿using gamon;
+using gamon.TreeMptt;
+using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-using gamon.TreeMptt;
 
 namespace SchoolGrades
 {
     public partial class frmBackupManagement : Form
     {
-        TreeMptt topicTreeMptt; 
+        TreeMptt topicTreeMptt;
 
         private string schoolYear;
         Class currentClass;
@@ -19,10 +19,10 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
-            TreeMpttDb dbMptt = new TreeMpttDb(Commons.dl);
+            TreeMpttDb dbMptt = new TreeMpttDb();
 
-            topicTreeMptt = new TreeMptt(Commons.dl, null, null, null, null, null, 
-                null, null, null, null, null, null, DragDropEffects.None);
+            topicTreeMptt = new TreeMptt(null, null, null, null, null,
+                null, null, null, null, null, null, null, DragDropEffects.None);
         }
         private void frmBackupManagement_Load(object sender, EventArgs e)
         {
@@ -63,13 +63,13 @@ namespace SchoolGrades
             if (currentClass == null)
             {
                 MessageBox.Show("Scegliere la classe da tenere nel database");
-                return; 
+                return;
             }
             string imagesFolder = Commons.bl.CreateOneClassOnlyDatabase(currentClass);
             if (imagesFolder != "")
                 Commons.ProcessStartLink(imagesFolder);
             else
-                MessageBox.Show("Cartella del database della classe non trovata"); 
+                MessageBox.Show("Cartella del database della classe non trovata");
             //MessageBox.Show("Fatto"); 
         }
         private void cmbSchoolYear_SelectedIndexChanged(object sender, EventArgs e)
@@ -130,24 +130,24 @@ namespace SchoolGrades
         {
             // !!!! TODO fix using Regex.Split(string, ...) !!!!
             MessageBox.Show("To fix!");
-            return; 
+            return;
 
-            List<Topic> ListTopics = new List<Topic>(); 
+            List<Topic> ListTopics = new List<Topic>();
             string[] topics = TextFile.FileToArray(Commons.PathDatabase + "\\Argomenti_DA IMPORTARE.tsv");
-            if(topics == null)
+            if (topics == null)
             {
-                MessageBox.Show("Non è stato possibile aprire il file Argomenti_DA IMPORTARE.tsv"); 
-                return; 
+                MessageBox.Show("Non è stato possibile aprire il file Argomenti_DA IMPORTARE.tsv");
+                return;
             }
-            foreach(string line in topics)
+            foreach (string line in topics)
             {
                 Topic t = new Topic();
-                string[] fields = line.Split('\t'); 
+                string[] fields = line.Split('\t');
                 // count tabs in the beginning of the line
-                int nTabs = 0; 
-                while (fields[nTabs] == "" && nTabs < fields.Length-1)
+                int nTabs = 0;
+                while (fields[nTabs] == "" && nTabs < fields.Length - 1)
                 {
-                    nTabs++; 
+                    nTabs++;
                 }
                 if (fields[nTabs] != "")
                 {
@@ -155,15 +155,15 @@ namespace SchoolGrades
                     // (not used for other in this phase)
                     t.ParentNodeNew = nTabs;  // it is the level count 
                     t.Name = fields[nTabs++];
-                    if(nTabs < fields.Length && fields[nTabs] != "")
+                    if (nTabs < fields.Length && fields[nTabs] != "")
                         t.Desc = fields[nTabs];
                     ListTopics.Add(t);
                 }
             }
-            MessageBox.Show("Salvare per rendere definitiva l'importazione."); 
-            frmTopics ft = new frmTopics(frmTopics.TopicsFormType.ImportWithErase, 
+            MessageBox.Show("Salvare per rendere definitiva l'importazione.");
+            frmTopics ft = new frmTopics(frmTopics.TopicsFormType.ImportWithErase,
                 null, null, null, ListTopics);
-            ft.ShowDialog(); 
+            ft.ShowDialog();
             ft.Dispose();
         }
         private void btnRestoreTopics_Click(object sender, EventArgs e)
@@ -175,8 +175,8 @@ namespace SchoolGrades
         private void btnSaveDatabaseFile_Click(object sender, EventArgs e)
         {
             File.Copy(Commons.PathAndFileDatabase,
-                Commons.PathDatabase + "\\" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + 
-                "_" + Commons.DatabaseFileName_Current); 
+                Commons.PathDatabase + "\\" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") +
+                "_" + Commons.DatabaseFileName_Current);
         }
         private void btnRestoreTags_Click(object sender, EventArgs e)
         {
@@ -212,50 +212,54 @@ namespace SchoolGrades
         }
         private void BtnMakeDemo_Click(object sender, EventArgs e)
         {
-            int indexNextClass = lstClasses.SelectedIndex - 1;
-            if (indexNextClass < 0)
+            string prompt = "Scegliere nell'elenco delle classi, tenendo premuto il tasto Shift o Ctrl, " +
+                "le classi da usare per generare il database demo. " +
+                "\nVerranno scelte quelle classi e le corrispondenti dell'anno successivo (se ci sono)." +
+                "\n I dati delle classi verranno manipolati e le foto " +
+                "prese a caso da:\n " +
+                Commons.PathImages + "\\DemoPictures.\n\nDevo procedere con la generazione (Sì)" +
+                " od interrompere (No)?";
+            if (MessageBox.Show(prompt, "Continua?", MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
+                return;
+
+            // make a list of selected classes and same classes next yeatr 
+            List<Class> classes = new();
+            foreach (Class c in lstClasses.SelectedItems)
             {
-                MessageBox.Show("Scegliere una classe a partire almeno dalla seconda della lista");
+                // add selected class
+                classes.Add(c);
+                // gets this same class in next year (if any..)
+                Class temp = Commons.bl.GetThisClassNextYear(c);
+                if (temp.Abbreviation != null)
+                {
+                    // if exists, add same class, next year to the classes 
+                    classes.Add(temp);
+                }
+            }
+            if (classes == null)
+            {
+                MessageBox.Show("Scegliere almeno una classe");
                 return;
             }
-            if (currentClass == null)
+            string demoDatabase = Commons.bl.GetDemoDatabaseName();
+
+            if (File.Exists(demoDatabase))
             {
-                MessageBox.Show("Scegliere la classe da usare per generare il database demo");
-                return;
-            }
-            if (MessageBox.Show("Verranno generate due classi demo nell'anno corrente, " +
-                "con i dati manipolati della classe selezionata e di quella PRIMA nella lista, e le foto " +
-                "prese da " + Commons.PathImages + "\\DemoPictures.\n\nDevo procedere con la generazione (Sì)" +
-                " od interrompere (No)?","Continua?", MessageBoxButtons.YesNo, 
-                MessageBoxIcon.Question,
-                MessageBoxDefaultButton.Button2) != DialogResult.Yes)
-                return; 
-
-            Class otherClass = (Class)lstClasses.Items[lstClasses.SelectedIndex - 1];
-
-            string newDatabasePathName = Commons.PathDatabase;
-            if (!Directory.Exists(newDatabasePathName))
-                Directory.CreateDirectory(newDatabasePathName);
-
-            string newDatabaseFullName = newDatabasePathName +
-                "\\Demo_SchoolGrades_" + currentClass.SchoolYear + "_" + DateTime.Now.Date.ToString("yy-MM-dd") + ".sqlite";
-
-            if (File.Exists(newDatabaseFullName))
-            {
-                if (System.Windows.Forms.MessageBox.Show("Il file " + newDatabaseFullName + " esiste già." +
+                if (System.Windows.Forms.MessageBox.Show("Il file " + demoDatabase + " esiste già." +
                     "\nDevo re-inizializzarlo (Sì) o non creare il database (No)?", "",
                     System.Windows.Forms.MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    File.Delete(newDatabaseFullName);
+                    File.Delete(demoDatabase);
                 }
                 else
                     return;
             }
-            string fileDatabase = Commons.bl.CreateDemoDatabase(newDatabaseFullName, otherClass, currentClass);
-            MessageBox.Show("Creato il file " + fileDatabase + ", " +
-                "che contiene le due classi 1DEMO e 2DEMO, con tutte le foto, " +
-                "le valutazioni e le immagini."); ; 
+            Commons.bl.CreateDemoDatabase(demoDatabase, classes);
+            MessageBox.Show("Creato il file " + demoDatabase + ", " +
+                "che contiene le classi DEMO, con tutte le loro foto, " +
+                "le valutazioni e le immagini."); ;
         }
         private void BtnNewDatabase_Click(object sender, EventArgs e)
         {
@@ -263,24 +267,23 @@ namespace SchoolGrades
             if (!Directory.Exists(newDatabasePathName))
                 Directory.CreateDirectory(newDatabasePathName);
 
-            string newDatabaseFullName = newDatabasePathName +
+            string NewDatabasePathName = newDatabasePathName +
                 "\\SchoolGradesNew.sqlite";
 
-            if (File.Exists(newDatabaseFullName))
+            if (File.Exists(NewDatabasePathName))
             {
-                //!!!!TODO make the next code indipendent from UI!!!!
-                if (System.Windows.Forms.MessageBox.Show("Il file " + newDatabaseFullName + " esiste già." +
+                if (System.Windows.Forms.MessageBox.Show("Il file " + NewDatabasePathName + " esiste già." +
                     "\nDevo re-inizializzarlo (Sì) o non creare il database (No)?", "",
                     System.Windows.Forms.MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    File.Delete(newDatabaseFullName);
+                    File.Delete(NewDatabasePathName);
                 }
                 else
                     return;
             }
-            Commons.bl.CreateNewDatabase(newDatabaseFullName);
-            MessageBox.Show("Creato nuovo database SchoolGradesNew.sqlite"); 
+            Commons.bl.CreateNewDatabase(NewDatabasePathName);
+            MessageBox.Show("Creato nuovo database SchoolGradesNew.sqlite");
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
+using System.Resources;
 using System.Text;
 
 namespace SchoolGrades
@@ -54,6 +55,12 @@ namespace SchoolGrades
                 }
             }
             return eligiblesList;
+        }
+
+        internal int RandomNumber(int v, int v1)
+        {
+            Random rnd = new Random();
+            return rnd.Next(v, v1);
         }
     }
 }

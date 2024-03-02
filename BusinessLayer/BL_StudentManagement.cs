@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Text;
 
 namespace SchoolGrades
 {
@@ -17,16 +16,16 @@ namespace SchoolGrades
         {
             return dl.CreateStudent(Student);
         }
-        internal void SaveStudentsOfList(List<Student> studentsList, DbConnection conn = null)
+        internal void SaveStudentsOfList(List<Student> studentsList, DbCommand cmd = null)
         {
             foreach (Student s in studentsList)
             {
-                SaveStudent(s, conn);
+                SaveStudent(s, cmd);
             }
         }
-        internal int? SaveStudent(Student Student, DbConnection conn = null)
+        internal int? SaveStudent(Student Student, DbCommand cmd = null)
         {
-            if(Student.IdStudent == null || Student.IdStudent == 0)
+            if (Student.IdStudent == null || Student.IdStudent == 0)
             {
                 // creation 
                 return dl.CreateStudent(Student);
@@ -34,7 +33,7 @@ namespace SchoolGrades
             else
             {
                 // modification 
-                return dl.UpdateStudent(Student, conn);
+                return dl.UpdateStudent(Student, cmd);
             }
         }
         internal Student GetStudent(int? IdStudent)
@@ -57,12 +56,12 @@ namespace SchoolGrades
         /// 
         /// </summary>
         /// <param name="IdClass">Id of the class to be searched</param>
-        /// <param name="conn">Connection already open on a database different from standard. 
+        /// <param name="cmd">Connection already open on a database different from standard. 
         /// If not null this connection is left open</param>
         /// <returns>List of the </returns>
-        internal List<Student> GetStudentsOfClass(int? IdClass, DbConnection conn)
+        internal List<Student> GetStudentsOfClass(int? IdClass, DbCommand cmd)
         {
-            return dl.GetStudentsOfClass(IdClass, conn);
+            return dl.GetStudentsOfClass(IdClass, cmd);
         }
         internal List<Student> GetStudentsOfClassList(string Scuola, string Anno,
             string ClassAbbreviation, bool IncludeNonActiveStudents)
@@ -89,7 +88,7 @@ namespace SchoolGrades
         }
         internal void EraseStudentsPhoto(int IdStudent, string SchoolYear)
         {
-            dl.EraseStudentsPhoto(IdStudent, SchoolYear); 
+            dl.EraseStudentsPhoto(IdStudent, SchoolYear);
         }
         internal void ToggleDisabledFlagOneStudent(Student DisablingStudent)
         {
@@ -111,13 +110,13 @@ namespace SchoolGrades
         {
             return dl.GetIdStudentsNonGraded(currentClass, currentGradeType, currentSubject);
         }
-        internal void SaveStudentsAnswer(Student Student, Test Test, Answer Answer, bool IsChecked, string StudentsTextAnswer)
+        internal void SaveStudentsAnswer(Student Student, SchoolTest Test, Answer Answer, bool IsChecked, string StudentsTextAnswer)
         {
             dl.SaveStudentsAnswer(Student, Test, Answer, IsChecked, StudentsTextAnswer);
         }
         internal List<Student> FindStudentsOnBirthday(Class Class, DateTime Date)
         {
-            return dl.GetStudentsOnBirthday(Class, Date); 
+            return dl.GetStudentsOnBirthday(Class, Date);
         }
     }
 }

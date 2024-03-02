@@ -1,6 +1,6 @@
 ﻿using gamon.TreeMptt;
 using SchoolGrades.BusinessObjects;
-using SharedWinForms;
+using Shared;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -39,9 +39,9 @@ namespace SchoolGrades
             txtFileNewDatabase.Text = Commons.DatabaseFileName_Current;
 
             DataLayer dlNew = new DataLayer(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
-            treeNew = new TreeMptt(dlNew, trwNewTopics,
+            treeNew = new TreeMptt(trwNewTopics,
                 txtNewTopicName, txtNewDescription, txtSearchNew, null, txtCodNewTopic,
-                CommonsWinForms.globalPicLed, null, null, null, null, DragDropEffects.Copy);
+                CommonsWinForms.globalPicLed, null, null, null, null, null, DragDropEffects.Copy);
             treeNew.Name = "treeNew";
             treeNew.AddNodesToTreeviewByBestMethod();
             treeNew.ClearBackColorOnClick = false;
@@ -75,9 +75,9 @@ namespace SchoolGrades
 
             DataLayer dlNew = new DataLayer(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
 
-            treeNew = new TreeMptt(dlNew, trwNewTopics,
+            treeNew = new TreeMptt(trwNewTopics,
                 txtNewTopicName, txtNewDescription, null, null, txtCodNewTopic,
-                CommonsWinForms.globalPicLed, null, null, null, null, DragDropEffects.Copy);
+                CommonsWinForms.globalPicLed, null, null, null, null, null, DragDropEffects.Copy);
             treeNew.AddNodesToTreeviewByBestMethod();
             treeNew.ClearBackColorOnClick = false;
 
@@ -108,23 +108,24 @@ namespace SchoolGrades
             }
             DataLayer dlOld = new DataLayer(txtPathOldDatabase.Text + "\\" + txtFileOldDatabase.Text);
 
-            treeOld = new TreeMptt(dlOld, trwOldTopics,
+            treeOld = new TreeMptt(trwOldTopics,
                 txtOldTopicName, txtOldDescription, txtSearchOld, null, txtCodOldTopic,
-                CommonsWinForms.globalPicLed, null, null, null, null, DragDropEffects.Copy);
+                CommonsWinForms.globalPicLed, null, null, null, null, null,
+                DragDropEffects.Copy);
             treeOld.Name = "treeOld";
             treeOld.AddNodesToTreeviewByBestMethod();
             treeOld.ClearBackColorOnClick = false;
 
             // stop background saving thread when using this form so it will not interfere. 
             // locks a concurrent modification of syncronyzing variables 
-            lock (CommonsWinForms.LockBackgroundSavingVariables)
+            lock (Commons.LockBackgroundSavingVariables)
             {
-                CommonsWinForms.BackgroundSavingEnabled = false;
-                CommonsWinForms.BackgroundTaskClose = true;
+                Commons.BackgroundSavingEnabled = false;
+                Commons.BackgroundTaskClose = true;
             }
             // we wait for the saving Thread to finish
             // (it aborts in a point in which status is preserved)  
-            CommonsWinForms.BackgroundSaveThread.Join(3000);
+            Commons.BackgroundSaveThread.Join(3000);
 
             highligthDifferences();
         }
@@ -317,11 +318,11 @@ namespace SchoolGrades
         }
         private void btnFindNew_Click(object sender, EventArgs e)
         {
-            treeNew.FindNodes(txtSearchNew.Text, false);
+            treeNew.FindNodes(txtSearchNew.Text, false, true, false, false, false);
         }
         private void btnFindOld_Click(object sender, EventArgs e)
         {
-            treeOld.FindNodes(txtSearchOld.Text, false);
+            treeOld.FindNodes(txtSearchOld.Text, false, true, false, false, false);
         }
         private void BtnSaveNewTree_Click(object sender, EventArgs e)
         {
@@ -329,14 +330,14 @@ namespace SchoolGrades
 
             // abort the background saving that was triggered by SaveTreeFromTreeViewControlByParent
             // locks a concurrent modification of Commons.BackgroundCanStillSaveTopicsTree 
-            lock (CommonsWinForms.LockBackgroundSavingVariables)
+            lock (Commons.LockBackgroundSavingVariables)
             {
-                CommonsWinForms.BackgroundSavingEnabled = false;
-                CommonsWinForms.BackgroundTaskClose = true;
+                Commons.BackgroundSavingEnabled = false;
+                Commons.BackgroundTaskClose = true;
             }
             // we wait for the saving Thread to finish
             // (it aborts in a point in which status is preserved)  
-            CommonsWinForms.BackgroundSaveThread.Join(3000);
+            Commons.BackgroundSaveThread.Join(3000);
 
             // !!!! TODO restart the task on closing the form !!!!
 
@@ -353,8 +354,8 @@ namespace SchoolGrades
         private void startBackgroundSavingTask()
         {
             // re-create and run the Thread that concurrently saves the Topics tree
-            CommonsWinForms.BackgroundSaveThread = new Thread(CommonsWinForms.SaveTreeMptt.SaveTreeMpttBackground);
-            CommonsWinForms.BackgroundSaveThread.Start();
+            Commons.BackgroundSaveThread = new Thread(CommonsWinForms.SaveTreeMptt.SaveTreeMpttBackground);
+            Commons.BackgroundSaveThread.Start();
         }
         private void btnBeheaded_Click(object sender, EventArgs e)
         {

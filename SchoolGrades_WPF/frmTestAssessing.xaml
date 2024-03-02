@@ -1,0 +1,26 @@
+﻿<Window x:Class="SchoolGrades_WPF.frmTestAssessing"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SchoolGrades_WPF"
+        Title="Correzione Test" Height="738" Width="800"
+        Background="PowderBlue">
+    <Grid>
+        <Label Content="Codice Test" Foreground="DarkBlue" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtIdTest" HorizontalAlignment="Left" Margin="10,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+        <Label Content="Codice Classe" Foreground="DarkBlue" HorizontalAlignment="Left" Margin="85,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Margin="91,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+        <Label Content="Domande" Foreground="DarkBlue" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtQuestion" HorizontalAlignment="Left" Margin="85,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="291" Height="33"/>
+        <Label Content="Risposte" Foreground="DarkBlue" HorizontalAlignment="Left" Margin="376,74,0,0" VerticalAlignment="Top"/>
+        <DataGrid x:Name="dgwQuestions" Background="DarkGray" Margin="10,97,424,298"/>
+        <DataGrid x:Name="dgwAnswers" Background="DarkGray" Margin="381,97,0,283"/>
+        <Label Content="Allievi della classe" Foreground="DarkBlue" HorizontalAlignment="Left" Margin="10,426,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtStudent" HorizontalAlignment="Left" Margin="112,429,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" Height="20"/>
+        <DataGrid x:Name="dgwClassStudents" Background="DarkGray" Margin="10,454,424,15"/>
+        <GroupBox x:Name="grpStudentsAnswers" Header="Risposte allievo" Margin="381,444,0,15"/>
+        <Button x:Name="btnGradeAllTest" Content="Valuta Test" Background="White" HorizontalAlignment="Left" Margin="689,25,0,0" VerticalAlignment="Top" Height="31" Width="77"/>
+        <Button x:Name="btnSaveStudentsAnswers" Content="Salva" Background="White" HorizontalAlignment="Left" Margin="318,429,0,0" VerticalAlignment="Top" Height="20" Width="55"/>
+    </Grid>
+</Window>

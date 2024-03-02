@@ -15,7 +15,7 @@ namespace SchoolGrades
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            string database = @"C:\OneDriveScuola\OneDrive - ispascalcomandini.gov.it\SchoolGrades\Data\SchoolGrades.sqlite";
+            //string database = @"C:\OneDriveScuola\OneDrive - ispascalcomandini.gov.it\SchoolGrades\Data\SchoolGrades.sqlite";
             //if (args.Length > 0)
             //    database = args[0];
             //else

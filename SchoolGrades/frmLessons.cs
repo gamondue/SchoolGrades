@@ -1,9 +1,8 @@
 ﻿using gamon.TreeMptt;
 using SchoolGrades.BusinessObjects;
-using SharedWinForms;
+using Shared;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
 using System.Windows.Forms;
 
@@ -84,16 +83,16 @@ namespace SchoolGrades
             RefreshLessons(currentLessonsGridIndex);
 
             //topicTreeMptt = new TopicTreeMptt(listTopicsBefore, trwTopics,
-            topicTreeMptt = new TreeMptt(Commons.dl, trwTopics,
+            topicTreeMptt = new TreeMptt(trwTopics,
                 txtTopicName, txtTopicDescription, txtTopicSearchString, txtTopicsDigest,
-                null, CommonsWinForms.globalPicLed, chkSearchInDescriptions, chkAllWord,
-                chkCaseInsensitive, chkMarkAllTopicsFound,
+                null, CommonsWinForms.globalPicLed, chkSearchInDescriptions, chkVerbatimString,
+                chkAllWord, chkCaseInsensitive, chkMarkAllTopicsFound,
                 DragDropEffects.Copy);
             topicTreeMptt.AddNodesToTreeviewByBestMethod();
 
             RefreshTopicsChecksAndImages();
 
-            this.BackColor = Commons.ColorFromNumber(currentSchoolSubject);
+            this.BackColor = CommonsWinForms.ColorFromNumber(currentSchoolSubject);
 
             LessonTimer.Interval = 1000;
             LessonTimer.Start();
@@ -165,7 +164,7 @@ namespace SchoolGrades
                 if (listImages != null && listImages.Count > 0)
                     try
                     {
-                        picImage.Load(Commons.PathImages + "\\" + listImages[indexImages].RelativePathAndFilename);
+                        picImage.Load(Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename));
                     }
                     catch { }
                 else
@@ -178,8 +177,8 @@ namespace SchoolGrades
         {
             // ricerca 
             topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked,
-                chkSearchInDescriptions.Checked,
-                chkAllWord.Checked, chkCaseInsensitive.Checked);
+                chkSearchInDescriptions.Checked, chkAllWord.Checked,
+                chkCaseInsensitive.Checked, chkVerbatimString.Checked);
         }
         private void btnAddNode_Click(object sender, EventArgs e)
         {
@@ -413,7 +412,8 @@ namespace SchoolGrades
                 indexImages = 0;
                 if (listImages.Count > 0)
                 {
-                    string nomeFile = Commons.PathImages + "\\" + listImages[indexImages].RelativePathAndFilename;
+
+                    string nomeFile = Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename);
                     try
                     {
                         picImage.Load(nomeFile);
@@ -433,8 +433,8 @@ namespace SchoolGrades
         {
             if (e.RowIndex > -1)
             {
-                DataRow row = ((DataTable)(dgwOneLesson.DataSource)).Rows[e.RowIndex];
-                topicTreeMptt.FindNodeById((int)row["idTopic"]);
+                Topic row = ((List<Topic>)dgwOneLesson.DataSource)[e.RowIndex];
+                topicTreeMptt.FindNodeById(row.Id);
             }
         }
         private void frmLessonsTopics_KeyDown(object sender, KeyEventArgs e)
@@ -444,7 +444,8 @@ namespace SchoolGrades
         private void checkGeneralKeysForTopicsTree(KeyEventArgs e)
         {
             if (e.KeyCode == Keys.F3)
-                topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked);
+                topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked,
+                    true, false, false, false);
             if (e.KeyCode == Keys.F5)
             {
                 btnSaveTree_Click(null, null);
@@ -462,7 +463,8 @@ namespace SchoolGrades
             }
 
             if (e.KeyCode == Keys.F3)
-                topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked);
+                topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked,
+                    true, false, false, false);
             if (e.KeyCode == Keys.F5)
             {
                 btnSaveTree_Click(null, null);
@@ -477,7 +479,8 @@ namespace SchoolGrades
                 indexImages--;
                 try
                 {
-                    picImage.Load(Commons.PathImages + "\\" + listImages[indexImages].RelativePathAndFilename);
+
+                    picImage.Load(Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename));
                 }
                 catch
                 {
@@ -492,7 +495,7 @@ namespace SchoolGrades
                 indexImages = ++indexImages % listImages.Count;
                 try
                 {
-                    picImage.Load(Commons.PathImages + "\\" + listImages[indexImages].RelativePathAndFilename);
+                    picImage.Load(Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename));
                 }
                 catch
                 {
@@ -522,8 +525,7 @@ namespace SchoolGrades
                     "Verranno evidenziati gli argomenti fatti sotto l'argomento scelto che sono stati fatti");
                 return;
             }
-            List<Topic> listDone = Commons.bl.GetTopicsDoneFromThisTopic(currentClass,
-                ((Topic)trwTopics.SelectedNode.Tag), currentSchoolSubject);
+            List<Topic> listDone = Commons.bl.GetTopicsDoneFromThisTopic(currentClass, ((Topic)trwTopics.SelectedNode.Tag), currentSchoolSubject);
             int dummy = 0; bool dummy2 = false;
             topicTreeMptt.HighlightNodesInList(trwTopics.Nodes[0],
                  listDone, ref dummy, ref dummy2);
@@ -665,8 +667,8 @@ namespace SchoolGrades
                 // fire a new search 
                 topicTreeMptt.ResetSearch();
                 topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked,
-                    chkSearchInDescriptions.Checked,
-                    chkAllWord.Checked, chkCaseInsensitive.Checked);
+                    chkSearchInDescriptions.Checked, chkVerbatimString.Checked,
+                    chkCaseInsensitive.Checked, chkVerbatimString.Checked);
             }
         }
     }

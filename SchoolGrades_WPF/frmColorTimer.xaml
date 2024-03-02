@@ -1,0 +1,32 @@
+﻿<Window x:Class="SchoolGrades_WPF.frmColorTimer"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SchoolGrades_WPF"
+      mc:Ignorable="d" 
+        Title="Color Timer" Height="232" Width="303"
+        Background="LightGray">
+    <Grid>
+        <CheckBox x:Name="chkSoundsInColorTimer" Content="R.C." HorizontalAlignment="Left" Margin="142,4,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+        <CheckBox Content="Suoni" HorizontalAlignment="Left" FontWeight="Bold" Margin="10,15,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnConnect" Content="Connect" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" Width="52"/>
+        <TextBox x:Name="txtMinutesLeft" HorizontalAlignment="Left" Margin="78,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="27"/>
+        <TextBox x:Name="txtSecondsLeft" HorizontalAlignment="Left" Margin="110,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="27"/>
+        <TextBox x:Name="txtCountDown" HorizontalAlignment="Left" Margin="78,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="59"/>
+        <Label Content="S" HorizontalAlignment="Left" FontSize="8" Margin="142,29,0,0" VerticalAlignment="Top"/>
+        <Label Content="First" HorizontalAlignment="Left" Margin="161,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.019,2.18"/>
+        <Label Content="Next" HorizontalAlignment="Left" Margin="160,26,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtInitialInterval" HorizontalAlignment="Left" Margin="198,4,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="66"/>
+        <TextBox x:Name="txtIntervalNext" HorizontalAlignment="Left" Margin="199,30,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="66"/>
+        <Label Content="min" HorizontalAlignment="Left" FontSize="8" Margin="269,6,0,0" VerticalAlignment="Top"/>
+        <Label Content="min" HorizontalAlignment="Left" FontSize="8" Margin="269,29,0,0" VerticalAlignment="Top"/>
+        <ProgressBar x:Name="progressBar1" HorizontalAlignment="Center" Background="LightGray" Height="15" Margin="0,52,0,0" VerticalAlignment="Top" Width="282"/>
+        <Button x:Name="btnStartFirstInterval" Content="Start First" HorizontalAlignment="Left" FontSize="16" Margin="10,81,0,0" VerticalAlignment="Top" Height="58" Width="139"/>
+        <Button x:Name="btnStartNextInterval" Content="Start Next" HorizontalAlignment="Left" FontSize="16" Margin="154,81,0,0" VerticalAlignment="Top" Height="58" Width="133"/>
+        <TextBox x:Name="lblMinutesLeft" HorizontalAlignment="Left" Margin="10,144,0,0" FontSize="40" TextWrapping="Wrap" Text="XXXX" VerticalAlignment="Top" Width="114" Height="57"/>
+        <TextBox x:Name="lblSecondsLeft" HorizontalAlignment="Left" Margin="154,144,0,0" FontSize="40" TextWrapping="Wrap" Text="XXXX" VerticalAlignment="Top" Width="114" Height="57"/>
+        <CheckBox x:Name="chkServer" Content="Server" HorizontalAlignment="Left" FontWeight="Bold" Margin="10,-2,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>

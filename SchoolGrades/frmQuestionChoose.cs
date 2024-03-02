@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using gamon.TreeMptt;
-using SharedWinForms;
+using Shared;
 
 namespace SchoolGrades
 {
@@ -35,7 +35,7 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
-            dbMptt = new TreeMpttDb(Commons.dl);
+            dbMptt = new TreeMpttDb();
             this.ParentForm = MicroAssessmentParent; 
             // fills the lookup tables' combos
             cmbSchoolSubject.DisplayMember = "Name";
@@ -179,7 +179,7 @@ namespace SchoolGrades
         {
             currentSubject = (SchoolSubject)cmbSchoolSubject.SelectedItem; // new SchoolSubject();
 
-            this.BackColor = Commons.ColorFromNumber(currentSubject);
+            this.BackColor = CommonsWinForms.ColorFromNumber(currentSubject);
 
             updateQuestions();
         }

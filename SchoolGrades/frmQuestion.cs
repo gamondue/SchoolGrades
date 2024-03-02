@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shared;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -33,7 +34,7 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
-            dbMptt = new TreeMpttDb(Commons.dl);
+            dbMptt = new TreeMpttDb();
 
             // fills the lookup tables' combos
             List<QuestionType> listQuestions = Commons.bl.GetListQuestionTypes(true);
@@ -234,7 +235,7 @@ namespace SchoolGrades
             ////////{
             ////////    bgColor = Color.PowderBlue;
             ////////}
-            this.BackColor = Commons.ColorFromNumber(currentSubject);
+            this.BackColor = CommonsWinForms.ColorFromNumber(currentSubject);
         }
 
         private void cmbQuestionType_SelectedIndexChanged(object sender, EventArgs e)
