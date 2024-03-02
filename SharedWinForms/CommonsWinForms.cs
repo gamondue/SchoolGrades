@@ -5,32 +5,16 @@ using SchoolGrades.BusinessObjects;
 using System;
 using System.Drawing;
 using System.IO;
-using System.Threading;
 using System.Windows.Forms;
 
-namespace SharedWinForms
+namespace Shared
 {
     public static class CommonsWinForms
     {
         internal static PictureBox globalPicLed;
-
-        // wait time before saving 
-        public static int BackgroundThreadSleepSeconds = 60;
-        // enable Mptt backgroud saving of Left anf Right pointers 
-        public static bool BackgroundSavingEnabled = true;
-        // exit the background task 
-        public static bool BackgroundTaskClose = false;
-        public static bool BackgroundTaskIsSaving = false;
-
-        // lock variable for serialization of access to BackgroundSavingEnabled and BackgroundSavingSafeStatus
-        public static object LockSavingCriticalSections = new object();
-        public static object LockBackgroundSavingVariables = new object();
-        // Thread that concurrently saves the Topics tree
-        internal static Thread BackgroundSaveThread;
-        // Tree object for concurrent saving 
         internal static TreeMptt SaveTreeMptt;
 
-        public static bool SaveBackupWhenExiting;
+        private static Color ColorNoSubject = Color.PowderBlue;
 
         internal static void SaveCurrentValuesOfAllControls(Control ParentControl, ref string PathAndFile)
         {
@@ -219,7 +203,6 @@ namespace SharedWinForms
             }
             return true;
         }
-
         internal static bool CheckIfClassChosen(Class CurrentClass)
         {
             // Commons.CurrentClass 
@@ -231,7 +214,7 @@ namespace SharedWinForms
             }
             return true;
         }
-        internal static bool CheckIfStudentChosen(Student CurrentStudent)
+        public static bool CheckIfStudentChosen(Student CurrentStudent)
         {
             if (CurrentStudent == null)
             {
@@ -243,15 +226,18 @@ namespace SharedWinForms
         }
         internal static void SwitchPicLed(bool IsLedLit)
         {
-            // lights on or off the PictureBox used as an Activity LED 
-            globalPicLed.Invoke(new Action(() =>
-            {
-                if (IsLedLit)
-                    globalPicLed.BackColor = Color.Red;           // LED lit
-                else
-                    globalPicLed.BackColor = Color.DarkGray;      // LED off
-            }));
-            Application.DoEvents();
+            try
+            {             // lights on or off the PictureBox used as an Activity LED 
+                globalPicLed.Invoke(new Action(() =>
+                {
+                    if (IsLedLit)
+                        globalPicLed.BackColor = Color.Red;           // LED lit
+                    else
+                        globalPicLed.BackColor = Color.DarkGray;      // LED off
+                }));
+                Application.DoEvents();
+            }
+            catch { }
         }
         internal static bool ReadConfigData()
         {
@@ -289,7 +275,7 @@ namespace SharedWinForms
                     // with another field will show up. You have to add some data in.config file. 
                     try
                     {
-                        SharedWinForms.CommonsWinForms.SaveBackupWhenExiting = bool.Parse(dati[5]);
+                        Commons.SaveBackupWhenExiting = bool.Parse(dati[5]);
                         return true;
                     }
                     catch
@@ -334,7 +320,7 @@ namespace SharedWinForms
                 //dati[2] = Commons.PathStartLinks;
                 dati[3] = Commons.PathDatabase;
                 dati[4] = Commons.PathDocuments;
-                dati[5] = CommonsWinForms.SaveBackupWhenExiting.ToString();
+                dati[5] = Commons.SaveBackupWhenExiting.ToString();
 #if DEBUG
                 TextFile.ArrayToFile(Commons.PathAndFileConfig + "_DEBUG", dati, false);
 #else
@@ -349,6 +335,16 @@ namespace SharedWinForms
                 throw new FileNotFoundException(err);
                 //return;
             }
+        }
+        public static Color ColorFromNumber(SchoolSubject Subject)
+        {
+            if (Subject == null || Subject.Color == null || Subject.Color == 0)
+                return ColorNoSubject;
+            // extract the color components from the RGB number
+            Color bgColor = Color.FromArgb((int)(Subject.Color & 0xFF0000) >> 16,
+                (int)(Subject.Color & 0xFF00) >> 8,
+                (int)Subject.Color & 0xFF);
+            return bgColor;
         }
     }
 }

@@ -54,8 +54,9 @@
             splcHorizontal = new System.Windows.Forms.SplitContainer();
             chkSearchInDescriptions = new System.Windows.Forms.CheckBox();
             chkCaseInsensitive = new System.Windows.Forms.CheckBox();
-            chkAllWord = new System.Windows.Forms.CheckBox();
+            chkVerbatimString = new System.Windows.Forms.CheckBox();
             toolTip1 = new System.Windows.Forms.ToolTip(components);
+            chkAllWord = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)splcHorizontal).BeginInit();
             splcHorizontal.Panel1.SuspendLayout();
             splcHorizontal.Panel2.SuspendLayout();
@@ -68,13 +69,13 @@
             trwTopics.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             trwTopics.Location = new System.Drawing.Point(0, 4);
             trwTopics.Name = "trwTopics";
-            trwTopics.Size = new System.Drawing.Size(475, 510);
+            trwTopics.Size = new System.Drawing.Size(477, 512);
             trwTopics.TabIndex = 2;
             // 
             // btnSaveTree
             // 
             btnSaveTree.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnSaveTree.Location = new System.Drawing.Point(508, 251);
+            btnSaveTree.Location = new System.Drawing.Point(510, 251);
             btnSaveTree.Name = "btnSaveTree";
             btnSaveTree.Size = new System.Drawing.Size(124, 61);
             btnSaveTree.TabIndex = 4;
@@ -99,7 +100,7 @@
             txtTopicDescription.Multiline = true;
             txtTopicDescription.Name = "txtTopicDescription";
             txtTopicDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            txtTopicDescription.Size = new System.Drawing.Size(475, 110);
+            txtTopicDescription.Size = new System.Drawing.Size(477, 111);
             txtTopicDescription.TabIndex = 4;
             // 
             // txtTopicName
@@ -109,13 +110,13 @@
             txtTopicName.Location = new System.Drawing.Point(0, 39);
             txtTopicName.Multiline = true;
             txtTopicName.Name = "txtTopicName";
-            txtTopicName.Size = new System.Drawing.Size(475, 39);
+            txtTopicName.Size = new System.Drawing.Size(477, 39);
             txtTopicName.TabIndex = 3;
             // 
             // btnChoose
             // 
             btnChoose.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnChoose.Location = new System.Drawing.Point(508, 455);
+            btnChoose.Location = new System.Drawing.Point(510, 455);
             btnChoose.Name = "btnChoose";
             btnChoose.Size = new System.Drawing.Size(124, 61);
             btnChoose.TabIndex = 7;
@@ -136,7 +137,7 @@
             // 
             lblFind.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             lblFind.AutoSize = true;
-            lblFind.Location = new System.Drawing.Point(500, 0);
+            lblFind.Location = new System.Drawing.Point(502, 0);
             lblFind.Name = "lblFind";
             lblFind.Size = new System.Drawing.Size(46, 18);
             lblFind.TabIndex = 9;
@@ -146,7 +147,7 @@
             // 
             txtTopicSearchString.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             txtTopicSearchString.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            txtTopicSearchString.Location = new System.Drawing.Point(503, 21);
+            txtTopicSearchString.Location = new System.Drawing.Point(505, 21);
             txtTopicSearchString.Multiline = true;
             txtTopicSearchString.Name = "txtTopicSearchString";
             txtTopicSearchString.Size = new System.Drawing.Size(139, 39);
@@ -155,7 +156,7 @@
             // btnFind
             // 
             btnFind.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnFind.Location = new System.Drawing.Point(508, 115);
+            btnFind.Location = new System.Drawing.Point(510, 115);
             btnFind.Name = "btnFind";
             btnFind.Size = new System.Drawing.Size(124, 61);
             btnFind.TabIndex = 2;
@@ -177,7 +178,7 @@
             // btnDelete
             // 
             btnDelete.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            btnDelete.Location = new System.Drawing.Point(508, 659);
+            btnDelete.Location = new System.Drawing.Point(510, 662);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new System.Drawing.Size(124, 61);
             btnDelete.TabIndex = 126;
@@ -189,21 +190,21 @@
             // btnAddNodeSon
             // 
             btnAddNodeSon.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnAddNodeSon.Location = new System.Drawing.Point(508, 319);
+            btnAddNodeSon.Location = new System.Drawing.Point(510, 319);
             btnAddNodeSon.Name = "btnAddNodeSon";
             btnAddNodeSon.Size = new System.Drawing.Size(124, 61);
             btnAddNodeSon.TabIndex = 127;
             btnAddNodeSon.Text = "Aggiungi figlio (Ins)";
             toolTip1.SetToolTip(btnAddNodeSon, "Aggiungi nuovo argomento sotto al selezionato");
             btnAddNodeSon.UseVisualStyleBackColor = true;
-            btnAddNodeSon.Click += btnAddNode_Click;
+            btnAddNodeSon.Click += btnAddNodeSon_Click;
             // 
             // rdbOrSearch
             // 
             rdbOrSearch.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             rdbOrSearch.AutoSize = true;
             rdbOrSearch.Enabled = false;
-            rdbOrSearch.Location = new System.Drawing.Point(586, 21);
+            rdbOrSearch.Location = new System.Drawing.Point(557, 27);
             rdbOrSearch.Name = "rdbOrSearch";
             rdbOrSearch.Size = new System.Drawing.Size(40, 22);
             rdbOrSearch.TabIndex = 153;
@@ -216,7 +217,7 @@
             rdbAndSearch.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             rdbAndSearch.AutoSize = true;
             rdbAndSearch.Enabled = false;
-            rdbAndSearch.Location = new System.Drawing.Point(627, 21);
+            rdbAndSearch.Location = new System.Drawing.Point(598, 27);
             rdbAndSearch.Name = "rdbAndSearch";
             rdbAndSearch.Size = new System.Drawing.Size(50, 22);
             rdbAndSearch.TabIndex = 152;
@@ -229,7 +230,7 @@
             rdbStringSearch.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             rdbStringSearch.AutoSize = true;
             rdbStringSearch.Checked = true;
-            rdbStringSearch.Location = new System.Drawing.Point(539, 21);
+            rdbStringSearch.Location = new System.Drawing.Point(510, 27);
             rdbStringSearch.Name = "rdbStringSearch";
             rdbStringSearch.Size = new System.Drawing.Size(46, 22);
             rdbStringSearch.TabIndex = 151;
@@ -241,7 +242,7 @@
             // btnAddNodeBrother
             // 
             btnAddNodeBrother.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnAddNodeBrother.Location = new System.Drawing.Point(508, 387);
+            btnAddNodeBrother.Location = new System.Drawing.Point(510, 387);
             btnAddNodeBrother.Name = "btnAddNodeBrother";
             btnAddNodeBrother.Size = new System.Drawing.Size(124, 61);
             btnAddNodeBrother.TabIndex = 154;
@@ -253,7 +254,7 @@
             // btnFindUnderNode
             // 
             btnFindUnderNode.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnFindUnderNode.Location = new System.Drawing.Point(508, 183);
+            btnFindUnderNode.Location = new System.Drawing.Point(510, 183);
             btnFindUnderNode.Name = "btnFindUnderNode";
             btnFindUnderNode.Size = new System.Drawing.Size(124, 61);
             btnFindUnderNode.TabIndex = 155;
@@ -266,7 +267,7 @@
             // 
             chkFindAll.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             chkFindAll.AutoSize = true;
-            chkFindAll.Location = new System.Drawing.Point(555, -1);
+            chkFindAll.Location = new System.Drawing.Point(557, -1);
             chkFindAll.Name = "chkFindAll";
             chkFindAll.Size = new System.Drawing.Size(87, 22);
             chkFindAll.TabIndex = 156;
@@ -277,7 +278,7 @@
             // btnArgFreemind
             // 
             btnArgFreemind.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnArgFreemind.Location = new System.Drawing.Point(508, 523);
+            btnArgFreemind.Location = new System.Drawing.Point(510, 523);
             btnArgFreemind.Name = "btnArgFreemind";
             btnArgFreemind.Size = new System.Drawing.Size(124, 61);
             btnArgFreemind.TabIndex = 157;
@@ -288,7 +289,7 @@
             // btnQuestions
             // 
             btnQuestions.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnQuestions.Location = new System.Drawing.Point(508, 591);
+            btnQuestions.Location = new System.Drawing.Point(510, 591);
             btnQuestions.Name = "btnQuestions";
             btnQuestions.Size = new System.Drawing.Size(124, 61);
             btnQuestions.TabIndex = 158;
@@ -314,8 +315,8 @@
             splcHorizontal.Panel2.Controls.Add(lblExplain);
             splcHorizontal.Panel2.Controls.Add(txtTopicName);
             splcHorizontal.Panel2.Controls.Add(lblDescription);
-            splcHorizontal.Size = new System.Drawing.Size(478, 732);
-            splcHorizontal.SplitterDistance = 519;
+            splcHorizontal.Size = new System.Drawing.Size(480, 735);
+            splcHorizontal.SplitterDistance = 521;
             splcHorizontal.TabIndex = 159;
             // 
             // chkSearchInDescriptions
@@ -324,11 +325,11 @@
             chkSearchInDescriptions.AutoSize = true;
             chkSearchInDescriptions.Checked = true;
             chkSearchInDescriptions.CheckState = System.Windows.Forms.CheckState.Checked;
-            chkSearchInDescriptions.Location = new System.Drawing.Point(529, 66);
+            chkSearchInDescriptions.Location = new System.Drawing.Point(495, 66);
             chkSearchInDescriptions.Name = "chkSearchInDescriptions";
-            chkSearchInDescriptions.Size = new System.Drawing.Size(97, 22);
+            chkSearchInDescriptions.Size = new System.Drawing.Size(82, 22);
             chkSearchInDescriptions.TabIndex = 162;
-            chkSearchInDescriptions.Text = "In Descriz.";
+            chkSearchInDescriptions.Text = "Descriz.";
             toolTip1.SetToolTip(chkSearchInDescriptions, "Ricerca anche in descrizione");
             chkSearchInDescriptions.UseVisualStyleBackColor = true;
             // 
@@ -338,22 +339,34 @@
             chkCaseInsensitive.AutoSize = true;
             chkCaseInsensitive.Checked = true;
             chkCaseInsensitive.CheckState = System.Windows.Forms.CheckState.Checked;
-            chkCaseInsensitive.Location = new System.Drawing.Point(566, 87);
+            chkCaseInsensitive.Location = new System.Drawing.Point(568, 87);
             chkCaseInsensitive.Name = "chkCaseInsensitive";
             chkCaseInsensitive.Size = new System.Drawing.Size(82, 22);
             chkCaseInsensitive.TabIndex = 161;
-            chkCaseInsensitive.Text = "ma && mi";
-            toolTip1.SetToolTip(chkCaseInsensitive, "Ricerca case insensitive");
+            chkCaseInsensitive.Text = "Ma && mi";
+            toolTip1.SetToolTip(chkCaseInsensitive, "Ricerca con maiuscole e minuscole ");
             chkCaseInsensitive.UseVisualStyleBackColor = true;
+            // 
+            // chkVerbatimString
+            // 
+            chkVerbatimString.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            chkVerbatimString.AutoSize = true;
+            chkVerbatimString.Location = new System.Drawing.Point(495, 87);
+            chkVerbatimString.Name = "chkVerbatimString";
+            chkVerbatimString.Size = new System.Drawing.Size(69, 22);
+            chkVerbatimString.TabIndex = 160;
+            chkVerbatimString.Text = "Esatta";
+            toolTip1.SetToolTip(chkVerbatimString, "Ricerca della stringa esatta");
+            chkVerbatimString.UseVisualStyleBackColor = true;
             // 
             // chkAllWord
             // 
             chkAllWord.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             chkAllWord.AutoSize = true;
-            chkAllWord.Location = new System.Drawing.Point(499, 87);
+            chkAllWord.Location = new System.Drawing.Point(580, 66);
             chkAllWord.Name = "chkAllWord";
             chkAllWord.Size = new System.Drawing.Size(70, 22);
-            chkAllWord.TabIndex = 160;
+            chkAllWord.TabIndex = 163;
             chkAllWord.Text = "Parola";
             toolTip1.SetToolTip(chkAllWord, "Ricerca a parola intera");
             chkAllWord.UseVisualStyleBackColor = true;
@@ -363,10 +376,11 @@
             AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.PowderBlue;
-            ClientSize = new System.Drawing.Size(654, 732);
+            ClientSize = new System.Drawing.Size(656, 735);
+            Controls.Add(chkAllWord);
             Controls.Add(chkSearchInDescriptions);
             Controls.Add(chkCaseInsensitive);
-            Controls.Add(chkAllWord);
+            Controls.Add(chkVerbatimString);
             Controls.Add(splcHorizontal);
             Controls.Add(btnQuestions);
             Controls.Add(btnArgFreemind);
@@ -428,9 +442,10 @@
         private System.Windows.Forms.SplitContainer splcHorizontal;
         private System.Windows.Forms.CheckBox chkSearchInDescriptions;
         private System.Windows.Forms.CheckBox chkCaseSensitive;
-        private System.Windows.Forms.CheckBox chkAllWord;
+        private System.Windows.Forms.CheckBox chkVerbatimString;
         private System.Windows.Forms.CheckBox chkCaseInSensitive;
         private System.Windows.Forms.CheckBox chkCaseInsensitive;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.CheckBox chkAllWord;
     }
 }

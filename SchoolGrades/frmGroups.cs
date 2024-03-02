@@ -46,6 +46,8 @@ namespace SchoolGrades
                 }
             }
         }
+
+
         private void frmGroups_Load(object sender, EventArgs e)
         {
             txtTotalStudentsToGroup.Text = listGroups.Count.ToString();
@@ -56,116 +58,109 @@ namespace SchoolGrades
             if (txtGroups.Text == "")
             {
                 MessageBox.Show("Prima di salvare un file, generare i gruppi");
-                return; 
+                return;
             }
-            string fileName = Path.Combine(Commons.PathDatabase , 
+            string fileName = Path.Combine(Commons.PathDatabase,
                 "Groups_" + schoolClass.Abbreviation + "_" + schoolClass.SchoolYear +
                 ".txt");
             TextFile.StringToFile(fileName, txtGroups.Text, false);
             Commons.ProcessStartLink(fileName);
         }
+
+
         private void btnCreateGroups_Click(object sender, EventArgs e)
         {
             if (txtNGroups.Text == "" || txtStudentsPerGroup.Text == "")
             {
                 MessageBox.Show("Scegliere il numero dei gruppi o degli studenti per gruppo!");
-                return; 
+                return;
             }
-            // Balanced component option should use a better algorithm (current one doesn't make the best to balace groups). 
-            List<StudentAndGrade> listStudentsWithWeightedAverage = Commons.bl.GetListGradesWeightedAveragesOfClassByName(schoolClass, schoolGrade.IdGradeType, 
-                schoolSubject.IdSchoolSubject, dtpStartPeriod.Value, dtpEndPeriod.Value);
 
-            // sort list by WeightedAverage
-            listStudentsWithWeightedAverage = listStudentsWithWeightedAverage.OrderBy(item => item.WeightedAverage).ToList();
-            // put student's list in descending order, based on the grade
-            listStudentsWithWeightedAverage.Reverse();
-
-            List<Student> listTempStudents;
+            List<Student> ordered = new();
 
             if (rbdGroupsRandom.Checked)
             {
-                // !!!! TODO number of element in group is unbalanced!
-                Commons.bl.GroupStudentsByRandom(ref listStudentsWithWeightedAverage); 
+                ordered = Commons.bl.OrderStudentsByRandom(listGroups);
             }
             else if (rdbGroupsBestGradesTogether.Checked)
             {
-            	//Aggiornare listGroups in modo che gli studenti siano in ordine per il voto (utilizzare listStudents per i voti)
-                //listGroups può anche non contenere tutti gli studenti di una classe
-                //Evitare di alterare listStudents
-                listTempStudents = new List<Student>();
 
-                for (int i = 0; i < listStudentsWithWeightedAverage.Count; i++)
-                {
-                    for (int j = 0; j < listGroups.Count; j++)
-                    {
-                        if (listStudentsWithWeightedAverage[i].Student.LastName == listGroups[j].LastName 
-                            && listStudentsWithWeightedAverage[i].Student.FirstName == listGroups[j].FirstName)
-                        {
-                            listTempStudents.Add(listGroups[j]);
-                        }
-                    }
-                }
-                listGroups = listTempStudents;
             }
             else if (rdbGradesBalanced.Checked)
             {
-                int lengthLista = listStudentsWithWeightedAverage.Count;
-                listTempStudents = new List<Student>();
-               
-                for (int i = 0, g = 0; g < lengthLista ; g++)
-                {
-                    for (int j = 0; j < listGroups.Count; j++)
-                    {
-                        if (listStudentsWithWeightedAverage[i].Student.LastName == listGroups[j].LastName && 
-                            listStudentsWithWeightedAverage[i].Student.FirstName == listGroups[j].FirstName)
-                        {
-                            listTempStudents.Add(listGroups[j]);
-                        }
-                    }
-                    listStudentsWithWeightedAverage.RemoveAt(i);
-                    
-                    if (i == 0)
-                        i = listStudentsWithWeightedAverage.Count - 1;
-                    else
-                        i = 0;
-                }
-                listGroups = listTempStudents;
+
             }
-            // create groups into groups array
-            string[,] groups = new string[nGroups, nStudentsPerGroup];
-            int stud = 0;
-            for (int i = 0; i < nGroups; i++)
-            {
-                for (int j = 0; j < nStudentsPerGroup; j++)
-                {
-                    Student s = listGroups[stud];
-                    groups[i, j] = s.LastName + " " + s.FirstName;
-                    stud++;
-                    if (stud == listGroups.Count)
-                        break;
-                }
-                if (stud == listGroups.Count)
-                    break;
-            }
-            // make the string to show groups
-            string groupsString = "";
-            for (int j = 0; j < nGroups; j++)
-            {
-                groupsString += "Gruppo " + (j + 1).ToString() + "\r\n";
-                int nStud = 1; 
-                for (int i = 0; i < nStudentsPerGroup; i++)
-                {
-                    if (groups[j, i] != null && groups[j, i] != " " && groups[j, i] != "  ")
-                    {
-                        groupsString += $"{nStud.ToString("00")} - {groups[j, i]} \r\n";
-                        nStud++; 
-                    }
-                }
-                groupsString += "\r\n";
-            }
-            groupsString += "\r\n";
-            txtGroups.Text = groupsString;
+
+            txtGroups.Text = Commons.bl.GroupStudents_Formatted(ordered, nGroups, nStudentsPerGroup);
         }
+
+        #region Group generation
+        // TODO
+        void GenerateGroupsWeightedAverage()
+        {
+            // Balanced component option should use a better algorithm (current one doesn't make the best to balace groups). 
+            List<StudentAndGrade> l_weighted = Commons.bl.GetListGradesWeightedAveragesOfClassByName(schoolClass, schoolGrade.IdGradeType,
+                schoolSubject.IdSchoolSubject, dtpStartPeriod.Value, dtpEndPeriod.Value);
+
+            // sort list by WeightedAverage
+            l_weighted = l_weighted.OrderBy(item => item.WeightedAverage).ToList();
+            // put student's list in descending order, based on the grade
+            l_weighted.Reverse();
+
+            //Aggiornare listGroups in modo che gli studenti siano in ordine per il voto (utilizzare listStudents per i voti)
+            //listGroups può anche non contenere tutti gli studenti di una classe
+            //Evitare di alterare listStudents
+            var l = new List<Student>();
+
+            for (int i = 0; i < l_weighted.Count; i++)
+            {
+                for (int j = 0; j < listGroups.Count; j++)
+                {
+                    if (l_weighted[i].Student.LastName == listGroups[j].LastName
+                        && l_weighted[i].Student.FirstName == listGroups[j].FirstName)
+                    {
+                        l.Add(listGroups[j]);
+                    }
+                }
+            }
+            listGroups = l;
+        }
+        // TODO
+        void GenerateGroupsHighestGradesTogether()
+        {
+            // Balanced component option should use a better algorithm (current one doesn't make the best to balace groups). 
+            List<StudentAndGrade> l_weighted = Commons.bl.GetListGradesWeightedAveragesOfClassByName(schoolClass, schoolGrade.IdGradeType,
+                schoolSubject.IdSchoolSubject, dtpStartPeriod.Value, dtpEndPeriod.Value);
+
+            // sort list by WeightedAverage
+            l_weighted = l_weighted.OrderBy(item => item.WeightedAverage).ToList();
+            // put student's list in descending order, based on the grade
+            l_weighted.Reverse();
+
+            var l = new List<Student>();
+
+            for (int i = 0, g = 0; g < l_weighted.Count; g++)
+            {
+                for (int j = 0; j < listGroups.Count; j++)
+                {
+                    if (l_weighted[i].Student.LastName == listGroups[j].LastName &&
+                        l_weighted[i].Student.FirstName == listGroups[j].FirstName)
+                    {
+                        l.Add(listGroups[j]);
+                    }
+                }
+                l_weighted.RemoveAt(i);
+
+                if (i == 0)
+                    i = l_weighted.Count - 1;
+                else
+                    i = 0;
+            }
+            listGroups = l;
+        }
+        #endregion
+
+        #region Events
         private void txtStudentsPerGroup_TextChanged(object sender, EventArgs e)
         {
             if (txtStudentsPerGroup.Text != "" && !AlreadyChanged)
@@ -245,5 +240,6 @@ namespace SchoolGrades
         {
 
         }
+        #endregion
     }
 }

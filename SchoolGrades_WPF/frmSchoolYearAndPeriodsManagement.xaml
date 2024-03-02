@@ -1,0 +1,119 @@
+﻿<Window x:Class="SchoolGrades_WPF.frmSchoolYearAndPeriodsManagement"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SchoolGrades_WPF"
+        mc:Ignorable="d"
+        Title="Gestione periodi scolastici" Height="450" Width="800">
+    <Grid  Background="PowderBlue" >
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="88*"></RowDefinition>
+
+                <RowDefinition Height="58*"></RowDefinition>
+                <RowDefinition Height="289*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30*"></ColumnDefinition>
+                    <ColumnDefinition Width="32*"></ColumnDefinition>
+                    <ColumnDefinition Width="105*"></ColumnDefinition>
+                    <ColumnDefinition Width="78*"></ColumnDefinition>
+                    <ColumnDefinition Width="78*"></ColumnDefinition>
+                    <ColumnDefinition Width="77*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <Label Name="label1" FontSize="14" HorizontalContentAlignment="Right" Margin="0,0,5,5">Codice</Label>
+                    <Label Name="lblSchoolYear" FontSize="14" HorizontalContentAlignment="Right" Margin="0,5,5,0">Anno</Label>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1">
+                    <TextBox Name="txtIdSchoolPeriod" Margin="0,2,0,5" Height="25" TextChanged="txtIdSchoolPeriod_TextChanged"></TextBox>
+                    <TextBox Name="txtSchoolYear" Margin="0,10,0,0" Height="25" TextChanged="txtSchoolYear_TextChanged" ></TextBox>
+                </StackPanel>
+
+                <GroupBox x:Name="gprPeriodOfQuestionsTopics" Grid.Column="2" Header="Date del periodo scolastico" FontSize="13">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Label Name="lblStart" Width="50" FontSize="14">Inizio</Label>
+                            <DatePicker Name="dtpStartPeriod"></DatePicker>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Orientation="Horizontal">
+                            <Label Name="lblEnd" Width="50" FontSize="14">Fine</Label>
+                            <DatePicker Name="dtpEndPeriod"></DatePicker>
+                        </StackPanel>
+                    </Grid>
+
+                </GroupBox>
+
+
+                <StackPanel Grid.Column="3">
+                    <Label Name="label2" FontSize="14" HorizontalContentAlignment="Right" Margin="0,0,5,5">Descrizione breve</Label>
+                    <Label Name="label4" FontSize="14" HorizontalContentAlignment="Right" Margin="0,5,5,0">Tipo</Label>
+                </StackPanel>
+
+                <StackPanel Grid.Column="4">
+                    <TextBox Name="txtName" Margin="0,2,0,5" Height="25"></TextBox>
+                    <ComboBox Name="cmbSchoolPeriodTypes" Margin="0,10,0,0" Height="25"></ComboBox>
+                </StackPanel>
+
+                <Button x:Name="btnSaveSchoolPeriod" Grid.Column="5" Margin="20,10" FontSize="14" Click="btnSaveSchoolPeriod_Click">Salva Periodo</Button>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="131*"></ColumnDefinition>
+                    <ColumnDefinition Width="92*"></ColumnDefinition>
+                    <ColumnDefinition Width="577*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel>
+                    <RadioButton Name="rdbQuadrimester" Height="29" FontSize="14">quadimestri</RadioButton>
+                    <RadioButton Name="rdbTrimester" Height="29" FontSize="14">trimestri</RadioButton>
+                </StackPanel>
+
+                <Button Name="btnNewYear" Grid.Column="1" Margin="5" FontSize="14" Click="btnNewYear_Click">Nuovo Anno</Button>
+                <GroupBox Grid.Column="2" x:Name="txtDescription" Header="Descrizione" FontSize="13">
+                    <TextBox x:Name="txtDescription1"></TextBox>
+                </GroupBox>
+
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="653*"></ColumnDefinition>
+                    <ColumnDefinition Width="147*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+
+                <DataGrid x:Name="dgwSchoolPeriods" MouseDoubleClick="dgwSchoolPeriods_MouseDoubleClick" SelectionChanged="dgwSchoolPeriods_SelectionChanged" />
+                <StackPanel Grid.Column="1">
+                    <Button x:Name="btnNewPeriod" Width="50" Panel.ZIndex="50" Height="50" Margin="20" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnNewPeriod_Click" >+</Button>
+                    <Button x:Name="btnDeletePeriod" Width="50" Panel.ZIndex="50" Height="50" Margin="20" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnDeletePeriod_Click">-</Button>
+                </StackPanel>
+            </Grid>
+
+
+        </Grid>
+
+
+
+
+
+
+
+
+
+
+    </Grid>
+</Window>

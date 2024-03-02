@@ -18,15 +18,13 @@ namespace SchoolGrades
                 try
                 {
                     // !!!! TODO: FIX: this gives error every time, so currently the program doesn't erase the pictures !!!!
-                    File.Delete(Commons.PathImages + "\\" + Image.RelativePathAndFilename);
+                    File.Delete(Path.Combine(Commons.PathImages, Image.RelativePathAndFilename));
                 }
                 catch (Exception ex)
                 {
-                    string err = "DbLayer|RemoveImageFromLesson|" +
-                        Commons.PathImages + "\\" + Image.RelativePathAndFilename +
-                        ".\r\n" + ex.Message + ex.StackTrace;
+                    string err = "DbLayer|RemoveImageFromLesson|" + Path.Combine(Commons.PathImages, Image.RelativePathAndFilename, ex.Message, ex.StackTrace);
                     Commons.ErrorLog(err);
-                    Console.Beep(); 
+                    Console.Beep();
                     //////throw new Exception(err);
                 }
             }
@@ -38,7 +36,7 @@ namespace SchoolGrades
         }
         internal void AddLinkToOldPhoto(int? IdStudent, string IdPreviousSchoolYear, string IdNextSchoolYear)
         {
-            dl.AddLinkToOldPhoto(IdStudent, IdPreviousSchoolYear, IdNextSchoolYear);
+            dl.AddLinkToPreviousYearPhoto(IdStudent, IdPreviousSchoolYear, IdNextSchoolYear);
         }
         internal List<Image> GetAllImagesShownToAClassDuringLessons(Class currentClass, SchoolSubject currentSubject, DateTime dateTime, DateTime now)
         {
@@ -47,6 +45,24 @@ namespace SchoolGrades
         internal List<string> GetCaptionsOfThisImage(string Text)
         {
             return dl.GetCaptionsOfThisImage(Text);
+        }
+        internal void RecusivelyFindImagesUnderPath(string ParentPath, ref List<string> AllFilesInTree)
+        {
+            if (Directory.Exists(ParentPath))
+            {
+                string[] filesInThisFolder = Directory.GetFiles(ParentPath);
+                foreach (string file in filesInThisFolder)
+                {
+                    string ext = Path.GetExtension(file);
+                    if (ext == ".jpg" || ext == ".jpeg" || ext == ".bmp" || ext == ".png" || ext == ".svg")
+                        AllFilesInTree.Add(file);
+                }
+                string[] DaughterFolders = Directory.GetDirectories(ParentPath);
+                foreach (string path in DaughterFolders)
+                {
+                    RecusivelyFindImagesUnderPath(path, ref AllFilesInTree);
+                }
+            }
         }
     }
 }

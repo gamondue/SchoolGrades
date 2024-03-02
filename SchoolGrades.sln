@@ -1,11 +1,8 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedItems", "SharedItems\SharedItems.shproj", "{A5DC5853-0EB8-493E-804D-D596D841AA2D}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "MpttTreeManagement", "MpttTreeManagement\MpttTreeManagement.shproj", "{AEA6904A-A8B6-4602-8946-03DF79CBBD30}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DataLayer", "DataLayer\DataLayer.shproj", "{2447D414-6DDB-4193-BD6D-FD70165B57BE}"
 EndProject
@@ -16,6 +13,16 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolGrades", "SchoolGrades\SchoolGrades.csproj", "{14583D93-E4DD-4E30-8D6D-194727A795D3}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "BusinessObjects", "BusinessObjects\BusinessObjects.shproj", "{FC67D93E-C273-48FB-B183-DFA07592452E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolGrades_WPF", "SchoolGrades_WPF\SchoolGrades_WPF.csproj", "{26E83547-D975-4667-9FC8-80F966B704C7}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedWpf", "SharedWpf\SharedWpf.shproj", "{44F49343-1A0F-4D62-BD7B-8B04467A8D17}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TreeMpttWpf", "TreeMpttWpf\TreeMpttWpf.shproj", "{0814C938-555C-47F1-AC21-4BB6754B9F89}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TreeMpttWinForms", "TreeMpttWinForms\TreeMpttWinForms.shproj", "{F2BE10CF-3C87-4179-B0D2-4D36ADA2324E}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TreeMpttManagement", "TreeMpttManagement\TreeMpttManagement.shproj", "{AEA6904A-A8B6-4602-8946-03DF79CBBD30}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +58,26 @@ Global
 		{14583D93-E4DD-4E30-8D6D-194727A795D3}.Release|x64.Build.0 = Release|Any CPU
 		{14583D93-E4DD-4E30-8D6D-194727A795D3}.Release|x86.ActiveCfg = Release|Any CPU
 		{14583D93-E4DD-4E30-8D6D-194727A795D3}.Release|x86.Build.0 = Release|Any CPU
+		{26E83547-D975-4667-9FC8-80F966B704C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26E83547-D975-4667-9FC8-80F966B704C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26E83547-D975-4667-9FC8-80F966B704C7}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{26E83547-D975-4667-9FC8-80F966B704C7}.Debug|ARM.Build.0 = Debug|Any CPU
+		{26E83547-D975-4667-9FC8-80F966B704C7}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{26E83547-D975-4667-9FC8-80F966B704C7}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{26E83547-D975-4667-9FC8-80F966B704C7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{26E83547-D975-4667-9FC8-80F966B704C7}.Debug|x64.Build.0 = Debug|Any CPU
+		{26E83547-D975-4667-9FC8-80F966B704C7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{26E83547-D975-4667-9FC8-80F966B704C7}.Debug|x86.Build.0 = Debug|Any CPU
+		{26E83547-D975-4667-9FC8-80F966B704C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26E83547-D975-4667-9FC8-80F966B704C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26E83547-D975-4667-9FC8-80F966B704C7}.Release|ARM.ActiveCfg = Release|Any CPU
+		{26E83547-D975-4667-9FC8-80F966B704C7}.Release|ARM.Build.0 = Release|Any CPU
+		{26E83547-D975-4667-9FC8-80F966B704C7}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{26E83547-D975-4667-9FC8-80F966B704C7}.Release|ARM64.Build.0 = Release|Any CPU
+		{26E83547-D975-4667-9FC8-80F966B704C7}.Release|x64.ActiveCfg = Release|Any CPU
+		{26E83547-D975-4667-9FC8-80F966B704C7}.Release|x64.Build.0 = Release|Any CPU
+		{26E83547-D975-4667-9FC8-80F966B704C7}.Release|x86.ActiveCfg = Release|Any CPU
+		{26E83547-D975-4667-9FC8-80F966B704C7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,17 +86,28 @@ Global
 		SolutionGuid = {65769141-F154-4DBE-8CFE-B123C23A4A78}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		TreeMpttWpf\TreeMpttWpf.projitems*{0814c938-555c-47f1-ac21-4bb6754b9f89}*SharedItemsImports = 13
 		BusinessLayer\BusinessLayer.projitems*{14583d93-e4dd-4e30-8d6d-194727a795d3}*SharedItemsImports = 5
 		BusinessObjects\BusinessObjects.projitems*{14583d93-e4dd-4e30-8d6d-194727a795d3}*SharedItemsImports = 5
 		DataLayer\DataLayer.projitems*{14583d93-e4dd-4e30-8d6d-194727a795d3}*SharedItemsImports = 5
-		MpttTreeManagement\MpttTreeManagement.projitems*{14583d93-e4dd-4e30-8d6d-194727a795d3}*SharedItemsImports = 5
 		SharedItems\SharedItems.projitems*{14583d93-e4dd-4e30-8d6d-194727a795d3}*SharedItemsImports = 5
 		SharedWinForms\SharedWinForms.projitems*{14583d93-e4dd-4e30-8d6d-194727a795d3}*SharedItemsImports = 5
+		TreeMpttManagement\MpttTreeManagement.projitems*{14583d93-e4dd-4e30-8d6d-194727a795d3}*SharedItemsImports = 5
+		TreeMpttWinForms\TreeMpttWinForms.projitems*{14583d93-e4dd-4e30-8d6d-194727a795d3}*SharedItemsImports = 5
 		DataLayer\DataLayer.projitems*{2447d414-6ddb-4193-bd6d-fd70165b57be}*SharedItemsImports = 13
+		BusinessLayer\BusinessLayer.projitems*{26e83547-d975-4667-9fc8-80f966b704c7}*SharedItemsImports = 5
+		BusinessObjects\BusinessObjects.projitems*{26e83547-d975-4667-9fc8-80f966b704c7}*SharedItemsImports = 5
+		DataLayer\DataLayer.projitems*{26e83547-d975-4667-9fc8-80f966b704c7}*SharedItemsImports = 5
+		SharedItems\SharedItems.projitems*{26e83547-d975-4667-9fc8-80f966b704c7}*SharedItemsImports = 5
+		SharedWpf\SharedWpf.projitems*{26e83547-d975-4667-9fc8-80f966b704c7}*SharedItemsImports = 5
+		TreeMpttManagement\MpttTreeManagement.projitems*{26e83547-d975-4667-9fc8-80f966b704c7}*SharedItemsImports = 5
+		TreeMpttWpf\TreeMpttWpf.projitems*{26e83547-d975-4667-9fc8-80f966b704c7}*SharedItemsImports = 5
+		SharedWpf\SharedWpf.projitems*{44f49343-1a0f-4d62-bd7b-8b04467a8d17}*SharedItemsImports = 13
 		BusinessLayer\BusinessLayer.projitems*{737a759a-6c1f-4bd7-a682-390c8b018712}*SharedItemsImports = 13
 		SharedItems\SharedItems.projitems*{a5dc5853-0eb8-493e-804d-d596d841aa2d}*SharedItemsImports = 13
-		MpttTreeManagement\MpttTreeManagement.projitems*{aea6904a-a8b6-4602-8946-03df79cbbd30}*SharedItemsImports = 13
+		TreeMpttManagement\MpttTreeManagement.projitems*{aea6904a-a8b6-4602-8946-03df79cbbd30}*SharedItemsImports = 13
 		SharedWinForms\SharedWinForms.projitems*{bdb76e62-3474-4529-b85d-2ebe40c7befb}*SharedItemsImports = 13
+		TreeMpttWinForms\TreeMpttWinForms.projitems*{f2be10cf-3c87-4179-b0d2-4d36ada2324e}*SharedItemsImports = 13
 		BusinessObjects\BusinessObjects.projitems*{fc67d93e-c273-48fb-b183-dfa07592452e}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal
