@@ -1,5 +1,6 @@
 using SchoolGrades;
 using SchoolGrades.BusinessObjects;
+using System.Data.Common;
 
 namespace NUnitDbTests
 {
@@ -30,17 +31,29 @@ namespace NUnitDbTests
         public void T_SchoolYears_Read()
         {
             // test of DataLayer Methods that read data from table SchoolYears
+            bool test = Test_Commons.dl.SchoolYearExists("17-18");
+            Assert.That(test = true);   //in teoria se è true significa che quell anno esiste
+
         }
         [Test]
-        public void T_SchoolYears_Update()
+        public void T_SchoolYears_Update(/*SchoolYear schoolYear*/)
         {
+            SchoolYear schoolYear1 = new();
+            schoolYear1.IdSchoolYear = "24-25";
+            schoolYear1.ShortDescription = "2023-2024";
+            schoolYear1.Notes = "Anno scolastico introdotto per sola prova";
             // test of DataLayer Methods that update data from table SchoolYears
-
+            Test_Commons.dl.AddSchoolYear(schoolYear1);
+            Assert.That(Test_Commons.dl.SchoolYearExists(schoolYear1.IdSchoolYear));
         }
         [Test]
         public void T_SchoolYears_Delete()
         {
             // test of DataLayer Methods that delete data from table SchoolYears
+            using (DbConnection conn = Connect())
+            {
+
+            }
         }
     }
 }

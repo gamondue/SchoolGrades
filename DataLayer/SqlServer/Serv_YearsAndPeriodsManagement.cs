@@ -54,6 +54,8 @@ namespace SchoolGrades
                     ";";
                 var result = cmd.ExecuteScalar();
                 return (result != null);
+
+
             }
         }
         internal override void AddSchoolYear(SchoolYear newSchoolYear)
@@ -71,6 +73,11 @@ namespace SchoolGrades
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
+        }
+        
+        internal override void DeleteShcoolYear()
+        {
+
         }
     }
 }
