@@ -9,6 +9,31 @@ namespace SchoolGrades
 {
     internal partial class SqlServer_DataLayer : DataLayer
     {
+        internal override void CreateTableGrades()
+        {
+            try
+            {
+                using (DbConnection conn = Connect())
+                {
+                    DbCommand cmd = conn.CreateCommand();
+                    cmd.CommandText =
+                        @"CREATE TABLE Grades
+                        (idGrade INT PRIMARY KEY NOT NULL,
+                        idStudent INT NOT NULL,
+                        value FLOAT,
+                        idSchoolSubject VARCHAR (6),
+                        weight FLOAT,
+                        cncFactor FLOAT,
+                        idSchoolYear VARCHAR (4) NOT NULL,
+                        timestamp DATETIME,
+                        idGradeType VARCHAR (5) NOT NULL,
+                        idGradeParent INT,
+                        idQuestion INT,
+                        isFixed TINYINT)";
+                    cmd.ExecuteNonQuery();
+                }
+            } catch { } 
+        }
         internal override Grade GetGrade(int? IdGrade)
         {
             Grade g = null;
@@ -17,9 +42,7 @@ namespace SchoolGrades
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT  * FROM Grades" +
-                    " WHERE Grades.idGrade=" + IdGrade.ToString() +
-                    ";";
+                cmd.CommandText = $"SELECT * FROM Grades WHERE Grades.idGrade={IdGrade.ToString()};";
                 dRead = cmd.ExecuteReader();
                 dRead.Read();
                 g = GetGradeFromRow(dRead);
@@ -28,6 +51,9 @@ namespace SchoolGrades
             }
             return g;
         }
+        /// <summary>
+        /// Aggiunge un nuovo voto al database
+        /// </summary>
         internal override void SaveMacroGrade(int? IdStudent, int? IdParent,
             double Grade, double Weight, string IdSchoolYear,
             string IdSchoolSubject)
@@ -36,15 +62,14 @@ namespace SchoolGrades
             {
                 DbCommand cmd = conn.CreateCommand();
                 // creazione del macrovoto nella tabella dei voti  
-                cmd.CommandText = "UPDATE Grades " +
-                    "SET IdStudent=" + SqlInt(IdStudent) +
-                    ",value=" + SqlDouble(Grade) +
-                    ",weight=" + SqlDouble(Weight) +
-                    ",idSchoolYear='" + IdSchoolYear + "'" +
-                    ",idSchoolSubject='" + IdSchoolSubject +
-                    "',timestamp ='" + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss").Replace('.', ':') + "' " +
-                    "WHERE idGrade = " + IdParent +
-                    ";";
+                cmd.CommandText = @$"UPDATE Grades
+                    SET IdStudent={SqlInt(IdStudent)},
+                    value={SqlDouble(Grade)},
+                    weight={SqlDouble(Weight)}
+                    idSchoolYear='{IdSchoolYear}'
+                    idSchoolSubject='{IdSchoolSubject}
+                    timestamp ='{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss").Replace('.', ':')}'
+                    WHERE idGrade = {IdParent};";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
@@ -422,21 +447,26 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
+        /// <summary>
+        /// data la riga della tabella, restituisce l'oggetto Grade
+        /// </summary>
         internal override Grade GetGradeFromRow(DbDataReader Row)
         {
-            Grade g = new Grade();
-            g.IdGrade = (int)Row["idGrade"];
-            g.IdGradeParent = Safe.Int(Row["idGradeParent"]);
-            g.IdStudent = Safe.Int(Row["idStudent"]);
-            g.IdGradeType = Safe.String(Row["IdGradeType"]);
-            g.IdSchoolSubject = Safe.String(Row["IdSchoolSubject"]);
-            //g.IdGradeTypeParent = Safe.SafeString(Row["idGradeTypeParent"]);
-            g.IdQuestion = Safe.Int(Row["idQuestion"]);
-            g.Timestamp = (DateTime)Row["timestamp"];
-            g.Value = Safe.Double(Row["value"]);
-            g.Weight = Safe.Double(Row["weight"]);
-            g.CncFactor = Safe.Double(Row["cncFactor"]);
-            g.IdSchoolYear = Safe.String(Row["idSchoolYear"]);
+            Grade g = new()
+            {
+                IdGrade = (int)Row["idGrade"],
+                IdGradeParent = Safe.Int(Row["idGradeParent"]),
+                IdStudent = Safe.Int(Row["idStudent"]),
+                IdGradeType = Safe.String(Row["IdGradeType"]),
+                IdSchoolSubject = Safe.String(Row["IdSchoolSubject"]),
+                //g.IdGradeTypeParent = Safe.SafeString(Row["idGradeTypeParent"]);
+                IdQuestion = Safe.Int(Row["idQuestion"]),
+                Timestamp = (DateTime)Row["timestamp"],
+                Value = Safe.Double(Row["value"]),
+                Weight = Safe.Double(Row["weight"]),
+                CncFactor = Safe.Double(Row["cncFactor"]),
+                IdSchoolYear = Safe.String(Row["idSchoolYear"])
+            };
             //g.DummyInt = (int)Row["dummyInt"]; 
             return g;
         }
@@ -642,11 +672,6 @@ namespace SchoolGrades
         /// Gets all the grades of a students of a specified IdGradeType that are the sons 
         /// of another grade which has value NOT null AND NOT equal to zero
         /// </summary>
-        /// <param name="IdStudent"></param>
-        /// <param name="IdSchoolYear"></param>
-        /// <param name="IdGradeType"></param>
-        /// <param name="IdSchoolSubject"></param>
-        /// <returns></returns>
         internal override DataTable GetMacroGradesOfStudentClosed(int? IdStudent, string IdSchoolYear,
             string IdGradeType, string IdSchoolSubject)
         {
@@ -675,6 +700,7 @@ namespace SchoolGrades
             }
             return t;
         }
+
         internal override int CreateMacroGrade(ref Grade Grade, Student Student, string IdMicroGradeType)
         {
             int key = NextKey("Grades", "idGrade");
@@ -708,31 +734,32 @@ namespace SchoolGrades
             }
             return key;
         }
+        /// <summary>
+        /// Aggiunge o modifica un VOTICINO
+        /// </summary>
         internal override int? SaveMicroGrade(Grade Grade)
         {
             using (DbConnection conn = Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 // create a new micro assessment in grades table
-                if (Grade == null || Grade.IdGrade == null || Grade.IdGrade == 0)
+                if (Grade is null || Grade.IdGrade is null || Grade.IdGrade == 0)
                 {
                     Grade.IdGrade = NextKey("Grades", "idGrade");
-                    cmd.CommandText = "INSERT INTO Grades " +
-                    "(idGrade, idGradeType, idGradeParent, idStudent, value, weight, " +
-                    "cncFactor,idSchoolYear, timestamp, idQuestion,idSchoolSubject) " +
-                    "Values (" + Grade.IdGrade +
-                    "," + SqlString(Grade.IdGradeType) + "" +
-                    "," + SqlInt(Grade.IdGradeParent.ToString()) + "" +
-                    "," + Grade.IdStudent + "" +
-                    "," + SqlDouble(Grade.Value) + "" +
-                    "," + SqlDouble(Grade.Weight) + "" +
-                    "," + SqlDouble(Grade.CncFactor) + "" +
-                    "," + SqlString(Grade.IdSchoolYear) + "" +
-                    //"," + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss").Replace('.', ':') + "" +
-                    "," + SqlDate(System.DateTime.Now) + "" +
-                    "," + SqlInt(Grade.IdQuestion.ToString()) + "" +
-                    ",'" + Grade.IdSchoolSubject + "'" +
-                    ");";
+                    cmd.CommandText = @$"INSERT INTO Grades 
+                        (idGrade, idGradeType, idGradeParent, idStudent, value, weight, cncFactor,idSchoolYear, timestamp, idQuestion,idSchoolSubject)
+                        Values ({Grade.IdGrade},
+                        {SqlString(Grade.IdGradeType)},
+                        {SqlInt(Grade.IdGradeParent.ToString())},
+                        {Grade.IdStudent},
+                        {SqlDouble(Grade.Value)},
+                        {SqlDouble(Grade.Weight)},
+                        {SqlDouble(Grade.CncFactor)},
+                        {SqlString(Grade.IdSchoolYear)},
+                        CURRENT_TIMESTAMP,
+                        
+                        {SqlInt(Grade.IdQuestion.ToString())},
+                        {Grade.IdSchoolSubject})";
                 }
                 else
                 {
