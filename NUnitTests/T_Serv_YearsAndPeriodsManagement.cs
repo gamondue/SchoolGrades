@@ -1,4 +1,3 @@
-using SchoolGrades;
 using SchoolGrades.BusinessObjects;
 
 namespace NUnitDbTests
@@ -29,18 +28,18 @@ namespace NUnitDbTests
         [Test]
         public void T_SchoolYears_Read()
         {
-            // test of DataLayer Methods that read data from table SchoolYears
+            // test of dl Methods that read data from table SchoolYears
         }
         [Test]
         public void T_SchoolYears_Update()
         {
-            // test of DataLayer Methods that update data from table SchoolYears
+            // test of dl Methods that update data from table SchoolYears
 
         }
         [Test]
         public void T_SchoolYears_Delete()
         {
-            // test of DataLayer Methods that delete data from table SchoolYears
+            // test of dl Methods that delete data from table SchoolYears
         }
     }
 }

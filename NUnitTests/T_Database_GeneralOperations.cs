@@ -1,6 +1,3 @@
-using SchoolGrades;
-using SchoolGrades.BusinessObjects;
-
 namespace NUnitDbTests
 {
     public class T_Database_GeneralOperations
@@ -8,7 +5,7 @@ namespace NUnitDbTests
         [SetUp]
         public void Setup()
         {
-            Test_Commons.SetDataLayer(); 
+            Test_Commons.SetDataLayer();
         }
         [Test]
         public void T_CreateDatabase()

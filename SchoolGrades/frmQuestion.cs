@@ -10,7 +10,7 @@ namespace SchoolGrades
 {
     public partial class frmQuestion : Form
     {
-        TreeMpttDb_SqLite dbMptt;
+        TreeMpttDb dbMptt;
 
         internal Question currentQuestion = new Question();
         internal bool UserHasChosen;
@@ -34,11 +34,7 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
-#if SQL_SERVER
-            TreeMpttDb_SqlServer dbMptt = new();
-#else
-            TreeMpttDb_SqLite dbMptt = new TreeMpttDb_SqLite();
-#endif
+            dbMptt = TreeMptt.SetDataLayer();
 
             // fills the lookup tables' combos
             List<QuestionType> listQuestions = Commons.bl.GetListQuestionTypes(true);

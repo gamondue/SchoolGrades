@@ -14,7 +14,6 @@ namespace SchoolGrades
     public static class Commons
     {
         internal static BusinessLayer bl;
-        //internal static DataLayer dl;
         // program's default path and files. Overridden by the config file "schgrd.cfg", when it exists
         internal static string PathUser = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
         internal static string PathAndFileExe = System.Reflection.Assembly.GetExecutingAssembly().CodeBase.Substring(8);

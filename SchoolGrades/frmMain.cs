@@ -156,7 +156,7 @@ namespace SchoolGrades
             CreateBusinessLayer();
 #if !SQL_SERVER
             Commons.bl.GetSchoolYearsThatHaveClasses();
-            // da togliere dopo che DataLayer SQL server funziona
+            // da togliere dopo che il DataLayer SQL server funziona
             List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
             cmbSchoolYear.DataSource = ly;
             if (ly.Count > 0)
@@ -229,8 +229,8 @@ namespace SchoolGrades
             btnTemporary.Visible = false;
 #endif
 
-            CreateBusinessLayer(); 
-            // da togliere dopo che DataLayer SQL server funziona
+            CreateBusinessLayer();
+            // da togliere dopo che il DataLayer di SQL server funziona
 #if !SQL_SERVER
             school = Commons.bl.GetSchool(Commons.IdSchool);
             if (school == null)

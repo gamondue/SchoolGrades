@@ -82,7 +82,6 @@ namespace SchoolGrades
             // load data in datagrids
             RefreshLessons(currentLessonsGridIndex);
 
-            //topicTreeMptt = new TopicTreeMptt(listTopicsBefore, trwTopics,
             topicTreeMptt = new TreeMptt(trwTopics,
                 txtTopicName, txtTopicDescription, txtTopicSearchString, txtTopicsDigest,
                 null, CommonsWinForms.globalPicLed, chkSearchInDescriptions, chkVerbatimString,
