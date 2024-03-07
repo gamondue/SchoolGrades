@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>737a759a-6c1f-4bd7-a682-390c8b018712</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>BusinessLayer</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)BL_AnnotationManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BL_AnswerManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BL_ClassManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BL_ConstructorsAndGeneralMethods.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BL_DemoDatabaseCreation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BL_GradesManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BL_ImageManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BL_LessonManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BL_LinkManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BL_YearsAndPeriodsManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BL_QuestionManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BL_StudentManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BL_SubjectManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BL_TableManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BL_TagManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BL_TestManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BL_TopicsManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BL_UserManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BL_GroupsManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BL_DrawManagement.cs" />
+  </ItemGroup>
+</Project>

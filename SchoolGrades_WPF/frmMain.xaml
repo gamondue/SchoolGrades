@@ -1,0 +1,539 @@
+﻿<Window x:Class="SchoolGrades_WPF.frmMain"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SchoolGrades_WPF"
+        mc:Ignorable="d"
+        Title="SchoolGrades" Height="749" Width="1000" 
+        Background="PowderBlue" Foreground="DarkBlue" 
+        Margin="5,3,0,0" Closing="Window_Closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="155"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="75"/>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="70"/>
+            <ColumnDefinition Width="144"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="110"/>
+            <ColumnDefinition Width="180"/>
+        </Grid.ColumnDefinitions>
+        <!--row 0-->
+        <StackPanel Grid.Column="0" Orientation="Vertical">
+            <Label x:Name="lblCodYear"
+                   Content="Cod.Anno"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" 
+                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                   FontWeight="Bold" Foreground="DarkBlue" FontSize="14" 
+                   Height="27" />
+            <ComboBox x:Name="cmbSchoolYear" Margin="5,3,0,0" 
+                  Height="20" Width="65"
+                  VerticalAlignment="Top" 
+                  SelectionChanged="cmbSchoolYear_SelectedIndexChanged"/>
+            <Label Margin="5,3,0,0" 
+                HorizontalAlignment="Center" VerticalAlignment="Top" 
+                FontWeight="Bold" Foreground="DarkBlue"
+                Content="Id classe"
+                Height="14" Width="49"/>
+            <TextBox x:Name="txtIdClass" 
+                     HorizontalAlignment="Center" VerticalAlignment="Center" 
+                     TextAlignment="Center" 
+                     Height="16" Width="30"
+                     FontWeight="Bold" Foreground="DarkBlue" 
+                     Text="0"/>
+            <TextBlock 
+                HorizontalAlignment="Center" VerticalAlignment="Top" 
+                   FontWeight="Bold" 
+                   FontSize="9" Height="10" Width="32"
+                   Text="salv .db"/>
+            <Rectangle x:Name="picBackgroundSaveRunning" Fill="Gray" 
+                       HorizontalAlignment="Center" VerticalAlignment="Top" 
+                       Width="18" Height="9"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Orientation="Horizontal">
+            <ListBox x:Name="lstClasses" Margin="0,3,0,0"
+                     HorizontalAlignment="Center" VerticalAlignment="Top" 
+                     Height="145" Width="78" 
+                     MouseDoubleClick="lstClasses_MouseDoubleClick" 
+                     SelectionChanged="lstClasses_SelectionChanged"
+                     Foreground="DarkBlue"/>
+            <StackPanel Orientation="Vertical">
+                <TextBox x:Name="txtTimeInterval" 
+                         HorizontalAlignment="Left" VerticalAlignment="Top" 
+                        VerticalContentAlignment="Center" TextAlignment="Center"
+                        Margin="3,5,0,0" Text="0" 
+                        Width="30" Height="16" 
+                        FontWeight="Bold" Foreground="DarkBlue"/>
+                <ListBox x:Name="lstTimeInterval" 
+                         Margin="3,1,0,0"
+                         Height="127" Width="30" 
+                         VerticalAlignment="Top" HorizontalAlignment="Left" 
+                         HorizontalContentAlignment="Center" 
+                         FontWeight="Bold" Foreground="DarkBlue">
+                    <ListBoxItem Content="05"/>
+                    <ListBoxItem Content="10"/>
+                    <ListBoxItem Content="15"/>
+                    <ListBoxItem Content="30"/>
+                    <ListBoxItem Content="45"/>
+                    <ListBoxItem Content="60"/>
+                </ListBox>
+            </StackPanel>
+        </StackPanel>
+        <TextBlock x:Name="lblDatabaseFile" 
+                   Grid.Column="2" Grid.ColumnSpan="5"
+                   Text="lblDatabaseFile" Margin="5,5,0,0"
+                   Height="12"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" 
+                   FontWeight="Bold" 
+                   Foreground="Red" FontSize="9" 
+                   />
+        <TextBlock x:Name="lblLastDatabaseModification" 
+                   Grid.Column="2" Grid.ColumnSpan="5"
+                   Text="lblLastDatabaseModification" Margin="5,20,0,0"
+                   Height="12"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" 
+                   FontWeight="Bold" 
+                   Foreground="Red" FontSize="9" 
+                   />
+        <Button x:Name="btnStartColorTimer" Grid.Column="2" Margin="0,40,0,0" 
+                Content="T.colori" 
+                HorizontalAlignment="Left" VerticalAlignment="Top" 
+                Height="22" Width="50" 
+                FontWeight="Bold" Foreground="DarkBlue" Click="btnStartColorTimer_Click"/>
+        <CheckBox x:Name="chkSoundsInColorTimer" Grid.Column="2"
+                  Content="Suoni" 
+                  HorizontalAlignment="Left" VerticalAlignment="Center" 
+                  VerticalContentAlignment="Center"
+                  Height="16" Width="54" Foreground="DarkBlue" 
+                  IsChecked="True" FontWeight="Bold"/>
+
+        <Button x:Name="btnStartBarTimer" Grid.Column="3" Margin="0,40,0,0" 
+                Content="T.barra" 
+                HorizontalAlignment="Left" VerticalAlignment="Top" 
+                Height="22" Width="50" 
+                FontWeight="Bold" Foreground="DarkBlue"/>
+        <StackPanel Grid.Column="3" Margin="0,69,0,0">
+            <CheckBox x:Name="chkNameVisible" Content="Nome visibile" 
+                      HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center"
+                      Height="16" Width="102" 
+                      FontWeight="Bold" Foreground="DarkBlue"
+                      IsChecked="True"
+                      Checked="chkNomeIsVisibile_CheckedChanged" 
+                      Unchecked="chkNomeIsVisibile_CheckedChanged"/>
+            <CheckBox x:Name="chkPhotoVisibile"  
+                      Content="Foto visibile" 
+                      HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center"
+                      Height="16" Width="102"
+                      FontWeight="Bold" Foreground="DarkBlue"
+                      IsChecked="True"
+                      Checked="chkPhotoVisibile_CheckedChanged" 
+                      Unchecked="chkPhotoVisibile_CheckedChanged"/>
+            <CheckBox x:Name="chkStudentsListVisible" 
+                      Content="Lista visibile"
+                      HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center"
+                      Height="16" Width="102" 
+                      FontWeight="Bold" Foreground="DarkBlue"
+                      IsChecked="True" 
+                      Checked="chkStudentsListVisible_CheckedChanged" 
+                      Unchecked="chkStudentsListVisible_CheckedChanged"/>
+        </StackPanel>
+
+        <Button x:Name="btnMakeGroups" Grid.Column="4" Margin="0,70,0,0"
+                    Content="Gruppi" 
+                    HorizontalAlignment="Left" VerticalAlignment="Top" 
+                    Height="44" Width="84" 
+                    Foreground="DarkBlue" FontWeight="Bold" 
+                    Click="btnMakeGroups_Click"/>
+        <Button x:Name="btnTemporary" Grid.Column="4" Margin="99,70,118,41"
+                    Content="Test" 
+                    Height="44" Width="84" 
+                    HorizontalContentAlignment="Center"
+                    Background="#FFFF2424" Foreground="Yellow" BorderBrush="Black" 
+                    FontWeight="Bold" 
+                    Click="btnTemporary_Click"/>
+        <StackPanel Orientation="Vertical" Grid.Column="5" Grid.RowSpan="3">
+            <Button x:Name="btnSetup" Grid.Column="5" Content="Setup"
+                    Height="40" Width="80" 
+                    FontWeight="Bold" FontSize="11" Foreground="DarkBlue" 
+                    Click="btnSetup_Click" />
+            <GroupBox x:Name="grpImageSource" Grid.Column="6" 
+                      Header="Sorg.immag." Foreground="DarkBlue" 
+                      FontWeight="Bold" FontSize="11" MinWidth="16" 
+                      Background="PowderBlue" Panel.ZIndex="1"
+                      Width="88" Height="59">
+                <StackPanel>
+                    <CheckBox x:Name="chkLessonsPictures" Content="lezioni" 
+                              HorizontalAlignment="Left" VerticalAlignment="Top" 
+                              Height="16" Width="63" Foreground="DarkBlue" FontWeight="Bold"  
+                              FontSize="11" IsChecked="True" />
+                    <CheckBox x:Name="chkGivenFolder" Content="cartella" 
+                          HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center"
+                          Height="16" Width="62" Foreground="DarkBlue" FontWeight="Bold" 
+                          FontSize="11" IsChecked="False" Panel.ZIndex="2"/>
+                </StackPanel>
+            </GroupBox>
+            <Button x:Name="btnShowRandomImage" 
+                        Content="Immagine &#xA;  casuale" 
+                        Height="40" Width="80"  
+                        Foreground="DarkBlue" FontWeight="Bold" FontSize="11"
+                        HorizontalContentAlignment="Center" Click="btnShowRandomImage_Click"/>
+            <Button x:Name="btnRandomNumber" 
+                        Content="Numero&#xA;casuale" 
+                        Height="40" Width="80"
+                        HorizontalContentAlignment="Center"
+                        Foreground="DarkBlue" FontWeight="Bold" FontSize="11"
+                        Click="btnRandomNumber_Click"/>
+            <Button x:Name="btnStartLinks" 
+                        Content="Start links" 
+                        Height="40" Width="80"
+                        Foreground="DarkBlue" FontWeight="Bold" FontSize="11" Click="btnStartLinks_Click"
+                        />
+            <Button x:Name="btnMosaic" 
+                        Content="Mosaico" 
+                        Height="40" Width="80" 
+                        Foreground="DarkBlue" FontWeight="Bold" FontSize="11" 
+                        Click="btnMosaic_Click"/>
+            <Button x:Name="btnCheckToggle"
+                        Content="cambio X" 
+                        Height="40" Width="80" 
+                        Foreground="DarkBlue" FontWeight="Bold" FontSize="11" Click="btnCheckToggle_Click"
+                        />
+            <Button x:Name="btnCheckRevenge" 
+                        Content="X di vendetta" 
+                        Height="40" Width="80" 
+                        Foreground="DarkBlue" FontWeight="Bold" 
+                        FontSize="11"/>
+            <Button x:Name="btnCheckNoGrade" 
+                        Content="X no voti" 
+                        Height="40" Width="80" 
+                        Foreground="DarkBlue" FontWeight="Bold" FontSize="11" Click="btnCheckNoGrade_Click" 
+                        />
+            <Button x:Name="btnCheckAll" 
+                    Content="X tutti" 
+                    Height="40" Width="80"
+                    Foreground="DarkBlue" FontWeight="Bold" 
+                    HorizontalContentAlignment="Center" 
+                    FontSize="11" Grid.Column="5" Grid.Row="1" Click="btnCheckAll_Click"/>
+            <Button x:Name="btnCheckNone" 
+                        Height="40" Width="80"
+                        Content="X nessuno" 
+                        Foreground="DarkBlue" FontWeight="Bold" FontSize="11" Click="btnCheckNone_Click" 
+                        />
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Column="6" Grid.RowSpan="3">
+            <GroupBox x:Name="grpChooseDrawSort" >
+                <StackPanel Orientation="Horizontal" >
+                    <RadioButton x:Name="rdbMustDraw" 
+                             Content="Sorteggio" 
+                             Height="15" Width="70" IsChecked="True"  
+                             Foreground="DarkBlue" FontWeight="Bold" FontSize="10"/>
+                    <RadioButton x:Name="rdbMustSort" 
+                             Content="Ordinam." 
+                             Height="15" Width="70" IsChecked="False" 
+                             Foreground="DarkBlue" FontWeight="Bold" FontSize="10"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox x:Name="grpSorts"
+                  Height="122" Header="Criteri sorteg. o ordinam." 
+                  FontWeight="Bold" 
+                  Foreground="DarkBlue" FontSize="10">
+                <StackPanel Orientation="Vertical">
+                    <RadioButton x:Name="rdbDrawEqualProbability" 
+                                 Content="Probabilità uguali" 
+                                 HorizontalAlignment="Left" 
+                                 FontWeight="Bold" Foreground="DarkBlue" FontSize="10" 
+                                 IsChecked="True"/>
+                    <RadioButton x:Name="rdbDrawByRevengeFactor" 
+                                 Content="Tremenda vendetta" 
+                                 HorizontalAlignment="Left" 
+                                 FontWeight="Bold" Foreground="DarkBlue" FontSize="10" 
+                                 IsChecked="False"/>
+                    <RadioButton x:Name="rdbDrawByOldestFirst"
+                                 Content="Prima voti vecchi"
+                                 HorizontalAlignment="Left" 
+                                 FontWeight="Bold" Foreground="DarkBlue" FontSize="10" 
+                                 IsChecked="False"/>
+                    <RadioButton x:Name="rdbSortByAlphbetical" 
+                                 Content="Alfabetico"                                  
+                                 HorizontalAlignment="Left" 
+                                 FontWeight="Bold" Foreground="DarkBlue" FontSize="10" 
+                                 IsChecked="False"/>
+                    <RadioButton x:Name="rdbDrawLowGradesFirst"
+                                 Content="Prima voti bassi" 
+                                 HorizontalAlignment="Left" 
+                                 FontWeight="Bold" Foreground="DarkBlue" FontSize="10" 
+                                 IsChecked="False"/>
+                    <RadioButton x:Name="rdbDrawByWeightsSum" 
+                                 Content="Peso totale dei voti" 
+                                 HorizontalAlignment="Left" 
+                                FontWeight="Bold" Foreground="DarkBlue" FontSize="10" 
+                                IsChecked="False"/>
+                    <RadioButton x:Name="rdbDrawNoOfGrades" 
+                                 Content="Numero voti" 
+                                 HorizontalAlignment="Left" 
+                                FontWeight="Bold" Foreground="DarkBlue" FontSize="10" 
+                                IsChecked="False"/>
+                </StackPanel>
+            </GroupBox>
+            <CheckBox x:Name="chkSuspence" 
+                      Content="suspence" 
+                      Height="20" Width="79" 
+                      IsChecked="False" 
+                      Foreground="DarkBlue" FontWeight="Bold" FontSize="11"
+                      />
+            <TextBlock Text="Tipo Valutazione"
+                       HorizontalAlignment="Left" TextAlignment="Left"
+                       Foreground="DarkBlue" FontWeight="Bold" FontSize="11"/>
+            <ComboBox x:Name="cmbGradeType" 
+                      Height="30"
+                      SelectionChanged="cmbGradeType_SelectedIndexChanged"/>
+            <Label x:Name="lblSchoolSubject" 
+                   Content="Materia" 
+                   VerticalContentAlignment="Bottom"
+                   Foreground="DarkBlue" FontWeight="Bold" FontSize="11"/>
+            <ComboBox x:Name="cmbSchoolSubject" 
+                      Height="30" 
+                      SelectionChanged="cmbSchoolSubject_SelectedIndexChanged"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="30"/>
+                </Grid.ColumnDefinitions>
+                <CheckBox x:Name="chkPopUpQuestionsEnabled" 
+                          Grid.Row="0" Grid.Column="0"
+                          Grid.RowSpan="2"
+                          Content="Domande &quot;pop up&quot;" 
+                               VerticalContentAlignment="Center"
+                          Foreground="DarkBlue" 
+                          IsChecked="False" FontWeight="Bold" 
+                          FontSize="11"/>
+                    <Label Content="tempo"
+                           Grid.Row="0" Grid.Column="1"
+                           Foreground="DarkBlue" 
+                               VerticalContentAlignment="Bottom"
+                           FontWeight="Bold" FontSize="8"/>
+                    <TextBox x:Name="txtPopUpQuestionCentralTime" 
+                             Grid.Row="1" Grid.Column="1"
+                             Text="7" 
+                             Height="13" Width="28" 
+                             TextAlignment="Center" 
+                             FontSize="8" FontWeight="Bold" Foreground="DarkBlue"/>
+                <Label 
+                    Content="min" 
+                    Grid.Row="1" Grid.Column="2"
+                           Foreground="DarkBlue" FontWeight="Bold" FontSize="8" />
+            </Grid>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button x:Name="btnDraw" Grid.Row="0" Grid.Column="0" 
+                        Content="Sortegg.&#xA;o ordin." 
+                        Foreground="DarkBlue" FontWeight="Bold" FontSize="11" 
+                        Click="btnDrawOrSort_Click"/>
+                <Button x:Name="btnComeOn" Grid.Row="0" Grid.Column="1" 
+                    Content="Costretto" 
+                    Foreground="DarkBlue" FontWeight="Bold" 
+                    FontSize="11" 
+                    Click="btnComeOn_Click"/>
+                <Button x:Name="btnQuestion" Grid.Row="1" Grid.Column="0" 
+                      Content="Scelta&#xA;domanda" 
+                      Foreground="DarkBlue" FontWeight="Bold" FontSize="11" 
+                      Click="btnQuestion_Click"/>
+                <Button x:Name="btnAssess" Grid.Row="1" Grid.Column="1"
+                    Content="Valutaz." 
+                    Foreground="DarkBlue" FontWeight="Bold" FontSize="11" 
+                    Click="btnAssess_Click"/>
+                <Grid Grid.Row="2" Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btnRevengeFactorPlus" Grid.Row="0" Grid.Column="0"
+                            Content="FV++" 
+                            Foreground="DarkBlue" FontWeight="Bold" FontSize="11" Click="btnRevengeFactorPlus_Click" />
+                    <Button x:Name="btnRevengeFactorMinus" Grid.Row="1" Grid.Column="0"
+                            Foreground="DarkBlue" FontWeight="Bold" FontSize="11" 
+                            Content="FV--" Click="btnRevengeFactorMinus_Click"/>
+                    <Label x:Name="lblRevengeFactor" Grid.Row="0" Grid.Column="1"
+                             Content="F.V." VerticalContentAlignment="Bottom"
+                             VerticalAlignment="Bottom" HorizontalContentAlignment="Center"
+                             Foreground="DarkBlue" FontWeight="Bold" FontSize="8"/>
+                    <TextBox x:Name="txtRevengeFactor" Grid.Row="1" Grid.Column="1"
+                             Margin="0"
+                             HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                             FontWeight="Bold" Foreground="DarkBlue" Height="12"/>
+                </Grid>
+                <Button x:Name="btnOldestGrade" Grid.Row="2" Grid.Column="1"
+                    Content="Voto più&#xA;vecchio" 
+                    Foreground="DarkBlue" FontWeight="Bold" 
+                    FontSize="11" 
+                    Click="btnOldestGrade_Click" />
+                <Button x:Name="btnTopicsDone" Grid.Row="3" Grid.Column="0" 
+                        Content="Argomenti&#xA;fatti" 
+                        Foreground="DarkBlue" FontWeight="Bold" FontSize="11" 
+                        Click="btnTopicsDone_Click"/>
+                <Button x:Name="btnYearTopics" Grid.Row="3" Grid.Column="1"
+                        Foreground="DarkBlue" FontWeight="Bold" FontSize="11" 
+                        Content="File arg.&#xA;anno"
+                        Click="btnYearTopics_Click"/>
+                <Button x:Name="btnClassesGradesSummary" Grid.Row="4" Grid.Column="0" 
+                        Content="Voti classe" 
+                        Foreground="DarkBlue" FontWeight="Bold" FontSize="11"
+                        Click="btnClassesGradesSummary_Click"/>
+                <Button x:Name="btnStudentsGradesSummary" Grid.Row="4" Grid.Column="1"
+                        Content="Voti allievo" 
+                        Foreground="DarkBlue" FontWeight="Bold" FontSize="11"
+                        Click="btnStudentsGradesSummary_Click"/>
+                <Button x:Name="btnLessonsTopics" Grid.Row="5" Grid.Column="0" 
+                        Content="Lezioni" 
+                        Foreground="DarkBlue" FontWeight="Bold" FontSize="11" 
+                        Click="btnLessonsTopics_Click"/>
+                <Button x:Name="btnStudentsNotes" Grid.Row="5" Grid.Column="1" 
+                        Content="Annotaz." 
+                        Foreground="DarkBlue" FontWeight="Bold" FontSize="11" 
+                        Click="btnStudentsNotes_Click"/>
+            </Grid>
+        </StackPanel>
+        <!--row 1 -->
+        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5">
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="txtPathImages" Height="20"
+                         Text="">
+                </TextBox>
+                <Button x:Name="btnPath" 
+                        Content=".." 
+                        Height="20"
+                        Width="31" VerticalContentAlignment="Center" Grid.Column="5"/>
+            </Grid>
+            <ProgressBar x:Name="pgbTimeQuestion" Height="20" />
+            <TextBox x:Name="txtQuestion" Height="20"/>
+        </StackPanel>
+        <!--row 2 -->
+        <Image x:Name="picStudent" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5"/>
+        <DataGrid x:Name="dgwStudents" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" 
+                  Background="#FFA0A0A0" 
+                  SelectionChanged="dgwStudents_SelectionChanged"
+                  MouseDoubleClick="dgwStudents_MouseDoubleClick"
+                  AutoGenerateColumns="False"
+                  DataContext="currentStudentsList"
+                  ItemsSource="{Binding}">
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn Header="P" Binding="{Binding Path=Eligible}" Width="20" IsReadOnly="False"/>
+                <DataGridTextColumn Header="Cognome" Binding="{Binding Path=LastName}" Width="*" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Nome" Binding="{Binding Path=FirstName}" Width="*" IsReadOnly="True"/>
+                <DataGridTextColumn Header="F.V." Binding="{Binding Path=RevengeFactorCounter}" Width="30" IsReadOnly="True"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel x:Name="stckIdStudent" Grid.Row="2" Grid.Column="0">
+            <TextBlock x:Name="lblIdStudent" 
+                    Text="Id allievo"
+                    Height="20" Width="60"
+                    HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                    TextAlignment="Center"
+                    FontWeight="Bold" Background="White" Foreground="DarkBlue" 
+                    Visibility="Hidden"/>
+            <TextBox x:Name="txtIdStudent" 
+                        Text="IdStudent"
+                        Height="20" Width="60"
+                        HorizontalAlignment="Center" VerticalAlignment="Top" TextAlignment="Center"
+                        Foreground="DarkBlue" 
+                        IsReadOnly="True" Visibility="Hidden"/>
+        </StackPanel>
+        <Label x:Name="lblStudentChosen" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4"
+                   Content="" Visibility="Hidden"
+                   VerticalAlignment="Top" Height="50"
+                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                   Background="White" FontSize="30" FontWeight="ExtraBold" />
+        <StackPanel x:Name="stckLessonTime" Grid.Row="2" Grid.Column="4"
+                    Margin="0,60,0,60">
+            <Button x:Name="btnLessonTime" Margin="60,0"
+                Content="Inizio lezione" 
+                Height="40" Width="80" 
+                HorizontalAlignment="Left"
+                Foreground="DarkBlue" FontWeight="Bold" Click="btnLessonTime_Click"/>
+            <StackPanel Orientation="Horizontal" Margin="6">
+                <TextBlock
+                Text="Minuto inizio"
+                    Width="120" VerticalAlignment="Center"
+                    FontWeight="Bold" Foreground="DarkBlue" FontSize="11"/>
+                <TextBox x:Name="txtMinuteStartLesson" 
+                     Text="0" Height="25" Width="50" 
+                     TextAlignment="Center" 
+                     FontWeight="Bold" Foreground="DarkBlue"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="6">
+                <TextBlock
+                    Text="Minuti durata"
+                    Width="120" Foreground="DarkBlue" FontSize="11" FontWeight="Bold"/>
+                <TextBox x:Name="txtDurationLesson"
+                    Text="60" 
+                    Height="25" Width="50" 
+                    TextAlignment="Center" 
+                    FontWeight="Bold" Foreground="DarkBlue"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="6">
+                <TextBlock 
+                Text="Anticipo minuti"
+                Width="120" Foreground="DarkBlue" FontSize="11" FontWeight="Bold"/>
+                <TextBox x:Name="txtAdvanceMinutes" 
+                    Text="8" 
+                    Height="25" Width="50" 
+                    TextAlignment="Center" 
+                    FontWeight="Bold" Foreground="DarkBlue"/>
+            </StackPanel>
+            <CheckBox x:Name="chkActivateLessonClock" Margin="4" 
+                      Content="Orologio lezione" 
+                      HorizontalAlignment="Left" 
+                      Foreground="DarkBlue" FontWeight="Bold" FontSize="11"
+                      IsChecked="True" />
+            <CheckBox x:Name="chkEnableEndLessonWarning" Margin="4"
+                      Content="Allarme fine lezione"
+                      HorizontalAlignment="Left"
+                      Foreground="DarkBlue" FontWeight="Bold"  
+                      IsChecked="True"
+                      FontSize="11" Checked="chkEnableEndLessonWarning_CheckedChanged"/>
+            <StackPanel Orientation="Horizontal" Margin="6,10">
+                <TextBlock FontWeight="Bold"
+                        Text=" n.Allievi" 
+                        Height="25" Width="120"
+                        HorizontalAlignment="Left" VerticalAlignment="Center"
+                        TextAlignment="Left"
+                        Foreground="DarkBlue" FontSize="11" 
+                        />
+                <TextBox x:Name="txtNStudents" 
+                        Height="25" Width="50" 
+                        HorizontalAlignment="Left" VerticalAlignment="Center"
+                        TextAlignment="Center" IsReadOnly="True"
+                        FontWeight="Bold" Foreground="DarkBlue"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

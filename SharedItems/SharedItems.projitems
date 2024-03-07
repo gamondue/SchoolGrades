@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>a5dc5853-0eb8-493e-804d-d596d841aa2d</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>SharedItems</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ClientTcp.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ColorConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commons.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Safe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ServerTcp.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TextFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ThreadServerReceiver.cs" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,108 @@
+﻿using gamon;
+using SchoolGrades.BusinessObjects;
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+namespace SchoolGrades
+{
+    internal partial class BusinessLayer
+    {
+        internal string CreateAllTopicsDoneFile(string Filename, Class CurrentClass,
+            SchoolSubject CurrentSubject, bool IsPlainText)
+        {
+            List<Topic> lt = dl.GetAllTopicsDoneInClassAndSubject(CurrentClass,
+                CurrentSubject);
+            string f = "";
+            string tabs = "";
+            Topic previous = new Topic();
+            previous.Id = -2;
+            string status = "s"; // start tab 
+            foreach (Topic t in lt)
+            {
+                // put a tab in front of descending nodes 
+                switch (status)
+                {
+                    case "s": // start tab
+                        {
+                            if (t.ParentNodeOld == previous.Id)
+                            {
+                                // is son of the previous
+                                tabs += "\t";
+                                status = "b"; // brothers
+                            }
+                            else
+                                tabs = "";
+                            break;
+                        }
+                    case "b": // brothers 
+                        {
+                            if (t.ParentNodeOld == previous.ParentNodeOld)
+                            {
+                                // another brother: do nothing
+                            }
+                            else if (t.ParentNodeOld == previous.Id)
+                            {
+                                // is son of the previous
+                                tabs += "\t";
+                                status = "b"; // brothers
+                            }
+                            else
+                            {   // non brothers & non son 
+                                tabs = "";
+                                status = "s"; // brothers
+                            }
+                            break;
+                        }
+                    case "u":
+                        {
+                            break;
+                        }
+                }
+                if (IsPlainText)
+                    f += tabs + t.Name;
+                else
+                {
+                    f += tabs.Replace('\t', '#') + " " + t.Name;
+                }
+                if (t.Desc != "")
+                    f += ": " + t.Desc;
+                f += "\r\n";
+                previous = t;
+            }
+
+            string createdFile;
+            string path = Path.Combine(CurrentClass.PathRestrictedApplication, @"SchoolGrades\Data");
+            if (IsPlainText)
+                createdFile = Path.Combine(path, Filename + ".txt");
+            else
+                createdFile = Path.Combine(path, Filename + ".md");
+            TextFile.StringToFile(createdFile, f, false);
+            return createdFile;
+        }
+        internal List<Topic> GetTopicsDoneFromThisTopic(Class Class, Topic Tag, SchoolSubject Subject)
+        {
+            return dl.GetTopicsDoneFromThisTopic(Class, Tag, Subject);
+        }
+        internal List<Topic> GetTopicsNotDoneFromThisTopic(Class Class, Topic Tag, SchoolSubject Subject)
+        {
+            return dl.GetTopicsNotDoneFromThisTopic(Class, Tag, Subject);
+        }
+        internal Topic GetTopicById(int? IdTopic)
+        {
+            return dl.GetTopicById(IdTopic);
+        }
+        internal List<Topic> GetTopicsDoneInPeriod(Class Class, SchoolSubject Subject, DateTime DateFrom, DateTime DateTo)
+        {
+            return dl.GetTopicsDoneInPeriod(Class, Subject, DateFrom, DateTo);
+        }
+        internal bool IsTopicAlreadyTaught(Topic Topic)
+        {
+            return dl.IsTopicAlreadyTaught(Topic);
+        }
+        internal void SaveTopicsFromScratch(List<Topic> TopicsList)
+        {
+            dl.SaveTopicsFromScratch(TopicsList); 
+        }
+    }
+}
