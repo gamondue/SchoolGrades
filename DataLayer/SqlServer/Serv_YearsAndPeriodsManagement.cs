@@ -74,10 +74,21 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        
-        internal override void DeleteShcoolYear()
-        {
 
+        internal override bool DeleteShcoolYear(string anno)
+        {
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "DELETE FROM SchoolYears WHERE IdSchoolYear = " + anno;
+
+                var result = cmd.ExecuteScalar();
+                return (result != null);
+
+
+
+
+            }
         }
     }
 }

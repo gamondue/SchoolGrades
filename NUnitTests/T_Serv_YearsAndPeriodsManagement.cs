@@ -50,10 +50,15 @@ namespace NUnitDbTests
         public void T_SchoolYears_Delete()
         {
             // test of DataLayer Methods that delete data from table SchoolYears
-            using (DbConnection conn = Connect())
-            {
+            string anni = "24-25";
+            SchoolYear schoolYear1 = new();
+            schoolYear1.IdSchoolYear = "24-25";
+            schoolYear1.ShortDescription = "2023-2024";
+            schoolYear1.Notes = "Anno scolastico introdotto per sola prova";
+            Test_Commons.dl.AddSchoolYear(schoolYear1);
+        
+            Assert.That(Test_Commons.dl.DeleteShcoolYear(anni) = true);
 
-            }
         }
     }
 }
