@@ -584,5 +584,35 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
+
+        internal override void CreateTableStudents() //create the table student using this method and then try it on nunit adding new parameters to try 
+        {
+
+
+            //from the sql file given from Monti Search your table (mine is "Student") and then create it
+            string createQuery = "CREATE TABLE Students (" +
+                "idStudent INT NOT NULL, " +
+                "lastName VARCHAR(45), " +
+                "firstName VARCHAR(45), " +
+                "residenceVARCHAR(45), " +
+                "origin VARCHAR(45), " +
+                "email VARCHAR(45), " +
+                "drawableint, " +
+                "birthDateDATE, " +
+                "birthPlace VARCHAR(45), " +
+                "VFCounterINTEGER, " +
+                "disabled int, " +
+                "hasSpecialNeeds INTEGER, " +
+                "PRIMARY KEY(idStudent));";
+
+
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = createQuery;
+
+                cmd.ExecuteNonQuery(); //esegui il comando
+            }
+        }
     }
 }
