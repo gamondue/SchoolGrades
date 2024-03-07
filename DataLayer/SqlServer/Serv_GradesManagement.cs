@@ -52,7 +52,7 @@ namespace SchoolGrades
             return g;
         }
         /// <summary>
-        /// Aggiunge un nuovo voto al database
+        /// 
         /// </summary>
         internal override void SaveMacroGrade(int? IdStudent, int? IdParent,
             double Grade, double Weight, string IdSchoolYear,
@@ -67,7 +67,7 @@ namespace SchoolGrades
                     value={SqlDouble(Grade)},
                     weight={SqlDouble(Weight)}
                     idSchoolYear='{IdSchoolYear}'
-                    idSchoolSubject='{IdSchoolSubject}
+                    idSchoolSubject='{IdSchoolSubject}'
                     timestamp ='{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss").Replace('.', ':')}'
                     WHERE idGrade = {IdParent};";
                 cmd.ExecuteNonQuery();
@@ -81,10 +81,10 @@ namespace SchoolGrades
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT Grades.*,Students.* FROM Grades" +
-                    " JOIN Students ON Grades.idStudent = Students.idStudent" +
-                    " WHERE Grades.idGrade=" + Grade.IdGrade.ToString() +
-                    ";";
+                cmd.CommandText = @$"SELECT Grades.*,Students.* FROM Grades
+                    JOIN Students ON Grades.idStudent = Students.idStudent
+                    WHERE Grades.idGrade={Grade.IdGrade}";
+                   
                 dRead = cmd.ExecuteReader();
                 while (dRead.Read())
                 {

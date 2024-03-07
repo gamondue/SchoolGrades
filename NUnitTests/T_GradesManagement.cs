@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SchoolGrades.BusinessObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,17 @@ namespace NUnitDbTests
 {
     public class T_GradesManagement
     {
+        Grade voto = new()
+        {
+            IdStudent = 455,
+            IdSchoolSubject = "2",
+            Value = 80,
+            Weight = 33,
+            Timestamp = DateTime.Now,
+            IdSchoolYear = "anno",
+            IdGradeType = "prova",
+        };
+
         [SetUp]
         public void Setup()
         {
@@ -27,22 +39,21 @@ namespace NUnitDbTests
         [Test]
         public void T_Grades_SaveMicroGrade()
         {
-            Test_Commons.dl.SaveMicroGrade(new()
-            {
-                IdStudent = 455,
-                IdSchoolSubject = "2",
-                Value = 80,
-                Weight = 33,
-                Timestamp = DateTime.Now,
-                IdSchoolYear = "anno",
-                IdGradeType = "prova",
-            });
+            voto.IdGrade = Test_Commons.dl.SaveMicroGrade(voto);
         }
         [Test]
         public void T_Grades_SaveMacroGrade()
         {
             //TODO
             //Test_Commons.dl.SaveMacroGrade(999, )
+        }
+        [Test]
+        public void T_Grades_GetGradeAndStudentFromIdGrade()
+        {
+            Student student = new();
+            voto.IdGrade = Test_Commons.dl.SaveMicroGrade(voto);
+            Test_Commons.dl.GetGradeAndStudentFromIdGrade(ref voto, ref student);
+            Console.WriteLine(student);
         }
     }
 }
