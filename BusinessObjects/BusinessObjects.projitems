@@ -12,6 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Answer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Class.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Couple.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DatabaseInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Grade.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GradeType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Image.cs" />

@@ -18,9 +18,11 @@ namespace SchoolGrades
         public frmBackupManagement()
         {
             InitializeComponent();
-
-            TreeMpttDb dbMptt = new TreeMpttDb();
-
+#if SQL_SERVER
+            TreeMpttDb_SqlServer dbMptt = new();
+#else
+            TreeMpttDb_SqLite dbMptt = new TreeMpttDb_SqLite();
+#endif
             topicTreeMptt = new TreeMptt(null, null, null, null, null,
                 null, null, null, null, null, null, null, DragDropEffects.None);
         }
@@ -282,7 +284,7 @@ namespace SchoolGrades
                 else
                     return;
             }
-            Commons.bl.CreateNewDatabase(NewDatabasePathName);
+            Commons.bl.CreateNewDatabaseFromExisting(NewDatabasePathName);
             MessageBox.Show("Creato nuovo database SchoolGradesNew.sqlite");
         }
     }
