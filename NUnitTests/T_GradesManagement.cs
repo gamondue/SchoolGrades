@@ -11,7 +11,7 @@ namespace NUnitDbTests
     {
         Grade voto = new()
         {
-            IdStudent = 455,
+            IdStudent = 1,
             IdSchoolSubject = "2",
             Value = 80,
             Weight = 33,
@@ -44,8 +44,8 @@ namespace NUnitDbTests
         [Test]
         public void T_Grades_SaveMacroGrade()
         {
-            //TODO
-            //Test_Commons.dl.SaveMacroGrade(999, )
+            voto.IdGrade = Test_Commons.dl.SaveMicroGrade(voto);
+            Test_Commons.dl.SaveMacroGrade(voto.IdStudent, voto.IdGrade, 100, 20, voto.IdSchoolYear, voto.IdSchoolSubject);
         }
         [Test]
         public void T_Grades_GetGradeAndStudentFromIdGrade()

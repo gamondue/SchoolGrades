@@ -65,9 +65,9 @@ namespace SchoolGrades
                 cmd.CommandText = @$"UPDATE Grades
                     SET IdStudent={SqlInt(IdStudent)},
                     value={SqlDouble(Grade)},
-                    weight={SqlDouble(Weight)}
-                    idSchoolYear='{IdSchoolYear}'
-                    idSchoolSubject='{IdSchoolSubject}'
+                    weight={SqlDouble(Weight)},
+                    idSchoolYear='{IdSchoolYear}',
+                    idSchoolSubject='{IdSchoolSubject}',
                     timestamp ='{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss").Replace('.', ':')}'
                     WHERE idGrade = {IdParent};";
                 cmd.ExecuteNonQuery();
