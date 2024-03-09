@@ -22,7 +22,7 @@ namespace NUnitDbTests
         public void T_TestManagement_Create()
         {
             DbCommand cmd;
-            
+
             using (DbConnection conn = Test_Commons.dl.Connect())
             {
                 cmd = conn.CreateCommand();
@@ -38,37 +38,16 @@ namespace NUnitDbTests
                 );";
 
                 cmd.ExecuteNonQuery();
-
-                
-
             }
         }
 
         [Test]
-        public void T_TestManagement_Read(DbDataReader dRead)
+        public void T_TestManagement_Read()
         {
-            DbCommand cmd;
+            DbDataReader dRead;
+            Test_Commons.dl.GetTestFromRow(DbDataReader dRead);
             
-
-            using (DbConnection conn = Test_Commons.dl.Connect())
-            {
-                cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * " +
-                    "FROM Tests " +
-                    "WHERE IdTest=" + IdTest +
-                    ";";
-                dRead = cmd.ExecuteReader();
-
-                while (dRead.Read())
-                {
-                    t = GetTestFromRow(dRead);
-                }
-            }
-                
-
-            
-            
-
+            Test_Commons.dl.SaveTest(List<SchoolTest> );
         }
 
         [Test]
