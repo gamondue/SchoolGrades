@@ -41,7 +41,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal override void DeleteShcoolYear(string anno)
+        internal override bool DeleteShcoolYear(string anno)
         {
             throw new NotImplementedException();
         }

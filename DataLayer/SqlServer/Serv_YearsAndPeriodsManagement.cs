@@ -22,7 +22,7 @@ namespace SchoolGrades
 
     internal partial class SqlServer_DataLayer : DataLayer
     {
-        internal override void CreateTableSchoolYears()
+        internal override void CreateTableSchoolYears()  //crea una nuova tabella
         {
             try
             {
@@ -43,7 +43,7 @@ namespace SchoolGrades
 
             }
         }
-        internal override bool SchoolYearExists(string idSchoolYear)
+        internal override bool SchoolYearExists(string idSchoolYear)  //guarda cosa c'è nella tabella
         {
             using (DbConnection conn = Connect())
             {
@@ -58,7 +58,7 @@ namespace SchoolGrades
 
             }
         }
-        internal override void AddSchoolYear(SchoolYear newSchoolYear)
+        internal override void AddSchoolYear(SchoolYear newSchoolYear)  //aggiunge i valori all'interno della tabella
         {
             using (DbConnection conn = Connect())
             {
@@ -75,18 +75,18 @@ namespace SchoolGrades
             }
         }
 
-        internal override bool DeleteShcoolYear(string anno)
-        {
+        internal override bool DeleteShcoolYear(string anno)  //cancella i dati di una tabella
+        {                       // query funzionante:  delete from SchoolYears where idSchoolYear = '27-28' ;
             using (DbConnection conn = Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "DELETE FROM SchoolYears WHERE IdSchoolYear = " + anno;
+                cmd.CommandText = "DELETE FROM SchoolYears WHERE IdSchoolYear = '" + anno + "';";
 
-                var result = cmd.ExecuteScalar();
+                                
+                var result = cmd.ExecuteNonQuery();
                 return (result != null);
 
-
-
+               
 
             }
         }
