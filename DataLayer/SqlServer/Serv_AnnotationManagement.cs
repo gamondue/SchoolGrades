@@ -96,8 +96,8 @@ namespace SchoolGrades
                     query += "" + SqlInt(Annotation.IdAnnotation) + ",";
                     query += "" + SqlInt(s.IdStudent) + ",";
                     query += "" + SqlString(Annotation.Annotation) + "";
-                    query += "," + SqlDate(Annotation.InstantTaken);
-                    query += "," + SqlDate(Annotation.InstantClosed);
+                    query += "," + SqlDate(Annotation.InstantTaken).Replace(" ", "T").Replace("datetime", "");
+                    query += "," + SqlDate(Annotation.InstantClosed).Replace(" ", "T").Replace("datetime", "");
                     query += "," + SqlBool(Annotation.IsActive);
                     if (FieldExists("StudentsAnnotations", "isPopUp"))
                         query += "," + SqlBool(Annotation.IsPopUp);
