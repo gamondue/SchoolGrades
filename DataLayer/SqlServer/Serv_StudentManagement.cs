@@ -166,9 +166,7 @@ namespace SchoolGrades
                     SqlString(Student.Origin) + "," +
                     SqlString(Student.Email) + "," +
                     SqlDate(Student.BirthDate.ToString()) + "," +
-                    SqlString(Student.BirthPlace) + "," +
-                    "false," +
-                    "false" +
+                    SqlString(Student.BirthPlace) + "," +"0," +"0" +
                     ");";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
@@ -585,6 +583,10 @@ namespace SchoolGrades
             }
         }
 
+        
+        
+        
+        //TO DO!!!! CHAANGE THE LAST TWO PARAMETERS FROM INT TO BOOLEAN
         internal override void CreateTableStudents() //create the table student using this method and then try it on nunit adding new parameters to try 
         {
 
@@ -594,15 +596,15 @@ namespace SchoolGrades
                 "idStudent INT NOT NULL, " +
                 "lastName VARCHAR(45), " +
                 "firstName VARCHAR(45), " +
-                "residenceVARCHAR(45), " +
+                "residence VARCHAR(45), " +
                 "origin VARCHAR(45), " +
                 "email VARCHAR(45), " +
-                "drawableint, " +
-                "birthDateDATE, " +
+                "drawable INT, " +
+                "birthDate DATE, " +
                 "birthPlace VARCHAR(45), " +
-                "VFCounterINTEGER, " +
-                "disabled int, " +
-                "hasSpecialNeeds INTEGER, " +
+                "VFCounter INT, " +
+                "disabled Tinyint, " +
+                "hasSpecialNeeds Tinyint, " +
                 "PRIMARY KEY(idStudent));";
 
 
@@ -611,8 +613,46 @@ namespace SchoolGrades
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = createQuery;
 
-                cmd.ExecuteNonQuery(); //esegui il comando
+                cmd.ExecuteNonQuery(); //execute the command
             }
+        }
+
+        
+
+        internal override bool ExistTable()
+        {
+            bool tableExist = false;
+            
+            try
+            {
+                CreateTableStudents();
+
+            }catch (Exception ex)
+            {
+                tableExist = true; //if an exception is generated it means that the table has been succesfully created and so you veryfied it
+            }
+
+            return tableExist;
+        }
+
+
+        internal override void DelateTable()
+        {
+
+            string createQuery = "Drop Table Students;"; 
+
+
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = createQuery;
+
+                cmd.ExecuteNonQuery(); //execute the command
+            }
+
+
+
+
         }
     }
 }
