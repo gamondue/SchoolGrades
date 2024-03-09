@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SchoolGrades.BusinessObjects;
+using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -39,17 +40,40 @@ namespace NUnitDbTests
             //cmd.CommandText = query;
             //cmd.ExecuteNonQuery();
 
-            query = "INSERT INTO StudentsAnnotations (idAnnotation, idStudent, annotation)" +
-                "VALUES (0, 15, 'test');";
-
+            query = "INSERT INTO StudentsAnnotations (idAnnotation, idStudent, annotation, idSchoolYear)" +
+                "VALUES (1, 15, 'test', '23-24');";
+            
             cmd.CommandText = query;
-            cmd.ExecuteNonQuery();
-
+            Assert.Equals(cmd.ExecuteNonQuery(), null);
+            conn.Close();
         }
         [Test]
         public void T_Serv_AnnotationManagement_Read()
         {
+            DbConnection conn;
 
+            string connectionStringSqlServer = "SERVER=localhost;UID=sa;PWD=burbero2023;Database=SchoolGrades;TrustServerCertificate=true;";
+
+            conn = new SqlConnection(connectionStringSqlServer);
+            conn.Open();
+
+            DbCommand cmd = conn.CreateCommand();
+            List<StudentAnnotation> la = new List<StudentAnnotation>();
+            DbDataReader dRead;
+            string query = "SELECT *" +
+                " FROM StudentsAnnotations" +
+                " WHERE StudentsAnnotations.idStudent=15";
+            query += " ORDER BY instantTaken DESC, instantClosed DESC";
+            query += ";";
+            cmd.CommandText = query;
+            dRead = cmd.ExecuteReader();
+            while (dRead.Read())
+            {
+                //StudentAnnotation a = GetAnnotationFromRow(dRead);
+                //la.Add(a);
+            }
+
+            conn.Close();
         }
         [Test]
         public void T_Serv_AnnotationManagement_Update()
