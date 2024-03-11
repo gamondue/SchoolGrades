@@ -35,8 +35,8 @@ namespace SchoolGrades_WPF
         }
         private void btnClassi_Click(object sender, RoutedEventArgs e)
         {
-            //frmClassesManagement f = new frmClassesManagement();
-            //f.ShowDialog();
+            frmClassesManagement f = new frmClassesManagement();
+            f.ShowDialog();
         }
         private void btnBackupManagement_Click(object sender, RoutedEventArgs e)
         {

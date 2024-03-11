@@ -5,120 +5,84 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SchoolGrades_WPF"
         mc:Ignorable="d"
-        Title="Gestione Studenti" Height="450" Width="800">
-    <Grid Background="PowderBlue" Margin="0,0,0,-80">
+        Title="Gestione Studenti" Height="500" Width="950"
+        Loaded="frmStudent_Loaded">
+    <Grid Background="PowderBlue" >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="170">
-
-            </ColumnDefinition>
-            <ColumnDefinition>
-
-            </ColumnDefinition>
-            <ColumnDefinition>
-
-            </ColumnDefinition>
-            <ColumnDefinition>
-
-            </ColumnDefinition>
-            <ColumnDefinition>
-
-            </ColumnDefinition>
-            <ColumnDefinition>
-
-            </ColumnDefinition>
-
-
-
+            <ColumnDefinition Width="90"/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="150*"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="80">
-
-            </RowDefinition>
-            <RowDefinition Height="90*">
-
-            </RowDefinition>
-            <RowDefinition Height="54*">
-
-            </RowDefinition>
-            <RowDefinition Height="69*">
-
-            </RowDefinition>
-            <RowDefinition Height="35*">
-
-            </RowDefinition>
-            <RowDefinition Height="47*" >
-
-            </RowDefinition>
-            <RowDefinition Height="37*" >
-
-            </RowDefinition>
-            <RowDefinition Height="29*"  >
-
-            </RowDefinition>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Column="0" FontSize="18" Margin="10,0,10,0">
-            Cod.allievo
-        </TextBlock>
-        <TextBox x:Name="txtIdStudent" Grid.Column="0" Margin="10,28,39,0" Height="27" VerticalAlignment="Top" />
+        <TextBlock Grid.Row="0" Grid.Column="0" FontSize="18" VerticalAlignment="Bottom">Cod.allievo</TextBlock>
+        <TextBlock Grid.Row="0" Grid.Column="1" FontSize="18" VerticalAlignment="Bottom" Grid.ColumnSpan="2">Cognome</TextBlock>
+        <TextBlock Grid.Row="0" Grid.Column="2" FontSize="18" VerticalAlignment="Bottom">Nome</TextBlock>
 
-        <TextBlock Grid.Column="1" FontSize="18" Margin="10,0,10,0">
-            Cognome
-        </TextBlock>
-        <TextBox x:Name="txtLastName" Grid.Column="1" Margin="10,28,10,0" Height="27" VerticalAlignment="Top" />
+        <TextBox Grid.Row="1" Grid.Column="0" x:Name="txtIdStudent" Height="27"/>
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="txtLastName" Height="27" Grid.ColumnSpan="2"/>
+        <TextBox Grid.Row="1" Grid.Column="2" x:Name="txtFirstName" Height="27"/>
 
-        <TextBlock Grid.Column="2" FontSize="18" Margin="10,0,10,0">
-            Nome
-        </TextBlock>
-        <TextBox x:Name="txtFirstName" Grid.Column="2" Grid.ColumnSpan="2" Margin="10,28,38,0" Height="27" VerticalAlignment="Top" />
+        <TextBlock Grid.Row="2" FontSize="18" VerticalAlignment="Bottom">email</TextBlock>
+        <TextBlock Grid.Row="2" Grid.Column="2" FontSize="18" VerticalAlignment="Bottom">Residenza</TextBlock>
 
-        <TextBlock Grid.Row="1" FontSize="18" Margin="10,0,10,13">
-            email
-        </TextBlock>
-        <TextBox x:Name="txtEmail" Grid.Row="1" Grid.ColumnSpan="2" Margin="10,28,19,0" Height="27" VerticalAlignment="Top" />
+        <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" x:Name="txtEmail" Height="27"/>
+        <TextBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" x:Name="txtResidence" Height="27"></TextBox>
 
-        <TextBlock Grid.Column="2" Grid.Row="1" FontSize="18" Margin="10,0,10,13">
-            Residenza
-        </TextBlock>
-        <TextBox x:Name="txtResidence" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" Margin="10,28,38,0" Height="27" VerticalAlignment="Top" />
+        <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" FontSize="18" VerticalAlignment="Bottom">Posto di nascita</TextBlock>
+        <TextBlock Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" FontSize="18" VerticalAlignment="Bottom">Data di nascita</TextBlock>
 
-        <TextBlock Grid.Column="0" Grid.Row="2" FontSize="18" Margin="10,0,10,6">
-            Posto di nascita
-        </TextBlock>
-        <TextBox x:Name="txtBirthPlace" Grid.ColumnSpan="2" Grid.Row="2" Margin="10,28,19,0" Height="27" VerticalAlignment="Top" Grid.RowSpan="2" />
+        <TextBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" x:Name="txtBirthPlace" Height="27"/>
+        <TextBox Grid.Row="5" Grid.Column="2" x:Name="txtBirthDate" Height="27"/>
+        <TextBlock Grid.Row="5" Grid.Column="3" FontSize="18" 
+                   HorizontalAlignment="Right" VerticalAlignment="Bottom">Provenienza</TextBlock>
 
-        <TextBlock Grid.Column="2" Grid.Row="2" FontSize="18" Margin="10,0,126,6" Grid.ColumnSpan="2">
-            Data di nascita
-        </TextBlock>
-        <TextBox x:Name="txtBirthDate" Grid.Column="2" Grid.Row="2" Margin="10,28,14,0" Height="27" VerticalAlignment="Top" Grid.RowSpan="2" />
+        <TextBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" x:Name="txtOrigin" Height="27"/>
 
-        <TextBlock Grid.Column="3" Grid.Row="3" FontSize="18" Margin="10,0,10,0">
-            Provenienza
-        </TextBlock>
-        <TextBox x:Name="txtOrigin" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="3" Margin="10,0,38,0" Height="27" VerticalAlignment="Center" />
+        <TextBlock Grid.Row="0" Grid.Column="4" FontSize="18" Grid.ColumnSpan="2" 
+                   HorizontalAlignment="Center" VerticalAlignment="Bottom">Allievi trovati</TextBlock>
 
-        <TextBlock Grid.Column="0" Grid.Row="3" FontSize="18" Margin="10,68,10,15" Grid.RowSpan="2">
-            Allievi trovati
-        </TextBlock>
+        <DataGrid Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="7" x:Name="dgwSearchedStudents" 
+                  MouseDoubleClick="dgwSearchedStudents_MouseDoubleClick"
+                  MouseDown="dgwSearchedStudents_MouseDown" Height="250" VerticalAlignment="Bottom"/>
 
-        <DataGrid x:Name="dgwSearchedStudents" Grid.Row="4" Grid.RowSpan="4" Grid.ColumnSpan="2" Background="DarkGray" Margin="10,30,10,10"></DataGrid>
+        <CheckBox Grid.Row="7" Grid.Column="2" x:Name="chkDisabled" FontSize="13" VerticalAlignment="Center">Disabilitato</CheckBox>
+        <CheckBox Grid.Row="7" Grid.Column="3" x:Name="chkHasSpecialNeeds" FontSize="13" VerticalAlignment="Center">BES/DSA</CheckBox>
 
+        <Button x:Name="btnFindStudent" Grid.Row="8" Grid.Column="1" FontSize="20" 
+                Click="btnFindStudent_Click" Width="140">Ricerca</Button>
+        <Button x:Name="btnNew" Grid.Row="8" Grid.Column="2" FontSize="20"
+                Click="btnNew_Click" Width="140">Pulisci dati</Button>
+        <Button x:Name="btnFindHomonyms" Grid.Row="9" Grid.Column="1" FontSize="15"
+                Click="btnFindHomonyms_Click" Width="140">Ricerca omonimi</Button>
+        <Button x:Name="btnSave" Grid.Row="9" Grid.Column="2" FontSize="20"
+                Click="btnSave_Click" Width="140">Salva</Button>
+        <Button x:Name="btnDeleteStudent" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" 
+                FontSize="20" Click="btnDeleteStudent_Click" Width="140">Cancella</Button>
+        <Button x:Name="btnExitWithoutChoosing" Grid.Row="11" Grid.Column="1" FontSize="16"
+                Click="btnExitWithoutChoosing_Click" Width="140">Esci senza scegliere</Button>
+        <Button x:Name="btnChoose" Grid.Row="11" Grid.Column="2" FontSize="20" 
+                Width="140" Click="btnChoose_Click">Scegli</Button>
 
-
-        <CheckBox x:Name="chkDisabled" Grid.Column="2" Grid.Row="3" FontSize="13" Margin="0,68,0,0" Grid.RowSpan="2">Disabilitato</CheckBox>
-        <CheckBox x:Name="chkHasSpecialNeeds" Grid.Column="3" Grid.Row="3" FontSize="13" Margin="0,68,0,0" Grid.RowSpan="2">BES/DSA</CheckBox>
-
-
-
-        <Button Grid.Column="2" Grid.Row="5" FontSize="20" Background="White" Margin="10,5,6,10">Ricerca</Button>
-        <Button Grid.Column="3" Grid.Row="5" FontSize="20" Background="White" Margin="10,5,10,11">Pulisci dati</Button>
-        <Button Grid.Column="2" Grid.Row="6" FontSize="20" Background="White" Margin="10,2,6,5">Ricerca omonimi</Button>
-        <Button Grid.Column="3" Grid.Row="5" FontSize="20"  Background="White" Margin="10,47,10,5" Grid.RowSpan="2">Salva</Button>
-        <Button Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="6" Background="White" FontSize="20" Margin="68,37,80,0" Grid.RowSpan="2">Cancella</Button>
-        <Button Grid.Column="4" Grid.Row="6" Background="White" FontSize="20" Grid.RowSpan="2" Margin="10,37,10,0">Esci</Button>
-        <Button x:Name="btnChoose" Grid.Column="5" Grid.Row="6" Background="White" FontSize="20" Grid.RowSpan="2" Margin="10,37,10,0">Scegli</Button>
-
-        <Image x:Name="picStudent" Grid.Row="0" Grid.RowSpan="5" Grid.Column="4" Grid.ColumnSpan="2" Margin="0,6,0,0"></Image>
+        <Image x:Name="picStudent" HorizontalAlignment="Center"
+               Grid.Row="8" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="8"></Image>
     </Grid>
 </Window>

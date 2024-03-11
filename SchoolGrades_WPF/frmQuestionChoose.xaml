@@ -46,7 +46,7 @@
                     <Label Name="lblQuestion" FontWeight="Regular" Height="25" VerticalAlignment="Top" Foreground="Black">Domande</Label>
                     <Button Name="btnAddQuestion" VerticalAlignment="Center" HorizontalAlignment="Left" Height="40" Width="40" Margin="10" Click="btnAddQuestion_Click">+</Button>
                 </StackPanel>
-                <Button Name="btnCopyQuestion" Height="40" Width="50" Click="btnCopyQuestion_Click">copia</Button>
+                <Button x:Name="btnCopyQuestion" Height="40" Width="50" Click="btnCopyQuestion_Click" Content="copia"/>
                 <StackPanel>
                     <Label Name="lblPeriodOfQuestionTopics" FontWeight="Regular" Foreground="Black">Periodo degli argomenti delle domande</Label>
                     <StackPanel Orientation="Horizontal">

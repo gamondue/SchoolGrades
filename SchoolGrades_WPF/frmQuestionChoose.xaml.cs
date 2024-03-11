@@ -68,8 +68,6 @@ namespace SchoolGrades_WPF
         {
             cmbSchoolSubject.SelectedValue = "";
 
-            lstTags.ItemsSource = tagsList;
-
             List<SchoolPeriod> listPeriods = Commons.bl.GetSchoolPeriods(currentClass.SchoolYear);
             cmbSchoolPeriod.ItemsSource = listPeriods;
             // select the combo item of the partial period of the DateTime.Now
