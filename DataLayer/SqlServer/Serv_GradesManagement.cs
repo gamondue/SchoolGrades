@@ -9,6 +9,27 @@ namespace SchoolGrades
 {
     internal partial class SqlServer_DataLayer : DataLayer
     {
+        internal override void CreateTableGradeTypes()
+        {
+            try
+            {
+                using (DbConnection conn = Connect())
+                {
+                    DbCommand cmd = conn.CreateCommand();
+                    cmd.CommandText =
+                        @"CREATE TABLE GradeTypes
+                        (idGradeType VARCHAR (5) PRIMARY KEY NOT NULL,
+                        idGradeCategory VARCHAR (5),
+                        name VARCHAR (20) NOT NULL,
+                        description VARCHAR (255),
+                        defaultWeight FLOAT,
+                        programsCode INT,
+                        idGradeTypeParent VARCHAR (5))";
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch { }
+        }
         internal override void CreateTableGrades()
         {
             try
@@ -96,15 +117,14 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
+        
         internal override double GetDefaultWeightOfGradeType(string IdGradeType)
         {
             double d;
             using (DbConnection conn = Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT defaultWeight " +
-                    "FROM GradeTypes " +
-                    "WHERE idGradeType='" + IdGradeType + "'; ";
+                cmd.CommandText = @$"SELECT defaultWeight FROM GradeTypes WHERE idGradeType='{IdGradeType}';";
                 d = (double)cmd.ExecuteScalar();
                 cmd.Dispose();
             }
@@ -400,7 +420,7 @@ namespace SchoolGrades
                 gt.IdGradeCategory = (string)Row["IdGradeCategory"];
                 gt.Name = (string)Row["Name"];
                 gt.DefaultWeight = (double)Row["DefaultWeight"];
-                gt.Desc = (string)Row["Desc"];
+                gt.Desc = (string)Row["Description"];
                 return gt;
             }
             return null;
@@ -412,9 +432,7 @@ namespace SchoolGrades
             {
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM GradeTypes";
-                cmd.CommandText += " WHERE idGradeType ='" + IdGradeType + "'";
-                cmd.CommandText += ";";
+                cmd.CommandText = @$"SELECT * FROM GradeTypes WHERE idGradeType ='{IdGradeType}';";
                 dRead = cmd.ExecuteReader();
                 dRead.Read();
                 gt = GetGradeTypeFromRow(dRead);
@@ -428,10 +446,7 @@ namespace SchoolGrades
             using (DbConnection conn = Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "UPDATE Grades" +
-                " SET value=" + SqlDouble(grade) +
-                " WHERE idGrade=" + id +
-                ";";
+                cmd.CommandText = @$"UPDATE Grades SET value={SqlDouble(grade)} WHERE idGrade={id};";
                 cmd.ExecuteNonQuery();
             }
         }
@@ -440,9 +455,7 @@ namespace SchoolGrades
             using (DbConnection conn = Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "DELETE FROM Grades" +
-                    " WHERE idGrade=" + KeyGrade +
-                    ";";
+                cmd.CommandText = @$"DELETE FROM Grades WHERE idGrade={KeyGrade};";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
@@ -475,26 +488,26 @@ namespace SchoolGrades
             DataTable t;
             using (DbConnection conn = Connect())
             {
-                string query = "SELECT DISTINCT Grades.idGrade,datetime(Grades.timeStamp)," +
-                "Grades.value AS 'grade', Grades.weight," +
-                "Questions.text,lastName,firstName," +
-                " Grades.idGradeParent" +
-                " FROM Grades" +
-                " JOIN Students" +
-                " ON Students.idStudent=Grades.idStudent" +
-                " JOIN Classes_Students" +
-                " ON Classes_Students.idStudent=Students.idStudent" +
-                " LEFT JOIN Questions" +
-                " ON Grades.idQuestion=Questions.idQuestion" +
-                " WHERE Students.idStudent=" + Student.IdStudent +
-                " AND (Grades.idSchoolYear='" + SchoolYear + "'" +
-                " OR Grades.idSchoolYear='" + SchoolYear.Replace("-", "") + "'" +
-                ")" +
-                " AND Grades.idGradeType='" + IdGradeType + "'" +
-                " AND Grades.idSchoolSubject='" + IdSchoolSubject + "'" +
-                " AND Grades.Value > 0" +
-                " AND Grades.Timestamp BETWEEN " + SqlDate(DateFrom) + " AND " + SqlDate(DateTo) +
-                " ORDER BY lastName, firstName, Students.idStudent, Grades.timestamp Desc;";
+                string query = @$"SELECT DISTINCT Grades.idGrade,datetime(Grades.timeStamp),
+                Grades.value AS 'grade', Grades.weight,
+                Questions.text,lastName,firstName,
+                 Grades.idGradeParent
+                 FROM Grades
+                 JOIN Students
+                 ON Students.idStudent=Grades.idStudent
+                 JOIN Classes_Students
+                 ON Classes_Students.idStudent=Students.idStudent
+                 LEFT JOIN Questions
+                 ON Grades.idQuestion=Questions.idQuestion
+                 WHERE Students.idStudent={Student.IdStudent}
+                 AND (Grades.idSchoolYear='{SchoolYear}'
+                 OR Grades.idSchoolYear='{SchoolYear.Replace("-", "")}'
+                )
+                 AND Grades.idGradeType='{IdGradeType} '
+                 AND Grades.idSchoolSubject='{IdSchoolSubject}'
+                 AND Grades.Value > 0
+                 AND Grades.Timestamp BETWEEN {SqlDate(DateFrom)} AND {SqlDate(DateTo)}
+                 ORDER BY lastName, firstName, Students.idStudent, Grades.timestamp Description";
 
                 DataAdapter DAdapt = new SqlDataAdapter(query, (SqlConnection)conn);
                 DataSet DSet = new DataSet("ClosedMicroGrades");
