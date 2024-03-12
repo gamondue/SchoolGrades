@@ -44,16 +44,16 @@ namespace NUnitDbTests
         [Test]
         public void T_TestManagement_Read()
         {
-            DbDataReader dRead;
-            Test_Commons.dl.GetTestFromRow(DbDataReader dRead);
+         
+            Test_Commons.dl.GetTestFromRow(DbDataReader Row);
             
-            Test_Commons.dl.SaveTest(List<SchoolTest> );
+            
         }
 
         [Test]
         public void T_TestManagement_Update()
         {
-            // test of DataLayer Methods that update data from table SchoolYears
+            Test_Commons.dl.SaveTest();
 
         }
         [Test]
