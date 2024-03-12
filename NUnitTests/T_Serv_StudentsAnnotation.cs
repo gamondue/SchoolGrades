@@ -6,6 +6,7 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace NUnitDbTests
@@ -47,7 +48,7 @@ namespace NUnitDbTests
             StudentAnnotation annotation = new StudentAnnotation();
             annotation.Annotation = "test";
             annotation.InstantTaken = null;
-            annotation.InstantTaken = null;
+            annotation.InstantClosed = null;
             Test_Commons.dl.SaveAnnotation(annotation, student);
             conn.Close();
         }
@@ -77,15 +78,55 @@ namespace NUnitDbTests
             dRead = cmd.ExecuteReader();
             while (dRead.Read())
             {
-                Assert.That((int)dRead["idAnnotation"], Is.LessThan(2));
+                StudentAnnotation a = Test_Commons.dl.GetAnnotationFromRow(dRead);
+                Assert.That((int)dRead["idAnnotation"], Is.EqualTo(a.IdAnnotation));
             }
+
+            Test_Commons.dl.GetAnnotation(1);
 
             conn.Close();
         }
         [Test]
         public void T_Serv_AnnotationManagement_Update()
         {
+            DbConnection conn;
 
+            string connectionStringSqlServer = "SERVER=localhost;UID=sa;PWD=burbero2023;Database=SchoolGrades;TrustServerCertificate=true;";
+
+            conn = new SqlConnection(connectionStringSqlServer);
+            conn.Open();
+
+            DbCommand cmd = conn.CreateCommand();
+            DbDataReader dRead;
+
+            Student student = new Student();
+            student.IdStudent = 15;
+            StudentAnnotation annotation = new StudentAnnotation();
+            
+            annotation.InstantTaken = DateTime.Now;
+            annotation.InstantClosed = null;
+
+            string query = "SELECT * " +
+                " FROM StudentsAnnotations" +
+                " WHERE StudentsAnnotations.idStudent=" +
+                student.IdStudent + ";";
+
+            cmd.CommandText = query;
+            dRead = cmd.ExecuteReader();
+            if (dRead.Read())
+            {
+                annotation.Annotation = "test UPDATE";
+                annotation.IdAnnotation = (int)dRead["idAnnotation"];
+            }
+            else
+            {
+                annotation.Annotation = "test";
+            }
+                
+
+            Test_Commons.dl.SaveAnnotation(annotation, student);
+
+            conn.Close();
         }
         [Test]
         public void T_Serv_AnnotationManagement_Delete()
@@ -99,16 +140,16 @@ namespace NUnitDbTests
 
             DbCommand cmd = conn.CreateCommand();
             DbDataReader dRead;
-            string query = "DELETE " +
+
+            string query = "SELECT idAnnotation " +
                 " FROM StudentsAnnotations" +
-                " WHERE StudentsAnnotations.idAnnotation=2;";
+                " WHERE StudentsAnnotations.idStudent=15;";
 
             cmd.CommandText = query;
             dRead = cmd.ExecuteReader();
-            while (dRead.Read())
-            {
-                Assert.That((int)dRead["idAnnotation"], Is.LessThan(2));
-            }
+
+            dRead.Read();
+            Test_Commons.dl.EraseAnnotationById((int)dRead["idAnnotation"]);
 
             conn.Close();
         }

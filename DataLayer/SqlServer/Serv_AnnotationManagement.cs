@@ -67,8 +67,8 @@ namespace SchoolGrades
                     " SET" +
                     " idStudent=" + SqlInt(s.IdStudent) + "," +
                     " idSchoolYear=" + SqlString(Annotation.IdSchoolYear) + "," +
-                    " instantTaken=" + SqlDate(Annotation.InstantTaken) + "," +
-                    " instantClosed=" + SqlDate(Annotation.InstantClosed) + "," +
+                    " instantTaken=" + SqlDate(Annotation.InstantTaken).Replace(" ", "T").Replace("datetime", "") + "," +
+                    " instantClosed=" + SqlDate(Annotation.InstantClosed).Replace(" ", "T").Replace("datetime", "") + "," +
                     " isActive=" + SqlBool(Annotation.IsActive) + ",";
                     if (FieldExists("StudentsAnnotations", "isPopUp"))
                         query += " isPopUp=" + SqlBool(Annotation.IsPopUp) + ",";
@@ -157,7 +157,7 @@ namespace SchoolGrades
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM StudentsAnnotations" +
-                    " WHERE idAnnotation=" + SqlInt(IdAnnotation) +
+                    " WHERE StudentsAnnotations.idAnnotation=" + SqlInt(IdAnnotation) +
                     ";";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
