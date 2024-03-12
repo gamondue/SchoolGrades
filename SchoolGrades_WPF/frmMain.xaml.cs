@@ -1749,6 +1749,7 @@ namespace SchoolGrades_WPF
             int RowIndex = grid.SelectedIndex;
             if (RowIndex > -1)
             {
+
                 currentClass.CurrentStudent = currentStudentsList[RowIndex];
                 currentStudent = currentClass.CurrentStudent;
                 currentStudent.SchoolYear = currentClass.SchoolYear;

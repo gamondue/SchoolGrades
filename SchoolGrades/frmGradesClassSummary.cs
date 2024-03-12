@@ -170,26 +170,6 @@ namespace SchoolGrades
             }
             return rdbFound;
         }
-        private void rdbShowGrades_CheckedChanged(object sender, EventArgs e)
-        {
-            //RetrieveData(rdbShowGrades);
-        }
-        private void rdbShowWeightedGrades_CheckedChanged(object sender, EventArgs e)
-        {
-            //RetrieveData(rdbShowWeightedGrades);
-        }
-        private void rdbShowWeights_CheckedChanged(object sender, EventArgs e)
-        {
-            //RetrieveData(rdbShowWeights);
-        }
-        private void rdbShowWeightsOnOpenGrades_CheckedChanged(object sender, EventArgs e)
-        {
-            //RetrieveData(rdbShowWeightsOnOpenGrades);
-        }
-        private void rdbMissing_CheckedChanged(object sender, EventArgs e)
-        {
-            //RetrieveData(rdbMissing);
-        }
         private void btnSaveOnFile_Click(object sender, EventArgs e)
         {
             // find the kind of table we have to save
