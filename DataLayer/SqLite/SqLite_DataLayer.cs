@@ -34,5 +34,27 @@
             get { return dbName; }
             set { nameAndPathDatabase = value; }
         }
+
+        internal override void CreateTableStudents()
+        {
+
+        }
+
+        internal override bool ExistTable()
+        {
+
+        
+            return false;
+        }
+
+
+        internal override void DelateTable()
+        {
+
+
+        }
+
     }
+        
+        
 }
