@@ -401,7 +401,7 @@ namespace SchoolGrades
                         + "," + SqlString(StudentsData[row, 2]);
                     // if we have a column 3, it is birth date 
                     if (nColumns > 3)
-                        query += "," + SqlString(StudentsData[row, 3]);
+                        query += "," + SqlDate(StudentsData[row, 3]);
                     else
                         query += ", ''";
                     if (nColumns > 4)

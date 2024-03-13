@@ -89,7 +89,8 @@
             <CheckBox Name="chkCurrentActive" Grid.Row="2" Grid.Column="1" Content="Attiva" Foreground="DarkBlue" Margin="5,5"></CheckBox>
             <CheckBox Name="chkPopUp" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Content="Promemoria" Foreground="DarkBlue" Margin="0,5"></CheckBox>
             <TextBox Name="txtAnnotation" HorizontalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="6" Width="790" Margin="5,5,5,0"></TextBox>
-            <DataGrid Name="dgwNotes" HorizontalAlignment="left" Grid.Row="4" Grid.ColumnSpan="6" Width="790" Margin="5,0,5,5" Background="DarkGray" SelectionChanged="dgwNotes_SelectionChanged" />
+            <DataGrid Name="dgwNotes" HorizontalAlignment="left" Grid.Row="4" Grid.ColumnSpan="6" Width="790" Margin="5,0,5,5"
+                      Background="DarkGray" SelectionChanged="dgwNotes_SelectionChanged" />
         </Grid>
     </Grid>
 </Window>

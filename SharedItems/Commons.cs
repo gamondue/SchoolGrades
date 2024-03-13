@@ -14,7 +14,6 @@ namespace SchoolGrades
     public static class Commons
     {
         internal static BusinessLayer bl;
-        //internal static DataLayer dl;
         // program's default path and files. Overridden by the config file "schgrd.cfg", when it exists
         internal static string PathUser = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
         internal static string PathAndFileExe = System.Reflection.Assembly.GetExecutingAssembly().CodeBase.Substring(8);
@@ -123,6 +122,9 @@ namespace SchoolGrades
         }
         internal static DateTime GetValidDateFromString(string input)
         {
+            input = input.Replace('_', ' ');
+            input = input.Replace('-', '/');
+            input = input.Replace('.', ':');
             if (DateTime.TryParse(input, out DateTime date))
             {
                 // The string is a valid date, and 'date' now contains the parsed value.
@@ -441,7 +443,12 @@ namespace SchoolGrades
             string newestFileNameAndPath = "";
             foreach (string file in files)
             {
-                DateTime thisFileDate = Commons.GetValidDateFromString(Path.GetFileName(file).Substring(0, 10));
+                string justName = Path.GetFileName(file);
+                // skip thi file if its name is too short
+                if (justName.Length < 19)
+                    continue; 
+
+                DateTime thisFileDate = Commons.GetValidDateFromString(Path.GetFileName(file).Substring(0, 19));
                 if (thisFileDate > newestFileDate)
                 {
                     newestFileDate = thisFileDate;

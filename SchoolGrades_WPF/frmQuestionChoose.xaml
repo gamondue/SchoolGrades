@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SchoolGrades_WPF"
         mc:Ignorable="d"
-        Title="frmQuestionChoose" Height="450" Width="800" Background="PowderBlue">
+        Title="Scelta domanda" Height="450"  Width="1000" Background="PowderBlue">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="Foreground" Value="DarkBlue"></Setter>
@@ -13,97 +13,123 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="70"/>
+            <ColumnDefinition Width="70"/>
+            <ColumnDefinition Width="70"/>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="lblSchoolSubject" Grid.Column="0" Margin="3" >Materia</Label>
+        <Label x:Name="lblQuestionType" Grid.Column="1" Margin="3" >Tipo domanda</Label>
+        <Label x:Name="lblSearchText" Grid.Column="2" Margin="3" >Testo da ricercare</Label>
+
+        <ComboBox x:Name="cmbSchoolSubject" Grid.Row="1" Grid.Column="0" 
+                    Margin="3" SelectionChanged="cmbSchoolSubject_SelectionChanged"></ComboBox>
+        <ComboBox x:Name="cmbQuestionTypes" Grid.Row="1" Grid.Column="1" 
+                    SelectionChanged="cmbQuestionTypes_SelectionChanged" Margin="3"/>
+        <TextBox x:Name="txtSearchText" Grid.Row="1" Grid.Column="2" 
+                    TextChanged="txtSearchText_TextChanged"></TextBox>
+        <Button x:Name="btnSearch" Grid.Row="1" Grid.Column="3" 
+                Width="55" Margin="5">Cerca</Button>
+        <Button x:Name="btnKnotsToTheComb" Grid.Row="1" Grid.Column="4" Margin="5" 
+                Click="btnKnotsToTheComb_Click">Pettine</Button>
+        <Button x:Name="btnQuestionsDone" Grid.Row="1" Grid.Column="5" 
+                Margin="5">Fatte</Button>
+        <Label x:Name="lblTopic" Grid.Row="2" Grid.Column="0" Margin="3">Argomento per filtro</Label>
+        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
+                    Orientation="Horizontal">
+            <TextBox x:Name="txtTopicCode" Width="100" Margin="3" IsReadOnly="True"/>
+            <TextBox x:Name="txtTopic" Width="680" Margin="3" ></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3"
+                    Orientation="Horizontal">
+            <StackPanel Grid.Row="3" Grid.Column="3">
+                <RadioButton x:Name="rdbOneTopic" Click="rdbOneTopic_Click">Un argom.</RadioButton>
+                <RadioButton x:Name="rdbManyTopics">Più argom.</RadioButton>
+            </StackPanel>
+            <Button x:Name="btnChooseTopic" Margin="5" Width="30" Click="btnChooseTopic_Click">__</Button>
+            <Button x:Name="btnChooseByPeriod" Width="30" Margin="5" Click="btnChooseByPeriod_Click">Per.</Button>
+            <Button x:Name="btnDontUseTopic" Width="30" Margin="5" Click="btnDontUseTopic_Click">-</Button>
+        </StackPanel>
+        <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3">
             <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition Height="0.8*"></RowDefinition>
-                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Vertical" Margin="5,0">
-                <Label Name="lblSchoolSubject">Materia</Label>
-                <ComboBox Name="cmbSchoolSubject" SelectionChanged="cmbSchoolSubject_SelectionChanged"></ComboBox>
-                <Label Name="lblTopic" Foreground="Black" FontWeight="Regular">Argomento per filtro</Label>
-                <TextBox Name="txtTopicCode"></TextBox>
-            </StackPanel>
-            <StackPanel Grid.Column="1" Margin="5,0">
-                <Label Name="lblQuestionType">Tipo domanda</Label>
-                <ComboBox Name="cmbQuestionTypes" SelectionChanged="cmbQuestionTypes_SelectionChanged"></ComboBox>
-                <Label Foreground="PowderBlue">kjkkjk</Label>
-                <TextBox Name="txtTopic"></TextBox>
-            </StackPanel>
-            <StackPanel Grid.Column="2" Margin="5,0">
-                <Label Name="lblSearchText">Testo da ricercare</Label>
-                <TextBox Name="txtSearchText" TextChanged="txtSearchText_TextChanged"></TextBox>
-            </StackPanel>
-            <StackPanel Grid.Row="1" Orientation="Horizontal" Grid.ColumnSpan="3">
-                <StackPanel>
-                    <Label Name="lblQuestion" FontWeight="Regular" Height="25" VerticalAlignment="Top" Foreground="Black">Domande</Label>
-                    <Button Name="btnAddQuestion" VerticalAlignment="Center" HorizontalAlignment="Left" Height="40" Width="40" Margin="10" Click="btnAddQuestion_Click">+</Button>
-                </StackPanel>
-                <Button Name="btnCopyQuestion" Height="40" Width="50" Click="btnCopyQuestion_Click">copia</Button>
-                <StackPanel>
-                    <Label Name="lblPeriodOfQuestionTopics" FontWeight="Regular" Foreground="Black">Periodo degli argomenti delle domande</Label>
-                    <StackPanel Orientation="Horizontal">
-                        <Label Name="lblStart" Margin="0,15">Inizio</Label>
-                        <DatePicker Name="dtpStartPeriod" Width="70"></DatePicker>
-                        <Label Name="lblEnd" Margin="0,15">Fine</Label>
-                        <DatePicker Name="dtpEndPeriod" Width="70"></DatePicker>
-                        <ComboBox Name="cmbSchoolPeriod" Width="140" Height="20" SelectedItem=""></ComboBox>
-                    </StackPanel>
-                </StackPanel>
-                <StackPanel>
-                    <Label Name="lblWeightInTest" FontWeight="Regular">Peso nel test</Label>
-                    <StackPanel Orientation="Horizontal">
-                        <Button Name="btnRandomQuestion" Click="btnRandomQuestion_Click">Casuale</Button>
-                        <TextBox Name="txtWeightInTest">100</TextBox>
-                        <Button Name="btnChoose" Click="btnChoose_Click">Scegli</Button>
-                    </StackPanel>
-                </StackPanel>
-                
-            </StackPanel>
-            <Grid Grid.Row="2" Grid.ColumnSpan="3">
-                <DataGrid Name="dgwQuestions" Background="Gray"></DataGrid>
-            </Grid>
-            <Grid Grid.Column="3" Grid.RowSpan="3">
-                <StackPanel>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
-                        <Button x:Name="btnSearch" Height="20" Width="55" Margin="5">Cerca</Button>
-                        <Button x:Name="btnKnotsToTheComb" Height="20" Width="55" Margin="5" Click="btnKnotsToTheComb_Click">Pettine</Button>
-                        <Button x:Name="btnQuestionsDone" Height="20" Width="55" Margin="5">Fatte</Button>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel>
-                            <RadioButton Name="rdbOneTopic" Click="rdbOneTopic_Click">Un argom.</RadioButton>
-                            <RadioButton Name="rdbManyTopics">Più argom.</RadioButton>
-                        </StackPanel>
-                        <Button Name="btnChooseTopic" Margin="5" Width="30" Click="btnChooseTopic_Click">__</Button>
-                        <Button Name="btnChooseByPeriod" Width="30" Margin="5" Click="btnChooseByPeriod_Click"> Per. </Button>
-                        <Button Name="btnDontUseTopic" Width="30" Margin="5" Click="btnDontUseTopic_Click"> - </Button>
-                    </StackPanel>
-                </StackPanel>
-            </Grid>
-            <Grid Grid.Row="1" Grid.Column="3">
-                <StackPanel>
-                    <Label Name="LblLessonTime" HorizontalAlignment="Right"></Label>
-                    <StackPanel Orientation="Horizontal">
-                        <RadioButton Name="rdbOr" Foreground="Blue" FontSize="15" IsChecked="True" Margin="5" Click="rdbOr_Click">Tag OR</RadioButton>
-                        <RadioButton Name="rdbAnd" Foreground="Blue" FontSize="15" Margin="5">Tag AND</RadioButton>
-                    </StackPanel>
-                    
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Label Name="lblTags" VerticalAlignment="Bottom">Tags per filtro</Label>
-                        <Button Name="btnAddTag" Width="20" Margin="5" Click="btnAddTag_Click">+</Button>
-                        <Button Name="btnRemoveTag" Width="20" Margin="5" Click="btnRemoveTag_Click">-</Button>
-                    </StackPanel>
-                </StackPanel>
-            </Grid>
-            <ListBox Name="lstTags" Grid.Row="3" Grid.Column="3" Margin="5">lstTags</ListBox>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="37"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="lblQuestion" Height="25" Grid.ColumnSpan="2" 
+                    HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Domande"/>
+            <Label Name="lblPeriodOfQuestionTopics" VerticalAlignment="Bottom"
+                    Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="5"
+                    >Periodo degli argomenti delle domande</Label>
+            <Label x:Name="lblWeightInTest" VerticalAlignment="Bottom"
+                    Grid.Row="0" Grid.Column="8" Grid.ColumnSpan="2">Peso nel test</Label>
+
+            <Button x:Name="btnAddQuestion" 
+                    Grid.Row="1" Grid.Column="0" Width="40" 
+                    Margin="3" Click="btnAddQuestion_Click" Content="+"/>
+            <Button x:Name="btnCopyQuestion" 
+                    Grid.Row="1" Grid.Column="1" Width="40" Click="btnCopyQuestion_Click" 
+                    Margin="3" Content="copia"/>
+
+            <Label Name="lblStart" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Left"
+                    Grid.Row="2" Grid.Column="2">Inizio</Label>
+            <DatePicker Name="dtpStartPeriod" Margin="3" VerticalAlignment="Center"
+                        Grid.Row="2" Grid.Column="3"/>
+            <Label Name="lblEnd" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Left"
+                    Grid.Row="2" Grid.Column="4">Fine</Label>
+            <DatePicker Name="dtpEndPeriod" Margin="3" VerticalAlignment="Center"
+                        Grid.Row="2" Grid.Column="5"></DatePicker>
+            <ComboBox x:Name="cmbSchoolPeriod" Margin="3"
+                        Grid.Row="2" Grid.Column="6"/>
+            <Button Name="btnRandomQuestion" Click="btnRandomQuestion_Click"
+                    Grid.Row="2" Grid.Column="7" Margin="3">Casuale</Button>
+            <TextBox Name="txtWeightInTest" 
+                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                     Grid.Row="2" Grid.Column="8" Margin="3">100</TextBox>
+            <Button Name="btnChoose" Click="btnChoose_Click"
+                    Grid.Row="2" Grid.Column="9" Margin="3">Scegli</Button>
+            <Label Name="LblLessonTime" HorizontalAlignment="Right"
+                    Grid.Row="2" Grid.Column="10"/>
         </Grid>
+        <DataGrid x:Name="dgwQuestions" Grid.Row="5" Grid.Column="0" 
+                    Grid.RowSpan="2" Grid.ColumnSpan="3"/>
+        <StackPanel Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="3"
+                    Orientation="Vertical">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.ColumnSpan="3" Margin="3">
+                <RadioButton x:Name="rdbOr" Foreground="Blue" IsChecked="True" 
+                                Margin="3" Click="rdbOr_Click">Tag OR</RadioButton>
+                <RadioButton x:Name="rdbAnd" Foreground="Blue" Margin="3">Tag AND</RadioButton>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label x:Name="lblTags" VerticalAlignment="Bottom" Content="Tags per filtro"/>
+                <Button x:Name="btnAddTag" Width="20" Margin="5" Click="btnAddTag_Click">+</Button>
+                <Button x:Name="btnRemoveTag" Width="20" Margin="5" Click="btnRemoveTag_Click">-</Button>
+            </StackPanel>
+        </StackPanel>
+        <ListBox x:Name="lstTags" 
+                    Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="3"/>
     </Grid>
 </Window>

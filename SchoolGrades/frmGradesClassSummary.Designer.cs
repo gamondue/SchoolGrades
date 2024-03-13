@@ -180,7 +180,6 @@
             this.rdbShowGrades.Text = "Voti";
             this.toolTip1.SetToolTip(this.rdbShowGrades, "Mostra ogni singolo voto");
             this.rdbShowGrades.UseVisualStyleBackColor = true;
-            this.rdbShowGrades.CheckedChanged += new System.EventHandler(this.rdbShowGrades_CheckedChanged);
             this.rdbShowGrades.Click += new System.EventHandler(this.rdb_Click);
             // 
             // rdbShowWeights
@@ -195,7 +194,6 @@
             this.rdbShowWeights.Text = "Pesi";
             this.toolTip1.SetToolTip(this.rdbShowWeights, "Ordina per somma pesi e voti");
             this.rdbShowWeights.UseVisualStyleBackColor = true;
-            this.rdbShowWeights.CheckedChanged += new System.EventHandler(this.rdbShowWeights_CheckedChanged);
             this.rdbShowWeights.Click += new System.EventHandler(this.rdb_Click);
             // 
             // rdbShowWeightedGrades
@@ -208,7 +206,6 @@
             this.rdbShowWeightedGrades.Text = "Medie";
             this.toolTip1.SetToolTip(this.rdbShowWeightedGrades, "Mostra media pesata per ogni allievo");
             this.rdbShowWeightedGrades.UseVisualStyleBackColor = true;
-            this.rdbShowWeightedGrades.CheckedChanged += new System.EventHandler(this.rdbShowWeightedGrades_CheckedChanged);
             this.rdbShowWeightedGrades.Click += new System.EventHandler(this.rdb_Click);
             // 
             // rdbShowWeightsOnOpenGrades
@@ -221,7 +218,6 @@
             this.rdbShowWeightsOnOpenGrades.Text = "Pesi aperti";
             this.toolTip1.SetToolTip(this.rdbShowWeightsOnOpenGrades, "Ordina per somma pesi su voti aperti");
             this.rdbShowWeightsOnOpenGrades.UseVisualStyleBackColor = true;
-            this.rdbShowWeightsOnOpenGrades.CheckedChanged += new System.EventHandler(this.rdbShowWeightsOnOpenGrades_CheckedChanged);
             this.rdbShowWeightsOnOpenGrades.Click += new System.EventHandler(this.rdb_Click);
             // 
             // rdbMissing
@@ -234,7 +230,6 @@
             this.rdbMissing.Text = "Mancanti";
             this.toolTip1.SetToolTip(this.rdbMissing, "Mostra elenco degli alleivi che non hanno neppure un voto");
             this.rdbMissing.UseVisualStyleBackColor = true;
-            this.rdbMissing.CheckedChanged += new System.EventHandler(this.rdbMissing_CheckedChanged);
             this.rdbMissing.Click += new System.EventHandler(this.rdb_Click);
             // 
             // label6
