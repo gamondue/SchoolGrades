@@ -22,7 +22,7 @@ namespace SchoolGrades_WPF
         TreeMptt topicTreeMptt;
 
         Lesson currentLesson = new Lesson();
-
+        List<Topic> currentTopicsInLesson; 
         Class currentClass;
 
         //List<Topic> listTopicsBefore;
@@ -144,8 +144,9 @@ namespace SchoolGrades_WPF
         }
         private void RefreshTopicsInOneLesson()
         {
-            dgwOneLesson.ItemsSource = Commons.bl.GetTopicsOfOneLessonOfClass(currentClass,
+            currentTopicsInLesson = Commons.bl.GetTopicsOfOneLessonOfClass(currentClass,
                     currentLesson);
+            dgwOneLesson.ItemsSource = currentTopicsInLesson;
             if (dgwOneLesson.Columns.Count > 5)
             {
                 ////////dgwOneLesson.Columns[0].IsVisible = false;

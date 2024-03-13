@@ -93,11 +93,20 @@
                         <DataGridTextColumn Header="Note" Binding="{Binding Path=Note}" Width="*" IsReadOnly="True"/>
                     </DataGrid.Columns>
                 </DataGrid>
-                <GridSplitter Grid.Row="2"  HorizontalAlignment="Stretch" />
+                <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" />
                 <DataGrid Grid.Row="3" Grid.Column="0" 
-                          x:Name="dgwOneLesson"/>
+                          x:Name="dgwOneLesson"
+                          AutoGenerateColumns="False"
+                          DataContext="currentTopicsInLesson"
+                          ItemsSource="{Binding}"
+                          >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Argomento" Binding="{Binding Path=Name}" Width="150" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Dettaglio" Binding="{Binding Path=Desc}" Width="*" IsReadOnly="True"/>
+                    </DataGrid.Columns>
+                </DataGrid>
             </Grid>
-            <GridSplitter Grid.Column="1"  HorizontalAlignment="Stretch" />
+            <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" />
             <Grid Grid.Row="0" Grid.Column="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="35"/>

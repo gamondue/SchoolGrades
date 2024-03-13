@@ -325,9 +325,9 @@
                     <TextBox x:Name="txtPopUpQuestionCentralTime" 
                              Grid.Row="1" Grid.Column="1"
                              Text="7" 
-                             Height="13" Width="28" 
+                             Height="20" Width="28" 
                              TextAlignment="Center" 
-                             FontSize="8" FontWeight="Bold" Foreground="DarkBlue"/>
+                             FontSize="11" FontWeight="Bold" Foreground="DarkBlue"/>
                 <Label 
                     Content="min" 
                     Grid.Row="1" Grid.Column="2"
