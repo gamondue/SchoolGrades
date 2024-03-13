@@ -9,6 +9,14 @@ namespace SchoolGrades
 {
     internal partial class SqLite_DataLayer : DataLayer
     {
+        internal override void CreateTableGrades()
+        {
+            throw new NotImplementedException();
+        }
+        internal override void CreateTableGradeTypes()
+        {
+            throw new NotImplementedException();
+        }
         internal override Grade GetGrade(int? IdGrade)
         {
             Grade g = null;
