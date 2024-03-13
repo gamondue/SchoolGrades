@@ -7,122 +7,175 @@
         mc:Ignorable="d"
         Title="Lezioni" Height="600" Width="1000"
         Background="PowderBlue">
-    <StackPanel Orientation="Vertical">
-        <StackPanel Orientation="Horizontal" Margin="10,10,10,0">
-            <Label Width="90" Margin="5,0">Anno Scol.</Label>
-            <Label Width="90" Margin="5,0">Sigla Classe</Label>
-            <Label Width="90" Content="Codice Scuola"/>
-            <Button Background="White" Margin="200,0,5,0" Width="90">Cart. Immag.</Button>
-            <Button Background="White" Margin="5,0" Width="90">Start links</Button>
-            <Label Width="90" Content="Materia"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Margin="10,0,10,0">
-            <TextBlock Background="White" Width="90" Margin="0,0,5,0">
-            </TextBlock>
-            <TextBlock x:Name="txtSchoolYear" Background="White" Width="90" Margin="5,0">
-            </TextBlock>
-            <TextBlock x:Name="txtClass" Background="White" Width="90" Margin="5,0">
-            </TextBlock>
-            <TextBlock x:Name="txtSchoolSubject" Background="White" Width="500" Margin="5,0">
-            </TextBlock>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <StackPanel Orientation="Vertical" Width="794" >
-                <StackPanel Orientation="Horizontal" Margin="10,10,10,0">
-                    <TextBlock Width="110" Margin="0,0,5,0">Cod. Lezione</TextBlock>
-                    <TextBlock Width="110" Margin="5,0">Data</TextBlock>
-                    <TextBlock Width="120" Margin="5,0">Descrizione Lezione</TextBlock>
-                    <!--<Button x:Name="btnExport" Width="80" Margin="80,0,10,0" 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Width="90" Content="Codice Scuola"/>
+        <Label Grid.Row="0" Grid.Column="1" Width="90">Anno Scol.</Label>
+        <Label Grid.Row="0" Grid.Column="2" Width="90" Content="Sigla Classe"/>
+        <Label Grid.Row="0" Grid.Column="3" Width="90" Content="Materia"/>
+        <Button Grid.Row="0" Grid.Column="4" Width="90">Cart. Immag.</Button>
+        <Button Grid.Row="0" Grid.Column="5" Width="90">Start links</Button>
+
+        <TextBlock x:Name="txtOfficialSchoolAbbreviation" Background="White" Grid.Row="1" Grid.Column="0" Width="90"/>
+        <TextBlock x:Name="txtSchoolYear" Background="White" Grid.Row="1" Grid.Column="1" Width="90" Margin="5,0"/>
+        <TextBlock x:Name="txtClass" Background="White" Grid.Row="1" Grid.Column="2" Width="90"/>
+        <TextBlock x:Name="txtSchoolSubject" Background="White" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="4" Width="500"/>
+
+        <TextBlock Grid.Row="2" Grid.Column="0" Width="110" Margin="0,0,5,0">Cod. Lezione</TextBlock>
+        <TextBlock Grid.Row="2" Grid.Column="1" Width="110" Margin="5,0">Data</TextBlock>
+        <TextBlock Grid.Row="2" Grid.Column="2" Width="120" Margin="5,0">Descrizione Lezione</TextBlock>
+        <!--<Button x:Name="btnExport" Width="80" Margin="80,0,10,0" 
                         IsEnabled="False">Export</Button>-->
-                    <!--<Button  x:Name="BtnSearchAmongTopics" Width="80" Margin="10,0" 
+        <!--<Button  x:Name="BtnSearchAmongTopics" Width="80" Margin="10,0" 
                          Click="BtnSearchAmongTopics_Click">Cerca</Button>-->
-                    <Button x:Name="btnCopyToClipboard" Width="80" Margin="10,0" 
+        <Button x:Name="btnCopyToClipboard" Grid.Row="2" Grid.Column="4" Width="90" Margin="10,0" 
                         Click="btnCopyToClipboard_Click">Clipboard</Button>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Height="80" Margin="10,0,10,10">
-                    <StackPanel Orientation="Vertical" Width="110" Margin="0,0,5,0">
-                        <TextBox x:Name="txtLessonCode" Height="20"></TextBox>
-                        <Button x:Name="bntLessonErase" Height="40" Margin="0,15,0,0" Background="White" 
-                            Click="bntLessonErase_Click">Elimina Lezione</Button>
-                    </StackPanel>
-                    <StackPanel Orientation="Vertical" Width="110" Margin="5,0">
-                        <DatePicker x:Name="dtpLessonDate" Width="105"/>
-                        <Button x:Name="btnLessonAdd" Height="40" Margin="0,15,0,0" Background="White" 
-                            Click="btnLessonAdd_Click">Nuova lezione</Button>
-                    </StackPanel>
-                    <StackPanel Orientation="Vertical" Width="460">
-                        <TextBox x:Name="TxtLessonDesc" Height="70" Margin="5"></TextBox>
-                    </StackPanel>
-                    <StackPanel Orientation="Vertical" Margin="5,0">
-                        <Image Height="10"/>
-                    </StackPanel>
-                    <Button x:Name="btnLessonSave" Width="68" Height="36" Content="Salva Lezione" 
+        <Button x:Name="btnLessonSave" Grid.Row="2" Grid.Column="6" Width="90" Content="Salva Lezione" 
                         Click="btnLessonSave_Click"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Height="400" Margin="10,0">
-                    <StackPanel Orientation="Vertical" Width="295" Margin="0,0,5,0">
-                        <TextBox x:Name="txtTopicsDigest" Height="65" Margin="0,5"></TextBox>
-                        <DataGrid x:Name="dgwAllLessons" Height="200" Margin="0,5" Background="Gray" 
-                                  SelectionChanged="dgwAllLessons_SelectionChanged">
-                        </DataGrid>
-                        <DataGrid x:Name="dgwOneLesson" Height="100" Margin="0,5" Background="Gray"></DataGrid>
-                    </StackPanel>
-                    <StackPanel Orientation="Vertical" Width="481" Margin="5,0"
-                            HorizontalAlignment="Left" VerticalAlignment="Bottom">
-                        <TreeView x:Name="trwTopics" Height="294" Width="471" />
-                        <TextBox x:Name="txtTopicName" TextWrapping="Wrap" Text="TextBox" Width="456"/>
-                        <TextBox x:Name="txtTopicDescription" Height="70" RenderTransformOrigin="0.503,1.265" Width="456"/>
-                    </StackPanel>
-                </StackPanel>
+
+        <TextBox x:Name="txtLessonCode" Grid.Row="3" Grid.Column="0" Height="20"/>
+        <DatePicker x:Name="dtpLessonDate" Grid.Row="3" Grid.Column="1" Width="105"/>
+        <TextBox x:Name="TxtLessonDesc" TextWrapping="Wrap" 
+                 Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="5" Grid.RowSpan="2"/>
+
+        <Button x:Name="bntLessonErase" Grid.Row="4" Grid.Column="0" 
+            Click="bntLessonErase_Click">Elimina Lezione</Button>
+        <Button x:Name="btnLessonAdd" Grid.Row="4" Grid.Column="1" 
+                Click="btnLessonAdd_Click">Nuova lezione</Button>
+
+        <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="7">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="65"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="150"/>
+                </Grid.RowDefinitions>
+                <TextBox Grid.Row="0" Grid.Column="0" x:Name="txtTopicsDigest"/>
+                <DataGrid Grid.Row="1" Grid.Column="0" x:Name="dgwAllLessons"
+                          SelectionChanged="dgwAllLessons_SelectionChanged"
+                          AutoGenerateColumns="False"
+                          DataContext="currentStudentsList"
+                          ItemsSource="{Binding}">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Data" Width="70">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Date, StringFormat={}{0:yyyy.MM.dd}}"  />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Note" Binding="{Binding Path=Note}" Width="*" IsReadOnly="True"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" />
+                <DataGrid Grid.Row="3" Grid.Column="0" 
+                          x:Name="dgwOneLesson"
+                          AutoGenerateColumns="False"
+                          DataContext="currentTopicsInLesson"
+                          ItemsSource="{Binding}"
+                          >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Argomento" Binding="{Binding Path=Name}" Width="150" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Dettaglio" Binding="{Binding Path=Desc}" Width="*" IsReadOnly="True"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+            <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" />
+            <Grid Grid.Row="0" Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBox x:Name="txtTopicName" 
+                         Grid.Row="0" Grid.Column="0" 
+                         TextWrapping="Wrap"/>
+                <TextBox x:Name="txtTopicDescription" 
+                         Grid.Row="1" Grid.Column="0"
+                         TextWrapping="Wrap" />
+                <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" />
+                <TreeView x:Name="trwTopics"
+                          Grid.Row="3" Grid.Column="0"/>
+            </Grid>
+        </Grid>
+        <StackPanel Grid.Row="0" Grid.Column="7" Orientation="Vertical" 
+                    Grid.RowSpan="6"
+                    HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Image x:Name="picImage" Height="85"></Image>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="btnPrevious" Width="20" Height="20" 
+                        Click="btnPrevious_Click">←</Button>
+                <Button x:Name="btnNext" Width="20" Height="20" 
+                        Click="btnNext_Click">→</Button>
+                <Button x:Name="btnManageImages" Height="30">Immagini e docs</Button>
             </StackPanel>
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Image x:Name="picImage" Height="85" Margin="10"></Image>
-                <StackPanel Orientation="Horizontal">
-                    <Button x:Name="btnPrevious" Width="20" Height="20" Margin="5,0" Click="btnPrevious_Click">←</Button>
-                    <Button x:Name="btnNext" Width="20" Height="20" Margin="5,0" Click="btnNext_Click">→</Button>
-                    <Button x:Name="btnManageImages" Width="100" Height="50" Margin="20,0">Immagini e docs</Button>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="5,0">Trova</TextBlock>
-                    <CheckBox x:Name="chkMarkAllTopicsFound" Margin="90,0,0,0">Tutti</CheckBox>
-                </StackPanel>
-                <TextBox x:Name="txtTopicSearchString" Margin="5" Height="35" Width="178"></TextBox>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <CheckBox Grid.Row="0" Grid.Column="0" x:Name="chkSearchInDescriptions" HorizontalAlignment="Left"  HorizontalContentAlignment="Left" 
+            <StackPanel Orientation="Horizontal">
+                <TextBlock>Trova</TextBlock>
+                <CheckBox x:Name="chkMarkAllTopicsFound">Tutti</CheckBox>
+            </StackPanel>
+            <TextBox x:Name="txtTopicSearchString" Height="35"></TextBox>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <CheckBox Grid.Row="0" Grid.Column="0" x:Name="chkSearchInDescriptions" HorizontalAlignment="Left"  HorizontalContentAlignment="Left" 
                                   Width="98" Content="In Descrizione" Checked="chksSearch_CheckedChanged" Unchecked="chksSearch_CheckedChanged" IsChecked="True"/>
-                    <CheckBox Grid.Row="0" Grid.Column="1" x:Name="chkVerbatimString" HorizontalAlignment="Left" HorizontalContentAlignment="Left"
+                <CheckBox Grid.Row="0" Grid.Column="1" x:Name="chkVerbatimString" HorizontalAlignment="Left" HorizontalContentAlignment="Left"
                           Content="Esatta" Checked="chksSearch_CheckedChanged" Unloaded="chksSearch_CheckedChanged" />
-                    <CheckBox Grid.Row="1" Grid.Column="0" x:Name="chkAllWord" HorizontalAlignment="Left" HorizontalContentAlignment="Left" 
+                <CheckBox Grid.Row="1" Grid.Column="0" x:Name="chkAllWord" HorizontalAlignment="Left" HorizontalContentAlignment="Left" 
                           Unchecked="chksSearch_CheckedChanged" Checked="chksSearch_CheckedChanged" >Parola</CheckBox>
-                    <CheckBox Grid.Row="1" Grid.Column="1" x:Name="chkCaseInsensitive" HorizontalAlignment="Left" 
+                <CheckBox Grid.Row="1" Grid.Column="1" x:Name="chkCaseInsensitive" HorizontalAlignment="Left" 
                           HorizontalContentAlignment="Left" Margin="30,0" Checked="chksSearch_CheckedChanged" 
                           Unchecked="chksSearch_CheckedChanged" IsChecked="True">ma E mi</CheckBox>
-                </Grid>
-                <Button x:Name="btnFind" Height="30" Background="White" Margin="5,0" Width="135" Click="btnFind_Click"
-                    >Trova (F3)</Button>
-                <Button x:Name="btnFindUnderNode" Height="30" Background="White" Margin="5" Click="btnFindUnderNode_Click"
-                    Width="135">Trova sotto (Shift+F3)</Button>
-                <Button x:Name="btnSaveTree" Height="30" Width="135" Background="White" Margin="5" 
+            </Grid>
+            <Button x:Name="btnFind" Height="30" Width="130" Margin="5" 
+                    Click="btnFind_Click">Trova (F3)</Button>
+            <Button x:Name="btnFindUnderNode" Margin="5" Click="btnFindUnderNode_Click"
+                    Width="130" Height="30">Trova sotto (Shift+F3)</Button>
+            <Button x:Name="btnSaveTree" Height="30" Width="130" Margin="5" 
                     Click="btnSaveTree_Click">Salva Argomenti (F5)</Button>
-                <Button x:Name="btnAddNode" Height="30" Width="135" Background="White" 
+            <Button x:Name="btnAddNode" Height="30" Width="130" 
                     Click="btnAddNode_Click" Margin="5">Aggiungi figlio (Ins)</Button>
-                <Button x:Name="btnAddNodeBrother" Height="30" Width="135" Background="White" Margin="5"
+            <Button x:Name="btnAddNodeBrother" Height="30" Width="130" Margin="5"
                     Click="btnAddNodeBrother_Click">Agg. fratello (Shift+Ins)</Button>
-                <Button x:Name="btnTopicsDone" Height="30" Background="White" Width="135" 
+            <Button x:Name="btnTopicsDone" Height="30" Width="130" 
                     Click="btnTopicsDone_Click" Margin="5">Argomenti fatti</Button>
-                <Button x:Name="btnArgFreemind" Height="30" Background="White" Width="135" 
+            <Button x:Name="btnArgFreemind" Height="30" Width="130" 
                     Click="btnArgFreemind_Click" Margin="5">Argomenti Freemind</Button>
-                <Button x:Name="btnDelete" Width="135" Height="30" Background="White" 
+            <Button x:Name="btnDelete" Width="130" Height="30"
                     Click="btnDelete_Click" Margin="5">Elimina (Canc)</Button>
-            </StackPanel>
         </StackPanel>
-    </StackPanel>
+    </Grid>
 </Window>
