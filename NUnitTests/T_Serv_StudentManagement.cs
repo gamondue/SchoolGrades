@@ -1,9 +1,4 @@
 ﻿using SchoolGrades.BusinessObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NUnitDbTests
 {
@@ -42,11 +37,8 @@ namespace NUnitDbTests
 
             //START CREATING THE IMPLMENTATION OF "EXIXST"
 
-            Assert.That(Test_Commons.dl.ExistTable(), Is.True);
+            Assert.That(Test_Commons.dl.ExistsTable("Students"), Is.True);
 
-
-            
-            
             //Creating an itance of Student to use as a parameter in the createStudent method
             Student student = new Student();
 
@@ -57,29 +49,30 @@ namespace NUnitDbTests
             student.FirstName = "Enes";
             student.LastName = "Sela";
             student.Email = "EnesSela@gmail.com";
-            
+
 
             Test_Commons.dl.CreateStudent(student);
 
-
+            Assert.Fail();
         }
         [Test]
         public void T_SchoolYears_Read()
         {
             // test of DataLayer Methods that read data from table SchoolYears
+            Assert.Fail();
         }
         [Test]
         public void T_SchoolYears_Update()
         {
             // test of DataLayer Methods that update data from table SchoolYears
-
+            Assert.Fail();
         }
         [Test]
         public void T_SchoolYears_Delete()
         {
             // test of DataLayer Methods that delete data from table SchoolYears
-
-            //Test_Commons.dl.DelateTable();
+            Test_Commons.dl.DeleteTable("Students");
+            Assert.Fail();
         }
 
 

@@ -74,20 +74,13 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-
-        internal override bool DeleteShcoolYear(string anno)  //cancella i dati di una tabella
-        {                       // query funzionante:  delete from SchoolYears where idSchoolYear = '27-28' ;
+        internal override void DeleteSchoolYear(string year)  //cancella i dati di una tabella
+        {   // query funzionante:  delete from SchoolYears where idSchoolYear = '27-28' ;
             using (DbConnection conn = Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "DELETE FROM SchoolYears WHERE IdSchoolYear = '" + anno + "';";
-
-                                
+                cmd.CommandText = "DELETE FROM SchoolYears WHERE IdSchoolYear = '" + year + "';";
                 var result = cmd.ExecuteNonQuery();
-                return (result != null);
-
-               
-
             }
         }
     }
