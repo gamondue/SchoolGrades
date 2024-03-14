@@ -39,5 +39,9 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
+        internal override bool DeleteShcoolYear(string anno)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
