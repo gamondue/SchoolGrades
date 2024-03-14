@@ -463,5 +463,64 @@ namespace gamon.TreeMptt
                 localConnection.Dispose();
             }
         }
+        internal override void CreateTableTreeMpttDb_SqlServer()
+        {
+            try
+            {
+                using (localConnection = dl.Connect())
+                {
+                    DbCommand cmd = localConnection.CreateCommand();
+                    // Tabella Topics
+                    cmd.CommandText = @"CREATE TABLE Topics (
+	                idTopic	INT NOT NULL,
+	                name	VARCHAR(20) NOT NULL,
+	                descr	VARCHAR(255),
+	                leftNode	INT,
+	                rightNode	INT,
+	                parentNode	INT,
+	                childNumber	INT,
+	                PRIMARY KEY(idTopic)
+                );";// creazione della query.
+
+                    cmd.ExecuteNonQuery();// esecuzione della query
+                }
+            }
+            catch (Exception ex)
+            {
+
+
+            }
+        }
+        internal override void AddTopic(Topic newTopic)
+        {
+
+            using (localConnection = dl.Connect())
+            {
+                DbCommand cmd = localConnection.CreateCommand();
+                cmd.CommandText = "INSERT INTO Topics" +
+                    " (Id,Name,Date)" +
+                    " Values (" +
+                    dl.SqlString(newTopic.Id.ToString()) +
+                    "," + dl.SqlString(newTopic.Name) + "" +
+                    "," + dl.SqlString(newTopic.Date.ToString()) + "" +
+                    ");";
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+        }
+        internal override bool TopicExists(int? topicId)
+        {
+
+            using (localConnection = dl.Connect())
+            {
+                DbCommand cmd = localConnection.CreateCommand();
+                cmd.CommandText = "SELECT  1 idTopic" +
+                    " FROM Topics" +
+                    " WHERE idTopic='" + topicId.ToString() + "'" +
+                    ";";
+                var result = cmd.ExecuteScalar();
+                return (result != null);
+            }
+        }
     }
 }
