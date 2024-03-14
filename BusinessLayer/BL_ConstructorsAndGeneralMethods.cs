@@ -13,7 +13,7 @@ namespace SchoolGrades
         /// </summary>
 
         // create the next after the program that is using this has read the configuration file 
-        DataLayer dl; // must be instantiated after reading config file! 
+        internal DataLayer dl { get; private set; } // must be instantiated after reading config file! 
 
         // internal string NameAndPathDatabase { get; }
 
@@ -23,9 +23,9 @@ namespace SchoolGrades
             ////    File.Delete(NewDatabasePathName);
             ////File.Copy(Commons.PathAndFileDatabase, NewDatabasePathName);
 
-            ////// local instance of a DataLayer to operate on a second database 
+            ////// local instance of a dl to operate on a second database 
 
-            ////DataLayer newDatabaseDl = new SqLite_DataLayer(NewDatabasePathName);
+            ////dl newDatabaseDl = new SqLite_DataLayer(NewDatabasePathName);
 
             ////newDatabaseDl.CreateNewDatabaseFromExisting();
             ////return newDatabaseDl;

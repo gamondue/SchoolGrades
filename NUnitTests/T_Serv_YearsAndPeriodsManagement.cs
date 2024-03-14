@@ -1,4 +1,3 @@
-using SchoolGrades;
 using SchoolGrades.BusinessObjects;
 using System.Data.Common;
 
@@ -20,7 +19,7 @@ namespace NUnitDbTests
             //Assert.That(Test_Commons.dl.exist)
             // populate table 
             SchoolYear sy = new();
-            sy.IdSchoolYear = "27-28";  //bisogna cambiare l'id ogni prova senno da errore pk c'è gia un valore con lo stesso primary key
+            sy.IdSchoolYear = "27-28";  //bisogna cambiare l'id ogni prova senno da errore pk c'ï¿½ gia un valore con lo stesso primary key
             sy.ShortDescription = "2023-2024";
             sy.Notes = "Anno scolastico introdotto per sola prova";
             Assert.That(!Test_Commons.dl.SchoolYearExists(sy.IdSchoolYear));
@@ -33,8 +32,7 @@ namespace NUnitDbTests
         {
             // test of DataLayer Methods that read data from table SchoolYears
             bool test = Test_Commons.dl.SchoolYearExists("17-18");
-            Assert.That(test = true);   //in teoria se è true significa che quell anno esiste
-
+            Assert.That(test = true);   //in teoria se ï¿½ true significa che quell anno esiste
         }
         [Test]
         public void T_SchoolYears_Update(/*SchoolYear schoolYear*/)
@@ -51,8 +49,7 @@ namespace NUnitDbTests
         [Test]
         public void T_SchoolYears_Delete()
         {
-            // test of DataLayer Methods that delete data from table SchoolYears
-            
+            // test of DataLayer Methods that delete data from table SchoolYears           
             SchoolYear schoolYear1 = new();
             schoolYear1.IdSchoolYear = "23-24";
             schoolYear1.ShortDescription = "2024-2025";
@@ -61,8 +58,6 @@ namespace NUnitDbTests
             //bool c = Test_Commons.dl.DeleteShcoolYear(schoolYear1.IdSchoolYear);
             //Assert.That(c = true);
             Assert.That(Test_Commons.dl.DeleteShcoolYear(schoolYear1.IdSchoolYear));
-
-
         }
     }
 }
