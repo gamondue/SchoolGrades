@@ -1,10 +1,5 @@
 ﻿using gamon.TreeMptt;
 using SchoolGrades.BusinessObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NUnitDbTests
 {
@@ -28,22 +23,21 @@ namespace NUnitDbTests
             // Assert.That(!treeMpttDb_SqlServer.TopicExists(topic.Id));
             treeMpttDb_SqlServer.AddTopic(topic);
             Assert.That(treeMpttDb_SqlServer.TopicExists(topic.Id));
-
         }
         [Test]
         public void T_TreeMpttDb_SqlServer_Read()
         {
-
+            Assert.Fail();
         }
         [Test]
         public void T_TreeMpttDb_SqlServer_Update()
         {
-
+            Assert.Fail();
         }
         [Test]
         public void T_TreeMpttDb_SqlServer_Delete()
         {
-
+            Assert.Fail();
         }
     }
 }

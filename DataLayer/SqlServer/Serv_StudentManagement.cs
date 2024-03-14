@@ -166,7 +166,7 @@ namespace SchoolGrades
                     SqlString(Student.Origin) + "," +
                     SqlString(Student.Email) + "," +
                     SqlDate(Student.BirthDate.ToString()) + "," +
-                    SqlString(Student.BirthPlace) + "," +"0," +"0" +
+                    SqlString(Student.BirthPlace) + "," + "0," + "0" +
                     ");";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
@@ -582,15 +582,9 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-
-        
-        
-        
-        //TO DO!!!! CHAANGE THE LAST TWO PARAMETERS FROM INT TO BOOLEAN
+        //TO DO!!!! CHANGE THE LAST TWO PARAMETERS FROM INT TO BOOLEAN
         internal override void CreateTableStudents() //create the table student using this method and then try it on nunit adding new parameters to try 
         {
-
-
             //from the sql file given from Monti Search your table (mine is "Student") and then create it
             string createQuery = "CREATE TABLE Students (" +
                 "idStudent INT NOT NULL, " +
@@ -606,53 +600,12 @@ namespace SchoolGrades
                 "disabled Tinyint, " +
                 "hasSpecialNeeds Tinyint, " +
                 "PRIMARY KEY(idStudent));";
-
-
             using (DbConnection conn = Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = createQuery;
-
                 cmd.ExecuteNonQuery(); //execute the command
             }
-        }
-
-        
-
-        internal override bool ExistTable()
-        {
-            bool tableExist = false;
-            
-            try
-            {
-                CreateTableStudents();
-
-            }catch (Exception ex)
-            {
-                tableExist = true; //if an exception is generated it means that the table has been succesfully created and so you veryfied it
-            }
-
-            return tableExist;
-        }
-
-
-        internal override void DelateTable()
-        {
-
-            string createQuery = "Drop Table Students;"; 
-
-
-            using (DbConnection conn = Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = createQuery;
-
-                cmd.ExecuteNonQuery(); //execute the command
-            }
-
-
-
-
         }
     }
 }

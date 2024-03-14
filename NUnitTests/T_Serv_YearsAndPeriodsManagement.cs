@@ -1,5 +1,4 @@
 using SchoolGrades.BusinessObjects;
-using System.Data.Common;
 
 namespace NUnitDbTests
 {
@@ -25,7 +24,7 @@ namespace NUnitDbTests
             Assert.That(!Test_Commons.dl.SchoolYearExists(sy.IdSchoolYear));
             Test_Commons.dl.AddSchoolYear(sy);
             Assert.That(Test_Commons.dl.SchoolYearExists(sy.IdSchoolYear));
-            Test_Commons.dl.DeleteShcoolYear(sy.IdSchoolYear);
+            Test_Commons.dl.DeleteSchoolYear(sy.IdSchoolYear);
         }
         [Test]
         public void T_SchoolYears_Read()
@@ -44,7 +43,6 @@ namespace NUnitDbTests
             // test of DataLayer Methods that update data from table SchoolYears           
             Test_Commons.dl.AddSchoolYear(schoolYear1);
             Assert.That(Test_Commons.dl.SchoolYearExists(schoolYear1.IdSchoolYear));
-            Test_Commons.dl.DeleteShcoolYear(schoolYear1.IdSchoolYear);
         }
         [Test]
         public void T_SchoolYears_Delete()
@@ -55,9 +53,8 @@ namespace NUnitDbTests
             schoolYear1.ShortDescription = "2024-2025";
             schoolYear1.Notes = "Anno scolastico introdotto per sola prova";
             Test_Commons.dl.AddSchoolYear(schoolYear1);
-            //bool c = Test_Commons.dl.DeleteShcoolYear(schoolYear1.IdSchoolYear);
-            //Assert.That(c = true);
-            Assert.That(Test_Commons.dl.DeleteShcoolYear(schoolYear1.IdSchoolYear));
+            Test_Commons.dl.DeleteTable("SchoolYears");
+            Assert.That(!Test_Commons.dl.ExistsTable("SchoolYears"));
         }
     }
 }
