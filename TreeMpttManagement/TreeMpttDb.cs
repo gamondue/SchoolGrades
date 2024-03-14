@@ -30,5 +30,8 @@ namespace gamon.TreeMptt
         internal abstract int? CreateNewTopic(Topic ct);
         internal abstract List<Topic> GetNodesByParentFromDatabase();
         internal abstract void CloseConnection(bool Close);
+        internal abstract void CreateTableTreeMpttDb_SqlServer();
+        internal abstract void AddTopic(Topic topic);
+        internal abstract bool TopicExists(int? topicId);
     }
 }
