@@ -9,6 +9,52 @@ namespace SchoolGrades
 {
     internal partial class SqlServer_DataLayer : DataLayer
     {
+        internal override void CreateTableGradeTypes()
+        {
+            try
+            {
+                using (DbConnection conn = Connect())
+                {
+                    DbCommand cmd = conn.CreateCommand();
+                    cmd.CommandText =
+                        @"CREATE TABLE GradeTypes
+                        (idGradeType VARCHAR (5) PRIMARY KEY NOT NULL,
+                        idGradeCategory VARCHAR (5),
+                        name VARCHAR (20) NOT NULL,
+                        description VARCHAR (255),
+                        defaultWeight FLOAT,
+                        programsCode INT,
+                        idGradeTypeParent VARCHAR (5))";
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch { }
+        }
+        internal override void CreateTableGrades()
+        {
+            try
+            {
+                using (DbConnection conn = Connect())
+                {
+                    DbCommand cmd = conn.CreateCommand();
+                    cmd.CommandText =
+                        @"CREATE TABLE Grades
+                        (idGrade INT PRIMARY KEY NOT NULL,
+                        idStudent INT NOT NULL,
+                        value FLOAT,
+                        idSchoolSubject VARCHAR (6),
+                        weight FLOAT,
+                        cncFactor FLOAT,
+                        idSchoolYear VARCHAR (4) NOT NULL,
+                        timestamp DATETIME,
+                        idGradeType VARCHAR (5) NOT NULL,
+                        idGradeParent INT,
+                        idQuestion INT,
+                        isFixed TINYINT)";
+                    cmd.ExecuteNonQuery();
+                }
+            } catch { } 
+        }
         internal override Grade GetGrade(int? IdGrade)
         {
             Grade g = null;
@@ -17,9 +63,7 @@ namespace SchoolGrades
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT  * FROM Grades" +
-                    " WHERE Grades.idGrade=" + IdGrade.ToString() +
-                    ";";
+                cmd.CommandText = $"SELECT * FROM Grades WHERE Grades.idGrade={IdGrade.ToString()};";
                 dRead = cmd.ExecuteReader();
                 dRead.Read();
                 g = GetGradeFromRow(dRead);
@@ -28,6 +72,9 @@ namespace SchoolGrades
             }
             return g;
         }
+        /// <summary>
+        /// 
+        /// </summary>
         internal override void SaveMacroGrade(int? IdStudent, int? IdParent,
             double Grade, double Weight, string IdSchoolYear,
             string IdSchoolSubject)
@@ -36,15 +83,14 @@ namespace SchoolGrades
             {
                 DbCommand cmd = conn.CreateCommand();
                 // creazione del macrovoto nella tabella dei voti  
-                cmd.CommandText = "UPDATE Grades " +
-                    "SET IdStudent=" + SqlInt(IdStudent) +
-                    ",value=" + SqlDouble(Grade) +
-                    ",weight=" + SqlDouble(Weight) +
-                    ",idSchoolYear='" + IdSchoolYear + "'" +
-                    ",idSchoolSubject='" + IdSchoolSubject +
-                    "',timestamp ='" + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss").Replace('.', ':') + "' " +
-                    "WHERE idGrade = " + IdParent +
-                    ";";
+                cmd.CommandText = @$"UPDATE Grades
+                    SET IdStudent={SqlInt(IdStudent)},
+                    value={SqlDouble(Grade)},
+                    weight={SqlDouble(Weight)},
+                    idSchoolYear='{IdSchoolYear}',
+                    idSchoolSubject='{IdSchoolSubject}',
+                    timestamp ='{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss").Replace('.', ':')}'
+                    WHERE idGrade = {IdParent};";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
@@ -56,10 +102,10 @@ namespace SchoolGrades
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT Grades.*,Students.* FROM Grades" +
-                    " JOIN Students ON Grades.idStudent = Students.idStudent" +
-                    " WHERE Grades.idGrade=" + Grade.IdGrade.ToString() +
-                    ";";
+                cmd.CommandText = @$"SELECT Grades.*,Students.* FROM Grades
+                    JOIN Students ON Grades.idStudent = Students.idStudent
+                    WHERE Grades.idGrade={Grade.IdGrade}";
+                   
                 dRead = cmd.ExecuteReader();
                 while (dRead.Read())
                 {
@@ -71,15 +117,14 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
+        
         internal override double GetDefaultWeightOfGradeType(string IdGradeType)
         {
             double d;
             using (DbConnection conn = Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT defaultWeight " +
-                    "FROM GradeTypes " +
-                    "WHERE idGradeType='" + IdGradeType + "'; ";
+                cmd.CommandText = @$"SELECT defaultWeight FROM GradeTypes WHERE idGradeType='{IdGradeType}';";
                 d = (double)cmd.ExecuteScalar();
                 cmd.Dispose();
             }
@@ -375,7 +420,7 @@ namespace SchoolGrades
                 gt.IdGradeCategory = (string)Row["IdGradeCategory"];
                 gt.Name = (string)Row["Name"];
                 gt.DefaultWeight = (double)Row["DefaultWeight"];
-                gt.Desc = (string)Row["Desc"];
+                gt.Desc = (string)Row["Description"];
                 return gt;
             }
             return null;
@@ -387,9 +432,7 @@ namespace SchoolGrades
             {
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM GradeTypes";
-                cmd.CommandText += " WHERE idGradeType ='" + IdGradeType + "'";
-                cmd.CommandText += ";";
+                cmd.CommandText = @$"SELECT * FROM GradeTypes WHERE idGradeType ='{IdGradeType}';";
                 dRead = cmd.ExecuteReader();
                 dRead.Read();
                 gt = GetGradeTypeFromRow(dRead);
@@ -403,10 +446,7 @@ namespace SchoolGrades
             using (DbConnection conn = Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "UPDATE Grades" +
-                " SET value=" + SqlDouble(grade) +
-                " WHERE idGrade=" + id +
-                ";";
+                cmd.CommandText = @$"UPDATE Grades SET value={SqlDouble(grade)} WHERE idGrade={id};";
                 cmd.ExecuteNonQuery();
             }
         }
@@ -415,28 +455,31 @@ namespace SchoolGrades
             using (DbConnection conn = Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "DELETE FROM Grades" +
-                    " WHERE idGrade=" + KeyGrade +
-                    ";";
+                cmd.CommandText = @$"DELETE FROM Grades WHERE idGrade={KeyGrade};";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
         }
+        /// <summary>
+        /// data la riga della tabella, restituisce l'oggetto Grade
+        /// </summary>
         internal override Grade GetGradeFromRow(DbDataReader Row)
         {
-            Grade g = new Grade();
-            g.IdGrade = (int)Row["idGrade"];
-            g.IdGradeParent = Safe.Int(Row["idGradeParent"]);
-            g.IdStudent = Safe.Int(Row["idStudent"]);
-            g.IdGradeType = Safe.String(Row["IdGradeType"]);
-            g.IdSchoolSubject = Safe.String(Row["IdSchoolSubject"]);
-            //g.IdGradeTypeParent = Safe.SafeString(Row["idGradeTypeParent"]);
-            g.IdQuestion = Safe.Int(Row["idQuestion"]);
-            g.Timestamp = (DateTime)Row["timestamp"];
-            g.Value = Safe.Double(Row["value"]);
-            g.Weight = Safe.Double(Row["weight"]);
-            g.CncFactor = Safe.Double(Row["cncFactor"]);
-            g.IdSchoolYear = Safe.String(Row["idSchoolYear"]);
+            Grade g = new()
+            {
+                IdGrade = (int)Row["idGrade"],
+                IdGradeParent = Safe.Int(Row["idGradeParent"]),
+                IdStudent = Safe.Int(Row["idStudent"]),
+                IdGradeType = Safe.String(Row["IdGradeType"]),
+                IdSchoolSubject = Safe.String(Row["IdSchoolSubject"]),
+                //g.IdGradeTypeParent = Safe.SafeString(Row["idGradeTypeParent"]);
+                IdQuestion = Safe.Int(Row["idQuestion"]),
+                Timestamp = (DateTime)Row["timestamp"],
+                Value = Safe.Double(Row["value"]),
+                Weight = Safe.Double(Row["weight"]),
+                CncFactor = Safe.Double(Row["cncFactor"]),
+                IdSchoolYear = Safe.String(Row["idSchoolYear"])
+            };
             //g.DummyInt = (int)Row["dummyInt"]; 
             return g;
         }
@@ -445,26 +488,26 @@ namespace SchoolGrades
             DataTable t;
             using (DbConnection conn = Connect())
             {
-                string query = "SELECT DISTINCT Grades.idGrade,datetime(Grades.timeStamp)," +
-                "Grades.value AS 'grade', Grades.weight," +
-                "Questions.text,lastName,firstName," +
-                " Grades.idGradeParent" +
-                " FROM Grades" +
-                " JOIN Students" +
-                " ON Students.idStudent=Grades.idStudent" +
-                " JOIN Classes_Students" +
-                " ON Classes_Students.idStudent=Students.idStudent" +
-                " LEFT JOIN Questions" +
-                " ON Grades.idQuestion=Questions.idQuestion" +
-                " WHERE Students.idStudent=" + Student.IdStudent +
-                " AND (Grades.idSchoolYear='" + SchoolYear + "'" +
-                " OR Grades.idSchoolYear='" + SchoolYear.Replace("-", "") + "'" +
-                ")" +
-                " AND Grades.idGradeType='" + IdGradeType + "'" +
-                " AND Grades.idSchoolSubject='" + IdSchoolSubject + "'" +
-                " AND Grades.Value > 0" +
-                " AND Grades.Timestamp BETWEEN " + SqlDate(DateFrom) + " AND " + SqlDate(DateTo) +
-                " ORDER BY lastName, firstName, Students.idStudent, Grades.timestamp Desc;";
+                string query = @$"SELECT DISTINCT Grades.idGrade,datetime(Grades.timeStamp),
+                Grades.value AS 'grade', Grades.weight,
+                Questions.text,lastName,firstName,
+                 Grades.idGradeParent
+                 FROM Grades
+                 JOIN Students
+                 ON Students.idStudent=Grades.idStudent
+                 JOIN Classes_Students
+                 ON Classes_Students.idStudent=Students.idStudent
+                 LEFT JOIN Questions
+                 ON Grades.idQuestion=Questions.idQuestion
+                 WHERE Students.idStudent={Student.IdStudent}
+                 AND (Grades.idSchoolYear='{SchoolYear}'
+                 OR Grades.idSchoolYear='{SchoolYear.Replace("-", "")}'
+                )
+                 AND Grades.idGradeType='{IdGradeType} '
+                 AND Grades.idSchoolSubject='{IdSchoolSubject}'
+                 AND Grades.Value > 0
+                 AND Grades.Timestamp BETWEEN {SqlDate(DateFrom)} AND {SqlDate(DateTo)}
+                 ORDER BY lastName, firstName, Students.idStudent, Grades.timestamp Description";
 
                 DataAdapter DAdapt = new SqlDataAdapter(query, (SqlConnection)conn);
                 DataSet DSet = new DataSet("ClosedMicroGrades");
@@ -642,11 +685,6 @@ namespace SchoolGrades
         /// Gets all the grades of a students of a specified IdGradeType that are the sons 
         /// of another grade which has value NOT null AND NOT equal to zero
         /// </summary>
-        /// <param name="IdStudent"></param>
-        /// <param name="IdSchoolYear"></param>
-        /// <param name="IdGradeType"></param>
-        /// <param name="IdSchoolSubject"></param>
-        /// <returns></returns>
         internal override DataTable GetMacroGradesOfStudentClosed(int? IdStudent, string IdSchoolYear,
             string IdGradeType, string IdSchoolSubject)
         {
@@ -675,6 +713,7 @@ namespace SchoolGrades
             }
             return t;
         }
+
         internal override int CreateMacroGrade(ref Grade Grade, Student Student, string IdMicroGradeType)
         {
             int key = NextKey("Grades", "idGrade");
@@ -708,31 +747,32 @@ namespace SchoolGrades
             }
             return key;
         }
+        /// <summary>
+        /// Aggiunge o modifica un VOTICINO
+        /// </summary>
         internal override int? SaveMicroGrade(Grade Grade)
         {
             using (DbConnection conn = Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
                 // create a new micro assessment in grades table
-                if (Grade == null || Grade.IdGrade == null || Grade.IdGrade == 0)
+                if (Grade is null || Grade.IdGrade is null || Grade.IdGrade == 0)
                 {
                     Grade.IdGrade = NextKey("Grades", "idGrade");
-                    cmd.CommandText = "INSERT INTO Grades " +
-                    "(idGrade, idGradeType, idGradeParent, idStudent, value, weight, " +
-                    "cncFactor,idSchoolYear, timestamp, idQuestion,idSchoolSubject) " +
-                    "Values (" + Grade.IdGrade +
-                    "," + SqlString(Grade.IdGradeType) + "" +
-                    "," + SqlInt(Grade.IdGradeParent.ToString()) + "" +
-                    "," + Grade.IdStudent + "" +
-                    "," + SqlDouble(Grade.Value) + "" +
-                    "," + SqlDouble(Grade.Weight) + "" +
-                    "," + SqlDouble(Grade.CncFactor) + "" +
-                    "," + SqlString(Grade.IdSchoolYear) + "" +
-                    //"," + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss").Replace('.', ':') + "" +
-                    "," + SqlDate(System.DateTime.Now) + "" +
-                    "," + SqlInt(Grade.IdQuestion.ToString()) + "" +
-                    ",'" + Grade.IdSchoolSubject + "'" +
-                    ");";
+                    cmd.CommandText = @$"INSERT INTO Grades 
+                        (idGrade, idGradeType, idGradeParent, idStudent, value, weight, cncFactor,idSchoolYear, timestamp, idQuestion,idSchoolSubject)
+                        Values ({Grade.IdGrade},
+                        {SqlString(Grade.IdGradeType)},
+                        {SqlInt(Grade.IdGradeParent.ToString())},
+                        {Grade.IdStudent},
+                        {SqlDouble(Grade.Value)},
+                        {SqlDouble(Grade.Weight)},
+                        {SqlDouble(Grade.CncFactor)},
+                        {SqlString(Grade.IdSchoolYear)},
+                        CURRENT_TIMESTAMP,
+                        
+                        {SqlInt(Grade.IdQuestion.ToString())},
+                        {Grade.IdSchoolSubject})";
                 }
                 else
                 {

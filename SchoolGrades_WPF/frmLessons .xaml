@@ -33,10 +33,10 @@
         <Button Grid.Row="0" Grid.Column="4" Width="90">Cart. Immag.</Button>
         <Button Grid.Row="0" Grid.Column="5" Width="90">Start links</Button>
 
-        <TextBlock x:Name="txtOfficialSchoolAbbreviation" Grid.Row="1" Grid.Column="0" Width="90"/>
-        <TextBlock x:Name="txtSchoolYear" Grid.Row="1" Grid.Column="1" Width="90" Margin="5,0"/>
-        <TextBlock x:Name="txtClass" Grid.Row="1" Grid.Column="2" Width="90"/>
-        <TextBlock x:Name="txtSchoolSubject" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="4" Background="White" Width="500"/>
+        <TextBlock x:Name="txtOfficialSchoolAbbreviation" Background="White" Grid.Row="1" Grid.Column="0" Width="90"/>
+        <TextBlock x:Name="txtSchoolYear" Background="White" Grid.Row="1" Grid.Column="1" Width="90" Margin="5,0"/>
+        <TextBlock x:Name="txtClass" Background="White" Grid.Row="1" Grid.Column="2" Width="90"/>
+        <TextBlock x:Name="txtSchoolSubject" Background="White" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="4" Width="500"/>
 
         <TextBlock Grid.Row="2" Grid.Column="0" Width="110" Margin="0,0,5,0">Cod. Lezione</TextBlock>
         <TextBlock Grid.Row="2" Grid.Column="1" Width="110" Margin="5,0">Data</TextBlock>
@@ -59,29 +59,54 @@
             Click="bntLessonErase_Click">Elimina Lezione</Button>
         <Button x:Name="btnLessonAdd" Grid.Row="4" Grid.Column="1" 
                 Click="btnLessonAdd_Click">Nuova lezione</Button>
-        
+
         <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="7">
             <Grid.RowDefinitions>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
+                <ColumnDefinition Width="300" />
                 <ColumnDefinition Width="5" />
-                <ColumnDefinition />
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Row="0" Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="65"/>
                     <RowDefinition/>
+                    <RowDefinition Height="5"/>
                     <RowDefinition Height="150"/>
                 </Grid.RowDefinitions>
                 <TextBox Grid.Row="0" Grid.Column="0" x:Name="txtTopicsDigest"/>
                 <DataGrid Grid.Row="1" Grid.Column="0" x:Name="dgwAllLessons"
-                          SelectionChanged="dgwAllLessons_SelectionChanged"/>
-                <DataGrid Grid.Row="2" Grid.Column="0" 
-                          x:Name="dgwOneLesson"/>
+                          SelectionChanged="dgwAllLessons_SelectionChanged"
+                          AutoGenerateColumns="False"
+                          DataContext="currentStudentsList"
+                          ItemsSource="{Binding}">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Data" Width="70">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Date, StringFormat={}{0:yyyy.MM.dd}}"  />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Note" Binding="{Binding Path=Note}" Width="*" IsReadOnly="True"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" />
+                <DataGrid Grid.Row="3" Grid.Column="0" 
+                          x:Name="dgwOneLesson"
+                          AutoGenerateColumns="False"
+                          DataContext="currentTopicsInLesson"
+                          ItemsSource="{Binding}"
+                          >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Argomento" Binding="{Binding Path=Name}" Width="150" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Dettaglio" Binding="{Binding Path=Desc}" Width="*" IsReadOnly="True"/>
+                    </DataGrid.Columns>
+                </DataGrid>
             </Grid>
-            <GridSplitter Grid.Column="1"  HorizontalAlignment="Stretch" />
+            <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" />
             <Grid Grid.Row="0" Grid.Column="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="35"/>
@@ -100,7 +125,6 @@
                           Grid.Row="3" Grid.Column="0"/>
             </Grid>
         </Grid>
-        
         <StackPanel Grid.Row="0" Grid.Column="7" Orientation="Vertical" 
                     Grid.RowSpan="6"
                     HorizontalAlignment="Left" VerticalAlignment="Top">
