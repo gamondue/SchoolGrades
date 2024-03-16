@@ -55,7 +55,7 @@ namespace SchoolGrades
                 }
             }
             return -1;
-        }
+        }// done
         internal override void CompactDatabase()
         {
             using (DbConnection conn = Connect())
@@ -67,7 +67,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
             //Application.Exit();
-        }
+        } // if called during a test nothing happens
         internal override School GetSchool(string OfficialSchoolAbbreviation)
         {
             // !!!! TODO read school info from the database !!!!
@@ -78,7 +78,7 @@ namespace SchoolGrades
             news.Desc = "Istituto Tecnico Tecnologico Blaise Pascal, Cesena";
             news.OfficialSchoolAbbreviation = Commons.IdSchool;
             return news;
-        }
+        }// done
         internal override int NextKey(string Table, string KeyName)
         {
             int nextId;
@@ -98,7 +98,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
             return nextId;
-        }
+        } // done
         internal override bool CheckKeyExistence
             (string TableName, string KeyName, string KeyValue)
         {
@@ -119,8 +119,9 @@ namespace SchoolGrades
                     return false;
                 }
             }
-        }
+        } //done
 
+        //TODO after all other database tests are done:
         internal override void CreateNewDatabaseFromExisting()
         {
             DbCommand cmd;
@@ -516,6 +517,6 @@ namespace SchoolGrades
             {
                 return false;
             }
-        }
+        } //done
     }
 }

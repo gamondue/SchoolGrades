@@ -529,7 +529,7 @@ namespace SchoolGrades
                 using (DbConnection conn = Connect())
                 {
                     DbCommand cmd = conn.CreateCommand();
-                    cmd.CommandText = "SELECT * FROM (" + Table + ") LIMIT 1 ;";
+                    cmd.CommandText = "SELECT TOP 1 * FROM " + Table + ";";
                     var row = cmd.ExecuteScalar();
                     cmd.Dispose();
                 }
