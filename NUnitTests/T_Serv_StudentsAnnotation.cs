@@ -19,7 +19,7 @@ namespace NUnitDbTests
             Test_Commons.SetDataLayer();
         }
         [Test]
-        public void T_Serv_AnnotationManagement_Create()
+        public void T_Serv_AnnotationManagement_aCreate()
         {
             DbConnection conn;
 
@@ -30,17 +30,15 @@ namespace NUnitDbTests
 
             DbCommand cmd = conn.CreateCommand();
             string query;
-            //    query = "CREATE TABLE StudentsAnnotations " +
-            //    "(idAnnotation INT PRIMARY KEY IDENTITY, " +
-            //    "idStudent INT, annotation VARCHAR(256), " +
-            //    "idSchoolYear VARCHAR(5), instatTaken DATETIME, " +
-            //    "instatClosed DATETIME, isActive INT, " +
-            //    "isPopUp INT, " +
-            //    "FOREIGN KEY (idStudent) REFERENCES Students (idStudent), " +
-            //    FOREIGN KEY (idSchoolYear) REFERENCES SchoolYears (idSchoolYear));";
+            query = "CREATE TABLE StudentsAnnotations " +
+            "(idAnnotation INT PRIMARY KEY, " +
+            "idStudent INT, annotation VARCHAR(256), " +
+            "idSchoolYear VARCHAR(5), instantTaken DATETIME, " +
+            "instantClosed DATETIME, isActive INT, " +
+            "isPopUp INT);";
 
-            //cmd.CommandText = query;
-            //cmd.ExecuteNonQuery();
+            cmd.CommandText = query;
+            cmd.ExecuteNonQuery();
 
             ;
             Student student = new Student();
@@ -50,10 +48,25 @@ namespace NUnitDbTests
             annotation.InstantTaken = null;
             annotation.InstantClosed = null;
             Test_Commons.dl.SaveAnnotation(annotation, student);
+            annotation.IdAnnotation = null;
+            annotation.Annotation = "test deleteByText";
+            Test_Commons.dl.SaveAnnotation(annotation, student);
+
+            query = "SELECT * " +
+                " FROM StudentsAnnotations" +
+                " WHERE StudentsAnnotations.idStudent=" +
+                student.IdStudent + ";";
+
+            cmd.CommandText = query;
+            DbDataReader dRead;
+            dRead = cmd.ExecuteReader();
+
+            Assert.That(dRead.Read());
+            Assert.Pass("Creazione della tabella avvenuta + inserimento didati all'interno di essa.");
             conn.Close();
         }
         [Test]
-        public void T_Serv_AnnotationManagement_Read()
+        public void T_Serv_AnnotationManagement_bRead()
         {
             DbConnection conn;
 
@@ -76,18 +89,21 @@ namespace NUnitDbTests
 
             cmd.CommandText = query;
             dRead = cmd.ExecuteReader();
+            StudentAnnotation a;
             while (dRead.Read())
             {
-                StudentAnnotation a = Test_Commons.dl.GetAnnotationFromRow(dRead);
+                a = Test_Commons.dl.GetAnnotationFromRow(dRead);
                 Assert.That((int)dRead["idAnnotation"], Is.EqualTo(a.IdAnnotation));
             }
 
-            Test_Commons.dl.GetAnnotation(1);
+            a = Test_Commons.dl.GetAnnotation(1);
 
+            Assert.That((int)a.IdAnnotation, Is.EqualTo(1));
+            Assert.Pass("Lettura dei dati precedentemente inseriti avvenuta correttamente.");
             conn.Close();
         }
         [Test]
-        public void T_Serv_AnnotationManagement_Update()
+        public void T_Serv_AnnotationManagement_cUpdate()
         {
             DbConnection conn;
 
@@ -121,11 +137,12 @@ namespace NUnitDbTests
             else
             {
                 annotation.Annotation = "test";
+                Assert.Fail("Non viene modificata, ma creata da zero!!");
             }
                 
 
-            Test_Commons.dl.SaveAnnotation(annotation, student);
-
+            Assert.That(Test_Commons.dl.SaveAnnotation(annotation, student), Is.EqualTo(1));
+            Assert.Pass("Update avvenuto 'test' --> 'test UPDATE'.");
             conn.Close();
         }
         [Test]
@@ -140,16 +157,26 @@ namespace NUnitDbTests
 
             DbCommand cmd = conn.CreateCommand();
             DbDataReader dRead;
+            Student student = new Student();
+            student.IdStudent = 15;
 
             string query = "SELECT idAnnotation " +
                 " FROM StudentsAnnotations" +
-                " WHERE StudentsAnnotations.idStudent=15;";
+                " WHERE StudentsAnnotations.idStudent=" +
+                student.IdStudent + ";";
 
             cmd.CommandText = query;
             dRead = cmd.ExecuteReader();
 
-            dRead.Read();
-            Test_Commons.dl.EraseAnnotationById((int)dRead["idAnnotation"]);
+            while (dRead.Read())
+            {
+                Test_Commons.dl.EraseAnnotationById((int)dRead["idAnnotation"]);
+                Test_Commons.dl.EraseAnnotationByText("test deleteByText", student);
+            }
+            Assert.That(!dRead.Read());
+            Test_Commons.dl.DeleteTable("StudentsAnnotations");
+            Assert.That(!Test_Commons.dl.ExistsTable("StudentsAnnotations"));
+            Assert.Pass("Eliminati i dati di SchoolGrades.StudentsAnnotations + drop della tabella stessa.");
 
             conn.Close();
         }
