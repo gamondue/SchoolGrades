@@ -1,13 +1,8 @@
-using gamon;
-using SchoolGrades;
 using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
-using System.Diagnostics;
-using System.IO;
 
 namespace SchoolGrades
 {
@@ -34,7 +29,21 @@ namespace SchoolGrades
         internal abstract void RestoreTableTsv(string TableName, bool EraseBefore);
         internal abstract void RestoreTableXml(string TableName, bool EraseBefore);
         internal abstract bool IsTableReadable(string Table);
+        internal bool ExistsTable(string Table)
+        {
+            return IsTableReadable(Table);
+        }
+        internal void DeleteTable(string Table)
+        {
+            string createQuery = "DROP TABLE " + Table + ";";
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = createQuery;
 
+                cmd.ExecuteNonQuery(); //execute the command
+            }
+        }
         // GeneralFunctions
         internal abstract object ReadFirstRowFirstField(string Table);
 
@@ -49,7 +58,8 @@ namespace SchoolGrades
         internal abstract void EraseAnnotationById(int? IdAnnotation);
         internal abstract DataTable GetAnnotationsOfClass(int? IdClass,
             bool IncludeAlsoNonActive, bool IncludeJustPopUp);
-        // DL_AnswerManagement
+
+        // AnswerManagement
         internal abstract StudentsAnswer GetStudentsAnswerFromRow(DbDataReader Row);
         internal abstract List<StudentsAnswer> GetAllAnswersOfAStudentToAQuestionOfThisTest(
             int? IdStudent, int? IdQuestion, int? IdTest);
@@ -91,6 +101,8 @@ namespace SchoolGrades
         internal abstract bool isDuplicate(string lastName, string firstName, List<Student> StudentsInClass);
 
         // GradesManagement
+        internal abstract void CreateTableGrades();
+        internal abstract void CreateTableGradeTypes();
         internal abstract Grade GetGrade(int? IdGrade);
         internal abstract void SaveMacroGrade(int? IdStudent, int? IdParent,
             double Grade, double Weight, string IdSchoolYear,
@@ -198,6 +210,8 @@ namespace SchoolGrades
         internal abstract bool FindIfPeriodsAreAlreadyExisting(string SchoolYear);
         internal abstract bool FindIfIdIsAlreadyExisting(string IdSchoolPeriod);
         internal abstract List<SchoolPeriodType> GetSchoolPeriodTypes();
+        internal abstract void CreateTableSchoolYears();
+
 
         // QuestionManagement
         internal abstract string MakeStringForFilteredQuestionsQuery(List<Tag> Tags, string IdSchoolSubject,
@@ -228,7 +242,8 @@ namespace SchoolGrades
             List<Tag> Tags, Topic Topic, bool QueryManyTopics, bool TagsAnd,
             string SearchString, DateTime DateFrom, DateTime DateTo);
 
-        // DL_StudentManagement
+        // StudentManagement
+        internal abstract void CreateTableStudents();
         internal abstract Student CreateStudentFromStringMatrix(string[,] StudentData, int? StudentRow);
         internal abstract Student GetStudent(Student StudentToFind);
         internal abstract DataTable GetStudentsWithNoMicrogrades(Class Class, string IdGradeType, string IdSchoolSubject,
@@ -336,6 +351,6 @@ namespace SchoolGrades
         // YearsAndPeriodsManagement
         internal abstract bool SchoolYearExists(string idSchoolYear);
         internal abstract void AddSchoolYear(SchoolYear newSchoolYear);
-        internal abstract void CreateTableSchoolYears();
+        internal abstract void DeleteSchoolYear(string idSchoolYear);
     }
 }
