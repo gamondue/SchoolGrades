@@ -36,9 +36,9 @@ namespace SchoolGrades
             InitializeComponent();
 
 #if SQL_SERVER
-            TreeMpttDb_SqlServer dbMptt = new();
+            TreeMpttDb_SqlServer dbMptt = new TreeMpttDb_SqlServer(Commons.bl.dl);
 #else
-            TreeMpttDb_SqLite dbMptt = new TreeMpttDb_SqLite();
+            TreeMpttDb_SqLite dbMptt = new TreeMpttDb_SqLite(Commons.bl.dl);
 #endif
 
             this.ParentForm = MicroAssessmentParent;

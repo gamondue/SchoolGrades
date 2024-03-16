@@ -8,24 +8,23 @@ using System.Data.SQLite;
 
 namespace gamon.TreeMptt
 {
-    internal class TreeMpttDb_SqLite
+    internal class TreeMpttDb_SqLite : TreeMpttDb
     {
-        DataLayer dl;
         private DbConnection localConnection;
 
         // !!!! TODO; turn to generic this tree, such that it can contain any class and not just Topic instances !!!!
-        public TreeMpttDb_SqLite()
+        internal TreeMpttDb_SqLite(DataLayer dataLayer) : base(dataLayer)
         {
-            ////////////dl = dl;
+
         }
-        internal void SaveTreeToDb(List<Topic> ListTopicsAfter, List<Topic> ListTopicsDeleted,
+        internal override void SaveTreeToDb(List<Topic> ListTopicsAfter, List<Topic> ListTopicsDeleted,
             bool MustSaveLeftAndRight, bool CloseWhenEnding)
         {
             // connection can come from outside to avoid opening and closing it every time 
             // if localConnection is null, the connection must be opened and closed locally 
             if (localConnection == null)
             {
-                ////////////localConnection = dl.Connect();
+                localConnection = dl.Connect();
             }
             DbCommand cmd = localConnection.CreateCommand();
             SaveLeftRightConsistent(false);
@@ -78,7 +77,7 @@ namespace gamon.TreeMptt
             //cmd.Dispose();
             CloseConnection(CloseWhenEnding);
         }
-        internal void SaveLeftRightConsistent(bool IsConsistent)
+        internal override void SaveLeftRightConsistent(bool IsConsistent)
         {
             // connection can come from outside to avoid opening and closing it every time 
             // if localConnection is null, the connection must be opened and closed locally 
@@ -99,7 +98,7 @@ namespace gamon.TreeMptt
                 localConnection.Close();
             }
         }
-        internal bool AreLeftAndRightConsistent()
+        internal override bool AreLeftAndRightConsistent()
         {
             // reads in the db if the pointers to right and left node of all the nodes are
             // considered to be consistent 
@@ -129,7 +128,7 @@ namespace gamon.TreeMptt
                 }
             }
         }
-        internal List<Topic> GetNodesMpttFromDatabase(int? LeftNode, int? RightNode)
+        internal override List<Topic> GetNodesMpttFromDatabase(int? LeftNode, int? RightNode)
         {
             // node numbering according to Modified Preorder Tree Traversal algorithm
             // ("descending" phase)
@@ -155,7 +154,7 @@ namespace gamon.TreeMptt
             }
             return l;
         }
-        internal List<Topic> GetNodesByParent()
+        internal override List<Topic> GetNodesByParent()
         {
             // node order according to siblings' order (parentNode and childNumber)
             List<Topic> l = new List<Topic>();
@@ -178,7 +177,7 @@ namespace gamon.TreeMptt
             }
             return l;
         }
-        internal void SaveLeftAndRightToDbMptt()
+        internal override void SaveLeftAndRightToDbMptt()
         {
             DbConnection Connection = dl.Connect();
             // read the first topic of the tree
@@ -230,7 +229,7 @@ namespace gamon.TreeMptt
                 // !!!! TODO: keep the connection open !!!!
                 UdpateTopicMptt(ParentNode.Id, NewLeft, NodeCount - 1); // those found different are saved
         }
-        internal void UdpateTopicMptt(int? IdTopic, int? LeftNode, int? RightNode)
+        internal override void UdpateTopicMptt(int? IdTopic, int? LeftNode, int? RightNode)
         {
             // !!!! TODO: keep the connection open !!!!
             // updates only left & right; the rest of the record remains the same
@@ -247,7 +246,7 @@ namespace gamon.TreeMptt
                 cmd.Dispose();
             }
         }
-        internal List<Topic> GetNodesRoots(bool CloseConnectionEnding)
+        internal override List<Topic> GetNodesRoots(bool CloseConnectionEnding)
         {
             // connection can come from outside to avoid opening and closing it every time 
             // if localConnection is null, the connection must be opened and closed locally 
@@ -286,7 +285,7 @@ namespace gamon.TreeMptt
             }
             return lt;
         }
-        internal List<Topic> GetNodesChildsByParent(Topic ParentNode, bool CloseConnectionWhenEnding)
+        internal override List<Topic> GetNodesChildsByParent(Topic ParentNode, bool CloseConnectionWhenEnding)
         {
             // connection can come from outside to avoid opening and closing it every time 
             // if localConnection is null, the connection must be opened and closed locally 
@@ -314,7 +313,7 @@ namespace gamon.TreeMptt
             CloseConnection(CloseConnectionWhenEnding);
             return lt;
         }
-        internal List<Topic> GetNodesAncestors(int? LeftNode, int? RightNode)
+        internal override List<Topic> GetNodesAncestors(int? LeftNode, int? RightNode)
         {
             if (LeftNode == null || RightNode == null)
             {
@@ -343,7 +342,7 @@ namespace gamon.TreeMptt
             }
             return l;
         }
-        internal string GetNodePath(int? LeftNode, int? RightNode)
+        internal override string GetNodePath(int? LeftNode, int? RightNode)
         {
             // node numbering according to Modified Preorder Tree Traversal algorithm
             string path = "";
@@ -361,7 +360,7 @@ namespace gamon.TreeMptt
             }
             return path;
         }
-        internal string GetNodePath(int? idTopic)
+        internal override string GetNodePath(int? idTopic)
         {
             string t;
             if (idTopic == 0)
@@ -381,7 +380,7 @@ namespace gamon.TreeMptt
             }
             return t;
         }
-        internal List<Topic> FindNodesLike(string SearchText, bool SearchInDescriptions,
+        internal override List<Topic> FindNodesLike(string SearchText, bool SearchInDescriptions,
             bool SearchWholeWord, bool SearchCaseInsensitive, bool SearchVerbatimString)
         {
             List<Topic> found = new List<Topic>();
@@ -414,7 +413,7 @@ namespace gamon.TreeMptt
             }
             return found;
         }
-        internal void SaveNodesFromScratch(List<Topic> ListTopics)
+        internal override void SaveNodesFromScratch(List<Topic> ListTopics)
         {
             using (DbConnection conn = dl.Connect())
             {
@@ -448,20 +447,79 @@ namespace gamon.TreeMptt
                 cmd.Dispose();
             }
         }
-        internal int? CreateNewTopic(Topic ct)
+        internal override int? CreateNewTopic(Topic ct)
         {
             return dl.CreateNewTopic(ct);
         }
-        internal List<Topic> GetNodesByParentFromDatabase()
+        internal override List<Topic> GetNodesByParentFromDatabase()
         {
             return dl.GetNodesByParentFromDatabase();
         }
-        internal void CloseConnection(bool Close)
+        internal override void CloseConnection(bool Close)
         {
             if (localConnection != null && !(localConnection.State == System.Data.ConnectionState.Closed) && Close)
             {
                 localConnection.Close();
                 localConnection.Dispose();
+            }
+        }
+        internal override void CreateTableTreeMpttDb_SqlServer()
+        {
+            try
+            {
+                using (localConnection = dl.Connect())
+                {
+                    DbCommand cmd = localConnection.CreateCommand();
+                    // Tabella Topics
+                    cmd.CommandText = @"CREATE TABLE Topics (
+	                idTopic	INT NOT NULL,
+	                name	VARCHAR(20) NOT NULL,
+	                descr	VARCHAR(255),
+	                leftNode	INT,
+	                rightNode	INT,
+	                parentNode	INT,
+	                childNumber	INT,
+	                PRIMARY KEY(idTopic)
+                );";// creazione della query.
+
+                    cmd.ExecuteNonQuery();// esecuzione della query
+                }
+            }
+            catch (Exception ex)
+            {
+
+
+            }
+        }
+        internal override void AddTopic(Topic newTopic)
+        {
+
+            using (localConnection = dl.Connect())
+            {
+                DbCommand cmd = localConnection.CreateCommand();
+                cmd.CommandText = "INSERT INTO Topics" +
+                    " (Id,Name,Date)" +
+                    " Values (" +
+                    dl.SqlString(newTopic.Id.ToString()) +
+                    "," + dl.SqlString(newTopic.Name) + "" +
+                    "," + dl.SqlString(newTopic.Date.ToString()) + "" +
+                    ");";
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+        }
+        internal override bool TopicExists(int? topicId)
+        {
+
+            using (localConnection = dl.Connect())
+            {
+                DbCommand cmd = localConnection.CreateCommand();
+                cmd.CommandText = "SELECT  1 idTopic" +
+                    " FROM Topics" +
+                    " WHERE idTopic='" + topicId.ToString() + "'" +
+                    ";";
+                var result = cmd.ExecuteScalar();
+                return (result != null);
             }
         }
     }

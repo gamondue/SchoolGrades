@@ -325,9 +325,9 @@
                     <TextBox x:Name="txtPopUpQuestionCentralTime" 
                              Grid.Row="1" Grid.Column="1"
                              Text="7" 
-                             Height="13" Width="28" 
+                             Height="20" Width="28" 
                              TextAlignment="Center" 
-                             FontSize="8" FontWeight="Bold" Foreground="DarkBlue"/>
+                             FontSize="11" FontWeight="Bold" Foreground="DarkBlue"/>
                 <Label 
                     Content="min" 
                     Grid.Row="1" Grid.Column="2"
@@ -383,9 +383,9 @@
                              VerticalAlignment="Bottom" HorizontalContentAlignment="Center"
                              Foreground="DarkBlue" FontWeight="Bold" FontSize="8"/>
                     <TextBox x:Name="txtRevengeFactor" Grid.Row="1" Grid.Column="1"
-                             Margin="0"
+                             Margin="0" Height="20"
                              HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                             FontWeight="Bold" Foreground="DarkBlue" Height="12"/>
+                             FontWeight="Bold" Foreground="DarkBlue"/>
                 </Grid>
                 <Button x:Name="btnOldestGrade" Grid.Row="2" Grid.Column="1"
                     Content="Voto più&#xA;vecchio" 
@@ -522,10 +522,10 @@
                       FontSize="11" Checked="chkEnableEndLessonWarning_CheckedChanged"/>
             <StackPanel Orientation="Horizontal" Margin="6,10">
                 <TextBlock FontWeight="Bold"
-                        Text=" n.Allievi" 
+                        Text="n.Allievi " 
                         Height="25" Width="120"
-                        HorizontalAlignment="Left" VerticalAlignment="Center"
-                        TextAlignment="Left"
+                        HorizontalAlignment="Right" VerticalAlignment="Center"
+                        TextAlignment="Right"
                         Foreground="DarkBlue" FontSize="11" 
                         />
                 <TextBox x:Name="txtNStudents" 

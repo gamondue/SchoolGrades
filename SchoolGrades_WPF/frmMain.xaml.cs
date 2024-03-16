@@ -325,7 +325,7 @@ namespace SchoolGrades_WPF
                 throw new System.IO.FileNotFoundException(err);
                 return false;
             }
-            //dl = new DataLayer(Commons.PathAndFileDatabase);
+            //dl = new dl(Commons.PathAndFileDatabase);
             //if (dl == null)
             //    return false;
             Commons.bl = new BusinessLayer();
@@ -1749,6 +1749,7 @@ namespace SchoolGrades_WPF
             int RowIndex = grid.SelectedIndex;
             if (RowIndex > -1)
             {
+
                 currentClass.CurrentStudent = currentStudentsList[RowIndex];
                 currentStudent = currentClass.CurrentStudent;
                 currentStudent.SchoolYear = currentClass.SchoolYear;
