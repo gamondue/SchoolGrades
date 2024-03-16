@@ -18,7 +18,6 @@ namespace NUnitDbTests
         }
 
         [Test]
-
         public void T_LinkManagement_Create()
         {
             // create table
@@ -45,6 +44,7 @@ namespace NUnitDbTests
 
             Test_Commons.dl.SaveStartLink(2, 3, "SchoolYear", "StartLink", "Desc");
         }
+
         [Test]
         public void T_LinkManagement_Delete()
         {
