@@ -2,21 +2,62 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Data.SqlClient;
 using System.IO;
 
 namespace SchoolGrades
 {
     internal partial class SqlServer_DataLayer : DataLayer
     {
+        internal override void Create_GradesTable()
+        {
+            using (DbConnection conn = Connect())
+            {
+                //conn.Open();
+                DbCommand cmd = conn.CreateCommand();
+                string createTableGrades;
+                createTableGrades = "CREATE TABLE Grades (idGrade INT NOT NULL,idStudent INT NOT NULL, value FLOAT,idSchoolSubject VARCHAR(6), weight FLOAT, cncFactor FLOAT, idSchoolYear VARCHAR(4) NOT NULL, timestamp DATETIME, idGradeType VARCHAR(5) NOT NULL, idGradeParent INT,idQuestion INT, isFixed TINYINT, PRIMARY KEY(idGrade));";
+                cmd.CommandText = createTableGrades;
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        internal override void Insert_GradesIntoTable()
+        {
+            using (DbConnection conn = Connect())
+            {
+                //conn.Open();
+                DbCommand cmd = conn.CreateCommand();
+                string insertGrades;
+                for (int i = 0; i < 10; i++)
+                {
+                    //insertGrades = "CREATE TABLE Grades (idGrade INT NOT NULL,idStudent INT NOT NULL, value FLOAT,idSchoolSubject VARCHAR(6), weight FLOAT, cncFactor FLOAT, idSchoolYear VARCHAR(4) NOT NULL, timestamp DATETIME, idGradeType VARCHAR(5) NOT NULL, idGradeParent INT,idQuestion INT, isFixed TINYINT, PRIMARY KEY(idGrade));";
+                    insertGrades = "INSERT INTO Grades VALUES" + $"({i},{i}, null,null,null,null, 2024,null,{i},null,null,0)";
+                    cmd.CommandText = insertGrades;
+                    cmd.ExecuteScalar();
+                }
+            }
+        }
+        internal override void Delete_AllGrades()
+        {
+            using (DbConnection conn = Connect())
+            {
+                //conn.Open();
+                DbCommand cmd = conn.CreateCommand();
+                string delete_AllGrades;
+                delete_AllGrades = "DELETE FROM Grades";
+                cmd.CommandText = delete_AllGrades;
+                cmd.ExecuteNonQuery();
+            }
+        }
         internal override void EraseAllNotConcerningDataOfOtherClasses(DataLayer newDatabaseDl, List<Class> Classes)
         {
-            DbCommand cmd;
-            using (DbConnection conn = newDatabaseDl.Connect()) // connect to the new database, just copied
+            SqlCommand cmd;
+            using (SqlConnection conn = (SqlConnection)newDatabaseDl.Connect()) // connect to the new database, just copied
             {
                 // erase all the users
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "DELETE FROM Users" +
-                    ";";
+                cmd.CommandText = "DELETE FROM Users;";
                 cmd.ExecuteNonQuery();
 
                 cmd = conn.CreateCommand();
@@ -169,10 +210,10 @@ namespace SchoolGrades
         }
         internal override void CreateDemoDataInDatabase(DataLayer newDatabaseDl, List<Class> Classes)
         {
-            DbCommand cmd;
+            SqlCommand cmd;
             string query;
             // modify all the data that hasn't been erased
-            using (DbConnection conn = newDatabaseDl.Connect()) // connect to the new database, just copied
+            using (SqlConnection conn = (SqlConnection)newDatabaseDl.Connect()) // connect to the new database, just copied
             {
                 cmd = conn.CreateCommand();
                 int classCount = 1;
@@ -194,8 +235,7 @@ namespace SchoolGrades
                         ",desc=" + SqlString(c.Description) + "" +
                         ",uriWebApp=" + SqlString(c.UriWebApp) + "" +
                         ",pathRestrictedApplication=" + SqlString(c.PathRestrictedApplication) + "" +
-                        " WHERE idClass=" + c.IdClass +
-                        ";";
+                        " WHERE idClass=" + c.IdClass + ";";
                     cmd.CommandText = query;
                     cmd.ExecuteNonQuery();
                     classCount++;
@@ -204,8 +244,9 @@ namespace SchoolGrades
                     RenameStudentsNamesAndManagePictures(c, cmd);
                     // change the paths of the images to match the new names
                     ChangeImagesPath(c, cmd);
+                    //CreateGradesTable(cmd);
                     // randomly change all grades 
-                    RandomizeGrades(cmd);
+                    RandomizeGrades();
 
                     // make example start links 
                     // !!!! TODO insert demo startlinks in the database 
@@ -224,29 +265,44 @@ namespace SchoolGrades
                 cmd.ExecuteNonQuery();
             }
         }
-        internal override void RandomizeGrades(DbCommand cmd)
+        //internal void CreateGradesTable(SqlCommand cmd)
+        //{
+        //        string createTableGrades = "CREATE TABLE Grades " +
+        //        "(\r\n\tidGrade\tINT NOT NULL,\r\n\tidStudent\tINT NOT NULL," +
+        //        "\r\n\tvalue\tFLOAT,\r\n\tidSchoolSubject\tVARCHAR(6),\r\n\tweight\tFLOAT," +
+        //        "\r\n\tcncFactor\tFLOAT,\r\n\tidSchoolYear\tVARCHAR(4) NOT NULL," +
+        //        "\r\n\ttimestamp\tDATETIME,\r\n\tidGradeType\tVARCHAR(5) NOT NULL," +
+        //        "\r\n\tidGradeParent\tINT,\r\n\tidQuestion\tINT,\r\n\tisFixed\tTINYINT," +
+        //        "\r\n\tPRIMARY KEY(idGrade)\r\n);";
+        //        cmd.CommandText = createTableGrades;
+        //        cmd.ExecuteNonQuery();
+        //}
+        internal override void RandomizeGrades()
         {
-            DbDataReader dRead;
-            cmd.CommandText = "SELECT * FROM Grades" +
-                ";";
-            dRead = cmd.ExecuteReader();
-            Random rnd = new Random();
-            while (dRead.Read())
+            using (DbConnection conn = Connect())
             {
-                double? grade = Safe.Double(dRead["value"]);
-                int? id = Safe.Int(dRead["IdGrade"]);
-                // add to the grade a random delta between -10 and +10 
-                if (grade > 0)
+                DbCommand cmd = conn.CreateCommand();
+                SqlDataReader SqlRead;
+                cmd.CommandText = "SELECT * FROM Grades;";
+                SqlRead = (SqlDataReader)cmd.ExecuteReader();
+                Random rnd = new Random();
+                while (SqlRead.Read())
                 {
-                    grade = grade + rnd.NextDouble() * 20 - 10;
-                    if (grade < 10) grade = 10;
-                    if (grade > 100) grade = 100;
+                    double? grade = Safe.Double(SqlRead["value"]);
+                    int? id = Safe.Int(SqlRead["IdGrade"]);
+                    // add to the grade a random delta between -10 and +10 
+                    if (grade > 0)
+                    {
+                        grade = grade + rnd.NextDouble() * 20 - 10;
+                        if (grade < 10) grade = 10;
+                        if (grade > 100) grade = 100;
+                    }
+                    else
+                        grade = 0;
+                    SaveGradeValue(id, grade);
                 }
-                else
-                    grade = 0;
-                SaveGradeValue(id, grade);
+                cmd.Dispose();
             }
-            cmd.Dispose();
         }
         internal override void RenameStudentsNamesAndManagePictures(Class Class, DbCommand cmd)
         {
