@@ -40,7 +40,8 @@ namespace NUnitDbTests
             schoolYear1.IdSchoolYear = "11-12";
             schoolYear1.ShortDescription = "2023-2024";
             schoolYear1.Notes = "Anno scolastico introdotto per sola prova";
-            // test of DataLayer Methods that update data from table SchoolYears           
+            // test of DataLayer Methods that update data from table SchoolYears
+            //Test_Commons.dl.DeleteTable
             Test_Commons.dl.AddSchoolYear(schoolYear1);
             Assert.That(Test_Commons.dl.SchoolYearExists(schoolYear1.IdSchoolYear));
         }
@@ -52,6 +53,7 @@ namespace NUnitDbTests
             schoolYear1.IdSchoolYear = "23-24";
             schoolYear1.ShortDescription = "2024-2025";
             schoolYear1.Notes = "Anno scolastico introdotto per sola prova";
+            //Test_Commons.dl.DeleteTable("SchoolYears");
             Test_Commons.dl.AddSchoolYear(schoolYear1);
             Test_Commons.dl.DeleteTable("SchoolYears");
             Assert.That(!Test_Commons.dl.ExistsTable("SchoolYears"));
