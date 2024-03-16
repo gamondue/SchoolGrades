@@ -39,21 +39,31 @@ namespace NUnitDbTests
 
                 cmd.ExecuteNonQuery();
             }
+            SchoolTest TTS = new SchoolTest();
+            TTS.Name = "test";
+            TTS.Desc = "test";
+            TTS.IdTest = 1;
+            TTS.IdTestType = "test";
+            TTS.IdTopic = 1;
+
+            Test_Commons.dl.SaveTest(TTS);
         }
 
         [Test]
         public void T_TestManagement_Read()
         {
-         
-            Test_Commons.dl.GetTestFromRow(DbDataReader Row);
-            
-            
+
+            // Test_Commons.dl.GetTestFromRow();
+            Test_Commons.dl.GetTests();
+
+
+
         }
 
         [Test]
         public void T_TestManagement_Update()
         {
-            Test_Commons.dl.SaveTest();
+          
 
         }
         [Test]
