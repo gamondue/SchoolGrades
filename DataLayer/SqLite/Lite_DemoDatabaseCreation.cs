@@ -8,6 +8,18 @@ namespace SchoolGrades
 {
     internal partial class SqLite_DataLayer : DataLayer
     {
+        internal override void Create_GradesTable()
+        {
+            throw new NotImplementedException();
+        }
+        internal override void Delete_AllGrades()
+        {
+            throw new NotImplementedException();
+        }
+        internal override void Insert_GradesIntoTable()
+        {
+            throw new NotImplementedException();
+        }
         internal override void EraseAllNotConcerningDataOfOtherClasses(DataLayer newDatabaseDl, List<Class> Classes)
         {
             DbCommand cmd;
@@ -205,7 +217,7 @@ namespace SchoolGrades
                     // change the paths of the images to match the new names
                     ChangeImagesPath(c, cmd);
                     // randomly change all grades 
-                    RandomizeGrades(cmd);
+                    RandomizeGrades();
 
                     // make example start links 
                     // !!!! TODO insert demo startlinks in the database 
@@ -224,29 +236,33 @@ namespace SchoolGrades
                 cmd.ExecuteNonQuery();
             }
         }
-        internal override void RandomizeGrades(DbCommand cmd)
+        internal override void RandomizeGrades()
         {
-            DbDataReader dRead;
-            cmd.CommandText = "SELECT * FROM Grades" +
-                ";";
-            dRead = cmd.ExecuteReader();
-            Random rnd = new Random();
-            while (dRead.Read())
+            using (DbConnection conn = Connect())
             {
-                double? grade = Safe.Double(dRead["value"]);
-                int? id = Safe.Int(dRead["IdGrade"]);
-                // add to the grade a random delta between -10 and +10 
-                if (grade > 0)
+                DbCommand cmd = conn.CreateCommand();
+                DbDataReader dRead;
+                cmd.CommandText = "SELECT * FROM Grades" +
+                    ";";
+                dRead = cmd.ExecuteReader();
+                Random rnd = new Random();
+                while (dRead.Read())
                 {
-                    grade = grade + rnd.NextDouble() * 20 - 10;
-                    if (grade < 10) grade = 10;
-                    if (grade > 100) grade = 100;
+                    double? grade = Safe.Double(dRead["value"]);
+                    int? id = Safe.Int(dRead["IdGrade"]);
+                    // add to the grade a random delta between -10 and +10 
+                    if (grade > 0)
+                    {
+                        grade = grade + rnd.NextDouble() * 20 - 10;
+                        if (grade < 10) grade = 10;
+                        if (grade > 100) grade = 100;
+                    }
+                    else
+                        grade = 0;
+                    SaveGradeValue(id, grade);
                 }
-                else
-                    grade = 0;
-                SaveGradeValue(id, grade);
+                cmd.Dispose();
             }
-            cmd.Dispose();
         }
         internal override void RenameStudentsNamesAndManagePictures(Class Class, DbCommand cmd)
         {

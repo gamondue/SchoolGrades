@@ -95,10 +95,13 @@ namespace SchoolGrades
         // DemoDatabaseCreation
         internal abstract void EraseAllNotConcerningDataOfOtherClasses(DataLayer newDatabaseDl, List<Class> Classes);
         internal abstract void CreateDemoDataInDatabase(DataLayer newDatabaseDl, List<Class> Classes);
-        internal abstract void RandomizeGrades(DbCommand cmd);
+        internal abstract void RandomizeGrades();
         internal abstract void RenameStudentsNamesAndManagePictures(Class Class, DbCommand cmd);
         internal abstract void AddLinkPhotoToStudent(int? idStudent, int? idStudentsPhoto, string schoolYear, DbCommand cmd);
         internal abstract bool isDuplicate(string lastName, string firstName, List<Student> StudentsInClass);
+        internal abstract void Create_GradesTable();
+        internal abstract void Insert_GradesIntoTable();
+        internal abstract void Delete_AllGrades();
 
         // GradesManagement
         internal abstract void CreateTableGrades();
