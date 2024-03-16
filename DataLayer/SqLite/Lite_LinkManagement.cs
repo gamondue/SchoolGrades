@@ -5,8 +5,11 @@ using System.Data.Common;
 
 namespace SchoolGrades
 {
+
     internal partial class SqLite_DataLayer : DataLayer
     {
+        //internal override void CreateTableLinkManagement() { }
+
         internal override void UpdatePathStartLinkOfClass(Class currentClass, string text)
         {
             // !!!! currently not used, because pathStartLink field does not exist yet in the database !!!!

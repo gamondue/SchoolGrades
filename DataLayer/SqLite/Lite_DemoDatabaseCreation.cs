@@ -8,6 +8,8 @@ namespace SchoolGrades
 {
     internal partial class SqLite_DataLayer : DataLayer
     {
+
+        internal override void CreateTableLinkManagement() { }
         internal override void EraseAllNotConcerningDataOfOtherClasses(DataLayer newDatabaseDl, List<Class> Classes)
         {
             DbCommand cmd;

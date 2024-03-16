@@ -23,7 +23,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)SchoolPeriod.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SchoolPeriodType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SchoolSubject.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SchoolYear.cs" />
+    <Compile Include="..\BusinessObjects\LinkManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StartLink.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Student.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StudentAndGrade.cs" />
