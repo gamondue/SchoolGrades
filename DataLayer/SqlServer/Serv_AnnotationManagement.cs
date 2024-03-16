@@ -67,8 +67,8 @@ namespace SchoolGrades
                     " SET" +
                     " idStudent=" + SqlInt(s.IdStudent) + "," +
                     " idSchoolYear=" + SqlString(Annotation.IdSchoolYear) + "," +
-                    " instantTaken=" + SqlDate(Annotation.InstantTaken) + "," +
-                    " instantClosed=" + SqlDate(Annotation.InstantClosed) + "," +
+                    " instantTaken=" + SqlDate(Annotation.InstantTaken).Replace(" ", "T").Replace("datetime", "") + "," +
+                    " instantClosed=" + SqlDate(Annotation.InstantClosed).Replace(" ", "T").Replace("datetime", "") + "," +
                     " isActive=" + SqlBool(Annotation.IsActive) + ",";
                     if (FieldExists("StudentsAnnotations", "isPopUp"))
                         query += " isPopUp=" + SqlBool(Annotation.IsPopUp) + ",";
@@ -96,8 +96,8 @@ namespace SchoolGrades
                     query += "" + SqlInt(Annotation.IdAnnotation) + ",";
                     query += "" + SqlInt(s.IdStudent) + ",";
                     query += "" + SqlString(Annotation.Annotation) + "";
-                    query += "," + SqlDate(Annotation.InstantTaken);
-                    query += "," + SqlDate(Annotation.InstantClosed);
+                    query += "," + SqlDate(Annotation.InstantTaken).Replace(" ", "T").Replace("datetime", "");
+                    query += "," + SqlDate(Annotation.InstantClosed).Replace(" ", "T").Replace("datetime", "");
                     query += "," + SqlBool(Annotation.IsActive);
                     if (FieldExists("StudentsAnnotations", "isPopUp"))
                         query += "," + SqlBool(Annotation.IsPopUp);
@@ -157,7 +157,7 @@ namespace SchoolGrades
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM StudentsAnnotations" +
-                    " WHERE idAnnotation=" + SqlInt(IdAnnotation) +
+                    " WHERE StudentsAnnotations.idAnnotation=" + SqlInt(IdAnnotation) +
                     ";";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
