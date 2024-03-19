@@ -22,7 +22,7 @@ namespace SchoolGrades_WPF
         TreeMptt topicTreeMptt;
 
         Lesson currentLesson = new Lesson();
-
+        List<Topic> currentTopicsInLesson; 
         Class currentClass;
 
         //List<Topic> listTopicsBefore;
@@ -34,6 +34,7 @@ namespace SchoolGrades_WPF
 
         bool isFormClosed = false;
         private int currentIndexLessonsGrid;
+        private List<Lesson> currentLessons;
         private Lesson currentRowLessonsGrid;
 
         public bool IsFormClosed { get => isFormClosed; set => isFormClosed = value; }
@@ -110,24 +111,25 @@ namespace SchoolGrades_WPF
         }
         private void RefreshLessons(int IndexInLessons)
         {
-            List<SchoolGrades.BusinessObjects.Lesson> l = Commons.bl.GetLessonsOfClass(currentClass, currentLesson.IdSchoolSubject);
-            dgwAllLessons.ItemsSource = l;
-            if (l.Count > 0)
-            {
-                try
-                {
-                    // are these useful in WPF? 
-                    //dgwAllLessons.ClearSelection();
-                    //dgwAllLessons.Items[IndexInLessons].Selected = true;
-                }
-                catch
-                {
+            currentLessons = Commons.bl.GetLessonsOfClass(currentClass, currentLesson.IdSchoolSubject);
+            dgwAllLessons.ItemsSource = currentLessons;
+            dgwAllLessons.Items.Refresh();
+            //if (l.Count > 0)
+            //{
+            //    try
+            //    {
+            //        // are these useful in WPF? 
+            //        //dgwAllLessons.ClearSelection();
+            //        //dgwAllLessons.Items[IndexInLessons].Selected = true;
+            //    }
+            //    catch
+            //    {
 
-                }
-            }
-            else
-            {
-            }
+            //    }
+            //}
+            //else
+            //{
+            //}
             RefreshTopicsInOneLesson();
             RefreshTopicsChecksAndImages();
             if (dgwAllLessons.Columns.Count > 5)
@@ -142,8 +144,9 @@ namespace SchoolGrades_WPF
         }
         private void RefreshTopicsInOneLesson()
         {
-            dgwOneLesson.ItemsSource = Commons.bl.GetTopicsOfOneLessonOfClass(currentClass,
+            currentTopicsInLesson = Commons.bl.GetTopicsOfOneLessonOfClass(currentClass,
                     currentLesson);
+            dgwOneLesson.ItemsSource = currentTopicsInLesson;
             if (dgwOneLesson.Columns.Count > 5)
             {
                 ////////dgwOneLesson.Columns[0].IsVisible = false;

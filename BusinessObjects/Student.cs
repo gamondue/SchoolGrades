@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SchoolGrades.BusinessObjects
 {
@@ -26,12 +24,11 @@ namespace SchoolGrades.BusinessObjects
         public string Residence { get => residence; set => residence = value; }
         public string Origin { get => origin; set => origin = value; }
         public string Email { get => email; set => email = value; }
-        public Nullable<DateTime> BirthDate { get => birthDate; set => birthDate = (DateTime?) value; }
+        public Nullable<DateTime> BirthDate { get => birthDate; set => birthDate = (DateTime?)value; }
         public string BirthPlace { get => birthPlace; set => birthPlace = value; }
         public int? RevengeFactorCounter { get; set; }  // revenge factor counter start from 0 
         public bool? Disabled { get; set; }
         public bool? HasSpecialNeeds { get; set; }
-
         public double? SortOrDrawCriterion { get; internal set; }
 
         public override string ToString()
