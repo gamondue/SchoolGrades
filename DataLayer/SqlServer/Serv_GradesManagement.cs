@@ -63,7 +63,7 @@ namespace SchoolGrades
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
                 cmd = conn.CreateCommand();
-                cmd.CommandText = $"SELECT * FROM Grades WHERE Grades.idGrade={IdGrade.ToString()};";
+                cmd.CommandText = $"SELECT * FROM Grades WHERE Grades.idGrade={IdGrade};";
                 dRead = cmd.ExecuteReader();
                 dRead.Read();
                 g = GetGradeFromRow(dRead);
@@ -89,7 +89,7 @@ namespace SchoolGrades
                     weight={SqlDouble(Weight)},
                     idSchoolYear='{IdSchoolYear}',
                     idSchoolSubject='{IdSchoolSubject}',
-                    timestamp ='{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss").Replace('.', ':')}'
+                    timestamp = CONVERT(datetime, '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 120)
                     WHERE idGrade = {IdParent};";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
