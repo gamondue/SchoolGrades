@@ -25,28 +25,21 @@ namespace NUnitDbTests
 
             using (DbConnection conn = Test_Commons.dl.Connect())
             {
-                cmd = conn.CreateCommand();
-                cmd.CommandText = @"CREATE TABLE Tests (
-	            idTest	INT NOT NULL,
-	            name	VARCHAR(20),
-	            descr	VARCHAR(255),
-	            idSubject	INT,
-	            idSchoolSubject	VARCHAR(6),
-	            idTopic	INT,
-	            idTestType	VARCHAR(6),
-	            PRIMARY KEY(idTest)
-                );";
+             //   cmd = conn.CreateCommand();
+             //   cmd.CommandText = @"CREATE TABLE Tests (
+	            //idTest	INT NOT NULL,
+	            //name	VARCHAR(20),
+	            //descr	VARCHAR(255),
+	            //idSubject	INT,
+	            //idSchoolSubject	VARCHAR(6),
+	            //idTopic	INT,
+	            //idTestType	VARCHAR(6),
+	            //PRIMARY KEY(idTest)
+             //   );";
 
-                cmd.ExecuteNonQuery();
+             //   cmd.ExecuteNonQuery();
             }
-            SchoolTest TTS = new SchoolTest();
-            TTS.Name = "test";
-            TTS.Desc = "test";
-            TTS.IdTest = 1;
-            TTS.IdTestType = "test";
-            TTS.IdTopic = 1;
-
-            Test_Commons.dl.SaveTest(TTS);
+            
         }
 
         [Test]
@@ -63,7 +56,14 @@ namespace NUnitDbTests
         [Test]
         public void T_TestManagement_Update()
         {
-          
+            SchoolTest TTS = new SchoolTest();
+            TTS.Name = "test";
+            TTS.Desc = "test";
+            TTS.IdTest = 1;
+            TTS.IdTestType = "test";
+            TTS.IdTopic = 1;
+
+            Test_Commons.dl.SaveTest(TTS);
 
         }
         [Test]
