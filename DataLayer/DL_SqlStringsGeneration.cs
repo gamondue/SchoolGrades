@@ -189,6 +189,13 @@ namespace SchoolGrades
             else
                 return "null";
         }
+        internal string SqlServerDate(DateTime? Date)
+        {
+            if (Date != null)
+                return (@$"CONVERT(datetime, '{((DateTime)Date).ToString("yyyy-MM-dd HH:mm:ss")}', 120)");
+            else
+                return "null";
+        }
         internal string BuildAndClauseOnPassedField(List<Class> classes, string FieldName)
         {
             // we assume that classes have no nulls 

@@ -181,12 +181,12 @@ namespace SchoolGrades
             DataTable t;
             using (DbConnection conn = Connect())
             {
-                string query = "SELECT datetime(Grades.timestamp),Questions.text,Grades.value," +
-                    " Grades.weight,Grades.cncFactor,Grades.idGradeParent" +
-                    " FROM Grades" +
-                    " JOIN Questions ON Grades.idQuestion=Questions.idQuestion" +
-                    " WHERE Grades.idGradeParent =" + IdGrade +
-                    " ORDER BY Grades.timestamp;";
+                string query =  @$"SELECT CONVERT(datetime, Grades.timestamp, 120),Questions.text,Grades.value,
+                                Grades.weight,Grades.cncFactor,Grades.idGradeParent
+                                FROM Grades
+                                JOIN Questions ON Grades.idQuestion=Questions.idQuestion
+                                WHERE Grades.idGradeParent ={IdGrade}
+                                ORDER BY Grades.timestamp;";
 
                 DataAdapter DAdapt = new SqlDataAdapter(query, (SqlConnection)conn);
                 DataSet DSet = new DataSet("OpenMicroGrades");
@@ -488,26 +488,26 @@ namespace SchoolGrades
             DataTable t;
             using (DbConnection conn = Connect())
             {
-                string query = @$"SELECT DISTINCT Grades.idGrade,datetime(Grades.timeStamp),
-                Grades.value AS 'grade', Grades.weight,
-                Questions.text,lastName,firstName,
-                 Grades.idGradeParent
-                 FROM Grades
-                 JOIN Students
-                 ON Students.idStudent=Grades.idStudent
-                 JOIN Classes_Students
-                 ON Classes_Students.idStudent=Students.idStudent
-                 LEFT JOIN Questions
-                 ON Grades.idQuestion=Questions.idQuestion
-                 WHERE Students.idStudent={Student.IdStudent}
-                 AND (Grades.idSchoolYear='{SchoolYear}'
-                 OR Grades.idSchoolYear='{SchoolYear.Replace("-", "")}'
-                )
-                 AND Grades.idGradeType='{IdGradeType} '
-                 AND Grades.idSchoolSubject='{IdSchoolSubject}'
-                 AND Grades.Value > 0
-                 AND Grades.Timestamp BETWEEN {SqlDate(DateFrom)} AND {SqlDate(DateTo)}
-                 ORDER BY lastName, firstName, Students.idStudent, Grades.timestamp Description";
+                string query = @$"SELECT DISTINCT Grades.idGrade, CONVERT(datetime, Grades.timeStamp, 120) As datestamp,
+                                Grades.value AS 'grade', Grades.weight,
+                                Questions.text,lastName,firstName, Students.idStudent,
+                                Grades.idGradeParent, Description
+                                FROM Grades
+                                JOIN GradeTypes
+                                ON Grades.idGradeType = GradeTypes.idGradeType
+                                JOIN Students
+                                ON Students.idStudent=Grades.idStudent
+                                LEFT JOIN Questions
+                                ON Grades.idQuestion=Questions.idQuestion
+                                WHERE Students.idStudent={Student.IdStudent}
+                                AND (Grades.idSchoolYear='{SchoolYear}'
+                                OR Grades.idSchoolYear='{SchoolYear.Replace("-", "")}')
+                                AND Grades.idGradeType='{IdGradeType}'
+                                AND Grades.idSchoolSubject='{IdSchoolSubject}'
+                                AND Grades.Value > 0
+                                AND Grades.Timestamp BETWEEN {SqlServerDate(DateFrom)} AND {SqlServerDate(DateTo)}
+                                ORDER BY lastName, firstName, Students.idStudent, datestamp, Grades.idGrade, Grades.weight,
+                                Grades.Value, Grades.idGradeParent, Questions.text, Description;";
 
                 DataAdapter DAdapt = new SqlDataAdapter(query, (SqlConnection)conn);
                 DataSet DSet = new DataSet("ClosedMicroGrades");
