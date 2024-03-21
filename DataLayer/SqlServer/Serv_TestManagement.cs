@@ -84,11 +84,10 @@ namespace SchoolGrades
                 {   // update old record
                     cmd.CommandText = "UPDATE Tests" +
                     " SET name=" + SqlString(TestToSave.Name) + "," +
-                    "desc=" + SqlString(TestToSave.Desc) + "" +
+                    "descr=" + SqlString(TestToSave.Desc) + "" +
                     ",IdSchoolSubject=" + SqlString(TestToSave.IdSchoolSubject) +
                     ",IdTestType=" + SqlInt(TestToSave.IdTestType) +
                     ",IdTopic=" + SqlInt(TestToSave.IdTopic) +
-                    ")" +
                     " WHERE idTest=" + TestToSave.IdTest +
                     ";";
                 }
