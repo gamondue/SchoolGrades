@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Data.SqlClient;
 
 namespace NUnitDbTests
 {
@@ -21,36 +22,44 @@ namespace NUnitDbTests
         [Test]
         public void T_TestManagement_Create()
         {
-            DbCommand cmd;
+            //DbCommand cmd;
 
-            using (DbConnection conn = Test_Commons.dl.Connect())
-            {
-             //   cmd = conn.CreateCommand();
-             //   cmd.CommandText = @"CREATE TABLE Tests (
-	            //idTest	INT NOT NULL,
-	            //name	VARCHAR(20),
-	            //descr	VARCHAR(255),
-	            //idSubject	INT,
-	            //idSchoolSubject	VARCHAR(6),
-	            //idTopic	INT,
-	            //idTestType	VARCHAR(6),
-	            //PRIMARY KEY(idTest)
-             //   );";
+            //using (DbConnection conn = Test_Commons.dl.Connect())
+            //{
+            // //   cmd = conn.CreateCommand();
+            // //   cmd.CommandText = @"CREATE TABLE Tests (
+	           // //idTest	INT NOT NULL,
+	           // //name	VARCHAR(20),
+	           // //descr	VARCHAR(255),
+	           // //idSubject	INT,
+	           // //idSchoolSubject	VARCHAR(6),
+	           // //idTopic	INT,
+	           // //idTestType	VARCHAR(6),
+	           // //PRIMARY KEY(idTest)
+            // //   );";
 
-             //   cmd.ExecuteNonQuery();
-            }
+            // //   cmd.ExecuteNonQuery();
+            //}
             
         }
 
         [Test]
         public void T_TestManagement_Read()
         {
+            SchoolGrades.BusinessObjects.SchoolTest t = new SchoolTest();
+            t.Name = "Test";
+            t.Desc = "test";
+            t.IdTest = 1;
+            t.IdTopic = 2;
+            t.IdTestType = "scritto";
+            t.IdSchoolSubject = "informatica";
 
-            // Test_Commons.dl.GetTestFromRow();
-            Test_Commons.dl.GetTests();
-
-
-
+            using (DbConnection conn = Test_Commons.dl.Connect())
+            {
+                //static extern SchoolGrades.BusinessObjects.SchoolTest GetTestFromRow(DbDataReader Row);
+               // Test_Commons.dl.GetTest(t.IdTest);
+                Test_Commons.dl.GetTests();
+            }
         }
 
         [Test]
