@@ -82,6 +82,17 @@ namespace SchoolGrades
 
             // manage the configuration file 
             string messagePrompt = "";
+#if SQL_SERVER
+            // SQL server database filename
+#if !DEBUG
+            // at the end of the development phase use a debug database
+            Commons.PathAndFileDatabase = "SchoolGrades"; 
+#else
+            Commons.PathAndFileDatabase = "SchoolGrades";
+#endif
+
+#else
+            // SQLite database filename reading 
             // read configuration file, if doesn't work run configuration 
             bool fileRead = CommonsWinForms.ReadConfigData();
             if (!fileRead)
@@ -114,7 +125,7 @@ namespace SchoolGrades
                         // the configured file exists, if it is a file for a single class,
                         // check if a more recent file exists and ask the user if she wants to
                         // pass to the new file 
-                        DateTime fileDateInName = Commons.GetValidDateFromString(configuredFileName.Substring(0, 10));
+                        DateTime fileDateInName = Commons.GetValidDateFromString(configuredFileName.Substring(0, 19));
                         if (fileDateInName != DateTime.MinValue)
                         {
                             // we found the class database with fileDate in the beginning of the name
@@ -131,6 +142,7 @@ namespace SchoolGrades
                                     == DialogResult.Yes)
                                 {
                                     Commons.PathAndFileDatabase = newestFileName;
+                                    CreateBusinessLayer();
                                     Commons.bl.WriteConfigData();
                                     MessageBox.Show("File di configurazione salvato in " + Commons.PathAndFileConfig);
                                 }
@@ -140,8 +152,13 @@ namespace SchoolGrades
                     }
                 }
             }
-            CreateBusinessAndDataLayer();
+#endif
+            CreateBusinessLayer();
 
+            // remove the next cinditioned compilation when the SQL server program is funcioning
+#if !SQL_SERVER
+            Commons.bl.GetSchoolYearsThatHaveClasses();
+            // da togliere dopo che il DataLayer SQL server funziona
             List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
             cmbSchoolYear.DataSource = ly;
             if (ly.Count > 0)
@@ -154,6 +171,7 @@ namespace SchoolGrades
             // fill the combo of School subjects
             List<SchoolSubject> listSubjects = Commons.bl.GetListSchoolSubjects(true);
             cmbSchoolSubject.DataSource = listSubjects;
+#endif
         }
 
         private void CreateDatabasePaths(string proposedDebugDatabaseFile)
@@ -212,6 +230,10 @@ namespace SchoolGrades
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             btnTemporary.Visible = false;
 #endif
+
+            CreateBusinessLayer();
+            // da togliere dopo che il DataLayer di SQL server funziona
+#if !SQL_SERVER
             school = Commons.bl.GetSchool(Commons.IdSchool);
             if (school == null)
                 return;
@@ -223,7 +245,7 @@ namespace SchoolGrades
 
             if (lstClasses.DataSource == null)
                 return;
-
+#endif
             CommonsWinForms.globalPicLed = picBackgroundSaveRunning;
 
             if (chkActivateLessonClock.Checked)
@@ -271,37 +293,16 @@ namespace SchoolGrades
                 return proposedDemoDatabaseFile;
             }
             // look for the newest "ISO date at left" filename in folder
-            newDatabaseFileName = GetNewestAmongFilesWithDateInName(proposedDatabasePath);
-            //newDatabaseFileName = Commons.bl.GetNewestAmongFilesWithDateInName(proposedDatabasePath);
             newDatabaseFileName = Commons.GetNewestAmongFilesWithDateInName(proposedDatabasePath);
             if (newDatabaseFileName != "")
                 return newDatabaseFileName;
             else
                 return "";
         }
-        private string GetNewestAmongFilesWithDateInName(string DatabasePath)
+        private bool CreateBusinessLayer()
         {
-            if (!Directory.Exists(DatabasePath))
-            {
-                return null;
-            }
-            string[] files = Directory.GetFiles(DatabasePath);
-            DateTime newestFileDate = DateTime.MinValue;
-            string newestFileNameAndPath = "";
-            foreach (string file in files)
-            {
-                DateTime thisFileDate = Commons.GetValidDateFromString(Path.GetFileName(file).Substring(0, 10));
-                if (thisFileDate > newestFileDate)
-                {
-                    newestFileDate = thisFileDate;
-                    newestFileNameAndPath = file;
-                }
-            }
-            return newestFileNameAndPath;
-        }
-        private bool CreateBusinessAndDataLayer()
-        {
-            // create Business and Data layer objects, to be used throughout the program
+            // create Business layer object, to be used throughout the program
+#if !SQL_SERVER
             // keep this order of creation. Create after reading config file
             if (!System.IO.File.Exists(Commons.PathAndFileDatabase))
             {
@@ -310,9 +311,7 @@ namespace SchoolGrades
                 throw new System.IO.FileNotFoundException(err);
                 return false;
             }
-            Commons.dl = new DataLayer(Commons.PathAndFileDatabase);
-            if (Commons.dl == null)
-                return false;
+#endif
             Commons.bl = new BusinessLayer();
             if (Commons.bl == null)
                 return false;
@@ -1512,15 +1511,12 @@ namespace SchoolGrades
         }
         private void btnTemporary_Click(object sender, EventArgs e)
         {
-            frmBackupManagement f = new();
-            f.Show();
-            //Student dummyStudent = new Student();
-            //dummyStudent.IdStudent = 388;
-            //dummyStudent.LastName = "Dummy"; 
-
-            //frmStudentsAnnotations f = new frmStudentsAnnotations(dummyStudent, 
-            //    null);
-            //f.Show();
+            SchoolYear sy = new();
+            sy.IdSchoolYear = "23-24";
+            sy.Notes = "Anno di prova";
+            sy.ShortDescription = "2023-2024";
+            sy.Notes = "Anno scolastico introdotto per sola prova";
+            Commons.bl.AddSchoolYearIfNotExists(sy);
         }
         private void btnLessonTime_Click(object sender, EventArgs e)
         {

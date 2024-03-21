@@ -1,15 +1,15 @@
-﻿using SchoolGrades.BusinessObjects;
+﻿using gamon.TreeMptt;
+using SchoolGrades.BusinessObjects;
+using Shared;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using gamon.TreeMptt;
-using Shared;
 
 namespace SchoolGrades
 {
     public partial class frmQuestionChoose : Form
     {
-        TreeMpttDb dbMptt;
+        TreeMpttDb_SqLite dbMptt;
 
         List<Tag> tagsList = new List<Tag>();
 
@@ -26,17 +26,22 @@ namespace SchoolGrades
         bool isLoading = true;
         private SchoolPeriod currentSchoolPeriod;
 
-        internal Question ChosenQuestion {get => chosenQuestion; set => chosenQuestion = value; }
+        internal Question ChosenQuestion { get => chosenQuestion; set => chosenQuestion = value; }
         public frmMicroAssessment ParentForm { get; }
 
-        internal frmQuestionChoose(SchoolSubject SchoolSubject, Class Class, 
-            Student Student = null, Question Question = null, 
+        internal frmQuestionChoose(SchoolSubject SchoolSubject, Class Class,
+            Student Student = null, Question Question = null,
             frmMicroAssessment MicroAssessmentParent = null, frmMain MainParent = null)
         {
             InitializeComponent();
 
-            dbMptt = new TreeMpttDb();
-            this.ParentForm = MicroAssessmentParent; 
+#if SQL_SERVER
+            TreeMpttDb_SqlServer dbMptt = new TreeMpttDb_SqlServer(Commons.bl.dl);
+#else
+            TreeMpttDb_SqLite dbMptt = new TreeMpttDb_SqLite(Commons.bl.dl);
+#endif
+
+            this.ParentForm = MicroAssessmentParent;
             // fills the lookup tables' combos
             cmbSchoolSubject.DisplayMember = "Name";
             cmbSchoolSubject.ValueMember = "idSchoolSubject";
@@ -48,7 +53,7 @@ namespace SchoolGrades
             cmbQuestionTypes.DataSource = lq;
 
             //currentSubject = SchoolSubject; 
-            currentSubject = null; 
+            currentSubject = null;
             currentClass = Class;
             currentStudent = Student;
             previousQuestion = Question;
@@ -95,7 +100,7 @@ namespace SchoolGrades
             Question q = new Question();
             if (cmbQuestionTypes.SelectedItem != null)
             {
-                q.IdQuestionType = ((QuestionType)cmbQuestionTypes.SelectedItem).IdQuestionType; 
+                q.IdQuestionType = ((QuestionType)cmbQuestionTypes.SelectedItem).IdQuestionType;
             }
             frmQuestion domanda = new frmQuestion(frmQuestion.QuestionFormType.CreateSeveralQuestions,
                 q, currentSubject, currentClass, currentTopic);
@@ -104,7 +109,7 @@ namespace SchoolGrades
             if (domanda.UserHasChosen)
             {
                 ChosenQuestion = domanda.currentQuestion;
-                this.Close(); 
+                this.Close();
             }
             updateQuestions();
         }
@@ -128,7 +133,7 @@ namespace SchoolGrades
         private void updateQuestions()
         {
             if (isLoading)
-                return; 
+                return;
             if (cmbSchoolSubject.SelectedItem == null)
                 keySubject = "";
             else
@@ -139,7 +144,7 @@ namespace SchoolGrades
             else
                 keyQuestionType = ((QuestionType)cmbQuestionTypes.SelectedItem).IdQuestionType;
 
-            LoadDatagrids(keySubject, keyQuestionType); 
+            LoadDatagrids(keySubject, keyQuestionType);
         }
         private void LoadDatagrids(string keySubject, string keyQuestionType)
         {
@@ -155,7 +160,7 @@ namespace SchoolGrades
                 currentTopic = new Topic();
             List<Question> l = Commons.bl.GetFilteredQuestionsNotAskedToStudent(currentStudent, currentClass,
                 currentSubject, keyQuestionType, tagsList, currentTopic,
-                rdbManyTopics.Checked, rdbAnd.Checked, txtSearchText.Text, 
+                rdbManyTopics.Checked, rdbAnd.Checked, txtSearchText.Text,
                 dateFrom, dateTo);
             dgwQuestions.DataSource = l;
         }
@@ -209,14 +214,14 @@ namespace SchoolGrades
             oneItemList.Add(chosenTopic);
             frmTopics f = new frmTopics(frmTopics.TopicsFormType.ChooseTopic,
                 currentClass, currentSubject, null, oneItemList);
-        
+
             f.ShowDialog();
             if (f.UserHasChosen)
             {
                 chosenTopic = f.ChosenTopic;
                 currentTopic = chosenTopic;
                 txtTopic.Text = dbMptt.GetNodePath(chosenTopic.Id);
-                txtTopicCode.Text = chosenTopic.Id.ToString(); 
+                txtTopicCode.Text = chosenTopic.Id.ToString();
                 updateQuestions();
             }
             f.Dispose();
@@ -263,10 +268,10 @@ namespace SchoolGrades
             DateTime dateFrom = dtpStartPeriod.Value;
             DateTime dateTo = dtpEndPeriod.Value;
             List<Question> listAskedInThisLesson = Commons.bl.GetFilteredQuestionsNotAskedToStudent
-                (currentStudent, currentClass,currentSubject,keyQuestionType,
+                (currentStudent, currentClass, currentSubject, keyQuestionType,
                 tagsList, currentTopic,
                 rdbManyTopics.Checked, rdbAnd.Checked,
-                txtSearchText.Text, 
+                txtSearchText.Text,
                 dateFrom, dateTo);
             // !!!! verify if it really works !!!! 
             if (listAskedInThisLesson.Count > 0)
@@ -275,7 +280,7 @@ namespace SchoolGrades
                 // keeps drawing until a question not already done comes out 
                 // gives up after a number of attempts equal to the number of questions
                 // available 
-                int attempts = 0; 
+                int attempts = 0;
                 do
                 {
                     int indexRandom = r.Next(listAskedInThisLesson.Count);
@@ -288,18 +293,19 @@ namespace SchoolGrades
                             if (q.IdQuestion == chosenQuestion.IdQuestion)
                             {
                                 found = true;
-                                break; 
+                                break;
                             }
-                    } else
+                    }
+                    else
                     {
-                        found = false; 
+                        found = false;
                     }
                     attempts++;
-                } while (found && attempts < listAskedInThisLesson.Count); 
+                } while (found && attempts < listAskedInThisLesson.Count);
             }
             else
             {
-                Console.Beep(); 
+                Console.Beep();
             }
             this.Close();
         }
@@ -405,9 +411,9 @@ namespace SchoolGrades
         }
         private void btnKnotsToTheComb_Click(object sender, EventArgs e)
         {
-            if(!CommonsWinForms.CheckIfStudentChosen(currentStudent))
+            if (!CommonsWinForms.CheckIfStudentChosen(currentStudent))
             {
-                return; 
+                return;
             }
             if (!CommonsWinForms.CheckIfSubjectChosen(currentSubject))
             {
@@ -417,9 +423,10 @@ namespace SchoolGrades
             frmKnotsToTheComb frm = new frmKnotsToTheComb(ParentForm, currentStudent.IdStudent, currentSubject,
                 currentClass.SchoolYear);
             frm.ShowDialog();
-            if (frm.ChosenQuestion != null) {
+            if (frm.ChosenQuestion != null)
+            {
                 chosenQuestion = frm.ChosenQuestion;
-                this.Close(); 
+                this.Close();
             }
         }
     }

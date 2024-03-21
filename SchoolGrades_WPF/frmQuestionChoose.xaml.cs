@@ -16,7 +16,7 @@ namespace SchoolGrades_WPF
     /// </summary>
     public partial class frmQuestionChoose : Window
     {
-        TreeMpttDb dbMptt;
+        TreeMpttDb_SqLite dbMptt;
 
         List<Tag> tagsList = new List<Tag>();
 
@@ -41,7 +41,7 @@ namespace SchoolGrades_WPF
         {
             InitializeComponent();
 
-            //dbMptt = new TreeMpttDb(Commons.dl);
+            //dbMptt = new TreeMpttDb_SqLite(dl);
             this.ParentForm = MicroAssessmentParent;
             // fills the lookup tables' combos
             cmbSchoolSubject.ItemsSource = "Name";
@@ -67,8 +67,6 @@ namespace SchoolGrades_WPF
         private void frmQuestionChoose_Loaded()
         {
             cmbSchoolSubject.SelectedValue = "";
-
-            lstTags.ItemsSource = tagsList;
 
             List<SchoolPeriod> listPeriods = Commons.bl.GetSchoolPeriods(currentClass.SchoolYear);
             cmbSchoolPeriod.ItemsSource = listPeriods;

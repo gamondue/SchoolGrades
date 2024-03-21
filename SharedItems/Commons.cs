@@ -14,7 +14,6 @@ namespace SchoolGrades
     public static class Commons
     {
         internal static BusinessLayer bl;
-        internal static DataLayer dl;
         // program's default path and files. Overridden by the config file "schgrd.cfg", when it exists
         internal static string PathUser = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
         internal static string PathAndFileExe = System.Reflection.Assembly.GetExecutingAssembly().CodeBase.Substring(8);
@@ -34,7 +33,7 @@ namespace SchoolGrades
         internal static string PathImages = Path.Combine(PathExe, "Images");
         internal static string PathDocuments = Path.Combine(PathExe, "Docs");
 
-        // !!!! usare DbInfo !!!!
+        // !!!! TODO use DbInfo !!!!
         //internal static DatabaseInfo DbInfo = new();
         //DatabaseInfo.
         //    . = "SchoolGrades.sqlite";
@@ -123,6 +122,9 @@ namespace SchoolGrades
         }
         internal static DateTime GetValidDateFromString(string input)
         {
+            input = input.Replace('_', ' ');
+            input = input.Replace('-', '/');
+            input = input.Replace('.', ':');
             if (DateTime.TryParse(input, out DateTime date))
             {
                 // The string is a valid date, and 'date' now contains the parsed value.
@@ -301,13 +303,13 @@ namespace SchoolGrades
 
             System.Version v = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
 
-            // v.Build is days since Jan. 1, 2000
-            // v.Revision*2 is seconds since local midnight
+            // DataBaseName.Build is days since Jan. 1, 2000
+            // DataBaseName.Revision*2 is seconds since local midnight
             // (NEVER daylight saving time)
 
             //DateTime t = new DateTime(
-            //    v.Build * TimeSpan.TicksPerDay +
-            //    v.Revision * TimeSpan.TicksPerSecond * 2
+            //    DataBaseName.Build * TimeSpan.TicksPerDay +
+            //    DataBaseName.Revision * TimeSpan.TicksPerSecond * 2
             //).AddYears(1999);
 
             DateTime t = new DateTime(
@@ -441,7 +443,12 @@ namespace SchoolGrades
             string newestFileNameAndPath = "";
             foreach (string file in files)
             {
-                DateTime thisFileDate = Commons.GetValidDateFromString(Path.GetFileName(file).Substring(0, 10));
+                string justName = Path.GetFileName(file);
+                // skip thi file if its name is too short
+                if (justName.Length < 19)
+                    continue; 
+
+                DateTime thisFileDate = Commons.GetValidDateFromString(Path.GetFileName(file).Substring(0, 19));
                 if (thisFileDate > newestFileDate)
                 {
                     newestFileDate = thisFileDate;
@@ -449,6 +456,15 @@ namespace SchoolGrades
                 }
             }
             return newestFileNameAndPath;
+        }
+        internal static DataLayer SetDataLayer(string DataBaseName)
+        {
+#if SQL_SERVER
+            DataLayer dlNew = new SqlServer_DataLayer(DataBaseName);
+#else
+            SqLite_DataLayer dlNew = new SqLite_DataLayer(DataBaseName);
+#endif
+            return dlNew;
         }
     }
 }

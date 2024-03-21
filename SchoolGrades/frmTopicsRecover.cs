@@ -38,7 +38,7 @@ namespace SchoolGrades
             txtPathOldDatabase.Text = Commons.PathDatabase;
             txtFileNewDatabase.Text = Commons.DatabaseFileName_Current;
 
-            DataLayer dlNew = new DataLayer(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
+            DataLayer dlNew = Commons.SetDataLayer(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
             treeNew = new TreeMptt(trwNewTopics,
                 txtNewTopicName, txtNewDescription, txtSearchNew, null, txtCodNewTopic,
                 CommonsWinForms.globalPicLed, null, null, null, null, null, DragDropEffects.Copy);
@@ -72,8 +72,7 @@ namespace SchoolGrades
                 txtFileNewDatabase.Text = Path.GetFileName(openFileDialog1.FileName);
                 txtPathNewDatabase.Text = Path.GetDirectoryName(openFileDialog1.FileName);
             }
-
-            DataLayer dlNew = new DataLayer(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
+            DataLayer dlNew  = Commons.SetDataLayer(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text); 
 
             treeNew = new TreeMptt(trwNewTopics,
                 txtNewTopicName, txtNewDescription, null, null, txtCodNewTopic,
@@ -106,7 +105,7 @@ namespace SchoolGrades
                 Console.Beep();
                 return;
             }
-            DataLayer dlOld = new DataLayer(txtPathOldDatabase.Text + "\\" + txtFileOldDatabase.Text);
+            ////////////dl dlOld = new dl(txtPathOldDatabase.Text + "\\" + txtFileOldDatabase.Text);
 
             treeOld = new TreeMptt(trwOldTopics,
                 txtOldTopicName, txtOldDescription, txtSearchOld, null, txtCodOldTopic,
@@ -239,7 +238,7 @@ namespace SchoolGrades
         private void btnRecover_Click(object sender, EventArgs e)
         {
             //DbAndBusiness dbNew = new DbAndBusiness( txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
-            DataLayer dlNew = new DataLayer(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
+            DataLayer dlNew = Commons.SetDataLayer(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
             List<Topic> lNew = dlNew.GetTopics();
 
             if (txtFileOldDatabase.Text == "")
@@ -250,7 +249,7 @@ namespace SchoolGrades
 
             //DbAndBusiness dbOld = new DbAndBusiness( txtPathOldDatabase.Text + "\\" + txtFileOldDatabase.Text);
             //List<Topic> lOld = dl.GetTopics();
-            DataLayer dlOld = new DataLayer(txtPathOldDatabase.Text + "\\" + txtFileOldDatabase.Text);
+            DataLayer dlOld = Commons.SetDataLayer(txtPathOldDatabase.Text + "\\" + txtFileOldDatabase.Text);
             List<Topic> lOld = dlOld.GetTopics();
 
             int newIndex = 0;

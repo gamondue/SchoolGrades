@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
-    <Version>0.54.1.12</Version>
+    <Version>0.54.1.13</Version>
     <Authors>Ing. Gabriele Monti - Forlì - Italia</Authors>
     <Copyright>Ing. Gabriele Monti - Forlì - Italia</Copyright>
     <PackageLicenseExpression>GPLv2</PackageLicenseExpression>
@@ -16,11 +16,12 @@ Published on GitHub with GPL v.2 licence.
 Versions with numbers under 0.50 were made with .Net Framework.</PackageReleaseNotes>
     <PackageIcon>gamon LegoLogo decentrato trasparente 256x256.ico</PackageIcon>
     <ApplicationIcon>gamon LegoLogo decentrato trasparente 256x256.ico</ApplicationIcon>
-    <DefineConstants>WINFORMS</DefineConstants>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <IsPublishable>False</IsPublishable>
+	<DefineConstants>WINFORMS</DefineConstants>
+	<DefineConstants>SQLITE</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -36,8 +37,9 @@ Versions with numbers under 0.50 were made with .Net Framework.</PackageReleaseN
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NUnit" Version="3.13.3" />
-    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
+    <PackageReference Include="NUnit" Version="4.1.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
   </ItemGroup>
 
   <ItemGroup>

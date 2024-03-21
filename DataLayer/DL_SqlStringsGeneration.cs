@@ -1,8 +1,10 @@
-﻿using System;
+﻿using SchoolGrades.BusinessObjects;
+using System;
+using System.Collections.Generic;
 
 namespace SchoolGrades
 {
-    internal partial class DataLayer
+    internal abstract partial class DataLayer
     {
         #region functions that prepare the value of a variable to be used in a SQL statement 
         internal string SqlString(string String)
@@ -69,7 +71,7 @@ namespace SchoolGrades
                 statement = FieldName + " LIKE '%" + SearchText + "%'";
             return statement;
         }
-        public string SqlBool(object Value)
+        internal string SqlBool(object Value)
         {
             if (Value == null)
                 return "null";
@@ -170,7 +172,7 @@ namespace SchoolGrades
                 Query = Query.Replace("  ", " ");
             return Query;
         }
-        public string SqlDate(string Date)
+        internal string SqlDate(string Date)
         {
             if (Date is null)
                 return "null";
@@ -180,14 +182,37 @@ namespace SchoolGrades
             DateTime? d = System.DateTime.Parse(Date);
             return ("datetime('" + ((DateTime)d).ToString("yyyy-MM-dd HH:mm:ss").Replace('.', ':') + "')");
         }
-
-        public string SqlDate(DateTime? Date)
+        internal string SqlDate(DateTime? Date)
         {
             if (Date != null)
                 return ("datetime('" + ((DateTime)Date).ToString("yyyy-MM-dd HH:mm:ss").Replace('.', ':') + "')");
             else
                 return "null";
         }
+        internal string BuildAndClauseOnPassedField(List<Class> classes, string FieldName)
+        {
+            // we assume that classes have no nulls 
+            string andClause = string.Empty;
+            foreach (Class c in classes)
+            {
+                andClause += FieldName + "<>" + c.IdClass + " AND ";
+            }
+            andClause = andClause.Substring(0, andClause.Length - 5);
+            return andClause;
+        }
+        internal string BuildOrClauseOnPassedField(List<Class> classes, string FieldName)
+        {
+            // we assume that classes have no nulls 
+            string orClause = string.Empty;
+            foreach (Class c in classes)
+            {
+                orClause += FieldName + "=" + c.IdClass + " OR ";
+            }
+            orClause = orClause.Substring(0, orClause.Length - 4);
+            return orClause;
+        }
+
+        
     }
     #endregion
 }
