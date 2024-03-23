@@ -112,7 +112,7 @@ namespace SchoolGrades
 
                 cmd.CommandText = "UPDATE Grades" +
                            " Set" +
-                           " isFixed=TRUE" +
+                           " isFixed=1" +
                            " WHERE idGrade=" + IdGrade +
                            ";";
                 cmd.ExecuteNonQuery();
