@@ -15,7 +15,7 @@ namespace SchoolGrades_WPF
     /// </summary>
     public partial class frmQuestion : Window
     {
-        TreeMpttDb dbMptt;
+        TreeMpttDb_SqLite dbMptt;
 
         internal Question currentQuestion = new Question();
         internal bool UserHasChosen;
@@ -39,7 +39,11 @@ namespace SchoolGrades_WPF
         {
             InitializeComponent();
 
-            dbMptt = new TreeMpttDb();
+#if SQL_SERVER
+            TreeMpttDb_SqlServer dbMptt = new TreeMpttDb_SqLite();
+#else
+            TreeMpttDb_SqLite dbMptt = new TreeMpttDb_SqLite();
+#endif
 
             // fills the lookup tables' combos
             List<QuestionType> listQuestions = Commons.bl.GetListQuestionTypes(true);

@@ -18,9 +18,9 @@ namespace SchoolGrades
         {
             return dl.GetAnnotation(IdAnnotation);
         }
-        internal void EraseAnnotationById(int? idAnnotation)
+        internal void EraseAnnotationById(int? IdAnnotation)
         {
-            dl.EraseAnnotationById(idAnnotation);
+            dl.EraseAnnotationById(IdAnnotation);
         }
         internal void EraseAnnotationByText(string Text, Student Student)
         {

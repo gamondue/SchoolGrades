@@ -41,7 +41,7 @@ namespace gamon.TreeMptt
         // https://www.sitepoint.com/hierarchical-data-database/, by Gijs Van Tulder
 
         // class that encapsulates the data access to the tree nodes 
-        TreeMpttDb dbMptt;
+        TreeMpttDb_SqLite dbMptt;
 
         private bool hasChanges = false;
         bool markAllInSearch = false;
@@ -202,7 +202,11 @@ namespace gamon.TreeMptt
             bool PutCheckSignsOnNodes = true)
         {
             bl = Commons.bl;
-            dbMptt = new TreeMpttDb();
+#if SQL_SERVER
+            TreeMpttDb_SqlServer dbMptt = new TreeMpttDb_SqLite();
+#else
+            TreeMpttDb_SqLite dbMptt = new TreeMpttDb_SqLite();
+#endif
             shownTreeView = TreeViewControl;
             //listTopicsBefore = InitialListOfTopics;
             txtNodeName = TxtNodeName;

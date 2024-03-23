@@ -1,8 +1,6 @@
 ﻿using SchoolGrades.BusinessObjects;
 using System;
-using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SchoolGrades
 {
@@ -75,7 +73,7 @@ namespace SchoolGrades
                 newSp.Name = "Anno " + SchoolYear;
                 newSp.Desc = "Anno scolastico " + startingYear + "-" + (startingYear + 1);
                 dl.SaveSchoolPeriod(newSp);
-                
+
                 // first period
                 newSp.IdSchoolPeriod = SchoolYear + "1P";
                 newSp.IdSchoolPeriodType = "P";
@@ -109,22 +107,22 @@ namespace SchoolGrades
         }
         internal void DeleteSchoolPeriod(string IdSchoolPeriod)
         {
-            dl.DeleteSchoolPeriod(IdSchoolPeriod); 
+            dl.DeleteSchoolPeriod(IdSchoolPeriod);
         }
         internal void AddSchoolYearIfNotExists(SchoolYear NewSchoolYear)
         {
-            if (Commons.dl.SchoolYearExists(NewSchoolYear.IdSchoolYear))
+            if (dl.SchoolYearExists(NewSchoolYear.IdSchoolYear))
                 return;
-            Commons.dl.AddSchoolYear(NewSchoolYear); 
+            dl.AddSchoolYear(NewSchoolYear);
         }
         internal SchoolYear GenerateNewYearData(SchoolYear CurrentYear)
         {
             if (CurrentYear.IdSchoolYear == null)
-                return null; 
+                return null;
             SchoolYear nextYear = new SchoolYear();
             nextYear.IdSchoolYear = Commons.IncreaseIntegersInString(CurrentYear.IdSchoolYear);
             nextYear.ShortDescription = Commons.IncreaseIntegersInString(CurrentYear.ShortDescription);
-            nextYear.Notes = Commons.IncreaseIntegersInString(CurrentYear.Notes); 
+            nextYear.Notes = Commons.IncreaseIntegersInString(CurrentYear.Notes);
 
             return nextYear;
         }
@@ -139,13 +137,13 @@ namespace SchoolGrades
                 newClass.Abbreviation = Commons.IncreaseIntegersInString(CurrentClass.Abbreviation);
                 newClass.Description = Commons.IncreaseIntegersInString(CurrentClass.Description);
                 newClass.IdSchool = CurrentClass.IdSchool;
-                newClass.SchoolYear = Commons.IncreaseIntegersInString(CurrentClass.SchoolYear); 
+                newClass.SchoolYear = Commons.IncreaseIntegersInString(CurrentClass.SchoolYear);
             }
             else
             {
-                newClass.IdClass = null; 
+                newClass.IdClass = null;
             }
-            return newClass;  
+            return newClass;
         }
     }
 }

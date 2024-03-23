@@ -1,4 +1,5 @@
-﻿Microsoft Visual Studio Solution File, Format Version 12.00
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
@@ -23,6 +24,8 @@ EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TreeMpttWinForms", "TreeMpttWinForms\TreeMpttWinForms.shproj", "{F2BE10CF-3C87-4179-B0D2-4D36ADA2324E}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TreeMpttManagement", "TreeMpttManagement\TreeMpttManagement.shproj", "{AEA6904A-A8B6-4602-8946-03DF79CBBD30}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NUnitDbTests", "NUnitTests\NUnitDbTests.csproj", "{D133FF76-DB7D-493D-8724-AA8EB4B1C527}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -78,6 +81,26 @@ Global
 		{26E83547-D975-4667-9FC8-80F966B704C7}.Release|x64.Build.0 = Release|Any CPU
 		{26E83547-D975-4667-9FC8-80F966B704C7}.Release|x86.ActiveCfg = Release|Any CPU
 		{26E83547-D975-4667-9FC8-80F966B704C7}.Release|x86.Build.0 = Release|Any CPU
+		{D133FF76-DB7D-493D-8724-AA8EB4B1C527}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D133FF76-DB7D-493D-8724-AA8EB4B1C527}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D133FF76-DB7D-493D-8724-AA8EB4B1C527}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{D133FF76-DB7D-493D-8724-AA8EB4B1C527}.Debug|ARM.Build.0 = Debug|Any CPU
+		{D133FF76-DB7D-493D-8724-AA8EB4B1C527}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{D133FF76-DB7D-493D-8724-AA8EB4B1C527}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{D133FF76-DB7D-493D-8724-AA8EB4B1C527}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D133FF76-DB7D-493D-8724-AA8EB4B1C527}.Debug|x64.Build.0 = Debug|Any CPU
+		{D133FF76-DB7D-493D-8724-AA8EB4B1C527}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D133FF76-DB7D-493D-8724-AA8EB4B1C527}.Debug|x86.Build.0 = Debug|Any CPU
+		{D133FF76-DB7D-493D-8724-AA8EB4B1C527}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D133FF76-DB7D-493D-8724-AA8EB4B1C527}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D133FF76-DB7D-493D-8724-AA8EB4B1C527}.Release|ARM.ActiveCfg = Release|Any CPU
+		{D133FF76-DB7D-493D-8724-AA8EB4B1C527}.Release|ARM.Build.0 = Release|Any CPU
+		{D133FF76-DB7D-493D-8724-AA8EB4B1C527}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{D133FF76-DB7D-493D-8724-AA8EB4B1C527}.Release|ARM64.Build.0 = Release|Any CPU
+		{D133FF76-DB7D-493D-8724-AA8EB4B1C527}.Release|x64.ActiveCfg = Release|Any CPU
+		{D133FF76-DB7D-493D-8724-AA8EB4B1C527}.Release|x64.Build.0 = Release|Any CPU
+		{D133FF76-DB7D-493D-8724-AA8EB4B1C527}.Release|x86.ActiveCfg = Release|Any CPU
+		{D133FF76-DB7D-493D-8724-AA8EB4B1C527}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -107,6 +130,11 @@ Global
 		SharedItems\SharedItems.projitems*{a5dc5853-0eb8-493e-804d-d596d841aa2d}*SharedItemsImports = 13
 		TreeMpttManagement\MpttTreeManagement.projitems*{aea6904a-a8b6-4602-8946-03df79cbbd30}*SharedItemsImports = 13
 		SharedWinForms\SharedWinForms.projitems*{bdb76e62-3474-4529-b85d-2ebe40c7befb}*SharedItemsImports = 13
+		BusinessLayer\BusinessLayer.projitems*{d133ff76-db7d-493d-8724-aa8eb4b1c527}*SharedItemsImports = 5
+		BusinessObjects\BusinessObjects.projitems*{d133ff76-db7d-493d-8724-aa8eb4b1c527}*SharedItemsImports = 5
+		DataLayer\DataLayer.projitems*{d133ff76-db7d-493d-8724-aa8eb4b1c527}*SharedItemsImports = 5
+		SharedItems\SharedItems.projitems*{d133ff76-db7d-493d-8724-aa8eb4b1c527}*SharedItemsImports = 5
+		TreeMpttManagement\MpttTreeManagement.projitems*{d133ff76-db7d-493d-8724-aa8eb4b1c527}*SharedItemsImports = 5
 		TreeMpttWinForms\TreeMpttWinForms.projitems*{f2be10cf-3c87-4179-b0d2-4d36ada2324e}*SharedItemsImports = 13
 		BusinessObjects\BusinessObjects.projitems*{fc67d93e-c273-48fb-b183-dfa07592452e}*SharedItemsImports = 13
 	EndGlobalSection
