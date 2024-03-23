@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace NUnitDbTests
 {
@@ -130,6 +131,10 @@ namespace NUnitDbTests
             List<Question> lq = new List<Question>();
             lq = Test_Commons.dl.GetAllQuestionsOfATest(IdTest);
             Assert.That(lq.Count >= 0);
+
+            int idQuestion = 1;
+            Question q = Test_Commons.dl.GetQuestionById(idQuestion);
+            Assert.That(q, Is.Not.Null);
         }
         [Test]
         public void T_QuestionManagement_CUpdate()
@@ -148,7 +153,20 @@ namespace NUnitDbTests
         [Test]
         public void T_QuestionManagement_DDelete()
         {
+            string connectionString = "SERVER=localhost;UID=sa;PWD=burbero2023;Database=schoolGrades;TrustServerCertificate=true";
+            DbConnection conn;
+            conn = new SqlConnection(connectionString);
+            conn.Open();
 
+            int IdQuestion = 1, IdTest = 1;
+            string query = "SELECT * FROM Tests_Questions WHERE IdQuestion = " + IdQuestion + "AND IdTest = " + IdTest + ";";
+            DbCommand cmd = conn.CreateCommand();
+            cmd.CommandText = query;
+            DbDataReader rd = cmd.ExecuteReader();
+            
+            Test_Commons.dl.RemoveQuestionFromTest(IdQuestion, IdTest);
+
+            Assert.That(!rd.Read());
         }
     }
 }
