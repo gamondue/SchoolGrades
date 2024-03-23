@@ -401,11 +401,7 @@ namespace SchoolGrades
             {
                 DbCommand cmd = conn.CreateCommand();
 
-                cmd.CommandText = "UPDATE Grades" +
-                           " Set" +
-                           " value=null" +
-                           " WHERE IdGrade=" + IdGrade +
-                           ";";
+                cmd.CommandText = @$"UPDATE Grades SET value=null WHERE IdGrade={IdGrade}";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
@@ -691,16 +687,16 @@ namespace SchoolGrades
             DataTable t;
             using (DbConnection conn = Connect())
             {
-                string query = "SELECT idGrade, idStudent, value, idSchoolSubject," +
-                    "weight, cncFactor, idSchoolYear, datetime(timestamp), idGradeType, " +
-                    "idGradeParent,idQuestion" +
-                " FROM Grades" +
-                " WHERE Grades.idStudent =" + IdStudent +
-                " AND Grades.idSchoolYear='" + IdSchoolYear + "'" +
-                " AND Grades.idGradeType = '" + IdGradeType + "'" +
-                " AND Grades.idSchoolSubject = '" + IdSchoolSubject + "'" +
-                " AND Grades.Value > 0" +
-                " ORDER BY datetime(Grades.timestamp) Desc;";
+                string query = @$"SELECT idGrade, idStudent, value, idSchoolSubject,
+                                weight, cncFactor, idSchoolYear, timestamp, idGradeType,
+                                idGradeParent,idQuestion
+                                FROM Grades
+                                WHERE Grades.idStudent ={IdStudent}
+                                AND Grades.idSchoolYear='{IdSchoolYear}'
+                                AND Grades.idGradeType = '{IdGradeType}'
+                                AND Grades.idSchoolSubject = '{IdSchoolSubject}'
+                                AND Grades.Value > 0
+                                ORDER BY Grades.timestamp DESC;";
 
                 DataAdapter DAdapt = new SqlDataAdapter(query, (SqlConnection)conn);
                 DataSet DSet = new DataSet("ClosedMicroGrades");
