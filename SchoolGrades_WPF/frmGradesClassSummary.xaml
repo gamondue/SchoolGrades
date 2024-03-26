@@ -102,8 +102,8 @@
             <Label Style="{DynamicResource SmallText}" Foreground="Black" Grid.Column="2" Grid.ColumnSpan="2">Periodo dei voti</Label>
             <Label Style="{DynamicResource SmallText}" VerticalAlignment="Bottom" Grid.Column="2">Inizio</Label>
             <Label Style="{DynamicResource SmallText}" VerticalAlignment="Bottom" Grid.Column="3">Fine</Label>
-            <DatePicker Name="dtpStartPeriod" Grid.Column="2" Grid.Row="1"></DatePicker>
-            <DatePicker Name="dtpEndPeriod" Grid.Column="3" Grid.Row="1"></DatePicker>
+            <DatePicker Name="dtpStartPeriod" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center"></DatePicker>
+            <DatePicker Name="dtpEndPeriod" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center"></DatePicker>
             <ComboBox Name="cmbSchoolPeriod" Grid.Column="4" Grid.Row="1" 
                       SelectionChanged="cmbSchoolPeriod_SelectedIndexChanged"></ComboBox>
             <Button Name="btnReadData" Grid.Column="5" Grid.Row="1" Click="btnReadData_Click">Leggi dati</Button>

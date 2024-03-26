@@ -6,7 +6,7 @@
         private string nameAndPathDatabase;
         #region constructors
         /// <summary>
-        /// Constructor of dl class that uses the default database of the program
+        /// Constructor of DataLayer class that uses the default database of the program
         /// Assumes that the file exists.
         /// </summary>
         internal SqLite_DataLayer()
@@ -21,7 +21,7 @@
             dbName = Commons.PathAndFileDatabase;
         }
         /// <summary>
-        /// Constructor of dl class that get from outside the databases to use
+        /// Constructor of DataLayer class that get from outside the databases to use
         /// Assumes that the file exists.
         /// </summary>
         internal SqLite_DataLayer(string PathAndFile)

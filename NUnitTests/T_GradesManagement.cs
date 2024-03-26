@@ -83,12 +83,28 @@ namespace NUnitDbTests
         [Test]
         public void T_GetGradesOfStudent()
         {
-            //Test_Commons.dl.GetGradesOfStudent();
+            var ret = Test_Commons.dl.GetGradesOfStudent(new() { IdStudent = 455 }, "anno", "prova", "2", new DateTime(1999, 07, 08), DateTime.Now);
         }
         [Test]
-        public void T_CloneGrade()
+        public void T_GetListGradeTypes()
         {
-            //Test_Commons.dl.CloneGrade()
+            var ret = Test_Commons.dl.GetListGradeTypes();
+            Assert.That(ret, Has.Count.AtLeast(1));
+        }
+        [Test]
+        public void T_GetSubGradesOfGrade()
+        {
+            var subGrades = Test_Commons.dl.GetSubGradesOfGrade(2);
+        }
+        [Test]
+        public void T_DeleteValueOfGrade()
+        {
+            Test_Commons.dl.DeleteValueOfGrade(1);
+        }
+        [Test]
+        public void T_GetMacroGradesOfStudentClosed()
+        {
+            var ret = Test_Commons.dl.GetMacroGradesOfStudentClosed(1, "anno", "1", "2");
         }
     }
 }
