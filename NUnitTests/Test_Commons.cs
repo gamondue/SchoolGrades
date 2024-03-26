@@ -9,11 +9,11 @@ namespace NUnitDbTests
 
         internal static void SetDataLayer()
         {
-        #if SQL_SERVER
+#if SQL_SERVER
             Test_Commons.dl = new SqlServer_DataLayer(dbTest);
-        #else
+#else
             Test_Commons.dl = new SqLite_DataLayer();
-        #endif 
+#endif 
         }
     }
 }

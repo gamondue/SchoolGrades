@@ -105,7 +105,7 @@ namespace SchoolGrades
                 Console.Beep();
                 return;
             }
-            ////////////dl dlOld = new dl(txtPathOldDatabase.Text + "\\" + txtFileOldDatabase.Text);
+            ////////////DataLayer dlOld = new DataLayer(txtPathOldDatabase.Text + "\\" + txtFileOldDatabase.Text);
 
             treeOld = new TreeMptt(trwOldTopics,
                 txtOldTopicName, txtOldDescription, txtSearchOld, null, txtCodOldTopic,

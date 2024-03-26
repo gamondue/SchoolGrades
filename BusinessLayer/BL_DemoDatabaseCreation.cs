@@ -20,7 +20,7 @@ namespace SchoolGrades
         internal void CreateDemoDatabase(string NewDatabasePathAndName,
             List<Class> classesToRetain)
         {
-            // local instance of a dl to operate on a second database 
+            // local instance of a DataLayer to operate on a second database 
             DataLayer newDatabaseDl = Commons.SetDataLayer(NewDatabasePathAndName);
             File.Copy(Commons.PathAndFileDatabase, NewDatabasePathAndName);
 

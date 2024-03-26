@@ -523,5 +523,24 @@ namespace gamon.TreeMptt
                 return (result != null);
             }
         }
+        internal override void GetTopics(int? numberOfTopics)
+        {
+            List<Topic> TopicsList = new List<Topic>(); 
+            using (localConnection = dl.Connect()) {
+                DbCommand cmd = localConnection.CreateCommand();
+                if (numberOfTopics != null)
+                {
+                    cmd.CommandText = @"SELECT" + numberOfTopics + " FROM Topics;";
+                    var result = cmd.ExecuteScalar();
+                }
+                else
+                {
+                    cmd.CommandText = @"SELECT * FROM Topics;";
+                    var result = cmd.ExecuteScalar();
+                    
+                }
+                
+            }
+        }
     }
 }
