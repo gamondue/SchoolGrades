@@ -1,5 +1,4 @@
 ﻿using SchoolGrades.BusinessObjects;
-using Shared;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -23,14 +22,14 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
-            idSchoolYear = IdSchoolYear; 
+            idSchoolYear = IdSchoolYear;
             this.chosenStudents = ChosenStudents;
-            dgwStudents.DataSource = ChosenStudents; 
+            dgwStudents.DataSource = ChosenStudents;
         }
         private void frmStudentsNotes_Load(object sender, EventArgs e)
         {
             txtSchoolYear.Text = idSchoolYear;
-            yearUsed = idSchoolYear; 
+            yearUsed = idSchoolYear;
             RefreshUI();
 
             if (chosenStudents.Count == 1)
@@ -40,7 +39,7 @@ namespace SchoolGrades
                 // set him as current student
                 currentStudent = chosenStudents[0];
                 // show his annotations
-                ShowAnnotationsOfCurrentStudent(); 
+                ShowAnnotationsOfCurrentStudent();
             }
         }
         private void RefreshUI()
@@ -48,8 +47,8 @@ namespace SchoolGrades
             dgwNotes.DataSource = Commons.bl.AnnotationsAboutThisStudent(currentStudent, yearUsed,
                 chkShowOnlyActive.Checked);
             if (dgwNotes.Rows.Count == 0)
-                currentAnnotation = new StudentAnnotation(); 
-            WriteUI(); 
+                currentAnnotation = new StudentAnnotation();
+            WriteUI();
         }
         private void WriteUI()
         {
@@ -72,7 +71,7 @@ namespace SchoolGrades
 
             currentAnnotation.IdSchoolYear = txtSchoolYear.Text;
             //if (txtAnnotation.Text != "")
-                currentAnnotation.IdAnnotation = Safe.Int(txtIdAnnotation.Text);
+            currentAnnotation.IdAnnotation = Safe.Int(txtIdAnnotation.Text);
             ////else
             ////    currentAnnotation.IdAnnotation = null;
             if (currentAnnotation.IdStudent != 0)
@@ -80,10 +79,10 @@ namespace SchoolGrades
             else
                 currentAnnotation.IdStudent = null;
             currentAnnotation.Annotation = txtAnnotation.Text;
-            if (currentAnnotation.IsActive == null) currentAnnotation.IsActive = false; 
+            if (currentAnnotation.IsActive == null) currentAnnotation.IsActive = false;
             currentAnnotation.IsActive = chkCurrentActive.Checked;
-            if (currentAnnotation.IsPopUp == null) currentAnnotation.IsPopUp = false; 
-            currentAnnotation.IsPopUp = chkPopUp.Checked; 
+            if (currentAnnotation.IsPopUp == null) currentAnnotation.IsPopUp = false;
+            currentAnnotation.IsPopUp = chkPopUp.Checked;
         }
         private void txtSchoolYear_TextChanged(object sender, EventArgs e)
         {
@@ -99,7 +98,7 @@ namespace SchoolGrades
             if (e.RowIndex > -1)
             {
                 dgwNotes.Rows[e.RowIndex].Selected = true;
-                
+
                 currentAnnotation = ((List<StudentAnnotation>)dgwNotes.DataSource)[e.RowIndex];
             }
             WriteUI();
@@ -108,7 +107,7 @@ namespace SchoolGrades
         {
             ReadUI();
             currentAnnotation.InstantTaken = DateTime.Now;
-            currentAnnotation.InstantClosed = null; 
+            currentAnnotation.InstantClosed = null;
             currentAnnotation.IsActive = true;
             //db.SaveAnnotation(currentAnnotation);
 
@@ -120,7 +119,7 @@ namespace SchoolGrades
             {
                 if (!SaveMany)
                 {
-                    if (!CommonsWinForms.CheckIfStudentChosen(currentStudent))
+                    if (!Commons.CheckIfStudentChosen(currentStudent))
                         return;
                     currentAnnotation.IdAnnotation = null;
                     currentAnnotation.IdAnnotation = Commons.bl.SaveAnnotation(currentAnnotation, currentStudent);
@@ -163,7 +162,7 @@ namespace SchoolGrades
                 else
                     Commons.bl.SaveAnnotation(currentAnnotation, currentStudent);
             }
-            RefreshUI(); 
+            RefreshUI();
         }
         private void ShowAnnotationsOfCurrentStudent()
         {
@@ -199,11 +198,11 @@ namespace SchoolGrades
             {   // an Id is already there 
                 if (MessageBox.Show("Devo creare una nuova annotazione con lo stesso testo della precedente?",
                     "", MessageBoxButtons.YesNo) == DialogResult.No)
-                    return; 
+                    return;
             }
             ReadUI();
             // null the Id to save a new annotaion 
-            currentAnnotation.IdAnnotation = null; 
+            currentAnnotation.IdAnnotation = null;
             SaveAnnotations(false);
             RefreshUI();
         }
@@ -215,7 +214,7 @@ namespace SchoolGrades
                 return;
             }
             ReadUI();
-            currentAnnotation.IdAnnotation = null; 
+            currentAnnotation.IdAnnotation = null;
             SaveAnnotations(true);
             RefreshUI();
         }
@@ -255,7 +254,7 @@ namespace SchoolGrades
             if (txtIdAnnotation.Text == "")
             {
                 MessageBox.Show("Scegliere un'annotazione da modificare");
-                return; 
+                return;
             }
             if (txtAnnotation.Text == "")
             {
@@ -269,7 +268,7 @@ namespace SchoolGrades
         private void btnSaveModificationsGroup_Click(object sender, EventArgs e)
         {
             // !!!! think how to make this !!!!
-            MessageBox.Show("Da fare!"); 
+            MessageBox.Show("Da fare!");
             ////if (txtIdAnnotation.Text == "")
             ////{
             ////    MessageBox.Show("Scegliere un'annotazione da modificare");
@@ -291,7 +290,7 @@ namespace SchoolGrades
         private void btnNew_Click(object sender, EventArgs e)
         {
             txtIdAnnotation.Text = "";
-            txtAnnotation.Text = ""; 
+            txtAnnotation.Text = "";
         }
         private void chkShowOnlyActive_CheckedChanged(object sender, EventArgs e)
         {
@@ -328,9 +327,9 @@ namespace SchoolGrades
         }
         private void chkCurrentActive_CheckedChanged(object sender, EventArgs e)
         {
-            if(chkCurrentActive.Checked == false)
+            if (chkCurrentActive.Checked == false)
             {
-                chkPopUp.Checked = false; 
+                chkPopUp.Checked = false;
             }
         }
     }

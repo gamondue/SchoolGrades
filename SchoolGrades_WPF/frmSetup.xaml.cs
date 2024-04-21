@@ -19,7 +19,7 @@ namespace SchoolGrades_WPF
 
         private void frmSetup_Load(object sender, RoutedEventArgs e)
         {
-            ////CommonsWpf.ReadConfigFile();
+            ////Commons.ReadConfigFile();
             //TxtPathDatabase.Text = Commons.PathDatabase;
             //TxtFileDatabase.Text = System.IO.Path.GetFileName(Commons.PathAndFileDatabase);
             //TxtPathImages.Text = Commons.PathImages;

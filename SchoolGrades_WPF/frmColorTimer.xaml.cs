@@ -1,5 +1,5 @@
 ﻿using gamon;
-using Shared;
+using SchoolGrades;
 using System;
 using System.Threading;
 using System.Windows;
@@ -89,7 +89,7 @@ namespace SchoolGrades_WPF
 
             SetInitialColor();
 
-            btnConnect.Background = CommonsWpf.WinFormsToWpfBrush(currentColor);
+            btnConnect.Background = Commons.WinFormsToWpfBrush(currentColor);
 
             //////////spanHue = finalColor.GetHue() - initialColor.GetHue(); // differenza di tinta da coprire
             //spanSaturation = coloreFinale.GetSaturation() - coloreIniziale.GetSaturation(); // differenza da coprire
@@ -136,13 +136,13 @@ namespace SchoolGrades_WPF
                 catch
                 {
                 }
-                this.Background = CommonsWpf.WinFormsToWpfBrush(currentColor);
-                btnStartNextInterval.Background = CommonsWpf.WinFormsToWpfBrush(currentColor);
-                btnStartFirstInterval.Background = CommonsWpf.WinFormsToWpfBrush(currentColor);
-                lblMinutesLeft.Background = CommonsWpf.WinFormsToWpfBrush(currentColor);
-                lblSecondsLeft.Background = CommonsWpf.WinFormsToWpfBrush(currentColor);
+                this.Background = Commons.WinFormsToWpfBrush(currentColor);
+                btnStartNextInterval.Background = Commons.WinFormsToWpfBrush(currentColor);
+                btnStartFirstInterval.Background = Commons.WinFormsToWpfBrush(currentColor);
+                lblMinutesLeft.Background = Commons.WinFormsToWpfBrush(currentColor);
+                lblSecondsLeft.Background = Commons.WinFormsToWpfBrush(currentColor);
 
-                btnConnect.Background = CommonsWpf.WinFormsToWpfBrush(currentColor);
+                btnConnect.Background = Commons.WinFormsToWpfBrush(currentColor);
 
                 if (timeLeftSeconds < timeTotalSeconds * 0.2 * 60.0 && !alarmClock)
                 {
@@ -300,12 +300,12 @@ namespace SchoolGrades_WPF
         }
         private void SetInitialColor()
         {
-            this.Background = CommonsWpf.WinFormsToWpfBrush(initialColor);
-            btnStartNextInterval.Background = CommonsWpf.WinFormsToWpfBrush(initialColor);
-            btnStartFirstInterval.Background = CommonsWpf.WinFormsToWpfBrush(initialColor);
+            this.Background = Commons.WinFormsToWpfBrush(initialColor);
+            btnStartNextInterval.Background = Commons.WinFormsToWpfBrush(initialColor);
+            btnStartFirstInterval.Background = Commons.WinFormsToWpfBrush(initialColor);
 
-            lblSecondsLeft.Background = CommonsWpf.WinFormsToWpfBrush(initialColor);
-            lblMinutesLeft.Background = CommonsWpf.WinFormsToWpfBrush(initialColor);
+            lblSecondsLeft.Background = Commons.WinFormsToWpfBrush(initialColor);
+            lblMinutesLeft.Background = Commons.WinFormsToWpfBrush(initialColor);
 
             currentColor = initialColor;
         }

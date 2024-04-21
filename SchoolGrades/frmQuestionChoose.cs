@@ -1,6 +1,5 @@
 ﻿using gamon.TreeMptt;
 using SchoolGrades.BusinessObjects;
-using Shared;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -184,7 +183,7 @@ namespace SchoolGrades
         {
             currentSubject = (SchoolSubject)cmbSchoolSubject.SelectedItem; // new SchoolSubject();
 
-            this.BackColor = CommonsWinForms.ColorFromNumber(currentSubject);
+            this.BackColor = Commons.ColorFromNumber(currentSubject);
 
             updateQuestions();
         }
@@ -411,11 +410,11 @@ namespace SchoolGrades
         }
         private void btnKnotsToTheComb_Click(object sender, EventArgs e)
         {
-            if (!CommonsWinForms.CheckIfStudentChosen(currentStudent))
+            if (!Commons.CheckIfStudentChosen(currentStudent))
             {
                 return;
             }
-            if (!CommonsWinForms.CheckIfSubjectChosen(currentSubject))
+            if (!Commons.CheckIfSubjectChosen(currentSubject))
             {
                 return;
             }

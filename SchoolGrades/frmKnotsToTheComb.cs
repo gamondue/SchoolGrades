@@ -1,5 +1,4 @@
 ﻿using SchoolGrades.BusinessObjects;
-using Shared;
 using System;
 using System.Windows.Forms;
 
@@ -110,7 +109,7 @@ namespace SchoolGrades
         private void cmbSchoolSubject_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentSubject = (SchoolSubject)cmbSchoolSubject.SelectedItem;
-            this.BackColor = CommonsWinForms.ColorFromNumber(currentSubject);
+            this.BackColor = Commons.ColorFromNumber(currentSubject);
             RefreshData();
         }
     }

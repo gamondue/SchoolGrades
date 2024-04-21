@@ -1,6 +1,5 @@
 ﻿using SchoolGrades;
 using SchoolGrades.BusinessObjects;
-using Shared;
 using System;
 using System.Data;
 using System.Windows;
@@ -126,8 +125,8 @@ namespace SchoolGrades_WPF
             {
             }
 
-            //this.Background = CommonsWpf.ColorFromNumber(currentSchoolSubject);
-            Color BackColor = CommonsWpf.ColorFromNumber(currentSchoolSubject.Color);
+            //this.Background = Commons.ColorFromNumber(currentSchoolSubject);
+            Color BackColor = Commons.ColorFromNumber(currentSchoolSubject.Color);
             this.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(BackColor.A, BackColor.R, BackColor.G, BackColor.B));
             LessonTimer.Interval = new TimeSpan(0, 0, 1);
             if (Commons.IsTimerLessonActive)

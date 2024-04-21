@@ -1,6 +1,5 @@
 ﻿using gamon;
 using gamon.TreeMptt;
-using SchoolGrades;
 using SchoolGrades.BusinessObjects;
 using System;
 using System.IO;
@@ -12,12 +11,13 @@ using Rectangle = System.Windows.Shapes.Rectangle;
 using WinFormsColor = System.Drawing.Color;
 using WpfColor = System.Windows.Media.Color;
 
-namespace Shared
+namespace SchoolGrades
 {
-    internal class CommonsWpf
+    internal static partial class Commons
     {
         internal static Rectangle globalPicLed;
         internal static TreeMptt SaveTreeMptt;
+
         internal static WpfColor ColorNoSubject = Colors.PowderBlue;
 
         internal static void SaveCurrentValuesOfAllControls(Control ParentControl, ref string PathAndFile)
@@ -372,5 +372,15 @@ namespace Shared
         {
             return new SolidColorBrush(WinFormsToWpfColor(winFormsColor));
         }
+        ////////internal static Color ColorFromNumber(SchoolSubject Subject)
+        ////////{
+        ////////    if (Subject == null || Subject.Color == null || Subject.Color == 0)
+        ////////        return Commons.ColorNoSubject;
+        ////////    // extract the color components from the RGB number
+        ////////    Color bgColor = Color.FromArgb((int)(Subject.Color & 0xFF0000) >> 16,
+        ////////        (int)(Subject.Color & 0xFF00) >> 8,
+        ////////        (int)Subject.Color & 0xFF);
+        ////////    return bgColor;
+        ////////}
     }
 }

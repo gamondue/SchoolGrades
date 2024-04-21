@@ -70,7 +70,7 @@ namespace SchoolGrades
             ClassAbbreviation, IncludeNonActiveStudents);
         }
         internal List<Student> GetStudentsAndSumOfWeights(Class Class,
-            GradeType GradeType, SchoolSubject SchoolSubject,
+            List<Student> studentsList, GradeType GradeType, SchoolSubject SchoolSubject,
             DateTime DateFrom, DateTime DateTo)
         {
             List<Student> ls = new List<Student>();

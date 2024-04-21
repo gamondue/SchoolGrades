@@ -1,6 +1,5 @@
 ﻿using gamon.TreeMptt;
 using SchoolGrades.BusinessObjects;
-using Shared;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -49,7 +48,7 @@ namespace SchoolGrades
                     currentSubject = null;
                 else
                 {
-                    Color bgColor = CommonsWinForms.ColorFromNumber(currentSubject);
+                    Color bgColor = Commons.ColorFromNumber(currentSubject);
                     this.BackColor = bgColor;
                 }
                 currentClass = Class;
@@ -66,7 +65,7 @@ namespace SchoolGrades
                     currentSubject = null;
                 else
                 {
-                    Color bgColor = CommonsWinForms.ColorFromNumber(currentSubject);
+                    Color bgColor = Commons.ColorFromNumber(currentSubject);
                     this.BackColor = bgColor;
                 }
                 if (formType == TopicsFormType.HighlightTopics)
@@ -92,7 +91,7 @@ namespace SchoolGrades
         {
             topicTreeMptt = new TreeMptt(trwTopics,
                 txtTopicName, txtTopicDescription, txtTopicSearchString, null,
-                null, CommonsWinForms.globalPicLed, chkSearchInDescriptions, chkVerbatimString,
+                null, Commons.globalPicLed, chkSearchInDescriptions, chkVerbatimString,
                 chkAllWord, chkCaseInsensitive, chkFindAll, DragDropEffects.Copy);
             // list read from database 
             topicTreeMptt.AddNodesToTreeviewByBestMethod();

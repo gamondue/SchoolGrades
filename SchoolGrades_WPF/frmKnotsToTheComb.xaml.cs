@@ -1,6 +1,5 @@
 ﻿using SchoolGrades;
 using SchoolGrades.BusinessObjects;
-using Shared;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -123,7 +122,7 @@ namespace SchoolGrades_WPF
         private void cmbSchoolSubject_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentSubject = (SchoolSubject)cmbSchoolSubject.SelectedItem;
-            this.Background = CommonsWpf.BrushFromColor(CommonsWpf.ColorFromNumber(currentSubject.Color));
+            this.Background = Commons.BrushFromColor(Commons.ColorFromNumber(currentSubject.Color));
             RefreshData();
         }
     }

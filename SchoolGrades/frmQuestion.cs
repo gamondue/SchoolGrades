@@ -1,6 +1,5 @@
 ﻿using gamon.TreeMptt;
 using SchoolGrades.BusinessObjects;
-using Shared;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -236,7 +235,7 @@ namespace SchoolGrades
             ////////{
             ////////    bgColor = Color.PowderBlue;
             ////////}
-            this.BackColor = CommonsWinForms.ColorFromNumber(currentSubject);
+            this.BackColor = Commons.ColorFromNumber(currentSubject);
         }
 
         private void cmbQuestionType_SelectedIndexChanged(object sender, EventArgs e)

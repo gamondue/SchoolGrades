@@ -17,7 +17,7 @@ namespace SchoolGrades
         }
         private void frmSetup_Load(object sender, EventArgs e)
         {
-            //CommonsWinForms.ReadConfigFile();
+            //Commons.ReadConfigFile();
             TxtPathDatabase.Text = Commons.PathDatabase;
             TxtFileDatabase.Text = Path.GetFileName(Commons.PathAndFileDatabase);
             TxtPathImages.Text = Commons.PathImages;

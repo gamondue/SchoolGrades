@@ -3,7 +3,6 @@ using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Security.Cryptography;
@@ -11,7 +10,7 @@ using System.Threading;
 
 namespace SchoolGrades
 {
-    public static class Commons
+    internal static partial class Commons
     {
         internal static BusinessLayer bl;
         // program's default path and files. Overridden by the config file "schgrd.cfg", when it exists
@@ -50,8 +49,6 @@ namespace SchoolGrades
         internal static DateTime DateNull = new DateTime(1800, 1, 1);
 
         internal static List<Question> QuestionsAlreadyMadeThisTime = new List<Question>();
-
-        private static Color ColorNoSubject = Color.PowderBlue;
 
         internal static string IdSchool = "FOIS01100L";
         internal static bool IsTimerLessonActive { get; set; }
@@ -283,16 +280,6 @@ namespace SchoolGrades
                 List[indexMax] = dummy;
             }
         }
-        internal static Color ColorFromNumber(SchoolSubject Subject)
-        {
-            if (Subject == null || Subject.Color == null || Subject.Color == 0)
-                return Commons.ColorNoSubject;
-            // extract the color components from the RGB number
-            Color bgColor = Color.FromArgb((int)(Subject.Color & 0xFF0000) >> 16,
-                (int)(Subject.Color & 0xFF00) >> 8,
-                (int)Subject.Color & 0xFF);
-            return bgColor;
-        }
         internal static DateTime DateCompiled()
         // Assumes that in AssemblyInfo.cs,
         // the version is specified as 1.0.* or the like,
@@ -446,7 +433,7 @@ namespace SchoolGrades
                 string justName = Path.GetFileName(file);
                 // skip thi file if its name is too short
                 if (justName.Length < 19)
-                    continue; 
+                    continue;
 
                 DateTime thisFileDate = Commons.GetValidDateFromString(Path.GetFileName(file).Substring(0, 19));
                 if (thisFileDate > newestFileDate)
