@@ -1,7 +1,6 @@
 ﻿using gamon.TreeMptt;
 using SchoolGrades;
 using SchoolGrades.BusinessObjects;
-using Shared;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,7 +21,7 @@ namespace SchoolGrades_WPF
         TreeMptt topicTreeMptt;
 
         Lesson currentLesson = new Lesson();
-        List<Topic> currentTopicsInLesson; 
+        List<Topic> currentTopicsInLesson;
         Class currentClass;
 
         //List<Topic> listTopicsBefore;
@@ -93,14 +92,14 @@ namespace SchoolGrades_WPF
             RefreshLessons(currentIndexLessonsGrid);
 
             topicTreeMptt = new TreeMptt(trwTopics, txtTopicName, txtTopicDescription,
-                txtTopicSearchString, txtTopicsDigest, null, CommonsWpf.globalPicLed,
+                txtTopicSearchString, txtTopicsDigest, null, Commons.globalPicLed,
                 chkSearchInDescriptions, chkVerbatimString, chkAllWord, chkCaseInsensitive,
                 chkMarkAllTopicsFound, DragDropEffects.Copy, true);
             topicTreeMptt.AddNodesToTreeviewByBestMethod();
 
             RefreshTopicsChecksAndImages();
 
-            System.Windows.Media.Color c = CommonsWpf.ColorFromNumber(currentSchoolSubject.Color);
+            System.Windows.Media.Color c = Commons.ColorFromNumber(currentSchoolSubject.Color);
             SolidColorBrush br = new SolidColorBrush(System.Windows.Media.Color.FromArgb(c.A, c.R, c.G, c.B));
             this.Background = br;
 
@@ -175,7 +174,7 @@ namespace SchoolGrades_WPF
                 if (listImages != null && listImages.Count > 0)
                     try
                     {
-                        CommonsWpf.loadPicture(picImage,
+                        Commons.loadPicture(picImage,
                             Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename));
                     }
                     catch { }
@@ -423,7 +422,7 @@ namespace SchoolGrades_WPF
                     string nomeFile = Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename);
                     try
                     {
-                        CommonsWpf.loadPicture(picImage,
+                        Commons.loadPicture(picImage,
                             Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename));
                         //picImage.Load(nomeFile);
                     }
@@ -490,7 +489,7 @@ namespace SchoolGrades_WPF
                 indexImages--;
                 try
                 {
-                    CommonsWpf.loadPicture(picImage,
+                    Commons.loadPicture(picImage,
                         Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename));
                     //picImage.Load(Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename));
                 }
@@ -507,7 +506,7 @@ namespace SchoolGrades_WPF
                 indexImages = ++indexImages % listImages.Count;
                 try
                 {
-                    CommonsWpf.loadPicture(picImage,
+                    Commons.loadPicture(picImage,
                         Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename));
                     //picImage.Load(Path.Combine(Commons.PathImages, listImages[indexImages].RelativePathAndFilename));
                 }

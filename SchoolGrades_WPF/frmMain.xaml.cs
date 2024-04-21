@@ -2,7 +2,6 @@
 using gamon;
 using SchoolGrades;
 using SchoolGrades.BusinessObjects;
-using Shared;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -97,7 +96,7 @@ namespace SchoolGrades_WPF
             // manage the configuration file 
             string messagePrompt = "";
             // read configuration file, if doesn't work run configuration 
-            bool fileRead = CommonsWpf.ReadConfigData();
+            bool fileRead = Commons.ReadConfigData();
             if (!fileRead)
             {
                 // config file is unexistent or unreadable
@@ -175,7 +174,7 @@ namespace SchoolGrades_WPF
         {
             // start the Thread that concurrently saves the Topics tree
 
-            //////////Commons.BackgroundSaveThread = new Thread(CommonsWpf.SaveTreeMptt.SaveTreeMpttBackground);
+            //////////Commons.BackgroundSaveThread = new Thread(Commons.SaveTreeMptt.SaveTreeMpttBackground);
             //////////Commons.BackgroundSaveThread.Start();
 
             //////////TreeMpttNoUi tree = new TreeMpttNoUi();
@@ -208,7 +207,7 @@ namespace SchoolGrades_WPF
             if (lstClasses.ItemsSource == null)
                 return;
 
-            CommonsWpf.globalPicLed = picBackgroundSaveRunning;
+            Commons.globalPicLed = picBackgroundSaveRunning;
 
             if ((bool)chkActivateLessonClock.IsChecked)
             {
@@ -217,7 +216,7 @@ namespace SchoolGrades_WPF
             }
 
             string file = Path.Combine(Commons.PathLogs, "frmMain_parameters.txt");
-            ////////////CommonsWpf.RestoreCurrentValuesOfAllControls(this, file);
+            ////////////Commons.RestoreCurrentValuesOfAllControls(this, file);
 
             txtNStudents.Text = "";
 
@@ -250,7 +249,7 @@ namespace SchoolGrades_WPF
         private void CloseProgramWhileTestingIfConfigurationFileIsRight()
         {
             // read the config file once again 
-            bool fileRead = CommonsWpf.ReadConfigData();
+            bool fileRead = Commons.ReadConfigData();
             if (!fileRead || !File.Exists(Commons.PathAndFileDatabase))
             {
                 MessageBox.Show("Configurare il programma!", "SchoolGrades");
@@ -365,7 +364,7 @@ namespace SchoolGrades_WPF
                 beBrave();
             }
             else
-            if (!CommonsWpf.CheckIfClassChosen(currentClass))
+            if (!Commons.CheckIfClassChosen(currentClass))
                 return;
             if ((bool)chkSuspence.IsChecked)
             {
@@ -402,16 +401,22 @@ namespace SchoolGrades_WPF
         }
         private void btnDrawOrSort_Click(object sender, RoutedEventArgs e)
         {
-            // read checksigns from the grid
-            ReadCheckSignsIntoCurrentStudentsList();
-            if (!CommonsWpf.CheckIfClassChosen(currentClass))
+            if (!Commons.CheckIfClassChosen(currentClass))
             {
                 return;
             }
             else
             {
-                DrawOrSort();
+                // read checksigns from the grid
+                ReadCheckSignsIntoCurrentStudentsList();
+
+                Commons.bl.DrawOrSort(GetTypeOfDrawFromUi(), currentStudentsList, ref eligiblesList,
+                    currentClass, currentSubject, currentGradeType, (bool)rdbMustDraw.IsChecked);
                 //ListaVisibile = false;
+                if (!Commons.CheckIfSubjectChosen(currentSubject))
+                    return;
+                if (!Commons.CheckIfTypeOfAssessmentChosen(currentGradeType))
+                    return;
                 dgwStudents.Visibility = Visibility.Visible;
                 chkStudentsListVisible.IsChecked = false;
             }
@@ -433,6 +438,26 @@ namespace SchoolGrades_WPF
                 }
             }
             return listVf;
+        }
+        private TypeOfDraw GetTypeOfDrawFromUi()
+        {
+            TypeOfDraw type = TypeOfDraw.EqualProbability;
+            if (rdbDrawEqualProbability.IsChecked == true)
+                type = TypeOfDraw.EqualProbability;
+            else if (rdbDrawByWeightsSum.IsChecked == true)
+                type = TypeOfDraw.WeightsSum;
+            else if (rdbDrawNoOfGrades.IsChecked == true)
+                type = TypeOfDraw.NoOfGrades;
+            else if (rdbDrawByOldestFirst.IsChecked == true)
+                type = TypeOfDraw.OldestFirst;
+            else if (rdbSortByAlphbetical.IsChecked == true)
+                type = TypeOfDraw.Alphabetical;
+            else if (rdbDrawLowGradesFirst.IsChecked == true)
+                type = TypeOfDraw.LowGradesFirst;
+            else if (rdbDrawByRevengeFactor.IsChecked == true)
+                type = TypeOfDraw.RevengeFactor;
+
+            return type;
         }
         private void btnAssess_Click(object sender, RoutedEventArgs e)
         {
@@ -483,7 +508,7 @@ namespace SchoolGrades_WPF
         }
         private void btnCheckAll_Click(object sender, RoutedEventArgs e)
         {
-            if (!CommonsWpf.CheckIfClassChosen(currentClass))
+            if (!Commons.CheckIfClassChosen(currentClass))
             {
                 return;
             }
@@ -492,7 +517,7 @@ namespace SchoolGrades_WPF
         }
         private void btnCheckToggle_Click(object sender, RoutedEventArgs e)
         {
-            if (!CommonsWpf.CheckIfClassChosen(currentClass))
+            if (!Commons.CheckIfClassChosen(currentClass))
             {
                 return;
             }
@@ -501,7 +526,7 @@ namespace SchoolGrades_WPF
         }
         private void btnCheckNone_Click(object sender, RoutedEventArgs e)
         {
-            if (!CommonsWpf.CheckIfClassChosen(currentClass))
+            if (!Commons.CheckIfClassChosen(currentClass))
             {
                 return;
             }
@@ -510,7 +535,7 @@ namespace SchoolGrades_WPF
         }
         private void btnCheckRevenge_Click(object sender, RoutedEventArgs e)
         {
-            if (!CommonsWpf.CheckIfClassChosen(currentClass))
+            if (!Commons.CheckIfClassChosen(currentClass))
             {
                 return;
             }
@@ -684,9 +709,9 @@ namespace SchoolGrades_WPF
                 }
                 if ((bool)chkLessonsPictures.IsChecked)
                 {
-                    if (!CommonsWpf.CheckIfClassChosen(currentClass))
+                    if (!Commons.CheckIfClassChosen(currentClass))
                         return;
-                    if (!CommonsWpf.CheckIfSubjectChosen(currentSubject))
+                    if (!Commons.CheckIfSubjectChosen(currentSubject))
                         return;
                     //List<Image> lessonImages = db.GetAllImagesShownToAClassDuringLessons(currentClass, currentSubject);
                     List<SchoolGrades.BusinessObjects.Image> lessonImages = Commons.bl.GetAllImagesShownToAClassDuringLessons(currentClass, currentSubject,
@@ -726,122 +751,6 @@ namespace SchoolGrades_WPF
                 RefreshStudentsGrid();
             }
         }
-        public void DrawOrSort()
-        {
-            eligiblesList.Clear();
-
-            // first pass: prepare the sort or draw criterion and pick those present
-            // sets the value of property SortOrDrawCriterion according to the type of draw
-            if ((bool)rdbDrawEqualProbability.IsChecked)
-            {
-                eligiblesList = Commons.bl.PrepareEligiblesByEqualProbability(currentStudentsList);
-            }
-            else if ((bool)rdbDrawByWeightsSum.IsChecked)
-            {
-                if (!CommonsWpf.CheckIfSubjectChosen(currentSubject))
-                    return;
-                if (!CommonsWpf.CheckIfTypeOfAssessmentChosen(currentGradeType))
-                    return;
-                eligiblesList = PrepareEligiblesByWeightSum();
-            }
-            else if ((bool)rdbDrawNoOfGrades.IsChecked)
-            {
-                if (!CommonsWpf.CheckIfSubjectChosen(currentSubject))
-                    return;
-                if (!CommonsWpf.CheckIfTypeOfAssessmentChosen(currentGradeType))
-                    return;
-                eligiblesList = PrepareEligiblesByNumberOfGrades();
-            }
-            else if ((bool)rdbDrawByOldestFirst.IsChecked)
-            {
-                eligiblesList = PrepareEligiblesByOldestFirst();
-            }
-            else if ((bool)rdbSortByAlphbetical.IsChecked)
-            {
-                // same as equal probability
-                // but draw will be forbidden later
-                eligiblesList = Commons.bl.PrepareEligiblesByEqualProbability(currentStudentsList);
-            }
-            else if ((bool)rdbDrawLowGradesFirst.IsChecked)
-            {
-                eligiblesList = PrepareEligiblesByLowGradesFirst();
-            }
-            else if ((bool)rdbDrawByRevengeFactor.IsChecked)
-            {
-                eligiblesList = PrepareEligiblesByRevengeFactor();
-            }
-            if (eligiblesList.Count == 0)
-            {
-                MessageBox.Show("Nessun allievo presente?");
-                return;
-            }
-            dgwStudents.Visibility = Visibility.Hidden;
-
-            // second pass: shuffle the list or sort 
-            // for both operations it uses the SortOrDrawCriterion Property
-            if ((bool)rdbMustDraw.IsChecked && !(bool)rdbSortByAlphbetical.IsChecked)
-            {
-                Commons.ListShuffleWithDifferentProbabilities(eligiblesList);
-            }
-            else
-            {  // sort the list by the criterion
-                Commons.SortListBySortOrDrawCriterionDescending(eligiblesList);
-            }
-            indexCurrentDrawn = 0;
-            MessageBox.Show("Sorteggio od ordinamento fatto!", "");
-        }
-        private List<Student> PrepareEligiblesByRevengeFactor()
-        {
-            return CreateRevengeList(currentStudentsList);
-        }
-        private List<Student> PrepareEligiblesByLowGradesFirst()
-        {
-            throw new NotImplementedException();
-        }
-        private List<Student> PrepareEligiblesByOldestFirst()
-        {
-            throw new NotImplementedException();
-        }
-        private List<Student> PrepareEligiblesByNumberOfGrades()
-        {
-            List<Student> eligiblesList = new List<Student>();
-            //find the number of grades of each student (beside the sum of the weights)
-            List<Student> studentsAndWeights =
-                Commons.bl.GetStudentsAndSumOfWeights(currentClass,
-                currentGradeType, currentSubject,
-                DateTime.MinValue, DateTime.MaxValue); // TODO: put the dates of the current school period
-
-            double? maxOfCounts = 0;
-            foreach (Student s in studentsAndWeights)
-            {
-                // in DummyNumber the database passes the number of questions answered by the student
-                if (s.DummyNumber > maxOfCounts)
-                    maxOfCounts = s.Sum;
-            }
-            foreach (Student studentOfAll in currentStudentsList)
-            {
-                // put in SortOrDrawCriterion a number lower if the student has higher weights
-                foreach (Student studentOfGraded in studentsAndWeights)
-                {
-                    // if we will not find the student, then he will get maximum for the SortOrDrawCriterion
-                    studentOfAll.SortOrDrawCriterion = maxOfCounts;// we shouldn't ever pass 10 as a sum of weights 
-                    // search for this student in the list of those that have a weight of questions
-                    if (studentOfAll.IdStudent == studentOfGraded.IdStudent)
-                    {
-                        // student found, is he has more than maxiumum weights, take maximum
-                        // (in Sum there is the sum of the weights of questions of the student)
-                        if (studentOfGraded.DummyNumber > maxOfCounts)
-                            studentOfGraded.DummyNumber = maxOfCounts;
-                        studentOfAll.SortOrDrawCriterion = maxOfCounts - studentOfGraded.DummyNumber;
-                        break;
-                    }
-                }
-                // put this student in the eligibles list if he is present
-                if (studentOfAll.Eligible == true)
-                    eligiblesList.Add(studentOfAll);
-            }
-            return eligiblesList;
-        }
         private void EqualizeTheNumberOfTheGrades()
         {
             // this option equalizes the number of the grades. 
@@ -854,44 +763,6 @@ namespace SchoolGrades_WPF
             List<Student> CheckedStudents = new List<Student>();
             CopyCheckedStatusIntoEligiblesList();
             eligiblesList = Commons.bl.EqualizeTheNumberOfTheGrades(currentStudentsList, currentClass, currentGradeType);
-        }
-        private List<Student> PrepareEligiblesByWeightSum()
-        {
-            //find the sum of the weights of grades of each student
-            List<Student> studentsAndWeights =
-                Commons.bl.GetStudentsAndSumOfWeights(currentClass,
-                currentGradeType, currentSubject,
-                DateTime.MinValue, DateTime.MaxValue); // TODO: put the dates of the current school period
-            // find max of weights
-            double? maxOfWeights = 0;
-            foreach (Student s in studentsAndWeights)
-            {
-                if (s.Sum > maxOfWeights)
-                    maxOfWeights = s.Sum;
-            }
-            foreach (Student studentOfAll in currentStudentsList)
-            {
-                // put in SortOrDrawCriterion a number lower if the student has higher weights
-                foreach (Student studentOfGraded in studentsAndWeights)
-                {
-                    // if we will not find the student, then he will get maximum for the SortOrDrawCriterion
-                    studentOfAll.SortOrDrawCriterion = maxOfWeights;// we shouldn't ever pass 10 as a sum of weights 
-                    // search for this student in the list of those that have a weight of questions
-                    if (studentOfAll.IdStudent == studentOfGraded.IdStudent)
-                    {
-                        // student found, is he has more than maxiumum weights, take maximum
-                        // (in Sum there is the sum of the weights of questions of the student)
-                        if (studentOfGraded.Sum > maxOfWeights)
-                            studentOfGraded.Sum = maxOfWeights;
-                        studentOfAll.SortOrDrawCriterion = maxOfWeights - studentOfGraded.Sum;
-                        break;
-                    }
-                }
-                // put this student in the eligibles list if he is present
-                if ((bool)studentOfAll.Eligible)
-                    eligiblesList.Add(studentOfAll);
-            }
-            return eligiblesList;
         }
         private List<Student> FillListOfChecked(List<Student> StudentsList)
         {
@@ -1065,11 +936,11 @@ namespace SchoolGrades_WPF
             //MessageBox.Show("Parte da finire");
             //return; 
 
-            if (!CommonsWpf.CheckIfClassChosen(currentClass))
+            if (!Commons.CheckIfClassChosen(currentClass))
                 return;
-            if (!CommonsWpf.CheckIfTypeOfAssessmentChosen(currentGradeType))
+            if (!Commons.CheckIfTypeOfAssessmentChosen(currentGradeType))
                 return;
-            if (!CommonsWpf.CheckIfStudentChosen(currentStudent))
+            if (!Commons.CheckIfStudentChosen(currentStudent))
                 return;
 
             // annotation applied to a single student
@@ -1106,9 +977,9 @@ namespace SchoolGrades_WPF
         }
         private void btnLessonsTopics_Click(object sender, RoutedEventArgs e)
         {
-            if (!CommonsWpf.CheckIfClassChosen(currentClass))
+            if (!Commons.CheckIfClassChosen(currentClass))
                 return;
-            if (!CommonsWpf.CheckIfSubjectChosen(currentSubject))
+            if (!Commons.CheckIfSubjectChosen(currentSubject))
                 return;
             // open read only the forms after the first. 
             if (listLessons.Count > 0)
@@ -1142,7 +1013,7 @@ namespace SchoolGrades_WPF
             currentSubject = (SchoolSubject)cmbSchoolSubject.SelectedItem;
             if (currentSubject.Name == null)
                 currentSubject = null;
-            WpfColor BackColor = CommonsWpf.ColorFromNumber(currentSubject.Color);
+            WpfColor BackColor = Commons.ColorFromNumber(currentSubject.Color);
             SolidColorBrush br = new SolidColorBrush(WpfColor.FromArgb(BackColor.A, BackColor.R, BackColor.G, BackColor.B));
             this.Background = br;
             //  lstClasses.Background = br;
@@ -1154,9 +1025,9 @@ namespace SchoolGrades_WPF
         }
         private void btnTopicsDone_Click(object sender, RoutedEventArgs e)
         {
-            if (!CommonsWpf.CheckIfClassChosen(currentClass))
+            if (!Commons.CheckIfClassChosen(currentClass))
                 return;
-            if (!CommonsWpf.CheckIfSubjectChosen(currentSubject))
+            if (!Commons.CheckIfSubjectChosen(currentSubject))
                 return;
             frmTopics frm = new frmTopics(frmTopics.TopicsFormType.HighlightTopics,
                 currentClass, currentSubject, currentQuestion, null, (frmMain)this);
@@ -1164,7 +1035,7 @@ namespace SchoolGrades_WPF
         }
         private void btnStartLinks_Click(object sender, RoutedEventArgs e)
         {
-            if (!CommonsWpf.CheckIfClassChosen(currentClass))
+            if (!Commons.CheckIfClassChosen(currentClass))
                 return;
             List<StartLink> LinksOfClass = Commons.bl.GetStartLinksOfClass(currentClass);
 
@@ -1172,7 +1043,7 @@ namespace SchoolGrades_WPF
         }
         private void btnQuestion_Click(object sender, RoutedEventArgs e)
         {
-            if (!CommonsWpf.CheckIfSubjectChosen(currentSubject))
+            if (!Commons.CheckIfSubjectChosen(currentSubject))
                 return;
             frmQuestionChoose scelta = new frmQuestionChoose(currentSubject,
                 currentClass, currentStudent, CurrentQuestion);
@@ -1208,7 +1079,7 @@ namespace SchoolGrades_WPF
         }
         private void btnMakeGroups_Click(object sender, RoutedEventArgs e)
         {
-            if (!CommonsWpf.CheckIfClassChosen(currentClass))
+            if (!Commons.CheckIfClassChosen(currentClass))
                 return;
             eligiblesList = FillListOfChecked(currentStudentsList);
             if (eligiblesList.Count == 0)
@@ -1362,7 +1233,7 @@ namespace SchoolGrades_WPF
             CloseBackgroundThread();
 
             string file = Commons.PathLogs + @"\frmMain_parameters.txt";
-            CommonsWpf.SaveCurrentValuesOfAllControls(this, ref file);
+            Commons.SaveCurrentValuesOfAllControls(this, ref file);
             SaveStudentsOfClassIfEligibleHasChanged();
 
             // save in the log folder a copy of the database, if enabled 
@@ -1401,11 +1272,11 @@ namespace SchoolGrades_WPF
         }
         private void btnClassesGradesSummary_Click(object sender, RoutedEventArgs e)
         {
-            if (!CommonsWpf.CheckIfClassChosen(currentClass))
+            if (!Commons.CheckIfClassChosen(currentClass))
             {
                 return;
             }
-            if (!CommonsWpf.CheckIfSubjectChosen(currentSubject))
+            if (!Commons.CheckIfSubjectChosen(currentSubject))
             {
                 return;
             }
@@ -1416,15 +1287,15 @@ namespace SchoolGrades_WPF
         }
         private void btnCheckNoGrade_Click(object sender, RoutedEventArgs e)
         {
-            if (!CommonsWpf.CheckIfClassChosen(currentClass))
+            if (!Commons.CheckIfClassChosen(currentClass))
             {
                 return;
             }
-            if (!CommonsWpf.CheckIfSubjectChosen(currentSubject))
+            if (!Commons.CheckIfSubjectChosen(currentSubject))
             {
                 return;
             }
-            if (!CommonsWpf.CheckIfTypeOfAssessmentChosen(currentGradeType))
+            if (!Commons.CheckIfTypeOfAssessmentChosen(currentGradeType))
             {
                 return;
             }
@@ -1433,11 +1304,11 @@ namespace SchoolGrades_WPF
         }
         private void btnYearTopics_Click(object sender, RoutedEventArgs e)
         {
-            if (!CommonsWpf.CheckIfClassChosen(currentClass))
+            if (!Commons.CheckIfClassChosen(currentClass))
             {
                 return;
             }
-            if (!CommonsWpf.CheckIfSubjectChosen(currentSubject))
+            if (!Commons.CheckIfSubjectChosen(currentSubject))
             {
                 return;
             }
@@ -1523,7 +1394,7 @@ namespace SchoolGrades_WPF
             }
             if (timeLeftMinutes >= 0)
             {
-                WpfColor BackColor = CommonsWpf.ColorFromNumber(currentSubject.Color);
+                WpfColor BackColor = Commons.ColorFromNumber(currentSubject.Color);
                 SolidColorBrush br = new SolidColorBrush(WpfColor.FromArgb(BackColor.A, BackColor.R, BackColor.G, BackColor.B));
 
                 // changes color from startColor to finalColor
@@ -1533,13 +1404,13 @@ namespace SchoolGrades_WPF
                 ColorHelper.ColorConverter.HSL2RGB(colHSL, colRGB);
                 CurrentLessonTimeColor = colRGB.Color;
 
-                btnLessonTime.Background = CommonsWpf.WinFormsToWpfBrush(CurrentLessonTimeColor);
+                btnLessonTime.Background = Commons.WinFormsToWpfBrush(CurrentLessonTimeColor);
             }
             else
             {
                 timerLesson.Stop();
                 CurrentLessonTimeColor = WinFormsColor.Transparent;
-                btnLessonTime.Background = CommonsWpf.WinFormsToWpfBrush(CurrentLessonTimeColor);
+                btnLessonTime.Background = Commons.WinFormsToWpfBrush(CurrentLessonTimeColor);
             }
         }
         private void chkActivateLessonClock_CheckedChanged(object sender, RoutedEventArgs e)
@@ -1550,7 +1421,7 @@ namespace SchoolGrades_WPF
             {
                 timerLesson.IsEnabled = false;
                 CurrentLessonTimeColor = WinFormsColor.Transparent;
-                btnLessonTime.Background = CommonsWpf.WinFormsToWpfBrush(CurrentLessonTimeColor);
+                btnLessonTime.Background = Commons.WinFormsToWpfBrush(CurrentLessonTimeColor);
             }
             Commons.IsTimerLessonActive = (bool)chkActivateLessonClock.IsChecked;
         }
@@ -1604,7 +1475,7 @@ namespace SchoolGrades_WPF
         }
         private void btnMosaic_Click(object sender, RoutedEventArgs e)
         {
-            if (!CommonsWpf.CheckIfClassChosen(currentClass))
+            if (!Commons.CheckIfClassChosen(currentClass))
                 return;
             frmMosaic f = new frmMosaic(currentClass);
             f.Show();
@@ -1615,9 +1486,9 @@ namespace SchoolGrades_WPF
         }
         private void btnStudentsNotes_Click(object sender, RoutedEventArgs e)
         {
-            if (!CommonsWpf.CheckIfClassChosen(currentClass))
+            if (!Commons.CheckIfClassChosen(currentClass))
                 return;
-            if (!CommonsWpf.CheckIfTypeOfAssessmentChosen(currentGradeType))
+            if (!Commons.CheckIfTypeOfAssessmentChosen(currentGradeType))
                 return;
             // annotation can be applied to a single student or to a whole list, based on the 
             // lstNames being visible or not 

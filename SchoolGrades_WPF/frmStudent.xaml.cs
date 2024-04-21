@@ -1,6 +1,5 @@
 ﻿using SchoolGrades;
 using SchoolGrades.BusinessObjects;
-using Shared;
 using System;
 using System.Data;
 using System.Windows;
@@ -67,7 +66,7 @@ namespace SchoolGrades_WPF
         {
             try
             {
-                CommonsWpf.loadPicture(picStudent, System.IO.Path.Combine(Commons.PathImages,
+                Commons.loadPicture(picStudent, System.IO.Path.Combine(Commons.PathImages,
                     Commons.bl.GetFilePhoto(StudentToLoad.IdStudent, StudentToLoad.SchoolYear)));
             }
             catch

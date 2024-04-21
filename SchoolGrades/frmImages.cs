@@ -1,5 +1,4 @@
 ﻿using SchoolGrades.BusinessObjects;
-using Shared;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -81,7 +80,7 @@ namespace SchoolGrades
             if (currentSubject != null)
             {
                 int col = (int)currentSubject.Color;
-                this.BackColor = CommonsWinForms.ColorFromNumber(currentSubject);
+                this.BackColor = Commons.ColorFromNumber(currentSubject);
                 rdbAutoRename_CheckedChanged(null, null);
             }
         }

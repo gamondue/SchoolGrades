@@ -17,7 +17,7 @@ namespace gamon.TreeMptt
         internal void SaveTreeMpttBackground()
         {
             Thread BackgroundSaveThread;
-            //Commons.BackgroundSaveThread = new Thread(CommonsWpf.SaveTreeMptt.SaveTreeMpttBackground);
+            //Commons.BackgroundSaveThread = new Thread(Commons.SaveTreeMptt.SaveTreeMpttBackground);
             BackgroundSaveThread = new Thread(SaveTreeBackgroundMptt());
             BackgroundSaveThread.Start();
 

@@ -1,15 +1,14 @@
 ﻿using gamon;
 using gamon.TreeMptt;
-using SchoolGrades;
 using SchoolGrades.BusinessObjects;
 using System;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
-namespace Shared
+namespace SchoolGrades
 {
-    public static class CommonsWinForms
+    internal static partial class Commons
     {
         internal static PictureBox globalPicLed;
         internal static TreeMptt SaveTreeMptt;
@@ -336,10 +335,10 @@ namespace Shared
                 //return;
             }
         }
-        public static Color ColorFromNumber(SchoolSubject Subject)
+        internal static Color ColorFromNumber(SchoolSubject Subject)
         {
             if (Subject == null || Subject.Color == null || Subject.Color == 0)
-                return ColorNoSubject;
+                return Commons.ColorNoSubject;
             // extract the color components from the RGB number
             Color bgColor = Color.FromArgb((int)(Subject.Color & 0xFF0000) >> 16,
                 (int)(Subject.Color & 0xFF00) >> 8,

@@ -1,6 +1,5 @@
 using SchoolGrades;
 using SchoolGrades.BusinessObjects;
-using Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -359,7 +358,7 @@ namespace gamon.TreeMptt
                     {
                         //Commons.BackgroundSavingEnabled = true;
                         Commons.BackgroundTaskIsSaving = true;
-                        CommonsWpf.SwitchPicLed(true);
+                        Commons.SwitchPicLed(true);
                         // read the tree by Parent into a new TreeView control
                         // that we aren't showing 
                         TreeView hiddenTree = new TreeView();
@@ -382,7 +381,7 @@ namespace gamon.TreeMptt
 
                         Commons.BackgroundTaskIsSaving = false;
                     }
-                    CommonsWpf.SwitchPicLed(false);
+                    Commons.SwitchPicLed(false);
                 }
             }
         }

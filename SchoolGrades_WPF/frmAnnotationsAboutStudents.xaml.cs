@@ -1,6 +1,5 @@
 using SchoolGrades;
 using SchoolGrades.BusinessObjects;
-using Shared;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -143,7 +142,7 @@ namespace SchoolGrades_WPF
             {
                 if (!SaveMany)
                 {
-                    if (!CommonsWpf.CheckIfStudentChosen(currentStudent))
+                    if (!Commons.CheckIfStudentChosen(currentStudent))
                         return;
                     currentAnnotation.IdAnnotation = null;
                     currentAnnotation.IdAnnotation = Commons.bl.SaveAnnotation(currentAnnotation, currentStudent);

@@ -46,7 +46,7 @@ namespace SchoolGrades_WPF
                 if (currentSubject.Color != null)
                 {
                     int color = (int)currentSubject.Color;
-                    //////////picSubjectColor.Fill = CommonsWpf.BrushFromColor(Color.FromArgb(255, (byte)((color & 0xFF0000) >> 16),
+                    //////////picSubjectColor.Fill = Commons.BrushFromColor(Color.FromArgb(255, (byte)((color & 0xFF0000) >> 16),
                     //////////    (byte)((color & 0xFF00) >> 8), (byte)(color & 0xFF)));
                 }
             }

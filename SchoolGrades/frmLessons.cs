@@ -1,6 +1,5 @@
 ﻿using gamon.TreeMptt;
 using SchoolGrades.BusinessObjects;
-using Shared;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -84,14 +83,14 @@ namespace SchoolGrades
 
             topicTreeMptt = new TreeMptt(trwTopics,
                 txtTopicName, txtTopicDescription, txtTopicSearchString, txtTopicsDigest,
-                null, CommonsWinForms.globalPicLed, chkSearchInDescriptions, chkVerbatimString,
+                null, Commons.globalPicLed, chkSearchInDescriptions, chkVerbatimString,
                 chkAllWord, chkCaseInsensitive, chkMarkAllTopicsFound,
                 DragDropEffects.Copy);
             topicTreeMptt.AddNodesToTreeviewByBestMethod();
 
             RefreshTopicsChecksAndImages();
 
-            this.BackColor = CommonsWinForms.ColorFromNumber(currentSchoolSubject);
+            this.BackColor = Commons.ColorFromNumber(currentSchoolSubject);
 
             LessonTimer.Interval = 1000;
             LessonTimer.Start();

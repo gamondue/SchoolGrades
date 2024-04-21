@@ -1,5 +1,4 @@
 ﻿using SchoolGrades.BusinessObjects;
-using Shared;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -67,7 +66,7 @@ namespace SchoolGrades
         private void cmbSchoolSubjects_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentSubject = ((SchoolSubject)(cmbSchoolSubjects.SelectedItem));
-            this.BackColor = CommonsWinForms.ColorFromNumber(currentSubject);
+            this.BackColor = Commons.ColorFromNumber(currentSubject);
         }
         private void cmbPeriodo_SelectedIndexChanged(object sender, EventArgs e)
         {

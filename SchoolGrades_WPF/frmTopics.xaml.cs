@@ -1,7 +1,6 @@
 ﻿using gamon.TreeMptt;
 using SchoolGrades;
 using SchoolGrades.BusinessObjects;
-using Shared;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -55,7 +54,7 @@ namespace SchoolGrades_WPF
                     currentSubject = null;
                 else
                 {
-                    Color BackColor = CommonsWpf.ColorFromNumber(currentSubject.Color);
+                    Color BackColor = Commons.ColorFromNumber(currentSubject.Color);
                     SolidColorBrush br = new SolidColorBrush(System.Windows.Media.Color.FromArgb(BackColor.A, BackColor.R, BackColor.G, BackColor.B));
                     this.Background = br;
                 }
@@ -73,7 +72,7 @@ namespace SchoolGrades_WPF
                     currentSubject = null;
                 else
                 {
-                    Color bgColor = CommonsWpf.ColorFromNumber(currentSubject.Color);
+                    Color bgColor = Commons.ColorFromNumber(currentSubject.Color);
                     SolidColorBrush br = new SolidColorBrush(bgColor);
                     this.Background = br;
                 }
@@ -101,7 +100,7 @@ namespace SchoolGrades_WPF
         {
             topicTreeMptt = new TreeMptt(trwTopics, txtTopicName,
                 txtTopicDescription, txtTopicSearchString, null,
-                null, CommonsWpf.globalPicLed, chkSearchInDescriptions,
+                null, Commons.globalPicLed, chkSearchInDescriptions,
                 chkVerbatimString, chkAllWord, chkCaseInsensitive,
                 chkFindAll, DragDropEffects.Copy, false);
             // list read from database 

@@ -1,7 +1,6 @@
 ﻿using gamon.TreeMptt;
 using SchoolGrades;
 using SchoolGrades.BusinessObjects;
-using Shared;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -243,7 +242,7 @@ namespace SchoolGrades_WPF
             ////////{
             ////////    bgColor = Color.PowderBlue;
             ////////}
-            this.Background = CommonsWpf.BrushFromColor(CommonsWpf.ColorFromNumber(currentSubject.Color));
+            this.Background = Commons.BrushFromColor(Commons.ColorFromNumber(currentSubject.Color));
         }
 
         private void cmbQuestionType_SelectedIndexChanged(object sender, EventArgs e)
