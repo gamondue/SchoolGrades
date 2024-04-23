@@ -2,10 +2,25 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows8.0</TargetFramework>
+    <TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
 	<DefineConstants>SQLITE</DefineConstants>
+	<Version>0.0.0.0</Version>
+	<AssemblyName>SchoolGrades</AssemblyName>
+	<ApplicationIcon>gamon LegoLogo decentrato trasparente 256x256.ico</ApplicationIcon>
+	<Authors>Ing. Gabriele Monti - Forlì - Italia</Authors>
+	<Description>SchoolGrades manages the daily life of a teacher in the classroom, with emphasis to evaluations and tracking of topics done.</Description>
+	<Copyright>Copyleft GPL Licence - Initiated and managed by Ing. Gabriele Monti - Forlì - Italia</Copyright>
+	<PackageIcon>gamonLogo.png</PackageIcon>
+	<PackageProjectUrl>https://github.com/gamondue/SchoolGrades</PackageProjectUrl>
+	<RepositoryType>git source code repository</RepositoryType>
+	<RepositoryUrl>https://github.com/gamondue/SchoolGrades</RepositoryUrl>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
+	<PackageReleaseNotes>SchoolGrades. .Net 6 version. Version number of .Net Core code or subsequents starts from 0.50. 
+Published on GitHub with GPL v.2 licence. 
+Versions with numbers under 0.50 were made with .Net Framework.</PackageReleaseNotes>
+	<PackageLicenseExpression>GPLv2</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,12 +32,30 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="gamon LegoLogo decentrato trasparente 256x256.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SchoolGrades\SchoolGrades.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="gamonLogo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
   <Import Project="..\BusinessLayer\BusinessLayer.projitems" Label="Shared" />
