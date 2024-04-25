@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Diagnostics;
 
 namespace SchoolGrades
 {
@@ -12,6 +13,7 @@ namespace SchoolGrades
         private string dbName;
 
         internal abstract DbConnection Connect();
+        internal abstract void OpenConnection(DbConnection connection); // Open a connection to the database
         internal abstract int nFieldDbDataReader(string NomeCampo, DbDataReader dr);
         internal abstract bool FieldExists(string TableName, string FieldName);
         internal abstract void CompactDatabase();

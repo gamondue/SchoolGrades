@@ -29,12 +29,13 @@ namespace gamon.TreeMptt
             DbCommand cmd = localConnection.CreateCommand();
             SaveLeftRightConsistent(false);
 
-            if (ListTopicsDeleted != null)
+            if (ListTopicsDeleted != null && ListTopicsDeleted.Count > 0)
             {
                 foreach (Topic t in ListTopicsDeleted)
                 {
                     // if the saving must finish and the task saving in background, we quit the function 
                     if (Commons.ProcessingCanContinue()) return;
+
                     cmd.CommandText = "DELETE FROM Topics" +
                             " WHERE IdTopic =" + t.Id +
                             ";";
@@ -43,6 +44,7 @@ namespace gamon.TreeMptt
             }
             foreach (Topic t in ListTopicsAfter)
             {
+                // if the saving must finish and the task saving in background, we quit the function 
                 if (!Commons.ProcessingCanContinue()) return;
 
                 // if the saving must finish and the task saving in background, we quit the function 
@@ -82,10 +84,15 @@ namespace gamon.TreeMptt
             // connection can come from outside to avoid opening and closing it every time 
             // if localConnection is null, the connection must be opened and closed locally 
             bool locallyOpened = false;
-            if (localConnection == null || !(localConnection.State == ConnectionState.Open))
+            if (localConnection == null)
             {
                 locallyOpened = true;
                 localConnection = dl.Connect();
+            }
+            if (localConnection.State != ConnectionState.Open)
+            {
+                locallyOpened = true;
+                dl.OpenConnection(localConnection);
             }
             // SQL operation serial
             DbCommand cmd = localConnection.CreateCommand();

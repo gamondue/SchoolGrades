@@ -223,12 +223,12 @@ namespace SchoolGrades
 
             lblLastDatabaseModification.Visible = true;
             lblLastDatabaseModification.Text = File.GetLastWriteTime(Commons.PathAndFileDatabase).ToString("yyyy-MM-dd HH:mm:ss");
-#if !DEBUG
+////////#if !DEBUG
             // capture every exception for exception logging
             Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             btnTemporary.Visible = false;
-#endif
+////////#endif
 
             CreateBusinessLayer();
             // da togliere dopo che il DataLayer di SQL server funziona

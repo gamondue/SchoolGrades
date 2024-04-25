@@ -399,7 +399,6 @@ namespace SchoolGrades
             if (!BackgroundTaskIsSaving) return true;
             // if the background is disabled, processing proceed only if enabled 
             return BackgroundSavingEnabled;
-
         }
         internal static void CreatePaths()
         {
