@@ -45,6 +45,24 @@ namespace SchoolGrades
             }
             return connection;
         }
+        internal override void OpenConnection(DbConnection connection)
+        {
+            try
+            {
+                connection.Open();
+            }
+            catch (Exception ex)
+            {
+#if DEBUG
+                //Get call stack
+                StackTrace stackTrace = new StackTrace();
+                //Log calling method name
+                Commons.ErrorLog("Connect Method in: " + stackTrace.GetFrame(1).GetMethod().Name);
+#endif
+                Commons.ErrorLog("Error connecting to the database: " + ex.Message + "\r\nFile SQLIte>: " + dbName + " " + "\n");
+                connection = null;
+            }
+        }
         internal override int nFieldDbDataReader(string NomeCampo, DbDataReader dr)
         {
             for (int i = 0; i < dr.FieldCount; i++)
