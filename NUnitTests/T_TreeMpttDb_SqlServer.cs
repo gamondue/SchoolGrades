@@ -21,7 +21,7 @@ namespace NUnitDbTests
         public void T_TreeMpttDb_SqlServer_CreateTable()
         {
             TreeMpttDb_SqlServer treeMpttDb_SqlServer = new TreeMpttDb_SqlServer(Test_Commons.dl);
-            treeMpttDb_SqlServer.CreateTableTreeMpttDb_SqlServer();
+            treeMpttDb_SqlServer.CreateTableTreeMpttDb();
             // chiamata al metodo di creazione della tabella 
             Topic topic = new Topic();
             topic.Name = "OOP";

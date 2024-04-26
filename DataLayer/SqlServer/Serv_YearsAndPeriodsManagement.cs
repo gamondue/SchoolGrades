@@ -54,8 +54,6 @@ namespace SchoolGrades
                     ";";
                 var result = cmd.ExecuteScalar();
                 return (result != null);
-
-
             }
         }
         internal override void AddSchoolYear(SchoolYear newSchoolYear)  //aggiunge i valori all'interno della tabella

@@ -44,7 +44,6 @@ namespace gamon.TreeMptt
         private bool hasChanges = false;
         bool markAllInSearch = false;
 
-        #region fields used for drag and drop 
         // identification of the Treeview control from which the drag starts
         private int dragSourceControlHash;
         private bool hasNodeBeenSelectedFromTree = false;
@@ -52,18 +51,12 @@ namespace gamon.TreeMptt
         private Topic currentTopic = null;
 
         System.Windows.Forms.DragDropEffects typeOfDragAndDrop;
-        #endregion
 
-        #region fields used for saving the Mptt tree (also concurrently)
         private static bool isSavingTreeMptt;
 
-        #endregion
-
-        #region lists used to detect changes, to have less accesses to the database 
         List<Topic> listItemsBefore; // !!!! this list should be non influent now. Code revision should eliminate it!!!!
         List<Topic> listItemsAfter;
         List<Topic> listItemsDeleted;
-        #endregion
 
         // a stack used to remember the father node in some part of the code  
         Stack<TreeNode> stack = new Stack<TreeNode>();
@@ -72,7 +65,6 @@ namespace gamon.TreeMptt
         int indexDone = 0;
         List<Topic> found = null;
 
-        #region internal object variables for controls passed from outside
         // Winforms control that is manipulated by this class
         private TreeView shownTreeView;
         TextBox txtNodeName;
@@ -86,13 +78,10 @@ namespace gamon.TreeMptt
         CheckBox chkAllWord;
         CheckBox chkCaseInsensitive;
         CheckBox chkMarkAllTopicsFound;
-        #endregion
 
-        #region coloring of the nodes
         private Color colorOfHighlightedItem = Color.Khaki;
         private Color colorOfFoundItem = Color.Lime;
         private Color colorOfBeheadedColor = Color.Orange;
-        #endregion
 
         // if true the backcolor of nodes will be cleared when the user clicks on one node 
         bool clearBackColorOnClick = true;
@@ -201,7 +190,6 @@ namespace gamon.TreeMptt
             return new TreeMpttDb_SqLite(Commons.bl.dl);
 #endif
         }
-        #region methods that save the tree
         internal void SaveTreeFromScratch()
         {
             int nodeCount = 1;
@@ -227,9 +215,10 @@ namespace gamon.TreeMptt
                 Commons.BackgroundTaskClose = true;
             }
             // all the saving happens under a lock from other tasks
-            // this saving waits here until the background task hasn't finished finishing 
+            // this saving waits here until the background task hasn't finished saving 
             lock (Commons.LockSavingCriticalSections)
             {
+                // left and right are set inconsistent 
                 dbMptt.SaveLeftRightConsistent(false);
                 // save the nodes that have changed any field, except RightNode & Left Node (optional) 
                 // (saving RightNode & Left Node changes would be too slow, 
@@ -340,8 +329,6 @@ namespace gamon.TreeMptt
                 }
             }
         }
-        #endregion
-        #region methods that read nodes and put them in the Treeview
         internal void AddNodesToTreeviewByBestMethod()
         {
             //DbConnection Connection = dl.Connect();
@@ -436,8 +423,6 @@ namespace gamon.TreeMptt
                 GetSubtree_Recursive(tn, List);
             }
         }
-        #endregion
-        #region imports and exports
         internal string ExportSubtreeToText(Topic InitialNode)
         {
             string tree = CreateTextTreeOfDescendants
@@ -454,8 +439,6 @@ namespace gamon.TreeMptt
             ImportFreeMindSubtreeUnderNode(TextFromClipboard, TreeView.SelectedNode);
             //return TextFromClipboard;
         }
-        #endregion
-        #region methods that search in the tree
         internal void FindNodes(string TextToFind, bool ColorAllNodesFound, bool SearchInDescriptions,
             bool SearchWholeWord, bool SearchCaseInsensitive, bool SearchVerbatimString)
         {
@@ -607,8 +590,7 @@ namespace gamon.TreeMptt
 
             return;
         }
-        #endregion
-        #region methods that color nodes 
+
         internal void ColorAllBeheadedNodes()
         {
             TreeNodeCollection nodes = shownTreeView.Nodes;
@@ -805,8 +787,6 @@ namespace gamon.TreeMptt
             f.Expand();
             return;
         }
-        #endregion
-        #region manage the treeview nodes' checking 
         internal void UncheckAllItemsUnderNode_Recursive(TreeNode currentNode)
         {
             currentNode.Checked = false;
@@ -847,7 +827,6 @@ namespace gamon.TreeMptt
             }
             return;
         }
-        #endregion
         // recursively move through the subtree nodes
         // deleting node Id
         internal TreeNode AddNewNode(string Text, bool isSonNode)
@@ -965,7 +944,6 @@ namespace gamon.TreeMptt
             }
             return stringToAdd += ". ";
         }
-        #region events
         private void txtNodeDescription_LostFocus(object sender, EventArgs e)
         {
             if (currentTopic == null) return;
@@ -1237,7 +1215,6 @@ namespace gamon.TreeMptt
             }
             t.Desc = txtNodeDescription.Text;
         }
-        #endregion
         internal string CreateTextTreeOfDescendants(int? LeftNode, int? RightNode, bool? IncludeTopicsIds)
         {
             // TODO: mettere le descrizioni nell'albero (con un : prima) 

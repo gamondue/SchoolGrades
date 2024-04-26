@@ -272,7 +272,7 @@
             chkNameIsVisible.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             chkNameIsVisible.ForeColor = System.Drawing.Color.DarkBlue;
             chkNameIsVisible.Location = new System.Drawing.Point(297, 66);
-            chkNameIsVisible.Name = "chkNomeVisibile";
+            chkNameIsVisible.Name = "chkNameIsVisible";
             chkNameIsVisible.Size = new System.Drawing.Size(128, 22);
             chkNameIsVisible.TabIndex = 14;
             chkNameIsVisible.Text = "Nome visibile";

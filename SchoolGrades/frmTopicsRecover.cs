@@ -277,7 +277,7 @@ namespace SchoolGrades
                                 "Sovrascrivere il nuovo record con il vecchio?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                             {
                                 // ???? should we save Left Right and Parent ????" 
-                                dlNew.UpdateTopic(tOld, null);
+                                dlNew.UpdateTopic(tOld, null, false);
                             }
                     }
                 }
@@ -291,7 +291,7 @@ namespace SchoolGrades
                             "Aggiungere il vecchio record nel nuovo database?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         {
                             // ???? should we save Left Right and Parent ????" 
-                            dlNew.InsertTopic(tOld, null);
+                            dlNew.InsertTopic(tOld, null, false);
                         }
                     }
                 }

@@ -185,7 +185,7 @@ namespace SchoolGrades
                     " FROM Topics" +
                     " WHERE leftNode BETWEEN " + StartTopic.LeftNodeOld +
                     " AND " + StartTopic.RightNodeOld +
-                    " AND Topics.idTopic NOT IN (" + queryDone + ")";  
+                    " AND Topics.idTopic NOT IN (" + queryDone + ")";
                 queryNotDone += " ORDER BY leftNode ASC;";
                 cmd = new SQLiteCommand(queryNotDone);
                 cmd.Connection = conn;
@@ -247,7 +247,7 @@ namespace SchoolGrades
                     " FROM Topics" +
                     " JOIN Lessons_Topics ON Lessons_Topics.IdTopic=Topics.IdTopic" +
                     " JOIN Lessons ON Lessons_Topics.IdLesson=Lessons.IdLesson" +
-                    " WHERE Lessons.IdClass=" + currentClass.IdClass; 
+                    " WHERE Lessons.IdClass=" + currentClass.IdClass;
                 if (currentSubject != null && currentSubject.IdSchoolSubject != null && currentSubject.IdSchoolSubject != "")
                     query += " AND Lessons.idSchoolSubject='" + currentSubject.IdSchoolSubject + "'";
                 if (DateFrom == Commons.DateNull)
@@ -300,67 +300,71 @@ namespace SchoolGrades
             // node numbering according to Modified Preorder Tree Traversal algorithm
             return ((int)RightNode - (int)LeftNode - 1) / 2;
         }
-        internal override void UpdateTopic(Topic t, DbConnection conn)
+        internal override void UpdateTopic(Topic t, DbConnection conn, bool leaveConnectionOpen)
         {
-            bool leaveConnectionOpen = true;
-            if (conn == null)
+            try
             {
-                conn = Connect();
-                leaveConnectionOpen = false;
-            }
-            DbCommand cmd = conn.CreateCommand();
-            cmd.CommandText = "UPDATE Topics" +
-                " SET" +
-                " name=" + SqlString(t.Name) + "" +
-                ",desc=" + SqlString(t.Desc) + "" +
-                ",parentNode=" + t.ParentNodeNew +
-                ",leftNode=" + t.LeftNodeNew +
-                ",rightNode=" + t.RightNodeNew +
-                ",childNumber=" + t.ChildNumberNew +
-                " WHERE idTopic=" + t.Id +
-                ";";
-            cmd.ExecuteNonQuery();
-            cmd.Dispose();
-            if (!leaveConnectionOpen)
-            {
-                conn.Close();
-                conn.Dispose();
-            }
-        }
-        internal override void InsertTopic(Topic t, DbConnection Conn)
-        {
-            if (t.Id == null || t.Id == 0)
-            {
-                bool leaveConnectionOpen = true;
-                if (Conn == null)
-                {
-                    Conn = Connect();
-                    leaveConnectionOpen = false;
-                }
-                DbCommand cmd = Conn.CreateCommand();
-
-                cmd.CommandText = "SELECT MAX(IdTopic) FROM Topics;";
-                var temp = cmd.ExecuteScalar();
-                if (!(temp is DBNull))
-                    t.Id = Convert.ToInt32(temp) + 1;
-                cmd.CommandText = "INSERT INTO Topics" +
-                    " (idTopic,name,desc,leftNode,rightNode,parentNode,childNumber)" +
-                    " Values (" +
-                    t.Id.ToString() +
-                    "," + SqlString(t.Name) + "" +
-                    "," + SqlString(t.Desc) + "" +
-                    "," + t.LeftNodeNew + "" +
-                    "," + t.RightNodeNew + "" +
-                    "," + t.ParentNodeNew + "" +
-                    "," + t.ChildNumberNew + "" +
-                    ");";
+                CreateOrOpenConnection(ref conn);
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE Topics" +
+                    " SET" +
+                    " name=" + SqlString(t.Name) + "" +
+                    ",desc=" + SqlString(t.Desc) + "" +
+                    ",parentNode=" + t.ParentNodeNew +
+                    ",leftNode=" + t.LeftNodeNew +
+                    ",rightNode=" + t.RightNodeNew +
+                    ",childNumber=" + t.ChildNumberNew +
+                    " WHERE idTopic=" + t.Id +
+                    ";";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
                 if (!leaveConnectionOpen)
                 {
-                    Conn.Close();
-                    Conn.Dispose();
+                    conn.Close();
+                    conn.Dispose();
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+        }
+        internal override void InsertTopic(Topic t, DbConnection Conn, bool leaveConnectionOpen)
+        {
+            try
+            {
+                if (t.Id == null || t.Id == 0)
+                {
+                    CreateOrOpenConnection(ref Conn);
+                    DbCommand cmd = Conn.CreateCommand();
+
+                    cmd.CommandText = "SELECT MAX(IdTopic) FROM Topics;";
+                    var temp = cmd.ExecuteScalar();
+                    if (!(temp is DBNull))
+                        t.Id = Convert.ToInt32(temp) + 1;
+                    cmd.CommandText = "INSERT INTO Topics" +
+                        " (idTopic,name,desc,leftNode,rightNode,parentNode,childNumber)" +
+                        " Values (" +
+                        t.Id.ToString() +
+                        "," + SqlString(t.Name) + "" +
+                        "," + SqlString(t.Desc) + "" +
+                        "," + t.LeftNodeNew + "" +
+                        "," + t.RightNodeNew + "" +
+                        "," + t.ParentNodeNew + "" +
+                        "," + t.ChildNumberNew + "" +
+                        ");";
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                    if (!leaveConnectionOpen)
+                    {
+                        Conn.Close();
+                        Conn.Dispose();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
             }
         }
         internal override List<Topic> GetNodesByParentFromDatabase()
