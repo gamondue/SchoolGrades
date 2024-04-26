@@ -142,7 +142,7 @@ namespace gamon.TreeMptt
                     " WHERE leftNode BETWEEN " + LeftNode +
                     " AND " + RightNode +
                     " ORDER BY leftNode ASC;";
-                cmd = NewMethod(query);
+                cmd = new SqlCommand(query);
                 cmd.Connection = conn;
                 DbDataReader dRead = cmd.ExecuteReader();
                 while (dRead.Read())
@@ -155,12 +155,6 @@ namespace gamon.TreeMptt
             }
             return l;
         }
-
-        private static SqlCommand NewMethod(string query)
-        {
-            return new SqlCommand(query);
-        }
-
         internal override List<Topic> GetNodesByParent()
         {
             // node order according to siblings' order (parentNode and childNumber)
@@ -531,8 +525,9 @@ namespace gamon.TreeMptt
         }
         internal override void GetTopics(int? numberOfTopics)
         {
-            List<Topic> TopicsList = new List<Topic>(); 
-            using (localConnection = dl.Connect()) {
+            List<Topic> TopicsList = new List<Topic>();
+            using (localConnection = dl.Connect())
+            {
                 DbCommand cmd = localConnection.CreateCommand();
                 if (numberOfTopics != null)
                 {
@@ -543,9 +538,9 @@ namespace gamon.TreeMptt
                 {
                     cmd.CommandText = @"SELECT * FROM Topics;";
                     var result = cmd.ExecuteScalar();
-                    
+
                 }
-                
+
             }
         }
     }
