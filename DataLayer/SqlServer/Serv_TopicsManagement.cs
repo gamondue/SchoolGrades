@@ -185,7 +185,7 @@ namespace SchoolGrades
                     " FROM Topics" +
                     " WHERE leftNode BETWEEN " + StartTopic.LeftNodeOld +
                     " AND " + StartTopic.RightNodeOld +
-                    " AND Topics.idTopic NOT IN (" + queryDone + ")";  
+                    " AND Topics.idTopic NOT IN (" + queryDone + ")";
                 queryNotDone += " ORDER BY leftNode ASC;";
                 cmd = new SqlCommand(queryNotDone);
                 cmd.Connection = conn;
@@ -247,7 +247,7 @@ namespace SchoolGrades
                     " FROM Topics" +
                     " JOIN Lessons_Topics ON Lessons_Topics.IdTopic=Topics.IdTopic" +
                     " JOIN Lessons ON Lessons_Topics.IdLesson=Lessons.IdLesson" +
-                    " WHERE Lessons.IdClass=" + currentClass.IdClass; 
+                    " WHERE Lessons.IdClass=" + currentClass.IdClass;
                 if (currentSubject != null && currentSubject.IdSchoolSubject != null && currentSubject.IdSchoolSubject != "")
                     query += " AND Lessons.idSchoolSubject='" + currentSubject.IdSchoolSubject + "'";
                 if (DateFrom == Commons.DateNull)
@@ -300,14 +300,9 @@ namespace SchoolGrades
             // node numbering according to Modified Preorder Tree Traversal algorithm
             return ((int)RightNode - (int)LeftNode - 1) / 2;
         }
-        internal override void UpdateTopic(Topic t, DbConnection conn)
+        internal override void UpdateTopic(Topic t, DbConnection conn, bool leaveConnectionOpen)
         {
-            bool leaveConnectionOpen = true;
-            if (conn == null)
-            {
-                conn = Connect();
-                leaveConnectionOpen = false;
-            }
+            dl.CreateOrOpenConnection(ref conn);
             DbCommand cmd = conn.CreateCommand();
             cmd.CommandText = "UPDATE Topics" +
                 " SET" +
@@ -327,16 +322,11 @@ namespace SchoolGrades
                 conn.Dispose();
             }
         }
-        internal override void InsertTopic(Topic t, DbConnection Conn)
+        internal override void InsertTopic(Topic t, DbConnection Conn, bool leaveConnectionOpen)
         {
             if (t.Id == null || t.Id == 0)
             {
-                bool leaveConnectionOpen = true;
-                if (Conn == null)
-                {
-                    Conn = Connect();
-                    leaveConnectionOpen = false;
-                }
+                dl.CreateOrOpenConnection(ref Conn);
                 DbCommand cmd = Conn.CreateCommand();
 
                 cmd.CommandText = "SELECT MAX(IdTopic) FROM Topics;";

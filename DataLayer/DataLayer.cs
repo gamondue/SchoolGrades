@@ -13,7 +13,35 @@ namespace SchoolGrades
         private string dbName;
 
         internal abstract DbConnection Connect();
-        internal abstract void OpenConnection(DbConnection connection); // Open a connection to the database
+        internal void OpenConnection(DbConnection connection)
+        {
+            try
+            {
+                connection.Open();
+            }
+            catch (Exception ex)
+            {
+#if DEBUG
+                //Get call stack
+                StackTrace stackTrace = new StackTrace();
+                //Log calling method name
+                Commons.ErrorLog("Connect Method in: " + stackTrace.GetFrame(1).GetMethod().Name);
+#endif
+                Commons.ErrorLog("Error connecting to the database: " + ex.Message + "\r\nFile SQLIte>: " + dbName + " " + "\n");
+                connection = null;
+            }
+        }
+        internal void CreateOrOpenConnection(ref DbConnection conn)
+        {
+            if (conn == null)
+            {
+                conn = Connect();
+            }
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
+        }
         internal abstract int nFieldDbDataReader(string NomeCampo, DbDataReader dr);
         internal abstract bool FieldExists(string TableName, string FieldName);
         internal abstract void CompactDatabase();
@@ -340,8 +368,8 @@ namespace SchoolGrades
         internal abstract List<Topic> GetTopicsDoneInPeriod(Class currentClass, SchoolSubject currentSubject,
             DateTime DateFrom, DateTime DateTo);
         internal abstract int GetTopicDescendantsNumber(int? LeftNode, int? RightNode);
-        internal abstract void UpdateTopic(Topic t, DbConnection conn);
-        internal abstract void InsertTopic(Topic t, DbConnection Conn);
+        internal abstract void UpdateTopic(Topic t, DbConnection conn, bool leaveConnectionOpen);
+        internal abstract void InsertTopic(Topic t, DbConnection conn, bool leaveConnectionOpen);
         internal abstract List<Topic> GetNodesByParentFromDatabase();
         internal abstract void SaveTopicsFromScratch(List<Topic> ListTopics);
 

@@ -1,6 +1,7 @@
 ﻿using SchoolGrades;
 using SchoolGrades.BusinessObjects;
 using System.Collections.Generic;
+using System.Data.Common;
 
 namespace gamon.TreeMptt
 {
@@ -18,7 +19,7 @@ namespace gamon.TreeMptt
         internal abstract List<Topic> GetNodesMpttFromDatabase(int? LeftNode, int? RightNode);
         internal abstract List<Topic> GetNodesByParent();
         internal abstract void SaveLeftAndRightToDbMptt();
-        internal abstract void UdpateTopicMptt(int? IdTopic, int? LeftNode, int? RightNode);
+        internal abstract void UdpateMpttNodeLeftAndRight(int? IdTopic, int? LeftNode, int? RightNode);
         internal abstract List<Topic> GetNodesRoots(bool CloseConnectionEnding);
         internal abstract List<Topic> GetNodesChildsByParent(Topic ParentNode, bool CloseConnectionWhenEnding);
         internal abstract List<Topic> GetNodesAncestors(int? LeftNode, int? RightNode);
@@ -30,9 +31,32 @@ namespace gamon.TreeMptt
         internal abstract int? CreateNewTopic(Topic ct);
         internal abstract List<Topic> GetNodesByParentFromDatabase();
         internal abstract void CloseConnection(bool Close);
-        internal abstract void CreateTableTreeMpttDb_SqlServer();
+        internal abstract void CreateTableTreeMpttDb();
         internal abstract void AddTopic(Topic topic);
         internal abstract bool TopicExists(int? topicId);
         internal abstract void GetTopics(int? numberOfTopics);
+        internal void UdpateMpttNodeLeftAndRight(int? IdTopic, int? LeftNode, int? RightNode,
+            DbConnection conn, bool leaveConnectionOpen)
+        {
+            // updates only left & right; the rest of the record remains the same
+            dl.CreateOrOpenConnection(ref conn);
+            using (conn = dl.Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE Topics" +
+                    " SET" +
+                    " leftNode=" + LeftNode +
+                    ",rightNode=" + RightNode +
+                    " WHERE idTopic=" + IdTopic +
+                    ";";
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+            if (!leaveConnectionOpen)
+            {
+                conn.Close();
+                conn.Dispose();
+            }
+        }
     }
 }

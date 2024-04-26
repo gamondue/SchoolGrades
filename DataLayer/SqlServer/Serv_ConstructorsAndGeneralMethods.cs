@@ -46,24 +46,6 @@ namespace SchoolGrades
             }
             return connection;
         }
-        internal override void OpenConnection(DbConnection connection)
-        {
-            try
-            {
-                connection.Open();
-            }
-            catch (Exception ex)
-            {
-#if DEBUG
-                //Get call stack
-                StackTrace stackTrace = new StackTrace();
-                //Log calling method name
-                Commons.ErrorLog("Connect Method in: " + stackTrace.GetFrame(1).GetMethod().Name);
-#endif
-                Commons.ErrorLog("Error connecting to the database: " + ex.Message + "\r\nFile SQLIte>: " + dbName + " " + "\n");
-                connection = null;
-            }
-        }
         internal DbConnection ConnectNoDatabase()
         {
             DbConnection connection;

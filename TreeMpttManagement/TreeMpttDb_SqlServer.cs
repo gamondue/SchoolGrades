@@ -16,7 +16,7 @@ namespace gamon.TreeMptt
         // !!!! TODO; turn to generic this tree, such that it can contain any class and not just Topic instances !!!!
         internal TreeMpttDb_SqlServer(DataLayer dataLayer) : base(dataLayer)
         {
-            ////////////dl = dl;
+
         }
         internal override void SaveTreeToDb(List<Topic> ListTopicsAfter, List<Topic> ListTopicsDeleted,
             bool MustSaveLeftAndRight, bool CloseWhenEnding)
@@ -67,11 +67,11 @@ namespace gamon.TreeMptt
                 {
                     if (t.Id != null && t.Id > 1)
                     {
-                        dl.UpdateTopic(t, localConnection);
+                        dl.UpdateTopic(t, localConnection, true);
                     }
                     else
                     {
-                        dl.InsertTopic(t, localConnection);
+                        dl.InsertTopic(t, localConnection, true);
                     }
                 }
             }
@@ -193,7 +193,7 @@ namespace gamon.TreeMptt
             SetRightAndLeftInOneLevel(firstNodes[0], ref nodeCount);
             // since the initial node has not been read from the database, 
             // then we save left and right anyway 
-            UdpateTopicMptt(firstNodes[0].Id, 0, nodeCount);
+            UdpateMpttNodeLeftAndRight(firstNodes[0].Id, 0, nodeCount);
             // restore status of "consistent" flag
             SaveLeftRightConsistent(true);
         }
@@ -228,9 +228,9 @@ namespace gamon.TreeMptt
             // ParentNode was taken from the database, NodeCount has been calculated here 
             if (isLeftDifferent || ParentNode.RightNodeNew != NodeCount++)
                 // !!!! TODO: keep the connection open !!!!
-                UdpateTopicMptt(ParentNode.Id, NewLeft, NodeCount - 1); // those found different are saved
+                UdpateMpttNodeLeftAndRight(ParentNode.Id, NewLeft, NodeCount - 1); // those found different are saved
         }
-        internal override void UdpateTopicMptt(int? IdTopic, int? LeftNode, int? RightNode)
+        internal override void UdpateMpttNodeLeftAndRight(int? IdTopic, int? LeftNode, int? RightNode)
         {
             // !!!! TODO: keep the connection open !!!!
             // updates only left & right; the rest of the record remains the same
@@ -464,7 +464,7 @@ namespace gamon.TreeMptt
                 localConnection.Dispose();
             }
         }
-        internal override void CreateTableTreeMpttDb_SqlServer()
+        internal override void CreateTableTreeMpttDb()
         {
             try
             {
@@ -494,7 +494,6 @@ namespace gamon.TreeMptt
         }
         internal override void AddTopic(Topic newTopic)
         {
-
             using (localConnection = dl.Connect())
             {
                 DbCommand cmd = localConnection.CreateCommand();
@@ -511,7 +510,6 @@ namespace gamon.TreeMptt
         }
         internal override bool TopicExists(int? topicId)
         {
-
             using (localConnection = dl.Connect())
             {
                 DbCommand cmd = localConnection.CreateCommand();
@@ -538,9 +536,7 @@ namespace gamon.TreeMptt
                 {
                     cmd.CommandText = @"SELECT * FROM Topics;";
                     var result = cmd.ExecuteScalar();
-
                 }
-
             }
         }
     }

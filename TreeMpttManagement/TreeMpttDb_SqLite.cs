@@ -26,9 +26,9 @@ namespace gamon.TreeMptt
             {
                 localConnection = dl.Connect();
             }
-            DbCommand cmd = localConnection.CreateCommand();
             SaveLeftRightConsistent(false);
 
+            DbCommand cmd = localConnection.CreateCommand();
             if (ListTopicsDeleted != null && ListTopicsDeleted.Count > 0)
             {
                 foreach (Topic t in ListTopicsDeleted)
@@ -62,17 +62,17 @@ namespace gamon.TreeMptt
                 // update modified nodes 
                 if (changed
                     || t.ParentNodeNew != t.ParentNodeOld || t.ChildNumberNew != t.ChildNumberOld
-                    || MustSaveLeftAndRight &&
-                        (t.LeftNodeNew != t.LeftNodeOld || t.RightNodeNew != t.RightNodeOld)
+                    || (MustSaveLeftAndRight &&
+                        (t.LeftNodeNew != t.LeftNodeOld || t.RightNodeNew != t.RightNodeOld))
                     )
                 {
                     if (t.Id != null && t.Id > 1)
                     {
-                        dl.UpdateTopic(t, localConnection);
+                        dl.UpdateTopic(t, localConnection, true);
                     }
                     else
                     {
-                        dl.InsertTopic(t, localConnection);
+                        dl.InsertTopic(t, localConnection, true);
                     }
                 }
             }
@@ -199,7 +199,7 @@ namespace gamon.TreeMptt
             SetRightAndLeftInOneLevel(firstNodes[0], ref nodeCount);
             // since the initial node has not been read from the database, 
             // then we save left and right anyway 
-            UdpateTopicMptt(firstNodes[0].Id, 0, nodeCount);
+            UdpateMpttNodeLeftAndRight(firstNodes[0].Id, 0, nodeCount);
             // restore status of "consistent" flag
             SaveLeftRightConsistent(true);
         }
@@ -234,24 +234,7 @@ namespace gamon.TreeMptt
             // ParentNode was taken from the database, NodeCount has been calculated here 
             if (isLeftDifferent || ParentNode.RightNodeNew != NodeCount++)
                 // !!!! TODO: keep the connection open !!!!
-                UdpateTopicMptt(ParentNode.Id, NewLeft, NodeCount - 1); // those found different are saved
-        }
-        internal override void UdpateTopicMptt(int? IdTopic, int? LeftNode, int? RightNode)
-        {
-            // !!!! TODO: keep the connection open !!!!
-            // updates only left & right; the rest of the record remains the same
-            using (DbConnection conn = dl.Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "UPDATE Topics" +
-                    " SET" +
-                    " leftNode=" + LeftNode +
-                    ",rightNode=" + RightNode +
-                    " WHERE idTopic=" + IdTopic +
-                    ";";
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
-            }
+                UdpateMpttNodeLeftAndRight(ParentNode.Id, NewLeft, NodeCount - 1); // those found different are saved
         }
         internal override List<Topic> GetNodesRoots(bool CloseConnectionEnding)
         {
@@ -470,7 +453,7 @@ namespace gamon.TreeMptt
                 localConnection.Dispose();
             }
         }
-        internal override void CreateTableTreeMpttDb_SqlServer()
+        internal override void CreateTableTreeMpttDb()
         {
             try
             {
@@ -500,7 +483,6 @@ namespace gamon.TreeMptt
         }
         internal override void AddTopic(Topic newTopic)
         {
-
             using (localConnection = dl.Connect())
             {
                 DbCommand cmd = localConnection.CreateCommand();
@@ -546,8 +528,11 @@ namespace gamon.TreeMptt
                     var result = cmd.ExecuteScalar();
 
                 }
-
             }
+        }
+        internal override void UdpateMpttNodeLeftAndRight(int? IdTopic, int? LeftNode, int? RightNode)
+        {
+            throw new NotImplementedException();
         }
     }
 }

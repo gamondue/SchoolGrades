@@ -9,6 +9,7 @@ namespace SchoolGrades
 {
     internal partial class SqlServer_DataLayer : DataLayer
     {
+        internal static DataLayer dl;
         internal override void CreateTableGradeTypes()
         {
             try
@@ -53,7 +54,8 @@ namespace SchoolGrades
                         isFixed TINYINT)";
                     cmd.ExecuteNonQuery();
                 }
-            } catch { } 
+            }
+            catch { }
         }
         internal override Grade GetGrade(int? IdGrade)
         {
@@ -105,7 +107,7 @@ namespace SchoolGrades
                 cmd.CommandText = @$"SELECT Grades.*,Students.* FROM Grades
                     JOIN Students ON Grades.idStudent = Students.idStudent
                     WHERE Grades.idGrade={Grade.IdGrade}";
-                   
+
                 dRead = cmd.ExecuteReader();
                 while (dRead.Read())
                 {
@@ -117,7 +119,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        
+
         internal override double GetDefaultWeightOfGradeType(string IdGradeType)
         {
             double d;

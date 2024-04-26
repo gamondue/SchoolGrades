@@ -212,7 +212,8 @@ namespace SchoolGrades
             Commons.SaveTreeMptt = new TreeMptt(null, null, null, null, null, null, picBackgroundSaveRunning,
                 null, null, null, null, null);
             Commons.BackgroundSaveThread = new Thread(Commons.SaveTreeMptt.SaveTreeMpttBackground);
-            Commons.BackgroundSaveThread.Start();
+            // Thread disabled for test 
+            ////////Commons.BackgroundSaveThread.Start();
 
             if (!File.Exists(Commons.PathAndFileDatabase))
                 return;
@@ -223,12 +224,12 @@ namespace SchoolGrades
 
             lblLastDatabaseModification.Visible = true;
             lblLastDatabaseModification.Text = File.GetLastWriteTime(Commons.PathAndFileDatabase).ToString("yyyy-MM-dd HH:mm:ss");
-////////#if !DEBUG
+            ////////#if !DEBUG
             // capture every exception for exception logging
             Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             btnTemporary.Visible = false;
-////////#endif
+            ////////#endif
 
             CreateBusinessLayer();
             // da togliere dopo che il DataLayer di SQL server funziona
