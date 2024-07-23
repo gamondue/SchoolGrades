@@ -190,7 +190,7 @@ namespace SchoolGrades
         private void btnAddNodeSon_Click(object sender, EventArgs e)
         {
             // add a completely new node
-            System.Windows.Forms.TreeNode t = topicTreeMptt.AddNewNode("Nuovo argomento", true);
+            TreeNode t = topicTreeMptt.AddNewNode("Nuovo argomento", true);
             txtTopicName.Focus();
         }
         private void btnAddNodeBrother_Click(object sender, EventArgs e)

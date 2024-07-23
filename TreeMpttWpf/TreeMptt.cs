@@ -400,7 +400,7 @@ namespace gamon.TreeMptt
             else
             {
                 // load by parentNode value
-                listItemsBefore = dbMptt.GetNodesByParentFromDatabase(); // is this useful ? 
+                //listItemsBefore = dbMptt.GetNodesByParentFromDatabase(); // is this useful ? 
                 AddNodesToTreeViewByParent(shownTreeView);
             }
             ((TreeViewItem)(shownTreeView.Items[0])).IsExpanded = true;

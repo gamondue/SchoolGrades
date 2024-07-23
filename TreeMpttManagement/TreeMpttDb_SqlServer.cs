@@ -155,29 +155,29 @@ namespace gamon.TreeMptt
             }
             return l;
         }
-        internal override List<Topic> GetNodesByParent()
-        {
-            // node order according to siblings' order (parentNode and childNumber)
-            List<Topic> l = new List<Topic>();
-            using (DbConnection conn = dl.Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                string query = "SELECT *" +
-                    " FROM Topics" +
-                    " ORDER BY parentNode ASC, childNumber ASC;";
-                cmd = new SqlCommand(query);
-                cmd.Connection = conn;
-                DbDataReader dRead = cmd.ExecuteReader();
-                while (dRead.Read())
-                {
-                    Topic t = dl.GetTopicFromRow(dRead);
-                    l.Add(t);
-                }
-                dRead.Dispose();
-                cmd.Dispose();
-            }
-            return l;
-        }
+        //internal override List<Topic> GetNodesByParent()
+        //{
+        //    // node order according to siblings' order (parentNode and childNumber)
+        //    List<Topic> l = new List<Topic>();
+        //    using (DbConnection conn = dl.Connect())
+        //    {
+        //        DbCommand cmd = conn.CreateCommand();
+        //        string query = "SELECT *" +
+        //            " FROM Topics" +
+        //            " ORDER BY parentNode ASC, childNumber ASC;";
+        //        cmd = new SqlCommand(query);
+        //        cmd.Connection = conn;
+        //        DbDataReader dRead = cmd.ExecuteReader();
+        //        while (dRead.Read())
+        //        {
+        //            Topic t = dl.GetTopicFromRow(dRead);
+        //            l.Add(t);
+        //        }
+        //        dRead.Dispose();
+        //        cmd.Dispose();
+        //    }
+        //    return l;
+        //}
         internal override void SaveLeftAndRightToDbMptt()
         {
             DbConnection Connection = dl.Connect();
@@ -452,10 +452,10 @@ namespace gamon.TreeMptt
         {
             return dl.CreateNewTopic(ct);
         }
-        internal override List<Topic> GetNodesByParentFromDatabase()
-        {
-            return dl.GetNodesByParentFromDatabase();
-        }
+        //internal override List<Topic> GetNodesByParentFromDatabase()
+        //{
+        //    return dl.GetNodesByParentFromDatabase();
+        //}
         internal override void CloseConnection(bool Close)
         {
             if (localConnection != null && !(localConnection.State == System.Data.ConnectionState.Closed) && Close)

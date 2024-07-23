@@ -37,9 +37,16 @@ namespace SchoolGrades
             {
                 conn = Connect();
             }
-            if (conn.State != ConnectionState.Open)
+            try
             {
-                conn.Open();
+                if (conn.State != ConnectionState.Open)
+                {
+                    conn.Open();
+                }
+            }
+            catch (Exception ObjectDisposedException)
+            {
+                conn = Connect();
             }
         }
         internal abstract int nFieldDbDataReader(string NomeCampo, DbDataReader dr);
@@ -370,7 +377,7 @@ namespace SchoolGrades
         internal abstract int GetTopicDescendantsNumber(int? LeftNode, int? RightNode);
         internal abstract void UpdateTopic(Topic t, DbConnection conn, bool leaveConnectionOpen);
         internal abstract void InsertTopic(Topic t, DbConnection conn, bool leaveConnectionOpen);
-        internal abstract List<Topic> GetNodesByParentFromDatabase();
+        //internal abstract List<Topic> GetNodesByParentFromDatabase();
         internal abstract void SaveTopicsFromScratch(List<Topic> ListTopics);
 
         // UserManagement

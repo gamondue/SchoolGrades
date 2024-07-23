@@ -353,29 +353,29 @@ namespace SchoolGrades
                 }
             }
         }
-        internal override List<Topic> GetNodesByParentFromDatabase()
-        {
-            // node order according to parents' order (parentNode and childNumber)
-            List<Topic> l = new List<Topic>();
-            using (DbConnection conn = Connect())
-            {
-                DbCommand cmd = conn.CreateCommand();
-                string query = "SELECT *" +
-                    " FROM Topics" +
-                    " ORDER BY parentNode ASC, childNumber ASC;";
-                cmd = new SqlCommand(query);
-                cmd.Connection = conn;
-                DbDataReader dRead = cmd.ExecuteReader();
-                while (dRead.Read())
-                {
-                    Topic t = GetTopicFromRow(dRead);
-                    l.Add(t);
-                }
-                dRead.Dispose();
-                cmd.Dispose();
-            }
-            return l;
-        }
+        //internal override List<Topic> GetNodesByParentFromDatabase()
+        //{
+        //    // node order according to parents' order (parentNode and childNumber)
+        //    List<Topic> l = new List<Topic>();
+        //    using (DbConnection conn = Connect())
+        //    {
+        //        DbCommand cmd = conn.CreateCommand();
+        //        string query = "SELECT *" +
+        //            " FROM Topics" +
+        //            " ORDER BY parentNode ASC, childNumber ASC;";
+        //        cmd = new SqlCommand(query);
+        //        cmd.Connection = conn;
+        //        DbDataReader dRead = cmd.ExecuteReader();
+        //        while (dRead.Read())
+        //        {
+        //            Topic t = GetTopicFromRow(dRead);
+        //            l.Add(t);
+        //        }
+        //        dRead.Dispose();
+        //        cmd.Dispose();
+        //    }
+        //    return l;
+        //}
         internal override void SaveTopicsFromScratch(List<Topic> ListTopics)
         {
             using (DbConnection conn = Connect())
