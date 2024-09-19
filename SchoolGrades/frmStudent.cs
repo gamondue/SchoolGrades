@@ -1,8 +1,8 @@
-﻿using System;
+﻿using SchoolGrades.BusinessObjects;
+using System;
+using System.Collections.Generic;
 using System.Data;
-using System.Drawing;
 using System.Windows.Forms;
-using SchoolGrades.BusinessObjects;
 
 namespace SchoolGrades
 {
@@ -19,13 +19,13 @@ namespace SchoolGrades
             InitializeComponent();
 
             currentStudent = Student;
-            isDialog = IsDialog; 
+            isDialog = IsDialog;
         }
         private void frmStudent_Load(object sender, EventArgs e)
         {
-            if(currentStudent != null)
+            if (currentStudent != null)
             {
-                loadStudentData(currentStudent); 
+                loadStudentData(currentStudent);
             }
             if (isDialog)
             {
@@ -33,7 +33,7 @@ namespace SchoolGrades
             }
             else
             {
-                btnChoose.Visible = false; 
+                btnChoose.Visible = false;
             }
         }
         private void loadStudentData(Student currentStudent)
@@ -41,7 +41,7 @@ namespace SchoolGrades
             txtIdStudent.Text = currentStudent.IdStudent.ToString();
             txtLastName.Text = currentStudent.LastName;
             txtFirstName.Text = currentStudent.FirstName;
-            txtResidence.Text = currentStudent.Residence;
+            txtCity.Text = currentStudent.City;
             txtOrigin.Text = currentStudent.Origin;
             txtEmail.Text = currentStudent.Email;
             //txtDrawable.Text = currentStudent.Drawable;
@@ -55,6 +55,14 @@ namespace SchoolGrades
                 chkHasSpecialNeeds.Checked = (bool)currentStudent.HasSpecialNeeds;
             else
                 chkHasSpecialNeeds.Checked = false;
+            txtBirthPlace.Text = currentStudent.BirthPlace;
+            txtStreetAddress.Text = currentStudent.StreetAddress;
+            txtZipCode.Text = currentStudent.ZipCode;
+            txtCounty.Text = currentStudent.County;
+            txtState.Text = currentStudent.State;
+            txtTelephone.Text = currentStudent.Telephone;
+            txtGender.Text = currentStudent.Gender;
+            txtMobileTelephone.Text = currentStudent.MobileTelephone;
 
             loadPicture(currentStudent);
         }
@@ -73,12 +81,12 @@ namespace SchoolGrades
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (currentStudent == null)
-                currentStudent = new Student(); 
+                currentStudent = new Student();
             if (currentStudent.LastName != "" || currentStudent.FirstName != "")
             {
                 currentStudent.LastName = txtLastName.Text;
                 currentStudent.FirstName = txtFirstName.Text;
-                currentStudent.Residence = txtResidence.Text;
+                currentStudent.City = txtCity.Text;
                 currentStudent.Origin = txtOrigin.Text;
                 currentStudent.Email = txtEmail.Text;
                 currentStudent.Disabled = chkDisabled.Checked;
@@ -89,15 +97,22 @@ namespace SchoolGrades
                 }
                 catch { }
                 currentStudent.BirthPlace = txtBirthPlace.Text;
+                currentStudent.StreetAddress = txtStreetAddress.Text;
+                currentStudent.ZipCode = txtZipCode.Text;
+                currentStudent.County = txtCounty.Text;
+                currentStudent.State = txtState.Text;
+                currentStudent.Telephone = txtTelephone.Text;
+                currentStudent.Gender = txtGender.Text;
+                currentStudent.MobileTelephone = txtMobileTelephone.Text;
             }
             else
             {
                 MessageBox.Show("Immettere Nome e Cognome del nuovo allievo");
-                return; 
+                return;
             }
             if (txtIdStudent.Text == "" && (currentStudent.IdStudent == 0 || currentStudent.IdStudent == null))
             {
-                currentStudent.IdStudent = 0; 
+                currentStudent.IdStudent = 0;
             }
             Commons.bl.SaveStudent(currentStudent);
         }
@@ -106,14 +121,22 @@ namespace SchoolGrades
             txtIdStudent.Text = "";
             txtLastName.Text = "";
             txtFirstName.Text = "";
-            txtResidence.Text = "";
+            txtCity.Text = "";
             txtOrigin.Text = "";
             txtEmail.Text = "";
             //txtDrawable.Text = currentStudent.Drawable;
             txtBirthDate.Text = "";
             txtBirthPlace.Text = "";
+            txtBirthPlace.Text = "";
+            txtStreetAddress.Text = "";
+            txtZipCode.Text = "";
+            txtCounty.Text = "";
+            txtState.Text = "";
+            txtTelephone.Text = "";
+            txtGender.Text = "";
+            txtMobileTelephone.Text = "";
 
-            picStudent.Image = null; 
+            picStudent.Image = null;
         }
         private void btnChoose_Click(object sender, EventArgs e)
         {
@@ -124,18 +147,18 @@ namespace SchoolGrades
             }
             else
             {
-                MessageBox.Show("Salvare o scegliere lo studente"); 
+                MessageBox.Show("Salvare o scegliere lo studente");
             }
         }
         private void btnFindStudent_Click(object sender, EventArgs e)
         {
-            DataTable dt = Commons.bl.FindStudentsLike(txtLastName.Text, txtFirstName.Text);
+            DataTable dt = Commons.bl.GetStudentsLike(txtLastName.Text, txtFirstName.Text);
             dgwSearchedStudents.DataSource = dt;
         }
 
         private void btnFindHomonym_Click(object sender, EventArgs e)
         {
-            DataTable dt = Commons.bl.GetStudentsSameName(txtLastName.Text, txtFirstName.Text);
+            List<Student> dt = Commons.bl.GetStudentsHomonyms(new Student(txtLastName.Text, txtFirstName.Text));
             dgwSearchedStudents.DataSource = dt;
         }
 
@@ -173,12 +196,12 @@ namespace SchoolGrades
         private void btnExitWithoutChoosing_Click(object sender, EventArgs e)
         {
             UserHasChosen = false;
-            this.Close(); 
+            this.Close();
         }
 
         private void btnDeleteStudent_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("DA FARE!!"); 
+            MessageBox.Show("DA FARE!!");
         }
     }
 }

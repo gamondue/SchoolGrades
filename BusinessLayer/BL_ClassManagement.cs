@@ -109,9 +109,12 @@ namespace SchoolGrades
             File.Copy(PhotoToCopyFullName, newPhotoFullName, true);
             dl.LinkOnePhoto(NewStudent, NewClass, relativePathFileName);
         }
-        internal int CreateClass(string ClassAbbreviation, string ClassDescription,
+        internal int CreateClassIfNotExists(string ClassAbbreviation, string ClassDescription,
             string SchoolYear, string IdSchool)
         {
+            int? idClass = dl.ClassExists(SchoolYear, ClassAbbreviation);
+            if (idClass != null)
+                return (int)idClass;
             return dl.CreateClass(ClassAbbreviation, ClassDescription, SchoolYear, IdSchool);
         }
         internal void DeleteOneStudentFromClass(int idDeletingStudent, int? idClass)
@@ -153,7 +156,7 @@ namespace SchoolGrades
             // add the new school year to the database, if it doesn't already exist 
             Commons.bl.AddSchoolYearIfNotExists(SchoolYear);
             // create the new class
-            int classCode = Commons.bl.CreateClass(ClassAbbreviation, ClassDescription,
+            int? classCode = Commons.bl.CreateClassIfNotExists(ClassAbbreviation, ClassDescription,
                 SchoolYear.IdSchoolYear, OfficialSchoolAbbreviation);
             int studentDone = 1;
             foreach (Student s in StudentsOfNewClass)
@@ -168,6 +171,10 @@ namespace SchoolGrades
         internal Class GetThisClassNextYear(Class Class)
         {
             return dl.GetThisClassNextYear(Class);
+        }
+        internal int? ClassExists(string IdSchoolYear, string ClassAbbreviation)
+        {
+            return dl.ClassExists(IdSchoolYear, ClassAbbreviation);
         }
     }
 }

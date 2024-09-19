@@ -8,10 +8,6 @@ namespace SchoolGrades
 {
     internal partial class BusinessLayer
     {
-        internal Student CreateStudentFromStringMatrix(string[,] StudentData, int? StudentRow)
-        {
-            return dl.CreateStudentFromStringMatrix(StudentData, StudentRow);
-        }
         internal int? CreateStudent(Student Student)
         {
             return dl.CreateStudent(Student);
@@ -40,11 +36,11 @@ namespace SchoolGrades
         {
             return dl.GetStudent(IdStudent);
         }
-        internal DataTable GetStudentsSameName(string LastName, string FirstName)
+        internal List<Student> GetStudentsHomonyms(Student Student)
         {
-            return dl.GetStudentsSameName(LastName, FirstName);
+            return dl.GetStudentsLikeName(Student.LastName, Student.FirstName);
         }
-        internal DataTable FindStudentsLike(string LastName, string FirstName)
+        internal DataTable GetStudentsLike(string LastName, string FirstName)
         {
             return dl.FindStudentsLike(LastName, FirstName);
         }
@@ -117,6 +113,30 @@ namespace SchoolGrades
         internal List<Student> FindStudentsOnBirthday(Class Class, DateTime Date)
         {
             return dl.GetStudentsOnBirthday(Class, Date);
+        }
+        internal Student CreateNewStudentFromFileRow(string[,] StudentData, int StudentRow)
+        {
+            int nRow = (int)StudentRow;
+            Student s = new Student();
+            s.RegisterNumber = nRow.ToString();
+            s.SchoolYear = StudentData[nRow, 0];
+            s.ClassAbbreviation = StudentData[nRow, 1];
+            s.LastName = StudentData[nRow, 2];
+            s.FirstName = StudentData[nRow, 3];
+            s.City = StudentData[nRow, 4];
+            s.Origin = StudentData[nRow, 5];
+            s.Email = StudentData[nRow, 6];
+            s.BirthDate = Safe.DateTime(StudentData[nRow, 7]);
+            s.BirthPlace = StudentData[nRow, 8];
+            s.Telephone = StudentData[nRow, 9];
+            s.MobileTelephone = StudentData[nRow, 10];
+            s.Gender = StudentData[nRow, 11];
+            s.StreetAddress = StudentData[nRow, 12];
+            s.ZipCode = StudentData[nRow, 13];
+            s.County = StudentData[nRow, 14];
+            s.State = StudentData[nRow, 15];
+            s.Eligible = false;
+            return s;
         }
     }
 }

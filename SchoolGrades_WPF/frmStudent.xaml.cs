@@ -45,7 +45,7 @@ namespace SchoolGrades_WPF
             txtIdStudent.Text = currentStudent.IdStudent.ToString();
             txtLastName.Text = currentStudent.LastName;
             txtFirstName.Text = currentStudent.FirstName;
-            txtResidence.Text = currentStudent.Residence;
+            txtCity.Text = currentStudent.City;
             txtOrigin.Text = currentStudent.Origin;
             txtEmail.Text = currentStudent.Email;
             //txtDrawable.Text = currentStudent.Drawable;
@@ -82,7 +82,7 @@ namespace SchoolGrades_WPF
             {
                 currentStudent.LastName = txtLastName.Text;
                 currentStudent.FirstName = txtFirstName.Text;
-                currentStudent.Residence = txtResidence.Text;
+                currentStudent.City = txtCity.Text;
                 currentStudent.Origin = txtOrigin.Text;
                 currentStudent.Email = txtEmail.Text;
                 currentStudent.Disabled = chkDisabled.IsChecked;
@@ -110,7 +110,7 @@ namespace SchoolGrades_WPF
             txtIdStudent.Text = "";
             txtLastName.Text = "";
             txtFirstName.Text = "";
-            txtResidence.Text = "";
+            txtCity.Text = "";
             txtOrigin.Text = "";
             txtEmail.Text = "";
             //txtDrawable.Text = currentStudent.Drawable;
@@ -133,12 +133,12 @@ namespace SchoolGrades_WPF
         }
         private void btnFindStudent_Click(object sender, RoutedEventArgs e)
         {
-            DataTable dt = Commons.bl.FindStudentsLike(txtLastName.Text, txtFirstName.Text);
+            DataTable dt = Commons.bl.GetStudentsLike(txtLastName.Text, txtFirstName.Text);
             dgwSearchedStudents.ItemsSource = dt.AsDataView();
         }
         private void btnFindHomonyms_Click(object sender, EventArgs e)
         {
-            DataTable dt = Commons.bl.GetStudentsSameName(txtLastName.Text, txtFirstName.Text);
+            DataTable dt = Commons.bl.GetStudentsHomonyms(txtLastName.Text, txtFirstName.Text);
             dgwSearchedStudents.ItemsSource = dt.AsDataView();
         }
         private void dgwSearchedStudents_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

@@ -111,6 +111,7 @@ namespace SchoolGrades
         internal abstract int CreateClassAndStudents(string[,] StudentsData, string ClassAbbreviation,
                     string ClassDescription, string SchoolYear, string OfficialSchoolAbbreviation,
                     bool LinkPhoto);
+        internal abstract int? ClassExists(string classAbbreviation, string classAbbreviation1);
         internal abstract List<Class> GetClassesOfYear(string School, string Year);
         internal abstract DataTable GetClassTable(int? idClass);
         internal abstract Class GetClassById(int? IdClass);
@@ -277,7 +278,7 @@ namespace SchoolGrades
 
         // StudentManagement
         internal abstract void CreateTableStudents();
-        internal abstract Student CreateStudentFromStringMatrix(string[,] StudentData, int? StudentRow);
+        internal abstract Student CreateStudentFromStringMatrixIfDontExists(string[,] StudentData, int? StudentRow);
         internal abstract Student GetStudent(Student StudentToFind);
         internal abstract DataTable GetStudentsWithNoMicrogrades(Class Class, string IdGradeType, string IdSchoolSubject,
             DateTime DateFrom, DateTime DateTo);
@@ -299,7 +300,7 @@ namespace SchoolGrades
         //}
         internal abstract Student GetStudent(int? IdStudent);
         internal abstract Student GetStudentFromRow(DbDataReader Row);
-        internal abstract DataTable GetStudentsSameName(string LastName, string FirstName);
+        internal abstract List<Student> GetStudentsLikeName(string LastName, string FirstName);
         internal abstract DataTable FindStudentsLike(string LastName, string FirstName);
         internal abstract void PutStudentInClass(int? IdStudent, int? IdClass);
         /// <summary>

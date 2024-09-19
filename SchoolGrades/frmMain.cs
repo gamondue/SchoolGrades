@@ -154,7 +154,7 @@ namespace SchoolGrades
 #endif
             CreateBusinessLayer();
 
-            // remove the next cinditioned compilation when the SQL server program is funcioning
+            // TODO remove the next conditioned compilation when the SQL server program is functioning
 #if !SQL_SERVER
             Commons.bl.GetSchoolYearsThatHaveClasses();
             // da togliere dopo che il DataLayer SQL server funziona
@@ -213,7 +213,7 @@ namespace SchoolGrades
                 null, null, null, null, null);
             Commons.BackgroundSaveThread = new Thread(Commons.SaveTreeMptt.SaveTreeMpttBackground);
             // Thread disabled for test 
-            ////////Commons.BackgroundSaveThread.Start();
+            Commons.BackgroundSaveThread.Start();
 
             if (!File.Exists(Commons.PathAndFileDatabase))
                 return;
@@ -224,12 +224,12 @@ namespace SchoolGrades
 
             lblLastDatabaseModification.Visible = true;
             lblLastDatabaseModification.Text = File.GetLastWriteTime(Commons.PathAndFileDatabase).ToString("yyyy-MM-dd HH:mm:ss");
-            ////////#if !DEBUG
+#if !DEBUG
             // capture every exception for exception logging
             Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             btnTemporary.Visible = false;
-            ////////#endif
+#endif
 
             CreateBusinessLayer();
             // da togliere dopo che il DataLayer di SQL server funziona
@@ -547,14 +547,14 @@ namespace SchoolGrades
         {
             lblStudentChosen.Visible = chkNameIsVisible.Checked;
         }
-        private void lstClassi_SelectedIndexChanged(object sender, EventArgs e)
+        private void lstClasses_SelectedIndexChanged(object sender, EventArgs e)
         {
             picStudent.Image = null;
             lblStudentChosen.Text = "";
             chkStudentsListVisible.Checked = true;
             dgwStudents.DataSource = null;
         }
-        private void lstClassi_DoubleClick(object sender, EventArgs e)
+        private void lstClasses_DoubleClick(object sender, EventArgs e)
         {
             SaveStudentsOfClassIfEligibleHasChanged();
             currentClass = (Class)lstClasses.SelectedItem;
@@ -1118,7 +1118,7 @@ namespace SchoolGrades
                     Commons.bl.UpdateStudent(s);
                 }
             }
-            lstClassi_DoubleClick(null, null);
+            lstClasses_DoubleClick(null, null);
         }
         private bool NoStudentIsChecked()
         {
@@ -1155,7 +1155,7 @@ namespace SchoolGrades
                     Commons.bl.UpdateStudent(s);
                 }
             }
-            lstClassi_DoubleClick(null, null);
+            lstClasses_DoubleClick(null, null);
         }
         private void rdbDrawByRevengeFactor_CheckedChanged(object sender, EventArgs e)
         {
@@ -1566,8 +1566,8 @@ namespace SchoolGrades
         }
         private void dgwStudents_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            dgwStudents.ReadOnly = false;
-            if (dgwStudents.Columns.Count == 20)
+            dgwStudents.ReadOnly = true;
+            if (dgwStudents.Columns.Count == 27)
             {
                 DataGridViewCheckBoxColumn chkSelected = new DataGridViewCheckBoxColumn();
                 {
@@ -1605,8 +1605,14 @@ namespace SchoolGrades
 
                 dgwStudents.Columns[18].Visible = false;
                 dgwStudents.Columns[19].Visible = false;
-
                 dgwStudents.Columns[20].Visible = false;
+                dgwStudents.Columns[21].Visible = false;
+                dgwStudents.Columns[22].Visible = false;
+                dgwStudents.Columns[23].Visible = false;
+                dgwStudents.Columns[24].Visible = false;
+                dgwStudents.Columns[25].Visible = false;
+                dgwStudents.Columns[26].Visible = false;
+                dgwStudents.Columns[27].Visible = false;
                 int Index = 0;
                 foreach (Student s in currentStudentsList)
                 {

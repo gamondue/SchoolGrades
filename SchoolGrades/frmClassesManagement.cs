@@ -69,42 +69,40 @@ namespace SchoolGrades
                     MessageBoxButtons.OK);
                 return;
             }
-            string[,] datiAllievi = TextFile.FileToMatrix(TxtFileOfStudentsImport.Text, '\t');
+            string[,] studentsData = TextFile.FileToMatrix(TxtFileOfStudentsImport.Text, '\t');
 
             int idClass;
             Class newClass = new Class(0, CmbClasses.Text, CmbSchoolYear.Text, TxtOfficialSchoolAbbreviation.Text);
 
             if (!rdbChooseStudentsPhotoWhileImporting.Checked)
             {
-                newClass.IdClass = Commons.bl.CreateClassAndStudents(datiAllievi, CmbClasses.Text, txtClassDescription.Text,
+                newClass.IdClass = Commons.bl.CreateClassAndStudents(studentsData, CmbClasses.Text, txtClassDescription.Text,
                 CmbSchoolYear.Text, TxtOfficialSchoolAbbreviation.Text, rdbStudentsPhotosAlreadyPresent.Checked);
             }
             else
             {
-                idClass = Commons.bl.CreateClass(CmbClasses.Text, txtClassDescription.Text,
+                // make a new class from data taken from the UI
+                idClass = Commons.bl.CreateClassIfNotExists(CmbClasses.Text, txtClassDescription.Text,
                     CmbSchoolYear.Text, TxtOfficialSchoolAbbreviation.Text);
-                for (int riga = 1; riga < datiAllievi.GetLength(0); riga++)
+                for (int row = 1; row < studentsData.GetLength(0); row++)
                 {
-                    Student s = Commons.bl.CreateStudentFromStringMatrix(datiAllievi, riga);
-                    if (s.IdStudent > 0)
+                    Student s = CheckIfStudentIsMultipleAndChooseWhat(studentsData, row);
+                    Commons.bl.PutStudentInClass(s.IdStudent, idClass);
+                    if (rdbChooseStudentsPhotoWhileImporting.Checked)
                     {
-                        Commons.bl.PutStudentInClass(s.IdStudent, idClass);
-                        if (rdbChooseStudentsPhotoWhileImporting.Checked)
+                        using (OpenFileDialog dlg = new OpenFileDialog())
                         {
-                            using (OpenFileDialog dlg = new OpenFileDialog())
+                            dlg.Title = "Scegli una foto dello studente " + studentsData[row, 1] + " " +
+                                studentsData[row, 2] + ", " + CmbClasses.Text + " " + CmbSchoolYear.Text;
+                            dlg.Filter = "jpg files (*.jpg)|*.jpg";
+                            dlg.InitialDirectory = TxtImagesOriginFolder.Text;
+                            if (dlg.ShowDialog() == DialogResult.OK)
                             {
-                                dlg.Title = "Scegli una foto dello studente " + datiAllievi[riga, 1] + " " +
-                                    datiAllievi[riga, 2] + ", " + CmbClasses.Text + " " + CmbSchoolYear.Text;
-                                dlg.Filter = "jpg files (*.jpg)|*.jpg";
-                                dlg.InitialDirectory = TxtImagesOriginFolder.Text;
-                                if (dlg.ShowDialog() == DialogResult.OK)
-                                {
-                                    Student s1 = new Student();
-                                    s1.IdStudent = s.IdStudent;
-                                    s1.LastName = datiAllievi[riga, 1];
-                                    s1.FirstName = datiAllievi[riga, 2];
-                                    Commons.bl.CopyAndLinkOnePhoto(s1, newClass, dlg.FileName);
-                                }
+                                Student s1 = new Student();
+                                s1.IdStudent = s.IdStudent;
+                                s1.LastName = studentsData[row, 1];
+                                s1.FirstName = studentsData[row, 2];
+                                Commons.bl.CopyAndLinkOnePhoto(s1, newClass, dlg.FileName);
                             }
                         }
                     }
@@ -112,6 +110,48 @@ namespace SchoolGrades
             }
             MessageBox.Show("Importazione terminata");
             this.Close();
+        }
+        private Student CheckIfStudentIsMultipleAndChooseWhat(string[,] studentsData, int row)
+        {
+            Student s = Commons.bl.CreateNewStudentFromFileRow(studentsData, row);
+            List<Student> ls = Commons.bl.GetStudentsHomonyms(s);
+            if (ls.Count > 0)
+            {
+                // found students with the same name; user will decide what to do
+                int iValue;
+                do
+                {
+                    string MessagePrompt = "Trovato almeno un vecchio allievo con lo stesso nome del nuovo." +
+                        "\nScegliere quale usare digitando il suo numero:";
+                    MessagePrompt += "\n00 - Aggiungere il nuovo studente: " + s.LastName + " " +
+                        s.FirstName + " " + s.ClassAbbreviation + " " +
+                            s.SchoolYear; ;
+                    // add to MessagePrompt names and classes of the homonym students,
+                    // prefixed by the number of student in the list
+                    for (int iLs = 0; iLs < ls.Count; iLs++)
+                    {
+                        MessagePrompt += "\n" + (iLs + 1).ToString("00") + " - " + ls[iLs].LastName + " " +
+                            ls[iLs].FirstName + " " + ls[iLs].ClassAbbreviation + " " +
+                            ls[iLs].SchoolYear;
+                    }
+                    string value = "0";
+                    frmInputBox ib = new frmInputBox("Scegliere lo studente", MessagePrompt, value);
+                    DialogResult dr = ib.ShowDialog();
+                    iValue = -1;
+                    if (dr != DialogResult.Cancel)
+                    {
+                        int.TryParse(ib.Value, out iValue);
+                    }
+                } while (iValue < 0 || iValue > ls.Count);
+                // if student has chosen a name, change the current student to the student chosen by user 
+                if (iValue > 0)
+                    s = ls[iValue - 1];
+            }
+            else
+            {   // found no students with the same name
+                // no need to do anything, the new student's data is already in s
+            }
+            return s;
         }
         private void btnFileChoose_Click(object sender, EventArgs e)
         {
@@ -493,7 +533,7 @@ namespace SchoolGrades
             {
                 file += s.RegisterNumber + "\t" + s.LastName + "\t" + s.FirstName + "\t" + s.BirthDate
                     + "\t" + s.BirthPlace + "\t" + s.Email
-                    + "\t" + s.Residence + "\t" + s.IdStudent + "\r\n";
+                    + "\t" + s.City + "\t" + s.IdStudent + "\r\n";
             }
             string nomeFile = Commons.PathDatabase + "\\" + CmbSchoolYear.Text + "_" +
                 CmbClasses.SelectedItem.ToString() + "_elenco.csv";
@@ -530,6 +570,54 @@ namespace SchoolGrades
             {
                 TxtStartLinksFolder.Text = folderBrowserDialog.SelectedPath;
             }
+        }
+        private void btnImportStudentsOfSomeClasses_Click(object sender, EventArgs e)
+        {
+            //var res = MessageBox.Show("Should we import several classes from single file " +
+            //    TxtFileOfStudentsImport.Text + "?", "ATTENZIONE!",
+            //    MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button3);
+            //if (res == DialogResult.No)
+            var res = MessageBox.Show("Devo importare diverse classi dal file: " +
+                TxtFileOfStudentsImport.Text + "?", "ATTENZIONE!",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button3);
+            if (res == DialogResult.No)
+            {
+                return;
+            }
+            if (!File.Exists(TxtFileOfStudentsImport.Text) ||
+                TxtFileOfStudentsImport.Text.Substring(TxtFileOfStudentsImport.Text.Length - 1, 1) == "\\")
+            {
+                MessageBox.Show("Il file \"" + TxtFileOfStudentsImport.Text + "\" non esiste!", "Avviso",
+                    MessageBoxButtons.OK);
+                return;
+            }
+            string[,] studentsData = TextFile.FileToMatrix(TxtFileOfStudentsImport.Text, '\t');
+
+            string currentYear = "";
+            string currentClass = "";
+            string currentSchool = "";
+            int idClass = 0;
+            for (int iStudent = 1; iStudent < studentsData.GetLength(0); iStudent++)
+            {
+                if (currentYear != studentsData[iStudent, 0] || currentClass != studentsData[iStudent, 1])
+                {   // new class 
+                    currentYear = studentsData[iStudent, 0];
+                    Commons.bl.AddSchoolYearIfNotExists(new SchoolYear(currentYear));
+                    currentClass = studentsData[iStudent, 1];
+                    currentSchool = studentsData[iStudent, 16];
+                    string classDescription = currentSchool + " " + currentYear + " " + currentClass;
+                    idClass = Commons.bl.CreateClassIfNotExists(currentClass, classDescription,
+                        currentYear, TxtOfficialSchoolAbbreviation.Text);
+                }
+                Student s = CheckIfStudentIsMultipleAndChooseWhat(studentsData, iStudent);
+                s.IdClass = idClass;
+                if (s.IdStudent > 0)
+                {
+                    Commons.bl.PutStudentInClass(s.IdStudent, idClass);
+                }
+            }
+            MessageBox.Show("Importazione terminata");
+            this.Close();
         }
     }
 }
