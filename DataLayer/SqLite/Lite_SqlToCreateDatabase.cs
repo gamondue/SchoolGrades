@@ -4,9 +4,9 @@ using System.IO;
 
 namespace SchoolGrades
 {
-	internal partial class SqLite_DataLayer : DataLayer
-	{
-		string creationScript = @"
+    internal partial class SqLite_DataLayer : DataLayer
+    {
+        string creationScript = @"
 CREATE TABLE 'Answers' (
 	'idAnswer'	INT NOT NULL,
 	'idQuestion'	INT NOT NULL,
@@ -223,13 +223,13 @@ CREATE TABLE 'Students' (
 	'idStudent'	INT NOT NULL,
 	'lastName'	VARCHAR(45),
 	'firstName'	VARCHAR(45),
-	'residence'	VARCHAR(45),
+	'city'	VARCHAR(45),
 	'origin'	VARCHAR(45),
 	'email'	VARCHAR(45),
 	'drawable'	int,
 	'birthDate'	DATE,
 	'birthPlace'	VARCHAR(45),
-	'VFCounter'	INTEGER,
+	'revengeFactorCounter'	INTEGER,
 	'disabled'	int,
 	'hasSpecialNeeds'	INTEGER,
 	PRIMARY KEY('idStudent')

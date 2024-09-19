@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
+    <TargetFramework>net8.0-windows10.0.17763.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
 	<DefineConstants>SQLITE</DefineConstants>
 	<Version>0.0.0.0</Version>
-	<AssemblyName>SchoolGrades</AssemblyName>
+	<AssemblyName>SchoolGradesWpf</AssemblyName>
 	<ApplicationIcon>gamon LegoLogo decentrato trasparente 256x256.ico</ApplicationIcon>
 	<Authors>Ing. Gabriele Monti - Forlì - Italia</Authors>
 	<Description>SchoolGrades manages the daily life of a teacher in the classroom, with emphasis to evaluations and tracking of topics done.</Description>

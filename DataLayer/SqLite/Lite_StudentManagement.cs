@@ -9,43 +9,6 @@ namespace SchoolGrades
 {
     internal partial class SqLite_DataLayer : DataLayer
     {
-        internal override Student CreateStudentFromStringMatrix(string[,] StudentData, int? StudentRow)
-        {
-            // look if exists a student with same name, last name, birth date and place
-            Student s = new Student();
-            s.RegisterNumber = StudentData[(int)StudentRow, 0];
-            s.LastName = StudentData[(int)StudentRow, 1];
-            s.FirstName = StudentData[(int)StudentRow, 2];
-            s.BirthDate = Safe.DateTime(StudentData[(int)StudentRow, 3]);
-            s.Residence = StudentData[(int)StudentRow, 4];
-            s.Origin = StudentData[(int)StudentRow, 5];
-            s.Email = StudentData[(int)StudentRow, 6];
-            s.BirthPlace = StudentData[(int)StudentRow, 7];
-            s.Eligible = false;
-
-            Student existingStudent = GetStudent(s);
-            if (existingStudent == null)
-            {
-                // not found an existing student: find a key for the new student
-                s.IdStudent = NextKey("Students", "idStudent");
-                CreateStudent(s);
-            }
-            else
-            {
-                // student already exists, uses old data in the fields from the file that are empty
-                // LastName, FirstName, BirthDate and BirthPlace are equal! 
-                s.IdStudent = existingStudent.IdStudent;
-                if (s.Residence == "") s.Residence = existingStudent.Residence;
-                if (s.Origin == "") s.Origin = existingStudent.Origin;
-                if (s.Email == "") s.Email = existingStudent.Email;
-                if (s.RegisterNumber == "") s.RegisterNumber = existingStudent.RegisterNumber;
-                s.Origin = StudentData[(int)StudentRow, 5];
-                s.Email = StudentData[(int)StudentRow, 6];
-                s.Eligible = false;
-                UpdateStudent(s);
-            }
-            return s;
-        }
         internal override Student GetStudent(Student StudentToFind)
         {
             Student s;
@@ -157,18 +120,26 @@ namespace SchoolGrades
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "INSERT INTO Students " +
-                    "(idStudent,lastName,firstName,residence,origin," +
-                    "email,birthDate,birthPlace,disabled,hasSpecialNeeds) " +
+                    "(idStudent,lastName,firstName,city,origin" +
+                    ",email,birthDate,birthPlace,telephone,mobileTelephone,gender" +
+                    ",streetAddress,zipCode,county,state,disabled,hasSpecialNeeds) " +
                     "VALUES (" + SqlInt(Student.IdStudent) + "," +
                     SqlString(Student.LastName) + "," +
                     SqlString(Student.FirstName) + "," +
-                    SqlString(Student.Residence) + "," +
+                    SqlString(Student.City) + "," +
                     SqlString(Student.Origin) + "," +
                     SqlString(Student.Email) + "," +
                     SqlDate(Student.BirthDate.ToString()) + "," +
                     SqlString(Student.BirthPlace) + "," +
-                    "false," +
-                    "false" +
+                    SqlString(Student.Telephone) + "," +
+                    SqlString(Student.MobileTelephone) + "," +
+                    SqlString(Student.Gender) + "," +
+                    SqlString(Student.StreetAddress) + "," +
+                    SqlString(Student.ZipCode) + "," +
+                    SqlString(Student.County) + "," +
+                    SqlString(Student.State) + "," +
+                    SqlBool(Student.Disabled) + "," +
+                    SqlBool(Student.HasSpecialNeeds) + "" +
                     ");";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
@@ -195,16 +166,23 @@ namespace SchoolGrades
                 " idStudent=" + Student.IdStudent +
                 ",lastName=" + SqlString(Student.LastName) +
                 ",firstName=" + SqlString(Student.FirstName) +
-                ",residence=" + SqlString(Student.Residence) +
-                ",birthDate=" + SqlDate(Student.BirthDate.ToString()) + "" +
-                ",email=" + SqlString(Student.Email) +
-                //",schoolyear=" + SqlString(Student.SchoolYear) + 
+                ",city=" + SqlString(Student.City) +
                 ",origin=" + SqlString(Student.Origin) +
+                ",email=" + SqlString(Student.Email) +
+                ",birthDate=" + SqlDate(Student.BirthDate.ToString()) + "" +
+                //",schoolyear=" + SqlString(Student.SchoolYear) + 
                 ",birthPlace=" + SqlString(Student.BirthPlace) +
-                ",drawable=" + SqlBool(Student.Eligible) + "" +
+                ",telephone=" + SqlString(Student.Telephone) +
+                ",mobileTelephone=" + SqlString(Student.MobileTelephone) +
+                ",gender=" + SqlString(Student.Gender) +
+                ",streetAddress=" + SqlString(Student.StreetAddress) +
+                ",zipCode=" + SqlString(Student.ZipCode) +
+                ",county=" + SqlString(Student.County) +
+                ",state=" + SqlString(Student.State) +
                 ",disabled=" + SqlBool(Student.Disabled) + "" +
                 ",hasSpecialNeeds=" + SqlBool(Student.HasSpecialNeeds) + "" +
-                ",VFCounter=" + SqlInt(Student.RevengeFactorCounter) + "" +
+                ",eligible=" + SqlBool(Student.Eligible) + "" +
+                ",revengeFactorCounter=" + SqlInt(Student.RevengeFactorCounter) + "" +
                 " WHERE idStudent=" + Student.IdStudent +
                 ";";
             cmd.ExecuteNonQuery();
@@ -257,40 +235,56 @@ namespace SchoolGrades
             s.IdStudent = (int)Row["IdStudent"];
             s.LastName = Safe.String(Row["LastName"]);
             s.FirstName = Safe.String(Row["FirstName"]);
-            s.Residence = Safe.String(Row["Residence"]);
+            s.City = Safe.String(Row["city"]);
             s.Origin = Safe.String(Row["Origin"]);
             s.Email = Safe.String(Row["Email"]);
             if (Safe.DateTime(Row["birthDate"]) != null)
                 s.BirthDate = Safe.DateTime(Row["birthDate"]);
             s.BirthPlace = Safe.String(Row["birthPlace"]);
-            s.Eligible = Safe.Bool(Row["drawable"]);
+            s.Telephone = Safe.String(Row["telephone"]);
+            s.MobileTelephone = Safe.String(Row["mobileTelephone"]);
+            s.Gender = Safe.String(Row["gender"]);
+            s.StreetAddress = Safe.String(Row["streetAddress"]);
+            s.ZipCode = Safe.String(Row["zipCode"]);
+            s.County = Safe.String(Row["county"]);
+            s.State = Safe.String(Row["state"]);
             s.Disabled = Safe.Bool(Row["disabled"]);
             s.HasSpecialNeeds = Safe.Bool(Row["hasSpecialNeeds"]);
-            s.RevengeFactorCounter = Safe.Int(Row["VFCounter"]);
+            s.Eligible = Safe.Bool(Row["eligible"]);
+            s.RevengeFactorCounter = Safe.Int(Row["revengeFactorCounter"]);
+
             return s;
         }
-        internal override DataTable GetStudentsSameName(string LastName, string FirstName)
+        internal override List<Student> GetStudentsLikeName(string LastName, string FirstName)
         {
-            DataTable t;
+            List<Student> t = new();
             using (DbConnection conn = Connect())
             {
-                DataAdapter dAdapt;
-                DataSet dSet = new DataSet();
-                string query = "SELECT Students.IdStudent, Students.lastName, Students.firstName," +
-                    " Classes.abbreviation, Classes.idSchoolYear" +
+                string query = "SELECT Students.IdStudent AS IdStudent, " +
+                    "Students.lastName AS LastName, Students.firstName AS FirstName," +
+                    " Classes.abbreviation AS ClassAbbreviation, Classes.idSchoolYear AS SchoolYear" +
                     " FROM Students" +
                     " LEFT JOIN Classes_Students ON Students.idStudent = Classes_Students.idStudent " +
                     " LEFT JOIN Classes ON Classes.idClass = Classes_Students.idClass " +
                     " WHERE Students.lastName " + SqlLikeStatement(LastName) + "" +
                     " AND Students.firstName " + SqlLikeStatement(FirstName) + "" +
                     ";";
-                dAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                dSet = new DataSet("GetStudentsSameName");
-                dAdapt.Fill(dSet);
-                t = dSet.Tables[0];
-
-                dSet.Dispose();
-                dAdapt.Dispose();
+                DbCommand cmd = conn.CreateCommand();
+                cmd = new SQLiteCommand(query);
+                cmd.Connection = conn;
+                DbDataReader dRead = cmd.ExecuteReader();
+                Student s = new Student();
+                while (dRead.Read())
+                {
+                    s.IdStudent = Safe.Int(dRead["IdStudent"]);
+                    s.LastName = Safe.String(dRead["LastName"]);
+                    s.FirstName = Safe.String(dRead["FirstName"]);
+                    s.ClassAbbreviation = Safe.String(dRead["ClassAbbreviation"]);
+                    s.SchoolYear = Safe.String(dRead["SchoolYear"]);
+                    t.Add(s);
+                }
+                dRead.Dispose();
+                cmd.Dispose();
             }
             return t;
         }

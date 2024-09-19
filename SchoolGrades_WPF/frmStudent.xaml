@@ -45,7 +45,7 @@
         <TextBlock Grid.Row="2" Grid.Column="2" FontSize="18" VerticalAlignment="Bottom">Residenza</TextBlock>
 
         <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" x:Name="txtEmail" Height="27"/>
-        <TextBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" x:Name="txtResidence" Height="27"></TextBox>
+        <TextBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" x:Name="txtCity" Height="27"></TextBox>
 
         <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" FontSize="18" VerticalAlignment="Bottom">Posto di nascita</TextBlock>
         <TextBlock Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" FontSize="18" VerticalAlignment="Bottom">Data di nascita</TextBlock>

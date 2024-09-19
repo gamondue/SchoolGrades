@@ -109,11 +109,12 @@ namespace SchoolGrades
         {
             dl.DeleteSchoolPeriod(IdSchoolPeriod);
         }
-        internal void AddSchoolYearIfNotExists(SchoolYear NewSchoolYear)
+        internal void AddSchoolYearIfNotExists(SchoolYear SchoolYear)
         {
-            if (dl.SchoolYearExists(NewSchoolYear.IdSchoolYear))
+
+            if (dl.SchoolYearExists(SchoolYear.IdSchoolYear))
                 return;
-            dl.AddSchoolYear(NewSchoolYear);
+            dl.AddSchoolYear(SchoolYear);
         }
         internal SchoolYear GenerateNewYearData(SchoolYear CurrentYear)
         {

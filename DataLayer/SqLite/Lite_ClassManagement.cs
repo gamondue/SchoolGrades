@@ -262,6 +262,7 @@ namespace SchoolGrades
                 DbDataReader dReader = cmd.ExecuteReader();
                 while (dReader.Read())
                 {
+
                     string destinationFile = Path.Combine(Class.PathRestrictedApplication,
                         "SchoolGrades", "Images" + (string)dReader["photoPath"]);
                     if (!Directory.Exists(Path.GetDirectoryName(destinationFile)))
@@ -393,7 +394,7 @@ namespace SchoolGrades
                     int nColumns = StudentsData.GetLength(1);
                     int rigap1 = row + 1, dummy;
                     string query = "INSERT INTO Students " +
-                        "(idStudent, lastName, firstName, birthDate, residence, origin, email, birthPlace) " +
+                        "(idStudent, lastName, firstName, birthDate, city, origin, email, birthPlace) " +
                         "Values (" + idNextStudent;
                     // create new student
                     // last name in column 1 
@@ -658,12 +659,18 @@ namespace SchoolGrades
             // Execute the query
             using (DbConnection conn = Connect())
             {
-                string query = "SELECT DISTINCT SchoolYears.*" +
-                " FROM SchoolYears" +
-                " JOIN Classes ON Classes.IdSchoolYear = SchoolYears.IdSchoolYear" +
-                " WHERE SchoolYears.IdSchoolYear IS NOT NULL" +
-                " ORDER BY IdSchoolYear" +
-                ";";
+                string query =
+    @"SELECT DISTINCT SchoolYears.*
+    FROM SchoolYears
+    JOIN Classes ON Classes.IdSchoolYear = SchoolYears.IdSchoolYear
+    WHERE SchoolYears.IdSchoolYear IS NOT NULL
+    ORDER BY
+        CASE
+            WHEN SUBSTRING(SchoolYears.IdSchoolYear, 1, 1) BETWEEN '5' AND '9' THEN 1
+        ELSE 2
+    END,
+    SchoolYears.IdSchoolYear ASC;
+    ";
                 cmd = conn.CreateCommand();
                 cmd.CommandText = query;
                 dRead = cmd.ExecuteReader();
@@ -686,6 +693,20 @@ namespace SchoolGrades
             string nextYear = Commons.IncreaseIntegersInString(Class.SchoolYear);
             string nextAbbreviation = Commons.IncreaseIntegersInString(Class.Abbreviation);
             return GetClass(Class.IdSchool, nextYear, nextAbbreviation);
+        }
+        internal override int? ClassExists(string IdSchoolYear, string ClassAbbreviation)
+        {
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT idClass" +
+                    " FROM Classes" +
+                    " WHERE idSchoolYear=" + SqlString(IdSchoolYear)
+                    + " AND abbreviation=" + SqlString(ClassAbbreviation)
+                    + " LIMIT 1; ";
+                int? result = (int?)cmd.ExecuteScalar();
+                return result;
+            }
         }
     }
 }

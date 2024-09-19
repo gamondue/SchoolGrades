@@ -393,7 +393,7 @@ namespace SchoolGrades
                     int nColumns = StudentsData.GetLength(1);
                     int rigap1 = row + 1, dummy;
                     string query = "INSERT INTO Students " +
-                        "(idStudent, lastName, firstName, birthDate, residence, origin, email, birthPlace) " +
+                        "(idStudent, lastName, firstName, birthDate, city, origin, email, birthPlace) " +
                         "Values (" + idNextStudent;
                     // create new student
                     // last name in column 1 
@@ -686,6 +686,10 @@ namespace SchoolGrades
             string nextYear = Commons.IncreaseIntegersInString(Class.SchoolYear);
             string nextAbbreviation = Commons.IncreaseIntegersInString(Class.Abbreviation);
             return GetClass(Class.IdSchool, nextYear, nextAbbreviation);
+        }
+        internal override int? ClassExists(string classAbbreviation, string classAbbreviation1)
+        {
+            throw new NotImplementedException();
         }
     }
 }

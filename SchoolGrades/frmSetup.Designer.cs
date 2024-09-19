@@ -32,7 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmSetup));
             btnTabelle = new System.Windows.Forms.Button();
             btnClassi = new System.Windows.Forms.Button();
-            btnBackupManagement = new System.Windows.Forms.Button();
             TxtFileDatabase = new System.Windows.Forms.TextBox();
             btnFileDatabase = new System.Windows.Forms.Button();
             TxtPathImages = new System.Windows.Forms.TextBox();
@@ -63,6 +62,8 @@
             chkSaveBackup = new System.Windows.Forms.CheckBox();
             btnSchoolPeriodsManagement = new System.Windows.Forms.Button();
             btnUsersManagement = new System.Windows.Forms.Button();
+            btnBackupManagement = new System.Windows.Forms.Button();
+            btnStudents = new System.Windows.Forms.Button();
             btnResetDatabase = new System.Windows.Forms.Button();
             SuspendLayout();
             // 
@@ -88,24 +89,13 @@
             btnClassi.UseVisualStyleBackColor = true;
             btnClassi.Click += BtnClassi_Click;
             // 
-            // btnBackupManagement
-            // 
-            btnBackupManagement.Location = new System.Drawing.Point(182, 12);
-            btnBackupManagement.Name = "btnBackupManagement";
-            btnBackupManagement.Size = new System.Drawing.Size(82, 60);
-            btnBackupManagement.TabIndex = 2;
-            btnBackupManagement.Text = "Backup e gen.file";
-            toolTip1.SetToolTip(btnBackupManagement, "Generazione di file e salvataggi di backup");
-            btnBackupManagement.UseVisualStyleBackColor = true;
-            btnBackupManagement.Click += btnBackupManagement_Click;
-            // 
             // TxtFileDatabase
             // 
-            TxtFileDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            TxtFileDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
             TxtFileDatabase.Location = new System.Drawing.Point(8, 153);
             TxtFileDatabase.Margin = new System.Windows.Forms.Padding(4);
             TxtFileDatabase.Name = "TxtFileDatabase";
-            TxtFileDatabase.Size = new System.Drawing.Size(537, 24);
+            TxtFileDatabase.Size = new System.Drawing.Size(642, 24);
             TxtFileDatabase.TabIndex = 2;
             TxtFileDatabase.TextChanged += TxtFileDatabase_TextChanged;
             TxtFileDatabase.DoubleClick += TxtPaths_DoubleClick;
@@ -113,9 +103,9 @@
             // btnFileDatabase
             // 
             btnFileDatabase.BackColor = System.Drawing.Color.Transparent;
-            btnFileDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnFileDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnFileDatabase.ForeColor = System.Drawing.Color.DarkBlue;
-            btnFileDatabase.Location = new System.Drawing.Point(555, 144);
+            btnFileDatabase.Location = new System.Drawing.Point(660, 145);
             btnFileDatabase.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             btnFileDatabase.Name = "btnFileDatabase";
             btnFileDatabase.Size = new System.Drawing.Size(54, 40);
@@ -126,11 +116,11 @@
             // 
             // TxtPathImages
             // 
-            TxtPathImages.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            TxtPathImages.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
             TxtPathImages.Location = new System.Drawing.Point(8, 203);
             TxtPathImages.Margin = new System.Windows.Forms.Padding(4);
             TxtPathImages.Name = "TxtPathImages";
-            TxtPathImages.Size = new System.Drawing.Size(762, 24);
+            TxtPathImages.Size = new System.Drawing.Size(867, 24);
             TxtPathImages.TabIndex = 15;
             TxtPathImages.TextChanged += TxtPathImages_TextChanged;
             TxtPathImages.DoubleClick += TxtPaths_DoubleClick;
@@ -138,9 +128,9 @@
             // btnPathImages
             // 
             btnPathImages.BackColor = System.Drawing.Color.Transparent;
-            btnPathImages.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnPathImages.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnPathImages.ForeColor = System.Drawing.Color.DarkBlue;
-            btnPathImages.Location = new System.Drawing.Point(780, 193);
+            btnPathImages.Location = new System.Drawing.Point(885, 194);
             btnPathImages.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             btnPathImages.Name = "btnPathImages";
             btnPathImages.Size = new System.Drawing.Size(54, 40);
@@ -151,8 +141,8 @@
             // 
             // btnSaveConfigurationFile
             // 
-            btnSaveConfigurationFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            btnSaveConfigurationFile.Location = new System.Drawing.Point(965, 76);
+            btnSaveConfigurationFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            btnSaveConfigurationFile.Location = new System.Drawing.Point(1052, 76);
             btnSaveConfigurationFile.Name = "btnSaveConfigurationFile";
             btnSaveConfigurationFile.Size = new System.Drawing.Size(82, 60);
             btnSaveConfigurationFile.TabIndex = 92;
@@ -180,11 +170,11 @@
             // 
             // TxtPathDatabase
             // 
-            TxtPathDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            TxtPathDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
             TxtPathDatabase.Location = new System.Drawing.Point(8, 95);
             TxtPathDatabase.Margin = new System.Windows.Forms.Padding(4);
             TxtPathDatabase.Name = "TxtPathDatabase";
-            TxtPathDatabase.Size = new System.Drawing.Size(762, 24);
+            TxtPathDatabase.Size = new System.Drawing.Size(867, 24);
             TxtPathDatabase.TabIndex = 94;
             TxtPathDatabase.TextChanged += TxtPathDatabase_TextChanged;
             TxtPathDatabase.DoubleClick += TxtPaths_DoubleClick;
@@ -192,9 +182,9 @@
             // btnPathDatabase
             // 
             btnPathDatabase.BackColor = System.Drawing.Color.Transparent;
-            btnPathDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnPathDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnPathDatabase.ForeColor = System.Drawing.Color.DarkBlue;
-            btnPathDatabase.Location = new System.Drawing.Point(780, 86);
+            btnPathDatabase.Location = new System.Drawing.Point(885, 87);
             btnPathDatabase.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             btnPathDatabase.Name = "btnPathDatabase";
             btnPathDatabase.Size = new System.Drawing.Size(54, 40);
@@ -214,7 +204,7 @@
             // 
             // btnTopicsManagement
             // 
-            btnTopicsManagement.Location = new System.Drawing.Point(269, 12);
+            btnTopicsManagement.Location = new System.Drawing.Point(356, 12);
             btnTopicsManagement.Name = "btnTopicsManagement";
             btnTopicsManagement.Size = new System.Drawing.Size(82, 60);
             btnTopicsManagement.TabIndex = 99;
@@ -225,7 +215,7 @@
             // 
             // btnTagsManagement
             // 
-            btnTagsManagement.Location = new System.Drawing.Point(356, 12);
+            btnTagsManagement.Location = new System.Drawing.Point(443, 12);
             btnTagsManagement.Name = "btnTagsManagement";
             btnTagsManagement.Size = new System.Drawing.Size(82, 60);
             btnTagsManagement.TabIndex = 100;
@@ -248,7 +238,7 @@
             // btnQuestionManagement
             // 
             btnQuestionManagement.Enabled = false;
-            btnQuestionManagement.Location = new System.Drawing.Point(443, 12);
+            btnQuestionManagement.Location = new System.Drawing.Point(965, 12);
             btnQuestionManagement.Name = "btnQuestionManagement";
             btnQuestionManagement.Size = new System.Drawing.Size(82, 60);
             btnQuestionManagement.TabIndex = 102;
@@ -260,7 +250,7 @@
             // btnTestManagement
             // 
             btnTestManagement.Enabled = false;
-            btnTestManagement.Location = new System.Drawing.Point(617, 12);
+            btnTestManagement.Location = new System.Drawing.Point(1052, 12);
             btnTestManagement.Name = "btnTestManagement";
             btnTestManagement.Size = new System.Drawing.Size(82, 60);
             btnTestManagement.TabIndex = 103;
@@ -271,7 +261,7 @@
             // 
             // btnRecoverTopics
             // 
-            btnRecoverTopics.Location = new System.Drawing.Point(704, 12);
+            btnRecoverTopics.Location = new System.Drawing.Point(791, 12);
             btnRecoverTopics.Name = "btnRecoverTopics";
             btnRecoverTopics.Size = new System.Drawing.Size(82, 60);
             btnRecoverTopics.TabIndex = 104;
@@ -282,11 +272,11 @@
             // 
             // TxtPathDocuments
             // 
-            TxtPathDocuments.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            TxtPathDocuments.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
             TxtPathDocuments.Location = new System.Drawing.Point(8, 258);
             TxtPathDocuments.Margin = new System.Windows.Forms.Padding(4);
             TxtPathDocuments.Name = "TxtPathDocuments";
-            TxtPathDocuments.Size = new System.Drawing.Size(762, 24);
+            TxtPathDocuments.Size = new System.Drawing.Size(867, 24);
             TxtPathDocuments.TabIndex = 105;
             TxtPathDocuments.TextChanged += TxtPathDocuments_TextChanged;
             TxtPathDocuments.DoubleClick += TxtPaths_DoubleClick;
@@ -294,9 +284,9 @@
             // btnPathDocuments
             // 
             btnPathDocuments.BackColor = System.Drawing.Color.Transparent;
-            btnPathDocuments.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnPathDocuments.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnPathDocuments.ForeColor = System.Drawing.Color.DarkBlue;
-            btnPathDocuments.Location = new System.Drawing.Point(780, 248);
+            btnPathDocuments.Location = new System.Drawing.Point(885, 249);
             btnPathDocuments.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             btnPathDocuments.Name = "btnPathDocuments";
             btnPathDocuments.Size = new System.Drawing.Size(54, 40);
@@ -316,8 +306,8 @@
             // 
             // btnEraseConfigurationFile
             // 
-            btnEraseConfigurationFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            btnEraseConfigurationFile.Location = new System.Drawing.Point(965, 206);
+            btnEraseConfigurationFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            btnEraseConfigurationFile.Location = new System.Drawing.Point(1052, 204);
             btnEraseConfigurationFile.Name = "btnEraseConfigurationFile";
             btnEraseConfigurationFile.Size = new System.Drawing.Size(82, 60);
             btnEraseConfigurationFile.TabIndex = 108;
@@ -327,8 +317,8 @@
             // 
             // BtnUseDemo
             // 
-            BtnUseDemo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            BtnUseDemo.Location = new System.Drawing.Point(867, 141);
+            BtnUseDemo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            BtnUseDemo.Location = new System.Drawing.Point(956, 141);
             BtnUseDemo.Name = "BtnUseDemo";
             BtnUseDemo.Size = new System.Drawing.Size(82, 60);
             BtnUseDemo.TabIndex = 109;
@@ -339,7 +329,7 @@
             // 
             // btnSchoolSubjectManagement
             // 
-            btnSchoolSubjectManagement.Location = new System.Drawing.Point(878, 12);
+            btnSchoolSubjectManagement.Location = new System.Drawing.Point(617, 12);
             btnSchoolSubjectManagement.Name = "btnSchoolSubjectManagement";
             btnSchoolSubjectManagement.Size = new System.Drawing.Size(82, 60);
             btnSchoolSubjectManagement.TabIndex = 110;
@@ -349,8 +339,8 @@
             // 
             // btnOpenConfigurationFolder
             // 
-            btnOpenConfigurationFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            btnOpenConfigurationFolder.Location = new System.Drawing.Point(965, 141);
+            btnOpenConfigurationFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            btnOpenConfigurationFolder.Location = new System.Drawing.Point(1052, 140);
             btnOpenConfigurationFolder.Name = "btnOpenConfigurationFolder";
             btnOpenConfigurationFolder.Size = new System.Drawing.Size(82, 60);
             btnOpenConfigurationFolder.TabIndex = 111;
@@ -362,7 +352,7 @@
             // 
             chkAskPassword.AutoSize = true;
             chkAskPassword.Enabled = false;
-            chkAskPassword.Location = new System.Drawing.Point(878, 272);
+            chkAskPassword.Location = new System.Drawing.Point(967, 272);
             chkAskPassword.Name = "chkAskPassword";
             chkAskPassword.Size = new System.Drawing.Size(152, 22);
             chkAskPassword.TabIndex = 112;
@@ -373,7 +363,7 @@
             // chkSaveBackup
             // 
             chkSaveBackup.AutoSize = true;
-            chkSaveBackup.Location = new System.Drawing.Point(618, 152);
+            chkSaveBackup.Location = new System.Drawing.Point(723, 153);
             chkSaveBackup.Name = "chkSaveBackup";
             chkSaveBackup.Size = new System.Drawing.Size(213, 22);
             chkSaveBackup.TabIndex = 113;
@@ -383,7 +373,7 @@
             // 
             // btnSchoolPeriodsManagement
             // 
-            btnSchoolPeriodsManagement.Location = new System.Drawing.Point(965, 11);
+            btnSchoolPeriodsManagement.Location = new System.Drawing.Point(704, 12);
             btnSchoolPeriodsManagement.Name = "btnSchoolPeriodsManagement";
             btnSchoolPeriodsManagement.Size = new System.Drawing.Size(82, 60);
             btnSchoolPeriodsManagement.TabIndex = 115;
@@ -395,7 +385,7 @@
             // btnUsersManagement
             // 
             btnUsersManagement.Enabled = false;
-            btnUsersManagement.Location = new System.Drawing.Point(791, 12);
+            btnUsersManagement.Location = new System.Drawing.Point(878, 12);
             btnUsersManagement.Name = "btnUsersManagement";
             btnUsersManagement.Size = new System.Drawing.Size(82, 60);
             btnUsersManagement.TabIndex = 114;
@@ -404,12 +394,34 @@
             btnUsersManagement.UseVisualStyleBackColor = true;
             btnUsersManagement.Click += btnUsersManagement_Click;
             // 
+            // btnBackupManagement
+            // 
+            btnBackupManagement.Location = new System.Drawing.Point(182, 12);
+            btnBackupManagement.Name = "btnBackupManagement";
+            btnBackupManagement.Size = new System.Drawing.Size(82, 60);
+            btnBackupManagement.TabIndex = 2;
+            btnBackupManagement.Text = "Backup e gen.file";
+            toolTip1.SetToolTip(btnBackupManagement, "Generazione di file e salvataggi di backup");
+            btnBackupManagement.UseVisualStyleBackColor = true;
+            btnBackupManagement.Click += btnBackupManagement_Click;
+            // 
+            // btnStudents
+            // 
+            btnStudents.Location = new System.Drawing.Point(269, 12);
+            btnStudents.Name = "btnStudents";
+            btnStudents.Size = new System.Drawing.Size(82, 60);
+            btnStudents.TabIndex = 117;
+            btnStudents.Text = "Gestione studenti";
+            toolTip1.SetToolTip(btnStudents, "Generazione di file e salvataggi di backup");
+            btnStudents.UseVisualStyleBackColor = true;
+            btnStudents.Click += btnStudents_Click;
+            // 
             // btnResetDatabase
             // 
             btnResetDatabase.BackColor = System.Drawing.Color.Red;
-            btnResetDatabase.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnResetDatabase.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             btnResetDatabase.ForeColor = System.Drawing.Color.Yellow;
-            btnResetDatabase.Location = new System.Drawing.Point(859, 203);
+            btnResetDatabase.Location = new System.Drawing.Point(948, 199);
             btnResetDatabase.Name = "btnResetDatabase";
             btnResetDatabase.Size = new System.Drawing.Size(99, 69);
             btnResetDatabase.TabIndex = 116;
@@ -422,7 +434,8 @@
             AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.PowderBlue;
-            ClientSize = new System.Drawing.Size(1051, 298);
+            ClientSize = new System.Drawing.Size(1142, 298);
+            Controls.Add(btnStudents);
             Controls.Add(btnResetDatabase);
             Controls.Add(btnSchoolPeriodsManagement);
             Controls.Add(btnUsersManagement);
@@ -454,7 +467,7 @@
             Controls.Add(btnBackupManagement);
             Controls.Add(btnClassi);
             Controls.Add(btnTabelle);
-            Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             ForeColor = System.Drawing.Color.DarkBlue;
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
@@ -471,7 +484,6 @@
 
         private System.Windows.Forms.Button btnTabelle;
         private System.Windows.Forms.Button btnClassi;
-        private System.Windows.Forms.Button btnBackupManagement;
         private System.Windows.Forms.TextBox TxtFileDatabase;
         private System.Windows.Forms.Button btnFileDatabase;
         private System.Windows.Forms.TextBox TxtPathImages;
@@ -503,5 +515,7 @@
         private System.Windows.Forms.Button btnUsersManagement;
         private System.Windows.Forms.Button btnSchoolPeriodsManagement;
         private System.Windows.Forms.Button btnResetDatabase;
+        private System.Windows.Forms.Button btnBackupManagement;
+        private System.Windows.Forms.Button btnStudents;
     }
 }

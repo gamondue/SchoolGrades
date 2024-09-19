@@ -9,7 +9,7 @@ namespace SchoolGrades
 {
     internal partial class SqlServer_DataLayer : DataLayer
     {
-        internal override Student CreateStudentFromStringMatrix(string[,] StudentData, int? StudentRow)
+        internal override Student CreateStudentFromStringMatrixIfDontExists(string[,] StudentData, int? StudentRow)
         {
             // look if exists a student with same name, last name, birth date and place
             Student s = new Student();
@@ -17,7 +17,7 @@ namespace SchoolGrades
             s.LastName = StudentData[(int)StudentRow, 1];
             s.FirstName = StudentData[(int)StudentRow, 2];
             s.BirthDate = Safe.DateTime(StudentData[(int)StudentRow, 3]);
-            s.Residence = StudentData[(int)StudentRow, 4];
+            s.City = StudentData[(int)StudentRow, 4];
             s.Origin = StudentData[(int)StudentRow, 5];
             s.Email = StudentData[(int)StudentRow, 6];
             s.BirthPlace = StudentData[(int)StudentRow, 7];
@@ -35,7 +35,7 @@ namespace SchoolGrades
                 // student already exists, uses old data in the fields from the file that are empty
                 // LastName, FirstName, BirthDate and BirthPlace are equal! 
                 s.IdStudent = existingStudent.IdStudent;
-                if (s.Residence == "") s.Residence = existingStudent.Residence;
+                if (s.City == "") s.City = existingStudent.City;
                 if (s.Origin == "") s.Origin = existingStudent.Origin;
                 if (s.Email == "") s.Email = existingStudent.Email;
                 if (s.RegisterNumber == "") s.RegisterNumber = existingStudent.RegisterNumber;
@@ -157,12 +157,12 @@ namespace SchoolGrades
             {
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "INSERT INTO Students " +
-                    "(idStudent,lastName,firstName,residence,origin," +
+                    "(idStudent,lastName,firstName,city,origin," +
                     "email,birthDate,birthPlace,disabled,hasSpecialNeeds) " +
                     "VALUES (" + SqlInt(Student.IdStudent) + "," +
                     SqlString(Student.LastName) + "," +
                     SqlString(Student.FirstName) + "," +
-                    SqlString(Student.Residence) + "," +
+                    SqlString(Student.City) + "," +
                     SqlString(Student.Origin) + "," +
                     SqlString(Student.Email) + "," +
                     SqlDate(Student.BirthDate.ToString()) + "," +
@@ -193,7 +193,7 @@ namespace SchoolGrades
                 " idStudent=" + Student.IdStudent +
                 ",lastName=" + SqlString(Student.LastName) +
                 ",firstName=" + SqlString(Student.FirstName) +
-                ",residence=" + SqlString(Student.Residence) +
+                ",city=" + SqlString(Student.City) +
                 ",birthDate=" + SqlDate(Student.BirthDate.ToString()) + "" +
                 ",email=" + SqlString(Student.Email) +
                 //",schoolyear=" + SqlString(Student.SchoolYear) + 
@@ -202,7 +202,7 @@ namespace SchoolGrades
                 ",drawable=" + SqlBool(Student.Eligible) + "" +
                 ",disabled=" + SqlBool(Student.Disabled) + "" +
                 ",hasSpecialNeeds=" + SqlBool(Student.HasSpecialNeeds) + "" +
-                ",VFCounter=" + SqlInt(Student.RevengeFactorCounter) + "" +
+                ",revengeFactorCounter=" + SqlInt(Student.RevengeFactorCounter) + "" +
                 " WHERE idStudent=" + Student.IdStudent +
                 ";";
             cmd.ExecuteNonQuery();
@@ -255,7 +255,7 @@ namespace SchoolGrades
             s.IdStudent = (int)Row["IdStudent"];
             s.LastName = Safe.String(Row["LastName"]);
             s.FirstName = Safe.String(Row["FirstName"]);
-            s.Residence = Safe.String(Row["Residence"]);
+            s.City = Safe.String(Row["city"]);
             s.Origin = Safe.String(Row["Origin"]);
             s.Email = Safe.String(Row["Email"]);
             if (Safe.DateTime(Row["birthDate"]) != null)
@@ -264,12 +264,12 @@ namespace SchoolGrades
             s.Eligible = Safe.Bool(Row["drawable"]);
             s.Disabled = Safe.Bool(Row["disabled"]);
             s.HasSpecialNeeds = Safe.Bool(Row["hasSpecialNeeds"]);
-            s.RevengeFactorCounter = Safe.Int(Row["VFCounter"]);
+            s.RevengeFactorCounter = Safe.Int(Row["revengeFactorCounter"]);
             return s;
         }
-        internal override DataTable GetStudentsSameName(string LastName, string FirstName)
+        internal override List<Student> GetStudentsLikeName(string LastName, string FirstName)
         {
-            DataTable t;
+            List<Student> ls = new();
             using (DbConnection conn = Connect())
             {
                 DataAdapter dAdapt;
@@ -282,15 +282,25 @@ namespace SchoolGrades
                     " WHERE Students.lastName " + SqlLikeStatement(LastName) + "" +
                     " AND Students.firstName " + SqlLikeStatement(FirstName) + "" +
                     ";";
-                dAdapt = new SqlDataAdapter(query, (SqlConnection)conn);
-                dSet = new DataSet("GetStudentsSameName");
-                dAdapt.Fill(dSet);
-                t = dSet.Tables[0];
-
-                dSet.Dispose();
-                dAdapt.Dispose();
+                DbDataReader dRead;
+                DbCommand cmd;
+                cmd = conn.CreateCommand();
+                cmd.CommandText = query;
+                dRead = cmd.ExecuteReader();
+                while (dRead.Read())
+                {
+                    Student s = new();
+                    s.IdStudent = (int)dRead["IdStudent"];
+                    s.LastName = Safe.String(dRead["lastName"]);
+                    s.FirstName = Safe.String(dRead["firstName"]);
+                    s.ClassAbbreviation = Safe.String(dRead["abbreviation"]);
+                    s.SchoolYear = Safe.String(dRead["idSchoolYear"]);
+                    ls.Add(s);
+                }
+                dRead.Dispose();
+                cmd.Dispose();
             }
-            return t;
+            return ls;
         }
         internal override DataTable FindStudentsLike(string LastName, string FirstName)
         {
@@ -590,13 +600,13 @@ namespace SchoolGrades
                 "idStudent INT NOT NULL, " +
                 "lastName VARCHAR(45), " +
                 "firstName VARCHAR(45), " +
-                "residence VARCHAR(45), " +
+                "city VARCHAR(45), " +
                 "origin VARCHAR(45), " +
                 "email VARCHAR(45), " +
                 "drawable INT, " +
                 "birthDate DATE, " +
                 "birthPlace VARCHAR(45), " +
-                "VFCounter INT, " +
+                "revengeFactorCounter INT, " +
                 "disabled Tinyint, " +
                 "hasSpecialNeeds Tinyint, " +
                 "PRIMARY KEY(idStudent));";

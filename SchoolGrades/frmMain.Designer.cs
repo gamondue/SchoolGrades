@@ -250,8 +250,8 @@
             lstClasses.TabIndex = 46;
             lstClasses.TabStop = false;
             toolTip1.SetToolTip(lstClasses, "Classi dell'anno scolastico selezionato");
-            lstClasses.SelectedIndexChanged += lstClassi_SelectedIndexChanged;
-            lstClasses.DoubleClick += lstClassi_DoubleClick;
+            lstClasses.SelectedIndexChanged += lstClasses_SelectedIndexChanged;
+            lstClasses.DoubleClick += lstClasses_DoubleClick;
             // 
             // pgbTimeQuestion
             // 

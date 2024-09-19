@@ -352,7 +352,7 @@ namespace SchoolGrades
                 s.IdClass = 0;
                 s.ArithmeticMean = 0;
                 s.RegisterNumber = null;
-                s.Residence = null;
+                s.City = null;
                 s.RevengeFactorCounter = 0;
                 s.Origin = null;
                 s.SchoolYear = null;

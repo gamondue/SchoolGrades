@@ -237,5 +237,10 @@ namespace SchoolGrades
                 Commons.bl.PurgeDatabase();
             }
         }
+        private void btnStudents_Click(object sender, EventArgs e)
+        {
+            frmStudent f = new frmStudent(null, false);
+            f.ShowDialog();
+        }
     }
 }
