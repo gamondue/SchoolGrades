@@ -38,7 +38,7 @@ namespace SchoolGrades
         }
         internal List<Student> GetStudentsHomonyms(Student Student)
         {
-            return dl.GetStudentsLikeName(Student.LastName, Student.FirstName);
+            return dl.GetStudentsSameName(Student.LastName, Student.FirstName);
         }
         internal DataTable GetStudentsLike(string LastName, string FirstName)
         {
