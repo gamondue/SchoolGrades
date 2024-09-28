@@ -9,43 +9,6 @@ namespace SchoolGrades
 {
     internal partial class SqlServer_DataLayer : DataLayer
     {
-        internal override Student CreateStudentFromStringMatrixIfDontExists(string[,] StudentData, int? StudentRow)
-        {
-            // look if exists a student with same name, last name, birth date and place
-            Student s = new Student();
-            s.RegisterNumber = StudentData[(int)StudentRow, 0];
-            s.LastName = StudentData[(int)StudentRow, 1];
-            s.FirstName = StudentData[(int)StudentRow, 2];
-            s.BirthDate = Safe.DateTime(StudentData[(int)StudentRow, 3]);
-            s.City = StudentData[(int)StudentRow, 4];
-            s.Origin = StudentData[(int)StudentRow, 5];
-            s.Email = StudentData[(int)StudentRow, 6];
-            s.BirthPlace = StudentData[(int)StudentRow, 7];
-            s.Eligible = false;
-
-            Student existingStudent = GetStudent(s);
-            if (existingStudent == null)
-            {
-                // not found an existing student: find a key for the new student
-                s.IdStudent = NextKey("Students", "idStudent");
-                CreateStudent(s);
-            }
-            else
-            {
-                // student already exists, uses old data in the fields from the file that are empty
-                // LastName, FirstName, BirthDate and BirthPlace are equal! 
-                s.IdStudent = existingStudent.IdStudent;
-                if (s.City == "") s.City = existingStudent.City;
-                if (s.Origin == "") s.Origin = existingStudent.Origin;
-                if (s.Email == "") s.Email = existingStudent.Email;
-                if (s.RegisterNumber == "") s.RegisterNumber = existingStudent.RegisterNumber;
-                s.Origin = StudentData[(int)StudentRow, 5];
-                s.Email = StudentData[(int)StudentRow, 6];
-                s.Eligible = false;
-                UpdateStudent(s);
-            }
-            return s;
-        }
         internal override Student GetStudent(Student StudentToFind)
         {
             Student s;
@@ -267,7 +230,7 @@ namespace SchoolGrades
             s.RevengeFactorCounter = Safe.Int(Row["revengeFactorCounter"]);
             return s;
         }
-        internal override List<Student> GetStudentsLikeName(string LastName, string FirstName)
+        internal override List<Student> GetStudentsSameName(string LastName, string FirstName)
         {
             List<Student> ls = new();
             using (DbConnection conn = Connect())

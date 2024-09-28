@@ -255,7 +255,7 @@ namespace SchoolGrades
 
             return s;
         }
-        internal override List<Student> GetStudentsLikeName(string LastName, string FirstName)
+        internal override List<Student> GetStudentsSameName(string LastName, string FirstName)
         {
             List<Student> t = new();
             using (DbConnection conn = Connect())
@@ -266,8 +266,8 @@ namespace SchoolGrades
                     " FROM Students" +
                     " LEFT JOIN Classes_Students ON Students.idStudent = Classes_Students.idStudent " +
                     " LEFT JOIN Classes ON Classes.idClass = Classes_Students.idClass " +
-                    " WHERE Students.lastName " + SqlLikeStatement(LastName) + "" +
-                    " AND Students.firstName " + SqlLikeStatement(FirstName) + "" +
+                    " WHERE Students.lastName=" + SqlString(LastName) + "" +
+                    " AND Students.firstName=" + SqlString(FirstName) + "" +
                     ";";
                 DbCommand cmd = conn.CreateCommand();
                 cmd = new SQLiteCommand(query);

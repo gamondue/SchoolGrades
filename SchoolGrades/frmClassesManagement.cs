@@ -143,7 +143,7 @@ namespace SchoolGrades
                         int.TryParse(ib.Value, out iValue);
                     }
                 } while (iValue < 0 || iValue > ls.Count);
-                // if student has chosen a name, change the current student to the student chosen by user 
+                // if user has chosen a name, change the current student to the student chosen by user 
                 if (iValue > 0)
                     s = ls[iValue - 1];
             }
@@ -599,7 +599,8 @@ namespace SchoolGrades
             int idClass = 0;
             for (int iStudent = 1; iStudent < studentsData.GetLength(0); iStudent++)
             {
-                if (currentYear != studentsData[iStudent, 0] || currentClass != studentsData[iStudent, 1])
+                if (currentYear != studentsData[iStudent, 0] || currentClass != studentsData[iStudent, 1]
+                    || currentSchool != studentsData[iStudent, 16])
                 {   // new class 
                     currentYear = studentsData[iStudent, 0];
                     Commons.bl.AddSchoolYearIfNotExists(new SchoolYear(currentYear));
@@ -611,10 +612,11 @@ namespace SchoolGrades
                 }
                 Student s = CheckIfStudentIsMultipleAndChooseWhat(studentsData, iStudent);
                 s.IdClass = idClass;
-                if (s.IdStudent > 0)
+                if (s.IdStudent == null)
                 {
-                    Commons.bl.PutStudentInClass(s.IdStudent, idClass);
+                    Commons.bl.CreateStudent(s);
                 }
+                Commons.bl.PutStudentInClass(s.IdStudent, idClass);
             }
             MessageBox.Show("Importazione terminata");
             this.Close();
