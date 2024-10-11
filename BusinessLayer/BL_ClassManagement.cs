@@ -162,7 +162,7 @@ namespace SchoolGrades
             foreach (Student s in StudentsOfNewClass)
             {
                 s.RegisterNumber = studentDone.ToString();
-                Commons.bl.PutStudentInClass(s.IdStudent, classCode);
+                Commons.bl.PutStudentInClass(s, classCode);
                 Commons.bl.AddLinkToOldPhoto(s.IdStudent, IdPreviousSchoolYear, SchoolYear.IdSchoolYear);
                 Commons.bl.UpdateStudent(s);
                 studentDone++;

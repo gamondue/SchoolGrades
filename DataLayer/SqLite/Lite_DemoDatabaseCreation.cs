@@ -215,7 +215,7 @@ namespace SchoolGrades
                     // according to the names found in the pictures' filenames
                     RenameStudentsNamesAndManagePictures(c, cmd);
                     // change the paths of the images to match the new names
-                    ChangeImagesPath(c, cmd);
+                    ChangeImagePath(c, cmd);
                     // randomly change all grades 
                     RandomizeGrades();
 
@@ -374,7 +374,8 @@ namespace SchoolGrades
             }
             dReader.Close();
         }
-        internal override void AddLinkPhotoToStudent(int? idStudent, int? idStudentsPhoto, string schoolYear, DbCommand cmd)
+        internal override void AddLinkPhotoToStudent(int? idStudent, int? idStudentsPhoto,
+            string schoolYear, DbCommand cmd)
         {
             cmd.CommandText = "";
             cmd.CommandText = "INSERT INTO StudentsPhotos_Students" +

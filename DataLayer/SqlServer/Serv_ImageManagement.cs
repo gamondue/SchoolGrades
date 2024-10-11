@@ -110,7 +110,7 @@ namespace SchoolGrades
                 return NamePath;
             }
         }
-        internal override void ChangeImagesPath(Class Class, DbCommand cmd)
+        internal override void ChangeImagePath(Class Class, DbCommand cmd)
         {
             // find 
             DbDataReader dRead;

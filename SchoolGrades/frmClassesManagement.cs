@@ -87,7 +87,7 @@ namespace SchoolGrades
                 for (int row = 1; row < studentsData.GetLength(0); row++)
                 {
                     Student s = CheckIfStudentIsMultipleAndChooseWhat(studentsData, row);
-                    Commons.bl.PutStudentInClass(s.IdStudent, idClass);
+                    Commons.bl.PutStudentInClass(s, idClass);
                     if (rdbChooseStudentsPhotoWhileImporting.Checked)
                     {
                         using (OpenFileDialog dlg = new OpenFileDialog())
@@ -308,7 +308,7 @@ namespace SchoolGrades
             sf.ShowDialog();
             if (sf.UserHasChosen)
             {
-                Commons.bl.PutStudentInClass(sf.CurrentStudent.IdStudent,
+                Commons.bl.PutStudentInClass(sf.CurrentStudent,
                     ((Class)(CmbClasses.SelectedItem)).IdClass);
                 DgwStudents.DataSource = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text,
                     idSchoolYear, CmbClasses.Text, false);
@@ -616,10 +616,36 @@ namespace SchoolGrades
                 {
                     Commons.bl.CreateStudent(s);
                 }
-                Commons.bl.PutStudentInClass(s.IdStudent, idClass);
+                Commons.bl.PutStudentInClass(s, idClass);
             }
             MessageBox.Show("Importazione terminata");
             this.Close();
+        }
+        private void btnCreateNewClass_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Devo creare una nuova classe senza studenti '" + CmbClasses.Text +
+                "' nell'anno scolastico '" + CmbSchoolYear.Text + "'?",
+                "", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2)
+                != DialogResult.Yes)
+            {
+                return;
+            }
+            // give warning to avoid modifying existing class instead of making a new one
+            if (Commons.bl.GetClass(currentSchool.IdSchool, idSchoolYear, CmbClasses.Text).Abbreviation != null)
+            {
+                MessageBox.Show("Esiste già una classe con il nome \"" + CmbClasses.Text + "\" in questa scuola ed in questo anno!", "Avviso",
+                    MessageBoxButtons.OK);
+                return;
+            }
+            if (CmbClasses.Text.Contains(" "))
+            {
+                DialogResult d = MessageBox.Show("E' meglio non mettere spazi nella sigla della classe." +
+                    "\r\nDevo metterli lo stesso?",
+                    "Informazione", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
+                if (d != DialogResult.Yes) return;
+            }
+            Commons.bl.CreateClassIfNotExists(CmbClasses.Text, txtClassDescription.Text,
+                CmbSchoolYear.Text, TxtOfficialSchoolAbbreviation.Text);
         }
     }
 }

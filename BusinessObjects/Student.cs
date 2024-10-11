@@ -45,6 +45,7 @@ namespace SchoolGrades.BusinessObjects
         public string ZipCode { get; set; }
         public string County { get; set; }
         public string State { get; set; }
+        public string PicturePath { get; set; } // field not in the table Student in database
 
         public override string ToString()
         {

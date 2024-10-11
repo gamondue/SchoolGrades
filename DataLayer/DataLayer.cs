@@ -190,7 +190,7 @@ namespace SchoolGrades
         internal abstract List<string> GetCaptionsOfThisImage(string FileName);
         internal abstract void EraseStudentsPhoto(int? IdStudent, string SchoolYear);
         internal abstract string GetFilePhoto(int? IdStudent, string SchoolYear);
-        internal abstract void ChangeImagesPath(Class Class, DbCommand cmd);
+        internal abstract void ChangeImagePath(Class Class, DbCommand cmd);
         internal abstract void SaveImagePath(int? id, string path);
         internal abstract int? SaveDemoStudentPhotoPath(string relativePath, DbCommand cmd);
         internal abstract void RemoveImageFromLesson(Lesson Lesson, Image Image, bool AlsoEraseImageFile);
