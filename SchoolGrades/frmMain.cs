@@ -1562,6 +1562,8 @@ namespace SchoolGrades
                 currentStudent.SchoolYear = currentClass.SchoolYear;
                 loadStudentsData(currentStudent);
                 dgwStudents.Visible = false;
+                txtIdStudent.Visible = true;
+                lblIdStudent.Visible = true;
             }
         }
         private void dgwStudents_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)

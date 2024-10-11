@@ -50,49 +50,50 @@
             lblMinutesLeft = new System.Windows.Forms.Label();
             lblSecondsLeft = new System.Windows.Forms.Label();
             chkSoundsInColorTimer = new System.Windows.Forms.CheckBox();
+            txtDayTime = new System.Windows.Forms.TextBox();
+            txtTotalTime = new System.Windows.Forms.TextBox();
             SuspendLayout();
             // 
             // timer1
             // 
-            timer1.Interval = 1000;
+            timer1.Interval = 998;
             timer1.Tick += timer1_Tick;
             // 
             // btnStartNextInterval
             // 
             btnStartNextInterval.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnStartNextInterval.BackColor = System.Drawing.SystemColors.ButtonFace;
-            btnStartNextInterval.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            btnStartNextInterval.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             btnStartNextInterval.ForeColor = System.Drawing.Color.Black;
-            btnStartNextInterval.Location = new System.Drawing.Point(200, 137);
+            btnStartNextInterval.Location = new System.Drawing.Point(284, 137);
             btnStartNextInterval.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnStartNextInterval.Name = "btnStartNextInterval";
             btnStartNextInterval.Size = new System.Drawing.Size(192, 74);
             btnStartNextInterval.TabIndex = 0;
             btnStartNextInterval.Text = "Start Next";
             btnStartNextInterval.UseVisualStyleBackColor = false;
-            btnStartNextInterval.Click += btnStart_Click;
+            btnStartNextInterval.Click += btnStartNext_Click;
             // 
             // txtIntervalNext
             // 
             txtIntervalNext.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             txtIntervalNext.BackColor = System.Drawing.Color.White;
-            txtIntervalNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            txtIntervalNext.Location = new System.Drawing.Point(270, 50);
+            txtIntervalNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            txtIntervalNext.Location = new System.Drawing.Point(369, 50);
             txtIntervalNext.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             txtIntervalNext.Name = "txtIntervalNext";
             txtIntervalNext.Size = new System.Drawing.Size(73, 35);
-            txtIntervalNext.TabIndex = 7;
+            txtIntervalNext.TabIndex = 2;
             txtIntervalNext.Text = "7";
             txtIntervalNext.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            txtIntervalNext.TextChanged += txtIntervallo_TextChanged;
+            txtIntervalNext.TextChanged += txtIntervNext_TextChanged;
             // 
             // txtCountDown
             // 
             txtCountDown.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             txtCountDown.BackColor = System.Drawing.Color.White;
-            txtCountDown.Enabled = false;
-            txtCountDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            txtCountDown.Location = new System.Drawing.Point(79, 50);
+            txtCountDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            txtCountDown.Location = new System.Drawing.Point(199, 50);
             txtCountDown.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             txtCountDown.Name = "txtCountDown";
             txtCountDown.ReadOnly = true;
@@ -104,9 +105,9 @@
             // 
             label1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             label1.AutoSize = true;
-            label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             label1.ForeColor = System.Drawing.Color.Black;
-            label1.Location = new System.Drawing.Point(343, 55);
+            label1.Location = new System.Drawing.Point(442, 55);
             label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(43, 25);
@@ -117,9 +118,9 @@
             // 
             label2.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             label2.AutoSize = true;
-            label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             label2.ForeColor = System.Drawing.Color.Black;
-            label2.Location = new System.Drawing.Point(170, 55);
+            label2.Location = new System.Drawing.Point(284, 55);
             label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(22, 25);
@@ -133,30 +134,30 @@
             progressBar1.Location = new System.Drawing.Point(6, 97);
             progressBar1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             progressBar1.Name = "progressBar1";
-            progressBar1.Size = new System.Drawing.Size(386, 36);
+            progressBar1.Size = new System.Drawing.Size(470, 36);
             progressBar1.TabIndex = 5;
             // 
             // txtInitialInterval
             // 
             txtInitialInterval.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             txtInitialInterval.BackColor = System.Drawing.Color.White;
-            txtInitialInterval.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            txtInitialInterval.Location = new System.Drawing.Point(270, 6);
+            txtInitialInterval.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            txtInitialInterval.Location = new System.Drawing.Point(369, 6);
             txtInitialInterval.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             txtInitialInterval.Name = "txtInitialInterval";
             txtInitialInterval.Size = new System.Drawing.Size(73, 35);
-            txtInitialInterval.TabIndex = 7;
+            txtInitialInterval.TabIndex = 1;
             txtInitialInterval.Text = "10";
             txtInitialInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            txtInitialInterval.TextChanged += txtIntervalloIniziale_TextChanged;
+            txtInitialInterval.TextChanged += txtIntervalInitial_TextChanged;
             // 
             // label3
             // 
             label3.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             label3.AutoSize = true;
-            label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             label3.ForeColor = System.Drawing.Color.Black;
-            label3.Location = new System.Drawing.Point(343, 12);
+            label3.Location = new System.Drawing.Point(442, 11);
             label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(43, 25);
@@ -167,7 +168,7 @@
             // 
             btnStartFirstInterval.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnStartFirstInterval.BackColor = System.Drawing.SystemColors.ButtonFace;
-            btnStartFirstInterval.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            btnStartFirstInterval.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             btnStartFirstInterval.ForeColor = System.Drawing.Color.Black;
             btnStartFirstInterval.Location = new System.Drawing.Point(6, 137);
             btnStartFirstInterval.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -182,9 +183,9 @@
             // 
             label4.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             label4.AutoSize = true;
-            label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             label4.ForeColor = System.Drawing.Color.Black;
-            label4.Location = new System.Drawing.Point(209, 13);
+            label4.Location = new System.Drawing.Point(312, 11);
             label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(49, 25);
@@ -195,9 +196,9 @@
             // 
             label5.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             label5.AutoSize = true;
-            label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             label5.ForeColor = System.Drawing.Color.Black;
-            label5.Location = new System.Drawing.Point(206, 55);
+            label5.Location = new System.Drawing.Point(309, 55);
             label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(52, 25);
@@ -221,7 +222,7 @@
             // btnConnect
             // 
             btnConnect.BackColor = System.Drawing.SystemColors.ButtonFace;
-            btnConnect.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            btnConnect.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             btnConnect.ForeColor = System.Drawing.Color.Black;
             btnConnect.Location = new System.Drawing.Point(6, 48);
             btnConnect.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -237,7 +238,7 @@
             // 
             checkBox1.AutoSize = true;
             checkBox1.ForeColor = System.Drawing.Color.Black;
-            checkBox1.Location = new System.Drawing.Point(170, 6);
+            checkBox1.Location = new System.Drawing.Point(6, 82);
             checkBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new System.Drawing.Size(47, 19);
@@ -250,9 +251,8 @@
             // 
             txtMinutesLeft.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             txtMinutesLeft.BackColor = System.Drawing.Color.White;
-            txtMinutesLeft.Enabled = false;
-            txtMinutesLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            txtMinutesLeft.Location = new System.Drawing.Point(79, 6);
+            txtMinutesLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            txtMinutesLeft.Location = new System.Drawing.Point(199, 6);
             txtMinutesLeft.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             txtMinutesLeft.Name = "txtMinutesLeft";
             txtMinutesLeft.ReadOnly = true;
@@ -264,9 +264,8 @@
             // 
             txtSecondsLeft.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             txtSecondsLeft.BackColor = System.Drawing.Color.White;
-            txtSecondsLeft.Enabled = false;
-            txtSecondsLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            txtSecondsLeft.Location = new System.Drawing.Point(124, 6);
+            txtSecondsLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            txtSecondsLeft.Location = new System.Drawing.Point(242, 6);
             txtSecondsLeft.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             txtSecondsLeft.Name = "txtSecondsLeft";
             txtSecondsLeft.ReadOnly = true;
@@ -278,9 +277,9 @@
             // 
             lblMinutesLeft.AutoSize = true;
             lblMinutesLeft.BackColor = System.Drawing.Color.White;
-            lblMinutesLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            lblMinutesLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F);
             lblMinutesLeft.ForeColor = System.Drawing.Color.Black;
-            lblMinutesLeft.Location = new System.Drawing.Point(13, 215);
+            lblMinutesLeft.Location = new System.Drawing.Point(26, 215);
             lblMinutesLeft.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             lblMinutesLeft.Name = "lblMinutesLeft";
             lblMinutesLeft.Size = new System.Drawing.Size(152, 55);
@@ -292,9 +291,9 @@
             // 
             lblSecondsLeft.AutoSize = true;
             lblSecondsLeft.BackColor = System.Drawing.Color.White;
-            lblSecondsLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            lblSecondsLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F);
             lblSecondsLeft.ForeColor = System.Drawing.Color.Black;
-            lblSecondsLeft.Location = new System.Drawing.Point(209, 215);
+            lblSecondsLeft.Location = new System.Drawing.Point(299, 215);
             lblSecondsLeft.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             lblSecondsLeft.Name = "lblSecondsLeft";
             lblSecondsLeft.Size = new System.Drawing.Size(152, 55);
@@ -307,7 +306,7 @@
             chkSoundsInColorTimer.AutoSize = true;
             chkSoundsInColorTimer.Checked = true;
             chkSoundsInColorTimer.CheckState = System.Windows.Forms.CheckState.Checked;
-            chkSoundsInColorTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            chkSoundsInColorTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
             chkSoundsInColorTimer.ForeColor = System.Drawing.Color.Black;
             chkSoundsInColorTimer.Location = new System.Drawing.Point(6, 31);
             chkSoundsInColorTimer.Name = "chkSoundsInColorTimer";
@@ -317,11 +316,39 @@
             chkSoundsInColorTimer.UseVisualStyleBackColor = true;
             chkSoundsInColorTimer.CheckedChanged += chkSoundsInColorTimer_CheckedChanged;
             // 
+            // txtDayTime
+            // 
+            txtDayTime.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            txtDayTime.BackColor = System.Drawing.Color.White;
+            txtDayTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            txtDayTime.Location = new System.Drawing.Point(95, 6);
+            txtDayTime.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtDayTime.Name = "txtDayTime";
+            txtDayTime.ReadOnly = true;
+            txtDayTime.Size = new System.Drawing.Size(96, 35);
+            txtDayTime.TabIndex = 186;
+            txtDayTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtTotalTime
+            // 
+            txtTotalTime.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            txtTotalTime.BackColor = System.Drawing.Color.White;
+            txtTotalTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            txtTotalTime.Location = new System.Drawing.Point(95, 50);
+            txtTotalTime.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtTotalTime.Name = "txtTotalTime";
+            txtTotalTime.ReadOnly = true;
+            txtTotalTime.Size = new System.Drawing.Size(96, 35);
+            txtTotalTime.TabIndex = 187;
+            txtTotalTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // ColorTimer
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(399, 293);
+            ClientSize = new System.Drawing.Size(483, 293);
+            Controls.Add(txtTotalTime);
+            Controls.Add(txtDayTime);
             Controls.Add(chkSoundsInColorTimer);
             Controls.Add(lblSecondsLeft);
             Controls.Add(lblMinutesLeft);
@@ -376,6 +403,9 @@
         private System.Windows.Forms.Label lblSecondsLeft;
         private System.Windows.Forms.CheckBox chkSoun;
         private System.Windows.Forms.CheckBox chkSoundsInColorTimer;
+        private System.Windows.Forms.TextBox txtDayTime;
+        private System.Windows.Forms.TextBox txt;
+        private System.Windows.Forms.TextBox txtTotalTime;
     }
 }
 

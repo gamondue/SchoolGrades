@@ -296,7 +296,7 @@ namespace SchoolGrades
                 DataAdapter dAdapt;
                 DataSet dSet = new DataSet();
                 string query = "SELECT Students.IdStudent, Students.lastName, Students.firstName," +
-                    " Classes.abbreviation, Classes.idSchoolYear" +
+                    " Classes.abbreviation AS ClassAbbreviation, Classes.idSchoolYear AS SchoolYear" +
                     " FROM Students" +
                     " LEFT JOIN Classes_Students ON Students.idStudent = Classes_Students.idStudent " +
                     " LEFT JOIN Classes ON Classes.idClass = Classes_Students.idClass ";

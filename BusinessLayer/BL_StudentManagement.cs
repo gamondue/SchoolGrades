@@ -44,9 +44,10 @@ namespace SchoolGrades
         {
             return dl.FindStudentsLike(LastName, FirstName);
         }
-        internal void PutStudentInClass(int? IdStudent, int? IdClass)
+        internal void PutStudentInClass(Student Student, int? IdClass)
         {
-            dl.PutStudentInClass(IdStudent, IdClass);
+            dl.PutStudentInClass(Student.IdStudent, Student.IdClass);
+            ////////dl.AddLinkPhotoToStudent()
         }
         /// <summary>
         /// 

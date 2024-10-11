@@ -13,10 +13,10 @@ namespace gamon
 
         System.Media.SoundPlayer suonatore = new System.Media.SoundPlayer();
 
-        float timeTotalSeconds;
+        double timeTotalSeconds;
         private double secondsFirst;
         private double secondsSecond;
-        float timeLeftSeconds;
+        double timeLeftSeconds;
 
         Color initialColor = Color.Lime;
         //Color coloreIniziale = Color.Green;
@@ -46,6 +46,10 @@ namespace gamon
         private int lastFormSize;
 
         bool playSoundEffects;
+        DateTime initialTime;
+        private DateTime finaltime;
+        private double timeTotalMinutes;
+
         public string FormCaption { get => this.Text; set => this.Text = value; }
         public bool PlaySoundEffects
         {
@@ -73,25 +77,25 @@ namespace gamon
             lastFormSize = GetFormArea(this.Size);
             SetLabelsSizeAndPosition();
 
-            this.Text += " v." + System.Diagnostics.FileVersionInfo.GetVersionInfo
-                    (System.Reflection.Assembly.GetExecutingAssembly().Location)
-                    .ProductVersion;
+            //this.Text += " v." + System.Diagnostics.FileVersionInfo.GetVersionInfo
+            //        (System.Reflection.Assembly.GetExecutingAssembly().Location)
+            //        .ProductVersion;
             if (secondsFirst != 0)
             {
                 txtInitialInterval.Text = secondsFirst.ToString();
                 txtIntervalNext.Text = secondsSecond.ToString();
                 btnStartFirstInterval_Click(null, null);
             }
-
             SetInitialColor();
 
             btnConnect.BackColor = currentColor;
-
-            spanHue = finalColor.GetHue() - initialColor.GetHue(); // differenza di tinta da coprire
-            //spanSaturation = coloreFinale.GetSaturation() - coloreIniziale.GetSaturation(); // differenza da coprire
+            // set the difference of hue to cover from start to finish
+            spanHue = finalColor.GetHue() - initialColor.GetHue();
+            // we don't want to change Saturation and Luminance
             spanSaturation = 0;
-            //spanLuminance = coloreFinale.GetBrightness() - coloreIniziale.GetBrightness(); // differenza da coprire
             spanLuminance = 0;
+            //spanSaturation = coloreFinale.GetSaturation() - coloreIniziale.GetSaturation(); // differenza da coprire
+            //spanLuminance = coloreFinale.GetBrightness() - coloreIniziale.GetBrightness(); // differenza da coprire
 
             isLoading = false;
         }
@@ -101,10 +105,8 @@ namespace gamon
             {
                 VerifyExternalCommands();
 
-                timeLeftSeconds = Convert.ToSingle(txtCountDown.Text);
-                timeLeftSeconds -= timer1.Interval / 1000;
-                if (timeLeftSeconds < 0) timeLeftSeconds = Convert.ToSingle(txtIntervalNext.Text) * 60;
-                txtCountDown.Text = Convert.ToString(timeLeftSeconds);
+                timeLeftSeconds = finaltime.Subtract(DateTime.Now).TotalSeconds;
+                txtCountDown.Text = timeLeftSeconds.ToString("#");
 
                 int minutes = (int)timeLeftSeconds / 60;
                 txtMinutesLeft.Text = minutes.ToString("00");
@@ -113,20 +115,18 @@ namespace gamon
                 lblSecondsLeft.Text = txtSecondsLeft.Text;
 
                 //Color nuovo;
-                //nuovo.
-
                 ColorHelper.RGB colRGB = new ColorHelper.RGB();
                 ColorHelper.HSL colHSL = new ColorHelper.HSL();
 
                 // cambia colore dal colore iniziale a quello finale
-                colHSL.Hue = (int)(initialColor.GetHue() + spanHue * (timeTotalSeconds * 60 - timeLeftSeconds) / (timeTotalSeconds * 60));
-                colHSL.Saturation = initialColor.GetSaturation() + spanSaturation * (timeTotalSeconds * 60 - timeLeftSeconds) / (timeTotalSeconds * 60);
-                colHSL.Luminance = initialColor.GetBrightness() + spanLuminance * (timeTotalSeconds * 60 - timeLeftSeconds) / timeTotalSeconds;
+                colHSL.Hue = (int)(initialColor.GetHue() + spanHue * (timeTotalSeconds - timeLeftSeconds) / (timeTotalSeconds));
+                colHSL.Saturation = initialColor.GetSaturation() + spanSaturation * (timeTotalSeconds - timeLeftSeconds) / (timeTotalSeconds * 60);
+                colHSL.Luminance = initialColor.GetBrightness() + spanLuminance * (timeTotalSeconds - timeLeftSeconds) / timeTotalSeconds;
                 ColorHelper.ColorConverter.HSL2RGB(colHSL, colRGB);
                 currentColor = colRGB.Color;
                 try
                 {
-                    progressBar1.Value = (int)((timeTotalSeconds * 60 - timeLeftSeconds) / (timeTotalSeconds * 60) * 100.0F);
+                    progressBar1.Value = (int)((timeTotalSeconds - timeLeftSeconds) / timeTotalSeconds * 100.0F);
                     //progressBar1.ForeColor = coloreAttuale;
                 }
                 catch
@@ -139,8 +139,7 @@ namespace gamon
                 lblSecondsLeft.BackColor = currentColor;
 
                 btnConnect.BackColor = currentColor;
-
-                if (timeLeftSeconds < timeTotalSeconds * 0.2 * 60.0 && !alarmClock)
+                if (timeLeftSeconds < timeTotalSeconds * 0.2 * 60.0 && timeLeftSeconds > 1 && !alarmClock)
                 {
                     if (PlaySoundEffects)
                     {
@@ -149,23 +148,30 @@ namespace gamon
                     }
                     alarmClock = true;
                 }
-
                 if (timeLeftSeconds < 1)
                 {
+                    // reset period counter to the "next" value
+                    alarmClock = false;
+                    // read in timeTotalSeconds the interval
+                    double.TryParse(txtIntervalNext.Text, out timeTotalMinutes);
+                    if (timeTotalMinutes > 0)
+                    {
+                        finaltime = DateTime.Now.AddMinutes(timeTotalMinutes);
+                        timeTotalSeconds = timeTotalMinutes * 60;
+                        timeLeftSeconds = timeTotalSeconds;
+                        txtCountDown.Text = timeLeftSeconds.ToString("#");
+                    }
                     if (PlaySoundEffects)
                     {
                         suonatore.SoundLocation = ".\\Il silenzio.wav";
                         suonatore.Play();
                     }
-                    txtCountDown.Text = Convert.ToString(timeTotalSeconds * 60);
-                    alarmClock = false;
-
-                    timeTotalSeconds = Convert.ToSingle(txtIntervalNext.Text);
-                    timeLeftSeconds = timeTotalSeconds * 60;
-                    txtCountDown.Text = timeLeftSeconds.ToString();
                 }
             }
             catch { }
+            txtDayTime.Text = DateTime.Now.ToString("HH:mm:ss");
+            TimeSpan timePassed = DateTime.Now - initialTime;
+            txtTotalTime.Text = timePassed.ToString(@"hh\:mm\:ss");
         }
         private void VerifyExternalCommands()
         {
@@ -199,7 +205,7 @@ namespace gamon
                     {   // parse del comando "non password"
                         if (comandoAttuale == "START")
                         {
-                            btnStart_Click(null, null);
+                            btnStartNext_Click(null, null);
                         }
                         else if (comandoAttuale == "BEGIN")
                         {
@@ -223,75 +229,75 @@ namespace gamon
                 }
             }
         }
-        private void txtIntervallo_TextChanged(object sender, EventArgs e)
+        private void txtIntervNext_TextChanged(object sender, EventArgs e)
         {
-            timer1.Enabled = false;  // per evitare corse
-            try
-            {
-                // aggiorna la durata ed anche il tempo rimasto, togliendogli il
-                // tempo già passato in questo periodo
-                float giaFatti = (timeTotalSeconds * 60) - timeLeftSeconds;
-                if (giaFatti > 0)
-                {
-                    float temp = Convert.ToSingle(txtIntervalNext.Text);
-                    if (temp > 0)
-                    {
-                        timeTotalSeconds = Convert.ToSingle(txtIntervalNext.Text);
-                        timeLeftSeconds = timeTotalSeconds * 60 - giaFatti;
-                        txtCountDown.Text = timeLeftSeconds.ToString();
-                    }
-                }
-            }
-            catch
-            {
+            //timer1.Enabled = false;  // per evitare corse
+            //try
+            //{
+            //    aggiorna la durata ed anche il tempo rimasto, togliendogli il
+            //    tempo già passato in questo periodo
+            //    double giaFatti = (timeTotalSeconds * 60) - timeLeftSeconds;
+            //    if (giaFatti > 0)
+            //    {
+            //        double temp = Convert.ToSingle(txtIntervalNext.Text);
+            //        if (temp > 0)
+            //        {
+            //            timeTotalSeconds = Convert.ToSingle(txtIntervalNext.Text);
+            //            timeLeftSeconds = timeTotalSeconds * 60 - giaFatti;
+            //            txtCountDown.Text = timeLeftSeconds.ToString("#");
+            //        }
+            //    }
+            //}
+            //catch
+            //{
 
-            }
+            //}
             if (clientConnected)
                 ClientTcp.Write("INT1" + txtIntervalNext.Text);
-            timer1.Enabled = true;
+            //timer1.Enabled = true;
         }
-        private void txtIntervalloIniziale_TextChanged(object sender, EventArgs e)
+        private void txtIntervalInitial_TextChanged(object sender, EventArgs e)
         {
             if (clientConnected)
                 ClientTcp.Write("INT0" + txtInitialInterval.Text);
         }
-        private void btnStart_Click(object sender, EventArgs e)
+        private void btnStartNext_Click(object sender, EventArgs e)
         {
-            if (timeTotalSeconds > 0)
+            // read in timeTotalSeconds the interval
+            double.TryParse(txtIntervalNext.Text, out timeTotalMinutes);
+            if (timeTotalMinutes > 0)
             {
-                timeTotalSeconds = Convert.ToSingle(txtIntervalNext.Text);
-                timeLeftSeconds = timeTotalSeconds * 60;
-                txtCountDown.Text = timeLeftSeconds.ToString();
-
+                finaltime = initialTime.AddMinutes(timeTotalMinutes);
+                timeTotalSeconds = timeTotalMinutes * 60;
+                timeLeftSeconds = timeTotalSeconds = timeTotalMinutes * 60;
+                txtCountDown.Text = timeLeftSeconds.ToString("#");
                 timer1.Enabled = true;
-
                 SetInitialColor();
             }
             if (clientConnected)
                 ClientTcp.Write("START");
-
             // set focus to hidden control to avoid clicking on a button
             // when the computer goes to a screen saver mode
-            txtCountDown.Focus();
+            chkServer.Focus();
         }
         private void btnStartFirstInterval_Click(object sender, EventArgs e)
         {
-            if (timeTotalSeconds > 0)
+            initialTime = DateTime.Now;
+            // read in timeTotalSeconds the interval
+            double.TryParse(txtInitialInterval.Text, out timeTotalMinutes);
+            if (timeTotalMinutes > 0)
             {
-                timeTotalSeconds = Convert.ToSingle(txtInitialInterval.Text);
-                timeLeftSeconds = timeTotalSeconds * 60;
-                txtCountDown.Text = timeLeftSeconds.ToString();
-
-                txtCountDown.Text = Convert.ToString(timeTotalSeconds * 60.0);
+                finaltime = initialTime.AddMinutes(timeTotalMinutes);
+                timeTotalSeconds = timeTotalMinutes * 60;
+                timeLeftSeconds = timeTotalSeconds;
+                txtCountDown.Text = timeLeftSeconds.ToString("#");
                 timer1.Enabled = true;
-
                 SetInitialColor();
-
                 if (clientConnected)
                     ClientTcp.Write("BEGIN");
                 // set focus to hidden control to avoid clicking on a button
                 // when the computer goes to a screen saver mode
-                txtCountDown.Focus();
+                chkServer.Focus();
             }
         }
         private void SetInitialColor()
@@ -359,7 +365,6 @@ namespace gamon
                 serverConnected = true;
                 chkServer.Enabled = false;
                 btnConnect.Enabled = false;
-
                 timer1.Enabled = true;
                 // fa partire il thread Inizia()
                 receivingThread.Start();

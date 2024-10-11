@@ -2,19 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Windows.Forms;
 
 namespace SchoolGrades
 {
     public partial class frmStudent : Form
     {
+        public Student CurrentStudent { get => currentStudent; set => currentStudent = value; }
         Student currentStudent;
         private bool isDialog;
-
-        internal bool UserHasChosen = false;
-
-        public Student CurrentStudent { get => currentStudent; set => currentStudent = value; }
-        public frmStudent(Student Student, bool IsDialog)
+        internal bool UserHasChosen = false; public frmStudent(Student Student, bool IsDialog)
         {
             InitializeComponent();
 
@@ -25,7 +23,7 @@ namespace SchoolGrades
         {
             if (currentStudent != null)
             {
-                loadStudentData(currentStudent);
+                ShowStudentData(currentStudent);
             }
             if (isDialog)
             {
@@ -36,7 +34,7 @@ namespace SchoolGrades
                 btnChoose.Visible = false;
             }
         }
-        private void loadStudentData(Student currentStudent)
+        private void ShowStudentData(Student currentStudent)
         {
             txtIdStudent.Text = currentStudent.IdStudent.ToString();
             txtLastName.Text = currentStudent.LastName;
@@ -70,8 +68,13 @@ namespace SchoolGrades
         {
             try
             {
-                picStudent.Image = System.Drawing.Image.FromFile(Commons.PathImages + "\\" +
-                    Commons.bl.GetFilePhoto(StudentToLoad.IdStudent, StudentToLoad.SchoolYear));
+                // determine the path of the picture, passing it to the calling program 
+                // through the property PicturePath of the Student object
+                StudentToLoad.PicturePath = Commons.bl.GetFilePhoto(StudentToLoad.IdStudent,
+                    StudentToLoad.SchoolYear);
+                // use the PicturePath property to load the picture
+                picStudent.Image = System.Drawing.Image.FromFile(Path.Combine(Commons.PathImages,
+                    StudentToLoad.PicturePath));
             }
             catch
             {
@@ -155,36 +158,35 @@ namespace SchoolGrades
             DataTable dt = Commons.bl.GetStudentsLike(txtLastName.Text, txtFirstName.Text);
             dgwSearchedStudents.DataSource = dt;
         }
-
         private void btnFindHomonym_Click(object sender, EventArgs e)
         {
             List<Student> dt = Commons.bl.GetStudentsHomonyms(new Student(txtLastName.Text, txtFirstName.Text));
             dgwSearchedStudents.DataSource = dt;
         }
-
         private void dgwSearchedStudents_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
             {
                 int key = (int)((DataTable)(dgwSearchedStudents.DataSource)).Rows[e.RowIndex]["idStudent"];
                 Student s = Commons.bl.GetStudent(key);
-                loadStudentData(s);
+
+                s.ClassAbbreviation = (string)((DataTable)(dgwSearchedStudents.DataSource)).Rows[e.RowIndex]["ClassAbbreviation"];
+                s.SchoolYear = (string)((DataTable)(dgwSearchedStudents.DataSource)).Rows[e.RowIndex]["SchoolYear"];
+                ShowStudentData(s);
                 currentStudent = s;
             }
         }
-
         private void dgwSearchedStudents_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
-
         private void dgwSearchedStudents_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
             {
                 int key = (int)((DataTable)(dgwSearchedStudents.DataSource)).Rows[e.RowIndex]["idStudent"];
                 Student s = Commons.bl.GetStudent(key);
-                loadStudentData(s);
+                ShowStudentData(s);
                 currentStudent = s;
             }
         }
@@ -192,13 +194,11 @@ namespace SchoolGrades
         //{
         //    UserHasChosen = false;
         //}
-
         private void btnExitWithoutChoosing_Click(object sender, EventArgs e)
         {
             UserHasChosen = false;
             this.Close();
         }
-
         private void btnDeleteStudent_Click(object sender, EventArgs e)
         {
             MessageBox.Show("DA FARE!!");

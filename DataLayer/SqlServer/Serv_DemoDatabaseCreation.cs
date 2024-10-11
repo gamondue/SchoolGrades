@@ -243,7 +243,7 @@ namespace SchoolGrades
                     // according to the names found in the pictures' filenames
                     RenameStudentsNamesAndManagePictures(c, cmd);
                     // change the paths of the images to match the new names
-                    ChangeImagesPath(c, cmd);
+                    ChangeImagePath(c, cmd);
                     //CreateGradesTable(cmd);
                     // randomly change all grades 
                     RandomizeGrades();

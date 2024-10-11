@@ -48,6 +48,7 @@
             rdbStudentsPhotosAlreadyPresent = new System.Windows.Forms.RadioButton();
             rdbChooseStudentsPhotoWhileImporting = new System.Windows.Forms.RadioButton();
             btnImportStudentsOfSomeClasses = new System.Windows.Forms.Button();
+            btnCreateNewClass = new System.Windows.Forms.Button();
             TxtOfficialSchoolAbbreviation = new System.Windows.Forms.TextBox();
             label4 = new System.Windows.Forms.Label();
             folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
@@ -91,7 +92,6 @@
             txtClassDescription.Location = new System.Drawing.Point(399, 38);
             txtClassDescription.Margin = new System.Windows.Forms.Padding(4);
             txtClassDescription.Name = "txtClassDescription";
-            txtClassDescription.ReadOnly = true;
             txtClassDescription.Size = new System.Drawing.Size(424, 24);
             txtClassDescription.TabIndex = 3;
             // 
@@ -324,6 +324,21 @@
             toolTip1.SetToolTip(btnImportStudentsOfSomeClasses, "Importa nuova classe da file di testo, con il nome ora indicato  in \"Sigla classe\"");
             btnImportStudentsOfSomeClasses.UseVisualStyleBackColor = false;
             btnImportStudentsOfSomeClasses.Click += btnImportStudentsOfSomeClasses_Click;
+            // 
+            // btnCreateNewClass
+            // 
+            btnCreateNewClass.BackColor = System.Drawing.Color.Transparent;
+            btnCreateNewClass.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            btnCreateNewClass.ForeColor = System.Drawing.Color.DarkBlue;
+            btnCreateNewClass.Location = new System.Drawing.Point(940, 16);
+            btnCreateNewClass.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            btnCreateNewClass.Name = "btnCreateNewClass";
+            btnCreateNewClass.Size = new System.Drawing.Size(81, 62);
+            btnCreateNewClass.TabIndex = 163;
+            btnCreateNewClass.Text = "Crea nuova";
+            toolTip1.SetToolTip(btnCreateNewClass, "Crea nuova classe senza studenti");
+            btnCreateNewClass.UseVisualStyleBackColor = false;
+            btnCreateNewClass.Click += btnCreateNewClass_Click;
             // 
             // TxtOfficialSchoolAbbreviation
             // 
@@ -697,6 +712,7 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.PowderBlue;
             ClientSize = new System.Drawing.Size(1136, 699);
+            Controls.Add(btnCreateNewClass);
             Controls.Add(btnPathStartLinks);
             Controls.Add(picStudent);
             Controls.Add(btnStudentsInfoList);
@@ -806,6 +822,7 @@
         private System.Windows.Forms.RadioButton rdbChooseStudentsPhotoWhileImporting;
         private System.Windows.Forms.Button btnPathStartLinks;
         private System.Windows.Forms.Button btnImportStudentsOfSomeClasses;
+        private System.Windows.Forms.Button btnCreateNewClass;
     }
 }
 
