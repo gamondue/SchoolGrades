@@ -74,7 +74,7 @@ namespace SchoolGrades
                 Commons.DatabaseFileName_Current = dati[0] = TxtFileDatabase.Text;
 
                 // postition 2 was held by PathStartLinks, that is not longer used,
-                // substituted by PathRestrictedApp  (attribute of the single school class) 
+                // substituted by PathRestrictedApp  (attribute of the single currentSchool class) 
                 //dati[2] = Commons.PathRestrictedApp; 
                 Commons.PathDatabase = dati[3] = TxtPathDatabase.Text;
                 Commons.PathImages = dati[1] = TxtPathImages.Text;

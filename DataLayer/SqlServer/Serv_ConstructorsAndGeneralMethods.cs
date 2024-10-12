@@ -94,7 +94,7 @@ namespace SchoolGrades
         }
         internal override School GetSchool(string OfficialSchoolAbbreviation)
         {
-            // !!!! TODO read school info from the database !!!!
+            // !!!! TODO read currentSchool info from the database !!!!
             School news = new School();
             // the next should be a real integer id, 
             news.IdSchool = Commons.IdSchool;

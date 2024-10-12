@@ -81,7 +81,7 @@ namespace SchoolGrades
         }
         private void lstClassi_DoubleClick(object sender, EventArgs e)
         {
-            //DataTable students = db.GetClass(school, schoolYear, lstClasses.SelectedItem.ToString());
+            //DataTable students = db.GetClass(currentSchool, currentYear, lstClasses.SelectedItem.ToString());
         }
         private void btnRestoreTables_Click(object sender, EventArgs e)
         {
