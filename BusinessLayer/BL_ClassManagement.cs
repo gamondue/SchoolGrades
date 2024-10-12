@@ -153,7 +153,7 @@ namespace SchoolGrades
         internal void GenerateNewClassFromPrevious(List<Student> StudentsOfNewClass, string ClassAbbreviation,
             string ClassDescription, SchoolYear SchoolYear, string IdPreviousSchoolYear, string OfficialSchoolAbbreviation)
         {
-            // add the new school year to the database, if it doesn't already exist 
+            // add the new currentSchool year to the database, if it doesn't already exist 
             Commons.bl.AddSchoolYearIfNotExists(SchoolYear);
             // create the new class
             int? classCode = Commons.bl.CreateClassIfNotExists(ClassAbbreviation, ClassDescription,

@@ -29,7 +29,7 @@ namespace SchoolGrades
         private void FrmClassesManagement_Load(object sender, EventArgs e)
         {
             isLoading = true;
-            // school data
+            // currentSchool data
             currentSchool = Commons.bl.GetSchool(TxtOfficialSchoolAbbreviation.Text);
 
             List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();

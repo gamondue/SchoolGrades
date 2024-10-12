@@ -125,7 +125,7 @@ namespace SchoolGrades
             //find the sum of the weights of grades of each student
             List<Student> studentsAndWeights =
                 Commons.bl.GetStudentsAndSumOfWeights(Class, StudentsList, GradeType, Subject,
-                DateTime.MinValue, DateTime.MaxValue); // TODO: put the dates of the current school period
+                DateTime.MinValue, DateTime.MaxValue); // TODO: put the dates of the current currentSchool period
             // find max of weights
             double? maxOfWeights = 0;
             foreach (Student s in studentsAndWeights)
@@ -164,7 +164,7 @@ namespace SchoolGrades
             //find the number of grades of each student (beside the sum of the weights)
             List<Student> studentsAndWeights =
                 Commons.bl.GetStudentsAndSumOfWeights(Class, StudentsList, GradeType, Subject,
-                DateTime.MinValue, DateTime.MaxValue); // TODO: put the dates of the current school period
+                DateTime.MinValue, DateTime.MaxValue); // TODO: put the dates of the current currentSchool period
 
             double? maxOfCounts = 0;
             foreach (Student s in studentsAndWeights)

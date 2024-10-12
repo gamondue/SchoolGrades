@@ -19,9 +19,9 @@ namespace SchoolGrades
 
         List<frmLessons> listLessons = new List<frmLessons>();
 
-        School school;
+        private School currentSchool;
 
-        private string schoolYear;
+        private SchoolYear currentYear;
 
         //bool formInitializing = true;
         //bool firstTime = true;
@@ -234,14 +234,14 @@ namespace SchoolGrades
             CreateBusinessLayer();
             // da togliere dopo che il DataLayer di SQL server funziona
 #if !SQL_SERVER
-            school = Commons.bl.GetSchool(Commons.IdSchool);
-            if (school == null)
+            currentSchool = Commons.bl.GetSchool(Commons.IdSchool);
+            if (currentSchool == null)
                 return;
 
             if (cmbSchoolYear.SelectedItem != null)
-                schoolYear = cmbSchoolYear.SelectedItem.ToString();
+                currentYear = (SchoolYear)cmbSchoolYear.SelectedItem;
 
-            lstClasses.DataSource = Commons.bl.GetClassesOfYear(school.IdSchool, schoolYear);
+            lstClasses.DataSource = Commons.bl.GetClassesOfYear(currentSchool.IdSchool, currentYear.IdSchoolYear);
 
             if (lstClasses.DataSource == null)
                 return;
@@ -520,7 +520,7 @@ namespace SchoolGrades
         {
             try
             {
-                string pictureFile = Commons.bl.GetFilePhoto(Chosen.IdStudent, schoolYear);
+                string pictureFile = Commons.bl.GetFilePhoto(Chosen.IdStudent, currentYear.IdSchoolYear);
                 if (pictureFile != null)
                 {
                     pictureFile = Path.Combine(Commons.PathImages, pictureFile);
@@ -610,26 +610,13 @@ namespace SchoolGrades
         }
         private void cmbSchoolYear_SelectedIndexChanged(object sender, EventArgs e)
         {
-            frmMain_Load(null, null);
-            //if (!formInitializing && firstTime)
-            //{
-            //    firstTime = false;
-            //    //    AllTheInitializations();
-            //    List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
-            //    cmbSchoolYear.DataSource = ly;
-
-            //    if (ly.Count > 0)
-            //        cmbSchoolYear.SelectedItem = ly[ly.Count - 1];
-
-            //    // fill the combo of grade types 
-            //    List<GradeType> ListGradeTypes = Commons.bl.GetListGradeTypes();
-            //    cmbGradeType.DataSource = ListGradeTypes;
-
-            //    // fill the combo of School subjects
-            //    List<SchoolSubject> listSubjects = Commons.bl.GetListSchoolSubjects(true);
-            //    cmbSchoolSubject.DataSource = listSubjects;
-            //}
-            //firstTime = true;
+#if !SQL_SERVER
+            if (cmbSchoolYear.SelectedItem != null)
+                currentYear = (SchoolYear)cmbSchoolYear.SelectedItem;
+            lstClasses.DataSource = Commons.bl.GetClassesOfYear(currentSchool.IdSchool, currentYear.IdSchoolYear);
+            //if (lstClasses.DataSource == null)
+            //    return;
+#endif
         }
         //private void btnSalvaInterrogati_Click(object sender, EventArgs e)
         //{
@@ -698,7 +685,7 @@ namespace SchoolGrades
         {
             if (lstClasses.SelectedItem != null)
             {
-                currentStudentsList = Commons.bl.GetStudentsOfClassList(school.OfficialSchoolAbbreviation, schoolYear,
+                currentStudentsList = Commons.bl.GetStudentsOfClassList(currentSchool.OfficialSchoolAbbreviation, currentYear.IdSchoolYear,
                     lstClasses.SelectedItem.ToString(), false);
                 eligiblesList.Clear();
 
@@ -744,7 +731,7 @@ namespace SchoolGrades
             bool OneIsDifferent = false;
             if (currentClass != null)
             {
-                List<Student> oldList = Commons.bl.GetStudentsOfClassList(school.OfficialSchoolAbbreviation, schoolYear,
+                List<Student> oldList = Commons.bl.GetStudentsOfClassList(currentSchool.OfficialSchoolAbbreviation, currentYear.IdSchoolYear,
                         currentClass.Abbreviation, false);
                 if (currentStudentsList != null)
                 {

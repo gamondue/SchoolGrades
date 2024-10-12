@@ -27,7 +27,7 @@ namespace SchoolGrades
         private void frmNewYear_Load(object sender, EventArgs e)
         {
             loading = true;
-            // school data
+            // currentSchool data
             currentSchool = Commons.bl.GetSchool(TxtOfficialSchoolAbbreviation.Text);
 
             // years's data in combo
