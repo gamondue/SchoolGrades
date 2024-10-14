@@ -989,6 +989,7 @@ namespace SchoolGrades_WPF
                 while (i < listLessons.Count)
                 {
                     frmLessons fl = listLessons[i];
+                    // !!!! TODO cure this, doesn't sense if the Window is closed
                     if (fl.IsFormClosed)
                     {
                         listLessons.Remove(fl);
@@ -1000,9 +1001,11 @@ namespace SchoolGrades_WPF
             }
             frmLessons flt;
             if (listLessons.Count == 0)
+                // form is editable if it is the first
                 flt = new frmLessons(currentClass, (SchoolSubject)cmbSchoolSubject.SelectedItem,
                     false);
             else
+                // form is read only if it is not the first
                 flt = new frmLessons(currentClass, (SchoolSubject)cmbSchoolSubject.SelectedItem,
                     true);
             flt.Show();

@@ -40,7 +40,7 @@ namespace SchoolGrades
         {
             return dl.GetStudentsSameName(Student.LastName, Student.FirstName);
         }
-        internal DataTable GetStudentsLike(string LastName, string FirstName)
+        internal List<Student> GetStudentsLike(string LastName, string FirstName)
         {
             return dl.FindStudentsLike(LastName, FirstName);
         }

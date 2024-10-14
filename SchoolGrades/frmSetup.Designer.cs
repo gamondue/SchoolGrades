@@ -1,6 +1,6 @@
 ﻿namespace SchoolGrades
 {
-    partial class FrmSetup
+    partial class frmSetup
     {
         /// <summary>
         /// Required designer variable.
@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmSetup));
-            btnTabelle = new System.Windows.Forms.Button();
-            btnClassi = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSetup));
+            btnTablesManagement = new System.Windows.Forms.Button();
+            btnClassesManagement = new System.Windows.Forms.Button();
             TxtFileDatabase = new System.Windows.Forms.TextBox();
             btnFileDatabase = new System.Windows.Forms.Button();
             TxtPathImages = new System.Windows.Forms.TextBox();
@@ -63,31 +63,31 @@
             btnSchoolPeriodsManagement = new System.Windows.Forms.Button();
             btnUsersManagement = new System.Windows.Forms.Button();
             btnBackupManagement = new System.Windows.Forms.Button();
-            btnStudents = new System.Windows.Forms.Button();
+            btnStudentsManagement = new System.Windows.Forms.Button();
             btnResetDatabase = new System.Windows.Forms.Button();
             SuspendLayout();
             // 
-            // btnTabelle
+            // btnTablesManagement
             // 
-            btnTabelle.Location = new System.Drawing.Point(8, 12);
-            btnTabelle.Name = "btnTabelle";
-            btnTabelle.Size = new System.Drawing.Size(82, 60);
-            btnTabelle.TabIndex = 0;
-            btnTabelle.Text = "Gestione tabelle";
-            toolTip1.SetToolTip(btnTabelle, "Modifiche delle tabelle dei dati fissi");
-            btnTabelle.UseVisualStyleBackColor = true;
-            btnTabelle.Click += BtnTabelle_Click;
+            btnTablesManagement.Location = new System.Drawing.Point(8, 12);
+            btnTablesManagement.Name = "btnTablesManagement";
+            btnTablesManagement.Size = new System.Drawing.Size(82, 60);
+            btnTablesManagement.TabIndex = 0;
+            btnTablesManagement.Text = "Gestione tabelle";
+            toolTip1.SetToolTip(btnTablesManagement, "Modifiche delle tabelle dei dati fissi");
+            btnTablesManagement.UseVisualStyleBackColor = true;
+            btnTablesManagement.Click += btnTablesManagement_Click;
             // 
-            // btnClassi
+            // btnClassesManagement
             // 
-            btnClassi.Location = new System.Drawing.Point(95, 12);
-            btnClassi.Name = "btnClassi";
-            btnClassi.Size = new System.Drawing.Size(82, 60);
-            btnClassi.TabIndex = 1;
-            btnClassi.Text = "Gestione classi";
-            toolTip1.SetToolTip(btnClassi, "Creazione e modifica delle classi");
-            btnClassi.UseVisualStyleBackColor = true;
-            btnClassi.Click += BtnClassi_Click;
+            btnClassesManagement.Location = new System.Drawing.Point(95, 12);
+            btnClassesManagement.Name = "btnClassesManagement";
+            btnClassesManagement.Size = new System.Drawing.Size(82, 60);
+            btnClassesManagement.TabIndex = 1;
+            btnClassesManagement.Text = "Gestione classi";
+            toolTip1.SetToolTip(btnClassesManagement, "Creazione e modifica delle classi");
+            btnClassesManagement.UseVisualStyleBackColor = true;
+            btnClassesManagement.Click += btnClassesManagement_Click;
             // 
             // TxtFileDatabase
             // 
@@ -95,7 +95,7 @@
             TxtFileDatabase.Location = new System.Drawing.Point(8, 153);
             TxtFileDatabase.Margin = new System.Windows.Forms.Padding(4);
             TxtFileDatabase.Name = "TxtFileDatabase";
-            TxtFileDatabase.Size = new System.Drawing.Size(642, 24);
+            TxtFileDatabase.Size = new System.Drawing.Size(642, 32);
             TxtFileDatabase.TabIndex = 2;
             TxtFileDatabase.TextChanged += TxtFileDatabase_TextChanged;
             TxtFileDatabase.DoubleClick += TxtPaths_DoubleClick;
@@ -112,7 +112,7 @@
             btnFileDatabase.TabIndex = 84;
             btnFileDatabase.Text = "..";
             btnFileDatabase.UseVisualStyleBackColor = false;
-            btnFileDatabase.Click += btnScegliFile_Click;
+            btnFileDatabase.Click += btnChooseFile_Click;
             // 
             // TxtPathImages
             // 
@@ -120,10 +120,8 @@
             TxtPathImages.Location = new System.Drawing.Point(8, 203);
             TxtPathImages.Margin = new System.Windows.Forms.Padding(4);
             TxtPathImages.Name = "TxtPathImages";
-            TxtPathImages.Size = new System.Drawing.Size(867, 24);
+            TxtPathImages.Size = new System.Drawing.Size(867, 32);
             TxtPathImages.TabIndex = 15;
-            TxtPathImages.TextChanged += TxtPathImages_TextChanged;
-            TxtPathImages.DoubleClick += TxtPaths_DoubleClick;
             // 
             // btnPathImages
             // 
@@ -137,7 +135,7 @@
             btnPathImages.TabIndex = 83;
             btnPathImages.Text = "..";
             btnPathImages.UseVisualStyleBackColor = false;
-            btnPathImages.Click += btnCartellaImmagini_Click;
+            btnPathImages.Click += btnImageFolder_Click;
             // 
             // btnSaveConfigurationFile
             // 
@@ -148,14 +146,14 @@
             btnSaveConfigurationFile.TabIndex = 92;
             btnSaveConfigurationFile.Text = "Salva config.";
             btnSaveConfigurationFile.UseVisualStyleBackColor = true;
-            btnSaveConfigurationFile.Click += btnSave_Click;
+            btnSaveConfigurationFile.Click += btnSaveConfiguration_Click;
             // 
             // lblFileDatabase
             // 
             lblFileDatabase.AutoSize = true;
             lblFileDatabase.Location = new System.Drawing.Point(5, 132);
             lblFileDatabase.Name = "lblFileDatabase";
-            lblFileDatabase.Size = new System.Drawing.Size(81, 18);
+            lblFileDatabase.Size = new System.Drawing.Size(123, 26);
             lblFileDatabase.TabIndex = 93;
             lblFileDatabase.Text = "File dei dati";
             // 
@@ -164,7 +162,7 @@
             lblPathDatabase.AutoSize = true;
             lblPathDatabase.Location = new System.Drawing.Point(5, 74);
             lblPathDatabase.Name = "lblPathDatabase";
-            lblPathDatabase.Size = new System.Drawing.Size(108, 18);
+            lblPathDatabase.Size = new System.Drawing.Size(163, 26);
             lblPathDatabase.TabIndex = 96;
             lblPathDatabase.Text = "Cartella dei dati";
             // 
@@ -174,9 +172,8 @@
             TxtPathDatabase.Location = new System.Drawing.Point(8, 95);
             TxtPathDatabase.Margin = new System.Windows.Forms.Padding(4);
             TxtPathDatabase.Name = "TxtPathDatabase";
-            TxtPathDatabase.Size = new System.Drawing.Size(867, 24);
+            TxtPathDatabase.Size = new System.Drawing.Size(867, 32);
             TxtPathDatabase.TabIndex = 94;
-            TxtPathDatabase.TextChanged += TxtPathDatabase_TextChanged;
             TxtPathDatabase.DoubleClick += TxtPaths_DoubleClick;
             // 
             // btnPathDatabase
@@ -198,7 +195,7 @@
             lblPathImages.AutoSize = true;
             lblPathImages.Location = new System.Drawing.Point(5, 181);
             lblPathImages.Name = "lblPathImages";
-            lblPathImages.Size = new System.Drawing.Size(155, 18);
+            lblPathImages.Size = new System.Drawing.Size(234, 26);
             lblPathImages.TabIndex = 97;
             lblPathImages.Text = "Cartella delle immagini";
             // 
@@ -276,9 +273,8 @@
             TxtPathDocuments.Location = new System.Drawing.Point(8, 258);
             TxtPathDocuments.Margin = new System.Windows.Forms.Padding(4);
             TxtPathDocuments.Name = "TxtPathDocuments";
-            TxtPathDocuments.Size = new System.Drawing.Size(867, 24);
+            TxtPathDocuments.Size = new System.Drawing.Size(867, 32);
             TxtPathDocuments.TabIndex = 105;
-            TxtPathDocuments.TextChanged += TxtPathDocuments_TextChanged;
             TxtPathDocuments.DoubleClick += TxtPaths_DoubleClick;
             // 
             // btnPathDocuments
@@ -300,7 +296,7 @@
             lblPathDocuments.AutoSize = true;
             lblPathDocuments.Location = new System.Drawing.Point(5, 236);
             lblPathDocuments.Name = "lblPathDocuments";
-            lblPathDocuments.Size = new System.Drawing.Size(154, 18);
+            lblPathDocuments.Size = new System.Drawing.Size(229, 26);
             lblPathDocuments.TabIndex = 107;
             lblPathDocuments.Text = "Cartella dei documenti";
             // 
@@ -354,7 +350,7 @@
             chkAskPassword.Enabled = false;
             chkAskPassword.Location = new System.Drawing.Point(967, 272);
             chkAskPassword.Name = "chkAskPassword";
-            chkAskPassword.Size = new System.Drawing.Size(152, 22);
+            chkAskPassword.Size = new System.Drawing.Size(222, 30);
             chkAskPassword.TabIndex = 112;
             chkAskPassword.Text = "Chiedi la password";
             toolTip1.SetToolTip(chkAskPassword, "Se abilitato il programma chiede una password per entrare");
@@ -365,7 +361,7 @@
             chkSaveBackup.AutoSize = true;
             chkSaveBackup.Location = new System.Drawing.Point(723, 153);
             chkSaveBackup.Name = "chkSaveBackup";
-            chkSaveBackup.Size = new System.Drawing.Size(213, 22);
+            chkSaveBackup.Size = new System.Drawing.Size(316, 30);
             chkSaveBackup.TabIndex = 113;
             chkSaveBackup.Text = "Salva database alla chiusura";
             toolTip1.SetToolTip(chkSaveBackup, "Se abilitato il programma chiede una password per entrare");
@@ -405,16 +401,16 @@
             btnBackupManagement.UseVisualStyleBackColor = true;
             btnBackupManagement.Click += btnBackupManagement_Click;
             // 
-            // btnStudents
+            // btnStudentsManagement
             // 
-            btnStudents.Location = new System.Drawing.Point(269, 12);
-            btnStudents.Name = "btnStudents";
-            btnStudents.Size = new System.Drawing.Size(82, 60);
-            btnStudents.TabIndex = 117;
-            btnStudents.Text = "Gestione studenti";
-            toolTip1.SetToolTip(btnStudents, "Generazione di file e salvataggi di backup");
-            btnStudents.UseVisualStyleBackColor = true;
-            btnStudents.Click += btnStudents_Click;
+            btnStudentsManagement.Location = new System.Drawing.Point(269, 12);
+            btnStudentsManagement.Name = "btnStudentsManagement";
+            btnStudentsManagement.Size = new System.Drawing.Size(82, 60);
+            btnStudentsManagement.TabIndex = 117;
+            btnStudentsManagement.Text = "Gestione studenti";
+            toolTip1.SetToolTip(btnStudentsManagement, "Generazione di file e salvataggi di backup");
+            btnStudentsManagement.UseVisualStyleBackColor = true;
+            btnStudentsManagement.Click += btnStudentsManagement_Click;
             // 
             // btnResetDatabase
             // 
@@ -429,13 +425,13 @@
             btnResetDatabase.UseVisualStyleBackColor = false;
             btnResetDatabase.Click += btnResetDatabase_Click;
             // 
-            // FrmSetup
+            // frmSetup
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
+            AutoScaleDimensions = new System.Drawing.SizeF(13F, 26F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.PowderBlue;
             ClientSize = new System.Drawing.Size(1142, 298);
-            Controls.Add(btnStudents);
+            Controls.Add(btnStudentsManagement);
             Controls.Add(btnResetDatabase);
             Controls.Add(btnSchoolPeriodsManagement);
             Controls.Add(btnUsersManagement);
@@ -465,15 +461,15 @@
             Controls.Add(TxtFileDatabase);
             Controls.Add(btnFileDatabase);
             Controls.Add(btnBackupManagement);
-            Controls.Add(btnClassi);
-            Controls.Add(btnTabelle);
+            Controls.Add(btnClassesManagement);
+            Controls.Add(btnTablesManagement);
             Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             ForeColor = System.Drawing.Color.DarkBlue;
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4);
             MaximizeBox = false;
-            Name = "FrmSetup";
+            Name = "frmSetup";
             Text = "Setup";
             Load += frmSetup_Load;
             ResumeLayout(false);
@@ -482,8 +478,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnTabelle;
-        private System.Windows.Forms.Button btnClassi;
+        private System.Windows.Forms.Button btnTablesManagement;
+        private System.Windows.Forms.Button btnClassesManagement;
         private System.Windows.Forms.TextBox TxtFileDatabase;
         private System.Windows.Forms.Button btnFileDatabase;
         private System.Windows.Forms.TextBox TxtPathImages;
@@ -516,6 +512,6 @@
         private System.Windows.Forms.Button btnSchoolPeriodsManagement;
         private System.Windows.Forms.Button btnResetDatabase;
         private System.Windows.Forms.Button btnBackupManagement;
-        private System.Windows.Forms.Button btnStudents;
+        private System.Windows.Forms.Button btnStudentsManagement;
     }
 }

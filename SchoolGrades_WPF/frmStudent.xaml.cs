@@ -1,6 +1,7 @@
 ﻿using SchoolGrades;
 using SchoolGrades.BusinessObjects;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
@@ -133,13 +134,13 @@ namespace SchoolGrades_WPF
         }
         private void btnFindStudent_Click(object sender, RoutedEventArgs e)
         {
-            DataTable dt = Commons.bl.GetStudentsLike(txtLastName.Text, txtFirstName.Text);
-            dgwSearchedStudents.ItemsSource = dt.AsDataView();
+            List<Student> dt = Commons.bl.GetStudentsLike(txtLastName.Text, txtFirstName.Text);
+            dgwSearchedStudents.ItemsSource = dt;
         }
         private void btnFindHomonyms_Click(object sender, EventArgs e)
         {
-            DataTable dt = Commons.bl.GetStudentsHomonyms(txtLastName.Text, txtFirstName.Text);
-            dgwSearchedStudents.ItemsSource = dt.AsDataView();
+            System.Collections.Generic.List<Student> dt = Commons.bl.GetStudentsHomonyms(new Student(txtLastName.Text, txtFirstName.Text));
+            dgwSearchedStudents.ItemsSource = dt;
         }
         private void dgwSearchedStudents_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
@@ -147,7 +148,8 @@ namespace SchoolGrades_WPF
             int RowIndex = grid.SelectedIndex;
             if (RowIndex > -1)
             {
-                int key = (int)((DataTable)dgwSearchedStudents.ItemsSource).Rows[RowIndex]["idStudent"];
+                List<Student> l = (List<Student>)dgwSearchedStudents.ItemsSource;
+                int key = (int)(l[RowIndex].IdStudent);
                 Student s = Commons.bl.GetStudent(key);
                 loadStudentData(s);
                 currentStudent = s;
@@ -159,7 +161,10 @@ namespace SchoolGrades_WPF
             int RowIndex = grid.SelectedIndex;
             if (RowIndex > -1)
             {
-                int key = (int)((DataTable)dgwSearchedStudents.ItemsSource).Rows[RowIndex]["idStudent"];
+                List<Student> l = (List<Student>)dgwSearchedStudents.ItemsSource;
+                int key = (int)(l[RowIndex].IdStudent);
+
+                //int key = (int)((List<Student>)dgwSearchedStudents.ItemsSource).Rows[RowIndex]["idStudent"];
                 Student s = Commons.bl.GetStudent(key);
                 loadStudentData(s);
                 currentStudent = s;

@@ -8,8 +8,6 @@ namespace SchoolGrades
 {
     public partial class frmImages : Form
     {
-        // TODO manage an order of the images of the lesson (database and code) 
-
         List<BusinessObjects.Image> listImages;
         private Lesson currentLesson;
         private Class currentClass;
@@ -22,7 +20,6 @@ namespace SchoolGrades
         private int currentIndexInImages;
         private SchoolPeriod currentSchoolPeriod;
         private string oldImage;
-
         public enum ImagesFormType
         {
             NormalManagement,
@@ -42,6 +39,11 @@ namespace SchoolGrades
             lessonImagesPath = currentClass.SchoolYear +
                 currentClass.Abbreviation + "\\Lessons" +
                 "\\" + currentLesson.IdSchoolSubject;
+            // TODO: the following path should be better. Fix the program to Re-use this path (should also change old paths)
+            // the following path should be better. 
+            //////lessonImagesPath = Path.Combine(currentClass.SchoolYear,
+            //////    currentClass.Abbreviation, "Lessons",
+            //////    currentLesson.IdSchoolSubject);
         }
         private void frmImages_Load(object sender, EventArgs e)
         {

@@ -155,7 +155,7 @@ namespace SchoolGrades
         }
         private void btnFindStudent_Click(object sender, EventArgs e)
         {
-            DataTable dt = Commons.bl.GetStudentsLike(txtLastName.Text, txtFirstName.Text);
+            List<Student> dt = Commons.bl.GetStudentsLike(txtLastName.Text, txtFirstName.Text);
             dgwSearchedStudents.DataSource = dt;
         }
         private void btnFindHomonym_Click(object sender, EventArgs e)
@@ -167,7 +167,10 @@ namespace SchoolGrades
         {
             if (e.RowIndex > -1)
             {
-                int key = (int)((DataTable)(dgwSearchedStudents.DataSource)).Rows[e.RowIndex]["idStudent"];
+                List<Student> l = (List<Student>)dgwSearchedStudents.DataSource;
+                int key = (int)(l[e.RowIndex].IdStudent);
+
+                //int key = (int)((DataTable)(dgwSearchedStudents.DataSource)).Rows[e.RowIndex]["idStudent"];
                 Student s = Commons.bl.GetStudent(key);
 
                 s.ClassAbbreviation = (string)((DataTable)(dgwSearchedStudents.DataSource)).Rows[e.RowIndex]["ClassAbbreviation"];
@@ -184,7 +187,10 @@ namespace SchoolGrades
         {
             if (e.RowIndex > -1)
             {
-                int key = (int)((DataTable)(dgwSearchedStudents.DataSource)).Rows[e.RowIndex]["idStudent"];
+                List<Student> l = (List<Student>)dgwSearchedStudents.DataSource;
+                int key = (int)(l[e.RowIndex].IdStudent);
+
+                //int key = (int)((DataTable)(dgwSearchedStudents.DataSource)).Rows[e.RowIndex]["idStudent"];
                 Student s = Commons.bl.GetStudent(key);
                 ShowStudentData(s);
                 currentStudent = s;

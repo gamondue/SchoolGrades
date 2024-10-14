@@ -300,7 +300,7 @@ namespace SchoolGrades
         internal abstract Student GetStudent(int? IdStudent);
         internal abstract Student GetStudentFromRow(DbDataReader Row);
         internal abstract List<Student> GetStudentsSameName(string LastName, string FirstName);
-        internal abstract DataTable FindStudentsLike(string LastName, string FirstName);
+        internal abstract List<Student> FindStudentsLike(string LastName, string FirstName);
         internal abstract void PutStudentInClass(int? IdStudent, int? IdClass);
         /// <summary>
         /// 

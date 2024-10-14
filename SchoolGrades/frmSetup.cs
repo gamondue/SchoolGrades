@@ -6,18 +6,17 @@ using System.Windows.Forms;
 
 namespace SchoolGrades
 {
-    public partial class FrmSetup : Form
+    public partial class frmSetup : Form
     {
         public bool NewDatabaseFile { get; private set; }
 
-        public FrmSetup()
+        public frmSetup()
         {
             InitializeComponent();
             NewDatabaseFile = false;
         }
         private void frmSetup_Load(object sender, EventArgs e)
         {
-            //Commons.ReadConfigFile();
             TxtPathDatabase.Text = Commons.PathDatabase;
             TxtFileDatabase.Text = Path.GetFileName(Commons.PathAndFileDatabase);
             TxtPathImages.Text = Commons.PathImages;
@@ -26,12 +25,12 @@ namespace SchoolGrades
             TxtPathDocuments.Text = Commons.PathDocuments;
             chkSaveBackup.Checked = Commons.SaveBackupWhenExiting;
         }
-        private void BtnTabelle_Click(object sender, EventArgs e)
+        private void btnTablesManagement_Click(object sender, EventArgs e)
         {
             frmTables f = new frmTables();
             f.ShowDialog();
         }
-        private void BtnClassi_Click(object sender, EventArgs e)
+        private void btnClassesManagement_Click(object sender, EventArgs e)
         {
             frmClassesManagement f = new frmClassesManagement();
             f.ShowDialog();
@@ -41,7 +40,7 @@ namespace SchoolGrades
             frmBackupManagement f = new frmBackupManagement();
             f.ShowDialog();
         }
-        private void btnScegliFile_Click(object sender, EventArgs e)
+        private void btnChooseFile_Click(object sender, EventArgs e)
         {
             openFileDialog1.InitialDirectory = TxtPathDatabase.Text;
             DialogResult r = openFileDialog1.ShowDialog();
@@ -53,7 +52,7 @@ namespace SchoolGrades
             Commons.DatabaseFileName_Current = TxtFileDatabase.Text;
             Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
         }
-        private void btnCartellaImmagini_Click(object sender, EventArgs e)
+        private void btnImageFolder_Click(object sender, EventArgs e)
         {
             folderBrowserDialog1.SelectedPath = TxtPathImages.Text;
             DialogResult r = folderBrowserDialog1.ShowDialog();
@@ -62,7 +61,7 @@ namespace SchoolGrades
                 TxtPathImages.Text = folderBrowserDialog1.SelectedPath;
             }
         }
-        private void btnSave_Click(object sender, EventArgs e)
+        private void btnSaveConfiguration_Click(object sender, EventArgs e)
         {
             WriteConfigFile();
         }
@@ -150,8 +149,6 @@ namespace SchoolGrades
         }
         private void btnQuestionManagement_Click(object sender, EventArgs e)
         {
-            //frmQuestion form = new frmQuestion(frmQuestion.QuestionFormType.CreateSeveralQuestions,
-            //    null, null, null, null); 
             frmQuestionChoose form = new frmQuestionChoose(null, null, null);
             form.ShowDialog();
         }
@@ -193,18 +190,6 @@ namespace SchoolGrades
         {
 
         }
-        private void TxtPathDatabase_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void TxtPathImages_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void TxtPathDocuments_TextChanged(object sender, EventArgs e)
-        {
-
-        }
         private void TxtPaths_DoubleClick(object sender, EventArgs e)
         {
             Commons.ProcessStartLink(((TextBox)sender).Text);
@@ -237,7 +222,7 @@ namespace SchoolGrades
                 Commons.bl.PurgeDatabase();
             }
         }
-        private void btnStudents_Click(object sender, EventArgs e)
+        private void btnStudentsManagement_Click(object sender, EventArgs e)
         {
             frmStudent f = new frmStudent(null, false);
             f.ShowDialog();

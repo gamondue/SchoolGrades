@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Data.SQLite;
 
 namespace SchoolGrades
 {
@@ -265,9 +266,10 @@ namespace SchoolGrades
             }
             return ls;
         }
-        internal override DataTable FindStudentsLike(string LastName, string FirstName)
+
+        internal override List<Student> FindStudentsLike(string LastName, string FirstName)
         {
-            DataTable t;
+            List<Student> t = new();
             using (DbConnection conn = Connect())
             {
                 DataAdapter dAdapt;
@@ -293,13 +295,29 @@ namespace SchoolGrades
                     }
                 }
                 query += ";";
-                dAdapt = new SqlDataAdapter(query, (SqlConnection)conn);
-                dSet = new DataSet("GetStudentsSameName");
-                dAdapt.Fill(dSet);
-                t = dSet.Tables[0];
+                DbCommand cmd = conn.CreateCommand();
+                cmd = new SQLiteCommand(query);
+                cmd.Connection = conn;
+                DbDataReader dRead = cmd.ExecuteReader();
+                Student s = new Student();
+                while (dRead.Read())
+                {
+                    s.IdStudent = Safe.Int(dRead["IdStudent"]);
+                    s.LastName = Safe.String(dRead["LastName"]);
+                    s.FirstName = Safe.String(dRead["FirstName"]);
+                    s.ClassAbbreviation = Safe.String(dRead["ClassAbbreviation"]);
+                    s.SchoolYear = Safe.String(dRead["SchoolYear"]);
+                    t.Add(s);
+                }
+                dRead.Dispose();
+                cmd.Dispose();
+                //dAdapt = new SqlDataAdapter(query, (SqlConnection)conn);
+                //dSet = new DataSet("GetStudentsSameName");
+                //dAdapt.Fill(dSet);
+                //t = dSet.Tables[0];
 
-                dSet.Dispose();
-                dAdapt.Dispose();
+                //dSet.Dispose();
+                //dAdapt.Dispose();
             }
             return t;
         }

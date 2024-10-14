@@ -18,18 +18,18 @@ namespace SchoolGrades_WPF
             this.label2.Content = Label2;
             this.label3.Content = Label3;
             this.Background = BackColor;
-            //////////if (ThirdIsPassword)
-            //////////    txtInput3.PasswordChar = '*';
+            //////if (ThirdIsPassword)
+            //////    txtInput3.PasswordChar = '*';
         }
         private void button1_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult;
             this.Close();
         }
-        ////////////private void frmInput_KeyDown(object sender, KeyEventArgs e)
-        ////////////{
-        ////////////    if (e.KeyCode == Keys.Enter)
-        ////////////        button1_Click(null, null);
-        ////////////}
+        ////////private void frmInput_KeyDown(object sender, KeyEventArgs e)
+        ////////{
+        ////////    if (e.KeyCode == Keys.Enter)
+        ////////        button1_Click(null, null);
+        ////////}
     }
 }

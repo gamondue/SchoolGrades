@@ -261,17 +261,18 @@ namespace SchoolGrades_WPF
                 {
                     // the date of the current lesson is the same displayed
                     // then we'll create a new lesson for today 
-                    if (MessageBox.Show("Creare una nuova lezione nella data di oggi (Sì)" +
+                    MessageBoxResult result = MessageBox.Show("Creare una nuova lezione nella data di oggi (Sì)" +
                         "\nNon salvare nulla (No)",
-                        "Creazione in data odierna")
-                        == MessageBoxResult.No)
-                    {
-                        return;
-                    }
-                    else
+                        "Creazione in data odierna", 
+                        MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (result == MessageBoxResult.Yes)
                     {
                         // create the new lesson today 
                         dtpLessonDate.SelectedDate = DateTime.Now;
+                    }
+                    else if (result == MessageBoxResult.No)
+                    {
+                        return;
                     }
                 }
             }
@@ -409,9 +410,9 @@ namespace SchoolGrades_WPF
                 MessageBox.Show("Creare prima una nuova lezione");
                 return;
             }
-            ////////frmImages fi = new frmImages(frmImages.ImagesFormType.NormalManagement
-            ////////    , currentLesson, currentClass, listImages, currentSchoolSubject);
-            ////////fi.ShowDialog();
+            frmImages fi = new frmImages(frmImages.ImagesFormType.NormalManagement
+                , currentLesson, currentClass, listImages, currentSchoolSubject);
+            fi.ShowDialog();
             listImages = Commons.bl.GetListLessonsImages(currentLesson);
             if (listImages.Count > 0)
             {
@@ -588,7 +589,6 @@ namespace SchoolGrades_WPF
                 int RowIndex = grid.SelectedIndex;
                 if (RowIndex > -1)
                 {
-
                     txtTopicsDigest.Text = "";
                     List<Lesson> l = ((List<Lesson>)(dgwAllLessons.ItemsSource));
 
@@ -660,8 +660,6 @@ namespace SchoolGrades_WPF
         }
         private void btnFindUnderNode_Click(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show("Da fare!");
-            //return; 
             topicTreeMptt.FindNodeUnderNode(txtTopicSearchString.Text);
         }
         private void chksSearch_CheckedChanged(object sender, RoutedEventArgs e)
