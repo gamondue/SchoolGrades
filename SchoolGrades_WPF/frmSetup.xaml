@@ -5,8 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SchoolGrades_WPF"
       mc:Ignorable="d" 
-      d:DesignHeight="337" d:DesignWidth="1070"
-      Title="Setup">
+      d:DesignHeight="337"
+      Title="Setup" Width="1157">
 
     <Grid Background="PowderBlue">
         <Grid>
@@ -37,49 +37,45 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <Button Name="btnTabelle" Margin="7" Grid.Column="0" Background="White" Click="btnTabelle_Click">
+                <Button Name="btnTablesManagement" Margin="7" Grid.Column="0" Background="White" Click="btnTablesManagement_Click">
                     <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White">Gestione tabelle</TextBox>
                 </Button>
-
-                <Button Name="btnClassi" Margin="7" Grid.Column="1" Background="White" Click="btnClassi_Click">
-                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White">Gestione classi</TextBox>
+                <Button Name="btnClassesManagement" Margin="7" Grid.Column="1" Background="White" Click="btnClassesManagement_Click">
+                    <TextBox TextWrapping="Wrap" 
+                             Background="White" HorizontalContentAlignment="Center" FontSize="14"
+                             BorderBrush="White">Gestione classi</TextBox>
                 </Button>
-
                 <Button Name="btnBackupManagement" Margin="7" Grid.Column="2" Background="White" Click="btnBackupManagement_Click">
-                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White">Backup e gen.file</TextBox>
+                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" 
+                             FontSize="14" BorderBrush="White">Backup e gest.file</TextBox>
                 </Button>
-
-                <Button Name="btnTopicsManagement" Margin="7" Grid.Column="3" Background="White" Click="btnTopicsManagement_Click">
+                <Button Name="btnStudentsManagement" Margin="7" Grid.Column="3" Background="White" 
+                        Click="btnStudentsManagement_Click">
+                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" 
+                             BorderBrush="White">Gestione studenti</TextBox>
+                </Button>
+                <Button Name="btnTopicsManagement" Margin="7" Grid.Column="4" Background="White" Click="btnTopicsManagement_Click">
                     <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White">Gestione argomenti</TextBox>
                 </Button>
-
-                <Button Name="btnTagsManagement" Margin="7" Grid.Column="4" Background="White" Click="btnTagsManagement_Click">
+                <Button Name="btnTagsManagement" Margin="7" Grid.Column="5" Background="White" Click="btnTagsManagement_Click">
                     <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White">Gestione tag</TextBox>
                 </Button>
-
-                <Button Name="btnQuestionManagement" Margin="7" Grid.Column="5" Background="White" Click="btnQuestionManagement_Click">
+                <Button Name="btnQuestionManagement" Margin="7" Grid.Column="6" Background="White" Click="btnQuestionManagement_Click">
                     <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White">Gestione domande</TextBox>
                 </Button>
-
-                <Button Name="btnStartLimksManagement" Margin="7" Grid.Column="6" Background="White" Click="btnStartLimksManagement_Click">
-                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White">Gestione strat links</TextBox>
+                <Button Name="btnStartLimksManagement" Margin="7" Grid.Column="7" Background="White" Click="btnStartLimksManagement_Click">
+                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White">Gestione start links</TextBox>
                 </Button>
-
-                <Button Name="btnTestManagement" Margin="7" Grid.Column="7" Background="White" Click="btnTestManagement_Click">
+                <Button Name="btnTestManagement" Margin="7" Grid.Column="8" Background="White" Click="btnTestManagement_Click">
                     <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White">Gestione prove</TextBox>
                 </Button>
-
-                <Button Name="btnRecoverTopics" Margin="7" Grid.Column="8" Background="White" Click="btnRecoverTopics_Click">
-                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White" >Recover argomenti</TextBox>
+                <Button Name="btnRecoverTopics" Margin="7" Grid.Column="9" Background="White" Click="btnRecoverTopics_Click">
+                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White">Recover argomenti</TextBox>
                 </Button>
-
-                <Button Name="btnUsersManagement" Margin="7" Grid.Column="9" Background="White">
-                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White">Gestione utenti</TextBox>
+                <Button Name="btnUsersManagement" Margin="7" Grid.Column="10" Background="White">
+                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center"
+                             FontSize="14" BorderBrush="White">Gestione utenti</TextBox>
                 </Button>
-
-
-
-
             </Grid>
             <Grid Grid.Row="0" Grid.Column="1">
                 <Button Name="btnSchoolSubjectManagement" Margin="7" Grid.Column="10" Background="White" Click="btnSchoolSubjectManagement_Click">
@@ -110,23 +106,35 @@
             <StackPanel Grid.Row="1" Orientation="Horizontal">
                 <StackPanel Orientation="Vertical">
                     <Label x:Name="lblPathDatabase" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Bottom">Cartella dei dati</Label>
-                    <TextBox x:Name="TxtPathDatabase" HorizontalAlignment="Left" VerticalAlignment="Center" Width="770" FontSize="14" Height="24" Margin="5,0,0,0"></TextBox>
+                    <TextBox x:Name="TxtPathDatabase" HorizontalAlignment="Left" 
+                             VerticalAlignment="Center" Width="770" FontSize="14"
+                             MouseDoubleClick="TxtPathDatabase_MouseDoubleClick"
+                             Height="24" Margin="5,0,0,0"/>
                 </StackPanel>
-                <Button x:Name="btnPathDatabase" Content="Sfoglia" Width="76" Height="41" Margin="20,18,0,0" Click="btnPathDatabase_Click"/>
+                <Button x:Name="btnPathDatabase" Content=".." Width="76" Height="41"
+                        Margin="20,18,0,0" Click="btnPathDatabase_Click"/>
 
             </StackPanel>
             <StackPanel Grid.Row="2" Orientation="Horizontal">
                 <StackPanel Orientation="Vertical">
                     <Label x:Name="lblFileDatabase" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Bottom">File dei dati</Label>
-                    <TextBox x:Name="TxtFileDatabase" HorizontalAlignment="Left" VerticalAlignment="Center" Width="600" FontSize="14" Height="24" Margin="5,0,0,0"></TextBox>
+                    <TextBox x:Name="TxtFileDatabase" HorizontalAlignment="Left"
+                             VerticalAlignment="Center" Width="600"
+                             MouseDoubleClick="TxtFileDatabase_MouseDoubleClick"
+                             FontSize="14" Height="24" Margin="5,0,0,0"/>
                 </StackPanel>
-                <Button x:Name="btnFileDatabase" Content="Sfoglia" Width="76" Height="40" Margin="20,18,0,0"/>
+                <Button x:Name="btnFileDatabase" Content=".." Width="76" Height="40"
+                        Click="btnChooseFile_Click"
+                        Margin="20,18,0,0"/>
                 <CheckBox x:Name="chkSaveBackup" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,9,0,0" FontSize="13">Salva database alla chiusura</CheckBox>
             </StackPanel>
             <StackPanel Grid.Row="3" Orientation="Horizontal">
                 <StackPanel Orientation="Vertical">
                     <Label x:Name="lblPathImages" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Bottom">Cartella delle immagini</Label>
-                    <TextBox x:Name="TxtPathImages" HorizontalAlignment="Left" VerticalAlignment="Center" Width="770" FontSize="14" Height="24" Margin="5,0,0,0"></TextBox>
+                    <TextBox x:Name="TxtPathImages" HorizontalAlignment="Left" 
+                             VerticalAlignment="Center" Width="770" 
+                             MouseDoubleClick="TxtPathImages_MouseDoubleClick"
+                             FontSize="14" Height="24" Margin="5,0,0,0"></TextBox>
                 </StackPanel>
                 <Button x:Name="btnPathImages" Content="Sfoglia" Width="76" Height="39" Margin="20,18,0,0"/>
             </StackPanel>
@@ -134,7 +142,10 @@
 
                 <StackPanel Orientation="Vertical">
                     <Label x:Name="lblPathDocument" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Bottom">Cartella dei documenti</Label>
-                    <TextBox x:Name="TxtPathDocuments" HorizontalAlignment="Left" VerticalAlignment="Center" Width="770" FontSize="14" Height="24" Margin="5,0,0,0"></TextBox>
+                    <TextBox x:Name="TxtPathDocuments" HorizontalAlignment="Left" 
+                             VerticalAlignment="Center" Width="770"
+                             MouseDoubleClick="TxtPathDocuments_MouseDoubleClick"
+                             FontSize="14" Height="24" Margin="5,0,0,0"></TextBox>
                 </StackPanel>
                 <Button x:Name="btnPathDocument" Content="Sfoglia" Width="76" Height="42" Margin="20,18,0,0" Click="btnPathDocument_Click"/>
             </StackPanel>

@@ -115,7 +115,7 @@ namespace SchoolGrades
                         messagePrompt = "Il file di database configurato:\n" + Commons.PathAndFileDatabase + "\nnon è accessibile!\n" +
                             "Sceglierne uno nella prossima finestra.";
                         MessageBox.Show(messagePrompt);
-                        FrmSetup f = new FrmSetup();
+                        frmSetup f = new frmSetup();
                         f.ShowDialog();
                         CloseProgramWhileTestingIfConfigurationFileIsRight();
                     }
@@ -187,7 +187,7 @@ namespace SchoolGrades
                 "\nI nomi scelti dal programma dovrebbero essere giusti.";
             Commons.PathAndFileDatabase = GetNewDatabaseFilename(Path.Combine(Commons.PathExe, "Data"));
             MessageBox.Show(messagePrompt, "SchoolGrades", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            FrmSetup f = new FrmSetup();
+            frmSetup f = new frmSetup();
             f.ShowDialog();
         }
         private void CloseProgramWhileTestingIfConfigurationFileIsRight()
@@ -208,11 +208,13 @@ namespace SchoolGrades
         }
         private void frmMain_Load(object sender, EventArgs e)
         {
-            // start the Thread that concurrently saves the Topics tree
+            Commons.globalPicLed = picBackgroundSaveRunning;
+
+
             Commons.SaveTreeMptt = new TreeMptt(null, null, null, null, null, null, picBackgroundSaveRunning,
                 null, null, null, null, null);
+            // start the Thread that concurrently saves the Topics tree
             Commons.BackgroundSaveThread = new Thread(Commons.SaveTreeMptt.SaveTreeMpttBackground);
-            // Thread disabled for test 
             Commons.BackgroundSaveThread.Start();
 
             if (!File.Exists(Commons.PathAndFileDatabase))
@@ -246,7 +248,6 @@ namespace SchoolGrades
             if (lstClasses.DataSource == null)
                 return;
 #endif
-            Commons.globalPicLed = picBackgroundSaveRunning;
 
             if (chkActivateLessonClock.Checked)
             {
@@ -611,6 +612,7 @@ namespace SchoolGrades
         private void cmbSchoolYear_SelectedIndexChanged(object sender, EventArgs e)
         {
 #if !SQL_SERVER
+            currentSchool = Commons.bl.GetSchool(Commons.IdSchool);
             if (cmbSchoolYear.SelectedItem != null)
                 currentYear = (SchoolYear)cmbSchoolYear.SelectedItem;
             lstClasses.DataSource = Commons.bl.GetClassesOfYear(currentSchool.IdSchool, currentYear.IdSchoolYear);
@@ -861,7 +863,7 @@ namespace SchoolGrades
             // save current students because can be used by setup windows
             SaveStudentsOfClassIfEligibleHasChanged();
 
-            FrmSetup f = new FrmSetup();
+            frmSetup f = new frmSetup();
             f.ShowDialog();
             // show class (could have changed by the setup windows)
             ShowStudentsOfClass();
@@ -1531,7 +1533,6 @@ namespace SchoolGrades
                     currentStudentsList[e.RowIndex].Eligible = !currentStudentsList[e.RowIndex].Eligible;
                     if (currentStudentsList == null)
                         return;
-
                     RefreshStudentsGrid();
                 }
             }
@@ -1556,7 +1557,7 @@ namespace SchoolGrades
         private void dgwStudents_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             dgwStudents.ReadOnly = true;
-            if (dgwStudents.Columns.Count == 27)
+            if (dgwStudents.Columns.Count == 28)
             {
                 DataGridViewCheckBoxColumn chkSelected = new DataGridViewCheckBoxColumn();
                 {

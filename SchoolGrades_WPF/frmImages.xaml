@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SchoolGrades_WPF"
         mc:Ignorable="d"
-        Title="frmImages" Height="475" Width="800">
-    <Grid Background="PowderBlue">
+        Title="Immagini" Height="475" Width="800"
+        Loaded="frmImages_Load">
+    <Grid Background="PowderBlue" Height="459" VerticalAlignment="Bottom">
         <Label Content="Codice Scuola" Foreground="Blue" FontSize="10" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,2,0,0"/>
         <Label Content="Anno Scol." Foreground="Blue" FontSize="10" HorizontalAlignment="Left" Margin="134,2,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtOfficialSchoolAbbreviation" HorizontalAlignment="Left" FontSize="10" Margin="15,28,0,0" TextWrapping="Wrap" Text="FOIS01100L" VerticalAlignment="Top" Width="106"/>
@@ -42,8 +43,12 @@
         <RadioButton x:Name="rdbAutoRename" Content="Nome file automatico" Foreground="Blue" FontSize="10" HorizontalAlignment="Left" Margin="303,142,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.313,0.337"/>
         <RadioButton x:Name="rdbManualRename" Content="Stesso nome file" Foreground="Blue" FontSize="10" HorizontalAlignment="Left" Margin="303,158,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.313,0.337"/>
         <CheckBox x:Name="chkMantainOldFileName" Content="conserva nome file vecchio" Foreground="Blue" FontSize="10" HorizontalAlignment="Left" Margin="638,155,0,0" VerticalAlignment="Top"/>
-        <DataGrid x:Name="dgwLessonsImages" Background="LightGray" BorderThickness="1" BorderBrush="Black" Margin="0,194,0,131"/>
-        <Image x:Name="picImage" Margin="1,303,2,0" Height="133" VerticalAlignment="Top"/>
+        <DataGrid x:Name="dgwLessonsImages" Background="LightGray" BorderThickness="1" 
+                  MouseDown="dgwLessonsImages_CellClick" MouseDoubleClick="dgwLessonsImages_CellDoubleClick"
+                  BorderBrush="Black" Margin="0,194,0,131"/>
+        <Image x:Name="picImage" Margin="1,303,2,0" 
+               MouseDown="picImage_DoubleClick"
+               Height="133" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Center" Margin="0,534,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="800"/>
         <TextBox x:Name="txtCaption" HorizontalAlignment="Center" Height="23" Margin="0,436,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="800"/>
     </Grid>

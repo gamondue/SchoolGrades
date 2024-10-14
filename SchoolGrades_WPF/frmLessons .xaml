@@ -17,41 +17,42 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
+            <ColumnDefinition Width="125*" />
+            <ColumnDefinition Width="125*" />
+            <ColumnDefinition Width="125*" />
+            <ColumnDefinition Width="125*" />
+            <ColumnDefinition Width="125*" />
+            <ColumnDefinition Width="125*" />
+            <ColumnDefinition Width="125*" />
+            <ColumnDefinition Width="32*" />
+            <ColumnDefinition Width="93*"/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Width="90" Content="Codice Scuola"/>
-        <Label Grid.Row="0" Grid.Column="1" Width="90">Anno Scol.</Label>
-        <Label Grid.Row="0" Grid.Column="2" Width="90" Content="Sigla Classe"/>
-        <Label Grid.Row="0" Grid.Column="3" Width="90" Content="Materia"/>
-        <Button Grid.Row="0" Grid.Column="4" Width="90">Cart. Immag.</Button>
-        <Button Grid.Row="0" Grid.Column="5" Width="90">Start links</Button>
+        <Label Grid.Row="0" Grid.Column="0" Width="90" Content="Codice Scuola" Margin="18,0,17,0"/>
+        <Label Grid.Row="0" Grid.Column="1" Width="90" Margin="17,0,18,0">Anno Scol.</Label>
+        <Label Grid.Row="0" Grid.Column="2" Width="90" Content="Sigla Classe" Margin="18,0,17,0"/>
+        <Label Grid.Row="0" Grid.Column="3" Width="90" Content="Materia" Margin="17,0,18,0"/>
+        <Button Grid.Row="0" Grid.Column="4" Width="90" Margin="18,0,17,0">Cart. Immag.</Button>
+        <Button Grid.Row="0" Grid.Column="5" Width="90" Margin="17,0,18,0">Start links</Button>
 
-        <TextBlock x:Name="txtOfficialSchoolAbbreviation" Background="White" Grid.Row="1" Grid.Column="0" Width="90"/>
-        <TextBlock x:Name="txtSchoolYear" Background="White" Grid.Row="1" Grid.Column="1" Width="90" Margin="5,0"/>
-        <TextBlock x:Name="txtClass" Background="White" Grid.Row="1" Grid.Column="2" Width="90"/>
+        <TextBlock x:Name="txtOfficialSchoolAbbreviation" Background="White" Grid.Row="1" Grid.Column="0" Width="90" Margin="18,0,17,0"/>
+        <TextBlock x:Name="txtSchoolYear" Background="White" Grid.Row="1" Grid.Column="1" Width="90" Margin="17,0,18,0"/>
+        <TextBlock x:Name="txtClass" Background="White" Grid.Row="1" Grid.Column="2" Width="90" Margin="18,0,17,0"/>
         <TextBlock x:Name="txtSchoolSubject" Background="White" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="4" Width="500"/>
 
-        <TextBlock Grid.Row="2" Grid.Column="0" Width="110" Margin="0,0,5,0">Cod. Lezione</TextBlock>
-        <TextBlock Grid.Row="2" Grid.Column="1" Width="110" Margin="5,0">Data</TextBlock>
-        <TextBlock Grid.Row="2" Grid.Column="2" Width="120" Margin="5,0">Descrizione Lezione</TextBlock>
+        <TextBlock Grid.Row="2" Grid.Column="0" Width="110" Margin="5,0,10,0">Cod. Lezione</TextBlock>
+        <TextBlock Grid.Row="2" Grid.Column="1" Width="110" Margin="7,0,8,0">Data</TextBlock>
+        <TextBlock Grid.Row="2" Grid.Column="2" Width="120" Margin="5,0,0,0">Descrizione Lezione</TextBlock>
         <!--<Button x:Name="btnExport" Width="80" Margin="80,0,10,0" 
                         IsEnabled="False">Export</Button>-->
         <!--<Button  x:Name="BtnSearchAmongTopics" Width="80" Margin="10,0" 
                          Click="BtnSearchAmongTopics_Click">Cerca</Button>-->
-        <Button x:Name="btnCopyToClipboard" Grid.Row="2" Grid.Column="4" Width="90" Margin="10,0" 
+        <Button x:Name="btnCopyToClipboard" Grid.Row="2" Grid.Column="4" Width="90" Margin="18,0,17,0" 
                         Click="btnCopyToClipboard_Click">Clipboard</Button>
         <Button x:Name="btnLessonSave" Grid.Row="2" Grid.Column="6" Width="90" Content="Salva Lezione" 
-                        Click="btnLessonSave_Click"/>
+                        Click="btnLessonSave_Click" Margin="18,0,17,0"/>
 
-        <TextBox x:Name="txtLessonCode" Grid.Row="3" Grid.Column="0" Height="20"/>
-        <DatePicker x:Name="dtpLessonDate" Grid.Row="3" Grid.Column="1" Width="105"/>
+        <TextBox x:Name="txtLessonCode" Grid.Row="3" Grid.Column="0" Height="20" Margin="0,5,0,5"/>
+        <DatePicker x:Name="dtpLessonDate" Grid.Row="3" Grid.Column="1" Width="105" Margin="10,0,10,0"/>
         <TextBox x:Name="TxtLessonDesc" TextWrapping="Wrap" 
                  Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="5" Grid.RowSpan="2"/>
 
@@ -127,14 +128,14 @@
         </Grid>
         <StackPanel Grid.Row="0" Grid.Column="7" Orientation="Vertical" 
                     Grid.RowSpan="6"
-                    HorizontalAlignment="Left" VerticalAlignment="Top">
-            <Image x:Name="picImage" Height="85"></Image>
+                    HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2">
+            <Image x:Name="picImage" Height="85" MouseLeftButtonDown ="picImage_DoubleClick"/>
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnPrevious" Width="20" Height="20" 
                         Click="btnPrevious_Click">←</Button>
                 <Button x:Name="btnNext" Width="20" Height="20" 
                         Click="btnNext_Click">→</Button>
-                <Button x:Name="btnManageImages" Height="30">Immagini e docs</Button>
+                <Button x:Name="btnManageImages" Height="30" Click="btnManageImages_Click">Immagini e docs</Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock>Trova</TextBlock>
