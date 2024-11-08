@@ -95,7 +95,7 @@
             TxtFileDatabase.Location = new System.Drawing.Point(8, 153);
             TxtFileDatabase.Margin = new System.Windows.Forms.Padding(4);
             TxtFileDatabase.Name = "TxtFileDatabase";
-            TxtFileDatabase.Size = new System.Drawing.Size(642, 32);
+            TxtFileDatabase.Size = new System.Drawing.Size(642, 24);
             TxtFileDatabase.TabIndex = 2;
             TxtFileDatabase.TextChanged += TxtFileDatabase_TextChanged;
             TxtFileDatabase.DoubleClick += TxtPaths_DoubleClick;
@@ -120,7 +120,7 @@
             TxtPathImages.Location = new System.Drawing.Point(8, 203);
             TxtPathImages.Margin = new System.Windows.Forms.Padding(4);
             TxtPathImages.Name = "TxtPathImages";
-            TxtPathImages.Size = new System.Drawing.Size(867, 32);
+            TxtPathImages.Size = new System.Drawing.Size(867, 24);
             TxtPathImages.TabIndex = 15;
             // 
             // btnPathImages
@@ -153,7 +153,7 @@
             lblFileDatabase.AutoSize = true;
             lblFileDatabase.Location = new System.Drawing.Point(5, 132);
             lblFileDatabase.Name = "lblFileDatabase";
-            lblFileDatabase.Size = new System.Drawing.Size(123, 26);
+            lblFileDatabase.Size = new System.Drawing.Size(81, 18);
             lblFileDatabase.TabIndex = 93;
             lblFileDatabase.Text = "File dei dati";
             // 
@@ -162,7 +162,7 @@
             lblPathDatabase.AutoSize = true;
             lblPathDatabase.Location = new System.Drawing.Point(5, 74);
             lblPathDatabase.Name = "lblPathDatabase";
-            lblPathDatabase.Size = new System.Drawing.Size(163, 26);
+            lblPathDatabase.Size = new System.Drawing.Size(108, 18);
             lblPathDatabase.TabIndex = 96;
             lblPathDatabase.Text = "Cartella dei dati";
             // 
@@ -172,7 +172,7 @@
             TxtPathDatabase.Location = new System.Drawing.Point(8, 95);
             TxtPathDatabase.Margin = new System.Windows.Forms.Padding(4);
             TxtPathDatabase.Name = "TxtPathDatabase";
-            TxtPathDatabase.Size = new System.Drawing.Size(867, 32);
+            TxtPathDatabase.Size = new System.Drawing.Size(867, 24);
             TxtPathDatabase.TabIndex = 94;
             TxtPathDatabase.DoubleClick += TxtPaths_DoubleClick;
             // 
@@ -195,7 +195,7 @@
             lblPathImages.AutoSize = true;
             lblPathImages.Location = new System.Drawing.Point(5, 181);
             lblPathImages.Name = "lblPathImages";
-            lblPathImages.Size = new System.Drawing.Size(234, 26);
+            lblPathImages.Size = new System.Drawing.Size(155, 18);
             lblPathImages.TabIndex = 97;
             lblPathImages.Text = "Cartella delle immagini";
             // 
@@ -273,7 +273,7 @@
             TxtPathDocuments.Location = new System.Drawing.Point(8, 258);
             TxtPathDocuments.Margin = new System.Windows.Forms.Padding(4);
             TxtPathDocuments.Name = "TxtPathDocuments";
-            TxtPathDocuments.Size = new System.Drawing.Size(867, 32);
+            TxtPathDocuments.Size = new System.Drawing.Size(867, 24);
             TxtPathDocuments.TabIndex = 105;
             TxtPathDocuments.DoubleClick += TxtPaths_DoubleClick;
             // 
@@ -296,7 +296,7 @@
             lblPathDocuments.AutoSize = true;
             lblPathDocuments.Location = new System.Drawing.Point(5, 236);
             lblPathDocuments.Name = "lblPathDocuments";
-            lblPathDocuments.Size = new System.Drawing.Size(229, 26);
+            lblPathDocuments.Size = new System.Drawing.Size(154, 18);
             lblPathDocuments.TabIndex = 107;
             lblPathDocuments.Text = "Cartella dei documenti";
             // 
@@ -350,7 +350,7 @@
             chkAskPassword.Enabled = false;
             chkAskPassword.Location = new System.Drawing.Point(967, 272);
             chkAskPassword.Name = "chkAskPassword";
-            chkAskPassword.Size = new System.Drawing.Size(222, 30);
+            chkAskPassword.Size = new System.Drawing.Size(152, 22);
             chkAskPassword.TabIndex = 112;
             chkAskPassword.Text = "Chiedi la password";
             toolTip1.SetToolTip(chkAskPassword, "Se abilitato il programma chiede una password per entrare");
@@ -361,7 +361,7 @@
             chkSaveBackup.AutoSize = true;
             chkSaveBackup.Location = new System.Drawing.Point(723, 153);
             chkSaveBackup.Name = "chkSaveBackup";
-            chkSaveBackup.Size = new System.Drawing.Size(316, 30);
+            chkSaveBackup.Size = new System.Drawing.Size(213, 22);
             chkSaveBackup.TabIndex = 113;
             chkSaveBackup.Text = "Salva database alla chiusura";
             toolTip1.SetToolTip(chkSaveBackup, "Se abilitato il programma chiede una password per entrare");
@@ -427,10 +427,10 @@
             // 
             // frmSetup
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(13F, 26F);
+            AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.PowderBlue;
-            ClientSize = new System.Drawing.Size(1142, 298);
+            ClientSize = new System.Drawing.Size(1142, 300);
             Controls.Add(btnStudentsManagement);
             Controls.Add(btnResetDatabase);
             Controls.Add(btnSchoolPeriodsManagement);

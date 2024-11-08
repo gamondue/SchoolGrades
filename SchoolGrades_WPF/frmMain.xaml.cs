@@ -1,5 +1,4 @@
-﻿//using gamon.TreeMptt;
-using gamon;
+﻿using gamon;
 using SchoolGrades;
 using SchoolGrades.BusinessObjects;
 using System;
@@ -29,12 +28,12 @@ namespace SchoolGrades_WPF
 
         List<frmLessons> listLessons = new List<frmLessons>();
 
-        School school;
+        private School currentSchool;
 
-        private string schoolYear;
+        private SchoolYear currentYear;
 
         private bool wndInitializing = true;
-        bool firstTime = true;
+        //bool firstTime = true;
 
         Student currentStudent;
         internal Question currentQuestion;
@@ -167,10 +166,8 @@ namespace SchoolGrades_WPF
             // fill the combo of School subjects
             List<SchoolSubject> listSubjects = Commons.bl.GetListSchoolSubjects(true);
             cmbSchoolSubject.ItemsSource = listSubjects;
-
-            frmMain_Load();
         }
-        private void frmMain_Load()
+        private void frmMain_Load(object sender, RoutedEventArgs e)
         {
             // start the Thread that concurrently saves the Topics tree
 
@@ -183,7 +180,11 @@ namespace SchoolGrades_WPF
             if (!File.Exists(Commons.PathAndFileDatabase))
                 return;
 
-            //////timerQuestion.Interval = 250;
+
+            // hook timerQuestion to its event timerQuestion_Tick
+            timerQuestion.Tick += timerQuestion_Tick;
+            timerLesson.Tick += timerLesson_Tick;
+            timerPopUp.Tick += timerPopUp_Tick;
 
             lblDatabaseFile.Visibility = Visibility.Visible;
 
@@ -195,14 +196,15 @@ namespace SchoolGrades_WPF
             //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             //btnTemporary.Visibility = Visibility.Hidden;
 #endif
-            school = Commons.bl.GetSchool(Commons.IdSchool);
-            if (school == null)
+            currentSchool = Commons.bl.GetSchool(Commons.IdSchool);
+            if (currentSchool == null)
                 return;
 
             if (cmbSchoolYear.SelectedItem != null)
-                schoolYear = cmbSchoolYear.SelectedItem.ToString();
+                currentYear = (SchoolYear)cmbSchoolYear.SelectedItem;
 
-            lstClasses.ItemsSource = Commons.bl.GetClassesOfYear(school.IdSchool, schoolYear);
+            lstClasses.ItemsSource = Commons.bl.GetClassesOfYear(currentSchool.IdSchool,
+                currentYear.IdSchoolYear);
 
             if (lstClasses.ItemsSource == null)
                 return;
@@ -212,7 +214,7 @@ namespace SchoolGrades_WPF
             if ((bool)chkActivateLessonClock.IsChecked)
             {
                 CalculateTimesForEndLessonWarning();
-                //////////timerLesson.Start();
+                timerLesson.Start();
             }
 
             string file = Path.Combine(Commons.PathLogs, "frmMain_parameters.txt");
@@ -232,6 +234,10 @@ namespace SchoolGrades_WPF
 
             lblDatabaseFile.Text = Path.GetFileName(Commons.PathAndFileDatabase);
             wndInitializing = false;
+
+            //////////lstTimeInterval.Items.Add("05");
+            //////////lstTimeInterval.Items.Add("10");
+
         }
         private void StartNewConfigurationForm()
         {
@@ -546,7 +552,8 @@ namespace SchoolGrades_WPF
         {
             try
             {
-                string pictureFile = Path.Combine(Commons.PathImages, Commons.bl.GetFilePhoto(Chosen.IdStudent, schoolYear));
+                string pictureFile = Path.Combine(Commons.PathImages, Commons.bl.GetFilePhoto(Chosen.IdStudent,
+                    currentYear.IdSchoolYear));
                 var uriSource = new Uri(pictureFile, UriKind.Absolute);
                 picStudent.Source = new BitmapImage(uriSource);
             }
@@ -556,7 +563,7 @@ namespace SchoolGrades_WPF
                 Console.Beep();
             }
         }
-        private void timerQuestion_Tick(object sender, RoutedEventArgs e)
+        private void timerQuestion_Tick(object? sender, EventArgs e)
         {
             ticksPassed++;
             int msPassati = ticksPassed * timerQuestion.Interval.Milliseconds;
@@ -652,28 +659,37 @@ namespace SchoolGrades_WPF
                 stckLessonTime.Visibility = Visibility.Hidden;
             }
         }
-        private void cmbSchoolYear_SelectedIndexChanged(object sender, RoutedEventArgs e)
+        private void cmbSchoolYear_SelectedIndexChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!wndInitializing && firstTime)
-            {
-                firstTime = false;
-                //List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
-                //cmbSchoolYear.ItemsSource = ly;
+#if !SQL_SERVER
+            currentSchool = Commons.bl.GetSchool(Commons.IdSchool);
+            if (cmbSchoolYear.SelectedItem != null)
+                currentYear = (SchoolYear)cmbSchoolYear.SelectedItem;
+            lstClasses.ItemsSource = Commons.bl.GetClassesOfYear(currentSchool.IdSchool, currentYear.IdSchoolYear);
+            //if (lstClasses.DataSource == null)
+            //    return;
+#endif
 
-                //if (ly.Count > 0)
-                //    cmbSchoolYear.SelectedItem = ly[ly.Count - 1];
+            //if (!wndInitializing && firstTime)
+            //{
+            //    firstTime = false;
+            //    //List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
+            //    //cmbSchoolYear.ItemsSource = ly;
 
-                // fill the combo of grade types 
-                List<GradeType> ListGradeTypes = Commons.bl.GetListGradeTypes();
-                cmbGradeType.ItemsSource = ListGradeTypes;
+            //    //if (ly.Count > 0)
+            //    //    cmbSchoolYear.SelectedItem = ly[ly.Count - 1];
 
-                // fill the combo of School subjects
-                List<SchoolSubject> listSubjects = Commons.bl.GetListSchoolSubjects(true);
-                cmbSchoolSubject.ItemsSource = listSubjects;
+            //    // fill the combo of grade types 
+            //    List<GradeType> ListGradeTypes = Commons.bl.GetListGradeTypes();
+            //    cmbGradeType.ItemsSource = ListGradeTypes;
 
-                frmMain_Load();
-            }
-            firstTime = true;
+            //    // fill the combo of School subjects
+            //    List<SchoolSubject> listSubjects = Commons.bl.GetListSchoolSubjects(true);
+            //    cmbSchoolSubject.ItemsSource = listSubjects;
+
+            //    ////////////frmMain_Load();
+            //}
+            //firstTime = true;
         }
         //private void btnSalvaInterrogati_Click(object sender, RoutedEventArgs e)
         //{
@@ -742,8 +758,8 @@ namespace SchoolGrades_WPF
             if (lstClasses.SelectedItem != null)
             {
                 dgwStudents.ItemsSource = null;
-                currentStudentsList = Commons.bl.GetStudentsOfClassList(school.OfficialSchoolAbbreviation, schoolYear,
-                    lstClasses.SelectedItem.ToString(), false);
+                currentStudentsList = Commons.bl.GetStudentsOfClassList(currentSchool.OfficialSchoolAbbreviation,
+                    currentYear.IdSchoolYear, lstClasses.SelectedItem.ToString(), false);
                 dgwStudents.ItemsSource = currentStudentsList;
                 eligiblesList.Clear();
                 if (currentStudentsList == null)
@@ -787,8 +803,8 @@ namespace SchoolGrades_WPF
             bool OneIsDifferent = false;
             if (currentClass != null)
             {
-                List<Student> oldList = Commons.bl.GetStudentsOfClassList(school.OfficialSchoolAbbreviation, schoolYear,
-                        currentClass.Abbreviation, false);
+                List<Student> oldList = Commons.bl.GetStudentsOfClassList(currentSchool.OfficialSchoolAbbreviation,
+                    currentYear.IdSchoolYear, currentClass.Abbreviation, false);
                 if (currentStudentsList != null)
                 {
                     for (int i = 0; i < oldList.Count; i++)
@@ -925,7 +941,7 @@ namespace SchoolGrades_WPF
             if (f.NewDatabaseFile)
             {
                 // restart from the beginning with a new database file 
-                frmMain_Load();
+                ////////////frmMain_Load();
                 lblDatabaseFile.Text = Commons.DatabaseFileName_Current;
                 currentStudentsList = null;
                 eligiblesList.Clear();
@@ -1374,7 +1390,7 @@ namespace SchoolGrades_WPF
 
             alarmNotFired = true;
         }
-        private void timerLesson_Tick(object sender, RoutedEventArgs e)
+        private void timerLesson_Tick(object? sender, EventArgs e)
         {
             timeLeftMinutes = ticksToMinutesFactor * (thisLessonEndTime.Ticks - DateTime.Now.Ticks);
 
@@ -1397,8 +1413,8 @@ namespace SchoolGrades_WPF
             }
             if (timeLeftMinutes >= 0)
             {
-                WpfColor BackColor = Commons.ColorFromNumber(currentSubject.Color);
-                SolidColorBrush br = new SolidColorBrush(WpfColor.FromArgb(BackColor.A, BackColor.R, BackColor.G, BackColor.B));
+                ////////WpfColor BackColor = Commons.ColorFromNumber(currentSubject.Color);
+                ////////SolidColorBrush br = new SolidColorBrush(WpfColor.FromArgb(BackColor.A, BackColor.R, BackColor.G, BackColor.B));
 
                 // changes color from startColor to finalColor
                 colHSL.Hue = (int)(startColor.GetHue() + spanHue * (timeLessonMinutes - timeLeftMinutes) / (timeLessonMinutes));
@@ -1453,10 +1469,11 @@ namespace SchoolGrades_WPF
         {
 
         }
-        private void lstTimeInterval_SelectedIndexChanged(object sender, RoutedEventArgs e)
+        private void lstTimeInterval_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ListBox lb = (ListBox)sender;
-            txtTimeInterval.Text = lb.SelectedItem.ToString();
+            ListBoxItem lbi = (ListBoxItem)lb.SelectedItem;
+            txtTimeInterval.Text = lbi.Content.ToString();
         }
         private void lstTimeInterval_DoubleClick(object sender, RoutedEventArgs e)
         {
@@ -1465,6 +1482,7 @@ namespace SchoolGrades_WPF
         private void StartColorTimer(bool SoundEffectsInTimer)
         {
             double t = double.Parse(txtTimeInterval.Text);
+            // this calls the WinForms timer! 
             ColorTimer ft = new ColorTimer(t / 60, t / 60, SoundEffectsInTimer);
             if (currentStudent != null)
             {
@@ -1546,7 +1564,7 @@ namespace SchoolGrades_WPF
                 SetNewPopUpOfStudentToQuestion();
             }
         }
-        private void timerPopUp_Tick(object sender, RoutedEventArgs e)
+        private void timerPopUp_Tick(object sender, EventArgs e)
         {
             if (nextPopUpQuestionTime <= DateTime.Now)
             {

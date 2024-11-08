@@ -30,7 +30,7 @@ namespace SchoolGrades_WPF
         private void frmNewYear_Load(object sender, RoutedEventArgs e)
         {
             loading = true;
-            // school data
+            // currentSchool data
             currentSchool = Commons.bl.GetSchool(TxtOfficialSchoolAbbreviation.Text);
 
             // years's data in combo

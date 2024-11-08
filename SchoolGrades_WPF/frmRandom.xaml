@@ -5,13 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SchoolGrades_WPF"
         mc:Ignorable="d"
-        Title="Numero casuale" Height="175" Width="193" ResizeMode="CanMinimize" Background="PowderBlue">
+        Title="Numero casuale" Height="175" Width="230" 
+        ResizeMode="NoResize" Background="PowderBlue">
     <Grid>
-        <TextBox x:Name="txtFrom" HorizontalAlignment="Left" FontSize="20" Margin="10,44,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="57" Height="37"/>
-        <TextBox x:Name="txtTo" HorizontalAlignment="Left" FontSize="20" Margin="115,43,0,79" TextWrapping="Wrap" Width="50" Height="37"/>
-        <TextBox x:Name="txtResult" HorizontalAlignment="Left" FontSize="20" Margin="10,102,0,0" TextWrapping="Wrap" Width="57" Height="42"/>
-        <Button x:Name="btnDraw" Content="Sorteggio" HorizontalAlignment="Left" FontSize="14" Background="White" Foreground="DarkBlue" Margin="100,110,0,0" VerticalAlignment="Top" Height="39" Width="65"/>
-        <Label Content="Da" HorizontalAlignment="Left" FontSize="20" Foreground="DarkBlue" Margin="10,7,0,0" VerticalAlignment="Top"/>
-        <Label Content="A" HorizontalAlignment="Left" FontSize="20" Foreground="DarkBlue" Margin="115,6,0,0" VerticalAlignment="Top"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Content="Da"
+               VerticalAlignment="Bottom"
+               HorizontalContentAlignment="Center" 
+               FontSize="20" Foreground="DarkBlue" 
+               Margin="5"/>
+        <Label Grid.Row="0" Grid.Column="1" Content="A" 
+               VerticalAlignment="Bottom"
+               HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+               FontSize="20" Foreground="DarkBlue"
+               Margin="5"/>
+
+        <TextBox Grid.Row="1" Grid.Column="0" x:Name="txtFrom" 
+                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                 FontSize="20" Text="1"
+                 Margin="5"/>
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="txtTo" 
+                 HorizontalContentAlignment="Center"
+                 FontSize="20"
+                 Margin="5"/>
+        
+        <TextBox Grid.Row="2" Grid.Column="0" x:Name="txtResult" 
+                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                 FontSize="20"
+                 Margin="5"/>
+        <Button Grid.Row="2" Grid.Column="1" x:Name="btnDraw" 
+                Content="Sorteggio"
+                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                FontSize="20"
+                Margin="5" Click="btnDraw_Click"/>
     </Grid>
 </Window>

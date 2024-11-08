@@ -6,17 +6,23 @@
         xmlns:local="clr-namespace:SchoolGrades_WPF"
         mc:Ignorable="d"
         Title="Mosaico delle foto" Height="545" Width="916">
-    <Grid x:Name="PictureGrid" Background="PowderBlue">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <TextBox Width="311" Height="29" x:Name="txtStudentsName" 
-                 Text="Nome e cognome" Margin="302,250,302,250"/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBox Grid.Row="0" Height="Auto" FontSize ="40"  x:Name="txtStudentsName" 
+                 Text="Nome e cognome" HorizontalContentAlignment="Center" Grid.ColumnSpan="3" />
+        <Grid Grid.Row="1" x:Name="PictureGrid" Background="PowderBlue">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+        </Grid>
     </Grid>
 </Window>

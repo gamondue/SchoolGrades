@@ -17,20 +17,21 @@ namespace gamon.TreeMptt
     {
         /// <summary>
         /// Takes a TreeView control and adds to it, and to some ancillary TextBoxes and CheckBoxes, 
-        /// the capability of storing and retriving the tree in a database, memorizing it both 
+        /// the capability of storing and retrieving the tree in a database, memorizing it both 
         /// by the reference to the parent node of each node ("ByParent") 
         /// and by the use of a right and left nodes reference in a 
         /// Modified Preorder Traversal Tree organization ("Mptt"). 
-        /// The saving of the tree in a MPTT fashion can be accomplished asyncronuosly
+        /// The saving of the tree in a MPTT fashion can be accomplished asynchronously
         /// in a separate thread. Consistency of the tree is preserved when the program exits. 
         /// (!! proved NOT TRUE is some cases, must be cured.. !!)
-        /// Some events of the controls, redriven to this class, are treated. 
+        /// Some events of the controls, re-driven to this class, are treated. 
         /// 
         /// An MPTT tree loads more quickly in a single DBMS query but saves much more 
         /// slowly, with one DBMS query for each change in the left and right node. 
-        /// Almost all left and right nodes could be changed if the change in the tree is very "up", near the root
+        /// Almost all left and right nodes could be changed if the change in the tree is very "up", 
+        /// near the root of the tree.
         /// With MPTT we can use single queries to retrive subtrees. 
-        /// With MPTT we can have all the nodes that stay under a given node with just two tests
+        /// With MPTT we can have all the nodes that stay under a given node with just two tests.
         /// 
         ///  made by Gabriele MONTI - Forlì - Italia
         /// </summary>
@@ -102,7 +103,7 @@ namespace gamon.TreeMptt
 
         #region internal object variables for controls passed from outside
         // Winforms control that is manipulated by this class
-        internal TreeView shownTreeView;
+        private TreeView shownTreeView;
         TextBox txtNodeName;
         TextBox txtNodeDescription;
         TextBox txtSearchString;

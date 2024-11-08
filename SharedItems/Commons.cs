@@ -55,7 +55,7 @@ namespace SchoolGrades
         internal static string PathAndFileDatabase { get => pathAndFileDatabase; set => pathAndFileDatabase = value; }
 
         // wait time before saving 
-        public static int BackgroundThreadSleepSeconds = 60;
+        public static int BackgroundThreadSleepSeconds = 6; // 120 // !!!!!!!!!!!!!!!!!! rimettere dopo DEBUg !!!!!!!!!!!!!!!!!!!
         // enable Mptt backgroud saving of Left anf Right pointers 
         public static bool BackgroundSavingEnabled = true;
         // exit the background task 

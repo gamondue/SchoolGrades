@@ -91,7 +91,7 @@ namespace SchoolGrades_WPF
 
         private void lstClasses_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            //DataTable students = db.GetClass(school, schoolYear, lstClasses.SelectedItem.ToString());
+            //DataTable students = db.GetClass(currentSchool, schoolYear, lstClasses.SelectedItem.ToString());
         }
 
         private void btnRestoreTables_Click(object sender, RoutedEventArgs e)

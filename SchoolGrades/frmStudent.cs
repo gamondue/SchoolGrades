@@ -1,7 +1,6 @@
 ﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
 using System.Windows.Forms;
 
@@ -167,14 +166,13 @@ namespace SchoolGrades
         {
             if (e.RowIndex > -1)
             {
-                List<Student> l = (List<Student>)dgwSearchedStudents.DataSource;
-                int key = (int)(l[e.RowIndex].IdStudent);
+                List<Student> ls = (List<Student>)dgwSearchedStudents.DataSource;
+                int key = (int)(ls[e.RowIndex].IdStudent);
 
-                //int key = (int)((DataTable)(dgwSearchedStudents.DataSource)).Rows[e.RowIndex]["idStudent"];
                 Student s = Commons.bl.GetStudent(key);
 
-                s.ClassAbbreviation = (string)((DataTable)(dgwSearchedStudents.DataSource)).Rows[e.RowIndex]["ClassAbbreviation"];
-                s.SchoolYear = (string)((DataTable)(dgwSearchedStudents.DataSource)).Rows[e.RowIndex]["SchoolYear"];
+                s.ClassAbbreviation = ls[e.RowIndex].ClassAbbreviation;
+                s.SchoolYear = ls[e.RowIndex].SchoolYear;
                 ShowStudentData(s);
                 currentStudent = s;
             }

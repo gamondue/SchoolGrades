@@ -80,6 +80,7 @@
             TxtStartLinksFolder = new System.Windows.Forms.TextBox();
             splitter1 = new System.Windows.Forms.Splitter();
             btnPathStartLinks = new System.Windows.Forms.Button();
+            btnChoseAmogPastPhotos = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)DgwClass).BeginInit();
             ((System.ComponentModel.ISupportInitialize)DgwStudents).BeginInit();
             groupBox1.SuspendLayout();
@@ -162,7 +163,7 @@
             BtnModifyStudent.BackColor = System.Drawing.Color.Transparent;
             BtnModifyStudent.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
             BtnModifyStudent.ForeColor = System.Drawing.Color.DarkBlue;
-            BtnModifyStudent.Location = new System.Drawing.Point(518, 182);
+            BtnModifyStudent.Location = new System.Drawing.Point(632, 182);
             BtnModifyStudent.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             BtnModifyStudent.Name = "BtnModifyStudent";
             BtnModifyStudent.Size = new System.Drawing.Size(81, 62);
@@ -467,6 +468,7 @@
             BtnPhotoChange.Size = new System.Drawing.Size(81, 62);
             BtnPhotoChange.TabIndex = 13;
             BtnPhotoChange.Text = "Cambia foto allievo";
+            toolTip1.SetToolTip(BtnPhotoChange, "Aggiunge una nuova foto o cambia quella che c'è.");
             BtnPhotoChange.UseVisualStyleBackColor = false;
             BtnPhotoChange.Click += BtnPhotoChange_Click;
             // 
@@ -487,7 +489,7 @@
             btnToggleDisableStudent.BackColor = System.Drawing.Color.Transparent;
             btnToggleDisableStudent.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
             btnToggleDisableStudent.ForeColor = System.Drawing.Color.DarkBlue;
-            btnToggleDisableStudent.Location = new System.Drawing.Point(430, 182);
+            btnToggleDisableStudent.Location = new System.Drawing.Point(535, 182);
             btnToggleDisableStudent.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             btnToggleDisableStudent.Name = "btnToggleDisableStudent";
             btnToggleDisableStudent.Size = new System.Drawing.Size(85, 62);
@@ -513,12 +515,13 @@
             btnPhotoErase.BackColor = System.Drawing.Color.Transparent;
             btnPhotoErase.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
             btnPhotoErase.ForeColor = System.Drawing.Color.DarkBlue;
-            btnPhotoErase.Location = new System.Drawing.Point(346, 182);
+            btnPhotoErase.Location = new System.Drawing.Point(345, 182);
             btnPhotoErase.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             btnPhotoErase.Name = "btnPhotoErase";
             btnPhotoErase.Size = new System.Drawing.Size(81, 62);
             btnPhotoErase.TabIndex = 157;
             btnPhotoErase.Text = "Elimina foto allievo";
+            toolTip1.SetToolTip(btnPhotoErase, "Elimina la foto dello studente selezionato");
             btnPhotoErase.UseVisualStyleBackColor = false;
             btnPhotoErase.Click += btnPhotoErase_Click;
             // 
@@ -706,12 +709,28 @@
             btnPathStartLinks.UseVisualStyleBackColor = false;
             btnPathStartLinks.Click += btnPathStartLinks_Click;
             // 
+            // btnChoseAmogPastPhotos
+            // 
+            btnChoseAmogPastPhotos.BackColor = System.Drawing.Color.Transparent;
+            btnChoseAmogPastPhotos.Enabled = false;
+            btnChoseAmogPastPhotos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
+            btnChoseAmogPastPhotos.ForeColor = System.Drawing.Color.DarkBlue;
+            btnChoseAmogPastPhotos.Location = new System.Drawing.Point(428, 182);
+            btnChoseAmogPastPhotos.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            btnChoseAmogPastPhotos.Name = "btnChoseAmogPastPhotos";
+            btnChoseAmogPastPhotos.Size = new System.Drawing.Size(81, 62);
+            btnChoseAmogPastPhotos.TabIndex = 164;
+            btnChoseAmogPastPhotos.Text = "Cerca foto vecchie";
+            toolTip1.SetToolTip(btnChoseAmogPastPhotos, "Trova tutte le foto esistenti  dello studente selezionato");
+            btnChoseAmogPastPhotos.UseVisualStyleBackColor = false;
+            // 
             // frmClassesManagement
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.PowderBlue;
             ClientSize = new System.Drawing.Size(1136, 699);
+            Controls.Add(btnChoseAmogPastPhotos);
             Controls.Add(btnCreateNewClass);
             Controls.Add(btnPathStartLinks);
             Controls.Add(picStudent);
@@ -823,6 +842,8 @@
         private System.Windows.Forms.Button btnPathStartLinks;
         private System.Windows.Forms.Button btnImportStudentsOfSomeClasses;
         private System.Windows.Forms.Button btnCreateNewClass;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnChoseAmogPastPhotos;
     }
 }
 

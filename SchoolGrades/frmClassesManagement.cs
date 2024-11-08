@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Reflection;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace SchoolGrades
@@ -242,31 +241,26 @@ namespace SchoolGrades
                 if (newPhotoFullName != "" && !(dr == DialogResult.Cancel))
                 {
                     if (picStudent.Image != null)
+                    {
                         picStudent.Image.Dispose();
-                    Application.DoEvents();
-                    Thread.Sleep(1500);
-
-                    System.Drawing.Image newImage = System.Drawing.Image.FromFile(newPhotoFullName);
-                    picStudent.Image = newImage;
-
-                    Application.DoEvents();
-                    Thread.Sleep(1500);
-                    //picStudent.Image = null;
-
-                    ////picStudent.Image.Dispose();
-
-                    //Application.DoEvents();
-                    //if (picStudent.InitialImage != null)
-                    //    picStudent.InitialImage.Dispose();
-                    //picStudent.InitialImage = null;
-                    //picStudent.Update();
-                    //Application.DoEvents();
-                    //picStudent.Refresh();
-                    //Thread.Sleep(1500);
-
-                    Commons.bl.CopyAndLinkOnePhoto(s, currentClass, newPhotoFullName);
+                        picStudent.Image = null;
+                    }
                     s.SchoolYear = CmbSchoolYear.Text;
-                    LoadPicture(s);
+                    try
+                    {
+                        Commons.bl.CopyAndLinkOnePhoto(s, currentClass, newPhotoFullName);
+                    }
+                    catch (IOException)
+                    {
+                        MessageBox.Show("Il file immagine è bloccato. Impossibile sostituirlo!\nProvare a cancellare prima la foto precedente.");
+                        return;
+                    }
+                    // loads the new photo in the picture box avoiding the locking of the origin file
+                    using (var newImage = System.Drawing.Image.FromFile(newPhotoFullName))
+                    {
+                        picStudent.Image = (System.Drawing.Image)newImage.Clone();
+                    }
+                    //LoadPicture(s);
                 }
             }
             else

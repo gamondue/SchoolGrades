@@ -51,6 +51,10 @@ namespace SchoolGrades_WPF
                     image = new WPFImage();
                     image.Source = new BitmapImage(fileUri);
                     PictureGrid.Children.Add(image);
+                    image.Tag = s.LastName + " " + s.FirstName;
+
+                    image.MouseDown += new System.Windows.Input.MouseButtonEventHandler(pictures_MouseDown);
+                    image.MouseUp += new System.Windows.Input.MouseButtonEventHandler(pictures_MouseUp);
 
                     Grid.SetRow(image, rowIndex);
                     Grid.SetColumn(image, columnIndex);
