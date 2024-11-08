@@ -114,19 +114,19 @@
             lblSchoolSubject.AutoSize = true;
             lblSchoolSubject.Location = new System.Drawing.Point(364, 22);
             lblSchoolSubject.Name = "lblSchoolSubject";
-            lblSchoolSubject.Size = new System.Drawing.Size(93, 29);
+            lblSchoolSubject.Size = new System.Drawing.Size(57, 18);
             lblSchoolSubject.TabIndex = 5;
             lblSchoolSubject.Text = "Materia";
             // 
             // txtOfficialSchoolAbbreviation
             // 
             txtOfficialSchoolAbbreviation.Enabled = false;
-            txtOfficialSchoolAbbreviation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtOfficialSchoolAbbreviation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
             txtOfficialSchoolAbbreviation.Location = new System.Drawing.Point(13, 43);
             txtOfficialSchoolAbbreviation.Margin = new System.Windows.Forms.Padding(4);
             txtOfficialSchoolAbbreviation.Name = "txtOfficialSchoolAbbreviation";
             txtOfficialSchoolAbbreviation.ReadOnly = true;
-            txtOfficialSchoolAbbreviation.Size = new System.Drawing.Size(135, 32);
+            txtOfficialSchoolAbbreviation.Size = new System.Drawing.Size(135, 24);
             txtOfficialSchoolAbbreviation.TabIndex = 96;
             txtOfficialSchoolAbbreviation.Text = "FOIS01100L";
             // 
@@ -137,7 +137,7 @@
             lblSchoolCode.Location = new System.Drawing.Point(10, 22);
             lblSchoolCode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblSchoolCode.Name = "lblSchoolCode";
-            lblSchoolCode.Size = new System.Drawing.Size(170, 29);
+            lblSchoolCode.Size = new System.Drawing.Size(105, 18);
             lblSchoolCode.TabIndex = 95;
             lblSchoolCode.Text = "Codice Scuola";
             // 
@@ -148,7 +148,7 @@
             lblClassAbbreviation.Location = new System.Drawing.Point(258, 22);
             lblClassAbbreviation.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblClassAbbreviation.Name = "lblClassAbbreviation";
-            lblClassAbbreviation.Size = new System.Drawing.Size(148, 29);
+            lblClassAbbreviation.Size = new System.Drawing.Size(90, 18);
             lblClassAbbreviation.TabIndex = 94;
             lblClassAbbreviation.Text = "Sigla Classe";
             // 
@@ -157,7 +157,7 @@
             txtClass.Enabled = false;
             txtClass.Location = new System.Drawing.Point(261, 43);
             txtClass.Name = "txtClass";
-            txtClass.Size = new System.Drawing.Size(100, 33);
+            txtClass.Size = new System.Drawing.Size(100, 24);
             txtClass.TabIndex = 99;
             // 
             // txtSchoolYear
@@ -165,7 +165,7 @@
             txtSchoolYear.Enabled = false;
             txtSchoolYear.Location = new System.Drawing.Point(155, 43);
             txtSchoolYear.Name = "txtSchoolYear";
-            txtSchoolYear.Size = new System.Drawing.Size(100, 33);
+            txtSchoolYear.Size = new System.Drawing.Size(100, 24);
             txtSchoolYear.TabIndex = 100;
             // 
             // lblSchoolYear
@@ -175,7 +175,7 @@
             lblSchoolYear.Location = new System.Drawing.Point(152, 22);
             lblSchoolYear.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblSchoolYear.Name = "lblSchoolYear";
-            lblSchoolYear.Size = new System.Drawing.Size(134, 29);
+            lblSchoolYear.Size = new System.Drawing.Size(84, 18);
             lblSchoolYear.TabIndex = 102;
             lblSchoolYear.Text = "Anno Scol. ";
             // 
@@ -186,7 +186,7 @@
             lblLessonCode.Location = new System.Drawing.Point(10, 71);
             lblLessonCode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblLessonCode.Name = "lblLessonCode";
-            lblLessonCode.Size = new System.Drawing.Size(149, 29);
+            lblLessonCode.Size = new System.Drawing.Size(92, 18);
             lblLessonCode.TabIndex = 105;
             lblLessonCode.Text = "Cod.Lezione";
             // 
@@ -196,7 +196,7 @@
             txtLessonCode.Location = new System.Drawing.Point(13, 92);
             txtLessonCode.Name = "txtLessonCode";
             txtLessonCode.ReadOnly = true;
-            txtLessonCode.Size = new System.Drawing.Size(100, 33);
+            txtLessonCode.Size = new System.Drawing.Size(100, 24);
             txtLessonCode.TabIndex = 104;
             txtLessonCode.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -207,7 +207,7 @@
             lblLessonDate.Location = new System.Drawing.Point(116, 71);
             lblLessonDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblLessonDate.Name = "lblLessonDate";
-            lblLessonDate.Size = new System.Drawing.Size(62, 29);
+            lblLessonDate.Size = new System.Drawing.Size(39, 18);
             lblLessonDate.TabIndex = 107;
             lblLessonDate.Text = "Data";
             // 
@@ -218,7 +218,7 @@
             lblLessonDesc.Location = new System.Drawing.Point(229, 71);
             lblLessonDesc.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblLessonDesc.Name = "lblLessonDesc";
-            lblLessonDesc.Size = new System.Drawing.Size(224, 29);
+            lblLessonDesc.Size = new System.Drawing.Size(138, 18);
             lblLessonDesc.TabIndex = 110;
             lblLessonDesc.Text = "Descrizione lezione";
             // 
@@ -241,7 +241,7 @@
             rdbNotDone.Enabled = false;
             rdbNotDone.Location = new System.Drawing.Point(7, 80);
             rdbNotDone.Name = "rdbNotDone";
-            rdbNotDone.Size = new System.Drawing.Size(126, 33);
+            rdbNotDone.Size = new System.Drawing.Size(81, 22);
             rdbNotDone.TabIndex = 2;
             rdbNotDone.Text = "Non fatti";
             rdbNotDone.UseVisualStyleBackColor = true;
@@ -252,7 +252,7 @@
             rdbAlreadyDone.Enabled = false;
             rdbAlreadyDone.Location = new System.Drawing.Point(7, 52);
             rdbAlreadyDone.Name = "rdbAlreadyDone";
-            rdbAlreadyDone.Size = new System.Drawing.Size(118, 33);
+            rdbAlreadyDone.Size = new System.Drawing.Size(76, 22);
             rdbAlreadyDone.TabIndex = 1;
             rdbAlreadyDone.Text = "Già fatti";
             rdbAlreadyDone.UseVisualStyleBackColor = true;
@@ -263,7 +263,7 @@
             rdbLesson.Checked = true;
             rdbLesson.Location = new System.Drawing.Point(7, 24);
             rdbLesson.Name = "rdbLesson";
-            rdbLesson.Size = new System.Drawing.Size(123, 33);
+            rdbLesson.Size = new System.Drawing.Size(78, 22);
             rdbLesson.TabIndex = 0;
             rdbLesson.TabStop = true;
             rdbLesson.Text = "Lezione";
@@ -281,7 +281,7 @@
             dgwOneLesson.Location = new System.Drawing.Point(0, 1);
             dgwOneLesson.Name = "dgwOneLesson";
             dgwOneLesson.RowHeadersWidth = 51;
-            dgwOneLesson.Size = new System.Drawing.Size(353, 126);
+            dgwOneLesson.Size = new System.Drawing.Size(353, 129);
             dgwOneLesson.TabIndex = 112;
             dgwOneLesson.CellContentClick += dgwOneLesson_CellContentClick;
             // 
@@ -291,7 +291,7 @@
             txtSchoolSubject.Enabled = false;
             txtSchoolSubject.Location = new System.Drawing.Point(367, 43);
             txtSchoolSubject.Name = "txtSchoolSubject";
-            txtSchoolSubject.Size = new System.Drawing.Size(500, 33);
+            txtSchoolSubject.Size = new System.Drawing.Size(500, 24);
             txtSchoolSubject.TabIndex = 113;
             // 
             // btnFind
@@ -312,14 +312,14 @@
             lblFind.AutoSize = true;
             lblFind.Location = new System.Drawing.Point(885, 168);
             lblFind.Name = "lblFind";
-            lblFind.Size = new System.Drawing.Size(75, 29);
+            lblFind.Size = new System.Drawing.Size(46, 18);
             lblFind.TabIndex = 121;
             lblFind.Text = "Trova";
             // 
             // txtTopicSearchString
             // 
             txtTopicSearchString.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            txtTopicSearchString.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtTopicSearchString.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             txtTopicSearchString.Location = new System.Drawing.Point(885, 189);
             txtTopicSearchString.Multiline = true;
             txtTopicSearchString.Name = "txtTopicSearchString";
@@ -328,8 +328,8 @@
             // 
             // btnDelete
             // 
-            btnDelete.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            btnDelete.Location = new System.Drawing.Point(894, 603);
+            btnDelete.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnDelete.Location = new System.Drawing.Point(894, 501);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new System.Drawing.Size(130, 50);
             btnDelete.TabIndex = 125;
@@ -341,8 +341,8 @@
             // txtTopicName
             // 
             txtTopicName.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            txtTopicName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            txtTopicName.Location = new System.Drawing.Point(0, 343);
+            txtTopicName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            txtTopicName.Location = new System.Drawing.Point(0, 345);
             txtTopicName.Multiline = true;
             txtTopicName.Name = "txtTopicName";
             txtTopicName.Size = new System.Drawing.Size(500, 27);
@@ -390,7 +390,7 @@
             dtpLessonDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             dtpLessonDate.Location = new System.Drawing.Point(119, 92);
             dtpLessonDate.Name = "dtpLessonDate";
-            dtpLessonDate.Size = new System.Drawing.Size(107, 33);
+            dtpLessonDate.Size = new System.Drawing.Size(107, 24);
             dtpLessonDate.TabIndex = 125;
             // 
             // dgwAllLessons
@@ -405,7 +405,7 @@
             dgwAllLessons.Location = new System.Drawing.Point(0, 3);
             dgwAllLessons.Name = "dgwAllLessons";
             dgwAllLessons.RowHeadersWidth = 51;
-            dgwAllLessons.Size = new System.Drawing.Size(353, 277);
+            dgwAllLessons.Size = new System.Drawing.Size(353, 278);
             dgwAllLessons.TabIndex = 127;
             dgwAllLessons.CellClick += DgwAllLessons_CellClick;
             dgwAllLessons.CellContentClick += DgwAllLessons_CellContentClick;
@@ -414,7 +414,7 @@
             // txtTopicsDigest
             // 
             txtTopicsDigest.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            txtTopicsDigest.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtTopicsDigest.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             txtTopicsDigest.Location = new System.Drawing.Point(1, 0);
             txtTopicsDigest.Multiline = true;
             txtTopicsDigest.Name = "txtTopicsDigest";
@@ -448,12 +448,12 @@
             // txtTopicDescription
             // 
             txtTopicDescription.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            txtTopicDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtTopicDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             txtTopicDescription.Location = new System.Drawing.Point(0, 2);
             txtTopicDescription.Multiline = true;
             txtTopicDescription.Name = "txtTopicDescription";
             txtTopicDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            txtTopicDescription.Size = new System.Drawing.Size(500, 104);
+            txtTopicDescription.Size = new System.Drawing.Size(500, 106);
             txtTopicDescription.TabIndex = 132;
             toolTip1.SetToolTip(txtTopicDescription, "Descrizione argomenti di lezione");
             // 
@@ -496,7 +496,7 @@
             // splitContainerBigVertical.Panel2
             // 
             splitContainerBigVertical.Panel2.Controls.Add(splitContainerRightHorizontal);
-            splitContainerBigVertical.Size = new System.Drawing.Size(862, 480);
+            splitContainerBigVertical.Size = new System.Drawing.Size(862, 484);
             splitContainerBigVertical.SplitterDistance = 355;
             splitContainerBigVertical.TabIndex = 135;
             // 
@@ -515,8 +515,8 @@
             // splitContainerLeftHorizontal.Panel2
             // 
             splitContainerLeftHorizontal.Panel2.Controls.Add(dgwOneLesson);
-            splitContainerLeftHorizontal.Size = new System.Drawing.Size(353, 412);
-            splitContainerLeftHorizontal.SplitterDistance = 281;
+            splitContainerLeftHorizontal.Size = new System.Drawing.Size(353, 416);
+            splitContainerLeftHorizontal.SplitterDistance = 282;
             splitContainerLeftHorizontal.TabIndex = 129;
             // 
             // splitContainerRightHorizontal
@@ -536,8 +536,8 @@
             // splitContainerRightHorizontal.Panel2
             // 
             splitContainerRightHorizontal.Panel2.Controls.Add(txtTopicDescription);
-            splitContainerRightHorizontal.Size = new System.Drawing.Size(500, 480);
-            splitContainerRightHorizontal.SplitterDistance = 370;
+            splitContainerRightHorizontal.Size = new System.Drawing.Size(500, 484);
+            splitContainerRightHorizontal.SplitterDistance = 372;
             splitContainerRightHorizontal.TabIndex = 129;
             // 
             // trwTopics
@@ -548,24 +548,24 @@
             trwTopics.LabelEdit = true;
             trwTopics.Location = new System.Drawing.Point(0, 0);
             trwTopics.Name = "trwTopics";
-            trwTopics.Size = new System.Drawing.Size(500, 321);
+            trwTopics.Size = new System.Drawing.Size(500, 323);
             trwTopics.TabIndex = 148;
             // 
             // lblExplain
             // 
             lblExplain.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
             lblExplain.AutoSize = true;
-            lblExplain.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            lblExplain.Location = new System.Drawing.Point(3, 324);
+            lblExplain.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            lblExplain.Location = new System.Drawing.Point(3, 326);
             lblExplain.Name = "lblExplain";
-            lblExplain.Size = new System.Drawing.Size(594, 20);
+            lblExplain.Size = new System.Drawing.Size(370, 13);
             lblExplain.TabIndex = 115;
             lblExplain.Text = "Drag -> padre,Ctrl Drag  -> fratello.  F2 modifica. v Argomento  vv Descrizione";
             // 
             // btnTopicsDone
             // 
             btnTopicsDone.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnTopicsDone.Location = new System.Drawing.Point(894, 501);
+            btnTopicsDone.Location = new System.Drawing.Point(894, 552);
             btnTopicsDone.Name = "btnTopicsDone";
             btnTopicsDone.Size = new System.Drawing.Size(130, 50);
             btnTopicsDone.TabIndex = 137;
@@ -609,7 +609,7 @@
             // btnArgFreemind
             // 
             btnArgFreemind.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnArgFreemind.Location = new System.Drawing.Point(894, 552);
+            btnArgFreemind.Location = new System.Drawing.Point(894, 603);
             btnArgFreemind.Name = "btnArgFreemind";
             btnArgFreemind.Size = new System.Drawing.Size(130, 50);
             btnArgFreemind.TabIndex = 141;
@@ -624,7 +624,7 @@
             lblLessonTime.BackColor = System.Drawing.Color.Transparent;
             lblLessonTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             lblLessonTime.Enabled = false;
-            lblLessonTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            lblLessonTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             lblLessonTime.ForeColor = System.Drawing.Color.DarkBlue;
             lblLessonTime.Location = new System.Drawing.Point(789, 161);
             lblLessonTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -666,9 +666,9 @@
             rdbStringSearch.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             rdbStringSearch.AutoSize = true;
             rdbStringSearch.Checked = true;
-            rdbStringSearch.Location = new System.Drawing.Point(860, 45);
+            rdbStringSearch.Location = new System.Drawing.Point(885, 45);
             rdbStringSearch.Name = "rdbStringSearch";
-            rdbStringSearch.Size = new System.Drawing.Size(71, 33);
+            rdbStringSearch.Size = new System.Drawing.Size(46, 22);
             rdbStringSearch.TabIndex = 148;
             rdbStringSearch.TabStop = true;
             rdbStringSearch.Text = "Txt";
@@ -681,9 +681,9 @@
             rdbAndSearch.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             rdbAndSearch.AutoSize = true;
             rdbAndSearch.Enabled = false;
-            rdbAndSearch.Location = new System.Drawing.Point(957, 45);
+            rdbAndSearch.Location = new System.Drawing.Point(983, 45);
             rdbAndSearch.Name = "rdbAndSearch";
-            rdbAndSearch.Size = new System.Drawing.Size(76, 33);
+            rdbAndSearch.Size = new System.Drawing.Size(50, 22);
             rdbAndSearch.TabIndex = 149;
             rdbAndSearch.Text = " &&&&";
             toolTip1.SetToolTip(rdbAndSearch, "Ricerca per parole in And");
@@ -695,9 +695,9 @@
             rdbOrSearch.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             rdbOrSearch.AutoSize = true;
             rdbOrSearch.Enabled = false;
-            rdbOrSearch.Location = new System.Drawing.Point(921, 45);
+            rdbOrSearch.Location = new System.Drawing.Point(937, 45);
             rdbOrSearch.Name = "rdbOrSearch";
-            rdbOrSearch.Size = new System.Drawing.Size(56, 33);
+            rdbOrSearch.Size = new System.Drawing.Size(40, 22);
             rdbOrSearch.TabIndex = 150;
             rdbOrSearch.Text = " ||";
             toolTip1.SetToolTip(rdbOrSearch, "Ricerca per parole in Or");
@@ -722,21 +722,21 @@
             chkCaseInsensitive.AutoSize = true;
             chkCaseInsensitive.Checked = true;
             chkCaseInsensitive.CheckState = System.Windows.Forms.CheckState.Checked;
-            chkCaseInsensitive.Location = new System.Drawing.Point(903, 247);
+            chkCaseInsensitive.Location = new System.Drawing.Point(947, 247);
             chkCaseInsensitive.Name = "chkCaseInsensitive";
-            chkCaseInsensitive.Size = new System.Drawing.Size(126, 33);
+            chkCaseInsensitive.Size = new System.Drawing.Size(82, 22);
             chkCaseInsensitive.TabIndex = 157;
             chkCaseInsensitive.Text = "Ma && mi";
             toolTip1.SetToolTip(chkCaseInsensitive, "Ricerca con maiuscole e minuscole ");
             chkCaseInsensitive.UseVisualStyleBackColor = true;
             // 
-            // chkMarkAllTopicsFound
+            // chkMarkAllNodesFound
             // 
             chkMarkAllTopicsFound.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             chkMarkAllTopicsFound.AutoSize = true;
-            chkMarkAllTopicsFound.Location = new System.Drawing.Point(948, 166);
+            chkMarkAllTopicsFound.Location = new System.Drawing.Point(974, 166);
             chkMarkAllTopicsFound.Name = "chkMarkAllTopicsFound";
-            chkMarkAllTopicsFound.Size = new System.Drawing.Size(76, 33);
+            chkMarkAllTopicsFound.Size = new System.Drawing.Size(50, 22);
             chkMarkAllTopicsFound.TabIndex = 152;
             chkMarkAllTopicsFound.Text = "tutti";
             toolTip1.SetToolTip(chkMarkAllTopicsFound, "Trova e segna ogni occorrenza  della stringa");
@@ -758,9 +758,9 @@
             // 
             chkVerbatimString.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             chkVerbatimString.AutoSize = true;
-            chkVerbatimString.Location = new System.Drawing.Point(844, 247);
+            chkVerbatimString.Location = new System.Drawing.Point(880, 247);
             chkVerbatimString.Name = "chkVerbatimString";
-            chkVerbatimString.Size = new System.Drawing.Size(105, 33);
+            chkVerbatimString.Size = new System.Drawing.Size(69, 22);
             chkVerbatimString.TabIndex = 156;
             chkVerbatimString.Text = "Esatta";
             toolTip1.SetToolTip(chkVerbatimString, "Ricerca della stringa esatta");
@@ -772,9 +772,9 @@
             chkSearchInDescriptions.AutoSize = true;
             chkSearchInDescriptions.Checked = true;
             chkSearchInDescriptions.CheckState = System.Windows.Forms.CheckState.Checked;
-            chkSearchInDescriptions.Location = new System.Drawing.Point(837, 228);
+            chkSearchInDescriptions.Location = new System.Drawing.Point(880, 228);
             chkSearchInDescriptions.Name = "chkSearchInDescriptions";
-            chkSearchInDescriptions.Size = new System.Drawing.Size(125, 33);
+            chkSearchInDescriptions.Size = new System.Drawing.Size(82, 22);
             chkSearchInDescriptions.TabIndex = 158;
             chkSearchInDescriptions.Text = "Descriz.";
             toolTip1.SetToolTip(chkSearchInDescriptions, "Ricerca anche in descrizione");
@@ -784,9 +784,9 @@
             // 
             chkAllWord.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             chkAllWord.AutoSize = true;
-            chkAllWord.Location = new System.Drawing.Point(920, 228);
+            chkAllWord.Location = new System.Drawing.Point(959, 228);
             chkAllWord.Name = "chkAllWord";
-            chkAllWord.Size = new System.Drawing.Size(109, 33);
+            chkAllWord.Size = new System.Drawing.Size(70, 22);
             chkAllWord.TabIndex = 159;
             chkAllWord.Text = "Parola";
             toolTip1.SetToolTip(chkAllWord, "Ricerca a parola intera");
@@ -827,13 +827,14 @@
             // 
             // frmLessons
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
+            AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.PowderBlue;
-            ClientSize = new System.Drawing.Size(1032, 667);
+            ClientSize = new System.Drawing.Size(1032, 671);
             Controls.Add(chkAllWord);
             Controls.Add(chkSearchInDescriptions);
             Controls.Add(chkCaseInsensitive);
+            Controls.Add(btnDelete);
             Controls.Add(chkVerbatimString);
             Controls.Add(btnFindUnderNode);
             Controls.Add(btnAddNodeBrother);
@@ -863,7 +864,6 @@
             Controls.Add(btnFind);
             Controls.Add(lblFind);
             Controls.Add(txtTopicSearchString);
-            Controls.Add(btnDelete);
             Controls.Add(btnSaveTree);
             Controls.Add(txtSchoolSubject);
             Controls.Add(lblLessonDesc);
@@ -877,7 +877,7 @@
             Controls.Add(lblSchoolCode);
             Controls.Add(lblClassAbbreviation);
             Controls.Add(lblSchoolSubject);
-            Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
             ForeColor = System.Drawing.Color.DarkBlue;
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             KeyPreview = true;

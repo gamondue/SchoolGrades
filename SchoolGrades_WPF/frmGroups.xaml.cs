@@ -36,8 +36,11 @@ namespace SchoolGrades_WPF
             schoolClass = Class;
             schoolSubject = Subject;
             schoolGrade = Grade;
-
-            List<SchoolPeriod> listPeriods = Commons.bl.GetSchoolPeriods(Class.SchoolYear);
+        }
+        private void frmGroups_Load(object sender, EventArgs e)
+        {
+            List<SchoolPeriod> listPeriods = Commons.bl.GetSchoolPeriods(schoolClass.SchoolYear);
+            cmbSchoolPeriod.Items.Clear(); // Clear existing items
             cmbSchoolPeriod.ItemsSource = listPeriods;
             // select the combo item of the partial period of the DateTime.Now
             foreach (SchoolPeriod sp in listPeriods)
@@ -48,13 +51,11 @@ namespace SchoolGrades_WPF
                     cmbSchoolPeriod.SelectedItem = sp;
                 }
             }
-        }
-        private void frmGroups_Load(object sender, EventArgs e)
-        {
             txtTotalStudentsToGroup.Text = listGroups.Count.ToString();
             txtClass.Text = schoolClass.Abbreviation + " " + schoolClass.SchoolYear;
         }
-        private void btnCreateFileGroups_Click(object sender, EventArgs e)
+
+        private void btnCreateFileGroups_Click(object sender, RoutedEventArgs e)
         {
             if (txtGroups.Text == "")
             {
@@ -67,7 +68,7 @@ namespace SchoolGrades_WPF
             TextFile.StringToFile(fileName, txtGroups.Text, false);
             Commons.ProcessStartLink(fileName);
         }
-        private void btnCreateGroups_Click(object sender, EventArgs e)
+        private void btnCreateGroups_Click(object sender, RoutedEventArgs e)
         {
             if (txtNGroups.Text == "" || txtStudentsPerGroup.Text == "")
             {
@@ -160,7 +161,7 @@ namespace SchoolGrades_WPF
         #endregion
 
         #region Events
-        private void txtStudentsPerGroup_TextChanged(object sender, EventArgs e)
+        private void txtStudentsPerGroup_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (txtStudentsPerGroup.Text != "" && !AlreadyChanged)
             {
@@ -176,7 +177,7 @@ namespace SchoolGrades_WPF
             else
                 AlreadyChanged = false;
         }
-        private void txtNGroups_TextChanged(object sender, EventArgs e)
+        private void txtNGroups_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (txtNGroups.Text != "" && !AlreadyChanged)
             {
@@ -191,7 +192,7 @@ namespace SchoolGrades_WPF
             else
                 AlreadyChanged = false;
         }
-        private void cmbSchoolPeriod_SelectedIndexChanged(object sender, EventArgs e)
+        private void cmbSchoolPeriod_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             currentSchoolPeriod = (SchoolPeriod)(cmbSchoolPeriod.SelectedValue);
             if (currentSchoolPeriod.IdSchoolPeriodType != "N")

@@ -1,10 +1,8 @@
 ﻿using gamon;
-using Microsoft.Win32;
 using SchoolGrades;
 using System;
 using System.IO;
 using System.Windows;
-using System.Windows.Forms;
 
 namespace SchoolGrades_WPF
 {
@@ -130,7 +128,7 @@ namespace SchoolGrades_WPF
             //frmTag t = new frmTag(false);
             //t.ShowDialog();
         }
-        private void btnStartLimksManagement_Click(object sender, RoutedEventArgs e)
+        private void btnStartLinksManagement_Click(object sender, RoutedEventArgs e)
         {
 
             //Class dummy = new Class();

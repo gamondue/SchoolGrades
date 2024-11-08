@@ -14,20 +14,21 @@ namespace gamon.TreeMptt
     {
         /// <summary>
         /// Takes a TreeView control and adds to it, and to some ancillary TextBoxes and CheckBoxes, 
-        /// the capability of storing and retriving the tree in a database, memorizing it both 
+        /// the capability of storing and retrieving the tree in a database, memorizing it both 
         /// by the reference to the parent node of each node ("ByParent") 
         /// and by the use of a right and left nodes reference in a 
         /// Modified Preorder Traversal Tree organization ("Mptt"). 
-        /// The saving of the tree in a MPTT fashion can be accomplished asyncronuosly
+        /// The saving of the tree in a MPTT fashion can be accomplished asynchronously
         /// in a separate thread. Consistency of the tree is preserved when the program exits. 
         /// (!! proved NOT TRUE is some cases, must be cured.. !!)
-        /// Some events of the controls, redriven to this class, are treated. 
+        /// Some events of the controls, re-driven to this class, are treated. 
         /// 
         /// An MPTT tree loads more quickly in a single DBMS query but saves much more 
         /// slowly, with one DBMS query for each change in the left and right node. 
-        /// Almost all left and right nodes could be changed if the change in the tree is very "up", near the root
+        /// Almost all left and right nodes could be changed if the change in the tree is very "up", 
+        /// near the root of the tree.
         /// With MPTT we can use single queries to retrive subtrees. 
-        /// With MPTT we can have all the nodes that stay under a given node with just two tests
+        /// With MPTT we can have all the nodes that stay under a given node with just two tests.
         /// 
         ///  made by Gabriele MONTI - Forlì - Italia
         /// </summary>
@@ -77,7 +78,7 @@ namespace gamon.TreeMptt
         CheckBox chkVerbatimString;
         CheckBox chkAllWord;
         CheckBox chkCaseInsensitive;
-        CheckBox chkMarkAllTopicsFound;
+        CheckBox chkMarkAllNodesFound;
 
         private Color colorOfHighlightedItem = Color.Khaki;
         private Color colorOfFoundItem = Color.Lime;
@@ -114,8 +115,8 @@ namespace gamon.TreeMptt
                     chkAllWord.CheckedChanged += SearchCheckBoxes_CheckedChanged;
                 if (chkCaseInsensitive != null)
                     chkCaseInsensitive.CheckedChanged += SearchCheckBoxes_CheckedChanged;
-                if (chkMarkAllTopicsFound != null)
-                    chkMarkAllTopicsFound.CheckedChanged += chkMarkAllTopicsFound_CheckedChanged;
+                if (chkMarkAllNodesFound != null)
+                    chkMarkAllNodesFound.CheckedChanged += chkMarkAllNodesFound_CheckedChanged;
                 if (chkVerbatimString != null)
                     chkVerbatimString.CheckedChanged += chkVerbatimString_CheckedChanged;
                 //}
@@ -161,7 +162,7 @@ namespace gamon.TreeMptt
             chkAllWord = ChkAllWord;
             chkCaseInsensitive = ChkCaseInsensitive;
             chkVerbatimString = ChkVerbatimString;
-            chkMarkAllTopicsFound = ChkMarkAllNodesFound;
+            chkMarkAllNodesFound = ChkMarkAllNodesFound;
 
             if (shownTreeView != null)
             {
@@ -1288,10 +1289,10 @@ namespace gamon.TreeMptt
 
             // command a new search for the next search 
             ResetSearch();
-            FindNodes(txtSearchString.Text, chkMarkAllTopicsFound.Checked, chkSearchInDescriptions.Checked,
+            FindNodes(txtSearchString.Text, chkMarkAllNodesFound.Checked, chkSearchInDescriptions.Checked,
                 chkAllWord.Checked, chkCaseInsensitive.Checked, chkVerbatimString.Checked);
         }
-        private void chkMarkAllTopicsFound_CheckedChanged(object sender, EventArgs e)
+        private void chkMarkAllNodesFound_CheckedChanged(object sender, EventArgs e)
         {
             // command a new search for the next search 
             ResetSearch();
@@ -1322,6 +1323,7 @@ namespace gamon.TreeMptt
         internal void SaveTreeFromScratch(TreeNode CurrentNode, List<Topic> generatedList)
         {
             // TODO !!!! the refactor of this function must be tested !!!!
+            // CURRENTLY NOT USED
             //DbConnection Connection = dl.Connect();
             int nodeCount = 1;
             // recursive function

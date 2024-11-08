@@ -23,7 +23,7 @@ namespace SchoolGrades
 
         private SchoolYear currentYear;
 
-        //bool formInitializing = true;
+        bool formInitializing = true;
         //bool firstTime = true;
 
         Student currentStudent;
@@ -269,7 +269,7 @@ namespace SchoolGrades
             txtIdStudent.Visible = false;
 
             lblDatabaseFile.Text = Path.GetFileName(Commons.PathAndFileDatabase);
-            //formInitializing = false;
+            formInitializing = false;
         }
         private string GetNewDatabaseFilename(string proposedDatabasePath)
         {
@@ -521,7 +521,8 @@ namespace SchoolGrades
         {
             try
             {
-                string pictureFile = Commons.bl.GetFilePhoto(Chosen.IdStudent, currentYear.IdSchoolYear);
+                string pictureFile = Commons.bl.GetFilePhoto(Chosen.IdStudent,
+                    currentYear.IdSchoolYear);
                 if (pictureFile != null)
                 {
                     pictureFile = Path.Combine(Commons.PathImages, pictureFile);
@@ -550,10 +551,13 @@ namespace SchoolGrades
         }
         private void lstClasses_SelectedIndexChanged(object sender, EventArgs e)
         {
-            picStudent.Image = null;
-            lblStudentChosen.Text = "";
-            chkStudentsListVisible.Checked = true;
-            dgwStudents.DataSource = null;
+            if (!formInitializing)
+            {
+                picStudent.Image = null;
+                lblStudentChosen.Text = "";
+                chkStudentsListVisible.Checked = true;
+                dgwStudents.DataSource = null;
+            }
         }
         private void lstClasses_DoubleClick(object sender, EventArgs e)
         {
@@ -639,6 +643,7 @@ namespace SchoolGrades
         List<string> filesInFolder = new List<string>();
         int indexImage = 0;
         private DateTime nextPopUpQuestionTime;
+
         private void BtnShowRandomImage_Click(object sender, EventArgs e)
         {
             if (filesInFolder.Count == 0 || currentClass != lastClass || currentSubject != lastSubject

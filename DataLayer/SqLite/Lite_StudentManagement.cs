@@ -139,7 +139,8 @@ namespace SchoolGrades
                     SqlString(Student.County) + "," +
                     SqlString(Student.State) + "," +
                     SqlBool(Student.Disabled) + "," +
-                    SqlBool(Student.HasSpecialNeeds) + "" +
+                    SqlBool(Student.HasSpecialNeeds) + "," +
+                    SqlString(Student.LastPhotoPath) + "" +
                     ");";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
@@ -169,7 +170,7 @@ namespace SchoolGrades
                 ",city=" + SqlString(Student.City) +
                 ",origin=" + SqlString(Student.Origin) +
                 ",email=" + SqlString(Student.Email) +
-                ",birthDate=" + SqlDate(Student.BirthDate.ToString()) + "" +
+                ",birthDate=" + SqlDate(Student.BirthDate.ToString()) +
                 //",schoolyear=" + SqlString(Student.SchoolYear) + 
                 ",birthPlace=" + SqlString(Student.BirthPlace) +
                 ",telephone=" + SqlString(Student.Telephone) +
@@ -179,10 +180,11 @@ namespace SchoolGrades
                 ",zipCode=" + SqlString(Student.ZipCode) +
                 ",county=" + SqlString(Student.County) +
                 ",state=" + SqlString(Student.State) +
-                ",disabled=" + SqlBool(Student.Disabled) + "" +
-                ",hasSpecialNeeds=" + SqlBool(Student.HasSpecialNeeds) + "" +
-                ",eligible=" + SqlBool(Student.Eligible) + "" +
-                ",revengeFactorCounter=" + SqlInt(Student.RevengeFactorCounter) + "" +
+                ",disabled=" + SqlBool(Student.Disabled) +
+                ",hasSpecialNeeds=" + SqlBool(Student.HasSpecialNeeds) +
+                ",eligible=" + SqlBool(Student.Eligible) +
+                ",revengeFactorCounter=" + SqlInt(Student.RevengeFactorCounter) +
+                ",lastPhotoPath=" + SqlInt(Student.LastPhotoPath) +
                 " WHERE idStudent=" + Student.IdStudent +
                 ";";
             cmd.ExecuteNonQuery();
@@ -252,7 +254,7 @@ namespace SchoolGrades
             s.HasSpecialNeeds = Safe.Bool(Row["hasSpecialNeeds"]);
             s.Eligible = Safe.Bool(Row["eligible"]);
             s.RevengeFactorCounter = Safe.Int(Row["revengeFactorCounter"]);
-
+            s.LastPhotoPath = Safe.String(Row["lastPhotoPath"]);
             return s;
         }
         internal override List<Student> GetStudentsSameName(string LastName, string FirstName)

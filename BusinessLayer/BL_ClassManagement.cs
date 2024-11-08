@@ -102,10 +102,13 @@ namespace SchoolGrades
             string justFileName = NewStudent.LastName + "_" + NewStudent.FirstName + "_" + NewClass.Abbreviation + NewClass.SchoolYear + ext;
             string relativePathFileName = Path.Combine(classFolder, justFileName);
             string newPhotoFullName = Path.Combine(Commons.PathImages, relativePathFileName);
+
             if (!Directory.Exists(Path.Combine(Commons.PathImages, classFolder)))
             {
                 Directory.CreateDirectory(Path.Combine(Commons.PathImages, classFolder));
             }
+            // catch the errors in the following operation because sometimes the command
+            // finds the destination file locked! 
             File.Copy(PhotoToCopyFullName, newPhotoFullName, true);
             dl.LinkOnePhoto(NewStudent, NewClass, relativePathFileName);
         }

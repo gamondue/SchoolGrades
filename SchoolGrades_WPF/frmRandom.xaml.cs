@@ -28,6 +28,5 @@ namespace SchoolGrades_WPF
                 txtResult.Background = Brushes.Goldenrod;
             Clipboard.SetText(txtResult.Text);
         }
-
     }
 }

@@ -5,8 +5,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SchoolGrades_WPF"
       mc:Ignorable="d" 
-      d:DesignHeight="337"
-      Title="Setup" Width="1157">
+      Loaded="frmSetup_Load"
+      Height="337" Width="1200"
+      Title="Setup">
 
     <Grid Background="PowderBlue">
         <Grid>
@@ -22,71 +23,43 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-
-            <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-
-                <Button Name="btnTablesManagement" Margin="7" Grid.Column="0" Background="White" Click="btnTablesManagement_Click">
-                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White">Gestione tabelle</TextBox>
-                </Button>
-                <Button Name="btnClassesManagement" Margin="7" Grid.Column="1" Background="White" Click="btnClassesManagement_Click">
-                    <TextBox TextWrapping="Wrap" 
-                             Background="White" HorizontalContentAlignment="Center" FontSize="14"
-                             BorderBrush="White">Gestione classi</TextBox>
-                </Button>
-                <Button Name="btnBackupManagement" Margin="7" Grid.Column="2" Background="White" Click="btnBackupManagement_Click">
-                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" 
-                             FontSize="14" BorderBrush="White">Backup e gest.file</TextBox>
-                </Button>
-                <Button Name="btnStudentsManagement" Margin="7" Grid.Column="3" Background="White" 
-                        Click="btnStudentsManagement_Click">
-                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" 
-                             BorderBrush="White">Gestione studenti</TextBox>
-                </Button>
-                <Button Name="btnTopicsManagement" Margin="7" Grid.Column="4" Background="White" Click="btnTopicsManagement_Click">
-                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White">Gestione argomenti</TextBox>
-                </Button>
-                <Button Name="btnTagsManagement" Margin="7" Grid.Column="5" Background="White" Click="btnTagsManagement_Click">
-                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White">Gestione tag</TextBox>
-                </Button>
-                <Button Name="btnQuestionManagement" Margin="7" Grid.Column="6" Background="White" Click="btnQuestionManagement_Click">
-                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White">Gestione domande</TextBox>
-                </Button>
-                <Button Name="btnStartLimksManagement" Margin="7" Grid.Column="7" Background="White" Click="btnStartLimksManagement_Click">
-                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White">Gestione start links</TextBox>
-                </Button>
-                <Button Name="btnTestManagement" Margin="7" Grid.Column="8" Background="White" Click="btnTestManagement_Click">
-                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White">Gestione prove</TextBox>
-                </Button>
-                <Button Name="btnRecoverTopics" Margin="7" Grid.Column="9" Background="White" Click="btnRecoverTopics_Click">
-                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White">Recover argomenti</TextBox>
-                </Button>
-                <Button Name="btnUsersManagement" Margin="7" Grid.Column="10" Background="White">
-                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center"
-                             FontSize="14" BorderBrush="White">Gestione utenti</TextBox>
-                </Button>
-            </Grid>
-            <Grid Grid.Row="0" Grid.Column="1">
-                <Button Name="btnSchoolSubjectManagement" Margin="7" Grid.Column="10" Background="White" Click="btnSchoolSubjectManagement_Click">
-                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White">Gestione materie</TextBox>
-                </Button>
-            </Grid>
-            <Grid Grid.Row="0" Grid.Column="2">
-                <Button Name="btnSchoolPeriodsManagement" Margin="7" Grid.Column="11" Background="White" Click="btnSchoolPeriodsManagement_Click">
-                    <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White" >Gestione periodi</TextBox>
-                </Button>
-            </Grid>
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="3" Margin="7">
+                <Button Name="btnTablesManagement" Margin="3,0,3,0" Padding="5" Background="White" 
+                    Click="btnTablesManagement_Click"
+                    Content="Gest. tabelle"/>
+                <Button Name="btnClassesManagement" Margin="3,0,3,0" Padding="5" Background="White" 
+                        Click="btnClassesManagement_Click"
+                    Content="Gest. classi"/>
+                <Button Name="btnBackupManagement" Margin="3,0,3,0" Padding="5" Background="White" 
+                        Click="btnBackupManagement_Click" Content="Backup e gen.file"/>
+                <Button Name="btnStudentsManagement" Margin="3,0,3,0" Padding="5" Background="White" 
+                        Click="btnStudentsManagement_Click" Content="Gest. studenti"/>
+                <Button Name="btnTopicsManagement" Margin="3,0,3,0" Padding="5" Background="White" 
+                        Click="btnTopicsManagement_Click"
+                        Content="Gest. argomenti"/>
+                <Button Name="btnTagsManagement" Margin="3,0,3,0" Padding="5" Background="White" 
+                        Click="btnTagsManagement_Click"
+                        Content="Gest. tag"/>
+                <Button Name="btnStartLinksManagement" Margin="3,0,3,0" Padding="5" Background="White" 
+                        Click="btnStartLinksManagement_Click"
+                    Content="Gest. start links" />
+                <Button Name="btnSchoolSubjectManagement" Margin="3,0,3,0" Padding="5" Background="White" 
+                        Click="btnSchoolSubjectManagement_Click"
+                    Content="Gest. materie" />
+                <Button Name="btnSchoolPeriodsManagement" Margin="3,0,3,0" Padding="5" Background="White" 
+                        Click="btnSchoolPeriodsManagement_Click"
+                        Content="Gest. periodi" />
+                <Button Name="btnRecoverTopics" Margin="3,0,3,0" Padding="5" Background="White" Click="btnRecoverTopics_Click"
+                        Content="Recover argomenti" />
+                <Button Name="btnUsersManagement" Margin="3,0,3,0" Padding="5" Background="White"
+                        Content="Gest. utenti" />
+                <Button Name="btnQuestionManagement" Margin="3,0,3,0" Padding="5" Background="White" 
+                        Click="btnQuestionManagement_Click"
+                        Content="Gest. domande" />
+                <Button Name="btnTestManagement" Margin="3,0,3,0" Padding="5" Background="White" 
+                        Click="btnTestManagement_Click" 
+                        Content="Gest. prove" />
+            </StackPanel>
             <Grid Grid.Row="1" Grid.Column="2">
                 <Button Name="btnSaveConfiguration" Margin="7" Grid.Column="11" Background="White" Click="btnSaveConfiguration_Click">
                     <TextBox TextWrapping="Wrap" Background="White" HorizontalContentAlignment="Center" FontSize="14" BorderBrush="White" >Salva config.</TextBox>
