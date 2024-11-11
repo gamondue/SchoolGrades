@@ -72,7 +72,7 @@ namespace SchoolGrades
             {
                 Commons.DatabaseFileName_Current = dati[0] = TxtFileDatabase.Text;
 
-                // postition 2 was held by PathStartLinks, that is not longer used,
+                // positition 2 was held by PathStartLinks, that is not longer used,
                 // substituted by PathRestrictedApp  (attribute of the single currentSchool class) 
                 //dati[2] = Commons.PathRestrictedApp; 
                 Commons.PathDatabase = dati[3] = TxtPathDatabase.Text;
@@ -194,10 +194,6 @@ namespace SchoolGrades
         {
             Commons.ProcessStartLink(((TextBox)sender).Text);
         }
-        private void TxtFileDatabase_TextChanged(object sender, EventArgs e)
-        {
-
-        }
         private void TxtPathStartLinks_TextChanged(object sender, EventArgs e)
         {
 
@@ -226,6 +222,11 @@ namespace SchoolGrades
         {
             frmStudent f = new frmStudent(null, false);
             f.ShowDialog();
+        }
+        private void TxtFileDatabase_DoubleClick(object sender, EventArgs e)
+        {
+            string PathFileDatabase = Path.Combine(TxtPathDatabase.Text, ((TextBox)sender).Text);
+            Commons.ProcessStartLink(PathFileDatabase);
         }
     }
 }

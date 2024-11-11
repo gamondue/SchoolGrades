@@ -322,14 +322,15 @@ namespace SchoolGrades
                 cmd = new SQLiteCommand(query);
                 cmd.Connection = conn;
                 DbDataReader dRead = cmd.ExecuteReader();
-                Student s = new Student();
                 while (dRead.Read())
                 {
+                    Student s = new Student();
                     s.IdStudent = Safe.Int(dRead["IdStudent"]);
                     s.LastName = Safe.String(dRead["LastName"]);
                     s.FirstName = Safe.String(dRead["FirstName"]);
                     s.ClassAbbreviation = Safe.String(dRead["ClassAbbreviation"]);
                     s.SchoolYear = Safe.String(dRead["SchoolYear"]);
+                    ////////////s.LastPhotoPath = Safe.String(dRead["lastPhotoPath"]);
                     t.Add(s);
                 }
                 dRead.Dispose();

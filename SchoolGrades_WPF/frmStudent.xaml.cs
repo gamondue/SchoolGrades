@@ -72,7 +72,8 @@ namespace SchoolGrades_WPF
             }
             catch
             {
-                //picStudent.Image = null;
+                // erase the picture
+                picStudent.Source = null;
             }
         }
         private void btnSave_Click(object sender, EventArgs e)
@@ -161,11 +162,16 @@ namespace SchoolGrades_WPF
             int RowIndex = grid.SelectedIndex;
             if (RowIndex > -1)
             {
-                List<Student> l = (List<Student>)dgwSearchedStudents.ItemsSource;
-                int key = (int)(l[RowIndex].IdStudent);
+                Student s; 
+                try
+                {
+                    List<Student> l = (List<Student>)dgwSearchedStudents.ItemsSource;
+                    int key = (int)(l[RowIndex].IdStudent);
 
-                //int key = (int)((List<Student>)dgwSearchedStudents.ItemsSource).Rows[RowIndex]["idStudent"];
-                Student s = Commons.bl.GetStudent(key);
+                    //int key = (int)((List<Student>)dgwSearchedStudents.ItemsSource).Rows[RowIndex]["idStudent"];
+                    s = Commons.bl.GetStudent(key);
+                }
+                catch { return; }
                 loadStudentData(s);
                 currentStudent = s;
             }
@@ -182,6 +188,10 @@ namespace SchoolGrades_WPF
         private void btnDeleteStudent_Click(object sender, EventArgs e)
         {
             MessageBox.Show("DA FARE!!");
+        }
+        private void btnFindHomonyms_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

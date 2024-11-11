@@ -8,7 +8,6 @@
       Loaded="frmSetup_Load"
       Height="337" Width="1200"
       Title="Setup">
-
     <Grid Background="PowderBlue">
         <Grid>
             <Grid.RowDefinitions>
@@ -109,7 +108,8 @@
                              MouseDoubleClick="TxtPathImages_MouseDoubleClick"
                              FontSize="14" Height="24" Margin="5,0,0,0"></TextBox>
                 </StackPanel>
-                <Button x:Name="btnPathImages" Content="Sfoglia" Width="76" Height="39" Margin="20,18,0,0"/>
+                <Button x:Name="btnPathImages" Content=".." Width="76" Height="39" 
+                        Margin="20,18,0,0" Click="btnPathImages_Click"/>
             </StackPanel>
             <StackPanel Grid.Row="4" Orientation="Horizontal">
 
@@ -120,7 +120,8 @@
                              MouseDoubleClick="TxtPathDocuments_MouseDoubleClick"
                              FontSize="14" Height="24" Margin="5,0,0,0"></TextBox>
                 </StackPanel>
-                <Button x:Name="btnPathDocument" Content="Sfoglia" Width="76" Height="42" Margin="20,18,0,0" Click="btnPathDocument_Click"/>
+                <Button x:Name="btnPathDocument" Content=".." Width="76" Height="42" 
+                        Margin="20,18,0,0" Click="btnPathDocument_Click"/>
             </StackPanel>
 
             <Button x:Name="BtnUseDemo"  Margin="7" Grid.Column="1" Grid.Row="2" Background="White">
