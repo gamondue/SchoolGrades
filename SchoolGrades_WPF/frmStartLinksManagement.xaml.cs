@@ -19,6 +19,12 @@ namespace SchoolGrades_WPF
         private StartLink currentLink;
         private bool loading;
 
+        public frmStartLinksManagement()
+        {
+            InitializeComponent();
+
+            currentClass = null;
+        }
         public frmStartLinksManagement(Class CurrentClass)
         {
             InitializeComponent();

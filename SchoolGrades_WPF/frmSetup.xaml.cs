@@ -3,6 +3,7 @@ using SchoolGrades;
 using System;
 using System.IO;
 using System.Windows;
+using Microsoft.Win32;
 
 namespace SchoolGrades_WPF
 {
@@ -22,8 +23,6 @@ namespace SchoolGrades_WPF
             TxtPathDatabase.Text = Commons.PathDatabase;
             TxtFileDatabase.Text = System.IO.Path.GetFileName(Commons.PathAndFileDatabase);
             TxtPathImages.Text = Commons.PathImages;
-            //TxtPathStartLinks.Text = Commons.PathStartLinks; // not longer used
-
             TxtPathDocuments.Text = Commons.PathDocuments;
             chkSaveBackup.IsChecked = Commons.SaveBackupWhenExiting;
         }
@@ -44,12 +43,15 @@ namespace SchoolGrades_WPF
         }
         private void btnImageFolder_Click(object sender, EventArgs e)
         {
-            ////////folderBrowserDialog1.SelectedPath = TxtPathImages.Text;
-            ////////DialogResult r = folderBrowserDialog1.ShowDialog();
-            ////////if (r == System.Windows.Forms.DialogResult.OK)
-            ////////{
-            ////////    TxtPathImages.Text = folderBrowserDialog1.SelectedPath;
-            ////////}
+            Microsoft.Win32.OpenFolderDialog folderBrowserDialog1 = new Microsoft.Win32.OpenFolderDialog
+            {
+                InitialDirectory = TxtPathImages.Text
+            };
+            bool? r = folderBrowserDialog1.ShowDialog();
+            if (r == true)
+            {
+                TxtPathImages.Text = folderBrowserDialog1.FolderName;
+            }
         }
         private void btnSaveConfiguration_Click(object sender, RoutedEventArgs e)
         {
@@ -62,7 +64,7 @@ namespace SchoolGrades_WPF
             {
                 Commons.DatabaseFileName_Current = dati[0] = TxtFileDatabase.Text;
 
-                // postition 2 was held by PathStartLinks, that is not longer used,
+                // position 2 was held by PathStartLinks, that is not longer used, because it was 
                 // substituted by PathRestrictedApp  (attribute of the single currentSchool class) 
                 //dati[2] = Commons.PathRestrictedApp; 
                 Commons.PathDatabase = dati[3] = TxtPathDatabase.Text;
@@ -71,7 +73,7 @@ namespace SchoolGrades_WPF
                 Commons.SaveBackupWhenExiting = (bool)chkSaveBackup.IsChecked;
                 dati[5] = Commons.SaveBackupWhenExiting.ToString();
 
-                //////////Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
+                Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
                 // TODO !!! if the file doesn't exist copies the sample empty database. Eventually redo this code, it is ugly and not functional !!!!
                 ////if(!File.Exists(Commons.PathAndFileDatabase))
                 ////    File.Copy(".\\" + Commons.TeachersDatabaseFileName, Commons.PathAndFileDatabase);
@@ -80,7 +82,6 @@ namespace SchoolGrades_WPF
 #else
                 TextFile.ArrayToFile(Commons.PathAndFileConfig, dati, false);
 #endif
-
                 System.Windows.MessageBox.Show("File di configurazione salvato in " + Commons.PathAndFileConfig +
                     "\n\nIl programma verrà chiuso.");
 
@@ -94,29 +95,25 @@ namespace SchoolGrades_WPF
                 //throw new FileNotFoundException(@"[Error in program's directories] \r\n" + e.Message);
                 //return;
             }
-            //Application.Exit();
+            //////////Application.Exit();
             NewDatabaseFile = true;
             this.Close();
         }
-        private void btnPathQuestions_Click(object sender, EventArgs e)
-        {
-            //folderBrowserDialog1.SelectedPath = TxtPathStartLinks.Text;
-            //DialogResult r = folderBrowserDialog1.ShowDialog();
-            //if (r == System.Windows.Forms.DialogResult.OK)
-            //{
-            //    TxtPathStartLinks.Text = folderBrowserDialog1.SelectedPath;
-            //}
-        }
         private void btnPathDatabase_Click(object sender, RoutedEventArgs e)
         {
-            //////////folderBrowserDialog1.SelectedPath = TxtPathDatabase.Text;
-            //////////DialogResult r = folderBrowserDialog1.ShowDialog();
-            //////////if (r == System.Windows.Forms.DialogResult.OK)
-            //////////{
-            //////////    TxtPathDatabase.Text = folderBrowserDialog1.SelectedPath;
-            //////////}
-            //////////Commons.PathDatabase = TxtPathDatabase.Text;
-            //////////Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
+            if (!Path.Exists(TxtPathDatabase.Text))
+            {
+                Console.Beep(); 
+            }
+            OpenFolderDialog folderBrowserDialog1 = new OpenFolderDialog();
+            folderBrowserDialog1.InitialDirectory = TxtPathDatabase.Text;
+            bool? r = folderBrowserDialog1.ShowDialog();
+            if (r == true)
+            {
+                TxtPathDatabase.Text = folderBrowserDialog1.FolderName;
+            }
+            Commons.PathDatabase = TxtPathDatabase.Text;
+            Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
         }
         private void btnTopicsManagement_Click(object sender, RoutedEventArgs e)
         {
@@ -127,15 +124,6 @@ namespace SchoolGrades_WPF
         {
             //frmTag t = new frmTag(false);
             //t.ShowDialog();
-        }
-        private void btnStartLinksManagement_Click(object sender, RoutedEventArgs e)
-        {
-
-            //Class dummy = new Class();
-            ////dummy.IdSchool = 
-            ////dummy.SchoolYear = curre
-            //frmStartLinksManagement frm = new frmStartLinksManagement(dummy);
-            //frm.ShowDialog();
         }
         private void btnQuestionManagement_Click(object sender, RoutedEventArgs e)
         {
@@ -154,12 +142,16 @@ namespace SchoolGrades_WPF
         }
         private void btnPathDocument_Click(object sender, RoutedEventArgs e)
         {
-            //////////folderBrowserDialog1.SelectedPath = TxtPathDocuments.Text;
-            //////////DialogResult r = folderBrowserDialog1.ShowDialog();
-            //////////if (r == System.Windows.Forms.DialogResult.OK)
-            //////////{
-            //////////    TxtPathDocuments.Text = folderBrowserDialog1.SelectedPath;
-            //////////}
+            if (!Path.Exists(TxtPathDocuments.Text))
+            {
+                Console.Beep();
+            }
+            OpenFolderDialog folderDialog = new OpenFolderDialog();
+            folderDialog.InitialDirectory = TxtPathDocuments.Text;
+            if(folderDialog.ShowDialog() == true)
+            { 
+                TxtPathDocuments.Text = folderDialog.FolderName;
+            }
         }
         private void btnEraseConfigurationFile_Click(object sender, RoutedEventArgs e)
         {
@@ -181,10 +173,6 @@ namespace SchoolGrades_WPF
                 Commons.bl.PurgeDatabase();
             }
         }
-        private void btnOpenConfigurationFolder_Click(object sender, EventArgs e)
-        {
-            Commons.ProcessStartLink(Commons.PathConfig);
-        }
         private void btnSchoolPeriodsManagement_Click(object sender, RoutedEventArgs e)
         {
             frmSchoolYearAndPeriodsManagement f = new frmSchoolYearAndPeriodsManagement();
@@ -192,21 +180,20 @@ namespace SchoolGrades_WPF
         }
         private void TxtPathDatabase_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-
+            Commons.ProcessStartLink(((System.Windows.Controls.TextBox)sender).Text);
         }
         private void TxtFileDatabase_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-
+            string PathFileDatabase = Path.Combine(TxtPathDatabase.Text, ((System.Windows.Controls.TextBox)sender).Text);
+            Commons.ProcessStartLink(PathFileDatabase);
         }
         private void btnChooseFile_Click(object sender, RoutedEventArgs e)
         {
-            Microsoft.Win32.OpenFileDialog openFileDialog1 = new Microsoft.Win32.OpenFileDialog
-            {
-                InitialDirectory = TxtPathDatabase.Text,
-                Filter = "Database files (*.db)|*.db|All files (*.*)|*.*",
-                FilterIndex = 1,
-                RestoreDirectory = true
-            };
+            OpenFileDialog openFileDialog1 = new Microsoft.Win32.OpenFileDialog();
+            openFileDialog1.InitialDirectory = TxtPathDatabase.Text;
+            openFileDialog1.Filter = "Database files (*.sqlite)|*.sqlite|All files (*.*)|*.*";
+            openFileDialog1.FilterIndex = 1;
+            openFileDialog1.RestoreDirectory = true;
 
             bool? result = openFileDialog1.ShowDialog();
             if (result == true)
@@ -219,15 +206,34 @@ namespace SchoolGrades_WPF
         }
         private void TxtPathImages_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-
+            Commons.ProcessStartLink(((System.Windows.Controls.TextBox)sender).Text);
         }
         private void TxtPathDocuments_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-
+            Commons.ProcessStartLink(((System.Windows.Controls.TextBox)sender).Text);
         }
         private void btnStudentsManagement_Click(object sender, RoutedEventArgs e)
         {
             frmStudent f = new frmStudent(null, false);
+            f.ShowDialog();
+        }
+        private void btnPathImages_Click(object sender, RoutedEventArgs e)
+        {
+            if (!Path.Exists(TxtPathImages.Text))
+            {
+                Console.Beep();
+            }
+            OpenFolderDialog folderDialog = new OpenFolderDialog();
+            folderDialog.InitialDirectory = Path.Combine(TxtPathImages.Text, "");  // Set the default path
+            folderDialog.Multiselect = false;
+            if (folderDialog.ShowDialog() == true)
+            {
+                TxtPathImages.Text = folderDialog.FolderName;
+            }
+        }
+        private void btnStartLinksManagement_Click(object sender, RoutedEventArgs e)
+        {
+            frmStartLinksManagement f = new frmStartLinksManagement();
             f.ShowDialog();
         }
     }

@@ -68,7 +68,7 @@
         <CheckBox Grid.Row="7" Grid.Column="3" x:Name="chkHasSpecialNeeds" FontSize="13" VerticalAlignment="Center">BES/DSA</CheckBox>
 
         <Button x:Name="btnFindStudent" Grid.Row="8" Grid.Column="1" FontSize="20" 
-                Click="btnFindStudent_Click" Width="140">Ricerca</Button>
+                Click="btnFindStudent_Click" Width="140" Height="40" Margin="5,0,5,0" VerticalAlignment="Bottom">Ricerca</Button>
         <Button x:Name="btnNew" Grid.Row="8" Grid.Column="2" FontSize="20"
                 Click="btnNew_Click" Width="140">Pulisci dati</Button>
         <Button x:Name="btnFindHomonyms" Grid.Row="9" Grid.Column="1" FontSize="15"
