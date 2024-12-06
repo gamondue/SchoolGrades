@@ -267,7 +267,7 @@ namespace SchoolGrades
         internal override void RenameStudentsNamesAndManagePictures(Class Class, DbCommand cmd)
         {
             // get the "previous" students from database 
-            List<Student> StudentsInClass = GetStudentsOfClass(Class.IdClass, cmd);
+            List<Student> StudentsInClass = GetStudentsOfClass(Class, true, cmd);
 
             // rename the students' names according to the names found in the image files 
             string[] OriginalDemoStudentPictures = Directory.GetFiles(Path.Combine(Commons.PathImages, "DemoPictures\\"));

@@ -97,8 +97,7 @@
             TxtFileDatabase.Name = "TxtFileDatabase";
             TxtFileDatabase.Size = new System.Drawing.Size(642, 24);
             TxtFileDatabase.TabIndex = 2;
-            TxtFileDatabase.TextChanged += TxtFileDatabase_TextChanged;
-            TxtFileDatabase.DoubleClick += TxtPaths_DoubleClick;
+            TxtFileDatabase.DoubleClick += TxtFileDatabase_DoubleClick;
             // 
             // btnFileDatabase
             // 

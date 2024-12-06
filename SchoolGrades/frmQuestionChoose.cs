@@ -8,7 +8,7 @@ namespace SchoolGrades
 {
     public partial class frmQuestionChoose : Form
     {
-        TreeMpttDb_SqLite dbMptt;
+        TreeMpttDb dbMptt;
 
         List<Tag> tagsList = new List<Tag>();
 
@@ -35,9 +35,9 @@ namespace SchoolGrades
             InitializeComponent();
 
 #if SQL_SERVER
-            TreeMpttDb_SqlServer dbMptt = new TreeMpttDb_SqlServer(Commons.bl.dl);
+            dbMptt = new TreeMpttDb_SqlServer(Commons.bl.dl);
 #else
-            TreeMpttDb_SqLite dbMptt = new TreeMpttDb_SqLite(Commons.bl.dl);
+            dbMptt = new TreeMpttDb_SqLite(Commons.bl.dl);
 #endif
 
             this.ParentForm = MicroAssessmentParent;
@@ -78,7 +78,9 @@ namespace SchoolGrades
                     cmbSchoolPeriod.SelectedItem = sp;
                 }
             }
-
+            ////////// if no period is selected then we select the "month" period
+            ////////if (cmbSchoolPeriod.SelectedItem == null)
+            ////////    cmbSchoolPeriod.SelectedItem = listPeriods["month"];
             isLoading = false;
             // if the query would include too many rows, don't do it 
             //if (!(currentSubject == null && (previousQuestion == null || previousQuestion.IdQuestion == 0)))
@@ -147,8 +149,6 @@ namespace SchoolGrades
         }
         private void LoadDatagrids(string keySubject, string keyQuestionType)
         {
-            //dgwQuestions.DataSource = db.GetFilteredQuestions(tagsList, keySubject,
-            //    keyQuestionType, currentTopic, rdbManyTopics.Checked, rdbAnd.Checked);
             DateTime dateFrom = dtpStartPeriod.Value;
             DateTime dateTo = dtpEndPeriod.Value;
             if (cmbSchoolPeriod.Text == "")

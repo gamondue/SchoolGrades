@@ -73,14 +73,15 @@
             label5 = new System.Windows.Forms.Label();
             label6 = new System.Windows.Forms.Label();
             label7 = new System.Windows.Forms.Label();
+            btnAddStudent = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)dgwSearchedStudents).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picStudent).BeginInit();
             SuspendLayout();
             // 
             // btnNew
             // 
-            btnNew.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            btnNew.Location = new System.Drawing.Point(644, 427);
+            btnNew.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnNew.Location = new System.Drawing.Point(639, 404);
             btnNew.Name = "btnNew";
             btnNew.Size = new System.Drawing.Size(91, 47);
             btnNew.TabIndex = 95;
@@ -184,8 +185,8 @@
             // 
             // btnFindHomonyms
             // 
-            btnFindHomonyms.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            btnFindHomonyms.Location = new System.Drawing.Point(547, 480);
+            btnFindHomonyms.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnFindHomonyms.Location = new System.Drawing.Point(542, 457);
             btnFindHomonyms.Name = "btnFindHomonyms";
             btnFindHomonyms.Size = new System.Drawing.Size(91, 47);
             btnFindHomonyms.TabIndex = 100;
@@ -212,7 +213,7 @@
             dgwSearchedStudents.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             dgwSearchedStudents.Location = new System.Drawing.Point(1, 236);
             dgwSearchedStudents.Name = "dgwSearchedStudents";
-            dgwSearchedStudents.Size = new System.Drawing.Size(520, 339);
+            dgwSearchedStudents.Size = new System.Drawing.Size(520, 343);
             dgwSearchedStudents.TabIndex = 77;
             dgwSearchedStudents.CellClick += dgwSearchedStudents_CellClick;
             dgwSearchedStudents.CellContentClick += dgwSearchedStudents_CellContentClick;
@@ -220,8 +221,8 @@
             // 
             // btnSave
             // 
-            btnSave.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            btnSave.Location = new System.Drawing.Point(644, 480);
+            btnSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnSave.Location = new System.Drawing.Point(639, 457);
             btnSave.Name = "btnSave";
             btnSave.Size = new System.Drawing.Size(91, 47);
             btnSave.TabIndex = 105;
@@ -241,8 +242,8 @@
             // 
             // btnChoose
             // 
-            btnChoose.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            btnChoose.Location = new System.Drawing.Point(842, 532);
+            btnChoose.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnChoose.Location = new System.Drawing.Point(858, 532);
             btnChoose.Name = "btnChoose";
             btnChoose.Size = new System.Drawing.Size(91, 47);
             btnChoose.TabIndex = 120;
@@ -311,8 +312,8 @@
             // 
             // btnFindStudent
             // 
-            btnFindStudent.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            btnFindStudent.Location = new System.Drawing.Point(547, 427);
+            btnFindStudent.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnFindStudent.Location = new System.Drawing.Point(542, 404);
             btnFindStudent.Name = "btnFindStudent";
             btnFindStudent.Size = new System.Drawing.Size(91, 47);
             btnFindStudent.TabIndex = 90;
@@ -322,8 +323,8 @@
             // 
             // btnExitWithoutChoosing
             // 
-            btnExitWithoutChoosing.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            btnExitWithoutChoosing.Location = new System.Drawing.Point(745, 532);
+            btnExitWithoutChoosing.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnExitWithoutChoosing.Location = new System.Drawing.Point(761, 532);
             btnExitWithoutChoosing.Name = "btnExitWithoutChoosing";
             btnExitWithoutChoosing.Size = new System.Drawing.Size(91, 47);
             btnExitWithoutChoosing.TabIndex = 115;
@@ -334,12 +335,12 @@
             // 
             // btnDeleteStudent
             // 
-            btnDeleteStudent.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            btnDeleteStudent.Location = new System.Drawing.Point(595, 533);
+            btnDeleteStudent.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnDeleteStudent.Location = new System.Drawing.Point(542, 532);
             btnDeleteStudent.Name = "btnDeleteStudent";
             btnDeleteStudent.Size = new System.Drawing.Size(91, 47);
             btnDeleteStudent.TabIndex = 110;
-            btnDeleteStudent.Text = "Cancella";
+            btnDeleteStudent.Text = "Elimina studente";
             btnDeleteStudent.UseVisualStyleBackColor = true;
             btnDeleteStudent.Click += btnDeleteStudent_Click;
             // 
@@ -355,6 +356,7 @@
             // 
             // txtTelephone
             // 
+            txtTelephone.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             txtTelephone.Location = new System.Drawing.Point(531, 261);
             txtTelephone.Name = "txtTelephone";
             txtTelephone.Size = new System.Drawing.Size(206, 24);
@@ -362,6 +364,7 @@
             // 
             // label1
             // 
+            label1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             label1.AutoSize = true;
             label1.ForeColor = System.Drawing.Color.DarkBlue;
             label1.Location = new System.Drawing.Point(528, 239);
@@ -373,6 +376,7 @@
             // 
             // txtMobileTelephone
             // 
+            txtMobileTelephone.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             txtMobileTelephone.Location = new System.Drawing.Point(743, 261);
             txtMobileTelephone.Name = "txtMobileTelephone";
             txtMobileTelephone.Size = new System.Drawing.Size(206, 24);
@@ -380,6 +384,7 @@
             // 
             // label2
             // 
+            label2.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             label2.AutoSize = true;
             label2.ForeColor = System.Drawing.Color.DarkBlue;
             label2.Location = new System.Drawing.Point(740, 239);
@@ -480,12 +485,24 @@
             label7.TabIndex = 173;
             label7.Text = "Regione";
             // 
+            // btnAddStudent
+            // 
+            btnAddStudent.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnAddStudent.Location = new System.Drawing.Point(639, 532);
+            btnAddStudent.Name = "btnAddStudent";
+            btnAddStudent.Size = new System.Drawing.Size(91, 47);
+            btnAddStudent.TabIndex = 175;
+            btnAddStudent.Text = "Aggiungi Studente";
+            btnAddStudent.UseVisualStyleBackColor = true;
+            btnAddStudent.Click += btnAddStudent_Click;
+            // 
             // frmStudent
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.PowderBlue;
             ClientSize = new System.Drawing.Size(961, 585);
+            Controls.Add(btnAddStudent);
             Controls.Add(label7);
             Controls.Add(label6);
             Controls.Add(label5);
@@ -533,7 +550,6 @@
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4);
-            MaximizeBox = false;
             Name = "frmStudent";
             Text = "Gestione studenti";
             toolTip1.SetToolTip(this, "Esci scegliendo l'attuale studente");
@@ -590,5 +606,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtState;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button btnAddStudent;
     }
 }

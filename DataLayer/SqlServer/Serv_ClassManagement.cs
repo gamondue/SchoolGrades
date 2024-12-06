@@ -530,31 +530,31 @@ namespace SchoolGrades
             }
             return c;
         }
-        internal override DataTable GetClassDataTable(string IdSchool, string IdSchoolYear, string ClassAbbreviation)
-        {
-            DataTable t;
-            using (DbConnection conn = Connect())
-            {
-                DataAdapter dAdapter;
-                DataSet dSet = new DataSet();
+        //internal override DataTable GetClassDataTable(string IdSchool, string IdSchoolYear, string ClassAbbreviation)
+        //{
+        //    DataTable t;
+        //    using (DbConnection conn = Connect())
+        //    {
+        //        DataAdapter dAdapter;
+        //        DataSet dSet = new DataSet();
 
-                string query = "SELECT DISTINCT registerNumber, Classes.idSchool, Classes.idSchoolYear, " +
-                                "Classes.abbreviation, Students.*" +
-                " FROM Students, Classes_Students, Classes" +
-                " WHERE Students.idStudent=Classes_Students.idStudent AND Classes.idClass = Classes_Students.idClass" +
-                    " AND Classes.idSchool=" + SqlString(IdSchool) + " AND Classes.idSchoolYear = " + SqlString(IdSchoolYear) +
-                    " AND Classes.abbreviation=" + SqlString(ClassAbbreviation) +
-                    " ORDER BY Students.lastName, Students.firstName;";
-                dAdapter = new SqlDataAdapter(query,
-                    (SqlConnection)conn);
-                dAdapter.Fill(dSet);
-                t = dSet.Tables[0];
+        //        string query = "SELECT DISTINCT registerNumber, Classes.idSchool, Classes.idSchoolYear, " +
+        //                        "Classes.abbreviation, Students.*" +
+        //        " FROM Students, Classes_Students, Classes" +
+        //        " WHERE Students.idStudent=Classes_Students.idStudent AND Classes.idClass = Classes_Students.idClass" +
+        //            " AND Classes.idSchool=" + SqlString(IdSchool) + " AND Classes.idSchoolYear = " + SqlString(IdSchoolYear) +
+        //            " AND Classes.abbreviation=" + SqlString(ClassAbbreviation) +
+        //            " ORDER BY Students.lastName, Students.firstName;";
+        //        dAdapter = new SqlDataAdapter(query,
+        //            (SqlConnection)conn);
+        //        dAdapter.Fill(dSet);
+        //        t = dSet.Tables[0];
 
-                dAdapter.Dispose();
-                dSet.Dispose();
-            }
-            return t;
-        }
+        //        dAdapter.Dispose();
+        //        dSet.Dispose();
+        //    }
+        //    return t;
+        //}
         internal override Class GetClass(string IdSchool, string IdSchoolYear, string ClassAbbreviation)
         {
             Class c = new Class();
@@ -583,7 +583,7 @@ namespace SchoolGrades
             }
             return c;
         }
-        internal override Class GetClassOfStudent(string IdSchool, string SchoolYearCode, Student Student)
+        internal override Class GetClassOfAStudentInAYear(string IdSchool, string SchoolYearCode, Student Student)
         {
             Class c = new Class();
             using (DbConnection conn = Connect())

@@ -1,4 +1,4 @@
-﻿<Page x:Class="SchoolGrades_WPF.frmSchoolSubjectManagement"
+﻿<Window x:Class="SchoolGrades_WPF.frmSchoolSubjectManagement"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -15,4 +15,4 @@
         <DataGrid x:Name="DgwSubjects" Background="Gray" d:ItemsSource="{d:SampleData ItemCount=0}" Margin="10,63,90,10"/>
         <Image x:Name="picSubjectColor" HorizontalAlignment="Left" Height="64" Margin="728,63,0,0" VerticalAlignment="Top" Width="62"/>
     </Grid>
-</Page>
+</Window>

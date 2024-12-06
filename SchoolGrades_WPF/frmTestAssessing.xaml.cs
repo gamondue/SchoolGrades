@@ -32,8 +32,7 @@ namespace SchoolGrades_WPF
         private void RefreshUi()
         {
             dgwQuestions.ItemsSource = Commons.bl.GetAllQuestionsOfATest(currentTest.IdTest);
-            dgwClassStudents.ItemsSource = Commons.bl.GetStudentsOfClassList(Commons.IdSchool,
-                currentClass.SchoolYear, currentClass.Abbreviation, false);
+            dgwClassStudents.ItemsSource = Commons.bl.GetStudentsOfClassList(currentClass, false);
         }
         private void dgwQuestions_CellContentClick(object sender, RoutedEvent e)
         {

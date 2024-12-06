@@ -111,6 +111,21 @@ namespace SchoolGrades
             else
                 return CreateStudent(Student);
         }
+        internal override void DeleteStudent(Student Student)
+        {
+            if (Student.IdStudent == null)
+                return;
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "DELETE FROM Students" +
+                           " WHERE idStudent=" + Student.IdStudent +
+                           ";";
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+            // !!!! TODO delete also widow classes (those where the deleted student was present)
+        }
         internal override int? CreateStudent(Student Student)
         {
             // trova una chiave da assegnare al nuovo studente
@@ -122,7 +137,7 @@ namespace SchoolGrades
                 cmd.CommandText = "INSERT INTO Students " +
                     "(idStudent,lastName,firstName,city,origin" +
                     ",email,birthDate,birthPlace,telephone,mobileTelephone,gender" +
-                    ",streetAddress,zipCode,county,state,disabled,hasSpecialNeeds) " +
+                    ",streetAddress,zipCode,county,state,hasSpecialNeeds,lastPhotoPath) " +
                     "VALUES (" + SqlInt(Student.IdStudent) + "," +
                     SqlString(Student.LastName) + "," +
                     SqlString(Student.FirstName) + "," +
@@ -138,7 +153,6 @@ namespace SchoolGrades
                     SqlString(Student.ZipCode) + "," +
                     SqlString(Student.County) + "," +
                     SqlString(Student.State) + "," +
-                    SqlBool(Student.Disabled) + "," +
                     SqlBool(Student.HasSpecialNeeds) + "," +
                     SqlString(Student.LastPhotoPath) + "" +
                     ");";
@@ -180,7 +194,6 @@ namespace SchoolGrades
                 ",zipCode=" + SqlString(Student.ZipCode) +
                 ",county=" + SqlString(Student.County) +
                 ",state=" + SqlString(Student.State) +
-                ",disabled=" + SqlBool(Student.Disabled) +
                 ",hasSpecialNeeds=" + SqlBool(Student.HasSpecialNeeds) +
                 ",eligible=" + SqlBool(Student.Eligible) +
                 ",revengeFactorCounter=" + SqlInt(Student.RevengeFactorCounter) +
@@ -226,6 +239,9 @@ namespace SchoolGrades
                 dRead = cmd.ExecuteReader();
                 dRead.Read();
                 s = GetStudentFromRow(dRead);
+                // ! this Student object has only the properties from the Students table
+                // ! since the class is not passed, no information of the Student related to
+                // ! the class can be included in this object
                 dRead.Dispose();
                 cmd.Dispose();
             }
@@ -250,7 +266,6 @@ namespace SchoolGrades
             s.ZipCode = Safe.String(Row["zipCode"]);
             s.County = Safe.String(Row["county"]);
             s.State = Safe.String(Row["state"]);
-            s.Disabled = Safe.Bool(Row["disabled"]);
             s.HasSpecialNeeds = Safe.Bool(Row["hasSpecialNeeds"]);
             s.Eligible = Safe.Bool(Row["eligible"]);
             s.RevengeFactorCounter = Safe.Int(Row["revengeFactorCounter"]);
@@ -317,6 +332,7 @@ namespace SchoolGrades
                         query += " WHERE Students.firstName " + SqlLikeStatement(FirstName) + "";
                     }
                 }
+                query += " ORDER BY SchoolYear";
                 query += ";";
                 DbCommand cmd = conn.CreateCommand();
                 cmd = new SQLiteCommand(query);
@@ -367,17 +383,44 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="IdClass">Id of the class to be searched</param>
-        /// <param name="conn">Connection already open on a database different from standard. 
-        /// If not null this connection is left open</param>
-        /// <returns>List of the </returns>
-        internal override List<Student> GetStudentsOfClass(int? IdClass, DbCommand cmd)
+        ////////internal override List<Student> GetStudentsOfClass(Class Class, DbCommand cmd)
+        ////////{
+        ////////    DbConnection conn;
+        ////////    int? IdClass = Class.IdClass;
+        ////////    List<Student> l = new List<Student>();
+        ////////    bool leaveConnectionOpen = true;
+        ////////    if (cmd == null)
+        ////////    {
+        ////////        conn = Connect();
+        ////////        cmd = conn.CreateCommand();
+        ////////        leaveConnectionOpen = false;
+        ////////    }
+        ////////    DbDataReader dRead;
+        ////////    string query = "SELECT Students.*" +
+        ////////        " FROM Students" +
+        ////////        " JOIN Classes_Students ON Classes_Students.idStudent=Students.idStudent" +
+        ////////        " WHERE Classes_Students.idClass=" + IdClass +
+        ////////    ";";
+        ////////    cmd.CommandText = query;
+        ////////    dRead = cmd.ExecuteReader();
+        ////////    while (dRead.Read())
+        ////////    {
+        ////////        Student s = GetStudentFromRow(dRead);
+        ////////        l.Add(s);
+        ////////    }
+        ////////    dRead.Close();
+        ////////    if (!leaveConnectionOpen)
+        ////////    {
+        ////////        cmd.Dispose();
+        ////////        //conn.Close();
+        ////////        //conn.Dispose();
+        ////////    }
+        ////////    return l;
+        ////////}
+        internal override List<Student> GetStudentsOfClass(Class Class, bool IncludeNonActiveStudents, DbCommand cmd = null)
         {
             DbConnection conn;
-            List<Student> l = new List<Student>();
+            int? IdClass = Class.IdClass;
             bool leaveConnectionOpen = true;
             if (cmd == null)
             {
@@ -386,17 +429,34 @@ namespace SchoolGrades
                 leaveConnectionOpen = false;
             }
             DbDataReader dRead;
-            string query = "SELECT Students.*" +
-                " FROM Students" +
-                " JOIN Classes_Students ON Classes_Students.idStudent=Students.idStudent" +
-                " WHERE Classes_Students.idClass=" + IdClass +
-            ";";
+            List<Student> ls = new List<Student>();
+            string query = "SELECT registerNumber, Classes.idSchoolYear, " +
+                            "Classes.abbreviation, Classes.idClass, Classes.idSchool, " +
+                            "Students.*,Classes_Students.disabled" +
+            " FROM Students" +
+            " JOIN Classes_Students ON Students.idStudent=Classes_Students.idStudent" +
+            " JOIN Classes ON Classes.idClass=Classes_Students.idClass" +
+            " WHERE Classes.idClass=" + SqlInt(Class.IdClass);
+            if (!IncludeNonActiveStudents)
+            {
+                query += " AND (Classes_Students.disabled = 0 OR Classes_Students.disabled IS NULL)";
+            }
+            query += " COLLATE NOCASE";
+            query += " ORDER BY Students.LastName COLLATE NOCASE," +
+                " Students.FirstName COLLATE NOCASE, Students.birthDate";
+            query += ";";
             cmd.CommandText = query;
             dRead = cmd.ExecuteReader();
             while (dRead.Read())
             {
+                // get info from student table
                 Student s = GetStudentFromRow(dRead);
-                l.Add(s);
+                // add info gathered from other tables
+                s.ClassAbbreviation = (string)dRead["abbreviation"];
+                s.IdClass = (int)dRead["idClass"];
+                s.RegisterNumber = Safe.String(dRead["registerNumber"]);
+                s.Disabled = Safe.Bool(dRead["disabled"]);
+                ls.Add(s);
             }
             dRead.Close();
             if (!leaveConnectionOpen)
@@ -404,47 +464,6 @@ namespace SchoolGrades
                 cmd.Dispose();
                 //conn.Close();
                 //conn.Dispose();
-            }
-            return l;
-        }
-        internal override List<Student> GetStudentsOfClassList(string Scuola, string Anno,
-            string SiglaClasse, bool IncludeNonActiveStudents)
-        {
-            DbDataReader dRead;
-            DbCommand cmd;
-            List<Student> ls = new List<Student>();
-            using (DbConnection conn = Connect())
-            {
-                string query = "SELECT registerNumber, Classes.idSchoolYear, " +
-                               "Classes.abbreviation, Classes.idClass, Classes.idSchool, " +
-                               "Students.*" +
-                " FROM Students" +
-                " JOIN Classes_Students ON Students.idStudent=Classes_Students.idStudent" +
-                " JOIN Classes ON Classes.idClass=Classes_Students.idClass" +
-                " WHERE Classes.idSchoolYear=" + SqlString(Anno) +
-                " AND Classes.abbreviation=" + SqlString(SiglaClasse);
-                if (!IncludeNonActiveStudents)
-                    query += " AND (Students.disabled = 0 OR Students.disabled IS NULL)";
-                if (Scuola != null && Scuola != "")
-                    query += " AND Classes.idSchool='" + Scuola + "'";
-                query += " ORDER BY Students.LastName, Students.FirstName";
-                query += ";";
-                cmd = conn.CreateCommand();
-                cmd.CommandText = query;
-                dRead = cmd.ExecuteReader();
-
-
-                while (dRead.Read())
-                {
-                    Student s = GetStudentFromRow(dRead);
-                    s.ClassAbbreviation = (string)dRead["abbreviation"];
-                    // read the properties from other tables
-                    s.IdClass = (int)dRead["idClass"];
-                    s.RegisterNumber = Safe.String(dRead["registerNumber"]);
-                    ls.Add(s);
-                }
-                dRead.Dispose();
-                cmd.Dispose();
             }
             return ls;
         }
@@ -483,7 +502,7 @@ namespace SchoolGrades
             }
             return keys;
         }
-        internal override void ToggleDisabledFlagOneStudent(Student Student)
+        internal override void ToggleDisabledFlagOneStudent(Student Student, Class Class)
         {
             // if Disabled is null I want it to be true after method
             if (Student.Disabled == null)
@@ -492,10 +511,11 @@ namespace SchoolGrades
             {
                 DbCommand cmd = conn.CreateCommand();
 
-                cmd.CommandText = "UPDATE Students" +
+                cmd.CommandText = "UPDATE Classes_Students" +
                            " Set" +
                            " disabled = NOT " + Student.Disabled +
                            " WHERE IdStudent =" + Student.IdStudent +
+                           " AND IdClass =" + Class.IdClass +
                            ";";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();

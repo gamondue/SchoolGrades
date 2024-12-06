@@ -194,5 +194,10 @@ namespace SchoolGrades
             }
             return table;
         }
+
+        internal override void DeleteStudent(Student Student)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

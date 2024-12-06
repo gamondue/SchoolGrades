@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.Text;
 
 namespace SchoolGrades
 {
@@ -32,21 +31,21 @@ namespace SchoolGrades
         }
         internal override List<SchoolPeriod> GetSchoolPeriods(string IdSchoolYear)
         {
-            List<SchoolPeriod> l = new List<SchoolPeriod>();
+            List<SchoolPeriod> l = new();
             using (DbConnection conn = Connect())
             {
                 DbDataReader dRead;
                 DbCommand cmd = conn.CreateCommand();
                 string query = "SELECT * " +
-                    "FROM SchoolPeriods"; 
+                    "FROM SchoolPeriods";
                 if (IdSchoolYear != null)
                 {
-                    query += 
+                    query +=
                     " WHERE idSchoolYear=" + SqlString(IdSchoolYear) +
                     " OR IdSchoolYear IS null OR IdSchoolYear=''" +
                     ";";
                 }
-                cmd.CommandText = query; 
+                cmd.CommandText = query;
                 dRead = cmd.ExecuteReader();
 
                 while (dRead.Read())
@@ -61,6 +60,8 @@ namespace SchoolGrades
         {
             SchoolPeriod p = new SchoolPeriod();
             p.IdSchoolPeriodType = Safe.String(Row["idSchoolPeriodType"]);
+            // school period of type N requires the calculation of
+            // begin and finish time only when needed (it depends from DateTime.Now)
             if (p.IdSchoolPeriodType != "N")
             {
                 p.DateFinish = Safe.DateTime(Row["dateFinish"]);
@@ -76,11 +77,11 @@ namespace SchoolGrades
         {
             if (FindIfIdIsAlreadyExisting(SchoolPeriod.IdSchoolPeriod))
             {
-                UpdateSchoolPeriod(SchoolPeriod); 
+                UpdateSchoolPeriod(SchoolPeriod);
             }
             else
             {
-                CreateSchoolPeriod(SchoolPeriod); 
+                CreateSchoolPeriod(SchoolPeriod);
             }
         }
         internal override void CreateSchoolPeriod(SchoolPeriod SchoolPeriod)
@@ -90,7 +91,7 @@ namespace SchoolGrades
                 DbCommand cmd = conn.CreateCommand();
                 string query = "INSERT INTO SchoolPeriods" +
                 "(idSchoolPeriod, idSchoolPeriodType, dateStart, dateFinish, " +
-                " name, desc, idSchoolYear)"; 
+                " name, desc, idSchoolYear)";
                 query += " Values(";
                 query += "" + SqlString(SchoolPeriod.IdSchoolPeriod);
                 query += "," + SqlString(SchoolPeriod.IdSchoolPeriodType);

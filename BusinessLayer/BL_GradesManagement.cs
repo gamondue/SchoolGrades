@@ -15,9 +15,9 @@ namespace SchoolGrades
         {
             dl.GetGradeAndStudentFromIdGrade(ref Grade, ref Student);
         }
-        internal Class GetClassOfStudent(string IdSchool, string SchoolYear, Student Student)
+        internal Class GetClassOfAStudentInAYear(string IdSchool, string SchoolYear, Student Student)
         {
-            return dl.GetClassOfStudent(IdSchool, SchoolYear, Student);
+            return dl.GetClassOfAStudentInAYear(IdSchool, SchoolYear, Student);
         }
         internal GradeType GetGradeType(string IdGradeType)
         {

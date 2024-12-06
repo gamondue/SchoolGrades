@@ -32,6 +32,7 @@ namespace SchoolGrades
             {
                 btnChoose.Visible = false;
             }
+            txtLastName.Focus();
         }
         private void ShowStudentData(Student currentStudent)
         {
@@ -205,7 +206,30 @@ namespace SchoolGrades
         }
         private void btnDeleteStudent_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("DA FARE!!");
+            if (currentStudent != null && currentStudent.IdStudent > 0)
+            {
+                // !!!! TODO: implementare la verifica se lo studente è già associato ad una classe od a voti
+                //if (Commons.bl.StudentHasGrades(currentStudent))
+                //{
+                //    MessageBox.Show("Lo studente " + currentStudent.ToString() + " ha dei voti associati e non può essere +
+                //    " eliminato");
+                //}
+            }
+            if (MessageBox.Show("Eliminare lo studente " + currentStudent.ToString() + "?",
+                "Eliminazione studente", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                Commons.bl.DeleteStudent(currentStudent);
+                btnNew_Click(null, null);
+            }
+            else
+            {
+                MessageBox.Show("Selezionare uno studente da eliminare");
+            }
+        }
+        private void btnAddStudent_Click(object sender, EventArgs e)
+        {
+            currentStudent = null;
+            btnSave_Click(null, null);
         }
     }
 }

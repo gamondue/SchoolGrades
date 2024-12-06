@@ -91,8 +91,7 @@ namespace SchoolGrades
             Class c = (Class)cmbClasses.SelectedItem;
             if (c != null)
             {
-                DgwStudents.DataSource = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text,
-                    cmbSchoolYearCurrents.Text, cmbClasses.Text, true);
+                DgwStudents.DataSource = Commons.bl.GetStudentsOfClassList((Class)cmbClasses.SelectedItem, true);
 
                 currentClass = (Class)cmbClasses.SelectedItem;
                 // check all the student's rows 

@@ -1,9 +1,9 @@
 ﻿using gamon;
+using Microsoft.Win32;
 using SchoolGrades;
 using System;
 using System.IO;
 using System.Windows;
-using Microsoft.Win32;
 
 namespace SchoolGrades_WPF
 {
@@ -85,7 +85,7 @@ namespace SchoolGrades_WPF
                 System.Windows.MessageBox.Show("File di configurazione salvato in " + Commons.PathAndFileConfig +
                     "\n\nIl programma verrà chiuso.");
 
-                ////////Application.Exit();
+                Application.Current.Shutdown();
             }
             catch (Exception e)
             {
@@ -95,7 +95,8 @@ namespace SchoolGrades_WPF
                 //throw new FileNotFoundException(@"[Error in program's directories] \r\n" + e.Message);
                 //return;
             }
-            //////////Application.Exit();
+            // totally stop the program 
+            Application.Current.Shutdown();
             NewDatabaseFile = true;
             this.Close();
         }
@@ -103,7 +104,7 @@ namespace SchoolGrades_WPF
         {
             if (!Path.Exists(TxtPathDatabase.Text))
             {
-                Console.Beep(); 
+                Console.Beep();
             }
             OpenFolderDialog folderBrowserDialog1 = new OpenFolderDialog();
             folderBrowserDialog1.InitialDirectory = TxtPathDatabase.Text;
@@ -122,21 +123,22 @@ namespace SchoolGrades_WPF
         }
         private void btnTagsManagement_Click(object sender, RoutedEventArgs e)
         {
-            //frmTag t = new frmTag(false);
-            //t.ShowDialog();
+            frmTag t = new frmTag(false);
+            t.ShowDialog();
         }
         private void btnQuestionManagement_Click(object sender, RoutedEventArgs e)
         {
-            //    frmQuestionChoose form = new frmQuestionChoose(null, null, null);
-            //    form.ShowDialog();
+            frmQuestionChoose form = new frmQuestionChoose(null, null, null);
+            form.ShowDialog();
         }
         private void btnTestManagement_Click(object sender, RoutedEventArgs e)
         {
-            //frmTestManagement frm = new frmTestManagement();
-            //frm.ShowDialog();
+            frmTestManagement frm = new frmTestManagement();
+            frm.ShowDialog();
         }
         private void btnRecoverTopics_Click(object sender, RoutedEventArgs e)
         {
+            Console.Beep();
             //frmTopicsRecover rt = new frmTopicsRecover();
             //rt.ShowDialog();
         }
@@ -148,21 +150,20 @@ namespace SchoolGrades_WPF
             }
             OpenFolderDialog folderDialog = new OpenFolderDialog();
             folderDialog.InitialDirectory = TxtPathDocuments.Text;
-            if(folderDialog.ShowDialog() == true)
-            { 
+            if (folderDialog.ShowDialog() == true)
+            {
                 TxtPathDocuments.Text = folderDialog.FolderName;
             }
         }
         private void btnEraseConfigurationFile_Click(object sender, RoutedEventArgs e)
         {
             File.Delete(Commons.PathAndFileConfig);
-            //this.Close();
-            ////////Application.Exit();
+            Application.Current.Shutdown();
         }
         private void btnSchoolSubjectManagement_Click(object sender, RoutedEventArgs e)
         {
-            //////////frmSchoolSubjectManagement f = new frmSchoolSubjectManagement();
-            //////////f.ShowDialog(); 
+            frmSchoolSubjectManagement f = new frmSchoolSubjectManagement();
+            f.ShowDialog();
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {

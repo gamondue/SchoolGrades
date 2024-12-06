@@ -1,7 +1,6 @@
 ﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Windows.Forms;
 
 namespace SchoolGrades
@@ -22,15 +21,15 @@ namespace SchoolGrades
         }
         TopicChooseFormType formType;
         private SchoolPeriod currentSchoolPeriod;
-        public frmTopicChooseByPeriod(TopicChooseFormType FormType, 
+        public frmTopicChooseByPeriod(TopicChooseFormType FormType,
             Class Class, SchoolSubject Subject)
         {
             InitializeComponent();
             currentClass = Class;
             currentSubject = Subject;
             formType = FormType;
-            TopicChosen = new Topic(); 
-            TopicChosen.Id = 0; 
+            TopicChosen = new Topic();
+            TopicChosen.Id = 0;
         }
         private void frmTopicChooseByPeriod_Load(object sender, EventArgs e)
         {
@@ -64,7 +63,7 @@ namespace SchoolGrades
             if (cmbSchoolPeriod.Text == "")
                 dateFrom = Commons.DateNull;
             else
-                dateFrom = dtpStartPeriod.Value; 
+                dateFrom = dtpStartPeriod.Value;
             topicsDone = Commons.bl.GetTopicsDoneInPeriod(currentClass, currentSubject,
                 dateFrom, dtpEndPeriod.Value);
 
@@ -114,7 +113,7 @@ namespace SchoolGrades
                             oneItemList.Add(topicsDone[e.RowIndex]);
                             frmTopics t = new frmTopics(frmTopics.TopicsFormType.HighlightTopics,
                                 currentClass, currentSubject, null, oneItemList);
-                            t.ShowDialog(); 
+                            t.ShowDialog();
                             t.Dispose();
                             break;
                         }
@@ -135,14 +134,14 @@ namespace SchoolGrades
                 TopicChosen = topicsDone[index];
                 this.Close();
             }
-            Console.Beep(); 
+            Console.Beep();
         }
         private void btnChoose_Click(object sender, EventArgs e)
         {
             if (dgwTopics.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Scegliere un argomento nella griglia");
-                return; 
+                return;
             }
             int rowIndex = dgwTopics.SelectedRows[0].Index;
             //DataRow row = ((DataTable)(dgwTopics.DataSource)).Rows[rowIndex];

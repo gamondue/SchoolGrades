@@ -1,6 +1,5 @@
 ﻿using SchoolGrades;
 using SchoolGrades.BusinessObjects;
-using System;
 using System.Collections.Generic;
 using System.Windows;
 
@@ -94,10 +93,8 @@ namespace SchoolGrades_WPF
             Class c = (Class)cmbClasses.SelectedItem;
             if (c != null)
             {
-                DgwStudents.ItemsSource = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text,
-                    cmbSchoolYearCurrents.Text, cmbClasses.Text, true);
-
                 currentClass = (Class)cmbClasses.SelectedItem;
+                DgwStudents.ItemsSource = Commons.bl.GetStudentsOfClassList(currentClass, true);
                 // check all the student's rows 
                 foreach (Student dr in DgwStudents.Items)
                 {

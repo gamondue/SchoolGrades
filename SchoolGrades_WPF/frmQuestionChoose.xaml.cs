@@ -15,7 +15,7 @@ namespace SchoolGrades_WPF
     /// </summary>
     public partial class frmQuestionChoose : Window
     {
-        TreeMpttDb_SqLite dbMptt;
+        TreeMpttDb dbMptt;
 
         List<Tag> tagsList = new List<Tag>();
 
@@ -40,32 +40,41 @@ namespace SchoolGrades_WPF
         {
             InitializeComponent();
 
-            //dbMptt = new TreeMpttDb_SqLite(dl);
-            this.ParentForm = MicroAssessmentParent;
-            // fills the lookup tables' combos
-            cmbSchoolSubject.ItemsSource = "Name";
-            cmbSchoolSubject.SelectedItem = "idSchoolSubject";
-            cmbSchoolSubject.ItemsSource = Commons.bl.GetListSchoolSubjects(true);
-
-            List<QuestionType> lq = Commons.bl.GetListQuestionTypes(true);
-            cmbQuestionTypes.ItemsSource = "Name";
-            cmbQuestionTypes.SelectedItem = "idQuestionType";
-            cmbQuestionTypes.ItemsSource = lq;
-
-            //currentSubject = SchoolSubject; 
+            // initially we don't choose any subjects
             currentSubject = null;
+            // uncomment the following if you want this initial filter
+            //currentSubject = SchoolSubject; 
             currentClass = Class;
             currentStudent = Student;
             previousQuestion = Question;
             if (Question != null && Question.IdTopic != 0)
             {
-                //currentTopic = Commons.bl.GetTopicById(Question.IdTopic);
+                currentTopic = Commons.bl.GetTopicById(Question.IdTopic);
             }
-            frmQuestionChoose_Loaded();
+
+#if SQL_SERVER
+            dbMptt = new TreeMpttDb_SqlServer(Commons.bl.dl);
+#else
+            dbMptt = new TreeMpttDb_SqLite(Commons.bl.dl);
+#endif
+            this.ParentForm = MicroAssessmentParent;
+
+            // fills the lookup tables' combos
+            //cmbSchoolSubject.SelectedItem = "idSchoolSubject";
+            cmbSchoolSubject.ItemsSource = Commons.bl.GetListSchoolSubjects(true);
+            cmbSchoolSubject.DisplayMemberPath = "Name";
+            cmbSchoolSubject.SelectedValuePath = "Name";
+
+            //cmbQuestionTypes.SelectedItem = "idQuestionType";
+            cmbQuestionTypes.ItemsSource = Commons.bl.GetListQuestionTypes(true);
+            cmbSchoolSubject.DisplayMemberPath = "Name";
+            cmbSchoolSubject.SelectedValuePath = "Name";
         }
-        private void frmQuestionChoose_Loaded()
+        private void frmQuestionChoose_Loaded(object sender, RoutedEventArgs e)
         {
             cmbSchoolSubject.SelectedValue = "";
+
+            lstTags.ItemsSource = tagsList;
 
             List<SchoolPeriod> listPeriods = Commons.bl.GetSchoolPeriods(currentClass.SchoolYear);
             cmbSchoolPeriod.ItemsSource = listPeriods;
@@ -73,12 +82,14 @@ namespace SchoolGrades_WPF
             foreach (SchoolPeriod sp in listPeriods)
             {
                 if (sp.DateFinish > DateTime.Now && sp.DateStart < DateTime.Now
-                     && sp.IdSchoolPeriodType == "P")
+                    && sp.IdSchoolPeriodType == "P")
                 {
                     cmbSchoolPeriod.SelectedItem = sp;
                 }
             }
-
+            ////////// if no period is selected then we select the "month" period
+            ////////if (cmbSchoolPeriod.SelectedItem == null)
+            ////////    cmbSchoolPeriod.SelectedItem = listPeriods["month"];
             isLoading = false;
             // if the query would include too many rows, don't do it 
             //if (!(currentSubject == null && (previousQuestion == null || previousQuestion.IdQuestion == 0)))
@@ -86,13 +97,14 @@ namespace SchoolGrades_WPF
 
             if (currentTopic != null && previousQuestion != null)
             {
-                //     txtTopic.Text = dbMptt.GetNodePath(previousQuestion.IdTopic);
+                txtTopic.Text = dbMptt.GetNodePath(previousQuestion.IdTopic);
                 txtTopicCode.Text = currentTopic.Id.ToString();
                 updateQuestions();
             }
-            //  LessonTimer.Interval = 1000;
-            if (Commons.IsTimerLessonActive) { }
-            //     LessonTimer.Start();
+            // !! make a timer to substitute the Windows.Forms.Timer Lesson timer control !!
+            //LessonTimer.Interval = 1000;
+            //if (Commons.IsTimerLessonActive)
+            //    LessonTimer.Start();
         }
         private void btnAddQuestion_Click(object sender, RoutedEventArgs e)
         {
@@ -102,7 +114,7 @@ namespace SchoolGrades_WPF
                 q.IdQuestionType = ((QuestionType)cmbQuestionTypes.SelectedItem).IdQuestionType;
             }
             frmQuestion domanda = new frmQuestion(frmQuestion.QuestionFormType.CreateSeveralQuestions,
-                 q, currentSubject, currentClass, currentTopic);
+                q, currentSubject, currentClass, currentTopic);
             domanda.ShowDialog();
 
             if (domanda.UserHasChosen)
@@ -112,18 +124,22 @@ namespace SchoolGrades_WPF
             }
             updateQuestions();
         }
+        private void btnCopyQuestion_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Function not implemented yet");
+        }
         private void btnAddTag_Click(object sender, RoutedEventArgs e)
         {
-            //////////frmTag t = new frmTag(true);
-            //////////t.ShowDialog();
-            //////////if (t.haveChosen)
-            //////////{
-            //////////    tagsList.Add(t.currentTag);
-            //////////    lstTags.ItemsSource = null;
-            //////////    lstTags.ItemsSource = tagsList;
-            //////////    Commons.LastTagsChosen = tagsList;
-            //////////}
-            //////////updateQuestions();
+            frmTag t = new frmTag(true);
+            t.ShowDialog();
+            if (t.haveChosen)
+            {
+                tagsList.Add(t.currentTag);
+                lstTags.ItemsSource = null;
+                lstTags.ItemsSource = tagsList;
+                Commons.LastTagsChosen = tagsList;
+            }
+            updateQuestions();
         }
         private void btnCopyQuestion_Click(object sender, RoutedEventArgs e)
         {
@@ -147,19 +163,19 @@ namespace SchoolGrades_WPF
         }
         private void btnRemoveTag_Click(object sender, RoutedEventArgs e)
         {
-            //////////if (lstTags.SelectedItem == null)
-            //////////{
-            //////////    MessageBox.Show("Evidenziare il tag che si vuole eliminare");
-            //////////    return;
-            //////////}
-            //////////else
-            //////////{
-            //////////    tagsList.Remove((Tag)lstTags.SelectedItem);
-            //////////    lstTags.ItemsSource = null;
-            //////////    lstTags.ItemsSource = tagsList;
-            //////////    Commons.LastTagsChosen = tagsList;
-            //////////}
-            //////////updateQuestions();
+            if (lstTags.SelectedItem == null)
+            {
+                MessageBox.Show("Evidenziare il tag che si vuole eliminare");
+                return;
+            }
+            else
+            {
+                tagsList.Remove((Tag)lstTags.SelectedItem);
+                lstTags.ItemsSource = null;
+                lstTags.ItemsSource = tagsList;
+                Commons.LastTagsChosen = tagsList;
+            }
+            updateQuestions();
         }
         private void cmbSchoolSubject_SelectionChanged(object sender, RoutedEventArgs e)
         {
@@ -176,8 +192,8 @@ namespace SchoolGrades_WPF
         {
             if (dgwQuestions.SelectedItems.Count > 0)
             {
-                List<Question> ls = (List<Question>)(dgwQuestions.ItemsSource);
-                //////////////////ChosenQuestion = ls[dgwQuestions.SelectedItems[0].Index];
+                //List<Question> ls = (List<Question>)(dgwQuestions.ItemsSource);
+                ChosenQuestion = (Question)dgwQuestions.SelectedItems[0];
 
                 this.Close();
             }
@@ -193,7 +209,7 @@ namespace SchoolGrades_WPF
             List<Topic> oneItemList = new List<Topic>();
             oneItemList.Add(chosenTopic);
             frmTopics f = new frmTopics(frmTopics.TopicsFormType.ChooseTopic,
-               currentClass, currentSubject, null, oneItemList);
+                currentClass, currentSubject, null, oneItemList);
 
             f.ShowDialog();
             if (f.UserHasChosen)
@@ -239,12 +255,12 @@ namespace SchoolGrades_WPF
         private void btnRandomQuestion_Click(object sender, RoutedEventArgs e)
         {
             Random r = new Random();
-            //////////if (currentStudent == null)
-            //////////{
-            //////////    MessageBox.Show("Studente non definito\r\n" + 
-            //////////        "Non è possibile scegliere fra le domande fatte ad uno studente");
-            //////////    return; 
-            //////////}
+            //if (currentStudent == null)
+            //{
+            //    MessageBox.Show("Studente non definito\r\n" +
+            //        "Non è possibile scegliere fra le domande fatte ad uno studente");
+            //    return;
+            //}
             DateTime dateFrom = dtpStartPeriod.SelectedDate.Value;
             DateTime dateTo = dtpEndPeriod.SelectedDate.Value;
             List<Question> listAskedInThisLesson = Commons.bl.GetFilteredQuestionsNotAskedToStudent
@@ -307,10 +323,13 @@ namespace SchoolGrades_WPF
         //}
         private void LoadDatagrids(string keySubject, string keyQuestionType)
         {
-            //dgwQuestions.ItemsSource = db.GetFilteredQuestions(tagsList, keySubject,
-            //    keyQuestionType, currentTopic, rdbManyTopics.IsChecked, rdbAnd.IsChecked);
-            DateTime dateFrom = dtpStartPeriod.SelectedDate.Value;
-            DateTime dateTo = dtpEndPeriod.SelectedDate.Value;
+            DateTime dateFrom = Commons.DateNull;
+            DateTime dateTo = Commons.DateNull;
+            if (chkUseDates.IsChecked == true)
+            {
+                dateFrom = dtpStartPeriod.SelectedDate.Value;
+                dateTo = dtpEndPeriod.SelectedDate.Value;
+            }
             if (cmbSchoolPeriod.Text == "")
                 dateFrom = Commons.DateNull;
             if (currentSubject == null)
@@ -384,7 +403,7 @@ namespace SchoolGrades_WPF
                     question, subject, currentClass, topic);
                 frm.ShowDialog();
 
-                frmQuestionChoose_Loaded();
+                frmQuestionChoose_Loaded(null, null);
             }
         }
         private void LessonTimer_Tick(object sender, EventArgs e)
@@ -413,6 +432,21 @@ namespace SchoolGrades_WPF
                 (bool)rdbManyTopics.IsChecked, (bool)rdbAnd.IsChecked, txtSearchText.Text,
                 dateFrom, dateTo);
             dgwQuestions.ItemsSource = l;
+        }
+        private void chkUseDates_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (chkUseDates.IsChecked == true)
+            {
+                dtpStartPeriod.IsEnabled = true;
+                dtpEndPeriod.IsEnabled = true;
+                cmbSchoolPeriod.IsEnabled = true;
+            }
+            else
+            {
+                dtpStartPeriod.IsEnabled = false;
+                dtpEndPeriod.IsEnabled = false;
+                cmbSchoolPeriod.IsEnabled = false;
+            }
         }
         private void btnKnotsToTheComb_Click(object sender, EventArgs e)
         {
