@@ -115,9 +115,9 @@ namespace SchoolGrades
         internal abstract List<Class> GetClassesOfYear(string School, string Year);
         internal abstract DataTable GetClassTable(int? idClass);
         internal abstract Class GetClassById(int? IdClass);
-        internal abstract DataTable GetClassDataTable(string IdSchool, string IdSchoolYear, string ClassAbbreviation);
+        //internal abstract DataTable GetClassDataTable(string IdSchool, string IdSchoolYear, string ClassAbbreviation);
         internal abstract Class GetClass(string IdSchool, string IdSchoolYear, string ClassAbbreviation);
-        internal abstract Class GetClassOfStudent(string IdSchool, string SchoolYearCode, Student Student);
+        internal abstract Class GetClassOfAStudentInAYear(string IdSchool, string SchoolYearId, Student Student);
         internal abstract void SaveClass(Class Class);
         internal abstract void GetClassFromRow(Class Class, DbDataReader Row);
         internal abstract List<SchoolYear> GetSchoolYearsThatHaveClasses();
@@ -283,6 +283,7 @@ namespace SchoolGrades
             DateTime DateFrom, DateTime DateTo);
         internal abstract List<Student> GetAllStudentsThatAnsweredToATest(SchoolTest Test, Class Class);
         internal abstract int? SaveStudent(Student Student);
+        internal abstract void DeleteStudent(Student Student);
         internal abstract int? CreateStudent(Student Student);
         /// <summary>
         /// 
@@ -309,12 +310,10 @@ namespace SchoolGrades
         /// <param name="conn">Connection already open on a database different from standard. 
         /// If not null this connection is left open</param>
         /// <returns>List of the </returns>
-        internal abstract List<Student> GetStudentsOfClass(int? IdClass, DbCommand cmd);
-        internal abstract List<Student> GetStudentsOfClassList(string Scuola, string Anno,
-            string SiglaClasse, bool IncludeNonActiveStudents);
+        internal abstract List<Student> GetStudentsOfClass(Class Class, bool IncludeNonActiveStudents, DbCommand cmd = null);
         internal abstract List<int> GetIdStudentsNonGraded(Class Class,
             GradeType GradeType, SchoolSubject SchoolSubject);
-        internal abstract void ToggleDisabledFlagOneStudent(Student Student);
+        internal abstract void ToggleDisabledFlagOneStudent(Student Student, Class Class);
         internal abstract Nullable<int> GetStudentsPhotoId(int? idStudent, string schoolYear, DbConnection conn);
         internal abstract int? StudentHasAnswered(int? IdAnswer, int? IdTest, int? IdStudent);
         internal abstract List<Student> GetStudentsOnBirthday(Class Class, DateTime Date);

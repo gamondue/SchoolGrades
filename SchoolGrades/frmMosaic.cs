@@ -9,40 +9,40 @@ namespace SchoolGrades
 {
     public partial class frmMosaic : Form
     {
-        Class currentClass; 
+        Class currentClass;
         List<Student> currentStudents;
-        List<PictureBox> currentPictures = new List<PictureBox>(); 
+        List<PictureBox> currentPictures = new List<PictureBox>();
 
         public frmMosaic(SchoolGrades.BusinessObjects.Class Class)
         {
             InitializeComponent();
 
             currentClass = Class;
-            currentStudents = Commons.bl.GetStudentsOfClassList(Commons.IdSchool,
-                currentClass.SchoolYear, currentClass.Abbreviation, false);
+            currentStudents = Commons.bl.GetStudentsOfClassList(currentClass, false);
+            this.Text = currentClass.Abbreviation + " " + currentClass.SchoolYear + " - " + this.Text;
         }
         private void frmMosaic_Load(object sender, EventArgs e)
         {
             // creation of pictures 
             foreach (Student s in currentStudents)
             {
-                PictureBox pic =new PictureBox();
-                pic.BorderStyle = BorderStyle.FixedSingle; 
+                PictureBox pic = new PictureBox();
+                pic.BorderStyle = BorderStyle.FixedSingle;
                 pic.SizeMode = PictureBoxSizeMode.Zoom;
                 pic.Tag = s.LastName + " " + s.FirstName;
 
-                loadPicture(s, currentClass.SchoolYear, pic); 
-                currentPictures.Add(pic); 
-                this.Controls.Add(pic); 
+                loadPicture(s, currentClass.SchoolYear, pic);
+                currentPictures.Add(pic);
+                this.Controls.Add(pic);
             }
-            ResizePictures(); 
+            ResizePictures();
         }
         private void ResizePictures()
         {
             int xNumPictures = 7;
             int yNumPictures = (int)(Math.Ceiling((double)currentStudents.Count / xNumPictures));
             int xStep = this.ClientRectangle.Width / xNumPictures;
-            int yStep =  this.ClientRectangle.Height / yNumPictures;
+            int yStep = this.ClientRectangle.Height / yNumPictures;
             int nRow = 0, nCol = 0;
             foreach (PictureBox pic in currentPictures)
             {
@@ -65,10 +65,10 @@ namespace SchoolGrades
         }
         private void pictures_MouseDown(object sender, EventArgs e)
         {
-            PictureBox pic = (PictureBox)sender; 
+            PictureBox pic = (PictureBox)sender;
             txtStudentsName.Text = pic.Tag.ToString();
-            txtStudentsName.Location = new Point(pic.Location.X, pic.Location.Y + pic.Height / 2); 
-            txtStudentsName.Visible = true; 
+            txtStudentsName.Location = new Point(pic.Location.X, pic.Location.Y + pic.Height / 2);
+            txtStudentsName.Visible = true;
         }
         private void loadPicture(Student ShowingStudent, string SchoolYear, PictureBox PictureContainer)
         {
@@ -76,7 +76,7 @@ namespace SchoolGrades
             Console.WriteLine(SchoolYear);
             try
             {
-                PictureContainer.Image = System.Drawing.Image.FromFile(Path.Combine(Commons.PathImages, 
+                PictureContainer.Image = System.Drawing.Image.FromFile(Path.Combine(Commons.PathImages,
                     Commons.bl.GetFilePhoto(ShowingStudent.IdStudent, SchoolYear)));
             }
             catch
@@ -87,7 +87,7 @@ namespace SchoolGrades
         }
         private void frmMosaic_Resize(object sender, EventArgs e)
         {
-            ResizePictures(); 
+            ResizePictures();
         }
     }
 }

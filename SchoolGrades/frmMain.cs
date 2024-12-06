@@ -23,7 +23,7 @@ namespace SchoolGrades
 
         private SchoolYear currentYear;
 
-        bool formInitializing = true;
+        bool initializingForm = true;
         //bool firstTime = true;
 
         Student currentStudent;
@@ -226,12 +226,12 @@ namespace SchoolGrades
 
             lblLastDatabaseModification.Visible = true;
             lblLastDatabaseModification.Text = File.GetLastWriteTime(Commons.PathAndFileDatabase).ToString("yyyy-MM-dd HH:mm:ss");
-#if !DEBUG
-            // capture every exception for exception logging
-            Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
-            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-            btnTemporary.Visible = false;
-#endif
+            //#if !DEBUG
+            //            // capture every exception for exception logging
+            //            Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
+            //            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+            //            btnTemporary.Visible = false;
+            //#endif
 
             CreateBusinessLayer();
             // da togliere dopo che il DataLayer di SQL server funziona
@@ -269,7 +269,7 @@ namespace SchoolGrades
             txtIdStudent.Visible = false;
 
             lblDatabaseFile.Text = Path.GetFileName(Commons.PathAndFileDatabase);
-            formInitializing = false;
+            initializingForm = false;
         }
         private string GetNewDatabaseFilename(string proposedDatabasePath)
         {
@@ -551,7 +551,7 @@ namespace SchoolGrades
         }
         private void lstClasses_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!formInitializing)
+            if (!initializingForm)
             {
                 picStudent.Image = null;
                 lblStudentChosen.Text = "";
@@ -692,8 +692,7 @@ namespace SchoolGrades
         {
             if (lstClasses.SelectedItem != null)
             {
-                currentStudentsList = Commons.bl.GetStudentsOfClassList(currentSchool.OfficialSchoolAbbreviation, currentYear.IdSchoolYear,
-                    lstClasses.SelectedItem.ToString(), false);
+                currentStudentsList = Commons.bl.GetStudentsOfClassList((Class)lstClasses.SelectedItem, false);
                 eligiblesList.Clear();
 
                 if (currentStudentsList == null)
@@ -738,8 +737,7 @@ namespace SchoolGrades
             bool OneIsDifferent = false;
             if (currentClass != null)
             {
-                List<Student> oldList = Commons.bl.GetStudentsOfClassList(currentSchool.OfficialSchoolAbbreviation, currentYear.IdSchoolYear,
-                        currentClass.Abbreviation, false);
+                List<Student> oldList = Commons.bl.GetStudentsOfClassList(currentClass, false);
                 if (currentStudentsList != null)
                 {
                     for (int i = 0; i < oldList.Count; i++)
@@ -1562,7 +1560,7 @@ namespace SchoolGrades
         private void dgwStudents_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             dgwStudents.ReadOnly = true;
-            if (dgwStudents.Columns.Count == 28)
+            if (dgwStudents.Columns.Count == 29)
             {
                 DataGridViewCheckBoxColumn chkSelected = new DataGridViewCheckBoxColumn();
                 {

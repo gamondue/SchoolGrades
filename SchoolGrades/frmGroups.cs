@@ -1,11 +1,11 @@
 ﻿using gamon;
+using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
-using SchoolGrades.BusinessObjects;
 using System.Data;
-using System.Linq;
 using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace SchoolGrades
 {
@@ -169,7 +169,7 @@ namespace SchoolGrades
                 AlreadyChanged = true;
                 if (nStudentsPerGroup != 0)
                 {
-                    nGroups = (int) Math.Ceiling((double)listGroups.Count / nStudentsPerGroup);
+                    nGroups = (int)Math.Ceiling((double)listGroups.Count / nStudentsPerGroup);
                     //nGroups++;
                     txtNGroups.Text = (nGroups).ToString();
                 }
@@ -224,7 +224,7 @@ namespace SchoolGrades
         {
             if (rbdGroupsRandom.Checked)
             {
-                grpPeriodOfQuestionsTopics.Enabled = false; 
+                grpPeriodOfQuestionsTopics.Enabled = false;
             }
             else if (rdbGroupsBestGradesTogether.Checked)
             {

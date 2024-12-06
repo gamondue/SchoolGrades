@@ -49,6 +49,10 @@
             rdbChooseStudentsPhotoWhileImporting = new System.Windows.Forms.RadioButton();
             btnImportStudentsOfSomeClasses = new System.Windows.Forms.Button();
             btnCreateNewClass = new System.Windows.Forms.Button();
+            BtnPhotoChange = new System.Windows.Forms.Button();
+            btnPhotoErase = new System.Windows.Forms.Button();
+            btnChoseAmogPastPhotos = new System.Windows.Forms.Button();
+            btnMosaic = new System.Windows.Forms.Button();
             TxtOfficialSchoolAbbreviation = new System.Windows.Forms.TextBox();
             label4 = new System.Windows.Forms.Label();
             folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
@@ -60,11 +64,9 @@
             DgwStudents = new System.Windows.Forms.DataGridView();
             CmbClasses = new System.Windows.Forms.ComboBox();
             btnStudentNew = new System.Windows.Forms.Button();
-            BtnPhotoChange = new System.Windows.Forms.Button();
             lblClassData = new System.Windows.Forms.Label();
             btnToggleDisableStudent = new System.Windows.Forms.Button();
             label6 = new System.Windows.Forms.Label();
-            btnPhotoErase = new System.Windows.Forms.Button();
             groupBox1 = new System.Windows.Forms.GroupBox();
             btnFileChoose = new System.Windows.Forms.Button();
             TxtFileOfStudentsImport = new System.Windows.Forms.TextBox();
@@ -80,7 +82,6 @@
             TxtStartLinksFolder = new System.Windows.Forms.TextBox();
             splitter1 = new System.Windows.Forms.Splitter();
             btnPathStartLinks = new System.Windows.Forms.Button();
-            btnChoseAmogPastPhotos = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)DgwClass).BeginInit();
             ((System.ComponentModel.ISupportInitialize)DgwStudents).BeginInit();
             groupBox1.SuspendLayout();
@@ -89,11 +90,12 @@
             // 
             // txtClassDescription
             // 
+            txtClassDescription.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             txtClassDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
             txtClassDescription.Location = new System.Drawing.Point(399, 38);
             txtClassDescription.Margin = new System.Windows.Forms.Padding(4);
             txtClassDescription.Name = "txtClassDescription";
-            txtClassDescription.Size = new System.Drawing.Size(424, 24);
+            txtClassDescription.Size = new System.Drawing.Size(384, 24);
             txtClassDescription.TabIndex = 3;
             // 
             // label2
@@ -116,12 +118,12 @@
             DgwClass.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
             DgwClass.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             DgwClass.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2;
-            DgwClass.Location = new System.Drawing.Point(11, 340);
+            DgwClass.Location = new System.Drawing.Point(9, 340);
             DgwClass.Margin = new System.Windows.Forms.Padding(4);
             DgwClass.MultiSelect = false;
             DgwClass.Name = "DgwClass";
             DgwClass.RowTemplate.Height = 24;
-            DgwClass.Size = new System.Drawing.Size(1024, 62);
+            DgwClass.Size = new System.Drawing.Size(984, 47);
             DgwClass.TabIndex = 86;
             toolTip1.SetToolTip(DgwClass, "F2 per modificare");
             DgwClass.CellContentClick += DgwClass_CellContentClick;
@@ -133,7 +135,7 @@
             btnSaveClassData.BackColor = System.Drawing.Color.Transparent;
             btnSaveClassData.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
             btnSaveClassData.ForeColor = System.Drawing.Color.DarkBlue;
-            btnSaveClassData.Location = new System.Drawing.Point(1040, 340);
+            btnSaveClassData.Location = new System.Drawing.Point(1008, 325);
             btnSaveClassData.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             btnSaveClassData.Name = "btnSaveClassData";
             btnSaveClassData.Size = new System.Drawing.Size(81, 62);
@@ -148,7 +150,7 @@
             BtnStudentErase.BackColor = System.Drawing.Color.Transparent;
             BtnStudentErase.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
             BtnStudentErase.ForeColor = System.Drawing.Color.DarkBlue;
-            BtnStudentErase.Location = new System.Drawing.Point(96, 182);
+            BtnStudentErase.Location = new System.Drawing.Point(90, 182);
             BtnStudentErase.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             BtnStudentErase.Name = "BtnStudentErase";
             BtnStudentErase.Size = new System.Drawing.Size(81, 62);
@@ -163,7 +165,7 @@
             BtnModifyStudent.BackColor = System.Drawing.Color.Transparent;
             BtnModifyStudent.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
             BtnModifyStudent.ForeColor = System.Drawing.Color.DarkBlue;
-            BtnModifyStudent.Location = new System.Drawing.Point(632, 182);
+            BtnModifyStudent.Location = new System.Drawing.Point(171, 182);
             BtnModifyStudent.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             BtnModifyStudent.Name = "BtnModifyStudent";
             BtnModifyStudent.Size = new System.Drawing.Size(81, 62);
@@ -179,7 +181,7 @@
             btnEndingPeriod.BackColor = System.Drawing.Color.Transparent;
             btnEndingPeriod.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
             btnEndingPeriod.ForeColor = System.Drawing.Color.DarkBlue;
-            btnEndingPeriod.Location = new System.Drawing.Point(940, 182);
+            btnEndingPeriod.Location = new System.Drawing.Point(926, 182);
             btnEndingPeriod.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             btnEndingPeriod.Name = "btnEndingPeriod";
             btnEndingPeriod.Size = new System.Drawing.Size(81, 62);
@@ -191,9 +193,10 @@
             // 
             // TxtEmailGenerationPattern
             // 
+            TxtEmailGenerationPattern.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             TxtEmailGenerationPattern.Location = new System.Drawing.Point(260, 309);
             TxtEmailGenerationPattern.Name = "TxtEmailGenerationPattern";
-            TxtEmailGenerationPattern.Size = new System.Drawing.Size(627, 24);
+            TxtEmailGenerationPattern.Size = new System.Drawing.Size(587, 24);
             TxtEmailGenerationPattern.TabIndex = 155;
             TxtEmailGenerationPattern.Text = "<FirstName>.<LastName>.stud@ispascalcomandini.it";
             toolTip1.SetToolTip(TxtEmailGenerationPattern, "Fra parentesi angolare i nomi dei campi che vengono  sostituiti dai valori nel database ");
@@ -201,10 +204,11 @@
             // 
             // btnCreateEmailAddresses
             // 
+            btnCreateEmailAddresses.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnCreateEmailAddresses.BackColor = System.Drawing.Color.Transparent;
             btnCreateEmailAddresses.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnCreateEmailAddresses.ForeColor = System.Drawing.Color.DarkBlue;
-            btnCreateEmailAddresses.Location = new System.Drawing.Point(921, 306);
+            btnCreateEmailAddresses.Location = new System.Drawing.Point(881, 306);
             btnCreateEmailAddresses.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             btnCreateEmailAddresses.Name = "btnCreateEmailAddresses";
             btnCreateEmailAddresses.Size = new System.Drawing.Size(114, 27);
@@ -220,7 +224,7 @@
             btnImportStudentsOfOneClass.BackColor = System.Drawing.Color.Transparent;
             btnImportStudentsOfOneClass.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
             btnImportStudentsOfOneClass.ForeColor = System.Drawing.Color.DarkBlue;
-            btnImportStudentsOfOneClass.Location = new System.Drawing.Point(1042, 16);
+            btnImportStudentsOfOneClass.Location = new System.Drawing.Point(1008, 16);
             btnImportStudentsOfOneClass.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             btnImportStudentsOfOneClass.Name = "btnImportStudentsOfOneClass";
             btnImportStudentsOfOneClass.Size = new System.Drawing.Size(81, 62);
@@ -232,10 +236,11 @@
             // 
             // btnStudentsInfoList
             // 
+            btnStudentsInfoList.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnStudentsInfoList.BackColor = System.Drawing.Color.Transparent;
             btnStudentsInfoList.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnStudentsInfoList.ForeColor = System.Drawing.Color.DarkBlue;
-            btnStudentsInfoList.Location = new System.Drawing.Point(921, 259);
+            btnStudentsInfoList.Location = new System.Drawing.Point(881, 259);
             btnStudentsInfoList.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             btnStudentsInfoList.Name = "btnStudentsInfoList";
             btnStudentsInfoList.Size = new System.Drawing.Size(114, 27);
@@ -250,7 +255,7 @@
             btnPutNumbers.BackColor = System.Drawing.Color.Transparent;
             btnPutNumbers.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnPutNumbers.ForeColor = System.Drawing.Color.DarkBlue;
-            btnPutNumbers.Location = new System.Drawing.Point(725, 182);
+            btnPutNumbers.Location = new System.Drawing.Point(759, 182);
             btnPutNumbers.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             btnPutNumbers.Name = "btnPutNumbers";
             btnPutNumbers.Size = new System.Drawing.Size(81, 62);
@@ -265,7 +270,7 @@
             btnClassErase.BackColor = System.Drawing.Color.Transparent;
             btnClassErase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnClassErase.ForeColor = System.Drawing.Color.DarkBlue;
-            btnClassErase.Location = new System.Drawing.Point(807, 182);
+            btnClassErase.Location = new System.Drawing.Point(841, 182);
             btnClassErase.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             btnClassErase.Name = "btnClassErase";
             btnClassErase.Size = new System.Drawing.Size(81, 62);
@@ -277,10 +282,11 @@
             // 
             // rdbDoNotImportPhotos
             // 
+            rdbDoNotImportPhotos.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             rdbDoNotImportPhotos.AutoSize = true;
             rdbDoNotImportPhotos.Checked = true;
             rdbDoNotImportPhotos.ForeColor = System.Drawing.Color.DarkBlue;
-            rdbDoNotImportPhotos.Location = new System.Drawing.Point(888, 77);
+            rdbDoNotImportPhotos.Location = new System.Drawing.Point(848, 77);
             rdbDoNotImportPhotos.Margin = new System.Windows.Forms.Padding(4);
             rdbDoNotImportPhotos.Name = "rdbDoNotImportPhotos";
             rdbDoNotImportPhotos.Size = new System.Drawing.Size(115, 22);
@@ -292,8 +298,9 @@
             // 
             // rdbStudentsPhotosAlreadyPresent
             // 
+            rdbStudentsPhotosAlreadyPresent.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             rdbStudentsPhotosAlreadyPresent.ForeColor = System.Drawing.Color.DarkBlue;
-            rdbStudentsPhotosAlreadyPresent.Location = new System.Drawing.Point(888, 20);
+            rdbStudentsPhotosAlreadyPresent.Location = new System.Drawing.Point(848, 20);
             rdbStudentsPhotosAlreadyPresent.Name = "rdbStudentsPhotosAlreadyPresent";
             rdbStudentsPhotosAlreadyPresent.Size = new System.Drawing.Size(132, 24);
             rdbStudentsPhotosAlreadyPresent.TabIndex = 96;
@@ -302,8 +309,9 @@
             // 
             // rdbChooseStudentsPhotoWhileImporting
             // 
+            rdbChooseStudentsPhotoWhileImporting.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             rdbChooseStudentsPhotoWhileImporting.ForeColor = System.Drawing.Color.DarkBlue;
-            rdbChooseStudentsPhotoWhileImporting.Location = new System.Drawing.Point(888, 50);
+            rdbChooseStudentsPhotoWhileImporting.Location = new System.Drawing.Point(848, 50);
             rdbChooseStudentsPhotoWhileImporting.Name = "rdbChooseStudentsPhotoWhileImporting";
             rdbChooseStudentsPhotoWhileImporting.Size = new System.Drawing.Size(132, 24);
             rdbChooseStudentsPhotoWhileImporting.TabIndex = 97;
@@ -316,7 +324,7 @@
             btnImportStudentsOfSomeClasses.BackColor = System.Drawing.Color.Transparent;
             btnImportStudentsOfSomeClasses.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
             btnImportStudentsOfSomeClasses.ForeColor = System.Drawing.Color.DarkBlue;
-            btnImportStudentsOfSomeClasses.Location = new System.Drawing.Point(1033, 27);
+            btnImportStudentsOfSomeClasses.Location = new System.Drawing.Point(999, 27);
             btnImportStudentsOfSomeClasses.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             btnImportStudentsOfSomeClasses.Name = "btnImportStudentsOfSomeClasses";
             btnImportStudentsOfSomeClasses.Size = new System.Drawing.Size(81, 62);
@@ -328,18 +336,79 @@
             // 
             // btnCreateNewClass
             // 
+            btnCreateNewClass.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnCreateNewClass.BackColor = System.Drawing.Color.Transparent;
-            btnCreateNewClass.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            btnCreateNewClass.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             btnCreateNewClass.ForeColor = System.Drawing.Color.DarkBlue;
-            btnCreateNewClass.Location = new System.Drawing.Point(940, 16);
+            btnCreateNewClass.Location = new System.Drawing.Point(926, 16);
             btnCreateNewClass.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             btnCreateNewClass.Name = "btnCreateNewClass";
             btnCreateNewClass.Size = new System.Drawing.Size(81, 62);
             btnCreateNewClass.TabIndex = 163;
-            btnCreateNewClass.Text = "Crea nuova";
+            btnCreateNewClass.Text = "Crea nuova classe";
             toolTip1.SetToolTip(btnCreateNewClass, "Crea nuova classe senza studenti");
             btnCreateNewClass.UseVisualStyleBackColor = false;
             btnCreateNewClass.Click += btnCreateNewClass_Click;
+            // 
+            // BtnPhotoChange
+            // 
+            BtnPhotoChange.BackColor = System.Drawing.Color.Transparent;
+            BtnPhotoChange.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
+            BtnPhotoChange.ForeColor = System.Drawing.Color.DarkBlue;
+            BtnPhotoChange.Location = new System.Drawing.Point(334, 182);
+            BtnPhotoChange.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            BtnPhotoChange.Name = "BtnPhotoChange";
+            BtnPhotoChange.Size = new System.Drawing.Size(81, 62);
+            BtnPhotoChange.TabIndex = 13;
+            BtnPhotoChange.Text = "Cambia foto allievo";
+            toolTip1.SetToolTip(BtnPhotoChange, "Aggiunge una nuova foto o cambia quella che c'è.");
+            BtnPhotoChange.UseVisualStyleBackColor = false;
+            BtnPhotoChange.Click += BtnPhotoChange_Click;
+            // 
+            // btnPhotoErase
+            // 
+            btnPhotoErase.BackColor = System.Drawing.Color.Transparent;
+            btnPhotoErase.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
+            btnPhotoErase.ForeColor = System.Drawing.Color.DarkBlue;
+            btnPhotoErase.Location = new System.Drawing.Point(416, 182);
+            btnPhotoErase.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            btnPhotoErase.Name = "btnPhotoErase";
+            btnPhotoErase.Size = new System.Drawing.Size(81, 62);
+            btnPhotoErase.TabIndex = 157;
+            btnPhotoErase.Text = "Elimina foto allievo";
+            toolTip1.SetToolTip(btnPhotoErase, "Elimina la foto dello studente selezionato");
+            btnPhotoErase.UseVisualStyleBackColor = false;
+            btnPhotoErase.Click += btnPhotoErase_Click;
+            // 
+            // btnChoseAmogPastPhotos
+            // 
+            btnChoseAmogPastPhotos.BackColor = System.Drawing.Color.Transparent;
+            btnChoseAmogPastPhotos.Enabled = false;
+            btnChoseAmogPastPhotos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
+            btnChoseAmogPastPhotos.ForeColor = System.Drawing.Color.DarkBlue;
+            btnChoseAmogPastPhotos.Location = new System.Drawing.Point(498, 182);
+            btnChoseAmogPastPhotos.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            btnChoseAmogPastPhotos.Name = "btnChoseAmogPastPhotos";
+            btnChoseAmogPastPhotos.Size = new System.Drawing.Size(81, 62);
+            btnChoseAmogPastPhotos.TabIndex = 164;
+            btnChoseAmogPastPhotos.Text = "Cerca foto vecchie";
+            toolTip1.SetToolTip(btnChoseAmogPastPhotos, "Trova tutte le foto esistenti  dello studente selezionato");
+            btnChoseAmogPastPhotos.UseVisualStyleBackColor = false;
+            // 
+            // btnMosaic
+            // 
+            btnMosaic.BackColor = System.Drawing.Color.Transparent;
+            btnMosaic.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
+            btnMosaic.ForeColor = System.Drawing.Color.DarkBlue;
+            btnMosaic.Location = new System.Drawing.Point(666, 182);
+            btnMosaic.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            btnMosaic.Name = "btnMosaic";
+            btnMosaic.Size = new System.Drawing.Size(81, 62);
+            btnMosaic.TabIndex = 172;
+            btnMosaic.Text = "Mosaico";
+            toolTip1.SetToolTip(btnMosaic, "Elimina la foto dello studente selezionato");
+            btnMosaic.UseVisualStyleBackColor = false;
+            btnMosaic.Click += btnMosaic_Click;
             // 
             // TxtOfficialSchoolAbbreviation
             // 
@@ -393,7 +462,7 @@
             btnNewYear.BackColor = System.Drawing.Color.Transparent;
             btnNewYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnNewYear.ForeColor = System.Drawing.Color.DarkBlue;
-            btnNewYear.Location = new System.Drawing.Point(1042, 182);
+            btnNewYear.Location = new System.Drawing.Point(1008, 182);
             btnNewYear.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             btnNewYear.Name = "btnNewYear";
             btnNewYear.Size = new System.Drawing.Size(81, 62);
@@ -421,12 +490,12 @@
             DgwStudents.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
             DgwStudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             DgwStudents.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            DgwStudents.Location = new System.Drawing.Point(11, 411);
+            DgwStudents.Location = new System.Drawing.Point(9, 395);
             DgwStudents.Margin = new System.Windows.Forms.Padding(4);
             DgwStudents.MultiSelect = false;
             DgwStudents.Name = "DgwStudents";
             DgwStudents.RowTemplate.Height = 24;
-            DgwStudents.Size = new System.Drawing.Size(1110, 275);
+            DgwStudents.Size = new System.Drawing.Size(1080, 300);
             DgwStudents.TabIndex = 87;
             DgwStudents.CellClick += DgwStudents_CellClick;
             DgwStudents.CellContentClick += DgwStudents_CellContentClick;
@@ -448,7 +517,7 @@
             btnStudentNew.BackColor = System.Drawing.Color.Transparent;
             btnStudentNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
             btnStudentNew.ForeColor = System.Drawing.Color.DarkBlue;
-            btnStudentNew.Location = new System.Drawing.Point(13, 182);
+            btnStudentNew.Location = new System.Drawing.Point(9, 182);
             btnStudentNew.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             btnStudentNew.Name = "btnStudentNew";
             btnStudentNew.Size = new System.Drawing.Size(81, 62);
@@ -456,21 +525,6 @@
             btnStudentNew.Text = "Nuovo allievo";
             btnStudentNew.UseVisualStyleBackColor = false;
             btnStudentNew.Click += btnStudentNew_Click;
-            // 
-            // BtnPhotoChange
-            // 
-            BtnPhotoChange.BackColor = System.Drawing.Color.Transparent;
-            BtnPhotoChange.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
-            BtnPhotoChange.ForeColor = System.Drawing.Color.DarkBlue;
-            BtnPhotoChange.Location = new System.Drawing.Point(262, 182);
-            BtnPhotoChange.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            BtnPhotoChange.Name = "BtnPhotoChange";
-            BtnPhotoChange.Size = new System.Drawing.Size(81, 62);
-            BtnPhotoChange.TabIndex = 13;
-            BtnPhotoChange.Text = "Cambia foto allievo";
-            toolTip1.SetToolTip(BtnPhotoChange, "Aggiunge una nuova foto o cambia quella che c'è.");
-            BtnPhotoChange.UseVisualStyleBackColor = false;
-            BtnPhotoChange.Click += BtnPhotoChange_Click;
             // 
             // lblClassData
             // 
@@ -489,7 +543,7 @@
             btnToggleDisableStudent.BackColor = System.Drawing.Color.Transparent;
             btnToggleDisableStudent.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
             btnToggleDisableStudent.ForeColor = System.Drawing.Color.DarkBlue;
-            btnToggleDisableStudent.Location = new System.Drawing.Point(535, 182);
+            btnToggleDisableStudent.Location = new System.Drawing.Point(580, 182);
             btnToggleDisableStudent.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             btnToggleDisableStudent.Name = "btnToggleDisableStudent";
             btnToggleDisableStudent.Size = new System.Drawing.Size(85, 62);
@@ -510,23 +564,9 @@
             label6.Text = "Pattern per generazione email";
             label6.Click += label6_Click;
             // 
-            // btnPhotoErase
-            // 
-            btnPhotoErase.BackColor = System.Drawing.Color.Transparent;
-            btnPhotoErase.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
-            btnPhotoErase.ForeColor = System.Drawing.Color.DarkBlue;
-            btnPhotoErase.Location = new System.Drawing.Point(345, 182);
-            btnPhotoErase.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            btnPhotoErase.Name = "btnPhotoErase";
-            btnPhotoErase.Size = new System.Drawing.Size(81, 62);
-            btnPhotoErase.TabIndex = 157;
-            btnPhotoErase.Text = "Elimina foto allievo";
-            toolTip1.SetToolTip(btnPhotoErase, "Elimina la foto dello studente selezionato");
-            btnPhotoErase.UseVisualStyleBackColor = false;
-            btnPhotoErase.Click += btnPhotoErase_Click;
-            // 
             // groupBox1
             // 
+            groupBox1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             groupBox1.Controls.Add(btnImportStudentsOfSomeClasses);
             groupBox1.Controls.Add(btnFileChoose);
             groupBox1.Controls.Add(rdbChooseStudentsPhotoWhileImporting);
@@ -541,7 +581,7 @@
             groupBox1.ForeColor = System.Drawing.Color.DarkBlue;
             groupBox1.Location = new System.Drawing.Point(9, 70);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new System.Drawing.Size(1120, 106);
+            groupBox1.Size = new System.Drawing.Size(1080, 106);
             groupBox1.TabIndex = 92;
             groupBox1.TabStop = false;
             groupBox1.Text = "Importazione classi da file ";
@@ -552,7 +592,7 @@
             btnFileChoose.BackColor = System.Drawing.Color.Transparent;
             btnFileChoose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnFileChoose.ForeColor = System.Drawing.Color.DarkBlue;
-            btnFileChoose.Location = new System.Drawing.Point(825, 16);
+            btnFileChoose.Location = new System.Drawing.Point(785, 16);
             btnFileChoose.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             btnFileChoose.Name = "btnFileChoose";
             btnFileChoose.Size = new System.Drawing.Size(54, 40);
@@ -563,11 +603,12 @@
             // 
             // TxtFileOfStudentsImport
             // 
+            TxtFileOfStudentsImport.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             TxtFileOfStudentsImport.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
             TxtFileOfStudentsImport.Location = new System.Drawing.Point(173, 24);
             TxtFileOfStudentsImport.Margin = new System.Windows.Forms.Padding(4);
             TxtFileOfStudentsImport.Name = "TxtFileOfStudentsImport";
-            TxtFileOfStudentsImport.Size = new System.Drawing.Size(641, 24);
+            TxtFileOfStudentsImport.Size = new System.Drawing.Size(601, 24);
             TxtFileOfStudentsImport.TabIndex = 95;
             // 
             // label5
@@ -598,7 +639,7 @@
             btnPathImages.BackColor = System.Drawing.Color.Transparent;
             btnPathImages.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnPathImages.ForeColor = System.Drawing.Color.DarkBlue;
-            btnPathImages.Location = new System.Drawing.Point(824, 60);
+            btnPathImages.Location = new System.Drawing.Point(784, 60);
             btnPathImages.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             btnPathImages.Name = "btnPathImages";
             btnPathImages.Size = new System.Drawing.Size(54, 40);
@@ -609,11 +650,12 @@
             // 
             // TxtImagesOriginFolder
             // 
+            TxtImagesOriginFolder.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             TxtImagesOriginFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
             TxtImagesOriginFolder.Location = new System.Drawing.Point(173, 68);
             TxtImagesOriginFolder.Margin = new System.Windows.Forms.Padding(4);
             TxtImagesOriginFolder.Name = "TxtImagesOriginFolder";
-            TxtImagesOriginFolder.Size = new System.Drawing.Size(641, 24);
+            TxtImagesOriginFolder.Size = new System.Drawing.Size(601, 24);
             TxtImagesOriginFolder.TabIndex = 5;
             // 
             // label10
@@ -633,7 +675,7 @@
             btnSaveClassAndStudents.BackColor = System.Drawing.Color.Transparent;
             btnSaveClassAndStudents.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
             btnSaveClassAndStudents.ForeColor = System.Drawing.Color.DarkBlue;
-            btnSaveClassAndStudents.Location = new System.Drawing.Point(1040, 340);
+            btnSaveClassAndStudents.Location = new System.Drawing.Point(1008, 262);
             btnSaveClassAndStudents.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             btnSaveClassAndStudents.Name = "btnSaveClassAndStudents";
             btnSaveClassAndStudents.Size = new System.Drawing.Size(81, 62);
@@ -645,9 +687,9 @@
             // picStudent
             // 
             picStudent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            picStudent.Location = new System.Drawing.Point(184, 182);
+            picStudent.Location = new System.Drawing.Point(271, 182);
             picStudent.Name = "picStudent";
-            picStudent.Size = new System.Drawing.Size(67, 62);
+            picStudent.Size = new System.Drawing.Size(62, 62);
             picStudent.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             picStudent.TabIndex = 153;
             picStudent.TabStop = false;
@@ -678,11 +720,12 @@
             // 
             // TxtStartLinksFolder
             // 
+            TxtStartLinksFolder.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             TxtStartLinksFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
             TxtStartLinksFolder.Location = new System.Drawing.Point(184, 259);
             TxtStartLinksFolder.Margin = new System.Windows.Forms.Padding(4);
             TxtStartLinksFolder.Name = "TxtStartLinksFolder";
-            TxtStartLinksFolder.Size = new System.Drawing.Size(641, 24);
+            TxtStartLinksFolder.Size = new System.Drawing.Size(601, 24);
             TxtStartLinksFolder.TabIndex = 158;
             TxtStartLinksFolder.TextChanged += TxtStartLinksFolder_TextChanged;
             // 
@@ -700,7 +743,7 @@
             btnPathStartLinks.BackColor = System.Drawing.Color.Transparent;
             btnPathStartLinks.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnPathStartLinks.ForeColor = System.Drawing.Color.DarkBlue;
-            btnPathStartLinks.Location = new System.Drawing.Point(833, 251);
+            btnPathStartLinks.Location = new System.Drawing.Point(793, 251);
             btnPathStartLinks.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             btnPathStartLinks.Name = "btnPathStartLinks";
             btnPathStartLinks.Size = new System.Drawing.Size(54, 40);
@@ -709,27 +752,13 @@
             btnPathStartLinks.UseVisualStyleBackColor = false;
             btnPathStartLinks.Click += btnPathStartLinks_Click;
             // 
-            // btnChoseAmogPastPhotos
-            // 
-            btnChoseAmogPastPhotos.BackColor = System.Drawing.Color.Transparent;
-            btnChoseAmogPastPhotos.Enabled = false;
-            btnChoseAmogPastPhotos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
-            btnChoseAmogPastPhotos.ForeColor = System.Drawing.Color.DarkBlue;
-            btnChoseAmogPastPhotos.Location = new System.Drawing.Point(428, 182);
-            btnChoseAmogPastPhotos.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            btnChoseAmogPastPhotos.Name = "btnChoseAmogPastPhotos";
-            btnChoseAmogPastPhotos.Size = new System.Drawing.Size(81, 62);
-            btnChoseAmogPastPhotos.TabIndex = 164;
-            btnChoseAmogPastPhotos.Text = "Cerca foto vecchie";
-            toolTip1.SetToolTip(btnChoseAmogPastPhotos, "Trova tutte le foto esistenti  dello studente selezionato");
-            btnChoseAmogPastPhotos.UseVisualStyleBackColor = false;
-            // 
             // frmClassesManagement
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.PowderBlue;
-            ClientSize = new System.Drawing.Size(1136, 699);
+            ClientSize = new System.Drawing.Size(1096, 699);
+            Controls.Add(btnMosaic);
             Controls.Add(btnChoseAmogPastPhotos);
             Controls.Add(btnCreateNewClass);
             Controls.Add(btnPathStartLinks);
@@ -844,6 +873,7 @@
         private System.Windows.Forms.Button btnCreateNewClass;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnChoseAmogPastPhotos;
+        private System.Windows.Forms.Button btnMosaic;
     }
 }
 

@@ -45,7 +45,7 @@ namespace SchoolGrades
             currentStudent = new Student();
             Commons.bl.GetGradeAndStudentFromIdGrade(ref currentGrade, ref currentStudent);
             currentYear = currentGrade.IdSchoolYear;
-            currentClass = Commons.bl.GetClassOfStudent(Commons.IdSchool, currentYear, currentStudent);
+            currentClass = Commons.bl.GetClassOfAStudentInAYear(Commons.IdSchool, currentYear, currentStudent);
 
             currentGradeType = Commons.bl.GetGradeType(currentGrade.IdGradeType);
 

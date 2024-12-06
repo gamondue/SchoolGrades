@@ -30,8 +30,7 @@ namespace SchoolGrades
         private void RefreshUi()
         {
             dgwQuestions.DataSource = Commons.bl.GetAllQuestionsOfATest(currentTest.IdTest);
-            dgwClassStudents.DataSource = Commons.bl.GetStudentsOfClassList(Commons.IdSchool,
-                currentClass.SchoolYear, currentClass.Abbreviation, false);
+            dgwClassStudents.DataSource = Commons.bl.GetStudentsOfClassList(currentClass, false);
         }
 
         private void dgwQuestions_CellContentClick(object sender, DataGridViewCellEventArgs e)

@@ -24,8 +24,9 @@ namespace SchoolGrades_WPF
             InitializeComponent();
 
             currentClass = Class;
-            currentStudents = Commons.bl.GetStudentsOfClassList(Commons.IdSchool,
-                currentClass.SchoolYear, currentClass.Abbreviation, false);
+            currentStudents = Commons.bl.GetStudentsOfClassList(currentClass, false);
+
+            this.Title = currentClass.Abbreviation + " " + currentClass.SchoolYear + " - " + this.Title;
 
             // with a grid of seven colums, we set the number of rows,
             // given the number of students

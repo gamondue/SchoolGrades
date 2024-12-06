@@ -1,9 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SchoolGrades.BusinessObjects
+﻿namespace SchoolGrades.BusinessObjects
 {
     public class GradeType
     {
@@ -21,20 +16,23 @@ namespace SchoolGrades.BusinessObjects
         public string Desc { get => desc; set => desc = value; }
         public double? DefaultWeight { get => defaultWeight; set => defaultWeight = value; }
         public int ProgramsCode { get => programsCode; set => programsCode = value; }
-        public string IdGradeTypeParent { get => idGradeTypeParent; set => idGradeTypeParent = value; } 
+        public string IdGradeTypeParent { get => idGradeTypeParent; set => idGradeTypeParent = value; }
 
         public string IntegerKey
         {   // remaps the primary key to the name of the base class
             get
-            { return IdGradeType;}
+            { return IdGradeType; }
             set
             {
-                IdGradeType = IntegerKey = value; 
+                IdGradeType = IntegerKey = value;
             }
         }
         public override string ToString()
         {
-            return Name;
+            if (Name != null)
+                return Name;
+            else
+                return "";
         }
     }
 }

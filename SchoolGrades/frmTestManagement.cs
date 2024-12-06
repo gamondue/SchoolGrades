@@ -1,12 +1,6 @@
 ﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SchoolGrades
@@ -32,21 +26,21 @@ namespace SchoolGrades
             cmbQuestionTypes.DisplayMember = "Name";
             cmbQuestionTypes.ValueMember = "idQuestionType";
             cmbQuestionTypes.DataSource = lq;
-            cmbQuestionTypes.SelectedValue = "close"; 
+            cmbQuestionTypes.SelectedValue = "close";
 
             RefreshUi();
         }
 
         private void btnAddTest_Click(object sender, EventArgs e)
         {
-            txtIdTest.Text = ""; 
+            txtIdTest.Text = "";
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            ReadDataFromUI(); 
+            ReadDataFromUI();
             Commons.bl.SaveTest(currentTest);
-            RefreshUi(); 
+            RefreshUi();
         }
 
         private void RefreshUi()
@@ -59,7 +53,7 @@ namespace SchoolGrades
 
             if (currentTest.IdTest != 0)
             {
-                dgwQuestions.DataSource = Commons.bl.GetAllQuestionsOfATest(currentTest.IdTest); 
+                dgwQuestions.DataSource = Commons.bl.GetAllQuestionsOfATest(currentTest.IdTest);
             }
             // !!!! put the rest of the data !!!!
         }
@@ -83,19 +77,19 @@ namespace SchoolGrades
             {
                 dgwTests.Rows[e.RowIndex].Selected = true;
 
-                List < SchoolTest > ls = (List<SchoolTest>)(dgwTests.DataSource);
+                List<SchoolTest> ls = (List<SchoolTest>)(dgwTests.DataSource);
                 SchoolTest currentTest = ls[e.RowIndex];
                 //Test currentTest = new Test();
                 //currentTest = db.GetTest(1); 
 
-                RefreshUi(); 
+                RefreshUi();
             }
         }
 
         private void btnAddQuestion_Click(object sender, EventArgs e)
         {
             Question dummy = new Question();
-            dummy.IdQuestionType = (string)cmbQuestionTypes.SelectedValue; 
+            dummy.IdQuestionType = (string)cmbQuestionTypes.SelectedValue;
             frmQuestionChoose scelta = new frmQuestionChoose(null, null, null, dummy);
             scelta.ShowDialog();
             if (scelta.ChosenQuestion != null && scelta.ChosenQuestion.IdQuestion != 0)
@@ -112,7 +106,7 @@ namespace SchoolGrades
         private void btnGradeTest_Click(object sender, EventArgs e)
         {
             frmTestAssessing gt = new frmTestAssessing(); // !!!!! pass the test !!!!!!
-                gt.Show(); 
+            gt.Show();
         }
 
         private void dgwQuestions_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -143,11 +137,11 @@ namespace SchoolGrades
             if (dgwQuestions.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Selezionare una domanda da togliere dalla prova!");
-                return; 
+                return;
             }
             int indexSelected = dgwQuestions.SelectedRows[0].Index;
-            List <Question> l = (List<Question>)dgwQuestions.DataSource; 
-            int? idQuestionToRemove = l[indexSelected].IdQuestion; 
+            List<Question> l = (List<Question>)dgwQuestions.DataSource;
+            int? idQuestionToRemove = l[indexSelected].IdQuestion;
             Commons.bl.RemoveQuestionFromTest(idQuestionToRemove, currentTest.IdTest);
         }
     }

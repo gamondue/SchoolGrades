@@ -10,7 +10,7 @@ namespace SchoolGrades_WPF
     /// <summary>
     /// Logica di interazione per frmSchoolSubjectManagement.xaml
     /// </summary>
-    public partial class frmSchoolSubjectManagement : Page
+    public partial class frmSchoolSubjectManagement : Window
     {
         SchoolSubject currentSubject;
         List<SchoolSubject> subjectList;

@@ -20,7 +20,6 @@ namespace SchoolGrades
         List<Student> studentsList;
         string idSchoolYear;
         bool isLoading = true;
-
         public frmClassesManagement()
         {
             InitializeComponent();
@@ -29,6 +28,7 @@ namespace SchoolGrades
         {
             isLoading = true;
             // currentSchool data
+
             currentSchool = Commons.bl.GetSchool(TxtOfficialSchoolAbbreviation.Text);
 
             List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
@@ -39,7 +39,7 @@ namespace SchoolGrades
             if (CmbSchoolYear.SelectedItem != null)
             {
                 idSchoolYear = CmbSchoolYear.SelectedItem.ToString();
-                CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
+                //CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
             }
             CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
 
@@ -222,8 +222,7 @@ namespace SchoolGrades
                 dtClass = Commons.bl.GetClassTable(Class.IdClass);
                 DgwClass.DataSource = dtClass;
 
-                studentsList = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text,
-                    idSchoolYear, CmbClasses.Text, true);
+                studentsList = Commons.bl.GetStudentsOfClassList((Class)CmbClasses.SelectedItem, true);
                 DgwStudents.DataSource = studentsList;
                 txtClassDescription.Text = Safe.String(DgwClass.Rows[DgwClass.CurrentRow.Index].Cells["desc"].Value);
                 currentClass = (Class)CmbClasses.SelectedItem;
@@ -304,8 +303,7 @@ namespace SchoolGrades
             {
                 Commons.bl.PutStudentInClass(sf.CurrentStudent,
                     ((Class)(CmbClasses.SelectedItem)).IdClass);
-                DgwStudents.DataSource = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text,
-                    idSchoolYear, CmbClasses.Text, false);
+                DgwStudents.DataSource = Commons.bl.GetStudentsOfClassList((Class)CmbClasses.SelectedItem, false);
             }
             else
             {
@@ -329,8 +327,7 @@ namespace SchoolGrades
             int IdDeletingStudent = (int)DgwStudents.SelectedRows[0].Cells["IdStudent"].Value;
             Commons.bl.DeleteOneStudentFromClass(IdDeletingStudent,
                 ((Class)(CmbClasses.SelectedItem)).IdClass);
-            DgwStudents.DataSource = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text,
-                idSchoolYear, CmbClasses.Text, false);
+            DgwStudents.DataSource = Commons.bl.GetStudentsOfClassList((Class)CmbClasses.SelectedItem, false);
         }
         private void btnSaveClassAndStudents_Click(object sender, EventArgs e)
         {
@@ -356,10 +353,9 @@ namespace SchoolGrades
                 return;
             }
             Student disablingStudent = studentsList[DgwStudents.SelectedCells[0].RowIndex];
-            Commons.bl.ToggleDisabledFlagOneStudent(disablingStudent);
+            Commons.bl.ToggleDisabledFlagOneStudent(disablingStudent, currentClass);
             DgwStudents.DataSource = null;
-            DgwStudents.DataSource = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text,
-                idSchoolYear, CmbClasses.Text, true);
+            DgwStudents.DataSource = Commons.bl.GetStudentsOfClassList((Class)CmbClasses.SelectedItem, true);
             string prompt = "Commutato lo stato di abilitazione dell'allievo " + disablingStudent;
             // !!!! dire in che stato è ora 
             // prompt += ".\nStato attuale: "
@@ -393,8 +389,7 @@ namespace SchoolGrades
                 MessageBox.Show("Scegliere la classe per cui generare gli indirizzi email");
                 return;
             }
-            List<Student> list = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, CmbSchoolYear.Text,
-                CmbClasses.SelectedItem.ToString(), false);
+            List<Student> list = Commons.bl.GetStudentsOfClassList((Class)CmbClasses.SelectedItem, false);
             string file = "";
             string pattern = TxtEmailGenerationPattern.Text;
             string email = "";
@@ -520,8 +515,7 @@ namespace SchoolGrades
                 MessageBox.Show("Scegliere la classe per cui generare l'elenco su file");
                 return;
             }
-            List<Student> list = Commons.bl.GetStudentsOfClassList(TxtOfficialSchoolAbbreviation.Text, CmbSchoolYear.Text,
-                CmbClasses.SelectedItem.ToString(), false);
+            List<Student> list = Commons.bl.GetStudentsOfClassList((Class)CmbClasses.SelectedItem, false);
             string file = "N.registro\tCognome\tNome\tData di nascita\tLuogo di nascita\temail\tComune residenza\tIdSchoolGrades\r\n";
             foreach (Student s in list)
             {
@@ -640,6 +634,14 @@ namespace SchoolGrades
             }
             Commons.bl.CreateClassIfNotExists(CmbClasses.Text, txtClassDescription.Text,
                 CmbSchoolYear.Text, TxtOfficialSchoolAbbreviation.Text);
+            CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
+        }
+        private void btnMosaic_Click(object sender, EventArgs e)
+        {
+            if (currentClass == null || currentClass.IdClass == null)
+                return;
+            frmMosaic f = new frmMosaic(currentClass);
+            f.Show();
         }
     }
 }

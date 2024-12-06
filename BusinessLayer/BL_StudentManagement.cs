@@ -32,6 +32,10 @@ namespace SchoolGrades
                 return dl.UpdateStudent(Student, cmd);
             }
         }
+        internal void DeleteStudent(Student Student)
+        {
+            dl.DeleteStudent(Student);
+        }
         internal Student GetStudent(int? IdStudent)
         {
             return dl.GetStudent(IdStudent);
@@ -46,7 +50,7 @@ namespace SchoolGrades
         }
         internal void PutStudentInClass(Student Student, int? IdClass)
         {
-            dl.PutStudentInClass(Student.IdStudent, Student.IdClass);
+            dl.PutStudentInClass(Student.IdStudent, IdClass);
             ////////dl.AddLinkPhotoToStudent()
         }
         /// <summary>
@@ -56,15 +60,13 @@ namespace SchoolGrades
         /// <param name="cmd">Connection already open on a database different from standard. 
         /// If not null this connection is left open</param>
         /// <returns>List of the </returns>
-        internal List<Student> GetStudentsOfClass(int? IdClass, DbCommand cmd)
+        internal List<Student> GetStudentsOfClass(Class Class, DbCommand cmd)
         {
-            return dl.GetStudentsOfClass(IdClass, cmd);
+            return dl.GetStudentsOfClass(Class, true, cmd);
         }
-        internal List<Student> GetStudentsOfClassList(string Scuola, string Anno,
-            string ClassAbbreviation, bool IncludeNonActiveStudents)
+        internal List<Student> GetStudentsOfClassList(Class Class, bool IncludeNonActiveStudents)
         {
-            return dl.GetStudentsOfClassList(Scuola, Anno,
-            ClassAbbreviation, IncludeNonActiveStudents);
+            return dl.GetStudentsOfClass(Class, IncludeNonActiveStudents);
         }
         internal List<Student> GetStudentsAndSumOfWeights(Class Class,
             List<Student> studentsList, GradeType GradeType, SchoolSubject SchoolSubject,
@@ -87,9 +89,9 @@ namespace SchoolGrades
         {
             dl.EraseStudentsPhoto(IdStudent, SchoolYear);
         }
-        internal void ToggleDisabledFlagOneStudent(Student DisablingStudent)
+        internal void ToggleDisabledFlagOneStudent(Student DisablingStudent, Class StudentsClass)
         {
-            dl.ToggleDisabledFlagOneStudent(DisablingStudent);
+            dl.ToggleDisabledFlagOneStudent(DisablingStudent, StudentsClass);
         }
         internal string GetFilePhoto(int? IdStudent, string SchoolYear)
         {

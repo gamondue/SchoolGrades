@@ -98,7 +98,7 @@ namespace SchoolGrades
         internal void CopyAndLinkOnePhoto(Student NewStudent, Class NewClass, string PhotoToCopyFullName)
         {
             string ext = Path.GetExtension(PhotoToCopyFullName);
-            string classFolder = NewClass.SchoolYear + NewClass.Abbreviation;
+            string classFolder = Path.Combine(NewClass.SchoolYear, NewClass.Abbreviation);
             string justFileName = NewStudent.LastName + "_" + NewStudent.FirstName + "_" + NewClass.Abbreviation + NewClass.SchoolYear + ext;
             string relativePathFileName = Path.Combine(classFolder, justFileName);
             string newPhotoFullName = Path.Combine(Commons.PathImages, relativePathFileName);

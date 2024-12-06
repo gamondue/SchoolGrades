@@ -56,7 +56,7 @@ namespace SchoolGrades_WPF
             currentStudent = new Student();
             Commons.bl.GetGradeAndStudentFromIdGrade(ref currentGrade, ref currentStudent);
             currentYear = currentGrade.IdSchoolYear;
-            currentClass = Commons.bl.GetClassOfStudent(Commons.IdSchool, currentYear, currentStudent);
+            currentClass = Commons.bl.GetClassOfAStudentInAYear(Commons.IdSchool, currentYear, currentStudent);
 
             currentGradeType = Commons.bl.GetGradeType(currentGrade.IdGradeType);
 
@@ -345,7 +345,8 @@ namespace SchoolGrades_WPF
         private void btnQuestionChoose_Click(object sender, RoutedEventArgs e)
         {
             // we don't pass the currentSubject because it is better to start from any type of question
-            frmQuestionChoose choice = new frmQuestionChoose(currentSchoolSubject, currentClass, currentStudent, currentQuestion);
+            frmQuestionChoose choice = new frmQuestionChoose(currentSchoolSubject,
+                currentClass, currentStudent, currentQuestion);
             choice.ShowDialog();
             if (choice.ChosenQuestion.Text != null && choice.ChosenQuestion.Text != "")
                 currentQuestion = choice.ChosenQuestion;

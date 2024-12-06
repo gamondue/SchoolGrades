@@ -35,7 +35,7 @@ namespace SchoolGrades.BusinessObjects
         public Nullable<DateTime> BirthDate { get => birthDate; set => birthDate = (DateTime?)value; }
         public string BirthPlace { get => birthPlace; set => birthPlace = value; }
         public int? RevengeFactorCounter { get; set; }  // revenge factor counter starts from 0
-        public bool? Disabled { get; set; }
+        public bool? Disabled { get; set; }             // not in the database, retrieved from the table Classes_Students
         public bool? HasSpecialNeeds { get; set; }
         public double? SortOrDrawCriterion { get; internal set; }
         public string Telephone { get; set; }

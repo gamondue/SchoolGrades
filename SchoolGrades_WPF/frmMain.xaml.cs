@@ -32,7 +32,7 @@ namespace SchoolGrades_WPF
 
         private SchoolYear currentYear;
 
-        private bool wndInitializing = true;
+        private bool initializingForm = true;
         //bool firstTime = true;
 
         Student currentStudent;
@@ -233,7 +233,7 @@ namespace SchoolGrades_WPF
             Panel.SetZIndex(txtIdStudent, 1000);
 
             lblDatabaseFile.Text = Path.GetFileName(Commons.PathAndFileDatabase);
-            wndInitializing = false;
+            initializingForm = false;
 
             //////////lstTimeInterval.Items.Add("05");
             //////////lstTimeInterval.Items.Add("10");
@@ -639,7 +639,7 @@ namespace SchoolGrades_WPF
         }
         private void chkStudentsListVisible_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            if (wndInitializing) return;
+            if (initializingForm) return;
             if ((bool)chkStudentsListVisible.IsChecked)
             {
                 dgwStudents.Visibility = Visibility.Visible;
@@ -670,7 +670,7 @@ namespace SchoolGrades_WPF
             //    return;
 #endif
 
-            //if (!wndInitializing && firstTime)
+            //if (!initializingForm && firstTime)
             //{
             //    firstTime = false;
             //    //List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
@@ -758,8 +758,7 @@ namespace SchoolGrades_WPF
             if (lstClasses.SelectedItem != null)
             {
                 dgwStudents.ItemsSource = null;
-                currentStudentsList = Commons.bl.GetStudentsOfClassList(currentSchool.OfficialSchoolAbbreviation,
-                    currentYear.IdSchoolYear, lstClasses.SelectedItem.ToString(), false);
+                currentStudentsList = Commons.bl.GetStudentsOfClassList((Class)lstClasses.SelectedItem, false);
                 dgwStudents.ItemsSource = currentStudentsList;
                 eligiblesList.Clear();
                 if (currentStudentsList == null)
@@ -803,8 +802,7 @@ namespace SchoolGrades_WPF
             bool OneIsDifferent = false;
             if (currentClass != null)
             {
-                List<Student> oldList = Commons.bl.GetStudentsOfClassList(currentSchool.OfficialSchoolAbbreviation,
-                    currentYear.IdSchoolYear, currentClass.Abbreviation, false);
+                List<Student> oldList = Commons.bl.GetStudentsOfClassList((Class)lstClasses.SelectedItem, false);
                 if (currentStudentsList != null)
                 {
                     for (int i = 0; i < oldList.Count; i++)
@@ -1446,8 +1444,19 @@ namespace SchoolGrades_WPF
         }
         private void btnTemporary_Click(object sender, RoutedEventArgs e)
         {
-            frmBackupManagement f = new();
-            f.Show();
+            // open assessment window for test 
+            frmMicroAssessment grade = new frmMicroAssessment(this,
+                new Class { IdClass = 36 },
+                Commons.bl.GetStudent(481),
+                new GradeType { IdGradeType = "micro" },
+                new SchoolSubject { IdSchoolSubject = "TPSIT" },
+                Commons.bl.GetQuestionById(445)
+            );
+            //grade.ShowDialog();
+            grade.Show();
+
+            //frmBackupManagement f = new();
+            //f.Show();
             //Student dummyStudent = new Student();
             //dummyStudent.IdStudent = 388;
             //dummyStudent.LastName = "Dummy"; 

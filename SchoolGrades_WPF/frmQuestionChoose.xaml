@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SchoolGrades_WPF"
         mc:Ignorable="d"
-        Title="Scelta domanda" Height="450"  Width="1000" Background="PowderBlue">
+        Title="Scelta domanda" Loaded = "frmQuestionChoose_Loaded"
+        Height="450"  Width="1050" Background="PowderBlue">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="Foreground" Value="DarkBlue"></Setter>
@@ -30,9 +31,9 @@
             <ColumnDefinition Width="70"/>
             <ColumnDefinition Width="70"/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="lblSchoolSubject" Grid.Column="0" Margin="3" >Materia</Label>
-        <Label x:Name="lblQuestionType" Grid.Column="1" Margin="3" >Tipo domanda</Label>
-        <Label x:Name="lblSearchText" Grid.Column="2" Margin="3" >Testo da ricercare</Label>
+        <Label x:Name="lblSchoolSubject" Grid.Column="0" Margin="3">Materia</Label>
+        <Label x:Name="lblQuestionType" Grid.Column="1" Margin="3">Tipo domanda</Label>
+        <Label x:Name="lblSearchText" Grid.Column="2" Margin="3">Testo da ricercare</Label>
 
         <ComboBox x:Name="cmbSchoolSubject" Grid.Row="1" Grid.Column="0" 
                     Margin="3" SelectionChanged="cmbSchoolSubject_SelectionChanged"></ComboBox>
@@ -47,11 +48,18 @@
         <Button x:Name="btnQuestionsDone" Grid.Row="1" Grid.Column="5" 
                 Margin="5">Fatte</Button>
         <Label x:Name="lblTopic" Grid.Row="2" Grid.Column="0" Margin="3">Argomento per filtro</Label>
-        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
-                    Orientation="Horizontal">
-            <TextBox x:Name="txtTopicCode" Width="100" Margin="3" IsReadOnly="True"/>
-            <TextBox x:Name="txtTopic" Width="680" Margin="3" ></TextBox>
-        </StackPanel>
+        <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Row="0" Grid.Column="0" 
+                     x:Name="txtTopicCode" Margin="3" IsReadOnly="True"
+                     TextAlignment="Center" VerticalContentAlignment="Center"/>
+            <TextBox Grid.Row="0" Grid.Column="1"
+                     x:Name="txtTopic" Margin="3"
+                     TextAlignment="Left" VerticalContentAlignment="Center"/>
+        </Grid>
         <StackPanel Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3"
                     Orientation="Horizontal">
             <StackPanel Grid.Row="3" Grid.Column="3">
@@ -75,15 +83,26 @@
                 <ColumnDefinition Width="37"/>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="100"/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
             <Label x:Name="lblQuestion" Height="25" Grid.ColumnSpan="2" 
                     HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Domande"/>
             <Label Name="lblPeriodOfQuestionTopics" VerticalAlignment="Bottom"
-                    Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="5"
+                    Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"
                     >Periodo degli argomenti delle domande</Label>
+            <CheckBox 
+                x:Name="chkUseDates" Content="Usa periodi" 
+                Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="1"
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Bottom" VerticalContentAlignment="Center"
+                Height="16" Width="102" 
+                FontWeight="Bold" Foreground="DarkBlue"
+                IsChecked="False"
+                Checked="chkUseDates_CheckedChanged" 
+                Unchecked="chkUseDates_CheckedChanged"
+                IsEnabled="False"/>
             <Label x:Name="lblWeightInTest" VerticalAlignment="Bottom"
                     Grid.Row="0" Grid.Column="8" Grid.ColumnSpan="2">Peso nel test</Label>
 
@@ -97,20 +116,24 @@
             <Label Name="lblStart" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Left"
                     Grid.Row="2" Grid.Column="2">Inizio</Label>
             <DatePicker Name="dtpStartPeriod" Margin="3" VerticalAlignment="Center"
-                        Grid.Row="2" Grid.Column="3"/>
+                        Grid.Row="2" Grid.Column="3" 
+                        IsEnabled="False"/>
             <Label Name="lblEnd" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Left"
                     Grid.Row="2" Grid.Column="4">Fine</Label>
             <DatePicker Name="dtpEndPeriod" Margin="3" VerticalAlignment="Center"
-                        Grid.Row="2" Grid.Column="5"></DatePicker>
+                        Grid.Row="2" Grid.Column="5" IsEnabled="False"/>
+
             <ComboBox x:Name="cmbSchoolPeriod" Margin="3"
-                        Grid.Row="2" Grid.Column="6"/>
+                      Grid.Row="2" Grid.Column="6" 
+                      SelectionChanged="cmbSchoolPeriod_SelectedIndexChanged"
+                      IsEnabled="False"/>
             <Button Name="btnRandomQuestion" Click="btnRandomQuestion_Click"
-                    Grid.Row="2" Grid.Column="7" Margin="3">Casuale</Button>
+                    Grid.Row="2" Grid.Column="7" Width="90" Margin="2">Casuale</Button>
             <TextBox Name="txtWeightInTest" 
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                     Grid.Row="2" Grid.Column="8" Margin="3">100</TextBox>
+                     Grid.Row="2" Grid.Column="8" Margin="2" Width="90">100</TextBox>
             <Button Name="btnChoose" Click="btnChoose_Click"
-                    Grid.Row="2" Grid.Column="9" Margin="3">Scegli</Button>
+                    Grid.Row="2" Grid.Column="9" Margin="2" Width="90">Scegli</Button>
             <Label Name="LblLessonTime" HorizontalAlignment="Right"
                     Grid.Row="2" Grid.Column="10"/>
         </Grid>
