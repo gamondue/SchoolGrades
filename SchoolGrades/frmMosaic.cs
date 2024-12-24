@@ -39,25 +39,28 @@ namespace SchoolGrades
         }
         private void ResizePictures()
         {
-            int xNumPictures = 7;
-            int yNumPictures = (int)(Math.Ceiling((double)currentStudents.Count / xNumPictures));
-            int xStep = this.ClientRectangle.Width / xNumPictures;
-            int yStep = this.ClientRectangle.Height / yNumPictures;
-            int nRow = 0, nCol = 0;
-            foreach (PictureBox pic in currentPictures)
+            if (currentStudents != null)
             {
-                pic.Location = new Point(nCol * xStep, nRow * yStep);
-                pic.Size = new Size(xStep, yStep);
-                pic.MouseDown += new System.Windows.Forms.MouseEventHandler(pictures_MouseDown);
-                pic.MouseUp += new System.Windows.Forms.MouseEventHandler(pictures_MouseUp);
-                nCol++;
-                if (nCol == xNumPictures)
+                int xNumPictures = 7;
+                int yNumPictures = (int)(Math.Ceiling((double)currentStudents.Count / xNumPictures));
+                int xStep = this.ClientRectangle.Width / xNumPictures;
+                int yStep = this.ClientRectangle.Height / yNumPictures;
+                int nRow = 0, nCol = 0;
+                foreach (PictureBox pic in currentPictures)
                 {
-                    nRow++;
-                    nCol = 0;
+                    pic.Location = new Point(nCol * xStep, nRow * yStep);
+                    pic.Size = new Size(xStep, yStep);
+                    pic.MouseDown += new System.Windows.Forms.MouseEventHandler(pictures_MouseDown);
+                    pic.MouseUp += new System.Windows.Forms.MouseEventHandler(pictures_MouseUp);
+                    nCol++;
+                    if (nCol == xNumPictures)
+                    {
+                        nRow++;
+                        nCol = 0;
+                    }
                 }
+                this.Refresh();
             }
-            this.Refresh();
         }
         private void pictures_MouseUp(object sender, EventArgs e)
         {
