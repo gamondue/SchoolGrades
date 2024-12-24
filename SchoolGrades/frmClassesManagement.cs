@@ -20,6 +20,7 @@ namespace SchoolGrades
         List<Student> studentsList;
         string idSchoolYear;
         bool isLoading = true;
+        bool newYear = true;
         public frmClassesManagement()
         {
             InitializeComponent();
@@ -28,9 +29,7 @@ namespace SchoolGrades
         {
             isLoading = true;
             // currentSchool data
-
             currentSchool = Commons.bl.GetSchool(TxtOfficialSchoolAbbreviation.Text);
-
             List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
             CmbSchoolYear.DataSource = ly;
             if (ly.Count > 0)
@@ -42,8 +41,8 @@ namespace SchoolGrades
                 //CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
             }
             CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
-
             isLoading = false;
+            newYear = false;
         }
         private void btnImportStudentsOfClass_Click(object sender, EventArgs e)
         {
@@ -172,8 +171,24 @@ namespace SchoolGrades
         }
         private void CmbSchoolYear_SelectedIndexChanged(object sender, EventArgs e)
         {
-            idSchoolYear = CmbSchoolYear.SelectedItem.ToString();
-            CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
+            if (!isLoading)
+            {
+                newYear = true;
+
+                DetachData();
+
+                idSchoolYear = CmbSchoolYear.SelectedItem.ToString();
+                CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
+                newYear = false;
+            }
+        }
+        private void DetachData()
+        {
+            DgwClass.DataSource = null;
+            DgwStudents.DataSource = null;
+            txtClassDescription.Text = "";
+            currentClass = null;
+            TxtStartLinksFolder.Text = "";
         }
         private void btnClassErase_Click(object sender, EventArgs e)
         {
@@ -200,7 +215,7 @@ namespace SchoolGrades
         }
         private void CmbClasses_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!isLoading)
+            if (!newYear)
             {
                 Class c = (Class)CmbClasses.SelectedItem;
                 if (c != null)

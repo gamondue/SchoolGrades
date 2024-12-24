@@ -194,8 +194,7 @@ namespace SchoolGrades
             }
             return table;
         }
-
-        internal override void DeleteStudent(Student Student)
+        internal override void DeleteStudent(Student Student, bool DeleteAlsoInOtherTables)
         {
             throw new NotImplementedException();
         }

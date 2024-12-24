@@ -32,9 +32,9 @@ namespace SchoolGrades
                 return dl.UpdateStudent(Student, cmd);
             }
         }
-        internal void DeleteStudent(Student Student)
+        internal void DeleteStudent(Student Student, bool DeleteAlsoInOtherTables)
         {
-            dl.DeleteStudent(Student);
+            dl.DeleteStudent(Student, DeleteAlsoInOtherTables);
         }
         internal Student GetStudent(int? IdStudent)
         {
@@ -46,7 +46,7 @@ namespace SchoolGrades
         }
         internal List<Student> GetStudentsLike(string LastName, string FirstName)
         {
-            return dl.FindStudentsLike(LastName, FirstName);
+            return dl.GetStudentsLike(LastName, FirstName);
         }
         internal void PutStudentInClass(Student Student, int? IdClass)
         {
