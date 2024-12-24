@@ -111,7 +111,7 @@ namespace SchoolGrades
             else
                 return CreateStudent(Student);
         }
-        internal override void DeleteStudent(Student Student)
+        internal override void DeleteStudent(Student Student, bool DeleteAlsoInOtherTables)
         {
             if (Student.IdStudent == null)
                 return;
@@ -122,9 +122,49 @@ namespace SchoolGrades
                            " WHERE idStudent=" + Student.IdStudent +
                            ";";
                 cmd.ExecuteNonQuery();
+                if (DeleteAlsoInOtherTables)
+                {
+                    // delete the student also in the tables that have a field idStudent
+                    cmd.CommandText = "DELETE FROM Grades" +
+                       " WHERE idStudent=" + Student.IdStudent +
+                       ";";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "DELETE FROM Classes_Students" +
+                       " WHERE idStudent=" + Student.IdStudent +
+                       ";";
+                    cmd.ExecuteNonQuery();
+
+                    cmd.CommandText = "DELETE FROM StudentsAnnotations" +
+                       " WHERE idStudent=" + Student.IdStudent +
+                       ";";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "DELETE FROM StudentsAnswers" +
+                       " WHERE idStudent=" + Student.IdStudent +
+                       ";";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "DELETE FROM StudentsPhotos_Students" +
+                        " WHERE idStudent=" + Student.IdStudent +
+                        ";";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "DELETE FROM StudentsQuestions" +
+                       " WHERE idStudent=" + Student.IdStudent +
+                       ";";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "DELETE FROM StudentsTests" +
+                       " WHERE idStudent=" + Student.IdStudent +
+                       ";";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "DELETE FROM StudentsAnnotations" +
+                       " WHERE idStudent=" + Student.IdStudent +
+                       ";";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "DELETE FROM Students_GradeTypes" +
+                       " WHERE idStudent=" + Student.IdStudent +
+                       ";";
+                    cmd.ExecuteNonQuery();
+                }
                 cmd.Dispose();
             }
-            // !!!! TODO delete also widow classes (those where the deleted student was present)
         }
         internal override int? CreateStudent(Student Student)
         {
@@ -250,26 +290,29 @@ namespace SchoolGrades
         internal override Student GetStudentFromRow(DbDataReader Row)
         {
             Student s = new Student();
-            s.IdStudent = (int)Row["IdStudent"];
-            s.LastName = Safe.String(Row["LastName"]);
-            s.FirstName = Safe.String(Row["FirstName"]);
-            s.City = Safe.String(Row["city"]);
-            s.Origin = Safe.String(Row["Origin"]);
-            s.Email = Safe.String(Row["Email"]);
-            if (Safe.DateTime(Row["birthDate"]) != null)
-                s.BirthDate = Safe.DateTime(Row["birthDate"]);
-            s.BirthPlace = Safe.String(Row["birthPlace"]);
-            s.Telephone = Safe.String(Row["telephone"]);
-            s.MobileTelephone = Safe.String(Row["mobileTelephone"]);
-            s.Gender = Safe.String(Row["gender"]);
-            s.StreetAddress = Safe.String(Row["streetAddress"]);
-            s.ZipCode = Safe.String(Row["zipCode"]);
-            s.County = Safe.String(Row["county"]);
-            s.State = Safe.String(Row["state"]);
-            s.HasSpecialNeeds = Safe.Bool(Row["hasSpecialNeeds"]);
-            s.Eligible = Safe.Bool(Row["eligible"]);
-            s.RevengeFactorCounter = Safe.Int(Row["revengeFactorCounter"]);
-            s.LastPhotoPath = Safe.String(Row["lastPhotoPath"]);
+            if (Row != null)
+            {
+                s.IdStudent = (int)Row["IdStudent"];
+                s.LastName = Safe.String(Row["LastName"]);
+                s.FirstName = Safe.String(Row["FirstName"]);
+                s.City = Safe.String(Row["city"]);
+                s.Origin = Safe.String(Row["Origin"]);
+                s.Email = Safe.String(Row["Email"]);
+                if (Safe.DateTime(Row["birthDate"]) != null)
+                    s.BirthDate = Safe.DateTime(Row["birthDate"]);
+                s.BirthPlace = Safe.String(Row["birthPlace"]);
+                s.Telephone = Safe.String(Row["telephone"]);
+                s.MobileTelephone = Safe.String(Row["mobileTelephone"]);
+                s.Gender = Safe.String(Row["gender"]);
+                s.StreetAddress = Safe.String(Row["streetAddress"]);
+                s.ZipCode = Safe.String(Row["zipCode"]);
+                s.County = Safe.String(Row["county"]);
+                s.State = Safe.String(Row["state"]);
+                s.HasSpecialNeeds = Safe.Bool(Row["hasSpecialNeeds"]);
+                s.Eligible = Safe.Bool(Row["eligible"]);
+                s.RevengeFactorCounter = Safe.Int(Row["revengeFactorCounter"]);
+                s.LastPhotoPath = Safe.String(Row["lastPhotoPath"]);
+            }
             return s;
         }
         internal override List<Student> GetStudentsSameName(string LastName, string FirstName)
@@ -279,20 +322,21 @@ namespace SchoolGrades
             {
                 string query = "SELECT Students.IdStudent AS IdStudent, " +
                     "Students.lastName AS LastName, Students.firstName AS FirstName," +
-                    " Classes.abbreviation AS ClassAbbreviation, Classes.idSchoolYear AS SchoolYear" +
+                    " Classes.abbreviation AS ClassAbbreviation, Classes.idSchoolYear AS SchoolYear " +
                     " FROM Students" +
                     " LEFT JOIN Classes_Students ON Students.idStudent = Classes_Students.idStudent " +
                     " LEFT JOIN Classes ON Classes.idClass = Classes_Students.idClass " +
                     " WHERE Students.lastName=" + SqlString(LastName) + "" +
                     " AND Students.firstName=" + SqlString(FirstName) + "" +
+                    " ORDER BY LastName, Students.IdStudent, Students.birthDate, FirstName, SchoolYear" +
                     ";";
                 DbCommand cmd = conn.CreateCommand();
                 cmd = new SQLiteCommand(query);
                 cmd.Connection = conn;
                 DbDataReader dRead = cmd.ExecuteReader();
-                Student s = new Student();
                 while (dRead.Read())
                 {
+                    Student s = new Student();
                     s.IdStudent = Safe.Int(dRead["IdStudent"]);
                     s.LastName = Safe.String(dRead["LastName"]);
                     s.FirstName = Safe.String(dRead["FirstName"]);
@@ -305,7 +349,7 @@ namespace SchoolGrades
             }
             return t;
         }
-        internal override List<Student> FindStudentsLike(string LastName, string FirstName)
+        internal override List<Student> GetStudentsLike(string LastName, string FirstName)
         {
             List<Student> t = new();
             using (DbConnection conn = Connect())
@@ -332,7 +376,10 @@ namespace SchoolGrades
                         query += " WHERE Students.firstName " + SqlLikeStatement(FirstName) + "";
                     }
                 }
-                query += " ORDER BY SchoolYear";
+                query += " COLLATE NOCASE";
+                query += " ORDER BY Students.LastName COLLATE NOCASE" +
+                        ",Students.FirstName COLLATE NOCASE,Students.IdStudent" +
+                        ",Students.birthDate,SchoolYear";
                 query += ";";
                 DbCommand cmd = conn.CreateCommand();
                 cmd = new SQLiteCommand(query);

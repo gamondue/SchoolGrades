@@ -218,6 +218,8 @@
             dgwSearchedStudents.CellClick += dgwSearchedStudents_CellClick;
             dgwSearchedStudents.CellContentClick += dgwSearchedStudents_CellContentClick;
             dgwSearchedStudents.CellDoubleClick += dgwSearchedStudents_CellDoubleClick;
+            dgwSearchedStudents.RowEnter += dgwSearchedStudents_RowEnter;
+            dgwSearchedStudents.RowLeave += dgwSearchedStudents_RowLeave;
             // 
             // btnSave
             // 

@@ -283,7 +283,7 @@ namespace SchoolGrades
             DateTime DateFrom, DateTime DateTo);
         internal abstract List<Student> GetAllStudentsThatAnsweredToATest(SchoolTest Test, Class Class);
         internal abstract int? SaveStudent(Student Student);
-        internal abstract void DeleteStudent(Student Student);
+        internal abstract void DeleteStudent(Student Student, bool DeleteAlsoInOtherTables);
         internal abstract int? CreateStudent(Student Student);
         /// <summary>
         /// 
@@ -301,7 +301,7 @@ namespace SchoolGrades
         internal abstract Student GetStudent(int? IdStudent);
         internal abstract Student GetStudentFromRow(DbDataReader Row);
         internal abstract List<Student> GetStudentsSameName(string LastName, string FirstName);
-        internal abstract List<Student> FindStudentsLike(string LastName, string FirstName);
+        internal abstract List<Student> GetStudentsLike(string LastName, string FirstName);
         internal abstract void PutStudentInClass(int? IdStudent, int? IdClass);
         /// <summary>
         /// 

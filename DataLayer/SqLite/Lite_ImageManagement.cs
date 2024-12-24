@@ -83,6 +83,9 @@ namespace SchoolGrades
         }
         internal override string GetFilePhoto(int? IdStudent, string SchoolYear)
         {
+            // gets the path of the student's photo of the passed SchoolYear.
+            // if the SchoolYear is not passed, gets the path of the first photo
+            // that the query can get of this student, that has this code 
             using (DbConnection conn = Connect())
             {
                 DbCommand cmd = conn.CreateCommand();

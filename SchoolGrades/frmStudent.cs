@@ -165,6 +165,18 @@ namespace SchoolGrades
         }
         private void dgwSearchedStudents_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+
+        }
+        private void dgwSearchedStudents_RowLeave(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+        private void dgwSearchedStudents_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+        private void dgwSearchedStudents_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
             if (e.RowIndex > -1)
             {
                 List<Student> ls = (List<Student>)dgwSearchedStudents.DataSource;
@@ -177,10 +189,6 @@ namespace SchoolGrades
                 ShowStudentData(s);
                 currentStudent = s;
             }
-        }
-        private void dgwSearchedStudents_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
         private void dgwSearchedStudents_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -218,7 +226,15 @@ namespace SchoolGrades
             if (MessageBox.Show("Eliminare lo studente " + currentStudent.ToString() + "?",
                 "Eliminazione studente", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                Commons.bl.DeleteStudent(currentStudent);
+                if (MessageBox.Show("Eliminare lo studente anche dalle tabelle in cui viene riferito?",
+                    "Eliminazione studente da tabelle referenziate", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    Commons.bl.DeleteStudent(currentStudent, true);
+                }
+                else
+                {
+                    Commons.bl.DeleteStudent(currentStudent, false);
+                }
                 btnNew_Click(null, null);
             }
             else

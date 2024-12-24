@@ -267,7 +267,7 @@ namespace SchoolGrades
             return ls;
         }
 
-        internal override List<Student> FindStudentsLike(string LastName, string FirstName)
+        internal override List<Student> GetStudentsLike(string LastName, string FirstName)
         {
             List<Student> t = new();
             using (DbConnection conn = Connect())
