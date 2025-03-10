@@ -30,7 +30,7 @@ namespace gamon.TreeMptt
         internal abstract void SaveNodesFromScratch(List<Topic> ListTopics);
         internal abstract int? CreateNewTopic(Topic ct);
         internal abstract List<Topic> GetNodesByParentFromDatabase();
-        internal abstract void CloseConnection(bool Close);
+        internal abstract void CloseDbConnection(bool Close);
         internal abstract void CreateTableTreeMpttDb();
         internal abstract void AddTopic(Topic topic);
         internal abstract bool TopicExists(int? topicId);

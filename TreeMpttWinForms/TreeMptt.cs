@@ -2,6 +2,7 @@
 using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -209,12 +210,16 @@ namespace gamon.TreeMptt
             //DbConnection Connection = dl.Connect();
             // disable the background saving task. When disabled, the concurrent
             // thread will stop modifying the database 
+            
+            // locks the concurrent modification of synchronizing variables 
             lock (Commons.LockBackgroundSavingVariables)
             {
-                // locks the concurrent modification of synchronizing variables 
                 Commons.BackgroundSavingEnabled = false;
                 Commons.BackgroundTaskClose = true;
             }
+            // waits that the background thread is totally finished
+            Commons.BackgroundSaveThread.Join();
+
             // all the saving happens under a lock from other tasks
             // this saving waits here until the background task hasn't finished saving 
             lock (Commons.LockSavingCriticalSections)
@@ -278,7 +283,8 @@ namespace gamon.TreeMptt
         internal void SaveTreeMpttBackground()
         {
             // updates leftNode and right node of every node in the tree 
-            // works in background in a thread of its own 
+            // works in background in a thread of its own
+            // this method is the background thread
 
             // Starts a loop that finishes when we want to close the thread.
             // Closing will be fired from external, by setting to true BackgroundCanStillSaveTopicsTree
@@ -323,12 +329,13 @@ namespace gamon.TreeMptt
                         if (Commons.BackgroundSavingEnabled)
                             // not executed if saving is aborted 
                             dbMptt.SaveLeftRightConsistent(true);
-
                         Commons.BackgroundTaskIsSaving = false;
                     }
-                    Commons.SwitchPicLed(false);
                 }
             }
+            // close the db connection before terminating the task
+            dbMptt.CloseDbConnection(true);
+            Commons.SwitchPicLed(false);
         }
         internal void AddNodesToTreeviewByBestMethod()
         {

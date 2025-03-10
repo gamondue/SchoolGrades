@@ -22,10 +22,10 @@ namespace gamon.TreeMptt
             bool MustSaveLeftAndRight, bool CloseWhenEnding)
         {
             // connection can come from outside to avoid opening and closing it every time 
-            // if localConnection is null, the connection must be opened and closed locally 
+            // if localDbConnection is null, the connection must be opened and closed locally 
             if (localConnection == null)
             {
-                ////////////localConnection = dl.Connect();
+                ////////////localDbConnection = dl.Connect();
             }
             DbCommand cmd = localConnection.CreateCommand();
             SaveLeftRightConsistent(false);
@@ -76,12 +76,12 @@ namespace gamon.TreeMptt
                 }
             }
             //cmd.Dispose();
-            CloseConnection(CloseWhenEnding);
+            CloseDbConnection(CloseWhenEnding);
         }
         internal override void SaveLeftRightConsistent(bool IsConsistent)
         {
             // connection can come from outside to avoid opening and closing it every time 
-            // if localConnection is null, the connection must be opened and closed locally 
+            // if localDbConnection is null, the connection must be opened and closed locally 
             bool locallyOpened = false;
             if (localConnection == null || !(localConnection.State == ConnectionState.Open))
             {
@@ -250,7 +250,7 @@ namespace gamon.TreeMptt
         internal override List<Topic> GetNodesRoots(bool CloseConnectionEnding)
         {
             // connection can come from outside to avoid opening and closing it every time 
-            // if localConnection is null, the connection must be opened and closed locally 
+            // if localDbConnection is null, the connection must be opened and closed locally 
             bool locallyOpened = false;
             if (localConnection == null)
             {
@@ -289,7 +289,7 @@ namespace gamon.TreeMptt
         internal override List<Topic> GetNodesChildsByParent(Topic ParentNode, bool CloseConnectionWhenEnding)
         {
             // connection can come from outside to avoid opening and closing it every time 
-            // if localConnection is null, the connection must be opened and closed locally 
+            // if localDbConnection is null, the connection must be opened and closed locally 
             if (localConnection == null)
             {
                 localConnection = dl.Connect();
@@ -311,7 +311,7 @@ namespace gamon.TreeMptt
             }
             //dRead.Dispose();
             //cmd.Dispose();
-            CloseConnection(CloseConnectionWhenEnding);
+            CloseDbConnection(CloseConnectionWhenEnding);
             return lt;
         }
         internal override List<Topic> GetNodesAncestors(int? LeftNode, int? RightNode)
@@ -456,7 +456,7 @@ namespace gamon.TreeMptt
         {
             return dl.GetNodesByParentFromDatabase();
         }
-        internal override void CloseConnection(bool Close)
+        internal override void CloseDbConnection(bool Close)
         {
             if (localConnection != null && !(localConnection.State == System.Data.ConnectionState.Closed) && Close)
             {
