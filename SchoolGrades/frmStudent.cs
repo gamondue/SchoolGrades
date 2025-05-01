@@ -179,11 +179,10 @@ namespace SchoolGrades
         {
             if (e.RowIndex > -1)
             {
+                // sigle click on the row writes data int the textboxes
                 List<Student> ls = (List<Student>)dgwSearchedStudents.DataSource;
                 int key = (int)(ls[e.RowIndex].IdStudent);
-
                 Student s = Commons.bl.GetStudent(key);
-
                 s.ClassAbbreviation = ls[e.RowIndex].ClassAbbreviation;
                 s.SchoolYear = ls[e.RowIndex].SchoolYear;
                 ShowStudentData(s);
@@ -194,13 +193,21 @@ namespace SchoolGrades
         {
             if (e.RowIndex > -1)
             {
+                // double click on the stident's row opens the class of tha row
                 List<Student> l = (List<Student>)dgwSearchedStudents.DataSource;
                 int key = (int)(l[e.RowIndex].IdStudent);
-
-                //int key = (int)((DataTable)(dgwSearchedStudents.DataSource)).Rows[e.RowIndex]["idStudent"];
                 Student s = Commons.bl.GetStudent(key);
+                s.ClassAbbreviation = l[e.RowIndex].ClassAbbreviation;
+                s.SchoolYear = l[e.RowIndex].SchoolYear;
                 ShowStudentData(s);
                 currentStudent = s;
+                if (s != null && s.SchoolYear != null && !string.IsNullOrEmpty(s.ClassAbbreviation))
+                {
+                    // open the class management form, passing the class of tje clicked sudent
+                    Class c = Commons.bl.GetClass("", s.SchoolYear, s.ClassAbbreviation);
+                    frmClassesManagement f = new frmClassesManagement(c);
+                    f.ShowDialog();
+                }
             }
         }
         //private void frmStudent_FormClosing(object sender, FormClosingEventArgs e)

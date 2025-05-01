@@ -53,6 +53,9 @@
             btnPhotoErase = new System.Windows.Forms.Button();
             btnChoseAmogPastPhotos = new System.Windows.Forms.Button();
             btnMosaic = new System.Windows.Forms.Button();
+            DgwStudents = new System.Windows.Forms.DataGridView();
+            TxtFileOfStudentsImport = new System.Windows.Forms.TextBox();
+            TxtImagesOriginFolder = new System.Windows.Forms.TextBox();
             TxtOfficialSchoolAbbreviation = new System.Windows.Forms.TextBox();
             label4 = new System.Windows.Forms.Label();
             folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
@@ -61,7 +64,6 @@
             CmbSchoolYear = new System.Windows.Forms.ComboBox();
             btnNewYear = new System.Windows.Forms.Button();
             label1 = new System.Windows.Forms.Label();
-            DgwStudents = new System.Windows.Forms.DataGridView();
             CmbClasses = new System.Windows.Forms.ComboBox();
             btnStudentNew = new System.Windows.Forms.Button();
             lblClassData = new System.Windows.Forms.Label();
@@ -69,11 +71,9 @@
             label6 = new System.Windows.Forms.Label();
             groupBox1 = new System.Windows.Forms.GroupBox();
             btnFileChoose = new System.Windows.Forms.Button();
-            TxtFileOfStudentsImport = new System.Windows.Forms.TextBox();
             label5 = new System.Windows.Forms.Label();
             label9 = new System.Windows.Forms.Label();
             btnPathImages = new System.Windows.Forms.Button();
-            TxtImagesOriginFolder = new System.Windows.Forms.TextBox();
             label10 = new System.Windows.Forms.Label();
             btnSaveClassAndStudents = new System.Windows.Forms.Button();
             picStudent = new System.Windows.Forms.PictureBox();
@@ -108,6 +108,13 @@
             label2.Size = new System.Drawing.Size(134, 18);
             label2.TabIndex = 6;
             label2.Text = "Descrizione classe";
+            // 
+            // toolTip1
+            // 
+            toolTip1.AutomaticDelay = 250;
+            toolTip1.AutoPopDelay = 5000;
+            toolTip1.InitialDelay = 250;
+            toolTip1.ReshowDelay = 50;
             // 
             // DgwClass
             // 
@@ -410,6 +417,49 @@
             btnMosaic.UseVisualStyleBackColor = false;
             btnMosaic.Click += btnMosaic_Click;
             // 
+            // DgwStudents
+            // 
+            DgwStudents.AllowUserToAddRows = false;
+            DgwStudents.AllowUserToDeleteRows = false;
+            DgwStudents.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            DgwStudents.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
+            DgwStudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            DgwStudents.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            DgwStudents.Location = new System.Drawing.Point(9, 395);
+            DgwStudents.Margin = new System.Windows.Forms.Padding(4);
+            DgwStudents.MultiSelect = false;
+            DgwStudents.Name = "DgwStudents";
+            DgwStudents.RowTemplate.Height = 24;
+            DgwStudents.Size = new System.Drawing.Size(1080, 300);
+            DgwStudents.TabIndex = 87;
+            toolTip1.SetToolTip(DgwStudents, "Doppio click per aprire la classe corrispondente");
+            DgwStudents.CellClick += DgwStudents_CellClick;
+            DgwStudents.CellContentClick += DgwStudents_CellContentClick;
+            DgwStudents.CellDoubleClick += DgwStudents_CellDoubleClick;
+            DgwStudents.RowEnter += DgwStudents_RowEnter;
+            // 
+            // TxtFileOfStudentsImport
+            // 
+            TxtFileOfStudentsImport.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            TxtFileOfStudentsImport.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
+            TxtFileOfStudentsImport.Location = new System.Drawing.Point(173, 24);
+            TxtFileOfStudentsImport.Margin = new System.Windows.Forms.Padding(4);
+            TxtFileOfStudentsImport.Name = "TxtFileOfStudentsImport";
+            TxtFileOfStudentsImport.Size = new System.Drawing.Size(601, 24);
+            TxtFileOfStudentsImport.TabIndex = 95;
+            toolTip1.SetToolTip(TxtFileOfStudentsImport, "File separato da tab, ordine delle colonne come in file di esempio");
+            // 
+            // TxtImagesOriginFolder
+            // 
+            TxtImagesOriginFolder.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            TxtImagesOriginFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
+            TxtImagesOriginFolder.Location = new System.Drawing.Point(173, 68);
+            TxtImagesOriginFolder.Margin = new System.Windows.Forms.Padding(4);
+            TxtImagesOriginFolder.Name = "TxtImagesOriginFolder";
+            TxtImagesOriginFolder.Size = new System.Drawing.Size(601, 24);
+            TxtImagesOriginFolder.TabIndex = 5;
+            toolTip1.SetToolTip(TxtImagesOriginFolder, "Cartella dalla quale importare automaticamente le fotografie degli studenti. Nome del file come come da immagine di esempio.");
+            // 
             // TxtOfficialSchoolAbbreviation
             // 
             TxtOfficialSchoolAbbreviation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
@@ -481,26 +531,6 @@
             label1.Size = new System.Drawing.Size(90, 18);
             label1.TabIndex = 3;
             label1.Text = "Sigla Classe";
-            // 
-            // DgwStudents
-            // 
-            DgwStudents.AllowUserToAddRows = false;
-            DgwStudents.AllowUserToDeleteRows = false;
-            DgwStudents.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            DgwStudents.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
-            DgwStudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            DgwStudents.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            DgwStudents.Location = new System.Drawing.Point(9, 395);
-            DgwStudents.Margin = new System.Windows.Forms.Padding(4);
-            DgwStudents.MultiSelect = false;
-            DgwStudents.Name = "DgwStudents";
-            DgwStudents.RowTemplate.Height = 24;
-            DgwStudents.Size = new System.Drawing.Size(1080, 300);
-            DgwStudents.TabIndex = 87;
-            DgwStudents.CellClick += DgwStudents_CellClick;
-            DgwStudents.CellContentClick += DgwStudents_CellContentClick;
-            DgwStudents.CellDoubleClick += DgwStudents_CellDoubleClick;
-            DgwStudents.RowEnter += DgwStudents_RowEnter;
             // 
             // CmbClasses
             // 
@@ -601,16 +631,6 @@
             btnFileChoose.UseVisualStyleBackColor = false;
             btnFileChoose.Click += btnFileChoose_Click;
             // 
-            // TxtFileOfStudentsImport
-            // 
-            TxtFileOfStudentsImport.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            TxtFileOfStudentsImport.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
-            TxtFileOfStudentsImport.Location = new System.Drawing.Point(173, 24);
-            TxtFileOfStudentsImport.Margin = new System.Windows.Forms.Padding(4);
-            TxtFileOfStudentsImport.Name = "TxtFileOfStudentsImport";
-            TxtFileOfStudentsImport.Size = new System.Drawing.Size(601, 24);
-            TxtFileOfStudentsImport.TabIndex = 95;
-            // 
             // label5
             // 
             label5.AutoSize = true;
@@ -629,9 +649,9 @@
             label9.Location = new System.Drawing.Point(-3, 71);
             label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label9.Name = "label9";
-            label9.Size = new System.Drawing.Size(169, 18);
+            label9.Size = new System.Drawing.Size(172, 18);
             label9.TabIndex = 93;
-            label9.Text = "Cartella origine immagini";
+            label9.Text = "Cartella origine fotografie";
             // 
             // btnPathImages
             // 
@@ -647,16 +667,6 @@
             btnPathImages.Text = "..";
             btnPathImages.UseVisualStyleBackColor = false;
             btnPathImages.Click += btnPathImages_Click;
-            // 
-            // TxtImagesOriginFolder
-            // 
-            TxtImagesOriginFolder.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            TxtImagesOriginFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
-            TxtImagesOriginFolder.Location = new System.Drawing.Point(173, 68);
-            TxtImagesOriginFolder.Margin = new System.Windows.Forms.Padding(4);
-            TxtImagesOriginFolder.Name = "TxtImagesOriginFolder";
-            TxtImagesOriginFolder.Size = new System.Drawing.Size(601, 24);
-            TxtImagesOriginFolder.TabIndex = 5;
             // 
             // label10
             // 

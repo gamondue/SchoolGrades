@@ -120,6 +120,7 @@ namespace SchoolGrades
         internal abstract Class GetClassOfAStudentInAYear(string IdSchool, string SchoolYearId, Student Student);
         internal abstract void SaveClass(Class Class);
         internal abstract void GetClassFromRow(Class Class, DbDataReader Row);
+        internal abstract SchoolYear GetSchoolYear(string IdSchoolYear);
         internal abstract List<SchoolYear> GetSchoolYearsThatHaveClasses();
         internal abstract Class GetThisClassNextYear(Class Class);
 

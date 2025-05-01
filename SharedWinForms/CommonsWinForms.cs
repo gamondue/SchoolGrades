@@ -4,6 +4,7 @@ using SchoolGrades.BusinessObjects;
 using System;
 using System.Drawing;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace SchoolGrades
@@ -344,6 +345,12 @@ namespace SchoolGrades
                 (int)(Subject.Color & 0xFF00) >> 8,
                 (int)Subject.Color & 0xFF);
             return bgColor;
+        }
+        internal static void startBackgroundSavingTask()
+        {
+            // re-create and run the Thread that concurrently saves the Topics tree
+            Commons.BackgroundSaveThread = new Thread(Commons.SaveTreeMptt.SaveTreeMpttBackground);
+            Commons.BackgroundSaveThread.Start();
         }
     }
 }

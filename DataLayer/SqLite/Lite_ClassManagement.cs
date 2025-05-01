@@ -650,6 +650,34 @@ namespace SchoolGrades
             Class.UriWebApp = Safe.String(Row["uriWebApp"]);
             Class.Description = Safe.String(Row["desc"]);
         }
+        internal override SchoolYear GetSchoolYear(string IdSchoolYear)
+        {
+            SchoolYear schoolYear = null;
+            using (DbConnection conn = Connect())
+            {
+                using (DbCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "SELECT * FROM SchoolYears WHERE IdSchoolYear = @IdSchoolYear";
+                    DbParameter param = cmd.CreateParameter();
+                    param.ParameterName = "@IdSchoolYear";
+                    param.Value = IdSchoolYear;
+                    cmd.Parameters.Add(param);
+                    using (DbDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            schoolYear = new SchoolYear
+                            {
+                                IdSchoolYear = reader["IdSchoolYear"].ToString(),
+                                ShortDescription = reader["ShortDesc"].ToString(),
+                                Notes = reader["Notes"].ToString()
+                            };
+                        }
+                    }
+                }
+            }
+            return schoolYear;
+        }
         internal override List<SchoolYear> GetSchoolYearsThatHaveClasses()
         {
             DbDataReader dRead;

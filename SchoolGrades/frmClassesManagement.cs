@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Reflection;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace SchoolGrades
@@ -21,28 +22,48 @@ namespace SchoolGrades
         string idSchoolYear;
         bool isLoading = true;
         bool newYear = true;
-        public frmClassesManagement()
+        Class passedClass;
+        public frmClassesManagement(Class Class = null)
         {
             InitializeComponent();
+            passedClass = Class;
         }
         private void FrmClassesManagement_Load(object sender, EventArgs e)
         {
             isLoading = true;
             // currentSchool data
             currentSchool = Commons.bl.GetSchool(TxtOfficialSchoolAbbreviation.Text);
+            CmbSchoolYear.DisplayMember = "IdSchoolYear";
+            CmbSchoolYear.ValueMember = "IdSchoolYear";
+            CmbClasses.DisplayMember = "Abbreviation";
+            CmbClasses.ValueMember = "Abbreviation";
             List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
             CmbSchoolYear.DataSource = ly;
             if (ly.Count > 0)
-                CmbSchoolYear.SelectedItem = ly[ly.Count - 1];
-
-            if (CmbSchoolYear.SelectedItem != null)
             {
-                idSchoolYear = CmbSchoolYear.SelectedItem.ToString();
-                //CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
+                if (passedClass != null)
+                {
+                    // take the year of the class that has been passed
+                    CmbSchoolYear.SelectedValue = passedClass.SchoolYear;
+                    CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, passedClass.SchoolYear);
+                    // take the class of the year that has been passed
+                    // load it automatically
+                    isLoading = false;
+                    CmbClasses.SelectedValue = passedClass.Abbreviation;
+                }
+                else
+                {
+                    // take the last year in the list of the years
+                    CmbSchoolYear.SelectedItem = ly[ly.Count - 1];
+                    if (CmbSchoolYear.SelectedItem != null)
+                    {
+                        idSchoolYear = CmbSchoolYear.SelectedItem.ToString();
+                        CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
+                    }
+                }
+                isLoading = false;
+                newYear = false;
             }
-            CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
-            isLoading = false;
-            newYear = false;
         }
         private void btnImportStudentsOfClass_Click(object sender, EventArgs e)
         {

@@ -120,7 +120,6 @@ namespace SchoolGrades
                 }
             }
         }
-
         internal override void CreateNewDatabaseFromExisting()
         {
             DbCommand cmd;

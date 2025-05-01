@@ -148,6 +148,11 @@ namespace SchoolGrades
             else
                 return null;
         }
+        internal SchoolYear GetSchoolYear(string IdSchoolYear)
+        {
+            SchoolYear y = dl.GetSchoolYear(IdSchoolYear);
+            return y;
+        }
         internal List<SchoolYear> GetSchoolYearsThatHaveClasses()
         {
             List<SchoolYear> ly = dl.GetSchoolYearsThatHaveClasses();

@@ -145,7 +145,7 @@
             // 
             lblLastName.AutoSize = true;
             lblLastName.ForeColor = System.Drawing.Color.DarkBlue;
-            lblLastName.Location = new System.Drawing.Point(112, 7);
+            lblLastName.Location = new System.Drawing.Point(76, 7);
             lblLastName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblLastName.Name = "lblLastName";
             lblLastName.Size = new System.Drawing.Size(74, 18);
@@ -167,7 +167,7 @@
             // 
             lblFirstName.AutoSize = true;
             lblFirstName.ForeColor = System.Drawing.Color.DarkBlue;
-            lblFirstName.Location = new System.Drawing.Point(300, 7);
+            lblFirstName.Location = new System.Drawing.Point(264, 7);
             lblFirstName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblFirstName.Name = "lblFirstName";
             lblFirstName.Size = new System.Drawing.Size(49, 18);
@@ -290,17 +290,17 @@
             // 
             // txtFirstName
             // 
-            txtFirstName.Location = new System.Drawing.Point(303, 29);
+            txtFirstName.Location = new System.Drawing.Point(267, 29);
             txtFirstName.Name = "txtFirstName";
             txtFirstName.Size = new System.Drawing.Size(206, 24);
             txtFirstName.TabIndex = 20;
             // 
             // txtLastName
             // 
-            txtLastName.Location = new System.Drawing.Point(115, 29);
+            txtLastName.Location = new System.Drawing.Point(79, 29);
             txtLastName.Name = "txtLastName";
             txtLastName.Size = new System.Drawing.Size(182, 24);
-            txtLastName.TabIndex = 15;
+            txtLastName.TabIndex = 10;
             // 
             // chkDisabled
             // 
@@ -398,17 +398,17 @@
             // 
             // txtGender
             // 
-            txtGender.Location = new System.Drawing.Point(81, 29);
+            txtGender.Location = new System.Drawing.Point(479, 29);
             txtGender.Name = "txtGender";
             txtGender.Size = new System.Drawing.Size(28, 24);
-            txtGender.TabIndex = 10;
+            txtGender.TabIndex = 22;
             txtGender.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.ForeColor = System.Drawing.Color.DarkBlue;
-            label3.Location = new System.Drawing.Point(75, 8);
+            label3.Location = new System.Drawing.Point(473, 7);
             label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(40, 18);

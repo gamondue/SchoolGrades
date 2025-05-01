@@ -218,6 +218,6 @@ namespace SchoolGrades
             orClause = orClause.Substring(0, orClause.Length - 4);
             return orClause;
         }
+        #endregion
     }
-    #endregion
 }

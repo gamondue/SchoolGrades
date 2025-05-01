@@ -649,6 +649,10 @@ namespace SchoolGrades
             Class.UriWebApp = Safe.String(Row["uriWebApp"]);
             Class.Description = Safe.String(Row["desc"]);
         }
+        internal override SchoolYear GetSchoolYear(string IdSchoolYear)
+        {
+            throw new NotImplementedException();
+        }
         internal override List<SchoolYear> GetSchoolYearsThatHaveClasses()
         {
             DbDataReader dRead;
