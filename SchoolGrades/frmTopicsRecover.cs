@@ -347,13 +347,7 @@ namespace SchoolGrades
             // that we have left off when this form was open
 
             // restart the background Thread 
-            startBackgroundSavingTask();
-        }
-        private void startBackgroundSavingTask()
-        {
-            // re-create and run the Thread that concurrently saves the Topics tree
-            Commons.BackgroundSaveThread = new Thread(Commons.SaveTreeMptt.SaveTreeMpttBackground);
-            Commons.BackgroundSaveThread.Start();
+            Commons.startBackgroundSavingTask();
         }
         private void btnBeheaded_Click(object sender, EventArgs e)
         {

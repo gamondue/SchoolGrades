@@ -218,7 +218,8 @@ namespace gamon.TreeMptt
                 Commons.BackgroundTaskClose = true;
             }
             // waits that the background thread is totally finished
-            Commons.BackgroundSaveThread.Join();
+            if (Commons.BackgroundSaveThread.ThreadState == ThreadState.Running)
+                Commons.BackgroundSaveThread.Join();
 
             // all the saving happens under a lock from other tasks
             // this saving waits here until the background task hasn't finished saving 
@@ -277,6 +278,7 @@ namespace gamon.TreeMptt
             lock (Commons.LockBackgroundSavingVariables)
             {
                 Commons.BackgroundSavingEnabled = true;
+                Commons.startBackgroundSavingTask();
             }
             hasChanges = false;
         }
@@ -336,7 +338,7 @@ namespace gamon.TreeMptt
             // close the db connection before terminating the task
             dbMptt.CloseDbConnection(true);
             Commons.SwitchPicLed(false);
-        }
+         }
         internal void AddNodesToTreeviewByBestMethod()
         {
             //DbConnection Connection = dl.Connect();

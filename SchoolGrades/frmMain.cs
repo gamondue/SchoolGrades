@@ -214,6 +214,7 @@ namespace SchoolGrades
             Commons.SaveTreeMptt = new TreeMptt(null, null, null, null, null, null, picBackgroundSaveRunning,
                 null, null, null, null, null);
             // start the Thread that concurrently saves the Topics tree
+            Commons.startBackgroundSavingTask();
             Commons.BackgroundSaveThread = new Thread(Commons.SaveTreeMptt.SaveTreeMpttBackground);
             Commons.BackgroundSaveThread.Start();
 
