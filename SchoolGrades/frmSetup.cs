@@ -27,7 +27,7 @@ namespace SchoolGrades
         }
         private void btnTablesManagement_Click(object sender, EventArgs e)
         {
-            frmTables f = new frmTables();
+            frmLookupTablesChoose f = new frmLookupTablesChoose();
             f.ShowDialog();
         }
         private void btnClassesManagement_Click(object sender, EventArgs e)

@@ -11,7 +11,10 @@ namespace SchoolGrades
     {
         // ConstructorsAndGeneralMethods
         private string dbName;
-
+        internal DbConnection internalConnection;
+        internal DbDataAdapter internalDataAdapter;
+        internal DataSet internalDataSet;
+        internal DataTable internalDataTable;
         internal abstract DbConnection Connect();
         internal void OpenConnection(DbConnection connection)
         {
@@ -329,9 +332,22 @@ namespace SchoolGrades
         internal abstract void EraseSchoolSubjectById(string IdSchoolSubject);
 
         // TableManagement
-        internal abstract void GetLookupTable(string Table, ref DataSet DSet, ref DataAdapter DAdapt);
+        internal abstract DataTable GetLookupTable(string NameOfTable, string PrimaryKeyName);
+        internal abstract void UpdateInternalDataSet();
+        internal void CloseInternalConnection()
+        {
+            if (internalConnection != null)
+            {
+                internalConnection.Close();
+                internalConnection.Dispose();
+                internalDataSet.Clear();
+                internalDataSet.Dispose();
+                internalDataAdapter.Dispose();
+            }
+        }
         internal abstract void SaveTableOnCsv(DataTable Table, string FileName);
         internal abstract void CreateLookupTableRow(string Table, string IdTable, DataRow Row);
+        internal abstract void UpdateLookupTableRow(string table, string idTable, DataRow riga);
 
         // TagManagement
         internal abstract List<Tag> GetTagsContaining(string Pattern);
@@ -385,5 +401,8 @@ namespace SchoolGrades
         internal abstract bool SchoolYearExists(string idSchoolYear);
         internal abstract void AddSchoolYear(SchoolYear newSchoolYear);
         internal abstract void DeleteSchoolYear(string idSchoolYear);
+        internal abstract bool PrimaryKeyExistsInInternalDataTable(string nameOfTable, 
+            string nameOfPrimaryKey, object valueOfPrimaryKey);
+        internal abstract bool LookupTableDataHasChanged();
     }
 }

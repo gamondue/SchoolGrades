@@ -20,25 +20,23 @@ namespace SchoolGrades_WPF
             table = Table;
             idTable = IdTable;
         }
-
         private void frmEditLookupTable_Load(object sender, RoutedEventArgs e)
         {
             Title += ". Tabella: " + table;
             DataSet ds = null;
             DataAdapter da = null;
-            Commons.bl.GetLookupTable(table, ref ds, ref da);
-            dgwTable.ItemsSource = (System.Collections.IEnumerable)ds.Tables[0];
-            da.Dispose();
+            dgwTable.ItemsSource = (System.Collections.IEnumerable)Commons.bl.GetLookupTable(table, idTable);
+            //da.Dispose();
         }
-
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
 
         }
-
         private void btnSalva_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Da aggiustare, NON salvato!");
+            //  
+
             //DataTable t = (DataTable)dgwTable.ItemsSource;
             //DataTable modifiche = t.GetChanges();
             //if (modifiche != null)

@@ -26,7 +26,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_SqlToCreateDatabase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_StudentManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_SubjectManagement.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_TableManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_LookupTableManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_TagManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_TestManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SqLite\Lite_TopicsManagement.cs" />
@@ -48,7 +48,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)SqlServer\Serv_SqlToCreateDatabase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SqlServer\Serv_StudentManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SqlServer\Serv_SubjectManagement.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SqlServer\Serv_TableManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqlServer\Serv_LookupTableManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SqlServer\Serv_TagManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SqlServer\Serv_TestManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SqlServer\Serv_TopicsManagement.cs" />

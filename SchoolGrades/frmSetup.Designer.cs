@@ -69,7 +69,7 @@
             // 
             // btnTablesManagement
             // 
-            btnTablesManagement.Location = new System.Drawing.Point(8, 12);
+            btnTablesManagement.Location = new System.Drawing.Point(1052, 10);
             btnTablesManagement.Name = "btnTablesManagement";
             btnTablesManagement.Size = new System.Drawing.Size(82, 60);
             btnTablesManagement.TabIndex = 0;
@@ -80,7 +80,7 @@
             // 
             // btnClassesManagement
             // 
-            btnClassesManagement.Location = new System.Drawing.Point(95, 12);
+            btnClassesManagement.Location = new System.Drawing.Point(8, 10);
             btnClassesManagement.Name = "btnClassesManagement";
             btnClassesManagement.Size = new System.Drawing.Size(82, 60);
             btnClassesManagement.TabIndex = 1;
@@ -200,7 +200,7 @@
             // 
             // btnTopicsManagement
             // 
-            btnTopicsManagement.Location = new System.Drawing.Point(356, 12);
+            btnTopicsManagement.Location = new System.Drawing.Point(269, 10);
             btnTopicsManagement.Name = "btnTopicsManagement";
             btnTopicsManagement.Size = new System.Drawing.Size(82, 60);
             btnTopicsManagement.TabIndex = 99;
@@ -211,7 +211,7 @@
             // 
             // btnTagsManagement
             // 
-            btnTagsManagement.Location = new System.Drawing.Point(443, 12);
+            btnTagsManagement.Location = new System.Drawing.Point(356, 10);
             btnTagsManagement.Name = "btnTagsManagement";
             btnTagsManagement.Size = new System.Drawing.Size(82, 60);
             btnTagsManagement.TabIndex = 100;
@@ -222,7 +222,7 @@
             // 
             // btnStartLinksManagenet
             // 
-            btnStartLinksManagenet.Location = new System.Drawing.Point(530, 12);
+            btnStartLinksManagenet.Location = new System.Drawing.Point(443, 10);
             btnStartLinksManagenet.Name = "btnStartLinksManagenet";
             btnStartLinksManagenet.Size = new System.Drawing.Size(82, 60);
             btnStartLinksManagenet.TabIndex = 101;
@@ -234,7 +234,7 @@
             // btnQuestionManagement
             // 
             btnQuestionManagement.Enabled = false;
-            btnQuestionManagement.Location = new System.Drawing.Point(965, 12);
+            btnQuestionManagement.Location = new System.Drawing.Point(878, 10);
             btnQuestionManagement.Name = "btnQuestionManagement";
             btnQuestionManagement.Size = new System.Drawing.Size(82, 60);
             btnQuestionManagement.TabIndex = 102;
@@ -246,7 +246,7 @@
             // btnTestManagement
             // 
             btnTestManagement.Enabled = false;
-            btnTestManagement.Location = new System.Drawing.Point(1052, 12);
+            btnTestManagement.Location = new System.Drawing.Point(965, 10);
             btnTestManagement.Name = "btnTestManagement";
             btnTestManagement.Size = new System.Drawing.Size(82, 60);
             btnTestManagement.TabIndex = 103;
@@ -257,7 +257,7 @@
             // 
             // btnRecoverTopics
             // 
-            btnRecoverTopics.Location = new System.Drawing.Point(791, 12);
+            btnRecoverTopics.Location = new System.Drawing.Point(704, 10);
             btnRecoverTopics.Name = "btnRecoverTopics";
             btnRecoverTopics.Size = new System.Drawing.Size(82, 60);
             btnRecoverTopics.TabIndex = 104;
@@ -324,7 +324,7 @@
             // 
             // btnSchoolSubjectManagement
             // 
-            btnSchoolSubjectManagement.Location = new System.Drawing.Point(617, 12);
+            btnSchoolSubjectManagement.Location = new System.Drawing.Point(530, 10);
             btnSchoolSubjectManagement.Name = "btnSchoolSubjectManagement";
             btnSchoolSubjectManagement.Size = new System.Drawing.Size(82, 60);
             btnSchoolSubjectManagement.TabIndex = 110;
@@ -368,7 +368,7 @@
             // 
             // btnSchoolPeriodsManagement
             // 
-            btnSchoolPeriodsManagement.Location = new System.Drawing.Point(704, 12);
+            btnSchoolPeriodsManagement.Location = new System.Drawing.Point(617, 10);
             btnSchoolPeriodsManagement.Name = "btnSchoolPeriodsManagement";
             btnSchoolPeriodsManagement.Size = new System.Drawing.Size(82, 60);
             btnSchoolPeriodsManagement.TabIndex = 115;
@@ -380,7 +380,7 @@
             // btnUsersManagement
             // 
             btnUsersManagement.Enabled = false;
-            btnUsersManagement.Location = new System.Drawing.Point(878, 12);
+            btnUsersManagement.Location = new System.Drawing.Point(791, 10);
             btnUsersManagement.Name = "btnUsersManagement";
             btnUsersManagement.Size = new System.Drawing.Size(82, 60);
             btnUsersManagement.TabIndex = 114;
@@ -391,7 +391,7 @@
             // 
             // btnBackupManagement
             // 
-            btnBackupManagement.Location = new System.Drawing.Point(182, 12);
+            btnBackupManagement.Location = new System.Drawing.Point(95, 10);
             btnBackupManagement.Name = "btnBackupManagement";
             btnBackupManagement.Size = new System.Drawing.Size(82, 60);
             btnBackupManagement.TabIndex = 2;
@@ -402,7 +402,7 @@
             // 
             // btnStudentsManagement
             // 
-            btnStudentsManagement.Location = new System.Drawing.Point(269, 12);
+            btnStudentsManagement.Location = new System.Drawing.Point(182, 10);
             btnStudentsManagement.Name = "btnStudentsManagement";
             btnStudentsManagement.Size = new System.Drawing.Size(82, 60);
             btnStudentsManagement.TabIndex = 117;

@@ -22,7 +22,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)BL_QuestionManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BL_StudentManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BL_SubjectManagement.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)BL_TableManagement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BL_LookupTableManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BL_TagManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BL_TestManagement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BL_TopicsManagement.cs" />

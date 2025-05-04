@@ -5,7 +5,7 @@ using System.Windows.Controls;
 namespace SchoolGrades_WPF
 {
     /// <summary>
-    /// Logica di interazione per frmTables.xaml
+    /// Logica di interazione per frmLookupTablesChoose.xaml
     /// </summary>
     public partial class frmTables : Window
     {

@@ -3,22 +3,24 @@ using System.Windows.Forms;
 
 namespace SchoolGrades
 {
-    public partial class frmTables : Form
+    public partial class frmLookupTablesChoose : Form
     {
         private string idTable;
         private string table;
 
-        public frmTables()
+        public frmLookupTablesChoose()
         {
             InitializeComponent();
         }
+        private void frmTables_Load(object sender, EventArgs e)
+        {
 
+        }
         private void btnOpen_Click(object sender, EventArgs e)
         {
-            frmEditLookupTable f = new frmEditLookupTable(table, idTable);
+            frmLookupTableEdit f = new frmLookupTableEdit(table, idTable);
             f.ShowDialog();
         }
-
         private void rdb_CheckedChanged(object sender, EventArgs e)
         {
             table = ((RadioButton)sender).Name.Substring(3); 
@@ -26,11 +28,6 @@ namespace SchoolGrades
             idTable = idTable.Substring(0, idTable.Length - 1);
             if (table == "GradeCategories")
                 idTable = "idGradeCategory"; 
-        }
-
-        private void frmTables_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

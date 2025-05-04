@@ -1,7 +1,9 @@
 ﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
+using System.Data.SQLite;
 using System.IO;
 
 namespace SchoolGrades
@@ -396,6 +398,18 @@ namespace SchoolGrades
                 }
             }
             return found;
+        }
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+        public override string ToString()
+        {
+            return base.ToString();
         }
     }
 }
