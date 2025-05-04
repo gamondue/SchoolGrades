@@ -198,5 +198,16 @@ namespace SchoolGrades
         {
             throw new NotImplementedException();
         }
+
+        internal override bool PrimaryKeyExistsInInternalDataTable(string nameOfTable, 
+            string nameOfPrimaryKey, object valueOfPrimaryKey)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal override bool LookupTableDataHasChanged()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

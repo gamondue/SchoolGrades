@@ -224,7 +224,7 @@ namespace SchoolGrades_WPF
                 ".csv");
             var itemsSource = (dgwGrades.ItemsSource);
             // TODO fix here:
-            //////DataTable dt = itemsSource.Table; 
+            //////DataTable dt = itemsSource.internalDataTable; 
             //////Commons.bl.SaveTableOnCvs(dt, FileName);
             MessageBox.Show("Creato file: " + FileName);
         }

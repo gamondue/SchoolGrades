@@ -102,7 +102,7 @@ namespace SchoolGrades
         }
         internal void SaveTopicsFromScratch(List<Topic> TopicsList)
         {
-            dl.SaveTopicsFromScratch(TopicsList); 
+            dl.SaveTopicsFromScratch(TopicsList);
         }
     }
 }

@@ -94,7 +94,7 @@ namespace SchoolGrades
                 DbCommand cmd = conn.CreateCommand();
                 // !!!! TODO !!!!
 
-                // create row in table 
+                // create row in table
                 string now = SqlDate(DateTime.Now);
                 cmd.CommandText = "INSERT INTO Users " +
                 "(username, lastName, firstName, email," +

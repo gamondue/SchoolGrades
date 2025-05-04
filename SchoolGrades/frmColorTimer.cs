@@ -50,7 +50,7 @@ namespace gamon
         private DateTime finaltime;
         private double timeTotalMinutes;
 
-        public string FormCaption { get => this.Text; set => this.Text = value; }
+        public string FormCaption { get; set; }
         public bool PlaySoundEffects
         {
             get

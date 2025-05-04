@@ -1,24 +1,37 @@
 ﻿using gamon;
+using System;
 using System.Data;
 using System.Data.Common;
+using System.Data.SqlClient;
 using System.Data.SQLite;
 
 namespace SchoolGrades
 {
-    internal partial class SqLite_DataLayer : DataLayer
+    internal partial class SqlServer_DataLayer : DataLayer
     {
-        internal override void GetLookupTable(string Table, ref DataSet DSet, ref DataAdapter DAdapt)
+        internal override DataTable GetLookupTable(string NameOfTable, string PrimaryKeyName)
         {
-            using (DbConnection conn = Connect())
-            {
-                string query = "SELECT * FROM " + Table + ";";
-                DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                DSet = new DataSet("OpenLookupTable");
+            // connection il left open and stored internally; it will be closed by the UpdateInternalDataSet() Method
+            internalConnection = Connect();
+            string query = "SELECT * FROM " + NameOfTable + ";";
+            internalDataAdapter = new SqlDataAdapter(query, (SqlConnection)internalConnection);
+            internalDataSet = new DataSet("OpenLookupTable");
+            internalDataAdapter.Fill(internalDataSet);
+            DataTable Table = internalDataSet.Tables[0];
+            return Table;
+        }
+        internal override void UpdateInternalDataSet()
+        {
+            // Ensure the SqlCommandBuilder is used to generate commands for the SqlDataAdapter
+            SqlCommandBuilder CommandBuilder = new SqlCommandBuilder((SqlDataAdapter)internalDataAdapter);
 
-                DAdapt.Fill(DSet);
-                DAdapt.Dispose();
-                DSet.Dispose();
-            }
+            // Generate InsertCommand, UpdateCommand, and DeleteCommand
+            internalDataAdapter.InsertCommand = CommandBuilder.GetInsertCommand();
+            internalDataAdapter.UpdateCommand = CommandBuilder.GetUpdateCommand();
+            internalDataAdapter.DeleteCommand = CommandBuilder.GetDeleteCommand();
+
+            // Update the DataSet
+            internalDataAdapter.Update(internalDataSet);
         }
         internal override void SaveTableOnCsv(DataTable Table, string FileName)
         {
@@ -68,6 +81,10 @@ namespace SchoolGrades
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
+        }
+        internal override void UpdateLookupTableRow(string Table, string IdTable, DataRow Row)
+        {
+            throw new NotImplementedException();
         }
     }
 }
