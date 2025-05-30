@@ -283,9 +283,39 @@ namespace SchoolGrades
         // StudentManagement
         internal abstract void CreateTableStudents();
         internal abstract Student GetStudent(Student StudentToFind);
+        internal abstract Student GetStudent(int? IdStudent);
+        internal abstract Student GetStudentFromRow(DbDataReader Row);
+        internal abstract List<Student> GetStudentsSameName(string LastName, string FirstName);
+        internal abstract List<Student> GetStudentsLike(Student Student);
+        internal abstract void PutStudentInClass(int? IdStudent, int? IdClass);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="IdClass">Id of the class to be searched</param>
+        /// <param name="conn">Connection already open on a database different from standard. 
+        /// If not null this connection is left open</param>
+        /// <returns>List of the </returns>
+        internal abstract List<Student> GetStudentsOfClass(Class Class, bool IncludeNonActiveStudents, DbCommand cmd = null);
+
+        /// <summary>
+        /// Retrieves a list of student IDs for students who have not been graded in the specified class, grade type,
+        /// and school subject.
+        /// </summary>
+        /// <param name="Class">The class for which to retrieve ungraded student IDs.</param>
+        /// <param name="GradeType">The type of grade to check for (e.g., exam, assignment).</param>
+        /// <param name="SchoolSubject">The school subject to filter the ungraded students by.</param>
+        /// <returns>A list of integers representing the IDs of students who have not been graded.</returns>
         internal abstract DataTable GetStudentsWithNoMicrogrades(Class Class, string IdGradeType, string IdSchoolSubject,
-            DateTime DateFrom, DateTime DateTo);
+                DateTime DateFrom, DateTime DateTo);
         internal abstract List<Student> GetAllStudentsThatAnsweredToATest(SchoolTest Test, Class Class);
+        internal abstract List<int> GetIdStudentsNonGraded(Class Class,
+            GradeType GradeType, SchoolSubject SchoolSubject);
+        internal abstract void ToggleDisabledFlagOneStudent(Student Student, Class Class);
+        internal abstract Nullable<int> GetStudentsPhotoId(int? idStudent, string schoolYear, DbConnection conn);
+        internal abstract int? StudentHasAnswered(int? IdAnswer, int? IdTest, int? IdStudent);
+        internal abstract List<Student> GetStudentsOnBirthday(Class Class, DateTime Date);
+        internal abstract void SaveStudentsAnswer(Student Student, SchoolTest Test, Answer Answer,
+            bool StudentsBoolAnswer, string StudentsTextAnswer);
         internal abstract int? SaveStudent(Student Student);
         internal abstract void DeleteStudent(Student Student, bool DeleteAlsoInOtherTables);
         internal abstract int? CreateStudent(Student Student);
@@ -302,27 +332,6 @@ namespace SchoolGrades
         //        SaveStudent(s, conn);
         //    }
         //}
-        internal abstract Student GetStudent(int? IdStudent);
-        internal abstract Student GetStudentFromRow(DbDataReader Row);
-        internal abstract List<Student> GetStudentsSameName(string LastName, string FirstName);
-        internal abstract List<Student> GetStudentsLike(string LastName, string FirstName);
-        internal abstract void PutStudentInClass(int? IdStudent, int? IdClass);
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="IdClass">Id of the class to be searched</param>
-        /// <param name="conn">Connection already open on a database different from standard. 
-        /// If not null this connection is left open</param>
-        /// <returns>List of the </returns>
-        internal abstract List<Student> GetStudentsOfClass(Class Class, bool IncludeNonActiveStudents, DbCommand cmd = null);
-        internal abstract List<int> GetIdStudentsNonGraded(Class Class,
-            GradeType GradeType, SchoolSubject SchoolSubject);
-        internal abstract void ToggleDisabledFlagOneStudent(Student Student, Class Class);
-        internal abstract Nullable<int> GetStudentsPhotoId(int? idStudent, string schoolYear, DbConnection conn);
-        internal abstract int? StudentHasAnswered(int? IdAnswer, int? IdTest, int? IdStudent);
-        internal abstract List<Student> GetStudentsOnBirthday(Class Class, DateTime Date);
-        internal abstract void SaveStudentsAnswer(Student Student, SchoolTest Test, Answer Answer,
-            bool StudentsBoolAnswer, string StudentsTextAnswer);
 
         // SubjectManagement
         internal abstract void SaveSubjects(List<SchoolSubject> SubjectList);
@@ -404,5 +413,71 @@ namespace SchoolGrades
         internal abstract bool PrimaryKeyExistsInInternalDataTable(string nameOfTable, 
             string nameOfPrimaryKey, object valueOfPrimaryKey);
         internal abstract bool LookupTableDataHasChanged();
+        internal void AddWhereFilterString(ref string Query, string FieldName, string FieldValue)
+        {
+            if (FieldValue != null && FieldValue != "")
+            {
+                if (Query.Contains("WHERE"))
+                {
+                    Query += " AND " + FieldName + " LIKE '%" + FieldValue + "%'";
+                }
+                else
+                {
+                    Query += " WHERE " + FieldName + " LIKE '%" + FieldValue + "%'";
+                }
+            }
+        }
+        internal void AddWhereFilterBool(ref string Query, string FieldName, bool? FieldValue,
+            bool NienteWhereSeValoreCampoFalse = false)
+        {
+            // se il valore è null questa funzione non aggiunge niente
+            if (FieldValue != null)
+            {
+                if (Query.Contains("WHERE"))
+                {
+                    // se il volore è false ed in questo caso non si vuole aggiungere una WHERE, non la aggiungo
+                    if (FieldValue == false && NienteWhereSeValoreCampoFalse)
+                        return;
+                    Query += " AND " + FieldName + "='" + FieldValue + "'";
+                }
+                else
+                {
+                    if (FieldValue == false && NienteWhereSeValoreCampoFalse)
+                        return;
+                    Query += " WHERE " + FieldName + "='" + FieldValue + "'";
+                }
+            }
+        }
+        internal void AddWhereFilterInt(ref string Query, string FieldName, int? FieldValue)
+        {
+            if (FieldValue != null && FieldValue != 0)
+            {
+                if (Query.Contains("WHERE"))
+                {
+                    Query += " AND " + FieldName + "=" + FieldValue + "";
+                }
+                else
+                {
+                    Query += " WHERE " + FieldName + "=" + FieldValue + "";
+                }
+            }
+        }
+        internal void AddWhereFilterTimePeriod(ref string Query,
+            string FieldName, DateTime InitialDateTime, DateTime FinalDateTime)
+        {
+            //////////if (FieldName != null && FieldName != ""
+            //////////    && InitialDateTime != ComuniWinForms.DateNullDateTimePicker && FinalDateTime != ComuniWinForms.DateNullDateTimePicker)
+            //////////{
+            //////////    if (Query.Contains("WHERE"))
+            //////////    {
+            //////////        Query += " AND ";
+            //////////    }
+            //////////    else
+            //////////    {
+            //////////        Query += " WHERE ";
+            //////////    }
+            //////////    Query += FieldName + " BETWEEN " + SqlDate(InitialDateTime) + " AND " + SqlDate(FinalDateTime);
+            //////////}
+        }
     }
 }

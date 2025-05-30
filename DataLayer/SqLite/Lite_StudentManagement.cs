@@ -349,33 +349,38 @@ namespace SchoolGrades
             }
             return t;
         }
-        internal override List<Student> GetStudentsLike(string LastName, string FirstName)
+        internal override List<Student> GetStudentsLike(Student Student)
         {
             List<Student> t = new();
             using (DbConnection conn = Connect())
             {
                 DataAdapter dAdapt;
                 DataSet dSet = new DataSet();
-                string query = "SELECT Students.IdStudent, Students.lastName, Students.firstName," +
-                    " Classes.abbreviation AS ClassAbbreviation, Classes.idSchoolYear AS SchoolYear" +
+                string query = "SELECT Classes.abbreviation AS ClassAbbreviation,Classes.idSchoolYear AS SchoolYear" +
+                    ",Students.*" +
                     " FROM Students" +
                     " LEFT JOIN Classes_Students ON Students.idStudent = Classes_Students.idStudent " +
                     " LEFT JOIN Classes ON Classes.idClass = Classes_Students.idClass ";
-                if (LastName != "" && LastName != null)
-                {
-                    query += "WHERE Students.lastName " + SqlLikeStatement(LastName) + "";
-                    if (FirstName != "" && FirstName != null)
-                    {
-                        query += " AND Students.firstName " + SqlLikeStatement(FirstName) + "";
-                    }
-                }
-                else
-                {
-                    if (FirstName != "" && FirstName != null)
-                    {
-                        query += " WHERE Students.firstName " + SqlLikeStatement(FirstName) + "";
-                    }
-                }
+                AddWhereFilterString(ref query, "LastName", Student.LastName);
+                AddWhereFilterString(ref query, "FirstName", Student.FirstName);
+                AddWhereFilterString(ref query, "city", Student.City);
+                AddWhereFilterString(ref query, "origin", Student.Origin);
+                AddWhereFilterString(ref query, "email", Student.Email);
+                //AddWhereFilterDateTime(ref query, "birthDate", Student.BirthDate);
+                AddWhereFilterString(ref query, "birthPlace", Student.BirthPlace);
+                AddWhereFilterString(ref query, "telephone", Student.Telephone);
+                AddWhereFilterString(ref query, "mobileTelephone", Student.MobileTelephone);
+                AddWhereFilterString(ref query, "Gender", Student.Gender);
+                AddWhereFilterString(ref query, "streetAddress", Student.StreetAddress);
+                AddWhereFilterString(ref query, "zipCode", Student.ZipCode);
+                AddWhereFilterString(ref query, "county", Student.County);
+                AddWhereFilterString(ref query, "state", Student.State);
+                if (Student.HasSpecialNeeds!= null && Student.HasSpecialNeeds == true)
+                    AddWhereFilterBool(ref query, "hasSpecialNeeds", Student.HasSpecialNeeds);
+                //if (Student.Eligible != null && Student.Eligible == true)
+                //    AddWhereFilterBool(ref query, "eligible", Student.Eligible);
+                AddWhereFilterInt(ref query, "revengeFactorCounter", Student.RevengeFactorCounter);
+                AddWhereFilterString(ref query, "lastPhotoPath", Student.LastPhotoPath);
                 query += " COLLATE NOCASE";
                 query += " ORDER BY Students.LastName COLLATE NOCASE" +
                         ",Students.FirstName COLLATE NOCASE,Students.IdStudent" +
@@ -387,13 +392,9 @@ namespace SchoolGrades
                 DbDataReader dRead = cmd.ExecuteReader();
                 while (dRead.Read())
                 {
-                    Student s = new Student();
-                    s.IdStudent = Safe.Int(dRead["IdStudent"]);
-                    s.LastName = Safe.String(dRead["LastName"]);
-                    s.FirstName = Safe.String(dRead["FirstName"]);
+                    Student s = GetStudentFromRow(dRead);
                     s.ClassAbbreviation = Safe.String(dRead["ClassAbbreviation"]);
                     s.SchoolYear = Safe.String(dRead["SchoolYear"]);
-                    ////////////s.LastPhotoPath = Safe.String(dRead["lastPhotoPath"]);
                     t.Add(s);
                 }
                 dRead.Dispose();

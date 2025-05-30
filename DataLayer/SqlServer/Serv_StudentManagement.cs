@@ -266,8 +266,7 @@ namespace SchoolGrades
             }
             return ls;
         }
-
-        internal override List<Student> GetStudentsLike(string LastName, string FirstName)
+        internal override List<Student> GetStudentsLike(Student Student)
         {
             List<Student> t = new();
             using (DbConnection conn = Connect())
@@ -275,43 +274,48 @@ namespace SchoolGrades
                 DataAdapter dAdapt;
                 DataSet dSet = new DataSet();
                 string query = "SELECT Students.IdStudent, Students.lastName, Students.firstName," +
-                    " Classes.abbreviation, Classes.idSchoolYear" +
+                    " Classes.abbreviation AS ClassAbbreviation, Classes.idSchoolYear AS SchoolYear" +
                     " FROM Students" +
                     " LEFT JOIN Classes_Students ON Students.idStudent = Classes_Students.idStudent " +
                     " LEFT JOIN Classes ON Classes.idClass = Classes_Students.idClass ";
-                if (LastName != "" && LastName != null)
+                if (Student.LastName != "" && Student.LastName != null)
                 {
-                    query += "WHERE Students.lastName " + SqlLikeStatement(LastName) + "";
-                    if (FirstName != "" && FirstName != null)
+                    query += "WHERE Students.lastName " + SqlLikeStatement(Student.LastName) + "";
+                    if (Student.FirstName != "" && Student.FirstName != null)
                     {
-                        query += " AND Students.firstName " + SqlLikeStatement(FirstName) + "";
+                        query += " AND Students.firstName " + SqlLikeStatement(Student.FirstName) + "";
                     }
                 }
                 else
                 {
-                    if (FirstName != "" && FirstName != null)
+                    if (Student.FirstName != "" && Student.FirstName != null)
                     {
-                        query += " WHERE Students.firstName " + SqlLikeStatement(FirstName) + "";
+                        query += " WHERE Students.firstName " + SqlLikeStatement(Student.FirstName) + "";
                     }
                 }
+                query += " COLLATE NOCASE";
+                query += " ORDER BY Students.LastName COLLATE NOCASE" +
+                        ",Students.FirstName COLLATE NOCASE,Students.IdStudent" +
+                        ",Students.birthDate,SchoolYear";
                 query += ";";
                 DbCommand cmd = conn.CreateCommand();
                 cmd = new SQLiteCommand(query);
                 cmd.Connection = conn;
                 DbDataReader dRead = cmd.ExecuteReader();
-                Student s = new Student();
                 while (dRead.Read())
                 {
-                    s.IdStudent = Safe.Int(dRead["IdStudent"]);
-                    s.LastName = Safe.String(dRead["LastName"]);
-                    s.FirstName = Safe.String(dRead["FirstName"]);
-                    s.ClassAbbreviation = Safe.String(dRead["ClassAbbreviation"]);
-                    s.SchoolYear = Safe.String(dRead["SchoolYear"]);
+                    Student s = GetStudentFromRow(dRead);
+                    //s.IdStudent = Safe.Int(dRead["IdStudent"]);
+                    //s.LastName = Safe.String(dRead["LastName"]);
+                    //s.FirstName = Safe.String(dRead["FirstName"]);
+                    //s.ClassAbbreviation = Safe.String(dRead["ClassAbbreviation"]);
+                    //s.SchoolYear = Safe.String(dRead["SchoolYear"]);
+                    //////////////s.LastPhotoPath = Safe.String(dRead["lastPhotoPath"]);
                     t.Add(s);
                 }
                 dRead.Dispose();
                 cmd.Dispose();
-                //dAdapt = new SqlDataAdapter(query, (SqlConnection)conn);
+                //dAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
                 //dSet = new DataSet("GetStudentsSameName");
                 //dAdapt.Fill(dSet);
                 //t = dSet.Tables[0];

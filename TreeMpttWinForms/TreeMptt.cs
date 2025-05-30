@@ -338,7 +338,7 @@ namespace gamon.TreeMptt
             // close the db connection before terminating the task
             dbMptt.CloseDbConnection(true);
             Commons.SwitchPicLed(false);
-         }
+        }
         internal void AddNodesToTreeviewByBestMethod()
         {
             //DbConnection Connection = dl.Connect();

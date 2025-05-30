@@ -109,9 +109,12 @@ namespace SchoolGrades
         {
             dl.DeleteSchoolPeriod(IdSchoolPeriod);
         }
+        internal bool SchoolYearExists(string IdSchoolYear)
+        {
+            return dl.SchoolYearExists(IdSchoolYear);
+        }
         internal void AddSchoolYearIfNotExists(SchoolYear SchoolYear)
         {
-
             if (dl.SchoolYearExists(SchoolYear.IdSchoolYear))
                 return;
             dl.AddSchoolYear(SchoolYear);
