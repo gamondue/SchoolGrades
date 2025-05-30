@@ -9,20 +9,21 @@ namespace SchoolGrades
     public partial class frmStudent : Form
     {
         public Student CurrentStudent { get => currentStudent; set => currentStudent = value; }
-        Student currentStudent;
+        Student currentStudent = new();
         private bool isDialog;
-        internal bool UserHasChosen = false; public frmStudent(Student Student, bool IsDialog)
+        internal bool UserHasChosen = false; 
+        public frmStudent(Student Student, bool IsDialog)
         {
             InitializeComponent();
-
-            currentStudent = Student;
+            if (Student != null)
+                currentStudent = Student;
             isDialog = IsDialog;
         }
         private void frmStudent_Load(object sender, EventArgs e)
         {
             if (currentStudent != null)
             {
-                ShowStudentData(currentStudent);
+                FromCurrentStudentToUi(currentStudent);
             }
             if (isDialog)
             {
@@ -33,36 +34,6 @@ namespace SchoolGrades
                 btnChoose.Visible = false;
             }
             txtLastName.Focus();
-        }
-        private void ShowStudentData(Student currentStudent)
-        {
-            txtIdStudent.Text = currentStudent.IdStudent.ToString();
-            txtLastName.Text = currentStudent.LastName;
-            txtFirstName.Text = currentStudent.FirstName;
-            txtCity.Text = currentStudent.City;
-            txtOrigin.Text = currentStudent.Origin;
-            txtEmail.Text = currentStudent.Email;
-            //txtDrawable.Text = currentStudent.Drawable;
-            txtBirthDate.Text = currentStudent.BirthDate.ToString();
-            txtBirthPlace.Text = currentStudent.BirthPlace;
-            if (currentStudent.Disabled != null)
-                chkDisabled.Checked = (bool)currentStudent.Disabled;
-            else
-                chkDisabled.Checked = false;
-            if (currentStudent.HasSpecialNeeds != null)
-                chkHasSpecialNeeds.Checked = (bool)currentStudent.HasSpecialNeeds;
-            else
-                chkHasSpecialNeeds.Checked = false;
-            txtBirthPlace.Text = currentStudent.BirthPlace;
-            txtStreetAddress.Text = currentStudent.StreetAddress;
-            txtZipCode.Text = currentStudent.ZipCode;
-            txtCounty.Text = currentStudent.County;
-            txtState.Text = currentStudent.State;
-            txtTelephone.Text = currentStudent.Telephone;
-            txtGender.Text = currentStudent.Gender;
-            txtMobileTelephone.Text = currentStudent.MobileTelephone;
-
-            loadPicture(currentStudent);
         }
         private void loadPicture(Student StudentToLoad)
         {
@@ -155,8 +126,62 @@ namespace SchoolGrades
         }
         private void btnFindStudent_Click(object sender, EventArgs e)
         {
-            List<Student> dt = Commons.bl.GetStudentsLike(txtLastName.Text, txtFirstName.Text);
+            FromUiToCurrentStudent();
+            List<Student> dt = Commons.bl.GetStudentsLike(currentStudent);
             dgwSearchedStudents.DataSource = dt;
+        }
+        private void FromCurrentStudentToUi(Student currentStudent)
+        {
+            txtIdStudent.Text = currentStudent.IdStudent.ToString();
+            txtLastName.Text = currentStudent.LastName;
+            txtFirstName.Text = currentStudent.FirstName;
+            txtCity.Text = currentStudent.City;
+            txtOrigin.Text = currentStudent.Origin;
+            txtEmail.Text = currentStudent.Email;
+            //txtDrawable.Text = currentStudent.Drawable;
+            txtBirthDate.Text = currentStudent.BirthDate.ToString();
+            txtBirthPlace.Text = currentStudent.BirthPlace;
+            if (currentStudent.Disabled != null)
+                chkDisabled.Checked = (bool)currentStudent.Disabled;
+            else
+                chkDisabled.Checked = false;
+            if (currentStudent.HasSpecialNeeds != null)
+                chkHasSpecialNeeds.Checked = (bool)currentStudent.HasSpecialNeeds;
+            else
+                chkHasSpecialNeeds.Checked = false;
+            txtBirthPlace.Text = currentStudent.BirthPlace;
+            txtStreetAddress.Text = currentStudent.StreetAddress;
+            txtZipCode.Text = currentStudent.ZipCode;
+            txtCounty.Text = currentStudent.County;
+            txtState.Text = currentStudent.State;
+            txtTelephone.Text = currentStudent.Telephone;
+            txtGender.Text = currentStudent.Gender;
+            txtMobileTelephone.Text = currentStudent.MobileTelephone;
+
+            loadPicture(currentStudent);
+        }
+        private void FromUiToCurrentStudent()
+        {
+            // read in currentStudent the data from the UI textboxes
+            currentStudent.IdStudent = Safe.Int(txtIdStudent.Text);
+            currentStudent.LastName = Safe.String(txtLastName.Text);
+            currentStudent.FirstName = Safe.String(txtFirstName.Text);
+            currentStudent.City = Safe.String(txtCity.Text);
+            currentStudent.Origin = Safe.String(txtOrigin.Text);
+            currentStudent.Email = Safe.String(txtEmail.Text);
+            //currentStudent.Drawable = Safe.Bool(txtDrawable.Text);
+            currentStudent.BirthDate = Safe.DateTime(txtBirthDate.Text);
+            currentStudent.BirthPlace = Safe.String(txtBirthPlace.Text);
+            currentStudent.Disabled = Safe.Bool(chkDisabled.Checked);
+            currentStudent.HasSpecialNeeds = Safe.Bool(chkHasSpecialNeeds.Checked);
+            currentStudent.BirthPlace = Safe.String(txtBirthPlace.Text);
+            currentStudent.StreetAddress = Safe.String(txtStreetAddress.Text);
+            currentStudent.ZipCode = Safe.String(txtZipCode.Text);
+            currentStudent.County = Safe.String(txtCounty.Text);
+            currentStudent.State = Safe.String(txtState.Text);
+            currentStudent.Telephone = Safe.String(txtTelephone.Text);
+            currentStudent.Gender = Safe.String(txtGender.Text);
+            currentStudent.MobileTelephone = Safe.String(txtMobileTelephone.Text);
         }
         private void btnFindHomonym_Click(object sender, EventArgs e)
         {
@@ -185,7 +210,7 @@ namespace SchoolGrades
                 Student s = Commons.bl.GetStudent(key);
                 s.ClassAbbreviation = ls[e.RowIndex].ClassAbbreviation;
                 s.SchoolYear = ls[e.RowIndex].SchoolYear;
-                ShowStudentData(s);
+                FromCurrentStudentToUi(s);
                 currentStudent = s;
             }
         }
@@ -199,7 +224,7 @@ namespace SchoolGrades
                 Student s = Commons.bl.GetStudent(key);
                 s.ClassAbbreviation = l[e.RowIndex].ClassAbbreviation;
                 s.SchoolYear = l[e.RowIndex].SchoolYear;
-                ShowStudentData(s);
+                FromCurrentStudentToUi(s);
                 currentStudent = s;
                 if (s != null && s.SchoolYear != null && !string.IsNullOrEmpty(s.ClassAbbreviation))
                 {

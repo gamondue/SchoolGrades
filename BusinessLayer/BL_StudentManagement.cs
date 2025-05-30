@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using Windows.Networking;
 
 namespace SchoolGrades
 {
@@ -46,7 +47,11 @@ namespace SchoolGrades
         }
         internal List<Student> GetStudentsLike(string LastName, string FirstName)
         {
-            return dl.GetStudentsLike(LastName, FirstName);
+            return dl.GetStudentsLike(new Student (LastName, FirstName));
+        }
+        internal List<Student> GetStudentsLike(Student Student)
+        {
+            return dl.GetStudentsLike(Student);
         }
         internal void PutStudentInClass(Student Student, int? IdClass)
         {

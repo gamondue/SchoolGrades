@@ -19,16 +19,11 @@ namespace SchoolGrades.BusinessObjects
             this.FirstName = FirstName;
         }
         public int? IdStudent { get; set; }
-        public string RegisterNumber { get; set; } // field not in the table Student in database
         public string LastName { get; set; }
         public string FirstName { get; set; }
-        public float ArithmeticMean { get; set; }    // program should be modified to eliminate this property 
-        public double? Sum { get; set; }     // program should be modified to eliminate this property
-        public double? DummyNumber { get; set; }  // used by the program when it needs to associate a number to a student
-        public bool? Eligible { get; set; }
+        public string ClassAbbreviation { get; set; } // field not in the table Student in database
         public string SchoolYear { get; set; }    // field not in the table Student in database
         public int? IdClass { get; set; }   // field not in the table Student in database
-        public string ClassAbbreviation { get; set; } // field not in the table Student in database
         public string City { get => city; set => city = value; }
         public string Origin { get => origin; set => origin = value; }
         public string Email { get => email; set => email = value; }
@@ -47,6 +42,11 @@ namespace SchoolGrades.BusinessObjects
         public string State { get; set; }
         public string PicturePath { get; set; } // field not in the table Student in database
         public string LastPhotoPath { get; set; }
+        public string RegisterNumber { get; set; } // field not in the table Student in database
+        public double? DummyNumber { get; set; }  // used by the program when it needs to associate a number to a student
+        public bool? Eligible { get; set; }
+        public float ArithmeticMean { get; set; }    // program should be modified to eliminate this property 
+        public double? Sum { get; set; }     // program should be modified to eliminate this property
 
         public override string ToString()
         {

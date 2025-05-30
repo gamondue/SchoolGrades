@@ -654,11 +654,30 @@ namespace SchoolGrades
             {
                 return;
             }
+            // check if the year exists, if it doesn't create it
+            if (!Commons.bl.SchoolYearExists(CmbSchoolYear.Text))
+            {
+                DialogResult d = MessageBox.Show("L'anno scolastico " + CmbSchoolYear.Text + " non esiste." +
+                    "\r\nDevo crearlo?",
+                    "Informazione", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
+                if (d != DialogResult.Yes) return;
+                SchoolYear s = new SchoolYear();
+                s.IdSchoolYear = CmbSchoolYear.Text;
+                s.ShortDescription = "A.S. " + CmbSchoolYear.Text;
+                s.Notes ="Anno scolastico " + CmbSchoolYear.Text;
+                Commons.bl.AddSchoolYearIfNotExists(s);
+            }
             // give warning to avoid modifying existing class instead of making a new one
             if (Commons.bl.GetClass(currentSchool.IdSchool, idSchoolYear, CmbClasses.Text).Abbreviation != null)
             {
                 MessageBox.Show("Esiste già una classe con il nome \"" + CmbClasses.Text + "\" in questa scuola ed in questo anno!", "Avviso",
                     MessageBoxButtons.OK);
+                return;
+            }
+            if (CmbClasses.Text == "")
+            {
+                DialogResult d = MessageBox.Show("La sigla della classe è obbligatoria",
+                    "Informazione");
                 return;
             }
             if (CmbClasses.Text.Contains(" "))
@@ -667,10 +686,10 @@ namespace SchoolGrades
                     "\r\nDevo metterli lo stesso?",
                     "Informazione", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
                 if (d != DialogResult.Yes) return;
-            }
+            }  
             Commons.bl.CreateClassIfNotExists(CmbClasses.Text, txtClassDescription.Text,
                 CmbSchoolYear.Text, TxtOfficialSchoolAbbreviation.Text);
-            CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
+            CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, CmbSchoolYear.Text);
         }
         private void btnMosaic_Click(object sender, EventArgs e)
         {

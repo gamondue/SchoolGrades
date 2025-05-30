@@ -688,19 +688,19 @@ namespace SchoolGrades
             using (DbConnection conn = Connect())
             {
                 // get the list of school years that have classes,
-                // order by school year with 9X-9X+1 yers first
+                // order by school year with 9X-9X+1 years first
                 string query =
-    @"SELECT DISTINCT SchoolYears.*
-    FROM SchoolYears
-    JOIN Classes ON Classes.IdSchoolYear = SchoolYears.IdSchoolYear
-    WHERE SchoolYears.IdSchoolYear IS NOT NULL
-    ORDER BY
-        CASE
-            WHEN SUBSTRING(SchoolYears.IdSchoolYear, 1, 1) BETWEEN '5' AND '9' THEN 1
-        ELSE 2
-    END,
-    SchoolYears.IdSchoolYear ASC;
-    ";
+                    @"SELECT DISTINCT SchoolYears.*
+                    FROM SchoolYears
+                    JOIN Classes ON Classes.IdSchoolYear = SchoolYears.IdSchoolYear
+                    WHERE SchoolYears.IdSchoolYear IS NOT NULL
+                    ORDER BY
+                        CASE
+                            WHEN SUBSTRING(SchoolYears.IdSchoolYear, 1, 1) BETWEEN '5' AND '9' THEN 1
+                        ELSE 2
+                    END,
+                    SchoolYears.IdSchoolYear ASC" +
+                    ";";
                 cmd = conn.CreateCommand();
                 cmd.CommandText = query;
                 dRead = cmd.ExecuteReader();
@@ -710,7 +710,6 @@ namespace SchoolGrades
                     y.IdSchoolYear = (string)dRead["idSchoolYear"];
                     y.ShortDescription = Safe.String(dRead["shortDesc"]);
                     y.Notes = Safe.String(dRead["notes"]);
-
                     ly.Add(y);
                 }
                 dRead.Dispose();
