@@ -227,13 +227,14 @@ namespace SchoolGrades
         internal static void SwitchPicLed(bool IsLedLit)
         {
             try
-            {             // lights on or off the PictureBox used as an Activity LED 
+            {   
+                // lights on or off the PictureBox used as an Activity LED 
                 globalPicLed.Invoke(new Action(() =>
                 {
                     if (IsLedLit)
-                        globalPicLed.BackColor = Color.Red;           // LED lit
+                        globalPicLed.BackColor = Color.Red;     // LED lit
                     else
-                        globalPicLed.BackColor = Color.DarkGray;      // LED off
+                        globalPicLed.BackColor = Color.DarkGray; // LED off
                 }));
                 Application.DoEvents();
             }
@@ -346,11 +347,30 @@ namespace SchoolGrades
                 (int)Subject.Color & 0xFF);
             return bgColor;
         }
-        internal static void startBackgroundSavingTask()
+        // the following must stay in this file, because it is uses the TreeMptt class
+        // that is dependant from the UI technology used (WinForms, WPF, etc.)
+        
+        //!!!!!!!!!!! vedere se serve che i seguenti moetodi siano diversi !!!!!!!!!!!!!!!
+        internal static void CreateAndStartBackgroundSavingThread()
         {
+            // create a new tree that has no UI except for the globalPicLed
+            // to be used for lauching the background saving thread
+            SaveTreeMptt = new TreeMptt(null, null, null, null, null,
+                null, globalPicLed, null, null, null, null, null);
             // re-create and run the Thread that concurrently saves the Topics tree
-            Commons.BackgroundSaveThread = new Thread(Commons.SaveTreeMptt.SaveTreeMpttBackground);
-            Commons.BackgroundSaveThread.Start();
+            BackgroundSaveThread = new Thread(SaveTreeMptt.SaveTreeMpttBackground);
+            BackgroundSaveThread.Name = "BackgroundSaveThread";
+            BackgroundSaveThread.Start();
+        }
+        internal static void StartBackgroundSavingThread()
+        {
+            // create a new tree that has no UI except for the globalPicLed
+            // to be used for lauching the background saving thread
+            SaveTreeMptt = new TreeMptt(null, null, null, null, null, 
+                null, globalPicLed, null, null, null, null, null);
+            // re-create and run the Thread that concurrently saves the Topics tree
+            BackgroundSaveThread = new Thread(SaveTreeMptt.SaveTreeMpttBackground);
+            BackgroundSaveThread.Start();
         }
     }
 }

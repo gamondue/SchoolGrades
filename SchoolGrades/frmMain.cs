@@ -172,7 +172,6 @@ namespace SchoolGrades
             cmbSchoolSubject.DataSource = listSubjects;
 #endif
         }
-
         private void CreateDatabasePaths(string proposedDebugDatabaseFile)
         {
 
@@ -202,21 +201,15 @@ namespace SchoolGrades
             {
                 MessageBox.Show("Il programma verrà chiuso. Alla ripartenza funzionerà regolarmente.");
             }
-            CloseBackgroundThread();
             StopAllTimers();
+            Commons.StopBackgroundThread();
             this.Close();
         }
         private void frmMain_Load(object sender, EventArgs e)
         {
             Commons.globalPicLed = picBackgroundSaveRunning;
-
-
-            Commons.SaveTreeMptt = new TreeMptt(null, null, null, null, null, null, picBackgroundSaveRunning,
-                null, null, null, null, null);
             // start the Thread that concurrently saves the Topics tree
-            Commons.startBackgroundSavingTask();
-            Commons.BackgroundSaveThread = new Thread(Commons.SaveTreeMptt.SaveTreeMpttBackground);
-            Commons.BackgroundSaveThread.Start();
+            Commons.CreateAndStartBackgroundSavingThread();
 
             if (!File.Exists(Commons.PathAndFileDatabase))
                 return;
@@ -1175,7 +1168,7 @@ namespace SchoolGrades
             if (!File.Exists(Commons.PathAndFileDatabase))
                 return;
 
-            CloseBackgroundThread();
+            Commons.StopBackgroundThread();
 
             string file = Commons.PathLogs + @"\frmMain_parameters.txt";
             Commons.SaveCurrentValuesOfAllControls(this, ref file);
@@ -1190,24 +1183,6 @@ namespace SchoolGrades
             }
             //// we wait for the saving Thread to finish
             //Commons.BackgroundSaveThread.Join(30000);  // enormous timeout just for big problems
-        }
-        private void CloseBackgroundThread()
-        {
-            // if a saving of the database with Mptt is running, we close it 
-            if (Commons.BackgroundSavingEnabled)
-            {
-                lock (Commons.LockBackgroundSavingVariables)
-                {
-                    Commons.BackgroundSavingEnabled = false;
-                    Commons.BackgroundTaskClose = true;
-                }
-            }
-            if (Commons.BackgroundSaveThread != null)
-            {
-                // we wait for the saving Thread to finish
-                // (it aborts in a point in which status is preserved)  
-                Commons.BackgroundSaveThread.Join(3000);
-            }
         }
         private void StopAllTimers()
         {
@@ -1534,6 +1509,8 @@ namespace SchoolGrades
             {
                 if (dgwStudents.CurrentCell.ColumnIndex == 0)
                 {
+                    if (currentStudentsList[e.RowIndex].Eligible == null)
+                        currentStudentsList[e.RowIndex].Eligible = false;
                     currentStudentsList[e.RowIndex].Eligible = !currentStudentsList[e.RowIndex].Eligible;
                     if (currentStudentsList == null)
                         return;

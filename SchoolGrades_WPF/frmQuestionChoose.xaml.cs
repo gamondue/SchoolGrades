@@ -53,9 +53,9 @@ namespace SchoolGrades_WPF
             }
 
 #if SQL_SERVER
-            dbMptt = new TreeMpttDb_SqlServer(Commons.bl.dl);
+            dbMptt = new TreeMpttDb_SqlServer();
 #else
-            dbMptt = new TreeMpttDb_SqLite(Commons.bl.dl);
+            dbMptt = new TreeMpttDb_SqLite();
 #endif
             this.ParentForm = MicroAssessmentParent;
 

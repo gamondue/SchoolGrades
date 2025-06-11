@@ -12,6 +12,5 @@
     <Compile Include="$(MSBuildThisFileDirectory)TreeMpttDb.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TreeMpttDb_SqLite.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TreeMpttDb_SqlServer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TreeMpttNoUi.cs" />
   </ItemGroup>
 </Project>

@@ -14,7 +14,6 @@ namespace SchoolGrades
             if (!(String == null))
             {
                 temp = String;
-
                 temp = temp.Replace("'", "''");
             }
             else

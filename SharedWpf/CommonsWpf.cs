@@ -3,6 +3,7 @@ using gamon.TreeMptt;
 using SchoolGrades.BusinessObjects;
 using System;
 using System.IO;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -382,5 +383,15 @@ namespace SchoolGrades
         ////////        (int)Subject.Color & 0xFF);
         ////////    return bgColor;
         ////////}
+        internal static void StartBackgroundSavingThread()
+        {
+            // create a new tree that has no UI 
+            SaveTreeMptt = new TreeMptt(null, null, null, null, null,
+                null, globalPicLed, null, null, null, null, null);
+            // re-create and run the Thread that concurrently saves the Topics tree
+            Thread BackgroundSaveThread = new Thread(SaveTreeMptt.SaveTreeMpttBackground);
+            BackgroundSaveThread.SetApartmentState(ApartmentState.STA);
+            BackgroundSaveThread.Start();
+        }
     }
 }

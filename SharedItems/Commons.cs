@@ -57,10 +57,12 @@ namespace SchoolGrades
         // wait time before saving 
         public static int BackgroundThreadSleepSeconds = 6; // 120 // !!!!!!!!!!!!!!!!!! rimettere dopo DEBUg !!!!!!!!!!!!!!!!!!!
         // enable Mptt backgroud saving of Left anf Right pointers 
-        public static bool BackgroundSavingEnabled = true;
-        // exit the background task 
-        public static bool BackgroundTaskClose = false;
-        public static bool BackgroundTaskIsSaving = false;
+        //////////public static bool BackgroundSavingEnabled = true;
+        // command to exit the background task 
+        //public static bool BackgroundTaskClose = false;
+        
+        // when the BackgroundTaskCanSave the normal foregrorund can't
+        public static bool BackgroundTaskCanSave = true;
 
         // lock variable for serialization of access to BackgroundSavingEnabled and BackgroundSavingSafeStatus
         public static object LockSavingCriticalSections = new object();
@@ -393,13 +395,6 @@ namespace SchoolGrades
 
             return outputString;
         }
-        internal static bool ProcessingCanContinue()
-        {
-            // if the foreground task is running, we will NOT EVER interrupt it 
-            if (!BackgroundTaskIsSaving) return true;
-            // if the background is disabled, processing proceed only if enabled 
-            return BackgroundSavingEnabled;
-        }
         internal static void CreatePaths()
         {
             if (!Directory.Exists(Commons.PathConfig))
@@ -451,6 +446,28 @@ namespace SchoolGrades
             SqLite_DataLayer dlNew = new SqLite_DataLayer(DataBaseName);
 #endif
             return dlNew;
+        }
+        internal static void StopBackgroundThread()
+        {
+            // disable the background saving task. When disabled, the concurrent
+            // thread will receinve notification and stop modifying the database 
+
+            // if a saving of the database with Mptt is running, we close it 
+            // lock the concurrent modification of synchronizing variables 
+            if (BackgroundTaskCanSave)
+            {
+                lock (LockBackgroundSavingVariables)
+                {
+                    BackgroundTaskCanSave = false;
+                }
+            }
+            if (BackgroundSaveThread != null 
+                && Commons.BackgroundSaveThread.ThreadState == System.Threading.ThreadState.Running)
+            {
+                // we wait for the saving Thread to finish
+                // (it aborts its job in a point in which status is preserved)  
+                BackgroundSaveThread.Join(30000); // !!!!! put a shorter timeout AFTER DEBUGGING
+            }
         }
     }
 }
