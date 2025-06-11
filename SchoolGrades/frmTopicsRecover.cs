@@ -114,16 +114,7 @@ namespace SchoolGrades
             treeOld.AddNodesToTreeviewByBestMethod();
             treeOld.ClearBackColorOnClick = false;
 
-            // stop background saving thread when using this form so it will not interfere. 
-            // locks a concurrent modification of syncronyzing variables 
-            lock (Commons.LockBackgroundSavingVariables)
-            {
-                Commons.BackgroundSavingEnabled = false;
-                Commons.BackgroundTaskClose = true;
-            }
-            // we wait for the saving Thread to finish
-            // (it aborts in a point in which status is preserved)  
-            Commons.BackgroundSaveThread.Join(3000);
+            Commons.StopBackgroundThread();
 
             highligthDifferences();
         }
@@ -328,14 +319,7 @@ namespace SchoolGrades
 
             // abort the background saving that was triggered by SaveTreeFromTreeViewControlByParent
             // locks a concurrent modification of Commons.BackgroundCanStillSaveTopicsTree 
-            lock (Commons.LockBackgroundSavingVariables)
-            {
-                Commons.BackgroundSavingEnabled = false;
-                Commons.BackgroundTaskClose = true;
-            }
-            // we wait for the saving Thread to finish
-            // (it aborts in a point in which status is preserved)  
-            Commons.BackgroundSaveThread.Join(3000);
+            Commons.StopBackgroundThread();
 
             // !!!! TODO restart the task on closing the form !!!!
 
@@ -347,7 +331,7 @@ namespace SchoolGrades
             // that we have left off when this form was open
 
             // restart the background Thread 
-            Commons.startBackgroundSavingTask();
+            Commons.StartBackgroundSavingThread();
         }
         private void btnBeheaded_Click(object sender, EventArgs e)
         {

@@ -141,7 +141,7 @@ namespace gamon.TreeMptt
             set
             {
                 shownTreeView.LostFocus += shownTreeView_AfterLabelEdit;
-                //shownTreeView.????? += shownTreeView_AfterCheck;
+                //shownTreeView.????? += ShownTreeView_AfterCheck;
                 shownTreeView.SelectedItemChanged += shownTreeView_AfterSelect;
                 shownTreeView.PreviewMouseLeftButtonDown += shownTreeView_Click;
                 shownTreeView.KeyDown += shownTreeView_KeyDown;
@@ -242,9 +242,9 @@ namespace gamon.TreeMptt
         internal static TreeMpttDb? SetDataLayer()
         {
 #if SQL_SERVER
-            return new TreeMpttDb_SqlServer(Commons.bl.dl);
+            return new TreeMpttDb_SqlServer();
 #else
-            return new TreeMpttDb_SqLite(Commons.bl.dl);
+            return new TreeMpttDb_SqLite();
 #endif
         }
         #region methods that save the tree
@@ -266,17 +266,12 @@ namespace gamon.TreeMptt
             //DbConnection Connection = dl.Connect();
             // disable the background saving task. When disabled, the concurrent
             // thread will stop modifying the database 
-            lock (Commons.LockBackgroundSavingVariables)
-            {
-                // locks the concurrent modification of synchronizing variables 
-                Commons.BackgroundSavingEnabled = false;
-                Commons.BackgroundTaskClose = true;
-            }
+            Commons.StopBackgroundThread();
             // all the saving happens under a lock from other tasks
             // this saving waits here until the background task hasn't finished finishing 
             lock (Commons.LockSavingCriticalSections)
             {
-                dbMptt.SaveLeftRightConsistent(false);
+                dbMptt.SaveLeftRightConsistency(false);
                 // save the nodes that have changed any field, except RightNode & Left Node (optional) 
                 // (saving RightNode & Left Node changes would be too slow, 
                 // so it is done in the background Thread, that we will restart at the end of this method
@@ -323,7 +318,7 @@ namespace gamon.TreeMptt
                     t.ChildNumberOld = t.ChildNumberNew;
                     t.ParentNodeOld = t.ParentNodeNew;
                 }
-                dbMptt.SaveLeftRightConsistent(false);
+                dbMptt.SaveLeftRightConsistency(false);
             }
             lock (Commons.LockBackgroundSavingVariables)
             {
@@ -358,7 +353,7 @@ namespace gamon.TreeMptt
                     lock (Commons.LockSavingCriticalSections)
                     {
                         //Commons.BackgroundSavingEnabled = true;
-                        Commons.BackgroundTaskIsSaving = true;
+                        Commons.BackgroundTaskCanSave = true;
                         Commons.SwitchPicLed(true);
                         // read the tree by Parent into a new TreeView control
                         // that we aren't showing 
@@ -378,9 +373,9 @@ namespace gamon.TreeMptt
                             dbMptt.SaveTreeToDb(listNodes, null, true, true);
                         if (Commons.BackgroundSavingEnabled)
                             // not executed if saving is aborted 
-                            dbMptt.SaveLeftRightConsistent(true);
+                            dbMptt.SaveLeftRightConsistency(true);
 
-                        Commons.BackgroundTaskIsSaving = false;
+                        Commons.BackgroundTaskCanSave = false;
                     }
                     Commons.SwitchPicLed(false);
                 }
@@ -395,7 +390,7 @@ namespace gamon.TreeMptt
                 // load using leftNode and rightNode values 
                 // (database was left consistent, with correct values for 
                 // leftNode and rightNode for every node)
-                listItemsBefore = dbMptt.GetNodesMpttFromDatabase(0, int.MaxValue);
+                listItemsBefore = dbMptt.GetNodesByMpttFromDatabase(0, int.MaxValue);
                 AddNodesToTreeViewWithMptt();
             }
             else
@@ -412,7 +407,7 @@ namespace gamon.TreeMptt
         internal void AddNodesToTreeViewWithMptt()
         {
             shownTreeView.Items.Clear();
-            listItemsBefore = dbMptt.GetNodesMpttFromDatabase(0, int.MaxValue);
+            listItemsBefore = dbMptt.GetNodesByMpttFromDatabase(0, int.MaxValue);
             if (!Commons.ProcessingCanContinue()) return;
             if (listItemsBefore != null && listItemsBefore.Count > 0)
             {
@@ -1307,7 +1302,7 @@ namespace gamon.TreeMptt
             string file = "";
             Stack<Topic> stack = new Stack<Topic>();
             //DbAndBusiness db = new  DbAndBusiness(); 
-            List<Topic> ListTopics = dbMptt.GetNodesMpttFromDatabase(LeftNode, RightNode);
+            List<Topic> ListTopics = dbMptt.GetNodesByMpttFromDatabase(LeftNode, RightNode);
             if (ListTopics != null && ListTopics.Count > 0)
             {
                 // first node in file 
@@ -1418,7 +1413,7 @@ namespace gamon.TreeMptt
         internal void GenerateNewListOfNodesFromTreeViewControl_Recursive(TreeViewItem CurrentNode, ref int nodeCount,
             ref List<Topic> generatedList) // the 2 ref parameters must be passed for recursion
         {
-            if (!Commons.BackgroundSavingEnabled && Commons.BackgroundTaskIsSaving) return;
+            if (!Commons.BackgroundSavingEnabled && Commons.BackgroundTaskCanSave) return;
             // visits all the childrens of CurrentNode in the Treeview. 
             // with the Modified Tree Traversal algorithm 
 

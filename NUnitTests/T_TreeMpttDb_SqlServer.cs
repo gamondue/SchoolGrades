@@ -64,7 +64,7 @@ namespace NUnitDbTests
         public void T_SaveLeftRightConsistent()
         {
             TreeMpttDb_SqlServer treeMpttDb_SqlServer = new TreeMpttDb_SqlServer(Test_Commons.dl);
-            treeMpttDb_SqlServer.SaveLeftRightConsistent(true);
+            treeMpttDb_SqlServer.SaveLeftRightConsistency(true);
 
         }
         [Test]
@@ -101,7 +101,7 @@ namespace NUnitDbTests
             topic.Id = 100000;
             topic.Date = DateTime.Now;
             treeMpttDb_SqlServer.AddTopic(topic);
-            Assert.Equals(1,treeMpttDb_SqlServer.GetNodesByParent().Count);
+            Assert.Equals(1,treeMpttDb_SqlServer.GetNodesByParentFromDatabase().Count);
         }
     }
 }

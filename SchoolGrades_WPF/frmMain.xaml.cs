@@ -1,4 +1,5 @@
 ﻿using gamon;
+using gamon.TreeMptt;
 using SchoolGrades;
 using SchoolGrades.BusinessObjects;
 using System;
@@ -169,10 +170,12 @@ namespace SchoolGrades_WPF
         }
         private void frmMain_Load(object sender, RoutedEventArgs e)
         {
-            // start the Thread that concurrently saves the Topics tree
+            Commons.globalPicLed = picBackgroundSaveRunning;
 
-            //////////Commons.BackgroundSaveThread = new Thread(Commons.SaveTreeMptt.SaveTreeMpttBackground);
-            //////////Commons.BackgroundSaveThread.Start();
+            Commons.SaveTreeMptt = new TreeMptt(null, null, null, null, null, null, picBackgroundSaveRunning,
+                null, null, null, null, null);
+            // start the Thread that concurrently saves the Topics tree
+            Commons.StartBackgroundSavingThread();
 
             //////////TreeMpttNoUi tree = new TreeMpttNoUi();
             //////////tree.SaveTreeMpttBackground();
@@ -1266,20 +1269,7 @@ namespace SchoolGrades_WPF
         private void CloseBackgroundThread()
         {
             // if a saving of the database with Mptt is running, we close it 
-            if (Commons.BackgroundSavingEnabled)
-            {
-                lock (Commons.LockBackgroundSavingVariables)
-                {
-                    Commons.BackgroundSavingEnabled = false;
-                    Commons.BackgroundTaskClose = true;
-                }
-            }
-            if (Commons.BackgroundSaveThread != null)
-            {
-                // we wait for the saving Thread to finish
-                // (it aborts in a point in which status is preserved)  
-                Commons.BackgroundSaveThread.Join(3000);
-            }
+            Commons.StopBackgroundThread();
         }
         private void StopAllTimers()
         {
