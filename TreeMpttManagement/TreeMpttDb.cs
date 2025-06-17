@@ -318,7 +318,7 @@ namespace gamon.TreeMptt
                 foreach (Topic t in ListTopicsDeleted)
                 {
                     // if the saving must finish and the task saving in background, we quit the function 
-                    if (Commons.BackgroundTaskCanSave)
+                    if (!Commons.MethodCanContinue())
                         return;
                     cmd.CommandText = "DELETE FROM Topics" +
                             " WHERE IdTopic =" + t.Id +
@@ -519,7 +519,7 @@ namespace gamon.TreeMptt
         }
         #endregion
 
-        #region methods taken from DataLayer, to avoid the dependancy of this class to DataLayer
+        #region methods copied from DataLayer, to avoid the dependancy of this class to DataLayer
         // WARNING: the next methods are copied from DataLayer, to avoid the dependancy of this class to DataLayer
         // keep it updated with the DataLayer methods of the same name
         private Topic GetTopicFromRow(DbDataReader dRead)
@@ -621,10 +621,10 @@ namespace gamon.TreeMptt
                 Console.WriteLine(ex.ToString());
             }
         }
-
         #endregion
 
-        #region method copied from DataLayer that require refactoring in DataLayer to take them out of there
+        #region methods copied from DataLayer that require refactoring in DataLayer to take them out of there
+        // these methods have been copied here but could stay out of DataLayer
         internal string SqlLikeStatementWithOptions(string FieldName, string SearchText,
                 bool SearchWholeWord = false, bool SearchVerbatimString = false)
         {

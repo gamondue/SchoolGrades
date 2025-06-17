@@ -9,8 +9,13 @@ using System.Windows.Forms;
 
 namespace SchoolGrades
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class frmTopicsRecover : Form
     {
+        // WARNING: this Form is experimantal and never really finished 
+
         gamon.TreeMptt.TreeMptt treeNew;
         gamon.TreeMptt.TreeMptt treeOld;
 
@@ -114,7 +119,7 @@ namespace SchoolGrades
             treeOld.AddNodesToTreeviewByBestMethod();
             treeOld.ClearBackColorOnClick = false;
 
-            Commons.StopBackgroundThread();
+            Commons.StopOperationsOnBackgroundThread();
 
             highligthDifferences();
         }
@@ -319,9 +324,7 @@ namespace SchoolGrades
 
             // abort the background saving that was triggered by SaveTreeFromTreeViewControlByParent
             // locks a concurrent modification of Commons.BackgroundCanStillSaveTopicsTree 
-            Commons.StopBackgroundThread();
-
-            // !!!! TODO restart the task on closing the form !!!!
+            Commons.StopOperationsOnBackgroundThread();
 
             MessageBox.Show("Fatto");
         }
@@ -331,7 +334,7 @@ namespace SchoolGrades
             // that we have left off when this form was open
 
             // restart the background Thread 
-            Commons.StartBackgroundSavingThread();
+            Commons.StartOperationsOnBackgroudSavingThread();
         }
         private void btnBeheaded_Click(object sender, EventArgs e)
         {

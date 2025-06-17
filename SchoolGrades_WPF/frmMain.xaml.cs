@@ -9,6 +9,7 @@ using System.IO;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+//using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -26,11 +27,8 @@ namespace SchoolGrades_WPF
 
         public List<Student> currentStudentsList;
         public List<Student> eligiblesList = new List<Student>();
-
         List<frmLessons> listLessons = new List<frmLessons>();
-
         private School currentSchool;
-
         private SchoolYear currentYear;
 
         private bool initializingForm = true;
@@ -95,6 +93,20 @@ namespace SchoolGrades_WPF
 
             // manage the configuration file 
             string messagePrompt = "";
+#if !DEBUG
+            btnTemporary.Visibility = Visibility.Hidden;
+#endif
+#if SQL_SERVER
+            // SQL server database filename
+#if !DEBUG
+            // at the end of the development phase use a debug database
+            Commons.PathAndFileDatabase = "SchoolGrades"; 
+#else
+            Commons.PathAndFileDatabase = "SchoolGrades";
+#endif
+
+#else
+            // SQLite database filename reading 
             // read configuration file, if doesn't work run configuration 
             bool fileRead = Commons.ReadConfigData();
             if (!fileRead)
@@ -127,7 +139,7 @@ namespace SchoolGrades_WPF
                         // the configured file exists, if it is a file for a single class,
                         // check if a more recent file exists and ask the user if she wants to
                         // pass to the new file 
-                        DateTime fileDateInName = Commons.GetValidDateFromString(configuredFileName.Substring(0, 10));
+                        DateTime fileDateInName = Commons.GetValidDateFromString(configuredFileName.Substring(0, 19));
                         if (fileDateInName != DateTime.MinValue)
                         {
                             // we found the class database with fileDate in the beginning of the name
@@ -140,10 +152,10 @@ namespace SchoolGrades_WPF
                                 messagePrompt = "Trovato un file di database più nuovo " +
                                     "rispetto a quello attualmente utilizzato.\n" +
                                     "Devo usare\n" + Commons.PathAndFileDatabase + "\ncome database?\n";
-                                if (MessageBox.Show(messagePrompt, "SchoolGrades")
-                                    == MessageBoxResult.Yes)
+                                if (MessageBox.Show(messagePrompt, "SchoolGrades") == MessageBoxResult.Yes)
                                 {
                                     Commons.PathAndFileDatabase = newestFileName;
+                                    CreateBusinessLayer();
                                     Commons.bl.WriteConfigData();
                                     MessageBox.Show("File di configurazione salvato in " + Commons.PathAndFileConfig);
                                 }
@@ -153,20 +165,53 @@ namespace SchoolGrades_WPF
                     }
                 }
             }
-            CreateBusinessAndDataLayer();
-
+#endif
+            CreateBusinessLayer();
+            // TODO remove the next conditioned compilation when the SQL server program is functioning
+#if !SQL_SERVER
+            Commons.bl.GetSchoolYearsThatHaveClasses();
+            // da togliere dopo che il DataLayer SQL server funziona
             List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
             cmbSchoolYear.ItemsSource = ly;
             if (ly.Count > 0)
                 cmbSchoolYear.SelectedItem = ly[ly.Count - 1];
-
             // fill the combo of grade types 
             List<GradeType> ListGradeTypes = Commons.bl.GetListGradeTypes();
             cmbGradeType.ItemsSource = ListGradeTypes;
-
             // fill the combo of School subjects
             List<SchoolSubject> listSubjects = Commons.bl.GetListSchoolSubjects(true);
             cmbSchoolSubject.ItemsSource = listSubjects;
+            // fill the combo of School subjects
+#endif
+        }
+        private void StartNewConfigurationForm()
+        {
+            // something didn't work, we must choose a good filename for the database file
+            string messagePrompt = "Il file di configurazione " + Commons.PathAndFileConfig +
+                "\nnon esiste o non è leggibile.\n" +
+                "\nSistemare le cartelle con il percorso dei file, " +
+                "poi scegliere il file di dati .sqlite e premere 'Salva configurazione'," +
+                "\nI nomi scelti dal programma dovrebbero essere giusti.";
+            Commons.PathAndFileDatabase = GetNewDatabaseFilename(Path.Combine(Commons.PathExe, "Data"));
+            MessageBox.Show(messagePrompt, "SchoolGrades");
+            frmSetup f = new frmSetup();
+            f.ShowDialog();
+        }
+        private void CloseProgramWhileTestingIfConfigurationFileIsRight()
+        {
+            // read the config file once again 
+            bool fileRead = Commons.ReadConfigData();
+            if (!fileRead || !File.Exists(Commons.PathAndFileDatabase))
+            {
+                MessageBox.Show("Configurare il programma!", "SchoolGrades");
+            }
+            else
+            {
+                MessageBox.Show("Il programma verrà chiuso. Alla ripartenza funzionerà regolarmente.");
+            }
+            StopAllTimers();
+            Commons.StopOperationsOnBackgroundThread();
+            this.Close();
         }
         private void frmMain_Load(object sender, RoutedEventArgs e)
         {
@@ -242,35 +287,6 @@ namespace SchoolGrades_WPF
             //////////lstTimeInterval.Items.Add("10");
 
         }
-        private void StartNewConfigurationForm()
-        {
-            // something didn't work, we must choose a good filename for the database file
-            string messagePrompt = "Il file di configurazione " + Commons.PathAndFileConfig +
-                "\nnon esiste o non è leggibile.\n" +
-                "\nSistemare le cartelle con il percorso dei file, " +
-                "poi scegliere il file di dati .sqlite e premere 'Salva configurazione'," +
-                "\nI nomi scelti dal programma dovrebbero essere giusti.";
-            Commons.PathAndFileDatabase = GetNewDatabaseFilename(Path.Combine(Commons.PathExe, "Data"));
-            MessageBox.Show(messagePrompt, "SchoolGrades");
-            frmSetup f = new frmSetup();
-            f.ShowDialog();
-        }
-        private void CloseProgramWhileTestingIfConfigurationFileIsRight()
-        {
-            // read the config file once again 
-            bool fileRead = Commons.ReadConfigData();
-            if (!fileRead || !File.Exists(Commons.PathAndFileDatabase))
-            {
-                MessageBox.Show("Configurare il programma!", "SchoolGrades");
-            }
-            else
-            {
-                MessageBox.Show("Il programma verrà chiuso. Alla ripartenza funzionerà regolarmente.");
-            }
-            CloseBackgroundThread();
-            StopAllTimers();
-            this.Close();
-        }
         private string GetNewDatabaseFilename(string proposedDatabasePath)
         {
             // depending on the type of database file configured, determine the name of a 
@@ -302,6 +318,24 @@ namespace SchoolGrades_WPF
             else
                 return "";
         }
+        private bool CreateBusinessLayer()
+        {
+            // create Business layer object, to be used throughout the program
+#if !SQL_SERVER
+            // keep this order of creation. Create after reading config file
+            if (!System.IO.File.Exists(Commons.PathAndFileDatabase))
+            {
+                string err = @"[" + Commons.PathAndFileDatabase + " not in the current nor in the dev directory]";
+                Commons.ErrorLog(err);
+                throw new System.IO.FileNotFoundException(err);
+                return false;
+            }
+#endif
+            Commons.bl = new BusinessLayer();
+            if (Commons.bl == null)
+                return false;
+            return true;
+        }
         private string GetNewestAmongFilesWithDateInName(string DatabasePath)
         {
             if (!Directory.Exists(DatabasePath))
@@ -321,25 +355,6 @@ namespace SchoolGrades_WPF
                 }
             }
             return newestFileNameAndPath;
-        }
-        private bool CreateBusinessAndDataLayer()
-        {
-            // create Business and Data layer objects, to be used throughout the program
-            // keep this order of creation. Create after reading config file
-            if (!System.IO.File.Exists(Commons.PathAndFileDatabase))
-            {
-                string err = @"[" + Commons.PathAndFileDatabase + " not in the current nor in the dev directory]";
-                Commons.ErrorLog(err);
-                throw new System.IO.FileNotFoundException(err);
-                return false;
-            }
-            //dl = new dl(Commons.PathAndFileDatabase);
-            //if (dl == null)
-            //    return false;
-            Commons.bl = new BusinessLayer();
-            if (Commons.bl == null)
-                return false;
-            return true;
         }
         static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
@@ -429,24 +444,6 @@ namespace SchoolGrades_WPF
                 dgwStudents.Visibility = Visibility.Visible;
                 chkStudentsListVisible.IsChecked = false;
             }
-        }
-        private List<Student> CreateRevengeList(List<Student> StudentList)
-        {
-            List<Student> listVf = new List<Student>();
-            int? maxVf = 0;
-            // take only the eligible students with V.F. > 0 
-            foreach (Student s in StudentList)
-            {
-                if (s.RevengeFactorCounter > 0 && (bool)s.Eligible)
-                {
-                    listVf.Add(s);
-                    // set parameter for sort or draw
-                    s.SortOrDrawCriterion = s.RevengeFactorCounter;
-                    if (s.RevengeFactorCounter > maxVf)
-                        maxVf = s.RevengeFactorCounter;
-                }
-            }
-            return listVf;
         }
         private TypeOfDraw GetTypeOfDrawFromUi()
         {
@@ -1249,13 +1246,10 @@ namespace SchoolGrades_WPF
         {
             if (!File.Exists(Commons.PathAndFileDatabase))
                 return;
-
-            CloseBackgroundThread();
-
+            Commons.StopOperationsOnBackgroundThread();
             string file = Commons.PathLogs + @"\frmMain_parameters.txt";
             Commons.SaveCurrentValuesOfAllControls(this, ref file);
             SaveStudentsOfClassIfEligibleHasChanged();
-
             // save in the log folder a copy of the database, if enabled 
             if (Commons.SaveBackupWhenExiting)
             {
@@ -1263,14 +1257,13 @@ namespace SchoolGrades_WPF
                     Path.Combine(Commons.PathLogs, DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") +
                     "_" + Commons.DatabaseFileName_Current));
             }
-            //// we wait for the saving Thread to finish
-            //Commons.BackgroundSaveThread.Join(30000);  // enormous timeout just for big problems
+            Commons.TerminateBackgroundThread();
         }
-        private void CloseBackgroundThread()
-        {
-            // if a saving of the database with Mptt is running, we close it 
-            Commons.StopBackgroundThread();
-        }
+        //private void CloseBackgroundThread()
+        //{
+        //    // if a saving of the database with Mptt is running, we close it 
+        //    Commons.StopBackgroundThread();
+        //}
         private void StopAllTimers()
         {
             timerLesson.Stop();
@@ -1744,6 +1737,24 @@ namespace SchoolGrades_WPF
             ////////////{
             ////////////    currentStudentsList[i].Eligible = (bool)r.Cells[0].Value;
             ////////////}
+        }
+        private List<Student> CreateRevengeList(List<Student> StudentList)
+        {
+            List<Student> listVf = new List<Student>();
+            int? maxVf = 0;
+            // take only the eligible students with V.F. > 0 
+            foreach (Student s in StudentList)
+            {
+                if (s.RevengeFactorCounter > 0 && (bool)s.Eligible)
+                {
+                    listVf.Add(s);
+                    // set parameter for sort or draw
+                    s.SortOrDrawCriterion = s.RevengeFactorCounter;
+                    if (s.RevengeFactorCounter > maxVf)
+                        maxVf = s.RevengeFactorCounter;
+                }
+            }
+            return listVf;
         }
     }
 }

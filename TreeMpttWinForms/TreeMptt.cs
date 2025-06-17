@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
+using Windows.ApplicationModel.UserDataTasks;
 
 namespace gamon.TreeMptt
 {
@@ -34,9 +35,9 @@ namespace gamon.TreeMptt
         ///  made by Gabriele MONTI - Forlì - Italia
         /// </summary>
         /// 
+        
         // inspiration for the MPTT code comes from: 
         // https://www.sitepoint.com/hierarchical-data-database/, by Gijs Van Tulder
-
 
         // Business Logic Layer
         BusinessLayer bl;
@@ -46,6 +47,7 @@ namespace gamon.TreeMptt
         private bool hasChanges = false;
         bool markAllInSearch = false;
 
+        #region fields used for drag and drop
         // identification of the Treeview control from which the drag starts
         private int dragSourceControlHash;
         private bool hasNodeBeenSelectedFromTree = false;
@@ -53,12 +55,13 @@ namespace gamon.TreeMptt
         private Topic currentTopic = null;
 
         System.Windows.Forms.DragDropEffects typeOfDragAndDrop;
+        #endregion
 
-        private static bool isSavingTreeMptt;
-
+        #region lists used to detect changes, to have less accesses to the database 
         List<Topic> listItemsBefore; // !!!! this list should be non influent now. Code revision should eliminate it!!!!
         List<Topic> listItemsAfter;
         List<Topic> listItemsDeleted;
+        #endregion
 
         // a stack used to remember the father node in some part of the code  
         Stack<TreeNode> stack = new Stack<TreeNode>();
@@ -67,6 +70,7 @@ namespace gamon.TreeMptt
         int indexDone = 0;
         List<Topic> found = null;
 
+        #region internal object variables for controls passed from outside
         // Winforms control that is manipulated by this class
         private TreeView shownTreeView;
         TextBox txtNodeName;
@@ -80,10 +84,13 @@ namespace gamon.TreeMptt
         CheckBox chkAllWord;
         CheckBox chkCaseInsensitive;
         CheckBox chkMarkAllNodesFound;
+        #endregion
 
+        #region coloring of the nodes
         private Color colorOfHighlightedItem = Color.Khaki;
         private Color colorOfFoundItem = Color.Lime;
         private Color colorOfBeheadedColor = Color.Orange;
+        #endregion
 
         // if true the backcolor of nodes will be cleared when the user clicks on one node 
         bool clearBackColorOnClick = true;
@@ -147,6 +154,7 @@ namespace gamon.TreeMptt
             CheckBox ChkAllWord, CheckBox ChkCaseInsensitive, CheckBox ChkMarkAllNodesFound,
             System.Windows.Forms.DragDropEffects TypeOfDragAndDrop = System.Windows.Forms.DragDropEffects.Move
            )
+        // ???? what about PutCheckSignsOnNodes ????
         {
             bl = Commons.bl;
             dbMptt = TreeMptt.SetDataLayer();
@@ -168,7 +176,6 @@ namespace gamon.TreeMptt
             if (shownTreeView != null)
             {
                 FunctionKeysEnabled = true;
-
                 shownTreeView.LabelEdit = false;
                 // for drag & drop 
                 shownTreeView.AllowDrop = true;
@@ -192,6 +199,7 @@ namespace gamon.TreeMptt
             return new TreeMpttDb_SqLite();
 #endif
         }
+        #region methods that save the tree
         internal void SaveTreeFromScratch()
         {
             int nodeCount = 1;
@@ -208,7 +216,7 @@ namespace gamon.TreeMptt
             // (shorter operation) 
             // all the saving happens under a lock from other tasks
             // this saving waits here until the background task hasn't finished saving 
-            Commons.StopBackgroundThread();
+            Commons.StopOperationsOnBackgroundThread();
             lock (Commons.LockSavingCriticalSections)
             {
                 // left and right are set inconsistent 
@@ -219,7 +227,8 @@ namespace gamon.TreeMptt
                 listItemsAfter = new List<Topic>();
                 int nodeCount = 1;
                 // recursive function using ONE single root node of Treeview 
-                GenerateNewListOfNodesFromTreeViewControl_Recursive(shownTreeView.Nodes[0],
+                GenerateNewListOfNodesFromTreeViewControl_Recursive(
+                    shownTreeView.Nodes[0],
                     ref nodeCount, ref listItemsAfter);
                 // now in listTopicsAfter we have the list of all current nodes, with correct 
                 // "new" and "old" pointers (included Left and Right) 
@@ -229,7 +238,8 @@ namespace gamon.TreeMptt
                 // ???? this is expensive! We can do better !!!!! (TODO !!!! manage deletion list directly on delete from the treeview)
                 foreach (Topic tOld in listItemsBefore)
                 {
-                    if (FindNodeById_Recursive(shownTreeView.Nodes[0], tOld) == null)
+                    if (FindNodeById_Recursive(
+                        shownTreeView.Nodes[0], tOld) == null)
                     {
                         // not found, has been deleted 
                         if (tOld.ParentNodeOld > 0)
@@ -251,7 +261,8 @@ namespace gamon.TreeMptt
                 nodeCount = 1;
                 listItemsBefore.Clear();
                 // recursive function
-                GenerateNewListOfNodesFromTreeViewControl_Recursive(shownTreeView.Nodes[0],
+                GenerateNewListOfNodesFromTreeViewControl_Recursive(
+                    shownTreeView.Nodes[0],
                     ref nodeCount, ref listItemsBefore);
                 // copy New fields in Old  
                 foreach (Topic t in listItemsBefore)
@@ -263,12 +274,8 @@ namespace gamon.TreeMptt
                 // is set to true
                 dbMptt.SaveLeftRightConsistency(false);
             }
-            // at the end of operations, the background thread is restarted
-            lock (Commons.LockBackgroundSavingVariables)
-            {
-                //Commons.BackgroundSavingEnabled = true;
-                Commons.StartBackgroundSavingThread();
-            }
+            // at the end of operations, the background thread is re-enabled
+            Commons.StartOperationsOnBackgroudSavingThread();
             hasChanges = false;
         }
         internal void SaveTreeMpttBackground()
@@ -279,25 +286,30 @@ namespace gamon.TreeMptt
 
             // Starts a loop that finishes when we want to close the thread.
             // Closing will be fired from external, by setting to true BackgroundCanStillSaveTopicsTree
-            while (Commons.BackgroundTaskCanSave)  // closes task when can't run anymore 
+            while (!Commons.BackgroundTaskClose)  // closes task when the program is finishig 
             {
-                // waits BackgroundThreadSleepTime seconds, watching periodically if it must exit the loop 
+                // since we aren't saving, switch off the LED
+                Commons.SwitchPicLed(false);
+                // waits BackgroundThreadSleepTime seconds, watching every second if it must exit the loop 
                 DateTime endTime = DateTime.Now.AddSeconds(Commons.BackgroundThreadSleepSeconds);
                 while (DateTime.Now < endTime)
                 {
-                    if (!Commons.BackgroundTaskCanSave)
-                        return;
                     Thread.Sleep(1000);
+                    if (Commons.BackgroundTaskClose)
+                        return;
                 }
                 // check if RightNode & LeftNode are already consistent, if they are, this task 
                 // has nothing to do, so we will skip the modification, then wait again
-                if (!dbMptt.AreLeftAndRightConsistent() && Commons.BackgroundTaskCanSave)
+                if (!dbMptt.AreLeftAndRightConsistent() && Commons.MethodCanContinue())
                 {
                     // start saving in background, in locked condition
                     // other tasks can signal this to abort operation by setting 
-                    // Commons.BackgroundSavingEnabled to false
+                    // Commons.BackgroundTaskCanSave to false
                     lock (Commons.LockSavingCriticalSections)
                     {
+                        // signal that the background thread is saving 
+                        Commons.BackgroundThreadIsSaving = true;
+                        // light up the saving LED
                         Commons.SwitchPicLed(true);
                         // read the tree by Parent into a new TreeView control
                         // that we aren't showing 
@@ -309,26 +321,26 @@ namespace gamon.TreeMptt
                         int nodeCount = 1;
                         if (Commons.BackgroundTaskCanSave)
                             // not executed if saving is aborted 
-                            GenerateNewListOfNodesFromTreeViewControl_Recursive(hiddenTree.Nodes[0],
+                            GenerateNewListOfNodesFromTreeViewControl_Recursive(
+                                hiddenTree.Nodes[0],
                                 ref nodeCount, ref listNodes);
-                        if (Commons.BackgroundTaskCanSave)
+                        if (Commons.MethodCanContinue())
                             // not executed if saving is aborted 
                             // in this point delete list cannot have any entry
                             dbMptt.SaveTreeToDb(listNodes, null, true, false);
-                        if (Commons.BackgroundTaskCanSave)
+                        if (Commons.MethodCanContinue())
                             // not executed if saving is aborted 
                             dbMptt.SaveLeftRightConsistency(true);
                     }
+                    Commons.BackgroundThreadIsSaving = false;
                 }
             }
-            Commons.SwitchPicLed(false);
         }
+        #endregion
+        #region methods that read nodes and put them in the Treeview
         internal void AddNodesToTreeviewByBestMethod()
         {
-            lock (Commons.LockBackgroundSavingVariables)
-            {
-                Commons.BackgroundTaskCanSave = false;
-            }
+            Commons.StopOperationsOnBackgroundThread();
             if (dbMptt.AreLeftAndRightConsistent())
             {
                 // load using leftNode and rightNode values 
@@ -344,21 +356,17 @@ namespace gamon.TreeMptt
                 AddNodesToTreeViewByParent(shownTreeView, false);
             }
             shownTreeView.Nodes[0].Expand();
-            lock (Commons.LockBackgroundSavingVariables)
-            {
-                Commons.BackgroundTaskCanSave = true;
-            }
-
-            //Connection.Close();
-            //Connection.Dispose();
+            // re-set the possibility of background saving
+            Commons.StartOperationsOnBackgroudSavingThread();
         }
         internal void AddNodesToTreeViewWithMptt()
         {
             // avoid modifications by background saver by stopping it
-            Commons.StopBackgroundThread();
+            Commons.StopOperationsOnBackgroundThread();
             shownTreeView.Nodes.Clear();
             listItemsBefore = dbMptt.GetNodesByMpttFromDatabase(0, int.MaxValue);
-            if (!Commons.BackgroundTaskCanSave) return;
+            //if (!Commons.MethodCanContinue())
+            //  return;
             if (listItemsBefore != null && listItemsBefore.Count > 0)
             {
                 // put first node in treeview 
@@ -367,7 +375,8 @@ namespace gamon.TreeMptt
                 shownTreeView.Nodes.Add(previousUiNode); // first node of the tree
                 for (int listIndex = 1; listIndex < listItemsBefore.Count; listIndex++)
                 {
-                    if (!Commons.BackgroundTaskCanSave) return;
+                    //if (!Commons.MethodCanContinue())
+                    //  return;
                     Topic currentNode = listItemsBefore[listIndex];
                     TreeNode currentUiNode = CreateTreeViewItem(currentNode);
                     if (currentNode.RightNodeOld < previousNode.RightNodeOld)
@@ -394,15 +403,13 @@ namespace gamon.TreeMptt
                     }
                 }
             } 
-            // restart the backgroung saving Thread
-            Commons.StartBackgroundSavingThread();
         }
         internal void AddNodesToTreeViewByParent(TreeView PassedTreeView, bool isCalledFromBackground)
         {
             // avoid modifications by background saver by stopping it
             // (only if the method in NOT called by the background saver itself)
             if (!isCalledFromBackground)
-                Commons.StopBackgroundThread();
+                Commons.StopOperationsOnBackgroundThread();
             PassedTreeView.Nodes.Clear();
             // open the Db connection, that will be taken open all throughout the saving
             dbMptt.OpenLocalConnectionIfClosed();
@@ -417,7 +424,8 @@ namespace gamon.TreeMptt
             // in order to increase the performance 
             foreach (Topic t in lt)
             {
-                if (!Commons.BackgroundTaskCanSave) return;
+                if (!Commons.MethodCanContinue()) 
+                    return;
                 // first level nodes
                 TreeNode rootNode = CreateTreeViewItem(t);
                 PassedTreeView.Nodes.Add(rootNode);
@@ -425,9 +433,8 @@ namespace gamon.TreeMptt
             }
             // close the db connection
             dbMptt.CloseLocalConnectionIfWasFoundClosed();
-            // restart the background saving Thread
-            if (!isCalledFromBackground)
-                Commons.StartBackgroundSavingThread();
+            // at the end of operations, the background thread is re-enabled
+            Commons.StartOperationsOnBackgroudSavingThread();
         }
         internal void GetSubtree_Recursive(TreeNode NodeStart, List<TreeNode> List) // (passes List for recursion) 
         {
@@ -437,6 +444,8 @@ namespace gamon.TreeMptt
                 GetSubtree_Recursive(tn, List);
             }
         }
+        #endregion
+        #region imports and exports
         internal string ExportSubtreeToText(Topic InitialNode)
         {
             string tree = CreateTextTreeOfDescendants
@@ -453,6 +462,8 @@ namespace gamon.TreeMptt
             ImportFreeMindSubtreeUnderNode(TextFromClipboard, TreeView.SelectedNode);
             //return TextFromClipboard;
         }
+        #endregion
+        #region methods that search in the tree
         internal void FindNodes(string TextToFind, bool ColorAllNodesFound, bool SearchInDescriptions,
             bool SearchWholeWord, bool SearchCaseInsensitive, bool SearchVerbatimString)
         {
@@ -573,7 +584,7 @@ namespace gamon.TreeMptt
         }
         private TreeNode FindNodeById_Recursive(TreeNode treeNode, Topic Topic)
         {
-            if (!Commons.BackgroundTaskCanSave)
+            if (!Commons.MethodCanContinue())
             {
                 return null;
             }
@@ -601,9 +612,10 @@ namespace gamon.TreeMptt
                 }
                 FindCheckedItems_Recursive(sonNode, checkedTopicsFound, ref ListIndex);
             }
-
             return;
         }
+        #endregion
+        #region methods that color nodes 
         internal void ColorAllBeheadedNodes()
         {
             TreeNodeCollection nodes = shownTreeView.Nodes;
@@ -800,6 +812,8 @@ namespace gamon.TreeMptt
             f.Expand();
             return;
         }
+        #endregion
+        #region manage the treeview nodes' checking
         internal void UncheckAllItemsUnderNode_Recursive(TreeNode currentNode)
         {
             currentNode.Checked = false;
@@ -840,6 +854,7 @@ namespace gamon.TreeMptt
             }
             return;
         }
+        #endregion
         // recursively move through the subtree nodes
         // deleting node Id
         internal TreeNode AddNewNode(string Text, bool isSonNode)
@@ -957,6 +972,7 @@ namespace gamon.TreeMptt
             }
             return stringToAdd += ". ";
         }
+        #region events
         private void txtNodeDescription_LostFocus(object sender, EventArgs e)
         {
             if (currentTopic == null) return;
@@ -1012,6 +1028,7 @@ namespace gamon.TreeMptt
         }
         internal void TreeView_DragDrop(object sender, DragEventArgs e)
         {
+            // !!!! TODO fix this
             // Retrieve the client coordinates of the drop location.
             Point targetPoint = shownTreeView.PointToClient(new Point(e.X, e.Y));
             // Retrieve the node at the drop location.
@@ -1164,7 +1181,6 @@ namespace gamon.TreeMptt
         }
         string previousText = "";
         private PictureBox globalPicLed;
-
         private void TxtNodeName_TextChanged(object sender, EventArgs e)
         {
             // if the change is due to selection in the tree, don't change
@@ -1212,9 +1228,6 @@ namespace gamon.TreeMptt
                     {   // if user pushed Enter key
                         txtNodeName.Text = txtNodeName.Text.Substring(0, txtNodeName.Text.Length - 2);
                     }
-                    //Topic t = (Topic)(shownTreeView.SelectedNode.Tag);
-                    //t.Name = txtNodeName.Text;
-                    //t.Changed = true;
                 }
             }
         }
@@ -1230,6 +1243,7 @@ namespace gamon.TreeMptt
             }
             t.Desc = txtNodeDescription.Text;
         }
+        #endregion
         internal string CreateTextTreeOfDescendants(int? LeftNode, int? RightNode, bool? IncludeTopicsIds)
         {
             // TODO: mettere le descrizioni nell'albero (con un : prima) 
@@ -1328,7 +1342,8 @@ namespace gamon.TreeMptt
             List<Topic> SortedList = lt.OrderBy(o => o.ChildNumberOld).ToList();
             foreach (Topic t in SortedList)
             {
-                if (!Commons.BackgroundTaskCanSave) return;
+                if (!Commons.MethodCanContinue())
+                    return;
                 TreeNode n = CreateTreeViewItem(t);
                 ParentNode.Nodes.Add(n);
                 GetChildren_Recursive(n, Level++);
@@ -1349,7 +1364,8 @@ namespace gamon.TreeMptt
             ref List<Topic> generatedList) // the 2 ref parameters must be passed for recursion
         {
             // ???????????????
-            if (Commons.BackgroundTaskCanSave) return;
+            if (!Commons.MethodCanContinue())
+                return;
             // visits all the childrens of CurrentNode in the Treeview. 
             // with the Modified Tree Traversal algorithm 
 
@@ -1368,7 +1384,8 @@ namespace gamon.TreeMptt
             int brotherNo = 1;
             foreach (TreeNode sonNode in CurrentNode.Nodes)
             {
-                if (!Commons.BackgroundTaskCanSave) return;
+                if (!Commons.MethodCanContinue()) 
+                    return;
                 // calls passing the updated count and the list under construction 
                 GenerateNewListOfNodesFromTreeViewControl_Recursive(sonNode,
                     ref nodeCount, ref generatedList);
@@ -1379,7 +1396,8 @@ namespace gamon.TreeMptt
             // right node management
             ((Topic)CurrentNode.Tag).RightNodeNew = nodeCount++;
         }
-        internal void GenerateNewListOfNodesFromDatabase(Topic CurrentNode, ref int nodeCount,
+        internal void GenerateNewListOfNodesFromDatabase(
+            Topic CurrentNode, ref int nodeCount,
             ref List<Topic> generatedList) // the 2 ref parameters must be passed in such way for recursion
         {
             // visits all the childrens of CurrentNode in the Treeview. 
@@ -1394,7 +1412,8 @@ namespace gamon.TreeMptt
             List<Topic> listChilds = dbMptt.GetNodesChildsByParent(CurrentNode, false);
             foreach (Topic sonNode in listChilds)
             {
-                if (!Commons.BackgroundTaskCanSave) return;
+                if (!Commons.MethodCanContinue())
+                    return;
                 // calls passing the updated count and the list under construction 
                 GenerateNewListOfNodesFromDatabase(sonNode, ref nodeCount, ref generatedList);
                 sonNode.ParentNodeNew = CurrentNode.Id;

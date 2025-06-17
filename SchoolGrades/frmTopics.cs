@@ -20,7 +20,7 @@ namespace SchoolGrades
 
         frmMain parentForm;
 
-        public bool UserHasChosen { get; internal set; }
+        public bool UserHasChosen { get => userHasChosen; internal set => userHasChosen = value; }
         internal Topic ChosenTopic { get => chosenTopic; }
         public TopicsFormType ShowTopicsDone { get; }
         public enum TopicsFormType
@@ -34,6 +34,8 @@ namespace SchoolGrades
         }
         TopicsFormType formType;
         private Topic chosenTopic;
+        private bool userHasChosen;
+
         public frmTopics(TopicsFormType FormType,
             Class Class, SchoolSubject Subject,
             Question Question = null, List<Topic> ListTopicsExternal = null,

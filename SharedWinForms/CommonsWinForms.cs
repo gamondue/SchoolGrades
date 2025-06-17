@@ -12,7 +12,6 @@ namespace SchoolGrades
     internal static partial class Commons
     {
         internal static PictureBox globalPicLed;
-        internal static TreeMptt SaveTreeMptt;
 
         private static Color ColorNoSubject = Color.PowderBlue;
 
@@ -348,29 +347,6 @@ namespace SchoolGrades
             return bgColor;
         }
         // the following must stay in this file, because it is uses the TreeMptt class
-        // that is dependant from the UI technology used (WinForms, WPF, etc.)
-        
-        //!!!!!!!!!!! vedere se serve che i seguenti moetodi siano diversi !!!!!!!!!!!!!!!
-        internal static void CreateAndStartBackgroundSavingThread()
-        {
-            // create a new tree that has no UI except for the globalPicLed
-            // to be used for lauching the background saving thread
-            SaveTreeMptt = new TreeMptt(null, null, null, null, null,
-                null, globalPicLed, null, null, null, null, null);
-            // re-create and run the Thread that concurrently saves the Topics tree
-            BackgroundSaveThread = new Thread(SaveTreeMptt.SaveTreeMpttBackground);
-            BackgroundSaveThread.Name = "BackgroundSaveThread";
-            BackgroundSaveThread.Start();
-        }
-        internal static void StartBackgroundSavingThread()
-        {
-            // create a new tree that has no UI except for the globalPicLed
-            // to be used for lauching the background saving thread
-            SaveTreeMptt = new TreeMptt(null, null, null, null, null, 
-                null, globalPicLed, null, null, null, null, null);
-            // re-create and run the Thread that concurrently saves the Topics tree
-            BackgroundSaveThread = new Thread(SaveTreeMptt.SaveTreeMpttBackground);
-            BackgroundSaveThread.Start();
-        }
+        // that is dependant from the UI technology used (WinForms, WPF, etc.)  
     }
 }
