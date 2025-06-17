@@ -16,11 +16,8 @@ namespace SchoolGrades
 
         public List<Student> currentStudentsList;
         public List<Student> eligiblesList = new List<Student>();
-
         List<frmLessons> listLessons = new List<frmLessons>();
-
         private School currentSchool;
-
         private SchoolYear currentYear;
 
         bool initializingForm = true;
@@ -81,10 +78,13 @@ namespace SchoolGrades
 
             // manage the configuration file 
             string messagePrompt = "";
+#if !DEBUG
+            btnTemporary.Visible = false;
+#endif
 #if SQL_SERVER
             // SQL server database filename
 #if !DEBUG
-            // at the end of the development phase use a debug database
+            // during the development phase use a debug database
             Commons.PathAndFileDatabase = "SchoolGrades"; 
 #else
             Commons.PathAndFileDatabase = "SchoolGrades";
@@ -202,7 +202,7 @@ namespace SchoolGrades
                 MessageBox.Show("Il programma verrà chiuso. Alla ripartenza funzionerà regolarmente.");
             }
             StopAllTimers();
-            Commons.StopBackgroundThread();
+            Commons.StopOperationsOnBackgroundThread();
             this.Close();
         }
         private void frmMain_Load(object sender, EventArgs e)
@@ -224,7 +224,6 @@ namespace SchoolGrades
             //            // capture every exception for exception logging
             //            Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
             //            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-            //            btnTemporary.Visible = false;
             //#endif
 
             CreateBusinessLayer();
@@ -1167,13 +1166,10 @@ namespace SchoolGrades
         {
             if (!File.Exists(Commons.PathAndFileDatabase))
                 return;
-
-            Commons.StopBackgroundThread();
-
+            Commons.StopOperationsOnBackgroundThread();
             string file = Commons.PathLogs + @"\frmMain_parameters.txt";
             Commons.SaveCurrentValuesOfAllControls(this, ref file);
             SaveStudentsOfClassIfEligibleHasChanged();
-
             // save in the log folder a copy of the database, if enabled 
             if (Commons.SaveBackupWhenExiting)
             {
@@ -1181,8 +1177,7 @@ namespace SchoolGrades
                     Path.Combine(Commons.PathLogs, DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") +
                     "_" + Commons.DatabaseFileName_Current));
             }
-            //// we wait for the saving Thread to finish
-            //Commons.BackgroundSaveThread.Join(30000);  // enormous timeout just for big problems
+            Commons.TerminateBackgroundThread();
         }
         private void StopAllTimers()
         {
@@ -1284,7 +1279,6 @@ namespace SchoolGrades
             // Luminance difference to cover
             //spanLuminance = coloreFinale.GetBrightness() - coloreIniziale.GetBrightness();
             spanLuminance = 0;
-
             alarmNotFired = true;
         }
         private void timerLesson_Tick(object sender, EventArgs e)

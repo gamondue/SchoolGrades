@@ -55,14 +55,15 @@ namespace SchoolGrades
         internal static string PathAndFileDatabase { get => pathAndFileDatabase; set => pathAndFileDatabase = value; }
 
         // wait time before saving 
-        public static int BackgroundThreadSleepSeconds = 6; // 120 // !!!!!!!!!!!!!!!!!! rimettere dopo DEBUg !!!!!!!!!!!!!!!!!!!
+        public static int BackgroundThreadSleepSeconds = 60 * 3;
         // enable Mptt backgroud saving of Left anf Right pointers 
-        //////////public static bool BackgroundSavingEnabled = true;
-        // command to exit the background task 
-        //public static bool BackgroundTaskClose = false;
-        
+
         // when the BackgroundTaskCanSave the normal foregrorund can't
         public static bool BackgroundTaskCanSave = true;
+        // command to totally exit the background task, ending it 
+        public static bool BackgroundTaskClose = false;
+        // flag that is true during the effective saving in background
+        internal static bool BackgroundThreadIsSaving = false;
 
         // lock variable for serialization of access to BackgroundSavingEnabled and BackgroundSavingSafeStatus
         public static object LockSavingCriticalSections = new object();
@@ -446,28 +447,6 @@ namespace SchoolGrades
             SqLite_DataLayer dlNew = new SqLite_DataLayer(DataBaseName);
 #endif
             return dlNew;
-        }
-        internal static void StopBackgroundThread()
-        {
-            // disable the background saving task. When disabled, the concurrent
-            // thread will receinve notification and stop modifying the database 
-
-            // if a saving of the database with Mptt is running, we close it 
-            // lock the concurrent modification of synchronizing variables 
-            if (BackgroundTaskCanSave)
-            {
-                lock (LockBackgroundSavingVariables)
-                {
-                    BackgroundTaskCanSave = false;
-                }
-            }
-            if (BackgroundSaveThread != null 
-                && Commons.BackgroundSaveThread.ThreadState == System.Threading.ThreadState.Running)
-            {
-                // we wait for the saving Thread to finish
-                // (it aborts its job in a point in which status is preserved)  
-                BackgroundSaveThread.Join(30000); // !!!!! put a shorter timeout AFTER DEBUGGING
-            }
         }
     }
 }

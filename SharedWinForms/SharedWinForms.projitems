@@ -9,6 +9,7 @@
     <Import_RootNamespace>SharedWinForms</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)CommonsForMpttTree.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CommonsWinForms.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SafeDbWinForms.cs" />
   </ItemGroup>

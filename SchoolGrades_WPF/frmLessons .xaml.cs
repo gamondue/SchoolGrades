@@ -209,24 +209,24 @@ namespace SchoolGrades_WPF
             topicTreeMptt.SaveTreeFromTreeViewByParent();
             MessageBox.Show("Salvataggio fatto");
         }
-        //private void ExportSubtreeToClipboard()
-        //{
-        //    TreeViewItem item = (TreeViewItem)(trwTopics.SelectedItem);
-        //    if (item.Tag == null)
-        //    {
-        //        MessageBox.Show("Scegliere un argomento.\r\n" +
-        //            "Verranno messi in clipboard gli argomenti dell'albero sotto l'argomento scelto");
-        //        return;
-        //    }
-        //    string tree = null;
-        //    Topic InitialNode = (Topic)item.Tag;
+        private void ExportSubtreeToClipboard()
+        {
+            TreeViewItem item = (TreeViewItem)(trwTopics.SelectedItem);
+            if (item.Tag == null)
+            {
+                MessageBox.Show("Scegliere un argomento.\r\n" +
+                    "Verranno messi in clipboard gli argomenti dell'albero sotto l'argomento scelto");
+                return;
+            }
+            string tree = null;
+            Topic InitialNode = (Topic)item.Tag;
 
-        //    topicTreeMptt.ExportSubtreeToText(InitialNode);
+            topicTreeMptt.ExportSubtreeToText(InitialNode);
 
-        //    Clipboard.SetText(tree);
+            Clipboard.SetText(tree);
 
-        //    MessageBox.Show("Albero copiato nella clipboard");
-        //}
+            MessageBox.Show("Albero copiato nella clipboard");
+        }
         private void btnLessonAdd_Click(object sender, RoutedEventArgs e)
         {
             //dtpLessonDate.IsVisible = true;
@@ -571,8 +571,7 @@ namespace SchoolGrades_WPF
         }
         private void btnArgFreemind_Click(object sender, RoutedEventArgs e)
         {
-            //ExportSubtreeToClipboard();
-            topicTreeMptt.ExportSubtreeToClipboard();
+            ExportSubtreeToClipboard();
         }
         private void LessonTimer_Tick(object sender, RoutedEventArgs e)
         {
