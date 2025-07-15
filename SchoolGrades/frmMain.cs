@@ -153,7 +153,6 @@ namespace SchoolGrades
             }
 #endif
             CreateBusinessLayer();
-
             // TODO remove the next conditioned compilation when the SQL server program is functioning
 #if !SQL_SERVER
             Commons.bl.GetSchoolYearsThatHaveClasses();
@@ -920,7 +919,10 @@ namespace SchoolGrades
         private void btnLessonsTopics_Click(object sender, EventArgs e)
         {
             if (!Commons.CheckIfClassChosen(currentClass))
+            {
+                MessageBox.Show("Scegliere una classe");
                 return;
+            }
             if (!Commons.CheckIfSubjectChosen(currentSubject))
                 return;
             // open read only the forms after the first. 

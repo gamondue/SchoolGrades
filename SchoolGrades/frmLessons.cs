@@ -55,8 +55,8 @@ namespace SchoolGrades
         }
         private void frmLessons_Load(object sender, EventArgs e)
         {
-            //txtLessonDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
-            dtpLessonDate.Value = new DateTime(1980, 01, 01);
+            dtpLessonDate.Value = DateTime.Now;
+            //dtpLessonDate.Value = new DateTime(1980, 01, 01);
 
             txtSchoolYear.Text = currentClass.SchoolYear;
             txtClass.Text = currentClass.Abbreviation;
@@ -148,12 +148,12 @@ namespace SchoolGrades
         {
             if (topicTreeMptt != null)
             {
-                topicTreeMptt.UncheckAllItemsUnderNode_Recursive(trwTopics.Nodes[0]);
+                topicTreeMptt.UncheckAllItemsUnderNode(trwTopics.Nodes[0]);
                 // gets and checks the topics of the current lesson 
                 List<Topic> TopicsToCheck = Commons.bl.GetTopicsOfLesson(currentLesson.IdLesson);
                 int dummy = 0;
                 bool dummy2 = false;
-                topicTreeMptt.CheckItemsInList_Recursive(trwTopics.Nodes[0],
+                topicTreeMptt.CheckItemsInList(trwTopics.Nodes[0],
                 TopicsToCheck, ref dummy, ref dummy2);
 
                 // gets the images associated with this lesson
@@ -192,8 +192,10 @@ namespace SchoolGrades
         {
             if (!topicTreeMptt.HasChanges)
             {
-                MessageBox.Show("Nessuna modifica fatta agli argomenti");
-                return;
+                if (MessageBox.Show("Nessuna modifica agli argomenti è stata rilevata\nDevo salvare comunque?",
+                    "", MessageBoxButtons.YesNo)
+                    != DialogResult.Yes)
+                    return;
             }
             topicTreeMptt.SaveTreeFromTreeViewByParent();
             MessageBox.Show("Salvataggio fatto");
@@ -285,7 +287,7 @@ namespace SchoolGrades
             TxtLessonDesc.Text = "";
             txtLessonCode.Text = currentLesson.IdLesson.ToString();
             dtpLessonDate.Value = (DateTime)currentLesson.Date;
-            topicTreeMptt.UncheckAllItemsUnderNode_Recursive(trwTopics.Nodes[0]);
+            topicTreeMptt.UncheckAllItemsUnderNode(trwTopics.Nodes[0]);
 
             //  refresh database data in grids 
             RefreshLessons(0);
@@ -302,13 +304,14 @@ namespace SchoolGrades
                 currentLessonsGridIndex = dgwAllLessons.CurrentRow.Index;
             }
             btnLessonSave.Enabled = false;
-            // save anyway (should be better to control if it is necessary)  
             if (!topicTreeMptt.HasChanges)
             {
-                MessageBox.Show("Nessuna modifica fatta agli argomenti");
+                if (MessageBox.Show("Nessuna modifica agli argomenti è stata rilevata\nDevo salvare comunque?",
+                    "", MessageBoxButtons.YesNo)
+                    != DialogResult.Yes)
+                    return;
             }
-            else
-                topicTreeMptt.SaveTreeFromTreeViewByParent();
+            topicTreeMptt.SaveTreeFromTreeViewByParent();
 
             if (txtLessonCode.Text == "")
             {
@@ -652,8 +655,6 @@ namespace SchoolGrades
         }
         private void btnFindUnderNode_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show("Da fare!");
-            //return; 
             topicTreeMptt.FindNodeUnderNode(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked);
         }
         private void chksSearch_CheckedChanged(object sender, EventArgs e)
@@ -667,6 +668,16 @@ namespace SchoolGrades
                 topicTreeMptt.FindNodes(txtTopicSearchString.Text, chkMarkAllTopicsFound.Checked,
                     chkSearchInDescriptions.Checked, chkVerbatimString.Checked,
                     chkCaseInsensitive.Checked, chkVerbatimString.Checked);
+            }
+        }
+        private void frmLessons_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (topicTreeMptt.HasChanges)
+            {
+                if (MessageBox.Show("Sono state rilevate modifiche agli argomenti\nDevo salvare (Sì) o perdere le modifiche (No)?",
+                    "", MessageBoxButtons.YesNo)
+                    == DialogResult.Yes)
+                    topicTreeMptt.SaveTreeFromTreeViewByParent();
             }
         }
     }
