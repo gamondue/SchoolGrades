@@ -814,7 +814,14 @@ namespace gamon.TreeMptt
         }
         #endregion
         #region manage the treeview nodes' checking
-        internal void UncheckAllItemsUnderNode_Recursive(TreeNode currentNode)
+        internal void UncheckAllItemsUnderNode(TreeNode currentNode)
+        {
+            bulkChangeOfChecks = true;
+            UncheckAllItemsUnderNode_Recursive(currentNode);
+            bulkChangeOfChecks = false;
+            return;
+        }
+        private void UncheckAllItemsUnderNode_Recursive(TreeNode currentNode)
         {
             currentNode.Checked = false;
             foreach (TreeNode sonNode in currentNode.Nodes)
@@ -824,7 +831,15 @@ namespace gamon.TreeMptt
             }
             return;
         }
-        internal void CheckItemsInList_Recursive(TreeNode startNode,
+        internal void CheckItemsInList(TreeNode startNode,
+                List<Topic> ItemsToCheck, ref int ListIndex, ref bool foundInThisBranch)
+        {
+            bulkChangeOfChecks = true;
+            CheckItemsInList_Recursive(startNode, ItemsToCheck, ref ListIndex, ref foundInThisBranch);
+            bulkChangeOfChecks = false;
+            return;
+        }
+        private void CheckItemsInList_Recursive(TreeNode startNode,
             List<Topic> ItemsToCheck, ref int ListIndex, ref bool foundInThisBranch)
         {
             // Recursive method that puts the check signs in the items included in the list
@@ -902,7 +917,8 @@ namespace gamon.TreeMptt
             txtNodeName.SelectionLength = txtNodeName.Text.Length;
             if (txtCodNode != null)
                 txtCodNode.Text = nodeNew.Id.ToString();
-            // start edit in the selected node
+            // flag the cahnge in the tree
+            hasChanges = true;
             return UiNode;
         }
         internal void DeleteNodeById_Recursive(TreeNode ParentNode)
@@ -925,14 +941,15 @@ namespace gamon.TreeMptt
                 if (((Topic)te.Tag).Id != null)
                     if (bl.IsTopicAlreadyTaught((Topic)te.Tag))
                     {
-                        if (MessageBox.Show("Questo argomento è già stato fatto in qualche lezione\n" +
-                            "Lo cancello lo stesso?", "Attenzione!", MessageBoxButtons.YesNo,
+                        if (MessageBox.Show("Almeno uno degli argomenti scelti è già stato fatto in qualche lezione\n" +
+                            "Cancello lo stesso tutti gli argomenti selezionati?", "Attenzione!", MessageBoxButtons.YesNo,
                             MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) ==
                             DialogResult.No)
                             return;
                     }
                 // remove node from the control (when saving will be also deleted from the database) 
                 te.Parent.Nodes.Remove(te);
+                hasChanges = true;
             }
             catch (Exception ex)
             {
@@ -1142,15 +1159,20 @@ namespace gamon.TreeMptt
         }
         internal void ShownTreeView_AfterCheck(object sender, TreeViewEventArgs e)
         {
+            Topic t = (Topic)e.Node.Tag;
             if (e.Node.Checked)
             {
                 if (txtSearchString != null)
                 {
-                    Topic t = (Topic)e.Node.Tag;
                     string path = dbMptt.GetNodePath(t.LeftNodeOld, t.RightNodeOld);
                     string stringToAdd = GetStringOfJustSomeNodesOfPath(path);
                     txtNodeDigest.Text += stringToAdd;
                 }
+            }
+            if (!bulkChangeOfChecks)
+            {
+                hasChanges = true;
+                t.Changed = true;
             }
         }
         internal void ShownTreeView_Click(object sender, EventArgs e)
@@ -1181,6 +1203,8 @@ namespace gamon.TreeMptt
         }
         string previousText = "";
         private PictureBox globalPicLed;
+        private bool bulkChangeOfChecks = false;
+
         private void TxtNodeName_TextChanged(object sender, EventArgs e)
         {
             // if the change is due to selection in the tree, don't change
