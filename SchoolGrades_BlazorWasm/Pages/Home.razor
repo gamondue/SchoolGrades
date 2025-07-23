@@ -1,0 +1,590 @@
+﻿@page "/"
+@inject IJSRuntime JSRuntime
+@inject NavigationManager Navigation
+
+<PageTitle>SchoolGrades - Home</PageTitle>
+
+<div class="home-container">
+    <!-- Sezione di selezione classe e materia -->
+    <div class="selection-panel">
+        <div class="selection-card">
+            <h3><i class="fas fa-users"></i> Seleziona Classe</h3>
+            <div class="form-group">
+                <label>Anno Scolastico:</label>
+                <select @bind="selectedSchoolYear" @onchange="OnSchoolYearChanged" class="form-control">
+                    <option value="">-- Seleziona Anno --</option>
+                    @foreach (var year in schoolYears)
+                    {
+                        <option value="@year">@year</option>
+                    }
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Classe:</label>
+                <select @bind="selectedClassId" @onchange="OnClassChanged" class="form-control" disabled="@(classes.Count == 0)">
+                    <option value="">-- Seleziona Classe --</option>
+                    @foreach (var cls in classes)
+                    {
+                        <option value="@cls.IdClass">@cls.Abbreviation - @cls.SchoolYear</option>
+                    }
+                </select>
+            </div>
+            
+            @if (currentClass != null)
+            {
+                <div class="class-info">
+                    <h5>@currentClass.Abbreviation</h5>
+                    <p>Anno: @currentClass.SchoolYear</p>
+                    <p>Studenti: @studentCount</p>
+                </div>
+            }
+        </div>
+
+        <div class="selection-card">
+            <h3><i class="fas fa-book"></i> Seleziona Materia</h3>
+            <div class="form-group">
+                <select @bind="selectedSubjectId" @onchange="OnSubjectChanged" class="form-control">
+                    <option value="">-- Seleziona Materia --</option>
+                    @foreach (var subject in subjects)
+                    {
+                        <option value="@subject.IdSchoolSubject">@subject.Name</option>
+                    }
+                </select>
+            </div>
+            
+            @if (currentSubject != null)
+            {
+                <div class="subject-info" style="background-color: @subjectColor">
+                    <h5>@currentSubject.Name</h5>
+                    @if (!string.IsNullOrEmpty(currentSubject.Desc))
+                    {
+                        <p>@currentSubject.Desc</p>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Pannello azioni principali -->
+    <div class="actions-panel">
+        <div class="actions-grid">
+            <!-- Lezioni -->
+            <div class="action-card lessons-card" @onclick="OpenLessons">
+                <div class="card-icon">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <div class="card-content">
+                    <h4>Lezioni</h4>
+                    <p>Gestisci le lezioni e gli argomenti trattati</p>
+                    @if (canAccessLessons)
+                    {
+                        <span class="card-badge">@lastLessonInfo</span>
+                    }
+                </div>
+                <div class="card-action">
+                    <button class="btn btn-primary" disabled="@(!canAccessLessons)">
+                        Apri Lezioni
+                    </button>
+                </div>
+            </div>
+
+            <!-- Voti -->
+            <div class="action-card grades-card" @onclick="OpenGrades">
+                <div class="card-icon">
+                    <i class="fas fa-clipboard-list"></i>
+                </div>
+                <div class="card-content">
+                    <h4>Voti e Valutazioni</h4>
+                    <p>Inserisci e gestisci le valutazioni degli studenti</p>
+                    @if (canAccessGrades)
+                    {
+                        <span class="card-badge">@gradesCount voti inseriti</span>
+                    }
+                </div>
+                <div class="card-action">
+                    <button class="btn btn-success" disabled="@(!canAccessGrades)">
+                        Gestisci Voti
+                    </button>
+                </div>
+            </div>
+
+            <!-- Studenti -->
+            <div class="action-card students-card" @onclick="OpenStudents">
+                <div class="card-icon">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="card-content">
+                    <h4>Studenti</h4>
+                    <p>Visualizza e gestisci l'elenco degli studenti</p>
+                    @if (currentClass != null)
+                    {
+                        <span class="card-badge">@studentCount studenti</span>
+                    }
+                </div>
+                <div class="card-action">
+                    <button class="btn btn-info" disabled="@(currentClass == null)">
+                        Vedi Studenti
+                    </button>
+                </div>
+            </div>
+
+            <!-- Verifiche -->
+            <div class="action-card tests-card" @onclick="OpenTests">
+                <div class="card-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="card-content">
+                    <h4>Verifiche</h4>
+                    <p>Crea e gestisci verifiche e questionari</p>
+                </div>
+                <div class="card-action">
+                    <button class="btn btn-warning" disabled="@(currentClass == null)">
+                        Gestisci Verifiche
+                    </button>
+                </div>
+            </div>
+
+            <!-- Argomenti -->
+            <div class="action-card topics-card" @onclick="OpenTopics">
+                <div class="card-icon">
+                    <i class="fas fa-sitemap"></i>
+                </div>
+                <div class="card-content">
+                    <h4>Argomenti</h4>
+                    <p>Gestisci l'albero degli argomenti del programma</p>
+                </div>
+                <div class="card-action">
+                    <button class="btn btn-secondary">
+                        Modifica Argomenti
+                    </button>
+                </div>
+            </div>
+
+            <!-- Statistiche -->
+            <div class="action-card stats-card">
+                <div class="card-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <div class="card-content">
+                    <h4>Statistiche</h4>
+                    <p>Visualizza statistiche e report sulla classe</p>
+                </div>
+                <div class="card-action">
+                    <button class="btn btn-dark" disabled="@(currentClass == null)">
+                        Vedi Statistiche
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pannello informazioni rapide -->
+    @if (currentClass != null)
+    {
+        <div class="quick-info-panel">
+            <div class="info-card">
+                <h4>Informazioni Rapide</h4>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Ultima lezione:</strong>
+                        <span>@lastLessonDate</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Prossima lezione:</strong>
+                        <span>@nextLessonDate</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Argomenti trattati:</strong>
+                        <span>@topicsCount</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Voti inseriti:</strong>
+                        <span>@gradesCount</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    // Dati per le selezioni
+    private List<string> schoolYears = new();
+    private List<Class> classes = new();
+    private List<SchoolSubject> subjects = new();
+    
+    // Selezioni correnti
+    private string selectedSchoolYear = "";
+    private string selectedClassId = "";
+    private string selectedSubjectId = "";
+    
+    // Oggetti correnti
+    private Class? currentClass;
+    private SchoolSubject? currentSubject;
+    
+    // Informazioni derivate
+    private string subjectColor = "#F0F8FF";
+    private int studentCount = 0;
+    private int topicsCount = 0;
+    private int gradesCount = 0;
+    private string lastLessonDate = "Nessuna";
+    private string nextLessonDate = "Da programmare";
+    private string lastLessonInfo = "";
+    
+    // Stati di abilitazione
+    private bool canAccessLessons => currentClass != null && currentSubject != null;
+    private bool canAccessGrades => currentClass != null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadInitialData();
+    }
+
+    private async Task LoadInitialData()
+    {
+        try
+        {
+            // Carica anni scolastici
+            schoolYears = await Task.Run(() => Commons.bl.GetSchoolYearsThatHaveClasses());
+            
+            // Carica materie
+            subjects = await Task.Run(() => Commons.bl.GetListSchoolSubjects(false));
+            
+            // Imposta anno corrente
+            var currentYear = DateTime.Now.Year.ToString();
+            if (schoolYears.Contains(currentYear))
+            {
+                selectedSchoolYear = currentYear;
+                await OnSchoolYearChanged();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Errore nel caricamento dati: {ex.Message}");
+        }
+    }
+
+    private async Task OnSchoolYearChanged()
+    {
+        if (!string.IsNullOrEmpty(selectedSchoolYear))
+        {
+            classes = await Task.Run(() => Commons.bl.GetClassesOfYear(selectedSchoolYear));
+        }
+        else
+        {
+            classes.Clear();
+        }
+        
+        selectedClassId = "";
+        currentClass = null;
+        await UpdateClassInfo();
+        StateHasChanged();
+    }
+
+    private async Task OnClassChanged()
+    {
+        if (!string.IsNullOrEmpty(selectedClassId))
+        {
+            currentClass = classes.FirstOrDefault(c => c.IdClass == selectedClassId);
+            await UpdateClassInfo();
+        }
+        else
+        {
+            currentClass = null;
+        }
+        StateHasChanged();
+    }
+
+    private async Task OnSubjectChanged()
+    {
+        if (!string.IsNullOrEmpty(selectedSubjectId))
+        {
+            currentSubject = subjects.FirstOrDefault(s => s.IdSchoolSubject == selectedSubjectId);
+            if (currentSubject != null)
+            {
+                subjectColor = Commons.ColorFromNumber(currentSubject);
+                await UpdateSubjectInfo();
+            }
+        }
+        else
+        {
+            currentSubject = null;
+            subjectColor = "#F0F8FF";
+        }
+        StateHasChanged();
+    }
+
+    private async Task UpdateClassInfo()
+    {
+        if (currentClass != null)
+        {
+            try
+            {
+                var students = await Task.Run(() => Commons.bl.GetStudentsOfClassList(currentClass, false));
+                studentCount = students.Count;
+                
+                // Carica informazioni sulle lezioni
+                if (currentSubject != null)
+                {
+                    var lessons = await Task.Run(() => Commons.bl.GetLessonsOfClass(currentClass, currentSubject.IdSchoolSubject));
+                    if (lessons.Any())
+                    {
+                        var lastLesson = lessons.OrderByDescending(l => l.Date).First();
+                        lastLessonDate = lastLesson.Date?.ToString("dd/MM/yyyy") ?? "Sconosciuta";
+                        lastLessonInfo = $"Ultima: {lastLessonDate}";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Errore nell'aggiornamento info classe: {ex.Message}");
+            }
+        }
+    }
+
+    private async Task UpdateSubjectInfo()
+    {
+        if (currentClass != null && currentSubject != null)
+        {
+            try
+            {
+                // Carica statistiche per la materia
+                var lessons = await Task.Run(() => Commons.bl.GetLessonsOfClass(currentClass, currentSubject.IdSchoolSubject));
+                if (lessons.Any())
+                {
+                    var lastLesson = lessons.OrderByDescending(l => l.Date).First();
+                    lastLessonDate = lastLesson.Date?.ToString("dd/MM/yyyy") ?? "Sconosciuta";
+                    lastLessonInfo = $"Ultima: {lastLessonDate}";
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Errore nell'aggiornamento info materia: {ex.Message}");
+            }
+        }
+    }
+
+    // Metodi di navigazione
+    private void OpenLessons()
+    {
+        if (canAccessLessons)
+        {
+            Navigation.NavigateTo($"/lessons?class={currentClass!.IdClass}&subject={currentSubject!.IdSchoolSubject}");
+        }
+    }
+
+    private void OpenGrades()
+    {
+        if (canAccessGrades)
+        {
+            Navigation.NavigateTo($"/grades?class={currentClass!.IdClass}");
+        }
+    }
+
+    private void OpenStudents()
+    {
+        if (currentClass != null)
+        {
+            Navigation.NavigateTo($"/students?class={currentClass.IdClass}");
+        }
+    }
+
+    private void OpenTests()
+    {
+        if (currentClass != null)
+        {
+            Navigation.NavigateTo($"/tests?class={currentClass.IdClass}");
+        }
+    }
+
+    private void OpenTopics()
+    {
+        Navigation.NavigateTo("/topics");
+    }
+}
+
+<style>
+    .home-container {
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .selection-panel {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .selection-card {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        border-left: 5px solid #2196F3;
+    }
+
+    .selection-card h3 {
+        margin-top: 0;
+        color: #333;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #555;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+
+    .class-info, .subject-info {
+        margin-top: 15px;
+        padding: 15px;
+        border-radius: 5px;
+        background-color: #f8f9fa;
+    }
+
+    .subject-info {
+        border: 2px solid rgba(255,255,255,0.3);
+    }
+
+    .actions-panel {
+        margin-bottom: 30px;
+    }
+
+    .actions-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+    }
+
+    .action-card {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        cursor: pointer;
+        transition: all 0.3s;
+        border-left: 5px solid;
+    }
+
+    .action-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    }
+
+    .lessons-card { border-left-color: #4CAF50; }
+    .grades-card { border-left-color: #FF9800; }
+    .students-card { border-left-color: #2196F3; }
+    .tests-card { border-left-color: #9C27B0; }
+    .topics-card { border-left-color: #607D8B; }
+    .stats-card { border-left-color: #795548; }
+
+    .card-icon {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .card-icon i {
+        font-size: 3rem;
+        color: #666;
+    }
+
+    .card-content h4 {
+        margin: 0 0 10px 0;
+        color: #333;
+    }
+
+    .card-content p {
+        color: #666;
+        margin: 0 0 10px 0;
+    }
+
+    .card-badge {
+        display: inline-block;
+        background: #e3f2fd;
+        color: #1976d2;
+        padding: 3px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .card-action {
+        margin-top: 15px;
+        text-align: center;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.3s;
+    }
+
+    .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .btn-primary { background: #2196F3; color: white; }
+    .btn-success { background: #4CAF50; color: white; }
+    .btn-info { background: #00BCD4; color: white; }
+    .btn-warning { background: #FF9800; color: white; }
+    .btn-secondary { background: #607D8B; color: white; }
+    .btn-dark { background: #424242; color: white; }
+
+    .btn:hover:not(:disabled) {
+        transform: scale(1.05);
+    }
+
+    .quick-info-panel {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-top: 15px;
+    }
+
+    .info-item {
+        padding: 10px;
+        background: #f8f9fa;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    @media (max-width: 768px) {
+        .selection-panel {
+            grid-template-columns: 1fr;
+        }
+        
+        .actions-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

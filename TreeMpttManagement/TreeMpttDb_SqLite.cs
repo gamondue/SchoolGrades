@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 using System.Diagnostics;
 using System.Xml.Linq;
 
@@ -19,6 +19,7 @@ namespace gamon.TreeMptt
         // opening a local connection is specific to the DBMS, so it is implemented here
         internal override bool OpenLocalConnectionIfClosed()
         {
+            string ConnectionString = "Data Source=" + Commons.PathAndFileDatabase + ";Mode=ReadWriteCreate";
             bool hasLocalConnectionBeenOpenedByThisMethod = false;
             if (localDbConnection == null || localDbConnection.State != ConnectionState.Open)
             {
@@ -26,8 +27,7 @@ namespace gamon.TreeMptt
                 // open the SQLite local connection 
                 try
                 {
-                    localDbConnection = new SQLiteConnection("Data Source=" + Commons.PathAndFileDatabase +
-                    ";version=3;new=False;datetimeformat=CurrentCulture");
+                    localDbConnection = new SqliteConnection(ConnectionString);
                     localDbConnection.Open();
                 }
                 catch (Exception ex)

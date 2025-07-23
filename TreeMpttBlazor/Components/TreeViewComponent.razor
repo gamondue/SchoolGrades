@@ -1,0 +1,288 @@
+@using SchoolGrades.BusinessObjects
+@using gamon.TreeMptt
+@inject IJSRuntime JSRuntime
+
+<div class="tree-container">
+    <!-- Toolbar di ricerca -->
+    <div class="tree-toolbar">
+        <div class="search-controls">
+            <input type="text" @bind="treeMptt.SearchText" @onkeypress="OnSearchKeyPress" 
+                   placeholder="Cerca negli argomenti..." class="form-control" />
+            <button class="btn btn-primary" @onclick="PerformSearch">
+                <i class="fas fa-search"></i> Cerca
+            </button>
+            <button class="btn btn-secondary" @onclick="ResetSearch">
+                <i class="fas fa-times"></i> Reset
+            </button>
+        </div>
+        
+        <div class="search-options">
+            <label><input type="checkbox" @bind="treeMptt.SearchInDescriptions" /> Cerca nelle descrizioni</label>
+            <label><input type="checkbox" @bind="treeMptt.SearchWholeWord" /> Parola intera</label>
+            <label><input type="checkbox" @bind="treeMptt.SearchCaseInsensitive" /> Ignora maiuscole</label>
+            <label><input type="checkbox" @bind="treeMptt.MarkAllTopicsFound" /> Evidenzia tutto</label>
+        </div>
+    </div>
+
+    <!-- Tree controls -->
+    <div class="tree-controls">
+        <button class="btn btn-success" @onclick="AddChildNode" disabled="@(treeMptt.SelectedNode == null)">
+            <i class="fas fa-plus"></i> Aggiungi figlio
+        </button>
+        <button class="btn btn-info" @onclick="AddSiblingNode" disabled="@(treeMptt.SelectedNode == null)">
+            <i class="fas fa-plus-circle"></i> Aggiungi fratello
+        </button>
+        <button class="btn btn-danger" @onclick="DeleteNode" disabled="@(treeMptt.SelectedNode == null)">
+            <i class="fas fa-trash"></i> Elimina
+        </button>
+        <button class="btn btn-primary" @onclick="SaveTree" disabled="@(!treeMptt.HasChanges)">
+            <i class="fas fa-save"></i> Salva albero
+        </button>
+    </div>
+
+    <!-- Tree visualization -->
+    <div class="tree-view">
+        @if (rootNodes != null && rootNodes.Any())
+        {
+            @foreach (var node in rootNodes)
+            {
+                <TreeNodeComponent Node="node" 
+                                   AllNodes="treeMptt.Nodes" 
+                                   Level="0"
+                                   IsSelected="treeMptt.SelectedNode?.Id == node.Id"
+                                   ShowCheckboxes="ShowCheckboxes"
+                                   OnNodeClick="SelectNode"
+                                   OnNodeCheck="CheckNode" />
+            }
+        }
+        else
+        {
+            <div class="no-data">Nessun argomento trovato. Aggiungi il primo argomento.</div>
+        }
+    </div>
+
+    <!-- Node details panel -->
+    @if (treeMptt.SelectedNode != null)
+    {
+        <div class="node-details">
+            <h5>Dettagli argomento</h5>
+            <div class="form-group">
+                <label>Nome:</label>
+                <input type="text" @bind="selectedNodeName" @onchange="UpdateSelectedNode" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Descrizione:</label>
+                <textarea @bind="selectedNodeDescription" @onchange="UpdateSelectedNode" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="node-info">
+                <small class="text-muted">ID: @treeMptt.SelectedNode.Id | Parent: @treeMptt.SelectedNode.ParentNodeNew</small>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public TreeMptt treeMptt { get; set; } = null!;
+    [Parameter] public bool ShowCheckboxes { get; set; } = false;
+    [Parameter] public EventCallback<List<Topic>> OnCheckedNodesChanged { get; set; }
+
+    private List<Topic> rootNodes => treeMptt.Nodes.Where(n => n.ParentNodeNew == null).ToList();
+    private string selectedNodeName = "";
+    private string selectedNodeDescription = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        treeMptt.OnTreeChanged += StateHasChanged;
+        treeMptt.OnNodeSelected += OnNodeSelected;
+        
+        if (treeMptt.Nodes.Count == 0)
+        {
+            await treeMptt.LoadTreeAsync();
+        }
+    }
+
+    private void OnNodeSelected()
+    {
+        if (treeMptt.SelectedNode != null)
+        {
+            selectedNodeName = treeMptt.SelectedNode.Name ?? "";
+            selectedNodeDescription = treeMptt.SelectedNode.Desc ?? "";
+        }
+        StateHasChanged();
+    }
+
+    private async Task PerformSearch()
+    {
+        var results = await treeMptt.PerformSearchAsync();
+        StateHasChanged();
+    }
+
+    private void ResetSearch()
+    {
+        treeMptt.ResetSearch();
+        treeMptt.SearchText = "";
+        StateHasChanged();
+    }
+
+    private async Task OnSearchKeyPress(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            await PerformSearch();
+        }
+    }
+
+    private void SelectNode(Topic node)
+    {
+        treeMptt.SelectNode(node);
+    }
+
+    private async Task CheckNode((Topic node, bool isChecked) args)
+    {
+        treeMptt.CheckNode(args.node, args.isChecked);
+        await OnCheckedNodesChanged.InvokeAsync(treeMptt.GetCheckedNodes());
+    }
+
+    private void AddChildNode()
+    {
+        treeMptt.AddNewNode("Nuovo argomento", true);
+    }
+
+    private void AddSiblingNode()
+    {
+        treeMptt.AddNewNode("Nuovo argomento", false);
+    }
+
+    private async Task DeleteNode()
+    {
+        if (await JSRuntime.InvokeAsync<bool>("confirm", "Sei sicuro di voler eliminare questo argomento e tutti i suoi figli?"))
+        {
+            treeMptt.DeleteSelectedNode();
+        }
+    }
+
+    private async Task SaveTree()
+    {
+        await treeMptt.SaveTreeAsync();
+    }
+
+    private void UpdateSelectedNode()
+    {
+        treeMptt.UpdateSelectedNode(selectedNodeName, selectedNodeDescription);
+    }
+
+    public void Dispose()
+    {
+        treeMptt.OnTreeChanged -= StateHasChanged;
+        treeMptt.OnNodeSelected -= OnNodeSelected;
+    }
+}
+
+<style>
+    .tree-container {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 10px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .tree-toolbar {
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .search-controls {
+        display: flex;
+        gap: 5px;
+        margin-bottom: 5px;
+    }
+
+    .search-controls input {
+        flex: 1;
+    }
+
+    .search-options {
+        display: flex;
+        gap: 15px;
+        font-size: 12px;
+    }
+
+    .search-options label {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        cursor: pointer;
+    }
+
+    .tree-controls {
+        margin-bottom: 10px;
+        display: flex;
+        gap: 5px;
+        flex-wrap: wrap;
+    }
+
+    .tree-view {
+        flex: 1;
+        overflow-y: auto;
+        border: 1px solid #eee;
+        padding: 5px;
+        background-color: #fafafa;
+        border-radius: 4px;
+    }
+
+    .node-details {
+        margin-top: 10px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background-color: #f9f9f9;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 3px;
+        color: #333;
+    }
+
+    .no-data {
+        text-align: center;
+        color: #999;
+        padding: 20px;
+        font-style: italic;
+    }
+
+    .node-info {
+        margin-top: 8px;
+        padding-top: 8px;
+        border-top: 1px solid #eee;
+    }
+
+    .text-muted {
+        color: #666;
+        font-size: 11px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .search-controls {
+            flex-direction: column;
+        }
+        
+        .search-options {
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .tree-controls {
+            flex-direction: column;
+        }
+    }
+</style>

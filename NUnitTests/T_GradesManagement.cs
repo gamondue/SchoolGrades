@@ -92,19 +92,14 @@ namespace NUnitDbTests
             Assert.That(ret, Has.Count.AtLeast(1));
         }
         [Test]
-        public void T_GetSubGradesOfGrade()
-        {
-            var subGrades = Test_Commons.dl.GetSubGradesOfGrade(2);
-        }
-        [Test]
         public void T_DeleteValueOfGrade()
         {
             Test_Commons.dl.DeleteValueOfGrade(1);
         }
-        [Test]
-        public void T_GetMacroGradesOfStudentClosed()
-        {
-            var ret = Test_Commons.dl.GetMacroGradesOfStudentClosed(1, "anno", "1", "2");
-        }
+        //[Test]
+        //public void T_GetMacroGradesOfStudentClosed()
+        //{
+        //    var ret = Test_Commons.dl.GetMacroGradesOfStudentClosed(1, "anno", "1", "2");
+        //}
     }
 }

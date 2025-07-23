@@ -2,7 +2,7 @@
 using System;
 using System.Data;
 using System.Data.Common;
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 using System.Linq;
 
 namespace SchoolGrades
@@ -11,28 +11,26 @@ namespace SchoolGrades
     {
         internal override DataTable GetLookupTable(string NameOfTable, string PrimaryKeyName)
         {
-            // connection il left open and stored internally, like the rest of data access objects;
-            // they will be closed by the UpdateInternalDataSet() Method
             internalConnection = Connect();
             string query = "SELECT * FROM " + NameOfTable + ";";
-            internalDataAdapter = new SQLiteDataAdapter(query, (SQLiteConnection)internalConnection);
             internalDataSet = new DataSet("OpenLookupTable");
-            internalDataAdapter.Fill(internalDataSet);
-            internalDataTable = internalDataSet.Tables[0];
+            using (DbCommand cmd = internalConnection.CreateCommand())
+            {
+                cmd.CommandText = query;
+                using (DbDataReader reader = cmd.ExecuteReader())
+                {
+                    internalDataTable = new DataTable();
+                    internalDataTable.Load(reader);
+                }
+            }
+            internalDataSet.Tables.Add(internalDataTable);
             return internalDataTable;
         }
         internal override void UpdateInternalDataSet()
         {
-            // Ensure the SqlCommandBuilder is used to generate commands for the SqlDataAdapter
-            SQLiteCommandBuilder CommandBuilder = new SQLiteCommandBuilder((SQLiteDataAdapter)internalDataAdapter);
-
-            // Generate InsertCommand, UpdateCommand, and DeleteCommand
-            internalDataAdapter.InsertCommand = CommandBuilder.GetInsertCommand();
-            internalDataAdapter.UpdateCommand = CommandBuilder.GetUpdateCommand();
-            internalDataAdapter.DeleteCommand = CommandBuilder.GetDeleteCommand();
-
-            // Update the DataSet
-            internalDataAdapter.Update(internalDataSet);
+            // Manual update logic required; SqliteDataAdapter and SqliteCommandBuilder removed.
+            // This method should be implemented to update the database from internalDataTable changes if needed.
+            throw new NotImplementedException("UpdateInternalDataSet is not implemented without SqliteDataAdapter.");
         }
         internal override void SaveTableOnCsv(DataTable Table, string FileName)
         {

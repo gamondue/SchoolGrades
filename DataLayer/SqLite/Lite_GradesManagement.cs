@@ -1,9 +1,9 @@
 ﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
+using Microsoft.Data.Sqlite;
 using System.Data;
 using System.Data.Common;
-using System.Data.SQLite;
 
 namespace SchoolGrades
 {
@@ -111,7 +111,7 @@ namespace SchoolGrades
                     "WHERE idGradeType='" + IdGradeType + "'; ";
                 string idGradeTypeParent = (string)cmd.ExecuteScalar();
 
-                string query = "SELECT datetime(Grades.timestamp),Questions.text,Grades.value" +
+                string query = "SELECT Grades.timestamp,Questions.text,Grades.value" +
                     ",Grades.weight,Grades.IdGrade,Grades.idGradeParent,Grades.cncFactor" +
                     ",Questions.IdQuestion,Questions.IdQuestionType,Grades.IdSchoolSubject" +
                     ",Questions.IdTopic,Questions.Image,Questions.Duration,Questions.Difficulty" +
@@ -130,18 +130,20 @@ namespace SchoolGrades
                     " AND Grades.idGradeParent = Parents.idGrade" +
                     " AND (Parents.value = 0 OR Parents.value is NULL)" +
                     " ORDER BY Grades.timestamp;";
-
-                DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                DataSet DSet = new DataSet("OpenMicroGrades");
-                DAdapt.Fill(DSet);
-                DAdapt.Dispose();
-                DSet.Dispose();
-                return DSet.Tables[0];
+                using (cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = query;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        DataTable table = new DataTable();
+                        table.Load(reader);
+                        return table;
+                    }
+                }
             }
         }
         internal override DataTable GetSubGradesOfGrade(int? IdGrade)
         {
-            DataTable t;
             using (DbConnection conn = Connect())
             {
                 string query = "SELECT datetime(Grades.timestamp),Questions.text,Grades.value," +
@@ -151,15 +153,17 @@ namespace SchoolGrades
                     " WHERE Grades.idGradeParent =" + IdGrade +
                     " ORDER BY Grades.timestamp;";
 
-                DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                DataSet DSet = new DataSet("OpenMicroGrades");
-                DAdapt.Fill(DSet);
-                t = DSet.Tables[0];
-
-                DAdapt.Dispose();
-                DSet.Dispose();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = query;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        DataTable table = new DataTable();
+                        table.Load(reader);
+                        return table;
+                    }
+                }
             }
-            return t;
         }
         internal override Student GetWeightedAveragesOfStudent(Student Student, string stringKey1, string stringKey2, DateTime value1, DateTime value2)
         {
@@ -192,7 +196,7 @@ namespace SchoolGrades
             //" GROUP BY Students.idStudent" +
             //" ORDER BY 'Weighted average';";
             //    //" ORDER BY lastName, firstName, Students.idStudent;";
-            //    dAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
+            //    dAdapt = new SqliteDataAdapter(query, (SqliteConnection)conn);
             //    dSet = new DataSet("GetUnfixedGradesInTheYear");
             //    dAdapt.Fill(dSet);
             //    t = dSet.Tables[0];
@@ -206,13 +210,11 @@ namespace SchoolGrades
              string IdGradeType, string IdSchoolSubject,
              DateTime DateFrom, DateTime DateTo)
         {
-            DataTable t;
             using (DbConnection conn = Connect())
             {
-                string query = "SELECT Grades.idGrade,datetime(Grades.timeStamp),Students.idStudent," +
-                "lastName,firstName," +
-                "Grades.value AS 'grade',Grades.weight," +
-                "Grades.idGradeParent" +
+                string query = "SELECT Grades.idGrade, datetime(Grades.timeStamp), Students.idStudent," +
+                " COALESCE(lastName, '') AS lastName, COALESCE(firstName, '') AS firstName," +
+                " Grades.value AS 'grade', Grades.weight, Grades.idGradeParent" +
                 " FROM Grades" +
                 " JOIN Students" +
                 " ON Students.idStudent=Grades.idStudent" +
@@ -227,17 +229,29 @@ namespace SchoolGrades
                 " AND Grades.Value > 0" +
                 " AND Grades.Timestamp BETWEEN " + SqlDate(DateFrom) + " AND " + SqlDate(DateTo) +
                 " ORDER BY lastName, firstName, Students.idStudent, Grades.timestamp Desc;";
-
-                DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                DataSet DSet = new DataSet("ClosedMicroGrades");
-
-                DAdapt.Fill(DSet);
-                t = DSet.Tables[0];
-
-                DAdapt.Dispose();
-                DSet.Dispose();
+                DataTable table = new DataTable();
+                table.Columns.Add("idGrade", typeof(int));
+                table.Columns.Add("timeStamp", typeof(DateTime));
+                table.Columns.Add("idStudent", typeof(int));
+                table.Columns.Add("lastName", typeof(string));
+                table.Columns.Add("firstName", typeof(string));
+                table.Columns.Add("grade", typeof(double));
+                table.Columns.Add("weight", typeof(double));
+                table.Columns.Add("idGradeParent", typeof(int));
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = query;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (table.Rows.Count > 0)
+                        {
+                            //DataTable table = new DataTable();
+                            table.Load(reader);
+                        }
+                        return table;
+                    }
+                }
             }
-            return t;
         }
         /// <summary>
         /// Gets the number of microquestions that haven't yet a global grade
@@ -260,7 +274,7 @@ namespace SchoolGrades
                     " AND Grades.idGradeParent = Parents.idGrade" +
                     " AND Parents.Value is null or Parents.Value = 0" +
                     " GROUP BY Grades.idStudent;";
-                cmd = new SQLiteCommand(query);
+                cmd = new SqliteCommand(query);
                 dRead = cmd.ExecuteReader();
                 while (dRead.Read())
                 {
@@ -428,19 +442,19 @@ namespace SchoolGrades
                     ";";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
-            }
+            }   
         }
         internal override Grade GetGradeFromRow(DbDataReader Row)
         {
             Grade g = new Grade();
-            g.IdGrade = (int)Row["idGrade"];
+            g.IdGrade = Convert.ToInt32(Row["idGrade"]);
             g.IdGradeParent = Safe.Int(Row["idGradeParent"]);
             g.IdStudent = Safe.Int(Row["idStudent"]);
             g.IdGradeType = Safe.String(Row["IdGradeType"]);
             g.IdSchoolSubject = Safe.String(Row["IdSchoolSubject"]);
             //g.IdGradeTypeParent = Safe.SafeString(Row["idGradeTypeParent"]);
             g.IdQuestion = Safe.Int(Row["idQuestion"]);
-            g.Timestamp = (DateTime)Row["timestamp"];
+            g.Timestamp = Safe.DateTime(Row["timestamp"]);
             g.Value = Safe.Double(Row["value"]);
             g.Weight = Safe.Double(Row["weight"]);
             g.CncFactor = Safe.Double(Row["cncFactor"]);
@@ -450,40 +464,73 @@ namespace SchoolGrades
         }
         internal override DataTable GetGradesOfStudent(Student Student, string SchoolYear, string IdGradeType, string IdSchoolSubject, DateTime DateFrom, DateTime DateTo)
         {
-            DataTable t;
             using (DbConnection conn = Connect())
             {
-                string query = "SELECT DISTINCT Grades.idGrade,datetime(Grades.timeStamp)," +
-                "Grades.value AS 'grade', Grades.weight," +
-                "Questions.text,lastName,firstName," +
-                " Grades.idGradeParent" +
-                " FROM Grades" +
-                " JOIN Students" +
-                " ON Students.idStudent=Grades.idStudent" +
-                " JOIN Classes_Students" +
-                " ON Classes_Students.idStudent=Students.idStudent" +
-                " LEFT JOIN Questions" +
-                " ON Grades.idQuestion=Questions.idQuestion" +
-                " WHERE Students.idStudent=" + Student.IdStudent +
-                " AND (Grades.idSchoolYear='" + SchoolYear + "'" +
-                " OR Grades.idSchoolYear='" + SchoolYear.Replace("-", "") + "'" +
-                ")" +
-                " AND Grades.idGradeType='" + IdGradeType + "'" +
-                " AND Grades.idSchoolSubject='" + IdSchoolSubject + "'" +
-                " AND Grades.Value > 0" +
-                " AND Grades.Timestamp BETWEEN " + SqlDate(DateFrom) + " AND " + SqlDate(DateTo) +
-                " ORDER BY lastName, firstName, Students.idStudent, Grades.timestamp Desc;";
-
-                DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                DataSet DSet = new DataSet("ClosedMicroGrades");
-
-                DAdapt.Fill(DSet);
-                t = DSet.Tables[0];
-
-                DAdapt.Dispose();
-                DSet.Dispose();
+                // Specifica esattamente le colonne da selezionare, evitando Questions.*
+                string query = "SELECT DISTINCT Grades.idGrade," +
+                    "datetime(Grades.timeStamp) as timeStamp," +
+                    "Grades.value AS 'grade', Grades.weight," +
+                    "Questions.text, lastName, firstName," +
+                    "Grades.idGradeParent" +
+                    " FROM Grades" +
+                    " JOIN Students" +
+                    " ON Students.idStudent=Grades.idStudent" +
+                    " JOIN Classes_Students" +
+                    " ON Classes_Students.idStudent=Students.idStudent" +
+                    " LEFT JOIN Questions" +
+                    " ON Grades.idQuestion=Questions.idQuestion" +
+                    " WHERE Students.idStudent=" + Student.IdStudent +
+                    " AND (Grades.idSchoolYear='" + SchoolYear + "'" +
+                    " OR Grades.idSchoolYear='" + SchoolYear.Replace("-", "") + "'" +
+                    ")" +
+                    " AND Grades.idGradeType='" + IdGradeType + "'" +
+                    " AND Grades.idSchoolSubject='" + IdSchoolSubject + "'" +
+                    " AND Grades.Value > 0" +
+                    " AND Grades.Timestamp BETWEEN " + SqlDate(DateFrom) + " AND " + SqlDate(DateTo) +
+                    " ORDER BY lastName, firstName, Students.idStudent, Grades.timestamp Desc;";
+                
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = query;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        // Crea un DataTable con schema esplicito
+                        DataTable table = new DataTable();
+                        table.Columns.Add("idGrade", typeof(int));
+                        table.Columns.Add("timeStamp", typeof(DateTime));
+                        table.Columns.Add("grade", typeof(double));
+                        table.Columns.Add("weight", typeof(double));
+                        table.Columns.Add("text", typeof(string));
+                        table.Columns.Add("lastName", typeof(string));
+                        table.Columns.Add("firstName", typeof(string));
+                        table.Columns.Add("idGradeParent", typeof(int));
+                        
+                        // Carica i dati manualmente per evitare problemi di tipo
+                        while (reader.Read())
+                        {
+                            DataRow row = table.NewRow();
+                            row["idGrade"] = reader["idGrade"];
+                            
+                            // Converti timestamp da stringa a DateTime
+                            if (reader["timeStamp"] is string timeStampString)
+                                row["timeStamp"] = DateTime.Parse(timeStampString);
+                            else
+                                row["timeStamp"] = reader["timeStamp"];
+                            
+                            row["grade"] = reader["grade"];
+                            row["weight"] = reader["weight"];
+                            row["text"] = reader["text"] == DBNull.Value ? string.Empty : reader["text"];
+                            row["lastName"] = reader["lastName"];
+                            row["firstName"] = reader["firstName"];
+                            row["idGradeParent"] = reader["idGradeParent"];
+                            
+                            table.Rows.Add(row);
+                        }
+                        
+                        return table;
+                    }
+                }
             }
-            return t;
         }
         internal override object GetGradesWeightsOfStudentOnOpenGrades(Student currentStudent, string stringKey1, string stringKey2, DateTime value1, DateTime value2)
         {
@@ -492,7 +539,6 @@ namespace SchoolGrades
         internal override DataTable GetWeightedAveragesOfClassByGradesFraction(Class Class,
             string IdGradeType, string IdSchoolSubject, DateTime DateFrom, DateTime DateTo)
         {
-            DataTable t;
             using (DbConnection conn = Connect())
             {
                 string query = "SELECT Grades.idGrade,Students.idStudent,lastName,firstName" +
@@ -512,29 +558,23 @@ namespace SchoolGrades
                 " AND Grades.Timestamp BETWEEN " + SqlDate(DateFrom) + " AND " + SqlDate(DateTo) +
                 " GROUP BY Students.idStudent" +
                 " ORDER BY GradesFraction ASC, lastName, firstName, Students.idStudent;";
-                // !!!! TODO change the query to include at first rows also those students that have no grades !!!! 
-                DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                DataSet DSet = new DataSet("ClosedMicroGrades");
-
-                DAdapt.Fill(DSet);
-                t = DSet.Tables[0];
-
-                DAdapt.Dispose();
-                DSet.Dispose();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = query;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        DataTable table = new DataTable();
+                        table.Load(reader);
+                        return table;
+                    }
+                }
             }
-            return t;
         }
         internal override DataTable GetGradesWeightedAveragesOfClassByAverage(Class Class, string IdGradeType,
             string IdSchoolSubject, DateTime DateFrom, DateTime DateTo)
         {
-            DataTable t;
-            //List<StudentAndGrade> l = new List<StudentAndGrade>(); 
-
             using (DbConnection conn = Connect())
             {
-                DataAdapter dAdapt;
-                DataSet dSet = new DataSet();
-
                 string query = "SELECT Grades.idGrade, Students.idStudent,lastName,firstName," +
             " SUM(Grades.value * Grades.weight)/SUM(Grades.weight) AS 'Weighted average'" +
             // weighted RMS (Root Mean Square) as defined here: 
@@ -550,23 +590,24 @@ namespace SchoolGrades
             " WHERE Classes_Students.idClass =" + Class.IdClass +
             " AND (Grades.idSchoolYear='" + Class.SchoolYear + "'" +
             " OR Grades.idSchoolYear='" + Class.SchoolYear.Replace("-", "") + "'" +
-            ")" +
+            " )" +
             " AND Grades.idGradeType = '" + IdGradeType + "'" +
             " AND Grades.idSchoolSubject = '" + IdSchoolSubject + "'" +
             " AND Grades.Value > 0" +
             " AND Grades.Timestamp BETWEEN " + SqlDate(DateFrom) + " AND " + SqlDate(DateTo) +
             " GROUP BY Students.idStudent" +
             " ORDER BY 'Weighted average';";
-                //" ORDER BY lastName, firstName, Students.idStudent;";
-                dAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                dSet = new DataSet("GetUnfixedGradesInTheYear");
-                dAdapt.Fill(dSet);
-                t = dSet.Tables[0];
-
-                dSet.Dispose();
-                dAdapt.Dispose();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = query;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        DataTable table = new DataTable();
+                        table.Load(reader);
+                        return table;
+                    }
+                }
             }
-            return t;
         }
         internal override List<StudentAndGrade> GetListGradesWeightedAveragesOfClassByName(Class Class, string IdGradeType,
             string IdSchoolSubject, DateTime DateFrom, DateTime DateTo)
@@ -621,11 +662,8 @@ namespace SchoolGrades
         internal override DataTable GetUnfixedGrades(Student Student, string IdSchoolSubject,
             double Threshold)
         {
-            DataTable t;
             using (DbConnection conn = Connect())
             {
-                DataAdapter dAdapt;
-                DataSet dSet = new DataSet();
                 string query = "SELECT Grades.IdGrade,Grades.idStudent,Grades.value,Grades.timestamp,Grades.isFixed," +
                     "Grades.idGradeType,Grades.idQuestion,Questions.text,Questions.*,Grades.*" +
                     " FROM Grades" +
@@ -636,15 +674,17 @@ namespace SchoolGrades
                 if (IdSchoolSubject != "")
                     query += " AND Grades.idSchoolSubject='" + IdSchoolSubject + "'";
                 query += ";";
-                dAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                dSet = new DataSet("GetUnfixedGradesInTheYear");
-                dAdapt.Fill(dSet);
-                t = dSet.Tables[0];
-
-                dSet.Dispose();
-                dAdapt.Dispose();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = query;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        DataTable table = new DataTable();
+                        table.Load(reader);
+                        return table;
+                    }
+                }
             }
-            return t;
         }
         /// <summary>
         /// Gets all the grades of a students of a specified IdGradeType that are the sons 
@@ -658,7 +698,6 @@ namespace SchoolGrades
         internal override DataTable GetMacroGradesOfStudentClosed(int? IdStudent, string IdSchoolYear,
             string IdGradeType, string IdSchoolSubject)
         {
-            DataTable t;
             using (DbConnection conn = Connect())
             {
                 string query = "SELECT idGrade, idStudent, value, idSchoolSubject," +
@@ -671,17 +710,17 @@ namespace SchoolGrades
                 " AND Grades.idSchoolSubject = '" + IdSchoolSubject + "'" +
                 " AND Grades.Value > 0" +
                 " ORDER BY datetime(Grades.timestamp) Desc;";
-
-                DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                DataSet DSet = new DataSet("ClosedMicroGrades");
-
-                DAdapt.Fill(DSet);
-                t = DSet.Tables[0];
-
-                DAdapt.Dispose();
-                DSet.Dispose();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = query;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        DataTable table = new DataTable();
+                        table.Load(reader);
+                        return table;
+                    }
+                }
             }
-            return t;
         }
         internal override int CreateMacroGrade(ref Grade Grade, Student Student, string IdMicroGradeType)
         {
@@ -813,11 +852,8 @@ namespace SchoolGrades
         internal override DataTable GetGradesWeightsOfClassOnOpenGrades(Class Class,
             string IdGradeType, string IdSchoolSubject, DateTime DateFrom, DateTime DateTo)
         {
-            DataTable t;
             using (DbConnection conn = Connect())
             {
-                // find the macro grade type of the micro grade
-                // TODO take it from a Grade passed as parameter 
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "SELECT idGradeTypeParent " +
                     "FROM GradeTypes " +
@@ -842,20 +878,20 @@ namespace SchoolGrades
                 " AND Parents.idGradeType = '" + idGradeTypeParent + "'" +
                 " AND Grades.idGradeParent = Parents.idGrade" +
                 " AND (Parents.Value is null or Parents.Value = 0)" +
-                " AND NOT Students.disabled" +
+                " AND NOT Classes_Students.disabled" +
                 " GROUP BY Students.idStudent" +
                 " ORDER BY GradesFraction ASC, lastName, firstName, Students.idStudent;";
-
-                DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                DataSet DSet = new DataSet("ClosedMicroGrades");
-
-                DAdapt.Fill(DSet);
-                t = DSet.Tables[0];
-
-                DAdapt.Dispose();
-                DSet.Dispose();
+                using (var cmd2 = conn.CreateCommand())
+                {
+                    cmd2.CommandText = query;
+                    using (var reader = cmd2.ExecuteReader())
+                    {
+                        DataTable table = new DataTable();
+                        table.Load(reader);
+                        return table;
+                    }
+                }
             }
-            return t;
         }
     }
 }

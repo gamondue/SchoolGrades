@@ -583,14 +583,14 @@ namespace SchoolGrades
                     // put full screen ther form 
                     // TODO 
                 }
-                // show popup annotations of the students of the class
-                DataTable popUpAnnotations = Commons.bl.GetAnnotationsOfClass(currentClass.IdClass, true, true);
-                if (popUpAnnotations.Rows.Count > 0)
-                {
-                    frmAnnotationsPopUp f = new frmAnnotationsPopUp(popUpAnnotations);
-                    f.StartPosition = FormStartPosition.CenterParent;
-                    f.Show();
-                }
+            }
+            // show popup annotations of the students of the class
+            DataTable popUpAnnotations = Commons.bl.GetAnnotationsOfClass(currentClass.IdClass, true, true);
+            if (popUpAnnotations.Rows.Count > 0)
+            {
+                frmAnnotationsPopUp f = new frmAnnotationsPopUp(popUpAnnotations);
+                f.StartPosition = FormStartPosition.CenterParent;
+                f.Show();
             }
         }
         private void chkPhotoVisibible_CheckedChanged(object sender, EventArgs e)

@@ -1,0 +1,170 @@
+@using SchoolGrades.BusinessObjects
+
+<div class="tree-node" style="margin-left: @((Level * 20))px">
+    <div class="node-content @GetNodeClasses()" @onclick="() => OnNodeClick.InvokeAsync(Node)">
+        
+        @* Indicatore di espansione *@
+        @if (HasChildren)
+        {
+            <span class="expand-indicator @(isExpanded ? "expanded" : "")" @onclick:stopPropagation="true" @onclick="ToggleExpanded">
+                <i class="fas @(isExpanded ? "fa-chevron-down" : "fa-chevron-right")"></i>
+            </span>
+        }
+        else
+        {
+            <span class="expand-indicator-placeholder"></span>
+        }
+
+        @* Checkbox per le lezioni *@
+        @if (ShowCheckboxes)
+        {
+            <input type="checkbox" checked="@(Node.IsChecked())" 
+                   @onchange="(e) => OnNodeCheck.InvokeAsync((Node, (bool)e.Value!))" 
+                   @onclick:stopPropagation="true" />
+        }
+
+        @* Icona del nodo *@
+        <i class="fas @(HasChildren ? "fa-folder" : "fa-file-alt") node-icon"></i>
+
+        @* Nome del nodo *@
+        <span class="node-name">@Node.Name</span>
+
+        @* Indicatore di evidenziazione *@
+        @if (Node.IsHighlighted())
+        {
+            <span class="highlight-indicator">
+                <i class="fas fa-star text-warning"></i>
+            </span>
+        }
+    </div>
+
+    @* Nodi figli (se espansi) *@
+    @if (isExpanded && HasChildren)
+    {
+        @foreach (var child in ChildNodes)
+        {
+            <TreeNodeComponent Node="child" 
+                               AllNodes="AllNodes" 
+                               Level="Level + 1"
+                               IsSelected="IsChildSelected(child)"
+                               ShowCheckboxes="ShowCheckboxes"
+                               OnNodeClick="OnNodeClick"
+                               OnNodeCheck="OnNodeCheck" />
+        }
+    }
+</div>
+
+@code {
+    [Parameter] public Topic Node { get; set; } = null!;
+    [Parameter] public List<Topic> AllNodes { get; set; } = new();
+    [Parameter] public int Level { get; set; } = 0;
+    [Parameter] public bool IsSelected { get; set; } = false;
+    [Parameter] public bool ShowCheckboxes { get; set; } = false;
+    [Parameter] public EventCallback<Topic> OnNodeClick { get; set; }
+    [Parameter] public EventCallback<(Topic, bool)> OnNodeCheck { get; set; }
+
+    private bool isExpanded = true; // Inizialmente espanso
+
+    private List<Topic> ChildNodes => AllNodes.Where(n => n.ParentNodeNew == Node.Id).ToList();
+    private bool HasChildren => ChildNodes.Any();
+
+    private bool IsChildSelected(Topic child)
+    {
+        // Questo verrà gestito dal componente padre
+        return false;
+    }
+
+    private void ToggleExpanded()
+    {
+        isExpanded = !isExpanded;
+    }
+
+    private string GetNodeClasses()
+    {
+        var classes = new List<string> { "node-item" };
+        
+        if (IsSelected)
+            classes.Add("selected");
+            
+        if (Node.IsHighlighted())
+            classes.Add("highlighted");
+            
+        if (Node.IsChecked())
+            classes.Add("checked");
+            
+        return string.Join(" ", classes);
+    }
+}
+
+<style>
+    .tree-node {
+        user-select: none;
+    }
+
+    .node-content {
+        display: flex;
+        align-items: center;
+        padding: 2px 4px;
+        cursor: pointer;
+        border-radius: 3px;
+        margin: 1px 0;
+    }
+
+    .node-item:hover {
+        background-color: #e3f2fd;
+    }
+
+    .node-item.selected {
+        background-color: #2196f3;
+        color: white;
+    }
+
+    .node-item.highlighted {
+        background-color: #fff3cd;
+        border: 1px solid #ffeaa7;
+    }
+
+    .node-item.checked {
+        font-weight: bold;
+    }
+
+    .expand-indicator {
+        width: 16px;
+        height: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 4px;
+        cursor: pointer;
+        font-size: 10px;
+        transition: transform 0.2s;
+    }
+
+    .expand-indicator.expanded {
+        transform: rotate(0deg);
+    }
+
+    .expand-indicator-placeholder {
+        width: 16px;
+        margin-right: 4px;
+    }
+
+    .node-icon {
+        margin-right: 6px;
+        font-size: 12px;
+        color: #666;
+    }
+
+    .node-name {
+        flex: 1;
+        font-size: 14px;
+    }
+
+    .highlight-indicator {
+        margin-left: 4px;
+    }
+
+    .text-warning {
+        color: #ffc107;
+    }
+</style>

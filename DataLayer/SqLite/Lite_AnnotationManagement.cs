@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 
 namespace SchoolGrades
 {
@@ -169,8 +169,6 @@ namespace SchoolGrades
             DataTable table = new DataTable(); 
             using (DbConnection conn = Connect())
             {
-                DataAdapter dAdapter;
-                DataSet dSet = new DataSet();
                 string query = "SELECT Students.lastName, Students.firstName, StudentsAnnotations.annotation" +
                     ",Students.IdStudent, StudentsAnnotations.IdAnnotation" +
                     " FROM StudentsAnnotations" +
@@ -179,18 +177,17 @@ namespace SchoolGrades
                     " WHERE Classes_Students.idClass=" + IdClass; 
                 if (!IncludeAlsoNonActive)
                     query += " AND isActive=true";
-                // !!!! TODO avoid to check field existence after some versions
-                // (made to avoid breaking the code with an old database) !!!!
                 if (IncludeJustPopUp && FieldExists("StudentsAnnotations", "isPopUp")) 
                     query += " AND isPopUp=true";
                 query += ";";
-                dAdapter = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-
-                dAdapter.Fill(dSet);
-                table = dSet.Tables[0];
-
-                dAdapter.Dispose();
-                dSet.Dispose();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = query;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        table.Load(reader);
+                    }
+                }
             }
             return table;
         }
