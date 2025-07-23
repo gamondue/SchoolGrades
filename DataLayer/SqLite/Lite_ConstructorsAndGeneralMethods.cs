@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 using System.Diagnostics;
 using System.IO;
 
@@ -25,11 +25,16 @@ namespace SchoolGrades
         #endregion
         internal override DbConnection Connect()
         {
+            string ConnectionString = "Data Source=" + dbName + ";Mode=ReadWriteCreate";
             DbConnection connection;
             try
             {
-                connection = new SQLiteConnection("Data Source=" + dbName +
-                ";version=3;new=False;datetimeformat=CurrentCulture");
+                // connection string for System.Data.Sqlite
+                //connection = new SqliteConnection("Data Source=" + dbName +
+                //";version=3;new=False;datetimeformat=CurrentCulture");
+                
+                // connection string for Microsoft.Data.Sqlite
+                connection = new SqliteConnection(ConnectionString);
                 connection.Open();
             }
             catch (Exception ex)
@@ -219,7 +224,7 @@ namespace SchoolGrades
             {
                 string query = "SELECT *" +
                     " FROM " + TableName + " ";
-                cmd = new SQLiteCommand(query);
+                cmd = new SqliteCommand(query);
                 cmd.Connection = conn;
                 dRead = cmd.ExecuteReader();
                 int y = 0;
@@ -261,24 +266,20 @@ namespace SchoolGrades
         }
         internal override void BackupTableXml(string TableName)
         {
-            DataAdapter dAdapt;
-            DataSet dSet = new DataSet();
             DataTable t;
-            string query = "SELECT *" +
-                    " FROM " + TableName + ";";
-
+            string query = "SELECT * FROM " + TableName + ";";
             using (DbConnection conn = Connect())
             {
-                dAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                dSet = new DataSet("GetTable");
-                dAdapt.Fill(dSet);
-                t = dSet.Tables[0];
-
-                t.WriteXml(Path.Combine(Commons.PathDatabase, TableName + ".xml"),
-                    XmlWriteMode.WriteSchema);
-
-                dAdapt.Dispose();
-                dSet.Dispose();
+                using (DbCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = query;
+                    using (DbDataReader reader = cmd.ExecuteReader())
+                    {
+                        t = new DataTable("GetTable");
+                        t.Load(reader);
+                    }
+                }
+                t.WriteXml(Path.Combine(Commons.PathDatabase, TableName + ".xml"), XmlWriteMode.WriteSchema);
             }
         }
         internal override void RestoreTableTsv(string TableName, bool EraseBefore)
@@ -475,26 +476,23 @@ namespace SchoolGrades
         }
         internal override bool FieldExists(string TableName, string FieldName)
         {
-            // watch if field isPopUp exist in the database
-            DataTable table = new DataTable();
-            bool fieldExists;
+            // watch if field FieldName exist in the table TableName, by directly querying SQLite's system tables 
             using (DbConnection conn = Connect())
             {
-                table = conn.GetSchema("Columns", new string[] { null, null, TableName, null });
-                fieldExists = false;
-                foreach (DataRow row in table.Rows)
+                using (var cmd = conn.CreateCommand())
                 {
-                    foreach (DataColumn col in table.Columns)
+                    cmd.CommandText = $"PRAGMA table_info({TableName});";
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        if (row["COLUMN_NAME"].ToString() == FieldName)
+                        while (reader.Read())
                         {
-                            fieldExists = true;
-                            break;
+                            if (reader["name"].ToString() == FieldName)
+                                return true;
                         }
                     }
                 }
             }
-            return fieldExists;
+            return false;
         }
         internal override bool IsTableReadable(string Table)
         {

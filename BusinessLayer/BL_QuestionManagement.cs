@@ -52,7 +52,7 @@ namespace SchoolGrades
         {
             dl.SaveQuestion(currentQuestion);
         }
-        internal void FixQuestionInGrade(int currentIdGrade)
+        internal void FixQuestionInGrade(int? currentIdGrade)
         {
             dl.FixQuestionInGrade(currentIdGrade);
         }

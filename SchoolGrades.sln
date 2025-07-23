@@ -31,6 +31,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{FA626A45-E015-4891-A4AB-9EFF4E8B96B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolGrades_BlazorWasm", "SchoolGrades_BlazorWasm\SchoolGrades_BlazorWasm.csproj", "{9A4F9A42-5D7E-4DE2-B4B5-8CAACB8B63CA}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedBlazor", "SharedBlazor\SharedBlazor.shproj", "{0FDEFC60-0801-4E56-AEC4-3D69FEABB8A7}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TreeMpttBlazor", "TreeMpttBlazor\TreeMpttBlazor.shproj", "{1CE2D7E3-19BA-4F58-92B7-61FE2E2AC89E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +111,26 @@ Global
 		{D133FF76-DB7D-493D-8724-AA8EB4B1C527}.Release|x64.Build.0 = Release|Any CPU
 		{D133FF76-DB7D-493D-8724-AA8EB4B1C527}.Release|x86.ActiveCfg = Release|Any CPU
 		{D133FF76-DB7D-493D-8724-AA8EB4B1C527}.Release|x86.Build.0 = Release|Any CPU
+		{9A4F9A42-5D7E-4DE2-B4B5-8CAACB8B63CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A4F9A42-5D7E-4DE2-B4B5-8CAACB8B63CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A4F9A42-5D7E-4DE2-B4B5-8CAACB8B63CA}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{9A4F9A42-5D7E-4DE2-B4B5-8CAACB8B63CA}.Debug|ARM.Build.0 = Debug|Any CPU
+		{9A4F9A42-5D7E-4DE2-B4B5-8CAACB8B63CA}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{9A4F9A42-5D7E-4DE2-B4B5-8CAACB8B63CA}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{9A4F9A42-5D7E-4DE2-B4B5-8CAACB8B63CA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9A4F9A42-5D7E-4DE2-B4B5-8CAACB8B63CA}.Debug|x64.Build.0 = Debug|Any CPU
+		{9A4F9A42-5D7E-4DE2-B4B5-8CAACB8B63CA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9A4F9A42-5D7E-4DE2-B4B5-8CAACB8B63CA}.Debug|x86.Build.0 = Debug|Any CPU
+		{9A4F9A42-5D7E-4DE2-B4B5-8CAACB8B63CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A4F9A42-5D7E-4DE2-B4B5-8CAACB8B63CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A4F9A42-5D7E-4DE2-B4B5-8CAACB8B63CA}.Release|ARM.ActiveCfg = Release|Any CPU
+		{9A4F9A42-5D7E-4DE2-B4B5-8CAACB8B63CA}.Release|ARM.Build.0 = Release|Any CPU
+		{9A4F9A42-5D7E-4DE2-B4B5-8CAACB8B63CA}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{9A4F9A42-5D7E-4DE2-B4B5-8CAACB8B63CA}.Release|ARM64.Build.0 = Release|Any CPU
+		{9A4F9A42-5D7E-4DE2-B4B5-8CAACB8B63CA}.Release|x64.ActiveCfg = Release|Any CPU
+		{9A4F9A42-5D7E-4DE2-B4B5-8CAACB8B63CA}.Release|x64.Build.0 = Release|Any CPU
+		{9A4F9A42-5D7E-4DE2-B4B5-8CAACB8B63CA}.Release|x86.ActiveCfg = Release|Any CPU
+		{9A4F9A42-5D7E-4DE2-B4B5-8CAACB8B63CA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -117,6 +143,7 @@ Global
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		TreeMpttWpf\TreeMpttWpf.projitems*{0814c938-555c-47f1-ac21-4bb6754b9f89}*SharedItemsImports = 13
+		SharedBlazor\SharedBlazor.projitems*{0fdefc60-0801-4e56-aec4-3d69feabb8a7}*SharedItemsImports = 13
 		BusinessLayer\BusinessLayer.projitems*{14583d93-e4dd-4e30-8d6d-194727a795d3}*SharedItemsImports = 5
 		BusinessObjects\BusinessObjects.projitems*{14583d93-e4dd-4e30-8d6d-194727a795d3}*SharedItemsImports = 5
 		DataLayer\DataLayer.projitems*{14583d93-e4dd-4e30-8d6d-194727a795d3}*SharedItemsImports = 5
@@ -124,6 +151,7 @@ Global
 		SharedWinForms\SharedWinForms.projitems*{14583d93-e4dd-4e30-8d6d-194727a795d3}*SharedItemsImports = 5
 		TreeMpttManagement\MpttTreeManagement.projitems*{14583d93-e4dd-4e30-8d6d-194727a795d3}*SharedItemsImports = 5
 		TreeMpttWinForms\TreeMpttWinForms.projitems*{14583d93-e4dd-4e30-8d6d-194727a795d3}*SharedItemsImports = 5
+		TreeMpttBlazor\TreeMpttBlazor.projitems*{1ce2d7e3-19ba-4f58-92b7-61fe2e2ac89e}*SharedItemsImports = 13
 		DataLayer\DataLayer.projitems*{2447d414-6ddb-4193-bd6d-fd70165b57be}*SharedItemsImports = 13
 		BusinessLayer\BusinessLayer.projitems*{26e83547-d975-4667-9fc8-80f966b704c7}*SharedItemsImports = 5
 		BusinessObjects\BusinessObjects.projitems*{26e83547-d975-4667-9fc8-80f966b704c7}*SharedItemsImports = 5
@@ -134,6 +162,13 @@ Global
 		TreeMpttWpf\TreeMpttWpf.projitems*{26e83547-d975-4667-9fc8-80f966b704c7}*SharedItemsImports = 5
 		SharedWpf\SharedWpf.projitems*{44f49343-1a0f-4d62-bd7b-8b04467a8d17}*SharedItemsImports = 13
 		BusinessLayer\BusinessLayer.projitems*{737a759a-6c1f-4bd7-a682-390c8b018712}*SharedItemsImports = 13
+		BusinessLayer\BusinessLayer.projitems*{9a4f9a42-5d7e-4de2-b4b5-8caacb8b63ca}*SharedItemsImports = 5
+		BusinessObjects\BusinessObjects.projitems*{9a4f9a42-5d7e-4de2-b4b5-8caacb8b63ca}*SharedItemsImports = 5
+		DataLayer\DataLayer.projitems*{9a4f9a42-5d7e-4de2-b4b5-8caacb8b63ca}*SharedItemsImports = 5
+		SharedBlazor\SharedBlazor.projitems*{9a4f9a42-5d7e-4de2-b4b5-8caacb8b63ca}*SharedItemsImports = 5
+		SharedItems\SharedItems.projitems*{9a4f9a42-5d7e-4de2-b4b5-8caacb8b63ca}*SharedItemsImports = 5
+		TreeMpttBlazor\TreeMpttBlazor.projitems*{9a4f9a42-5d7e-4de2-b4b5-8caacb8b63ca}*SharedItemsImports = 5
+		TreeMpttManagement\MpttTreeManagement.projitems*{9a4f9a42-5d7e-4de2-b4b5-8caacb8b63ca}*SharedItemsImports = 5
 		SharedItems\SharedItems.projitems*{a5dc5853-0eb8-493e-804d-d596d841aa2d}*SharedItemsImports = 13
 		TreeMpttManagement\MpttTreeManagement.projitems*{aea6904a-a8b6-4602-8946-03df79cbbd30}*SharedItemsImports = 13
 		SharedWinForms\SharedWinForms.projitems*{bdb76e62-3474-4529-b85d-2ebe40c7befb}*SharedItemsImports = 13

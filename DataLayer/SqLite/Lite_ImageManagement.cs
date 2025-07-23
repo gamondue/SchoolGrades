@@ -33,7 +33,7 @@ namespace SchoolGrades
                 while (dRead.Read())
                 {
                     Image i = new Image();
-                    i.IdImage = (int)dRead["IdImage"];
+                    i.IdImage = Convert.ToInt32(dRead["IdImage"]);
                     i.Caption = (string)dRead["Caption"];
                     i.RelativePathAndFilename = (string)dRead["ImagePath"];
 
@@ -241,7 +241,7 @@ namespace SchoolGrades
                 dRead.Read(); // just one record ! 
                 if (!dRead.HasRows)
                     return null;
-                i.IdImage = (int)dRead["IdImage"];
+                i.IdImage = Convert.ToInt32(dRead["IdImage"]);
                 i.Caption = (string)dRead["Caption"];
                 i.RelativePathAndFilename = (string)dRead["ImagePath"];
                 cmd.Dispose();

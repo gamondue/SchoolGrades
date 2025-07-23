@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 using System.Diagnostics;
 using System.Xml.Linq;
 
@@ -67,7 +67,7 @@ namespace gamon.TreeMptt
             {
                 cmd.CommandText = "SELECT areLeftRightConsistent" +
                     " FROM Flags";
-                int consistent = (int)cmd.ExecuteScalar();
+                int consistent = Convert.ToInt32(cmd.ExecuteScalar());
                 CloseLocalConnectionIfWasFoundClosed();
                 //cmd.Dispose();
                 return consistent != 0;
@@ -113,7 +113,7 @@ namespace gamon.TreeMptt
                 " FROM Topics" +
                 " WHERE parentNode<=0" +
                 " ORDER BY childNumber;";
-            cmd = new SQLiteCommand(query);
+            cmd = new SqliteCommand(query);
             cmd.Connection = localDbConnection;
             DbDataReader dRead = cmd.ExecuteReader();
             while (dRead.Read())
@@ -135,7 +135,7 @@ namespace gamon.TreeMptt
                 " FROM Topics" +
                 " WHERE parentNode=" + ParentNode.Id +
                 " ORDER BY childNumber";
-            cmd = new SQLiteCommand(query);
+            cmd = new SqliteCommand(query);
             cmd.Connection = localDbConnection;
             DbDataReader dRead = cmd.ExecuteReader();
             while (dRead.Read())
@@ -163,7 +163,7 @@ namespace gamon.TreeMptt
                 " WHERE leftNode <=" + LeftNode +
                 " AND rightNode >=" + RightNode +
                 " ORDER BY LeftNode ASC;)";
-            cmd = new SQLiteCommand(query);
+            cmd = new SqliteCommand(query);
             cmd.Connection = localDbConnection;
             DbDataReader dRead = cmd.ExecuteReader();
             while (dRead.Read())
@@ -225,7 +225,7 @@ namespace gamon.TreeMptt
                 " WHERE leftNode BETWEEN " + LeftNode +
                 " AND " + RightNode +
                 " ORDER BY leftNode ASC;";
-            cmd = new SQLiteCommand(query);
+            cmd = new SqliteCommand(query);
             cmd.Connection = localDbConnection;
             DbDataReader dRead = cmd.ExecuteReader();
             while (dRead.Read())
@@ -247,7 +247,7 @@ namespace gamon.TreeMptt
             string query = "SELECT *" +
                 " FROM Topics" +
                 " ORDER BY parentNode ASC, childNumber ASC;";
-            cmd = new SQLiteCommand(query);
+            cmd = new SqliteCommand(query);
             cmd.Connection = localDbConnection;
             DbDataReader dRead = cmd.ExecuteReader();
             while (dRead.Read())

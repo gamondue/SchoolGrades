@@ -1,0 +1,6 @@
+Trasforma il progetto Blazor SchoolGrades_BlazorWasm per fare in modo che replichi identicamente il funzionamento del progetto Windows Forms "SchoolGrades.csproj". 
+Il progetto SchoolGrades_BlazorWasm farà tutte le stesse cose di SchoolGrades, ma con la tecnologia Blazor. 
+L'interfaccia utente del progetto Blazor deve essere simile od uguale a quella del progetto WindowsForms. 
+Il progetto deve utilizzare i progetti condivisi BusinessLayer, BusinessObjects, DataLayer e TreeMpttManagementSharedItems così come li utilizza il programma Windows Forms SchoolGrades.csproj.
+Il nuovo progetto Blazor deve creare i nuovi progetti condivisi SharedBlazor e TreeMpttBlazor e riempirli con gli stessi contenuti di SharedWinForms e TreeMpttWinForms (rispettivamente).
+Nel corso della creazione puoi modernizzare il codice.

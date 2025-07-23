@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 
 namespace SchoolGrades
 {
@@ -65,17 +65,19 @@ namespace SchoolGrades
                 " AND Grades.value IS NOT NULL AND Grades.value <> 0" +
                 " AND Grades.Timestamp BETWEEN " + SqlDate(DateFrom) + " AND " + SqlDate(DateTo) +
                 ")" +
-                " AND NOT Students.disabled";
+                " AND NOT disabled";
                 query += " AND Classes_Students.idClass=" + Class.IdClass;
                 query += ";";
-                DataAdapter DAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                DataSet DSet = new DataSet("ClosedMicroGrades");
-
-                DAdapt.Fill(DSet);
-                t = DSet.Tables[0];
-
-                DAdapt.Dispose();
-                DSet.Dispose();
+                
+                using (DbCommand queryCmd = conn.CreateCommand())
+                {
+                    queryCmd.CommandText = query;
+                    using (DbDataReader reader = queryCmd.ExecuteReader())
+                    {
+                        t = new DataTable("ClosedMicroGrades");
+                        t.Load(reader);
+                    }
+                }
             }
             return t;
         }
@@ -292,7 +294,7 @@ namespace SchoolGrades
             Student s = new Student();
             if (Row != null)
             {
-                s.IdStudent = (int)Row["IdStudent"];
+                s.IdStudent = Convert.ToInt32(Row["IdStudent"]);
                 s.LastName = Safe.String(Row["LastName"]);
                 s.FirstName = Safe.String(Row["FirstName"]);
                 s.City = Safe.String(Row["city"]);
@@ -331,7 +333,7 @@ namespace SchoolGrades
                     " ORDER BY LastName, Students.IdStudent, Students.birthDate, FirstName, SchoolYear" +
                     ";";
                 DbCommand cmd = conn.CreateCommand();
-                cmd = new SQLiteCommand(query);
+                cmd = new SqliteCommand(query);
                 cmd.Connection = conn;
                 DbDataReader dRead = cmd.ExecuteReader();
                 while (dRead.Read())
@@ -354,8 +356,6 @@ namespace SchoolGrades
             List<Student> t = new();
             using (DbConnection conn = Connect())
             {
-                DataAdapter dAdapt;
-                DataSet dSet = new DataSet();
                 string query = "SELECT Classes.abbreviation AS ClassAbbreviation,Classes.idSchoolYear AS SchoolYear" +
                     ",Students.*" +
                     " FROM Students" +
@@ -387,7 +387,7 @@ namespace SchoolGrades
                         ",Students.birthDate,SchoolYear";
                 query += ";";
                 DbCommand cmd = conn.CreateCommand();
-                cmd = new SQLiteCommand(query);
+                cmd = new SqliteCommand(query);
                 cmd.Connection = conn;
                 DbDataReader dRead = cmd.ExecuteReader();
                 while (dRead.Read())
@@ -399,13 +399,6 @@ namespace SchoolGrades
                 }
                 dRead.Dispose();
                 cmd.Dispose();
-                //dAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                //dSet = new DataSet("GetStudentsSameName");
-                //dAdapt.Fill(dSet);
-                //t = dSet.Tables[0];
-
-                //dSet.Dispose();
-                //dAdapt.Dispose();
             }
             return t;
         }
@@ -501,7 +494,7 @@ namespace SchoolGrades
                 Student s = GetStudentFromRow(dRead);
                 // add info gathered from other tables
                 s.ClassAbbreviation = (string)dRead["abbreviation"];
-                s.IdClass = (int)dRead["idClass"];
+                s.IdClass = Convert.ToInt32(dRead["idClass"]);
                 s.RegisterNumber = Safe.String(dRead["registerNumber"]);
                 s.Disabled = Safe.Bool(dRead["disabled"]);
                 ls.Add(s);

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 
 namespace SchoolGrades
 {
@@ -102,8 +102,6 @@ namespace SchoolGrades
             DataTable t;
             using (DbConnection conn = Connect())
             {
-                DataAdapter dAdapt;
-                DataSet dSet = new DataSet();
                 string query = "SELECT * FROM Lessons" +
                     " WHERE idSchoolSubject='" + Lesson.IdSchoolSubject + "'" +
                     " AND Lessons.idSchoolYear='" + Lesson.IdSchoolYear + "'" +
@@ -111,13 +109,15 @@ namespace SchoolGrades
                     //" GROUP BY Lessons.idLesson" +
                     " ORDER BY Lessons.date DESC" +
                     ";";
-                dAdapt = new SQLiteDataAdapter(query, (SQLiteConnection)conn);
-                dSet = new DataSet("GetLessonsOfClass");
-                dAdapt.Fill(dSet);
-                t = dSet.Tables[0];
-
-                dAdapt.Dispose();
-                dSet.Dispose();
+                using (DbCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = query;
+                    using (DbDataReader reader = cmd.ExecuteReader())
+                    {
+                        t = new DataTable("GetLessonsOfClass");
+                        t.Load(reader);
+                    }
+                }
             }
             return t;
         }
@@ -337,7 +337,7 @@ namespace SchoolGrades
                 while (dRead.Read())
                 {
                     Image i = new Image();
-                    i.IdImage = (int)dRead["IdImage"];
+                    i.IdImage = Convert.ToInt32(dRead["IdImage"]);
                     i.Caption = (string)dRead["Caption"];
                     i.RelativePathAndFilename = (string)dRead["ImagePath"];
 
@@ -416,7 +416,7 @@ namespace SchoolGrades
                     query += " AND Lessons.date BETWEEN " +
                     SqlDate(DateStart) + " AND " + SqlDate(DateFinish);
                 query += " ORDER BY Lessons.date ASC;";
-                DbCommand cmd = new SQLiteCommand(query);
+                DbCommand cmd = new SqliteCommand(query);
                 cmd.Connection = conn;
                 DbDataReader dRead = cmd.ExecuteReader();
                 while (dRead.Read())

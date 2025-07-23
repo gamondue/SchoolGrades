@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 using System.Text;
 
 namespace SchoolGrades
@@ -69,7 +69,7 @@ namespace SchoolGrades
             {
                 query = "SELECT * FROM SchoolSubjects" +
                     " WHERE IdSchoolSubject='" + IdSchoolSubject + "'";
-                cmd = new SQLiteCommand(query);
+                cmd = new SqliteCommand(query);
                 cmd.Connection = conn;
                 dRead = cmd.ExecuteReader();
                 while (dRead.Read()) // just the first row 
@@ -105,7 +105,7 @@ namespace SchoolGrades
                 {
                     query = "SELECT * FROM SchoolSubjects" +
                         " ORDER BY orderOfVisualization, name";
-                    cmd = new SQLiteCommand(query);
+                    cmd = new SqliteCommand(query);
                     cmd.Connection = conn;
                     dRead = cmd.ExecuteReader();
                     while (dRead.Read())
@@ -124,7 +124,7 @@ namespace SchoolGrades
                 catch
                 {   // if database is old, dont use orderOfVisualization
                     query = "SELECT * FROM SchoolSubjects;";
-                    cmd = new SQLiteCommand(query);
+                    cmd = new SqliteCommand(query);
                     cmd.Connection = conn;
                     dRead = cmd.ExecuteReader();
                     while (dRead.Read())

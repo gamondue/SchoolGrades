@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 
 namespace SchoolGrades
 {
@@ -73,7 +73,7 @@ namespace SchoolGrades
                 string query = "SELECT *" +
                     " FROM Topics" +
                     " WHERE idTopic=" + idTopic;
-                cmd = new SQLiteCommand(query);
+                cmd = new SqliteCommand(query);
                 cmd.Connection = conn;
                 DbDataReader dRead = cmd.ExecuteReader();
                 while (dRead.Read())
@@ -94,7 +94,7 @@ namespace SchoolGrades
                 string query = "SELECT *" +
                     " FROM Topics" +
                     " ORDER BY IdTopic;";
-                cmd = new SQLiteCommand(query);
+                cmd = new SqliteCommand(query);
                 cmd.Connection = conn;
                 DbDataReader dRead = cmd.ExecuteReader();
                 while (dRead.Read())
@@ -144,7 +144,7 @@ namespace SchoolGrades
                 if (Subject != null)
                     query += " AND Lessons.idSchoolSubject ='" + Subject.IdSchoolSubject + "'";
                 query += " ORDER BY leftNode ASC;";
-                cmd = new SQLiteCommand(query);
+                cmd = new SqliteCommand(query);
                 cmd.Connection = conn;
                 DbDataReader dRead = cmd.ExecuteReader();
                 while (dRead.Read())
@@ -187,7 +187,7 @@ namespace SchoolGrades
                     " AND " + StartTopic.RightNodeOld +
                     " AND Topics.idTopic NOT IN (" + queryDone + ")";
                 queryNotDone += " ORDER BY leftNode ASC;";
-                cmd = new SQLiteCommand(queryNotDone);
+                cmd = new SqliteCommand(queryNotDone);
                 cmd.Connection = conn;
                 DbDataReader dRead = cmd.ExecuteReader();
                 while (dRead.Read())
@@ -221,7 +221,7 @@ namespace SchoolGrades
                     query += " AND Lessons.date BETWEEN " +
                     SqlDate(DateStart) + " AND " + SqlDate(DateFinish);
                 query += " ORDER BY Lessons.date ASC;";
-                cmd = new SQLiteCommand(query);
+                cmd = new SqliteCommand(query);
                 cmd.Connection = conn;
                 DbDataReader dRead = cmd.ExecuteReader();
                 while (dRead.Read())
@@ -257,13 +257,13 @@ namespace SchoolGrades
                 }
                 query += " ORDER BY Lessons.date DESC" +
                 ";";
-                cmd = new SQLiteCommand(query);
+                cmd = new SqliteCommand(query);
                 cmd.Connection = conn;
                 DbDataReader dRead = cmd.ExecuteReader();
                 while (dRead.Read())
                 {
                     Topic t = GetTopicFromRow(dRead);
-                    t.Id = (int)dRead["IdTopic"];
+                    t.Id = Convert.ToInt32(dRead["IdTopic"]);
                     t.Name = (string)dRead["name"];
                     t.Desc = Safe.String(dRead["desc"]);
                     //t.LeftNodeNew = -1;
@@ -277,7 +277,7 @@ namespace SchoolGrades
                         " WHERE leftNode <=" + t.LeftNodeOld +
                         " AND rightNode >=" + t.RightNodeOld +
                         " ORDER BY leftNode ASC;)";
-                    cmd = new SQLiteCommand(query);
+                    cmd = new SqliteCommand(query);
                     cmd.Connection = conn;
                     DbDataReader dRead1 = cmd.ExecuteReader();
                     string path = "";
@@ -377,7 +377,7 @@ namespace SchoolGrades
                 string query = "SELECT *" +
                     " FROM Topics" +
                     " ORDER BY parentNode ASC, childNumber ASC;";
-                cmd = new SQLiteCommand(query);
+                cmd = new SqliteCommand(query);
                 cmd.Connection = conn;
                 DbDataReader dRead = cmd.ExecuteReader();
                 while (dRead.Read())

@@ -12,7 +12,7 @@ namespace SchoolGrades
         private Student currentStudent;
         private SchoolSubject currentSubject;
         private string currentIdSchoolYear;
-        private int currentIdGrade;
+        private int? currentIdGrade;
 
         bool isLoading = true;
 
@@ -54,7 +54,7 @@ namespace SchoolGrades
             {
                 DataGridViewRow r = dgwQuestions.Rows[e.RowIndex];
                 txtQuestionText.Text = (string)r.Cells["Text"].Value;
-                currentIdGrade = (int)r.Cells["IdQuestion"].Value;
+                currentIdGrade = Safe.Int(r.Cells["IdQuestion"].Value);
             }
         }
         private void DgwQuestions_CellClick(object sender, DataGridViewCellEventArgs e)

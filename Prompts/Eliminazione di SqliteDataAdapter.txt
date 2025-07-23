@@ -1,0 +1,3 @@
+Qualcosa non ha funzionato nel rimedio all'errore su SqliteDataAdapterì. Ho modificato alcune parti, commentando quelle in  cui non devi intervenire. 
+SqliteDataAdapter permane in diversi punti del codice, rimuovilo con la soluzione che avevi applicato precedentemente (caricamento diretto della tabella con .Load()). 
+Rimuovi SqliteDataAdapter solo nei file Lite_ClassManagement.cs, Lite_LessonManagement.cs, Lite_StudentManagement.cs.

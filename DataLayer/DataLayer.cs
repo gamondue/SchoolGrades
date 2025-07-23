@@ -351,7 +351,6 @@ namespace SchoolGrades
                 internalConnection.Dispose();
                 internalDataSet.Clear();
                 internalDataSet.Dispose();
-                internalDataAdapter.Dispose();
             }
         }
         internal abstract void SaveTableOnCsv(DataTable Table, string FileName);
