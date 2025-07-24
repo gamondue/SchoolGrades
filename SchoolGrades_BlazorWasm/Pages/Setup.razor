@@ -1,0 +1,836 @@
+@page "/setup"
+@page "/"
+@inject IJSRuntime JSRuntime
+@inject NavigationManager Navigation
+
+<PageTitle>SchoolGrades - Setup</PageTitle>
+
+<div class="setup-container">
+    <!-- Header -->
+    <div class="setup-header">
+        <h2><i class="fas fa-cog"></i> Setup - SchoolGrades</h2>
+        <p>Configurazione del sistema SchoolGrades</p>
+    </div>
+
+    <!-- Sezione bottoni di gestione -->
+    <div class="management-buttons">
+        <div class="button-row">
+            <button class="btn btn-management" @onclick="OpenClassesManagement" title="Creazione e modifica delle classi">
+                <i class="fas fa-users"></i>
+                Gestione classi
+            </button>
+            
+            <button class="btn btn-management" @onclick="OpenBackupManagement" title="Generazione di file e salvataggi di backup">
+                <i class="fas fa-save"></i>
+                Backup e gen.file
+            </button>
+            
+            <button class="btn btn-management" @onclick="OpenStudentsManagement" title="Gestione degli studenti">
+                <i class="fas fa-user-graduate"></i>
+                Gestione studenti
+            </button>
+            
+            <button class="btn btn-management" @onclick="OpenTopicsManagement" title="Gestione dell'albero degli argomenti">
+                <i class="fas fa-sitemap"></i>
+                Gestione argomenti
+            </button>
+            
+            <button class="btn btn-management" @onclick="OpenTagsManagement" title="Gestione dei tag associati agli argomenti">
+                <i class="fas fa-tags"></i>
+                Gestione tag
+            </button>
+        </div>
+        
+        <div class="button-row">
+            <button class="btn btn-management" @onclick="OpenStartLinksManagement" title="Gestione di link e programmi lanciati all'apertura di una classe">
+                <i class="fas fa-external-link-alt"></i>
+                Gestione start links
+            </button>
+            
+            <button class="btn btn-management" @onclick="OpenSchoolSubjectManagement" title="Gestione delle materie scolastiche">
+                <i class="fas fa-book"></i>
+                Gestione materie
+            </button>
+            
+            <button class="btn btn-management" @onclick="OpenSchoolPeriodsManagement" title="Gestione periodi scolastici (trimestri, quadrimestri..)">
+                <i class="fas fa-calendar"></i>
+                Gestione periodi
+            </button>
+            
+            <button class="btn btn-management" @onclick="OpenRecoverTopics" title="Confronto fra versioni dell'albero degli argomenti">
+                <i class="fas fa-redo"></i>
+                Recover argomenti
+            </button>
+            
+            <button class="btn btn-management" @onclick="OpenUsersManagement" title="Gestione utenti" disabled="@(!usersManagementEnabled)">
+                <i class="fas fa-user-shield"></i>
+                Gestione Utenti
+            </button>
+        </div>
+        
+        <div class="button-row">
+            <button class="btn btn-management" @onclick="OpenQuestionManagement" title="Gestione delle domande" disabled="@(!questionManagementEnabled)">
+                <i class="fas fa-question-circle"></i>
+                Gestione domande
+            </button>
+            
+            <button class="btn btn-management" @onclick="OpenTestManagement" title="Gestione dei test" disabled="@(!testManagementEnabled)">
+                <i class="fas fa-clipboard-check"></i>
+                Gestione prove
+            </button>
+            
+            <button class="btn btn-management" @onclick="OpenTablesManagement" title="Modifiche delle tabelle dei dati fissi">
+                <i class="fas fa-table"></i>
+                Gestione tabelle
+            </button>
+        </div>
+    </div>
+
+    <!-- Sezione configurazione percorsi -->
+    <div class="configuration-section">
+        <h3><i class="fas fa-folder"></i> Configurazione Percorsi</h3>
+        
+        <div class="config-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="pathDatabase">Cartella dei dati</label>
+                    <div class="input-group">
+                        <input type="text" @bind="pathDatabase" @bind:after="OnPathDatabaseChanged" @ondblclick="() => OpenPath(pathDatabase)" class="form-control" id="pathDatabase" />
+                        <button class="btn btn-browse" @onclick="BrowsePathDatabase" title="Seleziona cartella">
+                            ..
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group file-group">
+                    <label for="fileDatabase">File dei dati</label>
+                    <div class="input-group">
+                        <input type="text" @bind="fileDatabase" @bind:after="OnFileDatabaseChanged" @ondblclick="() => OpenDatabaseFile()" class="form-control" id="fileDatabase" />
+                        <button class="btn btn-browse" @onclick="BrowseFileDatabase" title="Seleziona file database">
+                            ..
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="form-group checkbox-group">
+                    <label>
+                        <input type="checkbox" @bind="saveBackupWhenExiting" />
+                        Salva database alla chiusura
+                    </label>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="pathImages">Cartella delle immagini</label>
+                    <div class="input-group">
+                        <input type="text" @bind="pathImages" @bind:after="OnPathImagesChanged" @ondblclick="() => OpenPath(pathImages)" class="form-control" id="pathImages" />
+                        <button class="btn btn-browse" @onclick="BrowsePathImages" title="Seleziona cartella immagini">
+                            ..
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="pathDocuments">Cartella dei documenti</label>
+                    <div class="input-group">
+                        <input type="text" @bind="pathDocuments" @bind:after="OnPathDocumentsChanged" @ondblclick="() => OpenPath(pathDocuments)" class="form-control" id="pathDocuments" />
+                        <button class="btn btn-browse" @onclick="BrowsePathDocuments" title="Seleziona cartella documenti">
+                            ..
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-row checkbox-row">
+                <div class="form-group checkbox-group">
+                    <label>
+                        <input type="checkbox" @bind="askPassword" disabled />
+                        Chiedi la password
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sezione bottoni di controllo -->
+    <div class="control-buttons">
+        <div class="main-controls">
+            <button class="btn btn-primary btn-large" @onclick="SaveConfiguration" title="Salva la configurazione corrente">
+                <i class="fas fa-save"></i>
+                Salva config.
+            </button>
+            
+            <button class="btn btn-info btn-large" @onclick="OpenConfigurationFolder" title="Apri la cartella di configurazione">
+                <i class="fas fa-folder-open"></i>
+                Cartella config.
+            </button>
+            
+            <button class="btn btn-warning btn-large" @onclick="EraseConfigurationFile" title="Elimina il file di configurazione">
+                <i class="fas fa-trash"></i>
+                Cancella config.
+            </button>
+        </div>
+        
+        <div class="secondary-controls">
+            <button class="btn btn-secondary" @onclick="UseDemo" style="display: none;" title="Usa database demo">
+                <i class="fas fa-play"></i>
+                Usa demo
+            </button>
+            
+            <button class="btn btn-danger btn-reset" @onclick="ResetDatabase" title="ATTENZIONE: Cancella tutto il database">
+                <i class="fas fa-exclamation-triangle"></i>
+                Reset database
+            </button>
+        </div>
+    </div>
+
+    <!-- Sezione accesso al programma principale -->
+    @if (isConfigurationValid)
+    {
+        <div class="access-section">
+            <hr />
+            <h3><i class="fas fa-door-open"></i> Accesso al Programma</h3>
+            <p>La configurazione è valida. Puoi accedere al programma principale.</p>
+            <button class="btn btn-success btn-large btn-access" @onclick="AccessMain">
+                <i class="fas fa-arrow-right"></i>
+                Accedi al Programma Principale
+            </button>
+        </div>
+    }
+    else
+    {
+        <div class="warning-section">
+            <hr />
+            <div class="alert alert-warning">
+                <i class="fas fa-exclamation-triangle"></i>
+                <strong>Configurazione incompleta!</strong>
+                <p>Completa la configurazione dei percorsi e salva prima di accedere al programma principale.</p>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    // Configurazione percorsi
+    private string pathDatabase = "";
+    private string fileDatabase = "";
+    private string pathImages = "";
+    private string pathDocuments = "";
+    
+    // Opzioni
+    private bool saveBackupWhenExiting = false;
+    private bool askPassword = false;
+    
+    // Stato funzionalità
+    private bool usersManagementEnabled = false;
+    private bool questionManagementEnabled = false;
+    private bool testManagementEnabled = false;
+    
+    // Stato configurazione
+    private bool isConfigurationValid = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadCurrentConfiguration();
+        await JSRuntime.InvokeVoidAsync("alert", $"pathDatabase: {pathDatabase}\nfileDatabase: {fileDatabase}\npathImages: {pathImages}\npathDocuments: {pathDocuments}\nValid: {isConfigurationValid}");
+    }
+
+    private async Task LoadCurrentConfiguration()
+    {
+        try
+        {
+            // Carica configurazione corrente da Commons
+            pathDatabase = Commons.PathDatabase ?? "";
+            fileDatabase = !string.IsNullOrEmpty(Commons.PathAndFileDatabase) ? 
+                Path.GetFileName(Commons.PathAndFileDatabase) : "";
+            pathImages = Commons.PathImages ?? "";
+            pathDocuments = Commons.PathDocuments ?? "";
+            saveBackupWhenExiting = Commons.SaveBackupWhenExiting;
+            
+            ValidateConfiguration();
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Errore nel caricamento configurazione: {ex.Message}");
+        }
+    }
+
+    private void ValidateConfiguration()
+    {
+        // Utilizza il metodo di Commons per validare la configurazione
+        isConfigurationValid = Commons.IsConfigurationValid() && 
+                              !string.IsNullOrEmpty(pathDatabase) && 
+                              !string.IsNullOrEmpty(fileDatabase) &&
+                              !string.IsNullOrEmpty(pathImages) &&
+                              !string.IsNullOrEmpty(pathDocuments);
+    }
+
+    private async Task SaveConfiguration()
+    {
+        try
+        {
+            // Conferma salvataggio
+            if (!await JSRuntime.InvokeAsync<bool>("confirm", 
+                "Salvare la configurazione? Il programma verrà riavviato."))
+            {
+                return;
+            }
+
+            // Utilizza il nuovo metodo di Commons per scrivere la configurazione
+            await Task.Run(() => Commons.WriteConfigDataBlazor(
+                pathDatabase, fileDatabase, pathImages, pathDocuments, saveBackupWhenExiting));
+            
+            await JSRuntime.InvokeVoidAsync("alert", 
+                $"File di configurazione salvato in {Commons.PathAndFileConfig}\n\nIl programma verrà riavviato.");
+
+            // Reload della pagina per applicare la nuova configurazione
+            Navigation.NavigateTo("/", true);
+        }
+        catch (Exception ex)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", $"Errore nel salvataggio: {ex.Message}");
+            Console.WriteLine($"Errore nel salvataggio configurazione: {ex.Message}");
+        }
+    }
+
+    private async Task WriteConfigFile()
+    {
+        // Questo metodo ora non è necessario perché usiamo Commons.WriteConfigDataBlazor
+        // Mantenuto per compatibilità ma delegato al metodo di Commons
+        await Task.Run(() => Commons.WriteConfigDataBlazor(
+            pathDatabase, fileDatabase, pathImages, pathDocuments, saveBackupWhenExiting));
+    }
+
+    private async Task EraseConfigurationFile()
+    {
+        if (await JSRuntime.InvokeAsync<bool>("confirm", 
+            "Sei sicuro di voler eliminare il file di configurazione? Il programma verrà chiuso."))
+        {
+            try
+            {
+                await Task.Run(() => File.Delete(Commons.PathAndFileConfig));
+                await JSRuntime.InvokeVoidAsync("alert", "File di configurazione eliminato.");
+                Navigation.NavigateTo("/", true);
+            }
+            catch (Exception ex)
+            {
+                await JSRuntime.InvokeVoidAsync("alert", $"Errore nell'eliminazione: {ex.Message}");
+            }
+        }
+    }
+
+    private async Task ResetDatabase()
+    {
+        if (await JSRuntime.InvokeAsync<bool>("confirm", 
+            "ATTENZIONE: devo cancellare TUTTO il database?\n(Tutti i dati verranno persi!)"))
+        {
+            try
+            {
+                await Task.Run(() => Commons.bl.PurgeDatabase());
+                await JSRuntime.InvokeVoidAsync("alert", "Database resettato con successo.");
+            }
+            catch (Exception ex)
+            {
+                await JSRuntime.InvokeVoidAsync("alert", $"Errore nel reset del database: {ex.Message}");
+            }
+        }
+    }
+
+    // Browse methods (in WebAssembly these will show alerts since file system access is limited)
+    private async Task BrowsePathDatabase()
+    {
+        await JSRuntime.InvokeVoidAsync("alert", 
+            "Selezione cartelle non disponibile in WebAssembly. Inserire il percorso manualmente.");
+    }
+
+    private async Task BrowseFileDatabase()
+    {
+        await JSRuntime.InvokeVoidAsync("alert", 
+            "Selezione file non disponibile in WebAssembly. Inserire il nome file manualmente.");
+    }
+
+    private async Task BrowsePathImages()
+    {
+        await JSRuntime.InvokeVoidAsync("alert", 
+            "Selezione cartelle non disponibile in WebAssembly. Inserire il percorso manualmente.");
+    }
+
+    private async Task BrowsePathDocuments()
+    {
+        await JSRuntime.InvokeVoidAsync("alert", 
+            "Selezione cartelle non disponibile in WebAssembly. Inserire il percorso manualmente.");
+    }
+
+    // Path opening methods
+    private async Task OpenPath(string path)
+    {
+        if (!string.IsNullOrEmpty(path))
+        {
+            await JSRuntime.InvokeVoidAsync("open", path, "_blank");
+        }
+    }
+
+    private async Task OpenDatabaseFile()
+    {
+        if (!string.IsNullOrEmpty(pathDatabase) && !string.IsNullOrEmpty(fileDatabase))
+        {
+            string fullPath = Path.Combine(pathDatabase, fileDatabase);
+            await JSRuntime.InvokeVoidAsync("open", fullPath, "_blank");
+        }
+    }
+
+    private async Task OpenConfigurationFolder()
+    {
+        await JSRuntime.InvokeVoidAsync("open", Commons.PathConfig, "_blank");
+    }
+
+    // Management methods - these will navigate to respective pages (not implemented yet)
+    private void OpenClassesManagement()
+    {
+        Navigation.NavigateTo("/classes-management");
+    }
+
+    private void OpenBackupManagement()
+    {
+        Navigation.NavigateTo("/backup-management");
+    }
+
+    private void OpenStudentsManagement()
+    {
+        Navigation.NavigateTo("/students-management");
+    }
+
+    private void OpenTopicsManagement()
+    {
+        Navigation.NavigateTo("/topics-management");
+    }
+
+    private void OpenTagsManagement()
+    {
+        Navigation.NavigateTo("/tags-management");
+    }
+
+    private void OpenStartLinksManagement()
+    {
+        Navigation.NavigateTo("/start-links-management");
+    }
+
+    private void OpenSchoolSubjectManagement()
+    {
+        Navigation.NavigateTo("/school-subject-management");
+    }
+
+    private void OpenSchoolPeriodsManagement()
+    {
+        Navigation.NavigateTo("/school-periods-management");
+    }
+
+    private void OpenRecoverTopics()
+    {
+        Navigation.NavigateTo("/recover-topics");
+    }
+
+    private void OpenUsersManagement()
+    {
+        Navigation.NavigateTo("/users-management");
+    }
+
+    private void OpenQuestionManagement()
+    {
+        Navigation.NavigateTo("/question-management");
+    }
+
+    private void OpenTestManagement()
+    {
+        Navigation.NavigateTo("/test-management");
+    }
+
+    private void OpenTablesManagement()
+    {
+        Navigation.NavigateTo("/tables-management");
+    }
+
+    private void UseDemo()
+    {
+        // Implementation for demo database
+    }
+
+    private void AccessMain()
+    {
+        if (isConfigurationValid)
+        {
+            Navigation.NavigateTo("/main");
+        }
+    }
+
+    // Aggiungi eventi per validare quando cambiano i percorsi
+    private void OnPathDatabaseChanged()
+    {
+        ValidateConfiguration();
+        StateHasChanged();
+    }
+
+    private void OnFileDatabaseChanged()
+    {
+        ValidateConfiguration();
+        StateHasChanged();
+    }
+
+    private void OnPathImagesChanged()
+    {
+        ValidateConfiguration();
+        StateHasChanged();
+    }
+
+    private void OnPathDocumentsChanged()
+    {
+        ValidateConfiguration();
+        StateHasChanged();
+    }
+
+    // Validation on input changes
+    private void OnPathChanged()
+    {
+        ValidateConfiguration();
+        StateHasChanged();
+    }
+}
+
+<style>
+    .setup-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #B0E0E6; /* PowderBlue come nel form originale */
+        min-height: 100vh;
+        font-family: 'Microsoft Sans Serif', sans-serif;
+        color: #000080; /* DarkBlue come nel form originale */
+    }
+
+    .setup-header {
+        text-align: center;
+        margin-bottom: 30px;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .setup-header h2 {
+        margin: 0 0 10px 0;
+        color: #000080;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .setup-header p {
+        margin: 0;
+        color: #666;
+        font-size: 14px;
+    }
+
+    .management-buttons {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        margin-bottom: 20px;
+    }
+
+    .button-row {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+    }
+
+    .btn-management {
+        width: 82px;
+        height: 60px;
+        padding: 8px;
+        border: 1px solid #000080;
+        background: transparent;
+        color: #000080;
+        font-size: 11px;
+        font-weight: bold;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        line-height: 1.2;
+    }
+
+    .btn-management i {
+        font-size: 16px;
+        margin-bottom: 4px;
+    }
+
+    .btn-management:hover:not(:disabled) {
+        background: #E6F3FF;
+        transform: translateY(-1px);
+    }
+
+    .btn-management:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .configuration-section {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        margin-bottom: 20px;
+    }
+
+    .configuration-section h3 {
+        margin: 0 0 20px 0;
+        color: #000080;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .config-form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .form-row {
+        display: flex;
+        gap: 20px;
+        align-items: flex-end;
+    }
+
+    .form-row.checkbox-row {
+        align-items: center;
+    }
+
+    .form-group {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .form-group.file-group {
+        flex: 2;
+    }
+
+    .form-group.checkbox-group {
+        flex: auto;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .form-group label {
+        font-size: 11pt;
+        font-weight: bold;
+        color: #000080;
+    }
+
+    .input-group {
+        display: flex;
+        gap: 5px;
+    }
+
+    .form-control {
+        flex: 1;
+        padding: 8px 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 11pt;
+        background: white;
+        color: #000;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: #000080;
+        box-shadow: 0 0 3px rgba(0,0,128,0.3);
+    }
+
+    .btn-browse {
+        width: 54px;
+        height: 40px;
+        padding: 0;
+        border: 1px solid #000080;
+        background: transparent;
+        color: #000080;
+        font-size: 12pt;
+        font-weight: bold;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn-browse:hover {
+        background: #E6F3FF;
+    }
+
+    .control-buttons {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        margin-bottom: 20px;
+    }
+
+    .main-controls {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 15px;
+        justify-content: center;
+    }
+
+    .secondary-controls {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+    }
+
+    .btn-large {
+        padding: 12px 20px;
+        font-size: 11pt;
+        font-weight: bold;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-primary {
+        background: #007bff;
+        color: white;
+        border: 1px solid #007bff;
+    }
+
+    .btn-info {
+        background: #17a2b8;
+        color: white;
+        border: 1px solid #17a2b8;
+    }
+
+    .btn-warning {
+        background: #ffc107;
+        color: #212529;
+        border: 1px solid #ffc107;
+    }
+
+    .btn-secondary {
+        background: #6c757d;
+        color: white;
+        border: 1px solid #6c757d;
+    }
+
+    .btn-danger {
+        background: #dc3545;
+        color: white;
+        border: 1px solid #dc3545;
+    }
+
+    .btn-reset {
+        background: red;
+        color: yellow;
+        font-weight: bold;
+    }
+
+    .btn-success {
+        background: #28a745;
+        color: white;
+        border: 1px solid #28a745;
+    }
+
+    .btn-access {
+        font-size: 16px;
+        padding: 15px 30px;
+    }
+
+    .btn-large:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .access-section {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+
+    .access-section h3 {
+        margin: 0 0 15px 0;
+        color: #28a745;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .warning-section {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .alert {
+        padding: 15px;
+        border-radius: 4px;
+        border: 1px solid;
+    }
+
+    .alert-warning {
+        background-color: #fff3cd;
+        border-color: #ffeaa7;
+        color: #856404;
+    }
+
+    .alert i {
+        margin-right: 8px;
+    }
+
+    .alert strong {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .alert p {
+        margin: 0;
+    }
+
+    hr {
+        border: 0;
+        height: 1px;
+        background: #ddd;
+        margin: 20px 0;
+    }
+
+    /* Responsive design */
+    @@media (max-width: 768px) {
+        .button-row {
+            justify-content: center;
+        }
+        
+        .form-row {
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .main-controls, .secondary-controls {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+</style>
