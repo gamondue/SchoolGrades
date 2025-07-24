@@ -1,0 +1,7 @@
+Modifica il progetto Blazor esistente (SchoolGrades_BlazorWasm.csproj) per aggiungere una pagina Setup, che svolga funzioni identiche al Form frmSetup del progetto Windows Forms "SchoolGrades.csproj".
+Il funzinamento della pagina Blazor dovrà essere identico a quello di frmSetup, con interfaccia utente simile od uguale a quella del progetto WindowsForms.
+La nuova pagina Blazor "Setup" dovrà diventare la pagina di partenza del programma Blazor SchoolGrades_BlazorWasm.
+Per l'apertura di altre pagine, che per esempio corrisponde ai bottoni della UI, dovrà essere realizata la chiamata, ma NON dovranno essere generate le pagine. Pertanto, quando si clicheranno i bottoni delle nuova paginail programma darà errore.  
+La nuova pagina deve utilizzare i progetti condivisi BusinessLayer, BusinessObjects, DataLayer e TreeMpttManagementSharedItems, SENZA MODIFICARLI. 
+Non si devono modificare i progetti non condivisi SchoolGrades.csproj e SchoolGrades_WPF.csproj.
+Se serve, i progetti condivisi SharedBlazor e TreeMpttBlazor devono essere modificati per far funzionare la nuova pagina con Blazor.

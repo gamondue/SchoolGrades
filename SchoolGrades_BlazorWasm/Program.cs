@@ -29,23 +29,37 @@ static async Task InitializeCommonsAsync()
         // Inizializzazione dei percorsi di Commons
         Commons.CreatePaths();
         
-        // Leggi configurazione
-        if (!Commons.ReadConfigData())
+        // Prova a leggere la configurazione - se non esiste, Setup gestirà la configurazione iniziale
+        try
         {
-            // Se non esiste configurazione, usa valori di default
-            Commons.DatabaseFileName_Current = Commons.DatabaseFileName_Teacher;
-            Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
+            Commons.ReadConfigData();
+        }
+        catch
+        {
+            // Se la configurazione non esiste o è invalida, Setup permetterà di configurarla
+            Console.WriteLine("Configurazione non trovata o invalida. Sarà gestita dalla pagina Setup.");
         }
         
-        // Inizializza BusinessLayer
-        Commons.bl = new BusinessLayer();
-        
-        // Inizializza il thread di salvataggio in background
-        Commons.CreateAndStartBackgroundSavingThread();
+        // Inizializza BusinessLayer solo se la configurazione è valida
+        try
+        {
+            Commons.bl = new BusinessLayer();
+            
+            // Inizializza il thread di salvataggio in background solo se il database è configurato
+            if (!string.IsNullOrEmpty(Commons.PathAndFileDatabase) && File.Exists(Commons.PathAndFileDatabase))
+            {
+                Commons.CreateAndStartBackgroundSavingThread();
+            }
+        }
+        catch (Exception ex)
+        {
+            // Se l'inizializzazione del BusinessLayer fallisce, l'utente dovrà configurare tramite Setup
+            Console.WriteLine($"Errore nell'inizializzazione BusinessLayer: {ex.Message}");
+        }
     }
     catch (Exception ex)
     {
-        Commons.ErrorLog("Errore nell'inizializzazione: " + ex.Message);
-        throw;
+        Console.WriteLine($"Errore nell'inizializzazione generale: {ex.Message}");
+        // L'applicazione può continuare e l'utente userà Setup per configurare
     }
 }

@@ -13,8 +13,7 @@ namespace SchoolGrades
         internal static void CreateAndStartBackgroundSavingThread()
         {
             // create a new tree that uses the controls in CallingForm
-            NoUiTreeMptt = new TreeMptt(null, null, null, null, null,
-                null, null, null, null, null, null, null);
+            NoUiTreeMptt = new TreeMptt();
             // create and run the Thread that concurrently saves the Topics tree
             BackgroundSaveThread = new Thread(NoUiTreeMptt.SaveTreeMpttBackground);
             BackgroundSaveThread.Name = "BackgroundSaveThread";

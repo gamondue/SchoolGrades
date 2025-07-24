@@ -19,6 +19,85 @@ namespace SchoolGrades
             // Implementation for Blazor (if needed)
         }
         internal static event Action<string>? OnShowMessage;
+        
+        /// <summary>
+        /// Validates if the current configuration is complete and valid
+        /// </summary>
+        internal static bool IsConfigurationValid()
+        {
+            return !string.IsNullOrEmpty(PathDatabase) &&
+                   !string.IsNullOrEmpty(DatabaseFileName_Current) &&
+                   !string.IsNullOrEmpty(PathImages) &&
+                   !string.IsNullOrEmpty(PathDocuments) &&
+                   !string.IsNullOrEmpty(PathAndFileDatabase);
+        }
+
+        /// <summary>
+        /// Creates default configuration directories if they don't exist
+        /// </summary>
+        internal static void EnsureDirectoriesExist()
+        {
+            try
+            {
+                if (!Directory.Exists(PathConfig))
+                    Directory.CreateDirectory(PathConfig);
+                if (!Directory.Exists(PathLogs))
+                    Directory.CreateDirectory(PathLogs);
+                if (!string.IsNullOrEmpty(PathImages) && !Directory.Exists(PathImages))
+                    Directory.CreateDirectory(PathImages);
+                if (!string.IsNullOrEmpty(PathDatabase) && !Directory.Exists(PathDatabase))
+                    Directory.CreateDirectory(PathDatabase);
+                if (!string.IsNullOrEmpty(PathDocuments) && !Directory.Exists(PathDocuments))
+                    Directory.CreateDirectory(PathDocuments);
+            }
+            catch (Exception ex)
+            {
+                ErrorLog($"Errore nella creazione delle directory: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Writes configuration data for Blazor Setup page
+        /// </summary>
+        internal static void WriteConfigDataBlazor(string pathDatabase, string fileDatabase, 
+            string pathImages, string pathDocuments, bool saveBackup)
+        {
+            string[] dati = new string[6];
+            try
+            {
+                // Update Commons properties
+                PathDatabase = pathDatabase;
+                DatabaseFileName_Current = fileDatabase;
+                PathImages = pathImages;
+                PathDocuments = pathDocuments;
+                SaveBackupWhenExiting = saveBackup;
+                PathAndFileDatabase = Path.Combine(pathDatabase, fileDatabase);
+
+                // Ensure directories exist
+                EnsureDirectoriesExist();
+
+                // Prepare data array
+                dati[0] = DatabaseFileName_Current;
+                dati[1] = PathImages;
+                // position 2 was held by PathStartLinks (not used anymore)
+                dati[3] = PathDatabase;
+                dati[4] = PathDocuments;
+                dati[5] = SaveBackupWhenExiting.ToString();
+
+#if DEBUG
+                TextFile.ArrayToFile(PathAndFileConfig + "_DEBUG", dati, false);
+#else
+                TextFile.ArrayToFile(PathAndFileConfig, dati, false);
+#endif
+            }
+            catch (Exception e)
+            {
+                string err = "WriteConfigDataBlazor(): " + e.Message;
+                ErrorLog(err);
+                throw new Exception(err);
+            }
+        }
+
         internal static bool CheckIfTypeOfAssessmentChosen(GradeType GradeType)
         {
             if (GradeType == null)
