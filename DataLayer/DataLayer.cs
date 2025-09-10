@@ -478,5 +478,6 @@ namespace SchoolGrades
             //////////    Query += FieldName + " BETWEEN " + SqlDate(InitialDateTime) + " AND " + SqlDate(FinalDateTime);
             //////////}
         }
+        internal abstract List<SchoolYear> GetAllSchoolYears();
     }
 }

@@ -149,5 +149,10 @@ namespace SchoolGrades
             }
             return newClass;
         }
+        internal List<SchoolYear> GetAllSchoolYears()
+        {
+            List<SchoolYear> ly = dl.GetAllSchoolYears();
+            return ly;
+        }
     }
 }

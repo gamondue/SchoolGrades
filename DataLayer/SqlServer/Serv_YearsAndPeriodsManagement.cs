@@ -1,5 +1,6 @@
 ﻿using SchoolGrades.BusinessObjects;
 using System;
+using System.Collections.Generic;
 using System.Data.Common;
 
 namespace SchoolGrades
@@ -80,6 +81,10 @@ namespace SchoolGrades
                 cmd.CommandText = "DELETE FROM SchoolYears WHERE IdSchoolYear = '" + year + "';";
                 var result = cmd.ExecuteNonQuery();
             }
+        }
+        internal override List<SchoolYear> GetAllSchoolYears()
+        {
+            throw new NotImplementedException();
         }
     }
 }
