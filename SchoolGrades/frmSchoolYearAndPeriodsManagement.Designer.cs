@@ -29,289 +29,290 @@ namespace SchoolGrades
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSchoolYearAndPeriodsManagement));
-            this.grpPeriodOfQuestionsTopics = new System.Windows.Forms.GroupBox();
-            this.lblEnd = new System.Windows.Forms.Label();
-            this.lblStart = new System.Windows.Forms.Label();
-            this.dtpEndPeriod = new System.Windows.Forms.DateTimePicker();
-            this.dtpStartPeriod = new System.Windows.Forms.DateTimePicker();
-            this.dgwSchoolPeriods = new System.Windows.Forms.DataGridView();
-            this.btnNewYear = new System.Windows.Forms.Button();
-            this.txtSchoolYear = new System.Windows.Forms.TextBox();
-            this.lblSchoolYear = new System.Windows.Forms.Label();
-            this.btnNewPeriod = new System.Windows.Forms.Button();
-            this.btnDeletePeriod = new System.Windows.Forms.Button();
-            this.txtIdSchoolPeriod = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnSaveSchoolPeriod = new System.Windows.Forms.Button();
-            this.txtName = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtDescription = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.cmbSchoolPeriodTypes = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.rdbQuadrimester = new System.Windows.Forms.RadioButton();
-            this.rdbTrimester = new System.Windows.Forms.RadioButton();
-            this.grpPeriodOfQuestionsTopics.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgwSchoolPeriods)).BeginInit();
-            this.SuspendLayout();
+            grpPeriodOfQuestionsTopics = new System.Windows.Forms.GroupBox();
+            lblEnd = new System.Windows.Forms.Label();
+            lblStart = new System.Windows.Forms.Label();
+            dtpEndPeriod = new System.Windows.Forms.DateTimePicker();
+            dtpStartPeriod = new System.Windows.Forms.DateTimePicker();
+            dgwSchoolPeriods = new System.Windows.Forms.DataGridView();
+            btnNewYear = new System.Windows.Forms.Button();
+            txtSchoolYear = new System.Windows.Forms.TextBox();
+            lblSchoolYear = new System.Windows.Forms.Label();
+            btnNewPeriod = new System.Windows.Forms.Button();
+            btnDeletePeriod = new System.Windows.Forms.Button();
+            txtIdSchoolPeriod = new System.Windows.Forms.TextBox();
+            label1 = new System.Windows.Forms.Label();
+            btnSaveSchoolPeriod = new System.Windows.Forms.Button();
+            txtName = new System.Windows.Forms.TextBox();
+            label2 = new System.Windows.Forms.Label();
+            txtDescription = new System.Windows.Forms.TextBox();
+            label3 = new System.Windows.Forms.Label();
+            cmbSchoolPeriodTypes = new System.Windows.Forms.ComboBox();
+            label4 = new System.Windows.Forms.Label();
+            rdbQuadrimester = new System.Windows.Forms.RadioButton();
+            rdbTrimester = new System.Windows.Forms.RadioButton();
+            toolTip1 = new System.Windows.Forms.ToolTip(components);
+            grpPeriodOfQuestionsTopics.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgwSchoolPeriods).BeginInit();
+            SuspendLayout();
             // 
             // grpPeriodOfQuestionsTopics
             // 
-            this.grpPeriodOfQuestionsTopics.Controls.Add(this.lblEnd);
-            this.grpPeriodOfQuestionsTopics.Controls.Add(this.lblStart);
-            this.grpPeriodOfQuestionsTopics.Controls.Add(this.dtpEndPeriod);
-            this.grpPeriodOfQuestionsTopics.Controls.Add(this.dtpStartPeriod);
-            this.grpPeriodOfQuestionsTopics.Location = new System.Drawing.Point(171, 12);
-            this.grpPeriodOfQuestionsTopics.Name = "grpPeriodOfQuestionsTopics";
-            this.grpPeriodOfQuestionsTopics.Size = new System.Drawing.Size(209, 94);
-            this.grpPeriodOfQuestionsTopics.TabIndex = 148;
-            this.grpPeriodOfQuestionsTopics.TabStop = false;
-            this.grpPeriodOfQuestionsTopics.Text = "Date del periodo scolastico";
+            grpPeriodOfQuestionsTopics.Controls.Add(lblEnd);
+            grpPeriodOfQuestionsTopics.Controls.Add(lblStart);
+            grpPeriodOfQuestionsTopics.Controls.Add(dtpEndPeriod);
+            grpPeriodOfQuestionsTopics.Controls.Add(dtpStartPeriod);
+            grpPeriodOfQuestionsTopics.Location = new System.Drawing.Point(171, 12);
+            grpPeriodOfQuestionsTopics.Name = "grpPeriodOfQuestionsTopics";
+            grpPeriodOfQuestionsTopics.Size = new System.Drawing.Size(209, 94);
+            grpPeriodOfQuestionsTopics.TabIndex = 148;
+            grpPeriodOfQuestionsTopics.TabStop = false;
+            grpPeriodOfQuestionsTopics.Text = "Date del periodo scolastico";
             // 
             // lblEnd
             // 
-            this.lblEnd.AutoSize = true;
-            this.lblEnd.Location = new System.Drawing.Point(2, 61);
-            this.lblEnd.Name = "lblEnd";
-            this.lblEnd.Size = new System.Drawing.Size(36, 20);
-            this.lblEnd.TabIndex = 157;
-            this.lblEnd.Text = "Fine";
+            lblEnd.AutoSize = true;
+            lblEnd.Location = new System.Drawing.Point(2, 61);
+            lblEnd.Name = "lblEnd";
+            lblEnd.Size = new System.Drawing.Size(36, 20);
+            lblEnd.TabIndex = 157;
+            lblEnd.Text = "Fine";
             // 
             // lblStart
             // 
-            this.lblStart.AutoSize = true;
-            this.lblStart.Location = new System.Drawing.Point(2, 24);
-            this.lblStart.Name = "lblStart";
-            this.lblStart.Size = new System.Drawing.Size(45, 20);
-            this.lblStart.TabIndex = 156;
-            this.lblStart.Text = "Inizio";
+            lblStart.AutoSize = true;
+            lblStart.Location = new System.Drawing.Point(2, 24);
+            lblStart.Name = "lblStart";
+            lblStart.Size = new System.Drawing.Size(45, 20);
+            lblStart.TabIndex = 156;
+            lblStart.Text = "Inizio";
             // 
             // dtpEndPeriod
             // 
-            this.dtpEndPeriod.CustomFormat = "yyyy-MM-dd";
-            this.dtpEndPeriod.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpEndPeriod.Location = new System.Drawing.Point(54, 56);
-            this.dtpEndPeriod.MinDate = new System.DateTime(1800, 1, 1, 0, 0, 0, 0);
-            this.dtpEndPeriod.Name = "dtpEndPeriod";
-            this.dtpEndPeriod.Size = new System.Drawing.Size(111, 27);
-            this.dtpEndPeriod.TabIndex = 155;
-            this.dtpEndPeriod.Value = new System.DateTime(2019, 6, 7, 0, 0, 0, 0);
+            dtpEndPeriod.CustomFormat = "yyyy-MM-dd";
+            dtpEndPeriod.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            dtpEndPeriod.Location = new System.Drawing.Point(54, 56);
+            dtpEndPeriod.MinDate = new System.DateTime(1800, 1, 1, 0, 0, 0, 0);
+            dtpEndPeriod.Name = "dtpEndPeriod";
+            dtpEndPeriod.Size = new System.Drawing.Size(111, 27);
+            dtpEndPeriod.TabIndex = 155;
+            dtpEndPeriod.Value = new System.DateTime(2019, 6, 7, 0, 0, 0, 0);
             // 
             // dtpStartPeriod
             // 
-            this.dtpStartPeriod.CustomFormat = "yyyy-MM-dd";
-            this.dtpStartPeriod.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpStartPeriod.Location = new System.Drawing.Point(54, 21);
-            this.dtpStartPeriod.MinDate = new System.DateTime(1800, 1, 1, 0, 0, 0, 0);
-            this.dtpStartPeriod.Name = "dtpStartPeriod";
-            this.dtpStartPeriod.Size = new System.Drawing.Size(111, 27);
-            this.dtpStartPeriod.TabIndex = 154;
-            this.dtpStartPeriod.Value = new System.DateTime(2019, 1, 24, 0, 0, 0, 0);
+            dtpStartPeriod.CustomFormat = "yyyy-MM-dd";
+            dtpStartPeriod.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            dtpStartPeriod.Location = new System.Drawing.Point(54, 21);
+            dtpStartPeriod.MinDate = new System.DateTime(1800, 1, 1, 0, 0, 0, 0);
+            dtpStartPeriod.Name = "dtpStartPeriod";
+            dtpStartPeriod.Size = new System.Drawing.Size(111, 27);
+            dtpStartPeriod.TabIndex = 154;
+            dtpStartPeriod.Value = new System.DateTime(2019, 1, 24, 0, 0, 0, 0);
             // 
             // dgwSchoolPeriods
             // 
-            this.dgwSchoolPeriods.AllowUserToAddRows = false;
-            this.dgwSchoolPeriods.AllowUserToDeleteRows = false;
-            this.dgwSchoolPeriods.AllowUserToOrderColumns = true;
-            this.dgwSchoolPeriods.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgwSchoolPeriods.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
-            this.dgwSchoolPeriods.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgwSchoolPeriods.Location = new System.Drawing.Point(1, 164);
-            this.dgwSchoolPeriods.Margin = new System.Windows.Forms.Padding(4);
-            this.dgwSchoolPeriods.Name = "dgwSchoolPeriods";
-            this.dgwSchoolPeriods.ReadOnly = true;
-            this.dgwSchoolPeriods.RowTemplate.Height = 24;
-            this.dgwSchoolPeriods.Size = new System.Drawing.Size(776, 346);
-            this.dgwSchoolPeriods.TabIndex = 149;
-            this.dgwSchoolPeriods.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwSchoolPeriods_CellClick);
-            this.dgwSchoolPeriods.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwSchoolPeriods_CellContentClick);
+            dgwSchoolPeriods.AllowUserToAddRows = false;
+            dgwSchoolPeriods.AllowUserToDeleteRows = false;
+            dgwSchoolPeriods.AllowUserToOrderColumns = true;
+            dgwSchoolPeriods.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            dgwSchoolPeriods.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
+            dgwSchoolPeriods.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgwSchoolPeriods.Location = new System.Drawing.Point(1, 164);
+            dgwSchoolPeriods.Margin = new System.Windows.Forms.Padding(4);
+            dgwSchoolPeriods.Name = "dgwSchoolPeriods";
+            dgwSchoolPeriods.ReadOnly = true;
+            dgwSchoolPeriods.RowTemplate.Height = 24;
+            dgwSchoolPeriods.Size = new System.Drawing.Size(776, 346);
+            dgwSchoolPeriods.TabIndex = 149;
+            dgwSchoolPeriods.CellClick += dgwSchoolPeriods_CellClick;
+            dgwSchoolPeriods.CellContentClick += dgwSchoolPeriods_CellContentClick;
             // 
             // btnNewYear
             // 
-            this.btnNewYear.Location = new System.Drawing.Point(143, 100);
-            this.btnNewYear.Name = "btnNewYear";
-            this.btnNewYear.Size = new System.Drawing.Size(75, 60);
-            this.btnNewYear.TabIndex = 150;
-            this.btnNewYear.Text = "Nuovo anno";
-            this.btnNewYear.UseVisualStyleBackColor = true;
-            this.btnNewYear.Click += new System.EventHandler(this.btnNewYear_Click);
+            btnNewYear.Location = new System.Drawing.Point(1, 100);
+            btnNewYear.Name = "btnNewYear";
+            btnNewYear.Size = new System.Drawing.Size(75, 60);
+            btnNewYear.TabIndex = 150;
+            btnNewYear.Text = "Periodi anno";
+            toolTip1.SetToolTip(btnNewYear, "Genera tutti i periodi \"standard\" dell'anno");
+            btnNewYear.UseVisualStyleBackColor = true;
+            btnNewYear.Click += btnNewYear_Click;
             // 
             // txtSchoolYear
             // 
-            this.txtSchoolYear.Location = new System.Drawing.Point(76, 70);
-            this.txtSchoolYear.Name = "txtSchoolYear";
-            this.txtSchoolYear.Size = new System.Drawing.Size(59, 27);
-            this.txtSchoolYear.TabIndex = 152;
+            txtSchoolYear.Location = new System.Drawing.Point(76, 70);
+            txtSchoolYear.Name = "txtSchoolYear";
+            txtSchoolYear.Size = new System.Drawing.Size(59, 27);
+            txtSchoolYear.TabIndex = 152;
             // 
             // lblSchoolYear
             // 
-            this.lblSchoolYear.AutoSize = true;
-            this.lblSchoolYear.Location = new System.Drawing.Point(28, 74);
-            this.lblSchoolYear.Name = "lblSchoolYear";
-            this.lblSchoolYear.Size = new System.Drawing.Size(44, 20);
-            this.lblSchoolYear.TabIndex = 151;
-            this.lblSchoolYear.Text = "Anno";
+            lblSchoolYear.AutoSize = true;
+            lblSchoolYear.Location = new System.Drawing.Point(28, 74);
+            lblSchoolYear.Name = "lblSchoolYear";
+            lblSchoolYear.Size = new System.Drawing.Size(44, 20);
+            lblSchoolYear.TabIndex = 151;
+            lblSchoolYear.Text = "Anno";
             // 
             // btnNewPeriod
             // 
-            this.btnNewPeriod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNewPeriod.Location = new System.Drawing.Point(784, 164);
-            this.btnNewPeriod.Name = "btnNewPeriod";
-            this.btnNewPeriod.Size = new System.Drawing.Size(36, 39);
-            this.btnNewPeriod.TabIndex = 153;
-            this.btnNewPeriod.Text = "+";
-            this.btnNewPeriod.UseVisualStyleBackColor = true;
-            this.btnNewPeriod.Click += new System.EventHandler(this.btnNewPeriod_Click);
+            btnNewPeriod.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnNewPeriod.Location = new System.Drawing.Point(784, 164);
+            btnNewPeriod.Name = "btnNewPeriod";
+            btnNewPeriod.Size = new System.Drawing.Size(36, 39);
+            btnNewPeriod.TabIndex = 153;
+            btnNewPeriod.Text = "+";
+            btnNewPeriod.UseVisualStyleBackColor = true;
+            btnNewPeriod.Click += btnNewPeriod_Click;
             // 
             // btnDeletePeriod
             // 
-            this.btnDeletePeriod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeletePeriod.Location = new System.Drawing.Point(784, 209);
-            this.btnDeletePeriod.Name = "btnDeletePeriod";
-            this.btnDeletePeriod.Size = new System.Drawing.Size(36, 39);
-            this.btnDeletePeriod.TabIndex = 154;
-            this.btnDeletePeriod.Text = "-";
-            this.btnDeletePeriod.UseVisualStyleBackColor = true;
-            this.btnDeletePeriod.Click += new System.EventHandler(this.btnDeletePeriod_Click);
+            btnDeletePeriod.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnDeletePeriod.Location = new System.Drawing.Point(784, 209);
+            btnDeletePeriod.Name = "btnDeletePeriod";
+            btnDeletePeriod.Size = new System.Drawing.Size(36, 39);
+            btnDeletePeriod.TabIndex = 154;
+            btnDeletePeriod.Text = "-";
+            btnDeletePeriod.UseVisualStyleBackColor = true;
+            btnDeletePeriod.Click += btnDeletePeriod_Click;
             // 
             // txtIdSchoolPeriod
             // 
-            this.txtIdSchoolPeriod.Location = new System.Drawing.Point(76, 33);
-            this.txtIdSchoolPeriod.Name = "txtIdSchoolPeriod";
-            this.txtIdSchoolPeriod.ReadOnly = true;
-            this.txtIdSchoolPeriod.Size = new System.Drawing.Size(59, 27);
-            this.txtIdSchoolPeriod.TabIndex = 156;
+            txtIdSchoolPeriod.Location = new System.Drawing.Point(76, 33);
+            txtIdSchoolPeriod.Name = "txtIdSchoolPeriod";
+            txtIdSchoolPeriod.ReadOnly = true;
+            txtIdSchoolPeriod.Size = new System.Drawing.Size(59, 27);
+            txtIdSchoolPeriod.TabIndex = 156;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 36);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 20);
-            this.label1.TabIndex = 155;
-            this.label1.Text = "Codice";
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(12, 36);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(55, 20);
+            label1.TabIndex = 155;
+            label1.Text = "Codice";
             // 
             // btnSaveSchoolPeriod
             // 
-            this.btnSaveSchoolPeriod.Location = new System.Drawing.Point(706, 52);
-            this.btnSaveSchoolPeriod.Name = "btnSaveSchoolPeriod";
-            this.btnSaveSchoolPeriod.Size = new System.Drawing.Size(75, 60);
-            this.btnSaveSchoolPeriod.TabIndex = 157;
-            this.btnSaveSchoolPeriod.Text = "Salva periodo";
-            this.btnSaveSchoolPeriod.UseVisualStyleBackColor = true;
-            this.btnSaveSchoolPeriod.Click += new System.EventHandler(this.btnSaveSchoolPeriod_Click);
+            btnSaveSchoolPeriod.Location = new System.Drawing.Point(702, 56);
+            btnSaveSchoolPeriod.Name = "btnSaveSchoolPeriod";
+            btnSaveSchoolPeriod.Size = new System.Drawing.Size(75, 73);
+            btnSaveSchoolPeriod.TabIndex = 157;
+            btnSaveSchoolPeriod.Text = "Salva singolo periodo";
+            toolTip1.SetToolTip(btnSaveSchoolPeriod, "Salva il periodo i cui dati sono nella finestra");
+            btnSaveSchoolPeriod.UseVisualStyleBackColor = true;
+            btnSaveSchoolPeriod.Click += btnSaveSchoolPeriod_Click;
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(539, 33);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(140, 27);
-            this.txtName.TabIndex = 159;
+            txtName.Location = new System.Drawing.Point(539, 33);
+            txtName.Name = "txtName";
+            txtName.Size = new System.Drawing.Size(140, 27);
+            txtName.TabIndex = 159;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(373, 38);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(127, 20);
-            this.label2.TabIndex = 158;
-            this.label2.Text = "Descrizione breve";
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(373, 38);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(127, 20);
+            label2.TabIndex = 158;
+            label2.Text = "Descrizione breve";
             // 
             // txtDescription
             // 
-            this.txtDescription.Location = new System.Drawing.Point(225, 123);
-            this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(454, 27);
-            this.txtDescription.TabIndex = 161;
+            txtDescription.Location = new System.Drawing.Point(225, 123);
+            txtDescription.Name = "txtDescription";
+            txtDescription.Size = new System.Drawing.Size(454, 27);
+            txtDescription.TabIndex = 161;
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(225, 100);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(86, 20);
-            this.label3.TabIndex = 160;
-            this.label3.Text = "Descrizione";
+            label3.AutoSize = true;
+            label3.Location = new System.Drawing.Point(225, 100);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(86, 20);
+            label3.TabIndex = 160;
+            label3.Text = "Descrizione";
             // 
             // cmbSchoolPeriodTypes
             // 
-            this.cmbSchoolPeriodTypes.FormattingEnabled = true;
-            this.cmbSchoolPeriodTypes.Location = new System.Drawing.Point(418, 69);
-            this.cmbSchoolPeriodTypes.Name = "cmbSchoolPeriodTypes";
-            this.cmbSchoolPeriodTypes.Size = new System.Drawing.Size(261, 28);
-            this.cmbSchoolPeriodTypes.TabIndex = 162;
-            this.cmbSchoolPeriodTypes.SelectedIndexChanged += new System.EventHandler(this.cmbSchoolPeriodTypes_SelectedIndexChanged);
+            cmbSchoolPeriodTypes.FormattingEnabled = true;
+            cmbSchoolPeriodTypes.Location = new System.Drawing.Point(418, 69);
+            cmbSchoolPeriodTypes.Name = "cmbSchoolPeriodTypes";
+            cmbSchoolPeriodTypes.Size = new System.Drawing.Size(261, 28);
+            cmbSchoolPeriodTypes.TabIndex = 162;
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(373, 74);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(39, 20);
-            this.label4.TabIndex = 163;
-            this.label4.Text = "Tipo";
+            label4.AutoSize = true;
+            label4.Location = new System.Drawing.Point(373, 74);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(39, 20);
+            label4.TabIndex = 163;
+            label4.Text = "Tipo";
             // 
             // rdbQuadrimester
             // 
-            this.rdbQuadrimester.AutoSize = true;
-            this.rdbQuadrimester.Checked = true;
-            this.rdbQuadrimester.Location = new System.Drawing.Point(28, 108);
-            this.rdbQuadrimester.Name = "rdbQuadrimester";
-            this.rdbQuadrimester.Size = new System.Drawing.Size(111, 24);
-            this.rdbQuadrimester.TabIndex = 164;
-            this.rdbQuadrimester.TabStop = true;
-            this.rdbQuadrimester.Text = "quadrimestri";
-            this.rdbQuadrimester.UseVisualStyleBackColor = true;
+            rdbQuadrimester.AutoSize = true;
+            rdbQuadrimester.Checked = true;
+            rdbQuadrimester.Location = new System.Drawing.Point(82, 105);
+            rdbQuadrimester.Name = "rdbQuadrimester";
+            rdbQuadrimester.Size = new System.Drawing.Size(111, 24);
+            rdbQuadrimester.TabIndex = 164;
+            rdbQuadrimester.TabStop = true;
+            rdbQuadrimester.Text = "quadrimestri";
+            rdbQuadrimester.UseVisualStyleBackColor = true;
             // 
             // rdbTrimester
             // 
-            this.rdbTrimester.AutoSize = true;
-            this.rdbTrimester.Location = new System.Drawing.Point(28, 133);
-            this.rdbTrimester.Name = "rdbTrimester";
-            this.rdbTrimester.Size = new System.Drawing.Size(82, 24);
-            this.rdbTrimester.TabIndex = 165;
-            this.rdbTrimester.Text = "trimestri";
-            this.rdbTrimester.UseVisualStyleBackColor = true;
+            rdbTrimester.AutoSize = true;
+            rdbTrimester.Location = new System.Drawing.Point(82, 126);
+            rdbTrimester.Name = "rdbTrimester";
+            rdbTrimester.Size = new System.Drawing.Size(82, 24);
+            rdbTrimester.TabIndex = 165;
+            rdbTrimester.Text = "trimestri";
+            rdbTrimester.UseVisualStyleBackColor = true;
             // 
             // frmSchoolYearAndPeriodsManagement
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.PowderBlue;
-            this.ClientSize = new System.Drawing.Size(825, 514);
-            this.Controls.Add(this.rdbTrimester);
-            this.Controls.Add(this.rdbQuadrimester);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.cmbSchoolPeriodTypes);
-            this.Controls.Add(this.txtDescription);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.txtName);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.btnSaveSchoolPeriod);
-            this.Controls.Add(this.txtIdSchoolPeriod);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnDeletePeriod);
-            this.Controls.Add(this.btnNewPeriod);
-            this.Controls.Add(this.txtSchoolYear);
-            this.Controls.Add(this.lblSchoolYear);
-            this.Controls.Add(this.btnNewYear);
-            this.Controls.Add(this.dgwSchoolPeriods);
-            this.Controls.Add(this.grpPeriodOfQuestionsTopics);
-            this.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ForeColor = System.Drawing.Color.DarkBlue;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "frmSchoolYearAndPeriodsManagement";
-            this.Text = "Gestione periodi scolastici";
-            this.Load += new System.EventHandler(this.frmSchoolPeriodsManagement_Load);
-            this.grpPeriodOfQuestionsTopics.ResumeLayout(false);
-            this.grpPeriodOfQuestionsTopics.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgwSchoolPeriods)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.PowderBlue;
+            ClientSize = new System.Drawing.Size(825, 514);
+            Controls.Add(rdbTrimester);
+            Controls.Add(rdbQuadrimester);
+            Controls.Add(label4);
+            Controls.Add(cmbSchoolPeriodTypes);
+            Controls.Add(txtDescription);
+            Controls.Add(label3);
+            Controls.Add(txtName);
+            Controls.Add(label2);
+            Controls.Add(btnSaveSchoolPeriod);
+            Controls.Add(txtIdSchoolPeriod);
+            Controls.Add(label1);
+            Controls.Add(btnDeletePeriod);
+            Controls.Add(btnNewPeriod);
+            Controls.Add(txtSchoolYear);
+            Controls.Add(lblSchoolYear);
+            Controls.Add(btnNewYear);
+            Controls.Add(dgwSchoolPeriods);
+            Controls.Add(grpPeriodOfQuestionsTopics);
+            Font = new System.Drawing.Font("Segoe UI", 11.25F);
+            ForeColor = System.Drawing.Color.DarkBlue;
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            Name = "frmSchoolYearAndPeriodsManagement";
+            Text = "Gestione periodi scolastici";
+            Load += frmSchoolPeriodsManagement_Load;
+            grpPeriodOfQuestionsTopics.ResumeLayout(false);
+            grpPeriodOfQuestionsTopics.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgwSchoolPeriods).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 
@@ -339,5 +340,6 @@ namespace SchoolGrades
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.RadioButton rdbQuadrimester;
         private System.Windows.Forms.RadioButton rdbTrimester;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
