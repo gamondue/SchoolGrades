@@ -16,10 +16,10 @@ namespace SchoolGrades
         {
             InitializeComponent();
         }
-        public frmSchoolYearAndPeriodsManagement(string NewAbbreviation)
+        public frmSchoolYearAndPeriodsManagement(string ClassAbbreviation)
         {
             InitializeComponent();
-            Text = NewAbbreviation;
+            txtSchoolYear.Text = ClassAbbreviation;
         }
         private void frmSchoolPeriodsManagement_Load(object sender, EventArgs e)
         {
@@ -102,23 +102,19 @@ namespace SchoolGrades
         {
             if (txtSchoolYear.Text == "")
             {
-                MessageBox.Show("Scrivere il codice dell'anno precedente nella casella 'Anno'"); 
+                MessageBox.Show("Scrivere il codice dell'anno nella casella 'Anno'"); 
                 return;
             }
-            string nextYear = Commons.IncreaseIntegersInString(txtSchoolYear.Text); 
+            //string nextYear = Commons.IncreaseIntegersInString(txtSchoolYear.Text); 
             if (rdbQuadrimester.Checked)
             { 
-                Commons.bl.CreateNewQuadrimesterPeriods(nextYear);
+                Commons.bl.CreateNewQuadrimesterPeriods(txtSchoolYear.Text);
             }
             else
             { 
-                Commons.bl.CreateNewTrimesterPeriods(nextYear);
+                Commons.bl.CreateNewTrimesterPeriods(txtSchoolYear.Text);
             }
             RefreshGrid();
-        }
-        private void cmbSchoolPeriodTypes_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

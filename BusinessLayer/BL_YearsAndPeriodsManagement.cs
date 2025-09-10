@@ -113,11 +113,12 @@ namespace SchoolGrades
         {
             return dl.SchoolYearExists(IdSchoolYear);
         }
-        internal void AddSchoolYearIfNotExists(SchoolYear SchoolYear)
+        internal bool AddSchoolYearIfNotExists(SchoolYear SchoolYear)
         {
             if (dl.SchoolYearExists(SchoolYear.IdSchoolYear))
-                return;
+                return false;
             dl.AddSchoolYear(SchoolYear);
+            return true;
         }
         internal SchoolYear GenerateNewYearData(SchoolYear CurrentYear)
         {

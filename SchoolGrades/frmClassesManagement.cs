@@ -319,13 +319,6 @@ namespace SchoolGrades
                 Console.Beep();
             }
         }
-        private void btnNewYear_Click(object sender, EventArgs e)
-        {
-            frmNewYear f = new frmNewYear(idSchoolYear);
-            f.ShowDialog();
-            CmbClasses.DataSource = null;
-            CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
-        }
         private void btnStudentNew_Click(object sender, EventArgs e)
         {
             if (CmbClasses.Text == "")
@@ -664,7 +657,7 @@ namespace SchoolGrades
                 SchoolYear s = new SchoolYear();
                 s.IdSchoolYear = CmbSchoolYear.Text;
                 s.ShortDescription = "A.S. " + CmbSchoolYear.Text;
-                s.Notes ="Anno scolastico " + CmbSchoolYear.Text;
+                s.Notes = "Anno scolastico " + CmbSchoolYear.Text;
                 Commons.bl.AddSchoolYearIfNotExists(s);
             }
             // give warning to avoid modifying existing class instead of making a new one
@@ -686,7 +679,7 @@ namespace SchoolGrades
                     "\r\nDevo metterli lo stesso?",
                     "Informazione", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
                 if (d != DialogResult.Yes) return;
-            }  
+            }
             Commons.bl.CreateClassIfNotExists(CmbClasses.Text, txtClassDescription.Text,
                 CmbSchoolYear.Text, TxtOfficialSchoolAbbreviation.Text);
             CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, CmbSchoolYear.Text);
@@ -697,6 +690,18 @@ namespace SchoolGrades
                 return;
             frmMosaic f = new frmMosaic(currentClass);
             f.Show();
+        }
+        private void btnPeriodsManagement_Click(object sender, EventArgs e)
+        {
+            frmNewYear f = new frmNewYear(CmbSchoolYear.Text);
+            f.ShowDialog();
+            CmbClasses.DataSource = null;
+            CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text, idSchoolYear);
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

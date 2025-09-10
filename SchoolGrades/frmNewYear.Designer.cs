@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmNewYear));
             cmbClasses = new System.Windows.Forms.ComboBox();
             TxtOfficialSchoolAbbreviation = new System.Windows.Forms.TextBox();
@@ -65,6 +66,8 @@
             groupBox4 = new System.Windows.Forms.GroupBox();
             label11 = new System.Windows.Forms.Label();
             label12 = new System.Windows.Forms.Label();
+            btnNewYear = new System.Windows.Forms.Button();
+            toolTip1 = new System.Windows.Forms.ToolTip(components);
             ((System.ComponentModel.ISupportInitialize)DgwStudents).BeginInit();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -76,21 +79,21 @@
             // 
             cmbClasses.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
             cmbClasses.FormattingEnabled = true;
-            cmbClasses.Location = new System.Drawing.Point(6, 63);
-            cmbClasses.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            cmbClasses.Location = new System.Drawing.Point(4, 38);
+            cmbClasses.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             cmbClasses.Name = "cmbClasses";
-            cmbClasses.Size = new System.Drawing.Size(167, 37);
+            cmbClasses.Size = new System.Drawing.Size(118, 26);
             cmbClasses.TabIndex = 101;
             cmbClasses.SelectedIndexChanged += CmbClasses_SelectedIndexChanged;
             // 
             // TxtOfficialSchoolAbbreviation
             // 
             TxtOfficialSchoolAbbreviation.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            TxtOfficialSchoolAbbreviation.Location = new System.Drawing.Point(150, 263);
-            TxtOfficialSchoolAbbreviation.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            TxtOfficialSchoolAbbreviation.Location = new System.Drawing.Point(105, 158);
+            TxtOfficialSchoolAbbreviation.Margin = new System.Windows.Forms.Padding(5);
             TxtOfficialSchoolAbbreviation.Name = "TxtOfficialSchoolAbbreviation";
             TxtOfficialSchoolAbbreviation.ReadOnly = true;
-            TxtOfficialSchoolAbbreviation.Size = new System.Drawing.Size(223, 33);
+            TxtOfficialSchoolAbbreviation.Size = new System.Drawing.Size(157, 24);
             TxtOfficialSchoolAbbreviation.TabIndex = 98;
             TxtOfficialSchoolAbbreviation.Text = "FOIS01100L";
             TxtOfficialSchoolAbbreviation.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -100,10 +103,10 @@
             label4.AutoSize = true;
             label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             label4.ForeColor = System.Drawing.Color.DarkBlue;
-            label4.Location = new System.Drawing.Point(13, 272);
-            label4.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            label4.Location = new System.Drawing.Point(9, 163);
+            label4.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(126, 22);
+            label4.Size = new System.Drawing.Size(86, 15);
             label4.TabIndex = 97;
             label4.Text = "Codice Scuola";
             // 
@@ -112,10 +115,10 @@
             label1.AutoSize = true;
             label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             label1.ForeColor = System.Drawing.Color.DarkBlue;
-            label1.Location = new System.Drawing.Point(6, 28);
-            label1.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            label1.Location = new System.Drawing.Point(4, 17);
+            label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(155, 22);
+            label1.Size = new System.Drawing.Size(105, 15);
             label1.TabIndex = 94;
             label1.Text = "Sigla Classe prec.";
             // 
@@ -124,10 +127,10 @@
             label3.AutoSize = true;
             label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             label3.ForeColor = System.Drawing.Color.DarkBlue;
-            label3.Location = new System.Drawing.Point(10, 28);
-            label3.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            label3.Location = new System.Drawing.Point(7, 17);
+            label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(69, 22);
+            label3.Size = new System.Drawing.Size(48, 15);
             label3.TabIndex = 103;
             label3.Text = "Id anno";
             // 
@@ -141,13 +144,13 @@
             DgwStudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             DgwStudents.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { SaveThisStudent });
             DgwStudents.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            DgwStudents.Location = new System.Drawing.Point(7, 410);
-            DgwStudents.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            DgwStudents.Location = new System.Drawing.Point(5, 246);
+            DgwStudents.Margin = new System.Windows.Forms.Padding(5);
             DgwStudents.MultiSelect = false;
             DgwStudents.Name = "DgwStudents";
             DgwStudents.RowHeadersWidth = 62;
             DgwStudents.RowTemplate.Height = 24;
-            DgwStudents.Size = new System.Drawing.Size(1727, 648);
+            DgwStudents.Size = new System.Drawing.Size(1209, 389);
             DgwStudents.TabIndex = 104;
             // 
             // SaveThisStudent
@@ -162,10 +165,10 @@
             lblChooseNextStudents.AutoSize = true;
             lblChooseNextStudents.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             lblChooseNextStudents.ForeColor = System.Drawing.Color.DarkBlue;
-            lblChooseNextStudents.Location = new System.Drawing.Point(3, 372);
-            lblChooseNextStudents.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            lblChooseNextStudents.Location = new System.Drawing.Point(2, 223);
+            lblChooseNextStudents.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             lblChooseNextStudents.Name = "lblChooseNextStudents";
-            lblChooseNextStudents.Size = new System.Drawing.Size(467, 26);
+            lblChooseNextStudents.Size = new System.Drawing.Size(313, 18);
             lblChooseNextStudents.TabIndex = 105;
             lblChooseNextStudents.Text = "Allievi da INCLUDERE nella classe successiva";
             // 
@@ -175,10 +178,10 @@
             BtnClassNew.BackColor = System.Drawing.Color.Transparent;
             BtnClassNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
             BtnClassNew.ForeColor = System.Drawing.Color.DarkBlue;
-            BtnClassNew.Location = new System.Drawing.Point(857, 272);
-            BtnClassNew.Margin = new System.Windows.Forms.Padding(10, 10, 10, 10);
+            BtnClassNew.Location = new System.Drawing.Point(452, 163);
+            BtnClassNew.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
             BtnClassNew.Name = "BtnClassNew";
-            BtnClassNew.Size = new System.Drawing.Size(134, 120);
+            BtnClassNew.Size = new System.Drawing.Size(94, 72);
             BtnClassNew.TabIndex = 106;
             BtnClassNew.Text = "Nuova classe";
             BtnClassNew.UseVisualStyleBackColor = false;
@@ -190,10 +193,10 @@
             BtnClassMigration.BackColor = System.Drawing.Color.Transparent;
             BtnClassMigration.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
             BtnClassMigration.ForeColor = System.Drawing.Color.DarkBlue;
-            BtnClassMigration.Location = new System.Drawing.Point(1454, 272);
-            BtnClassMigration.Margin = new System.Windows.Forms.Padding(10, 10, 10, 10);
+            BtnClassMigration.Location = new System.Drawing.Point(786, 163);
+            BtnClassMigration.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
             BtnClassMigration.Name = "BtnClassMigration";
-            BtnClassMigration.Size = new System.Drawing.Size(134, 120);
+            BtnClassMigration.Size = new System.Drawing.Size(94, 72);
             BtnClassMigration.TabIndex = 107;
             BtnClassMigration.Text = "Prepara classe";
             BtnClassMigration.UseVisualStyleBackColor = false;
@@ -202,10 +205,10 @@
             // txtSchoolYearNext
             // 
             txtSchoolYearNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            txtSchoolYearNext.Location = new System.Drawing.Point(10, 63);
-            txtSchoolYearNext.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            txtSchoolYearNext.Location = new System.Drawing.Point(7, 38);
+            txtSchoolYearNext.Margin = new System.Windows.Forms.Padding(5);
             txtSchoolYearNext.Name = "txtSchoolYearNext";
-            txtSchoolYearNext.Size = new System.Drawing.Size(145, 33);
+            txtSchoolYearNext.Size = new System.Drawing.Size(103, 24);
             txtSchoolYearNext.TabIndex = 108;
             // 
             // BtnClassGeneration
@@ -214,10 +217,10 @@
             BtnClassGeneration.BackColor = System.Drawing.Color.Transparent;
             BtnClassGeneration.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
             BtnClassGeneration.ForeColor = System.Drawing.Color.DarkBlue;
-            BtnClassGeneration.Location = new System.Drawing.Point(1183, 272);
-            BtnClassGeneration.Margin = new System.Windows.Forms.Padding(10, 10, 10, 10);
+            BtnClassGeneration.Location = new System.Drawing.Point(680, 163);
+            BtnClassGeneration.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
             BtnClassGeneration.Name = "BtnClassGeneration";
-            BtnClassGeneration.Size = new System.Drawing.Size(134, 120);
+            BtnClassGeneration.Size = new System.Drawing.Size(94, 72);
             BtnClassGeneration.TabIndex = 110;
             BtnClassGeneration.Text = "Genera classe";
             BtnClassGeneration.UseVisualStyleBackColor = false;
@@ -229,10 +232,10 @@
             lblClassDescription.AutoSize = true;
             lblClassDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             lblClassDescription.ForeColor = System.Drawing.Color.DarkBlue;
-            lblClassDescription.Location = new System.Drawing.Point(590, 110);
-            lblClassDescription.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            lblClassDescription.Location = new System.Drawing.Point(413, 66);
+            lblClassDescription.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             lblClassDescription.Name = "lblClassDescription";
-            lblClassDescription.Size = new System.Drawing.Size(217, 22);
+            lblClassDescription.Size = new System.Drawing.Size(148, 15);
             lblClassDescription.TabIndex = 113;
             lblClassDescription.Text = "Descrizione nuova Classe";
             lblClassDescription.Visible = false;
@@ -240,10 +243,10 @@
             // txtClassDescriptionNext
             // 
             txtClassDescriptionNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            txtClassDescriptionNext.Location = new System.Drawing.Point(187, 63);
-            txtClassDescriptionNext.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            txtClassDescriptionNext.Location = new System.Drawing.Point(131, 38);
+            txtClassDescriptionNext.Margin = new System.Windows.Forms.Padding(5);
             txtClassDescriptionNext.Name = "txtClassDescriptionNext";
-            txtClassDescriptionNext.Size = new System.Drawing.Size(595, 33);
+            txtClassDescriptionNext.Size = new System.Drawing.Size(418, 24);
             txtClassDescriptionNext.TabIndex = 112;
             // 
             // label6
@@ -251,10 +254,10 @@
             label6.AutoSize = true;
             label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             label6.ForeColor = System.Drawing.Color.DarkBlue;
-            label6.Location = new System.Drawing.Point(10, 28);
-            label6.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            label6.Location = new System.Drawing.Point(7, 17);
+            label6.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             label6.Name = "label6";
-            label6.Size = new System.Drawing.Size(123, 22);
+            label6.Size = new System.Drawing.Size(84, 15);
             label6.TabIndex = 114;
             label6.Text = "Id nuovo anno";
             // 
@@ -263,20 +266,20 @@
             label7.AutoSize = true;
             label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             label7.ForeColor = System.Drawing.Color.DarkBlue;
-            label7.Location = new System.Drawing.Point(407, 113);
-            label7.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            label7.Location = new System.Drawing.Point(285, 68);
+            label7.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             label7.Name = "label7";
-            label7.Size = new System.Drawing.Size(157, 22);
+            label7.Size = new System.Drawing.Size(106, 15);
             label7.TabIndex = 116;
             label7.Text = "Sigla Classe succ.";
             // 
             // txtClassAbbreviationNext
             // 
             txtClassAbbreviationNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            txtClassAbbreviationNext.Location = new System.Drawing.Point(6, 63);
-            txtClassAbbreviationNext.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            txtClassAbbreviationNext.Location = new System.Drawing.Point(4, 38);
+            txtClassAbbreviationNext.Margin = new System.Windows.Forms.Padding(5);
             txtClassAbbreviationNext.Name = "txtClassAbbreviationNext";
-            txtClassAbbreviationNext.Size = new System.Drawing.Size(165, 33);
+            txtClassAbbreviationNext.Size = new System.Drawing.Size(117, 24);
             txtClassAbbreviationNext.TabIndex = 117;
             // 
             // BtnStudentNew
@@ -285,10 +288,10 @@
             BtnStudentNew.BackColor = System.Drawing.Color.Transparent;
             BtnStudentNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
             BtnStudentNew.ForeColor = System.Drawing.Color.DarkBlue;
-            BtnStudentNew.Location = new System.Drawing.Point(997, 272);
-            BtnStudentNew.Margin = new System.Windows.Forms.Padding(10, 10, 10, 10);
+            BtnStudentNew.Location = new System.Drawing.Point(550, 163);
+            BtnStudentNew.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
             BtnStudentNew.Name = "BtnStudentNew";
-            BtnStudentNew.Size = new System.Drawing.Size(134, 120);
+            BtnStudentNew.Size = new System.Drawing.Size(94, 72);
             BtnStudentNew.TabIndex = 118;
             BtnStudentNew.Text = "Nuovo allievo";
             BtnStudentNew.UseVisualStyleBackColor = false;
@@ -300,10 +303,10 @@
             cmbSchoolYearCurrents.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
             cmbSchoolYearCurrents.ForeColor = System.Drawing.Color.DarkBlue;
             cmbSchoolYearCurrents.FormattingEnabled = true;
-            cmbSchoolYearCurrents.Location = new System.Drawing.Point(10, 58);
-            cmbSchoolYearCurrents.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            cmbSchoolYearCurrents.Location = new System.Drawing.Point(7, 35);
+            cmbSchoolYearCurrents.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             cmbSchoolYearCurrents.Name = "cmbSchoolYearCurrents";
-            cmbSchoolYearCurrents.Size = new System.Drawing.Size(147, 37);
+            cmbSchoolYearCurrents.Size = new System.Drawing.Size(104, 26);
             cmbSchoolYearCurrents.TabIndex = 120;
             cmbSchoolYearCurrents.SelectedIndexChanged += CmbSchoolYear_SelectedIndexChanged;
             // 
@@ -313,12 +316,13 @@
             btnAssociateSchoolPeriodsToTheYear.BackColor = System.Drawing.Color.Transparent;
             btnAssociateSchoolPeriodsToTheYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
             btnAssociateSchoolPeriodsToTheYear.ForeColor = System.Drawing.Color.DarkBlue;
-            btnAssociateSchoolPeriodsToTheYear.Location = new System.Drawing.Point(1590, 272);
-            btnAssociateSchoolPeriodsToTheYear.Margin = new System.Windows.Forms.Padding(10, 10, 10, 10);
+            btnAssociateSchoolPeriodsToTheYear.Location = new System.Drawing.Point(1118, 163);
+            btnAssociateSchoolPeriodsToTheYear.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
             btnAssociateSchoolPeriodsToTheYear.Name = "btnAssociateSchoolPeriodsToTheYear";
-            btnAssociateSchoolPeriodsToTheYear.Size = new System.Drawing.Size(134, 120);
+            btnAssociateSchoolPeriodsToTheYear.Size = new System.Drawing.Size(94, 72);
             btnAssociateSchoolPeriodsToTheYear.TabIndex = 121;
             btnAssociateSchoolPeriodsToTheYear.Text = "Prepara periodi dell'anno";
+            toolTip1.SetToolTip(btnAssociateSchoolPeriodsToTheYear, "Gestisce i periodi dell'anno indicato come \"precedente\"");
             btnAssociateSchoolPeriodsToTheYear.UseVisualStyleBackColor = false;
             btnAssociateSchoolPeriodsToTheYear.Click += btnAssociateSchoolPeriodsToTheYear_Click;
             // 
@@ -330,11 +334,9 @@
             groupBox1.Controls.Add(txtYearNotesCurrent);
             groupBox1.Controls.Add(cmbSchoolYearCurrents);
             groupBox1.Controls.Add(label3);
-            groupBox1.Location = new System.Drawing.Point(3, 22);
-            groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            groupBox1.Location = new System.Drawing.Point(2, 13);
             groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            groupBox1.Size = new System.Drawing.Size(924, 117);
+            groupBox1.Size = new System.Drawing.Size(647, 70);
             groupBox1.TabIndex = 122;
             groupBox1.TabStop = false;
             groupBox1.Text = "Anno scolastico precedente";
@@ -342,10 +344,10 @@
             // txtYearDescriptionCurrent
             // 
             txtYearDescriptionCurrent.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            txtYearDescriptionCurrent.Location = new System.Drawing.Point(167, 62);
-            txtYearDescriptionCurrent.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            txtYearDescriptionCurrent.Location = new System.Drawing.Point(117, 37);
+            txtYearDescriptionCurrent.Margin = new System.Windows.Forms.Padding(5);
             txtYearDescriptionCurrent.Name = "txtYearDescriptionCurrent";
-            txtYearDescriptionCurrent.Size = new System.Drawing.Size(141, 33);
+            txtYearDescriptionCurrent.Size = new System.Drawing.Size(100, 24);
             txtYearDescriptionCurrent.TabIndex = 124;
             // 
             // label8
@@ -353,10 +355,10 @@
             label8.AutoSize = true;
             label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             label8.ForeColor = System.Drawing.Color.DarkBlue;
-            label8.Location = new System.Drawing.Point(316, 28);
-            label8.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            label8.Location = new System.Drawing.Point(221, 17);
+            label8.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             label8.Name = "label8";
-            label8.Size = new System.Drawing.Size(48, 22);
+            label8.Size = new System.Drawing.Size(33, 15);
             label8.TabIndex = 123;
             label8.Text = "Note";
             // 
@@ -365,20 +367,20 @@
             label2.AutoSize = true;
             label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             label2.ForeColor = System.Drawing.Color.DarkBlue;
-            label2.Location = new System.Drawing.Point(167, 28);
-            label2.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            label2.Location = new System.Drawing.Point(117, 17);
+            label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(153, 22);
+            label2.Size = new System.Drawing.Size(105, 15);
             label2.TabIndex = 122;
             label2.Text = "Descrizione breve";
             // 
             // txtYearNotesCurrent
             // 
             txtYearNotesCurrent.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            txtYearNotesCurrent.Location = new System.Drawing.Point(316, 62);
-            txtYearNotesCurrent.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            txtYearNotesCurrent.Location = new System.Drawing.Point(221, 37);
+            txtYearNotesCurrent.Margin = new System.Windows.Forms.Padding(5);
             txtYearNotesCurrent.Name = "txtYearNotesCurrent";
-            txtYearNotesCurrent.Size = new System.Drawing.Size(595, 33);
+            txtYearNotesCurrent.Size = new System.Drawing.Size(418, 24);
             txtYearNotesCurrent.TabIndex = 121;
             // 
             // groupBox2
@@ -389,11 +391,9 @@
             groupBox2.Controls.Add(txtYearNotesNext);
             groupBox2.Controls.Add(txtSchoolYearNext);
             groupBox2.Controls.Add(label6);
-            groupBox2.Location = new System.Drawing.Point(3, 140);
-            groupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            groupBox2.Location = new System.Drawing.Point(2, 84);
             groupBox2.Name = "groupBox2";
-            groupBox2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            groupBox2.Size = new System.Drawing.Size(924, 117);
+            groupBox2.Size = new System.Drawing.Size(647, 70);
             groupBox2.TabIndex = 123;
             groupBox2.TabStop = false;
             groupBox2.Text = "Nuovo anno scolastico";
@@ -403,20 +403,20 @@
             label10.AutoSize = true;
             label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             label10.ForeColor = System.Drawing.Color.DarkBlue;
-            label10.Location = new System.Drawing.Point(316, 28);
-            label10.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            label10.Location = new System.Drawing.Point(221, 17);
+            label10.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             label10.Name = "label10";
-            label10.Size = new System.Drawing.Size(48, 22);
+            label10.Size = new System.Drawing.Size(33, 15);
             label10.TabIndex = 125;
             label10.Text = "Note";
             // 
             // txtYearDescriptionNext
             // 
             txtYearDescriptionNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            txtYearDescriptionNext.Location = new System.Drawing.Point(167, 63);
-            txtYearDescriptionNext.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            txtYearDescriptionNext.Location = new System.Drawing.Point(117, 38);
+            txtYearDescriptionNext.Margin = new System.Windows.Forms.Padding(5);
             txtYearDescriptionNext.Name = "txtYearDescriptionNext";
-            txtYearDescriptionNext.Size = new System.Drawing.Size(141, 33);
+            txtYearDescriptionNext.Size = new System.Drawing.Size(100, 24);
             txtYearDescriptionNext.TabIndex = 125;
             // 
             // label5
@@ -424,20 +424,20 @@
             label5.AutoSize = true;
             label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             label5.ForeColor = System.Drawing.Color.DarkBlue;
-            label5.Location = new System.Drawing.Point(167, 28);
-            label5.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            label5.Location = new System.Drawing.Point(117, 17);
+            label5.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(153, 22);
+            label5.Size = new System.Drawing.Size(105, 15);
             label5.TabIndex = 116;
             label5.Text = "Descrizione breve";
             // 
             // txtYearNotesNext
             // 
             txtYearNotesNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            txtYearNotesNext.Location = new System.Drawing.Point(316, 63);
-            txtYearNotesNext.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            txtYearNotesNext.Location = new System.Drawing.Point(221, 38);
+            txtYearNotesNext.Margin = new System.Windows.Forms.Padding(5);
             txtYearNotesNext.Name = "txtYearNotesNext";
-            txtYearNotesNext.Size = new System.Drawing.Size(595, 33);
+            txtYearNotesNext.Size = new System.Drawing.Size(418, 24);
             txtYearNotesNext.TabIndex = 115;
             // 
             // groupBox3
@@ -446,11 +446,9 @@
             groupBox3.Controls.Add(txtClassDescriptionCurrent);
             groupBox3.Controls.Add(cmbClasses);
             groupBox3.Controls.Add(label1);
-            groupBox3.Location = new System.Drawing.Point(931, 17);
-            groupBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            groupBox3.Location = new System.Drawing.Point(652, 10);
             groupBox3.Name = "groupBox3";
-            groupBox3.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            groupBox3.Size = new System.Drawing.Size(806, 117);
+            groupBox3.Size = new System.Drawing.Size(564, 70);
             groupBox3.TabIndex = 125;
             groupBox3.TabStop = false;
             groupBox3.Text = "Classe precedente";
@@ -460,20 +458,20 @@
             label9.AutoSize = true;
             label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             label9.ForeColor = System.Drawing.Color.DarkBlue;
-            label9.Location = new System.Drawing.Point(187, 28);
-            label9.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            label9.Location = new System.Drawing.Point(131, 17);
+            label9.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             label9.Name = "label9";
-            label9.Size = new System.Drawing.Size(103, 22);
+            label9.Size = new System.Drawing.Size(72, 15);
             label9.TabIndex = 115;
             label9.Text = "Descrizione";
             // 
             // txtClassDescriptionCurrent
             // 
             txtClassDescriptionCurrent.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            txtClassDescriptionCurrent.Location = new System.Drawing.Point(187, 63);
-            txtClassDescriptionCurrent.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            txtClassDescriptionCurrent.Location = new System.Drawing.Point(131, 38);
+            txtClassDescriptionCurrent.Margin = new System.Windows.Forms.Padding(5);
             txtClassDescriptionCurrent.Name = "txtClassDescriptionCurrent";
-            txtClassDescriptionCurrent.Size = new System.Drawing.Size(595, 33);
+            txtClassDescriptionCurrent.Size = new System.Drawing.Size(418, 24);
             txtClassDescriptionCurrent.TabIndex = 114;
             // 
             // groupBox4
@@ -482,11 +480,9 @@
             groupBox4.Controls.Add(label12);
             groupBox4.Controls.Add(txtClassDescriptionNext);
             groupBox4.Controls.Add(txtClassAbbreviationNext);
-            groupBox4.Location = new System.Drawing.Point(936, 140);
-            groupBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            groupBox4.Location = new System.Drawing.Point(655, 84);
             groupBox4.Name = "groupBox4";
-            groupBox4.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            groupBox4.Size = new System.Drawing.Size(806, 117);
+            groupBox4.Size = new System.Drawing.Size(564, 70);
             groupBox4.TabIndex = 126;
             groupBox4.TabStop = false;
             groupBox4.Text = "Nuova classe";
@@ -496,10 +492,10 @@
             label11.AutoSize = true;
             label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             label11.ForeColor = System.Drawing.Color.DarkBlue;
-            label11.Location = new System.Drawing.Point(187, 28);
-            label11.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            label11.Location = new System.Drawing.Point(131, 17);
+            label11.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             label11.Name = "label11";
-            label11.Size = new System.Drawing.Size(103, 22);
+            label11.Size = new System.Drawing.Size(72, 15);
             label11.TabIndex = 115;
             label11.Text = "Descrizione";
             // 
@@ -508,19 +504,36 @@
             label12.AutoSize = true;
             label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             label12.ForeColor = System.Drawing.Color.DarkBlue;
-            label12.Location = new System.Drawing.Point(6, 28);
-            label12.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            label12.Location = new System.Drawing.Point(4, 17);
+            label12.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             label12.Name = "label12";
-            label12.Size = new System.Drawing.Size(50, 22);
+            label12.Size = new System.Drawing.Size(35, 15);
             label12.TabIndex = 94;
             label12.Text = "Sigla";
             // 
+            // btnNewYear
+            // 
+            btnNewYear.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnNewYear.BackColor = System.Drawing.Color.Transparent;
+            btnNewYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
+            btnNewYear.ForeColor = System.Drawing.Color.DarkBlue;
+            btnNewYear.Location = new System.Drawing.Point(1019, 163);
+            btnNewYear.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
+            btnNewYear.Name = "btnNewYear";
+            btnNewYear.Size = new System.Drawing.Size(94, 72);
+            btnNewYear.TabIndex = 127;
+            btnNewYear.Text = "Crea nuovo anno";
+            toolTip1.SetToolTip(btnNewYear, "Crea nuovo anno con i dati in \"Nuovo anno scolastico\"");
+            btnNewYear.UseVisualStyleBackColor = false;
+            btnNewYear.Click += btnNewYear_Click;
+            // 
             // frmNewYear
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.PowderBlue;
-            ClientSize = new System.Drawing.Size(1743, 1060);
+            ClientSize = new System.Drawing.Size(1220, 636);
+            Controls.Add(btnNewYear);
             Controls.Add(groupBox4);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
@@ -538,7 +551,7 @@
             Controls.Add(label4);
             ForeColor = System.Drawing.Color.DarkBlue;
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
-            Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "frmNewYear";
             Text = "Nuovo anno scolastico";
             Load += frmNewYear_Load;
@@ -594,5 +607,7 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Button btnNewYear;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

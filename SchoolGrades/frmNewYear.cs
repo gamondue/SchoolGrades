@@ -31,7 +31,7 @@ namespace SchoolGrades
             currentSchool = Commons.bl.GetSchool(TxtOfficialSchoolAbbreviation.Text);
 
             // years's data in combo
-            List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
+            List<SchoolYear> ly = Commons.bl.GetAllSchoolYears();
             cmbSchoolYearCurrents.DataSource = ly;
             if (ly.Count > 0)
                 cmbSchoolYearCurrents.SelectedItem = ly[ly.Count - 1];
@@ -40,7 +40,7 @@ namespace SchoolGrades
 
             cmbClasses.DataSource = Commons.bl.GetClassesOfYear(
                 currentSchool.IdSchool, currentSchoolYear.IdSchoolYear);
-            cmbClasses.SelectedIndex = 0;
+            //cmbClasses.SelectedIndex = 0;
 
             currentClass = (Class)cmbClasses.SelectedItem;
 
@@ -206,8 +206,29 @@ namespace SchoolGrades
         }
         private void btnAssociateSchoolPeriodsToTheYear_Click(object sender, EventArgs e)
         {
-            frmSchoolYearAndPeriodsManagement f = new frmSchoolYearAndPeriodsManagement(txtSchoolYearNext.Text);
+            frmSchoolYearAndPeriodsManagement f = new frmSchoolYearAndPeriodsManagement(cmbSchoolYearCurrents.Text);
             f.ShowDialog();
+        }
+        private void btnNewYear_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Devo creare un nuovo anno scolastico '" + txtSchoolYearNext.Text + "'?",
+                "", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2)
+                != DialogResult.Yes)
+            {
+                return;
+            }
+            SchoolYear sy = new SchoolYear(txtSchoolYearNext.Text);
+            if (!Commons.bl.AddSchoolYearIfNotExists(sy))
+            {
+                MessageBox.Show("L'anno scolastico " + txtSchoolYearNext.Text + " esiste già");
+            }
+            else
+            {
+                MessageBox.Show("Ho creato l'anno scolastico " + txtSchoolYearNext.Text);
+                List<SchoolYear> ly = Commons.bl.GetAllSchoolYears();
+                cmbSchoolYearCurrents.DataSource = ly;
+                cmbSchoolYearCurrents.SelectedItem = ly[ly.Count - 1];
+            }
         }
     }
 }
