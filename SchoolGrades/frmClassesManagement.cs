@@ -37,7 +37,7 @@ namespace SchoolGrades
             CmbSchoolYear.ValueMember = "IdSchoolYear";
             CmbClasses.DisplayMember = "Abbreviation";
             CmbClasses.ValueMember = "Abbreviation";
-            List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
+            List<SchoolYear> ly = Commons.bl.GetAllSchoolYears();
             CmbSchoolYear.DataSource = ly;
             if (ly.Count > 0)
             {
