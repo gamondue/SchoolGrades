@@ -414,6 +414,8 @@ namespace gamon.TreeMptt
                     }
                     else
                     {
+                        if (stack != null)
+                            return;
                         do
                         {
                             previousUiNode = (TreeViewItem)stack.Pop();
@@ -954,7 +956,7 @@ namespace gamon.TreeMptt
                 TreeViewItem te = (TreeViewItem)shownTreeView.SelectedItem;
                 // if the topic has already been saved in the database, we have to ask for 
                 // confirmation if it has already been checked in the past
-                if (((Topic)te.Tag).Id != null)
+                if (te != null && ((Topic)te.Tag).Id != null)
                     if (bl.IsTopicAlreadyTaught((Topic)te.Tag))
                     {
                         //if (MessageBox.Show("Questo argomento è già stato fatto in qualche lezione\n" +

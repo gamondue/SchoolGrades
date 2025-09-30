@@ -390,8 +390,9 @@ namespace gamon.TreeMptt
                     }
                     else
                     {
-                        do
-                        {
+                        if (stack.Count == 0)
+                             return;
+                        do {
                             previousUiNode = (TreeNode)stack.Pop();
                             previousNode = (Topic)(previousUiNode.Tag);
                         } while (currentNode.RightNodeOld > previousNode.RightNodeOld);
@@ -938,7 +939,7 @@ namespace gamon.TreeMptt
                 TreeNode te = shownTreeView.SelectedNode;
                 // if the topic has already been saved in the database, we have to ask for 
                 // confirmation if it has already been checked in the past
-                if (((Topic)te.Tag).Id != null)
+                if (te != null && ((Topic)te.Tag).Id != null)
                     if (bl.IsTopicAlreadyTaught((Topic)te.Tag))
                     {
                         if (MessageBox.Show("Almeno uno degli argomenti scelti è già stato fatto in qualche lezione\n" +
