@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net9.0-windows10.0.17763.0</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
-    <Version>0.56.0.0</Version>
+    <Version>0.57.0.0</Version>
     <Authors>Ing. Gabriele Monti - Forlì - Italia</Authors>
     <Copyright>Copyleft GPL Licence - Initiated and managed by Ing. Gabriele Monti - Forlì - Italia</Copyright>
     <PackageLicenseExpression>GPLv2</PackageLicenseExpression>
@@ -33,6 +33,10 @@ Versions with numbers under 0.50 were made with .Net Framework.</PackageReleaseN
       <Isolated>false</Isolated>
       <EmbedInteropTypes>true</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="gamon LegoLogo decentrato trasparente 256x256.ico" />
   </ItemGroup>
 
   <ItemGroup>

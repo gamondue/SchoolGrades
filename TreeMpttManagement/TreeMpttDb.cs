@@ -76,7 +76,7 @@ namespace gamon.TreeMptt
             {
                 if (cmd != null)
                     cmd.Dispose();
-                // code for comatibility with past versions. Today could be removed
+                // code for compatibility with past versions. Today could be removed
                 // if the table "Flags" doesn't exist (old version of database) 
                 // return true (those versions where working only with MPTT tree)
                 if (e.Message.Contains("no such"))
