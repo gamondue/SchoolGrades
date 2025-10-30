@@ -1,6 +1,7 @@
 ﻿using gamon;
 using SchoolGrades.BusinessObjects;
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
 
@@ -8,6 +9,7 @@ namespace SchoolGrades
 {
     public partial class frmSetup : Form
     {
+ [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool NewDatabaseFile { get; private set; }
 
         public frmSetup()

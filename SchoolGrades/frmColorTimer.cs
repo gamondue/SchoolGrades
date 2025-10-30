@@ -3,6 +3,7 @@ using System;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace gamon
 {
@@ -50,7 +51,9 @@ namespace gamon
         private DateTime finaltime;
         private double timeTotalMinutes;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string FormCaption { get; set; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool PlaySoundEffects
         {
             get

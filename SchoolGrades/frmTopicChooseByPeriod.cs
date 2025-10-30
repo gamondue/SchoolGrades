@@ -1,29 +1,32 @@
 ﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace SchoolGrades
 {
-    public partial class frmTopicChooseByPeriod : Form
+  public partial class frmTopicChooseByPeriod : Form
     {
         private Class currentClass;
-        private SchoolSubject currentSubject;
+      private SchoolSubject currentSubject;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         internal Topic TopicChosen { get; private set; }
 
-        List<Topic> topicsDone;
+   List<Topic> topicsDone;
 
-        public enum TopicChooseFormType
+     public enum TopicChooseFormType
         {
-            ChooseTopicOnExit,
+    ChooseTopicOnExit,
             OpenTopicOnExit,
-        }
-        TopicChooseFormType formType;
-        private SchoolPeriod currentSchoolPeriod;
+     }
+  TopicChooseFormType formType;
+  private SchoolPeriod currentSchoolPeriod;
+        
         public frmTopicChooseByPeriod(TopicChooseFormType FormType,
             Class Class, SchoolSubject Subject)
-        {
+{
             InitializeComponent();
             currentClass = Class;
             currentSubject = Subject;

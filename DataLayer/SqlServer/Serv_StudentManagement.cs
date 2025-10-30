@@ -569,5 +569,13 @@ namespace SchoolGrades
                 cmd.ExecuteNonQuery(); //execute the command
             }
         }
+        internal override List<Class> GetAllClassesOfStudent(Student s)
+        {
+            throw new NotImplementedException();
+        }
+        internal override List<Student> GetAllStudents(DbCommand cmd)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

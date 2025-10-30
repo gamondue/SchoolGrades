@@ -1,9 +1,9 @@
-﻿using SchoolGrades.BusinessObjects;
+﻿using Microsoft.Data.Sqlite;
+using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using Microsoft.Data.Sqlite;
 
 namespace SchoolGrades
 {
@@ -33,6 +33,46 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
             return s;
+        }
+        internal override List<Class> GetAllClassesOfStudent(Student s)
+        {
+            List<Class> list = new ();
+            using (DbConnection conn = Connect())
+            {
+                DbCommand cmd = conn.CreateCommand();
+                string query = "SELECT *" +
+                    " FROM Classes" +
+                    " JOIN Classes_Students ON Classes_Students.IdClass = Classes.IdClass" +
+                    //" JOIN Students ON Classes_Students.IdStudent=Students.IdStudent" +
+                    " WHERE Classes_Students.IdStudent=" + s.IdStudent + "" +
+                    " ORDER BY Classes.IdSchoolYear" +
+                    ";";
+                cmd.CommandText = query;
+                DbDataReader dRead = cmd.ExecuteReader();
+                while (dRead.Read())
+                {
+                    Class c = new();
+                    GetClassFromRow(c, dRead);
+                    list.Add(c);
+                }
+            }
+            return list;
+        }
+        internal override List<Student> GetAllStudents(DbCommand cmd)
+        {
+            // get in a list all the students from database, using the db command passed
+            List<Student> allStudents = new List<Student>();
+            string query = "SELECT * FROM Students" +
+                ";";
+            cmd.CommandText = query;
+            DbDataReader dRead = cmd.ExecuteReader();
+            while (dRead.Read())
+            {
+                Student s = GetStudentFromRow(dRead);
+                allStudents.Add(s);
+            }
+            dRead.Close();
+            return allStudents;
         }
         internal override DataTable GetStudentsWithNoMicrogrades(Class Class, string IdGradeType, string IdSchoolSubject,
             DateTime DateFrom, DateTime DateTo)

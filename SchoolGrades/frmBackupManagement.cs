@@ -221,7 +221,7 @@ namespace SchoolGrades
                 MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
                 return;
 
-            // make a list of selected classes and same classes next yeatr 
+            // make a list of selected classes and the same classes next year 
             List<Class> classes = new();
             foreach (Class c in lstClasses.SelectedItems)
             {

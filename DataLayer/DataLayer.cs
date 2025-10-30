@@ -132,6 +132,7 @@ namespace SchoolGrades
         internal abstract void CreateDemoDataInDatabase(DataLayer newDatabaseDl, List<Class> Classes);
         internal abstract void RandomizeGrades();
         internal abstract void RenameStudentsNamesAndManagePictures(Class Class, DbCommand cmd);
+        internal abstract void RenameAllStudentsNamesAndManagePictures(DbCommand cmd);
         internal abstract void AddLinkPhotoToStudent(int? idStudent, int? idStudentsPhoto, string schoolYear, DbCommand cmd);
         internal abstract bool isDuplicate(string lastName, string firstName, List<Student> StudentsInClass);
         internal abstract void Create_GradesTable();
@@ -284,6 +285,8 @@ namespace SchoolGrades
         internal abstract void CreateTableStudents();
         internal abstract Student GetStudent(Student StudentToFind);
         internal abstract Student GetStudent(int? IdStudent);
+        internal abstract List<Class> GetAllClassesOfStudent(Student s);
+        internal abstract List<Student> GetAllStudents(DbCommand cmd);
         internal abstract Student GetStudentFromRow(DbDataReader Row);
         internal abstract List<Student> GetStudentsSameName(string LastName, string FirstName);
         internal abstract List<Student> GetStudentsLike(Student Student);

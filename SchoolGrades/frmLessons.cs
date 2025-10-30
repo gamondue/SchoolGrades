@@ -2,6 +2,7 @@
 using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
 
@@ -27,7 +28,10 @@ namespace SchoolGrades
         bool isFormClosed = false;
         private int currentLessonsGridIndex;
 
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool IsFormClosed { get => isFormClosed; set => isFormClosed = value; }
+        
         public frmLessons(Class CurrentClass, SchoolSubject SchoolSubject, bool ReadOnly)
         {
             InitializeComponent();

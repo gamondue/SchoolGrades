@@ -209,5 +209,9 @@ namespace SchoolGrades
         {
             throw new NotImplementedException();
         }
+        internal override void RenameAllStudentsNamesAndManagePictures(DbCommand cmd)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

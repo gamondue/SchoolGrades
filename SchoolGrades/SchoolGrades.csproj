@@ -10,14 +10,14 @@
     <PackageLicenseExpression>GPLv2</PackageLicenseExpression>
     <Description>SchoolGrades manages the daily life of a teacher in the classroom, with emphasis to evaluations and tracking of topics done.</Description>
     <RepositoryType>git source code repository</RepositoryType>
-    <RepositoryUrl>https://github.com/gamondue/SchoolGrades</RepositoryUrl>
+  <RepositoryUrl>https://github.com/gamondue/SchoolGrades</RepositoryUrl>
     <PackageReleaseNotes>SchoolGrades. .Net 6 version. Version number of .Net Core code or subsequents starts from 0.50. 
 Published on GitHub with GPL v.2 licence. 
 Versions with numbers under 0.50 were made with .Net Framework.</PackageReleaseNotes>
     <PackageIcon>gamon LegoLogo decentrato trasparente 256x256.ico</PackageIcon>
     <ApplicationIcon>gamon LegoLogo decentrato trasparente 256x256.ico</ApplicationIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <IsPublishable>False</IsPublishable>
+    <IsPublishable>True</IsPublishable>
 	<DefineConstants>WINFORMS</DefineConstants>
 	<DefineConstants>SQLITE</DefineConstants>
 	<Title>SchoolGrades</Title>

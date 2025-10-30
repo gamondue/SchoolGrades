@@ -2,6 +2,7 @@
 using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -12,6 +13,8 @@ namespace SchoolGrades
         TreeMpttDb dbMptt;
 
         internal Question currentQuestion = new Question();
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         internal bool UserHasChosen;
 
         List<Tag> tagsList;
@@ -23,14 +26,14 @@ namespace SchoolGrades
 
         public enum QuestionFormType
         {
-            EditOneQuestion,
+        EditOneQuestion,
             CreateSeveralQuestions,
-        }
+      }
         QuestionFormType formType;
 
         internal frmQuestion(QuestionFormType Type, Question Question,
-            SchoolSubject Subject, Class Class, Topic Topic)
-        {
+  SchoolSubject Subject, Class Class, Topic Topic)
+  {
             InitializeComponent();
 
             dbMptt = TreeMptt.SetDataLayer();

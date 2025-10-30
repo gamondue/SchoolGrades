@@ -2,6 +2,7 @@
 using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -20,17 +21,23 @@ namespace SchoolGrades
 
         frmMain parentForm;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool UserHasChosen { get => userHasChosen; internal set => userHasChosen = value; }
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         internal Topic ChosenTopic { get => chosenTopic; }
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public TopicsFormType ShowTopicsDone { get; }
+        
         public enum TopicsFormType
         {
-            ShowAndManagement,
-            HighlightTopics,
+  ShowAndManagement,
+        HighlightTopics,
             ImportWithErase,
-            ImportWithoutErase,
-            SearchTopics,
-            ChooseTopic
+     ImportWithoutErase,
+    SearchTopics,
+        ChooseTopic
         }
         TopicsFormType formType;
         private Topic chosenTopic;
@@ -39,7 +46,7 @@ namespace SchoolGrades
         public frmTopics(TopicsFormType FormType,
             Class Class, SchoolSubject Subject,
             Question Question = null, List<Topic> ListTopicsExternal = null,
-            frmMain ParentForm = null)
+   frmMain ParentForm = null)
         {
             InitializeComponent();
 

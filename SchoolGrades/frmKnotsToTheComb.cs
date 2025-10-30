@@ -1,5 +1,6 @@
 ﻿using SchoolGrades.BusinessObjects;
 using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace SchoolGrades
@@ -16,6 +17,7 @@ namespace SchoolGrades
 
         bool isLoading = true;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         internal Question ChosenQuestion { get; private set; }
         public frmKnotsToTheComb(frmMicroAssessment GrandparentForm, int? IdStudent, SchoolSubject SchoolSubject, string Year)
         {

@@ -2,6 +2,7 @@
 using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace SchoolGrades
@@ -25,10 +26,13 @@ namespace SchoolGrades
         bool isLoading = true;
         private SchoolPeriod currentSchoolPeriod;
 
-        internal Question ChosenQuestion { get => chosenQuestion; set => chosenQuestion = value; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+     internal Question ChosenQuestion { get => chosenQuestion; set => chosenQuestion = value; }
+
+   [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public frmMicroAssessment ParentForm { get; }
 
-        internal frmQuestionChoose(SchoolSubject SchoolSubject, Class Class,
+  internal frmQuestionChoose(SchoolSubject SchoolSubject, Class Class,
             Student Student = null, Question Question = null,
             frmMicroAssessment MicroAssessmentParent = null, frmMain MainParent = null)
         {

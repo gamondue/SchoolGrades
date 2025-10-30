@@ -424,6 +424,8 @@ namespace SchoolGrades
         {
             using (DbConnection conn = Connect())
             {
+                if (grade == null) 
+                    return;
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "UPDATE Grades" +
                 " SET value=" + SqlDouble(grade) +
