@@ -81,7 +81,7 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal override string GetFilePhoto(int? IdStudent, string SchoolYear)
+        internal override string GetFilePhoto(int? IdStudent, string SchoolYear = null)
         {
             // gets the path of the student's photo of the passed SchoolYear.
             // if the SchoolYear is not passed, gets the path of the first photo

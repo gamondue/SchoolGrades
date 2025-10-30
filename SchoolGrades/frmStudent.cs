@@ -1,6 +1,7 @@
 ﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
 
@@ -8,10 +9,14 @@ namespace SchoolGrades
 {
     public partial class frmStudent : Form
     {
+   [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Student CurrentStudent { get => currentStudent; set => currentStudent = value; }
-        Student currentStudent = new();
+    Student currentStudent = new();
         private bool isDialog;
-        internal bool UserHasChosen = false; 
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+      internal bool UserHasChosen = false;
+
         public frmStudent(Student Student, bool IsDialog)
         {
             InitializeComponent();

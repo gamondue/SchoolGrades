@@ -1,10 +1,12 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace SchoolGrades
 {
     public partial class frmInputBox : Form
     {
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string Value { get; set; }
         public frmInputBox(string Title, string PromptText, string InitialValue)
         {

@@ -1,5 +1,6 @@
 ﻿using SchoolGrades.BusinessObjects;
 using System;
+using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
@@ -8,7 +9,7 @@ namespace SchoolGrades
 {
     public partial class frmMicroAssessment : Form
     {
-        private string currentYear;
+      private string currentYear;
         private int idQuestionParent;
         private string idGradeType;
         //BusinessLayer Commons.bl;
@@ -17,48 +18,55 @@ namespace SchoolGrades
         frmMain callingForm;
 
         private Class currentClass;
-        Student currentStudent;
+    Student currentStudent;
         Grade currentMacroGrade;
         GradeType currentGradeType;
         SchoolSubject currentSchoolSubject;
         Question currentQuestion = new Question();
 
-        #region constructors
+ #region constructors
         internal frmMicroAssessment(frmMain CallingForm, Class Class, Student Student,
             GradeType GradeType, SchoolSubject Subject, Question Question)
         {
-            InitializeComponent();
+      InitializeComponent();
 
-            callingForm = CallingForm;
+      callingForm = CallingForm;
             currentClass = Class;
-            currentStudent = Student;
-            currentGradeType = GradeType;
+    currentStudent = Student;
+       currentGradeType = GradeType;
             currentSchoolSubject = Subject;
-            currentQuestion = Question;
+       currentQuestion = Question;
         }
+
         public frmMicroAssessment(int IdGrade)
         {
-            InitializeComponent();
+     InitializeComponent();
 
-            // constructor for subgrades for a grade passed trough its id
+    // constructor for subgrades for a grade passed trough its id
             currentGrade.IdGrade = IdGrade;
             currentStudent = new Student();
             Commons.bl.GetGradeAndStudentFromIdGrade(ref currentGrade, ref currentStudent);
-            currentYear = currentGrade.IdSchoolYear;
-            currentClass = Commons.bl.GetClassOfAStudentInAYear(Commons.IdSchool, currentYear, currentStudent);
+    currentYear = currentGrade.IdSchoolYear;
+    currentClass = Commons.bl.GetClassOfAStudentInAYear(Commons.IdSchool, currentYear, currentStudent);
 
-            currentGradeType = Commons.bl.GetGradeType(currentGrade.IdGradeType);
+       currentGradeType = Commons.bl.GetGradeType(currentGrade.IdGradeType);
 
-            currentSchoolSubject = Commons.bl.GetSchoolSubject(currentGrade.IdSchoolSubject);
-            currentQuestion = Commons.bl.GetQuestionById(currentGrade.IdQuestion);
+       currentSchoolSubject = Commons.bl.GetSchoolSubject(currentGrade.IdSchoolSubject);
+ currentQuestion = Commons.bl.GetQuestionById(currentGrade.IdQuestion);
         }
 
         #endregion
-        internal Question CurrentQuestion { get => currentQuestion; set => currentQuestion = value; }
+
+   [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+      internal Question CurrentQuestion { get => currentQuestion; set => currentQuestion = value; }
+
         Grade currentGrade = new Grade();
-        internal Grade CurrentGrade { get => currentGrade; set => currentGrade = value; }
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+ internal Grade CurrentGrade { get => currentGrade; set => currentGrade = value; }
+
         private void frmMicroAssessment_Load(object sender, EventArgs e)
-        {
+     {
             if (currentStudent is null)
             {
                 MessageBox.Show("Selezionare un allievo");

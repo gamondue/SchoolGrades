@@ -3,6 +3,7 @@ using gamon.TreeMptt;
 using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
@@ -28,7 +29,9 @@ namespace SchoolGrades
         Random random = new Random();
 
         System.Media.SoundPlayer suonatore = new System.Media.SoundPlayer();
-        public Student CurrentStudent { get; set; }
+   
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+ public Student CurrentStudent { get; set; }
 
         string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
@@ -802,20 +805,21 @@ namespace SchoolGrades
             }
             SaveStudentsOfClassIfEligibleHasChanged();
         }
-        internal Question CurrentQuestion
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+internal Question CurrentQuestion
         {
             get => currentQuestion;
-            set
+     set
             {
-                currentQuestion = value;
-                txtQuestion.Text = currentQuestion.Text;
-                lstTimeInterval.Text = currentQuestion.Duration.ToString();
-                if (currentQuestion.Duration != null && currentQuestion.Duration != 0)
-                    txtTimeInterval.Text = CurrentQuestion.Duration.ToString();
-            }
+       currentQuestion = value;
+      txtQuestion.Text = currentQuestion.Text;
+       lstTimeInterval.Text = currentQuestion.Duration.ToString();
+      if (currentQuestion.Duration != null && currentQuestion.Duration != 0)
+txtTimeInterval.Text = CurrentQuestion.Duration.ToString();
+   }
         }
         private void showCurrentStudent(Student alli)
-        {
+{
             currentClass.CurrentStudent = alli;
 
             lblStudentChosen.Text = alli.ToString();
