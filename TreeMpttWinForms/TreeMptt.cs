@@ -217,6 +217,9 @@ namespace gamon.TreeMptt
             // all the saving happens under a lock from other tasks
             // this saving waits here until the background task hasn't finished saving 
             Commons.StopOperationsOnBackgroundThread();
+            // since background has receive the command to stop, we switch off le LED
+            Commons.SwitchPicLed(false);
+
             lock (Commons.LockSavingCriticalSections)
             {
                 // left and right are set inconsistent 
@@ -305,34 +308,76 @@ namespace gamon.TreeMptt
                     // start saving in background, in locked condition
                     // other tasks can signal this to abort operation by setting 
                     // Commons.BackgroundTaskCanSave to false
+
+                    // signal that the background thread is saving 
+                    Commons.BackgroundThreadIsSaving = true;
+                    // light up the saving LED
+                    Commons.SwitchPicLed(true);
+
+                    List<Topic> listNodes = new List<Topic>();
+                        int nodeCount = 1;
+                    try
+                    {
+                        // Apri connessione una volta sola per tutta la traversata
+                        dbMptt.OpenLocalConnectionIfClosed();
+
+                        // Leggi radici e genera left/right ricorsivamente dal DB
+                        List<Topic> roots = dbMptt.GetNodesRoots(false);
+
+                        if (roots != null && roots.Count > 0)
+                        {
+                            foreach (Topic root in roots)
+                            {
+                                if (!Commons.MethodCanContinue() || Commons.BackgroundTaskClose)
+                                    break;
+
+                                // GenerateNewListOfNodesFromDatabase chiama ricorsivamente 
+                                // dbMptt.GetNodesChildsByParent usando la connessione aperta
+                                GenerateNewListOfNodesFromDatabase(root, ref nodeCount, ref listNodes);
+                            }
+                        }
+                    }
+                    finally
+                    {
+                            // Chiudi la connessione dopo la traversata
+                        dbMptt.CloseLocalConnectionIfWasFoundClosed();
+                    }
+
+                    // abort if cancelled or nothing to save
+                    if (!Commons.MethodCanContinue() || Commons.BackgroundTaskClose || listNodes == null || listNodes.Count ==0)
+                    {
+                        Commons.BackgroundThreadIsSaving = false;
+                        Commons.SwitchPicLed(false);
+                        continue;
+                    }
+
+                    // Acquire lock only for the write operation
+                    bool didSave = false;
                     lock (Commons.LockSavingCriticalSections)
                     {
-                        // signal that the background thread is saving 
-                        Commons.BackgroundThreadIsSaving = true;
-                        // light up the saving LED
-                        Commons.SwitchPicLed(true);
-                        // read the tree by Parent into a new TreeView control
-                        // that we aren't showing 
-                        TreeView hiddenTree = new TreeView();
-                        AddNodesToTreeViewByParent(hiddenTree, true);
-                        // traverse the tree with Mptt, saving Left and Right and quitting if  
-                        // someone else modifies BackgroundSavingEnabled
-                        List<Topic> listNodes = new List<Topic>();
-                        int nodeCount = 1;
-                        if (Commons.BackgroundTaskCanSave)
-                            // not executed if saving is aborted 
-                            GenerateNewListOfNodesFromTreeViewControl_Recursive(
-                                hiddenTree.Nodes[0],
-                                ref nodeCount, ref listNodes);
-                        if (Commons.MethodCanContinue())
-                            // not executed if saving is aborted 
-                            // in this point delete list cannot have any entry
+                        // Respect background-save flag
+                        if (!Commons.BackgroundTaskCanSave)
+                        {
+                            // do nothing here; saving skipped
+                        }
+                        else
+                        {
+                            // perform DB write while holding the lock
                             dbMptt.SaveTreeToDb(listNodes, null, true, false);
-                        if (Commons.MethodCanContinue())
-                            // not executed if saving is aborted 
                             dbMptt.SaveLeftRightConsistency(true);
+                            didSave = true;
+                        }
                     }
+
+                    // Release the lock BEFORE invoking UI/thread-affine operations
                     Commons.BackgroundThreadIsSaving = false;
+                    Commons.SwitchPicLed(false);
+
+                    if (!didSave)
+                    {
+                        // saving was skipped because BackgroundTaskCanSave == false
+                        continue;
+                    }
                 }
             }
         }

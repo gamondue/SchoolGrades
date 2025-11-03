@@ -1,9 +1,4 @@
-﻿using gamon;
-using gamon.TreeMptt;
-using SchoolGrades;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using gamon.TreeMptt;
 using System.Threading;
 
 namespace SchoolGrades
@@ -34,16 +29,31 @@ namespace SchoolGrades
         internal static void StopOperationsOnBackgroundThread()
         {
             // disable the background saving task. When disabled, the concurrent
-            // thread will receinve notification and stop modifying the database 
+            // thread will receive notification and stop modifying the database 
 
-            // lock the concurrent modification of synchronizing variables 
+            // set the flag under lock, then wait WITHOUT holding the lock
             if (Commons.BackgroundTaskCanSave)
             {
                 lock (LockBackgroundSavingVariables)
                 {
                     BackgroundTaskCanSave = false;
-                    // wait for the backgorund task to stop modifying the database
-                    Thread.Sleep(2000);
+                }
+
+                // wait for any active background save to finish, but do not hold the lock
+                int waited = 0;
+                const int timeout = 5000; // ms
+                const int step = 100; // ms
+                while (Commons.BackgroundThreadIsSaving && waited < timeout)
+                {
+                    // try without the next line if it is needed put this code in a WinForms module file
+                    //// process pending UI messages so background thread's Invoke can run
+                    //try
+                    //{
+                    //    Application.DoEvents();
+                    //}
+                    //catch { }
+                    Thread.Sleep(step);
+                    waited += step;
                 }
             }
         }

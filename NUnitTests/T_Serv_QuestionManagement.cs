@@ -49,7 +49,7 @@ namespace NUnitDbTests
             //string query = "CREATE TABLE Topics " +
             //    "(idTopic INT NOT NULL, " +
             //    "name VARCHAR(20) NOT NULL, " +
-            //    "descr VARCHAR(255), " +
+            //    "desc VARCHAR(255), " +
             //    "leftNode INT, " +
             //    "rightNode INT, " +
             //    "parentNode INT, " +
@@ -77,7 +77,7 @@ namespace NUnitDbTests
             //string query = "CREATE TABLE QuestionTypes " +
             //    "(idQuestionType VARCHAR(5) NOT NULL, " +
             //    "name VARCHAR(20) NOT NULL, " +
-            //    "descr VARCHAR(255) NULL, " +
+            //    "desc VARCHAR(255) NULL, " +
             //    "PRIMARY KEY (idQuestionType));";
             //-----------------------------
             #endregion
@@ -89,7 +89,7 @@ namespace NUnitDbTests
 
             //string query = "INSERT INTO Questions_Tags (idQuestion, idTag) VALUES (1, 2);";
 
-            //string query = "INSERT INTO Topics (idTopic, name, descr, leftNode, rightNode, parentNode, childNumber) " +
+            //string query = "INSERT INTO Topics (idTopic, name, desc, leftNode, rightNode, parentNode, childNumber) " +
             //    "VALUES (1, 'informatica', 'databases', 1, 2, 3, 4);";
 
             //string query = "INSERT INTO Tests_Questions (idTest, idQuestion, weight) VALUES (1, 12, 976);";
@@ -98,7 +98,7 @@ namespace NUnitDbTests
             //    "(idGrade, idStudent, value, idSchoolSubject, weight, cncFactor, idSchoolYear, timestamp, idGradeType, idGradeParent, idQuestion, isFixed) " +
             //    "VALUES (1, 1, 8.5, 'info', 123.4, 0.3, '2024', '2024-03-09T00:00:00Z', 'tipo', 1, 2, 0);";
 
-            //string query = "INSERT INTO QuestionTypes (idQuestionType, name, descr) VALUES ('info', 'database', 'tutto sui database cioe tutto davvero');";
+            //string query = "INSERT INTO QuestionTypes (idQuestionType, name, desc) VALUES ('info', 'database', 'tutto sui database cioe tutto davvero');";
 
             //cmd.CommandText = query;
             //cmd.ExecuteNonQuery();

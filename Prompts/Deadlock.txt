@@ -1,0 +1,1 @@
+Il programma correntemente selezionato ha un deadlock fra il fra il thread del form frmTopics, nei metodi lanciati con la pressione del bottone btnSaveTree, ed il thread di salvataggio in background che viene lanciato alla partenza del programma nem frmMaina. Riesci ad individuare il progblema ed a risolverlo?

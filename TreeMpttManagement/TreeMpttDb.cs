@@ -22,13 +22,13 @@ namespace gamon.TreeMptt
         // methods that have a fairly standard SQL are implementedi here, tested with SQLite.
         // Make them abstract if they are found as DBMS specific in the future implementation with SQL Server or other DBMS.
 
-        // WARNING: document with evidence if a method will leave open the connection that ha personally opened, 
+        // WARNING: document with evidence if a method will leave open the connection that has personally opened, 
         //          or if it will close the connection even if it was not opened by itself
 
         // !!!! TODO ????; turn to generic this class, such that it can contain any class and not just Topic instances !!!!
 
         internal DbConnection localDbConnection;
-        
+
         internal TreeMpttDb()
         {
 
@@ -91,12 +91,12 @@ namespace gamon.TreeMptt
         internal void SaveLeftRightConsistency(bool IsConsistent)
         {
             OpenLocalConnectionIfClosed();
-            // SQL operation serial
-            DbCommand cmd = localDbConnection.CreateCommand();
-            cmd.CommandText = "UPDATE Flags" +
-                " SET areLeftRightConsistent=" + IsConsistent.ToString();
-            cmd.ExecuteNonQuery();
-            cmd.Dispose();
+            using (DbCommand cmd = localDbConnection.CreateCommand())
+            {
+                cmd.CommandText = "UPDATE Flags SET areLeftRightConsistent = @value";
+                var p = cmd.CreateParameter(); p.ParameterName = "@value"; p.Value = IsConsistent ? 1 : 0; cmd.Parameters.Add(p);
+                cmd.ExecuteNonQuery();
+            }
             CloseLocalConnectionIfWasFoundClosed();
         }
         internal List<Topic> GetNodesRoots(bool CloseConnectionEnding)
@@ -115,13 +115,14 @@ namespace gamon.TreeMptt
                 " ORDER BY childNumber;";
             cmd = new SqliteCommand(query);
             cmd.Connection = localDbConnection;
-            DbDataReader dRead = cmd.ExecuteReader();
-            while (dRead.Read())
+            using (DbDataReader dRead = cmd.ExecuteReader())
             {
-                Topic t = GetTopicFromRow(dRead);
-                lt.Add(t);
+                while (dRead.Read())
+                {
+                    Topic t = GetTopicFromRow(dRead);
+                    lt.Add(t);
+                }
             }
-            dRead.Dispose();
             cmd.Dispose();
             CloseLocalConnectionIfWasFoundClosed();
             return lt;
@@ -130,21 +131,19 @@ namespace gamon.TreeMptt
         {
             OpenLocalConnectionIfClosed();
             List<Topic> lt = new List<Topic>();
-            DbCommand cmd = localDbConnection.CreateCommand();
-            string query = "SELECT *" +
-                " FROM Topics" +
-                " WHERE parentNode=" + ParentNode.Id +
-                " ORDER BY childNumber";
-            cmd = new SqliteCommand(query);
-            cmd.Connection = localDbConnection;
-            DbDataReader dRead = cmd.ExecuteReader();
-            while (dRead.Read())
+            using (DbCommand cmd = localDbConnection.CreateCommand())
             {
-                Topic t = GetTopicFromRow(dRead);
-                lt.Add(t);
+                cmd.CommandText = "SELECT * FROM Topics WHERE parentNode = @parent ORDER BY childNumber";
+                var p = cmd.CreateParameter(); p.ParameterName = "@parent"; p.Value = ParentNode.Id ?? (object)DBNull.Value; cmd.Parameters.Add(p);
+                using (DbDataReader dRead = cmd.ExecuteReader())
+                {
+                    while (dRead.Read())
+                    {
+                        Topic t = GetTopicFromRow(dRead);
+                        lt.Add(t);
+                    }
+                }
             }
-            dRead.Dispose();
-            cmd.Dispose();
             CloseLocalConnectionIfWasFoundClosed();
             return lt;
         }
@@ -157,35 +156,36 @@ namespace gamon.TreeMptt
             }
             List<Topic> l = new List<Topic>();
             OpenLocalConnectionIfClosed();
-            DbCommand cmd = localDbConnection.CreateCommand();
-            string query = "SELECT *" +
-                " FROM Topics" +
-                " WHERE leftNode <=" + LeftNode +
-                " AND rightNode >=" + RightNode +
-                " ORDER BY LeftNode ASC;)";
-            cmd = new SqliteCommand(query);
-            cmd.Connection = localDbConnection;
-            DbDataReader dRead = cmd.ExecuteReader();
-            while (dRead.Read())
+            using (DbCommand cmd = localDbConnection.CreateCommand())
             {
-                Topic t = GetTopicFromRow(dRead);
-                l.Add(t);
+                cmd.CommandText = "SELECT * FROM Topics WHERE leftNode <= @left AND rightNode >= @right ORDER BY leftNode ASC;";
+                var pL = cmd.CreateParameter(); pL.ParameterName = "@left"; pL.Value = LeftNode.Value; cmd.Parameters.Add(pL);
+                var pR = cmd.CreateParameter(); pR.ParameterName = "@right"; pR.Value = RightNode.Value; cmd.Parameters.Add(pR);
+                using (DbDataReader dRead = cmd.ExecuteReader())
+                {
+                    while (dRead.Read())
+                    {
+                        Topic t = GetTopicFromRow(dRead);
+                        l.Add(t);
+                    }
+                }
             }
-            dRead.Dispose();
-            cmd.Dispose();
             CloseLocalConnectionIfWasFoundClosed();
             return l;
         }
         internal string GetNodePath(int? LeftNode, int? RightNode)
         {
             // node numbering according to Modified Preorder Tree Traversal algorithm
-            string path = "";
+            string path = string.Empty;
             try
             {
                 List<Topic> l = GetNodesAncestors(LeftNode, RightNode);
-                for (int i = 0; i < l.Count; i++)
+                if (l != null)
                 {
-                    path += l[i].Name + "|";
+                    for (int i = 0; i < l.Count; i++)
+                    {
+                        path += l[i].Name + "|";
+                    }
                 }
             }
             catch
@@ -197,19 +197,22 @@ namespace gamon.TreeMptt
         internal string GetNodePath(int? idTopic)
         {
             string t;
-            if (idTopic == 0)
+            if (idTopic == null || idTopic == 0)
                 return null;
             OpenLocalConnectionIfClosed();
-            DbDataReader dRead;
-            DbCommand cmd = localDbConnection.CreateCommand();
-            cmd.CommandText = "SELECT leftNode, rightNode FROM Topics" +
-                " WHERE idTopic=" + idTopic + ";";
-            dRead = cmd.ExecuteReader();
-            dRead.Read();
-            t = GetNodePath((int)dRead["leftNode"], (int)dRead["rightNode"]);
-
-            dRead.Dispose();
-            cmd.Dispose();
+            using (DbCommand cmd = localDbConnection.CreateCommand())
+            {
+                cmd.CommandText = "SELECT leftNode, rightNode FROM Topics WHERE idTopic = @id;";
+                var p = cmd.CreateParameter(); p.ParameterName = "@id"; p.Value = idTopic ?? (object)DBNull.Value; cmd.Parameters.Add(p);
+                using (DbDataReader dRead = cmd.ExecuteReader())
+                {
+                    if (!dRead.Read())
+                        return null;
+                    int? left = Safe.Int(dRead["leftNode"]);
+                    int? right = Safe.Int(dRead["rightNode"]);
+                    t = GetNodePath(left, right);
+                }
+            }
             CloseLocalConnectionIfWasFoundClosed();
             return t;
         }
@@ -219,22 +222,20 @@ namespace gamon.TreeMptt
             // ("descending" phase)
             List<Topic> l = new List<Topic>();
             OpenLocalConnectionIfClosed();
-            DbCommand cmd = localDbConnection.CreateCommand();
-            string query = "SELECT *" +
-                " FROM Topics" +
-                " WHERE leftNode BETWEEN " + LeftNode +
-                " AND " + RightNode +
-                " ORDER BY leftNode ASC;";
-            cmd = new SqliteCommand(query);
-            cmd.Connection = localDbConnection;
-            DbDataReader dRead = cmd.ExecuteReader();
-            while (dRead.Read())
+            using (DbCommand cmd = localDbConnection.CreateCommand())
             {
-                Topic t = GetTopicFromRow(dRead);
-                l.Add(t);
+                cmd.CommandText = "SELECT * FROM Topics WHERE leftNode BETWEEN @left AND @right ORDER BY leftNode ASC;";
+                var pL = cmd.CreateParameter(); pL.ParameterName = "@left"; pL.Value = LeftNode ?? (object)DBNull.Value; cmd.Parameters.Add(pL);
+                var pR = cmd.CreateParameter(); pR.ParameterName = "@right"; pR.Value = RightNode ?? (object)DBNull.Value; cmd.Parameters.Add(pR);
+                using (DbDataReader dRead = cmd.ExecuteReader())
+                {
+                    while (dRead.Read())
+                    {
+                        Topic t = GetTopicFromRow(dRead);
+                        l.Add(t);
+                    }
+                }
             }
-            dRead.Dispose();
-            cmd.Dispose();
             CloseLocalConnectionIfWasFoundClosed();
             return l;
         }
@@ -244,19 +245,19 @@ namespace gamon.TreeMptt
             List<Topic> l = new List<Topic>();
             OpenLocalConnectionIfClosed();
             DbCommand cmd = localDbConnection.CreateCommand();
-            string query = "SELECT *" +
-                " FROM Topics" +
-                " ORDER BY parentNode ASC, childNumber ASC;";
+            string query = "SELECT * FROM Topics ORDER BY parentNode ASC, childNumber ASC;";
             cmd = new SqliteCommand(query);
             cmd.Connection = localDbConnection;
-            DbDataReader dRead = cmd.ExecuteReader();
-            while (dRead.Read())
+            using (DbDataReader dRead = cmd.ExecuteReader())
             {
-                Topic t = GetTopicFromRow(dRead);
-                l.Add(t);
+                while (dRead.Read())
+                {
+                    Topic t = GetTopicFromRow(dRead);
+                    l.Add(t);
+                }
             }
-            dRead.Dispose();
             cmd.Dispose();
+            CloseLocalConnectionIfWasFoundClosed();
             return l;
         }
         internal List<Topic> FindNodesLike(string SearchText, bool SearchInDescriptions,
@@ -264,115 +265,203 @@ namespace gamon.TreeMptt
         {
             List<Topic> found = new List<Topic>();
             OpenLocalConnectionIfClosed();
-            DbDataReader dRead;
-            DbCommand cmd = localDbConnection.CreateCommand();
-            string query;
-            if (SearchCaseInsensitive)
-                query = "PRAGMA case_sensitive_like=OFF;";
-            else
-                query = "PRAGMA case_sensitive_like=ON;";
-            if (!SearchInDescriptions)
-                query += "SELECT * FROM Topics" +
-                    " WHERE " + SqlLikeStatementWithOptions("name", SearchText, SearchWholeWord, SearchVerbatimString);
-            else
-                query += "SELECT * FROM Topics" +
-                    " WHERE " + SqlLikeStatementWithOptions("name", SearchText, SearchWholeWord, SearchVerbatimString) +
-                    " OR " + SqlLikeStatementWithOptions("desc", SearchText, SearchWholeWord, SearchVerbatimString);
-            query += " ORDER BY leftNode ASC;";
-            cmd.CommandText += query;
-            dRead = cmd.ExecuteReader();
-            while (dRead.Read())
+
+            // set PRAGMA for case sensitivity
+            using (DbCommand pragmaCmd = localDbConnection.CreateCommand())
             {
-                Topic t = GetTopicFromRow(dRead);
-                found.Add(t);
+                pragmaCmd.CommandText = SearchCaseInsensitive ? "PRAGMA case_sensitive_like=OFF;" : "PRAGMA case_sensitive_like=ON;";
+                try { pragmaCmd.ExecuteNonQuery(); } catch { }
             }
-            dRead.Dispose();
-            cmd.Dispose();
+
+            using (DbCommand cmd = localDbConnection.CreateCommand())
+            {
+                if (SearchText == null)
+                    return found;
+
+                if (SearchVerbatimString)
+                {
+                    cmd.CommandText = "SELECT * FROM Topics WHERE name = @s" + (SearchInDescriptions ? " OR desc = @s" : "") + " ORDER BY leftNode ASC;";
+                    var p = cmd.CreateParameter(); p.ParameterName = "@s"; p.Value = SearchText; cmd.Parameters.Add(p);
+                }
+                else if (SearchWholeWord)
+                {
+                    // patterns for whole word search
+                    string p1 = SearchText + " %";
+                    string p2 = "% " + SearchText;
+                    string p3 = "% " + SearchText + " %";
+                    cmd.CommandText = "SELECT * FROM Topics WHERE (name LIKE @p1 OR name LIKE @p2 OR name LIKE @p3 OR name = @s)" + (SearchInDescriptions ? " OR (desc LIKE @p1 OR desc LIKE @p2 OR desc LIKE @p3 OR desc = @s)" : "") + " ORDER BY leftNode ASC;";
+                    var pp1 = cmd.CreateParameter(); pp1.ParameterName = "@p1"; pp1.Value = p1; cmd.Parameters.Add(pp1);
+                    var pp2 = cmd.CreateParameter(); pp2.ParameterName = "@p2"; pp2.Value = p2; cmd.Parameters.Add(pp2);
+                    var pp3 = cmd.CreateParameter(); pp3.ParameterName = "@p3"; pp3.Value = p3; cmd.Parameters.Add(pp3);
+                    var ps = cmd.CreateParameter(); ps.ParameterName = "@s"; ps.Value = SearchText; cmd.Parameters.Add(ps);
+                }
+                else
+                {
+                    string pattern = "%" + SearchText + "%";
+                    cmd.CommandText = "SELECT * FROM Topics WHERE name LIKE @pat" + (SearchInDescriptions ? " OR desc LIKE @pat" : "") + " ORDER BY leftNode ASC;";
+                    var p = cmd.CreateParameter(); p.ParameterName = "@pat"; p.Value = pattern; cmd.Parameters.Add(p);
+                }
+
+                using (DbDataReader dRead = cmd.ExecuteReader())
+                {
+                    while (dRead.Read())
+                    {
+                        Topic t = GetTopicFromRow(dRead);
+                        found.Add(t);
+                    }
+                }
+            }
+
             CloseLocalConnectionIfWasFoundClosed();
             return found;
         }
         internal bool TopicExists(int? topicId)
         {
             OpenLocalConnectionIfClosed();
-            DbCommand cmd = localDbConnection.CreateCommand();
-            cmd.CommandText = "SELECT  1 idTopic" +
-                " FROM Topics" +
-                " WHERE idTopic='" + topicId.ToString() + "'" +
-                ";";
-            var result = cmd.ExecuteScalar();
-            cmd.Dispose();
-            CloseLocalConnectionIfWasFoundClosed();
-            return (result != null);
+            using (DbCommand cmd = localDbConnection.CreateCommand())
+            {
+                cmd.CommandText = "SELECT1 FROM Topics WHERE idTopic = @id LIMIT1;";
+                var p = cmd.CreateParameter(); p.ParameterName = "@id"; p.Value = topicId ?? (object)DBNull.Value; cmd.Parameters.Add(p);
+                var result = cmd.ExecuteScalar();
+                CloseLocalConnectionIfWasFoundClosed();
+                return (result != null);
+            }
         }
         #endregion
 
         #region methods that write to the database
         internal void SaveTreeToDb(List<Topic> ListTopicsAfter, List<Topic> ListTopicsDeleted,
-                bool MustSaveLeftAndRight, bool CloseWhenEnding)
+                 bool MustSaveLeftAndRight, bool CloseWhenEnding)
         {
             OpenLocalConnectionIfClosed();
-            SaveLeftRightConsistency(false);
-            DbCommand cmd = localDbConnection.CreateCommand();
-            if (ListTopicsDeleted != null && ListTopicsDeleted.Count > 0)
+
+            DbTransaction tx = null;
+            try
             {
-                foreach (Topic t in ListTopicsDeleted)
+                tx = localDbConnection.BeginTransaction();
+
+                // Use a single command object within the transaction
+                using (DbCommand cmd = localDbConnection.CreateCommand())
                 {
-                    // if the saving must finish and the task saving in background, we quit the function 
-                    if (!Commons.MethodCanContinue())
-                        return;
-                    cmd.CommandText = "DELETE FROM Topics" +
-                            " WHERE IdTopic =" + t.Id +
-                            ";";
+                    cmd.Transaction = tx;
+
+                    // mark consistency flag false within the same transaction
+                    cmd.CommandText = "UPDATE Flags SET areLeftRightConsistent = @value";
+                    var pFlag = cmd.CreateParameter(); pFlag.ParameterName = "@value"; pFlag.Value = 0; cmd.Parameters.Add(pFlag);
+                    cmd.ExecuteNonQuery();
+                    cmd.Parameters.Clear();
+
+                    // perform deletions inside the transaction
+                    if (ListTopicsDeleted != null && ListTopicsDeleted.Count > 0)
+                    {
+                        foreach (Topic t in ListTopicsDeleted)
+                        {
+                            // if the saving must finish and the task saving in background, we quit the function 
+                            if (!Commons.BackgroundTaskCanSave && Commons.BackgroundThreadIsSaving)
+                            {
+                                tx.Rollback();
+                                CloseLocalConnectionIfWasFoundClosed();
+                                return;
+                            }
+
+                            using (DbCommand delCmd = localDbConnection.CreateCommand())
+                            {
+                                delCmd.Transaction = tx;
+                                delCmd.CommandText = "DELETE FROM Topics WHERE idTopic = @id";
+                                var p = delCmd.CreateParameter(); p.ParameterName = "@id"; p.Value = t.Id ?? (object)DBNull.Value; delCmd.Parameters.Add(p);
+                                delCmd.ExecuteNonQuery();
+                            }
+                        }
+                    }
+
+                    // process updates/inserts
+                    foreach (Topic t in ListTopicsAfter)
+                    {
+                        // if the saving must finish and the task saving in background, we quit the function 
+                        if (!Commons.BackgroundTaskCanSave && MustSaveLeftAndRight)
+                        {
+                            tx.Rollback();
+                            CloseLocalConnectionIfWasFoundClosed();
+                            return;
+                        }
+
+                        // cure behaviour of the program, not proper functioning on root node's parent node
+                        if (t.ParentNodeNew < 0)
+                            t.ParentNodeNew = 0;
+
+                        bool changed;
+                        if (t.Changed == null)
+                            changed = false;
+                        else
+                            changed = (bool)t.Changed;
+
+                        if (changed
+                        || t.ParentNodeNew != t.ParentNodeOld || t.ChildNumberNew != t.ChildNumberOld
+                        || (MustSaveLeftAndRight &&
+                        (t.LeftNodeNew != t.LeftNodeOld || t.RightNodeNew != t.RightNodeOld))
+                        )
+                        {
+                            // Use the same command object and transaction for inserts/updates
+                            cmd.Parameters.Clear();
+                            if (t.Id != null && t.Id > 1)
+                            {
+                                cmd.CommandText = "UPDATE Topics SET name=@name, desc=@desc, parentNode=@parent" +
+                                    ", leftNode=@left, rightNode=@right, childNumber=@child WHERE idTopic=@id;";
+                                AddTopicParameters(cmd, t.Id, t.Name, t.Desc, t.LeftNodeNew, t.RightNodeNew
+                                    , t.ParentNodeNew, t.ChildNumberNew);
+                                cmd.ExecuteNonQuery();
+                            }
+                            else
+                            {
+                                // get new id
+                                cmd.CommandText = "SELECT MAX(IdTopic) FROM Topics;";
+                                var temp = cmd.ExecuteScalar();
+                                if (!(temp is DBNull) && temp != null)
+                                    t.Id = Convert.ToInt32(temp) + 1;
+                                else
+                                    t.Id = 1;
+
+                                cmd.Parameters.Clear();
+                                cmd.CommandText = "INSERT INTO Topics (idTopic,name,desc,leftNode,rightNode,parentNode,childNumber) VALUES (@id,@name,@desc,@left,@right,@parent,@child);";
+                                AddTopicParameters(cmd, t.Id, t.Name, t.Desc, t.LeftNodeNew, t.RightNodeNew, t.ParentNodeNew, t.ChildNumberNew);
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+                    }
+
+                    // At this point all modifications succeeded, set consistency true and commit
+                    cmd.Parameters.Clear();
+                    cmd.CommandText = "UPDATE Flags SET areLeftRightConsistent = @value";
+                    var pTrue = cmd.CreateParameter(); pTrue.ParameterName = "@value"; pTrue.Value = 1; cmd.Parameters.Add(pTrue);
                     cmd.ExecuteNonQuery();
                 }
+
+                tx.Commit();
             }
-            foreach (Topic t in ListTopicsAfter)
+            catch
             {
-                // if the saving must finish and the task saving in background, we quit the function 
-                if (!Commons.BackgroundTaskCanSave && MustSaveLeftAndRight)
-                    return;
-                // this cures a behaviour of the program,
-                // not proper functioning on root node's parent node
-                if (t.ParentNodeNew < 0)
-                    t.ParentNodeNew = 0;
-                bool changed;
-                if (t.Changed == null)
-                    changed = false;
-                else
-                    changed = (bool)t.Changed;
-                // update modified nodes 
-                if (changed
-                    || t.ParentNodeNew != t.ParentNodeOld || t.ChildNumberNew != t.ChildNumberOld
-                    || (MustSaveLeftAndRight &&
-                        (t.LeftNodeNew != t.LeftNodeOld || t.RightNodeNew != t.RightNodeOld))
-                    )
+                try
                 {
-                    if (t.Id != null && t.Id > 1)
-                    {
-                        UpdateTopic(t);
-                    }
-                    else
-                    {
-                        InsertTopic(t);
-                    }
+                    tx?.Rollback();
                 }
+                catch { }
+                throw;
             }
-            cmd.Dispose();
-            CloseLocalConnectionIfWasFoundClosed();
+            finally
+            {
+                CloseLocalConnectionIfWasFoundClosed();
+            }
         }
         internal void AddTopic(Topic newTopic)
         {
             OpenLocalConnectionIfClosed();
-            DbCommand cmd = localDbConnection.CreateCommand();
-            cmd.CommandText = "INSERT INTO Topics" +
-                " (Id,Name,Date)" +
-                " Values (" +
-                SqlString(newTopic.Id.ToString()) +
-                "," + SqlString(newTopic.Name) + "" +
-                "," + SqlString(newTopic.Date.ToString()) + "" +
-                ");";
-            cmd.ExecuteNonQuery();
-            cmd.Dispose();
+            using (DbCommand cmd = localDbConnection.CreateCommand())
+            {
+                cmd.CommandText = "INSERT INTO Topics (idTopic,name,desc,leftNode,rightNode,parentNode,childNumber)" +
+                    " VALUES (@id,@name,@desc,@left,@right,@parent,@child);";
+                AddTopicParameters(cmd, newTopic.Id, newTopic.Name, newTopic.Desc, newTopic.LeftNodeNew, newTopic.RightNodeNew, newTopic.ParentNodeNew, newTopic.ChildNumberNew);
+                cmd.ExecuteNonQuery();
+            }
             CloseLocalConnectionIfWasFoundClosed();
         }
         internal void SaveLeftAndRightToDbMptt()
@@ -413,7 +502,7 @@ namespace gamon.TreeMptt
             // find all son nodes of current node (list is ordered by childNumber) 
             // takes from the database, which could be unmodified 
             List<Topic> listChilds = GetNodesChildsByParent(ParentNode, false);
-            foreach (Topic sonNode in listChilds)  // list Childs are taken from the database 
+            foreach (Topic sonNode in listChilds) // list Childs are taken from the database 
             {
                 if (!Commons.BackgroundTaskCanSave)
                     return;
@@ -431,7 +520,7 @@ namespace gamon.TreeMptt
         /// algorithm.
         /// </summary>
         /// <remarks>This method processes the tree structure stored in the database, starting from the root node, and
-        /// assigns left and right values to each node according to the MPTT algorithm. If the left or  right values in the
+        /// assigns left and right values to each node according to the MPTT algorithm. If the left or right values in the
         /// database differ from the calculated values, the database is updated to ensure consistency.</remarks>
         internal void SaveNodesFromScratch(List<Topic> ListTopics)
         {
@@ -482,14 +571,14 @@ namespace gamon.TreeMptt
                 DbCommand cmd = localDbConnection.CreateCommand();
                 // Topics table creation
                 cmd.CommandText = @"CREATE TABLE Topics (
-	                idTopic	INT NOT NULL,
-	                name	VARCHAR(20) NOT NULL,
-	                descr	VARCHAR(255),
-	                leftNode	INT,
-	                rightNode	INT,
-	                parentNode	INT,
-	                childNumber	INT,
-	                PRIMARY KEY(idTopic)
+	               idTopic	INT NOT NULL,
+	               name	VARCHAR(20) NOT NULL,
+	               desc	VARCHAR(255),
+	               leftNode	INT,
+	               rightNode	INT,
+	               parentNode	INT,
+	               childNumber	INT,
+	               PRIMARY KEY(idTopic)
                 );";
                 cmd.ExecuteNonQuery();
                 CloseLocalConnectionIfWasFoundClosed();
@@ -507,12 +596,26 @@ namespace gamon.TreeMptt
             // updates only left & right; the rest of the record remains the same
             OpenLocalConnectionIfClosed();
             DbCommand cmd = localDbConnection.CreateCommand();
-            cmd.CommandText = "UPDATE Topics" +
-                " SET" +
-                " leftNode=" + LeftNode +
-                ",rightNode=" + RightNode +
-                " WHERE idTopic=" + IdTopic +
-                ";";
+
+            // Use parameterized query for better performance and security
+            cmd.CommandText = "UPDATE Topics SET leftNode = @leftNode, rightNode = @rightNode WHERE idTopic = @idTopic";
+
+            // Add parameters
+            var paramLeft = cmd.CreateParameter();
+            paramLeft.ParameterName = "@leftNode";
+            paramLeft.Value = LeftNode ?? (object)DBNull.Value;
+            cmd.Parameters.Add(paramLeft);
+
+            var paramRight = cmd.CreateParameter();
+            paramRight.ParameterName = "@rightNode";
+            paramRight.Value = RightNode ?? (object)DBNull.Value;
+            cmd.Parameters.Add(paramRight);
+
+            var paramId = cmd.CreateParameter();
+            paramId.ParameterName = "@idTopic";
+            paramId.Value = IdTopic ?? (object)DBNull.Value;
+            cmd.Parameters.Add(paramId);
+
             cmd.ExecuteNonQuery();
             cmd.Dispose();
             CloseLocalConnectionIfWasFoundClosed();
@@ -563,63 +666,84 @@ namespace gamon.TreeMptt
             CloseLocalConnectionIfWasFoundClosed();
             return nextId;
         }
-        internal void UpdateTopic(Topic t)
+        internal void UpdateTopic(Topic t, DbCommand cmd)
         {
+            // for performance, the DbCommand cmd must be created and disposed outside this method
             try
             {
-                OpenLocalConnectionIfClosed();
-                DbCommand cmd = localDbConnection.CreateCommand();
-                cmd.CommandText = "UPDATE Topics" +
-                    " SET" +
-                    " name=" + SqlString(t.Name) + "" +
-                    ",desc=" + SqlString(t.Desc) + "" +
-                    ",parentNode=" + t.ParentNodeNew +
-                    ",leftNode=" + t.LeftNodeNew +
-                    ",rightNode=" + t.RightNodeNew +
-                    ",childNumber=" + t.ChildNumberNew +
-                    " WHERE idTopic=" + t.Id +
-                    ";";
+                // ensure no leftover parameters
+                cmd.Parameters.Clear();
+                cmd.CommandText = "UPDATE Topics SET name=@name, desc=@desc, parentNode=@parent, leftNode=@left, rightNode=@right, childNumber=@child WHERE idTopic=@id;";
+                AddTopicParameters(cmd, t.Id, t.Name, t.Desc, t.LeftNodeNew, t.RightNodeNew, t.ParentNodeNew, t.ChildNumberNew);
                 cmd.ExecuteNonQuery();
-                cmd.Dispose();
-                CloseLocalConnectionIfWasFoundClosed();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }
         }
-        internal void InsertTopic(Topic t)
+        internal void InsertTopic(Topic t, DbCommand cmd)
         {
+            // for performance, the DbCommand cmd must be created and disposed outside this method
             try
             {
                 if (t.Id == null || t.Id == 0)
                 {
-                    OpenLocalConnectionIfClosed();
-                    DbCommand cmd = localDbConnection.CreateCommand();
                     cmd.CommandText = "SELECT MAX(IdTopic) FROM Topics;";
                     var temp = cmd.ExecuteScalar();
-                    if (!(temp is DBNull))
+                    if (!(temp is DBNull) && temp != null)
                         t.Id = Convert.ToInt32(temp) + 1;
-                    cmd.CommandText = "INSERT INTO Topics" +
-                        " (idTopic,name,desc,leftNode,rightNode,parentNode,childNumber)" +
-                        " Values (" +
-                        t.Id.ToString() +
-                        "," + SqlString(t.Name) + "" +
-                        "," + SqlString(t.Desc) + "" +
-                        "," + t.LeftNodeNew + "" +
-                        "," + t.RightNodeNew + "" +
-                        "," + t.ParentNodeNew + "" +
-                        "," + t.ChildNumberNew + "" +
-                        ");";
-                    cmd.ExecuteNonQuery();
-                    cmd.Dispose();
-                    CloseLocalConnectionIfWasFoundClosed();
+                    else
+                        t.Id = 1;
                 }
+                cmd.Parameters.Clear();
+                cmd.CommandText = "INSERT INTO Topics (idTopic,name,desc,leftNode,rightNode,parentNode,childNumber)" +
+                    " VALUES (@id,@name,@desc,@left,@right,@parent,@child);";
+                AddTopicParameters(cmd, t.Id, t.Name, t.Desc, t.LeftNodeNew, t.RightNodeNew, t.ParentNodeNew, t.ChildNumberNew);
+                cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }
+        }
+        private void AddTopicParameters(DbCommand cmd, int? id, string name, string desc, int? left, int? right, int? parent, int? child)
+        {
+            // Aggiungere i parametri utilizzando i nomi dei parametri definiti nella query
+            var paramId = cmd.CreateParameter();
+            paramId.ParameterName = "@id";
+            paramId.Value = id ?? (object)DBNull.Value;
+            cmd.Parameters.Add(paramId);
+
+            var paramName = cmd.CreateParameter();
+            paramName.ParameterName = "@name";
+            paramName.Value = name ?? (object)DBNull.Value;
+            cmd.Parameters.Add(paramName);
+
+            var paramDesc = cmd.CreateParameter();
+            paramDesc.ParameterName = "@desc";
+            paramDesc.Value = desc ?? (object)DBNull.Value;
+            cmd.Parameters.Add(paramDesc);
+
+            var paramLeft = cmd.CreateParameter();
+            paramLeft.ParameterName = "@left";
+            paramLeft.Value = left ?? (object)DBNull.Value;
+            cmd.Parameters.Add(paramLeft);
+
+            var paramRight = cmd.CreateParameter();
+            paramRight.ParameterName = "@right";
+            paramRight.Value = right ?? (object)DBNull.Value;
+            cmd.Parameters.Add(paramRight);
+
+            var paramParent = cmd.CreateParameter();
+            paramParent.ParameterName = "@parent";
+            paramParent.Value = parent ?? (object)DBNull.Value;
+            cmd.Parameters.Add(paramParent);
+
+            var paramChild = cmd.CreateParameter();
+            paramChild.ParameterName = "@child";
+            paramChild.Value = child ?? (object)DBNull.Value;
+            cmd.Parameters.Add(paramChild);
         }
         #endregion
 
