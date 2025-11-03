@@ -56,8 +56,7 @@ namespace SchoolGrades
 
         // wait time before saving 
         public static int BackgroundThreadSleepSeconds = 60 * 3;
-        // enable Mptt backgroud saving of Left anf Right pointers 
-
+        // enable Mptt backgroud saving of Left and Right pointers 
         // when the BackgroundTaskCanSave the normal foregrorund can't
         public static bool BackgroundTaskCanSave = true;
         // command to totally exit the background task, ending it 

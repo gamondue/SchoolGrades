@@ -60,6 +60,7 @@ namespace SchoolGrades
         private int minuteStart;
         private bool alarmNotFired = true;
         #endregion
+        
         private SchoolSubject currentSubject;
 
         private bool dataModified = false;
