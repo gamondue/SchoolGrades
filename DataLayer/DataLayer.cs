@@ -89,7 +89,7 @@ namespace SchoolGrades
         internal abstract StudentAnnotation GetAnnotation(int? IdAnnotation);
         internal abstract StudentAnnotation GetAnnotationFromRow(DbDataReader Row);
         internal abstract void EraseAnnotationById(int? IdAnnotation);
-        internal abstract DataTable GetAnnotationsOfClass(int? IdClass,
+        internal abstract List<StudentAnnotation> GetAnnotationsOfClass(int? IdClass,
             bool IncludeAlsoNonActive, bool IncludeJustPopUp);
 
         // AnswerManagement
@@ -285,7 +285,7 @@ namespace SchoolGrades
         internal abstract void CreateTableStudents();
         internal abstract Student GetStudent(Student StudentToFind);
         internal abstract Student GetStudent(int? IdStudent);
-        internal abstract List<Class> GetAllClassesOfStudent(Student s);
+        internal abstract List<Class> GetAllClassesOfStudent(Student s, DbCommand cmd);
         internal abstract List<Student> GetAllStudents(DbCommand cmd);
         internal abstract Student GetStudentFromRow(DbDataReader Row);
         internal abstract List<Student> GetStudentsSameName(string LastName, string FirstName);

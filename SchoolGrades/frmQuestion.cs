@@ -32,11 +32,11 @@ namespace SchoolGrades
         QuestionFormType formType;
 
         internal frmQuestion(QuestionFormType Type, Question Question,
-  SchoolSubject Subject, Class Class, Topic Topic)
-  {
+            SchoolSubject Subject, Class Class, Topic Topic)
+        {
             InitializeComponent();
 
-            dbMptt = TreeMptt.SetDataLayer();
+            dbMptt = TreeMptt.SetDataLayer(Commons.PathAndFileDatabase);
 
             // fills the lookup tables' combos
             List<QuestionType> listQuestions = Commons.bl.GetListQuestionTypes(true);

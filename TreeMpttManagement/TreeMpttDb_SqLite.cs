@@ -12,14 +12,14 @@ namespace gamon.TreeMptt
 {
     internal class TreeMpttDb_SqLite : TreeMpttDb
     {
-        internal TreeMpttDb_SqLite()
+        internal TreeMpttDb_SqLite(string FullNameOfDatabase) : base(FullNameOfDatabase)
         {
-
         }
+
         // opening a local connection is specific to the DBMS, so it is implemented here
         internal override bool OpenLocalConnectionIfClosed()
         {
-            string ConnectionString = "Data Source=" + Commons.PathAndFileDatabase + ";Mode=ReadWriteCreate";
+            string ConnectionString = "Data Source=" + base.fullNameOfDatabase + ";Mode=ReadWriteCreate";
             bool hasLocalConnectionBeenOpenedByThisMethod = false;
             if (localDbConnection == null || localDbConnection.State != ConnectionState.Open)
             {

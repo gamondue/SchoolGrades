@@ -147,17 +147,18 @@ namespace gamon.TreeMptt
             }
         }
         internal bool HasChanges { get => hasChanges; set => hasChanges = value; }
-        internal TreeMptt(TreeView TreeViewControl,
+        internal TreeMptt(TreeView TreeViewControl, string FullNameOfDatabase,
             TextBox TxtNodeName, TextBox TxtNodeDescription, TextBox TxtNodeSearchString,
             TextBox TxtNodeDigest, TextBox TxtIdNode,
             PictureBox LedPictureBox, CheckBox ChkSearchInDescriptions, CheckBox ChkVerbatimString,
             CheckBox ChkAllWord, CheckBox ChkCaseInsensitive, CheckBox ChkMarkAllNodesFound,
-            System.Windows.Forms.DragDropEffects TypeOfDragAndDrop = System.Windows.Forms.DragDropEffects.Move
-           )
+            System.Windows.Forms.DragDropEffects TypeOfDragAndDrop = System.Windows.Forms.DragDropEffects.Move)
         // ???? what about PutCheckSignsOnNodes ????
         {
+            fullNameOfDatabase = FullNameOfDatabase;
+            // !!!! TODO !!!! eliminate the dependency of this class from Business Layer
             bl = Commons.bl;
-            dbMptt = TreeMptt.SetDataLayer();
+            dbMptt = TreeMptt.SetDataLayer(fullNameOfDatabase);
 
             shownTreeView = TreeViewControl;
             //listTopicsBefore = InitialListOfTopics;
@@ -191,12 +192,12 @@ namespace gamon.TreeMptt
             }
             typeOfDragAndDrop = TypeOfDragAndDrop;
         }
-        internal static TreeMpttDb SetDataLayer()
+        internal static TreeMpttDb SetDataLayer(string fullNameOfDatabase)
         {
 #if SQL_SERVER
-            return new TreeMpttDb_SqlServer();
+            return new TreeMpttDb_SqlServer("Dummy string. It is to be decided");
 #else
-            return new TreeMpttDb_SqLite();
+            return new TreeMpttDb_SqLite(fullNameOfDatabase);
 #endif
         }
         #region methods that save the tree
@@ -408,6 +409,8 @@ namespace gamon.TreeMptt
         {
             // avoid modifications by background saver by stopping it
             Commons.StopOperationsOnBackgroundThread();
+            if (shownTreeView == null)
+                shownTreeView = new();
             shownTreeView.Nodes.Clear();
             listItemsBefore = dbMptt.GetNodesByMpttFromDatabase(0, int.MaxValue);
             //if (!Commons.MethodCanContinue())
@@ -1250,6 +1253,7 @@ namespace gamon.TreeMptt
         string previousText = "";
         private PictureBox globalPicLed;
         private bool bulkChangeOfChecks = false;
+        private static string fullNameOfDatabase;
 
         private void TxtNodeName_TextChanged(object sender, EventArgs e)
         {

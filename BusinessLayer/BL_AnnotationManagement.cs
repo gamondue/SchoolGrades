@@ -26,7 +26,7 @@ namespace SchoolGrades
         {
             dl.EraseAnnotationByText(Text, Student);
         }
-        internal DataTable GetAnnotationsOfClass(int? idClass, bool IncludeAlsoNonActive, bool IncludeJustPopUp)
+        internal List<StudentAnnotation> GetAnnotationsOfClass(int? idClass, bool IncludeAlsoNonActive, bool IncludeJustPopUp)
         {
             return dl.GetAnnotationsOfClass(idClass, IncludeAlsoNonActive, IncludeJustPopUp);
         }

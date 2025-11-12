@@ -43,7 +43,7 @@ namespace SchoolGrades
             txtFileNewDatabase.Text = Commons.DatabaseFileName_Current;
 
             DataLayer dlNew = Commons.SetDataLayer(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
-            treeNew = new TreeMptt(trwNewTopics,
+            treeNew = new TreeMptt(trwNewTopics, Commons.PathAndFileDatabase,
                 txtNewTopicName, txtNewDescription, txtSearchNew, null, txtCodNewTopic,
                 Commons.globalPicLed, null, null, null, null, null, DragDropEffects.Copy);
             treeNew.Name = "treeNew";
@@ -76,15 +76,17 @@ namespace SchoolGrades
                 txtFileNewDatabase.Text = Path.GetFileName(openFileDialog1.FileName);
                 txtPathNewDatabase.Text = Path.GetDirectoryName(openFileDialog1.FileName);
             }
-            DataLayer dlNew = Commons.SetDataLayer(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
-
-            treeNew = new TreeMptt(trwNewTopics,
+            string fullNameNewDatabase = txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text;
+            //DataLayer dlNew = Commons.SetDataLayer(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
+            treeNew = new TreeMptt(trwNewTopics, fullNameNewDatabase,
                 txtNewTopicName, txtNewDescription, null, null, txtCodNewTopic,
                 Commons.globalPicLed, null, null, null, null, null, DragDropEffects.Copy);
-            treeNew.AddNodesToTreeviewByBestMethod();
-            treeNew.ClearBackColorOnClick = false;
-
-            highligthDifferences();
+            if (treeNew != null)
+            {
+                treeNew.AddNodesToTreeviewByBestMethod();
+                treeNew.ClearBackColorOnClick = false;
+                highligthDifferences();
+            }
         }
         private void btnPathOldDatabase_Click(object sender, EventArgs e)
         {
@@ -110,8 +112,8 @@ namespace SchoolGrades
                 return;
             }
             ////////////DataLayer dlOld = new DataLayer(txtPathOldDatabase.Text + "\\" + txtFileOldDatabase.Text);
-
-            treeOld = new TreeMptt(trwOldTopics,
+            string fullNameOldDatabase = txtPathOldDatabase.Text + "\\" + txtFileOldDatabase.Text;
+            treeOld = new TreeMptt(trwOldTopics, fullNameOldDatabase,
                 txtOldTopicName, txtOldDescription, txtSearchOld, null, txtCodOldTopic,
                 Commons.globalPicLed, null, null, null, null, null,
                 DragDropEffects.Copy);
@@ -125,6 +127,9 @@ namespace SchoolGrades
         }
         private void highligthDifferences()
         {
+            if (treeOld == null)
+                return;
+
             treeNew.ClearBackColor();
             treeOld.ClearBackColor();
             List<System.Windows.Forms.TreeNode> nodesNew = new List<System.Windows.Forms.TreeNode>();

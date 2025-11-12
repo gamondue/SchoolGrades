@@ -34,28 +34,25 @@ namespace SchoolGrades
             }
             return s;
         }
-        internal override List<Class> GetAllClassesOfStudent(Student s)
+        internal override List<Class> GetAllClassesOfStudent(Student s, DbCommand cmd)
         {
             List<Class> list = new ();
-            using (DbConnection conn = Connect())
+            string query = "SELECT *" +
+                " FROM Classes" +
+                " JOIN Classes_Students ON Classes_Students.IdClass = Classes.IdClass" +
+                //" JOIN Students ON Classes_Students.IdStudent=Students.IdStudent" +
+                " WHERE Classes_Students.IdStudent=" + s.IdStudent + "" +
+                " ORDER BY Classes.IdSchoolYear" +
+                ";";
+            cmd.CommandText = query;
+            DbDataReader dRead = cmd.ExecuteReader();
+            while (dRead.Read())
             {
-                DbCommand cmd = conn.CreateCommand();
-                string query = "SELECT *" +
-                    " FROM Classes" +
-                    " JOIN Classes_Students ON Classes_Students.IdClass = Classes.IdClass" +
-                    //" JOIN Students ON Classes_Students.IdStudent=Students.IdStudent" +
-                    " WHERE Classes_Students.IdStudent=" + s.IdStudent + "" +
-                    " ORDER BY Classes.IdSchoolYear" +
-                    ";";
-                cmd.CommandText = query;
-                DbDataReader dRead = cmd.ExecuteReader();
-                while (dRead.Read())
-                {
-                    Class c = new();
-                    GetClassFromRow(c, dRead);
-                    list.Add(c);
-                }
+                Class c = new();
+                GetClassFromRow(c, dRead);
+                list.Add(c);
             }
+            dRead.Close();
             return list;
         }
         internal override List<Student> GetAllStudents(DbCommand cmd)

@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net9.0-windows10.0.17763.0</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
-    <Version>0.57.0.0</Version>
+    <Version>0.57.2.0</Version>
     <Authors>Ing. Gabriele Monti - Forlì - Italia</Authors>
     <Copyright>Copyleft GPL Licence - Initiated and managed by Ing. Gabriele Monti - Forlì - Italia</Copyright>
     <PackageLicenseExpression>GPLv2</PackageLicenseExpression>
@@ -14,7 +14,7 @@
     <PackageReleaseNotes>SchoolGrades. .Net 6 version. Version number of .Net Core code or subsequents starts from 0.50. 
 Published on GitHub with GPL v.2 licence. 
 Versions with numbers under 0.50 were made with .Net Framework.</PackageReleaseNotes>
-    <PackageIcon>gamon LegoLogo decentrato trasparente 256x256.ico</PackageIcon>
+    <PackageIcon>Icons/gamon LegoLogo decentrato trasparente 256x256.png</PackageIcon>
     <ApplicationIcon>gamon LegoLogo decentrato trasparente 256x256.ico</ApplicationIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <IsPublishable>True</IsPublishable>
@@ -40,15 +40,15 @@ Versions with numbers under 0.50 were made with .Net Framework.</PackageReleaseN
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.2" />
-    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="9.0.7" />
-    <PackageReference Include="NUnit" Version="4.3.2" />
-    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="2.1.11" />
-    <PackageReference Include="SQLitePCLRaw.core" Version="2.1.11" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.2" />
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="10.0.0" />
+    <PackageReference Include="NUnit" Version="4.4.0" />
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.2" />
+    <PackageReference Include="SQLitePCLRaw.core" Version="3.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\ProgrammiScuola\gamon LegoLogo decentrato trasparente 256x256.ico">
+    <None Include="Icons\gamon LegoLogo decentrato trasparente 256x256.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>

@@ -109,7 +109,7 @@
             // 
             // txtPathNewDatabase
             // 
-            txtPathNewDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtPathNewDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
             txtPathNewDatabase.Location = new System.Drawing.Point(13, 31);
             txtPathNewDatabase.Margin = new System.Windows.Forms.Padding(4);
             txtPathNewDatabase.Name = "txtPathNewDatabase";
@@ -119,7 +119,7 @@
             // btnPathNewDatabase
             // 
             btnPathNewDatabase.BackColor = System.Drawing.Color.Transparent;
-            btnPathNewDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnPathNewDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnPathNewDatabase.ForeColor = System.Drawing.Color.DarkBlue;
             btnPathNewDatabase.Location = new System.Drawing.Point(785, 22);
             btnPathNewDatabase.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
@@ -141,7 +141,7 @@
             // 
             // txtFileNewDatabase
             // 
-            txtFileNewDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtFileNewDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
             txtFileNewDatabase.Location = new System.Drawing.Point(851, 31);
             txtFileNewDatabase.Margin = new System.Windows.Forms.Padding(4);
             txtFileNewDatabase.Name = "txtFileNewDatabase";
@@ -151,7 +151,7 @@
             // btnFileNewDatabase
             // 
             btnFileNewDatabase.BackColor = System.Drawing.Color.Transparent;
-            btnFileNewDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnFileNewDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnFileNewDatabase.ForeColor = System.Drawing.Color.DarkBlue;
             btnFileNewDatabase.Location = new System.Drawing.Point(1205, 22);
             btnFileNewDatabase.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
@@ -177,7 +177,7 @@
             // 
             // txtPathOldDatabase
             // 
-            txtPathOldDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtPathOldDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
             txtPathOldDatabase.Location = new System.Drawing.Point(12, 89);
             txtPathOldDatabase.Margin = new System.Windows.Forms.Padding(4);
             txtPathOldDatabase.Name = "txtPathOldDatabase";
@@ -187,7 +187,7 @@
             // btnPathOldDatabase
             // 
             btnPathOldDatabase.BackColor = System.Drawing.Color.Transparent;
-            btnPathOldDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnPathOldDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnPathOldDatabase.ForeColor = System.Drawing.Color.DarkBlue;
             btnPathOldDatabase.Location = new System.Drawing.Point(784, 80);
             btnPathOldDatabase.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
@@ -209,7 +209,7 @@
             // 
             // txtFileOldDatabase
             // 
-            txtFileOldDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtFileOldDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
             txtFileOldDatabase.Location = new System.Drawing.Point(850, 89);
             txtFileOldDatabase.Margin = new System.Windows.Forms.Padding(4);
             txtFileOldDatabase.Name = "txtFileOldDatabase";
@@ -219,7 +219,7 @@
             // btnFileOldDatabase
             // 
             btnFileOldDatabase.BackColor = System.Drawing.Color.Transparent;
-            btnFileOldDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnFileOldDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnFileOldDatabase.ForeColor = System.Drawing.Color.DarkBlue;
             btnFileOldDatabase.Location = new System.Drawing.Point(1204, 80);
             btnFileOldDatabase.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
@@ -301,7 +301,7 @@
             // txtNewTopicName
             // 
             txtNewTopicName.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            txtNewTopicName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtNewTopicName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             txtNewTopicName.Location = new System.Drawing.Point(3, 335);
             txtNewTopicName.Multiline = true;
             txtNewTopicName.Name = "txtNewTopicName";
@@ -311,7 +311,7 @@
             // txtOldTopicName
             // 
             txtOldTopicName.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            txtOldTopicName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtOldTopicName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             txtOldTopicName.Location = new System.Drawing.Point(3, 335);
             txtOldTopicName.Multiline = true;
             txtOldTopicName.Name = "txtOldTopicName";
@@ -320,7 +320,7 @@
             // 
             // txtCodOldTopic
             // 
-            txtCodOldTopic.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtCodOldTopic.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
             txtCodOldTopic.Location = new System.Drawing.Point(254, 9);
             txtCodOldTopic.Margin = new System.Windows.Forms.Padding(4);
             txtCodOldTopic.Name = "txtCodOldTopic";
@@ -330,7 +330,7 @@
             // 
             // txtCodNewTopic
             // 
-            txtCodNewTopic.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtCodNewTopic.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
             txtCodNewTopic.Location = new System.Drawing.Point(252, 8);
             txtCodNewTopic.Margin = new System.Windows.Forms.Padding(4);
             txtCodNewTopic.Name = "txtCodNewTopic";
@@ -400,9 +400,9 @@
             // 
             // btnFindNew
             // 
-            btnFindNew.Location = new System.Drawing.Point(363, 8);
+            btnFindNew.Location = new System.Drawing.Point(363, 3);
             btnFindNew.Name = "btnFindNew";
-            btnFindNew.Size = new System.Drawing.Size(75, 23);
+            btnFindNew.Size = new System.Drawing.Size(75, 33);
             btnFindNew.TabIndex = 143;
             btnFindNew.Text = "Trova";
             btnFindNew.UseVisualStyleBackColor = true;
@@ -411,7 +411,7 @@
             // txtSearchNew
             // 
             txtSearchNew.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            txtSearchNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtSearchNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
             txtSearchNew.Location = new System.Drawing.Point(445, 8);
             txtSearchNew.Margin = new System.Windows.Forms.Padding(4);
             txtSearchNew.Name = "txtSearchNew";
@@ -430,9 +430,9 @@
             // 
             // btnFindOld
             // 
-            btnFindOld.Location = new System.Drawing.Point(359, 9);
+            btnFindOld.Location = new System.Drawing.Point(359, 4);
             btnFindOld.Name = "btnFindOld";
-            btnFindOld.Size = new System.Drawing.Size(75, 23);
+            btnFindOld.Size = new System.Drawing.Size(75, 32);
             btnFindOld.TabIndex = 144;
             btnFindOld.Text = "Trova";
             btnFindOld.UseVisualStyleBackColor = true;
@@ -441,7 +441,7 @@
             // txtSearchOld
             // 
             txtSearchOld.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            txtSearchOld.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtSearchOld.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
             txtSearchOld.Location = new System.Drawing.Point(441, 8);
             txtSearchOld.Margin = new System.Windows.Forms.Padding(4);
             txtSearchOld.Name = "txtSearchOld";
@@ -662,7 +662,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             label3.Location = new System.Drawing.Point(391, 136);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(121, 15);
@@ -711,7 +711,7 @@
             Controls.Add(lblFileDatabase);
             Controls.Add(txtFileNewDatabase);
             Controls.Add(btnFileNewDatabase);
-            Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
             ForeColor = System.Drawing.Color.DarkBlue;
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4);

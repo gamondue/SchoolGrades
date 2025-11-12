@@ -29,15 +29,15 @@ namespace SchoolGrades
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public TopicsFormType ShowTopicsDone { get; }
-        
+
         public enum TopicsFormType
         {
-  ShowAndManagement,
-        HighlightTopics,
+            ShowAndManagement,
+            HighlightTopics,
             ImportWithErase,
-     ImportWithoutErase,
-    SearchTopics,
-        ChooseTopic
+            ImportWithoutErase,
+            SearchTopics,
+            ChooseTopic
         }
         TopicsFormType formType;
         private Topic chosenTopic;
@@ -46,7 +46,7 @@ namespace SchoolGrades
         public frmTopics(TopicsFormType FormType,
             Class Class, SchoolSubject Subject,
             Question Question = null, List<Topic> ListTopicsExternal = null,
-   frmMain ParentForm = null)
+            frmMain ParentForm = null)
         {
             InitializeComponent();
 
@@ -98,7 +98,7 @@ namespace SchoolGrades
         }
         private void frmTopics_Load(object sender, EventArgs e)
         {
-            topicTreeMptt = new TreeMptt(trwTopics,
+            topicTreeMptt = new TreeMptt(trwTopics, Commons.PathAndFileDatabase,
                 txtTopicName, txtTopicDescription, txtTopicSearchString, null,
                 null, Commons.globalPicLed, chkSearchInDescriptions, chkVerbatimString,
                 chkAllWord, chkCaseInsensitive, chkFindAll, DragDropEffects.Copy);
