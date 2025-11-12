@@ -28,9 +28,10 @@ namespace SchoolGrades
         internal static string DatabaseFileName_Demo = "SchoolGrades_DEMO.sqlite";
         internal static string DatabaseFileName_Current = "";
         internal static string PathDatabase = Path.Combine(PathExe, "Data");
-        private static string pathAndFileDatabase;
         internal static string PathImages = Path.Combine(PathExe, "Images");
         internal static string PathDocuments = Path.Combine(PathExe, "Docs");
+
+        private static string pathAndFileDatabase;
 
         // !!!! TODO use DbInfo !!!!
         //internal static DatabaseInfo DbInfo = new();

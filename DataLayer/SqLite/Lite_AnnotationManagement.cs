@@ -163,33 +163,61 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal override DataTable GetAnnotationsOfClass(int? IdClass, 
+        internal override List<StudentAnnotation> GetAnnotationsOfClass(int? IdClass,
             bool IncludeAlsoNonActive, bool IncludeJustPopUp)
         {
-            DataTable table = new DataTable(); 
+            List<StudentAnnotation> annotations = new List<StudentAnnotation>();
             using (DbConnection conn = Connect())
             {
-                string query = "SELECT Students.lastName, Students.firstName, StudentsAnnotations.annotation" +
-                    ",Students.IdStudent, StudentsAnnotations.IdAnnotation" +
-                    " FROM StudentsAnnotations" +
-                    " JOIN Students ON Students.idStudent = StudentsAnnotations.idStudent" +
-                    " JOIN Classes_Students ON Classes_Students.idStudent = Students.idStudent" +
-                    " WHERE Classes_Students.idClass=" + IdClass; 
-                if (!IncludeAlsoNonActive)
-                    query += " AND isActive=true";
-                if (IncludeJustPopUp && FieldExists("StudentsAnnotations", "isPopUp")) 
-                    query += " AND isPopUp=true";
-                query += ";";
                 using (var cmd = conn.CreateCommand())
                 {
+                    string query = @"
+                    SELECT Students.lastName, Students.firstName,
+                     StudentsAnnotations.annotation,
+                     StudentsAnnotations.idStudent,
+                     StudentsAnnotations.idAnnotation,
+                     StudentsAnnotations.instantTaken,
+                     StudentsAnnotations.instantClosed,
+                     StudentsAnnotations.isActive
+                    FROM StudentsAnnotations
+                    JOIN Students ON Students.idStudent = StudentsAnnotations.idStudent
+                    JOIN Classes_Students ON Classes_Students.idStudent = Students.idStudent
+                    WHERE Classes_Students.idClass = @idClass
+                    ";
+                    query += " AND StudentsAnnotations.isActive=1";
+                    if (!IncludeAlsoNonActive)
+                        query += " AND StudentsAnnotations.isActive =1";
+                    if (IncludeJustPopUp && FieldExists("StudentsAnnotations", "isPopUp"))
+                        query += " AND StudentsAnnotations.isPopUp =1";
+
+                    query += " ORDER BY Students.lastName COLLATE NOCASE, Students.firstName COLLATE NOCASE, StudentsAnnotations.instantTaken DESC;";
+
                     cmd.CommandText = query;
+
+                    var p = cmd.CreateParameter();
+                    p.ParameterName = "@idClass";
+                    p.Value = IdClass.HasValue ? (object)IdClass.Value : DBNull.Value;
+                    cmd.Parameters.Add(p);
+
                     using (var reader = cmd.ExecuteReader())
                     {
-                        table.Load(reader);
+                        while (reader.Read())
+                        {
+                            StudentAnnotation a = new StudentAnnotation();
+                            a.LastName = Safe.String(reader["lastName"]);
+                            a.FirstName = Safe.String(reader["firstName"]);
+                            a.Annotation = Safe.String(reader["annotation"]);
+                            a.IdStudent = Safe.Int(reader["idStudent"]);
+                            a.IdAnnotation = Safe.Int(reader["idAnnotation"]);
+                            a.InstantTaken = Safe.DateTime(reader["instantTaken"]);
+                            a.InstantClosed = Safe.DateTime(reader["instantClosed"]);
+                            a.IsActive = Safe.Bool(reader["isActive"]);
+                            annotations.Add(a);
+                        }
                     }
                 }
             }
-            return table;
+            return annotations;
         }
     }
 }

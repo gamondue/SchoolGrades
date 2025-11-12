@@ -15,7 +15,7 @@ namespace SchoolGrades
 
             string NewDatabasePathAndName = Path.Combine(newDatabasePathName,
                 "Demo_SchoolGrades_" + DateTime.Now.Date.ToString("yy-MM-dd") + ".sqlite");
-            return NewDatabasePathAndName;
+            return NewDatabasePathAndName; 
         }
         internal void CreateDemoDatabase(string NewDatabasePathAndName,
             List<Class> classesToRetain)

@@ -163,36 +163,36 @@ namespace SchoolGrades
                 cmd.Dispose();
             }
         }
-        internal override DataTable GetAnnotationsOfClass(int? IdClass,
+        internal override List<StudentAnnotation> GetAnnotationsOfClass(int? IdClass,
             bool IncludeAlsoNonActive, bool IncludeJustPopUp)
         {
-            DataTable table = new DataTable();
-            using (DbConnection conn = Connect())
-            {
-                DataAdapter dAdapter;
-                DataSet dSet = new DataSet();
-                string query = "SELECT Students.lastName, Students.firstName, StudentsAnnotations.annotation" +
-                    ",Students.IdStudent, StudentsAnnotations.IdAnnotation" +
-                    " FROM StudentsAnnotations" +
-                    " JOIN Students ON Students.idStudent = StudentsAnnotations.idStudent" +
-                    " JOIN Classes_Students ON Classes_Students.idStudent = Students.idStudent" +
-                    " WHERE Classes_Students.idClass=" + IdClass;
-                if (!IncludeAlsoNonActive)
-                    query += " AND isActive=true";
-                // !!!! TODO avoid to check field existence after some versions
-                // (made to avoid breaking the code with an old database) !!!!
-                if (IncludeJustPopUp && FieldExists("StudentsAnnotations", "isPopUp"))
-                    query += " AND isPopUp=true";
-                query += ";";
-                dAdapter = new SqlDataAdapter(query, (SqlConnection)conn);
+            //DataTable table = new DataTable();
+            //using (DbConnection conn = Connect())
+            //{
+            //    DataAdapter dAdapter;
+            //    DataSet dSet = new DataSet();
+            //    string query = "SELECT Students.lastName, Students.firstName, StudentsAnnotations.annotation" +
+            //        ",Students.IdStudent, StudentsAnnotations.IdAnnotation" +
+            //        " FROM StudentsAnnotations" +
+            //        " JOIN Students ON Students.idStudent = StudentsAnnotations.idStudent" +
+            //        " JOIN Classes_Students ON Classes_Students.idStudent = Students.idStudent" +
+            //        " WHERE Classes_Students.idClass=" + IdClass;
+            //    if (!IncludeAlsoNonActive)
+            //        query += " AND isActive=true";
+            //    // !!!! TODO avoid to check field existence after some versions
+            //    // (made to avoid breaking the code with an old database) !!!!
+            //    if (IncludeJustPopUp && FieldExists("StudentsAnnotations", "isPopUp"))
+            //        query += " AND isPopUp=true";
+            //    query += ";";
+            //    dAdapter = new SqlDataAdapter(query, (SqlConnection)conn);
 
-                dAdapter.Fill(dSet);
-                table = dSet.Tables[0];
+            //    dAdapter.Fill(dSet);
+            //    table = dSet.Tables[0];
 
-                dAdapter.Dispose();
-                dSet.Dispose();
-            }
-            return table;
+            //    dAdapter.Dispose();
+            //    dSet.Dispose();
+            //}
+            return null;
         }
         internal override void DeleteStudent(Student Student, bool DeleteAlsoInOtherTables)
         {

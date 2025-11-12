@@ -13,17 +13,17 @@ namespace SchoolGrades_WPF
     /// </summary>
     public partial class frmAnnotationsPopUp : Window
     {
-        public DataTable tableOfActivePopUpAnnotations;
+        public System.Collections.Generic.List<SchoolGrades.BusinessObjects.StudentAnnotation> listOfActivePopUpAnnotations;
 
-        public frmAnnotationsPopUp(DataTable TableOfClassAnnotations)
+        public frmAnnotationsPopUp(System.Collections.Generic.List<SchoolGrades.BusinessObjects.StudentAnnotation> listOfClassAnnotations)
         {
             InitializeComponent();
 
-            tableOfActivePopUpAnnotations = TableOfClassAnnotations;
+            listOfActivePopUpAnnotations = listOfClassAnnotations;
         }
         public void frmAnnotationsPopUp_Load(object sender, EventArgs e)
         {
-            dgwStudentsAllPopUpAnnotations.ItemsSource = (System.Collections.IEnumerable)tableOfActivePopUpAnnotations;
+            dgwStudentsAllPopUpAnnotations.ItemsSource = listOfActivePopUpAnnotations;
         }
         private void lblCurrentStudent_Click(object sender, EventArgs e)
         {

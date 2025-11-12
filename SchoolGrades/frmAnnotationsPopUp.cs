@@ -11,17 +11,17 @@ namespace SchoolGrades
 {
     internal partial class frmAnnotationsPopUp : Form
     {
-        internal DataTable tableOfActivePopUpAnnotations;
+        internal System.Collections.Generic.List<SchoolGrades.BusinessObjects.StudentAnnotation> listOfActivePopUpAnnotations;
 
-        internal frmAnnotationsPopUp(DataTable TableOfClassAnnotations)
+        internal frmAnnotationsPopUp(System.Collections.Generic.List<SchoolGrades.BusinessObjects.StudentAnnotation> listOfClassAnnotations)
         {
             InitializeComponent();
 
-            tableOfActivePopUpAnnotations = TableOfClassAnnotations;
+            listOfActivePopUpAnnotations = listOfClassAnnotations;
         }
         private void frmAnnotationsPopUp_Load(object sender, EventArgs e)
         {
-            dgwStudentsAllPopUpAnnotations.DataSource = tableOfActivePopUpAnnotations; 
+            dgwStudentsAllPopUpAnnotations.DataSource = listOfActivePopUpAnnotations;
         }
         private void lblCurrentStudent_Click(object sender, EventArgs e)
         {
@@ -46,9 +46,12 @@ namespace SchoolGrades
             if (e.RowIndex >= 0)
             {
                 dgwStudentsAllPopUpAnnotations.Rows[e.RowIndex].Selected = true;
-                if (dgwStudentsAllPopUpAnnotations.SelectedRows.Count > 0)
+                if (dgwStudentsAllPopUpAnnotations.SelectedRows.Count >0)
                 {
-                    int idStudent = Convert.ToInt32(dgwStudentsAllPopUpAnnotations.SelectedRows[0].Cells["IdStudent"].Value);
+                    object cellVal = dgwStudentsAllPopUpAnnotations.SelectedRows[0].Cells["IdStudent"].Value;
+                    int idStudent =0;
+                    if (cellVal != null && cellVal != DBNull.Value)
+                        idStudent = Convert.ToInt32(cellVal);
                     Student s = Commons.bl.GetStudent(idStudent);
                     List<Student> SingleStudent = new List<Student>();
                     SingleStudent.Add(s);

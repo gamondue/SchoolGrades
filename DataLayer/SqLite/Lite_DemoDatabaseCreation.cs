@@ -193,7 +193,8 @@ namespace SchoolGrades
         }
         internal override void CreateDemoDataInDatabase(DataLayer newDatabaseDl, List<Class> Classes)
         {
-            // The program imports the first al last names from the filename of the pictures. The full name can have many words.
+            // The program imports the first and last names from the filename of the pictures.
+            // The full name can have many words.
             // The words in the filename that are ALL UPPERCASE will be considered parts of the last name. 
             // If a word has one or more lower case letters, it will be considered part of the first name.
             // The word will be added to name and surname from left to right.
@@ -203,12 +204,20 @@ namespace SchoolGrades
             using (DbConnection conn = newDatabaseDl.Connect()) // connect to the new database, just copied
             {
                 cmd = conn.CreateCommand();
-                int classCount = 1;
+                // random offset to increase the letter of a class
+                Random rnd = new Random();
+                int offset = rnd.Next(0, 6) + 4;
+
                 // change the data of all the classes
                 foreach (Class c in Classes)
                 {
                     // general data of the class
-                    c.Abbreviation = c.Abbreviation.Substring(0, 1) + "DEMO" + classCount;
+
+                    // change the abbreviation and description
+                    string letter = c.Abbreviation.Substring(0, 2);
+                    letter = ((char)(letter[1] + offset)).ToString();
+
+                    c.Abbreviation = c.Abbreviation.Substring(0, 1) + letter + "_DEMO";
                     c.Description = "SchoolGrades demo class " + c.Abbreviation + ", year " + c.SchoolYear;
                     c.PathRestrictedApplication = Path.Combine(@".\", c.Abbreviation);
                     c.IdSchool = Commons.IdSchool;
@@ -226,10 +235,7 @@ namespace SchoolGrades
                         ";";
                     cmd.CommandText = query;
                     cmd.ExecuteNonQuery();
-                    classCount++;
 
-                    // change the paths of the images to match the new names
-                    ChangeImagePath(c, cmd);
                     // copy all the lessons images files
                     query = "SELECT Images.imagePath, Classes.pathRestrictedApplication" +
                     " FROM Images" +
@@ -245,7 +251,7 @@ namespace SchoolGrades
                         string finalPart = (string)dReader["imagePath"];
                         string originalPathAndFile = Path.Combine(Commons.PathImages, finalPart);
                         string partToBeReplaced = finalPart.Substring(0, finalPart.IndexOf("\\"));
-                        string destinationPathAndFile = originalPathAndFile.Replace(partToBeReplaced, 
+                        string destinationPathAndFile = originalPathAndFile.Replace(partToBeReplaced,
                             c.SchoolYear + "_" + c.Abbreviation);
                         string destinationFolder = Path.GetDirectoryName(destinationPathAndFile);
                         if (!Directory.Exists(destinationFolder))
@@ -265,6 +271,8 @@ namespace SchoolGrades
                             }
                     }
                     dReader.Close();
+                    // change the paths of the images to match the new names
+                    ChangeImagePath(c, cmd);
                     // make example start links 
                     // !!!! TODO insert demo startlinks in the database 
                     //int IdStartLink = NextKey("Classes_StartLinks", "IdStartLink");
@@ -333,8 +341,8 @@ namespace SchoolGrades
         }
         internal override void RenameStudentsNamesAndManagePictures(Class Class, DbCommand cmd)
         {
-            // get the "previous" students from database 
-            List<Student> studentsOfClass = GetStudentsOfClass(Class, true, cmd);
+            // get the "initial" students from database 
+            List<Student> studentsOfClassBefore = GetStudentsOfClass(Class, true, cmd);
 
             // rename the students' names according to the names found in the image files 
             string[] OriginalDemoStudentPictures = Directory.GetFiles(Path.Combine(Commons.PathImages, "DemoPictures\\"));
@@ -345,7 +353,7 @@ namespace SchoolGrades
             string lastName;
             string firstName;
             // copy the students "photos" taking the name of the student from the name of the file 
-            foreach (Student s in studentsOfClass)
+            foreach (Student s in studentsOfClassBefore)
             {
                 // if the demo student has already been created, we don't create it
                 // a demo student has a null in at least; BirthDate, BirthPlace, RegisterNumber, City
@@ -364,8 +372,8 @@ namespace SchoolGrades
                 } while (fileExtension != ".jpeg" && fileExtension != ".png" && fileExtension != ".jpg");
                 // generate the name of the student from the name of the picture file
                 string justFileName = Path.GetFileName(OriginalDemoStudentPictures[pictureIndex]);
-                string fileWithNoExtension = justFileName.Substring(0, justFileName.LastIndexOf('.'));
-                string[] wordsInFileName = (Path.GetFileName(fileWithNoExtension)).Split(' ');
+                string fileWithNoExtension = Path.GetFileNameWithoutExtension(justFileName);
+                string[] wordsInFileName = fileWithNoExtension.Split(' ');
                 lastName = "";
                 firstName = "";
                 foreach (string word in wordsInFileName)
@@ -417,7 +425,7 @@ namespace SchoolGrades
                 AddLinkPhotoToStudent(s.IdStudent, idImage, Class.SchoolYear, cmd);
             }
             List<Student> AllStudents = GetAllStudents(cmd);
-            foreach (Student s in studentsOfClass)
+            foreach (Student s in studentsOfClassBefore)
             {
                 //// if the demo student has already been created, we don't create it
                 //// a demo student has a null in at least; BirthDate, BirthPlace, RegisterNumber, City
@@ -436,8 +444,8 @@ namespace SchoolGrades
                 } while (fileExtension != ".jpeg" && fileExtension != ".png" && fileExtension != ".jpg");
                 // generate the name of the student from the name of the picture file
                 string justFileName = Path.GetFileName(OriginalDemoStudentPictures[pictureIndex]);
-                string fileWithNoExtension = justFileName.Substring(0, justFileName.LastIndexOf('.'));
-                string[] wordsInFileName = (Path.GetFileName(fileWithNoExtension)).Split(' ');
+                string fileWithNoExtension = Path.GetFileNameWithoutExtension(justFileName);
+                string[] wordsInFileName = fileWithNoExtension.Split(' ');
                 lastName = "";
                 firstName = "";
                 foreach (string word in wordsInFileName)
@@ -526,7 +534,7 @@ namespace SchoolGrades
         internal override void RenameAllStudentsNamesAndManagePictures(DbCommand cmd)
         {
             // get the "previous" students from database 
-            //List<Student> studentsOfClass = GetStudentsOfClass(Class, true, cmd);
+            //List<Student> studentsOfClassBefore = GetStudentsOfClass(classes, true, cmd);
 
             // rename the students' names according to the names found in the image files 
             string[] OriginalDemoStudentPictures = Directory.GetFiles(Path.Combine(Commons.PathImages, "DemoPictures\\"));
@@ -537,7 +545,9 @@ namespace SchoolGrades
             string lastName;
             string firstName;
 
-            // get all the students from database 
+            // offset day for artificial birth date
+            int OffsetDate = 5;
+            // get all the students from database
             List<Student> AllStudents = GetAllStudents(cmd);
             foreach (Student s in AllStudents)
             {
@@ -558,8 +568,8 @@ namespace SchoolGrades
                 } while (fileExtension != ".jpeg" && fileExtension != ".png" && fileExtension != ".jpg");
                 // generate the name of the student from the name of the picture file
                 string justFileName = Path.GetFileName(OriginalDemoStudentPictures[pictureIndex]);
-                string fileWithNoExtension = justFileName.Substring(0, justFileName.LastIndexOf('.'));
-                string[] wordsInFileName = (Path.GetFileName(fileWithNoExtension)).Split(' ');
+                string fileWithNoExtension = Path.GetFileNameWithoutExtension(justFileName);
+                string[] wordsInFileName = fileWithNoExtension.Split(' ');
                 lastName = "";
                 firstName = "";
                 foreach (string word in wordsInFileName)
@@ -579,7 +589,7 @@ namespace SchoolGrades
 
                 s.LastName = lastName;
                 s.FirstName = firstName;
-                s.BirthDate = null;
+                s.BirthDate = new DateTime(2005, 03, 01).AddDays(OffsetDate);
                 s.BirthPlace = null;
                 s.ClassAbbreviation = "";
                 s.Email = "";
@@ -593,11 +603,13 @@ namespace SchoolGrades
                 s.Sum = 0;
                 UpdateStudent(s, cmd);
 
-                // get first class of student
-                Class Class = GetAllClassesOfStudent(s)[0];
+                OffsetDate++;
 
-                string outFolder = Path.Combine(Commons.PathImages, Class.SchoolYear + "_" + Class.Abbreviation + "\\");
-                string filename = s.LastName + "_" + s.FirstName + "_" + Class.Abbreviation + Class.SchoolYear + fileExtension;
+                // get first class of student
+                List<Class> classes = GetAllClassesOfStudent(s, cmd);
+
+                string outFolder = Path.Combine(Commons.PathImages, classes[0].SchoolYear + "_" + classes[0].Abbreviation + "\\");
+                string filename = s.LastName + "_" + s.FirstName + "_" + classes[0].Abbreviation + classes[0].SchoolYear + fileExtension;
                 if (!Directory.Exists(outFolder))
                 {
                     Directory.CreateDirectory(outFolder);
@@ -607,21 +619,25 @@ namespace SchoolGrades
                     File.Delete(outFolder + filename);
                 }
                 // save student pictures' paths in table StudentsPhotos
-                string relativeOutPathAndFile = Path.Combine(Class.SchoolYear + "_" + Class.Abbreviation, filename);
+                string relativeOutPathAndFile = Path.Combine(classes[0].SchoolYear + "_" + classes[0].Abbreviation, filename);
                 string absoluteOutPathAndFile = Path.Combine(Commons.PathImages, relativeOutPathAndFile);
                 File.Copy(OriginalDemoStudentPictures[pictureIndex], absoluteOutPathAndFile);
                 int? idImage = SaveDemoStudentPhotoPath(relativeOutPathAndFile, cmd);
-                AddLinkPhotoToStudent(s.IdStudent, idImage,  Class.SchoolYear, cmd);
+
+                foreach (var c in classes)
+                {
+                    AddLinkPhotoToStudent(s.IdStudent, idImage,  c.SchoolYear, cmd);
+                }
             }
         }
         internal override void AddLinkPhotoToStudent(int? idStudent, int? idStudentsPhoto,
             string schoolYear, DbCommand cmd)
         {
-            cmd.CommandText = "";
-            cmd.CommandText = "INSERT INTO StudentsPhotos_Students" +
-            " (idStudentsPhoto, idStudent, idSchoolYear)" +
+            string query = "INSERT INTO StudentsPhotos_Students" +
+                " (idStudentsPhoto, idStudent, idSchoolYear)" +
                 "Values(" + SqlInt(idStudentsPhoto) + "," + SqlInt(idStudent) + "," + SqlString(schoolYear) + ")" +
-            ";";
+                ";";
+            cmd.CommandText = query;
             cmd.ExecuteNonQuery();
         }
         internal override bool isDuplicate(string lastName, string firstName, List<Student> StudentsInClass)

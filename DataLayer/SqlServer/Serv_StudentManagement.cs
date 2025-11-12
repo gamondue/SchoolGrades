@@ -569,7 +569,7 @@ namespace SchoolGrades
                 cmd.ExecuteNonQuery(); //execute the command
             }
         }
-        internal override List<Class> GetAllClassesOfStudent(Student s)
+        internal override List<Class> GetAllClassesOfStudent(Student s, DbCommand cmd = null)
         {
             throw new NotImplementedException();
         }

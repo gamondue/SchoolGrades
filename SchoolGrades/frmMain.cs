@@ -582,10 +582,10 @@ namespace SchoolGrades
                 }
             }
             // show popup annotations of the students of the class
-            DataTable popUpAnnotations = Commons.bl.GetAnnotationsOfClass(currentClass.IdClass, true, true);
-            if (popUpAnnotations.Rows.Count > 0)
+            var popUpAnnotationsList = Commons.bl.GetAnnotationsOfClass(currentClass.IdClass, true, true);
+            if (popUpAnnotationsList != null && popUpAnnotationsList.Count >0)
             {
-                frmAnnotationsPopUp f = new frmAnnotationsPopUp(popUpAnnotations);
+                frmAnnotationsPopUp f = new frmAnnotationsPopUp(popUpAnnotationsList);
                 f.StartPosition = FormStartPosition.CenterParent;
                 f.Show();
             }

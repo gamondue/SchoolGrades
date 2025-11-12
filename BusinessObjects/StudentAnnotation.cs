@@ -4,14 +4,14 @@ using System.Text;
 
 namespace SchoolGrades.BusinessObjects
 {
-    class StudentAnnotation
+    public class StudentAnnotation
     {
         int? idAnnotation;
         int? idStudent;
         string annotation;
-		string idSchoolYear;
-		DateTime? instantTaken;
-		DateTime? instantClosed;
+        string idSchoolYear;
+        DateTime? instantTaken;
+        DateTime? instantClosed;
 
         public int? IdAnnotation { get => idAnnotation; set => idAnnotation = value; }
         public string Annotation { get => annotation; set => annotation = value; }
@@ -21,5 +21,9 @@ namespace SchoolGrades.BusinessObjects
         public bool? IsActive { get; internal set; }
         public int? IdStudent { get => idStudent; set => idStudent = value; }
         public bool? IsPopUp { get; internal set; }
+
+        // additional fields from JOIN
+        public string LastName { get; set; }
+        public string FirstName { get; set; }
     }
 }

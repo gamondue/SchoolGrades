@@ -12,7 +12,7 @@ namespace gamon.TreeMptt
     {
         private DbConnection localConnection;
 
-        internal TreeMpttDb_SqlServer()
+        internal TreeMpttDb_SqlServer(string FullNameOfDatabase) : base(FullNameOfDatabase)
         {
 
         }

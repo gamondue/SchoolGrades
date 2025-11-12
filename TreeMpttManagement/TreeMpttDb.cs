@@ -28,10 +28,11 @@ namespace gamon.TreeMptt
         // !!!! TODO ????; turn to generic this class, such that it can contain any class and not just Topic instances !!!!
 
         internal DbConnection localDbConnection;
+        protected string fullNameOfDatabase;
 
-        internal TreeMpttDb()
+        internal TreeMpttDb(string FullNameOfDatabase)
         {
-
+            fullNameOfDatabase = FullNameOfDatabase;
         }
         /// <summary>
         /// Ensures that the local database connection is open, establishing it if necessary.
