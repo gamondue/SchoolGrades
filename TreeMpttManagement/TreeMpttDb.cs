@@ -621,6 +621,76 @@ namespace gamon.TreeMptt
             cmd.Dispose();
             CloseLocalConnectionIfWasFoundClosed();
         }
+        /// <summary>
+        /// Updates ONLY the leftNode and rightNode fields in the database for a list of topics.
+        /// This is optimized for background MPTT tree updates without interfering with UI data.
+        /// </summary>
+        internal void SaveOnlyLeftAndRightNodes(List<Topic> listTopics)
+        {
+            if (listTopics == null || listTopics.Count == 0)
+                return;
+
+            OpenLocalConnectionIfClosed();
+            DbTransaction tx = null;
+            
+            try
+            {
+                tx = localDbConnection.BeginTransaction();
+                
+                using (DbCommand cmd = localDbConnection.CreateCommand())
+                {
+                    cmd.Transaction = tx;
+                    
+                    // Prepare parameterized UPDATE statement
+                    cmd.CommandText = "UPDATE Topics SET leftNode = @left, rightNode = @right WHERE idTopic = @id";
+                    
+                    var paramId = cmd.CreateParameter();
+                    paramId.ParameterName = "@id";
+                    cmd.Parameters.Add(paramId);
+                    
+                    var paramLeft = cmd.CreateParameter();
+                    paramLeft.ParameterName = "@left";
+                    cmd.Parameters.Add(paramLeft);
+                    
+                    var paramRight = cmd.CreateParameter();
+                    paramRight.ParameterName = "@right";
+                    cmd.Parameters.Add(paramRight);
+                    
+                    // Execute batch updates
+                    foreach (Topic t in listTopics)
+                    {
+                        // Check if we should abort
+                        if (!Commons.BackgroundTaskCanSave || Commons.BackgroundTaskClose)
+                        {
+                            tx.Rollback();
+                            CloseLocalConnectionIfWasFoundClosed();
+                            return;
+                        }
+                        
+                        paramId.Value = t.Id ?? (object)DBNull.Value;
+                        paramLeft.Value = t.LeftNodeNew ?? (object)DBNull.Value;
+                        paramRight.Value = t.RightNodeNew ?? (object)DBNull.Value;
+                        
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                
+                tx.Commit();
+            }
+            catch
+            {
+                try
+                {
+                    tx?.Rollback();
+                }
+                catch { }
+                throw;
+            }
+            finally
+            {
+                CloseLocalConnectionIfWasFoundClosed();
+            }
+        }
         #endregion
 
         #region methods copied from DataLayer, to avoid the dependancy of this class to DataLayer

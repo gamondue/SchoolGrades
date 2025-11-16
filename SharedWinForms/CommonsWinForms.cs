@@ -226,19 +226,55 @@ namespace SchoolGrades
         }
         internal static void SwitchPicLed(bool IsLedLit)
         {
+            // Il codice sottostante è stato disabilitato per diagnosticare il crash
+
             try
-            {   
-                // lights on or off the PictureBox used as an Activity LED 
-                globalPicLed.Invoke(new Action(() =>
+            {
+                // Verifica che globalPicLed sia valido
+                if (globalPicLed == null || globalPicLed.IsDisposed)
                 {
+                    Commons.ErrorLog("[SwitchPicLed] globalPicLed is null or disposed");
+                    return;
+                }
+
+                // Verifica che il thread chiamante non sia già il thread UI
+                if (globalPicLed.InvokeRequired)
+                {
+                    // Chiamato da thread secondario - usa BeginInvoke per evitare deadlock
+                    globalPicLed.BeginInvoke(new Action(() =>
+                    {
+                        try
+                        {
+                            if (globalPicLed != null && !globalPicLed.IsDisposed)
+                            {
+                                if (IsLedLit)
+                                    globalPicLed.BackColor = Color.Red;     // LED lit
+                                else
+                                    globalPicLed.BackColor = Color.DarkGray; // LED off
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Commons.ErrorLog($"[SwitchPicLed] Error in BeginInvoke: {ex.Message}");
+                        }
+                    }));
+                }
+                else
+                {
+                    // Già nel thread UI - modifica direttamente
                     if (IsLedLit)
-                        globalPicLed.BackColor = Color.Red;     // LED lit
+                        globalPicLed.BackColor = Color.Red;
                     else
-                        globalPicLed.BackColor = Color.DarkGray; // LED off
-                }));
-                Application.DoEvents();
+                        globalPicLed.BackColor = Color.DarkGray;
+                }
+
+                // NON usare Application.DoEvents() - è pericoloso!
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"[SwitchPicLed] Unexpected error: {ex.Message}\n{ex.StackTrace}");
+            }
+
         }
         internal static bool ReadConfigData()
         {
