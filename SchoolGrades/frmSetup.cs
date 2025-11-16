@@ -3,13 +3,14 @@ using SchoolGrades.BusinessObjects;
 using System;
 using System.ComponentModel;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace SchoolGrades
 {
     public partial class frmSetup : Form
     {
- [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool NewDatabaseFile { get; private set; }
 
         public frmSetup()
@@ -69,46 +70,54 @@ namespace SchoolGrades
         }
         internal void WriteConfigFile()
         {
-            string[] dati = new string[6];
             try
             {
-                Commons.DatabaseFileName_Current = dati[0] = TxtFileDatabase.Text;
+                // 1. Segnala a tutti i thread in background di terminare
+                Commons.BackgroundTaskClose = true;
 
-                // positition 2 was held by PathStartLinks, that is not longer used,
-                // substituted by PathRestrictedApp  (attribute of the single currentSchool class) 
-                //dati[2] = Commons.PathRestrictedApp; 
+                // 2. Attendi che i thread in background terminino effettivamente.
+                // Questo previene la modifica dei dati mentre sono in uso.
+                // Il timeout è una sicurezza per evitare blocchi indefiniti.
+                int waitCycles = 0;
+                while (Commons.BackgroundThreadIsSaving && waitCycles < 10) // Attendi max 5 secondi
+                {
+                    Thread.Sleep(500);
+                    waitCycles++;
+                }
+
+                // 3. Ora che i thread sono fermi, possiamo modificare i dati in sicurezza
+                string[] dati = new string[6];
+                Commons.DatabaseFileName_Current = dati[0] = TxtFileDatabase.Text;
                 Commons.PathDatabase = dati[3] = TxtPathDatabase.Text;
                 Commons.PathImages = dati[1] = TxtPathImages.Text;
                 Commons.PathDocuments = dati[4] = TxtPathDocuments.Text;
                 Commons.SaveBackupWhenExiting = chkSaveBackup.Checked;
                 dati[5] = Commons.SaveBackupWhenExiting.ToString();
 
-                //////////Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
-                // TODO !!! if the file doesn't exist copies the sample empty database. Eventually redo this code, it is ugly and not functional !!!!
-                ////if(!File.Exists(Commons.PathAndFileDatabase))
-                ////    File.Copy(".\\" + Commons.TeachersDatabaseFileName, Commons.PathAndFileDatabase);
 #if DEBUG
                 TextFile.ArrayToFile(Commons.PathAndFileConfig + "_DEBUG", dati, false);
 #else
                 TextFile.ArrayToFile(Commons.PathAndFileConfig, dati, false);
 #endif
 
-                MessageBox.Show("File di configurazione salvato in " + Commons.PathAndFileConfig +
-                    "\n\nIl programma verrà chiuso.");
+                MessageBox.Show("File di configurazione salvato.\n\nIl programma verrà riavviato per applicare le modifiche.",
+                                "Configurazione salvata", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                Application.Exit();
+                // 4. Usa Application.Restart() per una chiusura e un riavvio più puliti
+                // invece di Application.Exit(). Questo dà al programma la possibilità
+                // di finalizzare le operazioni in modo più ordinato.
+                NewDatabaseFile = true;
+                Application.Restart();
+                Environment.Exit(0); // Assicura la chiusura completa dopo il riavvio
             }
             catch (Exception e)
             {
                 string err = "WriteConfigFile(): " + e.Message;
                 Commons.ErrorLog(err);
-                throw new Exception(err);
-                //throw new FileNotFoundException(@"[Error in program's directories] \r\n" + e.Message);
-                //return;
+                // Non rilanciare l'eccezione qui, ma mostrala all'utente
+                MessageBox.Show("Si è verificato un errore durante il salvataggio della configurazione:\n" + err,
+                                "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            //Application.Exit();
-            NewDatabaseFile = true;
-            this.Close();
         }
         private void btnPathQuestions_Click(object sender, EventArgs e)
         {
@@ -175,9 +184,12 @@ namespace SchoolGrades
         }
         private void btnEraseConfigurationFile_Click(object sender, EventArgs e)
         {
+            // Segnala ai thread di chiudersi prima di uscire
+            Commons.BackgroundTaskClose = true;
+            Thread.Sleep(500); // Dai un po' di tempo per la chiusura
             File.Delete(Commons.PathAndFileConfig);
-            //this.Close();
-            Application.Exit();
+            Application.Restart();
+            Environment.Exit(0);
         }
         private void btnSchoolSubjectManagement_Click(object sender, EventArgs e)
         {
