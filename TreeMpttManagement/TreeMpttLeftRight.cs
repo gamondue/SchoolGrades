@@ -8,11 +8,11 @@ namespace gamon.TreeMptt
     /// Calcola i valori LeftNode e RightNode per un albero di Topic senza dipendenze dall'interfaccia utente.
     /// Questa classe è ottimizzata per l'uso nel thread di background.
     /// </summary>
-    internal class MpttLeftRight
+    internal class TreeMpttLeftRight
     {
         private readonly TreeMpttDb dbMptt;
 
-        internal MpttLeftRight(TreeMpttDb dbMptt)
+        internal TreeMpttLeftRight(TreeMpttDb dbMptt)
         {
             this.dbMptt = dbMptt;
         }
@@ -30,7 +30,7 @@ namespace gamon.TreeMptt
             try
             {
                 // Apri la connessione una volta sola per tutta l'operazione
-                 dbMptt.OpenLocalConnectionIfClosed();
+                dbMptt.OpenLocalConnectionIfClosed();
 
                 // Leggi le radici dell'albero (false = non chiudere la connessione alla fine)
                 List<Topic> roots = dbMptt.GetNodesRoots(false);

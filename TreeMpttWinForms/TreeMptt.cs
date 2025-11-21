@@ -288,11 +288,11 @@ namespace gamon.TreeMptt
 
                     List<Topic> listNodes = null;
                     
-                    // ✅ NUOVO: Usa MpttLeftRight invece di GenerateNewListOfNodesFromDatabase
+                    // ✅ NUOVO: Usa TreeMpttLeftRight invece di GenerateNewListOfNodesFromDatabase
                     // Questo evita completamente la dipendenza da TreeView
                     try
                     {
-                        MpttLeftRight calculator = new MpttLeftRight(dbMptt);
+                        TreeMpttLeftRight calculator = new TreeMpttLeftRight(dbMptt);
                         listNodes = calculator.CalculateLeftRightFromDatabase();
                     }
                     catch (Exception ex)

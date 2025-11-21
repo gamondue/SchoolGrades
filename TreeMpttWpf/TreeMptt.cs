@@ -9,7 +9,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Shapes;
 using CheckBox = System.Windows.Controls.CheckBox;
 using MessageBox = System.Windows.MessageBox;
 using TextBox = System.Windows.Controls.TextBox;
@@ -19,6 +18,8 @@ namespace gamon.TreeMptt
 {
     internal class TreeMptt
     {
+        private string fullNameOfDatabase;
+
         /// <summary>
         /// Takes a TreeView control and adds to it, and to some ancillary TextBoxes and CheckBoxes, 
         /// the capability of storing and retrieving the tree in a database, memorizing it both 
@@ -49,24 +50,18 @@ namespace gamon.TreeMptt
         // class that encapsulates the data access to the tree nodes 
         TreeMpttDb dbMptt;
 
-        internal bool hasChanges = false;
+        private bool hasChanges = false;
         bool markAllInSearch = false;
-        internal bool putCheckSignsOnNodes;
 
-        #region fields used for drag and drop 
+        #region fields used for drag and drop
         // identification of the Treeview control from which the drag starts
-        internal int dragSourceControlHash;
-        internal bool hasNodeBeenSelectedFromTree = false;
+        private int dragSourceControlHash;
+        private bool hasNodeBeenSelectedFromTree = false;
 
-        internal Topic currentTopic = null;
+        private Topic currentTopic = null;
 
         System.Windows.DragDropEffects typeOfDragAndDrop;
         #endregion
-
-        //#region fields used for saving the Mptt tree (also concurrently)
-        //internal static bool isSavingTreeMptt;
-
-        //#endregion
 
         #region lists used to detect changes, to have less accesses to the database 
         List<Topic> listItemsBefore; // !!!! this list should be non influent now. Code revision should eliminate it!!!!
@@ -82,7 +77,7 @@ namespace gamon.TreeMptt
         List<Topic> found = null;
 
         #region internal object variables for controls passed from outside
-        // Winforms control that is manipulated by this class
+        // WPF control that is manipulated by this class
         private TreeView shownTreeView;
         TextBox txtNodeName;
         TextBox txtNodeDescription;
@@ -98,9 +93,9 @@ namespace gamon.TreeMptt
         #endregion
 
         #region coloring of the nodes
-        internal Brush colorOfHighlightedItem = Brushes.Khaki;
-        internal Brush colorOfFoundItem = Brushes.Lime;
-        internal Brush colorOfBeheadedColor = Brushes.Orange;
+        private Brush colorOfHighlightedItem = Brushes.Khaki;
+        private Brush colorOfFoundItem = Brushes.Lime;
+        private Brush colorOfBeheadedColor = Brushes.Orange;
         #endregion
 
         // if true the backcolor of nodes will be cleared when the user clicks on one node 
@@ -112,6 +107,8 @@ namespace gamon.TreeMptt
         internal TreeView TreeView { get => shownTreeView; }
 
         bool functionKeysEnabled = true;
+        private bool bulkChangeOfChecks;
+
         internal bool FunctionKeysEnabled
         {
             get
@@ -120,14 +117,24 @@ namespace gamon.TreeMptt
             }
             set
             {
-                shownTreeView.LostFocus += shownTreeView_AfterLabelEdit;
-                //shownTreeView.????? += ShownTreeView_AfterCheck;
+                // Hook WPF events (equivalents to WinForms events)
                 shownTreeView.SelectedItemChanged += shownTreeView_AfterSelect;
-                shownTreeView.PreviewMouseLeftButtonDown += shownTreeView_Click;
+                shownTreeView.PreviewMouseLeftButtonDown += ShownTreeView_Click;
                 shownTreeView.KeyDown += ShownTreeView_KeyDown;
-                txtNodeName.LostFocus += TxtNodeName_Leave;
-                txtNodeName.TextChanged += TxtNodeName_TextChanged;
-                txtNodeDescription.LostFocus += TxtNodeDescription_Leave;
+                
+                if (txtNodeName != null)
+                {
+                    txtNodeName.LostFocus += TxtNodeName_Leave;
+                    txtNodeName.TextChanged += TxtNodeName_TextChanged;
+                    txtNodeName.LostFocus += txtNodeName_LostFocus;
+                }
+                
+                if (txtNodeDescription != null)
+                {
+                    txtNodeDescription.LostFocus += TxtNodeDescription_Leave;
+                    txtNodeDescription.LostFocus += txtNodeDescription_LostFocus;
+                }
+                
                 if (chkSearchInDescriptions != null)
                 {
                     chkSearchInDescriptions.Checked += SearchCheckBoxes_CheckedChanged;
@@ -153,40 +160,26 @@ namespace gamon.TreeMptt
                     chkVerbatimString.Checked += chkVerbatimString_CheckedChanged;
                     chkVerbatimString.Unchecked += chkVerbatimString_CheckedChanged;
                 }
-                //}
-                //else
-                //{
-                //    // un-hook the events
-                //    // !!!! TODO !!!! rethink the event we should unhook
-                //    // since the functioning involving the following events 
-                //    // was akward, the unhook has been disabled 
-                //    //shownTreeView.CellEditEnding -= TreeView_AfterLabelEdit;
-                //    //shownTreeView.AfterCheck -= TreeView_AfterCheck;
-                //    //shownTreeView.AfterSelect -= TreeView_AfterSelect;
-                //    //shownTreeView.Click -= TreeView_Click;
-                //    //shownTreeView.KeyDown -= TreeView_KeyDown;
-                //    //txtNodeName.LostFocus -= TxtNodeName_Leave;
-                //    //txtNodeName.TextChanged -= TxtNodeName_TextChanged;
-                //    //txtNodeDescription.TextChanged -= TxtNodeDescription_TextChanged;
-                //}
                 functionKeysEnabled = value;
             }
         }
         internal bool HasChanges { get => hasChanges; set => hasChanges = value; }
-        internal TreeMptt(TreeView TreeViewControl,
+        
+        // Constructor identico a WinForms, ma con tipi WPF
+        internal TreeMptt(TreeView TreeViewControl, string FullNameOfDatabase,
             TextBox TxtNodeName, TextBox TxtNodeDescription, TextBox TxtNodeSearchString,
             TextBox TxtNodeDigest, TextBox TxtIdNode,
-            Rectangle LedImage, CheckBox ChkSearchInDescriptions, CheckBox ChkVerbatimString,
+            System.Windows.Shapes.Rectangle LedRectangle, CheckBox ChkSearchInDescriptions, CheckBox ChkVerbatimString,
             CheckBox ChkAllWord, CheckBox ChkCaseInsensitive, CheckBox ChkMarkAllNodesFound,
             System.Windows.DragDropEffects TypeOfDragAndDrop = System.Windows.DragDropEffects.Move,
             bool PutCheckSignsOnNodes = true)
         {
+            fullNameOfDatabase = FullNameOfDatabase;
+            // !!!! TODO !!!! eliminate the dependency of this class from Business Layer
             bl = Commons.bl;
-
-            dbMptt = TreeMptt.SetDataLayer();
+            dbMptt = TreeMptt.SetDataLayer(fullNameOfDatabase);
 
             shownTreeView = TreeViewControl;
-            //listTopicsBefore = InitialListOfTopics;
             txtNodeName = TxtNodeName;
             txtNodeDescription = TxtNodeDescription;
             txtSearchString = TxtNodeSearchString;
@@ -202,120 +195,89 @@ namespace gamon.TreeMptt
             if (shownTreeView != null)
             {
                 FunctionKeysEnabled = true;
-
-                ////////////shownTreeView.LabelEdit = false;
                 // for drag & drop 
                 shownTreeView.AllowDrop = true;
-                ////////////shownTreeView.ItemDrag += TreeView_ItemDrag;
-                ////////////shownTreeView.DragDrop += TreeView_DragDrop;
                 shownTreeView.DragEnter += TreeView_DragEnter;
                 shownTreeView.DragLeave += TreeView_DragLeave;
-                //for object that will be dragged:
-                //////shownTreeView.MouseDown += (sender, args) => DoDragDrop(TheSampleLabel.Text, DragDropEffects.Copy);
-
-                txtNodeName.LostFocus += txtNodeName_LostFocus;
-                txtNodeDescription.LostFocus += txtNodeDescription_LostFocus;
             }
             typeOfDragAndDrop = TypeOfDragAndDrop;
-            putCheckSignsOnNodes = PutCheckSignsOnNodes;
         }
-        internal static TreeMpttDb? SetDataLayer()
+        
+        internal static TreeMpttDb SetDataLayer(string fullNameOfDatabase)
         {
 #if SQL_SERVER
-            return new TreeMpttDb_SqlServer();
+            return new TreeMpttDb_SqlServer("Dummy string. It is to be decided");
 #else
-            return new TreeMpttDb_SqLite();
+            return new TreeMpttDb_SqLite(fullNameOfDatabase);
 #endif
         }
+        
         #region methods that save the tree
         internal void SaveTreeFromScratch()
         {
             int nodeCount = 1;
             List<Topic> listTopicsAfter = new List<Topic>();
             // recursive function
-            GenerateNewListOfNodesFromTreeViewControl_Recursive(
-                (TreeViewItem)shownTreeView.Items[0], ref nodeCount, ref listTopicsAfter);
+            GenerateNewListOfNodesFromTreeViewControl_Recursive((TreeViewItem)shownTreeView.Items[0],
+                ref nodeCount, ref listTopicsAfter);
             dbMptt.SaveNodesFromScratch(listTopicsAfter);
             hasChanges = false;
         }
+        
         internal void SaveTreeFromTreeViewByParent()
         {
-            // syncronously save the nodes that have changed data or parentNode
-            // (shorter operation) 
-            // all the saving happens under a lock from other tasks
-            // this saving waits here until the background task hasn't finished saving 
-            Commons.StopOperationsOnBackgroundThread();
-            lock (Commons.LockSavingCriticalSections)
+            isSavingTree = true;
+            try
             {
-                // left and right are set inconsistent 
-                dbMptt.SaveLeftRightConsistency(false);
-                // save the nodes that have changed any field, except RightNode & Left Node (optional) 
-                // (saving RightNode & Left Node changes would be too slow, 
-                // so it is done in the background Thread, that we will restart at the end of this method
-                listItemsAfter = new List<Topic>();
-                int nodeCount = 1;
-                // recursive function using ONE single root node of Treeview 
-                GenerateNewListOfNodesFromTreeViewControl_Recursive(
-                    (TreeViewItem)shownTreeView.Items[0],
-                    ref nodeCount, ref listItemsAfter);
-                // now in listTopicsAfter we have the list of all current nodes, with correct 
-                // "new" and "old" pointers (included Left and Right) 
+                Commons.StopOperationsOnBackgroundThread();
+                Commons.SwitchPicLed(false);
 
-                // find deleted topics. After they will be deleted from database
-                listItemsDeleted = new List<Topic>();
-                // ???? this is expensive! We can do better !!!!! (TODO !!!! manage deletion list directly on delete from the treeview)
-                foreach (Topic tOld in listItemsBefore)
+                lock (Commons.LockSavingCriticalSections)
                 {
-                    if (FindNodeById_Recursive(
-                        (TreeViewItem)shownTreeView.Items[0], tOld) == null)
+                    dbMptt.SaveLeftRightConsistency(false);
+                    listItemsAfter = new List<Topic>();
+                    int nodeCount = 1;
+                    GenerateNewListOfNodesFromTreeViewControl_Recursive(
+                        (TreeViewItem)shownTreeView.Items[0],
+                        ref nodeCount, ref listItemsAfter);
+
+                    listItemsDeleted = new List<Topic>();
+                    if (listItemsBefore != null)
                     {
-                        // not found, has been deleted 
-                        if (tOld.ParentNodeOld > 0)
+                        foreach (Topic tOld in listItemsBefore)
                         {
-                            // don't delete possible other root nodes (for future features and for error emersion) 
-                            listItemsDeleted.Add(tOld);
+                            if (FindNodeById_Recursive((TreeViewItem)shownTreeView.Items[0], tOld) == null)
+                            {
+                                if (tOld.ParentNodeOld > 0)
+                                    listItemsDeleted.Add(tOld);
+                            }
                         }
                     }
+                    dbMptt.SaveTreeToDb(listItemsAfter, listItemsDeleted, false, true);
+                    dbMptt.SaveLeftRightConsistency(false);
                 }
-                // UPDATE THE DATABASE
-                // save the items in the database (modified nodes will be saved 
-                // according to the difference between old and new values, new 
-                // nodes are empty, so they will save. Left and Right will be 
-                // saved by a concurrent Thread, so here the third parameter is false
-                dbMptt.SaveTreeToDb(listItemsAfter, listItemsDeleted, false, true);
-                // Left-Right status left on "inconsistent" if we were NOT saving leftNode and rightNode
-                // or if we quit this method breaking the loops. 
-                // Update listTopicsBefore by taking it from the treeview 
-                nodeCount = 1;
-                listItemsBefore.Clear();
-                // recursive function
-                GenerateNewListOfNodesFromTreeViewControl_Recursive(
-                    (TreeViewItem)shownTreeView.Items[0],
-                    ref nodeCount, ref listItemsBefore);
-                // copy New fields in Old  
-                foreach (Topic t in listItemsBefore)
-                {
-                    t.ChildNumberOld = t.ChildNumberNew;
-                    t.ParentNodeOld = t.ParentNodeNew;
-                }
-                dbMptt.SaveLeftRightConsistency(false);
+                Commons.StartOperationsOnBackgroudSavingThread();
+                hasChanges = false;
             }
-            Commons.StartOperationsOnBackgroudSavingThread();
-            hasChanges = false;
+            finally
+            {
+                isSavingTree = false;
+            }
         }
+        
         internal void SaveTreeMpttBackground()
         {
-            // updates leftNode and right node of every node in the tree 
-            // works in background in a thread of its own 
+            // updates leftNode and rightNode of every node in the tree
+            // works in background in a thread of its own
             // this method is the background thread
 
             // Starts a loop that finishes when we want to close the thread.
             // Closing will be fired from external, by setting to true BackgroundCanStillSaveTopicsTree
-            while (!Commons.BackgroundTaskClose)  // closes task when can't run anymore 
+            while (!Commons.BackgroundTaskClose)  // closes task when the program is finishig 
             {
                 // since we aren't saving, switch off the LED
                 Commons.SwitchPicLed(false);
-                // waits BackgroundThreadSleepTime seconds, watching periodically if it must exit the loop 
+                // waits BackgroundThreadSleepTime seconds, watching every second if it must exit the loop 
                 DateTime endTime = DateTime.Now.AddSeconds(Commons.BackgroundThreadSleepSeconds);
                 while (DateTime.Now < endTime)
                 {
@@ -329,40 +291,71 @@ namespace gamon.TreeMptt
                 {
                     // start saving in background, in locked condition
                     // other tasks can signal this to abort operation by setting 
-                    // Commons.BackgroundSavingEnabled to false
+                    // Commons.BackgroundTaskCanSave to false
+
+                    // signal that the background thread is saving 
+                    Commons.BackgroundThreadIsSaving = true;
+                    // light up the saving LED
+                    Commons.SwitchPicLed(true);
+
+                    List<Topic> listNodes = null;
+                    
+                    // ? NUOVO: Usa TreeMpttLeftRight invece di GenerateNewListOfNodesFromDatabase
+                    // Questo evita completamente la dipendenza da TreeView
+                    try
+                    {
+                        TreeMpttLeftRight calculator = new TreeMpttLeftRight(dbMptt);
+                        listNodes = calculator.CalculateLeftRightFromDatabase();
+                    }
+                    catch (Exception ex)
+                    {
+                        Commons.ErrorLog($"SaveTreeMpttBackground: Errore nel calcolo MPTT: {ex.Message}");
+                        Commons.BackgroundThreadIsSaving = false;
+                        Commons.SwitchPicLed(false);
+                        continue;
+                    }
+
+                    // abort if cancelled or nothing to save
+                    if (!Commons.MethodCanContinue() || Commons.BackgroundTaskClose || listNodes == null || listNodes.Count == 0)
+                    {
+                        Commons.BackgroundThreadIsSaving = false;
+                        Commons.SwitchPicLed(false);
+                        continue;
+                    }
+
+                    // Acquire lock only for the write operation
+                    bool didSave = false;
                     lock (Commons.LockSavingCriticalSections)
                     {
-                        // signal that the background thread is saving 
-                        Commons.StartOperationsOnBackgroudSavingThread();
-
-                        // light up the saving LED
-                        Commons.SwitchPicLed(true);
-                        // read the tree by Parent into a new TreeView control
-                        // that we aren't showing 
-                        TreeView hiddenTree = new TreeView();
-                        AddNodesToTreeViewByParent(hiddenTree, true);
-                        // traverse the tree with Mptt, saving Left and Right and quitting if  
-                        // someone else modifies BackgroundSavingEnabled
-                        List<Topic> listNodes = new List<Topic>();
-                        int nodeCount = 1;
-                        if (Commons.BackgroundTaskCanSave)
-                            // not executed if saving is aborted 
-                            GenerateNewListOfNodesFromTreeViewControl_Recursive(
-                                (TreeViewItem)(hiddenTree.Items[0]), 
-                                ref nodeCount, ref listNodes);
-                        if (Commons.BackgroundTaskCanSave)
-                            // not executed if saving is aborted 
-                            // in this point delete list cannot have any entry
-                            dbMptt.SaveTreeToDb(listNodes, null, true, true);
-                        if (Commons.BackgroundTaskCanSave)
-                            // not executed if saving is aborted 
+                        // Respect background-save flag
+                        if (!Commons.BackgroundTaskCanSave)
+                        {
+                            // do nothing here; saving skipped
+                        }
+                        else
+                        {
+                            // ? NEW: Save ONLY leftNode and rightNode (optimized for background)
+                            // This avoids touching Name, Desc, Parent which the UI might be modifying
+                            dbMptt.SaveOnlyLeftAndRightNodes(listNodes);
                             dbMptt.SaveLeftRightConsistency(true);
+                            didSave = true;
+                        }
                     }
-                    Commons.StopOperationsOnBackgroundThread();
+
+                    // Release the lock BEFORE invoking UI/thread-affine operations
+                    Commons.BackgroundThreadIsSaving = false;
+                    Commons.SwitchPicLed(false);
+
+                    if (!didSave)
+                    {
+                        // saving was skipped because BackgroundTaskCanSave == false
+                        continue;
+                    }
                 }
             }
         }
         #endregion
+        
         #region methods that read nodes and put them in the Treeview
         internal void AddNodesToTreeviewByBestMethod()
         {
@@ -379,18 +372,22 @@ namespace gamon.TreeMptt
             {
                 // load by parentNode value
                 listItemsBefore = dbMptt.GetNodesByParentFromDatabase(); // is this useful ? 
-                AddNodesToTreeViewByParent(shownTreeView, true);
+                AddNodesToTreeViewByParent(shownTreeView, false);
             }
-            ((TreeViewItem)(shownTreeView.Items[0])).IsExpanded = true;
+            ((TreeViewItem)shownTreeView.Items[0]).IsExpanded = true;
             // re-set the possibility of background saving
             Commons.StartOperationsOnBackgroudSavingThread();
         }
+        
         internal void AddNodesToTreeViewWithMptt()
         {
+            // avoid modifications by background saver by stopping it
+            Commons.StopOperationsOnBackgroundThread();
+            if (shownTreeView == null)
+                shownTreeView = new TreeView();
             shownTreeView.Items.Clear();
             listItemsBefore = dbMptt.GetNodesByMpttFromDatabase(0, int.MaxValue);
-            //if (!Commons.MethodCanContinue()) 
-            //    return;
+            
             if (listItemsBefore != null && listItemsBefore.Count > 0)
             {
                 // put first node in treeview 
@@ -399,8 +396,6 @@ namespace gamon.TreeMptt
                 shownTreeView.Items.Add(previousUiNode); // first node of the tree
                 for (int listIndex = 1; listIndex < listItemsBefore.Count; listIndex++)
                 {
-                    //if (!Commons.MethodCanContinue())
-                    //  return;
                     Topic currentNode = listItemsBefore[listIndex];
                     TreeViewItem currentUiNode = CreateTreeViewItem(currentNode);
                     if (currentNode.RightNodeOld < previousNode.RightNodeOld)
@@ -414,10 +409,9 @@ namespace gamon.TreeMptt
                     }
                     else
                     {
-                        if (stack != null)
-                            return;
-                        do
-                        {
+                        if (stack.Count == 0)
+                             return;
+                        do {
                             previousUiNode = (TreeViewItem)stack.Pop();
                             previousNode = (Topic)(previousUiNode.Tag);
                         } while (currentNode.RightNodeOld > previousNode.RightNodeOld);
@@ -428,12 +422,18 @@ namespace gamon.TreeMptt
                         previousNode = (Topic)(previousUiNode.Tag);
                     }
                 }
-            }
+            } 
         }
-        internal void AddNodesToTreeViewByParent(TreeView CurrentTreeView, bool v)
+        
+        internal void AddNodesToTreeViewByParent(TreeView PassedTreeView, bool isCalledFromBackground)
         {
-            CurrentTreeView.Items.Clear();
-
+            // avoid modifications by background saver by stopping it
+            // (only if the method in NOT called by the background saver itself)
+            if (!isCalledFromBackground)
+                Commons.StopOperationsOnBackgroundThread();
+            PassedTreeView.Items.Clear();
+            // open the Db connection, that will be taken open all throughout the saving
+            dbMptt.OpenLocalConnectionIfClosed();
             // put all the roots in the Treeview
             // finds all the nodes that don't have a parent
             // so you can fit the Treeview of a Win Form program, that is multiroot
@@ -441,15 +441,15 @@ namespace gamon.TreeMptt
             // (this program treats only one root node because with MPTT having more than one root 
             // would complicate the database, hence this list must have only one node 
             List<Topic> lt = dbMptt.GetNodesRoots(false);
-
             // if a connection is passed, keep the connection open during the tree traversal, 
             // in order to increase the performance 
             foreach (Topic t in lt)
             {
-                if (!Commons.MethodCanContinue()) return;
+                if (!Commons.MethodCanContinue()) 
+                    return;
                 // first level nodes
                 TreeViewItem rootNode = CreateTreeViewItem(t);
-                CurrentTreeView.Items.Add(rootNode);
+                PassedTreeView.Items.Add(rootNode);
                 AddChildrenNodesToTreeViewFromDatabase(rootNode, 0);
             }
             // close the db connection
@@ -457,6 +457,7 @@ namespace gamon.TreeMptt
             // at the end of operations, the background thread is re-enabled
             Commons.StartOperationsOnBackgroudSavingThread();
         }
+        
         internal void GetSubtree_Recursive(TreeViewItem NodeStart, List<TreeViewItem> List) // (passes List for recursion) 
         {
             List.Add(NodeStart);
@@ -466,6 +467,7 @@ namespace gamon.TreeMptt
             }
         }
         #endregion
+        
         #region imports and exports
         internal string ExportSubtreeToText(Topic InitialNode)
         {
@@ -473,25 +475,21 @@ namespace gamon.TreeMptt
                 (InitialNode.LeftNodeOld, InitialNode.RightNodeOld, false);
             return tree;
         }
+        
         internal void ImportSubtreeFromText(string TextFromClipboard)
         {
             if (TextFromClipboard == "")
             {
                 Console.Beep();
-                //return "";
             }
             ImportFreeMindSubtreeUnderNode(TextFromClipboard, (TreeViewItem)TreeView.SelectedItem);
-            //return TextFromClipboard;
         }
         #endregion
+        
         #region methods that search in the tree
-        internal void FindNodes(string TextToFind)
+        internal void FindNodes(string TextToFind, bool ColorAllNodesFound, bool SearchInDescriptions,
+            bool SearchWholeWord, bool SearchCaseInsensitive, bool SearchVerbatimString)
         {
-            bool ColorAllNodesFound = (bool)chkMarkAllNodesFound.IsChecked;
-            bool SearchInDescriptions = (bool)chkSearchInDescriptions.IsChecked;
-            bool SearchWholeWord = (bool)chkAllWord.IsChecked;
-            bool SearchCaseInsensitive = (bool)chkCaseInsensitive.IsChecked;
-            bool SearchVerbatimString = (bool)chkVerbatimString.IsChecked;
             markAllInSearch = ColorAllNodesFound;
             if (previousSearch != TextToFind)
             {
@@ -501,9 +499,6 @@ namespace gamon.TreeMptt
                 if (markAllInSearch)
                 {
                     int dummy = 0; bool bDummy = false;
-                    // TODO: fix !!!! the following doesn't work. Highlights only a few of the results.
-                    // Probably this "found" list of found items is not in Mptt order
-                    // Check if adding a ORDER BY leftNode ASC in FindTopicsLike() has cured this issue !!!! 
                     HighlightNodesInList((TreeViewItem)shownTreeView.Items[0], found, ref dummy, ref bDummy);
                     ClearBackColorOnClick = false;
                 }
@@ -512,10 +507,10 @@ namespace gamon.TreeMptt
             {
                 // same search, find the next occurence of the same string 
                 indexDone++;
-                //if (!markAllInSearch)
-                //{
-                //    ((TreeViewItem)shownTreeView.Items[0]).IsExpanded = false;
-                //}
+                if (!markAllInSearch)
+                {
+                    ((TreeViewItem)shownTreeView.Items[0]).IsExpanded = false; // selection will expand
+                }
                 // if the results are finished: bring back to the first 
                 if (found == null)
                     return;
@@ -530,7 +525,6 @@ namespace gamon.TreeMptt
                 {
                     f.IsSelected = true;
                     f.Background = colorOfFoundItem;
-                    f.IsExpanded = true;
                     f.BringIntoView();
                 }
                 else
@@ -542,60 +536,12 @@ namespace gamon.TreeMptt
             }
             previousSearch = TextToFind;
         }
-        internal void FindNodeUnderNode(string TextToFind)
+        
+        internal void FindNodeUnderNode(string TextToFind, bool ColorAllNodesFound)
         {
-            // TODO!!!! make this option!!!!          
-            //////////markAllInSearch = (bool)chkMarkAllNodesFound.IsChecked;
-            //////////if (previousSearch != TextToFind)
-            //////////{
-            //////////    // first search: find all the occurencies of the string 
-            //////////    found = dbMptt.FindNodesLike(TextToFind, (bool)chkSearchInDescriptions.IsChecked,
-            //////////        (bool)chkAllWord.IsChecked, (bool)chkCaseInsensitive.IsChecked,
-            //////////        (bool)chkVerbatimString.IsChecked);
-            //////////    indexDone = 0;
-            //////////    previousSearch = TextToFind;
-
-            //////////    if (markAllInSearch)
-            //////////    {
-            //////////        int dummy = 0; bool bDummy = false;
-            //////////        // !!!! the following doesn't work. Highlight only a few of the results. Probably this "found" list of found is noo in Mptt order !!!! 
-            //////////        HighlightTopicsInList(shownTreeView.Items[0], found, ref dummy, ref bDummy);
-            //////////        ClearBackColorOnClick = false;
-            //////////    }
-            //////////}
-            //////////else
-            //////////{
-            //////////    // same search, find the next occurence of the same string 
-            //////////    indexDone++;
-            //////////    if (!markAllInSearch)
-            //////////    {
-            //////////        shownTreeView.Items[0].Collapse(); // selection will expand
-            //////////    }
-            //////////    // if the results are finished: bring back to the first 
-            //////////    if (found == null)
-            //////////        return;
-            //////////    if (indexDone >= found.Count)
-            //////////        indexDone = 0;
-            //////////}
-            //////////TreeViewItem f = null;
-            //////////if (found.Count > 0)
-            //////////{
-            //////////    f = FindNodeById_Recursive((TreeViewItem)shownTreeView.Items[0],
-            //////////        found[indexDone]);
-            //////////    if (f != null)
-            //////////    {
-            //////////        //shownTreeView.Select();
-            //////////        shownTreeView.SelectedItem = f;
-            //////////        f.Background = colorOfFoundItem;
-            //////////    }
-            //////////    else
-            //////////        MessageBox.Show("Non trovato");
-            //////////}
-            //////////else
-            //////////{
-            //////////    MessageBox.Show("Non trovato");
-            //////////}
+            // TODO !!!! make this option !!!!
         }
+        
         internal TreeViewItem FindNodeById(int? IdItem)
         {
             Topic t = new Topic();
@@ -610,15 +556,16 @@ namespace gamon.TreeMptt
             }
             return f;
         }
-        internal TreeViewItem FindNodeById_Recursive(TreeViewItem TreeViewItem, Topic Topic)
+        
+        private TreeViewItem FindNodeById_Recursive(TreeViewItem treeViewItem, Topic Topic)
         {
             if (!Commons.MethodCanContinue())
             {
                 return null;
             }
-            if (((Topic)TreeViewItem.Tag).Id == Topic.Id)
-                return TreeViewItem;
-            foreach (TreeViewItem tn in TreeViewItem.Items)
+            if (((Topic)treeViewItem.Tag).Id == Topic.Id)
+                return treeViewItem;
+            foreach (TreeViewItem tn in treeViewItem.Items)
             {
                 TreeViewItem t = FindNodeById_Recursive(tn, Topic);
                 if (t != null)
@@ -626,38 +573,41 @@ namespace gamon.TreeMptt
             }
             return null;
         }
+        
         internal void FindCheckedItems_Recursive(TreeViewItem currentNode,
             List<Topic> checkedTopicsFound, ref int ListIndex)
         {
-            if (!putCheckSignsOnNodes)
-                return;
             // visits all the childrens of CurrentNode, adding to the list those 
             // that are checked in the treeview 
             foreach (TreeViewItem sonNode in currentNode.Items)
             {
-                StackPanel s = (StackPanel)sonNode.Header;
-                if ((bool)((CheckBox)s.Children[0]).IsChecked)
+                // WPF: Get checkbox from header
+                if (sonNode.Header is StackPanel sp && sp.Children.Count > 0 && sp.Children[0] is CheckBox chk)
                 {
-                    checkedTopicsFound.Add((Topic)sonNode.Tag);
+                    if (chk.IsChecked == true)
+                    {
+                        Topic newTopic = (Topic)sonNode.Tag;
+                        checkedTopicsFound.Add(newTopic);
+                    }
                 }
                 FindCheckedItems_Recursive(sonNode, checkedTopicsFound, ref ListIndex);
             }
             return;
         }
         #endregion
+        
         #region methods that color nodes 
         internal void ColorAllBeheadedNodes()
         {
-            // !!!! TODO fix this method
-            ////TreeViewItemCollection nodes = shownTreeView.Items;
             foreach (TreeViewItem n in shownTreeView.Items)
             {
                 ColorAllBeheadedNodes_Recursive(n);
             }
         }
-        internal void ColorAllBeheadedNodes_Recursive(TreeViewItem TreeViewItem)
+        
+        private void ColorAllBeheadedNodes_Recursive(TreeViewItem treeViewItem)
         {
-            foreach (TreeViewItem tn in TreeViewItem.Items)
+            foreach (TreeViewItem tn in treeViewItem.Items)
             {
                 if (tn.Parent == null)
                     tn.Background = colorOfBeheadedColor;
@@ -666,6 +616,7 @@ namespace gamon.TreeMptt
                 ColorAllBeheadedNodes_Recursive(tn);
             }
         }
+        
         internal void ImportFreeMindSubtreeUnderNode(string TextWithSubtree, TreeViewItem ParentNodeOfImportedSubtree)
         {
             string indentator;
@@ -679,7 +630,13 @@ namespace gamon.TreeMptt
             {
                 indentator = "\t";
             }
-            ParentNodeOfImportedSubtree.Header = subTopics[0];
+            
+            // WPF: Set Header (not Text)
+            if (ParentNodeOfImportedSubtree.Header is StackPanel sp && sp.Children.Count > 1 && sp.Children[1] is TextBlock tb)
+            {
+                tb.Text = subTopics[0];
+            }
+            
             List<Topic> ListTopics = new List<Topic>();
 
             for (int i = 1; i < subTopics.Length; i++)
@@ -701,14 +658,13 @@ namespace gamon.TreeMptt
                     // (not used for other in this phase)
                     t.ParentNodeNew = nIndentators;  // here this is the level count 
                     t.Name = fields[nIndentators++];
-                    //if (nIndentators < fields.Length && fields[nIndentators] != "")
-                    //    t.Desc = fields[nIndentators];  // with FreeMind we shouldn't have Descriptions
 
                     ListTopics.Add(t);
                 }
             }
             ImportToTreewiewFromList(ListTopics, ParentNodeOfImportedSubtree);
         }
+        
         internal void ImportToTreewiewFromList(List<Topic> ListToImport,
             TreeViewItem ParentNodeOfImportedSubtree)
         {
@@ -716,8 +672,8 @@ namespace gamon.TreeMptt
             try
             {
                 // fill the treeview adding the list's items to the tag property of each node
+                TreeViewItem node = new TreeViewItem();
                 int startNodeIndex;
-                TreeViewItem node;
                 if (ParentNodeOfImportedSubtree == null)
                 {
                     // remakes the tree from scratch
@@ -740,10 +696,9 @@ namespace gamon.TreeMptt
                 {
                     Topic t = ListToImport[i];
                     TreeViewItem currentNode = CreateTreeViewItem(t);
-                    // just in this part of the code ParentNodeNew contains the level of indentation of each tree node
+                    // just in this part of the code ParentNodeNew contiene il livello di indentazione di ogni nodo del tree
                     if (level < t.ParentNodeNew)
                     {
-                        // level + 1
                         level++;
                         stack.Push(previousNode);
                         previousNode.Items.Add(currentNode);
@@ -779,27 +734,29 @@ namespace gamon.TreeMptt
                 throw new Exception(errT);
             }
         }
+        
         internal void ClearBackColor()
         {
             // move through the treeview nodes
             // and reset backcolors to white
-            //TreeViewItemCollection nodes = shownTreeView.Items;
             foreach (TreeViewItem n in shownTreeView.Items)
             {
                 ClearBackColor_Recursive(n);
             }
         }
-        internal void ClearBackColor_Recursive(TreeViewItem TreeViewItem)
+        
+        private void ClearBackColor_Recursive(TreeViewItem treeViewItem)
         {
             // called by ClearBackColor function
-            foreach (TreeViewItem tn in TreeViewItem.Items)
+            foreach (TreeViewItem tn in treeViewItem.Items)
             {
                 tn.Background = Brushes.White;
                 ClearBackColor_Recursive(tn);
             }
         }
+        
         internal void HighlightNodesInList(TreeViewItem startNode, List<Topic> ItemsToHighlight,
-            ref int ListIndex, ref bool foundInThisBranch, Brush? HighlightColor = null)
+            ref int ListIndex, ref bool foundInThisBranch, Brush HighlightColor = null)
         {
             Brush highlightColor = HighlightColor ?? colorOfHighlightedItem;
 
@@ -822,20 +779,22 @@ namespace gamon.TreeMptt
                 }
                 // recursion 
                 HighlightNodesInList(sonNode, ItemsToHighlight,
-                    ref ListIndex, ref foundInThisBranch);
+                    ref ListIndex, ref foundInThisBranch, highlightColor);
                 if (foundInThisBranch)
                     sonNode.BringIntoView();
             }
             return;
         }
-        internal void HighlightNode(TreeViewItem Node, Brush? HighlightColor = null)
+        
+        internal void HighlightNode(TreeViewItem Node, Brush HighlightColor = null)
         {
             Brush highlightColor = HighlightColor ?? colorOfHighlightedItem;
             Node.Background = highlightColor;
             Node.IsExpanded = true;
             return;
         }
-        internal void ColorNodeFoundById(int Id, Brush? HighlightColor = null)
+        
+        internal void ColorNodeFoundById(int Id, Brush HighlightColor = null)
         {
             Brush highlightColor = HighlightColor ?? colorOfFoundItem;
             TreeViewItem f = FindNodeById(Id);
@@ -844,11 +803,24 @@ namespace gamon.TreeMptt
             return;
         }
         #endregion
-        #region manage the treeview nodes' checking 
+        
+        #region manage the treeview nodes' checking
+        internal void UncheckAllItemsUnderNode(TreeViewItem currentNode)
+        {
+            bulkChangeOfChecks = true;
+            UncheckAllItemsUnderNode_Recursive(currentNode);
+            bulkChangeOfChecks = false;
+            return;
+        }
+        
+        // CAMBIATO DA private A internal per WPF
         internal void UncheckAllItemsUnderNode_Recursive(TreeViewItem currentNode)
         {
-            StackPanel s = currentNode.Header as StackPanel;
-            ((CheckBox)(s.Children[0])).IsChecked = false;
+            // WPF: Get checkbox from header
+            if (currentNode.Header is StackPanel sp && sp.Children.Count > 0 && sp.Children[0] is CheckBox chk)
+            {
+                chk.IsChecked = false;
+            }
             foreach (TreeViewItem sonNode in currentNode.Items)
             {
                 // recursion 
@@ -856,6 +828,17 @@ namespace gamon.TreeMptt
             }
             return;
         }
+        
+        internal void CheckItemsInList(TreeViewItem startNode,
+                List<Topic> ItemsToCheck, ref int ListIndex, ref bool foundInThisBranch)
+        {
+            bulkChangeOfChecks = true;
+            CheckItemsInList_Recursive(startNode, ItemsToCheck, ref ListIndex, ref foundInThisBranch);
+            bulkChangeOfChecks = false;
+            return;
+        }
+        
+        // CAMBIATO DA private A internal per WPF
         internal void CheckItemsInList_Recursive(TreeViewItem startNode,
             List<Topic> ItemsToCheck, ref int ListIndex, ref bool foundInThisBranch)
         {
@@ -870,12 +853,13 @@ namespace gamon.TreeMptt
                 foundInThisBranch = false;
                 if (ListIndex == ItemsToCheck.Count)
                     return;
-                Topic nodeContent = (Topic)sonNode.Tag;
-                if (ItemsToCheck[ListIndex].Id == nodeContent.Id)
+                if (ItemsToCheck[ListIndex].Id == ((Topic)sonNode.Tag).Id)
                 {   // found item to check 
-                    StackPanel s = (StackPanel)sonNode.Header;
-                    ((CheckBox)s.Children[0]).IsChecked = true;
-                    sonNode.IsExpanded = true;
+                    // WPF: Get checkbox from header
+                    if (sonNode.Header is StackPanel sp && sp.Children.Count > 0 && sp.Children[0] is CheckBox chk)
+                    {
+                        chk.IsChecked = true;
+                    }
                     sonNode.BringIntoView();
                     foundInThisBranch = true;
                     ListIndex++;
@@ -884,11 +868,11 @@ namespace gamon.TreeMptt
                 CheckItemsInList_Recursive(sonNode, ItemsToCheck, ref ListIndex, ref foundInThisBranch);
                 if (foundInThisBranch)
                     sonNode.BringIntoView();
-                //currentNode.IsExpanded = true;
             }
             return;
         }
         #endregion
+        
         // recursively move through the subtree nodes
         // deleting node Id
         internal TreeViewItem AddNewNode(string Text, bool isSonNode)
@@ -917,9 +901,7 @@ namespace gamon.TreeMptt
             nodeNew = new Topic();
             nodeNew.Name = Text;
             nodeNew.LeftNodeOld = nodeNew.RightNodeOld = -1;
-            UiNode = new TreeViewItem();
-            UiNode.Header = nodeNew.Name;
-            UiNode.Tag = nodeNew;
+            UiNode = CreateTreeViewItem(nodeNew);
 
             if (shownTreeView.SelectedItem == null)
             {
@@ -930,25 +912,31 @@ namespace gamon.TreeMptt
                 fatherNode.Items.Add(UiNode);
             }
             UiNode.IsSelected = true;
-            txtNodeName.Text = nodeNew.Name;
-            txtNodeDescription.Text = "";
-            txtNodeName.SelectionLength = txtNodeName.Text.Length;
+
+            if (txtNodeName != null)
+            {
+                txtNodeName.Text = nodeNew.Name;
+                txtNodeName.Focus();
+            }
+            if (txtNodeDescription != null)
+                txtNodeDescription.Text = "";
             if (txtCodNode != null)
                 txtCodNode.Text = nodeNew.Id.ToString();
-            // start edit in the selected node
-            txtNodeName.Focus();
+            // flag the cahnge in the tree
+            hasChanges = true;
             return UiNode;
         }
+        
         internal void DeleteNodeById_Recursive(TreeViewItem ParentNode)
         {
             ((Topic)ParentNode.Tag).Id = null;
-            //TreeViewItemCollection nodes = ParentNode.Items;
-            foreach (TreeViewItem n in shownTreeView.Items)
+            foreach (TreeViewItem n in ParentNode.Items)
             {
                 DeleteNodeById_Recursive(n);
             }
             hasChanges = true;
         }
+        
         internal void DeleteNodeSelected()
         {
             try
@@ -959,17 +947,15 @@ namespace gamon.TreeMptt
                 if (te != null && ((Topic)te.Tag).Id != null)
                     if (bl.IsTopicAlreadyTaught((Topic)te.Tag))
                     {
-                        //if (MessageBox.Show("Questo argomento è già stato fatto in qualche lezione\n" +
-                        //    "Lo cancello lo stesso?", "Attenzione!", MessageBoxButton.YesNo,
-                        //    MessageBoxImage.Information, MessageBoxDefaultButton.Button2) ==
-                        //    MessageBoxResult.No)
-                        if (MessageBox.Show("Questo argomento è già stato fatto in qualche lezione\n" +
-                            "Lo cancello lo stesso?", "Attenzione!") ==
-                            MessageBoxResult.No)
+                        if (MessageBox.Show("Almeno uno degli argomenti scelti è già stato fatto in qualche lezione\n" +
+                            "Cancello lo stesso tutti gli argomenti selezionati?", "Attenzione!", 
+                            MessageBoxButton.YesNo, MessageBoxImage.Information, MessageBoxResult.No)
+                            == MessageBoxResult.No)
                             return;
                     }
                 // remove node from the control (when saving will be also deleted from the database) 
-                ((TreeViewItem)(te.Parent)).Items.Remove(te);
+                ((TreeViewItem)te.Parent).Items.Remove(te);
+                hasChanges = true;
             }
             catch (Exception ex)
             {
@@ -980,24 +966,26 @@ namespace gamon.TreeMptt
             }
             hasChanges = true;
         }
+        
         internal void DeleteNodeFromButton()
         {
             TreeViewItem te = (TreeViewItem)shownTreeView.SelectedItem;
             ((TreeViewItem)te.Parent).Items.Remove(te);
             hasChanges = true;
         }
-        //////internal void CheckGeneralKeysForTree(KeyEventArgs e, string ToFind)
-        //////{
-        //////    // !!!! TODO fix this
-        //////    //////////if (e.KeyCode == Keys.F3)
-        //////    //////////    FindNodes(ToFind, markAllInSearch, true, false, false, false);
-        //////    //////////if (e.KeyCode == Keys.F5)
-        //////    //////////{
-        //////    //////////    SaveTreeFromTreeViewByParent();
-        //////    //////////}
-        //////    //////////hasChanges = true;
-        //////}
-        internal string GetStringOfJustSomeNodesOfPath(string Path)
+        
+        internal void CheckGeneralKeysForTree(KeyEventArgs e, string ToFind)
+        {
+            if (e.Key == Key.F3)
+                FindNodes(ToFind, markAllInSearch, true, false, false, false);
+            if (e.Key == Key.F5)
+            {
+                SaveTreeFromTreeViewByParent();
+            }
+            hasChanges = true;
+        }
+        
+        private string GetStringOfJustSomeNodesOfPath(string Path)
         {
             if (Path == null)
                 return null;
@@ -1010,489 +998,363 @@ namespace gamon.TreeMptt
             }
             return stringToAdd += ". ";
         }
+        
         #region events
-        internal void txtNodeDescription_LostFocus(object sender, RoutedEventArgs e)
+        // >>> NUOVA STRATEGIA: Gestione eventi semplificata per eliminare ricorsioni <<<
+
+        // Flag per indicare che un aggiornamento proviene dal codice e non dall'utente.
+        private bool isUpdatingUiFromCode = false;
+        private bool isSavingTree = false;
+
+        /// <summary>
+        /// UNICO COMPITO: Popolare le TextBox quando un nodo viene selezionato.
+        /// </summary>
+        internal void shownTreeView_AfterSelect(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            if (currentTopic == null) return;
-            if (((TextBox)sender).Text != currentTopic.Desc)
-                hasChanges = true;
-        }
-        internal void txtNodeName_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (currentTopic == null) return;
-            if (((TextBox)sender).Text != currentTopic.Name)
-                hasChanges = true;
-        }
-        internal void shownTreeView_AfterSelect(object sender, RoutedEventArgs e)
-        {
-            hasNodeBeenSelectedFromTree = true;
-            if (shownTreeView.SelectedItem != null)
+            if (e.NewValue == null || !(e.NewValue is TreeViewItem)) return;
+
+            TreeViewItem selectedNode = (TreeViewItem)e.NewValue;
+            
+            // Imposta il flag per indicare che stiamo aggiornando le TextBox dal codice.
+            isUpdatingUiFromCode = true;
+            try
             {
-                currentTopic = (Topic)((TreeViewItem)shownTreeView.SelectedItem).Tag;
-                txtNodeDescription.Text = currentTopic.Desc;
-                txtNodeName.Text = currentTopic.Name;
-                if (txtCodNode != null)
-                    txtCodNode.Text = currentTopic.Id.ToString();
+                if (selectedNode.Tag is Topic sourceTopic)
+                {
+                    currentTopic = sourceTopic;
+                    if (txtNodeName != null)
+                        txtNodeName.Text = currentTopic.Name ?? string.Empty;
+                    if (txtNodeDescription != null)
+                        txtNodeDescription.Text = currentTopic.Desc ?? string.Empty;
+                    if (txtCodNode != null)
+                    {
+                        txtCodNode.Text = currentTopic.Id?.ToString() ?? string.Empty;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"[shownTreeView_AfterSelect] Exception: {ex.Message}\n{ex.StackTrace}");
+            }
+            finally
+            {
+                // Resetta sempre il flag.
+                isUpdatingUiFromCode = false;
             }
         }
-        internal void shownTreeView_AfterLabelEdit(object sender, RoutedEventArgs e)
-        {
-            // !!!! TODO fix this
-            ////////if (!(e.Label == null))
-            ////////{
-            ////////    TreeViewItem n = (TreeViewItem)shownTreeView.SelectedItem;
-            ////////    Topic t = (Topic)(n.Tag);
-            ////////    if (e.Label != n.Header)
-            ////////    {
-            ////////        hasChanges = true;
-            ////////        t.Changed = true;
-            ////////    }
-            ////////    t.Name = e.Label;
-            ////////    txtNodeName.Text = e.Label;
-            ////////}
-        }
-        internal void TreeView_DragEnter(object sender, RoutedEventArgs e)
-        {
-            // !!!! TODO fix this
-            ////////e.Effect = typeOfDragAndDrop;
-        }
-        internal void TreeView_ItemDrag(object sender, RoutedEventArgs e)
-        {
-            // !!!! TODO fix this
-            ////////// remember the control from which the drag was initiated
-            ////////dragSourceControlHash = e.Item.GetHashCode();
-            ////////shownTreeView.DoDragDrop(e.Item, typeOfDragAndDrop);
-        }
-        internal void TreeView_DragLeave(object sender, RoutedEventArgs e)
-        {
-            // feedback to user 
-        }
-        internal void TreeView_DragDrop(object sender, RoutedEventArgs e)
-        {
-            // !!!! TODO fix this
-            //////////// Retrieve the client coordinates of the drop location.
-            //////////Point targetPoint = shownTreeView.PointToClient(new Point(e.X, e.Y));
-            //////////// Retrieve the node at the drop location.
-            //////////TreeViewItem targetNode = shownTreeView.GetNodeAt(targetPoint);
-            //////////// Retrieve the node that was dragged.
-            //////////TreeViewItem draggedNode = (TreeViewItem)e.Data.GetData(typeof(TreeViewItem));
-            ////////////TreeViewItem  dn = (TreeViewItem)sender;
 
-            //////////// Sanity check
-            //////////if (draggedNode == null)
-            //////////{
-            //////////    return;
-            //////////}
+        /// <summary>
+        /// UNICO COMPITO: Finalizzare la modifica del nome quando l'utente lascia la TextBox.
+        /// </summary>
+        private void TxtNodeName_Leave(object sender, RoutedEventArgs e)
+        {
+            // Se stiamo aggiornando da codice, non fare nulla.
+            if (isUpdatingUiFromCode) return;
+            if (shownTreeView.SelectedItem == null) return;
+            if (!((shownTreeView.SelectedItem is TreeViewItem selectedNode) && selectedNode.Tag is Topic t)) return;
 
-            //////////// Did the user drop on a valid target node?
-            //////////if (targetNode == null)
-            //////////{
-            //////////    // The user dropped the node on the treeview control instead
-            //////////    // of another node so lets place the node at the bottom of the tree.
-            //////////    draggedNode.Remove();
-            //////////    shownTreeView.Items.Add(draggedNode);
-            //////////    draggedNode.IsExpanded = true;
-            //////////}
-            //////////else
-            //////////{
-            //////////    TreeViewItem parentNode = targetNode;
-            //////////    // Confirm that the node at the drop location is not 
-            //////////    // the dragged node and that target node isn't null
-            //////////    // (for example if you drag outside the control)
-            //////////    if (!draggedNode.Equals(targetNode) && targetNode != null)
-            //////////    {
-            //////////        bool canDrop = true;
-
-            //////////        // Crawl our way up from the node we dropped on to find out if
-            //////////        // if the target node is our parent. 
-            //////////        while (canDrop && (parentNode != null))
-            //////////        {
-            //////////            canDrop = !Object.ReferenceEquals(draggedNode, parentNode);
-            //////////            parentNode = (TreeViewItem)parentNode.Parent;
-            //////////        }
-
-            //////////        // Is this a valid drop location?
-            //////////        if (canDrop)
-            //////////        {
-            //////////            // Yes. Move the node, expand it, and select it.
-            //////////            draggedNode.Remove();
-            //////////            if ((Control.ModifierKeys & Keys.Control) == Keys.Control)
-            //////////            {
-            //////////                // if dragged with the control key pushed, 
-            //////////                // connect to the brother of the target node 
-            //////////                (targetNode.Parent).Items.Insert(targetNode.Index, draggedNode);
-            //////////                ((TreeViewItem)(targetNode.Parent)).IsExpanded = true;
-            //////////                hasChanges = true;
-            //////////            }
-            //////////            else
-            //////////            {
-            //////////                // if dragged with no key connect to the parent 
-            //////////                targetNode.Items.Add(draggedNode);
-            //////////                targetNode.IsExpanded = true;
-            //////////                hasChanges = true;
-            //////////            }
-            //////////        }
-            //////////    }
-            //////////}
-            //////////if (dragSourceControlHash != draggedNode.GetHashCode())
-            //////////{
-            //////////    // if the control has been dropped into a different treeview control
-            //////////    // delete all the Ids in the subtree that I have copied here
-            //////////    // so the new subtree will be considered as new
-            //////////    DeleteNodeById_Recursive(draggedNode);
-            //////////}
-            //////////// Optional: Select the dropped node and navigate (however you do it)
-            //////////draggedNode.IsSelected = true;
-            //////////// NavigateToContent(draggedNode.Tag);  
-        }
-        internal void ShownTreeView_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            // !!!! TODO fix this
-            //////////// editing of nodes is now forbidden
-            //////////if (e.KeyCode == Keys.F2)
-            //////////{
-            //////////    if ((TreeViewItem)shownTreeView.SelectedItem != null)
-            //////////    {
-            //////////        // start edit the selected node
-            //////////        shownTreeView.LabelEdit = true;
-            //////////        shownTreeView.SelectedItem.BeginEdit();
-            //////////    }
-            //////////    else
-            //////////        MessageBox.Show("Select the node");
-            //////////}
-            //////////if (e.KeyCode == Keys.Insert)
-            //////////{
-            //////////    if (Control.ModifierKeys == Keys.Shift)
-            //////////    {
-            //////////        shownTreeView.SelectedItem = AddNewNode("Nuovo argomento", false);
-            //////////        // start edit the selected node
-            //////////        shownTreeView.LabelEdit = true;
-            //////////        shownTreeView.SelectedItem.BeginEdit();
-            //////////    }
-            //////////    else
-            //////////    {  // shift is not pressed
-            //////////        shownTreeView.SelectedItem = AddNewNode("Nuovo argomento", true);
-            //////////        // start edit the selected node
-            //////////        shownTreeView.LabelEdit = true;
-            //////////        shownTreeView.SelectedItem.BeginEdit();
-            //////////    }
-            //////////}
-            //////////if (e.KeyCode == Keys.Delete)
-            //////////{
-            //////////    DeleteNodeSelected();
-            //////////}
-        }
-        internal void shownTreeView_AfterCheck(object sender, RoutedEventArgs e)
-        {
-            // !!!! TODO fix this
-            //////////if (e.Node.IsChecked)
-            //////////{
-            //////////    if (txtSearchString != null)
-            //////////    {
-            //////////        Topic t = (Topic)((TreeViewItem)e).Tag;
-            //////////        string path = dbMptt.GetNodePath(t.LeftNodeOld, t.RightNodeOld);
-            //////////        string stringToAdd = GetStringOfJustSomeNodesOfPath(path);
-            //////////        txtNodeDigest.Text += stringToAdd;
-            //////////    }
-            //////////}
-        }
-        internal void shownTreeView_Click(object sender, RoutedEventArgs e)
-        {
-            if (ClearBackColorOnClick)
-                ClearBackColor();
-        }
-        internal void TxtNodeName_Leave(object sender, RoutedEventArgs e)
-        {
-            if (TreeView.SelectedItem != null)
+            try
             {
+                string newName = txtNodeName.Text ?? string.Empty;
+                // Se il nome è cambiato, aggiorna il Topic e il TreeNode.
+                if (t.Name != newName)
+                {
+                    t.Name = newName;
+                    t.Changed = true;
+                    hasChanges = true;
+                    // Aggiorna il testo nel TreeView (WPF usa Header con StackPanel)
+                    if (selectedNode.Header is StackPanel sp && sp.Children.Count > 1 && sp.Children[1] is TextBlock tb)
+                    {
+                        tb.Text = newName;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"[TxtNodeName_Leave] Exception: {ex.Message}\n{ex.StackTrace}");
+            }
+        }
+
+        /// <summary>
+        /// UNICO COMPITO: Finalizzare la modifica della descrizione quando l'utente lascia la TextBox.
+        /// </summary>
+        private void TxtNodeDescription_Leave(object sender, RoutedEventArgs e)
+        {
+            if (isUpdatingUiFromCode) return;
+            if (shownTreeView.SelectedItem == null) return;
+            if (!((shownTreeView.SelectedItem is TreeViewItem selectedNode) && selectedNode.Tag is Topic t)) return;
+
+            try
+            {
+                string newDesc = txtNodeDescription.Text ?? string.Empty;
+                if (t.Desc != newDesc)
+                {
+                    t.Desc = newDesc;
+                    t.Changed = true;
+                    hasChanges = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"[TxtNodeDescription_Leave] Exception: {ex.Message}\n{ex.StackTrace}");
+            }
+        }
+
+        /// <summary>
+        /// USATO SOLO PER LOGICA SPECIALE (Import FreeMind). NON aggiorna più il TreeView.
+        /// </summary>
+        private void TxtNodeName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // Ignora le modifiche programmatiche.
+            if (isUpdatingUiFromCode) return;
+
+            // Rilevamento importazione da FreeMind (copia-incolla di testo strutturato)
+            string txt = txtNodeName.Text;
+            bool looksLikeTree = txt.Contains("\r\n") && (txt.Contains("\t") || txt.Contains("    "));
+
+            if (looksLikeTree)
+            {
+                // Disabilita temporaneamente l'evento per evitare che si scateni di nuovo
+                txtNodeName.TextChanged -= TxtNodeName_TextChanged;
                 try
                 {
-                    Topic t = (Topic)((TreeViewItem)TreeView.SelectedItem).Tag;
-                    if (txtNodeName.Text != t.Name)
+                    var dr = MessageBox.Show("Testo formattato come albero (FreeMind). Importare qui il sottoalbero?",
+                        "Importazione", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                    if (dr == MessageBoxResult.Yes)
                     {
-                        hasChanges = true;
-                        t.Changed = true;
+                        ImportSubtreeFromText(txt);
+                        // Dopo l'importazione, il nodo selezionato potrebbe essere cambiato.
+                        // L'evento AfterSelect si occuperà di aggiornare correttamente le TextBox.
+                        if (shownTreeView.SelectedItem != null && shownTreeView.SelectedItem is TreeViewItem selectedItem)
+                        {
+                            selectedItem.IsExpanded = true;
+                            // Forziamo un aggiornamento delle textbox basato sul nodo corrente
+                            shownTreeView_AfterSelect(shownTreeView, 
+                                new RoutedPropertyChangedEventArgs<object>(null, selectedItem));
+                        }
                     }
-                    t.Name = txtNodeName.Text;
-                    ((TreeViewItem)TreeView.SelectedItem).Header = txtNodeName.Text;
+                    else
+                    {
+                        // L'utente ha annullato, ripristina il testo originale del nodo corrente.
+                        if (currentTopic != null)
+                        {
+                            txtNodeName.Text = currentTopic.Name ?? string.Empty;
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
-
+                    Commons.ErrorLog($"[TxtNodeName_TextChanged|Import] {ex.Message}\n{ex.StackTrace}");
+                }
+                finally
+                {
+                    // Riabilita sempre l'evento.
+                    txtNodeName.TextChanged += TxtNodeName_TextChanged;
                 }
             }
         }
-        string previousText = "";
-        // !!!! TODO fix  le LED finctioning
-        //////private PictureBox globalPicLed;
-        internal void TxtNodeName_TextChanged(object sender, RoutedEventArgs e)
+
+        // Gli eventi LostFocus sono ora ridondanti a causa di Leave, ma li manteniamo per sicurezza
+        // con la stessa logica di protezione.
+        private void txtNodeName_LostFocus(object sender, RoutedEventArgs e)
         {
-            // if the change is due to selection in the tree, don't change
-            if (hasNodeBeenSelectedFromTree)
-            {
-                hasNodeBeenSelectedFromTree = false;
-                return;
-            }
-            if (shownTreeView.SelectedItem == null)
-            {
-                MessageBox.Show("Aggiungere il primo argomento o selezionarne uno");
-                return;
-            }
-            // if the text is multiline and at the beginning of the new line there is 
-            // an indentation: ask to import a subtree, if yes then create subtree
-            if (txtNodeName.Text.Contains("\r\n")
-                && (txtNodeName.Text.Contains("    ") || txtNodeName.Text.Contains("\t"))
-                )
-            {
-                if (MessageBox.Show("Testo formattato come un albero di FreeMind.\nDevo importare un sottoalbero in questo punto?")
-                    == MessageBoxResult.Yes)
-                {
-                    ImportSubtreeFromText(txtNodeName.Text);
-                    int positionOfTab = txtNodeName.Text.IndexOf("\r\n");
-                    ((TreeViewItem)shownTreeView.SelectedItem).Header = txtNodeName.Text.Substring(0, positionOfTab);
-                    ((Topic)((TreeViewItem)shownTreeView.SelectedItem).Tag).Name = txtNodeName.Text.Substring(0, positionOfTab);
-                }
-                else
-                {
-                    ((TreeViewItem)(shownTreeView.SelectedItem)).Header = txtNodeName.Text;
-                }
-            }
-            else
-            {
-                if (txtNodeName.Text.Length > 0)
-                {
-                    string lastCharEntered = txtNodeName.Text.Substring(txtNodeName.Text.Length - 1, 1);
-                    if (lastCharEntered != "\n")
-                    {
-
-                    }
-                    else
-                    {   // if user pushed Enter key
-                        txtNodeName.Text = txtNodeName.Text.Substring(0, txtNodeName.Text.Length - 2);
-                    }
-
-                }
-            }
+            TxtNodeName_Leave(sender, e);
         }
-        internal void TxtNodeDescription_Leave(object sender, RoutedEventArgs e)
+        private void txtNodeDescription_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (hasNodeBeenSelectedFromTree)
-                return;
-            Topic t = (Topic)((TreeViewItem)shownTreeView.SelectedItem).Tag;
-            if (t.Desc != txtNodeDescription.Text)
-            {
-                hasChanges = true;
-                t.Changed = true;
-            }
-            t.Desc = txtNodeDescription.Text;
+            TxtNodeDescription_Leave(sender, e);
         }
-        #endregion
+
+        internal void ShownTreeView_Click(object sender, RoutedEventArgs e)
+        {
+            if (ClearBackColorOnClick) ClearBackColor();
+        }
+        
+        internal void ShownTreeView_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F2 && shownTreeView.SelectedItem != null)
+            {
+                // WPF doesn't have BeginEdit like WinForms
+                e.Handled = true;
+            }
+            else if (e.Key == Key.Insert)
+            {
+                bool isSonNode = (Keyboard.Modifiers & ModifierKeys.Shift) != ModifierKeys.Shift;
+                TreeViewItem newNode = AddNewNode("Nuovo argomento", isSonNode);
+                if (newNode != null)
+                {
+                    newNode.IsSelected = true;
+                }
+                e.Handled = true;
+            }
+            else if (e.Key == Key.Delete)
+            {
+                DeleteNodeSelected();
+                e.Handled = true;
+            }
+        }
+        
+        internal void TreeView_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effects = typeOfDragAndDrop;
+        }
+        
+        private void TreeView_DragLeave(object sender, DragEventArgs e)
+        {
+        }
+        #endregion // events
+        
+        // ---------------------- Utility & Tree Generation Methods (restored) ----------------------
         internal string CreateTextTreeOfDescendants(int? LeftNode, int? RightNode, bool? IncludeTopicsIds)
         {
-            // TODO: mettere le descrizioni nell'albero (con un : prima) 
             string indentString = "\t";
             string currentIndentation = "";
             string file = "";
             Stack<Topic> stack = new Stack<Topic>();
-            //DbAndBusiness db = new  DbAndBusiness(); 
-            List<Topic> ListTopics = dbMptt.GetNodesByMpttFromDatabase(LeftNode, RightNode);
-            if (ListTopics != null && ListTopics.Count > 0)
+            List<Topic> listTopics = dbMptt.GetNodesByMpttFromDatabase(LeftNode, RightNode);
+            if (listTopics == null || listTopics.Count == 0) return file;
+            Topic previousTopic = listTopics[0];
+            file += previousTopic.Name + "\t" + previousTopic.Desc;
+            if (IncludeTopicsIds == true) file += "\t" + previousTopic.Id;
+            file += "\r\n";
+            stack.Push(previousTopic);
+            for (int i = 1; i < listTopics.Count; i++)
             {
-                // first node in file 
-                Topic previousTopic = ListTopics[0];
-                file += previousTopic.Name + "\t" + previousTopic.Desc;
-                if ((bool)IncludeTopicsIds)
-                    file += "\t" + previousTopic.Id;
-                file += "\r\n";
-                stack.Push(previousTopic);
-
-                for (int i = 1; i < ListTopics.Count; i++)
+                Topic currentTopicLocal = listTopics[i];
+                if (currentTopicLocal.RightNodeOld < previousTopic.RightNodeOld)
                 {
-                    // for every son topic of this 
-                    Topic currentTopic = ListTopics[i];
-                    if (currentTopic.RightNodeOld < previousTopic.RightNodeOld)
+                    currentIndentation += indentString;
+                    file += currentIndentation + currentTopicLocal.Name + "\t" + currentTopicLocal.Desc;
+                    if (IncludeTopicsIds == true) file += "\t" + currentTopicLocal.Id;
+                    file += "\r\n";
+                    stack.Push(previousTopic);
+                    previousTopic = currentTopicLocal;
+                }
+                else
+                {
+                    previousTopic = stack.Pop();
+                    while (currentTopicLocal.RightNodeOld > previousTopic.RightNodeOld)
                     {
-                        // if is in new level, adds the node to the next level
-                        currentIndentation += indentString;
-                        file += currentIndentation + currentTopic.Name
-                            + "\t" + currentTopic.Desc;
-                        if ((bool)IncludeTopicsIds)
-                            file += "\t" + currentTopic.Id;
-                        file += "\r\n";
-                        // remember father node
-                        stack.Push(previousTopic);
-                        previousTopic = currentTopic;
-                    }
-                    else
-                    {
-                        // one is always popped, to bring to the father of the same level 
-                        previousTopic = stack.Pop();
-                        while (currentTopic.RightNodeOld > previousTopic.RightNodeOld)
+                        if (stack.Count > 0)
                         {
-                            if (stack.Count > 0)
-                            {
-                                previousTopic = stack.Pop();
-                                // less indentation 
-                                currentIndentation =
-                                    currentIndentation.Substring(0, currentIndentation.Length - 1);
-                            }
-                        };
-                        file += currentIndentation + currentTopic.Name + "\t" +
-                            currentTopic.Desc;
-                        if ((bool)IncludeTopicsIds)
-                            file += "\t" + currentTopic.Id;
-                        file += "\r\n";
-                        stack.Push(previousTopic);
-                        previousTopic = currentTopic;
+                            previousTopic = stack.Pop();
+                            if (currentIndentation.Length > 0)
+                                currentIndentation = currentIndentation.Substring(0, currentIndentation.Length - 1);
+                        }
+                        else break;
                     }
+                    file += currentIndentation + currentTopicLocal.Name + "\t" + currentTopicLocal.Desc;
+                    if (IncludeTopicsIds == true) file += "\t" + currentTopicLocal.Id;
+                    file += "\r\n";
+                    stack.Push(previousTopic);
+                    previousTopic = currentTopicLocal;
                 }
             }
             return file;
         }
-        internal void ResetSearch()
+        
+        internal void ResetSearch() { previousSearch = string.Empty; }
+        
+        private void SearchCheckBoxes_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            // deleting previousSearch the next search will be done from scratch 
-            previousSearch = "";
-        }
-        internal void SearchCheckBoxes_CheckedChanged(object sender, RoutedEventArgs e)
-        {
-            // event fired when any of the checkboxes related to search is changed 
-
-            // command a new search for the next search 
             ResetSearch();
-            FindNodes(txtSearchString.Text);
-            // !!!! TODO extend the search to the following parameters
-            //        FindNodes(txtSearchString.Text, chkMarkAllNodesFound.Checked, chkSearchInDescriptions.Checked,
-            //chkAllWord.Checked, chkCaseInsensitive.Checked, chkVerbatimString.Checked);
+            if (txtSearchString != null)
+                FindNodes(txtSearchString.Text,
+                    chkMarkAllNodesFound?.IsChecked == true,
+                    chkSearchInDescriptions?.IsChecked == true,
+                    chkAllWord?.IsChecked == true,
+                    chkCaseInsensitive?.IsChecked == true,
+                    chkVerbatimString?.IsChecked == true);
         }
-        internal void chkMarkAllNodesFound_CheckedChanged(object sender, RoutedEventArgs e)
-        {
-            // command a new search for the next search 
-            ResetSearch();
-        }
-        internal void chkVerbatimString_CheckedChanged(object sender, RoutedEventArgs e)
-        {
-            // command a new search for the next search 
-            ResetSearch();
-        }
+        
+        private void chkMarkAllNodesFound_CheckedChanged(object sender, RoutedEventArgs e) { ResetSearch(); }
+        private void chkVerbatimString_CheckedChanged(object sender, RoutedEventArgs e) { ResetSearch(); }
+        
         internal void AddChildrenNodesToTreeViewFromDatabase(TreeViewItem ParentNode, int Level)
         {
             GetChildren_Recursive(ParentNode, Level);
         }
+        
         internal void GetChildren_Recursive(TreeViewItem ParentNode, int Level)
         {
-            // connection can come from outside to avoid opening and closing it every time 
-            // if it is null, the connection must be opened locally 
-
-            // recursively retrieve all direct children of ParentNode  
-            // get childs keeping the connection open
             List<Topic> lt = dbMptt.GetNodesChildsByParent(((Topic)ParentNode.Tag), false);
-            List<Topic> SortedList = lt.OrderBy(o => o.ChildNumberOld).ToList();
-            foreach (Topic t in SortedList)
+            foreach (Topic t in lt.OrderBy(o => o.ChildNumberOld))
             {
-                if (!Commons.MethodCanContinue())
-                    return;
+                if (!Commons.MethodCanContinue()) return;
                 TreeViewItem n = CreateTreeViewItem(t);
                 ParentNode.Items.Add(n);
-                GetChildren_Recursive(n, Level++);
+                GetChildren_Recursive(n, Level + 1);
             }
         }
+        
         internal void SaveTreeFromScratch(TreeViewItem CurrentNode, List<Topic> generatedList)
         {
-            // TODO !!!! the refactor of this function must be tested !!!!
-            //DbConnection Connection = dl.Connect();
             int nodeCount = 1;
-            // recursive function
-            GenerateNewListOfNodesFromTreeViewControl_Recursive(CurrentNode,
-                ref nodeCount, ref generatedList);
+            GenerateNewListOfNodesFromTreeViewControl_Recursive(CurrentNode, ref nodeCount, ref generatedList);
             bl.SaveTopicsFromScratch(generatedList);
         }
+        
         internal void GenerateNewListOfNodesFromTreeViewControl_Recursive(TreeViewItem CurrentNode, ref int nodeCount,
-            ref List<Topic> generatedList) // the 2 ref parameters must be passed for recursion
+            ref List<Topic> generatedList)
         {
-            // ???????????????
-            if (!Commons.MethodCanContinue())
-                return;
-            // visits all the childrens of CurrentNode in the Treeview. 
-            // with the Modified Tree Traversal algorithm 
-
-            // add a new element for the List that we will save to the database
-            Topic ct = ((Topic)CurrentNode.Tag);
+            if (!Commons.MethodCanContinue()) return;
+            Topic ct = (Topic)CurrentNode.Tag;
             ct.LeftNodeNew = nodeCount++;
-            // manages left node number
-            generatedList.Add((Topic)CurrentNode.Tag);
+            generatedList.Add(ct);
             if (ct.Id == null || ct.Id == 0)
-            {
-                // if CurrentNode is a new node, then we create it in the database, 
-                // so that it will have its Id. It will be saved with correct data 
-                // in the following because new and old values will differ 
                 ct.Id = dbMptt.CreateNewTopic(ct);
-            }
             int brotherNo = 1;
             foreach (TreeViewItem sonNode in CurrentNode.Items)
             {
-                if (!Commons.MethodCanContinue())
-                    return;
-                // calls passing the updated count and the list under construction 
-                GenerateNewListOfNodesFromTreeViewControl_Recursive(sonNode,
-                    ref nodeCount, ref generatedList);
-                ((Topic)sonNode.Tag).ParentNodeNew = ct.Id;
-                ((Topic)sonNode.Tag).ChildNumberNew = brotherNo++;
+                if (!Commons.MethodCanContinue()) return;
+                GenerateNewListOfNodesFromTreeViewControl_Recursive(sonNode, ref nodeCount, ref generatedList);
+                Topic sonT = (Topic)sonNode.Tag;
+                sonT.ParentNodeNew = ct.Id;
+                sonT.ChildNumberNew = brotherNo++;
             }
-            // If brothers are finished saves data of itself and returns.
-            // right node management
-            ((Topic)CurrentNode.Tag).RightNodeNew = nodeCount++;
+            ct.RightNodeNew = nodeCount++;
         }
-        internal void GenerateNewListOfNodesFromDatabase(
-            Topic CurrentNode, ref int nodeCount,
-            ref List<Topic> generatedList) // the 2 ref parameters must be passed in such way for recursion
+        
+        internal void GenerateNewListOfNodesFromDatabase(Topic CurrentNode, ref int nodeCount,
+            ref List<Topic> generatedList)
         {
-            // visits all the childrens of CurrentNode in the Treeview. 
-            // with the Modified Tree Traversal algorithm 
-
-            // add a new element to the List 
             CurrentNode.LeftNodeNew = nodeCount++;
-            // manages left node number
             generatedList.Add(CurrentNode);
             int brotherNo = 1;
-            // find all son nodes of current node (list is ordered by childNumber) 
-            List<Topic> listChilds = dbMptt.GetNodesChildsByParent(CurrentNode, false);
+            List<Topic> listChilds = dbMptt.GetNodesChildsByParent(CurrentNode, true);
             foreach (Topic sonNode in listChilds)
             {
-                if (!Commons.MethodCanContinue()) 
-                    return;
-                // calls passing the updated count and the list under construction 
+                if (!Commons.MethodCanContinue()) return;
                 GenerateNewListOfNodesFromDatabase(sonNode, ref nodeCount, ref generatedList);
                 sonNode.ParentNodeNew = CurrentNode.Id;
                 sonNode.ChildNumberNew = brotherNo++;
             }
-            // If brothers are finished saves data of itself and returns.
-            // right node management
             CurrentNode.RightNodeNew = nodeCount++;
         }
-        internal TreeViewItem CreateTreeViewItem(Topic Node)
+        
+        private TreeViewItem CreateTreeViewItem(Topic Node)
         {
-            // version for WPF TreeView control
             TreeViewItem item = new TreeViewItem();
-            // Create a new StackPanel for text and checkbox 
+            // Create a new StackPanel for text and optional checkbox 
             StackPanel stackPanel = new StackPanel();
             stackPanel.Name = "NodeUi";
             stackPanel.Orientation = Orientation.Horizontal;
-            if (putCheckSignsOnNodes)
-            {
-                CheckBox CheckBox = new CheckBox();
-                CheckBox.IsChecked = false;
-                // Children[0] is the CheckBox
-                stackPanel.Children.Add(CheckBox);
-            }
-            TextBlock TextBlock = new();
-            TextBlock.Text = Node.Name;
+            
+            // Children[0] is the CheckBox (if enabled)
+            CheckBox checkBox = new CheckBox();
+            checkBox.IsChecked = false;
+            stackPanel.Children.Add(checkBox);
+            
             // Children[1] is the TextBlock
-            stackPanel.Children.Add(TextBlock);
-            //Debug.Print(((TextBlock)stackPanel.Children[0]).Text);
+            TextBlock textBlock = new TextBlock();
+            textBlock.Text = Node.Name;
+            stackPanel.Children.Add(textBlock);
+            
             item.Header = stackPanel;
             item.Tag = Node;
             return item;
         }
+        // ---------------------- End Utility Methods ----------------------
     }
 }

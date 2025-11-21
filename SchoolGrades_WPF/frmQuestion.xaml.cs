@@ -38,7 +38,7 @@ namespace SchoolGrades_WPF
         {
             InitializeComponent();
 
-            dbMptt = TreeMptt.SetDataLayer();
+            dbMptt = TreeMptt.SetDataLayer(Commons.PathAndFileDatabase);
 
             // fills the lookup tables' combos
             List<QuestionType> listQuestions = Commons.bl.GetListQuestionTypes(true);

@@ -53,9 +53,9 @@ namespace SchoolGrades_WPF
             }
 
 #if SQL_SERVER
-            dbMptt = new TreeMpttDb_SqlServer();
+            dbMptt = new TreeMpttDb_SqlServer("Dummy. To be detarmined");
 #else
-            dbMptt = new TreeMpttDb_SqLite();
+            dbMptt = new TreeMpttDb_SqLite(Commons.PathAndFileDatabase);
 #endif
             this.ParentForm = MicroAssessmentParent;
 

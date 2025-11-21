@@ -30,8 +30,8 @@ namespace SchoolGrades
 
         System.Media.SoundPlayer suonatore = new System.Media.SoundPlayer();
    
-    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
- public Student CurrentStudent { get; set; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public Student CurrentStudent { get; set; }
 
         string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
