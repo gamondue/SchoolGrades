@@ -91,7 +91,8 @@ namespace SchoolGrades_WPF
             // load data in datagrids
             RefreshLessons(currentIndexLessonsGrid);
 
-            topicTreeMptt = new TreeMptt(trwTopics, txtTopicName, txtTopicDescription,
+            topicTreeMptt = new TreeMptt(trwTopics, Commons.PathAndFileDatabase, 
+                txtTopicName, txtTopicDescription,
                 txtTopicSearchString, txtTopicsDigest, null, Commons.globalPicLed,
                 chkSearchInDescriptions, chkVerbatimString, chkAllWord, chkCaseInsensitive,
                 chkMarkAllTopicsFound, DragDropEffects.Copy, true);
@@ -187,7 +188,12 @@ namespace SchoolGrades_WPF
         private void btnFind_Click(object sender, RoutedEventArgs e)
         {
             // ricerca 
-            topicTreeMptt.FindNodes(txtTopicSearchString.Text);
+            topicTreeMptt.FindNodes(txtTopicSearchString.Text,
+                chkMarkAllTopicsFound?.IsChecked == true,
+                chkSearchInDescriptions?.IsChecked == true,
+                chkAllWord?.IsChecked == true,
+                chkCaseInsensitive?.IsChecked == true,
+                chkVerbatimString?.IsChecked == true);
         }
         private void btnAddNode_Click(object sender, RoutedEventArgs e)
         {
@@ -659,7 +665,7 @@ namespace SchoolGrades_WPF
         }
         private void btnFindUnderNode_Click(object sender, RoutedEventArgs e)
         {
-            topicTreeMptt.FindNodeUnderNode(txtTopicSearchString.Text);
+            topicTreeMptt.FindNodeUnderNode(txtTopicSearchString.Text, chkMarkAllTopicsFound?.IsChecked == true);
         }
         private void chksSearch_CheckedChanged(object sender, RoutedEventArgs e)
         {
@@ -669,7 +675,12 @@ namespace SchoolGrades_WPF
 
                 // fire a new search 
                 topicTreeMptt.ResetSearch();
-                topicTreeMptt.FindNodes(txtTopicSearchString.Text);
+                topicTreeMptt.FindNodes(txtTopicSearchString.Text,
+                    chkMarkAllTopicsFound?.IsChecked == true,
+                    chkSearchInDescriptions?.IsChecked == true,
+                    chkAllWord?.IsChecked == true,
+                    chkCaseInsensitive?.IsChecked == true,
+                    chkVerbatimString?.IsChecked == true);
             }
         }
     }

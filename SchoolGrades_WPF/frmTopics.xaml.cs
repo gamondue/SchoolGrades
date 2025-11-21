@@ -1,4 +1,4 @@
-﻿using gamon.TreeMptt;
+﻿ using gamon.TreeMptt;
 using SchoolGrades;
 using SchoolGrades.BusinessObjects;
 using System;
@@ -98,7 +98,8 @@ namespace SchoolGrades_WPF
         }
         private void frmTopics_Load()
         {
-            topicTreeMptt = new TreeMptt(trwTopics, txtTopicName,
+            topicTreeMptt = new TreeMptt(trwTopics, Commons.PathAndFileDatabase,
+                txtTopicName,
                 txtTopicDescription, txtTopicSearchString, null,
                 null, Commons.globalPicLed, chkSearchInDescriptions,
                 chkVerbatimString, chkAllWord, chkCaseInsensitive,
@@ -221,9 +222,14 @@ namespace SchoolGrades_WPF
                 this.Close();
             }
         }
-        private void btnFind_Click(object sender, EventArgs e)
+        private void btnFind_Click(object sender, RoutedEventArgs e)
         {
-            topicTreeMptt.FindNodes(txtTopicSearchString.Text);
+            topicTreeMptt.FindNodes(txtTopicSearchString.Text,
+                chkFindAll?.IsChecked == true,
+                chkSearchInDescriptions?.IsChecked == true,
+                chkAllWord?.IsChecked == true,
+                chkCaseInsensitive?.IsChecked == true,
+                chkVerbatimString?.IsChecked == true);
         }
         private void frmTopics_KeyDown(object sender, KeyEventArgs e)
         {
@@ -249,10 +255,7 @@ namespace SchoolGrades_WPF
         }
         private void btnFindUnderNode_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show("Da fare!");
-            //return;
-
-            topicTreeMptt.FindNodeUnderNode(txtTopicSearchString.Text);
+            topicTreeMptt.FindNodeUnderNode(txtTopicSearchString.Text, chkFindAll?.IsChecked == true);
         }
         private void btnArgFreemind_Click(object sender, EventArgs e)
         {

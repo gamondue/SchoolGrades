@@ -386,7 +386,8 @@ namespace SchoolGrades
         internal static void StartBackgroundSavingThread()
         {
             // create a new tree that has no UI 
-            SaveTreeMptt = new TreeMptt(null, null, null, null, null,
+            SaveTreeMptt = new TreeMptt(null, Commons.PathAndFileDatabase,
+                null, null, null, null,
                 null, globalPicLed, null, null, null, null, null);
             // re-create and run the Thread that concurrently saves the Topics tree
             Thread BackgroundSaveThread = new Thread(SaveTreeMptt.SaveTreeMpttBackground);

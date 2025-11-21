@@ -217,8 +217,6 @@ namespace SchoolGrades_WPF
         {
             Commons.globalPicLed = picBackgroundSaveRunning;
 
-            Commons.SaveTreeMptt = new TreeMptt(null, null, null, null, null, null, picBackgroundSaveRunning,
-                null, null, null, null, null);
             // start the Thread that concurrently saves the Topics tree
             Commons.StartBackgroundSavingThread();
 
@@ -620,8 +618,8 @@ namespace SchoolGrades_WPF
                     // TODO 
                 }
                 // show popup annotations of the students of the class
-                DataTable popUpAnnotations = Commons.bl.GetAnnotationsOfClass(currentClass.IdClass, true, true);
-                if (popUpAnnotations.Rows.Count > 0)
+                var popUpAnnotations = Commons.bl.GetAnnotationsOfClass(currentClass.IdClass, true, true);
+                if (popUpAnnotations.Count > 0)
                 {
                     frmAnnotationsPopUp f = new frmAnnotationsPopUp(popUpAnnotations);
                     //f.StartPosition = FormStartPosition.CenterParent;
@@ -1701,8 +1699,8 @@ namespace SchoolGrades_WPF
                     // TODO 
                 }
                 // show popup annotations of the students of the class
-                DataTable popUpAnnotations = Commons.bl.GetAnnotationsOfClass(currentClass.IdClass, true, true);
-                if (popUpAnnotations.Rows.Count > 0)
+                var popUpAnnotations = Commons.bl.GetAnnotationsOfClass(currentClass.IdClass, true, true);
+                if (popUpAnnotations.Count > 0)
                 {
                     frmAnnotationsPopUp f = new frmAnnotationsPopUp(popUpAnnotations);
                     //f.StartPosition = FormStartPosition.CenterParent;
