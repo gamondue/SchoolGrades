@@ -592,7 +592,7 @@ namespace SchoolGrades_WPF
             }
             refreshUi(currentIndexInImages);
         }
-        private void dgwLessonsImages_RowEnter(object sender, DataGridViewCellEventArgs e)
+        private void dgwLessonsImages_RowEnter(object sender, System.Windows.Forms.DataGridViewCellEventArgs e)
         {
             //if (e.RowIndex > -1)
             //{
