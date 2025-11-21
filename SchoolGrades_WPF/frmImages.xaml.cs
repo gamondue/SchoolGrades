@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -582,7 +581,7 @@ namespace SchoolGrades_WPF
         //private void grpPeriodOfQuestionsTopics_Enter(object sender, EventArgs e) { }
         private void dgwLessonsImages_CellClick(object sender, MouseButtonEventArgs e)
         {
-            DataGrid grid = (DataGrid)sender;
+            System.Windows.Controls.DataGrid grid = (System.Windows.Controls.DataGrid)sender;
             int RowIndex = grid.SelectedIndex;
             if (RowIndex > -1)
             {
