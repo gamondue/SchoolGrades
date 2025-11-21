@@ -1,4 +1,4 @@
-﻿using gamon.TreeMptt;
+using gamon.TreeMptt;
 using SchoolGrades;
 using SchoolGrades.BusinessObjects;
 using System;
