@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using gamon.TreeMptt;
 using SchoolGrades;
 using SchoolGrades.BusinessObjects;
@@ -20,7 +21,7 @@ namespace NUnitDbTests
         [Test]
         public void T_TreeMpttDb_SqlServer_CreateTable()
         {
-            TreeMpttDb_SqlServer treeMpttDb_SqlServer = new TreeMpttDb_SqlServer(Test_Commons.dl);
+            TreeMpttDb_SqlServer treeMpttDb_SqlServer = new TreeMpttDb_SqlServer(Test_Commons.dbTest);
             treeMpttDb_SqlServer.CreateTableTreeMpttDb();
             // chiamata al metodo di creazione della tabella 
             Topic topic = new Topic();
@@ -35,16 +36,17 @@ namespace NUnitDbTests
         [Test]
         public void T_TreeMpttDb_SqlServer_ReadTopics()
         {
-            TreeMpttDb_SqlServer treeMpttDb_SqlServer = new TreeMpttDb_SqlServer(Test_Commons.dl);
+            TreeMpttDb_SqlServer treeMpttDb_SqlServer = new TreeMpttDb_SqlServer(Test_Commons.dbTest);
         
-            int? numberOfTopics = null;
-            treeMpttDb_SqlServer.GetTopics(numberOfTopics);
+            // Replace previous GetTopics usage (not present) with GetNodesByParentFromDatabase
+            var topics = treeMpttDb_SqlServer.GetNodesByParentFromDatabase();
+            Assert.That(topics, Is.Not.Null);
         }
 
         [Test]
         public void T_AreLeftAndRightConsistent()
         {
-            TreeMpttDb_SqlServer treeMpttDb_SqlServer = new TreeMpttDb_SqlServer(Test_Commons.dl);
+            TreeMpttDb_SqlServer treeMpttDb_SqlServer = new TreeMpttDb_SqlServer(Test_Commons.dbTest);
             using (DbConnection conn = Test_Commons.dl.Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
@@ -63,7 +65,7 @@ namespace NUnitDbTests
         [Test]
         public void T_SaveLeftRightConsistent()
         {
-            TreeMpttDb_SqlServer treeMpttDb_SqlServer = new TreeMpttDb_SqlServer(Test_Commons.dl);
+            TreeMpttDb_SqlServer treeMpttDb_SqlServer = new TreeMpttDb_SqlServer(Test_Commons.dbTest);
             treeMpttDb_SqlServer.SaveLeftRightConsistency(true);
 
         }
@@ -76,13 +78,13 @@ namespace NUnitDbTests
         [Test]
         public void T_TreeMpttDb_SqlServer_DeleteTable()
         {
-            TreeMpttDb_SqlServer treeMpttDb_SqlServer = new TreeMpttDb_SqlServer(Test_Commons.dl);
+            TreeMpttDb_SqlServer treeMpttDb_SqlServer = new TreeMpttDb_SqlServer(Test_Commons.dbTest);
             
         }
         [Test]
         public void T_TreeMpttDb_SqlServer_DeleteTopics()
         {
-            TreeMpttDb_SqlServer treeMpttDb_SqlServer = new TreeMpttDb_SqlServer(Test_Commons.dl);
+            TreeMpttDb_SqlServer treeMpttDb_SqlServer = new TreeMpttDb_SqlServer(Test_Commons.dbTest);
             List<Topic>? topicsAfter = null;
             List<Topic> topicsDeleted = new List<Topic>();
 
@@ -95,13 +97,13 @@ namespace NUnitDbTests
         [Test]
         public void T_TreeMpttDb_SqlServer_GetNodesByParent()
         {
-            TreeMpttDb_SqlServer treeMpttDb_SqlServer = new TreeMpttDb_SqlServer(Test_Commons.dl);
+            TreeMpttDb_SqlServer treeMpttDb_SqlServer = new TreeMpttDb_SqlServer(Test_Commons.dbTest);
             Topic topic = new Topic();
             topic.Name = "polimorfismo";
             topic.Id = 100000;
             topic.Date = DateTime.Now;
             treeMpttDb_SqlServer.AddTopic(topic);
-            Assert.Equals(1,treeMpttDb_SqlServer.GetNodesByParentFromDatabase().Count);
+            Assert.That(treeMpttDb_SqlServer.GetNodesByParentFromDatabase().Count, Is.EqualTo(1));
         }
     }
 }
