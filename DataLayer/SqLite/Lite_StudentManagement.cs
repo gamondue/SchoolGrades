@@ -18,7 +18,7 @@ namespace SchoolGrades
                 DbCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "SELECT *" +
                     " FROM Students" +
-                    " WHERE lastName=" + SqlString(StudentToFind.LastName) +
+                    " WHERE lastName= " + SqlString(StudentToFind.LastName) +
                     " AND firstName=" + SqlString(StudentToFind.FirstName) +
                     " AND (birthDate=" + SqlDate(StudentToFind.BirthDate) + " OR birthDate=NULL)" +
                     //" AND (birthPlace=" + SqlDate(StudentToFind.BirthPlace) + " OR birthPlace=NULL)" +
@@ -36,7 +36,7 @@ namespace SchoolGrades
         }
         internal override List<Class> GetAllClassesOfStudent(Student s, DbCommand cmd)
         {
-            List<Class> list = new ();
+            List<Class> list = new();
             string query = "SELECT *" +
                 " FROM Classes" +
                 " JOIN Classes_Students ON Classes_Students.IdClass = Classes.IdClass" +
@@ -105,7 +105,7 @@ namespace SchoolGrades
                 " AND NOT disabled";
                 query += " AND Classes_Students.idClass=" + Class.IdClass;
                 query += ";";
-                
+
                 using (DbCommand queryCmd = conn.CreateCommand())
                 {
                     queryCmd.CommandText = query;
@@ -412,7 +412,7 @@ namespace SchoolGrades
                 AddWhereFilterString(ref query, "zipCode", Student.ZipCode);
                 AddWhereFilterString(ref query, "county", Student.County);
                 AddWhereFilterString(ref query, "state", Student.State);
-                if (Student.HasSpecialNeeds!= null && Student.HasSpecialNeeds == true)
+                if (Student.HasSpecialNeeds != null && Student.HasSpecialNeeds == true)
                     AddWhereFilterBool(ref query, "hasSpecialNeeds", Student.HasSpecialNeeds);
                 //if (Student.Eligible != null && Student.Eligible == true)
                 //    AddWhereFilterBool(ref query, "eligible", Student.Eligible);
@@ -698,6 +698,65 @@ namespace SchoolGrades
         internal override void CreateTableStudents()
         {
             throw new NotImplementedException();
+        }
+        public List<Student> GetUniqueStudentsNotInItsOrIfts()
+        {
+            var result = new List<Student>();
+            using (var conn = Connect())
+            {
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT DISTINCT s.IdStudent, s.LastName, s.FirstName, s.City                             
+                        FROM Students s
+                        JOIN Classes_Students cs ON s.IdStudent = cs.IdStudent
+                        JOIN Classes ON cs.IdClass = Classes.IdClass
+                        WHERE UPPER(Classes.Abbreviation) NOT LIKE '%ITS%'
+                          AND UPPER(Classes.Abbreviation) NOT LIKE '%IFTS%'
+                        ORDER BY s.LastName, s.FirstName;";
+                    using (var r = cmd.ExecuteReader())
+                    {
+                        while (r.Read())
+                        {
+                            var st = new Student
+                            {
+                                IdStudent = Safe.Int(r["IdStudent"]),
+                                LastName = Safe.String(r["LastName"]),
+                                FirstName = Safe.String(r["FirstName"]),
+                                City = Safe.String(r["City"]),
+                            };
+                            result.Add(st);
+                        }
+                    }
+                }
+                return result;
+            }
+        }
+        public int CountUniqueStudentsNotInItsOrIfts()
+        {
+            using (var conn = Connect())
+            using (var cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = @"
+                    SELECT COUNT(DISTINCT s.IdStudent) AS Total
+                    FROM Students s
+                    JOIN Classes_Students cs ON s.IdStudent = cs.IdStudent
+                    JOIN Classes ON cs.IdClass = Classes.IdClass
+                    WHERE UPPER(Classes.Abbreviation) NOT LIKE '%ITS%'
+                      AND UPPER(Classes.Abbreviation) NOT LIKE '%IFTS%';";
+                var obj = cmd.ExecuteScalar();
+                if (obj == null || obj == DBNull.Value)
+                    return 0;
+                try
+                {
+                    return Convert.ToInt32(obj);
+                }
+                catch
+                {
+                    // COUNT may return Int64 depending on provider
+                    return (int)Convert.ToInt64(obj);
+                }
+            }
         }
     }
 }

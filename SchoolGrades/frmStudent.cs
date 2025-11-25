@@ -9,13 +9,13 @@ namespace SchoolGrades
 {
     public partial class frmStudent : Form
     {
-   [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Student CurrentStudent { get => currentStudent; set => currentStudent = value; }
-    Student currentStudent = new();
+        Student currentStudent = new();
         private bool isDialog;
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-      internal bool UserHasChosen = false;
+        internal bool UserHasChosen = false;
 
         public frmStudent(Student Student, bool IsDialog)
         {
