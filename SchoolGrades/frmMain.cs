@@ -1,6 +1,7 @@
 using gamon;
 using gamon.TreeMptt;
 using SchoolGrades.BusinessObjects;
+using SchoolGrades.Localization;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -259,6 +260,9 @@ namespace SchoolGrades
 
             lblDatabaseFile.Text = Path.GetFileName(Commons.PathAndFileDatabase);
             initializingForm = false;
+
+            // Initialize localization
+            LocalizeForm();
         }
         private string GetNewDatabaseFilename(string proposedDatabasePath)
         {
@@ -392,11 +396,11 @@ namespace SchoolGrades
                     currentClass, currentSubject, currentGradeType, rdbMustDraw.Checked);
                 if (eligiblesList.Count == 0)
                 {
-                    MessageBox.Show("Nessun allievo presente?");
+                    MessageBox.Show(Loc.Get("Main_NoStudentPresent"));
                     return;
                 }
                 indexCurrentDrawn = 0;
-                MessageBox.Show("Sorteggio od ordinamento fatto!", "",
+                MessageBox.Show(Loc.Get("Main_DrawDone"), "",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 //ListaVisibile = false;
                 dgwStudents.Visible = false;
@@ -427,29 +431,28 @@ namespace SchoolGrades
         {
             if (currentClass is null)
             {
-                MessageBox.Show("Selezionare una classe");
+                MessageBox.Show(Loc.Get("Main_SelectClass"));
                 return;
             }
             if (cmbGradeType.Text == "")
             {
-                MessageBox.Show("Selezionare un tipo di valutazione");
+                MessageBox.Show(Loc.Get("Main_SelectGradeType"));
                 return;
             }
             if (currentClass.CurrentStudent is null)
             {
-                MessageBox.Show("Selezionare un allievo da valutare");
+                MessageBox.Show(Loc.Get("Main_SelectStudent"));
                 return;
             }
             if (currentSubject == null)
             {
-                MessageBox.Show("Selezionare una materia");
+                MessageBox.Show(Loc.Get("Main_NoDrawNoPresent"));
                 return;
             }
             currentGradeType = ((GradeType)cmbGradeType.SelectedItem);
             if (currentGradeType.IdGradeTypeParent == "")
             {
-                MessageBox.Show("Con il tipo di valutazione scelto non si può fare la media.\r\n " +
-                    "Selezionare un tipo di valutazione corretto");
+                MessageBox.Show(Loc.Get("Main_WrongGradeType"));
                 return;
             }
             frmMicroAssessment grade = new frmMicroAssessment(this,
@@ -918,7 +921,7 @@ namespace SchoolGrades
         {
             if (!Commons.CheckIfClassChosen(currentClass))
             {
-                MessageBox.Show("Scegliere una classe");
+                MessageBox.Show(Loc.Get("Main_ChooseClass"));
                 return;
             }
             if (!Commons.CheckIfSubjectChosen(currentSubject))
@@ -1023,12 +1026,12 @@ namespace SchoolGrades
             eligiblesList = FillListOfChecked(currentStudentsList);
             if (eligiblesList.Count == 0)
             {
-                MessageBox.Show("Nessun studente presente!");
+                MessageBox.Show(Loc.Get("Main_NoStudents"));
                 return;
             }
             if (cmbSchoolSubject.SelectedIndex == 0)
             {
-                MessageBox.Show("Nessuna materia selezionata!");
+                MessageBox.Show(Loc.Get("Main_NoSubjectSelected"));
                 return;
             }
             // clone the list of students present to the lesson 
@@ -1084,13 +1087,13 @@ namespace SchoolGrades
         }
         private void btnRevengeFactorPlus_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Incremento del fattore vendetta per ogni allievo spuntato",
+            if (MessageBox.Show(Loc.Get("Main_RevengeFactorIncrease"),
                     "", MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
 
             if (NoStudentIsChecked())
             {
-                MessageBox.Show("Spuntare i nomi degli studenti cui aumentare il fattore vendetta");
+                MessageBox.Show(Loc.Get("Main_CheckStudentsForRevenge"));
                 return;
             }
             foreach (Student s in currentStudentsList)
@@ -1120,13 +1123,13 @@ namespace SchoolGrades
         }
         private void btnRevengeFactorMinus_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Decremento del fattore vendetta per ogni allievo spuntato",
+            if (MessageBox.Show(Loc.Get("Main_RevengeFactorDecrease"),
                     "", MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
 
             if (currentStudentsList.Count == 0)
             {
-                MessageBox.Show("Spuntare i nomi degli studenti cui diminuire il fattore vendetta");
+                MessageBox.Show(Loc.Get("Main_CheckStudentsForRevengeDecrease"));
                 return;
             }
             foreach (Student s in currentStudentsList)
@@ -1228,8 +1231,8 @@ namespace SchoolGrades
                 "_" + currentSubject.IdSchoolSubject + "_" +
                 "all-topics";
             string createdFile;
-            if (MessageBox.Show("Creare un file di testo normale (Sì) od un file per Markdown (No)?",
-                "Tipo di file", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show(Loc.Get("Main_CreateTextFile"),
+                Loc.Get("Main_FileType"), MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 createdFile = Commons.bl.CreateAllTopicsDoneFile(filenameNoExtension, currentClass, currentSubject, true);
                 Commons.ProcessStartLink(createdFile);
@@ -1239,7 +1242,7 @@ namespace SchoolGrades
                 createdFile = Commons.bl.CreateAllTopicsDoneFile(filenameNoExtension, currentClass, currentSubject, false);
                 Commons.ProcessStartLink(createdFile);
             }
-            MessageBox.Show("Creato il file " + createdFile);
+            MessageBox.Show(Loc.Get("Main_FileCreated") + " " + createdFile);
         }
         private void chkEnableEndLessonWarning_CheckedChanged(object sender, EventArgs e)
         {
@@ -1299,7 +1302,8 @@ namespace SchoolGrades
                     {
                         Console.Beep(880, 1000);
                     }
-                    MessageBox.Show("Mancano meno di " + timeAlarmMinutes + " minuti alla fine della lezione");
+                    //MessageBox.Show("Mancano meno di " + timeAlarmMinutes + " minuti alla fine della lezione");
+                    MessageBox.Show(string.Format(Loc.Get("Main_MinutesToEnd"), timeAlarmMinutes));
                 }
             }
             if (timeLeftMinutes >= 0)
@@ -1628,6 +1632,140 @@ namespace SchoolGrades
             {
                 frmStudent fs = new frmStudent(CurrentStudent, true);
                 fs.ShowDialog();
+            }
+        }
+        private void LocalizeForm()
+        {
+            try
+            {
+                // Form title mantiene la versione originale con numero
+
+                // Buttons
+                btnDraw.Text = Loc.Get("Main_Draw");
+                butComeOn.Text = Loc.Get("Main_ComeOn");
+                btnSetup.Text = Loc.Get("Main_Setup");
+                btnAssess.Text = Loc.Get("Main_Assess");
+                btnCheckAll.Text = Loc.Get("Main_CheckAll");
+                btnCheckNone.Text = Loc.Get("Main_CheckNone");
+                btnCheckToggle.Text = Loc.Get("Main_CheckToggle");
+                btnCheckNoGrade.Text = Loc.Get("Main_CheckNoGrade");
+                btnCheckRevenge.Text = Loc.Get("Main_CheckRevenge");
+                btnOldestGrade.Text = Loc.Get("Main_OldestGrade");
+                btnStudentsGradesSummary.Text = Loc.Get("Main_StudentGradesSummary");
+                btnClassesGradesSummary.Text = Loc.Get("Main_ClassGradesSummary");
+                btnLessonsTopics.Text = Loc.Get("Main_Lessons");
+                btnTopicsDone.Text = Loc.Get("Main_TopicsDone");
+                btnYearTopics.Text = Loc.Get("Main_YearTopics");
+                btnStartLinks.Text = Loc.Get("Main_StartLinks");
+                btnQuestion.Text = Loc.Get("Main_Question");
+                btnMakeGroups.Text = Loc.Get("Main_MakeGroups");
+                btnLessonTime.Text = Loc.Get("Main_LessonTime");
+                btnVindicationFactorPlus.Text = Loc.Get("Main_RevengeFactorPlus");
+                btnVindicationFactorMinus.Text = Loc.Get("Main_RevengeFactorMinus");
+                btnShowRandomImage.Text = Loc.Get("Main_ShowRandomImage");
+                btnStartColorTimer.Text = Loc.Get("Main_StartColorTimer");
+                btnStartBarTimer.Text = Loc.Get("Main_StartBarTimer");
+                btnMosaic.Text = Loc.Get("Main_Mosaic");
+                btnStudentsNotes.Text = Loc.Get("Main_StudentsNotes");
+                btnRandomNumber.Text = Loc.Get("Main_RandomNumber");
+
+                // Labels
+                lblSchoolSubject.Text = Loc.Get("Main_SchoolSubject");
+                lblGradeType.Text = Loc.Get("Main_GradeType");
+                lblVindicationFactor.Text = Loc.Get("Main_RevengeFactorLabel");
+                label1.Text = Loc.Get("Main_MinuteStart");
+                label3.Text = Loc.Get("Main_MinutesDuration");
+                label4.Text = Loc.Get("Main_AdvanceMinutes");
+                label6.Text = Loc.Get("Main_NumberOfStudents");
+                lblCodYear.Text = Loc.Get("Main_SchoolYearCode");
+                lblIdStudent.Text = Loc.Get("Main_IdStudent");
+                label7.Text = Loc.Get("Main_IdClass");
+
+                // CheckBoxes
+                chkNameIsVisible.Text = Loc.Get("Main_NameIsVisible");
+                chkPhotoVisibile.Text = Loc.Get("Main_PhotoVisible");
+                chkStudentsListVisible.Text = Loc.Get("Main_StudentsListVisible");
+                chkSuspence.Text = Loc.Get("Main_Suspence");
+                chkActivateLessonClock.Text = Loc.Get("Main_ActivateLessonClock");
+                chkEnableEndLessonWarning.Text = Loc.Get("Main_EnableEndLessonWarning");
+                chkPopUpQuestionsEnabled.Text = Loc.Get("Main_PopUpQuestionsEnabled");
+                chkSoundsInColorTimer.Text = Loc.Get("Main_SoundsInColorTimer");
+                chkLessonsPictures.Text = Loc.Get("Main_LessonsPictures");
+                chkGivenFolder.Text = Loc.Get("Main_GivenFolder");
+
+                // GroupBoxes
+                grpSorts.Text = Loc.Get("Main_SortsGroup");
+                grpImageSource.Text = Loc.Get("Main_ImageSourceGroup");
+
+                // RadioButtons
+                rdbDrawEqualProbability.Text = Loc.Get("Main_EqualProbability");
+                rdbDrawByWeightsSum.Text = Loc.Get("Main_WeightsSum");
+                rdbDrawNoOfGrades.Text = Loc.Get("Main_NoOfGrades");
+                rdbSortByAlphbetical.Text = Loc.Get("Main_Alphabetical");
+                rdbDrawLowGradesFirst.Text = Loc.Get("Main_LowGradesFirst");
+                rdbDrawByOldestFirst.Text = Loc.Get("Main_OldestFirst");
+                rdbDrawByRevengeFactor.Text = Loc.Get("Main_RevengeFactor");
+                rdbMustDraw.Text = Loc.Get("Main_MustDraw");
+                rdbMustSort.Text = Loc.Get("Main_MustSort");
+
+                // Tooltips - Buttons
+                toolTip1.SetToolTip(btnDraw, Loc.Get("Main_Tooltip_Draw"));
+                toolTip1.SetToolTip(butComeOn, Loc.Get("Main_Tooltip_ComeOn"));
+                toolTip1.SetToolTip(btnCheckNone, Loc.Get("Main_Tooltip_CheckNone"));
+                toolTip1.SetToolTip(btnCheckAll, Loc.Get("Main_Tooltip_CheckAll"));
+                toolTip1.SetToolTip(btnCheckToggle, Loc.Get("Main_Tooltip_CheckToggle"));
+                toolTip1.SetToolTip(btnCheckRevenge, Loc.Get("Main_Tooltip_CheckRevenge"));
+                toolTip1.SetToolTip(btnCheckNoGrade, Loc.Get("Main_Tooltip_CheckNoGrade"));
+                toolTip1.SetToolTip(btnSetup, Loc.Get("Main_Tooltip_Setup"));
+                toolTip1.SetToolTip(btnStudentsGradesSummary, Loc.Get("Main_Tooltip_StudentGradesSummary"));
+                toolTip1.SetToolTip(btnOldestGrade, Loc.Get("Main_Tooltip_OldestGrade"));
+                toolTip1.SetToolTip(btnLessonsTopics, Loc.Get("Main_Tooltip_Lessons"));
+                toolTip1.SetToolTip(btnTopicsDone, Loc.Get("Main_Tooltip_TopicsDone"));
+                toolTip1.SetToolTip(btnStartLinks, Loc.Get("Main_Tooltip_StartLinks"));
+                toolTip1.SetToolTip(btnQuestion, Loc.Get("Main_Tooltip_Question"));
+                toolTip1.SetToolTip(btnMakeGroups, Loc.Get("Main_Tooltip_MakeGroups"));
+                toolTip1.SetToolTip(btnLessonTime, Loc.Get("Main_Tooltip_LessonTime"));
+                toolTip1.SetToolTip(btnVindicationFactorPlus, Loc.Get("Main_Tooltip_RevengeFactorPlus"));
+                toolTip1.SetToolTip(btnVindicationFactorMinus, Loc.Get("Main_Tooltip_RevengeFactorMinus"));
+                toolTip1.SetToolTip(btnClassesGradesSummary, Loc.Get("Main_Tooltip_ClassGradesSummary"));
+                toolTip1.SetToolTip(btnYearTopics, Loc.Get("Main_Tooltip_YearTopics"));
+                toolTip1.SetToolTip(btnStudentsNotes, Loc.Get("Main_Tooltip_StudentsNotes"));
+                toolTip1.SetToolTip(btnShowRandomImage, Loc.Get("Main_Tooltip_ShowRandomImage"));
+                toolTip1.SetToolTip(btnMosaic, Loc.Get("Main_Tooltip_Mosaic"));
+                toolTip1.SetToolTip(btnStartColorTimer, Loc.Get("Main_Tooltip_StartColorTimer"));
+                toolTip1.SetToolTip(btnStartBarTimer, Loc.Get("Main_Tooltip_StartBarTimer"));
+                toolTip1.SetToolTip(btnRandomNumber, Loc.Get("Main_Tooltip_RandomNumber"));
+
+                // Tooltips - Altri controlli
+                toolTip1.SetToolTip(lstClasses, Loc.Get("Main_Tooltip_ClassesList"));
+                toolTip1.SetToolTip(pgbTimeQuestion, Loc.Get("Main_Tooltip_TimeProgressBar"));
+                toolTip1.SetToolTip(chkNameIsVisible, Loc.Get("Main_Tooltip_NameIsVisible"));
+                toolTip1.SetToolTip(chkPhotoVisibile, Loc.Get("Main_Tooltip_PhotoVisible"));
+                toolTip1.SetToolTip(chkStudentsListVisible, Loc.Get("Main_Tooltip_StudentsListVisible"));
+                toolTip1.SetToolTip(cmbSchoolYear, Loc.Get("Main_Tooltip_SchoolYear"));
+                toolTip1.SetToolTip(txtPathImages, Loc.Get("Main_Tooltip_ImagesPath"));
+                toolTip1.SetToolTip(btnPath, Loc.Get("Main_Tooltip_PathButton"));
+                toolTip1.SetToolTip(cmbGradeType, Loc.Get("Main_Tooltip_GradeType"));
+                toolTip1.SetToolTip(cmbSchoolSubject, Loc.Get("Main_Tooltip_SchoolSubject"));
+                toolTip1.SetToolTip(txtQuestion, Loc.Get("Main_Tooltip_QuestionText"));
+                toolTip1.SetToolTip(chkSuspence, Loc.Get("Main_Tooltip_Suspence"));
+                toolTip1.SetToolTip(chkActivateLessonClock, Loc.Get("Main_Tooltip_ActivateLessonClock"));
+
+                // Tooltips - RadioButtons
+                toolTip1.SetToolTip(rdbDrawEqualProbability, Loc.Get("Main_Tooltip_EqualProbability"));
+                toolTip1.SetToolTip(rdbDrawByWeightsSum, Loc.Get("Main_Tooltip_WeightsSum"));
+                toolTip1.SetToolTip(rdbDrawNoOfGrades, Loc.Get("Main_Tooltip_NoOfGrades"));
+                toolTip1.SetToolTip(rdbDrawByOldestFirst, Loc.Get("Main_Tooltip_OldestFirst"));
+                toolTip1.SetToolTip(rdbSortByAlphbetical, Loc.Get("Main_Tooltip_Alphabetical"));
+                toolTip1.SetToolTip(rdbDrawLowGradesFirst, Loc.Get("Main_Tooltip_LowGradesFirst"));
+                toolTip1.SetToolTip(rdbDrawByRevengeFactor, Loc.Get("Main_Tooltip_RevengeFactor"));
+                toolTip1.SetToolTip(chkLessonsPictures, Loc.Get("Main_Tooltip_LessonsPictures"));
+                toolTip1.SetToolTip(chkGivenFolder, Loc.Get("Main_Tooltip_GivenFolder"));
+                toolTip1.SetToolTip(chkSoundsInColorTimer, Loc.Get("Main_Tooltip_SoundsInColorTimer"));
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"frmMain.LocalizeForm: Error in localization: {ex.Message}");
             }
         }
     }

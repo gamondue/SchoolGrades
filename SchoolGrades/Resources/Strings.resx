@@ -704,4 +704,621 @@ Selezionare un tipo di valutazione corretto</value>
   <data name="Main_ChooseClass" xml:space="preserve">
   <value>Scegliere una classe</value>
 </data>
+  <!-- CommonsWinForms - Messaggi Check -->
+  <data name="Commons_SelectGradeType" xml:space="preserve">
+  <value>Scegliere un tipo di valutazione</value>
+</data>
+  <data name="Commons_SelectSubject" xml:space="preserve">
+  <value>Scegliere una materia</value>
+</data>
+  <data name="Commons_SelectClass" xml:space="preserve">
+  <value>Scegliere una classe</value>
+</data>
+  <data name="Commons_SelectStudent" xml:space="preserve">
+  <value>Scegliere un allievo</value>
+</data>
+  <data name="Commons_OperationNotPossible" xml:space="preserve">
+  <value>Operazione non possibile</value>
+</data>
+
+  <!-- CommonsWinForms - Configurazione -->
+  <data name="Commons_ConfigSaved" xml:space="preserve">
+  <value>File di configurazione salvato in </value>
+</data>
+  <!-- ====================== -->
+  <!-- 1. FRMSANDOM -->
+  <!-- ====================== -->
+  <data name="Random_Title" xml:space="preserve">
+  <value>Numero casuale</value>
+</data>
+  <data name="Random_From" xml:space="preserve">
+  <value>Da</value>
+</data>
+  <data name="Random_To" xml:space="preserve">
+  <value>A</value>
+</data>
+  <data name="Random_Draw" xml:space="preserve">
+  <value>Sorteggio</value>
+</data>
+
+  <!-- ====================== -->
+  <!-- 2. FRMMOSAIC -->
+  <!-- ====================== -->
+  <data name="Mosaic_Title" xml:space="preserve">
+  <value>Mosaico</value>
+</data>
+
+  <!-- ====================== -->
+  <!-- 3. FRMSTUDENT -->
+  <!-- ====================== -->
+  <data name="Student_Title" xml:space="preserve">
+  <value>Studente</value>
+</data>
+  <data name="Student_LastName" xml:space="preserve">
+  <value>Cognome</value>
+</data>
+  <data name="Student_FirstName" xml:space="preserve">
+  <value>Nome</value>
+</data>
+  <data name="Student_BirthDate" xml:space="preserve">
+  <value>Data di nascita</value>
+</data>
+  <data name="Student_BirthPlace" xml:space="preserve">
+  <value>Luogo di nascita</value>
+</data>
+  <data name="Student_City" xml:space="preserve">
+  <value>Città</value>
+</data>
+  <data name="Student_Origin" xml:space="preserve">
+  <value>Origine</value>
+</data>
+  <data name="Student_Email" xml:space="preserve">
+  <value>Email</value>
+</data>
+  <data name="Student_Phone" xml:space="preserve">
+  <value>Telefono</value>
+</data>
+  <data name="Student_Mobile" xml:space="preserve">
+  <value>Cellulare</value>
+</data>
+  <data name="Student_Gender" xml:space="preserve">
+  <value>Sesso</value>
+</data>
+  <data name="Student_Address" xml:space="preserve">
+  <value>Indirizzo</value>
+</data>
+  <data name="Student_ZipCode" xml:space="preserve">
+  <value>CAP</value>
+</data>
+  <data name="Student_County" xml:space="preserve">
+  <value>Provincia</value>
+</data>
+  <data name="Student_State" xml:space="preserve">
+  <value>Stato</value>
+</data>
+  <data name="Student_Disabled" xml:space="preserve">
+  <value>Disabilitato</value>
+</data>
+  <data name="Student_SpecialNeeds" xml:space="preserve">
+  <value>BES</value>
+</data>
+  <data name="Student_Save" xml:space="preserve">
+  <value>Salva</value>
+</data>
+  <data name="Student_New" xml:space="preserve">
+  <value>Nuovo</value>
+</data>
+  <data name="Student_Choose" xml:space="preserve">
+  <value>Scegli</value>
+</data>
+  <data name="Student_FindStudent" xml:space="preserve">
+  <value>Cerca studente</value>
+</data>
+  <data name="Student_FindHomonyms" xml:space="preserve">
+  <value>Cerca omonimi</value>
+</data>
+  <data name="Student_Delete" xml:space="preserve">
+  <value>Elimina</value>
+</data>
+  <data name="Student_Add" xml:space="preserve">
+  <value>Aggiungi</value>
+</data>
+  <data name="Student_Copy" xml:space="preserve">
+  <value>Copia</value>
+</data>
+  <data name="Student_Exit" xml:space="preserve">
+  <value>Esci</value>
+</data>
+
+  <!-- Student MessageBox -->
+  <data name="Student_EnterName" xml:space="preserve">
+  <value>Immettere Nome e Cognome del nuovo allievo</value>
+</data>
+  <data name="Student_SaveOrChoose" xml:space="preserve">
+  <value>Salvare o scegliere lo studente</value>
+</data>
+  <data name="Student_DeleteConfirm" xml:space="preserve">
+  <value>Eliminare lo studente {0}?</value>
+</data>
+  <data name="Student_DeleteTitle" xml:space="preserve">
+  <value>Eliminazione studente</value>
+</data>
+  <data name="Student_DeleteWithReferences" xml:space="preserve">
+  <value>Eliminare lo studente anche dalle tabelle in cui viene riferito?</value>
+</data>
+  <data name="Student_DeleteReferencesTitle" xml:space="preserve">
+  <value>Eliminazione studente da tabelle referenziate</value>
+</data>
+  <data name="Student_SelectToDelete" xml:space="preserve">
+  <value>Selezionare uno studente da eliminare</value>
+</data>
+
+  <!-- ====================== -->
+  <!-- 4. FRMANNOTATIONSABOUTSTUDENTS -->
+  <!-- ====================== -->
+  <data name="Annotations_Title" xml:space="preserve">
+  <value>Annotazioni sugli studenti</value>
+</data>
+  <data name="Annotations_ActiveOnly" xml:space="preserve">
+  <value>Solo annotazioni attive</value>
+</data>
+  <data name="Annotations_UseSchoolYear" xml:space="preserve">
+  <value>Usa anno scolastico</value>
+</data>
+  <data name="Annotations_Active" xml:space="preserve">
+  <value>Attiva</value>
+</data>
+  <data name="Annotations_PopUp" xml:space="preserve">
+  <value>PopUp</value>
+</data>
+  <data name="Annotations_AddStudent" xml:space="preserve">
+  <value>Aggiungi (studente)</value>
+</data>
+  <data name="Annotations_AddGroup" xml:space="preserve">
+  <value>Aggiungi (gruppo)</value>
+</data>
+  <data name="Annotations_RemoveStudent" xml:space="preserve">
+  <value>Rimuovi (studente)</value>
+</data>
+  <data name="Annotations_RemoveGroup" xml:space="preserve">
+  <value>Rimuovi (gruppo)</value>
+</data>
+  <data name="Annotations_SaveStudent" xml:space="preserve">
+  <value>Salva modifiche (studente)</value>
+</data>
+  <data name="Annotations_SaveGroup" xml:space="preserve">
+  <value>Salva modifiche (gruppo)</value>
+</data>
+  <data name="Annotations_New" xml:space="preserve">
+  <value>Nuova</value>
+</data>
+
+  <!-- Annotations MessageBox -->
+  <data name="Annotations_TextEmpty" xml:space="preserve">
+  <value>Testo dell'annotazione vuoto!</value>
+</data>
+  <data name="Annotations_CreateNew" xml:space="preserve">
+  <value>Devo creare una nuova annotazione con lo stesso testo della precedente?</value>
+</data>
+  <data name="Annotations_SelectToDelete" xml:space="preserve">
+  <value>Scegliere un'annotazione da cancellare!</value>
+</data>
+  <data name="Annotations_DeleteConfirm" xml:space="preserve">
+  <value>Sicuro di cancellare l'annotazione {0}, '{1}'?</value>
+</data>
+  <data name="Annotations_Warning" xml:space="preserve">
+  <value>Attenzione</value>
+</data>
+  <data name="Annotations_TextEmptyDelete" xml:space="preserve">
+  <value>Il testo dell'annotazione da cancellare è vuoto!</value>
+</data>
+  <data name="Annotations_DeleteAllConfirm" xml:space="preserve">
+  <value>Cancellazione di tutte le annotazioni '{0}' in tutti gli allievi della griglia?</value>
+</data>
+  <data name="Annotations_SelectToModify" xml:space="preserve">
+  <value>Scegliere un'annotazione da modificare</value>
+</data>
+  <data name="Annotations_ToDo" xml:space="preserve">
+  <value>Da fare!</value>
+</data>
+
+  <!-- ====================== -->
+  <!-- 5. FRMANNOTATIONSPOPUP -->
+  <!-- ====================== -->
+  <data name="AnnotationsPopUp_Title" xml:space="preserve">
+  <value>Annotazioni</value>
+</data>
+  <data name="AnnotationsPopUp_Close" xml:space="preserve">
+  <value>Chiudi</value>
+</data>
+
+  <!-- ====================== -->
+  <!-- 6. FRMANSWER -->
+  <!-- ====================== -->
+  <data name="Answer_Title" xml:space="preserve">
+  <value>Risposta</value>
+</data>
+  <data name="Answer_IdAnswer" xml:space="preserve">
+  <value>Id risposta:</value>
+</data>
+  <data name="Answer_IdQuestion" xml:space="preserve">
+  <value>Id domanda:</value>
+</data>
+  <data name="Answer_ErrorCost" xml:space="preserve">
+  <value>Costo errore:</value>
+</data>
+  <data name="Answer_Text" xml:space="preserve">
+  <value>Testo:</value>
+</data>
+  <data name="Answer_IsOpenAnswer" xml:space="preserve">
+  <value>Risposta aperta</value>
+</data>
+  <data name="Answer_IsCorrect" xml:space="preserve">
+  <value>Risposta corretta</value>
+</data>
+  <data name="Answer_Save" xml:space="preserve">
+  <value>Salva</value>
+</data>
+  <data name="Answer_Choose" xml:space="preserve">
+  <value>Scegli</value>
+</data>
+
+  <!-- Answer MessageBox -->
+  <data name="Answer_SaveQuestionFirst" xml:space="preserve">
+  <value>Salvare prima il testo della domanda</value>
+</data>
+  <!-- Labels Form Studente -->
+  <data name="Student_IdLabel" xml:space="preserve">
+  <value>Id allievo</value>
+</data>
+  <data name="Student_LastNameLabel" xml:space="preserve">
+  <value>Cognome</value>
+</data>
+  <data name="Student_FirstNameLabel" xml:space="preserve">
+  <value>Nome</value>
+</data>
+  <data name="Student_GenderLabel" xml:space="preserve">
+  <value>Gen.</value>
+</data>
+  <data name="Student_CityLabel" xml:space="preserve">
+  <value>Residenza</value>
+</data>
+  <data name="Student_AddressLabel" xml:space="preserve">
+  <value>Indirizzo</value>
+</data>
+  <data name="Student_ZipCodeLabel" xml:space="preserve">
+  <value>CAP</value>
+</data>
+  <data name="Student_CountyLabel" xml:space="preserve">
+  <value>Prov.</value>
+</data>
+  <data name="Student_StateLabel" xml:space="preserve">
+  <value>Regione</value>
+</data>
+  <data name="Student_BirthPlaceLabel" xml:space="preserve">
+  <value>Posto di nascita</value>
+</data>
+  <data name="Student_BirthDateLabel" xml:space="preserve">
+  <value>Data di nascita</value>
+</data>
+  <data name="Student_EmailLabel" xml:space="preserve">
+  <value>email</value>
+</data>
+  <data name="Student_OriginLabel" xml:space="preserve">
+  <value>Provenienza e note</value>
+</data>
+  <data name="Student_TelephoneLabel" xml:space="preserve">
+  <value>Telefono</value>
+</data>
+  <data name="Student_MobileTelephoneLabel" xml:space="preserve">
+  <value>Cellulare</value>
+</data>
+  <data name="Student_FoundStudentsLabel" xml:space="preserve">
+  <value>Allievi trovati</value>
+</data>
+  <!-- ============================================ -->
+  <!-- CHIAVI ITALIANE PER frmClassesManagement -->
+  <!-- File: Localization\Strings.resx            -->
+  <!-- Totale chiavi: 83                          -->
+  <!-- ============================================ -->
+
+  <!-- Form Title -->
+  <data name="ClassMgmt_Title" xml:space="preserve">
+  <value>Gestione classi</value>
+</data>
+
+  <!-- Labels -->
+  <data name="ClassMgmt_SchoolCode" xml:space="preserve">
+  <value>Codice Scuola</value>
+</data>
+  <data name="ClassMgmt_SchoolYear" xml:space="preserve">
+  <value>Anno scolastico</value>
+</data>
+  <data name="ClassMgmt_ClassAbbreviation" xml:space="preserve">
+  <value>Sigla Classe</value>
+</data>
+  <data name="ClassMgmt_ClassDescription" xml:space="preserve">
+  <value>Descrizione classe</value>
+</data>
+  <data name="ClassMgmt_ClassData" xml:space="preserve">
+  <value>Dati classe (F2 per modificare)</value>
+</data>
+  <data name="ClassMgmt_StartLinksFolder" xml:space="preserve">
+  <value>Cartella start links</value>
+</data>
+  <data name="ClassMgmt_EmailPattern" xml:space="preserve">
+  <value>Pattern per generazione email</value>
+</data>
+
+  <!-- GroupBox -->
+  <data name="ClassMgmt_ImportGroup" xml:space="preserve">
+  <value>Importazione classi da file</value>
+</data>
+  <data name="ClassMgmt_ImportFile" xml:space="preserve">
+  <value>File dati da cui importare</value>
+</data>
+  <data name="ClassMgmt_PhotosFolder" xml:space="preserve">
+  <value>Cartella origine fotografie</value>
+</data>
+
+  <!-- RadioButtons -->
+  <data name="ClassMgmt_NoPhotos" xml:space="preserve">
+  <value>Nessuna foto</value>
+</data>
+  <data name="ClassMgmt_PhotosPresent" xml:space="preserve">
+  <value>Foto presenti</value>
+</data>
+  <data name="ClassMgmt_AskPhotos" xml:space="preserve">
+  <value>Richiesta foto</value>
+</data>
+
+  <!-- Buttons - Gestione Classe -->
+  <data name="ClassMgmt_CreateClass" xml:space="preserve">
+  <value>Crea nuova classe</value>
+</data>
+  <data name="ClassMgmt_ImportOneClass" xml:space="preserve">
+  <value>Importa una classe</value>
+</data>
+  <data name="ClassMgmt_ImportManyClasses" xml:space="preserve">
+  <value>Importa diverse classi</value>
+</data>
+  <data name="ClassMgmt_DeleteClass" xml:space="preserve">
+  <value>Elimina Classe</value>
+</data>
+  <data name="ClassMgmt_ManageYears" xml:space="preserve">
+  <value>Gestisci anni scolastici</value>
+</data>
+
+  <!-- Buttons - Gestione Studenti -->
+  <data name="ClassMgmt_NewStudent" xml:space="preserve">
+  <value>Nuovo allievo</value>
+</data>
+  <data name="ClassMgmt_DeleteStudent" xml:space="preserve">
+  <value>Elimina allievo</value>
+</data>
+  <data name="ClassMgmt_ModifyStudent" xml:space="preserve">
+  <value>Modifica allievo</value>
+</data>
+  <data name="ClassMgmt_ToggleStudent" xml:space="preserve">
+  <value>Cambia abilitaz. allievo</value>
+</data>
+
+  <!-- Buttons - Gestione Foto -->
+  <data name="ClassMgmt_ChangePhoto" xml:space="preserve">
+  <value>Cambia foto allievo</value>
+</data>
+  <data name="ClassMgmt_DeletePhoto" xml:space="preserve">
+  <value>Elimina foto allievo</value>
+</data>
+  <data name="ClassMgmt_FindOldPhotos" xml:space="preserve">
+  <value>Cerca foto vecchie</value>
+</data>
+
+  <!-- Buttons - Utilità -->
+  <data name="ClassMgmt_PutNumbers" xml:space="preserve">
+  <value>Numeri registro</value>
+</data>
+  <data name="ClassMgmt_Mosaic" xml:space="preserve">
+  <value>Mosaico</value>
+</data>
+  <data name="ClassMgmt_EndPeriod" xml:space="preserve">
+  <value>Fine periodo</value>
+</data>
+
+  <!-- Buttons - Salvataggio -->
+  <data name="ClassMgmt_SaveClassData" xml:space="preserve">
+  <value>Salva dati classe</value>
+</data>
+  <data name="ClassMgmt_SaveAll" xml:space="preserve">
+  <value>Salva classe e studenti</value>
+</data>
+
+  <!-- Buttons - Report -->
+  <data name="ClassMgmt_StudentsList" xml:space="preserve">
+  <value>elenco</value>
+</data>
+  <data name="ClassMgmt_GenerateEmails" xml:space="preserve">
+  <value>indir.email</value>
+</data>
+
+  <!-- ToolTips -->
+  <data name="ClassMgmt_Tip_EditF2" xml:space="preserve">
+  <value>F2 per modificare</value>
+</data>
+  <data name="ClassMgmt_Tip_SaveClassData" xml:space="preserve">
+  <value>Salva i dati sulla classe, qui accanto</value>
+</data>
+  <data name="ClassMgmt_Tip_DeleteStudent" xml:space="preserve">
+  <value>Elimina allievo dalla classe</value>
+</data>
+  <data name="ClassMgmt_Tip_ModifyStudent" xml:space="preserve">
+  <value>Modifica i dati dell'allievo</value>
+</data>
+  <data name="ClassMgmt_Tip_EndPeriod" xml:space="preserve">
+  <value>Crea file di fine periodo</value>
+</data>
+  <data name="ClassMgmt_Tip_EmailPattern" xml:space="preserve">
+  <value>Fra parentesi angolare i nomi dei campi che vengono sostituiti dai valori nel database</value>
+</data>
+  <data name="ClassMgmt_Tip_GenerateEmails" xml:space="preserve">
+  <value>Genera email con i nomi degli studenti</value>
+</data>
+  <data name="ClassMgmt_Tip_ImportOne" xml:space="preserve">
+  <value>Importa nuova classe da file di testo, con il nome ora indicato in "Sigla classe"</value>
+</data>
+  <data name="ClassMgmt_Tip_StudentsList" xml:space="preserve">
+  <value>Genera un elenco degli allievi della classe</value>
+</data>
+  <data name="ClassMgmt_Tip_PutNumbers" xml:space="preserve">
+  <value>Scrive numeri consecutivi nei campi numero di registro</value>
+</data>
+  <data name="ClassMgmt_Tip_DeleteClass" xml:space="preserve">
+  <value>Elimina la classe dal database</value>
+</data>
+  <data name="ClassMgmt_Tip_NoPhotos" xml:space="preserve">
+  <value>Il programma usa solo i nomi dal file</value>
+</data>
+  <data name="ClassMgmt_Tip_PhotosPresent" xml:space="preserve">
+  <value>Foto già nella cartella giusta con il nome giusto</value>
+</data>
+  <data name="ClassMgmt_Tip_AskPhotos" xml:space="preserve">
+  <value>Il programma fa scegliere la foto per ciascuno degli allievi</value>
+</data>
+  <data name="ClassMgmt_Tip_ImportMany" xml:space="preserve">
+  <value>Importa più classi da un unico file di testo</value>
+</data>
+  <data name="ClassMgmt_Tip_CreateClass" xml:space="preserve">
+  <value>Crea nuova classe senza studenti in questo anno</value>
+</data>
+  <data name="ClassMgmt_Tip_ChangePhoto" xml:space="preserve">
+  <value>Aggiunge una nuova foto o cambia quella che c'è</value>
+</data>
+  <data name="ClassMgmt_Tip_DeletePhoto" xml:space="preserve">
+  <value>Elimina la foto dello studente selezionato</value>
+</data>
+  <data name="ClassMgmt_Tip_FindOldPhotos" xml:space="preserve">
+  <value>Trova tutte le foto esistenti dello studente selezionato</value>
+</data>
+  <data name="ClassMgmt_Tip_Mosaic" xml:space="preserve">
+  <value>Mostra mosaico delle foto della classe</value>
+</data>
+  <data name="ClassMgmt_Tip_DoubleClick" xml:space="preserve">
+  <value>Doppio click per aprire la classe corrispondente</value>
+</data>
+  <data name="ClassMgmt_Tip_ImportFile" xml:space="preserve">
+  <value>File separato da tab, ordine delle colonne come in file di esempio</value>
+</data>
+  <data name="ClassMgmt_Tip_PhotosFolder" xml:space="preserve">
+  <value>Cartella dalla quale importare automaticamente le fotografie degli studenti. Nome del file come da immagine di esempio.</value>
+</data>
+  <data name="ClassMgmt_Tip_ManageYears" xml:space="preserve">
+  <value>Gestisci i periodi scolastici dell'anno corrente</value>
+</data>
+
+  <!-- MessageBox -->
+  <data name="ClassMgmt_Msg_ClassExists" xml:space="preserve">
+  <value>Esiste già una classe con il nome "{0}" in questa scuola ed in questo anno!</value>
+</data>
+  <data name="ClassMgmt_Msg_NoSpaces" xml:space="preserve">
+  <value>E' meglio non mettere spazi nella sigla della classe.
+Devo metterli lo stesso?</value>
+</data>
+  <data name="ClassMgmt_Msg_FileNotExists" xml:space="preserve">
+  <value>Il file "{0}" non esiste!</value>
+</data>
+  <data name="ClassMgmt_Msg_ChoosePhoto" xml:space="preserve">
+  <value>Scegli una foto dello studente {0} {1}, {2} {3}</value>
+</data>
+  <data name="ClassMgmt_Msg_ImportDone" xml:space="preserve">
+  <value>Importazione terminata</value>
+</data>
+  <data name="ClassMgmt_Msg_FoundHomonym" xml:space="preserve">
+  <value>Trovato almeno un vecchio allievo con lo stesso nome del nuovo.
+Scegliere quale usare digitando il suo numero:</value>
+</data>
+  <data name="ClassMgmt_Msg_AddNewStudent" xml:space="preserve">
+  <value>00 - Aggiungere il nuovo studente: {0} {1} {2} {3}</value>
+</data>
+  <data name="ClassMgmt_Msg_ChooseStudent" xml:space="preserve">
+  <value>Scegliere lo studente</value>
+</data>
+  <data name="ClassMgmt_Msg_DeleteClassConfirm" xml:space="preserve">
+  <value>ATTENZIONE: eliminazione della classe {0} dell'anno {1}.
+Devo eliminare solo la classe (Sì) o anche gli studenti (No)?
+Scegliere 'Annulla' per non eliminare</value>
+</data>
+  <data name="ClassMgmt_Msg_FileLocked" xml:space="preserve">
+  <value>Il file immagine è bloccato. Impossibile sostituirlo!
+Provare a cancellare prima la foto precedente.</value>
+</data>
+  <data name="ClassMgmt_Msg_SelectForPhoto" xml:space="preserve">
+  <value>Scegliere un allievo cui cambiare la foto</value>
+</data>
+  <data name="ClassMgmt_Msg_SelectClass" xml:space="preserve">
+  <value>Scegliere una classe</value>
+</data>
+  <data name="ClassMgmt_Msg_StudentNotAdded" xml:space="preserve">
+  <value>Studente non aggiunto alla classe
+(premere 'Scegli' nella finestra appena chiusa)</value>
+</data>
+  <data name="ClassMgmt_Msg_SelectStudentInGrid" xml:space="preserve">
+  <value>Selezionare nella griglia un allievo da cancellare</value>
+</data>
+  <data name="ClassMgmt_Msg_DeleteStudentConfirm" xml:space="preserve">
+  <value>Devo eliminare l'allievo {0}?
+L'allievo verrà solo eliminato dalla classe e mantenuto nel database</value>
+</data>
+  <data name="ClassMgmt_Msg_SelectForToggle" xml:space="preserve">
+  <value>Selezionare nella griglia un allievo di cui cambiare lo stato di attivazione</value>
+</data>
+  <data name="ClassMgmt_Msg_StatusToggled" xml:space="preserve">
+  <value>Commutato lo stato di abilitazione dell'allievo {0}</value>
+</data>
+  <data name="ClassMgmt_Msg_SelectToModify" xml:space="preserve">
+  <value>Selezionare lo studente da modificare</value>
+</data>
+  <data name="ClassMgmt_Msg_Todo" xml:space="preserve">
+  <value>TO DO!</value>
+</data>
+  <data name="ClassMgmt_Msg_SelectForEmails" xml:space="preserve">
+  <value>Scegliere la classe per cui generare gli indirizzi email</value>
+</data>
+  <data name="ClassMgmt_Msg_FileGenerated" xml:space="preserve">
+  <value>Ho generato il file {0}</value>
+</data>
+  <data name="ClassMgmt_Msg_SelectForDeletePhoto" xml:space="preserve">
+  <value>Selezionare l'allievo del quale eliminare la foto</value>
+</data>
+  <data name="ClassMgmt_Msg_SelectForList" xml:space="preserve">
+  <value>Scegliere la classe per cui generare l'elenco su file</value>
+</data>
+  <data name="ClassMgmt_Msg_ListGenerated" xml:space="preserve">
+  <value>Ho generato il file {0}</value>
+</data>
+  <data name="ClassMgmt_Msg_ImportManyConfirm" xml:space="preserve">
+  <value>Devo importare diverse classi dal file: {0}?</value>
+</data>
+  <data name="ClassMgmt_Msg_CreateClassConfirm" xml:space="preserve">
+  <value>Devo creare una nuova classe senza studenti '{0}' nell'anno scolastico '{1}'?</value>
+</data>
+  <data name="ClassMgmt_Msg_YearNotExists" xml:space="preserve">
+  <value>L'anno scolastico {0} non esiste.
+Devo crearlo?</value>
+</data>
+  <data name="ClassMgmt_Msg_AbbrevRequired" xml:space="preserve">
+  <value>La sigla della classe è obbligatoria</value>
+</data>
+
+  <!-- Common Messages (se non già presenti) -->
+  <data name="Common_Warning" xml:space="preserve">
+  <value>Avviso</value>
+</data>
+  <data name="Common_Information" xml:space="preserve">
+  <value>Informazione</value>
+</data>
+  <data name="Common_Confirm" xml:space="preserve">
+  <value>Conferma</value>
+</data>
+
+
 </root>

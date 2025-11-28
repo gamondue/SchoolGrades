@@ -1,4 +1,5 @@
 ﻿using SchoolGrades.BusinessObjects;
+using SchoolGrades.Localization;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -39,6 +40,9 @@ namespace SchoolGrades
                 btnChoose.Visible = false;
             }
             txtLastName.Focus();
+            
+            // Initialize localization
+            LocalizeForm();
         }
         private void loadPicture(Student StudentToLoad)
         {
@@ -86,7 +90,7 @@ namespace SchoolGrades
             }
             else
             {
-                MessageBox.Show("Immettere Nome e Cognome del nuovo allievo");
+                MessageBox.Show(Loc.Get("Student_EnterName"));
                 return;
             }
             if (txtIdStudent.Text == "" && (currentStudent.IdStudent == 0 || currentStudent.IdStudent == null))
@@ -126,7 +130,7 @@ namespace SchoolGrades
             }
             else
             {
-                MessageBox.Show("Salvare o scegliere lo studente");
+                MessageBox.Show(Loc.Get("Student_SaveOrChoose"));
             }
         }
         private void btnFindStudent_Click(object sender, EventArgs e)
@@ -260,11 +264,11 @@ namespace SchoolGrades
                 //    " eliminato");
                 //}
             }
-            if (MessageBox.Show("Eliminare lo studente " + currentStudent.ToString() + "?",
-                "Eliminazione studente", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show(string.Format(Loc.Get("Student_DeleteConfirm"), currentStudent.ToString()),
+                Loc.Get("Student_DeleteTitle"), MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (MessageBox.Show("Eliminare lo studente anche dalle tabelle in cui viene riferito?",
-                    "Eliminazione studente da tabelle referenziate", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show(Loc.Get("Student_DeleteWithReferences"),
+                    Loc.Get("Student_DeleteReferencesTitle"), MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     Commons.bl.DeleteStudent(currentStudent, true);
                 }
@@ -278,7 +282,7 @@ namespace SchoolGrades
             }
             else
             {
-                MessageBox.Show("Selezionare uno studente da eliminare");
+                MessageBox.Show(Loc.Get("Student_SelectToDelete"));
             }
         }
         private void btnAddStudent_Click(object sender, EventArgs e)
@@ -295,6 +299,50 @@ namespace SchoolGrades
             // copy student data to clipboard
             FromUiToCurrentStudent();
             Clipboard.SetText(currentStudent.ToString());
+        }
+
+        private void LocalizeForm()
+        {
+            try
+            {
+                this.Text = Loc.Get("Student_Title");
+
+                lblStudentCode.Text = Loc.Get("Student_IdLabel");
+                lblLastName.Text = Loc.Get("Student_LastNameLabel");
+                lblFirstName.Text = Loc.Get("Student_FirstNameLabel");
+                label3.Text = Loc.Get("Student_GenderLabel");
+                lblCity.Text = Loc.Get("Student_CityLabel");
+                label4.Text = Loc.Get("Student_AddressLabel");
+                label5.Text = Loc.Get("Student_ZipCodeLabel");
+                label6.Text = Loc.Get("Student_CountyLabel");
+                label7.Text = Loc.Get("Student_StateLabel");
+                lblBirthPlace.Text = Loc.Get("Student_BirthPlaceLabel");
+                lblBirthDate.Text = Loc.Get("Student_BirthDateLabel");
+                lblEmail.Text = Loc.Get("Student_EmailLabel");
+                lblOrigin.Text = Loc.Get("Student_OriginLabel");
+                label1.Text = Loc.Get("Student_TelephoneLabel");
+                label2.Text = Loc.Get("Student_MobileTelephoneLabel");
+                lblExistingSameName.Text = Loc.Get("Student_FoundStudentsLabel");
+
+                // CheckBoxes
+                chkDisabled.Text = Loc.Get("Student_Disabled");
+                chkHasSpecialNeeds.Text = Loc.Get("Student_SpecialNeeds");
+
+                // Buttons
+                btnSave.Text = Loc.Get("Student_Save");
+                btnNew.Text = Loc.Get("Student_New");
+                btnChoose.Text = Loc.Get("Student_Choose");
+                btnFindStudent.Text = Loc.Get("Student_FindStudent");
+                btnFindHomonyms.Text = Loc.Get("Student_FindHomonyms");
+                btnDeleteStudent.Text = Loc.Get("Student_Delete");
+                btnAddStudent.Text = Loc.Get("Student_Add");
+                btnClipboard.Text = Loc.Get("Student_Copy");
+                btnExitWithoutChoosing.Text = Loc.Get("Student_Exit");
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"frmStudent.LocalizeForm: {ex.Message}");
+            }
         }
     }
 }

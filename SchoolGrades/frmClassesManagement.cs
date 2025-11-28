@@ -1,5 +1,6 @@
 using gamon;
 using SchoolGrades.BusinessObjects;
+using SchoolGrades.Localization;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,6 +8,8 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
+using SchoolGrades.Localization;
+
 
 namespace SchoolGrades
 {
@@ -64,27 +67,34 @@ namespace SchoolGrades
                 isLoading = false;
                 newYear = false;
             }
+
+            LocalizeForm();
         }
         private void btnImportStudentsOfClass_Click(object sender, EventArgs e)
         {
             // give warning to avoid modifying existing class instead of making a new one
             if (Commons.bl.GetClass(currentSchool.IdSchool, idSchoolYear, CmbClasses.Text).Abbreviation != null)
             {
-                MessageBox.Show("Esiste già una classe con il nome \"" + CmbClasses.Text + "\" in questa scuola ed in questo anno!", "Avviso",
+                MessageBox.Show(
+                    string.Format(Loc.Get("ClassMgmt_Msg_ClassExists"), CmbClasses.Text),
+                    Loc.Get("ClassMgmt_Msg_Warning"),
                     MessageBoxButtons.OK);
                 return;
             }
             if (CmbClasses.Text.Contains(" "))
             {
-                DialogResult d = MessageBox.Show("E' meglio non mettere spazi nella sigla della classe." +
-                    "\r\nDevo metterli lo stesso?",
-                    "Informazione", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
+                DialogResult d = MessageBox.Show(
+                    Loc.Get("ClassMgmt_Msg_NoSpaces"),
+                    Loc.Get("Common_Information"),
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
                 if (d != DialogResult.Yes) return;
             }
             if (!File.Exists(TxtFileOfStudentsImport.Text) ||
                 TxtFileOfStudentsImport.Text.Substring(TxtFileOfStudentsImport.Text.Length - 1, 1) == "\\")
             {
-                MessageBox.Show("Il file \"" + TxtFileOfStudentsImport.Text + "\" non esiste!", "Avviso",
+                MessageBox.Show(
+                    string.Format(Loc.Get("ClassMgmt_Msg_FileNotExists"), TxtFileOfStudentsImport.Text),
+                    Loc.Get("Common_Warning"),
                     MessageBoxButtons.OK);
                 return;
             }
@@ -111,8 +121,8 @@ namespace SchoolGrades
                     {
                         using (OpenFileDialog dlg = new OpenFileDialog())
                         {
-                            dlg.Title = "Scegli una foto dello studente " + studentsData[row, 1] + " " +
-                                studentsData[row, 2] + ", " + CmbClasses.Text + " " + CmbSchoolYear.Text;
+                            dlg.Title = string.Format(Loc.Get("ClassMgmt_Msg_ChoosePhoto"),
+                                studentsData[row, 1], studentsData[row, 2], CmbClasses.Text, CmbSchoolYear.Text);
                             dlg.Filter = "jpg files (*.jpg)|*.jpg";
                             dlg.InitialDirectory = TxtImagesOriginFolder.Text;
                             if (dlg.ShowDialog() == DialogResult.OK)
@@ -127,7 +137,7 @@ namespace SchoolGrades
                     }
                 }
             }
-            MessageBox.Show("Importazione terminata");
+            MessageBox.Show(Loc.Get("ClassMgmt_Msg_ImportDone"));
             this.Close();
         }
         private Student CheckIfStudentIsMultipleAndChooseWhat(string[,] studentsData, int row)
@@ -140,11 +150,9 @@ namespace SchoolGrades
                 int iValue;
                 do
                 {
-                    string MessagePrompt = "Trovato almeno un vecchio allievo con lo stesso nome del nuovo." +
-                        "\nScegliere quale usare digitando il suo numero:";
-                    MessagePrompt += "\n00 - Aggiungere il nuovo studente: " + s.LastName + " " +
-                        s.FirstName + " " + s.ClassAbbreviation + " " +
-                            s.SchoolYear; ;
+                    string MessagePrompt = Loc.Get("ClassMgmt_Msg_FoundHomonym");
+                        MessagePrompt += "\n" + string.Format(Loc.Get("ClassMgmt_Msg_AddNewStudent"),
+                        s.LastName, s.FirstName, s.ClassAbbreviation, s.SchoolYear);
                     // add to MessagePrompt names and classes of the homonym students,
                     // prefixed by the number of student in the list
                     for (int iLs = 0; iLs < ls.Count; iLs++)
@@ -154,7 +162,8 @@ namespace SchoolGrades
                             ls[iLs].SchoolYear;
                     }
                     string value = "0";
-                    frmInputBox ib = new frmInputBox("Scegliere lo studente", MessagePrompt, value);
+                    frmInputBox ib = new frmInputBox(Loc.Get("ClassMgmt_Msg_ChooseStudent"), MessagePrompt, value);
+
                     DialogResult dr = ib.ShowDialog();
                     iValue = -1;
                     if (dr != DialogResult.Cancel)
@@ -218,9 +227,9 @@ namespace SchoolGrades
                 MessageBox.Show("Scegliere in 'Sigla classe' una classe da cancellare");
                 return;
             }
-            DialogResult res = MessageBox.Show("ATTENZIONE: eliminazione della classe " + CmbClasses.Text
-                + " dell'anno " + CmbSchoolYear.Text
-                + ". \r\nDevo eliminare solo la classe (Sì) o anche gli studenti (No)?\r\nScegliere 'Annulla' per non eliminare", "ATTENZIONE!",
+            DialogResult res = MessageBox.Show(
+                string.Format(Loc.Get("ClassMgmt_Msg_DeleteClassConfirm"), CmbClasses.Text, CmbSchoolYear.Text),
+                Loc.Get("Common_Warning"),
                 MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button3);
             if (res == DialogResult.Cancel)
                 return;
@@ -287,7 +296,7 @@ namespace SchoolGrades
                     }
                     catch (IOException)
                     {
-                        MessageBox.Show("Il file immagine è bloccato. Impossibile sostituirlo!\nProvare a cancellare prima la foto precedente.");
+                        MessageBox.Show(Loc.Get("ClassMgmt_Msg_FileLocked"));
                         return;
                     }
                     // loads the new photo in the picture box avoiding the locking of the origin file
@@ -300,7 +309,7 @@ namespace SchoolGrades
             }
             else
             {
-                MessageBox.Show("Scegliere un allievo cui cambiare la foto");
+                MessageBox.Show(Loc.Get("ClassMgmt_Msg_SelectForPhoto"));
             }
         }
         private void LoadPicture(Student StudentToLoad)
@@ -323,7 +332,7 @@ namespace SchoolGrades
         {
             if (CmbClasses.Text == "")
             {
-                MessageBox.Show("Scegliere una classe");
+                MessageBox.Show(Loc.Get("ClassMgmt_Msg_SelectClass"));
                 return;
             }
             frmStudent sf = new frmStudent(null, true);
@@ -336,21 +345,22 @@ namespace SchoolGrades
             }
             else
             {
-                MessageBox.Show("Studente non aggiunto alla classe \n(premere 'Scegli' nella finestra appena chiusa)");
+                MessageBox.Show(Loc.Get("ClassMgmt_Msg_StudentNotAdded"));
             }
         }
         private void btnStudentErase_Click(object sender, EventArgs e)
         {
             if (DgwStudents.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Selezionare nella griglia un allievo da cancellare");
+                MessageBox.Show(Loc.Get("ClassMgmt_Msg_SelectStudentInGrid"));
                 return;
             }
             string deletingStudent = (string)DgwStudents.SelectedRows[0].Cells["LastName"].Value +
                 " " + (string)DgwStudents.SelectedRows[0].Cells["FirstName"].Value;
-            if (MessageBox.Show("Devo eliminare l'allievo " + deletingStudent + "?" +
-                "\r\nL'allievo verrà solo eliminato dalla classe e mantenuto nel database",
-                "Conferma", MessageBoxButtons.YesNo)
+            if (MessageBox.Show(
+                string.Format(Loc.Get("ClassMgmt_Msg_DeleteStudentConfirm"), deletingStudent),
+                Loc.Get("Common_Confirm"),
+                MessageBoxButtons.YesNo)
                 == DialogResult.No)
                 return;
             int IdDeletingStudent = (int)DgwStudents.SelectedRows[0].Cells["IdStudent"].Value;
@@ -378,7 +388,7 @@ namespace SchoolGrades
         {
             if (DgwStudents.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Selezionare nella griglia un allievo di cui cambiare lo stato di attivazione");
+                MessageBox.Show(Loc.Get("ClassMgmt_Msg_SelectForToggle"));
                 return;
             }
             Student disablingStudent = studentsList[DgwStudents.SelectedCells[0].RowIndex];
@@ -388,13 +398,13 @@ namespace SchoolGrades
             string prompt = "Commutato lo stato di abilitazione dell'allievo " + disablingStudent;
             // !!!! dire in che stato è ora 
             // prompt += ".\nStato attuale: "
-            MessageBox.Show(prompt);
+            MessageBox.Show(string.Format(Loc.Get("ClassMgmt_Msg_StatusToggled"), disablingStudent));
         }
         private void btnModifyStudent_Click(object sender, EventArgs e)
         {
             if (DgwStudents.SelectedRows.Count < 1)
             {
-                MessageBox.Show("Selezionare lo studente da modificare");
+                MessageBox.Show(Loc.Get("ClassMgmt_Msg_SelectToModify"));
                 return;
             }
             Student s = (Student)DgwStudents.SelectedRows[0].DataBoundItem;
@@ -409,13 +419,13 @@ namespace SchoolGrades
         private void btnEndingPeriod_Click(object sender, EventArgs e)
         {
             // make a csv file with all grades and averages 
-            MessageBox.Show("TO DO!");
+            MessageBox.Show(Loc.Get("ClassMgmt_Msg_Todo"));
         }
         private void btnCreateEmailAddresses_Click(object sender, EventArgs e)
         {
             if (currentClass == null)
             {
-                MessageBox.Show("Scegliere la classe per cui generare gli indirizzi email");
+                MessageBox.Show(Loc.Get("ClassMgmt_Msg_SelectForEmails"));
                 return;
             }
             List<Student> list = Commons.bl.GetStudentsOfClassList((Class)CmbClasses.SelectedItem, false);
@@ -440,7 +450,7 @@ namespace SchoolGrades
                 CmbClasses.SelectedItem.ToString() + "_emails.txt";
             TextFile.StringToFile(nomeFile, file, false);
 
-            MessageBox.Show("Ho generato il file " + nomeFile);
+            MessageBox.Show(string.Format(Loc.Get("ClassMgmt_Msg_FileGenerated"), nomeFile));
         }
         private void DgwStudents_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -500,7 +510,7 @@ namespace SchoolGrades
         {
             if (DgwStudents.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Selezionere l'allievo del quale eliminare la foto");
+                MessageBox.Show(Loc.Get("ClassMgmt_Msg_SelectForDeletePhoto"));
                 return;
             }
             DataGridViewCell c = DgwStudents.SelectedRows[0].Cells["IdStudent"];
@@ -541,7 +551,7 @@ namespace SchoolGrades
         {
             if (currentClass == null)
             {
-                MessageBox.Show("Scegliere la classe per cui generare l'elenco su file");
+                MessageBox.Show(Loc.Get("ClassMgmt_Msg_SelectForList"));
                 return;
             }
             List<Student> list = Commons.bl.GetStudentsOfClassList((Class)CmbClasses.SelectedItem, false);
@@ -556,7 +566,7 @@ namespace SchoolGrades
                 CmbClasses.SelectedItem.ToString() + "_elenco.csv";
             TextFile.StringToFile(nomeFile, file, false);
 
-            MessageBox.Show("Ho generato il file " + nomeFile);
+            MessageBox.Show(string.Format(Loc.Get("ClassMgmt_Msg_ListGenerated"), nomeFile));
         }
         private void picStudent_Click(object sender, EventArgs e)
         {
@@ -594,8 +604,9 @@ namespace SchoolGrades
             //    TxtFileOfStudentsImport.Text + "?", "ATTENZIONE!",
             //    MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button3);
             //if (res == DialogResult.No)
-            var res = MessageBox.Show("Devo importare diverse classi dal file: " +
-                TxtFileOfStudentsImport.Text + "?", "ATTENZIONE!",
+            var res = MessageBox.Show(
+                string.Format(Loc.Get("ClassMgmt_Msg_ImportManyConfirm"), TxtFileOfStudentsImport.Text),
+                Loc.Get("Common_Warning"),
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button3);
             if (res == DialogResult.No)
             {
@@ -604,7 +615,9 @@ namespace SchoolGrades
             if (!File.Exists(TxtFileOfStudentsImport.Text) ||
                 TxtFileOfStudentsImport.Text.Substring(TxtFileOfStudentsImport.Text.Length - 1, 1) == "\\")
             {
-                MessageBox.Show("Il file \"" + TxtFileOfStudentsImport.Text + "\" non esiste!", "Avviso",
+                MessageBox.Show(
+                    string.Format(Loc.Get("ClassMgmt_Msg_FileNotExists"), TxtFileOfStudentsImport.Text),
+                    Loc.Get("Common_Warning"),
                     MessageBoxButtons.OK);
                 return;
             }
@@ -635,14 +648,15 @@ namespace SchoolGrades
                 }
                 Commons.bl.PutStudentInClass(s, idClass);
             }
-            MessageBox.Show("Importazione terminata");
+            MessageBox.Show(Loc.Get("ClassMgmt_Msg_ImportDone"));
             this.Close();
         }
         private void btnCreateNewClass_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Devo creare una nuova classe senza studenti '" + CmbClasses.Text +
-                "' nell'anno scolastico '" + CmbSchoolYear.Text + "'?",
-                "", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2)
+            if (MessageBox.Show(
+                string.Format(Loc.Get("ClassMgmt_Msg_CreateClassConfirm"), CmbClasses.Text, CmbSchoolYear.Text),
+                Loc.Get("Common_Confirm"),
+                MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2)
                 != DialogResult.Yes)
             {
                 return;
@@ -650,9 +664,10 @@ namespace SchoolGrades
             // check if the year exists, if it doesn't create it
             if (!Commons.bl.SchoolYearExists(CmbSchoolYear.Text))
             {
-                DialogResult d = MessageBox.Show("L'anno scolastico " + CmbSchoolYear.Text + " non esiste." +
-                    "\r\nDevo crearlo?",
-                    "Informazione", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
+                DialogResult d = MessageBox.Show(
+                        string.Format(Loc.Get("ClassMgmt_Msg_YearNotExists"), CmbSchoolYear.Text),
+                        Loc.Get("Common_Information"),
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
                 if (d != DialogResult.Yes) return;
                 SchoolYear s = new SchoolYear();
                 s.IdSchoolYear = CmbSchoolYear.Text;
@@ -663,21 +678,25 @@ namespace SchoolGrades
             // give warning to avoid modifying existing class instead of making a new one
             if (Commons.bl.GetClass(currentSchool.IdSchool, idSchoolYear, CmbClasses.Text).Abbreviation != null)
             {
-                MessageBox.Show("Esiste già una classe con il nome \"" + CmbClasses.Text + "\" in questa scuola ed in questo anno!", "Avviso",
+                MessageBox.Show(
+                    string.Format(Loc.Get("ClassMgmt_Msg_ClassExists"), CmbClasses.Text),
+                    Loc.Get("Common_Warning"),
                     MessageBoxButtons.OK);
                 return;
             }
             if (CmbClasses.Text == "")
             {
-                DialogResult d = MessageBox.Show("La sigla della classe è obbligatoria",
-                    "Informazione");
+                DialogResult d = MessageBox.Show(
+                    Loc.Get("ClassMgmt_Msg_AbbrevRequired"),
+                    Loc.Get("Common_Information"));
                 return;
             }
             if (CmbClasses.Text.Contains(" "))
             {
-                DialogResult d = MessageBox.Show("E' meglio non mettere spazi nella sigla della classe." +
-                    "\r\nDevo metterli lo stesso?",
-                    "Informazione", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
+                DialogResult d = MessageBox.Show(
+                    Loc.Get("ClassMgmt_Msg_NoSpaces"),
+                    Loc.Get("Common_Information"),
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
                 if (d != DialogResult.Yes) return;
             }
             Commons.bl.CreateClassIfNotExists(CmbClasses.Text, txtClassDescription.Text,
@@ -702,6 +721,98 @@ namespace SchoolGrades
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
+        }
+        private void LocalizeForm()
+        {
+            try
+            {
+                // Form Title
+                this.Text = Loc.Get("ClassMgmt_Title");
+
+                // Labels
+                label4.Text = Loc.Get("ClassMgmt_SchoolCode");
+                label7.Text = Loc.Get("ClassMgmt_SchoolYear");
+                label1.Text = Loc.Get("ClassMgmt_ClassAbbreviation");
+                label2.Text = Loc.Get("ClassMgmt_ClassDescription");
+                lblClassData.Text = Loc.Get("ClassMgmt_ClassData");
+                label12.Text = Loc.Get("ClassMgmt_StartLinksFolder");
+                label6.Text = Loc.Get("ClassMgmt_EmailPattern");
+                label11.Text = Loc.Get("ClassMgmt_EmailPattern");
+
+                // GroupBox
+                groupBox1.Text = Loc.Get("ClassMgmt_ImportGroup");
+                label5.Text = Loc.Get("ClassMgmt_ImportFile");
+                label9.Text = Loc.Get("ClassMgmt_PhotosFolder");
+
+                // RadioButtons
+                rdbDoNotImportPhotos.Text = Loc.Get("ClassMgmt_NoPhotos");
+                rdbStudentsPhotosAlreadyPresent.Text = Loc.Get("ClassMgmt_PhotosPresent");
+                rdbChooseStudentsPhotoWhileImporting.Text = Loc.Get("ClassMgmt_AskPhotos");
+
+                // Buttons - Gestione Classe
+                btnCreateNewClass.Text = Loc.Get("ClassMgmt_CreateClass");
+                btnImportStudentsOfOneClass.Text = Loc.Get("ClassMgmt_ImportOneClass");
+                btnImportStudentsOfSomeClasses.Text = Loc.Get("ClassMgmt_ImportManyClasses");
+                btnClassErase.Text = Loc.Get("ClassMgmt_DeleteClass");
+                btnPeriodsManagement.Text = Loc.Get("ClassMgmt_ManageYears");
+
+                // Buttons - Gestione Studenti
+                btnStudentNew.Text = Loc.Get("ClassMgmt_NewStudent");
+                BtnStudentErase.Text = Loc.Get("ClassMgmt_DeleteStudent");
+                BtnModifyStudent.Text = Loc.Get("ClassMgmt_ModifyStudent");
+                btnToggleDisableStudent.Text = Loc.Get("ClassMgmt_ToggleStudent");
+
+                // Buttons - Gestione Foto
+                BtnPhotoChange.Text = Loc.Get("ClassMgmt_ChangePhoto");
+                btnPhotoErase.Text = Loc.Get("ClassMgmt_DeletePhoto");
+                btnChoseAmogPastPhotos.Text = Loc.Get("ClassMgmt_FindOldPhotos");
+
+                // Buttons - Utilità
+                btnPutNumbers.Text = Loc.Get("ClassMgmt_PutNumbers");
+                btnMosaic.Text = Loc.Get("ClassMgmt_Mosaic");
+                btnEndingPeriod.Text = Loc.Get("ClassMgmt_EndPeriod");
+
+                // Buttons - Salvataggio
+                btnSaveClassData.Text = Loc.Get("ClassMgmt_SaveClassData");
+                btnSaveClassAndStudents.Text = Loc.Get("ClassMgmt_SaveAll");
+
+                // Buttons - Report
+                btnStudentsInfoList.Text = Loc.Get("ClassMgmt_StudentsList");
+                btnCreateEmailAddresses.Text = Loc.Get("ClassMgmt_GenerateEmails");
+
+                // Buttons - File Browser (mantengono "..")
+                // btnFileChoose, btnPathImages, btnPathStartLinks - non necessitano localizzazione
+
+                // ToolTips
+                toolTip1.SetToolTip(DgwClass, Loc.Get("ClassMgmt_Tip_EditF2"));
+                toolTip1.SetToolTip(btnSaveClassData, Loc.Get("ClassMgmt_Tip_SaveClassData"));
+                toolTip1.SetToolTip(BtnStudentErase, Loc.Get("ClassMgmt_Tip_DeleteStudent"));
+                toolTip1.SetToolTip(BtnModifyStudent, Loc.Get("ClassMgmt_Tip_ModifyStudent"));
+                toolTip1.SetToolTip(btnEndingPeriod, Loc.Get("ClassMgmt_Tip_EndPeriod"));
+                toolTip1.SetToolTip(TxtEmailGenerationPattern, Loc.Get("ClassMgmt_Tip_EmailPattern"));
+                toolTip1.SetToolTip(btnCreateEmailAddresses, Loc.Get("ClassMgmt_Tip_GenerateEmails"));
+                toolTip1.SetToolTip(btnImportStudentsOfOneClass, Loc.Get("ClassMgmt_Tip_ImportOne"));
+                toolTip1.SetToolTip(btnStudentsInfoList, Loc.Get("ClassMgmt_Tip_StudentsList"));
+                toolTip1.SetToolTip(btnPutNumbers, Loc.Get("ClassMgmt_Tip_PutNumbers"));
+                toolTip1.SetToolTip(btnClassErase, Loc.Get("ClassMgmt_Tip_DeleteClass"));
+                toolTip1.SetToolTip(rdbDoNotImportPhotos, Loc.Get("ClassMgmt_Tip_NoPhotos"));
+                toolTip1.SetToolTip(rdbStudentsPhotosAlreadyPresent, Loc.Get("ClassMgmt_Tip_PhotosPresent"));
+                toolTip1.SetToolTip(rdbChooseStudentsPhotoWhileImporting, Loc.Get("ClassMgmt_Tip_AskPhotos"));
+                toolTip1.SetToolTip(btnImportStudentsOfSomeClasses, Loc.Get("ClassMgmt_Tip_ImportMany"));
+                toolTip1.SetToolTip(btnCreateNewClass, Loc.Get("ClassMgmt_Tip_CreateClass"));
+                toolTip1.SetToolTip(BtnPhotoChange, Loc.Get("ClassMgmt_Tip_ChangePhoto"));
+                toolTip1.SetToolTip(btnPhotoErase, Loc.Get("ClassMgmt_Tip_DeletePhoto"));
+                toolTip1.SetToolTip(btnChoseAmogPastPhotos, Loc.Get("ClassMgmt_Tip_FindOldPhotos"));
+                toolTip1.SetToolTip(btnMosaic, Loc.Get("ClassMgmt_Tip_Mosaic"));
+                toolTip1.SetToolTip(DgwStudents, Loc.Get("ClassMgmt_Tip_DoubleClick"));
+                toolTip1.SetToolTip(TxtFileOfStudentsImport, Loc.Get("ClassMgmt_Tip_ImportFile"));
+                toolTip1.SetToolTip(TxtImagesOriginFolder, Loc.Get("ClassMgmt_Tip_PhotosFolder"));
+                toolTip1.SetToolTip(btnPeriodsManagement, Loc.Get("ClassMgmt_Tip_ManageYears"));
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"frmClassesManagement.LocalizeForm: {ex.Message}");
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using gamon;
 using gamon.TreeMptt;
 using SchoolGrades.BusinessObjects;
+using SchoolGrades.Localization;
 using System;
 using System.Drawing;
 using System.IO;
@@ -186,7 +187,7 @@ namespace SchoolGrades
         {
             if (GradeType == null)
             {
-                MessageBox.Show("Scegliere un tipo di valutazione", "Operazione non possibile",
+                MessageBox.Show(Loc.Get("Commons_SelectGradeType"), Loc.Get("Commons_OperationNotPossible"),
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
@@ -197,7 +198,7 @@ namespace SchoolGrades
             if (SchoolSubject == null)
             //if (cmbSchoolSubject.SelectedItem == null || cmbSchoolSubject.Text == "")
             {
-                MessageBox.Show("Scegliere una materia", "Operazione non possibile",
+                MessageBox.Show(Loc.Get("Commons_SelectSubject"), Loc.Get("Commons_OperationNotPossible"),
                 MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
@@ -208,7 +209,7 @@ namespace SchoolGrades
             // Commons.CurrentClass 
             if (CurrentClass == null)
             {
-                MessageBox.Show("Scegliere una classe", "Operazione non possibile",
+                MessageBox.Show(Loc.Get("Commons_SelectClass"), Loc.Get("Commons_OperationNotPossible"),
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
@@ -218,8 +219,8 @@ namespace SchoolGrades
         {
             if (CurrentStudent == null)
             {
-                MessageBox.Show("Scegliere un allievo"
-                    , "Operazione non possibile", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(Loc.Get("Commons_SelectStudent")
+                    , Loc.Get("Commons_OperationNotPossible"), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
             return true;
@@ -363,7 +364,7 @@ namespace SchoolGrades
 #else
                 TextFile.ArrayToFile(Commons.PathAndFileConfig, dati, false);
 #endif
-                MessageBox.Show("File di configurazione salvato in " + Commons.PathAndFileConfig);
+                MessageBox.Show(Loc.Get("Commons_ConfigSaved") + Commons.PathAndFileConfig);
             }
             catch (Exception e)
             {

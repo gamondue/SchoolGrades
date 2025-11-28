@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using SchoolGrades.Localization;
 
 namespace SchoolGrades
 {
@@ -31,7 +32,23 @@ namespace SchoolGrades
 
         private void frmRandom_Load(object sender, EventArgs e)
         {
+            // Initialize localization
+            LocalizeForm();
+        }
 
+        private void LocalizeForm()
+        {
+            try
+            {
+                this.Text = Loc.Get("Random_Title");
+                label1.Text = Loc.Get("Random_From");
+                label2.Text = Loc.Get("Random_To");
+                btnDraw.Text = Loc.Get("Random_Draw");
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"frmRandom.LocalizeForm: {ex.Message}");
+            }
         }
     }
 }

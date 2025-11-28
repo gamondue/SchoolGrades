@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SchoolGrades.BusinessObjects;
+using SchoolGrades.Localization;
 
 namespace SchoolGrades
 {
@@ -19,6 +20,9 @@ namespace SchoolGrades
         public frmAnswer()
         {
             InitializeComponent();
+
+            // Initialize localization
+            LocalizeForm();  // <-- AGGIUNGERE QUESTA RIGA
         }
         public frmAnswer(Answer Answer)
         {
@@ -70,7 +74,7 @@ namespace SchoolGrades
         {
             if (currentAnswer.IdQuestion == 0)
             {
-                MessageBox.Show("Salvare prima il testo della domanda");
+                MessageBox.Show(Loc.Get("Answer_SaveQuestionFirst"));
                 return; 
             }
             if (currentAnswer.IdAnswer == 0)
@@ -90,6 +94,25 @@ namespace SchoolGrades
             // id I close without having saved, I don't save! 
             // to signal the calling program tha it has'nt to save, I put 0 in the answer code
             currentAnswer.IdAnswer = 0;
+        }
+        private void LocalizeForm()
+        {
+            try
+            {
+                this.Text = Loc.Get("Answer_Title");
+
+                // RadioButtons
+                rdbIsOpenAnswer.Text = Loc.Get("Answer_IsOpenAnswer");
+                rdbIsCorrect.Text = Loc.Get("Answer_IsCorrect");
+
+                // Buttons
+                btnSave.Text = Loc.Get("Answer_Save");
+                btnChoose.Text = Loc.Get("Answer_Choose");
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"frmAnswer.LocalizeForm: {ex.Message}");
+            }
         }
     }
 }

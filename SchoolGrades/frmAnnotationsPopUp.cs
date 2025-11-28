@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using SchoolGrades.Localization;
 
 namespace SchoolGrades
 {
@@ -22,6 +23,9 @@ namespace SchoolGrades
         private void frmAnnotationsPopUp_Load(object sender, EventArgs e)
         {
             dgwStudentsAllPopUpAnnotations.DataSource = listOfActivePopUpAnnotations;
+
+            // Initialize localization
+            LocalizeForm();
         }
         private void lblCurrentStudent_Click(object sender, EventArgs e)
         {
@@ -62,8 +66,19 @@ namespace SchoolGrades
                 }
                 else
                 {
-                    MessageBox.Show("Scegliere un'annotazione da modificare");
+                    MessageBox.Show(Loc.Get("Annotations_SelectToModify"));
                 }
+            }
+        }
+        private void LocalizeForm()
+        {
+            try
+            {
+                this.Text = Loc.Get("AnnotationsPopUp_Title");
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"frmAnnotationsPopUp.LocalizeForm: {ex.Message}");
             }
         }
     }
