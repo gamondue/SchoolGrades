@@ -5,6 +5,8 @@ using System.ComponentModel;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
+using SchoolGrades.Localization;
+using System.Linq;
 
 namespace SchoolGrades
 {
@@ -13,6 +15,7 @@ namespace SchoolGrades
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool NewDatabaseFile { get; private set; }
 
+        private bool _languageChanged = false;
         public frmSetup()
         {
             InitializeComponent();
@@ -23,10 +26,75 @@ namespace SchoolGrades
             TxtPathDatabase.Text = Commons.PathDatabase;
             TxtFileDatabase.Text = Path.GetFileName(Commons.PathAndFileDatabase);
             TxtPathImages.Text = Commons.PathImages;
-            //TxtPathStartLinks.Text = Commons.PathStartLinks; // not longer used
-
             TxtPathDocuments.Text = Commons.PathDocuments;
             chkSaveBackup.Checked = Commons.SaveBackupWhenExiting;
+
+            // Initialize language combo
+            InitializeLanguageCombo();
+
+            // Localize UI elements
+            LocalizeForm();
+        }
+
+        private void LocalizeForm()
+        {
+            try
+            {
+                // Form title
+                this.Text = Loc.Get("Setup_Title");
+
+                // Buttons
+                btnClassesManagement.Text = Loc.Get("Setup_ClassesManagement");
+                btnBackupManagement.Text = Loc.Get("Setup_BackupManagement");
+                btnStudentsManagement.Text = Loc.Get("Setup_StudentsManagement");
+                btnTopicsManagement.Text = Loc.Get("Setup_TopicsManagement");
+                btnTagsManagement.Text = Loc.Get("Setup_TagsManagement");
+                btnStartLinksManagenet.Text = Loc.Get("Setup_StartLinksManagement");
+                btnSchoolSubjectManagement.Text = Loc.Get("Setup_SchoolSubjectManagement");
+                btnSchoolPeriodsManagement.Text = Loc.Get("Setup_SchoolPeriodsManagement");
+                btnRecoverTopics.Text = Loc.Get("Setup_RecoverTopics");
+                btnUsersManagement.Text = Loc.Get("Setup_UsersManagement");
+                btnQuestionManagement.Text = Loc.Get("Setup_QuestionManagement");
+                btnTestManagement.Text = Loc.Get("Setup_TestManagement");
+                btnTablesManagement.Text = Loc.Get("Setup_TablesManagement");
+                btnSaveConfigurationFile.Text = Loc.Get("Setup_SaveConfig");
+                btnOpenConfigurationFolder.Text = Loc.Get("Setup_OpenConfigFolder");
+                btnEraseConfigurationFile.Text = Loc.Get("Setup_EraseConfig");
+                BtnUseDemo.Text = Loc.Get("Setup_UseDemo");
+                btnResetDatabase.Text = Loc.Get("Setup_ResetDatabase");
+
+                // Labels
+                lblPathDatabase.Text = Loc.Get("Setup_DatabasePath");
+                lblFileDatabase.Text = Loc.Get("Setup_DatabaseFile");
+                lblPathImages.Text = Loc.Get("Setup_ImagesPath");
+                lblPathDocuments.Text = Loc.Get("Setup_DocumentsPath");
+                lblLanguage.Text = Loc.Get("Setup_Language");
+
+                // Checkboxes
+                chkAskPassword.Text = Loc.Get("Setup_AskPassword");
+                chkSaveBackup.Text = Loc.Get("Setup_SaveBackupOnExit");
+
+                // Tooltips
+                toolTip1.SetToolTip(btnClassesManagement, Loc.Get("Setup_Tooltip_ClassesManagement"));
+                toolTip1.SetToolTip(btnBackupManagement, Loc.Get("Setup_Tooltip_BackupManagement"));
+                toolTip1.SetToolTip(btnStudentsManagement, Loc.Get("Setup_Tooltip_StudentsManagement"));
+                toolTip1.SetToolTip(btnTopicsManagement, Loc.Get("Setup_Tooltip_TopicsManagement"));
+                toolTip1.SetToolTip(btnTagsManagement, Loc.Get("Setup_Tooltip_TagsManagement"));
+                toolTip1.SetToolTip(btnStartLinksManagenet, Loc.Get("Setup_Tooltip_StartLinksManagement"));
+                toolTip1.SetToolTip(btnRecoverTopics, Loc.Get("Setup_Tooltip_RecoverTopics"));
+                toolTip1.SetToolTip(btnUsersManagement, Loc.Get("Setup_Tooltip_UsersManagement"));
+                toolTip1.SetToolTip(btnQuestionManagement, Loc.Get("Setup_Tooltip_QuestionManagement"));
+                toolTip1.SetToolTip(btnTestManagement, Loc.Get("Setup_Tooltip_TestManagement"));
+                toolTip1.SetToolTip(btnTablesManagement, Loc.Get("Setup_Tooltip_TablesManagement"));
+                toolTip1.SetToolTip(chkAskPassword, Loc.Get("Setup_Tooltip_AskPassword"));
+                toolTip1.SetToolTip(chkSaveBackup, Loc.Get("Setup_Tooltip_SaveBackupOnExit"));
+                toolTip1.SetToolTip(cmbLanguage, Loc.Get("Setup_Tooltip_Language"));
+                toolTip1.SetToolTip(btnSchoolPeriodsManagement, Loc.Get("Setup_Tooltip_SchoolPeriodsManagement"));
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"frmSetup.LocalizeForm: Error in localization: {ex.Message}");
+            }
         }
         private void btnTablesManagement_Click(object sender, EventArgs e)
         {
@@ -76,10 +144,8 @@ namespace SchoolGrades
                 Commons.BackgroundTaskClose = true;
 
                 // 2. Attendi che i thread in background terminino effettivamente.
-                // Questo previene la modifica dei dati mentre sono in uso.
-                // Il timeout è una sicurezza per evitare blocchi indefiniti.
                 int waitCycles = 0;
-                while (Commons.BackgroundThreadIsSaving && waitCycles < 10) // Attendi max 5 secondi
+                while (Commons.BackgroundThreadIsSaving && waitCycles < 10)
                 {
                     Thread.Sleep(500);
                     waitCycles++;
@@ -100,23 +166,23 @@ namespace SchoolGrades
                 TextFile.ArrayToFile(Commons.PathAndFileConfig, dati, false);
 #endif
 
-                MessageBox.Show("File di configurazione salvato.\n\nIl programma verrà riavviato per applicare le modifiche.",
-                                "Configurazione salvata", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Loc.Get("Setup_ConfigSaved"),
+                                Loc.Get("Setup_ConfigSavedTitle"), 
+                                MessageBoxButtons.OK, 
+                                MessageBoxIcon.Information);
 
-                // 4. Usa Application.Restart() per una chiusura e un riavvio più puliti
-                // invece di Application.Exit(). Questo dà al programma la possibilità
-                // di finalizzare le operazioni in modo più ordinato.
                 NewDatabaseFile = true;
                 Application.Restart();
-                Environment.Exit(0); // Assicura la chiusura completa dopo il riavvio
+                Environment.Exit(0);
             }
             catch (Exception e)
             {
                 string err = "WriteConfigFile(): " + e.Message;
                 Commons.ErrorLog(err);
-                // Non rilanciare l'eccezione qui, ma mostrala all'utente
-                MessageBox.Show("Si è verificato un errore durante il salvataggio della configurazione:\n" + err,
-                                "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Loc.Get("Setup_ConfigError") + "\n" + err,
+                                Loc.Get("Common_Error"), 
+                                MessageBoxButtons.OK, 
+                                MessageBoxIcon.Error);
             }
         }
         private void btnPathQuestions_Click(object sender, EventArgs e)
@@ -214,7 +280,7 @@ namespace SchoolGrades
         }
         private void btnUsersManagement_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Form da completare!");
+            MessageBox.Show(Loc.Get("Setup_FormToComplete"));
             frmUsersManagement f = new frmUsersManagement();
             f.Show();
         }
@@ -225,9 +291,11 @@ namespace SchoolGrades
         }
         private void btnResetDatabase_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("ATTENZIONE: devo cancellare TUTTO il database?\n(Tutti i dati verranno persi!)",
-                "CANCELLAZIONE", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
-                == DialogResult.Yes)
+            if (MessageBox.Show(Loc.Get("Setup_ResetDatabaseConfirm"),
+                Loc.Get("Setup_ResetDatabaseTitle"), 
+                MessageBoxButtons.YesNo, 
+                MessageBoxIcon.Warning, 
+                MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 Commons.bl.PurgeDatabase();
             }
@@ -241,6 +309,79 @@ namespace SchoolGrades
         {
             string PathFileDatabase = Path.Combine(TxtPathDatabase.Text, ((TextBox)sender).Text);
             Commons.ProcessStartLink(PathFileDatabase);
+        }
+        private void InitializeLanguageCombo()
+        {
+            // Popola combo lingue usando il controllo già presente nel Designer
+            var combo = cmbLanguage;
+            
+            // IMPORTANTE: Prima di impostare DataSource, rimuovi l'event handler
+            combo.SelectedIndexChanged -= cmbLanguage_SelectedIndexChanged;
+
+            // Popola combo lingue
+            var languages = LocalizationManager.SupportedLanguages
+                .Select(kvp => new { Code = kvp.Key, Name = kvp.Value })
+                .ToList();
+
+            combo.DataSource = languages;
+            combo.DisplayMember = "Name";
+            combo.ValueMember = "Code";
+            
+            // Trova l'indice corretto invece di usare SelectedValue
+            var currentLang = LocalizationManager.CurrentLanguage;
+            for (int i = 0; i < languages.Count; i++)
+            {
+                if (languages[i].Code == currentLang)
+                {
+                    combo.SelectedIndex = i;
+                    break;
+                }
+            }
+            
+            // Ri-aggiungi l'event handler DOPO aver impostato la selezione
+            combo.SelectedIndexChanged += cmbLanguage_SelectedIndexChanged;
+            
+            // Imposta il testo della label con la localizzazione
+            lblLanguage.Text = Loc.Get("Setup_Language");
+        }
+        private void cmbLanguage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var combo = sender as ComboBox;
+            if (combo?.SelectedValue == null)
+                return;
+
+            string selectedLanguage = combo.SelectedValue.ToString();
+            
+            // Log per debug
+            Commons.ErrorLog($"cmbLanguage_SelectedIndexChanged: Selected language = '{selectedLanguage}', Current = '{LocalizationManager.CurrentLanguage}'");
+
+            if (selectedLanguage != LocalizationManager.CurrentLanguage)
+            {
+                try
+                {
+                    LocalizedMessageBox.ShowInformation("Messages_LanguageChangedRestart");
+                    LocalizationManager.ChangeLanguage(selectedLanguage);
+                    _languageChanged = true;
+                }
+                catch (Exception ex)
+                {
+                    Commons.ErrorLog($"cmbLanguage_SelectedIndexChanged: Error changing language: {ex.Message}");
+                    MessageBox.Show(Loc.Get("Setup_ConfigError") + " " + ex.Message, 
+                        Loc.Get("Common_Error"), 
+                        MessageBoxButtons.OK, 
+                        MessageBoxIcon.Error);
+                }
+            }
+        }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            if (_languageChanged)
+            {
+                Application.Restart();
+                Environment.Exit(0);
+            }
         }
     }
 }

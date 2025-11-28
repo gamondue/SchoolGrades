@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Common_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Common_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Common_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Common_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Common_Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Common_No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Setup_Title" xml:space="preserve">
+    <value>Setup</value>
+  </data>
+  <data name="Setup_Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Setup_SaveConfiguration" xml:space="preserve">
+    <value>Save configuration</value>
+  </data>
+  <data name="Messages_Information" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="Messages_LanguageChangedRestart" xml:space="preserve">
+    <value>Language has been changed.
+The application will restart to apply changes.</value>
+  </data>
+  <data name="Setup_ClassesManagement" xml:space="preserve">
+    <value>Classes Manag.</value>
+  </data>
+  <data name="Setup_BackupManagement" xml:space="preserve">
+    <value>Backup &amp; Files</value>
+  </data>
+  <data name="Setup_StudentsManagement" xml:space="preserve">
+    <value>Students Manag.</value>
+  </data>
+  <data name="Setup_TopicsManagement" xml:space="preserve">
+    <value>Topics Manag.</value>
+  </data>
+  <data name="Setup_TagsManagement" xml:space="preserve">
+    <value>Tags Manag.</value>
+  </data>
+  <data name="Setup_StartLinksManagement" xml:space="preserve">
+    <value>Start Links</value>
+  </data>
+  <data name="Setup_SchoolSubjectManagement" xml:space="preserve">
+    <value>Subjects Manag.</value>
+  </data>
+  <data name="Setup_SchoolPeriodsManagement" xml:space="preserve">
+    <value>Periods Manag.</value>
+  </data>
+  <data name="Setup_RecoverTopics" xml:space="preserve">
+    <value>Recover Topics</value>
+  </data>
+  <data name="Setup_UsersManagement" xml:space="preserve">
+    <value>Users Manag.</value>
+  </data>
+  <data name="Setup_QuestionManagement" xml:space="preserve">
+    <value>Questions Man.</value>
+  </data>
+  <data name="Setup_TestManagement" xml:space="preserve">
+    <value>Tests Manag.</value>
+  </data>
+  <data name="Setup_TablesManagement" xml:space="preserve">
+    <value>Tables Manag.</value>
+  </data>
+  <data name="Setup_SaveConfig" xml:space="preserve">
+    <value>Save config.</value>
+  </data>
+  <data name="Setup_OpenConfigFolder" xml:space="preserve">
+    <value>Config folder</value>
+  </data>
+  <data name="Setup_EraseConfig" xml:space="preserve">
+    <value>Delete config.</value>
+  </data>
+  <data name="Setup_UseDemo" xml:space="preserve">
+    <value>Use demo</value>
+  </data>
+  <data name="Setup_ResetDatabase" xml:space="preserve">
+    <value>Reset database</value>
+  </data>
+  <data name="Setup_DatabasePath" xml:space="preserve">
+    <value>Data folder</value>
+  </data>
+  <data name="Setup_DatabaseFile" xml:space="preserve">
+    <value>Data file</value>
+  </data>
+  <data name="Setup_ImagesPath" xml:space="preserve">
+    <value>Images folder</value>
+  </data>
+  <data name="Setup_DocumentsPath" xml:space="preserve">
+    <value>Documents folder</value>
+  </data>
+  <data name="Setup_AskPassword" xml:space="preserve">
+    <value>Ask for password</value>
+  </data>
+  <data name="Setup_SaveBackupOnExit" xml:space="preserve">
+    <value>Save database on exit</value>
+  </data>
+  <data name="Setup_Tooltip_ClassesManagement" xml:space="preserve">
+    <value>Create and modify classes</value>
+  </data>
+  <data name="Setup_Tooltip_BackupManagement" xml:space="preserve">
+    <value>Generate files and backup saves</value>
+  </data>
+  <data name="Setup_Tooltip_StudentsManagement" xml:space="preserve">
+    <value>Students Manag.</value>
+  </data>
+  <data name="Setup_Tooltip_TopicsManagement" xml:space="preserve">
+    <value>Manage the topics tree</value>
+  </data>
+  <data name="Setup_Tooltip_TagsManagement" xml:space="preserve">
+    <value>Manage tags associated with topics</value>
+  </data>
+  <data name="Setup_Tooltip_StartLinksManagement" xml:space="preserve">
+    <value>Manage links and programs launched when opening a class</value>
+  </data>
+  <data name="Setup_Tooltip_RecoverTopics" xml:space="preserve">
+    <value>Compare versions of the topics tree (to be completed)</value>
+  </data>
+  <data name="Setup_Tooltip_UsersManagement" xml:space="preserve">
+    <value>TODO!</value>
+  </data>
+  <data name="Setup_Tooltip_QuestionManagement" xml:space="preserve">
+    <value>Questions management</value>
+  </data>
+  <data name="Setup_Tooltip_TestManagement" xml:space="preserve">
+    <value>Tests management (to be completed and checked!)</value>
+  </data>
+  <data name="Setup_Tooltip_TablesManagement" xml:space="preserve">
+    <value>Modify static data tables</value>
+  </data>
+  <data name="Setup_Tooltip_AskPassword" xml:space="preserve">
+    <value>If enabled, the program asks for a password to enter</value>
+  </data>
+  <data name="Setup_Tooltip_SaveBackupOnExit" xml:space="preserve">
+    <value>If enabled, the program saves a database backup on exit</value>
+  </data>
+  <data name="Setup_Tooltip_Language" xml:space="preserve">
+    <value>Select the interface language</value>
+  </data>
+  <data name="Setup_Tooltip_SchoolPeriodsManagement" xml:space="preserve">
+    <value>Manage school periods (trimesters, quarters..)</value>
+  </data>
+  <data name="Setup_ConfigSaved" xml:space="preserve">
+    <value>Configuration file saved.
+
+The application will restart to apply changes.</value>
+  </data>
+  <data name="Setup_ConfigSavedTitle" xml:space="preserve">
+    <value>Configuration saved</value>
+  </data>
+  <data name="Setup_ConfigError" xml:space="preserve">
+    <value>An error occurred while saving the configuration:</value>
+  </data>
+  <data name="Setup_ResetDatabaseConfirm" xml:space="preserve">
+    <value>WARNING: Do you want to delete the ENTIRE database?
+(All data will be lost!)</value>
+  </data>
+  <data name="Setup_ResetDatabaseTitle" xml:space="preserve">
+    <value>DELETION</value>
+  </data>
+  <data name="Setup_FormToComplete" xml:space="preserve">
+    <value>Form to be completed!</value>
+  </data>
+  <data name="Common_Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Common_Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <!-- frmMain - Buttons principali -->
+  <data name="Main_Draw" xml:space="preserve">
+  <value>Draw or Sort</value>
+</data>
+  <data name="Main_ComeOn" xml:space="preserve">
+  <value>Forced</value>
+</data>
+  <data name="Main_Setup" xml:space="preserve">
+  <value>Setup</value>
+</data>
+  <data name="Main_Assess" xml:space="preserve">
+  <value>Assess</value>
+</data>
+  <data name="Main_CheckAll" xml:space="preserve">
+  <value>X all</value>
+</data>
+  <data name="Main_CheckNone" xml:space="preserve">
+  <value>X none</value>
+</data>
+  <data name="Main_CheckToggle" xml:space="preserve">
+  <value>toggle X</value>
+</data>
+  <data name="Main_CheckNoGrade" xml:space="preserve">
+  <value> X no grades</value>
+</data>
+  <data name="Main_CheckRevenge" xml:space="preserve">
+  <value>X revenge</value>
+</data>
+  <data name="Main_OldestGrade" xml:space="preserve">
+  <value>Oldest grade</value>
+</data>
+  <data name="Main_StudentGradesSummary" xml:space="preserve">
+  <value>Student grades</value>
+</data>
+  <data name="Main_ClassGradesSummary" xml:space="preserve">
+  <value>Class grades</value>
+</data>
+  <data name="Main_Lessons" xml:space="preserve">
+  <value>Lessons</value>
+</data>
+  <data name="Main_TopicsDone" xml:space="preserve">
+  <value>Topics done</value>
+</data>
+  <data name="Main_YearTopics" xml:space="preserve">
+  <value>Year topics file</value>
+</data>
+  <data name="Main_StartLinks" xml:space="preserve">
+  <value>Start links</value>
+</data>
+  <data name="Main_Question" xml:space="preserve">
+  <value>Choose question</value>
+</data>
+  <data name="Main_MakeGroups" xml:space="preserve">
+  <value>Groups</value>
+</data>
+  <data name="Main_LessonTime" xml:space="preserve">
+  <value>Lesson start</value>
+</data>
+  <data name="Main_RevengeFactorPlus" xml:space="preserve">
+  <value>RF++</value>
+</data>
+  <data name="Main_RevengeFactorMinus" xml:space="preserve">
+  <value>RF--</value>
+</data>
+  <data name="Main_ShowRandomImage" xml:space="preserve">
+  <value>Random image</value>
+</data>
+  <data name="Main_StartColorTimer" xml:space="preserve">
+  <value>Color T.</value>
+</data>
+  <data name="Main_StartBarTimer" xml:space="preserve">
+  <value>Bar T.</value>
+</data>
+  <data name="Main_Mosaic" xml:space="preserve">
+  <value>Mosaic</value>
+</data>
+  <data name="Main_StudentsNotes" xml:space="preserve">
+  <value>Notes</value>
+</data>
+  <data name="Main_RandomNumber" xml:space="preserve">
+  <value>Random number</value>
+</data>
+
+  <!-- frmMain - Labels -->
+  <data name="Main_SchoolSubject" xml:space="preserve">
+  <value>Subject</value>
+</data>
+  <data name="Main_GradeType" xml:space="preserve">
+  <value>Grade type</value>
+</data>
+  <data name="Main_Student" xml:space="preserve">
+  <value>Student</value>
+</data>
+  <data name="Main_RevengeFactorLabel" xml:space="preserve">
+  <value>R.F.</value>
+</data>
+  <data name="Main_MinuteStart" xml:space="preserve">
+  <value>Start minute</value>
+</data>
+  <data name="Main_MinutesDuration" xml:space="preserve">
+  <value>Duration minutes</value>
+</data>
+  <data name="Main_AdvanceMinutes" xml:space="preserve">
+  <value>Advance minutes</value>
+</data>
+  <data name="Main_NumberOfStudents" xml:space="preserve">
+  <value>n.Students</value>
+</data>
+  <data name="Main_SchoolYearCode" xml:space="preserve">
+  <value>Year Code</value>
+</data>
+  <data name="Main_IdStudent" xml:space="preserve">
+  <value>Student Id</value>
+</data>
+  <data name="Main_IdClass" xml:space="preserve">
+  <value>Class Id</value>
+</data>
+
+  <!-- frmMain - Checkboxes -->
+  <data name="Main_NameIsVisible" xml:space="preserve">
+  <value>Name visible</value>
+</data>
+  <data name="Main_PhotoVisible" xml:space="preserve">
+  <value>Photo visible</value>
+</data>
+  <data name="Main_StudentsListVisible" xml:space="preserve">
+  <value>List visible</value>
+</data>
+  <data name="Main_Suspence" xml:space="preserve">
+  <value>suspense</value>
+</data>
+  <data name="Main_ActivateLessonClock" xml:space="preserve">
+  <value>Lesson clock </value>
+</data>
+  <data name="Main_EnableEndLessonWarning" xml:space="preserve">
+  <value>End lesson warning</value>
+</data>
+  <data name="Main_PopUpQuestionsEnabled" xml:space="preserve">
+  <value>"Pop up" questions</value>
+</data>
+  <data name="Main_SoundsInColorTimer" xml:space="preserve">
+  <value>Sounds</value>
+</data>
+  <data name="Main_LessonsPictures" xml:space="preserve">
+  <value>lessons</value>
+</data>
+  <data name="Main_GivenFolder" xml:space="preserve">
+  <value>folder</value>
+</data>
+
+  <!-- frmMain - GroupBoxes -->
+  <data name="Main_SortsGroup" xml:space="preserve">
+  <value>Draw or sort criteria</value>
+</data>
+  <data name="Main_ImageSourceGroup" xml:space="preserve">
+  <value>Img.source</value>
+</data>
+
+  <!-- frmMain - RadioButtons -->
+  <data name="Main_EqualProbability" xml:space="preserve">
+  <value>Equal probability</value>
+</data>
+  <data name="Main_WeightsSum" xml:space="preserve">
+  <value>Total grades weight</value>
+</data>
+  <data name="Main_NoOfGrades" xml:space="preserve">
+  <value>Number of grades</value>
+</data>
+  <data name="Main_Alphabetical" xml:space="preserve">
+  <value>Alphabetical</value>
+</data>
+  <data name="Main_LowGradesFirst" xml:space="preserve">
+  <value>Low grades first</value>
+</data>
+  <data name="Main_OldestFirst" xml:space="preserve">
+  <value>Oldest grades first</value>
+</data>
+  <data name="Main_RevengeFactor" xml:space="preserve">
+  <value>Terrible revenge</value>
+</data>
+  <data name="Main_MustDraw" xml:space="preserve">
+  <value>Draw</value>
+</data>
+  <data name="Main_MustSort" xml:space="preserve">
+  <value>Sort</value>
+</data>
+
+  <!-- frmMain - Tooltips -->
+  <data name="Main_Tooltip_Draw" xml:space="preserve">
+  <value>Performs sorting or drawing</value>
+</data>
+  <data name="Main_Tooltip_ComeOn" xml:space="preserve">
+  <value>Choose the next student in the list</value>
+</data>
+  <data name="Main_Tooltip_CheckNone" xml:space="preserve">
+  <value>Check no students</value>
+</data>
+  <data name="Main_Tooltip_CheckAll" xml:space="preserve">
+  <value>Check all students</value>
+</data>
+  <data name="Main_Tooltip_CheckToggle" xml:space="preserve">
+  <value>Toggle check for all students</value>
+</data>
+  <data name="Main_Tooltip_CheckRevenge" xml:space="preserve">
+  <value>Revenge factor for checked students</value>
+</data>
+  <data name="Main_Tooltip_CheckNoGrade" xml:space="preserve">
+  <value>Check students with no grades</value>
+</data>
+  <data name="Main_Tooltip_ClassesList" xml:space="preserve">
+  <value>Classes for the selected school year</value>
+</data>
+  <data name="Main_Tooltip_TimeProgressBar" xml:space="preserve">
+  <value>Answer time bar. Click to start the timer.</value>
+</data>
+  <data name="Main_Tooltip_NameIsVisible" xml:space="preserve">
+  <value>Show student's name</value>
+</data>
+  <data name="Main_Tooltip_PhotoVisible" xml:space="preserve">
+  <value>Show student's photo</value>
+</data>
+  <data name="Main_Tooltip_StudentsListVisible" xml:space="preserve">
+  <value>Show class students list</value>
+</data>
+  <data name="Main_Tooltip_SchoolYear" xml:space="preserve">
+  <value>School years with classes</value>
+</data>
+  <data name="Main_Tooltip_ImagesPath" xml:space="preserve">
+  <value>Folder to find random image (click to open a file in the folder) </value>
+</data>
+  <data name="Main_Tooltip_PathButton" xml:space="preserve">
+  <value>Choose images folder</value>
+</data>
+  <data name="Main_Tooltip_ShowRandomImage" xml:space="preserve">
+  <value>Display a random image from the folder on the side</value>
+</data>
+  <data name="Main_Tooltip_Setup" xml:space="preserve">
+  <value>Configuration options window</value>
+</data>
+  <data name="Main_Tooltip_StudentGradesSummary" xml:space="preserve">
+  <value>Summary window of grades and notes on the current student</value>
+</data>
+  <data name="Main_Tooltip_OldestGrade" xml:space="preserve">
+  <value>Choose the student with the oldest grade</value>
+</data>
+  <data name="Main_Tooltip_GradeType" xml:space="preserve">
+  <value>Choose the grade type</value>
+</data>
+  <data name="Main_Tooltip_Lessons" xml:space="preserve">
+  <value>Lessons management window for the selected subject</value>
+</data>
+  <data name="Main_Tooltip_SchoolSubject" xml:space="preserve">
+  <value>Choose subject</value>
+</data>
+  <data name="Main_Tooltip_TopicsDone" xml:space="preserve">
+  <value>Open search page for topics already explained in the syllabus</value>
+</data>
+  <data name="Main_Tooltip_StartLinks" xml:space="preserve">
+  <value>Launch links and programs related to the class</value>
+</data>
+  <data name="Main_Tooltip_Question" xml:space="preserve">
+  <value>Choose "default" question to ask everyone</value>
+</data>
+  <data name="Main_Tooltip_QuestionText" xml:space="preserve">
+  <value>Current question text</value>
+</data>
+  <data name="Main_Tooltip_MakeGroups" xml:space="preserve">
+  <value>Form groups</value>
+</data>
+  <data name="Main_Tooltip_LessonTime" xml:space="preserve">
+  <value>Coloring based on time left until end of lesson</value>
+</data>
+  <data name="Main_Tooltip_RevengeFactorPlus" xml:space="preserve">
+  <value>Increase revenge factor</value>
+</data>
+  <data name="Main_Tooltip_RevengeFactorMinus" xml:space="preserve">
+  <value>Decrease revenge factor</value>
+</data>
+  <data name="Main_Tooltip_Suspence" xml:space="preserve">
+  <value>Wait a bit before drawing, playing music</value>
+</data>
+  <data name="Main_Tooltip_ClassGradesSummary" xml:space="preserve">
+  <value>Summary window of the current class grades</value>
+</data>
+  <data name="Main_Tooltip_YearTopics" xml:space="preserve">
+  <value>Create a file with all topics covered in the school year</value>
+</data>
+  <data name="Main_Tooltip_ActivateLessonClock" xml:space="preserve">
+  <value>Enable color clock for lesson button</value>
+</data>
+  <data name="Main_Tooltip_StudentsNotes" xml:space="preserve">
+  <value>Window to assign group notes</value>
+</data>
+  <data name="Main_Tooltip_RandomNumber" xml:space="preserve">
+  <value>Display a random image from the folder below</value>
+</data>
+
+  <!-- frmMain - RadioButtons tooltips -->
+  <data name="Main_Tooltip_EqualProbability" xml:space="preserve">
+  <value>Draw with equal probability for each student</value>
+</data>
+  <data name="Main_Tooltip_WeightsSum" xml:space="preserve">
+  <value>Sort by total weight of selected grade type</value>
+</data>
+  <data name="Main_Tooltip_NoOfGrades" xml:space="preserve">
+  <value>Sort by number of grades of selected type</value>
+</data>
+  <data name="Main_Tooltip_OldestFirst" xml:space="preserve">
+  <value>Sort with oldest grades of selected type first</value>
+</data>
+  <data name="Main_Tooltip_Alphabetical" xml:space="preserve">
+  <value>Alphabetical sort</value>
+</data>
+  <data name="Main_Tooltip_LowGradesFirst" xml:space="preserve">
+  <value>Sort by decreasing grade</value>
+</data>
+  <data name="Main_Tooltip_RevengeFactor" xml:space="preserve">
+  <value>Draw with higher probability for higher revenge factors</value>
+</data>
+  <data name="Main_Tooltip_LessonsPictures" xml:space="preserve">
+  <value>Draw from images shown during lessons</value>
+</data>
+  <data name="Main_Tooltip_GivenFolder" xml:space="preserve">
+  <value>Draw from images in the given folder</value>
+</data>
+  <data name="Main_Tooltip_SoundsInColorTimer" xml:space="preserve">
+  <value>Play sounds in the color timer</value>
+</data>
+  <data name="Main_Tooltip_Mosaic" xml:space="preserve">
+  <value>Display all class photos</value>
+</data>
+  <data name="Main_Tooltip_StartColorTimer" xml:space="preserve">
+  <value>Start a color timer</value>
+</data>
+  <data name="Main_Tooltip_StartBarTimer" xml:space="preserve">
+  <value>Start a bar timer</value>
+</data>
+
+  <!-- frmMain - Messages -->
+  <data name="Main_NoStudentPresent" xml:space="preserve">
+  <value>No students present?</value>
+</data>
+  <data name="Main_DrawDone" xml:space="preserve">
+  <value>Draw or sort completed!</value>
+</data>
+  <data name="Main_SelectClass" xml:space="preserve">
+  <value>Select a class</value>
+</data>
+  <data name="Main_SelectGradeType" xml:space="preserve">
+  <value>Select a grade type</value>
+</data>
+  <data name="Main_SelectStudent" xml:space="preserve">
+  <value>Select a student to assess</value>
+</data>
+  <data name="Main_SelectSubject" xml:space="preserve">
+  <value>Select a subject</value>
+</data>
+  <data name="Main_WrongGradeType" xml:space="preserve">
+  <value>The selected grade type cannot be averaged.
+Select a correct grade type</value>
+</data>
+  <data name="Main_ListFinished" xml:space="preserve">
+  <value>List finished: draw again</value>
+</data>
+  <data name="Main_NoDrawNoPresent" xml:space="preserve">
+  <value>No draw or no one present! </value>
+</data>
+  <data name="Main_ConfigSaved" xml:space="preserve">
+  <value>Configuration file saved in </value>
+</data>
+  <data name="Main_RevengeFactorIncrease" xml:space="preserve">
+  <value>Increase revenge factor for each checked student</value>
+</data>
+  <data name="Main_RevengeFactorDecrease" xml:space="preserve">
+  <value>Decrease revenge factor for each checked student</value>
+</data>
+  <data name="Main_CheckStudentsForRevenge" xml:space="preserve">
+  <value>Check the names of students to increase revenge factor</value>
+</data>
+  <data name="Main_CheckStudentsForRevengeDecrease" xml:space="preserve">
+  <value>Check the names of students to decrease revenge factor</value>
+</data>
+  <data name="Main_NoStudents" xml:space="preserve">
+  <value>No students present!</value>
+</data>
+  <data name="Main_NoSubjectSelected" xml:space="preserve">
+  <value>No subject selected!</value>
+</data>
+  <data name="Main_MinutesToEnd" xml:space="preserve">
+  <value>Less than {0} minutes until the end of the lesson</value>
+</data>
+  <data name="Main_CreateTextFile" xml:space="preserve">
+  <value>Create a plain text file (Yes) or a Markdown file (No)?</value>
+</data>
+  <data name="Main_FileType" xml:space="preserve">
+  <value>File type</value>
+</data>
+  <data name="Main_FileCreated" xml:space="preserve">
+  <value>File created </value>
+</data>
+  <data name="Main_ToComplete" xml:space="preserve">
+  <value>Feature to be completed</value>
+</data>
+  <data name="Main_ChooseClass" xml:space="preserve">
+  <value>Choose a class</value>
+</data>
+
+</root>

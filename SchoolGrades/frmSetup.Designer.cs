@@ -64,7 +64,9 @@
             btnUsersManagement = new System.Windows.Forms.Button();
             btnBackupManagement = new System.Windows.Forms.Button();
             btnStudentsManagement = new System.Windows.Forms.Button();
+            cmbLanguage = new System.Windows.Forms.ComboBox();
             btnResetDatabase = new System.Windows.Forms.Button();
+            lblLanguage = new System.Windows.Forms.Label();
             SuspendLayout();
             // 
             // btnTablesManagement
@@ -95,7 +97,7 @@
             TxtFileDatabase.Location = new System.Drawing.Point(8, 153);
             TxtFileDatabase.Margin = new System.Windows.Forms.Padding(4);
             TxtFileDatabase.Name = "TxtFileDatabase";
-            TxtFileDatabase.Size = new System.Drawing.Size(642, 24);
+            TxtFileDatabase.Size = new System.Drawing.Size(651, 24);
             TxtFileDatabase.TabIndex = 2;
             TxtFileDatabase.DoubleClick += TxtFileDatabase_DoubleClick;
             // 
@@ -269,10 +271,10 @@
             // TxtPathDocuments
             // 
             TxtPathDocuments.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
-            TxtPathDocuments.Location = new System.Drawing.Point(8, 258);
+            TxtPathDocuments.Location = new System.Drawing.Point(8, 257);
             TxtPathDocuments.Margin = new System.Windows.Forms.Padding(4);
             TxtPathDocuments.Name = "TxtPathDocuments";
-            TxtPathDocuments.Size = new System.Drawing.Size(867, 24);
+            TxtPathDocuments.Size = new System.Drawing.Size(663, 24);
             TxtPathDocuments.TabIndex = 105;
             TxtPathDocuments.DoubleClick += TxtPaths_DoubleClick;
             // 
@@ -281,7 +283,7 @@
             btnPathDocuments.BackColor = System.Drawing.Color.Transparent;
             btnPathDocuments.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnPathDocuments.ForeColor = System.Drawing.Color.DarkBlue;
-            btnPathDocuments.Location = new System.Drawing.Point(885, 249);
+            btnPathDocuments.Location = new System.Drawing.Point(672, 249);
             btnPathDocuments.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             btnPathDocuments.Name = "btnPathDocuments";
             btnPathDocuments.Size = new System.Drawing.Size(54, 40);
@@ -411,6 +413,17 @@
             btnStudentsManagement.UseVisualStyleBackColor = true;
             btnStudentsManagement.Click += btnStudentsManagement_Click;
             // 
+            // cmbLanguage
+            // 
+            cmbLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cmbLanguage.FormattingEnabled = true;
+            cmbLanguage.Location = new System.Drawing.Point(726, 256);
+            cmbLanguage.Name = "cmbLanguage";
+            cmbLanguage.Size = new System.Drawing.Size(213, 26);
+            cmbLanguage.TabIndex = 119;
+            toolTip1.SetToolTip(cmbLanguage, "Selezione della lingua dell'interfaccia");
+            cmbLanguage.SelectedIndexChanged += cmbLanguage_SelectedIndexChanged;
+            // 
             // btnResetDatabase
             // 
             btnResetDatabase.BackColor = System.Drawing.Color.Red;
@@ -424,12 +437,23 @@
             btnResetDatabase.UseVisualStyleBackColor = false;
             btnResetDatabase.Click += btnResetDatabase_Click;
             // 
+            // lblLanguage
+            // 
+            lblLanguage.AutoSize = true;
+            lblLanguage.Location = new System.Drawing.Point(723, 235);
+            lblLanguage.Name = "lblLanguage";
+            lblLanguage.Size = new System.Drawing.Size(51, 18);
+            lblLanguage.TabIndex = 118;
+            lblLanguage.Text = "Lingua";
+            // 
             // frmSetup
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.PowderBlue;
             ClientSize = new System.Drawing.Size(1142, 300);
+            Controls.Add(cmbLanguage);
+            Controls.Add(lblLanguage);
             Controls.Add(btnStudentsManagement);
             Controls.Add(btnResetDatabase);
             Controls.Add(btnSchoolPeriodsManagement);
@@ -512,5 +536,7 @@
         private System.Windows.Forms.Button btnResetDatabase;
         private System.Windows.Forms.Button btnBackupManagement;
         private System.Windows.Forms.Button btnStudentsManagement;
+        private System.Windows.Forms.Label lblLanguage;
+        private System.Windows.Forms.ComboBox cmbLanguage;
     }
 }
