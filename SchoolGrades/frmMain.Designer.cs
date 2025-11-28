@@ -1113,6 +1113,7 @@
             lblStudentChosen.TabIndex = 27;
             lblStudentChosen.Text = "Allievo";
             lblStudentChosen.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lblStudentChosen.DoubleClick += lblStudentChosen_DoubleClick;
             // 
             // lblCodYear
             // 

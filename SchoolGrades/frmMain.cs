@@ -29,7 +29,7 @@ namespace SchoolGrades
         Random random = new Random();
 
         System.Media.SoundPlayer suonatore = new System.Media.SoundPlayer();
-   
+
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Student CurrentStudent { get; set; }
 
@@ -60,7 +60,7 @@ namespace SchoolGrades
         private int minuteStart;
         private bool alarmNotFired = true;
         #endregion
-        
+
         private SchoolSubject currentSubject;
 
         private bool dataModified = false;
@@ -583,7 +583,7 @@ namespace SchoolGrades
             }
             // show popup annotations of the students of the class
             var popUpAnnotationsList = Commons.bl.GetAnnotationsOfClass(currentClass.IdClass, true, true);
-            if (popUpAnnotationsList != null && popUpAnnotationsList.Count >0)
+            if (popUpAnnotationsList != null && popUpAnnotationsList.Count > 0)
             {
                 frmAnnotationsPopUp f = new frmAnnotationsPopUp(popUpAnnotationsList);
                 f.StartPosition = FormStartPosition.CenterParent;
@@ -807,20 +807,20 @@ namespace SchoolGrades
             SaveStudentsOfClassIfEligibleHasChanged();
         }
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-internal Question CurrentQuestion
+        internal Question CurrentQuestion
         {
             get => currentQuestion;
-     set
+            set
             {
-       currentQuestion = value;
-      txtQuestion.Text = currentQuestion.Text;
-       lstTimeInterval.Text = currentQuestion.Duration.ToString();
-      if (currentQuestion.Duration != null && currentQuestion.Duration != 0)
-txtTimeInterval.Text = CurrentQuestion.Duration.ToString();
-   }
+                currentQuestion = value;
+                txtQuestion.Text = currentQuestion.Text;
+                lstTimeInterval.Text = currentQuestion.Duration.ToString();
+                if (currentQuestion.Duration != null && currentQuestion.Duration != 0)
+                    txtTimeInterval.Text = CurrentQuestion.Duration.ToString();
+            }
         }
         private void showCurrentStudent(Student alli)
-{
+        {
             currentClass.CurrentStudent = alli;
 
             lblStudentChosen.Text = alli.ToString();
@@ -1620,6 +1620,14 @@ txtTimeInterval.Text = CurrentQuestion.Duration.ToString();
             foreach (DataGridViewRow r in dgwStudents.Rows)
             {
                 currentStudentsList[i].Eligible = (bool)r.Cells[0].Value;
+            }
+        }
+        private void lblStudentChosen_DoubleClick(object sender, EventArgs e)
+        {
+            if (CurrentStudent != null)
+            {
+                frmStudent fs = new frmStudent(CurrentStudent, true);
+                fs.ShowDialog();
             }
         }
     }

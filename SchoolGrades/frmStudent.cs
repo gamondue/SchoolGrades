@@ -272,7 +272,9 @@ namespace SchoolGrades
                 {
                     Commons.bl.DeleteStudent(currentStudent, false);
                 }
-                btnNew_Click(null, null);
+                FromUiToCurrentStudent();
+                List<Student> dt = Commons.bl.GetStudentsLike(currentStudent);
+                dgwSearchedStudents.DataSource = dt;
             }
             else
             {
@@ -283,6 +285,16 @@ namespace SchoolGrades
         {
             currentStudent = null;
             btnSave_Click(null, null);
+            FromUiToCurrentStudent();
+            List<Student> dt = Commons.bl.GetStudentsLike(currentStudent);
+            dgwSearchedStudents.DataSource = dt;
+        }
+
+        private void btnClipboard_Click(object sender, EventArgs e)
+        {
+            // copy student data to clipboard
+            FromUiToCurrentStudent();
+            Clipboard.SetText(currentStudent.ToString());
         }
     }
 }

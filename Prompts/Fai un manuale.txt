@@ -1,0 +1,7 @@
+Per favore, genera un file markdown (od una serie di file markdown) che realizzano un manuale operativo per l'utente finale del programma Windows Forms "SchoolGrades" (solo quello non del resto dei programmi della soluzione). Mettilo nella cartella Documentation, che sta nella cartella radice, aggiungendo un link ad esso dal file nella cartella radice che ha nome README.md.
+Usa come sorgente per le informazioni riguardo alla funzioni operative del programma:
+- i Tooltips che sono presenti in molti texbox di input e bottoni di comando.
+- i nomi dei controlli nei Form, ed eventualmente il codice delle funzioni e dei metodi.
+- i metodi di evento relativi al doppio click su elementi della UI.
+Specifica abbastanza presto nel manuale che il programma realizza molte funzionalità attraverso il doppio click e che queste funzionalità sono molto comode da usare, ma solo se si sa che esistono. Pertaqnto incoraggia l'utente a sperimentare il doppio click, in particolar modo sulle griglie, per imparare ad usare meglio il programma.
+Fai il manuale in lingua naturale italiana.

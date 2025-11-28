@@ -421,11 +421,11 @@ namespace SchoolGrades
             {
                 if (Query.Contains("WHERE"))
                 {
-                    Query += " AND " + FieldName + " LIKE '%" + FieldValue + "%'";
+                    Query += " AND " + FieldName + " LIKE '%" + FieldValue.Replace("'", "''") + "%'";
                 }
                 else
                 {
-                    Query += " WHERE " + FieldName + " LIKE '%" + FieldValue + "%'";
+                    Query += " WHERE " + FieldName + " LIKE '%" + FieldValue.Replace("'", "''") + "%'";
                 }
             }
         }

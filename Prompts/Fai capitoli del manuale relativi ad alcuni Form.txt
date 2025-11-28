@@ -1,0 +1,8 @@
+Aggiungi un file di documentazione per l'utente finale per ciascuna delle finestre: frmGroups, frmQuestionChoose  (Scelta domanda), frmTopics (Argomenti), frmGradesClassSummary (Riepilogo voti classe), frmGradesStudentsSummary (Riepilogo voti allievo), del programma Windows Forms "SchoolGrades" (solo quello non del resto dei programmi della soluzione).
+Metti un link a questi nuovi file entro la documentazione fatta finora, cioè il file "Manuale-Utente-SchoolGrades.md". Metti i nuovi file nella stessa cartella, cioè "Documentation", sotto la cartella radice.
+Usa come sorgente per le informazioni riguardo alla funzioni operative delle finestre considerate:
+- i Tooltips che sono presenti in molti texbox di input e bottoni di comando.
+- i nomi dei controlli nei Form, ed eventualmente il codice delle funzioni e dei metodi.
+- i metodi di evento relativi al doppio click su elementi della UI.
+
+Fai questi file di manuale in lingua naturale italiana.

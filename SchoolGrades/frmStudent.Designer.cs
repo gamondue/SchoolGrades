@@ -57,6 +57,7 @@
             btnFindStudent = new System.Windows.Forms.Button();
             btnExitWithoutChoosing = new System.Windows.Forms.Button();
             toolTip1 = new System.Windows.Forms.ToolTip(components);
+            btnClipboard = new System.Windows.Forms.Button();
             btnDeleteStudent = new System.Windows.Forms.Button();
             chkHasSpecialNeeds = new System.Windows.Forms.CheckBox();
             txtTelephone = new System.Windows.Forms.TextBox();
@@ -224,7 +225,7 @@
             // btnSave
             // 
             btnSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            btnSave.Location = new System.Drawing.Point(639, 457);
+            btnSave.Location = new System.Drawing.Point(856, 457);
             btnSave.Name = "btnSave";
             btnSave.Size = new System.Drawing.Size(91, 47);
             btnSave.TabIndex = 105;
@@ -334,6 +335,18 @@
             toolTip1.SetToolTip(btnExitWithoutChoosing, "Esci dalla finestra senza scegliere questo studente");
             btnExitWithoutChoosing.UseVisualStyleBackColor = true;
             btnExitWithoutChoosing.Click += btnExitWithoutChoosing_Click;
+            // 
+            // btnClipboard
+            // 
+            btnClipboard.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnClipboard.Location = new System.Drawing.Point(639, 457);
+            btnClipboard.Name = "btnClipboard";
+            btnClipboard.Size = new System.Drawing.Size(91, 47);
+            btnClipboard.TabIndex = 176;
+            btnClipboard.Text = "Clipboard";
+            toolTip1.SetToolTip(btnClipboard, "Copia in clipboard cognome e nome dello studente");
+            btnClipboard.UseVisualStyleBackColor = true;
+            btnClipboard.Click += btnClipboard_Click;
             // 
             // btnDeleteStudent
             // 
@@ -504,6 +517,7 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.PowderBlue;
             ClientSize = new System.Drawing.Size(961, 585);
+            Controls.Add(btnClipboard);
             Controls.Add(btnAddStudent);
             Controls.Add(label7);
             Controls.Add(label6);
@@ -609,5 +623,7 @@
         private System.Windows.Forms.TextBox txtState;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btnAddStudent;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnClipboard;
     }
 }
