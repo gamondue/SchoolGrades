@@ -1,0 +1,1 @@
+Vorrei tradurre questo programma in Inglese puoi propormi una strategia, un metodo ed un piano di lavoro per rendere il programma SchoolgGrades Windows Forms un programma multilingue , nel quale sia possibile cambiare lingua da parte dell'utente ?

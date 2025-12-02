@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using SchoolGrades.Resources;
 
 namespace SchoolGrades
 {
@@ -13,6 +14,7 @@ namespace SchoolGrades
         public frmSchoolSubjectManagement()
         {
             InitializeComponent();
+            LocalizeForm();
         }
         private void frmSchoolSubjectManagement_Load(object sender, EventArgs e)
         {
@@ -98,6 +100,16 @@ namespace SchoolGrades
                 subjectList = Commons.bl.GetListSchoolSubjects(false);
                 DgwSubjects.DataSource = subjectList;
             }
+        }
+        private void LocalizeForm()
+        {
+            // Title
+            this.Text = Strings.SchoolSubjects_Title;
+
+            // Buttons
+            btnSave.Text = Strings.SchoolSubjects_Save;
+            btnAdd.Text = Strings.SchoolSubjects_Add;
+            btnErase.Text = Strings.SchoolSubjects_Remove;
         }
     }
 }

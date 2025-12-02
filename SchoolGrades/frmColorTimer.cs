@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using System.ComponentModel;
+using SchoolGrades.Localization;
 
 namespace gamon
 {
@@ -69,6 +70,8 @@ namespace gamon
         public ColorTimer(double SecondsFirst, double SecondsSecond, bool SoundEffectsInTimer)
         {
             InitializeComponent();
+            
+            LocalizeForm();
 
             PlaySoundEffects = SoundEffectsInTimer;
             timeTotalSeconds = Convert.ToSingle(txtIntervalNext.Text);
@@ -238,7 +241,7 @@ namespace gamon
             //try
             //{
             //    aggiorna la durata ed anche il tempo rimasto, togliendogli il
-            //    tempo gi� passato in questo periodo
+            //    tempo già passato in questo periodo
             //    double giaFatti = (timeTotalSeconds * 60) - timeLeftSeconds;
             //    if (giaFatti > 0)
             //    {
@@ -336,7 +339,7 @@ namespace gamon
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Collegamento impossibile \n" + ex.Message);
+                MessageBox.Show("Connection impossible\n" + ex.Message);
                 return;
             }
             chkServer.Enabled = false;
@@ -452,6 +455,36 @@ namespace gamon
         private void chkSoundsInColorTimer_CheckedChanged(object sender, EventArgs e)
         {
             playSoundEffects = chkSoundsInColorTimer.Checked;
+        }
+        private void LocalizeForm()
+        {
+            try
+            {
+                // Form title
+                this.Text = Loc.Get("ColorTimer_Title");
+
+                // Labels
+                label1.Text = Loc.Get("ColorTimer_Minutes");
+                label2.Text = Loc.Get("ColorTimer_Seconds");
+                label3.Text = Loc.Get("ColorTimer_Minutes");
+                label4.Text = Loc.Get("ColorTimer_First");
+                label5.Text = Loc.Get("ColorTimer_Next");
+
+                // Buttons
+                btnStartNextInterval.Text = Loc.Get("ColorTimer_StartNext");
+                btnStartFirstInterval.Text = Loc.Get("ColorTimer_StartFirst");
+                btnConnect.Text = Loc.Get("ColorTimer_Connect");
+
+                // CheckBoxes
+                chkServer.Text = Loc.Get("ColorTimer_Server");
+                checkBox1.Text = Loc.Get("ColorTimer_RemoteControl");
+                chkSoundsInColorTimer.Text = Loc.Get("ColorTimer_Sounds");
+            }
+            catch (Exception ex)
+            {
+                // Nota: Commons è in SchoolGrades, potrebbe non essere accessibile
+                Console.WriteLine($"frmColorTimer.LocalizeForm: {ex.Message}");
+            }
         }
     }
 }

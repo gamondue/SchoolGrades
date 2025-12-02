@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Windows.Forms;
+using SchoolGrades.Localization;
 
 namespace SchoolGrades
 {
@@ -18,6 +19,8 @@ namespace SchoolGrades
             SchoolSubject Subject)
         {
             InitializeComponent();
+            
+            LocalizeForm();
 
             currentClass = Class;
             currentGradeType = GradeType;
@@ -182,7 +185,7 @@ namespace SchoolGrades
                 dtpStartPeriod.Value.ToString("yyyy.MM.dd_") + dtpEndPeriod.Value.ToString("yyyy.MM.dd") +
                 ".csv");
             Commons.bl.SaveTableOnCvs((DataTable)dgwGrades.DataSource, FileName);
-            MessageBox.Show("Creato file: " + FileName);
+            MessageBox.Show(Loc.Get("GradesClassSummary_FileCreation") + FileName);
         }
         private void dgwGrades_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -218,7 +221,8 @@ namespace SchoolGrades
                 }
                 catch
                 {
-                    MessageBox.Show("Selezionare un voto da visualizzare.");
+                    MessageBox.Show(Loc.Get("GradesClassSummary_SelectGrade"));
+
                 }
             }
         }
@@ -254,6 +258,52 @@ namespace SchoolGrades
 
             }
             return null;
+        }
+        private void LocalizeForm()
+        {
+            try
+            {
+                // Form title
+                this.Text = Loc.Get("GradesClassSummary_Title");
+
+                // Labels
+                lblCurrentClass.Text = Loc.Get("GradesClassSummary_Class");
+                lblSchoolSubject.Text = Loc.Get("GradesClassSummary_Subject");
+                label2.Text = Loc.Get("GradesClassSummary_SummaryOf");
+                lblSum.Text = Loc.Get("GradesClassSummary_Sum");
+                lblStart.Text = Loc.Get("GradesClassSummary_Start");
+                lblEnd.Text = Loc.Get("GradesClassSummary_End");
+                label6.Text = Loc.Get("GradesClassSummary_NumStudents");
+
+                // GroupBoxes
+                grpPeriodOfQuestionsTopics.Text = Loc.Get("GradesClassSummary_GradesPeriod");
+                grpChosenQuery.Text = Loc.Get("GradesClassSummary_QueryType");
+
+                // Buttons
+                btnSaveOnFile.Text = Loc.Get("GradesClassSummary_SaveToCSV");
+                btnReadData.Text = Loc.Get("GradesClassSummary_ReadData");
+
+                // RadioButtons
+                rdbShowGrades.Text = Loc.Get("GradesClassSummary_Grades");
+                rdbShowWeightedGrades.Text = Loc.Get("GradesClassSummary_Averages");
+                rdbShowWeights.Text = Loc.Get("GradesClassSummary_Weights");
+                rdbShowWeightsOnOpenGrades.Text = Loc.Get("GradesClassSummary_OpenWeights");
+                rdbMissing.Text = Loc.Get("GradesClassSummary_Missing");
+                rdbAmongPeriod.Text = Loc.Get("GradesClassSummary_InPeriod");
+
+                // Tooltips
+                toolTip1.SetToolTip(rdbShowGrades, Loc.Get("GradesClassSummary_Tooltip_Grades"));
+                toolTip1.SetToolTip(rdbShowWeightedGrades, Loc.Get("GradesClassSummary_Tooltip_Averages"));
+                toolTip1.SetToolTip(rdbShowWeights, Loc.Get("GradesClassSummary_Tooltip_Weights"));
+                toolTip1.SetToolTip(rdbShowWeightsOnOpenGrades, Loc.Get("GradesClassSummary_Tooltip_OpenWeights"));
+                toolTip1.SetToolTip(rdbMissing, Loc.Get("GradesClassSummary_Tooltip_Missing"));
+                toolTip1.SetToolTip(label6, Loc.Get("GradesClassSummary_Tooltip_NumStudents"));
+                toolTip1.SetToolTip(txtNStudents, Loc.Get("GradesClassSummary_Tooltip_NumStudentsValue"));
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"frmGradesClassSummary.LocalizeForm: {ex.Message}");
+            }
         }
     }
 }

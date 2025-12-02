@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+using SchoolGrades.Localization;
 
 namespace SchoolGrades
 {
@@ -22,6 +23,9 @@ namespace SchoolGrades
         public frmKnotsToTheComb(frmMicroAssessment GrandparentForm, int? IdStudent, SchoolSubject SchoolSubject, string Year)
         {
             InitializeComponent();
+            
+            LocalizeForm();
+
             currentStudent = Commons.bl.GetStudent(IdStudent);
             lblStudent.Text = currentStudent.LastName + " " + currentStudent.FirstName;
             currentIdSchoolYear = Year;
@@ -113,6 +117,26 @@ namespace SchoolGrades
             currentSubject = (SchoolSubject)cmbSchoolSubject.SelectedItem;
             this.BackColor = Commons.ColorFromNumber(currentSubject);
             RefreshData();
+        }
+        private void LocalizeForm()
+        {
+            try
+            {
+                // Form title
+                this.Text = Loc.Get("KnotsToTheComb_Title");
+
+                // Labels
+                lblStudent.Text = Loc.Get("KnotsToTheComb_Student");
+                lblSchoolSubject.Text = Loc.Get("KnotsToTheComb_Subject");
+
+                // Buttons
+                btnFix.Text = Loc.Get("KnotsToTheComb_Fixed");
+                btnChoose.Text = Loc.Get("KnotsToTheComb_Choose");
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"frmKnotsToTheComb.LocalizeForm: {ex.Message}");
+            }
         }
     }
 }

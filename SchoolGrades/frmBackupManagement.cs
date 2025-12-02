@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
+using SchoolGrades.Localization;
 
 namespace SchoolGrades
 {
@@ -24,6 +25,8 @@ namespace SchoolGrades
         }
         private void frmBackupManagement_Load(object sender, EventArgs e)
         {
+            LocalizeForm();
+            
             List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
             CmbSchoolYear.DataSource = ly;
             if (ly.Count > 0)
@@ -54,20 +57,20 @@ namespace SchoolGrades
             Commons.bl.BackupTableXml("Schools");
             Commons.bl.BackupTableXml("SchoolYears");
             Commons.bl.BackupTableXml("SchoolPeriods");
-            MessageBox.Show("Salvataggio tabelle terminato");
+            MessageBox.Show(Loc.Get("Backup_TablesSaved"));
         }
         private void btnClassBackup_Click(object sender, EventArgs e)
         {
             if (currentClass == null)
             {
-                MessageBox.Show("Scegliere la classe da tenere nel database");
+                MessageBox.Show(Loc.Get("Backup_SelectClass"));
                 return;
             }
             string imagesFolder = Commons.bl.CreateOneClassOnlyDatabase(currentClass);
             if (imagesFolder != "")
                 Commons.ProcessStartLink(imagesFolder);
             else
-                MessageBox.Show("Cartella del database della classe non trovata");
+                MessageBox.Show(Loc.Get("Backup_ClassFolderNotFound"));
             //MessageBox.Show("Fatto"); 
         }
         private void cmbSchoolYear_SelectedIndexChanged(object sender, EventArgs e)
@@ -104,13 +107,13 @@ namespace SchoolGrades
             Commons.bl.RestoreTableXml("Schools", rdbRestoreErasing.Checked);
             Commons.bl.RestoreTableXml("SchoolYears", rdbRestoreErasing.Checked);
             Commons.bl.RestoreTableXml("SchoolPeriods", rdbRestoreErasing.Checked);
-            MessageBox.Show("Ripristino tabelle terminato");
+            MessageBox.Show(Loc.Get("Backup_TablesRestored"));
         }
         private void btnBackupTopics_Click(object sender, EventArgs e)
         {
             //db.BackupTableTsv("Topics");
             Commons.bl.BackupTableXml("Topics");
-            MessageBox.Show("Backup argomenti terminato");
+            MessageBox.Show(Loc.Get("Backup_TopicsSaved"));
         }
         private void btnExportTopics_Click(object sender, EventArgs e)
         {
@@ -122,19 +125,19 @@ namespace SchoolGrades
         {
             //db.BackupTableTsv("Tags");
             Commons.bl.BackupTableXml("Tags");
-            MessageBox.Show("Backup Tags terminato");
+            MessageBox.Show(Loc.Get("Backup_TagsSaved"));
         }
         private void btnImportTopics_Click(object sender, EventArgs e)
         {
             // !!!! TODO fix using Regex.Split(string, ...) !!!!
-            MessageBox.Show("To fix!");
+            MessageBox.Show(Loc.Get("Common_ToFix"));
             return;
 
             List<Topic> ListTopics = new List<Topic>();
             string[] topics = TextFile.FileToArray(Commons.PathDatabase + "\\Argomenti_DA IMPORTARE.tsv");
             if (topics == null)
             {
-                MessageBox.Show("Non è stato possibile aprire il file Argomenti_DA IMPORTARE.tsv");
+                MessageBox.Show(Loc.Get("Backup_CannotOpenTopicsFile"));
                 return;
             }
             foreach (string line in topics)
@@ -158,7 +161,7 @@ namespace SchoolGrades
                     ListTopics.Add(t);
                 }
             }
-            MessageBox.Show("Salvare per rendere definitiva l'importazione.");
+            MessageBox.Show(Loc.Get("Backup_SaveToFinalize"));
             frmTopics ft = new frmTopics(frmTopics.TopicsFormType.ImportWithErase,
                 null, null, null, ListTopics);
             ft.ShowDialog();
@@ -168,7 +171,7 @@ namespace SchoolGrades
         {
             //db.RestoreTableTsv("Topics", rdbRestoreErasing.Checked);
             Commons.bl.RestoreTableXml("Topics", rdbRestoreErasing.Checked);
-            MessageBox.Show("Ripristino argomenti terminato");
+            MessageBox.Show(Loc.Get("Backup_TopicsRestored"));
         }
         private void btnSaveDatabaseFile_Click(object sender, EventArgs e)
         {
@@ -181,27 +184,27 @@ namespace SchoolGrades
             //db.RestoreTableTsv("Tags", rdbRestoreErasing.Checked);
             Commons.bl.RestoreTableXml("Tags", rdbRestoreErasing.Checked);
             Commons.bl.BackupAllStudentsDataXml();
-            MessageBox.Show("Ripristino Tags terminato");
+            MessageBox.Show(Loc.Get("Backup_TagsRestored"));
         }
         private void btnBackupStudents_Click(object sender, EventArgs e)
         {
             //db.BackupAllStudentsDataTsv();
             Commons.bl.BackupAllStudentsDataXml();
-            MessageBox.Show("Backup studenti terminato");
+            MessageBox.Show(Loc.Get("Backup_StudentsSaved"));
         }
         private void btnExportTags_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Da fare");
+            MessageBox.Show(Loc.Get("Common_ToDo"));
         }
         private void btnImportTags_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Da fare");
+            MessageBox.Show(Loc.Get("Common_ToDo"));
         }
         private void btnRestoreStudents_Click(object sender, EventArgs e)
         {
             //db.RestoreAllStudentsDataTsv(rdbRestoreErasing.Checked);
             Commons.bl.RestoreAllStudentsDataXml(rdbRestoreErasing.Checked);
-            MessageBox.Show("Ripristino studenti terminato");
+            MessageBox.Show(Loc.Get("Backup_StudentsRestored"));
         }
         private void btnCompactDatabase_Click(object sender, EventArgs e)
         {
@@ -210,14 +213,8 @@ namespace SchoolGrades
         }
         private void BtnMakeDemo_Click(object sender, EventArgs e)
         {
-            string prompt = "Scegliere nell'elenco delle classi, tenendo premuto il tasto Shift o Ctrl, " +
-                "le classi da usare per generare il database demo. " +
-                "\nVerranno scelte quelle classi e le corrispondenti dell'anno successivo (se ci sono)." +
-                "\n I dati delle classi verranno manipolati e le foto " +
-                "prese a caso da:\n " +
-                Commons.PathImages + "\\DemoPictures.\n\nDevo procedere con la generazione (Sì)" +
-                " od interrompere (No)?";
-            if (MessageBox.Show(prompt, "Continua?", MessageBoxButtons.YesNo,
+            string prompt = string.Format(Loc.Get("Backup_DemoPrompt"), Commons.PathImages);
+            if (MessageBox.Show(prompt, Loc.Get("Backup_DemoPromptTitle"), MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
                 return;
 
@@ -237,15 +234,15 @@ namespace SchoolGrades
             }
             if (classes == null)
             {
-                MessageBox.Show("Scegliere almeno una classe");
+                MessageBox.Show(Loc.Get("Backup_SelectAtLeastOneClass"));
                 return;
             }
             string demoDatabase = Commons.bl.GetDemoDatabaseName();
 
             if (File.Exists(demoDatabase))
             {
-                if (System.Windows.Forms.MessageBox.Show("Il file " + demoDatabase + " esiste già." +
-                    "\nDevo re-inizializzarlo (Sì) o non creare il database (No)?", "",
+                if (MessageBox.Show(string.Format(Loc.Get("Backup_FileExistsOverwrite"), demoDatabase), 
+                    Loc.Get("Common_EmptyString"),
                     System.Windows.Forms.MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question) == DialogResult.Yes)
                 {
@@ -255,9 +252,7 @@ namespace SchoolGrades
                     return;
             }
             Commons.bl.CreateDemoDatabase(demoDatabase, classes);
-            MessageBox.Show("Creato il file " + demoDatabase + ", " +
-                "che contiene le classi DEMO, con tutte le loro foto, " +
-                "le valutazioni e le immagini."); ;
+            MessageBox.Show(string.Format(Loc.Get("Backup_DemoCreated"), demoDatabase));
         }
         private void BtnNewDatabase_Click(object sender, EventArgs e)
         {
@@ -270,8 +265,8 @@ namespace SchoolGrades
 
             if (File.Exists(NewDatabasePathName))
             {
-                if (System.Windows.Forms.MessageBox.Show("Il file " + NewDatabasePathName + " esiste già." +
-                    "\nDevo re-inizializzarlo (Sì) o non creare il database (No)?", "",
+                if (System.Windows.Forms.MessageBox.Show(string.Format(Loc.Get("Backup_FileExistsOverwrite"), NewDatabasePathName), 
+                    Loc.Get("Common_EmptyString"),
                     System.Windows.Forms.MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question) == DialogResult.Yes)
                 {
@@ -281,7 +276,52 @@ namespace SchoolGrades
                     return;
             }
             Commons.bl.CreateNewDatabaseFromExisting(NewDatabasePathName);
-            MessageBox.Show("Creato nuovo database SchoolGradesNew.sqlite");
+            MessageBox.Show(Loc.Get("Backup_NewDatabaseCreated"));
+        }
+        private void LocalizeForm()
+        {
+            try
+            {
+                // Form title - using existing key
+                this.Text = Loc.Get("Setup_BackupManagement");
+
+                // Buttons
+                btnBackupTables.Text = Loc.Get("Backup_BackupTables");
+                btnRestoreTables.Text = Loc.Get("Backup_RestoreTables");
+                btnBackupTopics.Text = Loc.Get("Backup_BackupTopics");
+                btnRestoreTopics.Text = Loc.Get("Backup_RestoreTopics");
+                btnExportTopics.Text = Loc.Get("Backup_ExportTopics");
+                btnImportTopics.Text = Loc.Get("Backup_ImportTopics");
+                btnBackupTags.Text = Loc.Get("Backup_BackupTags");
+                btnRestoreTags.Text = Loc.Get("Backup_RestoreTags");
+                btnExportTags.Text = Loc.Get("Backup_ExportTags");
+                btnImportTags.Text = Loc.Get("Backup_ImportTags");
+                btnBackupStudents.Text = Loc.Get("Backup_BackupStudents");
+                btnRestoreStudents.Text = Loc.Get("Backup_RestoreStudents");
+                btnClassBackup.Text = Loc.Get("Backup_ClassBackup");
+                btnSaveDatabaseFile.Text = Loc.Get("Backup_SaveDatabaseFile");
+                btnCompactDatabase.Text = Loc.Get("Backup_CompactDatabase");
+                btnMakeDemo.Text = Loc.Get("Backup_MakeDemo");
+                BtnNewDatabase.Text = Loc.Get("Backup_NewDatabase");
+
+                // GroupBox
+                grpOnlyOneClass.Text = Loc.Get("Backup_OnlyOneClassGroup");
+
+                // RadioButtons
+                rdbRestoreErasing.Text = Loc.Get("Backup_RestoreErasing");
+                rdbRestoreWithAdd.Text = Loc.Get("Backup_RestoreAdding");
+
+                // Tooltips
+                toolTip1.SetToolTip(btnClassBackup, Loc.Get("Backup_Tooltip_ClassBackup"));
+                toolTip1.SetToolTip(btnMakeDemo, Loc.Get("Backup_Tooltip_MakeDemo"));
+                toolTip1.SetToolTip(BtnNewDatabase, Loc.Get("Backup_Tooltip_NewDatabase"));
+                toolTip1.SetToolTip(btnSaveDatabaseFile, Loc.Get("Backup_Tooltip_SaveDatabaseFile"));
+                toolTip1.SetToolTip(btnCompactDatabase, Loc.Get("Backup_Tooltip_CompactDatabase"));
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"frmBackupManagement.LocalizeForm: {ex.Message}");
+            }
         }
     }
 }

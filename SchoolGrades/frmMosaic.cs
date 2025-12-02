@@ -1,10 +1,10 @@
 ﻿using SchoolGrades.BusinessObjects;
-using SchoolGrades.Localization;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using SchoolGrades.Localization;
 
 namespace SchoolGrades
 {

@@ -31,7 +31,7 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             btnDraw = new System.Windows.Forms.Button();
-            butComeOn = new System.Windows.Forms.Button();
+            btnComeOn = new System.Windows.Forms.Button();
             toolTip1 = new System.Windows.Forms.ToolTip(components);
             txtMinuteStartLesson = new System.Windows.Forms.TextBox();
             txtDurationLesson = new System.Windows.Forms.TextBox();
@@ -148,24 +148,24 @@
             btnDraw.UseVisualStyleBackColor = false;
             btnDraw.Click += btnDrawOrSort_Click;
             // 
-            // butComeOn
+            // btnComeOn
             // 
-            butComeOn.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            butComeOn.BackColor = System.Drawing.Color.Transparent;
-            butComeOn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            butComeOn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
-            butComeOn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
-            butComeOn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            butComeOn.ForeColor = System.Drawing.Color.DarkBlue;
-            butComeOn.Location = new System.Drawing.Point(803, 377);
-            butComeOn.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            butComeOn.Name = "butComeOn";
-            butComeOn.Size = new System.Drawing.Size(94, 48);
-            butComeOn.TabIndex = 0;
-            butComeOn.Text = "Costretto";
-            toolTip1.SetToolTip(butComeOn, "Scelta del prossimo allievo dell'elenco");
-            butComeOn.UseVisualStyleBackColor = false;
-            butComeOn.Click += btnComeOn_Click;
+            btnComeOn.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnComeOn.BackColor = System.Drawing.Color.Transparent;
+            btnComeOn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            btnComeOn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            btnComeOn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            btnComeOn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            btnComeOn.ForeColor = System.Drawing.Color.DarkBlue;
+            btnComeOn.Location = new System.Drawing.Point(803, 377);
+            btnComeOn.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            btnComeOn.Name = "butComeOn";
+            btnComeOn.Size = new System.Drawing.Size(94, 48);
+            btnComeOn.TabIndex = 0;
+            btnComeOn.Text = "Costretto";
+            toolTip1.SetToolTip(btnComeOn, "Scelta del prossimo allievo dell'elenco");
+            btnComeOn.UseVisualStyleBackColor = false;
+            btnComeOn.Click += btnComeOn_Click;
             // 
             // toolTip1
             // 
@@ -270,7 +270,7 @@
             chkNameIsVisible.CheckState = System.Windows.Forms.CheckState.Checked;
             chkNameIsVisible.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
             chkNameIsVisible.ForeColor = System.Drawing.Color.DarkBlue;
-            chkNameIsVisible.Location = new System.Drawing.Point(297, 66);
+            chkNameIsVisible.Location = new System.Drawing.Point(308, 64);
             chkNameIsVisible.Name = "chkNameIsVisible";
             chkNameIsVisible.Size = new System.Drawing.Size(128, 22);
             chkNameIsVisible.TabIndex = 14;
@@ -286,7 +286,7 @@
             chkPhotoVisibile.CheckState = System.Windows.Forms.CheckState.Checked;
             chkPhotoVisibile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
             chkPhotoVisibile.ForeColor = System.Drawing.Color.DarkBlue;
-            chkPhotoVisibile.Location = new System.Drawing.Point(297, 91);
+            chkPhotoVisibile.Location = new System.Drawing.Point(308, 89);
             chkPhotoVisibile.Name = "chkPhotoVisibile";
             chkPhotoVisibile.Size = new System.Drawing.Size(118, 22);
             chkPhotoVisibile.TabIndex = 16;
@@ -302,7 +302,7 @@
             chkStudentsListVisible.CheckState = System.Windows.Forms.CheckState.Checked;
             chkStudentsListVisible.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
             chkStudentsListVisible.ForeColor = System.Drawing.Color.DarkBlue;
-            chkStudentsListVisible.Location = new System.Drawing.Point(297, 116);
+            chkStudentsListVisible.Location = new System.Drawing.Point(308, 114);
             chkStudentsListVisible.Name = "chkStudentsListVisible";
             chkStudentsListVisible.Size = new System.Drawing.Size(119, 22);
             chkStudentsListVisible.TabIndex = 18;
@@ -908,7 +908,7 @@
             btnStartColorTimer.Location = new System.Drawing.Point(217, 36);
             btnStartColorTimer.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             btnStartColorTimer.Name = "btnStartColorTimer";
-            btnStartColorTimer.Size = new System.Drawing.Size(74, 28);
+            btnStartColorTimer.Size = new System.Drawing.Size(83, 28);
             btnStartColorTimer.TabIndex = 169;
             btnStartColorTimer.Text = "T.colori";
             toolTip1.SetToolTip(btnStartColorTimer, "Partenza di un cronometro a colori");
@@ -932,10 +932,10 @@
             btnStartBarTimer.BackColor = System.Drawing.Color.Transparent;
             btnStartBarTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
             btnStartBarTimer.ForeColor = System.Drawing.Color.DarkBlue;
-            btnStartBarTimer.Location = new System.Drawing.Point(298, 36);
+            btnStartBarTimer.Location = new System.Drawing.Point(308, 36);
             btnStartBarTimer.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             btnStartBarTimer.Name = "btnStartBarTimer";
-            btnStartBarTimer.Size = new System.Drawing.Size(74, 28);
+            btnStartBarTimer.Size = new System.Drawing.Size(82, 28);
             btnStartBarTimer.TabIndex = 173;
             btnStartBarTimer.Text = "T.barra";
             toolTip1.SetToolTip(btnStartBarTimer, "Partenza di un cronometro a barra");
@@ -1078,7 +1078,7 @@
             chkSoundsInColorTimer.CheckState = System.Windows.Forms.CheckState.Checked;
             chkSoundsInColorTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
             chkSoundsInColorTimer.ForeColor = System.Drawing.Color.DarkBlue;
-            chkSoundsInColorTimer.Location = new System.Drawing.Point(217, 66);
+            chkSoundsInColorTimer.Location = new System.Drawing.Point(217, 64);
             chkSoundsInColorTimer.Name = "chkSoundsInColorTimer";
             chkSoundsInColorTimer.Size = new System.Drawing.Size(70, 22);
             chkSoundsInColorTimer.TabIndex = 184;
@@ -1375,7 +1375,7 @@
             Controls.Add(btnOldestGrade);
             Controls.Add(btnAssess);
             Controls.Add(btnDraw);
-            Controls.Add(butComeOn);
+            Controls.Add(btnComeOn);
             Controls.Add(btnYearTopics);
             Controls.Add(btnCheckNoGrade);
             Controls.Add(btnClassesGradesSummary);
@@ -1445,7 +1445,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button butComeOn;
+        private System.Windows.Forms.Button btnComeOn;
         private System.Windows.Forms.Button btnDraw;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button btnCheckNone;

@@ -6,6 +6,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using SchoolGrades.Localization;
 
 namespace SchoolGrades
 {
@@ -28,6 +29,8 @@ namespace SchoolGrades
         public frmGroups(List<Student> GroupsList, Class Class, SchoolSubject Subject, GradeType Grade)
         {
             InitializeComponent();
+
+            LocalizeForm();
 
             listGroups = GroupsList;
             schoolClass = Class;
@@ -57,7 +60,7 @@ namespace SchoolGrades
         {
             if (txtGroups.Text == "")
             {
-                MessageBox.Show("Prima di salvare un file, generare i gruppi");
+                MessageBox.Show(Loc.Get("Groups_GenerateFirst"));
                 return;
             }
             string fileName = Path.Combine(Commons.PathDatabase,
@@ -72,7 +75,7 @@ namespace SchoolGrades
         {
             if (txtNGroups.Text == "" || txtStudentsPerGroup.Text == "")
             {
-                MessageBox.Show("Scegliere il numero dei gruppi o degli studenti per gruppo!");
+                MessageBox.Show(Loc.Get("Groups_ChooseNumber"));
                 return;
             }
 
@@ -239,6 +242,41 @@ namespace SchoolGrades
         private void dtpStartPeriod_ValueChanged(object sender, EventArgs e)
         {
 
+        }
+        private void LocalizeForm()
+        {
+            try
+            {
+                // Form title
+                this.Text = Loc.Get("Groups_Title");
+
+                // Labels
+                lblStudentsPerGroup.Text = Loc.Get("Groups_StudentsPerGroup");
+                label1.Text = Loc.Get("Groups_NumGroups");
+                label2.Text = Loc.Get("Groups_StudentsToGroup");
+                lblStart.Text = Loc.Get("Groups_Start");
+                lblEnd.Text = Loc.Get("Groups_End");
+
+                // GroupBoxes
+                grpGroups.Text = Loc.Get("Groups_GroupingCriteria");
+                grpPeriodOfQuestionsTopics.Text = Loc.Get("Groups_GradesPeriod");
+
+                // Buttons
+                btnCreateFileGroups.Text = Loc.Get("Groups_CreateFile");
+                btnCreateGroups.Text = Loc.Get("Groups_CreateGroups");
+
+                // RadioButtons
+                rbdGroupsRandom.Text = Loc.Get("Groups_Random");
+                rdbGroupsBestGradesTogether.Text = Loc.Get("Groups_HighGradesTogether");
+                rdbGradesBalanced.Text = Loc.Get("Groups_BalancedGrades");
+
+                // Tooltips
+                toolTip1.SetToolTip(txtTotalStudentsToGroup, Loc.Get("Groups_Tooltip_StudentsToGroup"));
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"frmGroups.LocalizeForm: {ex.Message}");
+            }
         }
         #endregion
     }

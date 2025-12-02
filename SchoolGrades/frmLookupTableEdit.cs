@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using SchoolGrades.Localization;
 
 namespace SchoolGrades
 {
@@ -28,13 +29,15 @@ namespace SchoolGrades
         public frmLookupTableEdit(string TableToBeEdited, string IdOfEditedTable)
         {
             InitializeComponent();
+            LocalizeForm();
 
             tableName = TableToBeEdited;
             tableIdName = IdOfEditedTable;
-        }
+        }       
         private void frmEditLookupTable_Load(object sender, EventArgs e)
         {
-            this.Text += ". Tabella: " + tableName + ", chiave: " + tableIdName;
+            this.Text += ". " + Loc.Get("LookupTableEdit_TableLabel") + ": " + tableName + ", " + 
+                         Loc.Get("LookupTableEdit_KeyLabel") + ": " + tableIdName;
             bindingSource.DataSource = Commons.bl.GetLookupTable(tableName, tableIdName);
             dgwTable.DataSource = bindingSource;
         }
@@ -46,7 +49,9 @@ namespace SchoolGrades
             // if the dataset has changed, we ask the user if he wants to save it
             if (Commons.bl.LookupTableDataHasChanged())
             {
-                DialogResult result = MessageBox.Show("Hai cambiato la tabella.\nVuoi salvare le modifiche?", "Salvataggio",
+                DialogResult result = MessageBox.Show(
+                    Loc.Get("LookupTableEdit_SaveChanges"), 
+                    Loc.Get("LookupTableEdit_Saving"),
                     MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
@@ -65,9 +70,9 @@ namespace SchoolGrades
                 if ((r.Cells[tableIdName].Value == null || r.Cells[tableIdName].Value.ToString() == "")
                     && r.Index != dgwTable.Rows.Count - 1)
                 {
-                    MessageBox.Show("La chiave della tabella (colonna " + tableIdName +
-                        ") non può essere lasciata vuota" +
-                        "\nDATI NON SALVATI!");
+                    MessageBox.Show(
+                        string.Format(Loc.Get("LookupTableEdit_KeyNotEmpty"), tableIdName) + 
+                        "\n" + Loc.Get("LookupTableEdit_DataNotSaved"));
                     return;
                 }
             }
@@ -105,14 +110,35 @@ namespace SchoolGrades
             }
             if (foundExistingKey)
             {
-                MessageBox.Show("Il codice " + selectedRowKey + " esiste già nella tabella " + tableName
-                    + "\nSceglierne uno diverso");
+                MessageBox.Show(
+                    string.Format(Loc.Get("LookupTableEdit_CodeExists"), selectedRowKey, tableName) + 
+                    "\n" + Loc.Get("LookupTableEdit_ChooseDifferent"));
                 dgwTable.Rows[selectedRowIndex].Cells[tableIdName].Value = "";
             }
         }
         private void dgwTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+        
         }
+        private void LocalizeForm()
+        {
+            try
+            {
+                // Form title
+                this.Text = Loc.Get("LookupTableEdit_Title");
+
+                // Labels
+                label1.Text = Loc.Get("LookupTableEdit_Warning");
+                label2.Text = Loc.Get("LookupTableEdit_PlanCarefully");
+
+                // Button
+                BtnSalva.Text = Loc.Get("Common_Save");
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"frmLookupTableEdit.LocalizeForm: {ex.Message}");
+            }
+        }
+
     }
 }

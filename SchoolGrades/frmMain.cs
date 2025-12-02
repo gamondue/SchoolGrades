@@ -70,6 +70,12 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
+            // Configura il ToolTip per evitare che sparisca (!!!! PROVA)
+            toolTip1.AutoPopDelay = 10000;  // Resta visibile 10 secondi
+            toolTip1.InitialDelay = 500;    // Appare dopo 500ms
+            toolTip1.ReshowDelay = 100;     // Riappare velocemente
+            toolTip1.ShowAlways = true;     // Mostra sempre
+
             this.Text += " v. " + version;
 
             Commons.CreatePaths();
@@ -635,7 +641,6 @@ namespace SchoolGrades
         List<string> filesInFolder = new List<string>();
         int indexImage = 0;
         private DateTime nextPopUpQuestionTime;
-
         private void BtnShowRandomImage_Click(object sender, EventArgs e)
         {
             if (filesInFolder.Count == 0 || currentClass != lastClass || currentSubject != lastSubject
@@ -1251,6 +1256,39 @@ namespace SchoolGrades
                 CalculateTimesForEndLessonWarning();
             }
         }
+        private void CalculateTimes()
+        {
+            // start the colored button that shows the time to the end of the lesson
+            int.TryParse(txtMinuteStartLesson.Text, out minuteStart);
+            float.TryParse(txtDurationLesson.Text, out timeLessonMinutes);
+
+            float.TryParse(txtAdvanceMinutes.Text, out timeAlarmMinutes);
+            if (minuteStart <= 0 || minuteStart >= 60)
+            {
+                minuteStart = 0;
+                txtMinuteStartLesson.Text = "0";
+            }
+            TimeSpan duration = new TimeSpan(0, (int)timeLessonMinutes, 0);
+            DateTime now = DateTime.Now;
+            //DateTime oneHourBeforeNow = now.Add(new TimeSpan(-1, 0, 0));
+            thisLessonStartTime = new DateTime(now.Year, now.Month,
+                now.Day, now.Hour, minuteStart, 0);
+            if (thisLessonStartTime > now)
+                thisLessonStartTime = thisLessonStartTime.Add(new TimeSpan(-1, 0, 0));
+            thisLessonEndTime = thisLessonStartTime.Add(duration);
+
+            ticksToMinutesFactor = (float)(1.0 / 60.0) / 10000000;
+
+            // Hue difference to cover
+            spanHue = finalColor.GetHue() - startColor.GetHue();
+            // Saturation difference to cover
+            //spanSaturation = coloreFinale.GetSaturation() - coloreIniziale.GetSaturation(); 
+            spanSaturation = 0;
+            // Luminance difference to cover
+            //spanLuminance = coloreFinale.GetBrightness() - coloreIniziale.GetBrightness();
+            spanLuminance = 0;
+            alarmNotFired = true;
+        }
         private void CalculateTimesForEndLessonWarning()
         {
             // start the colored button that shows the time to the end of the lesson
@@ -1638,133 +1676,176 @@ namespace SchoolGrades
         {
             try
             {
-                // Form title mantiene la versione originale con numero
-
-                // Buttons
-                btnDraw.Text = Loc.Get("Main_Draw");
-                butComeOn.Text = Loc.Get("Main_ComeOn");
-                btnSetup.Text = Loc.Get("Main_Setup");
-                btnAssess.Text = Loc.Get("Main_Assess");
-                btnCheckAll.Text = Loc.Get("Main_CheckAll");
-                btnCheckNone.Text = Loc.Get("Main_CheckNone");
-                btnCheckToggle.Text = Loc.Get("Main_CheckToggle");
-                btnCheckNoGrade.Text = Loc.Get("Main_CheckNoGrade");
-                btnCheckRevenge.Text = Loc.Get("Main_CheckRevenge");
-                btnOldestGrade.Text = Loc.Get("Main_OldestGrade");
-                btnStudentsGradesSummary.Text = Loc.Get("Main_StudentGradesSummary");
-                btnClassesGradesSummary.Text = Loc.Get("Main_ClassGradesSummary");
-                btnLessonsTopics.Text = Loc.Get("Main_Lessons");
-                btnTopicsDone.Text = Loc.Get("Main_TopicsDone");
-                btnYearTopics.Text = Loc.Get("Main_YearTopics");
-                btnStartLinks.Text = Loc.Get("Main_StartLinks");
-                btnQuestion.Text = Loc.Get("Main_Question");
-                btnMakeGroups.Text = Loc.Get("Main_MakeGroups");
-                btnLessonTime.Text = Loc.Get("Main_LessonTime");
-                btnVindicationFactorPlus.Text = Loc.Get("Main_RevengeFactorPlus");
-                btnVindicationFactorMinus.Text = Loc.Get("Main_RevengeFactorMinus");
-                btnShowRandomImage.Text = Loc.Get("Main_ShowRandomImage");
-                btnStartColorTimer.Text = Loc.Get("Main_StartColorTimer");
-                btnStartBarTimer.Text = Loc.Get("Main_StartBarTimer");
-                btnMosaic.Text = Loc.Get("Main_Mosaic");
-                btnStudentsNotes.Text = Loc.Get("Main_StudentsNotes");
-                btnRandomNumber.Text = Loc.Get("Main_RandomNumber");
+                // Buttons - Verifica esistenza prima di localizzare
+                if (btnDraw != null) btnDraw.Text = Loc.Get("Main_Draw");
+                if (btnComeOn != null) btnComeOn.Text = Loc.Get("Main_ComeOn");
+                if (btnSetup != null) btnSetup.Text = Loc.Get("Main_Setup");
+                if (btnAssess != null) btnAssess.Text = Loc.Get("Main_Assess");
+                if (btnCheckAll != null) btnCheckAll.Text = Loc.Get("Main_CheckAll");
+                if (btnCheckNone != null) btnCheckNone.Text = Loc.Get("Main_CheckNone");
+                if (btnCheckToggle != null) btnCheckToggle.Text = Loc.Get("Main_CheckToggle");
+                if (btnCheckNoGrade != null) btnCheckNoGrade.Text = Loc.Get("Main_CheckNoGrade");
+                if (btnCheckRevenge != null) btnCheckRevenge.Text = Loc.Get("Main_CheckRevenge");
+                if (btnOldestGrade != null) btnOldestGrade.Text = Loc.Get("Main_OldestGrade");
+                if (btnStudentsGradesSummary != null) btnStudentsGradesSummary.Text = Loc.Get("Main_StudentGradesSummary");
+                if (btnClassesGradesSummary != null) btnClassesGradesSummary.Text = Loc.Get("Main_ClassGradesSummary");
+                if (btnLessonsTopics != null) btnLessonsTopics.Text = Loc.Get("Main_Lessons");
+                if (btnTopicsDone != null) btnTopicsDone.Text = Loc.Get("Main_TopicsDone");
+                if (btnYearTopics != null) btnYearTopics.Text = Loc.Get("Main_YearTopics");
+                if (btnStartLinks != null) btnStartLinks.Text = Loc.Get("Main_StartLinks");
+                if (btnQuestion != null) btnQuestion.Text = Loc.Get("Main_Question");
+                if (btnMakeGroups != null) btnMakeGroups.Text = Loc.Get("Main_MakeGroups");
+                if (btnLessonTime != null) btnLessonTime.Text = Loc.Get("Main_LessonTime");
+                if (btnVindicationFactorPlus != null) btnVindicationFactorPlus.Text = Loc.Get("Main_RevengeFactorPlus");
+                if (btnVindicationFactorMinus != null) btnVindicationFactorMinus.Text = Loc.Get("Main_RevengeFactorMinus");
+                if (btnShowRandomImage != null) btnShowRandomImage.Text = Loc.Get("Main_ShowRandomImage");
+                if (btnStartColorTimer != null) btnStartColorTimer.Text = Loc.Get("Main_StartColorTimer");
+                if (btnStartBarTimer != null) btnStartBarTimer.Text = Loc.Get("Main_StartBarTimer");
+                if (btnMosaic != null) btnMosaic.Text = Loc.Get("Main_Mosaic");
+                if (btnStudentsNotes != null) btnStudentsNotes.Text = Loc.Get("Main_StudentsNotes");
+                if (btnRandomNumber != null) btnRandomNumber.Text = Loc.Get("Main_RandomNumber");
 
                 // Labels
-                lblSchoolSubject.Text = Loc.Get("Main_SchoolSubject");
-                lblGradeType.Text = Loc.Get("Main_GradeType");
-                lblVindicationFactor.Text = Loc.Get("Main_RevengeFactorLabel");
-                label1.Text = Loc.Get("Main_MinuteStart");
-                label3.Text = Loc.Get("Main_MinutesDuration");
-                label4.Text = Loc.Get("Main_AdvanceMinutes");
-                label6.Text = Loc.Get("Main_NumberOfStudents");
-                lblCodYear.Text = Loc.Get("Main_SchoolYearCode");
-                lblIdStudent.Text = Loc.Get("Main_IdStudent");
-                label7.Text = Loc.Get("Main_IdClass");
+                if (lblSchoolSubject != null) lblSchoolSubject.Text = Loc.Get("Main_SchoolSubject");
+                if (lblGradeType != null) lblGradeType.Text = Loc.Get("Main_GradeType");
+                if (lblVindicationFactor != null) lblVindicationFactor.Text = Loc.Get("Main_RevengeFactorLabel");
+                if (label1 != null) label1.Text = Loc.Get("Main_MinuteStart");
+                if (label3 != null) label3.Text = Loc.Get("Main_MinutesDuration");
+                if (label4 != null) label4.Text = Loc.Get("Main_AdvanceMinutes");
+                if (label6 != null) label6.Text = Loc.Get("Main_NumberOfStudents");
+                if (lblCodYear != null) lblCodYear.Text = Loc.Get("Main_SchoolYearCode");
+                if (lblIdStudent != null) lblIdStudent.Text = Loc.Get("Main_IdStudent");
+                if (label7 != null) label7.Text = Loc.Get("Main_IdClass");
+                if (label2 != null) label2.Text = Loc.Get("Main_SaveDb");
+                if (label8 != null) label8.Text = Loc.Get("Main_Time");
 
                 // CheckBoxes
-                chkNameIsVisible.Text = Loc.Get("Main_NameIsVisible");
-                chkPhotoVisibile.Text = Loc.Get("Main_PhotoVisible");
-                chkStudentsListVisible.Text = Loc.Get("Main_StudentsListVisible");
-                chkSuspence.Text = Loc.Get("Main_Suspence");
-                chkActivateLessonClock.Text = Loc.Get("Main_ActivateLessonClock");
-                chkEnableEndLessonWarning.Text = Loc.Get("Main_EnableEndLessonWarning");
-                chkPopUpQuestionsEnabled.Text = Loc.Get("Main_PopUpQuestionsEnabled");
-                chkSoundsInColorTimer.Text = Loc.Get("Main_SoundsInColorTimer");
-                chkLessonsPictures.Text = Loc.Get("Main_LessonsPictures");
-                chkGivenFolder.Text = Loc.Get("Main_GivenFolder");
+                if (chkNameIsVisible != null) chkNameIsVisible.Text = Loc.Get("Main_NameIsVisible");
+                if (chkPhotoVisibile != null) chkPhotoVisibile.Text = Loc.Get("Main_PhotoVisible");
+                if (chkStudentsListVisible != null) chkStudentsListVisible.Text = Loc.Get("Main_StudentsListVisible");
+                if (chkSuspence != null) chkSuspence.Text = Loc.Get("Main_Suspence");
+                if (chkActivateLessonClock != null) chkActivateLessonClock.Text = Loc.Get("Main_ActivateLessonClock");
+                if (chkEnableEndLessonWarning != null) chkEnableEndLessonWarning.Text = Loc.Get("Main_EnableEndLessonWarning");
+                if (chkPopUpQuestionsEnabled != null) chkPopUpQuestionsEnabled.Text = Loc.Get("Main_PopUpQuestionsEnabled");
+                if (chkSoundsInColorTimer != null) chkSoundsInColorTimer.Text = Loc.Get("Main_SoundsInColorTimer");
+                if (chkLessonsPictures != null) chkLessonsPictures.Text = Loc.Get("Main_LessonsPictures");
+                if (chkGivenFolder != null) chkGivenFolder.Text = Loc.Get("Main_GivenFolder");
 
                 // GroupBoxes
-                grpSorts.Text = Loc.Get("Main_SortsGroup");
-                grpImageSource.Text = Loc.Get("Main_ImageSourceGroup");
+                if (grpSorts != null) grpSorts.Text = Loc.Get("Main_SortsGroup");
+                if (grpImageSource != null) grpImageSource.Text = Loc.Get("Main_ImageSourceGroup");
+                //if (grpChooseDrawSort != null) grpChooseDrawSort.Text = Loc.Get("Main_ChooseDrawSort");
 
                 // RadioButtons
-                rdbDrawEqualProbability.Text = Loc.Get("Main_EqualProbability");
-                rdbDrawByWeightsSum.Text = Loc.Get("Main_WeightsSum");
-                rdbDrawNoOfGrades.Text = Loc.Get("Main_NoOfGrades");
-                rdbSortByAlphbetical.Text = Loc.Get("Main_Alphabetical");
-                rdbDrawLowGradesFirst.Text = Loc.Get("Main_LowGradesFirst");
-                rdbDrawByOldestFirst.Text = Loc.Get("Main_OldestFirst");
-                rdbDrawByRevengeFactor.Text = Loc.Get("Main_RevengeFactor");
-                rdbMustDraw.Text = Loc.Get("Main_MustDraw");
-                rdbMustSort.Text = Loc.Get("Main_MustSort");
+                if (rdbDrawEqualProbability != null) rdbDrawEqualProbability.Text = Loc.Get("Main_EqualProbability");
+                if (rdbDrawByWeightsSum != null) rdbDrawByWeightsSum.Text = Loc.Get("Main_WeightsSum");
+                if (rdbDrawNoOfGrades != null) rdbDrawNoOfGrades.Text = Loc.Get("Main_NoOfGrades");
+                if (rdbSortByAlphbetical != null) rdbSortByAlphbetical.Text = Loc.Get("Main_Alphabetical");
+                if (rdbDrawLowGradesFirst != null) rdbDrawLowGradesFirst.Text = Loc.Get("Main_LowGradesFirst");
+                if (rdbDrawByOldestFirst != null) rdbDrawByOldestFirst.Text = Loc.Get("Main_OldestFirst");
+                if (rdbDrawByRevengeFactor != null) rdbDrawByRevengeFactor.Text = Loc.Get("Main_RevengeFactor");
+                if (rdbMustDraw != null) rdbMustDraw.Text = Loc.Get("Main_MustDraw");
+                if (rdbMustSort != null) rdbMustSort.Text = Loc.Get("Main_MustSort");
 
-                // Tooltips - Buttons
-                toolTip1.SetToolTip(btnDraw, Loc.Get("Main_Tooltip_Draw"));
-                toolTip1.SetToolTip(butComeOn, Loc.Get("Main_Tooltip_ComeOn"));
-                toolTip1.SetToolTip(btnCheckNone, Loc.Get("Main_Tooltip_CheckNone"));
-                toolTip1.SetToolTip(btnCheckAll, Loc.Get("Main_Tooltip_CheckAll"));
-                toolTip1.SetToolTip(btnCheckToggle, Loc.Get("Main_Tooltip_CheckToggle"));
-                toolTip1.SetToolTip(btnCheckRevenge, Loc.Get("Main_Tooltip_CheckRevenge"));
-                toolTip1.SetToolTip(btnCheckNoGrade, Loc.Get("Main_Tooltip_CheckNoGrade"));
-                toolTip1.SetToolTip(btnSetup, Loc.Get("Main_Tooltip_Setup"));
-                toolTip1.SetToolTip(btnStudentsGradesSummary, Loc.Get("Main_Tooltip_StudentGradesSummary"));
-                toolTip1.SetToolTip(btnOldestGrade, Loc.Get("Main_Tooltip_OldestGrade"));
-                toolTip1.SetToolTip(btnLessonsTopics, Loc.Get("Main_Tooltip_Lessons"));
-                toolTip1.SetToolTip(btnTopicsDone, Loc.Get("Main_Tooltip_TopicsDone"));
-                toolTip1.SetToolTip(btnStartLinks, Loc.Get("Main_Tooltip_StartLinks"));
-                toolTip1.SetToolTip(btnQuestion, Loc.Get("Main_Tooltip_Question"));
-                toolTip1.SetToolTip(btnMakeGroups, Loc.Get("Main_Tooltip_MakeGroups"));
-                toolTip1.SetToolTip(btnLessonTime, Loc.Get("Main_Tooltip_LessonTime"));
-                toolTip1.SetToolTip(btnVindicationFactorPlus, Loc.Get("Main_Tooltip_RevengeFactorPlus"));
-                toolTip1.SetToolTip(btnVindicationFactorMinus, Loc.Get("Main_Tooltip_RevengeFactorMinus"));
-                toolTip1.SetToolTip(btnClassesGradesSummary, Loc.Get("Main_Tooltip_ClassGradesSummary"));
-                toolTip1.SetToolTip(btnYearTopics, Loc.Get("Main_Tooltip_YearTopics"));
-                toolTip1.SetToolTip(btnStudentsNotes, Loc.Get("Main_Tooltip_StudentsNotes"));
-                toolTip1.SetToolTip(btnShowRandomImage, Loc.Get("Main_Tooltip_ShowRandomImage"));
-                toolTip1.SetToolTip(btnMosaic, Loc.Get("Main_Tooltip_Mosaic"));
-                toolTip1.SetToolTip(btnStartColorTimer, Loc.Get("Main_Tooltip_StartColorTimer"));
-                toolTip1.SetToolTip(btnStartBarTimer, Loc.Get("Main_Tooltip_StartBarTimer"));
-                toolTip1.SetToolTip(btnRandomNumber, Loc.Get("Main_Tooltip_RandomNumber"));
+                // Tooltips - Solo se il controllo esiste
+                if (toolTip1 != null)
+                {
+                    // Tooltips - Buttons
+                    if (btnDraw != null) toolTip1.SetToolTip(btnDraw, Loc.Get("Main_Tooltip_Draw"));
+                    if (btnComeOn != null) toolTip1.SetToolTip(btnComeOn, Loc.Get("Main_Tooltip_ComeOn"));
+                    if (btnCheckNone != null) toolTip1.SetToolTip(btnCheckNone, Loc.Get("Main_Tooltip_CheckNone"));
+                    if (btnCheckAll != null) toolTip1.SetToolTip(btnCheckAll, Loc.Get("Main_Tooltip_CheckAll"));
+                    if (btnCheckToggle != null) toolTip1.SetToolTip(btnCheckToggle, Loc.Get("Main_Tooltip_CheckToggle"));
+                    if (btnCheckRevenge != null) toolTip1.SetToolTip(btnCheckRevenge, Loc.Get("Main_Tooltip_CheckRevenge"));
+                    if (btnCheckNoGrade != null) toolTip1.SetToolTip(btnCheckNoGrade, Loc.Get("Main_Tooltip_CheckNoGrade"));
+                    if (btnSetup != null) toolTip1.SetToolTip(btnSetup, Loc.Get("Main_Tooltip_Setup"));
+                    if (btnStudentsGradesSummary != null) toolTip1.SetToolTip(btnStudentsGradesSummary, Loc.Get("Main_Tooltip_StudentGradesSummary"));
+                    if (btnOldestGrade != null) toolTip1.SetToolTip(btnOldestGrade, Loc.Get("Main_Tooltip_OldestGrade"));
+                    if (btnLessonsTopics != null) toolTip1.SetToolTip(btnLessonsTopics, Loc.Get("Main_Tooltip_Lessons"));
+                    if (btnTopicsDone != null) toolTip1.SetToolTip(btnTopicsDone, Loc.Get("Main_Tooltip_TopicsDone"));
+                    if (btnStartLinks != null) toolTip1.SetToolTip(btnStartLinks, Loc.Get("Main_Tooltip_StartLinks"));
+                    if (btnQuestion != null) toolTip1.SetToolTip(btnQuestion, Loc.Get("Main_Tooltip_Question"));
+                    if (btnMakeGroups != null) toolTip1.SetToolTip(btnMakeGroups, Loc.Get("Main_Tooltip_MakeGroups"));
+                    if (btnLessonTime != null) toolTip1.SetToolTip(btnLessonTime, Loc.Get("Main_Tooltip_LessonTime"));
+                    if (btnVindicationFactorPlus != null) toolTip1.SetToolTip(btnVindicationFactorPlus, Loc.Get("Main_Tooltip_RevengeFactorPlus"));
+                    if (btnVindicationFactorMinus != null) toolTip1.SetToolTip(btnVindicationFactorMinus, Loc.Get("Main_Tooltip_RevengeFactorMinus"));
+                    if (btnClassesGradesSummary != null) toolTip1.SetToolTip(btnClassesGradesSummary, Loc.Get("Main_Tooltip_ClassGradesSummary"));
+                    if (btnYearTopics != null) toolTip1.SetToolTip(btnYearTopics, Loc.Get("Main_Tooltip_YearTopics"));
+                    if (btnStudentsNotes != null) toolTip1.SetToolTip(btnStudentsNotes, Loc.Get("Main_Tooltip_StudentsNotes"));
+                    if (btnShowRandomImage != null) toolTip1.SetToolTip(btnShowRandomImage, Loc.Get("Main_Tooltip_ShowRandomImage"));
+                    if (btnMosaic != null) toolTip1.SetToolTip(btnMosaic, Loc.Get("Main_Tooltip_Mosaic"));
+                    if (btnStartColorTimer != null) toolTip1.SetToolTip(btnStartColorTimer, Loc.Get("Main_Tooltip_StartColorTimer"));
+                    if (btnStartBarTimer != null) toolTip1.SetToolTip(btnStartBarTimer, Loc.Get("Main_Tooltip_StartBarTimer"));
+                    if (btnRandomNumber != null) toolTip1.SetToolTip(btnRandomNumber, Loc.Get("Main_Tooltip_RandomNumber"));
+                    if (btnPath != null) toolTip1.SetToolTip(btnPath, Loc.Get("Main_Tooltip_PathButton"));
 
-                // Tooltips - Altri controlli
-                toolTip1.SetToolTip(lstClasses, Loc.Get("Main_Tooltip_ClassesList"));
-                toolTip1.SetToolTip(pgbTimeQuestion, Loc.Get("Main_Tooltip_TimeProgressBar"));
-                toolTip1.SetToolTip(chkNameIsVisible, Loc.Get("Main_Tooltip_NameIsVisible"));
-                toolTip1.SetToolTip(chkPhotoVisibile, Loc.Get("Main_Tooltip_PhotoVisible"));
-                toolTip1.SetToolTip(chkStudentsListVisible, Loc.Get("Main_Tooltip_StudentsListVisible"));
-                toolTip1.SetToolTip(cmbSchoolYear, Loc.Get("Main_Tooltip_SchoolYear"));
-                toolTip1.SetToolTip(txtPathImages, Loc.Get("Main_Tooltip_ImagesPath"));
-                toolTip1.SetToolTip(btnPath, Loc.Get("Main_Tooltip_PathButton"));
-                toolTip1.SetToolTip(cmbGradeType, Loc.Get("Main_Tooltip_GradeType"));
-                toolTip1.SetToolTip(cmbSchoolSubject, Loc.Get("Main_Tooltip_SchoolSubject"));
-                toolTip1.SetToolTip(txtQuestion, Loc.Get("Main_Tooltip_QuestionText"));
-                toolTip1.SetToolTip(chkSuspence, Loc.Get("Main_Tooltip_Suspence"));
-                toolTip1.SetToolTip(chkActivateLessonClock, Loc.Get("Main_Tooltip_ActivateLessonClock"));
+                    // Tooltips - Altri controlli principali
+                    if (lstClasses != null) toolTip1.SetToolTip(lstClasses, Loc.Get("Main_Tooltip_ClassesList"));
+                    if (pgbTimeQuestion != null) toolTip1.SetToolTip(pgbTimeQuestion, Loc.Get("Main_Tooltip_TimeProgressBar"));
+                    if (chkNameIsVisible != null) toolTip1.SetToolTip(chkNameIsVisible, Loc.Get("Main_Tooltip_NameIsVisible"));
+                    if (chkPhotoVisibile != null) toolTip1.SetToolTip(chkPhotoVisibile, Loc.Get("Main_Tooltip_PhotoVisible"));
+                    if (chkStudentsListVisible != null) toolTip1.SetToolTip(chkStudentsListVisible, Loc.Get("Main_Tooltip_StudentsListVisible"));
+                    if (cmbSchoolYear != null) toolTip1.SetToolTip(cmbSchoolYear, Loc.Get("Main_Tooltip_SchoolYear"));
+                    if (txtPathImages != null) toolTip1.SetToolTip(txtPathImages, Loc.Get("Main_Tooltip_ImagesPath"));
+                    if (cmbGradeType != null) toolTip1.SetToolTip(cmbGradeType, Loc.Get("Main_Tooltip_GradeType"));
+                    if (cmbSchoolSubject != null) toolTip1.SetToolTip(cmbSchoolSubject, Loc.Get("Main_Tooltip_SchoolSubject"));
+                    if (txtQuestion != null) toolTip1.SetToolTip(txtQuestion, Loc.Get("Main_Tooltip_QuestionText"));
+                    if (chkSuspence != null) toolTip1.SetToolTip(chkSuspence, Loc.Get("Main_Tooltip_Suspence"));
+                    if (chkActivateLessonClock != null) toolTip1.SetToolTip(chkActivateLessonClock, Loc.Get("Main_Tooltip_ActivateLessonClock"));
 
-                // Tooltips - RadioButtons
-                toolTip1.SetToolTip(rdbDrawEqualProbability, Loc.Get("Main_Tooltip_EqualProbability"));
-                toolTip1.SetToolTip(rdbDrawByWeightsSum, Loc.Get("Main_Tooltip_WeightsSum"));
-                toolTip1.SetToolTip(rdbDrawNoOfGrades, Loc.Get("Main_Tooltip_NoOfGrades"));
-                toolTip1.SetToolTip(rdbDrawByOldestFirst, Loc.Get("Main_Tooltip_OldestFirst"));
-                toolTip1.SetToolTip(rdbSortByAlphbetical, Loc.Get("Main_Tooltip_Alphabetical"));
-                toolTip1.SetToolTip(rdbDrawLowGradesFirst, Loc.Get("Main_Tooltip_LowGradesFirst"));
-                toolTip1.SetToolTip(rdbDrawByRevengeFactor, Loc.Get("Main_Tooltip_RevengeFactor"));
-                toolTip1.SetToolTip(chkLessonsPictures, Loc.Get("Main_Tooltip_LessonsPictures"));
-                toolTip1.SetToolTip(chkGivenFolder, Loc.Get("Main_Tooltip_GivenFolder"));
-                toolTip1.SetToolTip(chkSoundsInColorTimer, Loc.Get("Main_Tooltip_SoundsInColorTimer"));
+                    // Tooltips - RadioButtons
+                    if (rdbDrawEqualProbability != null) toolTip1.SetToolTip(rdbDrawEqualProbability, Loc.Get("Main_Tooltip_EqualProbability"));
+                    if (rdbDrawByWeightsSum != null) toolTip1.SetToolTip(rdbDrawByWeightsSum, Loc.Get("Main_Tooltip_WeightsSum"));
+                    if (rdbDrawNoOfGrades != null) toolTip1.SetToolTip(rdbDrawNoOfGrades, Loc.Get("Main_Tooltip_NoOfGrades"));
+                    if (rdbDrawByOldestFirst != null) toolTip1.SetToolTip(rdbDrawByOldestFirst, Loc.Get("Main_Tooltip_OldestFirst"));
+                    if (rdbSortByAlphbetical != null) toolTip1.SetToolTip(rdbSortByAlphbetical, Loc.Get("Main_Tooltip_Alphabetical"));
+                    if (rdbDrawLowGradesFirst != null) toolTip1.SetToolTip(rdbDrawLowGradesFirst, Loc.Get("Main_Tooltip_LowGradesFirst"));
+                    if (rdbDrawByRevengeFactor != null) toolTip1.SetToolTip(rdbDrawByRevengeFactor, Loc.Get("Main_Tooltip_RevengeFactor"));
+
+                    // Tooltips - CheckBoxes aggiuntive
+                    if (chkLessonsPictures != null) toolTip1.SetToolTip(chkLessonsPictures, Loc.Get("Main_Tooltip_LessonsPictures"));
+                    if (chkGivenFolder != null) toolTip1.SetToolTip(chkGivenFolder, Loc.Get("Main_Tooltip_GivenFolder"));
+                    if (chkSoundsInColorTimer != null) toolTip1.SetToolTip(chkSoundsInColorTimer, Loc.Get("Main_Tooltip_SoundsInColorTimer"));
+                    if (chkEnableEndLessonWarning != null) toolTip1.SetToolTip(chkEnableEndLessonWarning, Loc.Get("Main_Tooltip_EnableEndLessonWarning"));
+                    if (chkPopUpQuestionsEnabled != null) toolTip1.SetToolTip(chkPopUpQuestionsEnabled, Loc.Get("Main_Tooltip_PopUpQuestionsEnabled"));
+
+                    // Tooltips - TextBoxes e altri controlli
+                    if (txtMinuteStartLesson != null) toolTip1.SetToolTip(txtMinuteStartLesson, Loc.Get("Main_Tooltip_MinuteStartLesson"));
+                    if (txtDurationLesson != null) toolTip1.SetToolTip(txtDurationLesson, Loc.Get("Main_Tooltip_DurationLesson"));
+                    if (txtAdvanceMinutes != null) toolTip1.SetToolTip(txtAdvanceMinutes, Loc.Get("Main_Tooltip_AdvanceMinutes"));
+                    if (txtRevengeFactor != null) toolTip1.SetToolTip(txtRevengeFactor, Loc.Get("Main_Tooltip_RevengeFactor"));
+                    if (txtNStudents != null) toolTip1.SetToolTip(txtNStudents, Loc.Get("Main_Tooltip_NStudents"));
+                    if (txtIdClass != null) toolTip1.SetToolTip(txtIdClass, Loc.Get("Main_Tooltip_IdClass"));
+                    if (txtPopUpQuestionCentralTime != null) toolTip1.SetToolTip(txtPopUpQuestionCentralTime, Loc.Get("Main_Tooltip_PopUpQuestionCentralTime"));
+                    if (txtTimeInterval != null) toolTip1.SetToolTip(txtTimeInterval, Loc.Get("Main_Tooltip_TimeInterval"));
+                    if (txtIdStudent != null) toolTip1.SetToolTip(txtIdStudent, Loc.Get("Main_Tooltip_IdStudent"));
+
+                    // Tooltips - Labels
+                    if (lblVindicationFactor != null) toolTip1.SetToolTip(lblVindicationFactor, Loc.Get("Main_Tooltip_RevengeFactorLabel"));
+                    if (label1 != null) toolTip1.SetToolTip(label1, Loc.Get("Main_Tooltip_MinuteStartLabel"));
+                    if (label3 != null) toolTip1.SetToolTip(label3, Loc.Get("Main_Tooltip_MinutesDurationLabel"));
+                    if (label4 != null) toolTip1.SetToolTip(label4, Loc.Get("Main_Tooltip_AdvanceMinutesLabel"));
+                    if (label6 != null) toolTip1.SetToolTip(label6, Loc.Get("Main_Tooltip_NumberOfStudentsLabel"));
+                    if (label7 != null) toolTip1.SetToolTip(label7, Loc.Get("Main_Tooltip_IdClassLabel"));
+                    if (label8 != null) toolTip1.SetToolTip(label8, Loc.Get("Main_Tooltip_TimeLabel"));
+                    if (label2 != null) toolTip1.SetToolTip(label2, Loc.Get("Main_Tooltip_SaveDbLabel"));
+                    if (lblDatabaseFile != null) toolTip1.SetToolTip(lblDatabaseFile, Loc.Get("Main_Tooltip_DatabaseFile"));
+                    if (lblLastDatabaseModification != null) toolTip1.SetToolTip(lblLastDatabaseModification, Loc.Get("Main_Tooltip_LastModification"));
+                    if (lblIdStudent != null) toolTip1.SetToolTip(lblIdStudent, Loc.Get("Main_Tooltip_IdStudentLabel"));
+
+                    // Tooltips - PictureBox e ListBox
+                    if (picBackgroundSaveRunning != null) toolTip1.SetToolTip(picBackgroundSaveRunning, Loc.Get("Main_Tooltip_BackgroundSaveRunning"));
+                    if (lstTimeInterval != null) toolTip1.SetToolTip(lstTimeInterval, Loc.Get("Main_Tooltip_TimeIntervalList"));
+
+                    // Tooltips - GroupBoxes
+                    if (grpSorts != null) toolTip1.SetToolTip(grpSorts, Loc.Get("Main_Tooltip_SortsGroup"));
+                    if (grpImageSource != null) toolTip1.SetToolTip(grpImageSource, Loc.Get("Main_Tooltip_ImageSourceGroup"));
+                    if (grpChooseDrawSort != null) toolTip1.SetToolTip(grpChooseDrawSort, Loc.Get("Main_Tooltip_ChooseDrawSort"));
+                }
             }
             catch (Exception ex)
             {
+                // silent log
                 Commons.ErrorLog($"frmMain.LocalizeForm: Error in localization: {ex.Message}");
             }
         }

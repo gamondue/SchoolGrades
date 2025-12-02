@@ -3,13 +3,15 @@ using System;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using SchoolGrades.Localization;
+
 using System.Windows.Forms;
 
 namespace SchoolGrades
 {
     public partial class frmMicroAssessment : Form
     {
-      private string currentYear;
+        private string currentYear;
         private int idQuestionParent;
         private string idGradeType;
         //BusinessLayer Commons.bl;
@@ -18,55 +20,56 @@ namespace SchoolGrades
         frmMain callingForm;
 
         private Class currentClass;
-    Student currentStudent;
+        Student currentStudent;
         Grade currentMacroGrade;
         GradeType currentGradeType;
         SchoolSubject currentSchoolSubject;
         Question currentQuestion = new Question();
 
- #region constructors
+        #region constructors
         internal frmMicroAssessment(frmMain CallingForm, Class Class, Student Student,
             GradeType GradeType, SchoolSubject Subject, Question Question)
         {
-      InitializeComponent();
+            InitializeComponent();
+            LocalizeForm();
 
-      callingForm = CallingForm;
+            callingForm = CallingForm;
             currentClass = Class;
-    currentStudent = Student;
-       currentGradeType = GradeType;
+            currentStudent = Student;
+            currentGradeType = GradeType;
             currentSchoolSubject = Subject;
-       currentQuestion = Question;
+            currentQuestion = Question;
         }
 
         public frmMicroAssessment(int IdGrade)
         {
-     InitializeComponent();
+            InitializeComponent();
 
-    // constructor for subgrades for a grade passed trough its id
+            // constructor for subgrades for a grade passed trough its id
             currentGrade.IdGrade = IdGrade;
             currentStudent = new Student();
             Commons.bl.GetGradeAndStudentFromIdGrade(ref currentGrade, ref currentStudent);
-    currentYear = currentGrade.IdSchoolYear;
-    currentClass = Commons.bl.GetClassOfAStudentInAYear(Commons.IdSchool, currentYear, currentStudent);
+            currentYear = currentGrade.IdSchoolYear;
+            currentClass = Commons.bl.GetClassOfAStudentInAYear(Commons.IdSchool, currentYear, currentStudent);
 
-       currentGradeType = Commons.bl.GetGradeType(currentGrade.IdGradeType);
+            currentGradeType = Commons.bl.GetGradeType(currentGrade.IdGradeType);
 
-       currentSchoolSubject = Commons.bl.GetSchoolSubject(currentGrade.IdSchoolSubject);
- currentQuestion = Commons.bl.GetQuestionById(currentGrade.IdQuestion);
+            currentSchoolSubject = Commons.bl.GetSchoolSubject(currentGrade.IdSchoolSubject);
+            currentQuestion = Commons.bl.GetQuestionById(currentGrade.IdQuestion);
         }
 
         #endregion
 
-   [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-      internal Question CurrentQuestion { get => currentQuestion; set => currentQuestion = value; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        internal Question CurrentQuestion { get => currentQuestion; set => currentQuestion = value; }
 
         Grade currentGrade = new Grade();
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
- internal Grade CurrentGrade { get => currentGrade; set => currentGrade = value; }
+        internal Grade CurrentGrade { get => currentGrade; set => currentGrade = value; }
 
         private void frmMicroAssessment_Load(object sender, EventArgs e)
-     {
+        {
             if (currentStudent is null)
             {
                 MessageBox.Show("Selezionare un allievo");
@@ -459,6 +462,70 @@ namespace SchoolGrades
             f.ShowDialog();
             if (f.UserHasChosen)
                 TxtQuestionText.Text = f.currentQuestion.Text;
+        }
+        private void LocalizeForm()
+        {
+            try
+            {
+                // Form title
+                this.Text = Loc.Get("MicroAssessment_Title");
+
+                // Labels
+                lblWeight.Text = Loc.Get("MicroAssessment_Weight");
+                lblGrade.Text = Loc.Get("MicroAssessment_Grade");
+                lblStudent.Text = Loc.Get("MicroAssessment_Student");
+                label3.Text = Loc.Get("MicroAssessment_MacroGradeCode");
+                label4.Text = Loc.Get("MicroAssessment_MacroGradeWeight");
+                lblGradeType.Text = Loc.Get("MicroAssessment_GradeType");
+                lblGradeTypeParent.Text = Loc.Get("MicroAssessment_GradeTypeParent");
+                lblSchoolSubject.Text = Loc.Get("MicroAssessment_Subject");
+                lblAverageMicroQuestions.Text = Loc.Get("MicroAssessment_SummaryGrade");
+                lblWeightsSum.Text = Loc.Get("MicroAssessment_WeightsSum");
+                label1.Text = Loc.Get("MicroAssessment_StudentId");
+                label2.Text = Loc.Get("MicroAssessment_QuestionWeight");
+                label5.Text = Loc.Get("MicroAssessment_QuestionGrade");
+
+                // Buttons
+                btnSaveMicroGrade.Text = Loc.Get("MicroAssessment_NewMicroGrade");
+                btnNewMacroGrade.Text = Loc.Get("MicroAssessment_NewMacroGrade");
+                btnSaveMacroGrade.Text = Loc.Get("MicroAssessment_SaveMacroGrade");
+                btnQuestionChoose.Text = Loc.Get("MicroAssessment_ChooseQuestion");
+                btnEraseMicroGrade.Text = Loc.Get("MicroAssessment_Delete");
+                btnFlushQuestion.Text = Loc.Get("MicroAssessment_Delete");
+                btnSaveMicrogradeFromGrid.Text = Loc.Get("MicroAssessment_Save");
+
+                // CheckBox
+                chkHasSpecialNeeds.Text = Loc.Get("MicroAssessment_HasSpecialNeeds");
+
+                // Tooltips
+                toolTip1.SetToolTip(txtMicroGrade, Loc.Get("MicroAssessment_Tooltip_MicroGrade"));
+                toolTip1.SetToolTip(txtMicroGradeWeight, Loc.Get("MicroAssessment_Tooltip_MicroWeight"));
+                toolTip1.SetToolTip(txtAverageMicroQuestions, Loc.Get("MicroAssessment_Tooltip_Average"));
+                toolTip1.SetToolTip(txtWeightsSum, Loc.Get("MicroAssessment_Tooltip_WeightsSum"));
+                toolTip1.SetToolTip(txtIdMacroGrade, Loc.Get("MicroAssessment_Tooltip_MacroCode"));
+                toolTip1.SetToolTip(txtMacroGradeWeight, Loc.Get("MicroAssessment_Tooltip_MacroWeight"));
+                toolTip1.SetToolTip(txtSchoolSubject, Loc.Get("MicroAssessment_Tooltip_Subject"));
+                toolTip1.SetToolTip(TxtIdStudent, Loc.Get("MicroAssessment_Tooltip_StudentId"));
+
+                toolTip1.SetToolTip(btnSaveMicroGrade, Loc.Get("MicroAssessment_Tooltip_SaveMicro"));
+                toolTip1.SetToolTip(btnNewMacroGrade, Loc.Get("MicroAssessment_Tooltip_NewMacro"));
+                toolTip1.SetToolTip(btnSaveMacroGrade, Loc.Get("MicroAssessment_Tooltip_SaveMacro"));
+                toolTip1.SetToolTip(btnQuestionChoose, Loc.Get("MicroAssessment_Tooltip_ChooseQuestion"));
+                toolTip1.SetToolTip(btnEraseMicroGrade, Loc.Get("MicroAssessment_Tooltip_Delete"));
+                toolTip1.SetToolTip(btnSaveMicrogradeFromGrid, Loc.Get("MicroAssessment_Tooltip_SaveFromGrid"));
+
+                toolTip1.SetToolTip(lblGrade, Loc.Get("MicroAssessment_Tooltip_Grade"));
+                toolTip1.SetToolTip(lblWeight, Loc.Get("MicroAssessment_Tooltip_Weight"));
+                toolTip1.SetToolTip(lblAverageMicroQuestions, Loc.Get("MicroAssessment_Tooltip_Average"));
+                toolTip1.SetToolTip(lblWeightsSum, Loc.Get("MicroAssessment_Tooltip_WeightsSum"));
+                toolTip1.SetToolTip(label3, Loc.Get("MicroAssessment_Tooltip_MacroCode"));
+                toolTip1.SetToolTip(label4, Loc.Get("MicroAssessment_Tooltip_MacroWeight"));
+                toolTip1.SetToolTip(label1, Loc.Get("MicroAssessment_Tooltip_StudentId"));
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"frmMicroAssessment.LocalizeForm: {ex.Message}");
+            }
         }
     }
 }

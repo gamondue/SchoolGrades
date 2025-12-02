@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using SchoolGrades.Localization;
 
 namespace SchoolGrades
 {
@@ -21,6 +22,9 @@ namespace SchoolGrades
             GradeType GradeType, SchoolSubject SchoolSubject)
         {
             InitializeComponent();
+            
+            LocalizeForm();
+
             currentStudent = Student;
             currentSchoolYear = IdSchoolYear;
             currentGradeType = GradeType;
@@ -33,7 +37,7 @@ namespace SchoolGrades
         {
             if (currentStudent == null)
             {
-                MessageBox.Show("Non è stato passato nessun studente");
+                MessageBox.Show(Loc.Get("GradesStudentsSummary_NoStudentPassed"));
                 this.Close();
             }
 
@@ -160,6 +164,50 @@ namespace SchoolGrades
                 dgwGrades.Rows[e.RowIndex].Selected = true;
                 currentGrade.IdGrade = (int?)dgwGrades.Rows[e.RowIndex].Cells["IdGrade"].Value;
                 currentGrade = Commons.bl.GetGrade(currentGrade.IdGrade);
+            }
+        }
+        private void LocalizeForm()
+        {
+            try
+            {
+                // Form title
+                this.Text = Loc.Get("GradesStudentsSummary_Title");
+
+                // Labels
+                lblCurrentStudent.Text = Loc.Get("GradesStudentsSummary_Student");
+                label2.Text = Loc.Get("GradesStudentsSummary_GradesOfType");
+                lblSchoolSubject.Text = Loc.Get("GradesStudentsSummary_Subject");
+                lblStart.Text = Loc.Get("GradesStudentsSummary_Start");
+                lblEnd.Text = Loc.Get("GradesStudentsSummary_End");
+                label1.Text = Loc.Get("GradesStudentsSummary_StudentId");
+                label5.Text = Loc.Get("GradesStudentsSummary_WeightsSum");
+                lblAverage.Text = Loc.Get("GradesStudentsSummary_WeightedAverage");
+                label7.Text = Loc.Get("GradesStudentsSummary_GradesOfType");
+                label6.Text = Loc.Get("GradesStudentsSummary_WeightsSum");
+                label8.Text = Loc.Get("GradesStudentsSummary_WeightedAverage");
+                label9.Text = Loc.Get("GradesStudentsSummary_Annotation");
+                label3.Text = Loc.Get("GradesStudentsSummary_AnnotationId");
+                label4.Text = Loc.Get("GradesStudentsSummary_AnnotationId");
+
+                // GroupBoxes
+                grpPeriodOfQuestionsTopics.Text = Loc.Get("GradesStudentsSummary_GradesPeriod");
+                grpComplessivo.Text = Loc.Get("GradesStudentsSummary_OverallSummary");
+
+                // Buttons
+                btnAddAnnotation.Text = Loc.Get("Common_Add");
+                btnEraseAnnotation.Text = Loc.Get("Common_Remove");
+                btnSave.Text = Loc.Get("Common_Save");
+
+                // CheckBoxes
+                chkCurrentAnnotationActive.Text = Loc.Get("GradesStudentsSummary_Active");
+                chkShowOnlyActive.Text = Loc.Get("GradesStudentsSummary_ShowOnlyActive");
+
+                // RadioButton
+                rdbAmongPeriod.Text = Loc.Get("GradesStudentsSummary_InPeriod");
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"frmGradesStudentsSummary.LocalizeForm: {ex.Message}");
             }
         }
     }

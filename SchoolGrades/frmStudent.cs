@@ -1,10 +1,10 @@
 ﻿using SchoolGrades.BusinessObjects;
-using SchoolGrades.Localization;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
+using SchoolGrades.Localization;
 
 namespace SchoolGrades
 {
@@ -293,14 +293,12 @@ namespace SchoolGrades
             List<Student> dt = Commons.bl.GetStudentsLike(currentStudent);
             dgwSearchedStudents.DataSource = dt;
         }
-
         private void btnClipboard_Click(object sender, EventArgs e)
         {
             // copy student data to clipboard
             FromUiToCurrentStudent();
             Clipboard.SetText(currentStudent.ToString());
         }
-
         private void LocalizeForm()
         {
             try

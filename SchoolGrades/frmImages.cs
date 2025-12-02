@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
+using SchoolGrades.Localization;
 
 namespace SchoolGrades
 {
@@ -29,6 +30,8 @@ namespace SchoolGrades
             List<SchoolGrades.BusinessObjects.Image> Images, SchoolSubject Subject)
         {
             InitializeComponent();
+            
+            LocalizeForm();
 
             listImages = Images;
             currentLesson = Lesson;
@@ -428,6 +431,40 @@ namespace SchoolGrades
         private void btnLastImage_Click(object sender, EventArgs e)
         {
             lastImage();
+        }
+        private void LocalizeForm()
+        {
+            try
+            {
+                // Form title
+                this.Text = Loc.Get("Images_Title");
+
+                // Labels
+                lblSchoolCode.Text = Loc.Get("Images_SchoolCode");
+                lblSchoolYear.Text = Loc.Get("Images_SchoolYear");
+                lblClassAbbreviation.Text = Loc.Get("Images_ClassAbbreviation");
+                lblSchoolSubject.Text = Loc.Get("Images_Subject");
+                lblLessonCode.Text = Loc.Get("Images_LessonCode");
+                lblLessonDate.Text = Loc.Get("Images_Date");
+                lblLessonDesc.Text = Loc.Get("Images_LessonNotes");
+                lblPathDatabase.Text = Loc.Get("Images_ImportFolder");
+                lblFileImportName.Text = Loc.Get("Images_FileToImport");
+                lblSubFolderStorage.Text = Loc.Get("Images_SubFolderStorage");
+
+                // Buttons (solo quelli con testo visibile)
+                btnSave.Text = Loc.Get("Images_Save");
+
+                // RadioButtons
+                rdbAutoRename.Text = Loc.Get("Images_AutoFileName");
+                rdbManualRename.Text = Loc.Get("Images_SameFileName");
+
+                // CheckBox
+                chkMantainOldFileName.Text = Loc.Get("Images_KeepOldFileName");
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"frmImages.LocalizeForm: {ex.Message}");
+            }
         }
     }
 }

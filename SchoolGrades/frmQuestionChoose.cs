@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
+using SchoolGrades.Localization;
 
 namespace SchoolGrades
 {
@@ -37,7 +38,7 @@ namespace SchoolGrades
             frmMicroAssessment MicroAssessmentParent = null, frmMain MainParent = null)
         {
             InitializeComponent();
-
+            LocalizeForm();
 #if SQL_SERVER
             dbMptt = new TreeMpttDb_SqlServer("Dummy. To be detarmined");
 #else
@@ -120,7 +121,7 @@ namespace SchoolGrades
         }
         private void btnCopyQuestion_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Function not implemented yet");
+            MessageBox.Show(Loc.Get("QuestionChoose_FunctionNotImplemented"));
         }
         private void btnAddTag_Click(object sender, EventArgs e)
         {
@@ -171,7 +172,7 @@ namespace SchoolGrades
         {
             if (lstTags.SelectedItem == null)
             {
-                MessageBox.Show("Evidenziare il tag che si vuole eliminare");
+                MessageBox.Show(Loc.Get("QuestionChoose_SelectTag"));
                 return;
             }
             else
@@ -206,7 +207,7 @@ namespace SchoolGrades
             }
             else
             {
-                MessageBox.Show("Scegliere una domanda nella griglia");
+                MessageBox.Show(Loc.Get("QuestionChoose_SelectQuestion"));
                 return;
             }
         }
@@ -241,7 +242,7 @@ namespace SchoolGrades
         {
             if (currentClass == null)
             {
-                MessageBox.Show("Scegliere la classe per vedere gli argomenti che ha fatto");
+                MessageBox.Show(Loc.Get("QuestionChoose_SelectClass"));
                 return;
             }
             Topic chosenTopic;
@@ -430,6 +431,78 @@ namespace SchoolGrades
             {
                 chosenQuestion = frm.ChosenQuestion;
                 this.Close();
+            }
+        }
+        private void LocalizeForm()
+        {
+            try
+            {
+                // Form title
+                this.Text = Loc.Get("QuestionChoose_Title");
+
+                // Labels
+                lblSchoolSubject.Text = Loc.Get("QuestionChoose_Subject");
+                lblQuestionType.Text = Loc.Get("QuestionChoose_QuestionType");
+                lblTags.Text = Loc.Get("QuestionChoose_Tags");
+                lblSearchText.Text = Loc.Get("QuestionChoose_SearchText");
+                lblWeightInTest.Text = Loc.Get("QuestionChoose_WeightInTest");
+                lblStart.Text = Loc.Get("QuestionChoose_DateFrom");
+                lblEnd.Text = Loc.Get("QuestionChoose_DateTo");
+
+                // GroupBoxes
+                grpTopic.Text = Loc.Get("QuestionChoose_TopicGroup");
+                grpQuestions.Text = Loc.Get("QuestionChoose_QuestionsGroup");
+                grpPeriodOfQuestionsTopics.Text = Loc.Get("QuestionChoose_PeriodGroup");
+
+                // Buttons
+                btnAddQuestion.Text = Loc.Get("QuestionChoose_AddQuestion");
+                btnCopyQuestion.Text = Loc.Get("QuestionChoose_CopyQuestion");
+                btnAddTag.Text = Loc.Get("QuestionChoose_AddTag");
+                btnRemoveTag.Text = Loc.Get("QuestionChoose_RemoveTag");
+                btnChoose.Text = Loc.Get("QuestionChoose_Choose");
+                btnChooseTopic.Text = Loc.Get("QuestionChoose_ChooseTopic");
+                btnDontUseTopic.Text = Loc.Get("QuestionChoose_DontUseTopic");
+                btnChooseByPeriod.Text = Loc.Get("QuestionChoose_ChooseByPeriod");
+                btnRandomQuestion.Text = Loc.Get("QuestionChoose_RandomQuestion");
+                btnQuestionsDone.Text = Loc.Get("QuestionChoose_QuestionsDone");
+                btnKnotsToTheComb.Text = Loc.Get("QuestionChoose_KnotsToTheComb");
+                btnSearch.Text = Loc.Get("QuestionChoose_Search");
+
+                // RadioButtons
+                rdbOneTopic.Text = Loc.Get("QuestionChoose_OneTopic");
+                rdbManyTopics.Text = Loc.Get("QuestionChoose_ManyTopics");
+                rdbAnd.Text = Loc.Get("QuestionChoose_And");
+                rdbOr.Text = Loc.Get("QuestionChoose_Or");
+
+                // Tooltips - Buttons
+                toolTip1.SetToolTip(btnAddQuestion, Loc.Get("QuestionChoose_Tooltip_AddQuestion"));
+                toolTip1.SetToolTip(btnCopyQuestion, Loc.Get("QuestionChoose_Tooltip_CopyQuestion"));
+                toolTip1.SetToolTip(btnAddTag, Loc.Get("QuestionChoose_Tooltip_AddTag"));
+                toolTip1.SetToolTip(btnRemoveTag, Loc.Get("QuestionChoose_Tooltip_RemoveTag"));
+                toolTip1.SetToolTip(btnChoose, Loc.Get("QuestionChoose_Tooltip_Choose"));
+                toolTip1.SetToolTip(btnChooseTopic, Loc.Get("QuestionChoose_Tooltip_ChooseTopic"));
+                toolTip1.SetToolTip(btnDontUseTopic, Loc.Get("QuestionChoose_Tooltip_DontUseTopic"));
+                toolTip1.SetToolTip(btnChooseByPeriod, Loc.Get("QuestionChoose_Tooltip_ChooseByPeriod"));
+                toolTip1.SetToolTip(btnRandomQuestion, Loc.Get("QuestionChoose_Tooltip_RandomQuestion"));
+                toolTip1.SetToolTip(btnQuestionsDone, Loc.Get("QuestionChoose_Tooltip_QuestionsDone"));
+                toolTip1.SetToolTip(btnKnotsToTheComb, Loc.Get("QuestionChoose_Tooltip_KnotsToTheComb"));
+                toolTip1.SetToolTip(btnSearch, Loc.Get("QuestionChoose_Tooltip_Search"));
+
+                // Tooltips - Altri controlli
+                toolTip1.SetToolTip(cmbSchoolSubject, Loc.Get("QuestionChoose_Tooltip_Subject"));
+                toolTip1.SetToolTip(cmbQuestionTypes, Loc.Get("QuestionChoose_Tooltip_QuestionType"));
+                toolTip1.SetToolTip(txtSearchText, Loc.Get("QuestionChoose_Tooltip_SearchText"));
+                toolTip1.SetToolTip(LblLessonTime, Loc.Get("QuestionChoose_Tooltip_LessonTime"));
+
+                // Tooltips - RadioButtons
+                toolTip1.SetToolTip(rdbOneTopic, Loc.Get("QuestionChoose_Tooltip_OneTopic"));
+                toolTip1.SetToolTip(rdbManyTopics, Loc.Get("QuestionChoose_Tooltip_ManyTopics"));
+                toolTip1.SetToolTip(rdbAnd, Loc.Get("QuestionChoose_Tooltip_And"));
+                toolTip1.SetToolTip(rdbOr, Loc.Get("QuestionChoose_Tooltip_Or"));
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"frmQuestionChoose.LocalizeForm: {ex.Message}");
             }
         }
     }

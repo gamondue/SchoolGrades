@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using SchoolGrades.Localization;
 
 namespace SchoolGrades
 {
@@ -31,6 +32,8 @@ namespace SchoolGrades
         public frmGrade(Student Student, Grade Grade)
         {
             InitializeComponent();
+            
+            LocalizeForm();
 
             currentStudent = Student; 
             currentGrade = Grade;
@@ -69,6 +72,25 @@ namespace SchoolGrades
         {
             frmQuestion f = new frmQuestion(frmQuestion.QuestionFormType.EditOneQuestion, currentQuestion, null, null, null); 
             f.ShowDialog(); 
+        }
+        private void LocalizeForm()
+        {
+            try
+            {
+                // Form title
+                this.Text = Loc.Get("Grade_Title");
+
+                // Labels
+                label1.Text = Loc.Get("Grade_StudentId");
+                lblSchoolSubject.Text = Loc.Get("Grade_Subject");
+                lblStudent.Text = Loc.Get("Grade_Student");
+                label2.Text = Loc.Get("Grade_Assessment");
+                label3.Text = Loc.Get("Grade_Weight");
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"frmGrade.LocalizeForm: {ex.Message}");
+            }
         }
     }
 }

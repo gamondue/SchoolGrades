@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+using SchoolGrades.Localization;
 
 namespace SchoolGrades
 {
@@ -11,6 +12,9 @@ namespace SchoolGrades
         public frmInputBox(string Title, string PromptText, string InitialValue)
         {
             InitializeComponent();
+
+            LocalizeForm();
+
             this.Text = Title;
             label.Text = PromptText;
             textBox.Text = InitialValue;
@@ -42,6 +46,19 @@ namespace SchoolGrades
             Value = "";
             DialogResult dialogResult = DialogResult.Cancel;
             this.Close();
+        }
+        private void LocalizeForm()
+        {
+            try
+            {
+                // Buttons
+                buttonOk.Text = Loc.Get("InputBox_OK");
+                buttonCancel.Text = Loc.Get("InputBox_Cancel");
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"frmInputBox.LocalizeForm: {ex.Message}");
+            }
         }
     }
 }

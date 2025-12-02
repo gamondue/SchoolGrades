@@ -1,5 +1,6 @@
 ﻿using SchoolGrades;
 using SchoolGrades.BusinessObjects;
+using SchoolGrades.Localization;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -885,7 +886,7 @@ namespace gamon.TreeMptt
             hasChanges = true;
             if (shownTreeView.SelectedNode == null)
             {
-                MessageBox.Show("Scegliere un nodo cui aggiungere un nodo ad un sottoalbero");
+                MessageBox.Show(Loc.Get("Tree_SelectNodeToAddChild"));
                 return null;
             }
             TreeNode fatherNode = null;
@@ -949,10 +950,10 @@ namespace gamon.TreeMptt
                 if (te != null && ((Topic)te.Tag).Id != null)
                     if (bl.IsTopicAlreadyTaught((Topic)te.Tag))
                     {
-                        if (MessageBox.Show("Almeno uno degli argomenti scelti è già stato fatto in qualche lezione\n" +
-                            "Cancello lo stesso tutti gli argomenti selezionati?", "Attenzione!", MessageBoxButtons.YesNo,
-                            MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) ==
-                            DialogResult.No)
+                        if (MessageBox.Show(Loc.Get("Tree_TopicAlreadyTaught"),
+                            Loc.Get("Tree_ConfirmDeleteTitle"),
+                            MessageBoxButtons.YesNo, MessageBoxIcon.Information,
+                            MessageBoxDefaultButton.Button2) == DialogResult.No)
                             return;
                     }
                 // remove node from the control (when saving will be also deleted from the database) 

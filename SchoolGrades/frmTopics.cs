@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using SchoolGrades.Localization;
 
 namespace SchoolGrades
 {
@@ -186,7 +187,7 @@ namespace SchoolGrades
         {
             if (!topicTreeMptt.HasChanges)
             {
-                MessageBox.Show("Nessuna modifica fatta agli argomenti");
+                MessageBox.Show(Loc.Get("Topics_SaveDone"));
                 return;
             }
             if (formType == TopicsFormType.ImportWithErase)
@@ -204,7 +205,7 @@ namespace SchoolGrades
         }
         private void btnAddNodeBrother_Click(object sender, EventArgs e)
         {
-            topicTreeMptt.AddNewNode("Nuovo argomento", false);
+            topicTreeMptt.AddNewNode(Loc.Get("Topics_NewTopicName"), false);
             // set focus to the name textBox
             txtTopicName.Focus();
         }
@@ -257,7 +258,7 @@ namespace SchoolGrades
         {
             if (topicTreeMptt.TreeView.SelectedNode == null)
             {
-                MessageBox.Show("Scegliere un argomento per trovare le domande al di sotto di esso");
+                MessageBox.Show(Loc.Get("Topics_SelectTopicForQuestions"));
                 return;
             }
             if (currentQuestion == null)
@@ -272,6 +273,55 @@ namespace SchoolGrades
                     parentForm.CurrentQuestion = fq.ChosenQuestion;
                 //parentForm.txtQuestion.Text = currentQuestion.Text;
                 //parentForm.lstTimeInterval.Text = currentQuestion.Duration.ToString();
+            }
+        }
+        private void LocalizeForm()
+        {
+            try
+            {
+                // Form title - using existing key
+                this.Text = Loc.Get("Setup_TopicsManagement");
+
+                // Labels
+                lblEdits.Text = Loc.Get("Topics_LabelTopic");
+                lblDescription.Text = Loc.Get("Topics_LabelDescription");
+                lblFind.Text = Loc.Get("Topics_LabelFind");
+                lblExplain.Text = Loc.Get("Topics_LabelExplain");
+
+                // Buttons
+                btnSaveTree.Text = Loc.Get("Topics_BtnSave");
+                btnAddNodeSon.Text = Loc.Get("Topics_BtnAddSon");
+                btnAddNodeBrother.Text = Loc.Get("Topics_BtnAddBrother");
+                btnDelete.Text = Loc.Get("Topics_BtnDelete");
+                btnFind.Text = Loc.Get("Topics_BtnFind");
+                btnFindUnderNode.Text = Loc.Get("Topics_BtnFindUnder");
+                btnChoose.Text = Loc.Get("Topics_BtnChoose");
+                btnQuestions.Text = Loc.Get("Topics_BtnQuestions");
+                btnArgFreemind.Text = Loc.Get("Topics_BtnFreemind");
+
+                // CheckBoxes
+                chkFindAll.Text = Loc.Get("Topics_ChkFindAll");
+                chkSearchInDescriptions.Text = Loc.Get("Topics_ChkSearchDesc");
+                chkVerbatimString.Text = Loc.Get("Topics_ChkExact");
+                chkCaseInsensitive.Text = Loc.Get("Topics_ChkCaseInsensitive");
+                chkAllWord.Text = Loc.Get("Topics_ChkWholeWord");
+
+                // Tooltips
+                toolTip1.SetToolTip(btnSaveTree, Loc.Get("Topics_Tooltip_Save"));
+                toolTip1.SetToolTip(btnAddNodeSon, Loc.Get("Topics_Tooltip_AddSon"));
+                toolTip1.SetToolTip(btnAddNodeBrother, Loc.Get("Topics_Tooltip_AddBrother"));
+                toolTip1.SetToolTip(btnDelete, Loc.Get("Topics_Tooltip_Delete"));
+                toolTip1.SetToolTip(btnFind, Loc.Get("Topics_Tooltip_Find"));
+                toolTip1.SetToolTip(btnFindUnderNode, Loc.Get("Topics_Tooltip_FindUnder"));
+                toolTip1.SetToolTip(chkFindAll, Loc.Get("Topics_Tooltip_FindAll"));
+                toolTip1.SetToolTip(chkSearchInDescriptions, Loc.Get("Topics_Tooltip_SearchDesc"));
+                toolTip1.SetToolTip(chkVerbatimString, Loc.Get("Topics_Tooltip_Exact"));
+                toolTip1.SetToolTip(chkCaseInsensitive, Loc.Get("Topics_Tooltip_CaseInsensitive"));
+                toolTip1.SetToolTip(chkAllWord, Loc.Get("Topics_Tooltip_WholeWord"));
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"frmTopics.LocalizeForm: {ex.Message}");
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using SchoolGrades.BusinessObjects;
+using SchoolGrades.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,34 +7,57 @@ using System.Windows.Forms;
 
 namespace SchoolGrades
 {
-  public partial class frmTopicChooseByPeriod : Form
+    public partial class frmTopicChooseByPeriod : Form
     {
         private Class currentClass;
-      private SchoolSubject currentSubject;
+        private SchoolSubject currentSubject;
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         internal Topic TopicChosen { get; private set; }
 
-   List<Topic> topicsDone;
+        List<Topic> topicsDone;
 
-     public enum TopicChooseFormType
+        public enum TopicChooseFormType
         {
-    ChooseTopicOnExit,
+            ChooseTopicOnExit,
             OpenTopicOnExit,
-     }
-  TopicChooseFormType formType;
-  private SchoolPeriod currentSchoolPeriod;
+        }
+        TopicChooseFormType formType;
+        private SchoolPeriod currentSchoolPeriod;
         
         public frmTopicChooseByPeriod(TopicChooseFormType FormType,
             Class Class, SchoolSubject Subject)
-{
+        {
             InitializeComponent();
+            LocalizeForm();
             currentClass = Class;
             currentSubject = Subject;
             formType = FormType;
             TopicChosen = new Topic();
             TopicChosen.Id = 0;
         }
+
+        private void LocalizeForm()
+        {
+            // Title
+            this.Text = Strings.TopicChoose_Title;
+
+            // Labels
+            lblSchoolSubject.Text = Strings.TopicChoose_Subject;
+            lblClass.Text = Strings.TopicChoose_Class;
+            lblSchoolYear.Text = Strings.TopicChoose_Year;
+            lblStart.Text = Strings.TopicChoose_Start;
+            lblEnd.Text = Strings.TopicChoose_End;
+
+            // Buttons
+            btnSearch.Text = Strings.TopicChoose_Search;
+            btnChoose.Text = Strings.TopicChoose_Choose;
+            btnRandomTopic.Text = Strings.TopicChoose_Random;
+
+            // Checkbox
+            chkVisualizePath.Text = Strings.TopicChoose_ShowPath;
+        }
+
         private void frmTopicChooseByPeriod_Load(object sender, EventArgs e)
         {
             if (currentSubject != null)
@@ -60,6 +84,7 @@ namespace SchoolGrades
                 }
             }
         }
+
         private void btnSearch_Click(object sender, EventArgs e)
         {
             DateTime dateFrom;
@@ -71,10 +96,6 @@ namespace SchoolGrades
                 dateFrom, dtpEndPeriod.Value);
 
             dgwTopics.DataSource = topicsDone;
-            //if (chkVisualizePath.Checked)
-            //    dgwTopics.Columns[0].Visible = true;
-            //else
-            //    dgwTopics.Columns[0].Visible = false;
 
             dgwTopics.Columns[0].Visible = true;
             dgwTopics.Columns[1].Visible = false;
@@ -90,10 +111,12 @@ namespace SchoolGrades
             dgwTopics.Columns[11].Visible = false;
             dgwTopics.Columns[12].Visible = false;
         }
+
         private void dgwTopics_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
+
         private void dgwTopics_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
@@ -123,6 +146,7 @@ namespace SchoolGrades
                 }
             }
         }
+
         private void btnRandomTopic_Click(object sender, EventArgs e)
         {
             if (topicsDone == null)
@@ -139,15 +163,15 @@ namespace SchoolGrades
             }
             Console.Beep();
         }
+
         private void btnChoose_Click(object sender, EventArgs e)
         {
             if (dgwTopics.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Scegliere un argomento nella griglia");
+                MessageBox.Show(Strings.TopicChoose_SelectTopic);
                 return;
             }
             int rowIndex = dgwTopics.SelectedRows[0].Index;
-            //DataRow row = ((DataTable)(dgwTopics.DataSource)).Rows[rowIndex];
             DataGridViewRow value = dgwTopics.Rows[rowIndex];
             switch (formType)
             {
@@ -172,6 +196,7 @@ namespace SchoolGrades
                     }
             }
         }
+
         private void cmbStandardPeriod_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentSchoolPeriod = (SchoolPeriod)(cmbSchoolPeriod.SelectedValue);
@@ -196,6 +221,7 @@ namespace SchoolGrades
                 dtpEndPeriod.Value = DateTime.Now;
             }
         }
+
         private void dgwTopics_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)

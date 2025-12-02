@@ -1,7 +1,9 @@
 ﻿using SchoolGrades;
 using SchoolGrades.BusinessObjects;
+using System;
 using System.Windows;
 using System.Windows.Controls;
+using SchoolGrades.Localization;
 
 namespace SchoolGrades_WPF
 {
@@ -17,6 +19,7 @@ namespace SchoolGrades_WPF
         public frmSchoolYearAndPeriodsManagement()
         {
             InitializeComponent();
+            LocalizeForm();
         }
 
         public frmSchoolYearAndPeriodsManagement(string NewAbbreviation)
@@ -139,7 +142,40 @@ namespace SchoolGrades_WPF
         {
 
         }
+        private void LocalizeForm()
+        {
+            try
+            {
+                // Title
+                this.Title = Loc.Get("SchoolPeriods_Title");
 
+                // GroupBox
+                gprPeriodOfQuestionsTopics.Header = Loc.Get("SchoolPeriods_PeriodDates");
+                txtDescription.Header = Loc.Get("SchoolPeriods_Description");
+
+                // Labels
+                label1.Content = Loc.Get("SchoolPeriods_Code");
+                lblSchoolYear.Content = Loc.Get("SchoolPeriods_Year");
+                lblStart.Content = Loc.Get("SchoolPeriods_Start");
+                lblEnd.Content = Loc.Get("SchoolPeriods_End");
+                label2.Content = Loc.Get("SchoolPeriods_ShortDescription");
+                label4.Content = Loc.Get("SchoolPeriods_Type");
+
+                // Buttons
+                btnNewYear.Content = Loc.Get("SchoolPeriods_NewYear");
+                btnSaveSchoolPeriod.Content = Loc.Get("SchoolPeriods_SavePeriod");
+                btnNewPeriod.Content = Loc.Get("SchoolPeriods_Add");
+                btnDeletePeriod.Content = Loc.Get("SchoolPeriods_Remove");
+
+                // RadioButtons
+                rdbQuadrimester.Content = Loc.Get("SchoolPeriods_Quadrimesters");
+                rdbTrimester.Content = Loc.Get("SchoolPeriods_Trimesters");
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"frmSchoolYearAndPeriodsManagement (WPF).LocalizeForm: {ex.Message}");
+            }
+        }
 
         //private void WriteToUi()
         //{

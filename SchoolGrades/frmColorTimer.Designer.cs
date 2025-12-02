@@ -79,10 +79,10 @@
             txtIntervalNext.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             txtIntervalNext.BackColor = System.Drawing.Color.White;
             txtIntervalNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            txtIntervalNext.Location = new System.Drawing.Point(369, 50);
+            txtIntervalNext.Location = new System.Drawing.Point(389, 50);
             txtIntervalNext.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             txtIntervalNext.Name = "txtIntervalNext";
-            txtIntervalNext.Size = new System.Drawing.Size(73, 35);
+            txtIntervalNext.Size = new System.Drawing.Size(53, 35);
             txtIntervalNext.TabIndex = 2;
             txtIntervalNext.Text = "7";
             txtIntervalNext.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -142,10 +142,10 @@
             txtInitialInterval.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             txtInitialInterval.BackColor = System.Drawing.Color.White;
             txtInitialInterval.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            txtInitialInterval.Location = new System.Drawing.Point(369, 6);
+            txtInitialInterval.Location = new System.Drawing.Point(389, 6);
             txtInitialInterval.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             txtInitialInterval.Name = "txtInitialInterval";
-            txtInitialInterval.Size = new System.Drawing.Size(73, 35);
+            txtInitialInterval.Size = new System.Drawing.Size(53, 35);
             txtInitialInterval.TabIndex = 1;
             txtInitialInterval.Text = "10";
             txtInitialInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;

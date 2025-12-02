@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using SchoolGrades.Localization;
 
 namespace SchoolGrades
 {
@@ -21,6 +22,8 @@ namespace SchoolGrades
         public frmAnnotationsAboutStudents(List<Student> ChosenStudents, string IdSchoolYear)
         {
             InitializeComponent();
+            
+            LocalizeForm();
 
             idSchoolYear = IdSchoolYear;
             this.chosenStudents = ChosenStudents;
@@ -191,13 +194,13 @@ namespace SchoolGrades
         {
             if (txtAnnotation.Text == "")
             {
-                MessageBox.Show("Testo dell'annotazione vuoto!");
+                MessageBox.Show(Loc.Get("Annotations_EmptyText"));
                 return;
             }
             if (txtIdAnnotation.Text != "")
             {   // an Id is already there 
-                if (MessageBox.Show("Devo creare una nuova annotazione con lo stesso testo della precedente?",
-                    "", MessageBoxButtons.YesNo) == DialogResult.No)
+                if (MessageBox.Show(Loc.Get("Annotations_CreateWithSameText"), "", MessageBoxButtons.YesNo)
+                    == DialogResult.No)
                     return;
             }
             ReadUI();
@@ -210,7 +213,7 @@ namespace SchoolGrades
         {
             if (txtAnnotation.Text == "")
             {
-                MessageBox.Show("Testo dell'annotazione vuoto!");
+                MessageBox.Show(Loc.Get("Annotations_EmptyText"));
                 return;
             }
             ReadUI();
@@ -222,11 +225,12 @@ namespace SchoolGrades
         {
             if (txtIdAnnotation.Text == "")
             {
-                MessageBox.Show("Scegliere un'annotazione da cancellare!");
+                MessageBox.Show(Loc.Get("Annotations_SelectToDelete"));
+                //////////MessageBox.Show(Loc.Get("Annotations_SelectToModify"));
                 return;
             }
-            if (MessageBox.Show($"Sicuro di cancellare l'annotazione {currentAnnotation.IdAnnotation}, '{currentAnnotation.Annotation}'?",
-                "Attenzione", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            if (MessageBox.Show(string.Format(Loc.Get("Annotations_ConfirmDelete"), currentAnnotation.IdAnnotation, currentAnnotation.Annotation), Loc.Get("Common_Attention"), MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2)
+                == DialogResult.Yes)
             {
                 Commons.bl.EraseAnnotationById(currentAnnotation.IdAnnotation);
                 RefreshUI();
@@ -236,11 +240,12 @@ namespace SchoolGrades
         {
             if (txtAnnotation.Text == "")
             {
-                MessageBox.Show("Il testo dell'annotazione da cancellare è vuoto!");
+                MessageBox.Show(Loc.Get("Annotations_EmptyTextToDelete"));
                 return;
             }
-            if (MessageBox.Show($"Cancellazione di tutte le annotazioni '{txtAnnotation.Text}' in tutti gli allievi della griglia?",
-                    "Attenzione", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            if (MessageBox.Show(string.Format(Loc.Get("Annotations_DeleteAllInGroup"), txtAnnotation.Text),
+                    Loc.Get("Attention"), MessageBoxButtons.YesNo, 
+                    MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 foreach (Student s in chosenStudents)
                 {
@@ -253,12 +258,12 @@ namespace SchoolGrades
         {
             if (txtIdAnnotation.Text == "")
             {
-                MessageBox.Show("Scegliere un'annotazione da modificare");
+                MessageBox.Show(Loc.Get("Annotations_ChooseAnnotation"));
                 return;
             }
             if (txtAnnotation.Text == "")
             {
-                MessageBox.Show("Testo dell'annotazione vuoto!");
+                MessageBox.Show(Loc.Get("Annotations_EmptyText"));
                 return;
             }
             ReadUI();
@@ -268,7 +273,7 @@ namespace SchoolGrades
         private void btnSaveModificationsGroup_Click(object sender, EventArgs e)
         {
             // !!!! think how to make this !!!!
-            MessageBox.Show("Da fare!");
+            MessageBox.Show(Loc.Get("Common_ToImplement"));
             ////if (txtIdAnnotation.Text == "")
             ////{
             ////    MessageBox.Show("Scegliere un'annotazione da modificare");
@@ -330,6 +335,48 @@ namespace SchoolGrades
             if (chkCurrentActive.Checked == false)
             {
                 chkPopUp.Checked = false;
+            }
+        }
+        private void LocalizeForm()
+        {
+            try
+            {
+                // Form title
+                this.Text = Loc.Get("Annotations_Title");
+
+                // Labels
+                lblCurrentStudent.Text = Loc.Get("Annotations_Title");
+                label1.Text = Loc.Get("Annotations_SchoolYear");
+                label2.Text = Loc.Get("Annotations_StudentId");
+                label4.Text = Loc.Get("Annotations_AnnotationId");
+                label5.Text = Loc.Get("Annotations_Annotation");
+
+                // GroupBoxes
+                grpSingleButtons.Text = Loc.Get("Annotations_SingleGroup");
+                groupBox1.Text = Loc.Get("Annotations_GroupGroup");
+
+                // Buttons
+                btnAddAnnotationStudent.Text = Loc.Get("Annotations_AddStudent");
+                btnSaveModificationsStudent.Text = Loc.Get("Annotations_SaveModifications");
+                btnRemoveAnnotationStudent.Text = Loc.Get("Annotations_RemoveStudent");
+                btnAddAnnotationGroup.Text = Loc.Get("Annotations_AddGroup");
+                btnSaveModificationsGroup.Text = Loc.Get("Annotations_SaveModifications");
+                btnRemoveAnnotationGroup.Text = Loc.Get("Annotations_RemoveGroup");
+                btnPrepareNew.Text = Loc.Get("Annotations_PrepareNew");
+
+                // CheckBoxes
+                chkShowOnlyActive.Text = Loc.Get("Annotations_ShowOnlyActive");
+                chkCurrentActive.Text = Loc.Get("Annotations_Active");
+                chkPopUp.Text = Loc.Get("Annotations_Reminder");
+
+                // Tooltips
+                toolTip1.SetToolTip(chkCurrentActive, Loc.Get("Annotations_Tooltip_Active"));
+                toolTip1.SetToolTip(chkPopUp, Loc.Get("Annotations_Tooltip_Reminder"));
+                toolTip1.SetToolTip(btnPrepareNew, Loc.Get("Annotations_Tooltip_PrepareNew"));
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"frmAnnotationsAboutStudents.LocalizeForm: {ex.Message}");
             }
         }
     }

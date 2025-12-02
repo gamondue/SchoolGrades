@@ -75,7 +75,7 @@ namespace SchoolGrades.Localization
         {
             if (!SupportedLanguages.ContainsKey(cultureName))
             {
-                Commons.ErrorLog($"LocalizationManager: Unsupported culture '{cultureName}', defaulting to it-IT");
+                System.Diagnostics.Debug.WriteLine($"LocalizationManager: Unsupported culture '{cultureName}', defaulting to it-IT");
                 cultureName = "it-IT";
             }
             
@@ -92,7 +92,7 @@ namespace SchoolGrades.Localization
                 string test = _resourceManager.GetString("Common_Save", _currentCulture);
                 if (test == null)
                 {
-                    Commons.ErrorLog($"LocalizationManager: Resource 'Common_Save' not found for culture '{cultureName}'. Trying alternative approach...");
+                    System.Diagnostics.Debug.WriteLine($"LocalizationManager: Resource 'Common_Save' not found for culture '{cultureName}'. Trying alternative approach...");
                     
                     // Alternative: Use the generated Strings class directly
                     try
@@ -105,34 +105,34 @@ namespace SchoolGrades.Localization
                             if (resourceManagerProperty != null)
                             {
                                 _resourceManager = (ResourceManager)resourceManagerProperty.GetValue(null);
-                                Commons.ErrorLog($"LocalizationManager: Using alternative ResourceManager from Strings class");
+                                System.Diagnostics.Debug.WriteLine($"LocalizationManager: Using alternative ResourceManager from Strings class");
                             }
                         }
                     }
                     catch (Exception altEx)
                     {
-                        Commons.ErrorLog($"LocalizationManager: Alternative approach failed: {altEx.Message}");
+                        System.Diagnostics.Debug.WriteLine($"LocalizationManager: Alternative approach failed: {altEx.Message}");
                     }
                 }
                 else
                 {
-                    Commons.ErrorLog($"LocalizationManager: Successfully loaded resources for culture '{cultureName}'. Test string: '{test}'");
+                    System.Diagnostics.Debug.WriteLine($"LocalizationManager: Successfully loaded resources for culture '{cultureName}'. Test string: '{test}'");
                 }
             }
             catch (Exception ex)
             {
-                Commons.ErrorLog($"LocalizationManager: Failed to initialize ResourceManager: {ex.Message}");
-                Commons.ErrorLog($"LocalizationManager: Stack trace: {ex.StackTrace}");
+                System.Diagnostics.Debug.WriteLine($"LocalizationManager: Failed to initialize ResourceManager: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"LocalizationManager: Stack trace: {ex.StackTrace}");
                 
                 // Try using the generated Strings class as fallback
                 try
                 {
                     _resourceManager = SchoolGrades.Resources.Strings.ResourceManager;
-                    Commons.ErrorLog($"LocalizationManager: Fallback to Strings.ResourceManager successful");
+                    System.Diagnostics.Debug.WriteLine($"LocalizationManager: Fallback to Strings.ResourceManager successful");
                 }
                 catch (Exception fallbackEx)
                 {
-                    Commons.ErrorLog($"LocalizationManager: Fallback also failed: {fallbackEx.Message}");
+                    System.Diagnostics.Debug.WriteLine($"LocalizationManager: Fallback also failed: {fallbackEx.Message}");
                 }
             }
             
@@ -158,7 +158,8 @@ namespace SchoolGrades.Localization
             // Check if resource manager was initialized successfully
             if (_resourceManager == null)
             {
-                Commons.ErrorLog($"LocalizationManager: ResourceManager is null, cannot get string for key '{key}'");
+                // Log silenzioso - non chiamare ErrorLog che fa beep
+                System.Diagnostics.Debug.WriteLine($"LocalizationManager: ResourceManager is null, cannot get string for key '{key}'");
                 return $"[{key}]";
             }
                 
@@ -167,15 +168,16 @@ namespace SchoolGrades.Localization
                 string value = _resourceManager.GetString(key, _currentCulture);
                 if (value == null)
                 {
-                    // Log missing resource key for debugging
-                    Commons.ErrorLog($"LocalizationManager: Missing resource key '{key}' for culture '{_currentCulture.Name}'");
+                    // Log silenzioso - non chiamare ErrorLog per chiavi mancanti (troppo rumore)
+                    System.Diagnostics.Debug.WriteLine($"LocalizationManager: Missing resource key '{key}' for culture '{_currentCulture.Name}'");
                     return $"[{key}]"; // Return key in brackets to make missing translations visible
                 }
                 return value;
             }
             catch (Exception ex)
             {
-                Commons.ErrorLog($"LocalizationManager: Error getting string for key '{key}': {ex.Message}");
+                // Log silenzioso - non chiamare ErrorLog che fa beep
+                System.Diagnostics.Debug.WriteLine($"LocalizationManager: Error getting string for key '{key}': {ex.Message}");
                 return $"[{key}]";
             }
         }
@@ -198,7 +200,8 @@ namespace SchoolGrades.Localization
             }
             catch (FormatException ex)
             {
-                Commons.ErrorLog($"LocalizationManager: Format error for key '{key}': {ex.Message}");
+                // Log silenzioso
+                System.Diagnostics.Debug.WriteLine($"LocalizationManager: Format error for key '{key}': {ex.Message}");
                 return format; // Return unformatted string
             }
         }

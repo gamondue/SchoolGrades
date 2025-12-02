@@ -1,10 +1,11 @@
-﻿using gamon.TreeMptt;
+﻿using System.Windows.Forms;
+using gamon.TreeMptt;
 using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Windows.Forms;
+using SchoolGrades.Localization;
 
 namespace SchoolGrades
 {
@@ -35,6 +36,8 @@ namespace SchoolGrades
             SchoolSubject Subject, Class Class, Topic Topic)
         {
             InitializeComponent();
+            
+            LocalizeForm();
 
             dbMptt = TreeMptt.SetDataLayer(Commons.PathAndFileDatabase);
 
@@ -79,13 +82,13 @@ namespace SchoolGrades
                 case QuestionFormType.CreateSeveralQuestions:
                     {
                         btnNewQuestion.Visible = true;
-                        btnSaveQuestion.Text = "Salva";
+                        btnSaveQuestion.Text = Loc.Get("Common_Save");
                         break;
                     }
                 case QuestionFormType.EditOneQuestion:
                     {
                         btnNewQuestion.Visible = false;
-                        btnSaveQuestion.Text = "Salva e Esci";
+                        btnSaveQuestion.Text = Loc.Get("Question_SaveAndExit");
                         break;
                     }
             }
@@ -188,7 +191,7 @@ namespace SchoolGrades
         {
             if (lstTags.SelectedItem == null)
             {
-                MessageBox.Show("Evidenziare il tag che si vuole eliminare");
+                MessageBox.Show(Loc.Get("Question_SelectTagToRemove"));
                 return;
             }
             else
@@ -269,7 +272,7 @@ namespace SchoolGrades
         {
             if (currentClass == null)
             {
-                MessageBox.Show("Scegliere una classe per avere gli argomenti fatti dalla classe");
+                MessageBox.Show(Loc.Get("Question_SelectClassForTopics"));
                 return;
             }
             Topic chosenTopic;
@@ -379,6 +382,52 @@ namespace SchoolGrades
             txtWeight.BackColor = plainColor;
             txtQuestionText.BackColor = plainColor;
             txtTopic.BackColor = plainColor;
+        }
+        private void LocalizeForm()
+        {
+            try
+            {
+                // Form title
+                this.Text = Loc.Get("Question_Title");
+
+                // Labels
+                lblQuestionText.Text = Loc.Get("Question_QuestionText");
+                lblSchoolSubject.Text = Loc.Get("Question_Subject");
+                lblQuestionType.Text = Loc.Get("Question_QuestionType");
+                lblIdQuesion.Text = Loc.Get("Question_Code");
+                label4.Text = Loc.Get("Question_Weight");
+                label1.Text = Loc.Get("Question_Duration");
+                lblDifficulty.Text = Loc.Get("Question_Difficulty");
+                lblImagesPath.Text = Loc.Get("Question_ImagesPath");
+                lblImageName.Text = Loc.Get("Question_ImageFileName");
+
+                // GroupBoxes
+                grpTags.Text = Loc.Get("Question_Tags");
+                grpTopic.Text = Loc.Get("Question_Topic");
+                grpAnswers.Text = Loc.Get("Question_Answers");
+                grpQuestionImage.Text = Loc.Get("Question_QuestionImage");
+
+                // Buttons
+                btnAddTag.Text = Loc.Get("Common_Add");
+                btnRemoveTag.Text = Loc.Get("Common_Remove");
+                btnChooseTopic.Text = Loc.Get("Common_Choose");
+                btnChooseByPeriod.Text = Loc.Get("Question_Period");
+                btnAddAnswer.Text = Loc.Get("Common_Add");
+                btnImportQuestions.Text = Loc.Get("Question_ImportQuestions");
+                btnSaveQuestion.Text = Loc.Get("Common_Save");
+                btnNewQuestion.Text = Loc.Get("Question_New");
+                btnSaveAndChoose.Text = Loc.Get("Question_SaveAndChoose");
+                button1.Text = Loc.Get("Question_LessonImage");
+                btnChooseFileImage.Text = Loc.Get("Common_Choose");
+                btnPathImportImage.Text = Loc.Get("Common_Choose");
+
+                // Tooltips
+                toolTip1.SetToolTip(btnChooseByPeriod, Loc.Get("Question_Tooltip_Period"));
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"frmQuestion.LocalizeForm: {ex.Message}");
+            }
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
+using SchoolGrades.Localization;
 
 namespace SchoolGrades
 {
@@ -35,7 +36,9 @@ namespace SchoolGrades
         public frmLessons(Class CurrentClass, SchoolSubject SchoolSubject, bool ReadOnly)
         {
             InitializeComponent();
-
+            
+            LocalizeForm();
+            
             currentClass = CurrentClass;
             currentLesson.IdClass = currentClass.IdClass;
             currentLesson.IdSchoolYear = currentClass.SchoolYear;
@@ -196,13 +199,13 @@ namespace SchoolGrades
         {
             if (!topicTreeMptt.HasChanges)
             {
-                if (MessageBox.Show("Nessuna modifica agli argomenti è stata rilevata\nDevo salvare comunque?",
+                if (MessageBox.Show(Loc.Get("Lessons_NoChanges"),
                     "", MessageBoxButtons.YesNo)
                     != DialogResult.Yes)
                     return;
             }
             topicTreeMptt.SaveTreeFromTreeViewByParent();
-            MessageBox.Show("Salvataggio fatto");
+            MessageBox.Show(Loc.Get("Lessons_SaveDone"));
         }
         private void ExportSubtreeToClipboard()
         {
@@ -242,10 +245,9 @@ namespace SchoolGrades
                     // hence the user has changed the date to save a new lesson in a date different 
                     // from today
                     // ask for confirmation of saving in the new date
-                    if (MessageBox.Show("Creare una nuova lezione nella data del\n" +
-                        dtpLessonDate.Value.ToString("dd-MM-yyyy") + " (Sì)\n" +
-                        "Non salvare nulla (No)",
-                        "Creazione in data diversa", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                    if (MessageBox.Show(string.Format(Loc.Get("Lessons_CreateLesson"), 
+                        dtpLessonDate.Value.ToString("dd-MM-yyyy")),
+                        Loc.Get("Lessons_CreateLessonTitle"), MessageBoxButtons.YesNo, MessageBoxIcon.Question,
                         MessageBoxDefaultButton.Button1)
                         == DialogResult.No)
                     {
@@ -256,9 +258,9 @@ namespace SchoolGrades
                 {
                     // the date of the current lesson is the same displayed
                     // then we'll create a new lesson for today 
-                    if (MessageBox.Show("Creare una nuova lezione nella data di oggi (Sì)" +
-                        "\nNon salvare nulla (No)",
-                        "Creazione in data odierna", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                    if (MessageBox.Show(Loc.Get("Lessons_CreateTodayLesson"),
+                        Loc.Get("Lessons_CreateTodayTitle"), 
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question,
                         MessageBoxDefaultButton.Button1)
                         == DialogResult.No)
                     {
@@ -277,9 +279,9 @@ namespace SchoolGrades
             if (l.IdLesson > 0)
             {
                 // found a lesson with the same date => block creation of the new lesson
-                MessageBox.Show("Il programma non registra due lezioni diverse nello stesso giorno.\n" +
-                    "Nulla verrà salvato ora. Usare il bottone 'Salva'.",
-                    "ATTENZIONE", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(Loc.Get("Lessons_AlreadyExists"),
+                    Loc.Get("Attention"), 
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
             currentLesson = new Lesson();
@@ -310,7 +312,7 @@ namespace SchoolGrades
             btnLessonSave.Enabled = false;
             if (!topicTreeMptt.HasChanges)
             {
-                if (MessageBox.Show("Nessuna modifica agli argomenti è stata rilevata\nDevo salvare comunque?",
+                if (MessageBox.Show(Loc.Get("Lessons_NoChanges"),
                     "", MessageBoxButtons.YesNo)
                     != DialogResult.Yes)
                     return;
@@ -319,15 +321,14 @@ namespace SchoolGrades
 
             if (txtLessonCode.Text == "")
             {
-                MessageBox.Show("ATTENZIONE: Creare una nuova lezione!");
+                MessageBox.Show(Loc.Get("Lessons_CreateFirst"));
                 btnLessonSave.Enabled = true;
                 return;
             }
 
             if (dtpLessonDate.Value.Day != DateTime.Now.Day)
             {
-                if (MessageBox.Show("La data della lezione non è quella di oggi." +
-                    "\r\nVuoi salvarla comunque (Sì) o non salvarla (No)?",
+                if (MessageBox.Show(Loc.Get("Lessons_DateNotToday"),
                     "", MessageBoxButtons.YesNo, MessageBoxIcon.Information,
                     MessageBoxDefaultButton.Button1)
                     == DialogResult.No)
@@ -508,20 +509,20 @@ namespace SchoolGrades
                 }
             }
         }
-        private void btnTopicsNotDone_Click(object sender, EventArgs e)
-        {
-            if (trwTopics.SelectedNode == null)
-            {
-                MessageBox.Show("Scegliere un argomento.\r\n" +
-                    "Verranno evidenziati gli argomenti sotto l'argomento scelto che NON sono stati fatti");
-                return;
-            }
-            List<Topic> listNonDone = Commons.bl.GetTopicsNotDoneFromThisTopic(currentClass,
-                ((Topic)trwTopics.SelectedNode.Tag), currentSchoolSubject);
-            int dummy = 0; bool dummy2 = false;
-            topicTreeMptt.HighlightNodesInList(trwTopics.Nodes[0],
-                 listNonDone, ref dummy, ref dummy2);
-        }
+        ////private void btnTopicsNotDone_Click(object sender, EventArgs e)
+        ////{
+        ////    if (trwTopics.SelectedNode == null)
+        ////    {
+        ////        MessageBox.Show("Scegliere un argomento.\r\n" +
+        ////            "Verranno evidenziati gli argomenti sotto l'argomento scelto che NON sono stati fatti");
+        ////        return;
+        ////    }
+        ////    List<Topic> listNonDone = Commons.bl.GetTopicsNotDoneFromThisTopic(currentClass,
+        ////        ((Topic)trwTopics.SelectedNode.Tag), currentSchoolSubject);
+        ////    int dummy = 0; bool dummy2 = false;
+        ////    topicTreeMptt.HighlightNodesInList(trwTopics.Nodes[0],
+        ////         listNonDone, ref dummy, ref dummy2);
+        ////}
         private void btnTopicsDone_Click(object sender, EventArgs e)
         {
             if (trwTopics.SelectedNode == null)
@@ -537,8 +538,9 @@ namespace SchoolGrades
         }
         private void bntLessonErase_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Vuole davvero  eliminare la lezione:\r\n" + txtLessonCode.Text +
-                ",'" + TxtLessonDesc.Text + "'?", "Cancellazione", MessageBoxButtons.YesNo,
+            if (MessageBox.Show(string.Format(Loc.Get("Lessons_DeleteConfirm"), txtLessonCode.Text, TxtLessonDesc.Text),
+                Loc.Get("Lessons_Deletion"),
+                MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
                 != DialogResult.Yes)
             {
@@ -644,7 +646,7 @@ namespace SchoolGrades
             }
             catch
             {
-                MessageBox.Show("La cartella non è stata ancora creata.\nIl programma la creerà automaticamente quando verrà salvata la prima immagine.");
+                MessageBox.Show(Loc.Get("Lessons_FolderNotCreated"));
             }
         }
         private void btnExport_Click(object sender, EventArgs e)
@@ -678,10 +680,100 @@ namespace SchoolGrades
         {
             if (topicTreeMptt.HasChanges)
             {
-                if (MessageBox.Show("Sono state rilevate modifiche agli argomenti\nDevo salvare (Sì) o perdere le modifiche (No)?",
+                if (MessageBox.Show(Loc.Get("Lessons_NoChanges") + "\n" + Loc.Get("Common_SaveOrDiscard"),
                     "", MessageBoxButtons.YesNo)
                     == DialogResult.Yes)
                     topicTreeMptt.SaveTreeFromTreeViewByParent();
+            }
+        }
+        private void LocalizeForm()
+        {
+            try
+            {
+                // Form title
+                this.Text = Loc.Get("Lessons_Title");
+
+                // Labels
+                lblSchoolCode.Text = Loc.Get("Lessons_SchoolCode");
+                lblSchoolYear.Text = Loc.Get("Lessons_SchoolYear");
+                lblClassAbbreviation.Text = Loc.Get("Lessons_Class");
+                lblSchoolSubject.Text = Loc.Get("Lessons_Subject");
+                lblLessonCode.Text = Loc.Get("Lessons_LessonCode");
+                lblLessonDate.Text = Loc.Get("Lessons_LessonDate");
+                lblLessonDesc.Text = Loc.Get("Lessons_LessonDescription");
+                lblFind.Text = Loc.Get("Lessons_SearchText");
+                lblExplain.Text = Loc.Get("Lessons_ExplainDragDrop");
+
+                // GroupBox
+                grpViewTopics.Text = Loc.Get("Lessons_ViewTopicsGroup");
+
+                // RadioButtons
+                rdbLesson.Text = Loc.Get("Lessons_RadioLesson");
+                rdbAlreadyDone.Text = Loc.Get("Lessons_RadioAlreadyDone");
+                rdbNotDone.Text = Loc.Get("Lessons_RadioNotDone");
+
+                // Buttons
+                btnSaveTree.Text = Loc.Get("Lessons_SaveTree");
+                btnAddNodeSon.Text = Loc.Get("Lessons_AddNodeSon");
+                btnAddNodeBrother.Text = Loc.Get("Lessons_AddNodeBrother");
+                btnDelete.Text = Loc.Get("Lessons_DeleteNode");
+                btnFind.Text = Loc.Get("Lessons_Find");
+                btnFindUnderNode.Text = Loc.Get("Lessons_FindUnderNode");
+                btnLessonAdd.Text = Loc.Get("Lessons_AddLesson");
+                btnLessonSave.Text = Loc.Get("Lessons_SaveLesson");
+                bntLessonErase.Text = Loc.Get("Lessons_DeleteLesson");
+                btnManageImages.Text = Loc.Get("Lessons_ManageImages");
+                btnPrevious.Text = Loc.Get("Lessons_PreviousImage");
+                btnNext.Text = Loc.Get("Lessons_NextImage");
+                btnStartLinks.Text = Loc.Get("Lessons_StartLinks");
+                btnCopyNoteToClipboard.Text = Loc.Get("Lessons_CopyToClipboard");
+                btnTopicsDone.Text = Loc.Get("Lessons_TopicsDone");
+                btnArgFreemind.Text = Loc.Get("Lessons_ExportFreemind");
+                BtnOpenImagesFolder.Text = Loc.Get("Lessons_OpenImagesFolder");
+                BtnSearchAmongTopics.Text = Loc.Get("Lessons_SearchAmongTopics");
+                btnExport.Text = Loc.Get("Lessons_Export");
+
+                // CheckBoxes
+                chkMarkAllTopicsFound.Text = Loc.Get("Lessons_FindAll");
+                chkSearchInDescriptions.Text = Loc.Get("Lessons_SearchInDescriptions");
+                chkVerbatimString.Text = Loc.Get("Lessons_ExactString");
+                chkCaseInsensitive.Text = Loc.Get("Lessons_CaseInsensitive");
+                chkAllWord.Text = Loc.Get("Lessons_WholeWord");
+
+                // Tooltips - Buttons
+                toolTip1.SetToolTip(btnSaveTree, Loc.Get("Lessons_Tooltip_SaveTree"));
+                toolTip1.SetToolTip(btnAddNodeSon, Loc.Get("Lessons_Tooltip_AddNodeSon"));
+                toolTip1.SetToolTip(btnAddNodeBrother, Loc.Get("Lessons_Tooltip_AddNodeBrother"));
+                toolTip1.SetToolTip(btnDelete, Loc.Get("Lessons_Tooltip_DeleteNode"));
+                toolTip1.SetToolTip(btnFind, Loc.Get("Lessons_Tooltip_Find"));
+                toolTip1.SetToolTip(btnFindUnderNode, Loc.Get("Lessons_Tooltip_FindUnderNode"));
+                toolTip1.SetToolTip(btnLessonAdd, Loc.Get("Lessons_Tooltip_AddLesson"));
+                toolTip1.SetToolTip(btnLessonSave, Loc.Get("Lessons_Tooltip_SaveLesson"));
+                toolTip1.SetToolTip(bntLessonErase, Loc.Get("Lessons_Tooltip_DeleteLesson"));
+                toolTip1.SetToolTip(btnManageImages, Loc.Get("Lessons_Tooltip_ManageImages"));
+                toolTip1.SetToolTip(btnStartLinks, Loc.Get("Lessons_Tooltip_StartLinks"));
+                toolTip1.SetToolTip(btnCopyNoteToClipboard, Loc.Get("Lessons_Tooltip_CopyToClipboard"));
+                toolTip1.SetToolTip(btnTopicsDone, Loc.Get("Lessons_Tooltip_TopicsDone"));
+                toolTip1.SetToolTip(BtnOpenImagesFolder, Loc.Get("Lessons_Tooltip_OpenImagesFolder"));
+                toolTip1.SetToolTip(BtnSearchAmongTopics, Loc.Get("Lessons_Tooltip_SearchAmongTopics"));
+                toolTip1.SetToolTip(lblLessonTime, Loc.Get("Lessons_Tooltip_LessonTime"));
+
+                // Tooltips - CheckBoxes
+                toolTip1.SetToolTip(chkMarkAllTopicsFound, Loc.Get("Lessons_Tooltip_FindAll"));
+                toolTip1.SetToolTip(chkSearchInDescriptions, Loc.Get("Lessons_Tooltip_SearchInDescriptions"));
+                toolTip1.SetToolTip(chkVerbatimString, Loc.Get("Lessons_Tooltip_ExactString"));
+                toolTip1.SetToolTip(chkCaseInsensitive, Loc.Get("Lessons_Tooltip_CaseInsensitive"));
+                toolTip1.SetToolTip(chkAllWord, Loc.Get("Lessons_Tooltip_WholeWord"));
+
+                // Tooltips - TextBoxes
+                toolTip1.SetToolTip(txtTopicName, Loc.Get("Lessons_Tooltip_TopicName"));
+                toolTip1.SetToolTip(txtTopicDescription, Loc.Get("Lessons_Tooltip_TopicDescription"));
+                toolTip1.SetToolTip(txtTopicsDigest, Loc.Get("Lessons_Tooltip_TopicsDigest"));
+                toolTip1.SetToolTip(TxtLessonDesc, Loc.Get("Lessons_Tooltip_LessonDesc"));
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"frmLessons.LocalizeForm: {ex.Message}");
             }
         }
     }

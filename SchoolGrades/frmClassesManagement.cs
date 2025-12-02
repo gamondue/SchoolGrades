@@ -224,7 +224,7 @@ namespace SchoolGrades
         {
             if (currentClass == null)
             {
-                MessageBox.Show("Scegliere in 'Sigla classe' una classe da cancellare");
+                MessageBox.Show(Loc.Get("ClassMgmt_ChooseClass"));
                 return;
             }
             DialogResult res = MessageBox.Show(

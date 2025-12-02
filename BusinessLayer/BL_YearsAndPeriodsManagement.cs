@@ -134,19 +134,32 @@ namespace SchoolGrades
         internal Class GenerateNewClassData(Class CurrentClass)
         {
             Class newClass = new Class();
-            if (CurrentClass != null && CurrentClass.Abbreviation != null)
+            try
             {
-                string oldNumber = CurrentClass.Abbreviation.Substring(0, 1);
-                int newNumber = int.Parse(oldNumber) + 1;
-                //newClass.IdClass must be set by other code! 
-                newClass.Abbreviation = Commons.IncreaseIntegersInString(CurrentClass.Abbreviation);
-                newClass.Description = Commons.IncreaseIntegersInString(CurrentClass.Description);
-                newClass.IdSchool = CurrentClass.IdSchool;
-                newClass.SchoolYear = Commons.IncreaseIntegersInString(CurrentClass.SchoolYear);
+                if (CurrentClass != null && CurrentClass.Abbreviation != null)
+                {
+                    if (CurrentClass.Abbreviation.Length > 0 && 
+                        int.TryParse(CurrentClass.Abbreviation.Substring(0, 1), out int oldNumber))
+                    {
+                        int newNumber = oldNumber + 1;
+                    }
+                    //newClass.IdClass must be set by other code! 
+                    newClass.Abbreviation = Commons.IncreaseIntegersInString(CurrentClass.Abbreviation);
+                    newClass.Description = Commons.IncreaseIntegersInString(CurrentClass.Description);
+                    newClass.IdSchool = CurrentClass.IdSchool;
+                    newClass.SchoolYear = Commons.IncreaseIntegersInString(CurrentClass.SchoolYear);
+                }
+                else
+                {
+                    newClass.IdClass = null;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                newClass.IdClass = null;
+                string errorMsg = $"GenerateNewClassData: Error generating new class data. CurrentClass.Abbreviation={CurrentClass?.Abbreviation ?? "null"}. Error: {ex.Message}";
+                Commons.ErrorLog(errorMsg);
+                // Re-throw to let caller handle the error
+                throw new Exception(errorMsg, ex);
             }
             return newClass;
         }

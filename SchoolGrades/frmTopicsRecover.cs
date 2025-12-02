@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
+using SchoolGrades.Resources;
 
 namespace SchoolGrades
 {
@@ -34,6 +35,7 @@ namespace SchoolGrades
         public frmTopicsRecover()
         {
             InitializeComponent();
+            LocalizeForm();
         }
         private void frmTopicsRecover_Load(object sender, EventArgs e)
         {
@@ -272,10 +274,12 @@ namespace SchoolGrades
                     if (tOld.Name != tNew.Name || tOld.Desc != tNew.Desc)
                     {
                         if (chkCheckChangesSameId.Checked)
-                            if (MessageBox.Show("Record diversi con lo stesso Id\r\n" +
-                                "Nuovo record = " + tNew.Id + " " + tNew.Name + " " + tNew.Desc + "\r\n" +
-                                "Vecchio record = " + tOld.Id + " " + tOld.Name + " " + tOld.Desc + "\r\n" +
-                                "Sovrascrivere il nuovo record con il vecchio?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                            if (MessageBox.Show(
+                                Strings.TopicsRecover_DifferentRecordsSameId + "\r\n" +
+                                Strings.TopicsRecover_NewRecord + tNew.Id + " " + tNew.Name + " " + tNew.Desc + "\r\n" +
+                                Strings.TopicsRecover_OldRecord + tOld.Id + " " + tOld.Name + " " + tOld.Desc + "\r\n" +
+                                Strings.TopicsRecover_OverwriteQuestion, 
+                                "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                             {
                                 // ???? should we save Left Right and Parent ????" 
                                 dlNew.UpdateTopic(tOld, null, false);
@@ -286,10 +290,12 @@ namespace SchoolGrades
                 {
                     if (chkErasedId.Checked)
                     {
-                        if (MessageBox.Show("Id non presente nel nuovo database\r\n" +
-                            "Nuovo record = " + tNew.Id + " " + tNew.Name + " " + tNew.Desc + "\r\n" +
-                            "Vecchio record = " + tOld.Id + " " + tOld.Name + " " + tOld.Desc + "\r\n" +
-                            "Aggiungere il vecchio record nel nuovo database?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        if (MessageBox.Show(
+                            Strings.TopicsRecover_IdNotInNew + "\r\n" +
+                            Strings.TopicsRecover_NewRecord + tNew.Id + " " + tNew.Name + " " + tNew.Desc + "\r\n" +
+                            Strings.TopicsRecover_OldRecord + tOld.Id + " " + tOld.Name + " " + tOld.Desc + "\r\n" +
+                            Strings.TopicsRecover_AddOldQuestion, 
+                            "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         {
                             // ???? should we save Left Right and Parent ????" 
                             dlNew.InsertTopic(tOld, null, false);
@@ -331,7 +337,7 @@ namespace SchoolGrades
             // locks a concurrent modification of Commons.BackgroundCanStillSaveTopicsTree 
             Commons.StopOperationsOnBackgroundThread();
 
-            MessageBox.Show("Fatto");
+            MessageBox.Show(Strings.TopicsRecover_Done);
         }
         private void frmTopicsRecover_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -344,6 +350,36 @@ namespace SchoolGrades
         private void btnBeheaded_Click(object sender, EventArgs e)
         {
             treeOld.ColorAllBeheadedNodes();
+        }
+        private void LocalizeForm()
+        {
+            // Title
+            this.Text = Strings.TopicsRecover_Title;
+
+            // Labels
+            lblPathDatabase.Text = Strings.TopicsRecover_NewFolderPath;
+            lblFileDatabase.Text = Strings.TopicsRecover_NewFile;
+            label6.Text = Strings.TopicsRecover_OldFolderPath;
+            label7.Text = Strings.TopicsRecover_OldFile;
+            label1.Text = Strings.TopicsRecover_OldTree;
+            label2.Text = Strings.TopicsRecover_NewTree;
+            lblIdNewTopic.Text = Strings.TopicsRecover_TopicCode;
+            lblIdOldTopic.Text = Strings.TopicsRecover_TopicCode;
+            label3.Text = Strings.TopicsRecover_DragRightLeft;
+
+            // Buttons
+            btnRecover.Text = Strings.TopicsRecover_Import;
+            btnFindNew.Text = Strings.TopicsRecover_Find;
+            btnFindOld.Text = Strings.TopicsRecover_Find;
+            BtnSaveNewTree.Text = Strings.TopicsRecover_SaveNew;
+            btnBeheaded.Text = Strings.TopicsRecover_NoParent;
+
+            // Checkboxes
+            chkCheckChangesSameId.Text = Strings.TopicsRecover_SameIdChanged;
+            chkErasedId.Text = Strings.TopicsRecover_ErasedId;
+
+            // Tooltips  
+            toolTip1.SetToolTip(btnBeheaded, Strings.TopicsRecover_NoParent);
         }
     }
 }

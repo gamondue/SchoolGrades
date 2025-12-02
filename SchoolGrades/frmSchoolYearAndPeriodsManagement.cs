@@ -1,11 +1,7 @@
-﻿using SchoolGrades.BusinessObjects;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
+﻿using System;
 using System.Windows.Forms;
+using SchoolGrades.BusinessObjects;
+using SchoolGrades.Localization;
 
 namespace SchoolGrades
 {
@@ -15,6 +11,7 @@ namespace SchoolGrades
         public frmSchoolYearAndPeriodsManagement()
         {
             InitializeComponent();
+            LocalizeForm();
         }
         public frmSchoolYearAndPeriodsManagement(string ClassAbbreviation)
         {
@@ -41,11 +38,12 @@ namespace SchoolGrades
             ReadFromUi(); 
             if (currentSchoolPeriod == null || currentSchoolPeriod.IdSchoolPeriod == null || currentSchoolPeriod.IdSchoolPeriod == "")
             {
-                MessageBox.Show("Selezionare un periodo da cancellare"); 
+                MessageBox.Show(Loc.Get("SchoolPeriods_SelectToDelete"));
                 return;
             }
-            if (MessageBox.Show("E' sicuro di cancellare il periodo " + currentSchoolPeriod.IdSchoolPeriod + 
-                " | " + currentSchoolPeriod.Desc + "?", "", MessageBoxButtons.YesNo) != DialogResult.Yes)
+            if (MessageBox.Show(string.Format(Loc.Get("SchoolPeriods_ConfirmDelete"),
+                currentSchoolPeriod.IdSchoolPeriod, currentSchoolPeriod.Desc),
+                "", MessageBoxButtons.YesNo) != DialogResult.Yes)
             {
                 return; 
             }
@@ -102,7 +100,7 @@ namespace SchoolGrades
         {
             if (txtSchoolYear.Text == "")
             {
-                MessageBox.Show("Scrivere il codice dell'anno nella casella 'Anno'"); 
+                MessageBox.Show(Loc.Get("SchoolPeriods_EnterYearCode"));
                 return;
             }
             //string nextYear = Commons.IncreaseIntegersInString(txtSchoolYear.Text); 
@@ -115,6 +113,44 @@ namespace SchoolGrades
                 Commons.bl.CreateNewTrimesterPeriods(txtSchoolYear.Text);
             }
             RefreshGrid();
+        }
+        private void LocalizeForm()
+        {
+            try
+            {
+                // Title
+                this.Text = Loc.Get("SchoolPeriods_Title");
+
+                // GroupBox
+                grpPeriodOfQuestionsTopics.Text = Loc.Get("SchoolPeriods_PeriodDates");
+
+                // Labels
+                label1.Text = Loc.Get("SchoolPeriods_Code");
+                lblSchoolYear.Text = Loc.Get("SchoolPeriods_Year");
+                lblStart.Text = Loc.Get("SchoolPeriods_Start");
+                lblEnd.Text = Loc.Get("SchoolPeriods_End");
+                label2.Text = Loc.Get("SchoolPeriods_ShortDescription");
+                label4.Text = Loc.Get("SchoolPeriods_Type");
+                label3.Text = Loc.Get("SchoolPeriods_Description");
+
+                // Buttons
+                btnNewYear.Text = Loc.Get("SchoolPeriods_YearPeriods");
+                btnSaveSchoolPeriod.Text = Loc.Get("SchoolPeriods_SaveSinglePeriod");
+                btnNewPeriod.Text = Loc.Get("SchoolPeriods_Add");
+                btnDeletePeriod.Text = Loc.Get("SchoolPeriods_Remove");
+
+                // RadioButtons
+                rdbQuadrimester.Text = Loc.Get("SchoolPeriods_Quadrimesters");
+                rdbTrimester.Text = Loc.Get("SchoolPeriods_Trimesters");
+
+                // Tooltips
+                toolTip1.SetToolTip(btnNewYear, Loc.Get("SchoolPeriods_Tooltip_YearPeriods"));
+                toolTip1.SetToolTip(btnSaveSchoolPeriod, Loc.Get("SchoolPeriods_Tooltip_SaveSinglePeriod"));
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"frmSchoolYearAndPeriodsManagement.LocalizeForm: {ex.Message}");
+            }
         }
     }
 }

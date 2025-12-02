@@ -1,4 +1,5 @@
 ﻿using SchoolGrades.BusinessObjects;
+using SchoolGrades.Resources;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -18,9 +19,29 @@ namespace SchoolGrades
         public frmStartLinksManagement(Class CurrentClass)
         {
             InitializeComponent();
-
+            LocalizeForm();
             currentClass = CurrentClass; 
         }
+
+        private void LocalizeForm()
+        {
+            // Title
+            this.Text = Strings.StartLinks_Title;
+
+            // Labels
+            lblStartLink.Text = Strings.StartLinks_LinkOrFile;
+            label5.Text = Strings.StartLinks_LinkDescription;
+            label3.Text = Strings.StartLinks_StartLinkFolder;
+            label4.Text = Strings.StartLinks_SchoolCode;
+            label7.Text = Strings.StartLinks_SchoolYear;
+            label6.Text = Strings.StartLinks_ClassCode;
+
+            // Buttons
+            btnSaveLinks.Text = Strings.StartLinks_Save;
+            btnAddLink.Text = Strings.StartLinks_Add;
+            btnRemoveLink.Text = Strings.StartLinks_Remove;
+        }
+
         private void frmStartLinksManagement_Load(object sender, EventArgs e)
         {
             loading = true;
@@ -35,6 +56,7 @@ namespace SchoolGrades
         {
             refreshGrid();
         }
+
         private void refreshGrid()
         {
             if (!loading)
@@ -43,10 +65,12 @@ namespace SchoolGrades
                 DgwLinks.DataSource = Commons.bl.GetStartLinksOfClass(currentClass);
             }
         }
+
         private void DgwLinks_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
+
         private void DgwLinks_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
@@ -55,6 +79,7 @@ namespace SchoolGrades
                 currentLink = ((List<StartLink>)DgwLinks.DataSource)[e.RowIndex]; 
             }
         }
+
         private void DgwLinks_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
@@ -62,12 +87,12 @@ namespace SchoolGrades
                 List<StartLink> l = (List<StartLink>)DgwLinks.DataSource; 
 
                 TxtStartLink.Text = Safe.String(l[e.RowIndex].Link);
-
                 TxtLinkDescription.Text = Safe.String(l[e.RowIndex].Desc);
                 currentIdStartLink = Safe.Int(l[e.RowIndex].IdStartLink);
                 currentClass.IdClass = Safe.Int(l[e.RowIndex].IdClass);
             }
         }
+
         private void DgwLinks_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
@@ -86,33 +111,38 @@ namespace SchoolGrades
                 }
             }
         }
+
         private void btnSaveLinks_Click(object sender, EventArgs e)
         {
             Commons.bl.SaveStartLink(currentIdStartLink, currentClass.IdClass, 
                 CmbSchoolYear.Text, TxtStartLink.Text, TxtLinkDescription.Text);
             refreshGrid();
         }
+
         private void btnAddLink_Click(object sender, EventArgs e)
         {
             if (currentClass.IdClass > 0)
                 currentIdStartLink = Commons.bl.SaveStartLink(null, currentClass.IdClass, 
                     CmbSchoolYear.Text, TxtStartLink.Text, TxtLinkDescription.Text);
             else
-                MessageBox.Show("Scegliere una classe");
+                MessageBox.Show(Strings.StartLinks_SelectClass);
             refreshGrid();
         }
+
         private void btnRemoveLink_Click(object sender, EventArgs e)
         {
             if (currentLink.IdStartLink > 0)
                 Commons.bl.DeleteStartLink(currentLink.IdStartLink);
             else
-                MessageBox.Show("Scegliere un link da cancellare");
+                MessageBox.Show(Strings.StartLinks_SelectLinkToDelete);
             refreshGrid();
         }
+
         private void txtStartLink_TextChanged(object sender, EventArgs e)
         {
 
         }
+
         private void txtStartLink_DoubleClick(object sender, EventArgs e)
         {
             try
@@ -127,6 +157,7 @@ namespace SchoolGrades
                 Console.Beep();
             }
         }
+
         private void CmbClasses_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (!loading)
@@ -145,6 +176,7 @@ namespace SchoolGrades
                 }
             }
         }
+
         private void CmbSchoolYear_SelectedIndexChanged(object sender, EventArgs e)
         {
             CmbClasses.DataSource = Commons.bl.GetClassesOfYear(TxtOfficialSchoolAbbreviation.Text,
@@ -155,10 +187,12 @@ namespace SchoolGrades
                 TxtPathStartLink.Text = currentClass.PathRestrictedApplication;
             }
         }
+
         private void TxtPathStartLink_TextChanged(object sender, EventArgs e)
         {
 
         }
+
         private void TxtPathStartLink_DoubleClick(object sender, EventArgs e)
         {
             Commons.ProcessStartLink(TxtPathStartLink.Text);
@@ -176,14 +210,15 @@ namespace SchoolGrades
             DialogResult r = folderBrowserDialog1.ShowDialog();
             if (r == System.Windows.Forms.DialogResult.OK)
             {
-                if (MessageBox.Show("Si deve cambiare la cartella dei link?\n(i link a documenti già presenti non funzioneranno più!)", 
-                    "Attenzione!", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                if (MessageBox.Show(Strings.StartLinks_ConfirmChangePath, 
+                    Strings.StartLinks_Attention, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 { 
                     TxtPathStartLink.Text = folderBrowserDialog1.SelectedPath;
                     Commons.bl.UpdatePathStartLinkOfClass(currentClass, TxtPathStartLink.Text); 
                 }
             } 
         }
+
         private void BtnFileToLaunch_Click(object sender, EventArgs e)
         {
             string folderStartLinks = TxtPathStartLink.Text; 
@@ -194,6 +229,7 @@ namespace SchoolGrades
                 TxtStartLink.Text = openFileDialog.FileName.Replace(folderStartLinks,"").Substring(1);
             }
         }
+
         private void TxtLinkedFile_TextChanged(object sender, EventArgs e)
         {
 

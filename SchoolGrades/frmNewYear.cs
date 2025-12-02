@@ -1,4 +1,5 @@
 ﻿using SchoolGrades.BusinessObjects;
+using SchoolGrades.Localization;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -21,7 +22,7 @@ namespace SchoolGrades
         public frmNewYear(string IdStartYear)
         {
             InitializeComponent();
-
+            LocalizeForm();
             idStartYear = IdStartYear;
         }
         private void frmNewYear_Load(object sender, EventArgs e)
@@ -85,7 +86,7 @@ namespace SchoolGrades
             BtnStudentNew.Visible = true;
             if (cmbClasses.Text == "")
             {
-                MessageBox.Show("Scegliere una classe di partenza");
+                MessageBox.Show(Loc.Get("NewYear_SelectStartClass"));
                 return;
             }
             Class c = (Class)cmbClasses.SelectedItem;
@@ -113,11 +114,8 @@ namespace SchoolGrades
                 //txtClassDescriptionNext.Visible = true;
                 //lblClassDescription.Visible = true; 
 
-                MessageBox.Show("Aggiustare i dati della classe e degli studenti\r\nSegnare gli studenti da INCLUDERE " +
-                    "nella nuova classe, con il segno di spunta a sinistra, poi premere 'Genera classe'" +
-                    "\r\nPer aggiungere allievi tornare alla finestra precedente di gestione classi" +
-                    "\r\nPremendo 'Annulla' non si importerà la classe",
-                    "Modifiche classe", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                MessageBox.Show(Loc.Get("NewYear_AdjustClassData"),Loc.Get("NewYear_ClassChangesTitle"),
+                    MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
             }
             BtnClassGeneration.Visible = true;
             BtnClassMigration.Visible = false;
@@ -126,7 +124,7 @@ namespace SchoolGrades
         {
             if (txtClassAbbreviationNext.Text == "")
             {
-                MessageBox.Show("Scrivere la sigla della nuova classe!");
+                MessageBox.Show(Loc.Get("NewYear_EnterClassCode"));
                 return;
             }
 
@@ -145,7 +143,8 @@ namespace SchoolGrades
             Commons.bl.GenerateNewClassFromPrevious(SelectedStudents, txtClassAbbreviationNext.Text, txtClassDescriptionNext.Text,
                 nextSchoolYear, cmbSchoolYearCurrents.Text, TxtOfficialSchoolAbbreviation.Text);
 
-            MessageBox.Show("Creazione classe " + txtClassAbbreviationNext.Text + " " + txtSchoolYearNext.Text + " terminata");
+            MessageBox.Show(string.Format(Loc.Get("NewYear_ClassCreated"), 
+                txtClassAbbreviationNext.Text, txtSchoolYearNext.Text));
             //BtnStudentNew.Visible = false;
             FromUiToClasses();
         }
@@ -165,7 +164,7 @@ namespace SchoolGrades
         }
         private void BtnClassNew_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("!!!! TO DO !!!!");
+            MessageBox.Show(Loc.Get("NewYear_TodoFeature"));
         }
         private void TxtSchoolYearPresent_TextChanged(object sender, EventArgs e)
         {
@@ -211,7 +210,7 @@ namespace SchoolGrades
         }
         private void btnNewYear_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Devo creare un nuovo anno scolastico '" + txtSchoolYearNext.Text + "'?",
+            if (MessageBox.Show(string.Format(Loc.Get("NewYear_CreateYearConfirm"), txtSchoolYearNext.Text),
                 "", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2)
                 != DialogResult.Yes)
             {
@@ -220,14 +219,71 @@ namespace SchoolGrades
             SchoolYear sy = new SchoolYear(txtSchoolYearNext.Text);
             if (!Commons.bl.AddSchoolYearIfNotExists(sy))
             {
-                MessageBox.Show("L'anno scolastico " + txtSchoolYearNext.Text + " esiste già");
+                MessageBox.Show(string.Format(Loc.Get("NewYear_YearExists"), txtSchoolYearNext.Text));
             }
             else
             {
-                MessageBox.Show("Ho creato l'anno scolastico " + txtSchoolYearNext.Text);
+                MessageBox.Show(string.Format(Loc.Get("NewYear_YearCreated"), txtSchoolYearNext.Text));
                 List<SchoolYear> ly = Commons.bl.GetAllSchoolYears();
                 cmbSchoolYearCurrents.DataSource = ly;
                 cmbSchoolYearCurrents.SelectedItem = ly[ly.Count - 1];
+            }
+        }
+        private void LocalizeForm()
+        {
+            try
+            {
+                // Form Title
+                this.Text = Loc.Get("NewYear_Title");
+
+                // GroupBoxes
+                groupBox1.Text = Loc.Get("NewYear_PreviousYear");
+                groupBox2.Text = Loc.Get("NewYear_NewYear");
+                groupBox3.Text = Loc.Get("NewYear_PreviousClass");
+                groupBox4.Text = Loc.Get("NewYear_NewClass");
+
+                // Labels - Previous Year (groupBox1)
+                label3.Text = Loc.Get("NewYear_YearId");
+                label2.Text = Loc.Get("NewYear_ShortDescription");
+                label8.Text = Loc.Get("NewYear_Notes");
+
+                // Labels - New Year (groupBox2)
+                label6.Text = Loc.Get("NewYear_NewYearId");
+                label5.Text = Loc.Get("NewYear_ShortDescription");
+                label10.Text = Loc.Get("NewYear_Notes");
+
+                // Labels - Previous Class (groupBox3)
+                label1.Text = Loc.Get("NewYear_PreviousClassCode");
+                label9.Text = Loc.Get("NewYear_Description");
+
+                // Labels - New Class (groupBox4)
+                label12.Text = Loc.Get("NewYear_ClassCode");
+                label11.Text = Loc.Get("NewYear_Description");
+                label7.Text = Loc.Get("NewYear_NextClassCode");
+
+                // Labels - Other
+                label4.Text = Loc.Get("NewYear_SchoolCode");
+                lblChooseNextStudents.Text = Loc.Get("NewYear_StudentsToInclude");
+                lblClassDescription.Text = Loc.Get("NewYear_NewClassDescription");
+
+                // Buttons
+                BtnClassNew.Text = Loc.Get("NewYear_NewClass");
+                BtnClassMigration.Text = Loc.Get("NewYear_PrepareClass");
+                BtnClassGeneration.Text = Loc.Get("NewYear_GenerateClass");
+                BtnStudentNew.Text = Loc.Get("NewYear_NewStudent");
+                btnNewYear.Text = Loc.Get("NewYear_CreateNewYear");
+                btnAssociateSchoolPeriodsToTheYear.Text = Loc.Get("NewYear_PreparePeriods");
+
+                // DataGridView Columns
+                SaveThisStudent.HeaderText = Loc.Get("NewYear_SaveStudent");
+
+                // Tooltips
+                toolTip1.SetToolTip(btnNewYear, Loc.Get("NewYear_Tooltip_CreateNewYear"));
+                toolTip1.SetToolTip(btnAssociateSchoolPeriodsToTheYear, Loc.Get("NewYear_Tooltip_PreparePeriods"));
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"frmNewYear.LocalizeForm: {ex.Message}");
             }
         }
     }

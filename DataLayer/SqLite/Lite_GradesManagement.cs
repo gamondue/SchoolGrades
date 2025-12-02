@@ -839,7 +839,7 @@ namespace SchoolGrades
                     Couple c = new Couple();
                     // we give back also the nulls, as Nows
                     DateTime now = System.DateTime.Now;
-                    c.Key = (int)dRead["IdStudent"];
+                    c.Key = (int)Safe.Int(dRead["IdStudent"]);
                     if (!dRead.IsDBNull(1))
                         c.Value = Safe.DateTime(dRead["InstantLastQuestion"]);
                     else

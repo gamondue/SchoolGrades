@@ -1,4 +1,5 @@
 ﻿using SchoolGrades.BusinessObjects;
+using SchoolGrades.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,10 +18,10 @@ namespace SchoolGrades
         internal Tag currentTag = new Tag();
         bool isDialog;
         public bool haveChosen = false;
-
         public frmTag(bool IsDialog)
         {
             InitializeComponent();
+            LocalizeForm();
 
             isDialog = IsDialog;
             if (isDialog)
@@ -31,7 +32,22 @@ namespace SchoolGrades
                 btnChoose.Visible = false;
             }
         }
+        private void LocalizeForm()
+        {
+            // Title
+            this.Text = Strings.Tag_Title;
 
+            // Labels
+            label1.Text = Strings.Tag_Search;
+            lblIdTag.Text = Strings.Tag_Code;
+            lblTag.Text = Strings.Tag_Tag;
+            lblDesc.Text = Strings.Tag_Description;
+
+            // Buttons
+            btnNew.Text = Strings.Tag_New;
+            btnSave.Text = Strings.Tag_Save;
+            btnChoose.Text = Strings.Tag_Choose;
+        }
         private void frmTag_Load(object sender, EventArgs e)
         {
             listTags = new List<Tag>(); 
@@ -40,7 +56,7 @@ namespace SchoolGrades
                 btnSave.Enabled = false;
                 btnChoose.Enabled = false;
             }
-        }
+        }        
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
             txtTag.Text = txtSearch.Text;
@@ -58,17 +74,14 @@ namespace SchoolGrades
             Commons.bl.SaveTag(currentTag);
             btnChoose.Enabled = true; 
         }
-
         private void txtTag_TextChanged(object sender, EventArgs e)
         {
             currentTag.TagName = txtTag.Text;
         }
-
         private void txtDesc_TextChanged(object sender, EventArgs e)
         {
             currentTag.Desc = txtDesc.Text;
         }
-
         private void btnNew_Click(object sender, EventArgs e)
         {
             txtIdTag.Text = Commons.bl.CreateNewTag(currentTag).ToString();

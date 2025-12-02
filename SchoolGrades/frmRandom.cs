@@ -41,8 +41,8 @@ namespace SchoolGrades
             try
             {
                 this.Text = Loc.Get("Random_Title");
-                label1.Text = Loc.Get("Random_From");
-                label2.Text = Loc.Get("Random_To");
+                lblFrom.Text = Loc.Get("Random_From");
+                lblTo.Text = Loc.Get("Random_To");
                 btnDraw.Text = Loc.Get("Random_Draw");
             }
             catch (Exception ex)
