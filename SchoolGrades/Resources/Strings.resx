@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Common_Save" xml:space="preserve">
+  <data name="d" xml:space="preserve">
     <value>Salva</value>
   </data>
   <data name="Common_Cancel" xml:space="preserve">
@@ -125,6 +125,7 @@
   </data>
   <data name="Common_Delete" xml:space="preserve">
     <value>Elimina</value>
+    <comment>Student_</comment>
   </data>
   <data name="Common_Close" xml:space="preserve">
     <value>Chiudi</value>
@@ -170,7 +171,7 @@ Il programma verrà riavviato per applicare le modifiche.</value>
     <value>Gestione tag</value>
   </data>
   <data name="Setup_StartLinksManagement" xml:space="preserve">
-    <value>Gestione start links</value>
+    <value>Registro</value>
   </data>
   <data name="Setup_SchoolSubjectManagement" xml:space="preserve">
     <value>Gestione materie</value>
@@ -777,7 +778,7 @@ Selezionare un tipo di valutazione corretto</value>
     <value>Salva</value>
   </data>
   <data name="Student_New" xml:space="preserve">
-    <value>Nuovo</value>
+    <value>Cancella campi</value>
   </data>
   <data name="Student_Choose" xml:space="preserve">
     <value>Scegli</value>
@@ -795,7 +796,7 @@ Selezionare un tipo di valutazione corretto</value>
     <value>Aggiungi</value>
   </data>
   <data name="Student_Copy" xml:space="preserve">
-    <value>Copia</value>
+    <value>Copia clipboard</value>
   </data>
   <data name="Student_Exit" xml:space="preserve">
     <value>Esci</value>
@@ -1265,7 +1266,7 @@ Premendo 'Annulla' non si importerà la classe</value>
     <value>Creazione classe {0} {1} terminata</value>
   </data>
   <data name="NewYear_TodoFeature" xml:space="preserve">
-    <value>!!!! TO DO !!!!</value>
+    <value>!!!! DA FARE !!!!</value>
   </data>
   <data name="NewYear_CreateYearConfirm" xml:space="preserve">
     <value>Devo creare un nuovo anno scolastico '{0}'?</value>
@@ -1392,7 +1393,7 @@ Devo re-inizializzarlo (Sì) o non creare il database (No)?</value>
     <value>Ripristina studenti</value>
   </data>
   <data name="Backup_ClassBackup" xml:space="preserve">
-    <value>Backup classe</value>
+    <value>Database classe</value>
   </data>
   <data name="Backup_SaveDatabaseFile" xml:space="preserve">
     <value>Salva file database</value>

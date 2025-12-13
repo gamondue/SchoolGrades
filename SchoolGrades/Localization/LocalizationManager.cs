@@ -14,6 +14,8 @@ namespace SchoolGrades.Localization
     {
         private static ResourceManager _resourceManager;
         private static CultureInfo _currentCulture;
+        private static bool _isInitialized = false;
+        private static readonly object _initLock = new object();
         
         /// <summary>
         /// Event fired when application language changes at runtime
@@ -28,9 +30,7 @@ namespace SchoolGrades.Localization
             { "it-IT", "Italiano" },
             { "en-US", "English" }
             // Add more languages here as they become available
-            // { "fr-FR", "Français" },
-            // { "de-DE", "Deutsch" },
-            // { "es-ES", "Español" }
+            // { "fr-FR", "Francais" },
         };
         
         /// <summary>
@@ -38,33 +38,61 @@ namespace SchoolGrades.Localization
         /// </summary>
         static LocalizationManager()
         {
-            // Try to load saved language preference
-            string savedLanguage = LoadLanguagePreference();
-            
-            // If no saved preference, use system culture or default to Italian
-            if (string.IsNullOrEmpty(savedLanguage))
+            try
             {
-                savedLanguage = CultureInfo.CurrentUICulture.Name;
-                if (!SupportedLanguages.ContainsKey(savedLanguage))
-                {
-                    // Check if we support the language without region (e.g., "en" for "en-GB")
-                    string languageOnly = savedLanguage.Split('-')[0];
-                    bool found = false;
-                    foreach (string key in SupportedLanguages.Keys)
-                    {
-                        if (key.StartsWith(languageOnly))
-                        {
-                            savedLanguage = key;
-                            found = true;
-                            break;
-                        }
-                    }
-                    if (!found)
-                        savedLanguage = "it-IT"; // Default to Italian
-                }
-            }
+                // Try to load saved language preference
+                string savedLanguage = LoadLanguagePreference();
                 
-            Initialize(savedLanguage);
+                // If no saved preference, use system culture or default to Italian
+                if (string.IsNullOrEmpty(savedLanguage))
+                {
+                    savedLanguage = CultureInfo.CurrentUICulture.Name;
+                    if (!SupportedLanguages.ContainsKey(savedLanguage))
+                    {
+                        // Check if we support the language without region (e.g., "en" for "en-GB")
+                        string languageOnly = savedLanguage.Split('-')[0];
+                        bool found = false;
+                        foreach (string key in SupportedLanguages.Keys)
+                        {
+                            if (key.StartsWith(languageOnly))
+                            {
+                                savedLanguage = key;
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found)
+                            savedLanguage = "it-IT"; // Default to Italian
+                    }
+                }
+                    
+                Initialize(savedLanguage);
+            }
+            catch (Exception ex)
+            {
+                // Fallback: initialize with Italian if anything goes wrong
+                System.Diagnostics.Debug.WriteLine($"LocalizationManager: Static constructor error: {ex.Message}");
+                SafeInitializeFallback();
+            }
+        }
+        
+        /// <summary>
+        /// Fallback initialization when normal initialization fails
+        /// </summary>
+        private static void SafeInitializeFallback()
+        {
+            try
+            {
+                _currentCulture = new CultureInfo("it-IT");
+                _resourceManager = SchoolGrades.Resources.Strings.ResourceManager;
+                _isInitialized = true;
+            }
+            catch
+            {
+                // Absolute fallback - just set the culture
+                _currentCulture = CultureInfo.InvariantCulture;
+                _isInitialized = false;
+            }
         }
         
         /// <summary>
@@ -73,76 +101,42 @@ namespace SchoolGrades.Localization
         /// <param name="cultureName">Culture name (e.g., "it-IT", "en-US")</param>
         public static void Initialize(string cultureName)
         {
-            if (!SupportedLanguages.ContainsKey(cultureName))
+            lock (_initLock)
             {
-                System.Diagnostics.Debug.WriteLine($"LocalizationManager: Unsupported culture '{cultureName}', defaulting to it-IT");
-                cultureName = "it-IT";
-            }
-            
-            _currentCulture = new CultureInfo(cultureName);
-            
-            try
-            {
-                // Try the standard way first
-                _resourceManager = new ResourceManager(
-                    "SchoolGrades.Resources.Strings", 
-                    typeof(LocalizationManager).Assembly);
-                
-                // Test if resource manager can actually load resources
-                string test = _resourceManager.GetString("Common_Save", _currentCulture);
-                if (test == null)
+                if (!SupportedLanguages.ContainsKey(cultureName))
                 {
-                    System.Diagnostics.Debug.WriteLine($"LocalizationManager: Resource 'Common_Save' not found for culture '{cultureName}'. Trying alternative approach...");
-                    
-                    // Alternative: Use the generated Strings class directly
-                    try
-                    {
-                        var stringsType = typeof(LocalizationManager).Assembly.GetType("SchoolGrades.Resources.Strings");
-                        if (stringsType != null)
-                        {
-                            var resourceManagerProperty = stringsType.GetProperty("ResourceManager", 
-                                System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static);
-                            if (resourceManagerProperty != null)
-                            {
-                                _resourceManager = (ResourceManager)resourceManagerProperty.GetValue(null);
-                                System.Diagnostics.Debug.WriteLine($"LocalizationManager: Using alternative ResourceManager from Strings class");
-                            }
-                        }
-                    }
-                    catch (Exception altEx)
-                    {
-                        System.Diagnostics.Debug.WriteLine($"LocalizationManager: Alternative approach failed: {altEx.Message}");
-                    }
+                    System.Diagnostics.Debug.WriteLine($"LocalizationManager: Unsupported culture '{cultureName}', defaulting to it-IT");
+                    cultureName = "it-IT";
                 }
-                else
-                {
-                    System.Diagnostics.Debug.WriteLine($"LocalizationManager: Successfully loaded resources for culture '{cultureName}'. Test string: '{test}'");
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"LocalizationManager: Failed to initialize ResourceManager: {ex.Message}");
-                System.Diagnostics.Debug.WriteLine($"LocalizationManager: Stack trace: {ex.StackTrace}");
                 
-                // Try using the generated Strings class as fallback
+                _currentCulture = new CultureInfo(cultureName);
+                
                 try
                 {
+                    // Use the generated Strings class directly - this is the most reliable approach
                     _resourceManager = SchoolGrades.Resources.Strings.ResourceManager;
-                    System.Diagnostics.Debug.WriteLine($"LocalizationManager: Fallback to Strings.ResourceManager successful");
+                    _isInitialized = true;
+                    System.Diagnostics.Debug.WriteLine($"LocalizationManager: Successfully initialized for culture '{cultureName}'");
                 }
-                catch (Exception fallbackEx)
+                catch (Exception ex)
                 {
-                    System.Diagnostics.Debug.WriteLine($"LocalizationManager: Fallback also failed: {fallbackEx.Message}");
+                    System.Diagnostics.Debug.WriteLine($"LocalizationManager: Failed to initialize ResourceManager: {ex.Message}");
+                    _isInitialized = false;
+                }
+                
+                // Set thread culture for current and future threads
+                try
+                {
+                    Thread.CurrentThread.CurrentUICulture = _currentCulture;
+                    Thread.CurrentThread.CurrentCulture = _currentCulture;
+                    CultureInfo.DefaultThreadCurrentUICulture = _currentCulture;
+                    CultureInfo.DefaultThreadCurrentCulture = _currentCulture;
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"LocalizationManager: Failed to set thread culture: {ex.Message}");
                 }
             }
-            
-            // Set thread culture for current and future threads
-            Thread.CurrentThread.CurrentUICulture = _currentCulture;
-            Thread.CurrentThread.CurrentCulture = _currentCulture;
-            
-            // Also set default culture for new threads
-            CultureInfo.DefaultThreadCurrentUICulture = _currentCulture;
-            CultureInfo.DefaultThreadCurrentCulture = _currentCulture;
         }
         
         /// <summary>
@@ -156,10 +150,9 @@ namespace SchoolGrades.Localization
                 return string.Empty;
             
             // Check if resource manager was initialized successfully
-            if (_resourceManager == null)
+            if (_resourceManager == null || !_isInitialized)
             {
-                // Log silenzioso - non chiamare ErrorLog che fa beep
-                System.Diagnostics.Debug.WriteLine($"LocalizationManager: ResourceManager is null, cannot get string for key '{key}'");
+                System.Diagnostics.Debug.WriteLine($"LocalizationManager: ResourceManager not initialized, cannot get string for key '{key}'");
                 return $"[{key}]";
             }
                 
@@ -168,15 +161,13 @@ namespace SchoolGrades.Localization
                 string value = _resourceManager.GetString(key, _currentCulture);
                 if (value == null)
                 {
-                    // Log silenzioso - non chiamare ErrorLog per chiavi mancanti (troppo rumore)
                     System.Diagnostics.Debug.WriteLine($"LocalizationManager: Missing resource key '{key}' for culture '{_currentCulture.Name}'");
-                    return $"[{key}]"; // Return key in brackets to make missing translations visible
+                    return $"[{key}]";
                 }
                 return value;
             }
             catch (Exception ex)
             {
-                // Log silenzioso - non chiamare ErrorLog che fa beep
                 System.Diagnostics.Debug.WriteLine($"LocalizationManager: Error getting string for key '{key}': {ex.Message}");
                 return $"[{key}]";
             }
@@ -192,7 +183,7 @@ namespace SchoolGrades.Localization
         {
             string format = GetString(key);
             if (format.StartsWith("[") && format.EndsWith("]"))
-                return format; // Key not found, return as-is
+                return format;
                 
             try
             {
@@ -200,9 +191,8 @@ namespace SchoolGrades.Localization
             }
             catch (FormatException ex)
             {
-                // Log silenzioso
                 System.Diagnostics.Debug.WriteLine($"LocalizationManager: Format error for key '{key}': {ex.Message}");
-                return format; // Return unformatted string
+                return format;
             }
         }
         
@@ -215,36 +205,41 @@ namespace SchoolGrades.Localization
             if (!SupportedLanguages.ContainsKey(cultureName))
                 throw new ArgumentException($"Unsupported culture: {cultureName}");
             
-            if (_currentCulture.Name == cultureName)
-                return; // Already using this language
+            if (_currentCulture != null && _currentCulture.Name == cultureName)
+                return;
                 
             Initialize(cultureName);
             SaveLanguagePreference(cultureName);
             
-            // Notify subscribers that language changed
             LanguageChanged?.Invoke(null, EventArgs.Empty);
         }
         
         /// <summary>
         /// Get current application culture
         /// </summary>
-        public static CultureInfo CurrentCulture => _currentCulture;
+        public static CultureInfo CurrentCulture => _currentCulture ?? CultureInfo.InvariantCulture;
         
         /// <summary>
         /// Get current language code (e.g., "it-IT")
         /// </summary>
-        public static string CurrentLanguage => _currentCulture.Name;
+        public static string CurrentLanguage => _currentCulture?.Name ?? "it-IT";
         
         /// <summary>
         /// Get current language display name (e.g., "Italiano")
         /// </summary>
-        public static string CurrentLanguageName => SupportedLanguages[_currentCulture.Name];
+        public static string CurrentLanguageName => 
+            _currentCulture != null && SupportedLanguages.ContainsKey(_currentCulture.Name) 
+                ? SupportedLanguages[_currentCulture.Name] 
+                : "Italiano";
         
         /// <summary>
         /// Check if a resource key exists
         /// </summary>
         public static bool KeyExists(string key)
         {
+            if (_resourceManager == null || !_isInitialized)
+                return false;
+                
             try
             {
                 return _resourceManager.GetString(key, _currentCulture) != null;
@@ -267,7 +262,8 @@ namespace SchoolGrades.Localization
             }
             catch (Exception ex)
             {
-                Commons.ErrorLog($"LocalizationManager: Error saving language preference: {ex.Message}");
+                // Non usare Commons.ErrorLog qui per evitare loop
+                System.Diagnostics.Debug.WriteLine($"LocalizationManager: Error saving language preference: {ex.Message}");
             }
         }
         
@@ -282,7 +278,8 @@ namespace SchoolGrades.Localization
             }
             catch (Exception ex)
             {
-                Commons.ErrorLog($"LocalizationManager: Error loading language preference: {ex.Message}");
+                // Non usare Commons.ErrorLog qui per evitare loop durante l'inizializzazione
+                System.Diagnostics.Debug.WriteLine($"LocalizationManager: Error loading language preference: {ex.Message}");
                 return null;
             }
         }
@@ -290,7 +287,6 @@ namespace SchoolGrades.Localization
     
     /// <summary>
     /// Shorthand alias for LocalizationManager.GetString
-    /// Usage: Loc.GetString("Common_Save") or just Loc.Get("Common_Save")
     /// </summary>
     public static class Loc
     {

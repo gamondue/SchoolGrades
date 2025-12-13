@@ -101,7 +101,7 @@ namespace gamon.TreeMptt
         // TreeView control from the calling code
         internal TreeView TreeView { get => shownTreeView; }
 
-        bool functionKeysEnabled = true;
+        bool functionKeysEnabled = false;  // Inizializzato a false per permettere la prima registrazione degli eventi
         private bool bulkChangeOfChecks;
 
         internal bool FunctionKeysEnabled
@@ -112,40 +112,29 @@ namespace gamon.TreeMptt
             }
             set
             {
-                shownTreeView.AfterLabelEdit += shownTreeView_AfterLabelEdit;
-                shownTreeView.AfterCheck += ShownTreeView_AfterCheck;
-                shownTreeView.AfterSelect += shownTreeView_AfterSelect;
-                shownTreeView.Click += ShownTreeView_Click;
-                shownTreeView.KeyDown += ShownTreeView_KeyDown;
-                txtNodeName.Leave += TxtNodeName_Leave;
-                txtNodeName.TextChanged += TxtNodeName_TextChanged;
-                txtNodeDescription.Leave += TxtNodeDescription_Leave;
-                if (chkSearchInDescriptions != null)
-                    chkSearchInDescriptions.CheckedChanged += SearchCheckBoxes_CheckedChanged;
-                if (chkAllWord != null)
-                    chkAllWord.CheckedChanged += SearchCheckBoxes_CheckedChanged;
-                if (chkCaseInsensitive != null)
-                    chkCaseInsensitive.CheckedChanged += SearchCheckBoxes_CheckedChanged;
-                if (chkMarkAllNodesFound != null)
-                    chkMarkAllNodesFound.CheckedChanged += chkMarkAllNodesFound_CheckedChanged;
-                if (chkVerbatimString != null)
-                    chkVerbatimString.CheckedChanged += chkVerbatimString_CheckedChanged;
-                //}
-                //else
-                //{
-                //    // un-hook the events
-                //    // !!!! TODO !!!! rethink the event we should unhook
-                //    // since the functioning involving the following events 
-                //    // was akward, the unhook has been disabled 
-                //    //shownTreeView.AfterLabelEdit -= TreeView_AfterLabelEdit;
-                //    //shownTreeView.AfterCheck -= TreeView_AfterCheck;
-                //    //shownTreeView.AfterSelect -= TreeView_AfterSelect;
-                //    //shownTreeView.Click -= TreeView_Click;
-                //    //shownTreeView.KeyDown -= TreeView_KeyDown;
-                //    //txtNodeName.Leave -= TxtNodeName_Leave;
-                //    //txtNodeName.TextChanged -= TxtNodeName_TextChanged;
-                //    //txtNodeDescription.TextChanged -= TxtNodeDescription_TextChanged;
-                //}
+                // Evita di registrare gli eventi più volte
+                if (value && !functionKeysEnabled)
+                {
+                    shownTreeView.AfterLabelEdit += shownTreeView_AfterLabelEdit;
+                    shownTreeView.AfterCheck += ShownTreeView_AfterCheck;
+                    shownTreeView.AfterSelect += shownTreeView_AfterSelect;
+                    shownTreeView.Click += ShownTreeView_Click;
+                    shownTreeView.KeyDown += ShownTreeView_KeyDown;
+                    txtNodeName.Leave += TxtNodeName_Leave;
+                    // TEMPORANEAMENTE DISABILITATO - Potenziale causa di ExecutionEngineException
+                    // txtNodeName.TextChanged += TxtNodeName_TextChanged;
+                    txtNodeDescription.Leave += TxtNodeDescription_Leave;
+                    if (chkSearchInDescriptions != null)
+                        chkSearchInDescriptions.CheckedChanged += SearchCheckBoxes_CheckedChanged;
+                    if (chkAllWord != null)
+                        chkAllWord.CheckedChanged += SearchCheckBoxes_CheckedChanged;
+                    if (chkCaseInsensitive != null)
+                        chkCaseInsensitive.CheckedChanged += SearchCheckBoxes_CheckedChanged;
+                    if (chkMarkAllNodesFound != null)
+                        chkMarkAllNodesFound.CheckedChanged += chkMarkAllNodesFound_CheckedChanged;
+                    if (chkVerbatimString != null)
+                        chkVerbatimString.CheckedChanged += chkVerbatimString_CheckedChanged;
+                }
                 functionKeysEnabled = value;
             }
         }
@@ -691,7 +680,7 @@ namespace gamon.TreeMptt
         internal void ImportToTreewiewFromList(List<Topic> ListToImport,
             TreeNode ParentNodeOfImportedSubtree)
         {
-            // ParentNode contains the number of indents of the node! 
+            // ParentNode contiene il numero di indents di ogni nodo! 
             try
             {
                 // fill the treeview adding the list's items to the tag property of each node
@@ -1004,6 +993,7 @@ namespace gamon.TreeMptt
         // Flag per indicare che un aggiornamento proviene dal codice e non dall'utente.
         private bool isUpdatingUiFromCode = false;
         private bool isSavingTree = false;
+        private bool _isProcessingTextChange = false;  // Protezione contro ricorsione in TxtNodeName_TextChanged
 
         /// <summary>
         /// UNICO COMPITO: Popolare le TextBox quando un nodo viene selezionato.
@@ -1092,59 +1082,21 @@ namespace gamon.TreeMptt
         }
 
         /// <summary>
-        /// USATO SOLO PER LOGICA SPECIALE (Import FreeMind). NON aggiorna più il TreeView.
+        /// USATO SOLO PER LOGICA SPECIALE (Import FreeMind). 
+        /// TEMPORANEAMENTE DISABILITATO per debug ExecutionEngineException
         /// </summary>
         private void TxtNodeName_TextChanged(object sender, EventArgs e)
         {
-            // Ignora le modifiche programmatiche.
+            // TEMPORANEAMENTE DISABILITATO - L'import FreeMind causa ExecutionEngineException in .NET 10
+            // TODO: Re-abilitare quando il bug è risolto
+            
+            // Ignora le modifiche programmatiche
             if (isUpdatingUiFromCode) return;
-
-            // Rilevamento importazione da FreeMind (copia-incolla di testo strutturato)
-            string txt = txtNodeName.Text;
-            bool looksLikeTree = txt.Contains("\r\n") && (txt.Contains("\t") || txt.Contains("    "));
-
-            if (looksLikeTree)
-            {
-                // Disabilita temporaneamente l'evento per evitare che si scateni di nuovo
-                txtNodeName.TextChanged -= TxtNodeName_TextChanged;
-                try
-                {
-                    var dr = MessageBox.Show("Testo formattato come albero (FreeMind). Importare qui il sottoalbero?",
-                        "Importazione", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                    if (dr == DialogResult.Yes)
-                    {
-                        ImportSubtreeFromText(txt);
-                        // Dopo l'importazione, il nodo selezionato potrebbe essere cambiato.
-                        // L'evento AfterSelect si occuperà di aggiornare correttamente le TextBox.
-                        if (shownTreeView.SelectedNode != null)
-                        {
-                            shownTreeView.SelectedNode.Expand();
-                            // Forziamo un aggiornamento delle textbox basato sul nodo corrente
-                            shownTreeView_AfterSelect(shownTreeView, new TreeViewEventArgs(shownTreeView.SelectedNode));
-                        }
-                    }
-                    else
-                    {
-                        // L'utente ha annullato, ripristina il testo originale del nodo corrente.
-                        if (currentTopic != null)
-                        {
-                            txtNodeName.Text = currentTopic.Name ?? string.Empty;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Commons.ErrorLog($"[TxtNodeName_TextChanged|Import] {ex.Message}\n{ex.StackTrace}");
-                }
-                finally
-                {
-                    // Riabilita sempre l'evento.
-                    txtNodeName.TextChanged += TxtNodeName_TextChanged;
-                }
-            }
+            
+            // Per ora, non fare nulla di speciale quando il testo cambia
+            // L'utente può comunque modificare il nome del nodo normalmente
+            // L'importazione FreeMind è temporaneamente disabilitata
         }
-
         // --- Metodi di supporto e altri eventi (semplificati e resi più sicuri) ---
 
         internal void shownTreeView_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)

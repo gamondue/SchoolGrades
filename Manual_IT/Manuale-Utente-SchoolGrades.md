@@ -4,7 +4,7 @@
 
 1. [Introduzione](#introduzione)
 1. [Avvio e configurazione iniziale](#avvio-e-configurazione-iniziale)
-1. [Interfaccia e funzionalit‡ della finestra principale](#interfaccia-e-funzionalit‡-della-finestra-principale)
+1. [Interfaccia e funzionalit√† della finestra principale](#interfaccia-e-funzionalit√†-della-finestra-principale)
 1. [Gestione classi e studenti](#gestione-classi-e-studenti)
 1. [Valutazioni e voti](#valutazioni-e-voti)
 1. [Gestione lezioni e argomenti](#gestione-lezioni-e-argomenti)
@@ -15,7 +15,7 @@
 
 ## Introduzione
 
-**SchoolGrades** Ë un'applicazione Windows Forms progettata per supportare gli insegnanti nella gestione quotidiana delle attivit‡ didattiche in classe. Il programma permette di:
+**SchoolGrades** E' un'applicazione Windows Forms progettata per supportare gli insegnanti nella gestione quotidiana delle attivit√† didattiche in classe. Il programma permette di:
 
 - Gestire classi e studenti
 - Registrare valutazioni di diversi tipi (orali, scritti, pratici, ecc.)
@@ -27,14 +27,9 @@
 
 ### Importante: la potenza del doppio click
 
-**SchoolGrades realizza molte funzionalit‡ attraverso il doppio click su elementi dell'interfaccia utente.**  
-Queste funzionalit‡ sono estremamente comode, ma solo se si sa che esistono. **Vi incoraggiamo caldamente a sperimentare il doppio click**, in particolare sulle **griglie** e sugli **elenchi**, per scoprire funzioni rapide e scorciatoie che renderanno l'uso del programma molto pi˘ efficiente.  
+**SchoolGrades realizza molte funzionalit√† attraverso il doppio click su elementi dell'interfaccia utente.**  
+Queste funzionalit√† sono estremamente comode, ma solo se si sa che esistono. **Vi incoraggiamo caldamente a sperimentare il doppio click**, in particolare sulle **griglie** e sugli **elenchi**, per scoprire funzioni rapide e scorciatoie che renderanno l'uso del programma molto pi√π efficiente.  
 Il singolo file click di solito provvede alla selezione di un elemento nella griglia o nella lista.
-
-Ad esempio:
-- **Doppio click su una riga della griglia studenti** apre la finestra di gestione della classe dello studente selezionato
-- **Doppio click sulla lista delle classi** apre la finestra di gestione della classe selezionata
-- **Doppio click sul campo della domanda corrente** apre la finestra di scelta domanda
 
 ---
 
@@ -42,16 +37,14 @@ Ad esempio:
 
 ### Primo avvio
 
-Al primo avvio, il programma richiede la sua di configurazione, a tal scopo si aprir‡ la pagina setup, nella quale bisogna scegliere il file di database.  
+Al primo avvio, il programma richiede la sua configurazione, a tal scopo si aprir√† la finestra Setup, nella quale bisogna scegliere il file di database.  
 Per cominciare ad usare il programma bisogna configurare:
 
-1. **Percorso del database**: nella pagina "Setup" selezionare un database **locale** SQLite dove verranno memorizzati tutti i dati.  (nel codice attuale sono presenti classi e metodi che utilizzano SQL server, ma non Ë possibile usarli perchË sono incompleti e non testati).  Attualmente il programma sceglie per default un database vuoto presente nel file zip di distribuzione, ma questa parte dovrebbe ssere cambiata per rendere automatica la prima esecuzione con database vuoto.
-2. **Anno scolastico**: scegliere o creare l'anno scolastico interessato (pagina "gestione classi" in "Setup").
-3. **Classi**: inserire le classi che si intendono gestire (vedi "Gestione classi" nella pagina "Setup").
+1. **Percorso del database**: nella pagina "Setup" selezionare un database **locale** SQLite dove verranno memorizzati tutti i dati.  (nel codice attuale sono presenti classi e metodi che utilizzano SQL server, ma non √® possibile usarli perch√© sono incompleti e non testati).  Attualmente il programma sceglie per default un database vuoto presente nel file zip di distribuzione, ma questa parte dovrebbe essere cambiata per rendere automatica la prima esecuzione con database vuoto.
 
 ### Finestra Setup
 
-Dal pulsante **"Setup"** nella schermata principale Ë possibile accedere alle opzioni di configurazione del programma, tra cui:
+Dal pulsante **"Setup"** nella schermata principale √® possibile accedere alle opzioni di configurazione del programma, tra cui:
 
 - Impostazioni di connessione al database
 - Preferenze generali dell'interfaccia
@@ -59,13 +52,13 @@ Dal pulsante **"Setup"** nella schermata principale Ë possibile accedere alle op
 - Gestione delle materie insegnate
 - Configurazione dei periodi scolastici
 
-Alla chiusura della finestra "Setup" il programma deve salvare un file di testo, nel quale scrive i dati di configurazione. Pertanto, dopo aver effettuato la prima configurazione ed anche dopo aver cambiato una configurazione, Ë necessario premere il bottone "Salva config.".
+Alla chiusura della finestra "Setup" il programma deve salvare un file di testo, nel quale scrive i dati di configurazione. Pertanto, dopo aver effettuato la prima configurazione ed anche dopo aver cambiato una configurazione, √® necessario premere il bottone "Salva config.".
 
 ---
 
-## Interfaccia e funzionalit‡ della finestra principale
+## Interfaccia e funzionalit√† della finestra principale
 
-L'interfaccia principale di SchoolGrades Ë divisa in diverse aree funzionali:
+L'interfaccia principale di SchoolGrades √® divisa in diverse aree funzionali:
 
 ### Area superiore sinistra
 
@@ -82,7 +75,7 @@ oppure
 - **Griglia studenti**: visualizzazione tabulare degli studenti della classe corrente con segni di spunta per la selezione multipla.  
   *Importante*: fare doppio click su uno studente per selezionarlo e per vederne la foto
 
-  Le due modalit‡ di visualizzazione sono controllate anche dal segno di spunta "Lista visibile"
+  Le due modalit√† di visualizzazione sono controllate anche dal segno di spunta "Lista visibile"
 
 ### Bottoni e segni di spunta centrali
 - **Bottone "Setup"**: lancia la finestra di configurazione del programma
@@ -113,13 +106,13 @@ oppure
 
 #### Visualizzazione studenti
 
-Gli studenti della classe selezionata vengono visualizzati nella griglia centrale. » possibile:
+Gli studenti della classe selezionata vengono visualizzati nella griglia centrale. E' possibile:
 
-- **Selezionare uno o pi˘ studenti** tramite checkbox
+- **Selezionare uno o pi√π studenti** tramite checkbox
 - **Ordinare per colonna** cliccando sull'intestazione
 - **Doppio click su uno studente** per aprire la finestra di gestione classe dello studente
 
-#### Gestione della visibilit‡
+#### Gestione della visibilit√†
 
 Tre checkbox permettono di controllare cosa visualizzare:
 
@@ -151,26 +144,29 @@ SchoolGrades supporta diversi tipi di valutazione selezionabili dal menu **"Tipo
 - **Pratici**: prove pratiche
 - **Scritto-grafici**: elaborati grafici o tecnici
 
+E' possibile aggiungere tipi di valutazione con la gestione tabelle.
+
 #### Inserimento voti
 
+1. Selezionare l'allievo da valutare
 1. Selezionare la materia
 2. Selezionare il tipo di valutazione
 3. Fare click sul pulsante **"Valutaz."** per aprire la finestra di inserimento voti
 
 #### Consultazione voti
 
-- **Voti allievo**: visualizza tutti i voti dello studente corrente con possibilit‡ di consultare anche le annotazioni
+- **Voti allievo**: visualizza tutti i voti dello studente corrente con possibilit√† di definire gli intervalli temporalo e di consultare anche le annotazioni
 - **Voti classe**: visualizza un riepilogo dei voti di tutta la classe per la materia e il tipo di valutazione selezionati
 
 #### Fattore di vendetta
 
-SchoolGrades include un meccanismo di "fattore di vendetta" per tenere traccia degli studenti interrogati di recente:
+SchoolGrades include un conteggio di tracciamento di un certo numero di eventi che riguardano un allievo. Pu√≤ essere usato come si vuole, ma siccome io lo usavo a scuola per segnarmi se un allievo non si era comportato bene (assenze alle valutazioni, "furbizie varie" ..) l'ho chiamata "fattore di vendetta":
 
 - **FV++**: aumenta il fattore di vendetta dello studente corrente
 - **FV--**: diminuisce il fattore di vendetta dello studente corrente
 - Il fattore viene visualizzato nel campo **F.V.**
 
-Il sorteggio "Tremenda vendetta" d‡ maggiore probabilit‡ agli studenti con fattore di vendetta pi˘ alto.
+Il sorteggio di tipo "Tremenda vendetta" d√† maggiore probabilit√† agli studenti con fattore di vendetta pi√π alto (oppure sceglie solo fra quelli che hanno F.V. > 0, non ricordo e non ho voglia di guardare..).
 
 ---
 
@@ -178,73 +174,88 @@ Il sorteggio "Tremenda vendetta" d‡ maggiore probabilit‡ agli studenti con fatto
 
 #### Registro lezioni
 
-Il pulsante **"Lezioni"** apre la finestra di gestione delle lezioni per la materia selezionata, dove Ë possibile:
+Il pulsante **"Lezioni"** apre la finestra di gestione delle lezioni per la materia selezionata, dove √® possibile:
 
 - Inserire nuove lezioni con data, durata e argomenti trattati
 - Consultare lo storico delle lezioni
-- Associare argomenti del programma alle lezioni
+- Associare argomenti del programma alle lezioni, eventualmente introducendone di nuovi nell'albero degli argomenti
 
 #### Argomenti svolti
 
-- **Argom. fatti**: apre la pagina di ricerca degli argomenti gi‡ spiegati nel programma didattico
-- **File arg. anno**: crea un file di testo con tutti gli argomenti svolti nell'anno scolastico corrente
+- **Argom. fatti**: apre la pagina di ricerca degli argomenti gi√† spiegati nel programma didattico
+- **File arg. anno**: crea un file di testo con tutti gli argomenti svolti nell'anno scolastico corrente (il formato √® un po' confuso ma √® complicato farlo meglio (se qualcuno ci riesce: PULL REQUEST!).
 
 #### Timer e orologio lezione
 
 Il programma include strumenti per gestire il tempo durante la lezione:
 
 **Orologio lezione**:
+
+Il programma gestisce una "sveglia" automatica che permette di sapere che si sta avvicinando la fine della lezione. Tale sveglia √® abilitata dal checkbox "allarme fine lezione".  
+
+- **Checkbox "Orologio lezione"**: abilita/disabilita la colorazione automatica
+
+L'allarme di fine lezione si configura con le caselle che vengono spiegate di seguito:
 - Imposta il minuto di inizio lezione
 - Imposta i minuti di durata della lezione
 - Imposta i minuti di anticipo per l'allarme di fine lezione
-- Il pulsante **"Inizio lezione"** cambia colore in base al tempo trascorso
-- **Checkbox "Orologio lezione"**: abilita/disabilita la colorazione automatica
-- **Checkbox "Allarme fine lezione"**: abilita/disabilita l'allarme sonoro
+
+Il pulsante **"Inizio lezione"** permette di far partire al minuto attuale una nuova lezione e cambia colore in base al tempo trascorso.
+
+Se l'allarme √® abilitato, al numero di minuti di anticipo indicati, rispetto alla fine della lezione, si apre una finestra (BLOCCANTE!) che avverte che ci stiamo avvicinando alla fine della lezione. Volendo si pu√≤ anche far partire una "sveglia" sonora in quell'istante, on il checkbox "Allarme fine lezione". L'allarme sonoro √® la sveglia militare. 
+
+- **Checkbox "Allarme fine lezione"**: abilita/disabilita l'allarme
+
 
 **Timer per risposte**:
-- La barra di progresso sotto cambia di dimensione con lo scorrere del tempo (della risposta)
-- **Click su "T.barra"** per avviare il cronometro (dopo aver scelto il tempo scrivendolo o cliccando su un valore della lista)
-- Il tempo scorre fino al completamento della barra
 
-**Timer a colori e a barra**:
-- **T.colori**: avvia un cronometro a colori che cambia tonalit‡ con il passare del tempo
-- **T.barra**: avvia un cronometro con visualizzazione a barra di progresso
+Il programma ha due tipi di timer, da usare in ogni momento in cui si debba misurare il trascorrere del tempo e renderlo visibile. C'√® un timer a barra ed uno a finestra colorata, che cambia di colore in base al tempo trascorso.  
+Entrambi i timer vengono impostati alla loro partenza per usare l'intervallo di tempo indicato sopra la lista che sta vicino alla lista delle classi (05, 10, 15, ..).
+
+**Timer a barra**:
+- La barra di progresso verde cambia di lunghezza con lo scorrere del tempo (della risposta)
+- Il tempo scorre fino al completamento della barra
+- Click su **"T.barra"** per avviare il cronometro (dopo aver scelto il tempo scrivendolo o cliccando su un valore della lista)
+
+**Timer a colori**:
+- click su **"T.colori"**: apre la finestra del cronometro a colori, che cambia tonalit√† con il passare del tempo. Nella finestra sono presenti due intervalli di tempo, il primo √® quello che √® scritto nella casella sopra alla lista, parte quando la finestra viene fatta partire e viene eseguito una volta sola. Il secondo intervallo √® l'intervallo dei periodi successivi al primo.  
+Quando inizia un intervallo la finestra √® tutta verde, viene indicato il tempo rimanente e il colore della finestra cambia gradualmente dal verde al rosso intenso, colore che viene assunto alla fine del tempo dell'intervallo. Alla fine di ogni intervallo di tempo la finestra torna verde e si comincia a contare un successivo intervallo di tempo, che ha la durata dell'intervallo "seguente" ("Segu." nella finestra).  
+Quando manca il 10% del tempo viene fatto suonare un file musicale, quando il tempo √® finito ne viene fatto suonare un altro.
+
 - **Checkbox "Suoni"**: abilita/disabilita i suoni nel timer a colori, ma anche nelle estrazioni casuali
-- **Lista intervalli di tempo**:si usa per delezionare rapidamente una la durata del timer (5, 10, 15, 30, 45, 60 minuti)
+- **Lista intervalli di tempo**: si usa per selezionare rapidamente la durata del timer (5, 10, 15, 30, 45, 60 secondi)
 
 ---
 
-### Funzionalit‡ avanzate
-
 #### Sorteggio e ordinamento studenti
 
-**Modalit‡ di sorteggio/ordinamento**:
+**Modalit√† di sorteggio/ordinamento**:
 
 Selezionare tra le due opzioni principali:
-- **Sorteggio**: estrazione casuale secondo il criterio scelto
-- **Ordinam.**: ordinamento deterministico degli studenti
+- **Sorteggio**: ordinamento casuale degli studenti in una lista, secondo quanto scelto in alto a destra
+- **Ordinam.**: ordinamento deterministico degli studenti nella lista
 
 **Criteri disponibili**:
 
-- **Probabilit‡ uguali**: sorteggio equiprobabile fra tutti gli studenti selezionati
+- **Probabilit√† uguali**: sorteggio equiprobabile fra tutti gli studenti selezionati
 - **Peso totale dei voti**: ordinamento secondo il peso totale del tipo di voto selezionato
 - **Numero voti**: ordinamento in base al numero di voti del tipo selezionato
 - **Alfabetico**: ordinamento alfabetico per cognome e nome
-- **Prima voti bassi**: ordinamento per voto crescente (dal pi˘ basso)
-- **Prima voti vecchi**: ordinamento con precedenza ai voti pi˘ datati
-- **Tremenda vendetta**: sorteggio con probabilit‡ proporzionale al fattore di vendetta
+- **Prima voti bassi**: ordinamento per voto crescente (dal pi√π basso)
+- **Prima voti vecchi**: ordinamento con precedenza ai voti pi√π datati
+- **Tremenda vendetta**: sorteggio con probabilit√† proporzionale al fattore di vendetta
 
 **Pulsanti di sorteggio/ordinamento**:
 
 - **Sortegg. o ordin.**: esegue il sorteggio o l'ordinamento secondo il criterio selezionato
 - **Costretto**: sceglie automaticamente il prossimo studente dell'elenco ordinato o casuale
-- **Voto pi˘ vecchio**: sceglie lo studente con il voto pi˘ vecchio del tipo selezionato
+- **Voto pi√π vecchio**: sceglie lo studente con il voto pi√π vecchio del tipo selezionato
 
-**Checkbox "suspence"**: attiva una pausa e una musica prima dell'estrazione per aumentare la suspense
+**Checkbox "suspence"**: attiva una pausa e una musica prima dell'estrazione, per aumentare la suspense
 
 #### Domande e test
 
-- **Scelta domanda**: apre la finestra per selezionare una domanda da porre allo studente/i che verr‡/anno selezionato/i in seguito
+- **Scelta domanda**: apre la finestra per selezionare una domanda da porre allo studente/i che verr√†/anno selezionato/i in seguito
 - **Campo domanda corrente**: visualizza il testo della domanda selezionata (doppio click per cambiarla)
 - **Checkbox "Domande pop up"**: abilita la visualizzazione casuale di domande durante la lezione
 - **Campo tempo pop up**: imposta l'intervallo medio (in minuti) tra una domanda pop-up e l'altra
@@ -267,26 +278,30 @@ Selezionare tra le due opzioni principali:
 **Mosaico**:
 - Il pulsante **"Mosaico"** visualizza tutte le foto della classe in una griglia
 
+Click su una foto per visualizzare il noime dell'allievo.
+
 #### Gruppi
 
 Il pulsante **"Gruppi"** apre la finestra per la formazione di gruppi di studenti secondo vari criteri (casuali, bilanciati per voti, ecc.).
 
 #### Annotazioni
 
-- **Annotaz.**: apre la finestra per assegnare annotazioni di gruppo agli studenti selezionati
+- **Annotaz.**: apre la finestra per assegnare annotazioni singole e di gruppo agli studenti selezionati
 - Le annotazioni possono essere consultate anche dalla finestra "Voti allievo"
 
-#### Collegamenti esterni (Start links)
+#### Collegamenti di esecuzione (Start links)
 
-Il pulsante **"Start links"** permette di lanciare programmi, siti web o file associati alla classe corrente. Ad esempio:
+Il pulsante **"Start links"** permette di lanciare automaticamente programmi, siti web o file associati alla classe corrente. Ad esempio:
 
 - Collegamenti a registri elettronici
 - Materiali didattici online
 - Risorse specifiche per la classe
 
+Per la configurazione di questa funzionalit√† c'√® una pagina nella finestra "setup".
+
 #### Numero casuale
 
-Il pulsante **"Numero casuale"** estrae un numero casuale nell'intervallo specificato, utile per sorteggi rapidi o domande numerate.
+Il pulsante **"Numero casuale"** fa aprire una finestra che estrae un numero casuale nell'intervallo specificato, utile per sorteggi rapidi o domande numerate.
 
 ---
 
@@ -294,7 +309,7 @@ Il pulsante **"Numero casuale"** estrae un numero casuale nell'intervallo specif
 
 ### Doppio click (da provare!)
 
-Come menzionato all'inizio, **il doppio click Ë la chiave per sbloccare molte funzioni rapide**:
+Come menzionato all'inizio, **il doppio click √† la chiave per sbloccare molte funzioni rapide**:
 
 - **Griglia studenti**: doppio click su uno studente apre la finestra di gestione classe
 - **Lista classi**: doppio click su una classe apre la gestione completa
@@ -309,19 +324,19 @@ Come menzionato all'inizio, **il doppio click Ë la chiave per sbloccare molte fu
 
 ### Salvataggio automatico in background
 
-Un piccolo indicatore visivo (rettangolo grigio/rosso) in basso a sinistra diventa rosso quando il programma sta salvando dati in background. Non Ë necessario salvare manualmente; SchoolGrades gestisce automaticamente la persistenza dei dati.
+Un piccolo indicatore visivo (rettangolo grigio oppure rosso) in alto a sinistra diventa rosso quando il programma sta salvando dati in background. Non √® necessario fare manualmente questo salvataggio; SchoolGrades lo gestisce automaticamente.
 
 ### Personalizzazione
 
-Molte impostazioni di visualizzazione e comportamento possono essere personalizzate dalla finestra **"Setup"**. Esplorare le varie sezioni per adattare il programma alle proprie esigenze.
+Alcune impostazioni di visualizzazione e comportamento possono essere personalizzate dalla finestra **"Setup"**. Esplorare le varie sezioni per adattare il programma alle proprie esigenze.
 
 ### Campo Id allievo e Id classe
 
-I campi **"Id allievo"** e **"Id classe"** sono visibili principalmente per scopi di debug e supporto tecnico. Normalmente non Ë necessario interagire con essi.
+I campi **"Id allievo"** e **"Id classe"**, come tutti i campi Id delle altre finestre, sono visibili principalmente per scopi di debug e non √® necessario interagire con essi. In alcuni casi possono essere d'aiuto, per esempio per vedere se i dati di un nuovo "record" sono stati effettivamente salvati (l'Id compere o cambia).
 
 ### Pulsante "Test"
 
-Il pulsante rosso **"Test"** (visibile solo in modalit‡ debug) viene utilizzato dagli sviluppatori per testare nuove funzionalit‡. Gli utenti finali possono ignorarlo.
+Il pulsante rosso **"Test"** viene utilizzato dagli sviluppatori per testare pi√π rapidamente nuove funzionalit√†. Gli utenti finali non dovrebbero vederlo, perch√© √® visibile solo in modalit√† debug e le versioni debug non vengono distribuite agli utenti finali).
 
 ---
 
@@ -339,14 +354,13 @@ Verificare che:
 Controllare che:
 - Il percorso della cartella immagini sia configurato correttamente in Setup
 - I file immagine abbiano estensione riconosciuta (.jpg, .png, .bmp)
-- Il nome del file immagine corrisponda al codice studente o alla convenzione configurata
+- Il nome del file immagine corrisponda al codice studente
 
 ### L'orologio lezione non funziona
 
 Assicurarsi che:
 - La checkbox "Orologio lezione" sia attivata
 - I valori di minuto inizio, durata e anticipo siano corretti
-- Il timer non sia stato disabilitato nelle impostazioni
 
 ---
 
@@ -378,21 +392,19 @@ Per informazioni dettagliate sulle finestre specifiche del programma, consultare
 ### Nota sui documenti
 Ogni documento fornisce:
 - Guida completa all'uso della finestra
-- Spiegazione dei controlli e delle funzionalit‡
+- Spiegazione dei controlli e delle funzionalit√†
 - Flussi di lavoro tipici con esempi pratici
 - Suggerimenti e best practices
 - Risoluzione dei problemi comuni
 - Integrazione con altre finestre del programma
 
-Il documento **Finestre Secondarie e Specializzate** raccoglie in modo organizzato la documentazione di oltre 20 finestre di supporto, catalogate per funzione (gestione dati, annotazioni, visualizzazione, utilit‡, manutenzione).
+Il documento **Finestre Secondarie e Specializzate** raccoglie in modo organizzato la documentazione di oltre 20 finestre di supporto, catalogate per funzione (gestione dati, annotazioni, visualizzazione, utilit√†, manutenzione).
 
 ---
 ## Supporto e contributi
 
-SchoolGrades Ë un progetto open source. Per segnalare problemi, richiedere funzionalit‡ o contribuire allo sviluppo, visitare il repository GitHub del progetto.
-
-**L'interfaccia utente Ë completamente in italiano**, mentre il codice sorgente Ë in inglese per facilitare la collaborazione internazionale.
-
+SchoolGrades √® un progetto open source. Per segnalare problemi, richiedere funzionalit√† o contribuire allo sviluppo, visitare il repository GitHub del progetto.
+ 
 Contributi alla documentazione, traduzioni e segnalazioni di errori sono sempre benvenuti!
 
 ---

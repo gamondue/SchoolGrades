@@ -67,17 +67,17 @@ Apre la finestra per la configurazione delle materie scolastiche:
 - Impostare colori identificativi per materia
 - Ordinare materie
 
-**Attenzione**: per poter usare efficemente il programma è necessario che ci siano delle materie configurate
+**ATTENZIONE**: per poter usare efficemente il programma è necessario che ci siano delle materie configurate
 
 ### Pulsante "Gestione periodi"
 Apre la finestra per:
-- Definire periodiscolastici (quadrimestri, trimestri)
+- Definire periodi (quadrimestri, trimestri)
   - Configurare date inizio/fine periodi
 
 **Uso**: setup inizio anno scolastico
 
 ### Pulsante "Gestione tabelle"
-Apre la pagina che permette di modificare le tabelle di accesso alle informazioni per le scelte di dati "fissi" come per esempio:
+Apre la finestra che permette di modificare le tabelle per i diversi tipi di dati "fissi" del programma, come:
 - Tipi di valutazione (orali, scritti, ecc.)
 - Tipi di domanda
 - Altre tabelle di configurazione
@@ -85,10 +85,10 @@ Apre la pagina che permette di modificare le tabelle di accesso alle informazion
 **Uso**: personalizzare tipi di dati nel sistema
 
 ### Pulsante "Gestione studenti"
-Apre **frmStudent** in modalità ricerca/gestione per:
+Apre la finestra di gestione degli studenti, in modalità ricerca/gestione per:
 - Cercare studenti nel database
 - Creare nuovi studenti
-- Modificare dati anagrafici
+- Modificarne dati anagrafici (NON le foto, che sono relative ad ogni classe)
 
 **Uso**: amministrazione anagrafica studenti
 
@@ -97,64 +97,80 @@ Apre **frmStudent** in modalità ricerca/gestione per:
 ## Pulsanti Gestione Contenuti
 
 ### Pulsante "Gestione argomenti"
-Apre **frmTopics** in modalit� completa per:
+Apre una pagina con l'albero degli argomanti, in modalità completa per:
+- Creare nuovi argomenti
+- Modificare argomenti esistenti
 - Creare struttura gerarchica argomenti
-- Modificare albero programma didattico
+- Modificare albero di tutti gli argomenti trattati in ogno materia
 - Importare/esportare argomenti
 
-**Uso**: definire programma didattico materie
+**Uso**: definire gli argomenti didattici delle varie materie
 
 ### Pulsante "Gestione tag"
-Apre **frmTag** per:
+Apre la finestra di gestione dei Tag da associare alle domande (?? ed agli argomenti ??):
 - Creare nuovi tag
 - Modificare tag esistenti
 - Organizzare sistema di categorizzazione domande
 
-**Uso**: creare vocabolario tag per domande
+**ATTENZIONE**: la funzionalità è implementata e dovrebbe funzionare, ma non è garantita, perchè sono molti anni che non la uso!
+
+**Uso**: creare vocabolario tag per domande (? e argomenti ?)
 
 ### Pulsante "Gestione domande"
-Apre **frmQuestionChoose** per:
+Apre la finestra che gestisce le domande da fare agli allievi, per:
 - Visualizzare tutte le domande
 - Cercare/filtrare domande
 - Creare/modificare domande
+- Scegliere la domanda da fare (quando chiamata da una finestra che richiede una domanda)
 
 **Uso**: gestione completa database domande
 
 ### Pulsante "Gestione test"
-Apre **frmTestManagement** per:
+Apre la finestra di dei test (questionari, prove scritte ..), per:
 - Creare verifiche scritte
 - Gestire test strutturati
 - Associare domande a test
 
-**Uso**: preparazione verifiche (funzionalità avanzata)
+**ATTENZIONE**: questa funzionalità è **INCOMPLETA E MALFUNZIONANTE** non c'è da fidarsi! Se qualcuno la vuole aggiustare lo faccia (poi PULL REQUEST!). Le idee ci sono ma non sono finite, se non si capisce cosa fare, chiedere a me.
+
+**Uso**: preparazione verifiche (funzionalità incompleta)
 
 ### Pulsante "Gestione collegamenti"
-Apre **frmStartLinksManagement** per:
+Apre la gestioen dei collegamenti "operativi" per:
 - Configurare URL/file da aprire automaticamente
 - Associare collegamenti a classi
-- Gestire risorse esterne
 
-**Uso**: automazione apertura risorse per lezioni
+**Uso**: automazione apertura risorse per lezioni, legare a ciascuna classe
 
 ---
 
 ## Pulsanti Manutenzione
 
-### Pulsante "Gestione backup"
-Apre **frmBackupManagement** per:
-- Creare backup manuale database
+### Pulsante "Backup e gen.file"
+Apre per il backup :
+- Creare backup manuale database (copia il file di database con un timestamp iniziale nel nome del file)
 - Ripristinare backup precedenti
-- Gestire copie di sicurezza
+- Creare un database da distribuire ad una classe, nel quale vengono rimosse automaticamente tutte le informazioni che non pertengono strettamente a quella classe (studenti, voti, ecc.)
+- Creare un database demo, con dati "farloccati" a partire da dati reali
 
 **Uso importante**: fare backup prima di operazioni rischiose
 
-### Pulsante "Recupero argomenti"
-Apre **frmTopicsRecover** per:
-- Recuperare struttura argomenti da backup
-- Importare argomenti da file
-- Ricostruire albero argomenti
+**ATTENZIONE**: alcune di queste funzionalità non sono usate da parecchio tempo (in particolare quelle nei bottoni in alto), per cui potrebbero essersi rotte; vanno usate con cautela.  
+Provare i ripristini solo su database di prova, non sul database "di produzione"!
+
+### Pulsante "Recover argomenti" (Recupero argomenti)
+Apre una finestra che contronta gli alberi degli argomenti contenuti in due file, per:
+- Cercare e recuperare argomenti che sono in un albero, ma si sono persi in un altro
+- Copiare argomenti da un albero ad un altro (PERICOLO)
+- Visualizzare differenze tra alberi argomenti
+
+Le differenze sono mostrate con colori diversi dei nodi dei due alberi. I colori dovrebbero funzionare secondo la legenda che si vede nella finestra, ma bisognerebbe provare con il debugger..
 
 **Uso**: recupero dati in caso di problemi
+
+**ATTENZIONE**: fare il backiup del database PRIMA di salvare in questa finestra!
+
+**ATTENZIONE**: questa funzionalità è assolutamente **SPERIMENTALE** e potrebbe non funzionare come previsto. Usatela con cautela e salvate solo dopo aver guardato il codice e capito che funziona!
 
 ### Pulsante "Resetta database"
 **ATTENZIONE**: elimina TUTTI i dati nel database!
@@ -162,18 +178,18 @@ Apre **frmTopicsRecover** per:
 - Irreversibile
 - Usa solo per ricominciare da zero
 
-**Quando usare**: solo per test o ripartire completamente
+**Quando usare**: solo per test o ripartire completamente dopo aver fatto molti errori all'inizio dell'uso del programma
 
-### Pulsante "Cancella file configurazione"
-Elimina il file di configurazione e riavvia il programma.
-- Utile se configurazione corrotta
-- Richiede riconfigurazione completa dopo riavvio
+### Pulsante "Cancella config."
+Elimina i file di configurazione del programma e lo riavvia.
+- Utile se la configurazione è corrotta
+- Richiede riconfigurazione dopo il riavvio
 
 ---
 
 ## Pulsante "Salva configurazione"
 
-**Funzione principale**: salva tutti i percorsi configurati nel file di configurazione.
+**Funzione principale**: salva tutti i percorsi configurati nel file di configurazione. 
 
 **Procedura**:
 1. Modificare percorsi desiderati
@@ -182,20 +198,21 @@ Elimina il file di configurazione e riavvia il programma.
 4. Il programma:
    - Salva le impostazioni
    - Mostra messaggio "File di configurazione salvato"
-   - **Riavvia automaticamente** per applicare modifiche
+   - **Riavvia automaticamente** per applicare modifiche in modo controllato
 
-**Importante**: il riavvio � necessario per caricare nuovo database o percorsi
+**Importante**: il riavvio è proferibile per caricare un nuovo database o nuovi percorsi, per cui viene forzato dal programma.
 
 ---
 
-## Pulsante "Apri cartella configurazione"
+## Pulsante "Cartella config."
 
-Apre la cartella dove sono memorizzati:
-- File di configurazione (.txt)
-- Logs eventuali errori
-- File temporanei del programma
+Apre la cartella dei dati di configurazione, dove sono memorizzati:
+- nella cartella Config: file di configurazione (schgrd.cfg (SchoolGrades.configure))
+- nella cartella Config: file di configurazione per debug (schgrd.cfg_DEBUG). Usata dal programma solo quando funziona in modalità debug. Gli utenti finali non sviluppatori non dovrebbero avere questa cartella.
+- nella cartella Logs (che sta "sopra" a Config): file gamon-Errori.txt, il log degli errori del programma
+- nella cartella Logs: file di tipo frm*_parameters.txt, che il programma usa per salvare i parametri usati nella finestra l'ultima volta che è stata chiusa
 
-**Uso**: debug, verifica configurazione, recupero informazioni
+**Uso**: debug, verifica configurazione, recupero informazioni di errore
 
 ---
 
@@ -214,12 +231,13 @@ Apre la cartella dove sono memorizzati:
 3. Fare click **"Salva configurazione"**
 4. Il programma si riavvia
 5. **Configurare dati di base**:
-   - "Gestione anni e periodi" ? creare anno scolastico
+   - "Gestione classi" ? creare classi, ma aanche anni scolatici (a partire dalle classi dell'anno precedente)
+   - "Gestione periodi" ? creare un periodo (es. primo quadrimestre)
    - "Gestione materie" ? aggiungere materie insegnate
-   - "Gestione classi" ? creare classi
+
 6. Chiudere Setup, iniziare a usare il programma
 
-### Scenario 2: Cambiare database (es. nuovo anno)
+### Scenario 2: Cambiare database (es. nuovo anno o scuola)
 
 **Obiettivo**: usare database diverso per nuovo anno scolastico
 
@@ -272,11 +290,13 @@ Apre la cartella dove sono memorizzati:
 
 ### Gestione multi-anno
 - **Opzione A**: database separato per anno (es. "SG_2023.sqlite", "SG_2024.sqlite")
-  - Pro: file pi� piccoli, meno confusione
+  - Pro: file più piccoli, meno confusione
   - Contro: bisogna cambiare database, dati separati
 - **Opzione B**: un database per tutti gli anni
   - Pro: storico completo, confronti facili
-  - Contro: file grande, pi� lento nel tempo
+  - Contro: file grande, più lento nel'esecuzione
+
+Personalmente, io uso l'opzione B.
 
 ### Configurazione classi e materie
 - Configurare tutto prima di iniziare a usare il programma

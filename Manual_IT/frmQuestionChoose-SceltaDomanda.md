@@ -4,6 +4,10 @@
 
 La finestra **Scelta Domanda** (frmQuestionChoose) permette di cercare, filtrare e selezionare domande da porre agli studenti. Questa è una delle funzionalità più potenti di SchoolGrades per la gestione delle interrogazioni e verifiche.
 
+**ATTENZIONE: QUESTO FILE E' PRELIMINARE E NON REVISIONATO.  
+POTREBBE CONTENERE INFORMAZIONI NON ESATTE**  
+Comunica con un ticket su GiHub eventuali errori riscontrati.
+
 ## Accesso alla finestra
 
 Per aprire la finestra Scelta Domanda:

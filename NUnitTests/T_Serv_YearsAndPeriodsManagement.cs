@@ -18,7 +18,7 @@ namespace NUnitDbTests
             //Assert.That(Test_Commons.dl.exist)
             // populate table 
             SchoolYear sy = new();
-            sy.IdSchoolYear = "27-28";  //bisogna cambiare l'id ogni prova senno da errore pk c'� gia un valore con lo stesso primary key
+            sy.IdSchoolYear = "27-28";  //bisogna cambiare l'id ogni prova senno da errore pk c'è gia un valore con lo stesso primary key
             sy.ShortDescription = "2023-2024";
             sy.Notes = "Anno scolastico introdotto per sola prova";
             Assert.That(!Test_Commons.dl.SchoolYearExists(sy.IdSchoolYear));
@@ -31,7 +31,7 @@ namespace NUnitDbTests
         {
             // test of DataLayer Methods that read data from table SchoolYears
             bool test = Test_Commons.dl.SchoolYearExists("17-18");
-            Assert.That(test = true);   //in teoria se � true significa che quell anno esiste
+            Assert.That(test = true);   // in teoria se è true significa che quell'anno esiste
         }
         [Test]
         public void T_SchoolYears_Update(/*SchoolYear schoolYear*/)

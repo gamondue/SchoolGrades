@@ -850,7 +850,7 @@ namespace SchoolGrades
                 }
                 else
                 {
-                    MessageBox.Show("Lista finita: sorteggiare", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(Loc.Get("Main_ListFinished"), "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             else
                 MessageBox.Show("Nessun sorteggio o nessuno presente! ", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1015,8 +1015,12 @@ namespace SchoolGrades
             else
             {
                 int value = -1;
-                int.TryParse(txtTimeInterval.Text, out value);
-                if (value > 01)
+                if (!int.TryParse(txtTimeInterval.Text, out value))
+                {
+                    Console.Beep();
+                    return;
+                }
+                if (value > 1)
                 {
                     ticksPassed = 0;
                     pgbTimeQuestion.Maximum = int.Parse(Time) * 1000;
@@ -1407,11 +1411,21 @@ namespace SchoolGrades
         }
         private void StartColorTimer(bool SoundEffectsInTimer)
         {
-            double t = double.Parse(txtTimeInterval.Text);
+            double t = 0; 
+            if (!double.TryParse(txtTimeInterval.Text,out t))
+            {
+                Console.Beep();
+                return;
+            }
             ColorTimer ft = new ColorTimer(t / 60, t / 60, SoundEffectsInTimer);
+            ft.Text = "Color Timer";
             if (CurrentStudent != null)
             {
-                ft.FormCaption = ft.FormCaption.Replace("gamon", CurrentStudent.LastName);
+                if (CurrentStudent.LastName == null)
+                    CurrentStudent.LastName = "";
+                if (CurrentStudent.FirstName == null)
+                    CurrentStudent.FirstName = "";
+                ft.Text = CurrentStudent.LastName + " " + CurrentStudent.FirstName;   
             }
             ft.Show();
         }

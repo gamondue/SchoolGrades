@@ -3,30 +3,47 @@
 Questa guida documenta le finestre secondarie e specializzate di SchoolGrades, organizzate per categoria funzionale.
 
 ---
+**ATTENZIONE: QUESTO FILE E' PRELIMINARE E NON REVISIONATO.  
+POTREBBE CONTENERE INFORMAZIONI NON ESATTE**  
+Comunica con un ticket su GiHub eventuali errori riscontrati.
 
 ## GESTIONE CLASSI E ORGANIZZAZIONE
 
-### frmClassesManagement - Gestione Classi
+**Funzione**: gestione completa delle classi (creazione, modifica, studenti, proprietà, cancellazione).
 
-**Funzione**: gestione completa delle classi (creazione, modifica, studenti, proprietà).
-
-**Accesso**: Setup ? "Gestione classi"
-
-**Funzionalità principali**:
-- **Creazione classi**: specificare anno scolastico, sigla, denominazione
-- **Aggiunta studenti**: associare studenti esistenti o crearne nuovi
-- **Rimozione studenti**: togliere studenti dalla classe
-- **Percorsi personalizzati**: configurare cartelle specifiche per classe
-- **Collegamenti (Start Links)**: URL/file da aprire per la classe
-- **Proprietà classe**: note, configurazioni speciali
+**Accesso**: Setup -> "Gestione classi"
 
 **Interfaccia**:
-- Lista classi (sinistra): selezionare classe da gestire
+- Lista anni e lista classi (sinistra): selezionare anno e classe da gestire
 - Dettagli classe (centro): dati della classe selezionata
 - Lista studenti (destra): studenti nella classe
 - Pulsanti: Aggiungi, Rimuovi, Salva, Nuovo
 
+**Funzionalità**:
+- **Creazione "manuale" classi**: 
+	- specificare anno scolastico, sigla, denominazione, scrivendo direttamente nei combo e nelle caselle di testo
+	- premere il bottone "Crea nuova classe"
+	- aggiungere studenti
+- **Creazione automatica classi**: 
+- !!!! TODO COMPLETARE !!!!
+ 
+- **Aggiunta studenti**: associare studenti esistenti o crearne nuovi
+	- bottone "Nuovo allievo"
+	- si apre la finestra "studente" nella quale si potrà ricercare e scegliere uno studente già esistente, oppure fare un nuovo studente
+- **Rimozione studenti**: il bottone "Elimina allievo" toglie uno studente dalla classe
+- **Modifica studente**: il bottone "Modifica allievo" apre la finestra con i dati dello studente da modificare
+- **Gestione della foto dell'allievo**: 
+- **Cancellazione classe**: il bottone "Elimina classe" rimuove la classe selezionata (dopo conferma)
+
+- 
+- **Percorsi personalizzati**: configurare cartelle specifiche per classe
+- **Collegamenti (Start Links)**: URL/file da aprire per la classe
+- **Proprietà classe**: note, configurazioni speciali
+
 **Workflow tipico - Creare nuova classe**:
+
+**!!!! TODO REVISIONARE QUESTA PROCEDURA !!!!**
+
 1. Click "Nuova classe"
 2. Inserire anno scolastico (es. "2024-25")
 3. Inserire sigla (es. "4F")

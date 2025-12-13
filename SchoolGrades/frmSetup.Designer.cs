@@ -141,7 +141,7 @@
             // btnSaveConfigurationFile
             // 
             btnSaveConfigurationFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            btnSaveConfigurationFile.Location = new System.Drawing.Point(1052, 76);
+            btnSaveConfigurationFile.Location = new System.Drawing.Point(1052, 74);
             btnSaveConfigurationFile.Name = "btnSaveConfigurationFile";
             btnSaveConfigurationFile.Size = new System.Drawing.Size(82, 60);
             btnSaveConfigurationFile.TabIndex = 92;
@@ -274,7 +274,7 @@
             TxtPathDocuments.Location = new System.Drawing.Point(8, 257);
             TxtPathDocuments.Margin = new System.Windows.Forms.Padding(4);
             TxtPathDocuments.Name = "TxtPathDocuments";
-            TxtPathDocuments.Size = new System.Drawing.Size(663, 24);
+            TxtPathDocuments.Size = new System.Drawing.Size(651, 24);
             TxtPathDocuments.TabIndex = 105;
             TxtPathDocuments.DoubleClick += TxtPaths_DoubleClick;
             // 
@@ -283,7 +283,7 @@
             btnPathDocuments.BackColor = System.Drawing.Color.Transparent;
             btnPathDocuments.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnPathDocuments.ForeColor = System.Drawing.Color.DarkBlue;
-            btnPathDocuments.Location = new System.Drawing.Point(672, 249);
+            btnPathDocuments.Location = new System.Drawing.Point(660, 248);
             btnPathDocuments.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             btnPathDocuments.Name = "btnPathDocuments";
             btnPathDocuments.Size = new System.Drawing.Size(54, 40);
@@ -304,7 +304,7 @@
             // btnEraseConfigurationFile
             // 
             btnEraseConfigurationFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            btnEraseConfigurationFile.Location = new System.Drawing.Point(1052, 204);
+            btnEraseConfigurationFile.Location = new System.Drawing.Point(1052, 202);
             btnEraseConfigurationFile.Name = "btnEraseConfigurationFile";
             btnEraseConfigurationFile.Size = new System.Drawing.Size(82, 60);
             btnEraseConfigurationFile.TabIndex = 108;
@@ -315,7 +315,7 @@
             // BtnUseDemo
             // 
             BtnUseDemo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            BtnUseDemo.Location = new System.Drawing.Point(956, 141);
+            BtnUseDemo.Location = new System.Drawing.Point(965, 138);
             BtnUseDemo.Name = "BtnUseDemo";
             BtnUseDemo.Size = new System.Drawing.Size(82, 60);
             BtnUseDemo.TabIndex = 109;
@@ -337,7 +337,7 @@
             // btnOpenConfigurationFolder
             // 
             btnOpenConfigurationFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            btnOpenConfigurationFolder.Location = new System.Drawing.Point(1052, 140);
+            btnOpenConfigurationFolder.Location = new System.Drawing.Point(1052, 138);
             btnOpenConfigurationFolder.Name = "btnOpenConfigurationFolder";
             btnOpenConfigurationFolder.Size = new System.Drawing.Size(82, 60);
             btnOpenConfigurationFolder.TabIndex = 111;
@@ -417,9 +417,9 @@
             // 
             cmbLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             cmbLanguage.FormattingEnabled = true;
-            cmbLanguage.Location = new System.Drawing.Point(726, 256);
+            cmbLanguage.Location = new System.Drawing.Point(715, 256);
             cmbLanguage.Name = "cmbLanguage";
-            cmbLanguage.Size = new System.Drawing.Size(213, 26);
+            cmbLanguage.Size = new System.Drawing.Size(224, 26);
             cmbLanguage.TabIndex = 119;
             toolTip1.SetToolTip(cmbLanguage, "Selezione della lingua dell'interfaccia");
             cmbLanguage.SelectedIndexChanged += cmbLanguage_SelectedIndexChanged;
@@ -429,7 +429,7 @@
             btnResetDatabase.BackColor = System.Drawing.Color.Red;
             btnResetDatabase.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             btnResetDatabase.ForeColor = System.Drawing.Color.Yellow;
-            btnResetDatabase.Location = new System.Drawing.Point(948, 199);
+            btnResetDatabase.Location = new System.Drawing.Point(948, 198);
             btnResetDatabase.Name = "btnResetDatabase";
             btnResetDatabase.Size = new System.Drawing.Size(99, 69);
             btnResetDatabase.TabIndex = 116;
@@ -440,7 +440,7 @@
             // lblLanguage
             // 
             lblLanguage.AutoSize = true;
-            lblLanguage.Location = new System.Drawing.Point(723, 235);
+            lblLanguage.Location = new System.Drawing.Point(715, 235);
             lblLanguage.Name = "lblLanguage";
             lblLanguage.Size = new System.Drawing.Size(51, 18);
             lblLanguage.TabIndex = 118;

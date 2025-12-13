@@ -574,6 +574,8 @@ namespace SchoolGrades
         }
         private void btnPutNumbers_Click(object sender, EventArgs e)
         {
+            if (DgwStudents.DataSource == null)
+                return;
             int i = 1;
             foreach (Student s in (List<Student>)DgwStudents.DataSource)
             {

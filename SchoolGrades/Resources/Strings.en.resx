@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Common_Save" xml:space="preserve">
+  <data name="d" xml:space="preserve">
     <value>Save</value>
   </data>
   <data name="Common_Cancel" xml:space="preserve">
@@ -777,7 +777,7 @@ Select a correct grade type</value>
     <value>Save</value>
   </data>
   <data name="Student_New" xml:space="preserve">
-    <value>New</value>
+    <value>Clear fields</value>
   </data>
   <data name="Student_Choose" xml:space="preserve">
     <value>Choose</value>
@@ -795,7 +795,7 @@ Select a correct grade type</value>
     <value>Add</value>
   </data>
   <data name="Student_Copy" xml:space="preserve">
-    <value>Copy</value>
+    <value>Clipboard Copy</value>
   </data>
   <data name="Student_Exit" xml:space="preserve">
     <value>Exit</value>
@@ -921,7 +921,7 @@ Select a correct grade type</value>
     <value>Save question text first</value>
   </data>
   <data name="Student_IdLabel" xml:space="preserve">
-    <value>Student ID</value>
+    <value>Stud. ID</value>
   </data>
   <data name="Student_LastNameLabel" xml:space="preserve">
     <value>Last Name</value>
@@ -930,7 +930,7 @@ Select a correct grade type</value>
     <value>First Name</value>
   </data>
   <data name="Student_GenderLabel" xml:space="preserve">
-    <value>Gender</value>
+    <value>Gen.</value>
   </data>
   <data name="Student_CityLabel" xml:space="preserve">
     <value>City</value>
@@ -939,10 +939,10 @@ Select a correct grade type</value>
     <value>Address</value>
   </data>
   <data name="Student_ZipCodeLabel" xml:space="preserve">
-    <value>ZIP Code</value>
+    <value>ZIP Cod</value>
   </data>
   <data name="Student_CountyLabel" xml:space="preserve">
-    <value>County</value>
+    <value>Cnty</value>
   </data>
   <data name="Student_StateLabel" xml:space="preserve">
     <value>State/Region</value>
@@ -1047,7 +1047,7 @@ Select a correct grade type</value>
     <value>Find old photos</value>
   </data>
   <data name="ClassMgmt_PutNumbers" xml:space="preserve">
-    <value>Register numbers</value>
+    <value>Regist. numbrs</value>
   </data>
   <data name="ClassMgmt_Mosaic" xml:space="preserve">
     <value>Mosaic</value>
@@ -1095,7 +1095,7 @@ Select a correct grade type</value>
     <value>Generate a list of class students</value>
   </data>
   <data name="ClassMgmt_Tip_PutNumbers" xml:space="preserve">
-    <value>Write consecutive numbers in register number fields</value>
+    <value>Writes consecutive numbers in register number fields</value>
   </data>
   <data name="ClassMgmt_Tip_DeleteClass" xml:space="preserve">
     <value>Delete the class from database</value>
@@ -1392,7 +1392,7 @@ Should I re-initialize it (Yes) or not create the database (No)?</value>
     <value>Restore students</value>
   </data>
   <data name="Backup_ClassBackup" xml:space="preserve">
-    <value>Class backup</value>
+    <value>Class database</value>
   </data>
   <data name="Backup_SaveDatabaseFile" xml:space="preserve">
     <value>Save database file</value>
@@ -2057,7 +2057,7 @@ The program will create it automatically when the first image is saved.</value>
     <value>Student ID</value>
   </data>
   <data name="Annotations_AnnotationId" xml:space="preserve">
-    <value>Annotation ID</value>
+    <value>Note ID</value>
   </data>
   <data name="Annotations_Annotation" xml:space="preserve">
     <value>Annotation</value>
@@ -2330,7 +2330,7 @@ The program will create it automatically when the first image is saved.</value>
     <value>Annotation</value>
   </data>
   <data name="GradesStudentsSummary_AnnotationId" xml:space="preserve">
-    <value>Annotation ID</value>
+    <value>Note ID</value>
   </data>
   <data name="GradesStudentsSummary_GradesPeriod" xml:space="preserve">
     <value>Grades Period</value>

@@ -4,6 +4,10 @@
 
 La finestra **Gruppi** permette di organizzare gli studenti presenti in classe in gruppi di lavoro secondo diversi criteri. Questa funzionalità è utile per attività collaborative, lavori di gruppo e organizzazione della classe.
 
+**ATTENZIONE: QUESTO FILE E' PRELIMINARE E NON REVISIONATO.  
+POTREBBE CONTENERE INFORMAZIONI NON ESATTE**  
+Comunica con un ticket su GiHub eventuali errori riscontrati.
+
 ## Accesso alla finestra
 
 Per aprire la finestra Gruppi:

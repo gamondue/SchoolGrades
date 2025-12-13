@@ -4,6 +4,10 @@
 
 La finestra **Gestione Domanda** (frmQuestion) permette di creare, modificare e gestire le domande che verranno poi utilizzate durante le interrogazioni. Ogni domanda può avere risposte multiple, essere associata ad argomenti, tag e avere caratteristiche come difficoltà, durata e peso di default.
 
+**ATTENZIONE: QUESTO FILE E' PRELIMINARE E NON REVISIONATO.  
+POTREBBE CONTENERE INFORMAZIONI NON ESATTE**  
+Comunica con un ticket su GiHub eventuali errori riscontrati.
+ 
 ## Accesso alla finestra
 
 **Dalla finestra "Scelta domanda"**:

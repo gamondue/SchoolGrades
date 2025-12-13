@@ -4,6 +4,10 @@
 
 La finestra **Lezioni** (frmLessons) è il registro digitale dove vengono registrate le lezioni svolte con ogni classe. Permette di documentare data, argomenti trattati, note e immagini mostrate durante la lezione, creando uno storico completo dell'attività didattica.
 
+**ATTENZIONE: QUESTO FILE E' PRELIMINARE E NON REVISIONATO.  
+POTREBBE CONTENERE INFORMAZIONI NON ESATTE**  
+Comunica con un ticket su GiHub eventuali errori riscontrati.
+
 ## Accesso alla finestra
 
 **Dalla finestra principale**:

@@ -583,7 +583,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Backup classe.
+        ///   Cerca una stringa localizzata simile a Database classe.
         /// </summary>
         public static string Backup_ClassBackup {
             get {
@@ -1902,15 +1902,6 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Salva.
-        /// </summary>
-        public static string Common_Save {
-            get {
-                return ResourceManager.GetString("Common_Save", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Cerca una stringa localizzata simile a Devo salvare (Sì) os scartare i cambiamenti (No)?.
         /// </summary>
         public static string Common_SaveOrDiscard {
@@ -2006,6 +1997,15 @@ namespace SchoolGrades.Resources {
         public static string Commons_SelectSubject {
             get {
                 return ResourceManager.GetString("Commons_SelectSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Salva.
+        /// </summary>
+        public static string d {
+            get {
+                return ResourceManager.GetString("d", resourceCulture);
             }
         }
         
@@ -5830,7 +5830,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a !!!! TO DO !!!!.
+        ///   Cerca una stringa localizzata simile a !!!! DA FARE !!!!.
         /// </summary>
         public static string NewYear_TodoFeature {
             get {
@@ -7102,7 +7102,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Gestione start links.
+        ///   Cerca una stringa localizzata simile a Registro.
         /// </summary>
         public static string Setup_StartLinksManagement {
             get {
@@ -7545,7 +7545,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Copia.
+        ///   Cerca una stringa localizzata simile a Copia clipboard.
         /// </summary>
         public static string Student_Copy {
             get {
@@ -7770,7 +7770,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Nuovo.
+        ///   Cerca una stringa localizzata simile a Cancella campi.
         /// </summary>
         public static string Student_New {
             get {

@@ -4,6 +4,12 @@
 
 La finestra **Argomenti** (frmTopics) permette di visualizzare, gestire e navigare la struttura gerarchica degli argomenti del programma didattico. Utilizza una struttura ad albero che rappresenta gli argomenti e i loro sottoargomenti, permettendo una visione chiara e organizzata del curriculum.
 
+**ATTENZIONE: QUESTO FILE E' PRELIMINARE E NON REVISIONATO.  
+POTREBBE CONTENERE INFORMAZIONI NON ESATTE**  
+Comunica con un ticket su GiHub eventuali errori riscontrati.
+
+---
+
 ## Accesso alla finestra
 
 La finestra Argomenti può essere aperta in diverse modalità, ognuna con funzionalità specifiche:

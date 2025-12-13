@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.0.11222.15 d18.0
+VisualStudioVersion = 18.0.11222.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedItems", "SharedItems\SharedItems.shproj", "{A5DC5853-0EB8-493E-804D-D596D841AA2D}"
 EndProject
@@ -29,12 +29,28 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NUnitDbTests", "NUnitTests\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6C83A596-D32D-B35F-00DD-F0C99B673980}"
 	ProjectSection(SolutionItems) = preProject
-		Documentation\Manuale-Utente-SchoolGrades.md = Documentation\Manuale-Utente-SchoolGrades.md
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{FA626A45-E015-4891-A4AB-9EFF4E8B96B3}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TreeMpttBlazor", "TreeMpttBlazor\TreeMpttBlazor.shproj", "{1CE2D7E3-19BA-4F58-92B7-61FE2E2AC89E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Manual_IT", "Manual_IT", "{FACF0D06-7A8F-44A7-93A5-012C68FAFB7A}"
+	ProjectSection(SolutionItems) = preProject
+		Manual_IT\Finestre-Secondarie.md = Manual_IT\Finestre-Secondarie.md
+		Manual_IT\frmGradesClassSummary-RiepilogoVotiClasse.md = Manual_IT\frmGradesClassSummary-RiepilogoVotiClasse.md
+		Manual_IT\frmGradesStudentsSummary-RiepilogoVotiAllievo.md = Manual_IT\frmGradesStudentsSummary-RiepilogoVotiAllievo.md
+		Manual_IT\frmGroups-Gruppi.md = Manual_IT\frmGroups-Gruppi.md
+		Manual_IT\frmLessons-Lezioni.md = Manual_IT\frmLessons-Lezioni.md
+		Manual_IT\frmMicroAssessment-Valutazione.md = Manual_IT\frmMicroAssessment-Valutazione.md
+		Manual_IT\frmQuestion-GestioneDomanda.md = Manual_IT\frmQuestion-GestioneDomanda.md
+		Manual_IT\frmQuestionChoose-SceltaDomanda.md = Manual_IT\frmQuestionChoose-SceltaDomanda.md
+		Manual_IT\frmSetup-Configurazione.md = Manual_IT\frmSetup-Configurazione.md
+		Manual_IT\frmStudent-GestioneStudente.md = Manual_IT\frmStudent-GestioneStudente.md
+		Manual_IT\frmTopics-Argomenti.md = Manual_IT\frmTopics-Argomenti.md
+		Manual_IT\Manuale-Utente-SchoolGrades.md = Manual_IT\Manuale-Utente-SchoolGrades.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

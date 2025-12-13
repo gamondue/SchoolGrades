@@ -17,27 +17,15 @@ SchoolGrades now supports multiple languages! The multilingual infrastructure ha
 3. Click **Save Configuration**
 4. The application will automatically restart in the selected language
 
-### Want to Contribute Translations?
+### Want to Contribute to translations?
 
-We welcome translations to other languages! If you'd like to contribute:
-
-📚 **[Translation Guide](Documentation/ResourceFiles-Setup-Guide.md)** - Complete guide for adding new languages
-
-**Languages we're looking for**: 🇫🇷 French, 🇪🇸 Spanish, 🇩🇪 German, 🇵🇹 Portuguese, and more!
-
-**How to contribute**:
-1. Create `Strings.[language-code].resx` file (e.g., `Strings.fr.resx` for French)
-2. Translate all resource keys from `Strings.resx`
-3. Test the translation
-4. Submit a Pull Request
-
-See the [Implementation Guide](Documentation/Multilingual-Implementation-Guide.md) for technical details.
+I welcome translations to other languages! If you'd like to contribute send me a message and I will send you a spreadsheet for translation. In case of big requests for translations, I could arrange a smoother way.
 
 ## Documentation
 
-SchoolGrades has a comprehensive Operation Manual in Italian: 
+SchoolGrades has an Operation Manual in Italian: 
 
-📖 **[Manuale Utente in Italiano](Documentation/Manuale-Utente-SchoolGrades.md)** - Complete guide to using SchoolGrades
+📖 **[Manuale Utente in Italiano](Manual_IT/Manuale-Utente-SchoolGrades.md)** - Complete guide in Italian to using SchoolGrades
 
 The documentation covers:
 - All main windows and their functions
@@ -49,14 +37,15 @@ Contributions to documentation and questions about the use of the program are we
 
 ## Development Status
 
-The SchoolGrades user interface is being translated to English and other languages.  
-The source code of the program is entirely in English.
+The SchoolGrades user interface was written in Italian and has been translated to English, but the translation is not thouroghly revised.
+   
+The source code of the program is in English.
 
-All error reports and feature requests will be taken into consideration. Don't expect that errors and feature requests will be addressed quickly, but now, being retired, I have more time to do it.
+All error reports and feature requests will be taken into consideration. Don't expect that they will be addressed quickly, but now, being retired, I have more time to do it..
 
-I will be grateful to you if you do pull requests with the code that fixes the bug or implements the new functionality.
+Of course, I will be grateful to you if you do pull requests with the code that fixes the bug or implements the new functionality.
 
-In the spring of 2021 and in the Fall of 2023 I used the program and GitHub as school exercises for some of my classes at school, so many of the pull requests are only instrumental to those school exercises.
+N.B.: In the spring of 2021 and in the Fall of 2023 I used the program and GitHub as school exercises for some of my classes, so many of the pull requests are only instrumental to those school exercises.
 
 ## 🚀 Technical Notes
 

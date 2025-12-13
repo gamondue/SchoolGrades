@@ -4,6 +4,10 @@
 
 La finestra **Riepilogo Voti Classe** (frmGradesClassSummary) fornisce una visione d'insieme delle valutazioni di un'intera classe per una specifica materia. Permette di analizzare le prestazioni collettive, identificare studenti in difficoltà e monitorare l'andamento generale.
 
+**ATTENZIONE: QUESTO FILE E' PRELIMINARE E NON REVISIONATO.  
+POTREBBE CONTENERE INFORMAZIONI NON ESATTE**  
+Comunica con un ticket su GiHub eventuali errori riscontrati.
+
 ## Accesso alla finestra
 
 Per aprire la finestra Riepilogo Voti Classe:

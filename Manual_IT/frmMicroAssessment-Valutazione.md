@@ -4,6 +4,10 @@
 
 La finestra **Valutazione** (frmMicroAssessment) è il cuore del sistema di registrazione dei voti in SchoolGrades. Permette di inserire valutazioni dettagliate (microvalutazioni o "voticini") che vengono poi aggregate in voti complessivi (macrovalutazioni). Questa finestra implementa un sistema sofisticato di valutazione basato su pesi e medie ponderate.
 
+**ATTENZIONE: QUESTO FILE E' PRELIMINARE E NON REVISIONATO.  
+POTREBBE CONTENERE INFORMAZIONI NON ESATTE**  
+Comunica con un ticket su GiHub eventuali errori riscontrati.
+
 ## Accesso alla finestra
 
 Per aprire la finestra Valutazione:

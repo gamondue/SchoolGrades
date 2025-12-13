@@ -4,6 +4,10 @@
 
 La finestra **Riepilogo Voti Allievo** (frmGradesStudentsSummary) fornisce una visione dettagliata delle valutazioni di un singolo studente. Permette di analizzare l'andamento personale, calcolare medie ponderate e gestire annotazioni specifiche sullo studente.
 
+**ATTENZIONE: QUESTO FILE E' PRELIMINARE E NON REVISIONATO.  
+POTREBBE CONTENERE INFORMAZIONI NON ESATTE**  
+Comunica con un ticket su GiHub eventuali errori riscontrati.
+
 ## Accesso alla finestra
 
 Per aprire la finestra Riepilogo Voti Allievo:

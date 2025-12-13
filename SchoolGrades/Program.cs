@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace SchoolGrades
@@ -11,19 +12,69 @@ namespace SchoolGrades
         [STAThread]
         static void Main(string[] args)
         {
+            // Gestione globale delle eccezioni non gestite
+            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+            Application.ThreadException += Application_ThreadException;
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            //string database = @"C:\OneDriveScuola\OneDrive - ispascalcomandini.gov.it\SchoolGrades\Data\SchoolGrades.sqlite";
-            //if (args.Length > 0)
-            //    database = args[0];
-            //else
-            //    database = null;
+            try
+            {
+                Application.Run(new frmMain());
+            }
+            catch (Exception ex)
+            {
+                LogFatalException("Application.Run", ex);
+            }
+        }
 
-            //Application.Run(new frmLogin());
-            //Application.Run(new frmMain(database));
-            Application.Run(new frmMain());
+        private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
+        {
+            LogFatalException("ThreadException", e.Exception);
+        }
+
+        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            if (e.ExceptionObject is Exception ex)
+            {
+                LogFatalException("UnhandledException", ex);
+            }
+            else
+            {
+                Commons.ErrorLog($"UnhandledException (non-Exception): {e.ExceptionObject}");
+            }
+        }
+
+        private static void LogFatalException(string source, Exception ex)
+        {
+            string message = $"[{source}] {ex.GetType().Name}: {ex.Message}\n{ex.StackTrace}";
+            
+            // Log to file
+            try
+            {
+                Commons.ErrorLog(message);
+            }
+            catch
+            {
+                // Ignore logging errors
+            }
+            
+            // Show to user
+            try
+            {
+                MessageBox.Show(
+                    $"Si è verificato un errore critico:\n\n{ex.Message}\n\nL'errore è stato registrato nel log.",
+                    "Errore Critico",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+            catch
+            {
+                // If we can't show the message box, just continue
+            }
         }
     }
 }

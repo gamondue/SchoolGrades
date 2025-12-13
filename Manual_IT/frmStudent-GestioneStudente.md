@@ -4,6 +4,10 @@
 
 La finestra **Gestione Studente** (frmStudent) permette di visualizzare, modificare, creare e cercare i dati anagrafici e amministrativi degli studenti. È l'anagrafica centralizzata di SchoolGrades per tutti i dati degli allievi.
 
+**ATTENZIONE: QUESTO FILE E' PRELIMINARE E NON REVISIONATO.  
+POTREBBE CONTENERE INFORMAZIONI NON ESATTE**  
+Comunica con un ticket su GiHub eventuali errori riscontrati.
+
 ## Accesso alla finestra
 
 **Dalla finestra principale**:
