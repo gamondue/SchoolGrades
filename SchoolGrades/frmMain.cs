@@ -977,7 +977,7 @@ namespace SchoolGrades
             if (!Commons.CheckIfSubjectChosen(currentSubject))
                 return;
             frmTopics frm = new frmTopics(frmTopics.TopicsFormType.HighlightTopics,
-                currentClass, currentSubject, currentQuestion, null, (frmMain)this);
+                currentClass, currentSubject, currentQuestion, null, (frmMain)this, true);
             frm.Show();
         }
         private void btnStartLinks_Click(object sender, EventArgs e)

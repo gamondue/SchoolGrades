@@ -312,65 +312,115 @@ namespace SchoolGrades
         }
         private void InitializeLanguageCombo()
         {
-            // Popola combo lingue usando il controllo già presente nel Designer
-            var combo = cmbLanguage;
-            
-            // IMPORTANTE: Prima di impostare DataSource, rimuovi l'event handler
-            combo.SelectedIndexChanged -= cmbLanguage_SelectedIndexChanged;
-
-            // Popola combo lingue
-            var languages = LocalizationManager.SupportedLanguages
-                .Select(kvp => new { Code = kvp.Key, Name = kvp.Value })
-                .ToList();
-
-            combo.DataSource = languages;
-            combo.DisplayMember = "Name";
-            combo.ValueMember = "Code";
-            
-            // Trova l'indice corretto invece di usare SelectedValue
-            var currentLang = LocalizationManager.CurrentLanguage;
-            for (int i = 0; i < languages.Count; i++)
+            try
             {
-                if (languages[i].Code == currentLang)
+                // Popola combo lingue usando il controllo già presente nel Designer
+                var combo = cmbLanguage;
+                
+                // IMPORTANTE: Disabilita temporaneamente tutti gli eventi
+                combo.SelectedIndexChanged -= cmbLanguage_SelectedIndexChanged;
+                combo.DataSourceChanged -= cmbLanguage_SelectedIndexChanged;
+                
+                // Blocca il repaint per evitare race conditions
+                combo.BeginUpdate();
+                
+                try
                 {
-                    combo.SelectedIndex = i;
-                    break;
+                    // Popola combo lingue
+                    var languages = LocalizationManager.SupportedLanguages
+                        .Select(kvp => new { Code = kvp.Key, Name = kvp.Value })
+                        .ToList();
+
+                    combo.DataSource = languages;
+                    combo.DisplayMember = "Name";
+                    combo.ValueMember = "Code";
+                    
+                    // Trova l'indice corretto invece di usare SelectedValue
+                    var currentLang = LocalizationManager.CurrentLanguage;
+                    for (int i = 0; i < languages.Count; i++)
+                    {
+                        if (languages[i].Code == currentLang)
+                        {
+                            combo.SelectedIndex = i;
+                            break;
+                        }
+                    }
                 }
+                finally
+                {
+                    // Sblocca il repaint
+                    combo.EndUpdate();
+                }
+                
+                // Ri-aggiungi l'event handler DOPO aver impostato tutto
+                combo.SelectedIndexChanged += cmbLanguage_SelectedIndexChanged;
+                
+                // Imposta il testo della label con la localizzazione
+                lblLanguage.Text = Loc.Get("Setup_Language");
             }
-            
-            // Ri-aggiungi l'event handler DOPO aver impostato la selezione
-            combo.SelectedIndexChanged += cmbLanguage_SelectedIndexChanged;
-            
-            // Imposta il testo della label con la localizzazione
-            lblLanguage.Text = Loc.Get("Setup_Language");
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"InitializeLanguageCombo: Error = {ex.Message}\n{ex.StackTrace}");
+                // Non far crashare l'app se il combo lingue fallisce
+                MessageBox.Show($"Error initializing language selector: {ex.Message}", 
+                    "Warning", 
+                    MessageBoxButtons.OK, 
+                    MessageBoxIcon.Warning);
+            }
         }
         private void cmbLanguage_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var combo = sender as ComboBox;
-            if (combo?.SelectedValue == null)
-                return;
-
-            string selectedLanguage = combo.SelectedValue.ToString();
-            
-            // Log per debug
-            Commons.ErrorLog($"cmbLanguage_SelectedIndexChanged: Selected language = '{selectedLanguage}', Current = '{LocalizationManager.CurrentLanguage}'");
-
-            if (selectedLanguage != LocalizationManager.CurrentLanguage)
+            try
             {
-                try
+                var combo = sender as ComboBox;
+                if (combo?.SelectedValue == null)
+                    return;
+
+                string selectedLanguage = combo.SelectedValue.ToString();
+                
+                // Log per debug
+                Commons.ErrorLog($"cmbLanguage_SelectedIndexChanged: Selected language = '{selectedLanguage}', Current = '{LocalizationManager.CurrentLanguage}'");
+
+                if (selectedLanguage != LocalizationManager.CurrentLanguage)
                 {
-                    LocalizedMessageBox.ShowInformation("Messages_LanguageChangedRestart");
-                    LocalizationManager.ChangeLanguage(selectedLanguage);
-                    _languageChanged = true;
+                    // Disabilita temporaneamente eventi per evitare ricorsioni
+                    combo.SelectedIndexChanged -= cmbLanguage_SelectedIndexChanged;
+                    
+                    try
+                    {
+                        // PRIMA cambia la lingua
+                        LocalizationManager.ChangeLanguage(selectedLanguage);
+                        _languageChanged = true;
+                        
+                        // POI mostra il messaggio nella NUOVA lingua
+                        // NOTA: Rimosso this.Invoke() perché siamo già sul thread UI
+                        MessageBox.Show(
+                            Loc.Get("Messages_LanguageChangedRestart"),
+                            Loc.Get("Messages_Information"),
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        Commons.ErrorLog($"cmbLanguage_SelectedIndexChanged: Error changing language: {ex.Message}\n{ex.StackTrace}");
+                        
+                        // Mostra errore in modo sicuro
+                        // NOTA: Rimosso this.Invoke() perché siamo già sul thread UI
+                        MessageBox.Show(Loc.Get("Setup_ConfigError") + " " + ex.Message, 
+                            Loc.Get("Common_Error"), 
+                            MessageBoxButtons.OK, 
+                            MessageBoxIcon.Error);
+                    }
+                    finally
+                    {
+                        // Ri-abilita eventi
+                        combo.SelectedIndexChanged += cmbLanguage_SelectedIndexChanged;
+                    }
                 }
-                catch (Exception ex)
-                {
-                    Commons.ErrorLog($"cmbLanguage_SelectedIndexChanged: Error changing language: {ex.Message}");
-                    MessageBox.Show(Loc.Get("Setup_ConfigError") + " " + ex.Message, 
-                        Loc.Get("Common_Error"), 
-                        MessageBoxButtons.OK, 
-                        MessageBoxIcon.Error);
-                }
+            }
+            catch (Exception ex)
+            {
+                Commons.ErrorLog($"cmbLanguage_SelectedIndexChanged: Outer exception: {ex.Message}\n{ex.StackTrace}");
             }
         }
         protected override void OnFormClosing(FormClosingEventArgs e)

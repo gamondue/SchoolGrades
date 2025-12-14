@@ -115,14 +115,18 @@ namespace gamon.TreeMptt
                 // Evita di registrare gli eventi più volte
                 if (value && !functionKeysEnabled)
                 {
-                    shownTreeView.AfterLabelEdit += shownTreeView_AfterLabelEdit;
+                    // NOTA: BeforeLabelEdit e AfterLabelEdit NON vengono più registrati
+                    // perché LabelEdit è permanentemente disabilitato (vedi costruttore).
+                    // L'editing avviene solo tramite txtNodeName TextBox esterna.
+                    
                     shownTreeView.AfterCheck += ShownTreeView_AfterCheck;
                     shownTreeView.AfterSelect += shownTreeView_AfterSelect;
                     shownTreeView.Click += ShownTreeView_Click;
                     shownTreeView.KeyDown += ShownTreeView_KeyDown;
                     txtNodeName.Leave += TxtNodeName_Leave;
-                    // TEMPORANEAMENTE DISABILITATO - Potenziale causa di ExecutionEngineException
-                    // txtNodeName.TextChanged += TxtNodeName_TextChanged;
+                    // NOTA: txtNodeName.TextChanged NON viene registrato
+                    // La modifica del nome è gestita tramite Leave event per evitare
+                    // ricorsioni che possono causare ExecutionEngineException in .NET 10
                     txtNodeDescription.Leave += TxtNodeDescription_Leave;
                     if (chkSearchInDescriptions != null)
                         chkSearchInDescriptions.CheckedChanged += SearchCheckBoxes_CheckedChanged;
@@ -139,12 +143,16 @@ namespace gamon.TreeMptt
             }
         }
         internal bool HasChanges { get => hasChanges; set => hasChanges = value; }
+        // New: read-only flag, set only via constructor
+        private readonly bool _isReadOnly;
+        internal bool IsReadOnly { get => _isReadOnly; }
         internal TreeMptt(TreeView TreeViewControl, string FullNameOfDatabase,
             TextBox TxtNodeName, TextBox TxtNodeDescription, TextBox TxtNodeSearchString,
             TextBox TxtNodeDigest, TextBox TxtIdNode,
             PictureBox LedPictureBox, CheckBox ChkSearchInDescriptions, CheckBox ChkVerbatimString,
             CheckBox ChkAllWord, CheckBox ChkCaseInsensitive, CheckBox ChkMarkAllNodesFound,
-            System.Windows.Forms.DragDropEffects TypeOfDragAndDrop = System.Windows.Forms.DragDropEffects.Move)
+            System.Windows.Forms.DragDropEffects TypeOfDragAndDrop = System.Windows.Forms.DragDropEffects.Move,
+            bool IsReadOnly = false)
         // ???? what about PutCheckSignsOnNodes ????
         {
             fullNameOfDatabase = FullNameOfDatabase;
@@ -166,21 +174,53 @@ namespace gamon.TreeMptt
             chkVerbatimString = ChkVerbatimString;
             chkMarkAllNodesFound = ChkMarkAllNodesFound;
 
+            // set readonly flag
+            _isReadOnly = IsReadOnly;
+
             if (shownTreeView != null)
             {
-                FunctionKeysEnabled = true;
+                // If read-only, avoid registering function keys handlers; still allow AfterSelect
+                FunctionKeysEnabled = !_isReadOnly;
+
+                // DECISIONE ARCHITETTURALE FORTE: Blocchiamo COMPLETAMENTE l'editing inline
+                // per evitare ExecutionEngineException in .NET 10 causato da corruzione del message pump.
+                // L'editing dei nodi avviene SOLO tramite la TextBox esterna (txtNodeName).
                 shownTreeView.LabelEdit = false;
-                // for drag & drop 
-                shownTreeView.AllowDrop = true;
-                shownTreeView.ItemDrag += TreeView_ItemDrag;
-                shownTreeView.DragDrop += TreeView_DragDrop;
-                shownTreeView.DragEnter += TreeView_DragEnter;
-                shownTreeView.DragLeave += TreeView_DragLeave;
-                // for object that will be dragged:
-                //////shownTreeView.MouseDown += (sender, args) => DoDragDrop(TheSampleLabel.Text, DragDropEffects.Copy);
+
+                // for drag & drop - only enable when not read-only
+                shownTreeView.AllowDrop = !_isReadOnly;
+                if (!_isReadOnly)
+                {
+                    shownTreeView.ItemDrag += TreeView_ItemDrag;
+                    shownTreeView.DragDrop += TreeView_DragDrop;
+                    shownTreeView.DragEnter += TreeView_DragEnter;
+                    shownTreeView.DragLeave += TreeView_DragLeave;
+                }
+
+                // Always attach AfterSelect so selection updates can populate textboxes even in read-only mode
+                shownTreeView.AfterSelect += shownTreeView_AfterSelect;
+                shownTreeView.Click += ShownTreeView_Click;
 
                 txtNodeName.LostFocus += txtNodeName_LostFocus;
                 txtNodeDescription.LostFocus += txtNodeDescription_LostFocus;
+
+                // If this TreeMptt is read-only, set associated controls to read-only / disabled
+                if (_isReadOnly)
+                {
+                    if (txtNodeName != null) txtNodeName.ReadOnly = true;
+                    if (txtNodeDescription != null) txtNodeDescription.ReadOnly = true;
+                    // search box is left editable even in read-only mode
+                    //if (txtSearchString != null) txtSearchString.ReadOnly = true;
+                    if (txtNodeDigest != null) txtNodeDigest.ReadOnly = true;
+                    if (txtCodNode != null) txtCodNode.ReadOnly = true;
+
+                    // checkbox regaarding search are left editable
+                    //if (chkSearchInDescriptions != null) chkSearchInDescriptions.Enabled = false;
+                    //if (chkVerbatimString != null) chkVerbatimString.Enabled = false;
+                    //if (chkAllWord != null) chkAllWord.Enabled = false;
+                    //if (chkCaseInsensitive != null) chkCaseInsensitive.Enabled = false;
+                    //if (chkMarkAllNodesFound != null) chkMarkAllNodesFound.Enabled = false;
+                }
             }
             typeOfDragAndDrop = TypeOfDragAndDrop;
         }
@@ -884,7 +924,7 @@ namespace gamon.TreeMptt
             Topic nodeNew = null;
 
             if (isSonNode)
-            {   // the new node must be the son of the currennt
+            {   // the new node must be the son of the current
                 fatherNode = shownTreeView.SelectedNode;
                 nodeParent = (Topic)(shownTreeView.SelectedNode.Tag);
             }
@@ -907,15 +947,32 @@ namespace gamon.TreeMptt
             {
                 fatherNode.Nodes.Add(UiNode);
             }
-            shownTreeView.SelectedNode = UiNode;
-
-            txtNodeName.Text = nodeNew.Name;
-            //txtNodeName.Focus();
-            txtNodeDescription.Text = "";
-            txtNodeName.SelectionLength = txtNodeName.Text.Length;
-            if (txtCodNode != null)
-                txtCodNode.Text = nodeNew.Id.ToString();
-            // flag the cahnge in the tree
+            
+            // IMPORTANTE: Imposta il flag PRIMA di selezionare il nuovo nodo
+            // perché SelectedNode scatena AfterSelect che aggiorna la UI
+            isUpdatingUiFromCode = true;
+            try
+            {
+                shownTreeView.SelectedNode = UiNode;
+                txtNodeName.Text = nodeNew.Name;
+                txtNodeDescription.Text = "";
+                if (txtCodNode != null)
+                    txtCodNode.Text = nodeNew.Id.ToString();
+                
+                // Sposta il focus sulla TextBox per permettere l'editing immediato
+                // (non usiamo più BeginEdit perché LabelEdit è disabilitato)
+                if (txtNodeName != null && txtNodeName.CanFocus)
+                {
+                    txtNodeName.Focus();
+                    txtNodeName.SelectAll();
+                }
+            }
+            finally
+            {
+                isUpdatingUiFromCode = false;
+            }
+            
+            // flag the change in the tree
             hasChanges = true;
             return UiNode;
         }
@@ -933,10 +990,42 @@ namespace gamon.TreeMptt
         {
             try
             {
-                TreeNode te = shownTreeView.SelectedNode;
+                TreeNode te = shownTreeView?.SelectedNode;
+                
+                // Guard: check if a node is selected
+                if (te == null)
+                {
+                    MessageBox.Show(
+                        GetLocalizedOrFallback("Tree_SelectNodeToDelete", 
+                            "Selezionare un nodo da eliminare", 
+                            "Select a node to delete."),
+                        GetLocalizedOrFallback("Tree_ConfirmDeleteTitle", 
+                            "Attenzione!", 
+                            "Warning!"),
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                    return;
+                }
+                
+                // Guard: prevent deletion of root node
+                if (te.Parent == null)
+                {
+                    MessageBox.Show(
+                        GetLocalizedOrFallback("Tree_CannotDeleteRoot", 
+                            "Non è possibile eliminare il nodo radice.", 
+                            "The root node cannot be deleted."),
+                        GetLocalizedOrFallback("Tree_ConfirmDeleteTitle", 
+                            "Attenzione!", 
+                            "Warning!"),
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    return;
+                }
+                
                 // if the topic has already been saved in the database, we have to ask for 
                 // confirmation if it has already been checked in the past
-                if (te != null && ((Topic)te.Tag).Id != null)
+                if (((Topic)te.Tag).Id != null)
+                {
                     if (bl.IsTopicAlreadyTaught((Topic)te.Tag))
                     {
                         if (MessageBox.Show(Loc.Get("Tree_TopicAlreadyTaught"),
@@ -945,6 +1034,8 @@ namespace gamon.TreeMptt
                             MessageBoxDefaultButton.Button2) == DialogResult.No)
                             return;
                     }
+                }
+                
                 // remove node from the control (when saving will be also deleted from the database) 
                 te.Parent.Nodes.Remove(te);
                 hasChanges = true;
@@ -956,13 +1047,33 @@ namespace gamon.TreeMptt
                 Commons.ErrorLog(err);
                 throw new Exception(err);
             }
-            hasChanges = true;
         }
+        
         internal void DeleteNodeFromButton()
         {
-            TreeNode te = shownTreeView.SelectedNode;
-            te.Parent.Nodes.Remove(te);
-            hasChanges = true;
+            // Reuse the same logic with all guards
+            DeleteNodeSelected();
+        }
+        
+        /// <summary>
+        /// Helper method to get localized string with fallback support
+        /// </summary>
+        private string GetLocalizedOrFallback(string key, string fallbackIt, string fallbackEn)
+        {
+            string localized = Loc.Get(key);
+            
+            // Check if the key is missing (returns [key] format)
+            bool isMissing = string.IsNullOrWhiteSpace(localized) || 
+                           (localized.StartsWith("[") && localized.EndsWith("]"));
+            
+            if (!isMissing)
+                return localized;
+            
+            // Fallback to language-specific default
+            bool isItalian = LocalizationManager.CurrentLanguage.StartsWith("it", 
+                StringComparison.OrdinalIgnoreCase);
+            
+            return isItalian ? fallbackIt : fallbackEn;
         }
         internal void CheckGeneralKeysForTree(KeyEventArgs e, string ToFind)
         {
@@ -988,12 +1099,43 @@ namespace gamon.TreeMptt
             return stringToAdd += ". ";
         }
         #region events
-        // >>> NUOVA STRATEGIA: Gestione eventi semplificata per eliminare ricorsioni <<<
+        // >>> NUOVA STRATEGIA DEFINITIVA: Editing SOLO tramite TextBox esterna <<<
+        //
+        // DECISIONE ARCHITETTURALE:
+        // - LabelEdit è PERMANENTEMENTE disabilitato nel TreeView
+        // - L'editing dei nodi avviene ESCLUSIVAMENTE tramite txtNodeName (TextBox esterna)
+        // - Questo elimina completamente il rischio di ExecutionEngineException causato
+        //   dalla corruzione del message pump in .NET 10
+        //
+        // PATTERN:
+        // 1. AfterSelect → popola txtNodeName con il nome del nodo selezionato
+        // 2. L'utente modifica txtNodeName
+        // 3. TxtNodeName_Leave → salva la modifica nel Topic e aggiorna il TreeNode.Text
+        //
+        // VANTAGGI:
+        // - Nessun conflitto tra eventi di editing inline e aggiornamenti UI
+        // - Flusso di dati unidirezionale e prevedibile
+        // - Eliminazione completa di race condition nel message pump
+        // - Codice più semplice e manutenibile
 
-        // Flag per indicare che un aggiornamento proviene dal codice e non dall'utente.
-        private bool isUpdatingUiFromCode = false;
+        // Contatore di rientranza invece di un semplice flag booleano
+        // per gestire chiamate annidate (es. AddNewNode → AfterSelect)
+        private int _uiUpdateDepth = 0;
+        private bool isUpdatingUiFromCode 
+        { 
+            get => _uiUpdateDepth > 0;
+            set
+            {
+                if (value)
+                    _uiUpdateDepth++;
+                else
+                {
+                    _uiUpdateDepth--;
+                    if (_uiUpdateDepth < 0) _uiUpdateDepth = 0; // Safety check
+                }
+            }
+        }
         private bool isSavingTree = false;
-        private bool _isProcessingTextChange = false;  // Protezione contro ricorsione in TxtNodeName_TextChanged
 
         /// <summary>
         /// UNICO COMPITO: Popolare le TextBox quando un nodo viene selezionato.
@@ -1047,7 +1189,19 @@ namespace gamon.TreeMptt
                     t.Name = newName;
                     t.Changed = true;
                     hasChanges = true;
-                    shownTreeView.SelectedNode.Text = newName; // Aggiorna il testo nel TreeView
+                    
+                    // IMPORTANTE: Disabilita LabelEdit prima di aggiornare il testo
+                    // per evitare che venga scatenato AfterLabelEdit
+                    bool wasLabelEditEnabled = shownTreeView.LabelEdit;
+                    shownTreeView.LabelEdit = false;
+                    try
+                    {
+                        shownTreeView.SelectedNode.Text = newName; // Aggiorna il testo nel TreeView
+                    }
+                    finally
+                    {
+                        shownTreeView.LabelEdit = wasLabelEditEnabled;
+                    }
                 }
             }
             catch (Exception ex)
@@ -1081,42 +1235,46 @@ namespace gamon.TreeMptt
             }
         }
 
-        /// <summary>
-        /// USATO SOLO PER LOGICA SPECIALE (Import FreeMind). 
-        /// TEMPORANEAMENTE DISABILITATO per debug ExecutionEngineException
-        /// </summary>
-        private void TxtNodeName_TextChanged(object sender, EventArgs e)
-        {
-            // TEMPORANEAMENTE DISABILITATO - L'import FreeMind causa ExecutionEngineException in .NET 10
-            // TODO: Re-abilitare quando il bug è risolto
-            
-            // Ignora le modifiche programmatiche
-            if (isUpdatingUiFromCode) return;
-            
-            // Per ora, non fare nulla di speciale quando il testo cambia
-            // L'utente può comunque modificare il nome del nodo normalmente
-            // L'importazione FreeMind è temporaneamente disabilitata
-        }
         // --- Metodi di supporto e altri eventi (semplificati e resi più sicuri) ---
+
+        /// <summary>
+        /// Gestisce l'inizio dell'editing inline di un nodo
+        /// </summary>
+        internal void shownTreeView_BeforeLabelEdit(object sender, NodeLabelEditEventArgs e)
+        {
+            // IMPORTANTE: Imposta il flag durante l'editing per bloccare
+            // tutti gli aggiornamenti della UI che potrebbero interferire
+            isUpdatingUiFromCode = true;
+            
+            // Il flag verrà resettato automaticamente in AfterLabelEdit
+            // o quando l'utente cancella l'editing
+        }
 
         internal void shownTreeView_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
         {
-            if (e.Label == null) return; // L'utente ha annullato la modifica
-            if (e.Node?.Tag is Topic t)
+            // IMPORTANTE: Resetta SEMPRE il flag alla fine dell'editing
+            try
             {
+                if (e.Label == null) return; // L'utente ha annullato la modifica
+                if (e.Node?.Tag is not Topic t) return;
+                
                 if (t.Name != e.Label)
                 {
                     t.Name = e.Label;
                     t.Changed = true;
                     hasChanges = true;
+                    
                     // Aggiorna la textbox se il nodo modificato è quello correntemente selezionato
-                    if (e.Node == shownTreeView.SelectedNode)
+                    if (e.Node == shownTreeView.SelectedNode && txtNodeName != null)
                     {
-                        isUpdatingUiFromCode = true;
                         txtNodeName.Text = t.Name;
-                        isUpdatingUiFromCode = false;
                     }
                 }
+            }
+            finally
+            {
+                // SEMPRE resetta il flag alla fine dell'editing
+                isUpdatingUiFromCode = false;
             }
         }
 
@@ -1124,17 +1282,22 @@ namespace gamon.TreeMptt
         {
             if (e.KeyCode == Keys.F2 && shownTreeView.SelectedNode != null)
             {
-                shownTreeView.LabelEdit = true;
-                shownTreeView.SelectedNode.BeginEdit();
-                e.Handled = true; // Indica che abbiamo gestito il tasto
+                // F2 ora sposta il focus sulla TextBox esterna invece di fare editing inline
+                if (txtNodeName != null && txtNodeName.CanFocus)
+                {
+                    txtNodeName.Focus();
+                    txtNodeName.SelectAll();
+                }
+                e.Handled = true;
             }
             else if (e.KeyCode == Keys.Insert)
             {
-                shownTreeView.SelectedNode = AddNewNode("Nuovo argomento", (Control.ModifierKeys & Keys.Shift) != Keys.Shift);
-                if (shownTreeView.SelectedNode != null)
+                // Insert aggiunge un nuovo nodo e sposta il focus sulla TextBox
+                TreeNode newNode = AddNewNode("Nuovo argomento", (Control.ModifierKeys & Keys.Shift) != Keys.Shift);
+                if (newNode != null && txtNodeName != null && txtNodeName.CanFocus)
                 {
-                    shownTreeView.LabelEdit = true;
-                    shownTreeView.SelectedNode.BeginEdit();
+                    txtNodeName.Focus();
+                    txtNodeName.SelectAll();
                 }
                 e.Handled = true;
             }

@@ -43,13 +43,17 @@ namespace SchoolGrades
         TopicsFormType formType;
         private Topic chosenTopic;
         private bool userHasChosen;
+        private bool _isReadOnly;
 
         public frmTopics(TopicsFormType FormType,
             Class Class, SchoolSubject Subject,
             Question Question = null, List<Topic> ListTopicsExternal = null,
-            frmMain ParentForm = null)
+            frmMain ParentForm = null, 
+            bool IsReadOnly = false)
         {
             InitializeComponent();
+
+            _isReadOnly = IsReadOnly;
 
             if (ListTopicsExternal != null)
             {
@@ -102,7 +106,8 @@ namespace SchoolGrades
             topicTreeMptt = new TreeMptt(trwTopics, Commons.PathAndFileDatabase,
                 txtTopicName, txtTopicDescription, txtTopicSearchString, null,
                 null, Commons.globalPicLed, chkSearchInDescriptions, chkVerbatimString,
-                chkAllWord, chkCaseInsensitive, chkFindAll, DragDropEffects.Copy);
+                chkAllWord, chkCaseInsensitive, chkFindAll, DragDropEffects.Copy,
+                _isReadOnly);
             // list read from database 
             topicTreeMptt.AddNodesToTreeviewByBestMethod();
             switch (formType)
