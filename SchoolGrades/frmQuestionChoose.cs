@@ -68,6 +68,9 @@ namespace SchoolGrades
         }
         private void frmQuestionChoose_Load(object sender, EventArgs e)
         {
+            if (currentClass == null)
+                return;
+
             cmbSchoolSubject.SelectedValue = "";
 
             lstTags.DataSource = tagsList;

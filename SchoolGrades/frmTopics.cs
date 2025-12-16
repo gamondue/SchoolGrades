@@ -53,6 +53,8 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
+            LocalizeForm(); 
+
             _isReadOnly = IsReadOnly;
 
             if (ListTopicsExternal != null)
@@ -200,12 +202,12 @@ namespace SchoolGrades
             else
                 topicTreeMptt.SaveTreeFromTreeViewByParent();
 
-            MessageBox.Show("Salvataggio fatto");
+            MessageBox.Show(Loc.Get("Topics_SaveDone"));
         }
         private void btnAddNodeSon_Click(object sender, EventArgs e)
         {
             // add a completely new node
-            System.Windows.Forms.TreeNode t = topicTreeMptt.AddNewNode("Nuovo argomento", true);
+            System.Windows.Forms.TreeNode t = topicTreeMptt.AddNewNode(Loc.Get("Topics_NewTopicName"), true);
             txtTopicName.Focus();
         }
         private void btnAddNodeBrother_Click(object sender, EventArgs e)

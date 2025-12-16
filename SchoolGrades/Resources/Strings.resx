@@ -1540,10 +1540,10 @@ Devo re-inizializzarlo (Sì) o non creare il database (No)?</value>
     <value>Periodo</value>
   </data>
   <data name="QuestionChoose_DateFrom" xml:space="preserve">
-    <value>Data da</value>
+    <value>Da</value>
   </data>
   <data name="QuestionChoose_DateTo" xml:space="preserve">
-    <value>Data a</value>
+    <value>A</value>
   </data>
   <data name="QuestionChoose_UseDates" xml:space="preserve">
     <value>Usa date</value>
@@ -1561,37 +1561,37 @@ Devo re-inizializzarlo (Sì) o non creare il database (No)?</value>
     <value>O (or)</value>
   </data>
   <data name="QuestionChoose_AddQuestion" xml:space="preserve">
-    <value>Aggiungi domanda</value>
+    <value>+</value>
   </data>
   <data name="QuestionChoose_CopyQuestion" xml:space="preserve">
-    <value>Copia domanda</value>
+    <value>Copia</value>
   </data>
   <data name="QuestionChoose_AddTag" xml:space="preserve">
-    <value>Aggiungi tag</value>
+    <value>+</value>
   </data>
   <data name="QuestionChoose_RemoveTag" xml:space="preserve">
-    <value>Rimuovi tag</value>
+    <value>-</value>
   </data>
   <data name="QuestionChoose_Choose" xml:space="preserve">
     <value>Scegli</value>
   </data>
   <data name="QuestionChoose_ChooseTopic" xml:space="preserve">
-    <value>Scegli argomento</value>
+    <value>..</value>
   </data>
   <data name="QuestionChoose_DontUseTopic" xml:space="preserve">
-    <value>Non usare argomento</value>
+    <value>-</value>
   </data>
   <data name="QuestionChoose_ChooseByPeriod" xml:space="preserve">
-    <value>Scegli per periodo</value>
+    <value>Per.</value>
   </data>
   <data name="QuestionChoose_RandomQuestion" xml:space="preserve">
     <value>Domanda casuale</value>
   </data>
   <data name="QuestionChoose_QuestionsDone" xml:space="preserve">
-    <value>Domande fatte</value>
+    <value>Fatte</value>
   </data>
   <data name="QuestionChoose_KnotsToTheComb" xml:space="preserve">
-    <value>Nodi al pettine</value>
+    <value>Pettine</value>
   </data>
   <data name="QuestionChoose_SelectQuestion" xml:space="preserve">
     <value>Scegliere una domanda nella griglia</value>
@@ -1636,7 +1636,7 @@ Devo re-inizializzarlo (Sì) o non creare il database (No)?</value>
     <value>Riepilogo argomenti</value>
   </data>
   <data name="Lessons_SearchText" xml:space="preserve">
-    <value>Testo ricerca</value>
+    <value>Trova</value>
   </data>
   <data name="Lessons_SaveTree" xml:space="preserve">
     <value>Salva albero</value>
@@ -1660,16 +1660,16 @@ Devo re-inizializzarlo (Sì) o non creare il database (No)?</value>
     <value>Cerca tutti</value>
   </data>
   <data name="Lessons_SearchInDescriptions" xml:space="preserve">
-    <value>Cerca nelle descrizioni</value>
+    <value>Descr.</value>
   </data>
   <data name="Lessons_ExactString" xml:space="preserve">
-    <value>Stringa esatta</value>
+    <value>Esatta</value>
   </data>
   <data name="Lessons_CaseInsensitive" xml:space="preserve">
-    <value>Ignora maiuscole/minuscole</value>
+    <value>M &amp; M</value>
   </data>
   <data name="Lessons_WholeWord" xml:space="preserve">
-    <value>Parola intera</value>
+    <value>Parola</value>
   </data>
   <data name="Lessons_AddLesson" xml:space="preserve">
     <value>Nuova lezione</value>
@@ -1681,13 +1681,13 @@ Devo re-inizializzarlo (Sì) o non creare il database (No)?</value>
     <value>Elimina lezione</value>
   </data>
   <data name="Lessons_ManageImages" xml:space="preserve">
-    <value>Gestisci immagini</value>
+    <value>Gestione Immagini</value>
   </data>
   <data name="Lessons_PreviousImage" xml:space="preserve">
-    <value>Immagine precedente</value>
+    <value>&lt;</value>
   </data>
   <data name="Lessons_NextImage" xml:space="preserve">
-    <value>Immagine successiva</value>
+    <value>&gt;</value>
   </data>
   <data name="Lessons_FirstImage" xml:space="preserve">
     <value>Prima immagine</value>
@@ -1790,7 +1790,7 @@ Il programma la creerà automaticamente quando verrà salvata la prima immagine.
     <value>Mostra le domande già fatte alla classe</value>
   </data>
   <data name="QuestionChoose_Tooltip_KnotsToTheComb" xml:space="preserve">
-    <value>Mostra gli argomenti su cui lo studente ha difficoltà</value>
+    <value>Mostra gli argomenti su cui lo studente ha difficoltà (nodi al pettine)</value>
   </data>
   <data name="QuestionChoose_Tooltip_Subject" xml:space="preserve">
     <value>Filtra per materia</value>
@@ -2216,7 +2216,7 @@ Il programma la creerà automaticamente quando verrà salvata la prima immagine.
     <value>Materia</value>
   </data>
   <data name="GradesClassSummary_SummaryOf" xml:space="preserve">
-    <value>Riepilogo dei voti di tipo</value>
+    <value>Tipo dei voti del riepilogo</value>
   </data>
   <data name="GradesClassSummary_Sum" xml:space="preserve">
     <value>Somma</value>
@@ -2306,7 +2306,7 @@ Il programma la creerà automaticamente quando verrà salvata la prima immagine.
     <value>Allievo</value>
   </data>
   <data name="GradesStudentsSummary_GradesOfType" xml:space="preserve">
-    <value>Voti di tipo</value>
+    <value>Voti di tipo:</value>
   </data>
   <data name="GradesStudentsSummary_Subject" xml:space="preserve">
     <value>Materia</value>
@@ -2902,5 +2902,101 @@ Cancello lo stesso tutti gli argomenti selezionati?</value>
   </data>
   <data name="GradesStudentsSummary_NoStudentPassed" xml:space="preserve">
     <value>Non è stato passato nessun studente</value>
+  </data>
+  <data name="Common_Add" xml:space="preserve">
+    <value>+</value>
+  </data>
+  <data name="Common_Remove" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="Common_Save" xml:space="preserve">
+    <value>Salva</value>
+  </data>
+  <data name="Topics_LabelTopic" xml:space="preserve">
+    <value>Argomento</value>
+  </data>
+  <data name="Topics_LabelDescription" xml:space="preserve">
+    <value>Descrizione</value>
+  </data>
+  <data name="Topics_LabelFind" xml:space="preserve">
+    <value>Cerca</value>
+  </data>
+  <data name="Topics_LabelExplain" xml:space="preserve">
+    <value>Spiegazioni ricerca</value>
+  </data>
+  <data name="Topics_BtnSave" xml:space="preserve">
+    <value>Salva albero</value>
+  </data>
+  <data name="Topics_BtnAddSon" xml:space="preserve">
+    <value>Aggiungi figlio</value>
+  </data>
+  <data name="Topics_BtnAddBrother" xml:space="preserve">
+    <value>Aggiungi fratello</value>
+  </data>
+  <data name="Topics_BtnDelete" xml:space="preserve">
+    <value>Elimina</value>
+  </data>
+  <data name="Topics_BtnFind" xml:space="preserve">
+    <value>Cerca</value>
+  </data>
+  <data name="Topics_BtnFindUnder" xml:space="preserve">
+    <value>Cerca sotto nodo</value>
+  </data>
+  <data name="Topics_BtnChoose" xml:space="preserve">
+    <value>Scegli</value>
+  </data>
+  <data name="Topics_BtnQuestions" xml:space="preserve">
+    <value>Domande</value>
+  </data>
+  <data name="Topics_BtnFreemind" xml:space="preserve">
+    <value>Freemind</value>
+  </data>
+  <data name="Topics_ChkFindAll" xml:space="preserve">
+    <value>Trova tutti</value>
+  </data>
+  <data name="Topics_ChkSearchDesc" xml:space="preserve">
+    <value>Descr.</value>
+  </data>
+  <data name="Topics_ChkExact" xml:space="preserve">
+    <value>Esatta</value>
+  </data>
+  <data name="Topics_ChkCaseInsensitive" xml:space="preserve">
+    <value>M &amp; m</value>
+  </data>
+  <data name="Topics_ChkWholeWord" xml:space="preserve">
+    <value>Parola</value>
+  </data>
+  <data name="Topics_Tooltip_Save" xml:space="preserve">
+    <value>Salva le modifiche all'albero degli argomenti nel database</value>
+  </data>
+  <data name="Topics_Tooltip_AddSon" xml:space="preserve">
+    <value>Aggiungi un argomento figlio sotto quello selezionato</value>
+  </data>
+  <data name="Topics_Tooltip_AddBrother" xml:space="preserve">
+    <value>Aggiungi un argomento allo stesso livello di quello selezionato</value>
+  </data>
+  <data name="Topics_Tooltip_Delete" xml:space="preserve">
+    <value>Elimina l'argomento selezionato</value>
+  </data>
+  <data name="Topics_Tooltip_Find" xml:space="preserve">
+    <value>Cerca argomenti nell'albero</value>
+  </data>
+  <data name="Topics_Tooltip_FindUnder" xml:space="preserve">
+    <value>Cerca solo sotto l'argomento selezionato</value>
+  </data>
+  <data name="Topics_Tooltip_FindAll" xml:space="preserve">
+    <value>Evidenzia tutte le occorrenze trovate</value>
+  </data>
+  <data name="Topics_Tooltip_SearchDesc" xml:space="preserve">
+    <value>Cerca anche nelle descrizioni degli argomenti</value>
+  </data>
+  <data name="Topics_Tooltip_Exact" xml:space="preserve">
+    <value>Cerca la stringa esattamente come scritta</value>
+  </data>
+  <data name="Topics_Tooltip_CaseInsensitive" xml:space="preserve">
+    <value>Ignora maiuscole e minuscole nella ricerca</value>
+  </data>
+  <data name="Topics_Tooltip_WholeWord" xml:space="preserve">
+    <value>Cerca solo parole intere, non parti di parole</value>
   </data>
 </root>

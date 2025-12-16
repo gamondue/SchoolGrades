@@ -1539,10 +1539,10 @@ Should I re-initialize it (Yes) or not create the database (No)?</value>
     <value>Period</value>
   </data>
   <data name="QuestionChoose_DateFrom" xml:space="preserve">
-    <value>From Date</value>
+    <value>From</value>
   </data>
   <data name="QuestionChoose_DateTo" xml:space="preserve">
-    <value>To Date</value>
+    <value>To</value>
   </data>
   <data name="QuestionChoose_UseDates" xml:space="preserve">
     <value>Use Dates</value>
@@ -1560,37 +1560,37 @@ Should I re-initialize it (Yes) or not create the database (No)?</value>
     <value>Or</value>
   </data>
   <data name="QuestionChoose_AddQuestion" xml:space="preserve">
-    <value>Add Question</value>
+    <value>+</value>
   </data>
   <data name="QuestionChoose_CopyQuestion" xml:space="preserve">
-    <value>Copy Question</value>
+    <value>Copy</value>
   </data>
   <data name="QuestionChoose_AddTag" xml:space="preserve">
-    <value>Add Tag</value>
+    <value>+</value>
   </data>
   <data name="QuestionChoose_RemoveTag" xml:space="preserve">
-    <value>Remove Tag</value>
+    <value>-</value>
   </data>
   <data name="QuestionChoose_Choose" xml:space="preserve">
     <value>Choose</value>
   </data>
   <data name="QuestionChoose_ChooseTopic" xml:space="preserve">
-    <value>Choose Topic</value>
+    <value>..</value>
   </data>
   <data name="QuestionChoose_DontUseTopic" xml:space="preserve">
-    <value>Don't Use Topic</value>
+    <value>-</value>
   </data>
   <data name="QuestionChoose_ChooseByPeriod" xml:space="preserve">
-    <value>Choose By Period</value>
+    <value>Per.</value>
   </data>
   <data name="QuestionChoose_RandomQuestion" xml:space="preserve">
     <value>Random Question</value>
   </data>
   <data name="QuestionChoose_QuestionsDone" xml:space="preserve">
-    <value>Questions Done</value>
+    <value>Done</value>
   </data>
   <data name="QuestionChoose_KnotsToTheComb" xml:space="preserve">
-    <value>Problem Topics</value>
+    <value>Comb</value>
   </data>
   <data name="QuestionChoose_SelectQuestion" xml:space="preserve">
     <value>Choose a question from the grid</value>
@@ -1635,7 +1635,7 @@ Should I re-initialize it (Yes) or not create the database (No)?</value>
     <value>Topics Summary</value>
   </data>
   <data name="Lessons_SearchText" xml:space="preserve">
-    <value>Search Text</value>
+    <value>Search</value>
   </data>
   <data name="Lessons_SaveTree" xml:space="preserve">
     <value>Save Tree</value>
@@ -1659,16 +1659,16 @@ Should I re-initialize it (Yes) or not create the database (No)?</value>
     <value>Find All</value>
   </data>
   <data name="Lessons_SearchInDescriptions" xml:space="preserve">
-    <value>Search in Descriptions</value>
+    <value>Descr.</value>
   </data>
   <data name="Lessons_ExactString" xml:space="preserve">
-    <value>Exact String</value>
+    <value>Exact</value>
   </data>
   <data name="Lessons_CaseInsensitive" xml:space="preserve">
-    <value>Case Insensitive</value>
+    <value>Insens.</value>
   </data>
   <data name="Lessons_WholeWord" xml:space="preserve">
-    <value>Whole Word</value>
+    <value>Word</value>
   </data>
   <data name="Lessons_AddLesson" xml:space="preserve">
     <value>New Lesson</value>
@@ -1680,13 +1680,13 @@ Should I re-initialize it (Yes) or not create the database (No)?</value>
     <value>Delete Lesson</value>
   </data>
   <data name="Lessons_ManageImages" xml:space="preserve">
-    <value>Manage Images</value>
+    <value>Images management</value>
   </data>
   <data name="Lessons_PreviousImage" xml:space="preserve">
-    <value>Previous Image</value>
+    <value>&lt;</value>
   </data>
   <data name="Lessons_NextImage" xml:space="preserve">
-    <value>Next Image</value>
+    <value>&gt;</value>
   </data>
   <data name="Lessons_FirstImage" xml:space="preserve">
     <value>First Image</value>
@@ -1789,7 +1789,7 @@ The program will create it automatically when the first image is saved.</value>
     <value>Show questions already asked to the class</value>
   </data>
   <data name="QuestionChoose_Tooltip_KnotsToTheComb" xml:space="preserve">
-    <value>Show topics where the student has difficulties</value>
+    <value>Show topics where the student has difficulties (knots to the comb)</value>
   </data>
   <data name="QuestionChoose_Tooltip_Subject" xml:space="preserve">
     <value>Filter by subject</value>
@@ -1870,7 +1870,7 @@ The program will create it automatically when the first image is saved.</value>
     <value>Search for exact string</value>
   </data>
   <data name="Lessons_Tooltip_CaseInsensitive" xml:space="preserve">
-    <value>Ignore case</value>
+    <value>Ignore case (case insensitive)</value>
   </data>
   <data name="Lessons_Tooltip_WholeWord" xml:space="preserve">
     <value>Search whole words only</value>
@@ -1951,10 +1951,10 @@ The program will create it automatically when the first image is saved.</value>
     <value>Student</value>
   </data>
   <data name="MicroAssessment_MacroGradeCode" xml:space="preserve">
-    <value>Summary Grade Code</value>
+    <value>Summ. Grade Code</value>
   </data>
   <data name="MicroAssessment_MacroGradeWeight" xml:space="preserve">
-    <value>Summary Grade Weight</value>
+    <value>Weight of Summ. Grade</value>
   </data>
   <data name="MicroAssessment_GradeType" xml:space="preserve">
     <value>Component Grade Type (micro assessment)</value>
@@ -1969,7 +1969,7 @@ The program will create it automatically when the first image is saved.</value>
     <value>Summary Grade</value>
   </data>
   <data name="MicroAssessment_WeightsSum" xml:space="preserve">
-    <value>Questions Weights Sum</value>
+    <value>Sum of Weights</value>
   </data>
   <data name="MicroAssessment_StudentId" xml:space="preserve">
     <value>Student ID</value>
@@ -1987,7 +1987,7 @@ The program will create it automatically when the first image is saved.</value>
     <value>New Summary Grade</value>
   </data>
   <data name="MicroAssessment_SaveMacroGrade" xml:space="preserve">
-    <value>Save Summary Grade</value>
+    <value>Save Sum. Grade</value>
   </data>
   <data name="MicroAssessment_ChooseQuestion" xml:space="preserve">
     <value>Choose Question</value>
@@ -2216,7 +2216,7 @@ The program will create it automatically when the first image is saved.</value>
     <value>Subject</value>
   </data>
   <data name="GradesClassSummary_SummaryOf" xml:space="preserve">
-    <value>Summary of grades of type</value>
+    <value>Type of the grades of the summary</value>
   </data>
   <data name="GradesClassSummary_Sum" xml:space="preserve">
     <value>Sum</value>
@@ -2306,7 +2306,7 @@ The program will create it automatically when the first image is saved.</value>
     <value>Student</value>
   </data>
   <data name="GradesStudentsSummary_GradesOfType" xml:space="preserve">
-    <value>Grades of type</value>
+    <value>Grades of type:</value>
   </data>
   <data name="GradesStudentsSummary_Subject" xml:space="preserve">
     <value>Subject</value>
@@ -2903,5 +2903,102 @@ Delete all selected topics anyway?</value>
   </data>
   <data name="GradesStudentsSummary_NoStudentPassed" xml:space="preserve">
     <value>No students passed</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Common_Add" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Common_Remove" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="Common_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Topics_LabelTopic" xml:space="preserve">
+    <value>Topic</value>
+  </data>
+  <data name="Topics_LabelDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Topics_LabelFind" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Topics_LabelExplain" xml:space="preserve">
+    <value>Search explanations</value>
+  </data>
+  <data name="Topics_BtnSave" xml:space="preserve">
+    <value>Save tree</value>
+  </data>
+  <data name="Topics_BtnAddSon" xml:space="preserve">
+    <value>Add child</value>
+  </data>
+  <data name="Topics_BtnAddBrother" xml:space="preserve">
+    <value>Add sibling</value>
+  </data>
+  <data name="Topics_BtnDelete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Topics_BtnFind" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Topics_BtnFindUnder" xml:space="preserve">
+    <value>Search under node</value>
+  </data>
+  <data name="Topics_BtnChoose" xml:space="preserve">
+    <value>Choose</value>
+  </data>
+  <data name="Topics_BtnQuestions" xml:space="preserve">
+    <value>Questions</value>
+  </data>
+  <data name="Topics_BtnFreemind" xml:space="preserve">
+    <value>Freemind</value>
+  </data>
+  <data name="Topics_ChkFindAll" xml:space="preserve">
+    <value>Find all</value>
+  </data>
+  <data name="Topics_ChkSearchDesc" xml:space="preserve">
+    <value>Descr.</value>
+  </data>
+  <data name="Topics_ChkExact" xml:space="preserve">
+    <value>Exact</value>
+  </data>
+  <data name="Topics_ChkCaseInsensitive" xml:space="preserve">
+    <value>Insens.</value>
+  </data>
+  <data name="Topics_ChkWholeWord" xml:space="preserve">
+    <value>Word</value>
+  </data>
+  <data name="Topics_Tooltip_Save" xml:space="preserve">
+    <value>Save changes to the topics tree in the database</value>
+  </data>
+  <data name="Topics_Tooltip_AddSon" xml:space="preserve">
+    <value>Add a child topic under the selected one</value>
+  </data>
+  <data name="Topics_Tooltip_AddBrother" xml:space="preserve">
+    <value>Add a topic at the same level as the selected one</value>
+  </data>
+  <data name="Topics_Tooltip_Delete" xml:space="preserve">
+    <value>Delete the selected topic</value>
+  </data>
+  <data name="Topics_Tooltip_Find" xml:space="preserve">
+    <value>Search for topics in the tree</value>
+  </data>
+  <data name="Topics_Tooltip_FindUnder" xml:space="preserve">
+    <value>Search only under the selected topic</value>
+  </data>
+  <data name="Topics_Tooltip_FindAll" xml:space="preserve">
+    <value>Highlight all found occurrences</value>
+  </data>
+  <data name="Topics_Tooltip_SearchDesc" xml:space="preserve">
+    <value>Also search in topic descriptions</value>
+  </data>
+  <data name="Topics_Tooltip_Exact" xml:space="preserve">
+    <value>Search for the exact string as written</value>
+  </data>
+  <data name="Topics_Tooltip_CaseInsensitive" xml:space="preserve">
+    <value>Ignore upper/lower case in search</value>
+  </data>
+  <data name="Topics_Tooltip_WholeWord" xml:space="preserve">
+    <value>Search only whole words, not parts of words</value>
   </data>
 </root>

@@ -1812,6 +1812,15 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
+        ///   Cerca una stringa localizzata simile a +.
+        /// </summary>
+        public static string Common_Add {
+            get {
+                return ResourceManager.GetString("Common_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Cerca una stringa localizzata simile a Annulla.
         /// </summary>
         public static string Common_Cancel {
@@ -1898,6 +1907,24 @@ namespace SchoolGrades.Resources {
         public static string Common_OK {
             get {
                 return ResourceManager.GetString("Common_OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a -.
+        /// </summary>
+        public static string Common_Remove {
+            get {
+                return ResourceManager.GetString("Common_Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Salva.
+        /// </summary>
+        public static string Common_Save {
+            get {
+                return ResourceManager.GetString("Common_Save", resourceCulture);
             }
         }
         
@@ -2217,7 +2244,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Riepilogo dei voti di tipo.
+        ///   Cerca una stringa localizzata simile a Tipo dei voti del riepilogo.
         /// </summary>
         public static string GradesClassSummary_SummaryOf {
             get {
@@ -2343,7 +2370,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Voti di tipo.
+        ///   Cerca una stringa localizzata simile a Voti di tipo:.
         /// </summary>
         public static string GradesStudentsSummary_GradesOfType {
             get {
@@ -2893,7 +2920,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Ignora maiuscole/minuscole.
+        ///   Cerca una stringa localizzata simile a M &amp; M.
         /// </summary>
         public static string Lessons_CaseInsensitive {
             get {
@@ -3015,7 +3042,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Stringa esatta.
+        ///   Cerca una stringa localizzata simile a Esatta.
         /// </summary>
         public static string Lessons_ExactString {
             get {
@@ -3133,7 +3160,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Gestisci immagini.
+        ///   Cerca una stringa localizzata simile a Gestione Immagini.
         /// </summary>
         public static string Lessons_ManageImages {
             get {
@@ -3142,7 +3169,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Immagine successiva.
+        ///   Cerca una stringa localizzata simile a &gt;.
         /// </summary>
         public static string Lessons_NextImage {
             get {
@@ -3169,7 +3196,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Immagine precedente.
+        ///   Cerca una stringa localizzata simile a &lt;.
         /// </summary>
         public static string Lessons_PreviousImage {
             get {
@@ -3268,7 +3295,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Cerca nelle descrizioni.
+        ///   Cerca una stringa localizzata simile a Descr..
         /// </summary>
         public static string Lessons_SearchInDescriptions {
             get {
@@ -3277,7 +3304,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Testo ricerca.
+        ///   Cerca una stringa localizzata simile a Trova.
         /// </summary>
         public static string Lessons_SearchText {
             get {
@@ -3601,7 +3628,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Parola intera.
+        ///   Cerca una stringa localizzata simile a Parola.
         /// </summary>
         public static string Lessons_WholeWord {
             get {
@@ -6091,7 +6118,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Aggiungi domanda.
+        ///   Cerca una stringa localizzata simile a +.
         /// </summary>
         public static string QuestionChoose_AddQuestion {
             get {
@@ -6100,7 +6127,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Aggiungi tag.
+        ///   Cerca una stringa localizzata simile a +.
         /// </summary>
         public static string QuestionChoose_AddTag {
             get {
@@ -6127,7 +6154,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Scegli per periodo.
+        ///   Cerca una stringa localizzata simile a Per..
         /// </summary>
         public static string QuestionChoose_ChooseByPeriod {
             get {
@@ -6136,7 +6163,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Scegli argomento.
+        ///   Cerca una stringa localizzata simile a ...
         /// </summary>
         public static string QuestionChoose_ChooseTopic {
             get {
@@ -6145,7 +6172,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Copia domanda.
+        ///   Cerca una stringa localizzata simile a Copia.
         /// </summary>
         public static string QuestionChoose_CopyQuestion {
             get {
@@ -6154,7 +6181,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Data da.
+        ///   Cerca una stringa localizzata simile a Da.
         /// </summary>
         public static string QuestionChoose_DateFrom {
             get {
@@ -6163,7 +6190,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Data a.
+        ///   Cerca una stringa localizzata simile a A.
         /// </summary>
         public static string QuestionChoose_DateTo {
             get {
@@ -6172,7 +6199,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Non usare argomento.
+        ///   Cerca una stringa localizzata simile a -.
         /// </summary>
         public static string QuestionChoose_DontUseTopic {
             get {
@@ -6190,7 +6217,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Nodi al pettine.
+        ///   Cerca una stringa localizzata simile a Pettine.
         /// </summary>
         public static string QuestionChoose_KnotsToTheComb {
             get {
@@ -6244,7 +6271,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Domande fatte.
+        ///   Cerca una stringa localizzata simile a Fatte.
         /// </summary>
         public static string QuestionChoose_QuestionsDone {
             get {
@@ -6280,7 +6307,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Rimuovi tag.
+        ///   Cerca una stringa localizzata simile a -.
         /// </summary>
         public static string QuestionChoose_RemoveTag {
             get {
@@ -6433,7 +6460,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Mostra gli argomenti su cui lo studente ha difficoltà.
+        ///   Cerca una stringa localizzata simile a Mostra gli argomenti su cui lo studente ha difficoltà (nodi al pettine).
         /// </summary>
         public static string QuestionChoose_Tooltip_KnotsToTheComb {
             get {
@@ -8067,6 +8094,168 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
+        ///   Cerca una stringa localizzata simile a Aggiungi fratello.
+        /// </summary>
+        public static string Topics_BtnAddBrother {
+            get {
+                return ResourceManager.GetString("Topics_BtnAddBrother", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Aggiungi figlio.
+        /// </summary>
+        public static string Topics_BtnAddSon {
+            get {
+                return ResourceManager.GetString("Topics_BtnAddSon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Scegli.
+        /// </summary>
+        public static string Topics_BtnChoose {
+            get {
+                return ResourceManager.GetString("Topics_BtnChoose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Elimina.
+        /// </summary>
+        public static string Topics_BtnDelete {
+            get {
+                return ResourceManager.GetString("Topics_BtnDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Cerca.
+        /// </summary>
+        public static string Topics_BtnFind {
+            get {
+                return ResourceManager.GetString("Topics_BtnFind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Cerca sotto nodo.
+        /// </summary>
+        public static string Topics_BtnFindUnder {
+            get {
+                return ResourceManager.GetString("Topics_BtnFindUnder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Freemind.
+        /// </summary>
+        public static string Topics_BtnFreemind {
+            get {
+                return ResourceManager.GetString("Topics_BtnFreemind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Domande.
+        /// </summary>
+        public static string Topics_BtnQuestions {
+            get {
+                return ResourceManager.GetString("Topics_BtnQuestions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Salva albero.
+        /// </summary>
+        public static string Topics_BtnSave {
+            get {
+                return ResourceManager.GetString("Topics_BtnSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a M &amp; m.
+        /// </summary>
+        public static string Topics_ChkCaseInsensitive {
+            get {
+                return ResourceManager.GetString("Topics_ChkCaseInsensitive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Esatta.
+        /// </summary>
+        public static string Topics_ChkExact {
+            get {
+                return ResourceManager.GetString("Topics_ChkExact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Trova tutti.
+        /// </summary>
+        public static string Topics_ChkFindAll {
+            get {
+                return ResourceManager.GetString("Topics_ChkFindAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Descr..
+        /// </summary>
+        public static string Topics_ChkSearchDesc {
+            get {
+                return ResourceManager.GetString("Topics_ChkSearchDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Parola.
+        /// </summary>
+        public static string Topics_ChkWholeWord {
+            get {
+                return ResourceManager.GetString("Topics_ChkWholeWord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Descrizione.
+        /// </summary>
+        public static string Topics_LabelDescription {
+            get {
+                return ResourceManager.GetString("Topics_LabelDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Spiegazioni ricerca.
+        /// </summary>
+        public static string Topics_LabelExplain {
+            get {
+                return ResourceManager.GetString("Topics_LabelExplain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Cerca.
+        /// </summary>
+        public static string Topics_LabelFind {
+            get {
+                return ResourceManager.GetString("Topics_LabelFind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Argomento.
+        /// </summary>
+        public static string Topics_LabelTopic {
+            get {
+                return ResourceManager.GetString("Topics_LabelTopic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Cerca una stringa localizzata simile a Nuovo argomento.
         /// </summary>
         public static string Topics_NewTopicName {
@@ -8099,6 +8288,105 @@ namespace SchoolGrades.Resources {
         public static string Topics_SelectTopicForQuestions {
             get {
                 return ResourceManager.GetString("Topics_SelectTopicForQuestions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Aggiungi un argomento allo stesso livello di quello selezionato.
+        /// </summary>
+        public static string Topics_Tooltip_AddBrother {
+            get {
+                return ResourceManager.GetString("Topics_Tooltip_AddBrother", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Aggiungi un argomento figlio sotto quello selezionato.
+        /// </summary>
+        public static string Topics_Tooltip_AddSon {
+            get {
+                return ResourceManager.GetString("Topics_Tooltip_AddSon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Ignora maiuscole e minuscole nella ricerca.
+        /// </summary>
+        public static string Topics_Tooltip_CaseInsensitive {
+            get {
+                return ResourceManager.GetString("Topics_Tooltip_CaseInsensitive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Elimina l&apos;argomento selezionato.
+        /// </summary>
+        public static string Topics_Tooltip_Delete {
+            get {
+                return ResourceManager.GetString("Topics_Tooltip_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Cerca la stringa esattamente come scritta.
+        /// </summary>
+        public static string Topics_Tooltip_Exact {
+            get {
+                return ResourceManager.GetString("Topics_Tooltip_Exact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Cerca argomenti nell&apos;albero.
+        /// </summary>
+        public static string Topics_Tooltip_Find {
+            get {
+                return ResourceManager.GetString("Topics_Tooltip_Find", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Evidenzia tutte le occorrenze trovate.
+        /// </summary>
+        public static string Topics_Tooltip_FindAll {
+            get {
+                return ResourceManager.GetString("Topics_Tooltip_FindAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Cerca solo sotto l&apos;argomento selezionato.
+        /// </summary>
+        public static string Topics_Tooltip_FindUnder {
+            get {
+                return ResourceManager.GetString("Topics_Tooltip_FindUnder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Salva le modifiche all&apos;albero degli argomenti nel database.
+        /// </summary>
+        public static string Topics_Tooltip_Save {
+            get {
+                return ResourceManager.GetString("Topics_Tooltip_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Cerca anche nelle descrizioni degli argomenti.
+        /// </summary>
+        public static string Topics_Tooltip_SearchDesc {
+            get {
+                return ResourceManager.GetString("Topics_Tooltip_SearchDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Cerca solo parole intere, non parti di parole.
+        /// </summary>
+        public static string Topics_Tooltip_WholeWord {
+            get {
+                return ResourceManager.GetString("Topics_Tooltip_WholeWord", resourceCulture);
             }
         }
         

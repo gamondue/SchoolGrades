@@ -47,7 +47,7 @@ namespace SchoolGrades
             btnSaveSchoolPeriod = new System.Windows.Forms.Button();
             txtName = new System.Windows.Forms.TextBox();
             label2 = new System.Windows.Forms.Label();
-            txtDescription = new System.Windows.Forms.TextBox();
+            txtTopicDescription = new System.Windows.Forms.TextBox();
             label3 = new System.Windows.Forms.Label();
             cmbSchoolPeriodTypes = new System.Windows.Forms.ComboBox();
             label4 = new System.Windows.Forms.Label();
@@ -222,12 +222,12 @@ namespace SchoolGrades
             label2.TabIndex = 158;
             label2.Text = "Descrizione breve";
             // 
-            // txtDescription
+            // txtTopicDescription
             // 
-            txtDescription.Location = new System.Drawing.Point(225, 123);
-            txtDescription.Name = "txtDescription";
-            txtDescription.Size = new System.Drawing.Size(454, 27);
-            txtDescription.TabIndex = 161;
+            txtTopicDescription.Location = new System.Drawing.Point(225, 123);
+            txtTopicDescription.Name = "txtTopicDescription";
+            txtTopicDescription.Size = new System.Drawing.Size(454, 27);
+            txtTopicDescription.TabIndex = 161;
             // 
             // label3
             // 
@@ -287,7 +287,7 @@ namespace SchoolGrades
             Controls.Add(rdbQuadrimester);
             Controls.Add(label4);
             Controls.Add(cmbSchoolPeriodTypes);
-            Controls.Add(txtDescription);
+            Controls.Add(txtTopicDescription);
             Controls.Add(label3);
             Controls.Add(txtName);
             Controls.Add(label2);
@@ -334,7 +334,7 @@ namespace SchoolGrades
         private System.Windows.Forms.Button btnSaveSchoolPeriod;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtDescription;
+        private System.Windows.Forms.TextBox txtTopicDescription;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cmbSchoolPeriodTypes;
         private System.Windows.Forms.Label label4;

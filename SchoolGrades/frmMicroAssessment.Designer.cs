@@ -78,7 +78,7 @@
             // txtMicroGrade
             // 
             txtMicroGrade.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            txtMicroGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            txtMicroGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold);
             txtMicroGrade.Location = new System.Drawing.Point(927, 295);
             txtMicroGrade.Margin = new System.Windows.Forms.Padding(4);
             txtMicroGrade.Name = "txtMicroGrade";
@@ -120,7 +120,7 @@
             // 
             lblGrade.AutoSize = true;
             lblGrade.Enabled = false;
-            lblGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            lblGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             lblGrade.ForeColor = System.Drawing.Color.DarkBlue;
             lblGrade.Location = new System.Drawing.Point(10, 270);
             lblGrade.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -134,7 +134,7 @@
             // 
             lblWeight.AutoSize = true;
             lblWeight.Enabled = false;
-            lblWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            lblWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             lblWeight.ForeColor = System.Drawing.Color.DarkBlue;
             lblWeight.Location = new System.Drawing.Point(10, 217);
             lblWeight.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -148,7 +148,7 @@
             // 
             btnSaveMicroGrade.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnSaveMicroGrade.BackColor = System.Drawing.Color.Transparent;
-            btnSaveMicroGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnSaveMicroGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             btnSaveMicroGrade.ForeColor = System.Drawing.Color.DarkBlue;
             btnSaveMicroGrade.Location = new System.Drawing.Point(944, 151);
             btnSaveMicroGrade.Margin = new System.Windows.Forms.Padding(6);
@@ -163,7 +163,7 @@
             // txtMicroGradeWeight
             // 
             txtMicroGradeWeight.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            txtMicroGradeWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            txtMicroGradeWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold);
             txtMicroGradeWeight.Location = new System.Drawing.Point(927, 235);
             txtMicroGradeWeight.Margin = new System.Windows.Forms.Padding(4);
             txtMicroGradeWeight.Name = "txtMicroGradeWeight";
@@ -176,7 +176,7 @@
             // txtAverageMicroQuestions
             // 
             txtAverageMicroQuestions.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            txtAverageMicroQuestions.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            txtAverageMicroQuestions.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold);
             txtAverageMicroQuestions.Location = new System.Drawing.Point(927, 414);
             txtAverageMicroQuestions.Margin = new System.Windows.Forms.Padding(4);
             txtAverageMicroQuestions.Name = "txtAverageMicroQuestions";
@@ -189,7 +189,7 @@
             // 
             btnNewMacroGrade.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnNewMacroGrade.BackColor = System.Drawing.Color.Transparent;
-            btnNewMacroGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnNewMacroGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
             btnNewMacroGrade.ForeColor = System.Drawing.Color.DarkBlue;
             btnNewMacroGrade.Location = new System.Drawing.Point(944, 647);
             btnNewMacroGrade.Margin = new System.Windows.Forms.Padding(6);
@@ -205,7 +205,7 @@
             // 
             btnSaveMacroGrade.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnSaveMacroGrade.BackColor = System.Drawing.Color.Transparent;
-            btnSaveMacroGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnSaveMacroGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
             btnSaveMacroGrade.ForeColor = System.Drawing.Color.DarkBlue;
             btnSaveMacroGrade.Location = new System.Drawing.Point(944, 581);
             btnSaveMacroGrade.Margin = new System.Windows.Forms.Padding(6);
@@ -220,7 +220,7 @@
             // txtWeightsSum
             // 
             txtWeightsSum.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            txtWeightsSum.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            txtWeightsSum.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold);
             txtWeightsSum.Location = new System.Drawing.Point(927, 474);
             txtWeightsSum.Margin = new System.Windows.Forms.Padding(4);
             txtWeightsSum.Name = "txtWeightsSum";
@@ -235,7 +235,7 @@
             lblAverageMicroQuestions.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             lblAverageMicroQuestions.AutoSize = true;
             lblAverageMicroQuestions.Enabled = false;
-            lblAverageMicroQuestions.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            lblAverageMicroQuestions.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             lblAverageMicroQuestions.ForeColor = System.Drawing.Color.DarkBlue;
             lblAverageMicroQuestions.Location = new System.Drawing.Point(941, 395);
             lblAverageMicroQuestions.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -250,7 +250,7 @@
             lblWeightsSum.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             lblWeightsSum.AutoSize = true;
             lblWeightsSum.Enabled = false;
-            lblWeightsSum.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            lblWeightsSum.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             lblWeightsSum.ForeColor = System.Drawing.Color.DarkBlue;
             lblWeightsSum.Location = new System.Drawing.Point(914, 455);
             lblWeightsSum.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -277,7 +277,7 @@
             // 
             lblStudent.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             lblStudent.BackColor = System.Drawing.Color.Transparent;
-            lblStudent.Font = new System.Drawing.Font("Arial Black", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            lblStudent.Font = new System.Drawing.Font("Arial Black", 20.25F);
             lblStudent.ForeColor = System.Drawing.Color.DarkBlue;
             lblStudent.Location = new System.Drawing.Point(89, 12);
             lblStudent.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
@@ -292,7 +292,7 @@
             label3.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             label3.AutoSize = true;
             label3.Enabled = false;
-            label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             label3.ForeColor = System.Drawing.Color.DarkBlue;
             label3.Location = new System.Drawing.Point(925, 345);
             label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -318,7 +318,7 @@
             // 
             btnQuestionChoose.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnQuestionChoose.BackColor = System.Drawing.Color.Transparent;
-            btnQuestionChoose.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnQuestionChoose.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
             btnQuestionChoose.ForeColor = System.Drawing.Color.DarkBlue;
             btnQuestionChoose.Location = new System.Drawing.Point(972, 83);
             btnQuestionChoose.Margin = new System.Windows.Forms.Padding(6);
@@ -335,7 +335,7 @@
             label4.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             label4.AutoSize = true;
             label4.Enabled = false;
-            label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             label4.ForeColor = System.Drawing.Color.DarkBlue;
             label4.Location = new System.Drawing.Point(924, 515);
             label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -348,7 +348,7 @@
             // txtMacroGradeWeight
             // 
             txtMacroGradeWeight.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            txtMacroGradeWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            txtMacroGradeWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold);
             txtMacroGradeWeight.Location = new System.Drawing.Point(927, 534);
             txtMacroGradeWeight.Margin = new System.Windows.Forms.Padding(4);
             txtMacroGradeWeight.Name = "txtMacroGradeWeight";
@@ -382,7 +382,7 @@
             // 
             lblGradeType.AutoSize = true;
             lblGradeType.Enabled = false;
-            lblGradeType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            lblGradeType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             lblGradeType.ForeColor = System.Drawing.Color.DarkBlue;
             lblGradeType.Location = new System.Drawing.Point(7, 153);
             lblGradeType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -395,7 +395,7 @@
             // 
             lblGradeTypeParent.AutoSize = true;
             lblGradeTypeParent.Enabled = false;
-            lblGradeTypeParent.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            lblGradeTypeParent.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             lblGradeTypeParent.ForeColor = System.Drawing.Color.DarkBlue;
             lblGradeTypeParent.Location = new System.Drawing.Point(471, 153);
             lblGradeTypeParent.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -409,7 +409,7 @@
             lblSchoolSubject.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             lblSchoolSubject.AutoSize = true;
             lblSchoolSubject.Enabled = false;
-            lblSchoolSubject.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            lblSchoolSubject.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             lblSchoolSubject.ForeColor = System.Drawing.Color.DarkBlue;
             lblSchoolSubject.Location = new System.Drawing.Point(910, 6);
             lblSchoolSubject.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -433,7 +433,7 @@
             // 
             btnEraseMicroGrade.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnEraseMicroGrade.BackColor = System.Drawing.Color.Transparent;
-            btnEraseMicroGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnEraseMicroGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
             btnEraseMicroGrade.ForeColor = System.Drawing.Color.DarkBlue;
             btnEraseMicroGrade.Location = new System.Drawing.Point(863, 318);
             btnEraseMicroGrade.Margin = new System.Windows.Forms.Padding(6);
@@ -449,7 +449,7 @@
             // 
             btnFlushQuestion.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnFlushQuestion.BackColor = System.Drawing.Color.Transparent;
-            btnFlushQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnFlushQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
             btnFlushQuestion.ForeColor = System.Drawing.Color.DarkBlue;
             btnFlushQuestion.Location = new System.Drawing.Point(929, 83);
             btnFlushQuestion.Margin = new System.Windows.Forms.Padding(6);
@@ -465,7 +465,7 @@
             // 
             btnSaveMicrogradeFromGrid.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnSaveMicrogradeFromGrid.BackColor = System.Drawing.Color.Transparent;
-            btnSaveMicrogradeFromGrid.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnSaveMicrogradeFromGrid.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             btnSaveMicrogradeFromGrid.ForeColor = System.Drawing.Color.DarkBlue;
             btnSaveMicrogradeFromGrid.Location = new System.Drawing.Point(863, 367);
             btnSaveMicrogradeFromGrid.Margin = new System.Windows.Forms.Padding(6);
@@ -495,7 +495,7 @@
             label1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Enabled = false;
-            label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             label1.ForeColor = System.Drawing.Color.DarkBlue;
             label1.Location = new System.Drawing.Point(833, 6);
             label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -510,7 +510,7 @@
             label2.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Enabled = false;
-            label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             label2.ForeColor = System.Drawing.Color.DarkBlue;
             label2.Location = new System.Drawing.Point(938, 216);
             label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -525,7 +525,7 @@
             label5.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             label5.AutoSize = true;
             label5.Enabled = false;
-            label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             label5.ForeColor = System.Drawing.Color.DarkBlue;
             label5.Location = new System.Drawing.Point(940, 276);
             label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -562,7 +562,7 @@
             lblLessonTime.BackColor = System.Drawing.Color.Transparent;
             lblLessonTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             lblLessonTime.Enabled = false;
-            lblLessonTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            lblLessonTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             lblLessonTime.ForeColor = System.Drawing.Color.DarkBlue;
             lblLessonTime.Location = new System.Drawing.Point(990, 57);
             lblLessonTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -634,7 +634,7 @@
             Controls.Add(trkbWeight);
             Controls.Add(lblGrade);
             Controls.Add(lblWeight);
-            Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4);
             Name = "frmMicroAssessment";

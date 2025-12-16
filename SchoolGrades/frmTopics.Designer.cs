@@ -421,7 +421,6 @@
         private System.Windows.Forms.Button btnSaveTree;
         private System.Windows.Forms.Button btnAddNodeSon;
         private System.Windows.Forms.Label lblDescription;
-        private System.Windows.Forms.TextBox txtDescription;
         private System.Windows.Forms.TextBox txtTopicName;
         private System.Windows.Forms.Button btnChoose;
         private System.Windows.Forms.Label lblEdits;
@@ -441,9 +440,7 @@
         private System.Windows.Forms.TextBox txtTopicDescription;
         private System.Windows.Forms.SplitContainer splcHorizontal;
         private System.Windows.Forms.CheckBox chkSearchInDescriptions;
-        private System.Windows.Forms.CheckBox chkCaseSensitive;
         private System.Windows.Forms.CheckBox chkVerbatimString;
-        private System.Windows.Forms.CheckBox chkCaseInSensitive;
         private System.Windows.Forms.CheckBox chkCaseInsensitive;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.CheckBox chkAllWord;

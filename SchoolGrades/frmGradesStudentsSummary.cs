@@ -22,7 +22,7 @@ namespace SchoolGrades
             GradeType GradeType, SchoolSubject SchoolSubject)
         {
             InitializeComponent();
-            
+
             LocalizeForm();
 
             currentStudent = Student;
@@ -186,7 +186,6 @@ namespace SchoolGrades
                 label6.Text = Loc.Get("GradesStudentsSummary_WeightsSum");
                 label8.Text = Loc.Get("GradesStudentsSummary_WeightedAverage");
                 label9.Text = Loc.Get("GradesStudentsSummary_Annotation");
-                label3.Text = Loc.Get("GradesStudentsSummary_AnnotationId");
                 label4.Text = Loc.Get("GradesStudentsSummary_AnnotationId");
 
                 // GroupBoxes
@@ -209,6 +208,16 @@ namespace SchoolGrades
             {
                 Commons.ErrorLog($"frmGradesStudentsSummary.LocalizeForm: {ex.Message}");
             }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAddAnnotation_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

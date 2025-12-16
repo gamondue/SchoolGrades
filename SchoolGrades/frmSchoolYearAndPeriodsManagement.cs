@@ -80,7 +80,7 @@ namespace SchoolGrades
             currentSchoolPeriod.DateStart = dtpStartPeriod.Value;
             currentSchoolPeriod.DateFinish = dtpEndPeriod.Value;
             currentSchoolPeriod.Name = txtName.Text;
-            currentSchoolPeriod.Desc = txtDescription.Text;
+            currentSchoolPeriod.Desc = txtTopicDescription.Text;
             currentSchoolPeriod.IdSchoolPeriodType = ((SchoolPeriodType)cmbSchoolPeriodTypes.SelectedItem).IdSchoolPeriodType;
         }
         private void WriteToUi()
@@ -93,7 +93,7 @@ namespace SchoolGrades
             if (row.Cells["DateFinish"].Value != null)
                 dtpEndPeriod.Value = (DateTime)row.Cells["DateFinish"].Value;
             txtName.Text = row.Cells["Name"].Value.ToString();
-            txtDescription.Text = row.Cells["Desc"].Value.ToString();
+            txtTopicDescription.Text = row.Cells["Desc"].Value.ToString();
             cmbSchoolPeriodTypes.SelectedValue = row.Cells["IdSchoolPeriodType"].Value.ToString();
         }
         private void btnNewYear_Click(object sender, EventArgs e)
