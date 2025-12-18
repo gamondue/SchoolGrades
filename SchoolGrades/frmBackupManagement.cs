@@ -79,7 +79,7 @@ namespace SchoolGrades
         }
         private void lstClasses_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //classeCorrente = new Classe(nomeFile); 
+            //currentClass = new Class(fileName);
             currentClass = (Class)lstClasses.SelectedItem;
         }
         private void lstClassi_DoubleClick(object sender, EventArgs e)

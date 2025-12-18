@@ -40,9 +40,9 @@ namespace SchoolGrades
             catch (Exception ex)
             {
 #if DEBUG
-                //Get call stack
+                // Get call stack
                 StackTrace stackTrace = new StackTrace();
-                //Log calling method name
+                // Log calling method name
                 Commons.ErrorLog("Connect Method in: " + stackTrace.GetFrame(1).GetMethod().Name);
 #endif
                 Commons.ErrorLog("Error connecting to the database: " + ex.Message + "\r\nFile SQLIte>: " + dbName + " " + "\n");
@@ -66,7 +66,7 @@ namespace SchoolGrades
             using (DbConnection conn = Connect())
             {
                 DbCommand cmd = conn.CreateCommand();
-                // compact the database 
+                // compact the database
                 cmd.CommandText = "VACUUM;";
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
@@ -77,7 +77,7 @@ namespace SchoolGrades
         {
             // !!!! TODO read currentSchool info from the database !!!!
             School news = new School();
-            // the next should be a real integer id, 
+            // the next should be a real integer id,
             news.IdSchool = Commons.IdSchool;
             news.Name = "ITT Pascal - Cesena";
             news.Desc = "Istituto Tecnico Tecnologico Blaise Pascal, Cesena";
@@ -134,47 +134,57 @@ namespace SchoolGrades
                 cmd = conn.CreateCommand();
 
                 // erase all the answers to questions
-                cmd.CommandText = "DELETE FROM Answers;" +
-                "DELETE FROM Students;" +
-                "DELETE FROM SchoolYears;" +
-                "DELETE FROM Schools;" +
-                "DELETE FROM Classes;" +
-                "DELETE FROM QuestionTypes;" +
-                "DELETE FROM Topics;" +
-                "DELETE FROM Subjects;" +
-                "DELETE FROM SchoolSubjects;" +
-                "DELETE FROM Images;" +
-                "DELETE FROM Questions;" +
-                "DELETE FROM Answers;" +
-                "DELETE FROM TestTypes;" +
-                "DELETE FROM Tests;" +
-                "DELETE FROM Classes_Tests;" +
-                "DELETE FROM Tags;" +
-                "DELETE FROM Tests_Tags;" +
-                "DELETE FROM Tests_Questions;" +
-                "DELETE FROM Questions_Tags;" +
-                "DELETE FROM Answers_Questions;" +
-                "DELETE FROM Classes_SchoolSubjects;" +
-                "DELETE FROM GradeCategories;" +
-                "DELETE FROM GradeTypes;" +
-                "DELETE FROM Grades;" +
-                "DELETE FROM Students_GradeTypes;" +
-                "DELETE FROM SchoolPeriodTypes;" +
-                "DELETE FROM SchoolPeriods;" +
-                "DELETE FROM StudentsAnswers;" +
-                "DELETE FROM StudentsQuestions;" +
-                "DELETE FROM StudentsTests;" +
-                "DELETE FROM StudentsPhotos;" +
-                "DELETE FROM StudentsTests_StudentsPhotos;" +
-                "DELETE FROM StudentsPhotos_Students;" +
-                "DELETE FROM Classes_Students;" +
-                "DELETE FROM Lessons;" +
-                "DELETE FROM Lessons_Topics;" +
-                "DELETE FROM Lessons_Images;" +
-                "DELETE FROM Classes_StartLinks;" +
-                "DELETE FROM Flags;" +
-                "DELETE FROM usersCategories;" +
-                "DELETE FROM Users;";
+                cmd.CommandText = @"
+PRAGMA foreign_keys = off;
+BEGIN TRANSACTION;
+
+DELETE FROM Answers;
+DELETE FROM Answers_Questions;
+DELETE FROM Classes;
+DELETE FROM Classes_SchoolSubjects;
+DELETE FROM Classes_StartLinks;
+DELETE FROM Classes_Students;
+DELETE FROM Classes_Tests;
+--DELETE FROM Flags;
+--DELETE FROM GradeCategories;
+DELETE FROM Grades;
+--DELETE FROM GradeTypes;
+DELETE FROM Images;
+DELETE FROM Lessons;
+DELETE FROM Lessons_Images;
+DELETE FROM Lessons_Topics;
+DELETE FROM Questions;
+DELETE FROM Questions_Tags;
+--DELETE FROM QuestionTypes;
+DELETE FROM Reminders;
+DELETE FROM ReminderTypes;
+DELETE FROM SchoolPeriods;
+--DELETE FROM SchoolPeriodTypes;
+DELETE FROM Schools;
+--DELETE FROM SchoolSubjects;
+DELETE FROM SchoolYears;
+DELETE FROM Students;
+DELETE FROM Students_GradeTypes;
+DELETE FROM StudentsAnnotations;
+DELETE FROM StudentsAnswers;
+DELETE FROM StudentsPhotos;
+DELETE FROM StudentsPhotos_Students;
+DELETE FROM StudentsQuestions;
+DELETE FROM StudentsTests;
+DELETE FROM StudentsTests_StudentsPhotos;
+DELETE FROM Subjects;
+DELETE FROM Tags;
+DELETE FROM Tests;
+DELETE FROM Tests_Questions;
+DELETE FROM Tests_Tags;
+--DELETE FROM TestTypes;
+DELETE FROM Topics; -- this could be commented we we wanted to leave the topics
+DELETE FROM Users;
+--DELETE FROM UsersCategories;
+
+COMMIT TRANSACTION;
+PRAGMA foreign_keys = on;
+";
                 cmd.ExecuteNonQuery();
                 // compact the database 
                 cmd.CommandText = "VACUUM;";
@@ -338,7 +348,7 @@ namespace SchoolGrades
                     string fieldType = "";
                     while (dati[index] != '\r')
                     {
-                        while (dati[index] != '\"')
+                        while (dati[index] != '"')
                         {
                             fieldType += dati[index++];
                         }
@@ -352,7 +362,7 @@ namespace SchoolGrades
                     string fieldValue = "";
                     while (dati[index] != '\r')
                     {
-                        while (dati[index] != '\"')
+                        while (dati[index] != '"')
                         {
                             fieldType += dati[index++];
                         }
@@ -395,7 +405,7 @@ namespace SchoolGrades
                 //    cmd.CommandText = "INSERT INTO " + TableName +
                 //                fieldsString +
                 //                valuesString;
-                //    //" WHERE " + fieldsNames[0] + "=";
+                //    " WHERE " + fieldsNames[0] + "=";
                 //    //if (fieldTypes[0].IndexOf("VARCHAR") >= 0)
                 //    //    cmd.CommandText += "'" + StringSql(dati[row, 0]) + "'";
                 //    //else
@@ -476,7 +486,7 @@ namespace SchoolGrades
         }
         internal override bool FieldExists(string TableName, string FieldName)
         {
-            // watch if field FieldName exist in the table TableName, by directly querying SQLite's system tables 
+            // check if field FieldName exists in the table TableName by querying SQLite's system tables directly
             using (DbConnection conn = Connect())
             {
                 using (var cmd = conn.CreateCommand())

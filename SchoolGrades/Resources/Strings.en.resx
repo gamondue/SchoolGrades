@@ -1011,19 +1011,19 @@ Select a correct grade type</value>
     <value>Ask for photos</value>
   </data>
   <data name="ClassMgmt_CreateClass" xml:space="preserve">
-    <value>Create new class</value>
+    <value>Create class</value>
   </data>
   <data name="ClassMgmt_ImportOneClass" xml:space="preserve">
-    <value>Import one class</value>
+    <value>Import class</value>
   </data>
   <data name="ClassMgmt_ImportManyClasses" xml:space="preserve">
-    <value>Import multiple classes</value>
+    <value>Import classes</value>
   </data>
   <data name="ClassMgmt_DeleteClass" xml:space="preserve">
     <value>Delete Class</value>
   </data>
   <data name="ClassMgmt_ManageYears" xml:space="preserve">
-    <value>Manage school years</value>
+    <value>Manage years</value>
   </data>
   <data name="ClassMgmt_NewStudent" xml:space="preserve">
     <value>New student</value>
@@ -1035,13 +1035,13 @@ Select a correct grade type</value>
     <value>Modify student</value>
   </data>
   <data name="ClassMgmt_ToggleStudent" xml:space="preserve">
-    <value>Toggle student status</value>
+    <value>Toggle status</value>
   </data>
   <data name="ClassMgmt_ChangePhoto" xml:space="preserve">
-    <value>Change student photo</value>
+    <value>Change photo</value>
   </data>
   <data name="ClassMgmt_DeletePhoto" xml:space="preserve">
-    <value>Delete student photo</value>
+    <value>Delete photo</value>
   </data>
   <data name="ClassMgmt_FindOldPhotos" xml:space="preserve">
     <value>Find old photos</value>
@@ -1059,7 +1059,7 @@ Select a correct grade type</value>
     <value>Save class data</value>
   </data>
   <data name="ClassMgmt_SaveAll" xml:space="preserve">
-    <value>Save class and students</value>
+    <value>Save class &amp; students</value>
   </data>
   <data name="ClassMgmt_StudentsList" xml:space="preserve">
     <value>list</value>

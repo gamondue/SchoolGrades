@@ -48,7 +48,7 @@ namespace SchoolGrades
 
         float spanHue;          // Hue span to cover from start time to end
         float spanSaturation;   // Saturation to cover from start time to end
-        float spanLuminance;    // differenza to cover from start time to end
+        float spanLuminance;    // difference to cover from start time to end
         #endregion
 
         #region fields of the lesson timer
@@ -57,7 +57,7 @@ namespace SchoolGrades
         private float timeLessonMinutes;
         private float timeLeftMinutes;
         private float timeAlarmMinutes;
-        private float ticksToMinutesFactor; // multiplicator from tens of microseconds to minutes
+        private float ticksToMinutesFactor; // multiplier from tens of microseconds to minutes
         private int minuteStart;
         private bool alarmNotFired = true;
         #endregion
@@ -70,11 +70,11 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
-            // Configura il ToolTip per evitare che sparisca (!!!! PROVA)
-            toolTip1.AutoPopDelay = 10000;  // Resta visibile 10 secondi
-            toolTip1.InitialDelay = 500;    // Appare dopo 500ms
-            toolTip1.ReshowDelay = 100;     // Riappare velocemente
-            toolTip1.ShowAlways = true;     // Mostra sempre
+            // Configure the ToolTip to avoid it disappearing (TEST)
+            toolTip1.AutoPopDelay = 10000;  // Visible for 10 seconds
+            toolTip1.InitialDelay = 500;    // Appears after 500ms
+            toolTip1.ReshowDelay = 100;     // Reappears quickly
+            toolTip1.ShowAlways = true;     // Always show
 
             this.Text += " v. " + version;
 
@@ -100,7 +100,7 @@ namespace SchoolGrades
             bool fileRead = Commons.ReadConfigData();
             if (!fileRead)
             {
-                // config file is unexistent or unreadable
+                // config file is missing or unreadable
                 StartNewConfigurationForm();
                 CloseProgramWhileTestingIfConfigurationFileIsRight();
             }
@@ -112,10 +112,10 @@ namespace SchoolGrades
                 if (configuredPathAndFile != null)
                 {
                     // in Commons.PathAndFileDatabase we have a name for the database file 
-                    // checks if the file exists
+                    // check if the file exists
                     if (!File.Exists(configuredPathAndFile))
                     {
-                        // the file in config file doesn't exist in the filesystem 
+                        // the file configured in the config file doesn't exist on disk
                         messagePrompt = "Il file di database configurato:\n" + Commons.PathAndFileDatabase + "\nnon è accessibile!\n" +
                             "Sceglierne uno nella prossima finestra.";
                         MessageBox.Show(messagePrompt);
@@ -125,17 +125,17 @@ namespace SchoolGrades
                     }
                     else
                     {
-                        // the configured file exists, if it is a file for a single class,
-                        // check if a more recent file exists and ask the user if she wants to
-                        // pass to the new file 
+                        // the configured file exists, if it is a per-class file,
+                        // check if a more recent file exists and ask the user if they want to
+                        // switch to the new file
                         DateTime fileDateInName = Commons.GetValidDateFromString(configuredFileName.Substring(0, 19));
                         if (fileDateInName != DateTime.MinValue)
                         {
-                            // we found the class database with fileDate in the beginning of the name
-                            // lets look if in the database folder a newer file exists
+                            // we found a class database with a date prefix in its filename
+                            // look for a newer file in the database folder
                             string newestFileName = GetNewDatabaseFilename(Path.GetDirectoryName(configuredPathAndFile));
                             // if the newest file is different from the current 
-                            // propose to get it as the database 
+                            // propose to use it as the database 
                             if (Path.GetFileName(newestFileName) != configuredFileName && newestFileName != "")
                             {
                                 messagePrompt = "Trovato un file di database più nuovo " +
@@ -157,10 +157,10 @@ namespace SchoolGrades
             }
 #endif
             CreateBusinessLayer();
-            // TODO remove the next conditioned compilation when the SQL server program is functioning
+            // TODO remove the next conditional compilation when the SQL server data layer works
 #if !SQL_SERVER
             Commons.bl.GetSchoolYearsThatHaveClasses();
-            // da togliere dopo che il DataLayer SQL server funziona
+            // remove after SQL Server DataLayer works
             List<SchoolYear> ly = Commons.bl.GetSchoolYearsThatHaveClasses();
             cmbSchoolYear.DataSource = ly;
             if (ly.Count > 0)
@@ -230,7 +230,7 @@ namespace SchoolGrades
             //#endif
 
             CreateBusinessLayer();
-            // da togliere dopo che il DataLayer di SQL server funziona
+            // remove after SQL Server DataLayer works
 #if !SQL_SERVER
             currentSchool = Commons.bl.GetSchool(Commons.IdSchool);
             if (currentSchool == null)

@@ -227,21 +227,19 @@ namespace SchoolGrades
         }
         internal static void SwitchPicLed(bool IsLedLit)
         {
-            // Il codice sottostante è stato disabilitato per diagnosticare il crash
-
             try
             {
-                // Verifica che globalPicLed sia valido
+                // Verify that globalPicLed is valid
                 if (globalPicLed == null || globalPicLed.IsDisposed)
                 {
                     Commons.ErrorLog("[SwitchPicLed] globalPicLed is null or disposed");
                     return;
                 }
 
-                // Verifica che il thread chiamante non sia già il thread UI
+                // If the calling thread is not the UI thread, marshal the update to the UI thread
                 if (globalPicLed.InvokeRequired)
                 {
-                    // Chiamato da thread secondario - usa BeginInvoke per evitare deadlock
+                    // Called from a background thread - use BeginInvoke to avoid deadlocks
                     globalPicLed.BeginInvoke(new Action(() =>
                     {
                         try
@@ -262,14 +260,14 @@ namespace SchoolGrades
                 }
                 else
                 {
-                    // Già nel thread UI - modifica direttamente
+                    // Already on UI thread - update directly
                     if (IsLedLit)
                         globalPicLed.BackColor = Color.Red;
                     else
                         globalPicLed.BackColor = Color.DarkGray;
                 }
 
-                // NON usare Application.DoEvents() - è pericoloso!
+                // DO NOT use Application.DoEvents() - it is dangerous
             }
             catch (Exception ex)
             {

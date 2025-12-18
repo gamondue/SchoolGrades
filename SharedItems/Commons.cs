@@ -87,7 +87,7 @@ namespace SchoolGrades
                 SHA1CryptoServiceProvider cryptoTransformSHA1 = new SHA1CryptoServiceProvider();
                 string hash = BitConverter.ToString(cryptoTransformSHA1.ComputeHash(buff)).Replace("-", "");
                 buff = null;
-                GC.Collect(); // lancia il garbage collector, per liberare subito la memoria usata
+                GC.Collect(); // trigger the garbage collector to free memory immediately
                 return hash;
             }
             catch (Exception ex)
@@ -312,7 +312,7 @@ namespace SchoolGrades
             {
                 try
                 {
-                    // append dell'errore nel file di logging
+                    // append the error to the log file
                     using (StreamWriter sw = File.AppendText(PathAndFileLogText))
                     {
                         sw.WriteLine(DateTime.Now + " " + Error);

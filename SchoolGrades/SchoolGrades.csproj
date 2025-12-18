@@ -10,7 +10,7 @@
     <PackageLicenseExpression>GPLv2</PackageLicenseExpression>
     <Description>SchoolGrades manages the daily life of a teacher in the classroom, with emphasis to evaluations and tracking of topics done.</Description>
     <RepositoryType>git source code repository</RepositoryType>
-  <RepositoryUrl>https://github.com/gamondue/SchoolGrades</RepositoryUrl>
+    <RepositoryUrl>https://github.com/gamondue/SchoolGrades</RepositoryUrl>
     <PackageReleaseNotes>SchoolGrades. .Net 6 version. Version number of .Net Core code or subsequents starts from 0.50. 
 Published on GitHub with GPL v.2 licence. 
 Versions with numbers under 0.50 were made with .Net Framework.</PackageReleaseNotes>
@@ -24,24 +24,12 @@ Versions with numbers under 0.50 were made with .Net Framework.</PackageReleaseN
   </PropertyGroup>
 
   <ItemGroup>
-    <COMReference Include="SpeechLib">
-      <WrapperTool>tlbimp</WrapperTool>
-      <VersionMinor>4</VersionMinor>
-      <VersionMajor>5</VersionMajor>
-      <Guid>c866ca3a-32f7-11d2-9602-00c04f8ee628</Guid>
-      <Lcid>0</Lcid>
-      <Isolated>false</Isolated>
-      <EmbedInteropTypes>true</EmbedInteropTypes>
-    </COMReference>
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="gamon LegoLogo decentrato trasparente 256x256.ico" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.2" />
-    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.3" />
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="10.0.1" />
     <PackageReference Include="NUnit" Version="4.4.0" />
     <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.2" />
     <PackageReference Include="SQLitePCLRaw.core" Version="3.0.2" />
@@ -101,5 +89,4 @@ Versions with numbers under 0.50 were made with .Net Framework.</PackageReleaseN
   <Import Project="..\TreeMpttManagement\MpttTreeManagement.projitems" Label="Shared" />
 
   <Import Project="..\TreeMpttWinForms\TreeMpttWinForms.projitems" Label="Shared" />
-
 </Project>

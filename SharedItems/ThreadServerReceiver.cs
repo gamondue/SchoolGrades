@@ -8,16 +8,16 @@ namespace gamon
         // Volatile is used as hint to the compiler that this data
         // member will be accessed by multiple threads.
 
-        // comunicazione con il programma principale attraverso la variabile comando
+        // communication with the main program through the command variable
         public volatile string command;
         public volatile bool newCommand;
 
-        // proprietà di sola lettura 
+        // read-only properties
         public string Ip { get; }
         public int TcpPort { get; }
         public string Password { get; }
 
-        // costruttore con parametri obbligatori 
+        // constructor with mandatory parameters
         public ThreadServerReceiver(string IpOrDns, int TcpPort, string Password)
         {
             this.Ip = IpOrDns;
@@ -27,7 +27,7 @@ namespace gamon
         // This method will be called when the thread is started.
         public void StartColorTimerThread()
         {
-            // istanzia ed esegue un thread per la ricezione
+            // instantiate and run a thread for reception
             Console.WriteLine("Attesa del collegamento del client");
             ServerTcp.Listen(Ip, TcpPort, Password);
 
@@ -38,7 +38,7 @@ namespace gamon
                 if (!ServerTcp.isError) RequestStop();
                 newCommand = true;
             }
-            Console.WriteLine("Terminazione corretta del ricevitore.");
+            Console.WriteLine("Receiver stopped correctly.");
         }
         public void RequestStop()
         {

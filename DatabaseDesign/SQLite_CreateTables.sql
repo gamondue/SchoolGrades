@@ -1,12 +1,13 @@
 --
--- File generato con SQLiteStudio v3.4.4 su dom dic 8 18:07:14 2024
+-- File generated with SQLiteStudio v3.4.17 on gio dic 18 15:15:07 2025
 --
--- Codifica del testo utilizzata: System
+-- Text encoding used: System
 --
 PRAGMA foreign_keys = off;
 BEGIN TRANSACTION;
 
--- Tabella: Answers
+-- Table: Answers
+DROP TABLE IF EXISTS Answers;
 CREATE TABLE "Answers" (
 	"idAnswer"	INT NOT NULL,
 	"idQuestion"	INT NOT NULL,
@@ -19,13 +20,15 @@ CREATE TABLE "Answers" (
 	PRIMARY KEY("idAnswer")
 );
 
--- Tabella: Answers_Questions
+-- Table: Answers_Questions
+DROP TABLE IF EXISTS Answers_Questions;
 CREATE TABLE `Answers_Questions` (
   `idAnswer` INT NOT NULL,
   `idQuestion` INT NOT NULL,
   PRIMARY KEY (`idAnswer`, `idQuestion`));
 
--- Tabella: Classes
+-- Table: Classes
+DROP TABLE IF EXISTS Classes;
 CREATE TABLE "Classes" (
 	`idClass`	INT NOT NULL,
 	`idSchoolYear`	VARCHAR ( 4 ) NOT NULL,
@@ -37,13 +40,15 @@ CREATE TABLE "Classes" (
 	PRIMARY KEY(`idClass`)
 );
 
--- Tabella: Classes_SchoolSubjects
+-- Table: Classes_SchoolSubjects
+DROP TABLE IF EXISTS Classes_SchoolSubjects;
 CREATE TABLE `Classes_SchoolSubjects` (
   `idClass` VARCHAR(8) NOT NULL,
   `idSchoolSubject` VARCHAR(6) NOT NULL,
   PRIMARY KEY (`idClass`, `idSchoolSubject`));
 
--- Tabella: Classes_StartLinks
+-- Table: Classes_StartLinks
+DROP TABLE IF EXISTS Classes_StartLinks;
 CREATE TABLE `Classes_StartLinks` (
 	`idStartLink`	INT NOT NULL,
 	`idClass`	INT NOT NULL,
@@ -52,10 +57,12 @@ CREATE TABLE `Classes_StartLinks` (
 	PRIMARY KEY(`idStartLink`)
 );
 
--- Tabella: Classes_Students
+-- Table: Classes_Students
+DROP TABLE IF EXISTS Classes_Students;
 CREATE TABLE Classes_Students (idClass INT NOT NULL, idStudent INT NOT NULL, registerNumber INT, disabled INT, PRIMARY KEY (idClass, idStudent));
 
--- Tabella: Classes_Tests
+-- Table: Classes_Tests
+DROP TABLE IF EXISTS Classes_Tests;
 CREATE TABLE "Classes_Tests" (
 	"idClass"	INT NOT NULL,
 	"idTest"	INT NOT NULL,
@@ -65,19 +72,22 @@ CREATE TABLE "Classes_Tests" (
 	PRIMARY KEY("idClass","idTest")
 );
 
--- Tabella: Flags
+-- Table: Flags
+DROP TABLE IF EXISTS Flags;
 CREATE TABLE "Flags" (
 	"areLeftRightConsistent"	INT
 );
 
--- Tabella: GradeCategories
+-- Table: GradeCategories
+DROP TABLE IF EXISTS GradeCategories;
 CREATE TABLE `GradeCategories` (
   `idGradeCategory` VARCHAR(5) NOT NULL,
   `name` VARCHAR(20) NOT NULL,
   `desc` VARCHAR(255) NULL,
   PRIMARY KEY (`idGradeCategory`));
 
--- Tabella: Grades
+-- Table: Grades
+DROP TABLE IF EXISTS Grades;
 CREATE TABLE "Grades" (
 	"idGrade"	INT NOT NULL,
 	"idStudent"	INT NOT NULL,
@@ -94,7 +104,8 @@ CREATE TABLE "Grades" (
 	PRIMARY KEY("idGrade")
 );
 
--- Tabella: GradeTypes
+-- Table: GradeTypes
+DROP TABLE IF EXISTS GradeTypes;
 CREATE TABLE `GradeTypes` (
   `idGradeType` VARCHAR(5) NOT NULL,
   `idGradeCategory` VARCHAR(5) NULL,
@@ -105,7 +116,8 @@ CREATE TABLE `GradeTypes` (
   `idGradeTypeParent` VARCHAR(5) NULL,
   PRIMARY KEY (`idGradeType`));
 
--- Tabella: Images
+-- Table: Images
+DROP TABLE IF EXISTS Images;
 CREATE TABLE "Images" (
 	`IdImage`	INT NOT NULL,
 	`imagePath`	VARCHAR ( 255 ),
@@ -113,7 +125,8 @@ CREATE TABLE "Images" (
 	PRIMARY KEY(`IdImage`)
 );
 
--- Tabella: Lessons
+-- Table: Lessons
+DROP TABLE IF EXISTS Lessons;
 CREATE TABLE "Lessons" (
 	"idLesson"	INT NOT NULL,
 	"date"	DATETIME,
@@ -124,13 +137,15 @@ CREATE TABLE "Lessons" (
 	PRIMARY KEY("idLesson")
 );
 
--- Tabella: Lessons_Images
+-- Table: Lessons_Images
+DROP TABLE IF EXISTS Lessons_Images;
 CREATE TABLE `Lessons_Images` (
 	`idLesson`	INT,
 	`idImage`	INT
 );
 
--- Tabella: Lessons_Topics
+-- Table: Lessons_Topics
+DROP TABLE IF EXISTS Lessons_Topics;
 CREATE TABLE "Lessons_Topics" (
 	"idLesson"	INT NOT NULL,
 	"idTopic"	INT NOT NULL,
@@ -138,7 +153,8 @@ CREATE TABLE "Lessons_Topics" (
 	PRIMARY KEY("idLesson","idTopic")
 );
 
--- Tabella: Questions
+-- Table: Questions
+DROP TABLE IF EXISTS Questions;
 CREATE TABLE "Questions" (
 	`idQuestion`	INT NOT NULL,
 	`text`	VARCHAR ( 255 ),
@@ -156,20 +172,23 @@ CREATE TABLE "Questions" (
 	PRIMARY KEY(`idQuestion`)
 );
 
--- Tabella: Questions_Tags
+-- Table: Questions_Tags
+DROP TABLE IF EXISTS Questions_Tags;
 CREATE TABLE `Questions_Tags` (
   `idQuestion` INT NOT NULL,
   `idTag` INT NOT NULL,
   PRIMARY KEY (`idQuestion`, `idTag`));
 
--- Tabella: QuestionTypes
+-- Table: QuestionTypes
+DROP TABLE IF EXISTS QuestionTypes;
 CREATE TABLE `QuestionTypes` (
   `idQuestionType` VARCHAR(5) NOT NULL,
   `name` VARCHAR(20) NOT NULL,
   `desc` VARCHAR(255) NULL,
   PRIMARY KEY (`idQuestionType`));
 
--- Tabella: Reminders
+-- Table: Reminders
+DROP TABLE IF EXISTS Reminders;
 CREATE TABLE `Reminders` (
   `idReminder` INT NOT NULL,
   `idReminderType` VARCHAR(5) NOT NULL,
@@ -178,7 +197,8 @@ CREATE TABLE `Reminders` (
   PRIMARY KEY (`idReminder`)
   );
 
--- Tabella: ReminderTypes
+-- Table: ReminderTypes
+DROP TABLE IF EXISTS ReminderTypes;
 CREATE TABLE `ReminderTypes` (
   `idReminderType` VARCHAR(5) NOT NULL, 
   `name` VARCHAR(20) NOT NULL,
@@ -186,7 +206,8 @@ CREATE TABLE `ReminderTypes` (
   PRIMARY KEY (`idReminderType`)
 );
 
--- Tabella: SchoolPeriods
+-- Table: SchoolPeriods
+DROP TABLE IF EXISTS SchoolPeriods;
 CREATE TABLE "SchoolPeriods" (
 	`idSchoolPeriod`	VARCHAR ( 8 ) NOT NULL,
 	`idSchoolPeriodType`	VARCHAR ( 3 ),
@@ -198,14 +219,16 @@ CREATE TABLE "SchoolPeriods" (
 	PRIMARY KEY(`idSchoolPeriod`)
 );
 
--- Tabella: SchoolPeriodTypes
+-- Table: SchoolPeriodTypes
+DROP TABLE IF EXISTS SchoolPeriodTypes;
 CREATE TABLE "SchoolPeriodTypes" (
 	`idSchoolPeriodType`	VARCHAR ( 3 ),
 	`desc`	varchar(45),
 	PRIMARY KEY(`idSchoolPeriodType`)
 );
 
--- Tabella: Schools
+-- Table: Schools
+DROP TABLE IF EXISTS Schools;
 CREATE TABLE `Schools` (
   `idSchool` VARCHAR(15) NOT NULL,
   `name` VARCHAR(80) NULL,
@@ -213,7 +236,8 @@ CREATE TABLE `Schools` (
   `officialSchoolAbbreviation` VARCHAR(10) NULL,
   PRIMARY KEY (`idSchool`));
 
--- Tabella: SchoolSubjects
+-- Table: SchoolSubjects
+DROP TABLE IF EXISTS SchoolSubjects;
 CREATE TABLE "SchoolSubjects" (
 	"idSchoolSubject"	VARCHAR(6) NOT NULL,
 	"name"	VARCHAR(20) NOT NULL,
@@ -223,23 +247,27 @@ CREATE TABLE "SchoolSubjects" (
 	PRIMARY KEY("idSchoolSubject")
 );
 
--- Tabella: SchoolYears
+-- Table: SchoolYears
+DROP TABLE IF EXISTS SchoolYears;
 CREATE TABLE `SchoolYears` (
   `idSchoolYear` VARCHAR(4) NOT NULL,
   `shortDesc` VARCHAR(10) NULL,
   `notes` VARCHAR(255) NULL,
   PRIMARY KEY (`idSchoolYear`));
 
--- Tabella: Students
+-- Table: Students
+DROP TABLE IF EXISTS Students;
 CREATE TABLE Students (idStudent INT NOT NULL, lastName VARCHAR (45), firstName VARCHAR (45), city VARCHAR (45), origin VARCHAR (45), email VARCHAR (45), birthDate DATE, birthPlace VARCHAR (45), telephone VARCHAR (64), mobileTelephone VARCHAR (64), gender TEXT, streetAddress VARCHAR (256), zipCode VARCHAR (15), county VARCHAR (10), state VARCHAR (10), hasSpecialNeeds INTEGER, eligible int, revengeFactorCounter INTEGER, lastPhotoPath TEXT, PRIMARY KEY (idStudent));
 
--- Tabella: Students_GradeTypes
+-- Table: Students_GradeTypes
+DROP TABLE IF EXISTS Students_GradeTypes;
 CREATE TABLE `Students_GradeTypes` (
   `idStudent` INT NOT NULL,
   `idGradeType` INT NOT NULL,
   PRIMARY KEY (`idStudent`, `idGradeType`));
 
--- Tabella: StudentsAnnotations
+-- Table: StudentsAnnotations
+DROP TABLE IF EXISTS StudentsAnnotations;
 CREATE TABLE "StudentsAnnotations" (
 	"idAnnotation"	INT NOT NULL,
 	"idStudent"	INTEGER,
@@ -252,7 +280,8 @@ CREATE TABLE "StudentsAnnotations" (
 	PRIMARY KEY("idAnnotation")
 );
 
--- Tabella: StudentsAnswers
+-- Table: StudentsAnswers
+DROP TABLE IF EXISTS StudentsAnswers;
 CREATE TABLE "StudentsAnswers" (
 	"idStudentsAnswer"	INT NOT NULL,
 	"idStudent"	INT,
@@ -263,20 +292,23 @@ CREATE TABLE "StudentsAnswers" (
 	PRIMARY KEY("idStudentsAnswer")
 );
 
--- Tabella: StudentsPhotos
+-- Table: StudentsPhotos
+DROP TABLE IF EXISTS StudentsPhotos;
 CREATE TABLE `StudentsPhotos` (
   `idStudentsPhoto` INT NOT NULL,
   `photoPath` VARCHAR(255) NULL,
   PRIMARY KEY (`idStudentsPhoto`));
 
--- Tabella: StudentsPhotos_Students
+-- Table: StudentsPhotos_Students
+DROP TABLE IF EXISTS StudentsPhotos_Students;
 CREATE TABLE `StudentsPhotos_Students` (
   `idStudentsPhoto` INT NOT NULL,
   `idStudent` INT NOT NULL,
   `idSchoolYear` VARCHAR(4) NOT NULL,
   PRIMARY KEY (`idStudentsPhoto`, `idStudent`, `idSchoolYear`));
 
--- Tabella: StudentsQuestions
+-- Table: StudentsQuestions
+DROP TABLE IF EXISTS StudentsQuestions;
 CREATE TABLE `StudentsQuestions` (
   `idStudentsQuestion` INT NOT NULL,
   `idStudent` INT NOT NULL,
@@ -285,7 +317,8 @@ CREATE TABLE `StudentsQuestions` (
   `timestamp` DATETIME NULL,
   PRIMARY KEY (`idStudentsQuestion`));
 
--- Tabella: StudentsTests
+-- Table: StudentsTests
+DROP TABLE IF EXISTS StudentsTests;
 CREATE TABLE `StudentsTests` (
   `idStudentsTest` INT NOT NULL,
   `idStudent` INT NOT NULL,
@@ -293,13 +326,15 @@ CREATE TABLE `StudentsTests` (
   `grade` FLOAT NULL,
   PRIMARY KEY (`idStudentsTest`));
 
--- Tabella: StudentsTests_StudentsPhotos
+-- Table: StudentsTests_StudentsPhotos
+DROP TABLE IF EXISTS StudentsTests_StudentsPhotos;
 CREATE TABLE `StudentsTests_StudentsPhotos` (
   `idStudentsTest` INT NOT NULL,
   `idStudentsPhoto` INT NOT NULL,
   PRIMARY KEY (`idStudentsTest`, `idStudentsPhoto`));
 
--- Tabella: Subjects
+-- Table: Subjects
+DROP TABLE IF EXISTS Subjects;
 CREATE TABLE "Subjects" (
 	"idSubject"	INT NOT NULL,
 	"name"	VARCHAR(20) NOT NULL,
@@ -309,14 +344,16 @@ CREATE TABLE "Subjects" (
 	PRIMARY KEY("idSubject")
 );
 
--- Tabella: Tags
+-- Table: Tags
+DROP TABLE IF EXISTS Tags;
 CREATE TABLE `Tags` (
   `idTag` INT NOT NULL,
   `tag` VARCHAR(20) NOT NULL,
   `desc` VARCHAR(255) NULL,
   PRIMARY KEY (`idTag`));
 
--- Tabella: Tests
+-- Table: Tests
+DROP TABLE IF EXISTS Tests;
 CREATE TABLE "Tests" (
 	"idTest"	INT NOT NULL,
 	"name"	VARCHAR(20),
@@ -328,7 +365,8 @@ CREATE TABLE "Tests" (
 	PRIMARY KEY("idTest")
 );
 
--- Tabella: Tests_Questions
+-- Table: Tests_Questions
+DROP TABLE IF EXISTS Tests_Questions;
 CREATE TABLE "Tests_Questions" (
 	"idTest"	INT NOT NULL,
 	"idQuestion"	INT NOT NULL,
@@ -336,20 +374,23 @@ CREATE TABLE "Tests_Questions" (
 	PRIMARY KEY("idTest","idQuestion")
 );
 
--- Tabella: Tests_Tags
+-- Table: Tests_Tags
+DROP TABLE IF EXISTS Tests_Tags;
 CREATE TABLE `Tests_Tags` (
   `idTest` INT NOT NULL,
   `idTag` INT NOT NULL,
   PRIMARY KEY (`idTest`, `idTag`));
 
--- Tabella: TestTypes
+-- Table: TestTypes
+DROP TABLE IF EXISTS TestTypes;
 CREATE TABLE `TestTypes` (
   `idTestType` VARCHAR(6) NOT NULL,
   `name` VARCHAR(20) NOT NULL,
   `desc` VARCHAR(255) NULL,
   PRIMARY KEY (`idTestType`));
 
--- Tabella: Topics
+-- Table: Topics
+DROP TABLE IF EXISTS Topics;
 CREATE TABLE "Topics" (
 	"idTopic"	INT NOT NULL,
 	"name"	VARCHAR(20) NOT NULL,
@@ -361,7 +402,8 @@ CREATE TABLE "Topics" (
 	PRIMARY KEY("idTopic")
 );
 
--- Tabella: Users
+-- Table: Users
+DROP TABLE IF EXISTS Users;
 CREATE TABLE "Users" (
 	"username"	VARCHAR(16) NOT NULL,
 	"description"	VARCHAR(64),
@@ -378,7 +420,8 @@ CREATE TABLE "Users" (
 	PRIMARY KEY("username")
 );
 
--- Tabella: UsersCategories
+-- Table: UsersCategories
+DROP TABLE IF EXISTS UsersCategories;
 CREATE TABLE "UsersCategories" (
 	"idUserCategory"	INT NOT NULL,
 	"name"	VARCHAR(20) NOT NULL,

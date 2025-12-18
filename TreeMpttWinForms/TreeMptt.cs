@@ -112,21 +112,21 @@ namespace gamon.TreeMptt
             }
             set
             {
-                // Evita di registrare gli eventi più volte
+                // Avoid registering events multiple times
                 if (value && !functionKeysEnabled)
                 {
-                    // NOTA: BeforeLabelEdit e AfterLabelEdit NON vengono più registrati
-                    // perché LabelEdit è permanentemente disabilitato (vedi costruttore).
-                    // L'editing avviene solo tramite txtNodeName TextBox esterna.
+                    // NOTE: BeforeLabelEdit and AfterLabelEdit are NO LONGER registered
+                    // because LabelEdit is permanently disabled (see constructor).
+                    // Editing is handled only via the external txtNodeName TextBox.
                     
                     shownTreeView.AfterCheck += ShownTreeView_AfterCheck;
                     shownTreeView.AfterSelect += shownTreeView_AfterSelect;
                     shownTreeView.Click += ShownTreeView_Click;
                     shownTreeView.KeyDown += ShownTreeView_KeyDown;
                     txtNodeName.Leave += TxtNodeName_Leave;
-                    // NOTA: txtNodeName.TextChanged NON viene registrato
-                    // La modifica del nome è gestita tramite Leave event per evitare
-                    // ricorsioni che possono causare ExecutionEngineException in .NET 10
+                    // NOTE: txtNodeName.TextChanged is NOT registered
+                    // Name changes are handled on Leave event to avoid
+                    // recursion that could cause ExecutionEngineException in .NET 10
                     txtNodeDescription.Leave += TxtNodeDescription_Leave;
                     if (chkSearchInDescriptions != null)
                         chkSearchInDescriptions.CheckedChanged += SearchCheckBoxes_CheckedChanged;
@@ -996,10 +996,10 @@ namespace gamon.TreeMptt
                 if (te == null)
                 {
                     MessageBox.Show(
-                        GetLocalizedOrFallback("Tree_SelectNodeToDelete", 
+                        GetLocalizedOrFallback("Tree_SelectNodeToDelete",
                             "Selezionare un nodo da eliminare", 
                             "Select a node to delete."),
-                        GetLocalizedOrFallback("Tree_ConfirmDeleteTitle", 
+                        GetLocalizedOrFallback("Tree_ConfirmDeleteTitle",
                             "Attenzione!", 
                             "Warning!"),
                         MessageBoxButtons.OK,
