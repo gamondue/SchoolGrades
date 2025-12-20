@@ -38,9 +38,10 @@ namespace SchoolGrades
         {
             dl.AddLinkToPreviousYearPhoto(IdStudent, IdPreviousSchoolYear, IdNextSchoolYear);
         }
-        internal List<Image> GetAllImagesShownToAClassDuringLessons(Class currentClass, SchoolSubject currentSubject, DateTime dateTime, DateTime now)
+        internal List<Image> GetAllImagesShownToAClassDuringLessons(Class currentClass, SchoolSubject currentSubject, 
+            DateTime? begin = null, DateTime? end = null)
         {
-            return dl.GetAllImagesShownToAClassDuringLessons(currentClass, currentSubject, dateTime, now);
+            return dl.GetAllImagesShownToAClassDuringLessons(currentClass, currentSubject, begin, end);
         }
         internal List<string> GetCaptionsOfThisImage(string Text)
         {

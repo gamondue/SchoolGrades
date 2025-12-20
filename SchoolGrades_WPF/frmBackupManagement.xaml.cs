@@ -184,7 +184,7 @@ namespace SchoolGrades_WPF
         {
             File.Copy(Commons.PathAndFileDatabase,
                 Commons.PathDatabase + "\\" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") +
-                "_" + Commons.DatabaseFileName_Current);
+                "_" + Commons.DatabaseFileName);
         }
 
         private void btnRestoreTags_Click(object sender, RoutedEventArgs e)

@@ -624,71 +624,70 @@ Il programma verrà riavviato per applicare le modifiche.</value>
     <value>Partenza di un cronometro a barra</value>
   </data>
   <data name="Main_NoStudentPresent" xml:space="preserve">
-    <value>Nessun allievo presente?</value>
+    <value>Nessuno presente</value>
   </data>
   <data name="Main_DrawDone" xml:space="preserve">
-    <value>Sorteggio od ordinamento fatto!</value>
+    <value>Estrazione completata</value>
   </data>
   <data name="Main_SelectClass" xml:space="preserve">
     <value>Selezionare una classe</value>
   </data>
   <data name="Main_SelectGradeType" xml:space="preserve">
-    <value>Selezionare un tipo di valutazione</value>
+    <value>Selezionare il tipo di valutazione</value>
   </data>
   <data name="Main_SelectStudent" xml:space="preserve">
-    <value>Selezionare un allievo da valutare</value>
+    <value>Selezionare uno studente</value>
   </data>
   <data name="Main_SelectSubject" xml:space="preserve">
     <value>Selezionare una materia</value>
   </data>
   <data name="Main_WrongGradeType" xml:space="preserve">
-    <value>Con il tipo di valutazione scelto non si può fare la media.
-Selezionare un tipo di valutazione corretto</value>
+    <value>Tipo di valutazione non valido</value>
   </data>
   <data name="Main_ListFinished" xml:space="preserve">
-    <value>Lista finita: sorteggiare</value>
+    <value>Lista terminata</value>
   </data>
   <data name="Main_NoDrawNoPresent" xml:space="preserve">
-    <value>Nessun sorteggio o nessuno presente! </value>
+    <value>Nessun sorteggio o nessuno presente</value>
   </data>
   <data name="Main_ConfigSaved" xml:space="preserve">
     <value>File di configurazione salvato in </value>
   </data>
   <data name="Main_RevengeFactorIncrease" xml:space="preserve">
-    <value>Incremento del fattore vendetta per ogni allievo spuntato</value>
+    <value>Incrementare il fattore vendetta per gli studenti selezionati?</value>
   </data>
   <data name="Main_RevengeFactorDecrease" xml:space="preserve">
-    <value>Decremento del fattore vendetta per ogni allievo spuntato</value>
+    <value>Decrementare il fattore vendetta per gli studenti selezionati?</value>
   </data>
   <data name="Main_CheckStudentsForRevenge" xml:space="preserve">
-    <value>Spuntare i nomi degli studenti cui aumentare il fattore vendetta</value>
+    <value>Selezionare almeno uno studente per incrementare il fattore vendetta</value>
   </data>
   <data name="Main_CheckStudentsForRevengeDecrease" xml:space="preserve">
-    <value>Spuntare i nomi degli studenti cui diminuire il fattore vendetta</value>
+    <value>Selezionare almeno uno studente per decrementare il fattore vendetta</value>
   </data>
   <data name="Main_NoStudents" xml:space="preserve">
-    <value>Nessun studente presente!</value>
+    <value>Nessun studente selezionato</value>
   </data>
   <data name="Main_NoSubjectSelected" xml:space="preserve">
-    <value>Nessuna materia selezionata!</value>
+    <value>Selezionare una materia</value>
   </data>
   <data name="Main_MinutesToEnd" xml:space="preserve">
     <value>Mancano meno di {0} minuti alla fine della lezione</value>
   </data>
   <data name="Main_CreateTextFile" xml:space="preserve">
-    <value>Creare un file di testo normale (Sì) od un file per Markdown (No)?</value>
+    <value>Creare un file di testo?</value>
   </data>
   <data name="Main_FileType" xml:space="preserve">
-    <value>Tipo di file</value>
+    <value>Tipo file</value>
   </data>
   <data name="Main_FileCreated" xml:space="preserve">
-    <value>Creato il file </value>
+    <value>File creato: {0}</value>
   </data>
   <data name="Main_ToComplete" xml:space="preserve">
     <value>Parte da finire</value>
   </data>
   <data name="Main_ChooseClass" xml:space="preserve">
-    <value>Scegliere una classe</value>
+    <value>Scegliere la classe</value>
   </data>
   <data name="Commons_SelectGradeType" xml:space="preserve">
     <value>Scegliere un tipo di valutazione</value>
@@ -2998,5 +2997,50 @@ Cancello lo stesso tutti gli argomenti selezionati?</value>
   </data>
   <data name="Topics_Tooltip_WholeWord" xml:space="preserve">
     <value>Cerca solo parole intere, non parti di parole</value>
+  </data>
+  <data name="Main_ConfigFileMissing" xml:space="preserve">
+    <value>Il file di configurazione
+{0}
+non esiste o non è leggibile.
+Sistemare le cartelle con il percorso dei file, poi scegliere il file di dati .sqlite e premere 'Salva configurazione'
+I nomi scelti dal programma dovrebbero essere giusti.</value>
+  </data>
+  <data name="Main_ConfigureProgram" xml:space="preserve">
+    <value>Configurare il programma!</value>
+  </data>
+  <data name="Main_AppName" xml:space="preserve">
+    <value>SchoolGrades</value>
+  </data>
+  <data name="Main_ConfigDatabaseNotAccessible" xml:space="preserve">
+    <value>Il file di database configurato:
+{0}
+non è accessibile! Sceglierne uno nella prossima finestra.</value>
+  </data>
+  <data name="Main_FoundNewerDatabasePrompt" xml:space="preserve">
+    <value>Trovato un file di database più nuovo rispetto a quello attualmente utilizzato.
+Devo usare
+{0}
+come database?</value>
+  </data>
+  <data name="Main_ConfigSavedIn" xml:space="preserve">
+    <value>File di configurazione salvato in {0}</value>
+  </data>
+  <data name="Main_WillClose" xml:space="preserve">
+    <value>Il programma verrà chiuso. Alla ripartenza funzionerà regolarmente.</value>
+  </data>
+  <data name="Main_NoDrawOrNobodyPresent" xml:space="preserve">
+    <value>Nessun sorteggio o nessuno presente!</value>
+  </data>
+  <data name="Main_OldestGradeStudentNotFound" xml:space="preserve">
+    <value>Allievo con voticino più vecchio non trovato</value>
+  </data>
+  <data name="Main_FileToDisplay" xml:space="preserve">
+    <value>File da visualizzare</value>
+  </data>
+  <data name="Main_AllFilesFilter" xml:space="preserve">
+    <value>Tutti i file|*.*</value>
+  </data>
+  <data name="Main_ChosenHeader" xml:space="preserve">
+    <value>Scelto</value>
   </data>
 </root>

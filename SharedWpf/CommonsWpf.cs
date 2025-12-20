@@ -248,7 +248,7 @@ namespace SchoolGrades
             try
             {
 #if DEBUG
-                dati = TextFile.FileToArray(Commons.PathAndFileConfig + "_DEBUG");
+                dati = TextFile.FileToArray(Commons.PathAndFileConfigDebug);
 #else
                 dati = TextFile.FileToArray(Commons.PathAndFileConfig);
 #endif
@@ -256,22 +256,22 @@ namespace SchoolGrades
                 {
                     if (Commons.PathAndFileDatabase == null)
                     {
-                        Commons.DatabaseFileName_Current = dati[0];
+                        Commons.DatabaseFileName = dati[0];
                         Commons.PathImages = dati[1];
                         // position 2 was held by PathStartLinks 
                         //Commons.PathStartLinks = dati[2]; 
                         Commons.PathDatabase = dati[3];
-                        Commons.PathAndFileDatabase = System.IO.Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
+                        Commons.PathAndFileDatabase = System.IO.Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName);
                         Commons.PathDocuments = dati[4];
                     }
                     else
                     {
-                        Commons.DatabaseFileName_Current = dati[0];
+                        Commons.DatabaseFileName = dati[0];
                         Commons.PathImages = dati[1];
                         // position 2 was held by PathStartLinks 
                         //Commons.PathStartLinks = dati[2]; 
                         Commons.PathDatabase = dati[3];
-                        Commons.PathAndFileDatabase = System.IO.Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
+                        Commons.PathAndFileDatabase = System.IO.Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName);
                         Commons.PathDocuments = dati[4];
                     }
                     // we try the next to avoid stopping the program when we have a new config file, 
@@ -325,7 +325,7 @@ namespace SchoolGrades
                 dati[4] = Commons.PathDocuments;
                 dati[5] = Commons.SaveBackupWhenExiting.ToString();
 #if DEBUG
-                TextFile.ArrayToFile(Commons.PathAndFileConfig + "_DEBUG", dati, false);
+                TextFile.ArrayToFile(Commons.PathAndFileConfigDebug, dati, false);
 #else
                 TextFile.ArrayToFile(Commons.PathAndFileConfig, dati, false);
 #endif

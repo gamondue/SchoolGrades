@@ -12,7 +12,7 @@ namespace SchoolGrades
         [STAThread]
         static void Main(string[] args)
         {
-            // Gestione globale delle eccezioni non gestite
+            // global management of non managed exceptions
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             Application.ThreadException += Application_ThreadException;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
@@ -28,12 +28,14 @@ namespace SchoolGrades
             catch (Exception ex)
             {
                 LogFatalException("Application.Run", ex);
+                Application.Exit();
             }
         }
 
         private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
             LogFatalException("ThreadException", e.Exception);
+            Application.Exit();
         }
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

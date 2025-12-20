@@ -76,7 +76,7 @@ namespace SchoolGrades
                 dati[4] = Commons.PathDocuments;
                 dati[5] = Commons.SaveBackupWhenExiting.ToString();
 #if DEBUG
-                TextFile.ArrayToFile(Commons.PathAndFileConfig + "_DEBUG", dati, false);
+                TextFile.ArrayToFile(Commons.PathAndFileConfigDebug, dati, false);
 #else
                 TextFile.ArrayToFile(Commons.PathAndFileConfig, dati, false);
 #endif

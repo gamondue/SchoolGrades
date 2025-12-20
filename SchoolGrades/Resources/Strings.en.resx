@@ -623,71 +623,70 @@ The application will restart to apply changes.</value>
     <value>Start a bar timer</value>
   </data>
   <data name="Main_NoStudentPresent" xml:space="preserve">
-    <value>No students present?</value>
+    <value>No student present</value>
   </data>
   <data name="Main_DrawDone" xml:space="preserve">
-    <value>Draw or sort completed!</value>
+    <value>Draw done</value>
   </data>
   <data name="Main_SelectClass" xml:space="preserve">
     <value>Select a class</value>
   </data>
   <data name="Main_SelectGradeType" xml:space="preserve">
-    <value>Select a grade type</value>
+    <value>Select grade type</value>
   </data>
   <data name="Main_SelectStudent" xml:space="preserve">
-    <value>Select a student to assess</value>
+    <value>Select a student</value>
   </data>
   <data name="Main_SelectSubject" xml:space="preserve">
     <value>Select a subject</value>
   </data>
   <data name="Main_WrongGradeType" xml:space="preserve">
-    <value>The selected grade type cannot be averaged.
-Select a correct grade type</value>
+    <value>Wrong grade type</value>
   </data>
   <data name="Main_ListFinished" xml:space="preserve">
-    <value>List finished: draw again</value>
+    <value>List finished</value>
   </data>
   <data name="Main_NoDrawNoPresent" xml:space="preserve">
-    <value>No draw or no one present! </value>
+    <value>No draw or nobody present</value>
   </data>
   <data name="Main_ConfigSaved" xml:space="preserve">
     <value>Configuration file saved in </value>
   </data>
   <data name="Main_RevengeFactorIncrease" xml:space="preserve">
-    <value>Increase revenge factor for each checked student</value>
+    <value>Increase revenge factor for selected students?</value>
   </data>
   <data name="Main_RevengeFactorDecrease" xml:space="preserve">
-    <value>Decrease revenge factor for each checked student</value>
+    <value>Decrease revenge factor for selected students?</value>
   </data>
   <data name="Main_CheckStudentsForRevenge" xml:space="preserve">
-    <value>Check the names of students to increase revenge factor</value>
+    <value>Select at least one student to increase revenge factor</value>
   </data>
   <data name="Main_CheckStudentsForRevengeDecrease" xml:space="preserve">
-    <value>Check the names of students to decrease revenge factor</value>
+    <value>Select at least one student to decrease revenge factor</value>
   </data>
   <data name="Main_NoStudents" xml:space="preserve">
-    <value>No students present!</value>
+    <value>No students selected</value>
   </data>
   <data name="Main_NoSubjectSelected" xml:space="preserve">
-    <value>No subject selected!</value>
+    <value>No subject selected</value>
   </data>
   <data name="Main_MinutesToEnd" xml:space="preserve">
-    <value>Less than {0} minutes until the end of the lesson</value>
+    <value>Less than {0} minutes remain until the end of the lesson</value>
   </data>
   <data name="Main_CreateTextFile" xml:space="preserve">
-    <value>Create a plain text file (Yes) or a Markdown file (No)?</value>
+    <value>Create text file?</value>
   </data>
   <data name="Main_FileType" xml:space="preserve">
     <value>File type</value>
   </data>
   <data name="Main_FileCreated" xml:space="preserve">
-    <value>File created </value>
+    <value>File created: {0}</value>
   </data>
   <data name="Main_ToComplete" xml:space="preserve">
     <value>Feature to be completed</value>
   </data>
   <data name="Main_ChooseClass" xml:space="preserve">
-    <value>Choose a class</value>
+    <value>Choose class</value>
   </data>
   <data name="Commons_SelectGradeType" xml:space="preserve">
     <value>Select a grade type</value>
@@ -3000,5 +2999,50 @@ Delete all selected topics anyway?</value>
   </data>
   <data name="Topics_Tooltip_WholeWord" xml:space="preserve">
     <value>Search only whole words, not parts of words</value>
+  </data>
+  <data name="Main_ConfigFileMissing" xml:space="preserve">
+    <value>The configuration file:
+{0}
+does not exist or is not readable.
+Fix the folders with the paths, then choose the .sqlite data file and press 'Save configuration'.
+The program defaults should be correct.</value>
+  </data>
+  <data name="Main_ConfigureProgram" xml:space="preserve">
+    <value>Please configure the application!</value>
+  </data>
+  <data name="Main_AppName" xml:space="preserve">
+    <value>SchoolGrades</value>
+  </data>
+  <data name="Main_ConfigDatabaseNotAccessible" xml:space="preserve">
+    <value>The configured database file:
+{0}
+is not accessible! Choose one in the next window.</value>
+  </data>
+  <data name="Main_FoundNewerDatabasePrompt" xml:space="preserve">
+    <value>A newer database file was found compared to the current one.
+Use
+{0}
+as the database?</value>
+  </data>
+  <data name="Main_ConfigSavedIn" xml:space="preserve">
+    <value>Configuration file saved in {0}</value>
+  </data>
+  <data name="Main_WillClose" xml:space="preserve">
+    <value>The application will be closed. On restart it will work normally.</value>
+  </data>
+  <data name="Main_NoDrawOrNobodyPresent" xml:space="preserve">
+    <value>No draw or nobody present!</value>
+  </data>
+  <data name="Main_OldestGradeStudentNotFound" xml:space="preserve">
+    <value>Student with oldest grade not found</value>
+  </data>
+  <data name="Main_FileToDisplay" xml:space="preserve">
+    <value>File to display</value>
+  </data>
+  <data name="Main_AllFilesFilter" xml:space="preserve">
+    <value>All files|*.*</value>
+  </data>
+  <data name="Main_ChosenHeader" xml:space="preserve">
+    <value>Chosen</value>
   </data>
 </root>

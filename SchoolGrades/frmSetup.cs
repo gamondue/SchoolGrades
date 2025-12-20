@@ -120,8 +120,8 @@ namespace SchoolGrades
                 TxtFileDatabase.Text = Path.GetFileName(openFileDialog1.FileName);
                 TxtPathDatabase.Text = Path.GetDirectoryName(openFileDialog1.FileName);
             }
-            Commons.DatabaseFileName_Current = TxtFileDatabase.Text;
-            Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
+            Commons.DatabaseFileName = TxtFileDatabase.Text;
+            Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName);
         }
         private void btnImageFolder_Click(object sender, EventArgs e)
         {
@@ -153,7 +153,7 @@ namespace SchoolGrades
 
                 // 3. Ora che i thread sono fermi, possiamo modificare i dati in sicurezza
                 string[] dati = new string[6];
-                Commons.DatabaseFileName_Current = dati[0] = TxtFileDatabase.Text;
+                Commons.DatabaseFileName = dati[0] = TxtFileDatabase.Text;
                 Commons.PathDatabase = dati[3] = TxtPathDatabase.Text;
                 Commons.PathImages = dati[1] = TxtPathImages.Text;
                 Commons.PathDocuments = dati[4] = TxtPathDocuments.Text;
@@ -161,7 +161,7 @@ namespace SchoolGrades
                 dati[5] = Commons.SaveBackupWhenExiting.ToString();
 
 #if DEBUG
-                TextFile.ArrayToFile(Commons.PathAndFileConfig + "_DEBUG", dati, false);
+                TextFile.ArrayToFile(Commons.PathAndFileConfigDebug, dati, false);
 #else
                 TextFile.ArrayToFile(Commons.PathAndFileConfig, dati, false);
 #endif
@@ -203,7 +203,7 @@ namespace SchoolGrades
                 TxtPathDatabase.Text = folderBrowserDialog1.SelectedPath;
             }
             Commons.PathDatabase = TxtPathDatabase.Text;
-            Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
+            Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName);
         }
         private void btnTopicsManagement_Click(object sender, EventArgs e)
         {

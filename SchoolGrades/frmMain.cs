@@ -29,8 +29,6 @@ namespace SchoolGrades
 
         Random random = new Random();
 
-        System.Media.SoundPlayer suonatore = new System.Media.SoundPlayer();
-
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Student CurrentStudent { get; set; }
 
@@ -70,93 +68,53 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
-            // Configure the ToolTip to avoid it disappearing (TEST)
-            toolTip1.AutoPopDelay = 10000;  // Visible for 10 seconds
-            toolTip1.InitialDelay = 500;    // Appears after 500ms
-            toolTip1.ReshowDelay = 100;     // Reappears quickly
-            toolTip1.ShowAlways = true;     // Always show
-
             this.Text += " v. " + version;
 
             Commons.CreatePaths();
 
-            // manage the configuration file 
             string messagePrompt = "";
-#if !DEBUG
-            btnTemporary.Visible = false;
-#endif
-#if SQL_SERVER
-            // SQL server database filename
-#if !DEBUG
-            // during the development phase use a debug database
-            Commons.PathAndFileDatabase = "SchoolGrades"; 
-#else
-            Commons.PathAndFileDatabase = "SchoolGrades";
-#endif
-
-#else
-            // SQLite database filename reading 
-            // read configuration file, if doesn't work run configuration 
-            bool fileRead = Commons.ReadConfigData();
-            if (!fileRead)
+            int exitStatus = Commons.ManageConfigFile();
+            if (exitStatus == 0 || exitStatus == 1)
             {
-                // config file is missing or unreadable
+                // config file is missing or unreadable,
+                // or the database file is missing or unreadable
+                messagePrompt = string.Format(Loc.Get("Main_ConfigDatabaseNotAccessible"), Commons.PathAndFileDatabase);
+                MessageBox.Show(messagePrompt);
                 StartNewConfigurationForm();
                 CloseProgramWhileTestingIfConfigurationFileIsRight();
+                return;
+            }
+            else if (exitStatus == 2)
+            {
+                messagePrompt = string.Format(Loc.Get("Main_FoundNewerDatabasePrompt"), Commons.PathAndFileDatabase);
+                if (MessageBox.Show(messagePrompt, Loc.Get("Main_AppName"), MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                    == DialogResult.Yes)
+                {
+                    string newestFileName = Commons.GetNewDatabaseFilename(Path.GetDirectoryName(Commons.PathAndFileDatabase));
+                    Commons.PathAndFileDatabase = newestFileName;
+                    Commons.bl.WriteConfigData();
+                    MessageBox.Show(string.Format(Loc.Get("Main_ConfigSavedIn"), Commons.PathAndFileConfig));
+                }
             }
             else
             {
-                // config file has been read
-                string configuredPathAndFile = Commons.PathAndFileDatabase;
-                string configuredFileName = Path.GetFileName(configuredPathAndFile);
-                if (configuredPathAndFile != null)
-                {
-                    // in Commons.PathAndFileDatabase we have a name for the database file 
-                    // check if the file exists
-                    if (!File.Exists(configuredPathAndFile))
-                    {
-                        // the file configured in the config file doesn't exist on disk
-                        messagePrompt = "Il file di database configurato:\n" + Commons.PathAndFileDatabase + "\nnon è accessibile!\n" +
-                            "Sceglierne uno nella prossima finestra.";
-                        MessageBox.Show(messagePrompt);
-                        frmSetup f = new frmSetup();
-                        f.ShowDialog();
-                        CloseProgramWhileTestingIfConfigurationFileIsRight();
-                    }
-                    else
-                    {
-                        // the configured file exists, if it is a per-class file,
-                        // check if a more recent file exists and ask the user if they want to
-                        // switch to the new file
-                        DateTime fileDateInName = Commons.GetValidDateFromString(configuredFileName.Substring(0, 19));
-                        if (fileDateInName != DateTime.MinValue)
-                        {
-                            // we found a class database with a date prefix in its filename
-                            // look for a newer file in the database folder
-                            string newestFileName = GetNewDatabaseFilename(Path.GetDirectoryName(configuredPathAndFile));
-                            // if the newest file is different from the current 
-                            // propose to use it as the database 
-                            if (Path.GetFileName(newestFileName) != configuredFileName && newestFileName != "")
-                            {
-                                messagePrompt = "Trovato un file di database più nuovo " +
-                                    "rispetto a quello attualmente utilizzato.\n" +
-                                    "Devo usare\n" + Commons.PathAndFileDatabase + "\ncome database?\n";
-                                if (MessageBox.Show(messagePrompt, "SchoolGrades", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-                                    == DialogResult.Yes)
-                                {
-                                    Commons.PathAndFileDatabase = newestFileName;
-                                    CreateBusinessLayer();
-                                    Commons.bl.WriteConfigData();
-                                    MessageBox.Show("File di configurazione salvato in " + Commons.PathAndFileConfig);
-                                }
-                                return;
-                            }
-                        }
-                    }
-                }
+                // config file and database file are OK
             }
-#endif
+            
             CreateBusinessLayer();
+
+            // test button visible in DEBUG mode only
+#if !DEBUG
+            btnTemporary.Visible = false;
+#else
+            btnTemporary.Visible = true;
+#endif
+            // Configure the ToolTip to avoid it disappearing 
+            toolTip1.AutoPopDelay = 10000;  // Visible for 10 seconds
+            toolTip1.InitialDelay = 500;    // Appears after 500ms
+            toolTip1.ReshowDelay = 100;     // Reappears quickly
+            toolTip1.ShowAlways = true;     // Always show           
+
             // TODO remove the next conditional compilation when the SQL server data layer works
 #if !SQL_SERVER
             Commons.bl.GetSchoolYearsThatHaveClasses();
@@ -182,13 +140,11 @@ namespace SchoolGrades
         private void StartNewConfigurationForm()
         {
             // something didn't work, we must choose a good filename for the database file
-            string messagePrompt = "Il file di configurazione " + Commons.PathAndFileConfig +
-                "\nnon esiste o non è leggibile.\n" +
-                "\nSistemare le cartelle con il percorso dei file, " +
-                "poi scegliere il file di dati .sqlite e premere 'Salva configurazione'," +
-                "\nI nomi scelti dal programma dovrebbero essere giusti.";
-            Commons.PathAndFileDatabase = GetNewDatabaseFilename(Path.Combine(Commons.PathExe, "Data"));
-            MessageBox.Show(messagePrompt, "SchoolGrades", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            string messagePrompt = string.Format(Loc.Get("Main_ConfigFileMissing"), Commons.PathAndFileConfig);
+            // folder changed from v.0.60.0
+            //Commons.PathAndFileDatabase = GetNewDatabaseFilename(Path.Combine(Commons.PathExe, "Data"));
+            //Commons.PathAndFileDatabase = Commons.GetNewDatabaseFilename(Path.Combine(Commons.PathUser, "Data"));
+            MessageBox.Show(messagePrompt, Loc.Get("Main_AppName"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             frmSetup f = new frmSetup();
             f.ShowDialog();
         }
@@ -198,15 +154,8 @@ namespace SchoolGrades
             bool fileRead = Commons.ReadConfigData();
             if (!fileRead || !File.Exists(Commons.PathAndFileDatabase))
             {
-                MessageBox.Show("Configurare il programma!", "SchoolGrades", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Loc.Get("Main_ConfigureProgram"), Loc.Get("Main_AppName"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else
-            {
-                MessageBox.Show("Il programma verrà chiuso. Alla ripartenza funzionerà regolarmente.");
-            }
-            StopAllTimers();
-            Commons.StopOperationsOnBackgroundThread();
-            this.Close();
         }
         private void frmMain_Load(object sender, EventArgs e)
         {
@@ -239,7 +188,8 @@ namespace SchoolGrades
             if (cmbSchoolYear.SelectedItem != null)
                 currentYear = (SchoolYear)cmbSchoolYear.SelectedItem;
 
-            lstClasses.DataSource = Commons.bl.GetClassesOfYear(currentSchool.IdSchool, currentYear.IdSchoolYear);
+            if (currentYear != null)
+                lstClasses.DataSource = Commons.bl.GetClassesOfYear(currentSchool.IdSchool, currentYear.IdSchoolYear);
 
             if (lstClasses.DataSource == null)
                 return;
@@ -270,48 +220,8 @@ namespace SchoolGrades
             // Initialize localization
             LocalizeForm();
         }
-        private string GetNewDatabaseFilename(string proposedDatabasePath)
-        {
-            // depending on the type of database file configured, determine the name of a 
-            // proposed database file 
-            string newDatabaseFileName = "";
-            string proposedTeachersDatabaseFile = Path.Combine(proposedDatabasePath, Commons.DatabaseFileName_Teacher);
-            string proposedDemoDatabaseFile = Path.Combine(proposedDatabasePath, Commons.DatabaseFileName_Demo);
-            string proposedDebugDatabaseFile = Path.Combine(proposedDatabasePath, "SchoolGrades_DEBUG.sqlite");
-#if DEBUG
-            if (File.Exists(proposedDebugDatabaseFile))
-            {
-                return proposedDebugDatabaseFile;
-            }
-#endif
-            if (File.Exists(proposedTeachersDatabaseFile))
-            {
-                return proposedTeachersDatabaseFile;
-            }
-            if (File.Exists(proposedDemoDatabaseFile))
-            {
-                return proposedDemoDatabaseFile;
-            }
-            // look for the newest "ISO date at left" filename in folder
-            newDatabaseFileName = Commons.GetNewestAmongFilesWithDateInName(proposedDatabasePath);
-            if (newDatabaseFileName != "")
-                return newDatabaseFileName;
-            else
-                return "";
-        }
         private bool CreateBusinessLayer()
         {
-            // create Business layer object, to be used throughout the program
-#if !SQL_SERVER
-            // keep this order of creation. Create after reading config file
-            if (!System.IO.File.Exists(Commons.PathAndFileDatabase))
-            {
-                string err = @"[" + Commons.PathAndFileDatabase + " not in the current nor in the dev directory]";
-                Commons.ErrorLog(err);
-                throw new System.IO.FileNotFoundException(err);
-                return false;
-            }
-#endif
             Commons.bl = new BusinessLayer();
             if (Commons.bl == null)
                 return false;
@@ -356,8 +266,9 @@ namespace SchoolGrades
                 int suspenceDelay = 4069; // in ms
                 try
                 {
-                    suonatore.SoundLocation = ".\\Lo squalo.wav";
-                    suonatore.Play();
+                    Commons.TryPlayEmbeddedWave("Lo squalo.wav");
+                    //suonatore.SoundLocation = ".\\Lo squalo.wav";
+                    //suonatore.Play();
                     Thread.Sleep(suspenceDelay);
                 }
                 catch
@@ -575,8 +486,9 @@ namespace SchoolGrades
             {
                 try
                 {
-                    suonatore.SoundLocation = ".\\Auguri.wav";
-                    suonatore.Play();
+                    Commons.TryPlayEmbeddedWave("Auguri.wav");
+                    //suonatore.SoundLocation = "Auguri.wav";
+                    //suonatore.Play();
                 }
                 catch
                 {
@@ -623,7 +535,7 @@ namespace SchoolGrades
 #endif
         }
         //private void btnSalvaInterrogati_Click(object sender, EventArgs e)
-        //{
+        //{ 
         //    SaveStudentsOfClassIfEligibleHasChanged();
         //}
         private void btnPath_Click(object sender, EventArgs e)
@@ -634,7 +546,7 @@ namespace SchoolGrades
             {
 
                 txtPathImages.Text = folderBrowserDialog.SelectedPath;
-            }
+            } 
         }
         Class lastClass = new Class();
         SchoolSubject lastSubject = new SchoolSubject();
@@ -646,6 +558,7 @@ namespace SchoolGrades
             if (filesInFolder.Count == 0 || currentClass != lastClass || currentSubject != lastSubject
                 || indexImage == filesInFolder.Count)
             {
+                List<BusinessObjects.Image> lessonImages;
                 indexImage = 0;
                 lastClass = currentClass;
                 lastSubject = currentSubject;
@@ -661,9 +574,21 @@ namespace SchoolGrades
                         return;
                     if (!Commons.CheckIfSubjectChosen(currentSubject))
                         return;
-                    //List<Image> lessonImages = db.GetAllImagesShownToAClassDuringLessons(currentClass, currentSubject);
-                    List<BusinessObjects.Image> lessonImages = Commons.bl.GetAllImagesShownToAClassDuringLessons(currentClass, currentSubject,
-                        DateTime.Now.AddMonths(-8), DateTime.Now);
+                    // date of begining of the school year
+                    DateTime? begin = null;
+                    // date of end of the school year
+                    DateTime? end = null;
+                    var results = Commons.bl.GetBeginEndOfSchoolYear(currentYear);
+                    if (results.begin.HasValue && results.end.HasValue)
+                    {
+                        lessonImages = Commons.bl.GetAllImagesShownToAClassDuringLessons(currentClass, currentSubject,
+                            begin, end);
+                    }
+                    else
+                    {
+                        lessonImages = Commons.bl.GetAllImagesShownToAClassDuringLessons(currentClass, currentSubject);
+                    }
+
                     // add the path & filename of the files foud to the list of those that we can draw
                     foreach (BusinessObjects.Image i in lessonImages)
                     {
@@ -853,7 +778,7 @@ namespace SchoolGrades
                     MessageBox.Show(Loc.Get("Main_ListFinished"), "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             else
-                MessageBox.Show("Nessun sorteggio o nessuno presente! ", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Loc.Get("Main_NoDrawOrNobodyPresent"), "", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         public void ChosenStudent(Student descStudentChosen)
         {
@@ -873,7 +798,7 @@ namespace SchoolGrades
             {
                 // restart from the beginning with a new database file 
                 frmMain_Load(null, null);
-                lblDatabaseFile.Text = Commons.DatabaseFileName_Current;
+                lblDatabaseFile.Text = Commons.DatabaseFileName;
                 currentStudentsList = null;
                 eligiblesList.Clear();
             }
@@ -897,6 +822,11 @@ namespace SchoolGrades
         }
         private void btnOldestGrade_Click(object sender, EventArgs e)
         {
+            if (currentClass is null)
+            {
+                MessageBox.Show(Loc.Get("Main_SelectClass"));
+                return;
+            }
             // gets all the list, but we are interested only to the first, the oldest
             List<Couple> fromOldest = Commons.bl.GetGradesOldestInClass(currentClass,
                 ((GradeType)(cmbGradeType.SelectedItem)), currentSubject);
@@ -912,7 +842,7 @@ namespace SchoolGrades
             }
             if (trovato == null)
             {
-                MessageBox.Show("Allievo con voticino più vecchio non trovato");
+                MessageBox.Show(Loc.Get("Main_OldestGradeStudentNotFound"));
                 return;
             }
             currentClass.CurrentStudent = trovato;
@@ -1068,8 +998,8 @@ namespace SchoolGrades
         private void txtPathImages_Click(object sender, EventArgs e)
         {
             openFileDialog.InitialDirectory = txtPathImages.Text;
-            openFileDialog.Title = "File da visualizzare";
-            openFileDialog.Filter = "Tutti i file|*.*";
+            openFileDialog.Title = Loc.Get("Main_FileToDisplay");
+            openFileDialog.Filter = Loc.Get("Main_AllFilesFilter");
             openFileDialog.FileName = "";
             DialogResult r = openFileDialog.ShowDialog();
             if (r == System.Windows.Forms.DialogResult.OK)
@@ -1096,9 +1026,14 @@ namespace SchoolGrades
         }
         private void btnRevengeFactorPlus_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(Loc.Get("Main_RevengeFactorIncrease"),
-                    "", MessageBoxButtons.YesNo) == DialogResult.No)
+            if (currentClass is null)
+            {
+                MessageBox.Show(Loc.Get("Main_SelectClass"));
                 return;
+            }
+            if (MessageBox.Show(Loc.Get("Main_RevengeFactorIncrease"),
+                "", MessageBoxButtons.YesNo) == DialogResult.No)
+            return;
 
             if (NoStudentIsChecked())
             {
@@ -1132,9 +1067,15 @@ namespace SchoolGrades
         }
         private void btnRevengeFactorMinus_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(Loc.Get("Main_RevengeFactorDecrease"),
-                    "", MessageBoxButtons.YesNo) == DialogResult.No)
+            if (currentClass is null)
+            {
+                MessageBox.Show(Loc.Get("Main_SelectClass"));
                 return;
+            }
+
+            if (MessageBox.Show(Loc.Get("Main_RevengeFactorDecrease"),
+                "", MessageBoxButtons.YesNo) == DialogResult.No)
+            return;
 
             if (currentStudentsList.Count == 0)
             {
@@ -1160,8 +1101,9 @@ namespace SchoolGrades
             {
                 try
                 {
-                    suonatore.SoundLocation = ".\\Rigoletto.wav";
-                    suonatore.Play();
+                    Commons.TryPlayEmbeddedWave("Rigoletto.wav");
+                    //suonatore.SoundLocation = "Rigoletto.wav";
+                    //suonatore.Play();
                 }
                 catch
                 {
@@ -1187,7 +1129,7 @@ namespace SchoolGrades
             {
                 File.Copy(Commons.PathAndFileDatabase,
                     Path.Combine(Commons.PathLogs, DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") +
-                    "_" + Commons.DatabaseFileName_Current));
+                    "_" + Commons.DatabaseFileName));
             }
             Commons.TerminateBackgroundThread();
         }
@@ -1251,7 +1193,7 @@ namespace SchoolGrades
                 createdFile = Commons.bl.CreateAllTopicsDoneFile(filenameNoExtension, currentClass, currentSubject, false);
                 Commons.ProcessStartLink(createdFile);
             }
-            MessageBox.Show(Loc.Get("Main_FileCreated") + " " + createdFile);
+            MessageBox.Show(string.Format(Loc.Get("Main_FileCreated"), createdFile));
         }
         private void chkEnableEndLessonWarning_CheckedChanged(object sender, EventArgs e)
         {
@@ -1337,8 +1279,9 @@ namespace SchoolGrades
                     alarmNotFired = false;
                     try
                     {
-                        suonatore.SoundLocation = ".\\La Sveglia.wav";
-                        suonatore.Play();
+                        Commons.TryPlayEmbeddedWave("La Sveglia.wav");
+                        //suonatore.SoundLocation = ".\\La Sveglia.wav";
+                        //suonatore.Play();
                     }
                     catch
                     {
@@ -1592,7 +1535,7 @@ namespace SchoolGrades
             {
                 DataGridViewCheckBoxColumn chkSelected = new DataGridViewCheckBoxColumn();
                 {
-                    chkSelected.HeaderText = "Chosen";
+                    chkSelected.HeaderText = Loc.Get("Main_ChosenHeader");
                     chkSelected.Name = "chkSelected";
                     chkSelected.ReadOnly = false;
                 }

@@ -4,9 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Threading;
+// Aggiungi la direttiva #if per limitare l'uso di SoundPlayer solo a Windows
+#if WINDOWS
+using System.Media;
+#endif
 
 namespace SchoolGrades
 {
@@ -19,19 +24,29 @@ namespace SchoolGrades
         internal static string PathExe = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
 
         internal static string PathConfig = Path.Combine(PathUser, "SchoolGrades", "Config");
-        internal static string PathAndFileConfig = Path.Combine(PathConfig, "schgrd.cfg");
+        internal static string PathAndFileConfigRelease = Path.Combine(PathConfig, "schgrd.cfg");
+        internal static string PathAndFileConfigDebug = Path.Combine(PathConfig, "schgrd_DEBUG.cfg");
+        internal static string PathAndFileConfig;
         internal static string CompanyPrefix = "gamon-";
         internal static string PathLogs = Path.Combine(PathUser, "SchoolGrades", "Logs");
         internal static string PathAndFileLogText = Path.Combine(PathLogs, CompanyPrefix + "Errori.txt");
 
         internal static string DatabaseFileName_Teacher = "SchoolGrades.sqlite";
+        internal static string DatabaseFileName_Debug = "SchoolGrades_DEBUG.sqlite";
         internal static string DatabaseFileName_Demo = "SchoolGrades_DEMO.sqlite";
-        internal static string DatabaseFileName_Current = "";
-        internal static string PathDatabase = Path.Combine(PathExe, "Data");
-        internal static string PathImages = Path.Combine(PathExe, "Images");
-        internal static string PathDocuments = Path.Combine(PathExe, "Docs");
+        internal static string DatabaseFileName;
+
+        // paths changed from v.0.60.0, with InnoSetup install that writes config file
+        // in system's programs' folder
+        //internal static string PathDatabase = Path.Combine(PathExe, "Data");
+        internal static string PathDatabase = Path.Combine(PathUser, "SchoolGrades", "Data");
+        // internal static string PathImages = Path.Combine(PathExe, "Images");
+        internal static string PathImages = Path.Combine(PathUser, "SchoolGrades", "Images");
+        //internal static string PathDocuments = Path.Combine(PathExe, "Docs");
+        internal static string PathDocuments = Path.Combine(PathUser, "SchoolGrades", "Docs"); // this is not used yet
 
         private static string pathAndFileDatabase;
+        internal static string PathAndFileDatabase { get => pathAndFileDatabase; set => pathAndFileDatabase = value; }
 
         // !!!! TODO use DbInfo !!!!
         //internal static DatabaseInfo DbInfo = new();
@@ -53,7 +68,6 @@ namespace SchoolGrades
 
         internal static string IdSchool = "FOIS01100L";
         internal static bool IsTimerLessonActive { get; set; }
-        internal static string PathAndFileDatabase { get => pathAndFileDatabase; set => pathAndFileDatabase = value; }
 
         // wait time before saving 
         public static int BackgroundThreadSleepSeconds = 60 * 3;
@@ -439,6 +453,102 @@ namespace SchoolGrades
             }
             return newestFileNameAndPath;
         }
+        internal static int ManageConfigFile()
+        {
+            // manage the configuration file 
+            string messagePrompt = "";
+
+            // different config file names for debug and release builds
+#if !DEBUG
+            Commons.PathAndFileConfig = Commons.PathAndFileConfigRelease;
+#else
+            Commons.PathAndFileConfig = Commons.PathAndFileConfigDebug;
+#endif
+
+#if SQL_SERVER
+            // SQL server database
+            // TODO fill the missing part here when developing SQLserver layer
+            return -1; // ensure method returns a value when SQL_SERVER is defined
+#else
+            // SQLite database
+            // set the default SQLite database name, based on the build configuration
+#if !DEBUG
+            // "production" database
+            Commons.DatabaseFileName = Commons.DatabaseFileName_Teacher; 
+#else
+            // "debug" database
+            Commons.DatabaseFileName = Commons.DatabaseFileName_Debug;
+#endif
+            // the demo database name is set when the user selects "DEMO"
+            // during the install Inno Setup program, hence is read from the config file
+
+            // SQLite database default filename
+            // read configuration file, if doesn't work run configuration 
+            if (!Commons.ReadConfigData())
+                return 0;
+
+            // config file has been read,
+            // path and file for the database is in Commons.PathAndFileDatabase
+            if (Commons.PathAndFileDatabase != null)
+            {
+                // in Commons.PathAndFileDatabase we have a name for the database file 
+                // check if the file exists
+                if (!File.Exists(Commons.PathAndFileDatabase))
+                {
+                    // the file configured in the config file doesn't exist on disk
+                    return 1;
+                }
+            }
+            // the configured file exists, if it has a date in its name, it is a per-class file,
+            // check if a more recent per-class file exists and ask the user if she wants to
+            // switch to the new file
+            DateTime fileDateInName = Commons.GetValidDateFromString(Commons.DatabaseFileName.Substring(0, 19));
+            if (fileDateInName != DateTime.MinValue)
+            {
+                // we found a class database with a date prefix in its filename
+                // look for a newer file in the database folder
+                string newestFileName = GetNewDatabaseFilename(Path.GetDirectoryName(Commons.PathAndFileDatabase));
+                // if the newest file is different from the current 
+                // propose to use it as the database 
+                if (Path.GetFileName(newestFileName) != Commons.DatabaseFileName && newestFileName != "")
+                {
+                    return 2;
+                }
+            }
+            // all checks passed, use the configured database file
+            return -1;
+        }
+        internal static string GetNewDatabaseFilename(string proposedDatabasePath)
+        {
+            // depending on the type of database file configured, determine the name of a 
+            // proposed database file 
+            string newDatabaseFileName = "";
+            string proposedTeachersDatabaseFile = Path.Combine(proposedDatabasePath, Commons.DatabaseFileName_Teacher);
+            string proposedDemoDatabaseFile = Path.Combine(proposedDatabasePath, Commons.DatabaseFileName_Demo);
+            string proposedDebugDatabaseFile = Path.Combine(proposedDatabasePath, "SchoolGrades_DEBUG.sqlite");
+#if DEBUG
+            if (File.Exists(proposedDebugDatabaseFile))
+            {
+                return proposedDebugDatabaseFile;
+            }
+#endif
+            if (File.Exists(proposedTeachersDatabaseFile))
+            {
+                return proposedTeachersDatabaseFile;
+            }
+            if (File.Exists(proposedDemoDatabaseFile))
+            {
+                return proposedDemoDatabaseFile;
+            }
+            // look for the newest "ISO date at left" filename in folder
+            newDatabaseFileName = Commons.GetNewestAmongFilesWithDateInName(proposedDatabasePath);
+            if (newDatabaseFileName != "")
+                return newDatabaseFileName;
+            else
+                return "";
+#endif
+        }
+
         internal static DataLayer SetDataLayer(string DataBaseName)
         {
 #if SQL_SERVER
@@ -447,6 +557,51 @@ namespace SchoolGrades
             SqLite_DataLayer dlNew = new SqLite_DataLayer(DataBaseName);
 #endif
             return dlNew;
+        }
+
+        //private static SoundPlayer suonatore = new SoundPlayer();
+        private static Stream suonatoreStream;
+
+        // Try to find an embedded resource with the provided filename and play it.
+        // Returns true if playback was initiated using an embedded resource.
+        internal static bool TryPlayEmbeddedWave(string filename)
+        {
+            try
+            {
+                var asm = System.Reflection.Assembly.GetExecutingAssembly();
+                var resources = asm.GetManifestResourceNames();
+                if (resources == null || resources.Length == 0)
+                    return false;
+
+                // Try several matching strategies: exact end, without spaces, with underscores
+                string match = resources.FirstOrDefault(n => n.EndsWith(filename, StringComparison.OrdinalIgnoreCase)
+                    || n.EndsWith(filename.Replace(" ", ""), StringComparison.OrdinalIgnoreCase)
+                    || n.EndsWith(filename.Replace(" ", "_"), StringComparison.OrdinalIgnoreCase)
+                    || n.IndexOf(filename, StringComparison.OrdinalIgnoreCase) >= 0);
+
+                if (match == null)
+                    return false;
+
+                // Dispose previous stream if any
+                try { suonatoreStream?.Dispose(); } catch { }
+
+                suonatoreStream = asm.GetManifestResourceStream(match);
+                if (suonatoreStream == null) return false;
+
+#if WINDOWS
+                // Semplifica l'istruzione using (IDE0063) e l'espressione new (IDE0090)
+                var suonatore = new SoundPlayer(suonatoreStream);
+                suonatore.Play();
+#else
+                // Su piattaforme non Windows, non tentare di riprodurre il suono
+                return false;
+#endif
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

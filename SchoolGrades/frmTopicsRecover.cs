@@ -42,7 +42,7 @@ namespace SchoolGrades
             // Commons.ReadConfigFile();
             txtPathNewDatabase.Text = Commons.PathDatabase;
             txtPathOldDatabase.Text = Commons.PathDatabase;
-            txtFileNewDatabase.Text = Commons.DatabaseFileName_Current;
+            txtFileNewDatabase.Text = Commons.DatabaseFileName;
 
             DataLayer dlNew = Commons.SetDataLayer(txtPathNewDatabase.Text + "\\" + txtFileNewDatabase.Text);
             treeNew = new TreeMptt(trwNewTopics, Commons.PathAndFileDatabase,

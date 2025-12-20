@@ -62,7 +62,7 @@ namespace SchoolGrades_WPF
             string[] dati = new string[6];
             try
             {
-                Commons.DatabaseFileName_Current = dati[0] = TxtFileDatabase.Text;
+                Commons.DatabaseFileName = dati[0] = TxtFileDatabase.Text;
 
                 // position 2 was held by PathStartLinks, that is not longer used, because it was 
                 // substituted by PathRestrictedApp  (attribute of the single currentSchool class) 
@@ -73,12 +73,12 @@ namespace SchoolGrades_WPF
                 Commons.SaveBackupWhenExiting = (bool)chkSaveBackup.IsChecked;
                 dati[5] = Commons.SaveBackupWhenExiting.ToString();
 
-                Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
+                Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName);
                 // TODO !!! if the file doesn't exist copies the sample empty database. Eventually redo this code, it is ugly and not functional !!!!
                 ////if(!File.Exists(Commons.PathAndFileDatabase))
                 ////    File.Copy(".\\" + Commons.TeachersDatabaseFileName, Commons.PathAndFileDatabase);
 #if DEBUG
-                TextFile.ArrayToFile(Commons.PathAndFileConfig + "_DEBUG", dati, false);
+                TextFile.ArrayToFile(Commons.PathAndFileConfigDebug, dati, false);
 #else
                 TextFile.ArrayToFile(Commons.PathAndFileConfig, dati, false);
 #endif
@@ -114,7 +114,7 @@ namespace SchoolGrades_WPF
                 TxtPathDatabase.Text = folderBrowserDialog1.FolderName;
             }
             Commons.PathDatabase = TxtPathDatabase.Text;
-            Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
+            Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName);
         }
         private void btnTopicsManagement_Click(object sender, RoutedEventArgs e)
         {
@@ -202,8 +202,8 @@ namespace SchoolGrades_WPF
                 TxtFileDatabase.Text = Path.GetFileName(openFileDialog1.FileName);
                 TxtPathDatabase.Text = Path.GetDirectoryName(openFileDialog1.FileName);
             }
-            Commons.DatabaseFileName_Current = TxtFileDatabase.Text;
-            Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName_Current);
+            Commons.DatabaseFileName = TxtFileDatabase.Text;
+            Commons.PathAndFileDatabase = Path.Combine(Commons.PathDatabase, Commons.DatabaseFileName);
         }
         private void TxtPathImages_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {

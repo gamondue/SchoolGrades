@@ -3845,11 +3845,29 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
+        ///   Cerca una stringa localizzata simile a Tutti i file|*.*.
+        /// </summary>
+        public static string Main_AllFilesFilter {
+            get {
+                return ResourceManager.GetString("Main_AllFilesFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Cerca una stringa localizzata simile a Alfabetico.
         /// </summary>
         public static string Main_Alphabetical {
             get {
                 return ResourceManager.GetString("Main_Alphabetical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a SchoolGrades.
+        /// </summary>
+        public static string Main_AppName {
+            get {
+                return ResourceManager.GetString("Main_AppName", resourceCulture);
             }
         }
         
@@ -3899,7 +3917,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Spuntare i nomi degli studenti cui aumentare il fattore vendetta.
+        ///   Cerca una stringa localizzata simile a Selezionare almeno uno studente per incrementare il fattore vendetta.
         /// </summary>
         public static string Main_CheckStudentsForRevenge {
             get {
@@ -3908,7 +3926,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Spuntare i nomi degli studenti cui diminuire il fattore vendetta.
+        ///   Cerca una stringa localizzata simile a Selezionare almeno uno studente per decrementare il fattore vendetta.
         /// </summary>
         public static string Main_CheckStudentsForRevengeDecrease {
             get {
@@ -3926,11 +3944,20 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Scegliere una classe.
+        ///   Cerca una stringa localizzata simile a Scegliere la classe.
         /// </summary>
         public static string Main_ChooseClass {
             get {
                 return ResourceManager.GetString("Main_ChooseClass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Scelto.
+        /// </summary>
+        public static string Main_ChosenHeader {
+            get {
+                return ResourceManager.GetString("Main_ChosenHeader", resourceCulture);
             }
         }
         
@@ -3953,6 +3980,30 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
+        ///   Cerca una stringa localizzata simile a Il file di database configurato:
+        ///{0}
+        ///non è accessibile! Sceglierne uno nella prossima finestra..
+        /// </summary>
+        public static string Main_ConfigDatabaseNotAccessible {
+            get {
+                return ResourceManager.GetString("Main_ConfigDatabaseNotAccessible", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Il file di configurazione
+        ///{0}
+        ///non esiste o non è leggibile.
+        ///Sistemare le cartelle con il percorso dei file, poi scegliere il file di dati .sqlite e premere &apos;Salva configurazione&apos;
+        ///I nomi scelti dal programma dovrebbero essere giusti..
+        /// </summary>
+        public static string Main_ConfigFileMissing {
+            get {
+                return ResourceManager.GetString("Main_ConfigFileMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Cerca una stringa localizzata simile a File di configurazione salvato in .
         /// </summary>
         public static string Main_ConfigSaved {
@@ -3962,7 +4013,25 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Creare un file di testo normale (Sì) od un file per Markdown (No)?.
+        ///   Cerca una stringa localizzata simile a File di configurazione salvato in {0}.
+        /// </summary>
+        public static string Main_ConfigSavedIn {
+            get {
+                return ResourceManager.GetString("Main_ConfigSavedIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Configurare il programma!.
+        /// </summary>
+        public static string Main_ConfigureProgram {
+            get {
+                return ResourceManager.GetString("Main_ConfigureProgram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Creare un file di testo?.
         /// </summary>
         public static string Main_CreateTextFile {
             get {
@@ -3980,7 +4049,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Sorteggio od ordinamento fatto!.
+        ///   Cerca una stringa localizzata simile a Estrazione completata.
         /// </summary>
         public static string Main_DrawDone {
             get {
@@ -4007,7 +4076,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Creato il file .
+        ///   Cerca una stringa localizzata simile a File creato: {0}.
         /// </summary>
         public static string Main_FileCreated {
             get {
@@ -4016,11 +4085,32 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Tipo di file.
+        ///   Cerca una stringa localizzata simile a File da visualizzare.
+        /// </summary>
+        public static string Main_FileToDisplay {
+            get {
+                return ResourceManager.GetString("Main_FileToDisplay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Tipo file.
         /// </summary>
         public static string Main_FileType {
             get {
                 return ResourceManager.GetString("Main_FileType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Trovato un file di database più nuovo rispetto a quello attualmente utilizzato.
+        ///Devo usare
+        ///{0}
+        ///come database?.
+        /// </summary>
+        public static string Main_FoundNewerDatabasePrompt {
+            get {
+                return ResourceManager.GetString("Main_FoundNewerDatabasePrompt", resourceCulture);
             }
         }
         
@@ -4097,7 +4187,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Lista finita: sorteggiare.
+        ///   Cerca una stringa localizzata simile a Lista terminata.
         /// </summary>
         public static string Main_ListFinished {
             get {
@@ -4187,11 +4277,20 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Nessun sorteggio o nessuno presente! .
+        ///   Cerca una stringa localizzata simile a Nessun sorteggio o nessuno presente.
         /// </summary>
         public static string Main_NoDrawNoPresent {
             get {
                 return ResourceManager.GetString("Main_NoDrawNoPresent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Nessun sorteggio o nessuno presente!.
+        /// </summary>
+        public static string Main_NoDrawOrNobodyPresent {
+            get {
+                return ResourceManager.GetString("Main_NoDrawOrNobodyPresent", resourceCulture);
             }
         }
         
@@ -4205,7 +4304,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Nessun allievo presente?.
+        ///   Cerca una stringa localizzata simile a Nessuno presente.
         /// </summary>
         public static string Main_NoStudentPresent {
             get {
@@ -4214,7 +4313,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Nessun studente presente!.
+        ///   Cerca una stringa localizzata simile a Nessun studente selezionato.
         /// </summary>
         public static string Main_NoStudents {
             get {
@@ -4223,7 +4322,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Nessuna materia selezionata!.
+        ///   Cerca una stringa localizzata simile a Selezionare una materia.
         /// </summary>
         public static string Main_NoSubjectSelected {
             get {
@@ -4255,6 +4354,15 @@ namespace SchoolGrades.Resources {
         public static string Main_OldestGrade {
             get {
                 return ResourceManager.GetString("Main_OldestGrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Allievo con voticino più vecchio non trovato.
+        /// </summary>
+        public static string Main_OldestGradeStudentNotFound {
+            get {
+                return ResourceManager.GetString("Main_OldestGradeStudentNotFound", resourceCulture);
             }
         }
         
@@ -4304,7 +4412,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Decremento del fattore vendetta per ogni allievo spuntato.
+        ///   Cerca una stringa localizzata simile a Decrementare il fattore vendetta per gli studenti selezionati?.
         /// </summary>
         public static string Main_RevengeFactorDecrease {
             get {
@@ -4313,7 +4421,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Incremento del fattore vendetta per ogni allievo spuntato.
+        ///   Cerca una stringa localizzata simile a Incrementare il fattore vendetta per gli studenti selezionati?.
         /// </summary>
         public static string Main_RevengeFactorIncrease {
             get {
@@ -4385,7 +4493,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Selezionare un tipo di valutazione.
+        ///   Cerca una stringa localizzata simile a Selezionare il tipo di valutazione.
         /// </summary>
         public static string Main_SelectGradeType {
             get {
@@ -4394,7 +4502,7 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Selezionare un allievo da valutare.
+        ///   Cerca una stringa localizzata simile a Selezionare uno studente.
         /// </summary>
         public static string Main_SelectStudent {
             get {
@@ -5231,8 +5339,16 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a Con il tipo di valutazione scelto non si può fare la media.
-        ///Selezionare un tipo di valutazione corretto.
+        ///   Cerca una stringa localizzata simile a Il programma verrà chiuso. Alla ripartenza funzionerà regolarmente..
+        /// </summary>
+        public static string Main_WillClose {
+            get {
+                return ResourceManager.GetString("Main_WillClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Tipo di valutazione non valido.
         /// </summary>
         public static string Main_WrongGradeType {
             get {

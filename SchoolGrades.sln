@@ -52,6 +52,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Manual_IT", "Manual_IT", "{
 		Manual_IT\Manuale-Utente-SchoolGrades.md = Manual_IT\Manuale-Utente-SchoolGrades.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Inno_Setup", "Inno_Setup", "{F1AE5D83-A307-409F-9723-6432C9185B7B}"
+	ProjectSection(SolutionItems) = preProject
+		Inno_Setup\schgrd_NO_DEMO.cfg = Inno_Setup\schgrd_NO_DEMO.cfg
+		Inno_Setup\schgr_DEMO.cfg = Inno_Setup\schgr_DEMO.cfg
+		Inno_Setup\SchoolGrades_EMPTY.sqlite = Inno_Setup\SchoolGrades_EMPTY.sqlite
+		Inno_Setup\SchoolGrades_Inno-Setup.iss = Inno_Setup\SchoolGrades_Inno-Setup.iss
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

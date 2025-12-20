@@ -168,5 +168,9 @@ namespace SchoolGrades
             List<SchoolYear> ly = dl.GetAllSchoolYears();
             return ly;
         }
+        internal (DateTime? begin, DateTime? end) GetBeginEndOfSchoolYear(SchoolYear SchoolYear)
+        {
+            return dl.GetBeginEndOfSchoolYear(SchoolYear);
+        }
     }
 }

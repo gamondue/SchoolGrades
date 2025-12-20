@@ -9,7 +9,7 @@ namespace SchoolGrades
     internal partial class SqLite_DataLayer : DataLayer
     {
         internal override List<Image> GetAllImagesShownToAClassDuringLessons(Class Class, SchoolSubject Subject,
-            DateTime DateStart = default(DateTime), DateTime DateFinish = default(DateTime))
+            DateTime? DateStart = null, DateTime? DateFinish = null)
         {
             List<Image> images = new List<Image>();
 
@@ -24,7 +24,7 @@ namespace SchoolGrades
                         " JOIN Lessons ON Lessons.idLesson=Lessons_Images.idLesson" +
                         " WHERE Lessons.idClass=" + Class.IdClass +
                         " AND Lessons.idSchoolSubject='" + Subject.IdSchoolSubject + "'";
-                if (DateStart != default(DateTime) && DateFinish != default(DateTime))
+                if (DateStart != null && DateFinish != null)
                     query += " AND Lessons.date BETWEEN " +
                     SqlDate(DateStart) + " AND " + SqlDate(DateFinish);
                 query += ";";

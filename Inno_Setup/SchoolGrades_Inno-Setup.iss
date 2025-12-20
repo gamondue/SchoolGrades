@@ -27,7 +27,7 @@ var
 
 function GetDefaultDirName(Param: String): String;
 begin
-  if IsTaskSelected('allusers') then
+  if WizardIsTaskSelected('allusers') then
     Result := ExpandConstant('{commonpf}\SchoolGrades')
   else
     Result := ExpandConstant('{userpf}\SchoolGrades');
@@ -54,28 +54,28 @@ begin
   end;
 
   // When leaving the Select Tasks page, if demo task selected, inform the user where demo data will be copied
-  if (CurPageID = wpSelectTasks) and IsTaskSelected('copydemodata') and not DemoInfoShown then
+  if (CurPageID = wpSelectTasks) and WizardIsTaskSelected('copydemodata') and not DemoInfoShown then
   begin
     DemoDest := ExpandConstant('{userdocs}\SchoolGrades\Data');
-    MsgBox('I dati demo saranno copiati nella cartella: ' + #13#10 + DemoDest, mbInformation, MB_OK);
+    MsgBox('Demo data will be copied into folder: ' + #13#10 + DemoDest, mbInformation, MB_OK);
     DemoInfoShown := True;
   end;
 end;
 
 function ShouldInstallDemoData(): Boolean;
 begin
-  Result := IsTaskSelected('copydemodata');
+  Result := WizardIsTaskSelected('copydemodata');
 end;
 
 [Files]
 ; path relative to the folder in which this file is stored
 Source: "..\SchoolGrades\bin\Release\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+
 ; Demo data files (copied into Documents\SchoolGrades\Data when demo option selected)
-Source: "..\DemoData\Data"; DestDir: "{userdocs}\SchoolGrades\Data"; Check: ShouldInstallDemoData; Flags: ignoreversion recursesubdirs createallsubdirs
-; demo Images files (copied into Documents\SchoolGrades\Images when demo option selected)
-Source: "..\DemoData\Images"; DestDir: "{userdocs}\SchoolGrades\Images"; Check: ShouldInstallDemoData; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\DemoData\*"; DestDir: "{userdocs}\SchoolGrades\"; Check: ShouldInstallDemoData; Flags: ignoreversion recursesubdirs createallsubdirs
+
 ; If no demo, copy empty sqlite database into Documents\SchoolGrades\Data
-Source: "SchoolGrades_EMPTY.sqlite"; DestDir: "{userdocs}\SchoolGrades\Data"; Check: not ShouldInstallDemoData; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "SchoolGrades_EMPTY.sqlite"; DestDir: "{userdocs}\SchoolGrades\Data"; DestName: "SchoolGrades.sqlite";Check: not ShouldInstallDemoData; Flags: ignoreversion recursesubdirs createallsubdirs
 ; schgrd.cfg selection: demo vs no-demo - always copy as schgrd.cfg in destination
 Source: "schgrd_DEMO.cfg"; DestDir: "{userdocs}\SchoolGrades\Config"; DestName: "schgrd.cfg"; Check: ShouldInstallDemoData; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "schgrd_NO_DEMO.cfg"; DestDir: "{userdocs}\SchoolGrades\Config"; DestName: "schgrd.cfg"; Check: not ShouldInstallDemoData; Flags: ignoreversion recursesubdirs createallsubdirs
@@ -89,7 +89,7 @@ Name: "{commonprograms}\SchoolGrades"; Filename: "{app}\SchoolGrades.exe"; IconF
 Name: "{commondesktop}\SchoolGrades"; Filename: "{app}\SchoolGrades.exe"; IconFilename: "{app}\Icons\gamon LegoLogo decentrato trasparente 256x256.ico"; Tasks: allusers
 
 [Run]
-Filename: "{app}\SchoolGrades.exe"; Description: "Avvia SchoolGrades"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\SchoolGrades.exe"; Description: "Run SchoolGrades"; Flags: nowait postinstall skipifsilent
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{app}\Icons\gamon LegoLogo decentrato trasparente 256x256.ico"

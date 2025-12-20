@@ -208,7 +208,7 @@ Elimina i file di configurazione del programma e lo riavvia.
 
 Apre la cartella dei dati di configurazione, dove sono memorizzati:
 - nella cartella Config: file di configurazione (schgrd.cfg (SchoolGrades.configure))
-- nella cartella Config: file di configurazione per debug (schgrd.cfg_DEBUG). Usata dal programma solo quando funziona in modalità debug. Gli utenti finali non sviluppatori non dovrebbero avere questa cartella.
+- nella cartella Config: file di configurazione per debug (schgrd_DEBUG.cfg). Usata dal programma solo quando funziona in modalità debug. Gli utenti finali non sviluppatori non dovrebbero avere questa cartella.
 - nella cartella Logs (che sta "sopra" a Config): file gamon-Errori.txt, il log degli errori del programma
 - nella cartella Logs: file di tipo frm*_parameters.txt, che il programma usa per salvare i parametri usati nella finestra l'ultima volta che è stata chiusa
 

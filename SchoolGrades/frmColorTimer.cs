@@ -5,6 +5,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.ComponentModel;
 using SchoolGrades.Localization;
+using SchoolGrades;
 
 namespace gamon
 {
@@ -12,8 +13,6 @@ namespace gamon
     {
         bool alarmClock = false;
         bool isLoading = true;
-
-        System.Media.SoundPlayer suonatore = new System.Media.SoundPlayer();
 
         double timeTotalSeconds;
         private double secondsFirst;
@@ -147,10 +146,11 @@ namespace gamon
                 btnConnect.BackColor = currentColor;
                 if (timeLeftSeconds < timeTotalSeconds * 0.2 * 60.0 && timeLeftSeconds > 1 && !alarmClock)
                 {
+                    // TODO fix this part. the sound should be playe when 10% of the interval is left
+                    // now it plays as soon as the timer starts
                     if (PlaySoundEffects)
                     {
-                        suonatore.SoundLocation = ".\\La Sveglia.wav";
-                        suonatore.Play();
+                        Commons.TryPlayEmbeddedWave("La Sveglia.wav");
                     }
                     alarmClock = true;
                 }
@@ -169,8 +169,9 @@ namespace gamon
                     }
                     if (PlaySoundEffects)
                     {
-                        suonatore.SoundLocation = ".\\Il silenzio.wav";
-                        suonatore.Play();
+                        Commons.TryPlayEmbeddedWave("Il silenzio.wav");
+                        //suonatore.SoundLocation = ".\\Il silenzio.wav";
+                        //suonatore.Play();
                     }
                 }
             }

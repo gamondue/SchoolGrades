@@ -82,5 +82,33 @@ namespace SchoolGrades
             }
             return ly;
         }
+        internal override (DateTime? begin, DateTime? end) GetBeginEndOfSchoolYear(SchoolYear schoolYear)
+        {
+            DbDataReader dRead;
+            DbCommand cmd;
+            // Execute the query
+            using (DbConnection conn = Connect())
+            {
+                // get the beginning and end of given school year
+                DateTime? begin = null, end = null;
+                string query =
+                    @"SELECT dateStart, dateFinish
+                    FROM SchoolPeriods
+                    WHERE IdSchoolYear=" + SqlString(schoolYear.IdSchoolYear) +
+                    " AND idSchoolPeriodType='Y'" +
+                    ";";
+                cmd = conn.CreateCommand();
+                cmd.CommandText = query;
+                dRead = cmd.ExecuteReader();
+                while (dRead.Read())
+                {
+                    begin = Safe.DateTime(dRead["dateStart"]);
+                    end = Safe.DateTime(dRead["dateFinish"]);
+                }
+                dRead.Dispose();
+                cmd.Dispose();
+                return (begin, end);
+            }
+        }
     }
 }

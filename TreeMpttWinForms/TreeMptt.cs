@@ -318,8 +318,8 @@ namespace gamon.TreeMptt
 
                     List<Topic> listNodes = null;
                     
-                    // ✅ NUOVO: Usa TreeMpttLeftRight invece di GenerateNewListOfNodesFromDatabase
-                    // Questo evita completamente la dipendenza da TreeView
+                    // use TreeMpttLeftRight instead of GenerateNewListOfNodesFromDatabase
+                    // this eliminates the dependance from TreeView (that is different in WinForms, WPF..)
                     try
                     {
                         TreeMpttLeftRight calculator = new TreeMpttLeftRight(dbMptt);

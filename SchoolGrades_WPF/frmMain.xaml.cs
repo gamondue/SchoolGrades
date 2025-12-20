@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -45,7 +46,6 @@ namespace SchoolGrades_WPF
         DispatcherTimer timerLesson = new DispatcherTimer();
         DispatcherTimer timerPopUp = new DispatcherTimer();
 
-        System.Media.SoundPlayer suonatore = new System.Media.SoundPlayer();
         public Student CurrentStudent
         {
             get => currentStudent;
@@ -393,8 +393,9 @@ namespace SchoolGrades_WPF
                 int suspenceDelay = 4069; // in ms
                 try
                 {
-                    suonatore.SoundLocation = ".\\Lo squalo.wav";
-                    suonatore.Play();
+                    Commons.TryPlayEmbeddedWave("Lo squalo.wav");
+                    //suonatore.SoundLocation = ".\\Lo squalo.wav";
+                    //suonatore.Play();
                     Thread.Sleep(suspenceDelay);
                 }
                 catch
@@ -603,8 +604,9 @@ namespace SchoolGrades_WPF
             {
                 try
                 {
-                    suonatore.SoundLocation = ".\\Auguri.wav";
-                    suonatore.Play();
+                    Commons.TryPlayEmbeddedWave("Auguri.wav");
+                    //suonatore.SoundLocation = "Auguri.wav";
+                    //suonatore.Play();
                 }
                 catch
                 {
@@ -938,7 +940,7 @@ namespace SchoolGrades_WPF
             {
                 // restart from the beginning with a new database file 
                 ////////////frmMain_Load();
-                lblDatabaseFile.Text = Commons.DatabaseFileName_Current;
+                lblDatabaseFile.Text = Commons.DatabaseFileName;
                 currentStudentsList = null;
                 eligiblesList.Clear();
             }
@@ -1226,8 +1228,9 @@ namespace SchoolGrades_WPF
             {
                 try
                 {
-                    suonatore.SoundLocation = ".\\Rigoletto.wav";
-                    suonatore.Play();
+                    Commons.TryPlayEmbeddedWave("Rigoletto.wav");
+                    //suonatore.SoundLocation = "Rigoletto.wav";
+                    //suonatore.Play();
                 }
                 catch
                 {
@@ -1253,15 +1256,14 @@ namespace SchoolGrades_WPF
             {
                 File.Copy(Commons.PathAndFileDatabase,
                     Path.Combine(Commons.PathLogs, DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") +
-                    "_" + Commons.DatabaseFileName_Current));
+                    "_" + Commons.DatabaseFileName));
             }
             Commons.TerminateBackgroundThread();
+
+            ////////// stop and release any embedded-stream used by the player
+            ////////try { suonatore.Stop(); } catch { }
+            ////////try { suonatoreStream?.Dispose(); suonatoreStream = null; } catch { }
         }
-        //private void CloseBackgroundThread()
-        //{
-        //    // if a saving of the database with Mptt is running, we close it 
-        //    Commons.StopBackgroundThread();
-        //}
         private void StopAllTimers()
         {
             timerLesson.Stop();
@@ -1380,8 +1382,7 @@ namespace SchoolGrades_WPF
                     alarmNotFired = false;
                     try
                     {
-                        suonatore.SoundLocation = ".\\La Sveglia.wav";
-                        suonatore.Play();
+                        Commons.TryPlayEmbeddedWave("La Sveglia.wav");
                     }
                     catch
                     {
@@ -1684,8 +1685,9 @@ namespace SchoolGrades_WPF
             {
                 try
                 {
-                    suonatore.SoundLocation = ".\\Auguri.wav";
-                    suonatore.Play();
+                    Commons.TryPlayEmbeddedWave("Auguri.wav");
+                    //suonatore.SoundLocation = "Auguri.wav";
+                    //suonatore.Play();
                 }
                 catch
                 {

@@ -191,7 +191,7 @@ namespace SchoolGrades
 
         // ImageManagement
         internal abstract List<Image> GetAllImagesShownToAClassDuringLessons(Class Class, SchoolSubject Subject,
-            DateTime DateStart = default(DateTime), DateTime DateFinish = default(DateTime));
+            DateTime? DateStart = null, DateTime? DateFinish = null);
         internal abstract List<string> GetCaptionsOfThisImage(string FileName);
         internal abstract void EraseStudentsPhoto(int? IdStudent, string SchoolYear);
         internal abstract string GetFilePhoto(int? IdStudent, string SchoolYear);
@@ -482,5 +482,6 @@ namespace SchoolGrades
             //////////}
         }
         internal abstract List<SchoolYear> GetAllSchoolYears();
+        internal abstract (DateTime? begin, DateTime? end) GetBeginEndOfSchoolYear(SchoolYear schoolYear);
     }
 }

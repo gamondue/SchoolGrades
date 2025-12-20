@@ -15,7 +15,7 @@ namespace SchoolGrades_WPF
         bool alarmClock = false;
         bool isLoading = true;
 
-        System.Media.SoundPlayer suonatore = new System.Media.SoundPlayer();
+        //System.Media.SoundPlayer suonatore = new System.Media.SoundPlayer();
 
         float timeTotalSeconds;
         private double secondsFirst;
@@ -148,8 +148,7 @@ namespace SchoolGrades_WPF
                 {
                     if (PlaySoundEffects)
                     {
-                        suonatore.SoundLocation = ".\\La Sveglia.wav";
-                        suonatore.Play();
+                        Commons.TryPlayEmbeddedWave("La Sveglia.wav");
                     }
                     alarmClock = true;
                 }
@@ -158,8 +157,7 @@ namespace SchoolGrades_WPF
                 {
                     if (PlaySoundEffects)
                     {
-                        suonatore.SoundLocation = ".\\Il silenzio.wav";
-                        suonatore.Play();
+                        Commons.TryPlayEmbeddedWave("Il silenzio.wav");
                     }
                     txtCountDown.Text = Convert.ToString(timeTotalSeconds * 60);
                     alarmClock = false;

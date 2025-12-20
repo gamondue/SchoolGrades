@@ -24,7 +24,23 @@ Versions with numbers under 0.50 were made with .Net Framework.</PackageReleaseN
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Auguri.wav" />
+    <None Remove="Resources\IL SILENZIO.wav" />
+    <None Remove="Resources\La Sveglia.wav" />
+    <None Remove="Resources\Lo squalo.wav" />
+    <None Remove="Resources\Rigoletto.wav" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="gamon LegoLogo decentrato trasparente 256x256.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Auguri.wav" />
+    <EmbeddedResource Include="Resources\IL SILENZIO.wav" />
+    <EmbeddedResource Include="Resources\La Sveglia.wav" />
+    <EmbeddedResource Include="Resources\Lo squalo.wav" />
+    <EmbeddedResource Include="Resources\Rigoletto.wav" />
   </ItemGroup>
 
   <ItemGroup>
