@@ -534,6 +534,7 @@ Possibili miglioramenti in sviluppo:
 - **Collegamento a risorse esterne**: link diretti a video, PDF, siti web per ogni argomento
 - **Statistiche**: vedere quante domande, lezioni, studenti per ogni argomento
 
+[Pagina principale](Manuale-Utente-SchoolGrades.md)
 ---
 
 *Questa documentazione fa parte del Manuale Utente di SchoolGrades*

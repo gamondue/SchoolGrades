@@ -422,6 +422,7 @@ Pulsante **"Gestione immagini"** apre frmImages per gestire in dettaglio le imma
 - **Immagini grandi**: possono rallentare il caricamento
 - **Sola lettura**: necessaria se si aprono più finestre contemporaneamente
 
+[Pagina principale](Manuale-Utente-SchoolGrades.md)
 ---
 
 *Questa documentazione fa parte del Manuale Utente di SchoolGrades*

@@ -1,0 +1,850 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Documentazione SchoolGrades - Finestre-Secondarie">
+    <meta name="author" content="SchoolGrades">
+    <title>Finestre-Secondarie - SchoolGrades</title>
+    <style>
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    max-width: 1000px; 
+    margin: 40px auto; 
+    padding: 20px 40px; 
+    line-height: 1.7;
+    background-color: #f8f9fa;
+    color: #212529;
+}
+h1 { 
+    color: #1a4d2e; 
+    border-bottom: 3px solid #4f772d; 
+    padding-bottom: 15px; 
+    margin-top: 40px;
+    font-size: 2.5em;
+}
+h2 { 
+    color: #2d5016; 
+    margin-top: 35px; 
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #90a955;
+    font-size: 1.8em;
+}
+h3 { 
+    color: #3d6628; 
+    margin-top: 25px;
+    font-size: 1.4em;
+}
+h4 {
+    color: #4a7c32;
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+code { 
+    background-color: #e9ecef; 
+    padding: 3px 8px; 
+    border-radius: 4px; 
+    font-family: 'Consolas', 'Monaco', monospace;
+    color: #d63384;
+    font-size: 0.9em;
+}
+pre { 
+    background-color: #2d2d2d; 
+    color: #f8f8f2;
+    padding: 20px; 
+    border-radius: 6px; 
+    overflow-x: auto;
+    border-left: 4px solid #4f772d;
+    margin: 20px 0;
+}
+pre code {
+    background-color: transparent;
+    color: #f8f8f2;
+    padding: 0;
+}
+a {
+    color: #4f772d;
+    text-decoration: none;
+    border-bottom: 1px dotted #4f772d;
+}
+a:hover {
+    color: #2d5016;
+    border-bottom: 1px solid #2d5016;
+}
+img { 
+    max-width: 100%; 
+    height: auto; 
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin: 20px 0;
+}
+table { 
+    border-collapse: collapse; 
+    width: 100%; 
+    margin: 25px 0;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+th, td { 
+    border: 1px solid #dee2e6; 
+    padding: 12px 15px; 
+    text-align: left; 
+}
+th { 
+    background-color: #4f772d; 
+    color: white;
+    font-weight: 600;
+}
+tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+tr:hover {
+    background-color: #e9ecef;
+}
+blockquote {
+    border-left: 4px solid #4f772d;
+    margin: 20px 0;
+    padding: 10px 20px;
+    background-color: #f1f8f4;
+    font-style: italic;
+}
+ul, ol {
+    margin: 15px 0;
+    padding-left: 30px;
+}
+li {
+    margin: 8px 0;
+}
+strong {
+    color: #1a4d2e;
+    font-weight: 600;
+}
+em {
+    color: #4a7c32;
+}
+hr {
+    border: none;
+    border-top: 2px solid #90a955;
+    margin: 40px 0;
+}
+.header-nav {
+    background-color: #4f772d;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+.footer {
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 2px solid #dee2e6;
+    text-align: center;
+    color: #6c757d;
+    font-size: 0.9em;
+}
+    </style>
+</head>
+<body>
+    <div class="header-nav">
+        <h3 style="margin: 0; color: white;">?? SchoolGrades - Documentazione</h3>
+    </div>
+    
+<h1>Finestre Secondarie e Specializzate - Manuale Utente</h1>
+
+<p>Questa guida documenta le finestre secondarie e specializzate di SchoolGrades, organizzate per categoria funzionale.</p>
+
+<hr>
+<p>**ATTENZIONE: QUESTO FILE E' PRELIMINARE E NON REVISIONATO.  </p>
+<p>POTREBBE CONTENERE INFORMAZIONI NON ESATTE**  </p>
+<p>Comunica con un ticket su GiHub eventuali errori riscontrati.</p>
+
+<h2>GESTIONE CLASSI E ORGANIZZAZIONE</h2>
+
+<strong>Funzione</strong>: gestione completa delle classi (creazione, modifica, studenti, propriet�, cancellazione).
+
+<strong>Accesso</strong>: Setup -> "Gestione classi"
+
+<strong>Interfaccia</strong>:
+<ul>
+<p>  <li>Lista anni e lista classi (sinistra): selezionare anno e classe da gestire</li>
+<p>  <li>Dettagli classe (centro): dati della classe selezionata</li>
+<p>  <li>Lista studenti (destra): studenti nella classe</li>
+<p>  <li>Pulsanti: Aggiungi, Rimuovi, Salva, Nuovo</li>
+</ul>
+
+<strong>Funzionalit�</strong>:
+<ul>
+<p>  <li><strong>Creazione "manuale" classi</strong>: </li>
+<p>  <li>specificare anno scolastico, sigla, denominazione, scrivendo direttamente nei combo e nelle caselle di testo</li>
+<p>  <li>premere il bottone "Crea nuova classe"</li>
+<p>  <li>aggiungere studenti</li>
+<p>  <li><strong>Creazione automatica classi</strong>: </li>
+<p>  <li>!!!! TODO COMPLETARE !!!!</li>
+</ul>
+<p> </p>
+<ul>
+<p>  <li><strong>Aggiunta studenti</strong>: associare studenti esistenti o crearne nuovi</li>
+<p>  <li>bottone "Nuovo allievo"</li>
+<p>  <li>si apre la finestra "studente" nella quale si potr� ricercare e scegliere uno studente gi� esistente, oppure fare un nuovo studente</li>
+<p>  <li><strong>Rimozione studenti</strong>: il bottone "Elimina allievo" toglie uno studente dalla classe</li>
+<p>  <li><strong>Modifica studente</strong>: il bottone "Modifica allievo" apre la finestra con i dati dello studente da modificare</li>
+<p>  <li><strong>Gestione della foto dell'allievo</strong>: </li>
+<p>  <li><strong>Cancellazione classe</strong>: il bottone "Elimina classe" rimuove la classe selezionata (dopo conferma)</li>
+</ul>
+
+<ul>
+<p>  <li></li>
+<p>  <li><strong>Percorsi personalizzati</strong>: configurare cartelle specifiche per classe</li>
+<p>  <li><strong>Collegamenti (Start Links)</strong>: URL/file da aprire per la classe</li>
+<p>  <li><strong>Propriet� classe</strong>: note, configurazioni speciali</li>
+</ul>
+
+<strong>Workflow tipico - Creare nuova classe</strong>:
+
+<strong>!!!! TODO REVISIONARE QUESTA PROCEDURA !!!!</strong>
+
+<ol>
+<p>  <li>Click "Nuova classe"</li>
+<p>  <li>Inserire anno scolastico (es. "2024-25")</li>
+<p>  <li>Inserire sigla (es. "4F")</li>
+<p>  <li>Inserire denominazione completa</li>
+<p>  <li>Click "Salva"</li>
+<p>  <li>Aggiungere studenti con "Aggiungi studente"</li>
+<p>  <li>Chiudere finestra</li>
+</ul>
+
+<strong>Suggerimenti</strong>:
+<ul>
+<p>  <li>Creare tutte le classi all'inizio dell'anno</li>
+<p>  <li>Usare nomenclatura coerente per sigle</li>
+<p>  <li>Configurare percorsi personalizzati se ogni classe ha cartelle proprie</li>
+</ul>
+
+<hr>
+<h3>frmSchoolYearAndPeriodsManagement - Gestione Anni e Periodi</h3>
+
+<strong>Funzione</strong>: configurazione anni scolastici e periodi di valutazione.
+
+<strong>Accesso</strong>: Setup ? "Gestione anni e periodi"
+
+<strong>Funzionalit�</strong>:
+<ul>
+<p>  <li><strong>Anni scolastici</strong>: creare/modificare anni (es. "2024-25")</li>
+<p>  <li><strong>Periodi valutazione</strong>: definire quadrimestri, trimestri</li>
+<p>  <li><strong>Date periodi</strong>: impostare inizio/fine ogni periodo</li>
+<p>  <li><strong>Tipi periodo</strong>: "P" (parziale/quadrimestre), "F" (finale), "N" (non standard)</li>
+</ul>
+
+<strong>Interfaccia</strong>:
+<ul>
+<p>  <li>Lista anni scolastici (sinistra)</li>
+<p>  <li>Lista periodi dell'anno selezionato (centro)</li>
+<p>  <li>Dettagli periodo (destra): date, tipo, descrizione</li>
+</ul>
+
+<strong>Workflow - Configurare nuovo anno</strong>:
+<ol>
+<p>  <li>Click "Nuovo anno"</li>
+<p>  <li>Inserire codice (es. "24-25")</li>
+<p>  <li>Inserire descrizione (es. "Anno scolastico 2024-2025")</li>
+<p>  <li>Salvare</li>
+<p>  <li>Selezionare anno creato</li>
+<p>  <li>Aggiungere periodi:</li>
+<p>  <li>1� Quadrimestre: date 01/09/2024 - 31/01/2025</li>
+<p>  <li>2� Quadrimestre: date 01/02/2025 - 10/06/2025</li>
+<p>  <li>Salvare periodi</li>
+</ul>
+
+<strong>Importante</strong>: i periodi sono usati in tutta l'applicazione per filtrare voti e lezioni.
+
+<hr>
+<h3>frmSchoolSubjectManagement - Gestione Materie</h3>
+
+<strong>Funzione</strong>: configurazione materie insegnate e loro propriet� visive.
+
+<strong>Accesso</strong>: Setup ? "Gestione materie"
+
+<strong>Funzionalit�</strong>:
+<ul>
+<p>  <li>Creare/modificare/eliminare materie</li>
+<p>  <li>Assegnare codice identificativo (es. "MAT", "ITA")</li>
+<p>  <li>Assegnare nome completo (es. "Matematica")</li>
+<p>  <li><strong>Scegliere colore</strong>: ogni materia ha un colore che identifica le finestre</li>
+<p>  <li>Ordinare materie nella lista</li>
+</ul>
+
+<strong>Interfaccia</strong>:
+<ul>
+<p>  <li>Lista materie esistenti</li>
+<p>  <li>Campi: Codice, Nome, Colore</li>
+<p>  <li>Pulsanti: Nuovo, Salva, Elimina</li>
+<p>  <li>Selettore colore (ColorDialog)</li>
+</ul>
+
+<strong>Workflow - Aggiungere materia</strong>:
+<ol>
+<p>  <li>Click "Nuova materia"</li>
+<p>  <li>Codice: "FIS"</li>
+<p>  <li>Nome: "Fisica"</li>
+<p>  <li>Click su quadrato colore ? selezionare colore (es. azzurro)</li>
+<p>  <li>Salvare</li>
+</ul>
+
+<strong>Uso colori</strong>: ogni finestra cambia colore di sfondo in base alla materia selezionata, facilitando riconoscimento visivo.
+
+<hr>
+<h2>ANNOTAZIONI E COMMENTI</h2>
+
+<h3>frmAnnotationsAboutStudents - Annotazioni Studenti</h3>
+
+<strong>Funzione</strong>: inserire annotazioni/note su uno o pi� studenti.
+
+<strong>Accesso</strong>: Finestra principale ? "Annotaz." (con studenti selezionati)
+
+<strong>Funzionalit�</strong>:
+<ul>
+<p>  <li>Annotazione singola o multipla (pi� studenti contemporaneamente)</li>
+<p>  <li>Testo libero dell'annotazione</li>
+<p>  <li>Checkbox "Attiva": se annotazione � ancora rilevante</li>
+<p>  <li>Checkbox "Popup": se mostrare in popup all'apertura classe</li>
+<p>  <li>Data automatica inserimento</li>
+</ul>
+
+<strong>Interfaccia</strong>:
+<ul>
+<p>  <li>Lista studenti selezionati (non modificabile)</li>
+<p>  <li>Campo testo annotazione (multi-riga)</li>
+<p>  <li>Checkbox: Attiva, Popup</li>
+<p>  <li>Pulsanti: Salva, Annulla</li>
+</ul>
+
+<strong>Workflow - Annotazione comportamento</strong>:
+<ol>
+<p>  <li>Nella finestra principale, spuntare studenti coinvolti</li>
+<p>  <li>Click "Annotaz."</li>
+<p>  <li>Testo: "Disturbo durante lezione. Richiamato."</li>
+<p>  <li>Spuntare "Attiva"</li>
+<p>  <li>Spuntare "Popup" se serve ricordare</li>
+<p>  <li>Salvare</li>
+</ul>
+
+<strong>Tipi annotazioni comuni</strong>:
+<ul>
+<p>  <li>Comportamento (positivo/negativo)</li>
+<p>  <li>Assenze prolungate</li>
+<p>  <li>Situazioni familiari rilevanti</li>
+<p>  <li>Progressi/regressioni</li>
+<p>  <li>Colloqui con genitori</li>
+</ul>
+
+<strong>Visualizzazione</strong>: le annotazioni appaiono in "Riepilogo Voti Allievo" e in popup all'apertura classe.
+
+<hr>
+<h3>frmAnnotationsPopUp - Popup Annotazioni</h3>
+
+<strong>Funzione</strong>: mostra annotazioni "popup" all'apertura di una classe.
+
+<strong>Accesso</strong>: automatico quando si apre classe con annotazioni popup attive
+
+<strong>Funzionalit�</strong>:
+<ul>
+<p>  <li>Visualizza tutte le annotazioni marcate "popup" per studenti della classe</li>
+<p>  <li>Formato tabella: studente, data, testo annotazione</li>
+<p>  <li>Pulsante "OK" per chiudere e procedere</li>
+</ul>
+
+<strong>Uso</strong>: promemoria automatico di situazioni importanti da ricordare all'inizio della lezione.
+
+<hr>
+<h2>TAG E CATEGORIZZAZIONE</h2>
+
+<h3>frmTag - Gestione Tag</h3>
+
+<strong>Funzione</strong>: creare e gestire tag per categorizzare domande.
+
+<strong>Accesso</strong>: 
+<ul>
+<p>  <li>Setup ? "Gestione tag" (gestione completa)</li>
+<p>  <li>Finestre domande ? "Aggiungi tag" (selezione rapida)</li>
+</ul>
+
+<strong>Modalit�</strong>:
+<ul>
+<p>  <li><strong>Gestione completa</strong>: vedere tutti i tag, creare, modificare, eliminare</li>
+<p>  <li><strong>Selezione</strong>: scegliere tag esistente per associarlo</li>
+</ul>
+
+<strong>Funzionalit�</strong>:
+<ul>
+<p>  <li>Creare nuovo tag (nome univoco)</li>
+<p>  <li>Modificare nome tag esistente</li>
+<p>  <li>Eliminare tag (non elimina associazioni esistenti)</li>
+<p>  <li>Vedere numero domande associate per tag</li>
+</ul>
+
+<strong>Interfaccia</strong>:
+<ul>
+<p>  <li>Lista tag esistenti</li>
+<p>  <li>Campo nome tag</li>
+<p>  <li>Pulsanti: Nuovo, Salva, Elimina, Scegli (solo in modalit� selezione)</li>
+</ul>
+
+<strong>Workflow - Creare sistema tag</strong>:
+<ol>
+<p>  <li>Aprire gestione tag</li>
+<p>  <li>Creare tag per <strong>difficolt�</strong>: "facile", "media", "difficile"</li>
+<p>  <li>Creare tag per <strong>tipo cognitivo</strong>: "conoscenza", "comprensione", "applicazione"</li>
+<p>  <li>Creare tag per <strong>importanza</strong>: "fondamentale", "complementare"</li>
+<p>  <li>Creare tag per <strong>modalit�</strong>: "teoria", "esercizio", "problema"</li>
+</ul>
+
+<strong>Suggerimenti</strong>:
+<ul>
+<p>  <li>Sistema tag coerente e pianificato</li>
+<p>  <li>Non troppi tag (10-20 sufficienti)</li>
+<p>  <li>Tag descrittivi e univoci</li>
+<p>  <li>Preferire tag generali a specifici</li>
+</ul>
+
+<hr>
+<h2>VISUALIZZAZIONE E UTILIT�</h2>
+
+<h3>frmMosaic - Mosaico Foto Classe</h3>
+
+<strong>Funzione</strong>: visualizzare tutte le foto degli studenti di una classe in griglia.
+
+<strong>Accesso</strong>: Finestra principale ? "Mosaico"
+
+<strong>Funzionalit�</strong>:
+<ul>
+<p>  <li>Griglia automatica con foto studenti</li>
+<p>  <li>Nome sotto ogni foto</li>
+<p>  <li>Click su foto: evidenzia studente</li>
+<p>  <li>Utile per riconoscimento rapido, appello visivo</li>
+</ul>
+
+<strong>Interfaccia</strong>:
+<ul>
+<p>  <li>Griglia foto (dimensione automatica in base a numero studenti)</li>
+<p>  <li>Nomi studenti sotto foto</li>
+<p>  <li>Finestra ingrandibile</li>
+</ul>
+
+<strong>Uso tipico</strong>:
+<ul>
+<p>  <li>Appello visivo (spuntare presenti)</li>
+<p>  <li>Riconoscimento studenti ad inizio anno</li>
+<p>  <li>Stampa per registro cartaceo</li>
+<p>  <li>Visualizzazione durante riunioni/colloqui</li>
+</ul>
+
+<hr>
+<h3>frmRandom - Generatore Numeri Casuali</h3>
+
+<strong>Funzione</strong>: generare numero casuale in un intervallo.
+
+<strong>Accesso</strong>: Finestra principale ? "Numero casuale"
+
+<strong>Funzionalit�</strong>:
+<ul>
+<p>  <li>Specificare min e max</li>
+<p>  <li>Generare numero casuale nell'intervallo</li>
+<p>  <li>Ripetere estrazioni</li>
+<p>  <li>Storico numeri estratti (opzionale)</li>
+</ul>
+
+<strong>Interfaccia</strong>:
+<ul>
+<p>  <li>Campo Min (numero minimo)</li>
+<p>  <li>Campo Max (numero massimo)</li>
+<p>  <li>Pulsante "Genera"</li>
+<p>  <li>Display numero estratto (grande, visibile)</li>
+</ul>
+
+<strong>Uso tipico</strong>:
+<ul>
+<p>  <li>Estrarre numero compito/esercizio</li>
+<p>  <li>Sorteggio ordine presentazioni</li>
+<p>  <li>Scelta casuale da elenco numerato</li>
+<p>  <li>Giochi didattici con casualit�</li>
+</ul>
+
+<hr>
+<h3>frmColorTimer - Timer a Colori</h3>
+
+<strong>Funzione</strong>: timer visivo che cambia colore con lo scorrere del tempo.
+
+<strong>Accesso</strong>: 
+<ul>
+<p>  <li>Finestra principale ? "T.colori"</li>
+<p>  <li>Con tempo preimpostato (es. 5, 10, 15 minuti)</li>
+</ul>
+
+<strong>Funzionalit�</strong>:
+<ul>
+<p>  <li>Countdown da tempo impostato a 0</li>
+<p>  <li>Cambio graduale colore: verde ? giallo ? arancione ? rosso</li>
+<p>  <li>Display digitale tempo rimanente</li>
+<p>  <li>Opzione effetti sonori (beep a intervalli, allarme finale)</li>
+<p>  <li>Finestra sempre in primo piano</li>
+</ul>
+
+<strong>Interfaccia</strong>:
+<ul>
+<p>  <li>Display tempo grande e leggibile</li>
+<p>  <li>Sfondo colorato (tutto lo schermo cambia colore)</li>
+<p>  <li>Pulsanti: Avvia, Pausa, Reset</li>
+<p>  <li>Checkbox: Suoni</li>
+</ul>
+
+<strong>Uso tipico</strong>:
+<ul>
+<p>  <li>Tempo risposta studente (5-10 min)</li>
+<p>  <li>Esercizi a tempo</li>
+<p>  <li>Lavori di gruppo con deadline</li>
+<p>  <li>Gestione tempo lezione/attivit�</li>
+</ul>
+
+<strong>Effetti sonori</strong>:
+<ul>
+<p>  <li>Beep ogni minuto (opzionale)</li>
+<p>  <li>Beep pi� frequenti ultimi 30 secondi</li>
+<p>  <li>Allarme sonoro a tempo scaduto</li>
+</ul>
+
+<hr>
+<h2>DETTAGLI E APPROFONDIMENTI</h2>
+
+<h3>frmGrade - Dettaglio Singolo Voto</h3>
+
+<strong>Funzione</strong>: visualizzare tutti i dettagli di un singolo voto (micro o macro).
+
+<strong>Accesso</strong>: doppio click su voto in griglie voti
+
+<strong>Funzionalit�</strong>:
+<ul>
+<p>  <li>Mostra: studente, data, valore, peso, tipo valutazione</li>
+<p>  <li>Mostra domanda associata (se presente)</li>
+<p>  <li>Mostra testo risposta studente</li>
+<p>  <li>Mostra commenti insegnante</li>
+<p>  <li>Collegamenti a microvalutazioni (se macrovalutazione)</li>
+</ul>
+
+<strong>Interfaccia</strong>:
+<ul>
+<p>  <li>Sola visualizzazione (read-only) generalmente</li>
+<p>  <li>Campi: tutti i dati del voto</li>
+<p>  <li>Pulsante: Chiudi</li>
+</ul>
+
+<strong>Uso</strong>: consultazione dettagliata voto per chiarimenti, contestazioni, documentazione.
+
+<hr>
+<h3>frmAnswer - Gestione Risposta</h3>
+
+<strong>Funzione</strong>: creare/modificare risposta per domanda a scelta multipla.
+
+<strong>Accesso</strong>: 
+<ul>
+<p>  <li>frmQuestion ? "Aggiungi risposta"</li>
+<p>  <li>Doppio click su risposta esistente</li>
+</ul>
+
+<strong>Funzionalit�</strong>:
+<ul>
+<p>  <li>Testo risposta</li>
+<p>  <li>Checkbox "Corretta": se � la risposta giusta</li>
+<p>  <li>Salva e associa a domanda</li>
+</ul>
+
+<strong>Workflow - Domanda 4 risposte</strong>:
+<ol>
+<p>  <li>Creare domanda a scelta multipla</li>
+<p>  <li>"Aggiungi risposta" ? Testo: "Opzione A: ..." ? Corretta: No ? Salva</li>
+<p>  <li>"Aggiungi risposta" ? Testo: "Opzione B: ..." ? Corretta: S� ? Salva</li>
+<p>  <li>Ripetere per C e D</li>
+</ul>
+
+<hr>
+<h3>frmTopicChooseByPeriod - Scelta Argomento per Periodo</h3>
+
+<strong>Funzione</strong>: scegliere argomento tra quelli effettivamente svolti in un periodo.
+
+<strong>Accesso</strong>: frmQuestionChoose ? "Argomento per periodo"
+
+<strong>Funzionalit�</strong>:
+<ul>
+<p>  <li>Selezionare periodo temporale (date o periodo predefinito)</li>
+<p>  <li>Mostra solo argomenti svolti con la classe in quel periodo</li>
+<p>  <li>Evidenziazione colorata per frequenza</li>
+<p>  <li>Selezione argomento e conferma</li>
+</ul>
+
+<strong>Uso</strong>: creare domande su argomenti recenti, interrogazioni su programma svolto.
+
+<hr>
+<h3>frmKnotsToTheComb - Nodi al Pettine</h3>
+
+<strong>Funzione</strong>: identificare argomenti/domande problematiche per uno studente.
+
+<strong>Accesso</strong>: frmQuestionChoose ? "Nodi al pettine"
+
+<strong>Funzionalit�</strong>:
+<ul>
+<p>  <li>Analizza voti studente per argomento</li>
+<p>  <li>Identifica argomenti con voti bassi ripetuti</li>
+<p>  <li>Mostra domande sbagliate pi� volte</li>
+<p>  <li>Suggerisce domande per recupero mirato</li>
+</ul>
+
+<strong>Interfaccia</strong>:
+<ul>
+<p>  <li>Lista argomenti problematici (ordinati per gravit�)</li>
+<p>  <li>Lista domande sbagliate</li>
+<p>  <li>Pulsante: Scegli domanda (per interrogazione recupero)</li>
+</ul>
+
+<strong>Uso</strong>: interrogazioni mirate di recupero, identificazione lacune.
+
+<hr>
+<h2>MANUTENZIONE E AMMINISTRAZIONE</h2>
+
+<h3>frmBackupManagement - Gestione Backup</h3>
+
+<strong>Funzione</strong>: creare e ripristinare backup del database.
+
+<strong>Accesso</strong>: Setup ? "Gestione backup"
+
+<strong>Funzionalit�</strong>:
+<ul>
+<p>  <li><strong>Creare backup manuale</strong>: copia database con timestamp</li>
+<p>  <li><strong>Elencare backup</strong>: tutti i backup disponibili con date</li>
+<p>  <li><strong>Ripristinare backup</strong>: sostituire database corrente con backup</li>
+<p>  <li><strong>Eliminare backup</strong>: rimuovere backup vecchi</li>
+</ul>
+
+<strong>Interfaccia</strong>:
+<ul>
+<p>  <li>Lista backup esistenti (con data/ora)</li>
+<p>  <li>Pulsanti: Crea backup, Ripristina selezionato, Elimina</li>
+</ul>
+
+<strong>Workflow - Backup e ripristino</strong>:
+<ol>
+<p>  <li>Prima di operazione rischiosa: "Crea backup"</li>
+<p>  <li>Inserire descrizione opzionale</li>
+<p>  <li>Backup creato con nome timestampato</li>
+<p>  <li>Eseguire operazione</li>
+<p>  <li>Se problemi: selezionare backup ? "Ripristina"</li>
+<p>  <li>Confermare ripristino (sovrascrive database corrente)</li>
+<p>  <li>Riavviare programma</li>
+</ul>
+
+<strong>IMPORTANTE</strong>: backup � copia completa database, pu� essere molto grande (50-500 MB).
+
+<hr>
+<h3>frmImages - Gestione Immagini Lezione</h3>
+
+<strong>Funzione</strong>: associare immagini a una lezione.
+
+<strong>Accesso</strong>: frmLessons ? "Gestione immagini"
+
+<strong>Funzionalit�</strong>:
+<ul>
+<p>  <li>Aggiungere immagini da file system</li>
+<p>  <li>Rimuovere immagini dalla lezione</li>
+<p>  <li>Riordinare immagini</li>
+<p>  <li>Anteprima immagini</li>
+</ul>
+
+<strong>Interfaccia</strong>:
+<ul>
+<p>  <li>Lista immagini associate alla lezione</li>
+<p>  <li>Anteprima immagine selezionata</li>
+<p>  <li>Pulsanti: Aggiungi, Rimuovi, Su, Gi�</li>
+</ul>
+
+<strong>Workflow - Aggiungere foto lavagna</strong>:
+<ol>
+<p>  <li>Aprire finestra lezioni</li>
+<p>  <li>Selezionare/creare lezione</li>
+<p>  <li>"Gestione immagini"</li>
+<p>  <li>"Aggiungi" ? selezionare file foto</li>
+<p>  <li>Ripetere per altre foto</li>
+<p>  <li>Ordinare se necessario (su/gi�)</li>
+<p>  <li>Salvare</li>
+</ul>
+
+<strong>Formati supportati</strong>: JPG, PNG, BMP, GIF
+
+<hr>
+<h3>frmLookupTablesChoose - Scelta Tabelle Lookup</h3>
+
+<strong>Funzione</strong>: selezionare quale tabella di configurazione modificare.
+
+<strong>Accesso</strong>: Setup ? "Gestione tabelle"
+
+<strong>Funzionalit�</strong>:
+<ul>
+<p>  <li>Lista di tutte le tabelle configurabili:</li>
+<p>  <li>Tipi valutazione (GradeTypes)</li>
+<p>  <li>Tipi domanda (QuestionTypes)</li>
+<p>  <li>Tipi periodo (PeriodTypes)</li>
+<p>  <li>Altri lookup</li>
+<p>  <li>Selezionare tabella ? apre frmLookupTableEdit</li>
+</ul>
+
+<strong>Uso</strong>: accesso centralizzato a tutte le tabelle di configurazione.
+
+<hr>
+<h3>frmLookupTableEdit - Modifica Tabella Lookup</h3>
+
+<strong>Funzione</strong>: modificare contenuti tabella di configurazione selezionata.
+
+<strong>Accesso</strong>: frmLookupTablesChoose ? selezionare tabella
+
+<strong>Funzionalit�</strong>:
+<ul>
+<p>  <li>Visualizzare record tabella</li>
+<p>  <li>Aggiungere nuovo record</li>
+<p>  <li>Modificare record esistente</li>
+<p>  <li>Eliminare record (se non usato)</li>
+</ul>
+
+<strong>Interfaccia</strong>:
+<ul>
+<p>  <li>Griglia con record tabella</li>
+<p>  <li>Campi specifici per tipo tabella</li>
+<p>  <li>Pulsanti: Nuovo, Salva, Elimina</li>
+</ul>
+
+<strong>Esempio - Aggiungere tipo valutazione</strong>:
+<ol>
+<p>  <li>Setup ? Gestione tabelle ? GradeTypes</li>
+<p>  <li>"Nuovo"</li>
+<p>  <li>Codice: "PRAT"</li>
+<p>  <li>Nome: "Pratico"</li>
+<p>  <li>Peso default: 2</li>
+<p>  <li>Salvare</li>
+</ul>
+
+<hr>
+<h3>frmStartLinksManagement - Gestione Collegamenti Avvio</h3>
+
+<strong>Funzione</strong>: configurare URL/file da aprire automaticamente per una classe.
+
+<strong>Accesso</strong>: Setup ? "Gestione collegamenti" o frmClassesManagement ? Start Links
+
+<strong>Funzionalit�</strong>:
+<ul>
+<p>  <li>Aggiungere URL (es. registro elettronico classe)</li>
+<p>  <li>Aggiungere percorsi file/cartelle</li>
+<p>  <li>Ordinare collegamenti</li>
+<p>  <li>Test apertura collegamenti</li>
+</ul>
+
+<strong>Interfaccia</strong>:
+<ul>
+<p>  <li>Classe selezionata</li>
+<p>  <li>Lista collegamenti della classe</li>
+<p>  <li>Campo nuovo collegamento</li>
+<p>  <li>Pulsanti: Aggiungi, Rimuovi, Test</li>
+</ul>
+
+<strong>Esempio - Collegamenti classe 4F</strong>:
+<ul>
+<p>  <li>https://registro.scuola.it/classe/4F</li>
+<p>  <li>C:\Materiali\4F\ProgrammaAnno.pdf</li>
+<p>  <li>C:\Materiali\4F\Cartella_Condivisa</li>
+</ul>
+
+<strong>Uso</strong>: click "Start Links" in finestra principale o lezioni apre tutti i collegamenti della classe automaticamente.
+
+<hr>
+<h3>frmTopicsRecover - Recupero Argomenti</h3>
+
+<strong>Funzione</strong>: recuperare/importare struttura argomenti da backup o file.
+
+<strong>Accesso</strong>: Setup ? "Recupero argomenti"
+
+<strong>Funzionalit�</strong>:
+<ul>
+<p>  <li>Importare struttura argomenti da:</li>
+<p>  <li>Backup database</li>
+<p>  <li>File esterno (XML, JSON)</li>
+<p>  <li>Database diverso</li>
+<p>  <li>Opzioni:</li>
+<p>  <li>Sovrascrivere argomenti esistenti</li>
+<p>  <li>Integrare (aggiungere senza cancellare)</li>
+<p>  <li>Preview prima di importare</li>
+</ul>
+
+<strong>Uso</strong>: 
+<ul>
+<p>  <li>Recupero dopo perdita dati</li>
+<p>  <li>Import struttura da collega</li>
+<p>  <li>Sincronizzazione tra database</li>
+</ul>
+
+<hr>
+<h3>frmNewYear - Nuovo Anno Scolastico</h3>
+
+<strong>Funzione</strong>: wizard per configurare nuovo anno scolastico.
+
+<strong>Accesso</strong>: Setup (in sviluppo/avanzato)
+
+<strong>Funzionalit�</strong>:
+<ul>
+<p>  <li>Creare nuovo anno</li>
+<p>  <li>Copiare struttura anno precedente (classi, materie)</li>
+<p>  <li>Promuovere studenti (es. 3F ? 4F)</li>
+<p>  <li>Configurare periodi nuovo anno</li>
+</ul>
+
+<strong>Stato</strong>: funzionalit� in sviluppo, usare configurazione manuale per ora.
+
+<hr>
+<h2>RIEPILOGO ACCESSI RAPIDI</h2>
+
+<h3>Da Finestra Principale</h3>
+<ul>
+<p>  <li><strong>Mosaico</strong>: bottone diretto</li>
+<p>  <li><strong>Numero casuale</strong>: bottone diretto</li>
+<p>  <li><strong>Timer colori</strong>: bottone "T.colori"</li>
+<p>  <li><strong>Annotazioni</strong>: selezionare studenti + "Annotaz."</li>
+</ul>
+
+<h3>Da Setup</h3>
+<ul>
+<p>  <li><strong>Classi</strong>: Gestione classi</li>
+<p>  <li><strong>Materie</strong>: Gestione materie</li>
+<p>  <li><strong>Anni/Periodi</strong>: Gestione anni e periodi</li>
+<p>  <li><strong>Tabelle</strong>: Gestione tabelle ? scegliere</li>
+<p>  <li><strong>Backup</strong>: Gestione backup</li>
+<p>  <li><strong>Tag</strong>: Gestione tag</li>
+<p>  <li><strong>Collegamenti</strong>: Gestione collegamenti</li>
+</ul>
+
+<h3>Da Altre Finestre</h3>
+<ul>
+<p>  <li><strong>Dettaglio voto</strong>: doppio click su voto in griglie</li>
+<p>  <li><strong>Risposta</strong>: da finestra domanda</li>
+<p>  <li><strong>Argomento per periodo</strong>: da scelta domanda</li>
+<p>  <li><strong>Nodi al pettine</strong>: da scelta domanda</li>
+<p>  <li><strong>Immagini</strong>: da finestra lezioni</li>
+</ul>
+
+<a href="Manuale-Utente-SchoolGrades.md">Pagina principale</a>
+<hr>
+<em>Questa documentazione fa parte del Manuale Utente di SchoolGrades</em>
+
+    
+    <div class="footer">
+        <p>Documentazione generata da SchoolGrades | .NET 10</p>
+        <p>File sorgente: <code>Finestre-Secondarie.md</code></p>
+        <p>Data generazione: 24/12/2025 17:31</p>
+    </div>
+</body>
+</html>

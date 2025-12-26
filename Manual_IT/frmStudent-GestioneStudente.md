@@ -464,6 +464,7 @@ Mostra i risultati della ricerca.
 - **Validazione limitata**: pochi controlli automatici su correttezza dati (es. email valida, CAP corretto)
 - **Eliminazione con voti**: TODO - dovrebbe essere bloccata se studente ha voti
 
+[Pagina principale](Manuale-Utente-SchoolGrades.md)
 ---
 
 *Questa documentazione fa parte del Manuale Utente di SchoolGrades*

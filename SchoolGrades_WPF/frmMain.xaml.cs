@@ -394,8 +394,6 @@ namespace SchoolGrades_WPF
                 try
                 {
                     Commons.TryPlayEmbeddedWave("Lo squalo.wav");
-                    //suonatore.SoundLocation = ".\\Lo squalo.wav";
-                    //suonatore.Play();
                     Thread.Sleep(suspenceDelay);
                 }
                 catch
@@ -605,8 +603,6 @@ namespace SchoolGrades_WPF
                 try
                 {
                     Commons.TryPlayEmbeddedWave("Auguri.wav");
-                    //suonatore.SoundLocation = "Auguri.wav";
-                    //suonatore.Play();
                 }
                 catch
                 {
@@ -1229,8 +1225,6 @@ namespace SchoolGrades_WPF
                 try
                 {
                     Commons.TryPlayEmbeddedWave("Rigoletto.wav");
-                    //suonatore.SoundLocation = "Rigoletto.wav";
-                    //suonatore.Play();
                 }
                 catch
                 {
@@ -1259,10 +1253,6 @@ namespace SchoolGrades_WPF
                     "_" + Commons.DatabaseFileName));
             }
             Commons.TerminateBackgroundThread();
-
-            ////////// stop and release any embedded-stream used by the player
-            ////////try { suonatore.Stop(); } catch { }
-            ////////try { suonatoreStream?.Dispose(); suonatoreStream = null; } catch { }
         }
         private void StopAllTimers()
         {
@@ -1686,8 +1676,6 @@ namespace SchoolGrades_WPF
                 try
                 {
                     Commons.TryPlayEmbeddedWave("Auguri.wav");
-                    //suonatore.SoundLocation = "Auguri.wav";
-                    //suonatore.Play();
                 }
                 catch
                 {
@@ -1755,6 +1743,15 @@ namespace SchoolGrades_WPF
                 }
             }
             return listVf;
+        }
+        private void btnManual_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAbout_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

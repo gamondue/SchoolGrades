@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Values xmlns="urn:tom-englert.de/Configuration/1/0">
+  <Value Key="NeutralResourcesLanguage">it-IT</Value>
+  <Value Key="SortFileContentOnSave">True</Value>
+  <Value Key="DuplicateKeyHandling">Rename</Value>
+  <Value Key="ShowPerformanceTraces">True</Value>
+  <Value Key="TaskErrorCategory">Warning</Value>
+</Values>

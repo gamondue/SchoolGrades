@@ -170,8 +170,6 @@ namespace gamon
                     if (PlaySoundEffects)
                     {
                         Commons.TryPlayEmbeddedWave("Il silenzio.wav");
-                        //suonatore.SoundLocation = ".\\Il silenzio.wav";
-                        //suonatore.Play();
                     }
                 }
             }

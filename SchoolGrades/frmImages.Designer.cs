@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmImages));
             dgwLessonsImages = new System.Windows.Forms.DataGridView();
             picImage = new System.Windows.Forms.PictureBox();
             txtLessonDesc = new System.Windows.Forms.TextBox();
@@ -201,7 +202,7 @@
             // txtOfficialSchoolAbbreviation
             // 
             txtOfficialSchoolAbbreviation.Enabled = false;
-            txtOfficialSchoolAbbreviation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtOfficialSchoolAbbreviation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
             txtOfficialSchoolAbbreviation.Location = new System.Drawing.Point(2, 30);
             txtOfficialSchoolAbbreviation.Margin = new System.Windows.Forms.Padding(4);
             txtOfficialSchoolAbbreviation.Name = "txtOfficialSchoolAbbreviation";
@@ -251,7 +252,7 @@
             // 
             // txtPathImportImage
             // 
-            txtPathImportImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtPathImportImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
             txtPathImportImage.Location = new System.Drawing.Point(2, 130);
             txtPathImportImage.Margin = new System.Windows.Forms.Padding(4);
             txtPathImportImage.Name = "txtPathImportImage";
@@ -263,7 +264,7 @@
             // btnPathImportImage
             // 
             btnPathImportImage.BackColor = System.Drawing.Color.Transparent;
-            btnPathImportImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnPathImportImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnPathImportImage.ForeColor = System.Drawing.Color.DarkBlue;
             btnPathImportImage.Location = new System.Drawing.Point(652, 121);
             btnPathImportImage.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
@@ -285,7 +286,7 @@
             // 
             // txtFileImportImage
             // 
-            txtFileImportImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtFileImportImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
             txtFileImportImage.Location = new System.Drawing.Point(2, 179);
             txtFileImportImage.Margin = new System.Windows.Forms.Padding(4);
             txtFileImportImage.Name = "txtFileImportImage";
@@ -304,7 +305,7 @@
             // btnAddImage
             // 
             btnAddImage.BackColor = System.Drawing.Color.Transparent;
-            btnAddImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnAddImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnAddImage.ForeColor = System.Drawing.Color.DarkBlue;
             btnAddImage.Location = new System.Drawing.Point(586, 165);
             btnAddImage.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
@@ -342,7 +343,7 @@
             // btnChooseFileImage
             // 
             btnChooseFileImage.BackColor = System.Drawing.Color.Transparent;
-            btnChooseFileImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnChooseFileImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnChooseFileImage.ForeColor = System.Drawing.Color.DarkBlue;
             btnChooseFileImage.Location = new System.Drawing.Point(357, 165);
             btnChooseFileImage.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
@@ -360,7 +361,7 @@
             // txtCaption
             // 
             txtCaption.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            txtCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
             txtCaption.Location = new System.Drawing.Point(0, 292);
             txtCaption.Margin = new System.Windows.Forms.Padding(4);
             txtCaption.Name = "txtCaption";
@@ -379,7 +380,7 @@
             // 
             // txtSubFolderStorage
             // 
-            txtSubFolderStorage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtSubFolderStorage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
             txtSubFolderStorage.Location = new System.Drawing.Point(716, 130);
             txtSubFolderStorage.Margin = new System.Windows.Forms.Padding(4);
             txtSubFolderStorage.Name = "txtSubFolderStorage";
@@ -392,7 +393,7 @@
             // btnSubFolderStorage
             // 
             btnSubFolderStorage.BackColor = System.Drawing.Color.Transparent;
-            btnSubFolderStorage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnSubFolderStorage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnSubFolderStorage.ForeColor = System.Drawing.Color.DarkBlue;
             btnSubFolderStorage.Location = new System.Drawing.Point(1166, 121);
             btnSubFolderStorage.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
@@ -420,7 +421,7 @@
             // btnRemoveImage
             // 
             btnRemoveImage.BackColor = System.Drawing.Color.Transparent;
-            btnRemoveImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnRemoveImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnRemoveImage.ForeColor = System.Drawing.Color.DarkBlue;
             btnRemoveImage.Location = new System.Drawing.Point(652, 165);
             btnRemoveImage.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
@@ -434,7 +435,7 @@
             // btnSave
             // 
             btnSave.BackColor = System.Drawing.Color.Transparent;
-            btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             btnSave.ForeColor = System.Drawing.Color.DarkBlue;
             btnSave.Location = new System.Drawing.Point(652, 71);
             btnSave.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
@@ -564,8 +565,9 @@
             Controls.Add(lblSchoolCode);
             Controls.Add(lblClassAbbreviation);
             Controls.Add(lblSchoolSubject);
-            Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             ForeColor = System.Drawing.Color.DarkBlue;
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             KeyPreview = true;
             Margin = new System.Windows.Forms.Padding(4);
             Name = "frmImages";

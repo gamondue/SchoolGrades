@@ -15,8 +15,6 @@ namespace SchoolGrades_WPF
         bool alarmClock = false;
         bool isLoading = true;
 
-        //System.Media.SoundPlayer suonatore = new System.Media.SoundPlayer();
-
         float timeTotalSeconds;
         private double secondsFirst;
         private double secondsSecond;

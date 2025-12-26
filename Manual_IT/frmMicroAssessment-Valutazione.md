@@ -646,6 +646,7 @@ Doppio click su uno studente in modalità "Mancanti":
 - **Modifiche ai voti chiusi**: possibile riaprire, ma attenzione alle medie già comunicate
 - **Domande multiple**: una microvalutazione può avere una sola domanda associata
 
+[Pagina principale](Manuale-Utente-SchoolGrades.md)
 ---
 
 *Questa documentazione fa parte del Manuale Utente di SchoolGrades*

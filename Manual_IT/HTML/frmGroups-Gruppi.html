@@ -1,0 +1,468 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Documentazione SchoolGrades - frmGroups-Gruppi">
+    <meta name="author" content="SchoolGrades">
+    <title>frmGroups-Gruppi - SchoolGrades</title>
+    <style>
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    max-width: 1000px; 
+    margin: 40px auto; 
+    padding: 20px 40px; 
+    line-height: 1.7;
+    background-color: #f8f9fa;
+    color: #212529;
+}
+h1 { 
+    color: #1a4d2e; 
+    border-bottom: 3px solid #4f772d; 
+    padding-bottom: 15px; 
+    margin-top: 40px;
+    font-size: 2.5em;
+}
+h2 { 
+    color: #2d5016; 
+    margin-top: 35px; 
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #90a955;
+    font-size: 1.8em;
+}
+h3 { 
+    color: #3d6628; 
+    margin-top: 25px;
+    font-size: 1.4em;
+}
+h4 {
+    color: #4a7c32;
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+code { 
+    background-color: #e9ecef; 
+    padding: 3px 8px; 
+    border-radius: 4px; 
+    font-family: 'Consolas', 'Monaco', monospace;
+    color: #d63384;
+    font-size: 0.9em;
+}
+pre { 
+    background-color: #2d2d2d; 
+    color: #f8f8f2;
+    padding: 20px; 
+    border-radius: 6px; 
+    overflow-x: auto;
+    border-left: 4px solid #4f772d;
+    margin: 20px 0;
+}
+pre code {
+    background-color: transparent;
+    color: #f8f8f2;
+    padding: 0;
+}
+a {
+    color: #4f772d;
+    text-decoration: none;
+    border-bottom: 1px dotted #4f772d;
+}
+a:hover {
+    color: #2d5016;
+    border-bottom: 1px solid #2d5016;
+}
+img { 
+    max-width: 100%; 
+    height: auto; 
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin: 20px 0;
+}
+table { 
+    border-collapse: collapse; 
+    width: 100%; 
+    margin: 25px 0;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+th, td { 
+    border: 1px solid #dee2e6; 
+    padding: 12px 15px; 
+    text-align: left; 
+}
+th { 
+    background-color: #4f772d; 
+    color: white;
+    font-weight: 600;
+}
+tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+tr:hover {
+    background-color: #e9ecef;
+}
+blockquote {
+    border-left: 4px solid #4f772d;
+    margin: 20px 0;
+    padding: 10px 20px;
+    background-color: #f1f8f4;
+    font-style: italic;
+}
+ul, ol {
+    margin: 15px 0;
+    padding-left: 30px;
+}
+li {
+    margin: 8px 0;
+}
+strong {
+    color: #1a4d2e;
+    font-weight: 600;
+}
+em {
+    color: #4a7c32;
+}
+hr {
+    border: none;
+    border-top: 2px solid #90a955;
+    margin: 40px 0;
+}
+.header-nav {
+    background-color: #4f772d;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+.footer {
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 2px solid #dee2e6;
+    text-align: center;
+    color: #6c757d;
+    font-size: 0.9em;
+}
+    </style>
+</head>
+<body>
+    <div class="header-nav">
+        <h3 style="margin: 0; color: white;">?? SchoolGrades - Documentazione</h3>
+    </div>
+    
+<h1>Finestra Gruppi - Manuale Utente</h1>
+
+<h2>Introduzione</h2>
+
+<p>La finestra <strong>Gruppi</strong> permette di organizzare gli studenti presenti in classe in gruppi di lavoro secondo diversi criteri. Questa funzionalit� � utile per attivit� collaborative, lavori di gruppo e organizzazione della classe.</p>
+
+<p>**ATTENZIONE: QUESTO FILE E' PRELIMINARE E NON REVISIONATO.  </p>
+<p>POTREBBE CONTENERE INFORMAZIONI NON ESATTE**  </p>
+<p>Comunica con un ticket su GiHub eventuali errori riscontrati.</p>
+
+<h2>Accesso alla finestra</h2>
+
+<p>Per aprire la finestra Gruppi:</p>
+
+<ol>
+<p>  <li>Selezionare una classe dalla finestra principale</li>
+<p>  <li>Spuntare gli studenti presenti che si desidera raggruppare</li>
+<p>  <li>Fare click sul pulsante <strong>"Gruppi"</strong> nella finestra principale</li>
+</ol>
+
+<strong>Importante</strong>: solo gli studenti spuntati nella lista verranno considerati per la formazione dei gruppi.
+
+<hr>
+<h2>Interfaccia della finestra</h2>
+
+<h3>Informazioni di base</h3>
+
+<p>Nella parte superiore della finestra vengono visualizzate:</p>
+
+<ul>
+<p>  <li><strong>Classe</strong>: sigla e anno scolastico della classe corrente</li>
+<p>  <li><strong>Totale studenti da raggruppare</strong>: numero di studenti selezionati che verranno divisi in gruppi</li>
+</ul>
+
+<h3>Configurazione dei gruppi</h3>
+
+<p>Due campi di testo collegati permettono di specificare come suddividere gli studenti:</p>
+
+<ul>
+<p>  <li><strong>N� gruppi</strong>: numero di gruppi da formare</li>
+<p>  <li><strong>Studenti per gruppo</strong>: numero di studenti da inserire in ciascun gruppo</li>
+</ul>
+
+<strong>Funzionamento automatico</strong>: quando si inserisce un valore in uno dei due campi, l'altro viene calcolato automaticamente in base al numero totale di studenti presenti. Ad esempio:
+<ul>
+<p>  <li>Se ci sono 24 studenti e si imposta "Studenti per gruppo = 4", il programma calcola automaticamente "N� gruppi = 6"</li>
+<p>  <li>Se si imposta "N� gruppi = 8", il programma calcola "Studenti per gruppo = 3"</li>
+</ul>
+
+<h3>Criteri di raggruppamento</h3>
+
+<p>Il programma offre tre modalit� di formazione gruppi:</p>
+
+<h4>1. Gruppi casuali</h4>
+<p>Gli studenti vengono assegnati ai gruppi in modo completamente casuale. Questa � la modalit� pi� semplice e imparziale.</p>
+
+<strong>Quando usarla</strong>: 
+<ul>
+<p>  <li>Attivit� ludiche o di conoscenza reciproca</li>
+<p>  <li>Quando si vuole evitare qualsiasi bias nella formazione</li>
+<p>  <li>Per variare frequentemente la composizione dei gruppi</li>
+</ul>
+
+<h4>2. Voti migliori insieme</h4>
+<p>Gli studenti vengono raggruppati in base ai loro voti, mettendo insieme studenti con prestazioni simili.</p>
+
+<strong>Quando usarla</strong>:
+<ul>
+<p>  <li>Attivit� differenziate per livello</li>
+<p>  <li>Quando si vuole creare gruppi omogenei per difficolt�</li>
+</ul>
+
+<strong>Configurazione periodo</strong>: 
+<p>Quando si seleziona questa opzione, diventa attivo il gruppo "Periodo degli argomenti e domande", che permette di specificare:</p>
+<ul>
+<p>  <li><strong>Periodo scolastico</strong>: selezionare un periodo predefinito (quadrimestre, trimestre, ecc.)</li>
+<p>  <li><strong>Data inizio/fine</strong>: specificare manualmente un intervallo temporale per considerare solo i voti in quel periodo</li>
+</ul>
+
+<h4>3. Voti bilanciati</h4>
+<p>Il programma cerca di creare gruppi equilibrati, distribuendo studenti con livelli di prestazione diversi in ciascun gruppo. Ogni gruppo conterr� una mix di studenti con voti alti, medi e bassi.</p>
+
+<strong>Quando usarla</strong>:
+<ul>
+<p>  <li>Attivit� di peer tutoring (studenti forti aiutano quelli pi� deboli)</li>
+<p>  <li>Progetti di gruppo dove si vuole equit� tra i team</li>
+<p>  <li>Quando si desidera che ogni gruppo abbia risorse simili</li>
+</ul>
+
+<strong>Configurazione periodo</strong>: come per "Voti migliori insieme", � necessario specificare il periodo di riferimento per i voti.
+
+<h3>Periodo degli argomenti e domande</h3>
+
+<p>Questa sezione viene abilitata quando si scelgono criteri basati sui voti. Permette di:</p>
+
+<ul>
+<p>  <li>Selezionare un <strong>periodo scolastico</strong> dal menu a tendina:</li>
+<p>  <li>Quadrimestri (1�, 2�)</li>
+<p>  <li>Trimestri (1�, 2�, 3�)</li>
+<p>  <li>Periodi personalizzati (settimana, mese, anno)</li>
+</ul>
+<p>  </p>
+<ul>
+<p>  <li>Visualizzare e modificare le <strong>date di inizio e fine</strong> del periodo selezionato</li>
+</ul>
+
+<strong>Nota</strong>: i voti considerati per la formazione dei gruppi saranno solo quelli registrati nel periodo specificato e per la materia correntemente selezionata nella finestra principale.
+
+<hr>
+<h2>Procedura per creare gruppi</h2>
+
+<h3>Passo 1: Configurare i parametri</h3>
+
+<ol>
+<p>  <li>Decidere il numero di gruppi o il numero di studenti per gruppo</li>
+<p>  <li>Scegliere il criterio di raggruppamento (casuale, voti migliori insieme, voti bilanciati)</li>
+<p>  <li>Se necessario, selezionare il periodo di riferimento per i voti</li>
+</ul>
+
+<h3>Passo 2: Generare i gruppi</h3>
+
+<p>Fare click sul pulsante <strong>"Crea gruppi"</strong>. </p>
+
+<p>Il programma:</p>
+<ul>
+<p>  <li>Applica il criterio selezionato</li>
+<p>  <li>Distribuisce gli studenti nei gruppi</li>
+<p>  <li>Visualizza il risultato nell'area di testo "Gruppi formati"</li>
+</ul>
+
+<h3>Passo 3: Visualizzare i risultati</h3>
+
+<p>Nell'area di testo "Gruppi formati" apparir� l'elenco dei gruppi con i nomi degli studenti assegnati a ciascuno, nel formato:</p>
+
+<p>``<code></p>
+<p>Gruppo 1:</p>
+<ul>
+<p>  <li>Cognome Nome</li>
+<p>  <li>Cognome Nome</li>
+<p>  <li>Cognome Nome</li>
+</ul>
+
+<p>Gruppo 2:</p>
+<ul>
+<p>  <li>Cognome Nome</li>
+<p>  <li>Cognome Nome</li>
+<p>  <li>Cognome Nome</li>
+</ul>
+
+<p>...</p>
+</code>`<code>
+
+<h3>Passo 4: Salvare su file (opzionale)</h3>
+
+<p>Se si desidera conservare l'elenco dei gruppi:</p>
+
+<ol>
+<p>  <li>Fare click sul pulsante <strong>"Crea file gruppi"</strong></li>
+<p>  <li>Il programma creer� un file di testo nella cartella del database</li>
+<p>  <li>Il file si aprir� automaticamente nel programma predefinito per i file .txt</li>
+<p>  <li>Il nome del file includer� la sigla della classe, l'anno scolastico e la data</li>
+</ul>
+
+<strong>Formato nome file</strong>: </code>Groups<em>[Sigla Classe]</em>[Anno].txt<code>  
+<strong>Esempio</strong>: </code>Groups<em>4F</em>2023-24.txt`
+
+<hr>
+<h2>Suggerimenti e best practices</h2>
+
+<h3>Variare i criteri</h3>
+
+<p>Non usare sempre lo stesso criterio. Alternare tra:</p>
+<ul>
+<p>  <li>Gruppi casuali per attivit� brevi e frequenti</li>
+<p>  <li>Gruppi bilanciati per progetti lunghi e impegnativi</li>
+<p>  <li>Gruppi omogenei (voti simili) per attivit� differenziate</li>
+</ul>
+
+<h3>Considerare il periodo</h3>
+
+<p>Quando si usano criteri basati sui voti:</p>
+<ul>
+<p>  <li>Per gruppi all'inizio dell'anno, usare i voti dell'anno precedente o un periodo breve</li>
+<p>  <li>Per gruppi a met� anno, considerare l'intero periodo trascorso</li>
+<p>  <li>Aggiornare periodicamente la composizione dei gruppi in base ai progressi</li>
+</ul>
+
+<h3>Salvare i gruppi importanti</h3>
+
+<p>Per progetti lunghi o gruppi che si mantengono nel tempo:</p>
+<ul>
+<p>  <li>Salvare sempre il file dei gruppi</li>
+<p>  <li>Annotare la data di formazione</li>
+<p>  <li>Tenere traccia delle composizioni per evitare ripetizioni indesiderate</li>
+</ul>
+
+<h3>Gestire studenti dispari</h3>
+
+<p>Se il numero di studenti non � divisibile esattamente:</p>
+<ul>
+<p>  <li>L'ultimo gruppo avr� un numero diverso (maggiore o minore) di membri</li>
+<p>  <li>Il programma arrotonda per eccesso quando necessario</li>
+<p>  <li>Considerare di aggiustare manualmente l'ultimo gruppo se molto sbilanciato</li>
+</ul>
+
+<h3>Modificare manualmente</h3>
+
+<p>Dopo la generazione automatica:</p>
+<ul>
+<p>  <li>� possibile modificare manualmente il testo nell'area "Gruppi formati"</li>
+<p>  <li>Spostare studenti tra gruppi secondo necessit� didattiche o relazionali</li>
+<p>  <li>Salvare la versione modificata con "Crea file gruppi"</li>
+</ul>
+
+<hr>
+<h2>Limitazioni e note tecniche</h2>
+
+<ul>
+<p>  <li>La funzionalit� richiede che almeno alcuni studenti siano spuntati nella finestra principale</li>
+<p>  <li>I criteri basati sui voti richiedono che esistano valutazioni nel periodo selezionato</li>
+<p>  <li>Se non ci sono voti sufficienti, il programma potrebbe comportarsi come il criterio "casuale"</li>
+<p>  <li>Il numero minimo di studenti per gruppo � 1 (ma � sconsigliato avere "gruppi" di una sola persona)</li>
+</ul>
+
+<hr>
+<h2>Troubleshooting</h2>
+
+<h3>Non riesco a creare gruppi</h3>
+
+<strong>Problema</strong>: il pulsante "Crea gruppi" non produce risultati
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Verificare di aver spuntato almeno 2 studenti nella finestra principale</li>
+<p>  <li>Controllare di aver inserito un numero valido in "N� gruppi" o "Studenti per gruppo"</li>
+<p>  <li>Assicurarsi di aver selezionato un criterio di raggruppamento</li>
+</ul>
+
+<h3>I gruppi non sembrano bilanciati</h3>
+
+<strong>Problema</strong>: usando "Voti bilanciati" i gruppi non appaiono equilibrati
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Verificare che il periodo selezionato contenga effettivamente dei voti</li>
+<p>  <li>Controllare che i voti siano relativi alla materia corrente</li>
+<p>  <li>Considerare che l'algoritmo fa del suo meglio ma potrebbe non essere perfetto con numeri piccoli</li>
+</ul>
+
+<h3>Il file non si crea</h3>
+
+<strong>Problema</strong>: cliccando "Crea file gruppi" non succede nulla
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Assicurarsi di aver prima generato i gruppi con "Crea gruppi"</li>
+<p>  <li>Verificare di avere permessi di scrittura sulla cartella del database</li>
+<p>  <li>Controllare che non ci siano caratteri speciali nel nome della classe che potrebbero causare problemi nel nome file</li>
+</ul>
+
+<hr>
+<h2>Casi d'uso tipici</h2>
+
+<h3>Esempio 1: Gruppi per lavoro di laboratorio</h3>
+
+<strong>Scenario</strong>: 20 studenti, laboratorio con 5 postazioni
+
+<ol>
+<p>  <li>Spuntare i 20 studenti presenti</li>
+<p>  <li>Impostare "N� gruppi = 5"</li>
+<p>  <li>Selezionare "Gruppi casuali"</li>
+<p>  <li>Fare click su "Crea gruppi"</li>
+<p>  <li>Salvare il file per riferimento futuro</li>
+</ul>
+
+<h3>Esempio 2: Gruppi bilanciati per progetto</h3>
+
+<strong>Scenario</strong>: 24 studenti, progetto di gruppo da 4 persone
+
+<ol>
+<p>  <li>Spuntare i 24 studenti</li>
+<p>  <li>Impostare "Studenti per gruppo = 4"</li>
+<p>  <li>Selezionare "Voti bilanciati"</li>
+<p>  <li>Scegliere "1� quadrimestre" dal menu periodo</li>
+<p>  <li>Fare click su "Crea gruppi"</li>
+<p>  <li>Verificare che ogni gruppo abbia un mix di livelli</li>
+<p>  <li>Salvare il file dei gruppi</li>
+</ul>
+
+<h3>Esempio 3: Gruppi omogenei per recupero</h3>
+
+<strong>Scenario</strong>: 15 studenti, alcuni necessitano di recupero
+
+<ol>
+<p>  <li>Spuntare i 15 studenti</li>
+<p>  <li>Impostare "N� gruppi = 3"</li>
+<p>  <li>Selezionare "Voti migliori insieme"</li>
+<p>  <li>Selezionare periodo "Ultimo mese"</li>
+<p>  <li>Fare click su "Crea gruppi"</li>
+<p>  <li>Il gruppo con voti pi� bassi ricever� attivit� di recupero</li>
+<p>  <li>I gruppi con voti medi e alti riceveranno attivit� di approfondimento</li>
+</ul>
+
+<a href="Manuale-Utente-SchoolGrades.md">Pagina principale</a>
+<hr>
+<em>Questa documentazione fa parte del Manuale Utente di SchoolGrades</em>
+
+    
+    <div class="footer">
+        <p>Documentazione generata da SchoolGrades | .NET 10</p>
+        <p>File sorgente: <code>frmGroups-Gruppi.md</code></p>
+        <p>Data generazione: 24/12/2025 17:31</p>
+    </div>
+</body>
+</html>

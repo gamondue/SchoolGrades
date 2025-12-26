@@ -1,0 +1,811 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Documentazione SchoolGrades - frmGradesStudentsSummary-RiepilogoVotiAllievo">
+    <meta name="author" content="SchoolGrades">
+    <title>frmGradesStudentsSummary-RiepilogoVotiAllievo - SchoolGrades</title>
+    <style>
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    max-width: 1000px; 
+    margin: 40px auto; 
+    padding: 20px 40px; 
+    line-height: 1.7;
+    background-color: #f8f9fa;
+    color: #212529;
+}
+h1 { 
+    color: #1a4d2e; 
+    border-bottom: 3px solid #4f772d; 
+    padding-bottom: 15px; 
+    margin-top: 40px;
+    font-size: 2.5em;
+}
+h2 { 
+    color: #2d5016; 
+    margin-top: 35px; 
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #90a955;
+    font-size: 1.8em;
+}
+h3 { 
+    color: #3d6628; 
+    margin-top: 25px;
+    font-size: 1.4em;
+}
+h4 {
+    color: #4a7c32;
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+code { 
+    background-color: #e9ecef; 
+    padding: 3px 8px; 
+    border-radius: 4px; 
+    font-family: 'Consolas', 'Monaco', monospace;
+    color: #d63384;
+    font-size: 0.9em;
+}
+pre { 
+    background-color: #2d2d2d; 
+    color: #f8f8f2;
+    padding: 20px; 
+    border-radius: 6px; 
+    overflow-x: auto;
+    border-left: 4px solid #4f772d;
+    margin: 20px 0;
+}
+pre code {
+    background-color: transparent;
+    color: #f8f8f2;
+    padding: 0;
+}
+a {
+    color: #4f772d;
+    text-decoration: none;
+    border-bottom: 1px dotted #4f772d;
+}
+a:hover {
+    color: #2d5016;
+    border-bottom: 1px solid #2d5016;
+}
+img { 
+    max-width: 100%; 
+    height: auto; 
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin: 20px 0;
+}
+table { 
+    border-collapse: collapse; 
+    width: 100%; 
+    margin: 25px 0;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+th, td { 
+    border: 1px solid #dee2e6; 
+    padding: 12px 15px; 
+    text-align: left; 
+}
+th { 
+    background-color: #4f772d; 
+    color: white;
+    font-weight: 600;
+}
+tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+tr:hover {
+    background-color: #e9ecef;
+}
+blockquote {
+    border-left: 4px solid #4f772d;
+    margin: 20px 0;
+    padding: 10px 20px;
+    background-color: #f1f8f4;
+    font-style: italic;
+}
+ul, ol {
+    margin: 15px 0;
+    padding-left: 30px;
+}
+li {
+    margin: 8px 0;
+}
+strong {
+    color: #1a4d2e;
+    font-weight: 600;
+}
+em {
+    color: #4a7c32;
+}
+hr {
+    border: none;
+    border-top: 2px solid #90a955;
+    margin: 40px 0;
+}
+.header-nav {
+    background-color: #4f772d;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+.footer {
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 2px solid #dee2e6;
+    text-align: center;
+    color: #6c757d;
+    font-size: 0.9em;
+}
+    </style>
+</head>
+<body>
+    <div class="header-nav">
+        <h3 style="margin: 0; color: white;">?? SchoolGrades - Documentazione</h3>
+    </div>
+    
+<h1>Finestra Riepilogo Voti Allievo - Manuale Utente</h1>
+
+<h2>Introduzione</h2>
+
+<p>La finestra <strong>Riepilogo Voti Allievo</strong> (frmGradesStudentsSummary) fornisce una visione dettagliata delle valutazioni di un singolo studente. Permette di analizzare l'andamento personale, calcolare medie ponderate e gestire annotazioni specifiche sullo studente.</p>
+
+<p>**ATTENZIONE: QUESTO FILE E' PRELIMINARE E NON REVISIONATO.  </p>
+<p>POTREBBE CONTENERE INFORMAZIONI NON ESATTE**  </p>
+<p>Comunica con un ticket su GiHub eventuali errori riscontrati.</p>
+
+<h2>Accesso alla finestra</h2>
+
+<p>Per aprire la finestra Riepilogo Voti Allievo:</p>
+
+<ol>
+<p>  <li>Dalla finestra principale, selezionare uno studente (tramite estrazione, selezione nella griglia, o altro)</li>
+<p>  <li>Selezionare una materia dal menu a tendina (opzionale, pu� essere cambiata dopo)</li>
+<p>  <li>Selezionare un tipo di valutazione (opzionale, pu� essere cambiato dopo)</li>
+<p>  <li>Fare click sul pulsante <strong>"Voti allievo"</strong></li>
+</ol>
+
+<strong>Contesto</strong>: la finestra si apre con lo studente, materia e tipo valutazione preselezionati dalla finestra principale.
+
+<strong>Nota</strong>: questa finestra � l'equivalente per singolo studente della finestra "Riepilogo Voti Classe", ma con maggiori dettagli e funzionalit� specifiche per l'individuo.
+
+<hr>
+<h2>Interfaccia della finestra</h2>
+
+<h3>Area superiore: Informazioni studente</h3>
+
+<h4>Nome studente</h4>
+<p>Etichetta prominente che mostra <strong>cognome e nome</strong> dello studente corrente.</p>
+
+<strong>Formato</strong>: <code>COGNOME Nome</code> (cognome in maiuscolo, nome con iniziale maiuscola)
+
+<strong>Immutabile</strong>: per cambiare studente, chiudere e riaprire dalla finestra principale con studente diverso
+
+<h4>Codice studente</h4>
+<p>Campo di testo che mostra l'<strong>IdStudent</strong> (codice numerico identificativo dello studente nel database).</p>
+
+<strong>Funzione</strong>: principalmente per riferimento tecnico, utile per supporto o debug
+
+<hr>
+<h2>Parametri di filtro</h2>
+
+<h3>Tipo di valutazione</h3>
+<p>Menu a tendina per selezionare il tipo di voto da visualizzare:</p>
+<ul>
+<p>  <li>Voticini</li>
+<p>  <li>Orali</li>
+<p>  <li>Scritti</li>
+<p>  <li>Pratici</li>
+<p>  <li>Scritto-grafici</li>
+<p>  <li>Altri tipi personalizzati</li>
+</ul>
+
+<strong>Effetto</strong>: cambiando il tipo, la griglia dei voti si aggiorna automaticamente mostrando solo i voti del tipo selezionato.
+
+<h3>Materia</h3>
+<p>Menu a tendina per selezionare la materia:</p>
+<ul>
+<p>  <li>Elenco di tutte le materie configurate nel sistema</li>
+<p>  <li>Include solo materie effettivamente utilizzate (esclude materie vuote/inutilizzate)</li>
+</ul>
+
+<strong>Effetto visivo</strong>: il colore di sfondo della finestra cambia in base alla materia selezionata, come nelle altre finestre del programma.
+
+<strong>Effetto dati</strong>: la griglia mostra solo i voti dello studente per la materia selezionata.
+
+<h3>Periodo temporale</h3>
+
+<h4>Periodo scolastico</h4>
+<p>Menu a tendina con periodi predefiniti:</p>
+<ul>
+<p>  <li><strong>Quadrimestri</strong>: 1� quadrimestre, 2� quadrimestre</li>
+<p>  <li><strong>Trimestri</strong>: 1� trimestre, 2� trimestre, 3� trimestre</li>
+<p>  <li><strong>Periodi personalizzati</strong>:</li>
+<p>  <li>Ultima settimana</li>
+<p>  <li>Ultimo mese</li>
+<p>  <li>Anno intero</li>
+<p>  <li>Altri periodi configurati nell'anno scolastico</li>
+</ul>
+
+<strong>Funzionamento automatico</strong>: selezionando un periodo, le date di inizio e fine si aggiornano automaticamente nei date picker sottostanti.
+
+<h4>Date personalizzate</h4>
+<p>Due date picker per specificare un intervallo temporale preciso:</p>
+<ul>
+<p>  <li><strong>Data inizio periodo</strong></li>
+<p>  <li><strong>Data fine periodo</strong></li>
+</ul>
+
+<strong>Flessibilit�</strong>: � possibile:
+<ol>
+<p>  <li>Selezionare un periodo predefinito (le date si impostano automaticamente)</li>
+<p>  <li>Poi modificare manualmente le date per un intervallo custom</li>
+</ul>
+
+<strong>Effetto</strong>: i voti visualizzati sono solo quelli con data compresa nell'intervallo specificato.
+
+<hr>
+<h2>Griglia dei voti</h2>
+
+<p>La sezione centrale della finestra mostra una griglia (DataGridView) con tutti i voti dello studente che corrispondono ai filtri attivi.</p>
+
+<h3>Colonne visualizzate</h3>
+
+<ul>
+<p>  <li><strong>IdGrade</strong>: codice identificativo univoco del voto nel database</li>
+<p>  <li><strong>Date</strong>: data in cui � stato registrato il voto</li>
+<p>  <li><strong>Grade</strong>: voto numerico (es. 7, 8.5, 6-)</li>
+<p>  <li><strong>Weight</strong>: peso del voto (importanza relativa per il calcolo della media)</li>
+<p>  <li><strong>Text</strong>: testo o descrizione della valutazione (facoltativo)</li>
+<p>  <li><strong>IdQuestion</strong>: codice della domanda associata al voto (se presente)</li>
+<p>  <li>Altri campi tecnici</li>
+</ul>
+
+<h3>Interazione con la griglia</h3>
+
+<strong>Click singolo</strong>:
+<ul>
+<p>  <li>Seleziona una riga (voto)</li>
+<p>  <li>Evidenzia i dettagli per facilitare la lettura</li>
+</ul>
+
+<strong>Doppio click su un voto</strong>:
+<ul>
+<p>  <li>Apre la finestra di dettaglio della valutazione (frmGrade)</li>
+<p>  <li>Mostra informazioni complete: data, voto, peso, domanda, risposta studente, commenti dell'insegnante</li>
+<p>  <li><strong>Non permette modifiche dirette</strong> ma visualizzazione completa del contesto</li>
+</ul>
+
+<strong>Click su intestazione colonna</strong>:
+<ul>
+<p>  <li>Ordina la griglia per quella colonna</li>
+<p>  <li>Primo click: ordine crescente</li>
+<p>  <li>Secondo click: ordine decrescente</li>
+<p>  <li>Utile per vedere voti cronologicamente (ordina per data) o per valore (ordina per grade)</li>
+</ul>
+
+<h3>Modifica voti dalla griglia</h3>
+
+<strong>Comportamento speciale</strong>: � possibile modificare alcuni campi direttamente dalla griglia.
+
+<strong>Campi modificabili</strong>:
+<ul>
+<p>  <li><strong>Grade</strong>: il voto numerico pu� essere cambiato</li>
+<p>  <li><strong>Weight</strong>: il peso pu� essere modificato</li>
+<p>  <li>Altri campi specifici se configurati</li>
+</ul>
+
+<strong>Salvataggio modifiche</strong>:
+<p>Le modifiche fatte nella griglia vengono salvate automaticamente quando:</p>
+<ol>
+<p>  <li>Si chiude la finestra</li>
+<p>  <li>Si passa ad un'altra riga</li>
+<p>  <li>Il programma rileva una modifica confermata</li>
+</ul>
+
+<strong>Importante</strong>: modificare un voto nella griglia <strong>crea un nuovo voto con lo stesso IdGrade ma valori aggiornati</strong>, e il voto precedente viene mantenuto con peso 0 per storico. Questa � una funzionalit� di audit per tracciare le modifiche ai voti.
+
+<hr>
+<h2>Campi calcolati: Medie e pesi</h2>
+
+<p>Nella parte inferiore della finestra, tre campi mostrano statistiche calcolate automaticamente sui voti visualizzati:</p>
+
+<h3>Media ponderata</h3>
+<p>Campo di testo che mostra la <strong>media ponderata</strong> (weighted average) di tutti i voti visibili.</p>
+
+<strong>Formula</strong>:
+<p>``<code></p>
+<p>Media Ponderata = ?(voto � peso) / ?(peso)</p>
+</code>``
+
+<strong>Esempio</strong>:
+<ul>
+<p>  <li>Voto 1: 8 con peso 1 ? contributo: 8</li>
+<p>  <li>Voto 2: 7 con peso 2 ? contributo: 14</li>
+<p>  <li>Voto 3: 9 con peso 1 ? contributo: 9</li>
+<p>  <li>Media = (8 + 14 + 9) / (1 + 2 + 1) = 31 / 4 = <strong>7.75</strong></li>
+</ul>
+
+<strong>Formato</strong>: numero decimale con 2 cifre dopo la virgola (es. "7.25")
+
+<strong>Aggiornamento</strong>: la media si ricalcola automaticamente quando:
+<ul>
+<p>  <li>Si modificano voti nella griglia</li>
+<p>  <li>Si cambiano i parametri di filtro (materia, periodo, tipo valutazione)</li>
+<p>  <li>Si conferma una modifica di un campo modificabile</li>
+</ul>
+
+<h3>Somma pesi</h3>
+<p>Campo di testo che mostra la <strong>somma totale dei pesi</strong> di tutti i voti visibili.</p>
+
+<strong>Utilit�</strong>:
+<ul>
+<p>  <li>Indica "quanta valutazione" � stata fatta</li>
+<p>  <li>Permette di confrontare il "volume" di valutazione tra studenti</li>
+<p>  <li>Aiuta a pianificare quante valutazioni servono ancora</li>
+</ul>
+
+<strong>Esempio</strong>:
+<ul>
+<p>  <li>3 voti con peso 1 ciascuno ? somma pesi = 3</li>
+<p>  <li>2 voti con peso 2 + 1 voto con peso 1 ? somma pesi = 5</li>
+</ul>
+
+<strong>Formato</strong>: numero decimale con 2 cifre dopo la virgola (es. "12.50")
+
+<h3>Interpretazione combinata</h3>
+
+<p>La combinazione di media ponderata e somma pesi fornisce informazioni preziose:</p>
+
+<ul>
+<p>  <li><strong>Media alta + Somma alta</strong>: studente preparato e valutato abbondantemente</li>
+<p>  <li><strong>Media alta + Somma bassa</strong>: studente promettente ma valutato poco (serve conferma)</li>
+<p>  <li><strong>Media bassa + Somma alta</strong>: studente in difficolt� nonostante molte valutazioni</li>
+<p>  <li><strong>Media bassa + Somma bassa</strong>: studente poco valutato e/o in difficolt� (priorit�)</li>
+</ul>
+
+<hr>
+<h2>Annotazioni sullo studente</h2>
+
+<p>La parte inferiore della finestra include una sezione dedicata alle <strong>annotazioni</strong> (note) sullo studente.</p>
+
+<h3>Griglia annotazioni</h3>
+
+<p>Griglia separata che mostra tutte le annotazioni registrate per lo studente nell'anno scolastico corrente.</p>
+
+<strong>Colonne</strong>:
+<ul>
+<p>  <li><strong>Date</strong>: data dell'annotazione</li>
+<p>  <li><strong>Text</strong>: testo dell'annotazione</li>
+<p>  <li><strong>IsActive</strong>: se l'annotazione � ancora attiva/rilevante</li>
+<p>  <li><strong>Author</strong>: chi ha creato l'annotazione (opzionale)</li>
+<p>  <li>Altri campi tecnici</li>
+</ul>
+
+<strong>Checkbox "Mostra solo attive"</strong>:
+<ul>
+<p>  <li>Se spuntato: visualizza solo annotazioni con IsActive = true</li>
+<p>  <li>Se non spuntato: visualizza tutte le annotazioni, anche quelle archiviate/risolte</li>
+</ul>
+
+<strong>Utilit�</strong>:
+<ul>
+<p>  <li>Tenere traccia di eventi significativi (comportamento, assenze, situazioni familiari)</li>
+<p>  <li>Annotare progressi o difficolt� specifiche</li>
+<p>  <li>Documentare colloqui con genitori o provvedimenti disciplinari</li>
+<p>  <li>Registrare note positive (meriti, encomi)</li>
+</ul>
+
+<h3>Gestione annotazioni</h3>
+
+<strong>Per creare nuove annotazioni</strong>: usare il pulsante <strong>"Annotaz."</strong> nella finestra principale (che apre frmAnnotationsAboutStudents).
+
+<strong>Da questa finestra</strong>: solo visualizzazione e consultazione, non creazione/modifica diretta.
+
+<strong>Doppio click su un'annotazione</strong>: potrebbe aprire una finestra di dettaglio (se implementata), altrimenti nessun effetto.
+
+<hr>
+<h2>Flussi di lavoro tipici</h2>
+
+<h3>Scenario 1: Preparazione colloquio con genitori</h3>
+
+<strong>Obiettivo</strong>: prepararsi per incontrare la famiglia dello studente
+
+<ol>
+<p>  <li>Dalla finestra principale, selezionare lo studente</li>
+<p>  <li>Aprire "Voti allievo"</li>
+<p>  <li>Verificare che la materia sia corretta (la propria materia)</li>
+<p>  <li>Selezionare periodo "Anno intero" per visione completa</li>
+<p>  <li>Esaminare la griglia dei voti:</li>
+<p>  <li>Ordinare per data per vedere andamento temporale</li>
+<p>  <li>Verificare se ci sono trend (miglioramento, peggioramento, altalenante)</li>
+<p>  <li>Annotare la media ponderata</li>
+<p>  <li>Scorrere la griglia annotazioni per:</li>
+<p>  <li>Ricordare eventi significativi</li>
+<p>  <li>Verificare assenze o problemi noti</li>
+<p>  <li>Identificare punti di forza da lodare</li>
+<p>  <li>Preparare documentazione stampando o esportando i dati</li>
+<p>  <li>Cambiare tipo valutazione (da Orali a Scritti, ad esempio) per analisi completa</li>
+</ul>
+
+<h3>Scenario 2: Verifica equit� valutazioni</h3>
+
+<strong>Obiettivo</strong>: assicurarsi che lo studente abbia un numero adeguato di valutazioni
+
+<ol>
+<p>  <li>Aprire "Voti allievo" per lo studente</li>
+<p>  <li>Selezionare il periodo corrente (es. "1� quadrimestre")</li>
+<p>  <li>Guardare il campo <strong>"Somma pesi"</strong></li>
+<p>  <li>Confrontare mentalmente con altri studenti (o aprire pi� finestre per confronto visivo)</li>
+<p>  <li>Se la somma pesi � significativamente diversa:</li>
+<p>  <li>Troppo bassa: programmare pi� valutazioni per questo studente</li>
+<p>  <li>Troppo alta: eventualmente distribuire meglio le valutazioni</li>
+</ul>
+
+<strong>Nota</strong>: per confronto pi� sistematico, usare la finestra "Riepilogo Voti Classe"
+
+<h3>Scenario 3: Analisi andamento personale</h3>
+
+<strong>Obiettivo</strong>: capire come sta evolvendo la preparazione dello studente
+
+<ol>
+<p>  <li>Aprire "Voti allievo"</li>
+<p>  <li>Selezionare periodo "Anno intero"</li>
+<p>  <li>Ordinare la griglia per <strong>"Date"</strong> (click sull'intestazione)</li>
+<p>  <li>Leggere i voti cronologicamente:</li>
+<p>  <li>Inizio anno: come era partito?</li>
+<p>  <li>Met� anno: ci sono stati cambiamenti?</li>
+<p>  <li>Recente: qual � la situazione attuale?</li>
+<p>  <li>Identificare pattern:</li>
+<p>  <li><strong>Trend positivo</strong>: voti crescenti nel tempo (recupero, impegno)</li>
+<p>  <li><strong>Trend negativo</strong>: voti decrescenti (perdita motivazione, difficolt� accumulate)</li>
+<p>  <li><strong>Altalenante</strong>: studio discontinuo o argomenti pi�/meno congeniali</li>
+<p>  <li><strong>Stabile</strong>: prestazione costante (positiva o negativa)</li>
+<p>  <li>Pianificare interventi:</li>
+<p>  <li>Se trend negativo: colloquio, recupero, strategie di studio</li>
+<p>  <li>Se trend positivo: incoraggiamento, mantenimento sforzo</li>
+<p>  <li>Se altalenante: regolarizzazione studio, supporto metodologico</li>
+</ul>
+
+<h3>Scenario 4: Controllo voti dopo modifica</h3>
+
+<strong>Obiettivo</strong>: verificare che una modifica ai voti sia stata applicata correttamente
+
+<ol>
+<p>  <li>Dopo aver modificato un voto in un'altra finestra (es. frmMicroAssessment)</li>
+<p>  <li>Aprire "Voti allievo"</li>
+<p>  <li>Cercare il voto modificato nella griglia (per data o valore)</li>
+<p>  <li>Verificare che:</li>
+<p>  <li>Il nuovo voto appaia correttamente</li>
+<p>  <li>La media ponderata si sia aggiornata</li>
+<p>  <li>La somma pesi sia corretta</li>
+<p>  <li>Se necessario, ordinare per data per vedere i voti pi� recenti in cima</li>
+<p>  <li>Controllare la griglia annotazioni se la modifica doveva essere annotata</li>
+</ul>
+
+<h3>Scenario 5: Documentazione per scrutinio</h3>
+
+<strong>Obiettivo</strong>: preparare dati per lo scrutinio finale
+
+<ol>
+<p>  <li>Aprire "Voti allievo" per ogni studente da scrutinare</li>
+<p>  <li>Selezionare il periodo esatto dello scrutinio (es. "2� quadrimestre")</li>
+<p>  <li>Per ogni tipo di valutazione (Orali, Scritti, ecc.):</li>
+<p>  <li>Annotare la media ponderata</li>
+<p>  <li>Verificare il numero di voti (tramite somma pesi e conteggio visivo)</li>
+<p>  <li>Identificare voti particolarmente alti o bassi che richiedono spiegazione</li>
+<p>  <li>Consultare le annotazioni per eventuali situazioni particolari da segnalare</li>
+<p>  <li>Ripetere per ogni studente della classe</li>
+<p>  <li>Compilare la proposta di voto considerando:</li>
+<p>  <li>Medie ponderate dei vari tipi</li>
+<p>  <li>Trend durante il periodo</li>
+<p>  <li>Situazioni particolari annotate</li>
+</ul>
+
+<hr>
+<h2>Suggerimenti e best practices</h2>
+
+<h3>Usare i filtri in combinazione</h3>
+
+<p>Non limitarsi a un solo tipo di valutazione:</p>
+<ul>
+<p>  <li>Cambiare tra Orali, Scritti, Pratici per visione completa</li>
+<p>  <li>Ogni tipo pu� dare indicazioni diverse sulle competenze dello studente</li>
+<p>  <li>Uno studente pu� essere forte negli orali ma debole negli scritti o viceversa</li>
+</ul>
+
+<h3>Sfruttare l'ordinamento</h3>
+
+<p>Ordinare la griglia strategicamente:</p>
+<ul>
+<p>  <li><strong>Per data</strong>: per vedere evoluzione temporale</li>
+<p>  <li><strong>Per voto</strong>: per identificare picchi positivi e negativi</li>
+<p>  <li><strong>Per peso</strong>: per vedere quali voti "contano di pi�"</li>
+</ul>
+
+<h3>Prestare attenzione alle annotazioni</h3>
+
+<p>Le annotazioni sono memoria storica preziosa:</p>
+<ul>
+<p>  <li>Leggere sempre prima di colloqui o decisioni importanti</li>
+<p>  <li>Non affidarsi solo ai voti numerici: le annotazioni danno contesto</li>
+<p>  <li>Esempi di contesto: "voto basso per assenza prolungata per malattia", "voto alto dopo percorso di recupero"</li>
+</ul>
+
+<h3>Confrontare periodi diversi</h3>
+
+<p>Per vedere cambiamenti:</p>
+<ol>
+<p>  <li>Annotare la media del 1� quadrimestre</li>
+<p>  <li>Cambiare a 2� quadrimestre</li>
+<p>  <li>Confrontare le due medie: c'� stato miglioramento? Peggioramento?</li>
+</ul>
+
+<h3>Modificare con cautela</h3>
+
+<p>Se si modificano voti direttamente dalla griglia:</p>
+<ul>
+<p>  <li>Fare attenzione a non cambiare accidentalmente voti scorrendo</li>
+<p>  <li>Ricordare che ogni modifica crea un nuovo record (per audit)</li>
+<p>  <li>Documentare il motivo della modifica in un'annotazione se significativa</li>
+</ul>
+
+<h3>Colore di sfondo come promemoria</h3>
+
+<p>Il colore della finestra cambia con la materia:</p>
+<ul>
+<p>  <li>Aiuta a riconoscere subito quale materia si sta consultando</li>
+<p>  <li>Evita errori quando si aprono pi� finestre contemporaneamente</li>
+<p>  <li>Utile in scuole con molte materie simili (es. Matematica e Fisica)</li>
+</ul>
+
+<hr>
+<h2>Troubleshooting</h2>
+
+<h3>La griglia dei voti � vuota</h3>
+
+<strong>Problema</strong>: nessun voto appare nella griglia
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Verificare che lo studente abbia effettivamente voti per la combinazione materia/tipo/periodo</li>
+<p>  <li>Provare ad allargare il periodo (selezionare "Anno intero")</li>
+<p>  <li>Cambiare tipo di valutazione per vedere se ci sono voti di altro tipo</li>
+<p>  <li>Verificare nella finestra "Riepilogo Voti Classe" se lo studente appare tra quelli senza voti</li>
+</ul>
+
+<h3>La media non si aggiorna dopo modifica</h3>
+
+<strong>Problema</strong>: ho modificato un voto ma la media rimane uguale
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Assicurarsi di aver confermato la modifica (premuto Invio o cambiato riga)</li>
+<p>  <li>Chiudere e riaprire la finestra per forzare il ricalcolo</li>
+<p>  <li>Verificare che il voto modificato sia effettivamente cambiato nella griglia</li>
+<p>  <li>Controllare il peso: se si � cambiato solo il peso di un voto esistente, l'effetto sulla media potrebbe essere minimo</li>
+</ul>
+
+<h3>Le annotazioni non appaiono</h3>
+
+<strong>Problema</strong>: la griglia annotazioni � vuota anche se so che ci sono annotazioni
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Verificare il checkbox <strong>"Mostra solo attive"</strong>: se spuntato, le annotazioni archiviate non appaiono</li>
+<p>  <li>Controllare che le annotazioni siano effettivamente per questo studente</li>
+<p>  <li>Verificare che le annotazioni siano registrate nell'anno scolastico corrente</li>
+<p>  <li>Se le annotazioni sono di altri insegnanti/utenti, potrebbero non essere visibili (dipende da configurazione privacy)</li>
+</ul>
+
+<h3>Doppio click non apre dettaglio voto</h3>
+
+<strong>Problema</strong>: facendo doppio click su un voto, nessuna finestra si apre
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Assicurarsi di fare doppio click sulla riga, non sull'intestazione</li>
+<p>  <li>Verificare che la riga contenga effettivamente un voto valido (non riga vuota)</li>
+<p>  <li>Alcuni voti particolari (es. voti "chiusi" o "archiviati") potrebbero non aprire dettagli</li>
+<p>  <li>Provare prima con singolo click per selezionare, poi doppio click</li>
+</ul>
+
+<h3>Il colore di sfondo non cambia</h3>
+
+<strong>Problema</strong>: cambiando materia, il colore della finestra rimane uguale
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Verificare che le materie abbiano effettivamente colori diversi configurati nel sistema</li>
+<p>  <li>Alcune materie potrebbero avere lo stesso colore</li>
+<p>  <li>Se tutte le materie hanno colore bianco, configurare i colori da menu Setup ? Materie</li>
+</ul>
+
+<h3>La somma pesi sembra sbagliata</h3>
+
+<strong>Problema</strong>: la somma pesi non corrisponde alle aspettative
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Verificare il periodo: potrebbero esserci voti fuori dal periodo che non vengono conteggiati</li>
+<p>  <li>Controllare che tutti i voti visibili abbiano peso > 0 (peso 0 li esclude)</li>
+<p>  <li>Alcuni voti potrebbero essere "nascosti" o "chiusi" e non apparire nella somma</li>
+<p>  <li>Ricalcolare manualmente sommando i pesi visibili nella colonna Weight</li>
+</ul>
+
+<hr>
+<h2>Modifiche ai voti: sistema di audit</h2>
+
+<h3>Come funziona il sistema di audit</h3>
+
+<p>Quando si modifica un voto dalla griglia:</p>
+
+<ol>
+<p>  <li>Il programma <strong>non cancella</strong> il voto originale</li>
+<p>  <li>Crea un <strong>nuovo record</strong> nel database con:</li>
+<p>  <li>Stesso IdGrade (per tracciabilit�)</li>
+<p>  <li>Nuovo valore del voto</li>
+<p>  <li>Nuovo peso (se modificato)</li>
+<p>  <li>Data/ora di modifica</li>
+<p>  <li>Il voto originale viene mantenuto con <strong>peso = 0</strong> (non conta pi� nelle medie ma rimane per storico)</li>
+</ul>
+
+<h3>Vantaggi del sistema</h3>
+
+<ul>
+<p>  <li><strong>Tracciabilit� completa</strong>: si pu� sempre vedere com'era il voto prima</li>
+<p>  <li><strong>Protezione da errori</strong>: se si modifica accidentalmente, il valore originale non � perso</li>
+<p>  <li><strong>Audit per verifiche</strong>: in caso di contestazioni, si pu� dimostrare quando e come i voti sono stati modificati</li>
+<p>  <li><strong>Compliance normativa</strong>: soddisfa requisiti di trasparenza e inalterabilit� dei dati scolastici</li>
+</ul>
+
+<h3>Implicazioni pratiche</h3>
+
+<ul>
+<p>  <li>Le modifiche sono <strong>sicure</strong>: non si rischia di perdere dati</li>
+<p>  <li>Ogni modifica � <strong>tracciata</strong>: timestamp e valore precedente conservati</li>
+<p>  <li>Il database <strong>cresce nel tempo</strong>: ogni modifica aggiunge un record (considerare backup e pulizia periodica)</li>
+<p>  <li>Le query potrebbero essere <strong>pi� complesse</strong>: devono filtrare voti con peso 0 per vedere solo quelli "attivi"</li>
+</ul>
+
+<hr>
+<h2>Limitazioni note</h2>
+
+<ul>
+<p>  <li><strong>Modifica singola</strong>: la finestra mostra un solo studente alla volta; per confronti, aprire pi� istanze o usare "Riepilogo Voti Classe"</li>
+<p>  <li><strong>Grafici non disponibili</strong>: non ci sono visualizzazioni grafiche dell'andamento; esportare i dati in CSV e usare Excel per grafici</li>
+<p>  <li><strong>Annotazioni in sola lettura</strong>: da questa finestra non si possono creare/modificare annotazioni, solo consultarle</li>
+<p>  <li><strong>Statistiche limitate</strong>: solo media ponderata e somma pesi; altre metriche (mediana, deviazione standard, ecc.) non sono calcolate</li>
+<p>  <li><strong>Export non diretto</strong>: non c'� un pulsante "Salva su file" come nella finestra Classe; bisogna copiare i dati manualmente o usare screenshot</li>
+</ul>
+
+<hr>
+<h2>Integrazione con altre finestre</h2>
+
+<h3>Da finestra principale</h3>
+
+<p>Il pulsante <strong>"Voti allievo"</strong> apre questa finestra con parametri preimpostati:</p>
+<ul>
+<p>  <li>Studente correntemente selezionato/estratto</li>
+<p>  <li>Materia correntemente selezionata</li>
+<p>  <li>Tipo valutazione correntemente selezionato</li>
+<p>  <li>Anno scolastico corrente</li>
+</ul>
+
+<h3>Verso finestra Dettaglio Voto (frmGrade)</h3>
+
+<strong>Doppio click su un voto</strong>:
+<ul>
+<p>  <li>Apre la finestra di visualizzazione completa del voto</li>
+<p>  <li>Mostra: data, voto, peso, domanda posta, risposta studente, commenti insegnante, eventuali allegati</li>
+<p>  <li>Permette di comprendere il contesto completo della valutazione</li>
+</ul>
+
+<h3>Relazione con finestra Annotazioni</h3>
+
+<p>Le annotazioni visualizzate sono create da:</p>
+<ul>
+<p>  <li>Finestra principale ? pulsante <strong>"Annotaz."</strong></li>
+<p>  <li>Finestra frmAnnotationsAboutStudents</li>
+</ul>
+
+<p>Da questa finestra si possono solo <strong>consultare</strong>, non creare/modificare.</p>
+
+<h3>Relazione con finestra Valutazione (frmMicroAssessment)</h3>
+
+<p>I voti visualizzati sono creati da:</p>
+<ul>
+<p>  <li>Finestra principale ? pulsante <strong>"Valutaz."</strong></li>
+<p>  <li>Finestra frmMicroAssessment (inserimento nuovo voto)</li>
+</ul>
+
+<p>Dopo aver inserito un voto, si pu� subito controllare in "Voti allievo" che sia stato registrato correttamente.</p>
+
+<hr>
+<h2>Casi d'uso avanzati</h2>
+
+<h3>Analisi comparativa per tipologia</h3>
+
+<strong>Obiettivo</strong>: capire in quali tipi di valutazione lo studente eccelle o ha difficolt�
+
+<strong>Procedura</strong>:
+<ol>
+<p>  <li>Aprire "Voti allievo"</li>
+<p>  <li>Selezionare "Anno intero" come periodo</li>
+<p>  <li>Selezionare "Orali" come tipo</li>
+<p>  <li>Annotare media ponderata (es. 7.5)</li>
+<p>  <li>Cambiare a "Scritti"</li>
+<p>  <li>Annotare media ponderata (es. 6.2)</li>
+<p>  <li>Cambiare a "Pratici" (se applicabile)</li>
+<p>  <li>Annotare media ponderata (es. 8.0)</li>
+</ul>
+
+<strong>Interpretazione</strong>:
+<ul>
+<p>  <li>Media Orali > Media Scritti: studente pi� bravo nell'esposizione che nella produzione scritta</li>
+<p>  <li>Media Scritti > Media Orali: studente pi� preparato nella riflessione che nell'improvvisazione</li>
+<p>  <li>Media Pratici alta: buone competenze applicative, potrebbe essere studente con intelligenza cinestesica</li>
+</ul>
+
+<strong>Azione</strong>: personalizzare approccio didattico in base ai punti di forza dello studente
+
+<h3>Verifica recupero dopo insufficienza</h3>
+
+<strong>Obiettivo</strong>: controllare se uno studente ha recuperato dopo un periodo di difficolt�
+
+<strong>Procedura</strong>:
+<ol>
+<p>  <li>Aprire "Voti allievo"</li>
+<p>  <li>Selezionare periodo del recupero (es. "2� quadrimestre")</li>
+<p>  <li>Ordinare griglia per data</li>
+<p>  <li>Confrontare voti recenti con voti del periodo precedente:</li>
+<p>  <li>Se media attuale > media precedente: recupero avvenuto</li>
+<p>  <li>Se voti recenti tutti > 6: recupero consolidato</li>
+<p>  <li>Se ancora voti insufficienti: recupero non riuscito</li>
+</ul>
+
+<strong>Documentazione</strong>: aggiungere annotazione per tracciare l'esito del recupero
+
+<h3>Preparazione documenti per BES/DSA</h3>
+
+<strong>Obiettivo</strong>: documentare le prestazioni di studenti con Bisogni Educativi Speciali
+
+<strong>Procedura</strong>:
+<ol>
+<p>  <li>Aprire "Voti allievo" per lo studente BES/DSA</li>
+<p>  <li>Selezionare "Anno intero"</li>
+<p>  <li>Per ogni tipo di valutazione:</li>
+<p>  <li>Verificare se le misure compensative/dispensative hanno avuto effetto</li>
+<p>  <li>Confrontare prestazioni con e senza supporti</li>
+<p>  <li>Annotare progressi o criticit� persistenti</li>
+<p>  <li>Consultare annotazioni per:</li>
+<p>  <li>Registrare utilizzo strumenti compensativi</li>
+<p>  <li>Documentare situazioni particolari (es. "verifica orale invece di scritta")</li>
+<p>  <li>Tracciare colloqui con famiglia e specialisti</li>
+<p>  <li>Preparare relazione per:</li>
+<p>  <li>Aggiornamento PDP (Piano Didattico Personalizzato)</li>
+<p>  <li>Riunioni GLI (Gruppo di Lavoro per l'Inclusione)</li>
+<p>  <li>Confronti con �quipe medica</li>
+</ul>
+
+<strong>Attenzione privacy</strong>: le annotazioni devono rispettare normative su dati sensibili
+
+<a href="Manuale-Utente-SchoolGrades.md">Pagina principale</a>
+<hr>
+<em>Questa documentazione fa parte del Manuale Utente di SchoolGrades</em>
+
+    
+    <div class="footer">
+        <p>Documentazione generata da SchoolGrades | .NET 10</p>
+        <p>File sorgente: <code>frmGradesStudentsSummary-RiepilogoVotiAllievo.md</code></p>
+        <p>Data generazione: 24/12/2025 17:31</p>
+    </div>
+</body>
+</html>

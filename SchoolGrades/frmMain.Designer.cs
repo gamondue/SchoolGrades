@@ -100,6 +100,8 @@
             btnRandomNumber = new System.Windows.Forms.Button();
             chkSoundsInColorTimer = new System.Windows.Forms.CheckBox();
             lblLastDatabaseModification = new System.Windows.Forms.Label();
+            btnAbout = new System.Windows.Forms.Button();
+            btnHelp = new System.Windows.Forms.Button();
             lblStudentChosen = new System.Windows.Forms.Label();
             lblCodYear = new System.Windows.Forms.Label();
             timerQuestion = new System.Windows.Forms.Timer(components);
@@ -159,7 +161,7 @@
             btnComeOn.ForeColor = System.Drawing.Color.DarkBlue;
             btnComeOn.Location = new System.Drawing.Point(803, 377);
             btnComeOn.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            btnComeOn.Name = "butComeOn";
+            btnComeOn.Name = "btnComeOn";
             btnComeOn.Size = new System.Drawing.Size(94, 48);
             btnComeOn.TabIndex = 0;
             btnComeOn.Text = "Costretto";
@@ -228,7 +230,7 @@
             btnCheckNone.BackColor = System.Drawing.Color.Transparent;
             btnCheckNone.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnCheckNone.ForeColor = System.Drawing.Color.DarkBlue;
-            btnCheckNone.Location = new System.Drawing.Point(573, 588);
+            btnCheckNone.Location = new System.Drawing.Point(572, 612);
             btnCheckNone.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             btnCheckNone.Name = "btnCheckNone";
             btnCheckNone.Size = new System.Drawing.Size(94, 48);
@@ -354,7 +356,7 @@
             btnShowRandomImage.BackColor = System.Drawing.Color.Transparent;
             btnShowRandomImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
             btnShowRandomImage.ForeColor = System.Drawing.Color.DarkBlue;
-            btnShowRandomImage.Location = new System.Drawing.Point(572, 131);
+            btnShowRandomImage.Location = new System.Drawing.Point(572, 193);
             btnShowRandomImage.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             btnShowRandomImage.Name = "btnShowRandomImage";
             btnShowRandomImage.Size = new System.Drawing.Size(94, 48);
@@ -562,7 +564,7 @@
             // btnStartLinks
             // 
             btnStartLinks.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnStartLinks.Location = new System.Drawing.Point(572, 256);
+            btnStartLinks.Location = new System.Drawing.Point(572, 332);
             btnStartLinks.Name = "btnStartLinks";
             btnStartLinks.Size = new System.Drawing.Size(94, 48);
             btnStartLinks.TabIndex = 132;
@@ -605,7 +607,7 @@
             btnMakeGroups.BackColor = System.Drawing.Color.Transparent;
             btnMakeGroups.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnMakeGroups.ForeColor = System.Drawing.Color.DarkBlue;
-            btnMakeGroups.Location = new System.Drawing.Point(446, 72);
+            btnMakeGroups.Location = new System.Drawing.Point(446, 70);
             btnMakeGroups.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             btnMakeGroups.Name = "btnMakeGroups";
             btnMakeGroups.Size = new System.Drawing.Size(107, 59);
@@ -640,7 +642,7 @@
             btnVindicationFactorPlus.Location = new System.Drawing.Point(696, 477);
             btnVindicationFactorPlus.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             btnVindicationFactorPlus.Name = "btnVindicationFactorPlus";
-            btnVindicationFactorPlus.Size = new System.Drawing.Size(57, 27);
+            btnVindicationFactorPlus.Size = new System.Drawing.Size(63, 27);
             btnVindicationFactorPlus.TabIndex = 142;
             btnVindicationFactorPlus.Text = "FV++";
             toolTip1.SetToolTip(btnVindicationFactorPlus, "Aumento del fattore di vendetta");
@@ -656,7 +658,7 @@
             btnVindicationFactorMinus.Location = new System.Drawing.Point(696, 504);
             btnVindicationFactorMinus.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             btnVindicationFactorMinus.Name = "btnVindicationFactorMinus";
-            btnVindicationFactorMinus.Size = new System.Drawing.Size(57, 27);
+            btnVindicationFactorMinus.Size = new System.Drawing.Size(63, 27);
             btnVindicationFactorMinus.TabIndex = 143;
             btnVindicationFactorMinus.Text = "FV--";
             toolTip1.SetToolTip(btnVindicationFactorMinus, "Decremento del fattore di vendetta");
@@ -669,7 +671,7 @@
             btnCheckToggle.BackColor = System.Drawing.Color.Transparent;
             btnCheckToggle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnCheckToggle.ForeColor = System.Drawing.Color.DarkBlue;
-            btnCheckToggle.Location = new System.Drawing.Point(573, 429);
+            btnCheckToggle.Location = new System.Drawing.Point(572, 453);
             btnCheckToggle.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             btnCheckToggle.Name = "btnCheckToggle";
             btnCheckToggle.Size = new System.Drawing.Size(94, 48);
@@ -697,7 +699,7 @@
             btnCheckRevenge.BackColor = System.Drawing.Color.Transparent;
             btnCheckRevenge.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnCheckRevenge.ForeColor = System.Drawing.Color.DarkBlue;
-            btnCheckRevenge.Location = new System.Drawing.Point(573, 482);
+            btnCheckRevenge.Location = new System.Drawing.Point(572, 506);
             btnCheckRevenge.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             btnCheckRevenge.Name = "btnCheckRevenge";
             btnCheckRevenge.Size = new System.Drawing.Size(94, 48);
@@ -777,7 +779,7 @@
             btnCheckAll.BackColor = System.Drawing.Color.Transparent;
             btnCheckAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnCheckAll.ForeColor = System.Drawing.Color.DarkBlue;
-            btnCheckAll.Location = new System.Drawing.Point(573, 641);
+            btnCheckAll.Location = new System.Drawing.Point(572, 665);
             btnCheckAll.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             btnCheckAll.Name = "btnCheckAll";
             btnCheckAll.Size = new System.Drawing.Size(94, 48);
@@ -793,7 +795,7 @@
             btnCheckNoGrade.BackColor = System.Drawing.Color.Transparent;
             btnCheckNoGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnCheckNoGrade.ForeColor = System.Drawing.Color.DarkBlue;
-            btnCheckNoGrade.Location = new System.Drawing.Point(573, 535);
+            btnCheckNoGrade.Location = new System.Drawing.Point(572, 559);
             btnCheckNoGrade.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             btnCheckNoGrade.Name = "btnCheckNoGrade";
             btnCheckNoGrade.Size = new System.Drawing.Size(94, 48);
@@ -861,6 +863,7 @@
             lblIdStudent.TabIndex = 163;
             lblIdStudent.Text = "Id allievo";
             toolTip1.SetToolTip(lblIdStudent, "Media pesata di tutti i microvoti visualizzati. Salvata nel voto complessivo. Si può modificare. ");
+            lblIdStudent.Visible = false;
             // 
             // txtIdStudent
             // 
@@ -874,6 +877,7 @@
             txtIdStudent.TabStop = false;
             txtIdStudent.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             toolTip1.SetToolTip(txtIdStudent, "Codice del voto \"padre\", sotto il quale stanno tuttu queste microvalutazioni ");
+            txtIdStudent.Visible = false;
             // 
             // btnTemporary
             // 
@@ -918,7 +922,7 @@
             // btnMosaic
             // 
             btnMosaic.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnMosaic.Location = new System.Drawing.Point(572, 316);
+            btnMosaic.Location = new System.Drawing.Point(572, 386);
             btnMosaic.Name = "btnMosaic";
             btnMosaic.Size = new System.Drawing.Size(94, 48);
             btnMosaic.TabIndex = 170;
@@ -958,7 +962,7 @@
             // chkGivenFolder
             // 
             chkGivenFolder.AutoSize = true;
-            chkGivenFolder.Location = new System.Drawing.Point(5, 41);
+            chkGivenFolder.Location = new System.Drawing.Point(5, 38);
             chkGivenFolder.Name = "chkGivenFolder";
             chkGivenFolder.Size = new System.Drawing.Size(82, 22);
             chkGivenFolder.TabIndex = 174;
@@ -1061,7 +1065,7 @@
             btnRandomNumber.BackColor = System.Drawing.Color.Transparent;
             btnRandomNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
             btnRandomNumber.ForeColor = System.Drawing.Color.DarkBlue;
-            btnRandomNumber.Location = new System.Drawing.Point(572, 193);
+            btnRandomNumber.Location = new System.Drawing.Point(572, 279);
             btnRandomNumber.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             btnRandomNumber.Name = "btnRandomNumber";
             btnRandomNumber.Size = new System.Drawing.Size(94, 48);
@@ -1099,6 +1103,38 @@
             lblLastDatabaseModification.Text = "lblLastDatabaseModification";
             toolTip1.SetToolTip(lblLastDatabaseModification, "Nome del file del database. ");
             lblLastDatabaseModification.Visible = false;
+            // 
+            // btnAbout
+            // 
+            btnAbout.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnAbout.BackColor = System.Drawing.Color.Transparent;
+            btnAbout.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            btnAbout.ForeColor = System.Drawing.Color.DarkBlue;
+            btnAbout.Location = new System.Drawing.Point(446, 5);
+            btnAbout.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            btnAbout.Name = "btnAbout";
+            btnAbout.Size = new System.Drawing.Size(107, 59);
+            btnAbout.TabIndex = 188;
+            btnAbout.Text = "About";
+            toolTip1.SetToolTip(btnAbout, "Finestra opzioni di configurazione");
+            btnAbout.UseVisualStyleBackColor = false;
+            btnAbout.Click += btnAbout_Click;
+            // 
+            // btnHelp
+            // 
+            btnHelp.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnHelp.BackColor = System.Drawing.Color.Transparent;
+            btnHelp.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            btnHelp.ForeColor = System.Drawing.Color.DarkBlue;
+            btnHelp.Location = new System.Drawing.Point(566, 70);
+            btnHelp.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            btnHelp.Name = "btnHelp";
+            btnHelp.Size = new System.Drawing.Size(107, 59);
+            btnHelp.TabIndex = 189;
+            btnHelp.Text = "Help";
+            toolTip1.SetToolTip(btnHelp, "Manuale HTML del programma");
+            btnHelp.UseVisualStyleBackColor = false;
+            btnHelp.Click += btnHelp_Click;
             // 
             // lblStudentChosen
             // 
@@ -1222,7 +1258,7 @@
             grpImageSource.Controls.Add(chkLessonsPictures);
             grpImageSource.Controls.Add(chkGivenFolder);
             grpImageSource.ForeColor = System.Drawing.Color.DarkBlue;
-            grpImageSource.Location = new System.Drawing.Point(572, 67);
+            grpImageSource.Location = new System.Drawing.Point(572, 134);
             grpImageSource.Name = "grpImageSource";
             grpImageSource.Size = new System.Drawing.Size(118, 64);
             grpImageSource.TabIndex = 158;
@@ -1344,6 +1380,8 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.PowderBlue;
             ClientSize = new System.Drawing.Size(918, 721);
+            Controls.Add(btnHelp);
+            Controls.Add(btnAbout);
             Controls.Add(lblLastDatabaseModification);
             Controls.Add(lblIdStudent);
             Controls.Add(txtIdStudent);
@@ -1539,6 +1577,8 @@
         private System.Windows.Forms.DataGridView dgwStudents;
         private System.Windows.Forms.Label lblLastDatabaseModification;
         private System.Windows.Forms.ComboBox cmbSchoolYear;
+        private System.Windows.Forms.Button btnAbout;
+        private System.Windows.Forms.Button btnHelp;
     }
 }
 

@@ -402,6 +402,7 @@ Il pulsante **"Nodi al pettine"**:
 4. Durante le interrogazioni, scegliere da quelle 5-10 domande
 5. Gli studenti sanno l'ambito ma non la domanda specifica
 
+[Pagina principale](Manuale-Utente-SchoolGrades.md)
 ---
 
 *Questa documentazione fa parte del Manuale Utente di SchoolGrades*

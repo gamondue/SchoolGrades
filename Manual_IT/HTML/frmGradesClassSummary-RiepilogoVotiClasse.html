@@ -1,0 +1,797 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Documentazione SchoolGrades - frmGradesClassSummary-RiepilogoVotiClasse">
+    <meta name="author" content="SchoolGrades">
+    <title>frmGradesClassSummary-RiepilogoVotiClasse - SchoolGrades</title>
+    <style>
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    max-width: 1000px; 
+    margin: 40px auto; 
+    padding: 20px 40px; 
+    line-height: 1.7;
+    background-color: #f8f9fa;
+    color: #212529;
+}
+h1 { 
+    color: #1a4d2e; 
+    border-bottom: 3px solid #4f772d; 
+    padding-bottom: 15px; 
+    margin-top: 40px;
+    font-size: 2.5em;
+}
+h2 { 
+    color: #2d5016; 
+    margin-top: 35px; 
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #90a955;
+    font-size: 1.8em;
+}
+h3 { 
+    color: #3d6628; 
+    margin-top: 25px;
+    font-size: 1.4em;
+}
+h4 {
+    color: #4a7c32;
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+code { 
+    background-color: #e9ecef; 
+    padding: 3px 8px; 
+    border-radius: 4px; 
+    font-family: 'Consolas', 'Monaco', monospace;
+    color: #d63384;
+    font-size: 0.9em;
+}
+pre { 
+    background-color: #2d2d2d; 
+    color: #f8f8f2;
+    padding: 20px; 
+    border-radius: 6px; 
+    overflow-x: auto;
+    border-left: 4px solid #4f772d;
+    margin: 20px 0;
+}
+pre code {
+    background-color: transparent;
+    color: #f8f8f2;
+    padding: 0;
+}
+a {
+    color: #4f772d;
+    text-decoration: none;
+    border-bottom: 1px dotted #4f772d;
+}
+a:hover {
+    color: #2d5016;
+    border-bottom: 1px solid #2d5016;
+}
+img { 
+    max-width: 100%; 
+    height: auto; 
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin: 20px 0;
+}
+table { 
+    border-collapse: collapse; 
+    width: 100%; 
+    margin: 25px 0;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+th, td { 
+    border: 1px solid #dee2e6; 
+    padding: 12px 15px; 
+    text-align: left; 
+}
+th { 
+    background-color: #4f772d; 
+    color: white;
+    font-weight: 600;
+}
+tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+tr:hover {
+    background-color: #e9ecef;
+}
+blockquote {
+    border-left: 4px solid #4f772d;
+    margin: 20px 0;
+    padding: 10px 20px;
+    background-color: #f1f8f4;
+    font-style: italic;
+}
+ul, ol {
+    margin: 15px 0;
+    padding-left: 30px;
+}
+li {
+    margin: 8px 0;
+}
+strong {
+    color: #1a4d2e;
+    font-weight: 600;
+}
+em {
+    color: #4a7c32;
+}
+hr {
+    border: none;
+    border-top: 2px solid #90a955;
+    margin: 40px 0;
+}
+.header-nav {
+    background-color: #4f772d;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+.footer {
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 2px solid #dee2e6;
+    text-align: center;
+    color: #6c757d;
+    font-size: 0.9em;
+}
+    </style>
+</head>
+<body>
+    <div class="header-nav">
+        <h3 style="margin: 0; color: white;">?? SchoolGrades - Documentazione</h3>
+    </div>
+    
+<h1>Finestra Riepilogo Voti Classe - Manuale Utente</h1>
+
+<h2>Introduzione</h2>
+
+<p>La finestra <strong>Riepilogo Voti Classe</strong> (frmGradesClassSummary) fornisce una visione d'insieme delle valutazioni di un'intera classe per una specifica materia. Permette di analizzare le prestazioni collettive, identificare studenti in difficolt� e monitorare l'andamento generale.</p>
+
+<p>**ATTENZIONE: QUESTO FILE E' PRELIMINARE E NON REVISIONATO.  </p>
+<p>POTREBBE CONTENERE INFORMAZIONI NON ESATTE**  </p>
+<p>Comunica con un ticket su GiHub eventuali errori riscontrati.</p>
+
+<h2>Accesso alla finestra</h2>
+
+<p>Per aprire la finestra Riepilogo Voti Classe:</p>
+
+<ol>
+<p>  <li>Dalla finestra principale, selezionare una classe</li>
+<p>  <li>Selezionare una materia dal menu a tendina</li>
+<p>  <li>Selezionare un tipo di valutazione (es. "Orali", "Scritti")</li>
+<p>  <li>Fare click sul pulsante <strong>"Voti classe"</strong></li>
+</ol>
+
+<strong>Contesto</strong>: la finestra si apre con i parametri preselezionati dalla finestra principale (classe, materia, tipo valutazione).
+
+<hr>
+<h2>Interfaccia della finestra</h2>
+
+<h3>Area superiore: Selezione parametri</h3>
+
+<h4>Classe corrente</h4>
+<p>Etichetta che mostra la classe selezionata (es. "4F 2023-24")</p>
+<ul>
+<p>  <li><strong>Non modificabile</strong> da questa finestra</li>
+<p>  <li>Per cambiare classe, chiudere e riaprire dalla finestra principale con classe diversa</li>
+</ul>
+
+<h4>Tipo valutazione</h4>
+<p>Menu a tendina per selezionare il tipo di voto da analizzare:</p>
+<ul>
+<p>  <li>Voticini</li>
+<p>  <li>Orali</li>
+<p>  <li>Scritti</li>
+<p>  <li>Pratici</li>
+<p>  <li>Scritto-grafici</li>
+<p>  <li>Altri tipi personalizzati</li>
+</ul>
+
+<strong>Effetto</strong>: cambiando il tipo, i dati nella griglia si aggiornano automaticamente
+
+<h4>Materia</h4>
+<p>Menu a tendina per selezionare la materia:</p>
+<ul>
+<p>  <li>Elenco di tutte le materie configurate</li>
+<p>  <li>Il colore di sfondo della finestra cambia in base alla materia selezionata</li>
+</ul>
+
+<strong>Effetto</strong>: cambiando la materia, i dati si aggiornano e il colore della finestra si adatta
+
+<h3>Area periodo temporale</h3>
+
+<h4>Periodo scolastico</h4>
+<p>Menu a tendina con periodi predefiniti:</p>
+<ul>
+<p>  <li><strong>Quadrimestri</strong>: 1� quadrimestre, 2� quadrimestre</li>
+<p>  <li><strong>Trimestri</strong>: 1� trimestre, 2� trimestre, 3� trimestre</li>
+<p>  <li><strong>Periodi personalizzati</strong>:</li>
+<p>  <li>Ultima settimana</li>
+<p>  <li>Ultimo mese</li>
+<p>  <li>Anno intero</li>
+<p>  <li>Altri periodi configurati</li>
+</ul>
+
+<strong>Funzionamento</strong>: selezionando un periodo, le date di inizio e fine si aggiornano automaticamente
+
+<h4>Date personalizzate</h4>
+<p>Due date picker per specificare un intervallo temporale preciso:</p>
+<ul>
+<p>  <li><strong>Data inizio periodo</strong></li>
+<p>  <li><strong>Data fine periodo</strong></li>
+</ul>
+
+<strong>Nota</strong>: � possibile selezionare un periodo predefinito e poi modificare manualmente le date per affinare l'intervallo.
+
+<strong>Effetto</strong>: i dati visualizzati includono solo le valutazioni registrate nell'intervallo specificato.
+
+<hr>
+<h2>Modalit� di visualizzazione dati</h2>
+
+<p>La finestra offre 5 diverse modalit� di visualizzazione, selezionabili tramite radio button nel gruppo "Tipo di query":</p>
+
+<h3>1. Studenti senza voti</h3>
+
+<strong>Radio button</strong>: "Mancanti"
+
+<strong>Cosa mostra</strong>: elenco degli studenti che NON hanno voti del tipo selezionato nel periodo specificato.
+
+<strong>Colonne griglia</strong>:
+<ul>
+<p>  <li><strong>IdStudent</strong>: codice identificativo studente</li>
+<p>  <li><strong>LastName</strong>: cognome</li>
+<p>  <li><strong>FirstName</strong>: nome</li>
+<p>  <li>Altri campi anagrafici dello studente</li>
+</ul>
+
+<strong>Quando usarla</strong>:
+<ul>
+<p>  <li>Per identificare rapidamente chi deve ancora essere interrogato/valutato</li>
+<p>  <li>Per pianificare le prossime interrogazioni</li>
+<p>  <li>Per assicurarsi che tutti abbiano almeno una valutazione nel periodo</li>
+</ul>
+
+<strong>Azioni disponibili</strong>:
+<ul>
+<p>  <li><strong>Doppio click su uno studente</strong>: apre la finestra di valutazione per inserire subito un voto per quello studente</li>
+</ul>
+
+<strong>Suggerimento</strong>: usare questa vista all'inizio di ogni periodo per identificare le priorit� nelle interrogazioni.
+
+<h3>2. Visualizza voti</h3>
+
+<strong>Radio button</strong>: "Mostra voti"
+
+<strong>Cosa mostra</strong>: tutti i singoli voti (microgrades) registrati per la classe nel periodo.
+
+<strong>Colonne griglia</strong>:
+<ul>
+<p>  <li><strong>IdGrade</strong>: codice identificativo del voto</li>
+<p>  <li><strong>Date</strong>: data della valutazione</li>
+<p>  <li><strong>Grade</strong>: voto numerico</li>
+<p>  <li><strong>Weight</strong>: peso del voto (importanza)</li>
+<p>  <li><strong>LastName, FirstName</strong>: studente valutato</li>
+<p>  <li><strong>Text</strong>: eventuale testo/commento della valutazione</li>
+<p>  <li><strong>IdQuestion</strong>: codice domanda associata (se presente)</li>
+</ul>
+
+<strong>Quando usarla</strong>:
+<ul>
+<p>  <li>Per vedere lo storico completo delle valutazioni</li>
+<p>  <li>Per verificare quando � stato dato un certo voto</li>
+<p>  <li>Per controllare la distribuzione dei voti nel tempo</li>
+<p>  <li>Per identificare valutazioni specifiche da rivedere</li>
+</ul>
+
+<strong>Azioni disponibili</strong>:
+<ul>
+<p>  <li><strong>Click su una riga</strong>: seleziona il voto</li>
+<p>  <li><strong>Doppio click su un voto</strong>: apre la finestra di dettaglio/modifica della singola valutazione</li>
+</ul>
+
+<strong>Ordinamento</strong>: � possibile ordinare per qualsiasi colonna facendo click sull'intestazione
+
+<h3>3. Medie ponderate</h3>
+
+<strong>Radio button</strong>: "Mostra medie pond."
+
+<strong>Cosa mostra</strong>: le medie ponderate (weighted averages) di ogni studente, calcolate considerando i pesi dei singoli voti.
+
+<strong>Colonne griglia</strong>:
+<ul>
+<p>  <li><strong>IdStudent</strong>: codice studente</li>
+<p>  <li><strong>LastName, FirstName</strong>: nome studente</li>
+<p>  <li><strong>WeightedAverage</strong>: media ponderata calcolata</li>
+<p>  <li><strong>SumWeights</strong>: somma totale dei pesi dei voti considerati</li>
+<p>  <li><strong>NumberOfGrades</strong>: numero di voti inclusi nel calcolo</li>
+<p>  <li><strong>GradesFraction</strong>: frazione del "giro" di voti completato</li>
+<p>  <li><strong>LeftToCloseAssessments</strong>: quanti voti mancano per completare il giro</li>
+</ul>
+
+<strong>Formula media ponderata</strong>:
+<p>``<code></p>
+<p>Media = (voto1 � peso1 + voto2 � peso2 + ... + votoN � pesoN) / (peso1 + peso2 + ... + pesoN)</p>
+</code>`<code>
+
+<strong>Campo "Mancanti a fine giro"</strong>: mostra un calcolo statistico:
+<ul>
+<p>  <li>Somma i voti mancanti per completare un "giro" di valutazioni per ogni studente</li>
+<p>  <li>Divide per il numero previsto di giri</li>
+<p>  <li>Indica mediamente quanti studenti mancano ancora da valutare per giro</li>
+</ul>
+
+<strong>Quando usarla</strong>:
+<ul>
+<p>  <li>Per avere una visione sintetica delle prestazioni di ogni studente</li>
+<p>  <li>Per identificare studenti in difficolt� (media bassa)</li>
+<p>  <li>Per verificare che i voti siano equamente distribuiti</li>
+<p>  <li>Per preparare scrutini o colloqui con genitori</li>
+</ul>
+
+<strong>Ordinamento</strong>: tipicamente ordinata per media (dal migliore al peggiore o viceversa)
+
+<h3>4. Pesi su voti aperti</h3>
+
+<strong>Radio button</strong>: "Mostra pesi su voti aperti"
+
+<strong>Cosa mostra</strong>: i pesi totali accumulati da ogni studente considerando solo i voti "aperti" (non ancora chiusi/consolidati).
+
+<strong>Colonne griglia</strong>:
+<ul>
+<p>  <li><strong>IdStudent</strong>: codice studente</li>
+<p>  <li><strong>LastName, FirstName</strong>: nome studente</li>
+<p>  <li><strong>TotalWeight</strong>: somma dei pesi dei voti aperti</li>
+<p>  <li>Altri campi di dettaglio</li>
+</ul>
+
+<strong>Cosa sono i voti "aperti"</strong>:
+<ul>
+<p>  <li>Voti temporanei, non ancora consolidati per la media finale</li>
+<p>  <li>Permettono aggiustamenti o integrazioni prima della chiusura del periodo</li>
+<p>  <li>Utili per valutazioni in itinere che potrebbero essere riviste</li>
+</ul>
+
+<strong>Quando usarla</strong>:
+<ul>
+<p>  <li>Durante un periodo di valutazione continua</li>
+<p>  <li>Per monitorare chi ha accumulato pi� "materiale" di valutazione</li>
+<p>  <li>Per decidere chi ha bisogno di ulteriori verifiche prima della chiusura</li>
+</ul>
+
+<strong>Numerazione righe</strong>: in questa modalit�, le righe sono numerate progressivamente (1, 2, 3...) sulla sinistra
+
+<h3>5. Voti ponderati per media</h3>
+
+<strong>Radio button</strong>: "Mostra voti ponderati per media"
+
+<strong>Cosa mostra</strong>: una vista che combina i voti con le medie, ordinata per media ponderata.
+
+<strong>Colonne griglia</strong>:
+<ul>
+<p>  <li><strong>IdStudent</strong>: codice studente</li>
+<p>  <li><strong>LastName, FirstName</strong>: nome studente</li>
+<p>  <li><strong>WeightedAverage</strong>: media ponderata</li>
+<p>  <li>Dettagli dei singoli voti che contribuiscono alla media</li>
+</ul>
+
+<strong>Differenza con "Mostra medie pond."</strong>:
+<ul>
+<p>  <li>Questa vista include anche i dettagli dei voti, non solo la media</li>
+<p>  <li>Ordinamento predefinito per media</li>
+<p>  <li>Utile per analisi pi� approfondite</li>
+</ul>
+
+<strong>Quando usarla</strong>:
+<ul>
+<p>  <li>Per preparare classifiche o graduatorie</li>
+<p>  <li>Per identificare il range di prestazione (dal migliore al peggiore)</li>
+<p>  <li>Per discussioni con la classe sulle performance generali</li>
+</ul>
+
+<hr>
+<h2>Pulsanti e azioni</h2>
+
+<h3>Pulsante "Leggi dati"</h3>
+
+<strong>Funzione</strong>: ricarica i dati dalla database applicando tutti i filtri correnti.
+
+<strong>Quando usarlo</strong>:
+<ul>
+<p>  <li>Dopo aver modificato periodo, materia o tipo valutazione</li>
+<p>  <li>Se si sospetta che i dati non siano aggiornati</li>
+<p>  <li>Dopo aver inserito nuovi voti da altre finestre</li>
+</ul>
+
+<strong>Nota</strong>: normalmente i dati si aggiornano automaticamente quando si cambiano i parametri, ma questo pulsante forza un refresh manuale.
+
+<h3>Pulsante "Salva su file"</h3>
+
+<strong>Funzione</strong>: esporta i dati della griglia corrente in un file CSV (Comma Separated Values).
+
+<strong>Procedura</strong>:
+<ol>
+<p>  <li>Configurare la vista desiderata (tipo di query, periodo, ecc.)</li>
+<p>  <li>Fare click su "Salva su file"</li>
+<p>  <li>Il programma crea un file CSV nella cartella del database</li>
+<p>  <li>Appare un messaggio con il nome del file creato</li>
+</ul>
+
+<strong>Nome file generato</strong>:
+</code>`<code>
+<p>[Data]<em>[Classe]</em>[Materia]<em>[Tipo valutazione]</em>[Tipo query]_[Periodo].csv</p>
+</code>`<code>
+
+<strong>Esempio</strong>:
+</code>`<code>
+<p>2024.03.15<em>4F</em>Matematica<em>Orali</em>Mostra medie pond.<em>2024.01.01</em>2024.03.15.csv</p>
+</code>``
+
+<strong>Formato CSV</strong>:
+<ul>
+<p>  <li>File di testo con campi separati da virgola (o punto e virgola)</li>
+<p>  <li>Apribile con Excel, LibreOffice Calc, Google Sheets</li>
+<p>  <li>Prima riga contiene le intestazioni delle colonne</li>
+<p>  <li>Righe successive contengono i dati</li>
+</ul>
+
+<strong>Quando usarlo</strong>:
+<ul>
+<p>  <li>Per archiviare snapshot dei voti in momenti specifici (es. fine quadrimestre)</li>
+<p>  <li>Per elaborare i dati con altri strumenti (es. creare grafici in Excel)</li>
+<p>  <li>Per condividere dati con altri software</li>
+<p>  <li>Per backup dei dati di valutazione</li>
+<p>  <li>Per preparare report da stampare o inviare</li>
+</ul>
+
+<hr>
+<h2>Interazione con la griglia</h2>
+
+<h3>Click singolo</h3>
+<ul>
+<p>  <li>Seleziona una riga</li>
+<p>  <li>Evidenzia i dati per una rapida lettura</li>
+</ul>
+
+<h3>Doppio click</h3>
+
+<p>Il comportamento del doppio click dipende dalla modalit� visualizzazione:</p>
+
+<strong>In modalit� "Mancanti"</strong>:
+<ul>
+<p>  <li>Si apre la finestra di valutazione per lo studente selezionato</li>
+<p>  <li>Permette di inserire subito un voto</li>
+<p>  <li>Precompila classe, studente, materia e tipo valutazione</li>
+</ul>
+
+<strong>In altre modalit�</strong>:
+<ul>
+<p>  <li>Si apre la finestra di dettaglio del singolo voto (microassessment)</li>
+<p>  <li>Permette di vedere tutti i dettagli: domanda, risposta, commenti</li>
+<p>  <li>Permette eventualmente di modificare il voto</li>
+</ul>
+
+<strong>Messaggio di errore</strong>: se si fa doppio click su una riga non valida o incompleta, appare "Selezionare un voto da visualizzare."
+
+<h3>Ordinamento colonne</h3>
+
+<ul>
+<p>  <li><strong>Click sull'intestazione di una colonna</strong>: ordina la griglia per quella colonna</li>
+<p>  <li><strong>Primo click</strong>: ordine crescente</li>
+<p>  <li><strong>Secondo click</strong>: ordine decrescente</li>
+<p>  <li><strong>Terzo click</strong>: ritorna all'ordine originale</li>
+</ul>
+
+<strong>Suggerimento</strong>: ordinare per media per vedere subito chi � il migliore/peggiore, per data per vedere le valutazioni cronologicamente, per cognome per ordine alfabetico.
+
+<hr>
+<h2>Campi informativi</h2>
+
+<h3>Campo "N� studenti"</h3>
+<p>Mostra il numero di righe attualmente visualizzate nella griglia.</p>
+
+<strong>Interpretazione varia con la modalit�</strong>:
+<ul>
+<p>  <li>In "Mancanti": quanti studenti non hanno voti</li>
+<p>  <li>In "Mostra voti": quanti singoli voti ci sono</li>
+<p>  <li>In "Mostra medie pond.": quanti studenti hanno almeno un voto</li>
+<p>  <li>Ecc.</li>
+</ul>
+
+<h3>Campo "Mancanti a fine giro"</h3>
+<p>Visibile solo in modalit� "Mostra medie pond."</p>
+
+<p>Indica mediamente quanti studenti per "giro" devono ancora essere valutati per completare una distribuzione equa dei voti.</p>
+
+<strong>Esempio di interpretazione</strong>:
+<ul>
+<p>  <li>Valore 2.5: significa che mediamente mancano 2-3 studenti per completare ogni giro di valutazioni</li>
+<p>  <li>Valore 0: tutti gli studenti hanno completato il giro previsto di valutazioni</li>
+</ul>
+
+<strong>Utilit�</strong>: pianificare le prossime interrogazioni per bilanciare il numero di voti tra gli studenti.
+
+<hr>
+<h2>Flussi di lavoro tipici</h2>
+
+<h3>Scenario 1: Preparazione scrutinio</h3>
+
+<strong>Obiettivo</strong>: ottenere le medie ponderate di fine periodo
+
+<ol>
+<p>  <li>Aprire la finestra "Riepilogo Voti Classe"</li>
+<p>  <li>Verificare che classe e materia siano corrette</li>
+<p>  <li>Selezionare il tipo di valutazione appropriato (es. "Orali")</li>
+<p>  <li>Selezionare il periodo dello scrutinio (es. "1� quadrimestre")</li>
+<p>  <li>Selezionare radio button <strong>"Mostra medie pond."</strong></li>
+<p>  <li>Verificare le medie nella griglia</li>
+<p>  <li>Fare click su <strong>"Salva su file"</strong> per esportare</li>
+<p>  <li>Aprire il file CSV in Excel per eventuali elaborazioni</li>
+<p>  <li>Ripetere per ogni tipo di valutazione (Orali, Scritti, ecc.)</li>
+</ul>
+
+<h3>Scenario 2: Identificare studenti da interrogare</h3>
+
+<strong>Obiettivo</strong>: trovare chi non ha voti nel periodo corrente
+
+<ol>
+<p>  <li>Aprire la finestra "Riepilogo Voti Classe"</li>
+<p>  <li>Selezionare il periodo appropriato (es. "Ultimo mese")</li>
+<p>  <li>Selezionare radio button <strong>"Mancanti"</strong></li>
+<p>  <li>La griglia mostra gli studenti senza voti</li>
+<p>  <li>Prendere nota degli studenti o esportare la lista con "Salva su file"</li>
+<p>  <li>Pianificare le interrogazioni per questi studenti</li>
+</ul>
+
+<strong>Azione diretta</strong>: fare doppio click su uno studente per aprire subito la finestra di valutazione e inserire un voto.
+
+<h3>Scenario 3: Analisi andamento classe</h3>
+
+<strong>Obiettivo</strong>: capire come sta andando la classe nel complesso
+
+<ol>
+<p>  <li>Aprire la finestra "Riepilogo Voti Classe"</li>
+<p>  <li>Selezionare <strong>"Mostra voti"</strong> per vedere tutti i voti</li>
+<p>  <li>Ordinare per data (click su intestazione "Date")</li>
+<p>  <li>Verificare la distribuzione temporale: ci sono periodi con pochi voti?</li>
+<p>  <li>Ordinare per voto (click su intestazione "Grade")</li>
+<p>  <li>Verificare la distribuzione: ci sono troppi voti bassi? Troppi alti? Equilibrata?</li>
+<p>  <li>Cambiare a <strong>"Mostra medie pond."</strong></li>
+<p>  <li>Verificare quali studenti sono sotto la sufficienza</li>
+<p>  <li>Pianificare azioni di recupero per chi � in difficolt�</li>
+</ul>
+
+<h3>Scenario 4: Colloquio con genitori</h3>
+
+<strong>Obiettivo</strong>: preparare dati per incontro con famiglia di uno studente
+
+<ol>
+<p>  <li>Aprire la finestra "Riepilogo Voti Classe"</li>
+<p>  <li>Selezionare <strong>"Mostra voti"</strong></li>
+<p>  <li>Selezionare periodo "Anno intero" per avere panoramica completa</li>
+<p>  <li>Nella griglia, identificare i voti dello studente specifico (cercare per cognome)</li>
+<p>  <li>Fare doppio click su voti significativi per vedere dettagli</li>
+<p>  <li>Preparare commenti su punti di forza e debolezza</li>
+<p>  <li>Opzionalmente, esportare con "Salva su file" e filtrare in Excel solo lo studente</li>
+</ul>
+
+<strong>Alternativa</strong>: per focus su singolo studente, � pi� adatta la finestra "Voti allievo" (frmGradesStudentsSummary)
+
+<h3>Scenario 5: Bilanciare le valutazioni</h3>
+
+<strong>Obiettivo</strong>: assicurarsi che tutti gli studenti abbiano un numero simile di voti
+
+<ol>
+<p>  <li>Aprire la finestra "Riepilogo Voti Classe"</li>
+<p>  <li>Selezionare <strong>"Mostra medie pond."</strong></li>
+<p>  <li>Guardare la colonna <strong>"NumberOfGrades"</strong> (numero di voti)</li>
+<p>  <li>Ordinare per questa colonna</li>
+<p>  <li>Identificare studenti con significativamente meno voti degli altri</li>
+<p>  <li>Pianificare di interrogarli/valutarli per equilibrare</li>
+</ul>
+
+<strong>Indicatore automatico</strong>: il campo "Mancanti a fine giro" d� gi� questa informazione in forma aggregata
+
+<hr>
+<h2>Suggerimenti e best practices</h2>
+
+<h3>Esportare regolarmente</h3>
+
+<p>Creare snapshot periodici dei voti:</p>
+<ul>
+<p>  <li>Inizio, met� e fine di ogni periodo valutativo</li>
+<p>  <li>Prima di ogni scrutinio</li>
+<p>  <li>Dopo modifiche massive ai voti</li>
+</ul>
+
+<strong>Vantaggi</strong>:
+<ul>
+<p>  <li>Tracciabilit� delle modifiche nel tempo</li>
+<p>  <li>Backup dei dati</li>
+<p>  <li>Possibilit� di confrontare l'andamento</li>
+</ul>
+
+<h3>Usare periodi significativi</h3>
+
+<p>Non sempre serve vedere "anno intero":</p>
+<ul>
+<p>  <li>Per monitoraggio corrente: "ultimo mese" o "ultima settimana"</li>
+<p>  <li>Per preparazione verifica: periodo da ultima verifica</li>
+<p>  <li>Per scrutinio: periodo quadrimestre/trimestre esatto</li>
+</ul>
+
+<h3>Combinare le viste</h3>
+
+<p>Per un'analisi completa:</p>
+<ol>
+<p>  <li>Iniziare con "Mancanti" per vedere chi interrogare</li>
+<p>  <li>Passare a "Mostra voti" per vedere distribuzione</li>
+<p>  <li>Concludere con "Mostra medie pond." per sintesi finale</li>
+</ul>
+
+<h3>Attenzione ai pesi</h3>
+
+<p>Nella modalit� "Mostra medie pond.":</p>
+<ul>
+<p>  <li>La media ponderata d� pi� importanza ai voti con peso maggiore</li>
+<p>  <li>Verificare che i pesi riflettano effettivamente l'importanza relativa</li>
+<p>  <li>Un voto di verifica scritta spesso ha peso maggiore di un'orale breve</li>
+</ul>
+
+<h3>Interpretare "Mancanti a fine giro"</h3>
+
+<p>Valore alto (es. >3): molti studenti devono ancora essere valutati, programmare pi� interrogazioni/verifiche</p>
+
+<p>Valore basso (es. <1): classe sostanzialmente coperta, focus su studenti specifici o consolidamento</p>
+
+<p>Valore negativo (possibile in alcune situazioni): alcuni studenti hanno troppi voti rispetto ad altri, non procedere con nuovi fino a bilanciare</p>
+
+<h3>Colori di sfondo per materie</h3>
+
+<p>Sfruttare il cambio colore della finestra:</p>
+<ul>
+<p>  <li>Permette di riconoscere subito la materia a colpo d'occhio</li>
+<p>  <li>Utile quando si hanno aperte pi� finestre contemporaneamente</li>
+<p>  <li>Evita confusione tra materie diverse</li>
+</ul>
+
+<hr>
+<h2>Troubleshooting</h2>
+
+<h3>La griglia � vuota</h3>
+
+<strong>Problema</strong>: nessun dato appare nella griglia
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Verificare che esistano effettivamente voti per la combinazione classe/materia/tipo/periodo</li>
+<p>  <li>Controllare il periodo selezionato: potrebbe essere troppo ristretto</li>
+<p>  <li>Provare a selezionare "Anno intero" per vedere se ci sono voti fuori dal periodo</li>
+<p>  <li>Verificare che la classe e materia siano quelle corrette</li>
+<p>  <li>Fare click su "Leggi dati" per forzare un refresh</li>
+</ul>
+
+<h3>I dati non si aggiornano</h3>
+
+<strong>Problema</strong>: dopo aver modificato parametri, la griglia non cambia
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Fare click esplicito su "Leggi dati"</li>
+<p>  <li>Verificare che il radio button della modalit� sia effettivamente selezionato</li>
+<p>  <li>Chiudere e riaprire la finestra</li>
+<p>  <li>Se il problema persiste, potrebbe essere un bug: riavviare il programma</li>
+</ul>
+
+<h3>Il doppio click non apre nulla</h3>
+
+<strong>Problema</strong>: facendo doppio click su una riga, nessuna finestra si apre
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Assicurarsi di fare doppio click sulla riga, non sull'intestazione</li>
+<p>  <li>Verificare che la riga contenga effettivamente dati validi (IdGrade per voti, IdStudent per studenti)</li>
+<p>  <li>Provare prima con singolo click per selezionare, poi doppio click</li>
+<p>  <li>Se appare il messaggio "Selezionare un voto da visualizzare", la riga selezionata non � valida</li>
+</ul>
+
+<h3>Il file CSV non viene creato</h3>
+
+<strong>Problema</strong>: cliccando "Salva su file" non succede nulla o non trovo il file
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Verificare di avere permessi di scrittura sulla cartella del database</li>
+<p>  <li>Guardare attentamente il messaggio che appare: contiene il percorso completo del file</li>
+<p>  <li>Il file � nella cartella del database, non nella cartella corrente</li>
+<p>  <li>Aprire la cartella database dal menu Setup per localizzare il file</li>
+<p>  <li>Controllare che non ci siano caratteri speciali nel nome che causano problemi (es. "/" in nome materia)</li>
+</ul>
+
+<h3>Le medie sembrano sbagliate</h3>
+
+<strong>Problema</strong>: la media ponderata calcolata non corrisponde a quanto atteso
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Verificare i pesi dei singoli voti: potrebbero essere diversi da quanto pensato</li>
+<p>  <li>Controllare che tutti i voti nel periodo abbiano peso > 0 (peso 0 li esclude dalla media)</li>
+<p>  <li>Ricalcolare manualmente con la formula: ?(voto � peso) / ?(peso)</li>
+<p>  <li>Verificare che non ci siano voti "nascosti" o "chiusi" che influenzano il calcolo in modo inatteso</li>
+<p>  <li>Controllare nella modalit� "Mostra voti" tutti i voti dello studente per capire</li>
+</ul>
+
+<h3>Il campo "Mancanti a fine giro" � vuoto</h3>
+
+<strong>Problema</strong>: in modalit� "Mostra medie pond.", il campo risulta vuoto
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Questo � normale se non ci sono ancora abbastanza dati per calcolare statistiche significative</li>
+<p>  <li>Serve un numero minimo di voti distribuiti tra gli studenti</li>
+<p>  <li>Il calcolo potrebbe fallire se la distribuzione � troppo irregolare</li>
+<p>  <li>Non � un campo critico: usare altre metriche se non disponibile</li>
+</ul>
+
+<hr>
+<h2>Limitazioni note</h2>
+
+<ul>
+<p>  <li><strong>Modifica voti</strong>: non � possibile modificare i voti direttamente dalla griglia; bisogna usare il doppio click per aprire la finestra di dettaglio</li>
+<p>  <li><strong>Filtri avanzati</strong>: non ci sono filtri per studente singolo (usare la finestra "Voti allievo" per quello)</li>
+<p>  <li><strong>Grafici</strong>: il programma non genera grafici; esportare in CSV e usare Excel/Calc per visualizzazioni grafiche</li>
+<p>  <li><strong>Statistiche avanzate</strong>: mediana, deviazione standard e altre metriche statistiche non sono calcolate automaticamente</li>
+<p>  <li><strong>Confronto con altre classi</strong>: non � possibile visualizzare pi� classi contemporaneamente</li>
+</ul>
+
+<hr>
+<h2>Integrazione con altre finestre</h2>
+
+<h3>Da finestra principale</h3>
+
+<p>Il pulsante <strong>"Voti classe"</strong> apre questa finestra con parametri preimpostati:</p>
+<ul>
+<p>  <li>Classe correntemente selezionata</li>
+<p>  <li>Materia correntemente selezionata</li>
+<p>  <li>Tipo valutazione correntemente selezionato</li>
+</ul>
+
+<h3>Verso finestra Valutazione</h3>
+
+<strong>Doppio click</strong> in modalit� "Mancanti":
+<ul>
+<p>  <li>Apre frmMicroAssessment per lo studente selezionato</li>
+<p>  <li>Precompila classe, studente, materia, tipo valutazione</li>
+<p>  <li>Permette inserimento immediato del voto</li>
+</ul>
+
+<h3>Verso finestra Dettaglio Voto</h3>
+
+<strong>Doppio click</strong> su un voto in altre modalit�:
+<ul>
+<p>  <li>Apre frmMicroAssessment per il voto specifico</li>
+<p>  <li>Mostra tutti i dettagli: domanda, risposta, commenti, data, peso</li>
+<p>  <li>Permette eventuale modifica (con creazione nuovo voto e azzeramento peso del vecchio)</li>
+</ul>
+
+<a href="Manuale-Utente-SchoolGrades.md">Pagina principale</a>
+<hr>
+<em>Questa documentazione fa parte del Manuale Utente di SchoolGrades</em>
+
+    
+    <div class="footer">
+        <p>Documentazione generata da SchoolGrades | .NET 10</p>
+        <p>File sorgente: <code>frmGradesClassSummary-RiepilogoVotiClasse.md</code></p>
+        <p>Data generazione: 24/12/2025 17:31</p>
+    </div>
+</body>
+</html>

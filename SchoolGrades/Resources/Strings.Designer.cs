@@ -1812,6 +1812,15 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
+        ///   Cerca una stringa localizzata simile a About.
+        /// </summary>
+        public static string Common_About {
+            get {
+                return ResourceManager.GetString("Common_About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Cerca una stringa localizzata simile a +.
         /// </summary>
         public static string Common_Add {
@@ -1893,6 +1902,15 @@ namespace SchoolGrades.Resources {
         }
         
         /// <summary>
+        ///   Cerca una stringa localizzata simile a Manuale utente.
+        /// </summary>
+        public static string Common_Manual {
+            get {
+                return ResourceManager.GetString("Common_Manual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Cerca una stringa localizzata simile a No.
         /// </summary>
         public static string Common_No {
@@ -1952,6 +1970,15 @@ namespace SchoolGrades.Resources {
         public static string Common_ToFix {
             get {
                 return ResourceManager.GetString("Common_ToFix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Manuale HTML del programma.
+        /// </summary>
+        public static string Common_Tooltip_Manual {
+            get {
+                return ResourceManager.GetString("Common_Tooltip_Manual", resourceCulture);
             }
         }
         
@@ -2024,15 +2051,6 @@ namespace SchoolGrades.Resources {
         public static string Commons_SelectSubject {
             get {
                 return ResourceManager.GetString("Commons_SelectSubject", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Cerca una stringa localizzata simile a Salva.
-        /// </summary>
-        public static string d {
-            get {
-                return ResourceManager.GetString("d", resourceCulture);
             }
         }
         
@@ -4129,6 +4147,15 @@ namespace SchoolGrades.Resources {
         public static string Main_GradeType {
             get {
                 return ResourceManager.GetString("Main_GradeType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a File di help non trovato.
+        /// </summary>
+        public static string Main_HelpFileNotFound {
+            get {
+                return ResourceManager.GetString("Main_HelpFileNotFound", resourceCulture);
             }
         }
         
@@ -6770,6 +6797,15 @@ namespace SchoolGrades.Resources {
         public static string Random_To {
             get {
                 return ResourceManager.GetString("Random_To", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a Salva.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
             }
         }
         

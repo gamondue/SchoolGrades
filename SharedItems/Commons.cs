@@ -297,27 +297,35 @@ namespace SchoolGrades
                 List[indexMax] = dummy;
             }
         }
-        internal static DateTime DateCompiled()
-        // Assumes that in AssemblyInfo.cs,
-        // the version is specified as 1.0.* or the like,
-        // with only 2 numbers specified;
-        // the next two are generated from the date.
+        internal static DateTime? DateCompiled()
+        // Assumes that in the project file (.csproj),
+        // the version is specified with automatic build date calculation
+        // via MSBuild property functions that set Build = days since 2000-01-01
+        // and Revision = seconds since midnight / 2
         // This routine decodes them.
         {
-
             System.Version v = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
 
-            // DataBaseName.Build is days since Jan. 1, 2000
-            // DataBaseName.Revision*2 is seconds since local midnight
-            // (NEVER daylight saving time)
+            // v.Build is days since Jan. 1, 2000
+            // v.Revision is seconds since local midnight divided by 2 (to fit in Int16)
+            
+            if (v == null || v.Build <= 0)
+            {
+                // If Build is not set, return null - we want to show nothing
+                // rather than an incorrect or approximate date
+                return null;
+            }
 
-            //DateTime t = new DateTime(
-            //    DataBaseName.Build * TimeSpan.TicksPerDay +
-            //    DataBaseName.Revision * TimeSpan.TicksPerSecond * 2
-            //).AddYears(1999);
-
-            DateTime t = new DateTime(
-                v.Build * TimeSpan.TicksPerDay).AddYears(1999);
+            // Calculate date from Build (days since 2000-01-01)
+            DateTime t = new DateTime(v.Build * TimeSpan.TicksPerDay).AddYears(1999);
+            
+            // Add time from Revision (seconds since midnight / 2)
+            if (v.Revision > 0)
+            {
+                int totalSeconds = v.Revision * 2;
+                t = t.AddSeconds(totalSeconds);
+            }
+            
             return t;
         }
         internal static string ErrorLog(string Error)
@@ -559,11 +567,9 @@ namespace SchoolGrades
             return dlNew;
         }
 
-        //private static SoundPlayer suonatore = new SoundPlayer();
-        private static Stream suonatoreStream;
-
         // Try to find an embedded resource with the provided filename and play it.
         // Returns true if playback was initiated using an embedded resource.
+        private static Stream suonatoreStream;
         internal static bool TryPlayEmbeddedWave(string filename)
         {
             try

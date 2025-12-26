@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmInputBox));
             label = new System.Windows.Forms.Label();
             textBox = new System.Windows.Forms.TextBox();
             buttonOk = new System.Windows.Forms.Button();
@@ -81,6 +82,7 @@
             Controls.Add(buttonOk);
             Controls.Add(textBox);
             Controls.Add(label);
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Name = "frmInputBox";
             Text = "InputBox";
             Load += frmInputBox_Load;

@@ -581,6 +581,7 @@ Comunica con un ticket su GiHub eventuali errori riscontrati.
 - **Nodi al pettine**: da scelta domanda
 - **Immagini**: da finestra lezioni
 
+[Pagina principale](Manuale-Utente-SchoolGrades.md)
 ---
 
 *Questa documentazione fa parte del Manuale Utente di SchoolGrades*

@@ -68,6 +68,14 @@ namespace SchoolGrades
         {
             InitializeComponent();
 
+            // ? CRITICAL FIX: Forza inizializzazione esplicita del LocalizationManager
+            // PRIMA di qualsiasi altra operazione (specialmente in Release mode)
+            _ = Loc.Get("Common_About");  // Trigger del costruttore statico
+            
+            // ? NEW FIX: Localizza SUBITO dopo l'inizializzazione del LocalizationManager
+            // DEVE essere QUI, non in frmMain_Load!
+            LocalizeForm();
+            
             this.Text += " v. " + version;
 
             Commons.CreatePaths();
@@ -100,7 +108,7 @@ namespace SchoolGrades
             {
                 // config file and database file are OK
             }
-            
+
             CreateBusinessLayer();
 
             // test button visible in DEBUG mode only
@@ -172,6 +180,10 @@ namespace SchoolGrades
 
             lblLastDatabaseModification.Visible = true;
             lblLastDatabaseModification.Text = File.GetLastWriteTime(Commons.PathAndFileDatabase).ToString("yyyy-MM-dd HH:mm:ss");
+            
+            // Aggiorna SEMPRE lblDatabaseFile, sia in DEBUG che in RELEASE
+            lblDatabaseFile.Text = Path.GetFileName(Commons.PathAndFileDatabase);
+            
             //#if !DEBUG
             //            // capture every exception for exception logging
             //            Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
@@ -214,11 +226,10 @@ namespace SchoolGrades
             lblIdStudent.Visible = false;
             txtIdStudent.Visible = false;
 
-            lblDatabaseFile.Text = Path.GetFileName(Commons.PathAndFileDatabase);
             initializingForm = false;
 
-            // Initialize localization
-            LocalizeForm();
+            // ? REMOVED: LocalizeForm già chiamato nel costruttore
+            // NON chiamare qui perché i controlli sono già stati localizzati
         }
         private bool CreateBusinessLayer()
         {
@@ -267,8 +278,6 @@ namespace SchoolGrades
                 try
                 {
                     Commons.TryPlayEmbeddedWave("Lo squalo.wav");
-                    //suonatore.SoundLocation = ".\\Lo squalo.wav";
-                    //suonatore.Play();
                     Thread.Sleep(suspenceDelay);
                 }
                 catch
@@ -284,6 +293,11 @@ namespace SchoolGrades
             {
 
             }
+        }
+        private void btnAbout_Click(object sender, EventArgs e)
+        {
+            frmAbout f = new();
+            f.Show();
         }
         private void loadStudentsData(Student Student)
         {
@@ -487,8 +501,6 @@ namespace SchoolGrades
                 try
                 {
                     Commons.TryPlayEmbeddedWave("Auguri.wav");
-                    //suonatore.SoundLocation = "Auguri.wav";
-                    //suonatore.Play();
                 }
                 catch
                 {
@@ -546,7 +558,7 @@ namespace SchoolGrades
             {
 
                 txtPathImages.Text = folderBrowserDialog.SelectedPath;
-            } 
+            }
         }
         Class lastClass = new Class();
         SchoolSubject lastSubject = new SchoolSubject();
@@ -1033,7 +1045,7 @@ namespace SchoolGrades
             }
             if (MessageBox.Show(Loc.Get("Main_RevengeFactorIncrease"),
                 "", MessageBoxButtons.YesNo) == DialogResult.No)
-            return;
+                return;
 
             if (NoStudentIsChecked())
             {
@@ -1075,7 +1087,7 @@ namespace SchoolGrades
 
             if (MessageBox.Show(Loc.Get("Main_RevengeFactorDecrease"),
                 "", MessageBoxButtons.YesNo) == DialogResult.No)
-            return;
+                return;
 
             if (currentStudentsList.Count == 0)
             {
@@ -1102,8 +1114,6 @@ namespace SchoolGrades
                 try
                 {
                     Commons.TryPlayEmbeddedWave("Rigoletto.wav");
-                    //suonatore.SoundLocation = "Rigoletto.wav";
-                    //suonatore.Play();
                 }
                 catch
                 {
@@ -1280,8 +1290,6 @@ namespace SchoolGrades
                     try
                     {
                         Commons.TryPlayEmbeddedWave("La Sveglia.wav");
-                        //suonatore.SoundLocation = ".\\La Sveglia.wav";
-                        //suonatore.Play();
                     }
                     catch
                     {
@@ -1354,8 +1362,8 @@ namespace SchoolGrades
         }
         private void StartColorTimer(bool SoundEffectsInTimer)
         {
-            double t = 0; 
-            if (!double.TryParse(txtTimeInterval.Text,out t))
+            double t = 0;
+            if (!double.TryParse(txtTimeInterval.Text, out t))
             {
                 Console.Beep();
                 return;
@@ -1368,7 +1376,7 @@ namespace SchoolGrades
                     CurrentStudent.LastName = "";
                 if (CurrentStudent.FirstName == null)
                     CurrentStudent.FirstName = "";
-                ft.Text = CurrentStudent.LastName + " " + CurrentStudent.FirstName;   
+                ft.Text = CurrentStudent.LastName + " " + CurrentStudent.FirstName;
             }
             ft.Show();
         }
@@ -1595,7 +1603,7 @@ namespace SchoolGrades
         }
         private void CopyCheckedStatusIntoEligiblesList()
         {
-            // copy the checked status from the CheckedListBox
+            // copy the checked status from the CheckedItems collection
             foreach (Student stud in currentStudentsList)
             {
                 bool found = false;
@@ -1629,11 +1637,14 @@ namespace SchoolGrades
                 fs.ShowDialog();
             }
         }
+
         private void LocalizeForm()
         {
             try
             {
                 // Buttons - Verifica esistenza prima di localizzare
+                if (btnAbout != null) btnAbout.Text = Loc.Get("Common_About");
+                if (btnHelp != null) btnHelp.Text = Loc.Get("Common_Manual");
                 if (btnDraw != null) btnDraw.Text = Loc.Get("Main_Draw");
                 if (btnComeOn != null) btnComeOn.Text = Loc.Get("Main_ComeOn");
                 if (btnSetup != null) btnSetup.Text = Loc.Get("Main_Setup");
@@ -1709,6 +1720,7 @@ namespace SchoolGrades
                 {
                     // Tooltips - Buttons
                     if (btnDraw != null) toolTip1.SetToolTip(btnDraw, Loc.Get("Main_Tooltip_Draw"));
+                    if (btnHelp != null) toolTip1.SetToolTip(btnHelp, Loc.Get("Common_Tooltip_Manual"));
                     if (btnComeOn != null) toolTip1.SetToolTip(btnComeOn, Loc.Get("Main_Tooltip_ComeOn"));
                     if (btnCheckNone != null) toolTip1.SetToolTip(btnCheckNone, Loc.Get("Main_Tooltip_CheckNone"));
                     if (btnCheckAll != null) toolTip1.SetToolTip(btnCheckAll, Loc.Get("Main_Tooltip_CheckAll"));
@@ -1804,6 +1816,51 @@ namespace SchoolGrades
             {
                 // silent log
                 Commons.ErrorLog($"frmMain.LocalizeForm: Error in localization: {ex.Message}");
+            }
+        }
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            // open the help file
+            try
+            {
+                // Try first in user documents (installed location)
+                string helpFilePath = Path.Combine(Commons.PathUser, 
+                    "SchoolGrades", "Manual_IT",
+                    "Manuale-Utente-SchoolGrades.html");
+                
+                // If not found, try in application directory (development environment)
+                if (!File.Exists(helpFilePath))
+                {
+                    helpFilePath = Path.Combine(Application.StartupPath, 
+                        "..", "..", "..", "Manual_IT", "HTML", "index.html");
+                    // Normalize the path
+                    helpFilePath = Path.GetFullPath(helpFilePath);
+                }
+                
+                // If still not found, try relative to executable
+                if (!File.Exists(helpFilePath))
+                {
+                    helpFilePath = Path.Combine(Application.StartupPath, "Manual_IT", "index.html");
+                }
+                
+                if (File.Exists(helpFilePath))
+                {
+                    System.Diagnostics.Process.Start(
+                        new System.Diagnostics.ProcessStartInfo()
+                    {
+                        FileName = helpFilePath,
+                        UseShellExecute = true
+                    });
+                }
+                else
+                {
+                    MessageBox.Show(Loc.Get("Main_HelpFileNotFound") + "\n\n" + 
+                        Loc.Get("Main_HelpPathSearched") + ":\n" + helpFilePath);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(Loc.Get("Main_ErrorOpeningHelp") + ": " + ex.Message);
             }
         }
     }

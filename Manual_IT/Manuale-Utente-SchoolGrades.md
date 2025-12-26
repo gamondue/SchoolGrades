@@ -10,6 +10,7 @@
 1. [Gestione lezioni e argomenti](#gestione-lezioni-e-argomenti)
 1. [Suggerimenti e scorciatoie](#suggerimenti-e-scorciatoie)
 1. [Documentazione finestre specifiche](#documentazione-finestre-specifiche)
+1. [Dati demo](dati-demo.md)
 
 ---
 
@@ -320,6 +321,7 @@ Come menzionato all'inizio, **il doppio click à la chiave per sbloccare molte f
 
 ### Tooltip informativi
 
+Quasi tutti i controlli dell'interfaccia hanno dei suggerimenti contestuali ("**tooltip**") associati, che spiegano con buon dettaglio la loro funzione (se qualcuno manca, chiedo per favore di segnalarmelo).  
 **Posizionare il mouse sui controlli per qualche istante** per visualizzare suggerimenti contestuali che descrivono la funzione del controllo.
 
 ### Salvataggio automatico in background

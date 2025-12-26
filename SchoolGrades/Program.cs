@@ -68,7 +68,7 @@ namespace SchoolGrades
             try
             {
                 MessageBox.Show(
-                    $"Si è verificato un errore critico:\n\n{ex.Message}\n\nL'errore è stato registrato nel log.",
+                    $"Si Ã¨ verificato un errore critico:\n\n{ex.Message}\n\nL'errore Ã¨ stato registrato nel log.",
                     "Errore Critico",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);

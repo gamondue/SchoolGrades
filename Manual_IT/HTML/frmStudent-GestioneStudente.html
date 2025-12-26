@@ -1,0 +1,718 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Documentazione SchoolGrades - frmStudent-GestioneStudente">
+    <meta name="author" content="SchoolGrades">
+    <title>frmStudent-GestioneStudente - SchoolGrades</title>
+    <style>
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    max-width: 1000px; 
+    margin: 40px auto; 
+    padding: 20px 40px; 
+    line-height: 1.7;
+    background-color: #f8f9fa;
+    color: #212529;
+}
+h1 { 
+    color: #1a4d2e; 
+    border-bottom: 3px solid #4f772d; 
+    padding-bottom: 15px; 
+    margin-top: 40px;
+    font-size: 2.5em;
+}
+h2 { 
+    color: #2d5016; 
+    margin-top: 35px; 
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #90a955;
+    font-size: 1.8em;
+}
+h3 { 
+    color: #3d6628; 
+    margin-top: 25px;
+    font-size: 1.4em;
+}
+h4 {
+    color: #4a7c32;
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+code { 
+    background-color: #e9ecef; 
+    padding: 3px 8px; 
+    border-radius: 4px; 
+    font-family: 'Consolas', 'Monaco', monospace;
+    color: #d63384;
+    font-size: 0.9em;
+}
+pre { 
+    background-color: #2d2d2d; 
+    color: #f8f8f2;
+    padding: 20px; 
+    border-radius: 6px; 
+    overflow-x: auto;
+    border-left: 4px solid #4f772d;
+    margin: 20px 0;
+}
+pre code {
+    background-color: transparent;
+    color: #f8f8f2;
+    padding: 0;
+}
+a {
+    color: #4f772d;
+    text-decoration: none;
+    border-bottom: 1px dotted #4f772d;
+}
+a:hover {
+    color: #2d5016;
+    border-bottom: 1px solid #2d5016;
+}
+img { 
+    max-width: 100%; 
+    height: auto; 
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin: 20px 0;
+}
+table { 
+    border-collapse: collapse; 
+    width: 100%; 
+    margin: 25px 0;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+th, td { 
+    border: 1px solid #dee2e6; 
+    padding: 12px 15px; 
+    text-align: left; 
+}
+th { 
+    background-color: #4f772d; 
+    color: white;
+    font-weight: 600;
+}
+tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+tr:hover {
+    background-color: #e9ecef;
+}
+blockquote {
+    border-left: 4px solid #4f772d;
+    margin: 20px 0;
+    padding: 10px 20px;
+    background-color: #f1f8f4;
+    font-style: italic;
+}
+ul, ol {
+    margin: 15px 0;
+    padding-left: 30px;
+}
+li {
+    margin: 8px 0;
+}
+strong {
+    color: #1a4d2e;
+    font-weight: 600;
+}
+em {
+    color: #4a7c32;
+}
+hr {
+    border: none;
+    border-top: 2px solid #90a955;
+    margin: 40px 0;
+}
+.header-nav {
+    background-color: #4f772d;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+.footer {
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 2px solid #dee2e6;
+    text-align: center;
+    color: #6c757d;
+    font-size: 0.9em;
+}
+    </style>
+</head>
+<body>
+    <div class="header-nav">
+        <h3 style="margin: 0; color: white;">?? SchoolGrades - Documentazione</h3>
+    </div>
+    
+<h1>Finestra Gestione Studente - Manuale Utente</h1>
+
+<h2>Introduzione</h2>
+
+<p>La finestra <strong>Gestione Studente</strong> (frmStudent) permette di visualizzare, modificare, creare e cercare i dati anagrafici e amministrativi degli studenti. � l'anagrafica centralizzata di SchoolGrades per tutti i dati degli allievi.</p>
+
+<p>**ATTENZIONE: QUESTO FILE E' PRELIMINARE E NON REVISIONATO.  </p>
+<p>POTREBBE CONTENERE INFORMAZIONI NON ESATTE**  </p>
+<p>Comunica con un ticket su GiHub eventuali errori riscontrati.</p>
+
+<h2>Accesso alla finestra</h2>
+
+<strong>Dalla finestra principale</strong>:
+<ul>
+<p>  <li><strong>Doppio click sulla foto dello studente</strong>: apre con studente corrente</li>
+<p>  <li><strong>Doppio click sul nome studente</strong>: apre con studente corrente</li>
+</ul>
+
+<strong>Da altre finestre</strong>:
+<ul>
+<p>  <li>Dalla finestra "Valutazione" con doppio click sulla foto</li>
+<p>  <li>Da finestra "Riepilogo Voti Allievo"</li>
+<p>  <li>Da contesti dove servono dati studente</li>
+</ul>
+
+<h2>Modalit� di apertura</h2>
+
+<h3>Modalit� "Consultazione/Modifica"</h3>
+<ul>
+<p>  <li>Aperta con uno studente specifico</li>
+<p>  <li>Campi precompilati con i suoi dati</li>
+<p>  <li>Pulsante <strong>"Salva"</strong>: aggiorna i dati</li>
+<p>  <li>Pulsante <strong>"Scegli"</strong>: <strong>non visibile</strong></li>
+</ul>
+
+<h3>Modalit� "Selezione" (Dialog)</h3>
+<ul>
+<p>  <li>Aperta per scegliere uno studente</li>
+<p>  <li>Pulsante <strong>"Scegli"</strong>: <strong>visibile</strong> - conferma e chiude</li>
+<p>  <li>Pulsante <strong>"Esci senza scegliere"</strong>: annulla selezione</li>
+</ul>
+
+<hr>
+<h2>Interfaccia della finestra</h2>
+
+<h3>Sezione sinistra: Dati anagrafici principali</h3>
+
+<h4>Codice studente (IdStudent)</h4>
+<p>Campo numerico identificativo univoco.</p>
+<ul>
+<p>  <li>Assegnato automaticamente alla creazione</li>
+<p>  <li>Usato come chiave in tutte le operazioni</li>
+</ul>
+
+<h4>Cognome (LastName)</h4>
+<p>Campo di testo per il cognome.</p>
+<ul>
+<p>  <li><strong>Obbligatorio</strong>: non pu� essere vuoto</li>
+<p>  <li>Visualizzato in maiuscolo nella maggior parte delle finestre</li>
+</ul>
+
+<h4>Nome (FirstName)</h4>
+<p>Campo di testo per il nome.</p>
+<ul>
+<p>  <li><strong>Obbligatorio</strong>: non pu� essere vuoto</li>
+</ul>
+
+<h4>Sesso/Genere (Gender)</h4>
+<p>Campo di testo libero (es. "M", "F").</p>
+<ul>
+<p>  <li>Usato per statistiche o filtri</li>
+</ul>
+
+<h4>Data di nascita (BirthDate)</h4>
+<p>Campo data in formato gg/mm/aaaa.</p>
+<ul>
+<p>  <li>Usato per calcolare et�</li>
+<p>  <li>Usato per auguri di compleanno automatici</li>
+</ul>
+
+<h4>Luogo di nascita (BirthPlace)</h4>
+<p>Campo di testo per comune di nascita.</p>
+
+<hr>
+<h3>Sezione centrale: Residenza e contatti</h3>
+
+<h4>Indirizzo (StreetAddress)</h4>
+<p>Via e numero civico.</p>
+
+<h4>CAP (ZipCode)</h4>
+<p>Codice di avviamento postale.</p>
+
+<h4>Citt� (City)</h4>
+<p>Comune di residenza.</p>
+
+<h4>Provincia (County)</h4>
+<p>Sigla provincia (es. "FO", "RM").</p>
+
+<h4>Stato (State)</h4>
+<p>Nazione (es. "Italia", "Svizzera").</p>
+
+<h4>Origine (Origin)</h4>
+<p>Campo libero per annotare provenienza geografica o etnica (opzionale).</p>
+
+<h4>Telefono fisso (Telephone)</h4>
+<p>Numero di telefono (es. famiglia).</p>
+
+<h4>Cellulare (MobileTelephone)</h4>
+<p>Numero di cellulare studente.</p>
+
+<h4>Email</h4>
+<p>Indirizzo email dello studente o famiglia.</p>
+
+<hr>
+<h3>Sezione destra: Flags e caratteristiche</h3>
+
+<h4>Checkbox "Disabile" (Disabled)</h4>
+<p>Indica se lo studente ha disabilit� certificate.</p>
+<ul>
+<p>  <li>Usato per adattamenti didattici</li>
+<p>  <li>Informazione sensibile (privacy)</li>
+</ul>
+
+<h4>Checkbox "BES/DSA" (HasSpecialNeeds)</h4>
+<p>Indica se lo studente ha Bisogni Educativi Speciali o Disturbi Specifici dell'Apprendimento.</p>
+<ul>
+<p>  <li>Importante per PDP (Piano Didattico Personalizzato)</li>
+<p>  <li>Visibile nelle finestre di valutazione per ricordare adattamenti</li>
+</ul>
+
+<h4>Foto studente (picStudent)</h4>
+<p>Mostra la foto dello studente se disponibile.</p>
+<ul>
+<p>  <li>Caricata dalla cartella immagini configurata</li>
+<p>  <li>Formato: JPG, PNG</li>
+<p>  <li>Nome file tipicamente legato a IdStudent</li>
+</ul>
+
+<hr>
+<h3>Sezione inferiore: Ricerca e griglia risultati</h3>
+
+<h4>Pulsanti di ricerca</h4>
+
+<strong>Pulsante "Cerca studente"</strong>:
+<ul>
+<p>  <li>Cerca studenti che corrispondono ai criteri inseriti nei campi</li>
+<p>  <li>Cerca per: cognome, nome, citt�, ecc.</li>
+<p>  <li>Ricerca "LIKE" (parziale): "Ros" trova "Rossi", "Rosetti", "De Rosis"</li>
+</ul>
+
+<strong>Pulsante "Cerca omonimo"</strong>:
+<ul>
+<p>  <li>Cerca studenti con esatto cognome e nome inseriti</li>
+<p>  <li>Utile per verificare duplicati o trovare omonimi in classi diverse</li>
+</ul>
+
+<h4>Griglia studenti cercati (dgwSearchedStudents)</h4>
+
+<p>Mostra i risultati della ricerca.</p>
+
+<strong>Colonne</strong>:
+<ul>
+<p>  <li><strong>IdStudent</strong>: codice</li>
+<p>  <li><strong>LastName, FirstName</strong>: nome completo</li>
+<p>  <li><strong>ClassAbbreviation</strong>: sigla classe corrente</li>
+<p>  <li><strong>SchoolYear</strong>: anno scolastico</li>
+<p>  <li>Altri dati anagrafici</li>
+</ul>
+
+<strong>Interazione</strong>:
+<ul>
+<p>  <li><strong>Click su riga</strong> (RowEnter): carica i dati dello studente nei campi sopra</li>
+<p>  <li>I campi si popolano automaticamente</li>
+<p>  <li>La foto (se presente) si carica</li>
+<p>  <li><strong>Doppio click su riga</strong>: apre la finestra di gestione della classe dello studente</li>
+<p>  <li>Permette di vedere/modificare la classe in cui � inserito</li>
+<p>  <li>Utile per verificare composizione classe</li>
+</ul>
+
+<hr>
+<h2>Pulsanti di azione principali</h2>
+
+<h3>Pulsante "Salva"</h3>
+
+<strong>Funzione</strong>: salva i dati dello studente nel database.
+
+<strong>Procedura</strong>:
+<ol>
+<p>  <li>Compilare/modificare i campi desiderati</li>
+<p>  <li>Fare click su <strong>"Salva"</strong></li>
+<p>  <li>Se IdStudent � vuoto o 0:</li>
+<p>  <li>Viene creato un nuovo studente</li>
+<p>  <li>Assegnato Id univoco</li>
+<p>  <li>Se IdStudent esiste:</li>
+<p>  <li>I dati vengono aggiornati</li>
+</ul>
+
+<strong>Validazione</strong>:
+<ul>
+<p>  <li>Cognome e Nome devono essere compilati</li>
+<p>  <li>Se entrambi vuoti, appare: "Immettere Nome e Cognome del nuovo allievo"</li>
+</ul>
+
+<h3>Pulsante "Nuovo"</h3>
+
+<strong>Funzione</strong>: svuota tutti i campi per inserire un nuovo studente.
+
+<strong>Procedura</strong>:
+<ol>
+<p>  <li>Fare click su <strong>"Nuovo"</strong></li>
+<p>  <li>Tutti i campi si svuotano (IdStudent torna a vuoto)</li>
+<p>  <li>La foto scompare</li>
+<p>  <li>Compilare i dati del nuovo studente</li>
+<p>  <li>Fare click su <strong>"Salva"</strong></li>
+</ul>
+
+<strong>Uso</strong>: quando serve creare un nuovo studente da zero
+
+<h3>Pulsante "Aggiungi studente"</h3>
+
+<strong>Funzione</strong>: equivalente a <strong>"Nuovo" + "Salva"</strong> in un unico passaggio.
+
+<strong>Procedura</strong>:
+<ol>
+<p>  <li>Compilare i campi con i dati del nuovo studente</li>
+<p>  <li>Fare click su <strong>"Aggiungi studente"</strong></li>
+<p>  <li>Lo studente viene salvato</li>
+<p>  <li>Appare automaticamente nella griglia di ricerca</li>
+</ul>
+
+<strong>Uso</strong>: inserimento rapido senza dover fare "Nuovo" e poi "Salva"
+
+<h3>Pulsante "Elimina studente"</h3>
+
+<strong>Funzione</strong>: elimina lo studente corrente dal database.
+
+<strong>Procedura</strong>:
+<ol>
+<p>  <li>Caricare lo studente da eliminare (nei campi)</li>
+<p>  <li>Fare click su <strong>"Elimina studente"</strong></li>
+<p>  <li>Appare messaggio: "Eliminare lo studente [Nome]?"</li>
+<p>  <li>Confermare con <strong>S�</strong></li>
+<p>  <li>Appare secondo messaggio: "Eliminare lo studente anche dalle tabelle in cui viene riferito?"</li>
+<p>  <li><strong>S�</strong>: elimina anche da classi, voti, annotazioni (eliminazione completa)</li>
+<p>  <li><strong>No</strong>: elimina solo dalla tabella studenti (rimangono riferimenti orfani)</li>
+</ul>
+
+<strong>ATTENZIONE</strong>:
+<ul>
+<p>  <li>Operazione irreversibile</li>
+<p>  <li>Scegliere "S�" al secondo messaggio solo se si � sicuri</li>
+<p>  <li>Eliminare un studente con voti pu� causare perdita di dati</li>
+</ul>
+
+<strong>Limitazione</strong>: TODO - dovrebbe bloccare eliminazione se studente ha voti (da implementare)
+
+<h3>Pulsante "Scegli"</h3>
+
+<strong>Funzione</strong>: conferma la scelta dello studente e chiude la finestra (solo in modalit� Dialog).
+
+<strong>Visibilit�</strong>: visibile solo se finestra aperta in modalit� selezione
+
+<strong>Procedura</strong>:
+<ol>
+<p>  <li>Cercare e selezionare lo studente desiderato</li>
+<p>  <li>Fare click su <strong>"Scegli"</strong></li>
+<p>  <li>La finestra si chiude</li>
+<p>  <li>Lo studente scelto viene restituito alla finestra chiamante</li>
+</ul>
+
+<strong>Validazione</strong>: deve esserci uno studente valido caricato (IdStudent > 0)
+
+<h3>Pulsante "Esci senza scegliere"</h3>
+
+<strong>Funzione</strong>: chiude la finestra senza selezionare studente (solo in modalit� Dialog).
+
+<strong>Uso</strong>: annullare operazione di selezione
+
+<h3>Pulsante "Copia clipboard"</h3>
+
+<strong>Funzione</strong>: copia il nome completo dello studente (Cognome Nome) negli appunti.
+
+<strong>Uso</strong>: incolla rapido in altre applicazioni (es. email, documenti)
+
+<hr>
+<h2>Flussi di lavoro tipici</h2>
+
+<h3>Scenario 1: Consultare dati studente</h3>
+
+<strong>Obiettivo</strong>: vedere informazioni complete di uno studente
+
+<ol>
+<p>  <li>Dalla finestra principale, <strong>doppio click sulla foto</strong> dello studente</li>
+<p>  <li>La finestra si apre con i suoi dati</li>
+<p>  <li>Consultare campi anagrafici, contatti, flags</li>
+<p>  <li>Eventualmente modificare e <strong>"Salva"</strong> se necessario</li>
+<p>  <li>Chiudere finestra</li>
+</ul>
+
+<h3>Scenario 2: Creare nuovo studente</h3>
+
+<strong>Obiettivo</strong>: inserire uno studente nuovo nell'anagrafica
+
+<ol>
+<p>  <li>Aprire finestra Gestione Studente</li>
+<p>  <li>Fare click su <strong>"Nuovo"</strong> (campi si svuotano)</li>
+<p>  <li>Compilare:</li>
+<p>  <li>Cognome: Rossi</li>
+<p>  <li>Nome: Mario</li>
+<p>  <li>Data nascita: 15/03/2010</li>
+<p>  <li>Citt�: Bologna</li>
+<p>  <li>Provincia: BO</li>
+<p>  <li>Stato: Italia</li>
+<p>  <li>Email: mario.rossi@example.com</li>
+<p>  <li>Spuntare <strong>"BES/DSA"</strong> se applicabile</li>
+<p>  <li>Fare click su <strong>"Salva"</strong> (o <strong>"Aggiungi studente"</strong>)</li>
+<p>  <li>Lo studente � creato (assegnato IdStudent)</li>
+</ul>
+
+<strong>Nota</strong>: per associarlo a una classe, usare finestra "Gestione Classi"
+
+<h3>Scenario 3: Cercare studente per nome parziale</h3>
+
+<strong>Obiettivo</strong>: trovare uno studente di cui si ricorda solo parte del cognome
+
+<ol>
+<p>  <li>Aprire finestra Gestione Studente</li>
+<p>  <li>Nel campo <strong>Cognome</strong>, digitare: "Ros"</li>
+<p>  <li>Fare click su <strong>"Cerca studente"</strong></li>
+<p>  <li>La griglia mostra tutti gli studenti con cognome contenente "Ros" (Rossi, Rosetti, De Rosis, ecc.)</li>
+<p>  <li>Fare click su riga per caricare dati completi</li>
+<p>  <li><strong>Doppio click</strong> per vedere la classe dello studente</li>
+</ul>
+
+<h3>Scenario 4: Verificare omonimi</h3>
+
+<strong>Obiettivo</strong>: controllare se esistono studenti con stesso nome
+
+<ol>
+<p>  <li>Nel campo <strong>Cognome</strong>, digitare: "Bianchi"</li>
+<p>  <li>Nel campo <strong>Nome</strong>, digitare: "Luca"</li>
+<p>  <li>Fare click su <strong>"Cerca omonimo"</strong></li>
+<p>  <li>La griglia mostra tutti gli studenti chiamati esattamente "Bianchi Luca"</li>
+<p>  <li>Verificare classi e anni per distinguerli</li>
+<p>  <li>Eventualmente aggiungere suffissi o middle name per disambiguare</li>
+</ul>
+
+<h3>Scenario 5: Aggiornare contatti studente</h3>
+
+<strong>Obiettivo</strong>: modificare numero di telefono o email
+
+<ol>
+<p>  <li>Cercare lo studente (es. con "Cerca studente")</li>
+<p>  <li>Click su riga per caricare nei campi</li>
+<p>  <li>Modificare <strong>Cellulare</strong> o <strong>Email</strong></li>
+<p>  <li>Fare click su <strong>"Salva"</strong></li>
+<p>  <li>I nuovi contatti sono aggiornati</li>
+</ul>
+
+<h3>Scenario 6: Attivare flag BES/DSA</h3>
+
+<strong>Obiettivo</strong>: registrare che uno studente ha certificazione DSA
+
+<ol>
+<p>  <li>Cercare e caricare lo studente</li>
+<p>  <li>Spuntare checkbox <strong>"BES/DSA"</strong></li>
+<p>  <li>Fare click su <strong>"Salva"</strong></li>
+<p>  <li>D'ora in poi, nelle finestre di valutazione apparir� il flag BES/DSA per ricordare adattamenti necessari</li>
+</ul>
+
+<h3>Scenario 7: Selezionare studente per operazione</h3>
+
+<strong>Obiettivo</strong>: scegliere uno studente da una lista (modalit� Dialog)
+
+<ol>
+<p>  <li>La finestra si apre in modalit� selezione (pulsante "Scegli" visibile)</li>
+<p>  <li>Digitare parte del cognome</li>
+<p>  <li>Fare click su <strong>"Cerca studente"</strong></li>
+<p>  <li>Click su riga dello studente desiderato</li>
+<p>  <li>Fare click su <strong>"Scegli"</strong></li>
+<p>  <li>La finestra si chiude e lo studente � selezionato</li>
+</ul>
+
+<hr>
+<h2>Suggerimenti e best practices</h2>
+
+<h3>Dati anagrafici completi</h3>
+<ul>
+<p>  <li>Compilare il pi� possibile: facilita ricerche e comunicazioni</li>
+<p>  <li>Email � importante per contatti digitali</li>
+<p>  <li>Telefoni utili per emergenze</li>
+</ul>
+
+<h3>Uso flags BES/DSA e Disabile</h3>
+<ul>
+<p>  <li>Attivare sempre se applicabile</li>
+<p>  <li>Informazione cruciale per valutazioni e adattamenti</li>
+<p>  <li>Rispettare privacy: non condividere informazioni sensibili</li>
+</ul>
+
+<h3>Gestione omonomi</h3>
+<ul>
+<p>  <li>Verificare sempre con "Cerca omonimo" prima di creare nuovo studente</li>
+<p>  <li>Se omonimi in classi diverse, distinguere nei dati (es. middle name, suffissi)</li>
+</ul>
+
+<h3>Ricerche efficienti</h3>
+<ul>
+<p>  <li>Usare ricerca parziale per trovare rapidamente (es. "Mar" trova "Mario", "Marta", "Marco")</li>
+<p>  <li>Cercare per citt�/provincia se si ricorda provenienza ma non nome</li>
+</ul>
+
+<h3>Verificare classe studente</h3>
+<ul>
+<p>  <li><strong>Doppio click</strong> su riga in griglia apre gestione classe</li>
+<p>  <li>Utile per vedere chi � in classe con lo studente</li>
+<p>  <li>Verificare anno scolastico corretto</li>
+</ul>
+
+<h3>Foto studenti</h3>
+<ul>
+<p>  <li>Caricare foto facilita riconoscimento nelle finestre</li>
+<p>  <li>Nome file dovrebbe corrispondere a IdStudent (es. "123.jpg" per studente 123)</li>
+<p>  <li>Foto nelle cartella immagini configurata</li>
+</ul>
+
+<hr>
+<h2>Troubleshooting</h2>
+
+<h3>Non trovo lo studente cercando</h3>
+
+<strong>Problema</strong>: ricerca non restituisce risultati
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Verificare ortografia (cognome corretto?)</li>
+<p>  <li>Provare ricerca parziale (es. "Ros" invece di "Rossi")</li>
+<p>  <li>Cercare per nome invece che cognome</li>
+<p>  <li>Cercare per citt� se si ricorda provenienza</li>
+<p>  <li>Lo studente potrebbe non essere ancora inserito nel sistema</li>
+</ul>
+
+<h3>Non riesco a salvare nuovo studente</h3>
+
+<strong>Problema</strong>: click su "Salva" o "Aggiungi" non funziona
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Verificare che Cognome e Nome siano compilati (obbligatori)</li>
+<p>  <li>Controllare formato data nascita (gg/mm/aaaa)</li>
+<p>  <li>Verificare permessi scrittura database</li>
+</ul>
+
+<h3>La foto non si vede</h3>
+
+<strong>Problema</strong>: campo foto vuoto anche se file esiste
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Verificare che nome file corrisponda a IdStudent o convenzione configurata</li>
+<p>  <li>Controllare che file sia in cartella immagini corretta</li>
+<p>  <li>Formati supportati: .jpg, .png</li>
+<p>  <li>Verificare che anno scolastico studente sia corretto (la cartella foto pu� essere organizzata per anno)</li>
+</ul>
+
+<h3>Doppio click non apre classe</h3>
+
+<strong>Problema</strong>: doppio click su studente in griglia non fa nulla
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Verificare che lo studente abbia classe associata (colonna ClassAbbreviation piena)</li>
+<p>  <li>Controllare che anno scolastico sia valido</li>
+<p>  <li>Se studente non ha classe, non pu� aprire gestione classe</li>
+</ul>
+
+<h3>Eliminazione non riesce</h3>
+
+<strong>Problema</strong>: tentativo di eliminare studente da errore
+
+<strong>Cause possibili</strong>:
+<ul>
+<p>  <li>Studente ha voti associati (vincoli integrit� database)</li>
+<p>  <li>Studente � in classe corrente</li>
+<p>  <li>Permessi insufficienti</li>
+</ul>
+
+<strong>Soluzione</strong>: scegliere "S�" al secondo messaggio per eliminazione completa, oppure rimuovere prima manualmente da classi e voti
+
+<hr>
+<h2>Integrazione con altre finestre</h2>
+
+<h3>Da finestra principale</h3>
+<ul>
+<p>  <li><strong>Doppio click foto</strong>: apre con studente corrente</li>
+<p>  <li><strong>Doppio click nome</strong>: apre con studente corrente</li>
+</ul>
+
+<h3>Da finestra Valutazione</h3>
+<ul>
+<p>  <li><strong>Doppio click foto</strong>: apre con studente in valutazione</li>
+</ul>
+
+<h3>Verso finestra Gestione Classi</h3>
+<ul>
+<p>  <li><strong>Doppio click su studente in griglia</strong>: apre frmClassesManagement con classe dello studente</li>
+</ul>
+
+<h3>Modalit� Dialog da altre finestre</h3>
+<ul>
+<p>  <li>Finestre che necessitano selezione studente possono aprire questa finestra in modalit� Dialog</li>
+<p>  <li>Pulsante "Scegli" conferma e restituisce studente selezionato</li>
+</ul>
+
+<hr>
+<h2>Privacy e dati sensibili</h2>
+
+<strong>ATTENZIONE</strong>: questa finestra gestisce dati personali sensibili.
+
+<strong>Obblighi</strong>:
+<ul>
+<p>  <li>Rispettare normative privacy (GDPR in Europa)</li>
+<p>  <li>Non condividere schermate con dati visibili</li>
+<p>  <li>Proteggere accesso al database</li>
+<p>  <li>Informare famiglie sull'uso dei dati</li>
+</ul>
+
+<strong>Dati sensibili</strong>:
+<ul>
+<p>  <li>Flags Disabile e BES/DSA sono dati sulla salute</li>
+<p>  <li>Richiedono consenso informato</li>
+<p>  <li>Accesso limitato a personale autorizzato</li>
+</ul>
+
+<strong>Buone pratiche</strong>:
+<ul>
+<p>  <li>Compilare solo campi necessari</li>
+<p>  <li>Non inserire informazioni mediche dettagliate (usare annotazioni protette)</li>
+<p>  <li>Verificare consenso per foto</li>
+<p>  <li>Backup regolari e sicuri del database</li>
+</ul>
+
+<hr>
+<h2>Limitazioni note</h2>
+
+<ul>
+<p>  <li><strong>Modifiche in massa</strong>: non si possono modificare pi� studenti contemporaneamente</li>
+<p>  <li><strong>Import/export</strong>: non c'� funzione nativa per importare elenchi da file (es. CSV)</li>
+<p>  <li><strong>Storico modifiche</strong>: non c'� tracciamento di chi ha modificato cosa e quando</li>
+<p>  <li><strong>Validazione limitata</strong>: pochi controlli automatici su correttezza dati (es. email valida, CAP corretto)</li>
+<p>  <li><strong>Eliminazione con voti</strong>: TODO - dovrebbe essere bloccata se studente ha voti</li>
+</ul>
+
+<a href="Manuale-Utente-SchoolGrades.md">Pagina principale</a>
+<hr>
+<em>Questa documentazione fa parte del Manuale Utente di SchoolGrades</em>
+
+    
+    <div class="footer">
+        <p>Documentazione generata da SchoolGrades | .NET 10</p>
+        <p>File sorgente: <code>frmStudent-GestioneStudente.md</code></p>
+        <p>Data generazione: 24/12/2025 17:31</p>
+    </div>
+</body>
+</html>

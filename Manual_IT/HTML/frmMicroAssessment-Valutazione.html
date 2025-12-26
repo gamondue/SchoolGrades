@@ -1,0 +1,933 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Documentazione SchoolGrades - frmMicroAssessment-Valutazione">
+    <meta name="author" content="SchoolGrades">
+    <title>frmMicroAssessment-Valutazione - SchoolGrades</title>
+    <style>
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    max-width: 1000px; 
+    margin: 40px auto; 
+    padding: 20px 40px; 
+    line-height: 1.7;
+    background-color: #f8f9fa;
+    color: #212529;
+}
+h1 { 
+    color: #1a4d2e; 
+    border-bottom: 3px solid #4f772d; 
+    padding-bottom: 15px; 
+    margin-top: 40px;
+    font-size: 2.5em;
+}
+h2 { 
+    color: #2d5016; 
+    margin-top: 35px; 
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #90a955;
+    font-size: 1.8em;
+}
+h3 { 
+    color: #3d6628; 
+    margin-top: 25px;
+    font-size: 1.4em;
+}
+h4 {
+    color: #4a7c32;
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+code { 
+    background-color: #e9ecef; 
+    padding: 3px 8px; 
+    border-radius: 4px; 
+    font-family: 'Consolas', 'Monaco', monospace;
+    color: #d63384;
+    font-size: 0.9em;
+}
+pre { 
+    background-color: #2d2d2d; 
+    color: #f8f8f2;
+    padding: 20px; 
+    border-radius: 6px; 
+    overflow-x: auto;
+    border-left: 4px solid #4f772d;
+    margin: 20px 0;
+}
+pre code {
+    background-color: transparent;
+    color: #f8f8f2;
+    padding: 0;
+}
+a {
+    color: #4f772d;
+    text-decoration: none;
+    border-bottom: 1px dotted #4f772d;
+}
+a:hover {
+    color: #2d5016;
+    border-bottom: 1px solid #2d5016;
+}
+img { 
+    max-width: 100%; 
+    height: auto; 
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin: 20px 0;
+}
+table { 
+    border-collapse: collapse; 
+    width: 100%; 
+    margin: 25px 0;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+th, td { 
+    border: 1px solid #dee2e6; 
+    padding: 12px 15px; 
+    text-align: left; 
+}
+th { 
+    background-color: #4f772d; 
+    color: white;
+    font-weight: 600;
+}
+tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+tr:hover {
+    background-color: #e9ecef;
+}
+blockquote {
+    border-left: 4px solid #4f772d;
+    margin: 20px 0;
+    padding: 10px 20px;
+    background-color: #f1f8f4;
+    font-style: italic;
+}
+ul, ol {
+    margin: 15px 0;
+    padding-left: 30px;
+}
+li {
+    margin: 8px 0;
+}
+strong {
+    color: #1a4d2e;
+    font-weight: 600;
+}
+em {
+    color: #4a7c32;
+}
+hr {
+    border: none;
+    border-top: 2px solid #90a955;
+    margin: 40px 0;
+}
+.header-nav {
+    background-color: #4f772d;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+.footer {
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 2px solid #dee2e6;
+    text-align: center;
+    color: #6c757d;
+    font-size: 0.9em;
+}
+    </style>
+</head>
+<body>
+    <div class="header-nav">
+        <h3 style="margin: 0; color: white;">?? SchoolGrades - Documentazione</h3>
+    </div>
+    
+<h1>Finestra Valutazione (Micro Assessment) - Manuale Utente</h1>
+
+<h2>Introduzione</h2>
+
+<p>La finestra <strong>Valutazione</strong> (frmMicroAssessment) � il cuore del sistema di registrazione dei voti in SchoolGrades. Permette di inserire valutazioni dettagliate (microvalutazioni o "voticini") che vengono poi aggregate in voti complessivi (macrovalutazioni). Questa finestra implementa un sistema sofisticato di valutazione basato su pesi e medie ponderate.</p>
+
+<p>**ATTENZIONE: QUESTO FILE E' PRELIMINARE E NON REVISIONATO.  </p>
+<p>POTREBBE CONTENERE INFORMAZIONI NON ESATTE**  </p>
+<p>Comunica con un ticket su GiHub eventuali errori riscontrati.</p>
+
+<h2>Accesso alla finestra</h2>
+
+<p>Per aprire la finestra Valutazione:</p>
+
+<strong>Dalla finestra principale</strong>:
+<ol>
+<p>  <li>Selezionare uno studente (tramite estrazione o dalla griglia)</li>
+<p>  <li>Selezionare una materia</li>
+<p>  <li>Selezionare un tipo di valutazione (es. "Orali", "Scritti")</li>
+<p>  <li>Fare click sul pulsante <strong>"Valutaz."</strong></li>
+</ol>
+
+<strong>Da altre finestre</strong>:
+<ul>
+<p>  <li>Dalla finestra "Riepilogo Voti Classe" (modalit� "Mancanti") con doppio click su uno studente</li>
+<p>  <li>Da altri contesti dove serve inserire rapidamente una valutazione</li>
+</ul>
+
+<strong>Contesto</strong>: la finestra si apre precompilata con studente, materia e tipo valutazione correnti.
+
+<hr>
+<h2>Concetti fondamentali</h2>
+
+<h3>Sistema di valutazione a due livelli</h3>
+
+<p>SchoolGrades utilizza un sistema gerarchico di valutazione:</p>
+
+<strong>Microvalutazione (Voticino)</strong>:
+<ul>
+<p>  <li>Voto su una singola domanda o aspetto</li>
+<p>  <li>Ha un proprio valore (es. 7, 8.5)</li>
+<p>  <li>Ha un peso che indica l'importanza relativa (es. 1, 2, 3)</li>
+<p>  <li>Contribuisce alla macrovalutazione</li>
+</ul>
+
+<strong>Macrovalutazione (Voto complessivo)</strong>:
+<ul>
+<p>  <li>Sintesi di pi� microvalutazioni</li>
+<p>  <li>Calcolata come media ponderata delle microvalutazioni</li>
+<p>  <li>Rappresenta la valutazione finale (es. orale, scritto)</li>
+<p>  <li>Ha a sua volta un peso per il calcolo della media finale</li>
+</ul>
+
+<strong>Esempio pratico</strong>:
+<p>``<code></p>
+<p>Interrogazione orale (Macrovalutazione)</p>
+<p>??? Domanda 1: 7 (peso 1)</p>
+<p>??? Domanda 2: 8 (peso 2) ? pi� importante</p>
+<p>??? Domanda 3: 6 (peso 1)</p>
+<p>??? Media ponderata: (7�1 + 8�2 + 6�1) / (1+2+1) = 7.25</p>
+</code>`<code>
+
+<h3>Stati del voto</h3>
+
+<strong>Voto aperto</strong>:
+<ul>
+<p>  <li>Macrovalutazione in corso di formazione</li>
+<p>  <li>Si possono aggiungere microvalutazioni</li>
+<p>  <li>Non ha ancora un valore definitivo (valore = 0 o NULL)</li>
+</ul>
+
+<strong>Voto chiuso</strong>:
+<ul>
+<p>  <li>Macrovalutazione completata</li>
+<p>  <li>Ha un valore definitivo salvato</li>
+<p>  <li>Non si possono pi� aggiungere microvalutazioni (senza riaprirlo)</li>
+</ul>
+
+<hr>
+<h2>Interfaccia della finestra</h2>
+
+<h3>Area superiore: Informazioni studente e contesto</h3>
+
+<h4>Dati studente</h4>
+<ul>
+<p>  <li><strong>Nome studente</strong>: visualizzato in grande (cognome e nome)</li>
+<p>  <li><strong>Foto studente</strong>: a sinistra, se disponibile</li>
+<p>  <li><strong>Doppio click sulla foto</strong>: apre finestra di gestione dello studente</li>
+<p>  <li><strong>Id studente</strong>: codice numerico identificativo</li>
+<p>  <li><strong>Checkbox "BES/DSA"</strong>: indica se lo studente ha Bisogni Educativi Speciali</li>
+</ul>
+
+<h4>Contesto valutazione</h4>
+<ul>
+<p>  <li><strong>Materia</strong>: campo di testo con la materia corrente</li>
+<p>  <li><strong>Tipo valutazione</strong>: (es. "Orali - Interrogazioni")</li>
+<p>  <li><strong>Tipo valutazione padre</strong>: tipo di voto che contiene questo (struttura gerarchica)</li>
+<p>  <li><strong>Codice voto complessivo</strong>: IdGrade della macrovalutazione corrente</li>
+<p>  <li><strong>Sfondo rosso</strong>: non esiste ancora un voto complessivo (crearlo con "Nuovo voto")</li>
+<p>  <li><strong>Sfondo bianco</strong>: voto complessivo esistente</li>
+</ul>
+
+<hr>
+<h2>Sezione centrale: Gestione microvalutazioni</h2>
+
+<h3>Griglia microvalutazioni</h3>
+
+<p>Mostra tutte le microvalutazioni del voto complessivo correntemente aperto.</p>
+
+<strong>Colonne</strong>:
+<ul>
+<p>  <li><strong>IdGrade</strong>: codice della microvalutazione</li>
+<p>  <li><strong>Value</strong>: voto numerico</li>
+<p>  <li><strong>Weight</strong>: peso della microvalutazione</li>
+<p>  <li><strong>Date</strong>: data di registrazione</li>
+<p>  <li><strong>Text</strong>: testo della domanda (se associata)</li>
+<p>  <li>Altri campi</li>
+</ul>
+
+<strong>Interazione</strong>:
+<ul>
+<p>  <li><strong>Click singolo</strong>: seleziona una microvalutazione, i suoi dati appaiono nei campi sottostanti</li>
+<p>  <li><strong>Doppio click</strong>: (attualmente non implementato)</li>
+</ul>
+
+<strong>Colore sfondo</strong>:
+<ul>
+<p>  <li>Le microvalutazioni contribuiscono alla media mostrata nei campi sotto la griglia</li>
+</ul>
+
+<h3>Campi di inserimento microvalutazione</h3>
+
+<h4>Voto (Value)</h4>
+<ul>
+<p>  <li>Campo di testo per il voto numerico</li>
+<p>  <li>Valori tipici: da 1 a 10 (o scala configurata)</li>
+<p>  <li><strong>Trackbar (scorrimento)</strong>: sotto il campo per selezione rapida</li>
+<p>  <li>Muovere la barra per impostare il voto</li>
+<p>  <li>Il valore si aggiorna automaticamente nel campo testo</li>
+</ul>
+
+<h4>Peso (Weight)</h4>
+<ul>
+<p>  <li>Campo di testo per il peso della microvalutazione</li>
+<p>  <li>Valori tipici: 1, 2, 3 (raramente oltre 5)</li>
+<p>  <li><strong>Trackbar (scorrimento)</strong>: sotto il campo per selezione rapida</li>
+<p>  <li><strong>Peso predefinito</strong>: si imposta automaticamente dal tipo di valutazione o dalla domanda</li>
+</ul>
+
+<strong>Interpretazione pesi</strong>:
+<ul>
+<p>  <li><strong>Peso 1</strong>: domanda semplice o di routine</li>
+<p>  <li><strong>Peso 2</strong>: domanda standard di media difficolt�</li>
+<p>  <li><strong>Peso 3</strong>: domanda importante o complessa</li>
+<p>  <li><strong>Peso 4-5</strong>: domande fondamentali o particolarmente difficili</li>
+</ul>
+
+<h4>Domanda associata</h4>
+<ul>
+<p>  <li><strong>Campo testo domanda</strong>: mostra il testo della domanda scelta</li>
+<p>  <li><strong>Doppio click</strong>: apre finestra di modifica della domanda</li>
+<p>  <li><strong>Pulsante "Scelta domanda"</strong>: apre finestra di scelta domanda</li>
+<p>  <li>Permette di cercare e selezionare una domanda dal database</li>
+<p>  <li>La domanda viene associata alla microvalutazione</li>
+<p>  <li>Il peso si imposta automaticamente da quello della domanda</li>
+<p>  <li><strong>Pulsante "Nessuna domanda"</strong>: rimuove l'associazione con la domanda</li>
+<p>  <li>Utile per valutazioni generiche senza domanda specifica</li>
+</ul>
+
+<hr>
+<h2>Campi calcolati: Statistiche</h2>
+
+<p>Sotto la griglia, tre campi mostrano statistiche aggregate:</p>
+
+<h3>Somma pesi</h3>
+<p>Mostra la somma totale dei pesi di tutte le microvalutazioni del voto aperto.</p>
+
+<strong>Colore di sfondo</strong>:
+<ul>
+<p>  <li><strong>Verde</strong>: ? 95 (molto sopra la soglia standard)</li>
+<p>  <li><strong>Giallo</strong>: 66-94 (vicino alla soglia)</li>
+<p>  <li><strong>Arancione</strong>: 46-65 (sotto la soglia ma accettabile)</li>
+<p>  <li><strong>Bianco</strong>: < 46 (pochi voticini, serve interrogare di pi�)</li>
+</ul>
+
+<strong>Interpretazione</strong>:
+<ul>
+<p>  <li>Valori tipici: 60-100</li>
+<p>  <li>Indica "quanto si � interrogato" lo studente</li>
+<p>  <li>Permette di confrontare l'equit�: tutti gli studenti dovrebbero avere somme simili</li>
+</ul>
+
+<h3>Media microvalutazioni</h3>
+<p>Media ponderata di tutte le microvalutazioni.</p>
+
+<strong>Formula</strong>:
+</code>`<code>
+<p>Media = ?(voto � peso) / ?(peso)</p>
+</code>``
+
+<strong>Uso</strong>:
+<ul>
+<p>  <li>Rappresenta la prestazione effettiva dello studente</li>
+<p>  <li>Questo valore verr� salvato come voto complessivo quando si chiude</li>
+</ul>
+
+<h3>Peso voto complessivo</h3>
+<p>Peso predefinito per il voto complessivo (macrovalutazione).</p>
+
+<strong>Funzione</strong>:
+<ul>
+<p>  <li>Indica quanto questo voto conter� nella media finale</li>
+<p>  <li>Tipicamente configurato nel tipo di valutazione</li>
+<p>  <li>Es. scritti potrebbero pesare 3, orali 2</li>
+</ul>
+
+<hr>
+<h2>Pulsanti di azione principali</h2>
+
+<h3>Pulsante "Salva voticino"</h3>
+
+<strong>Funzione</strong>: salva la microvalutazione corrente nella griglia.
+
+<strong>Procedura</strong>:
+<ol>
+<p>  <li>Opzionalmente, scegliere una domanda con "Scelta domanda"</li>
+<p>  <li>Inserire il voto (obbligatorio)</li>
+<p>  <li>Verificare/modificare il peso (obbligatorio)</li>
+<p>  <li>Fare click su "Salva voticino"</li>
+<p>  <li>La microvalutazione appare nella griglia</li>
+<p>  <li>I campi voto e peso si svuotano per la prossima</li>
+</ul>
+
+<strong>Validazioni</strong>:
+<ul>
+<p>  <li>Se non c'� un voto complessivo aperto (sfondo rosso), viene chiesto di crearne uno</li>
+<p>  <li>Se il voto complessivo � chiuso, viene offerta l'opzione di riaprirlo</li>
+<p>  <li>Voto e peso devono essere > 0</li>
+</ul>
+
+<strong>Effetto</strong>:
+<ul>
+<p>  <li>Aggiunge una nuova riga alla griglia</li>
+<p>  <li>Aggiorna automaticamente somma pesi e media</li>
+<p>  <li>La domanda viene registrata come "gi� fatta" per evitare ripetizioni</li>
+</ul>
+
+<h3>Pulsante "Nuovo voto"</h3>
+
+<strong>Funzione</strong>: crea un nuovo voto complessivo (macrovalutazione) aperto.
+
+<strong>Quando usarlo</strong>:
+<ul>
+<p>  <li>All'inizio di una nuova sessione di interrogazioni</li>
+<p>  <li>Quando il voto precedente � stato chiuso</li>
+<p>  <li>Per separare valutazioni di periodi diversi</li>
+</ul>
+
+<strong>Procedura</strong>:
+<ol>
+<p>  <li>Fare click su "Nuovo voto"</li>
+<p>  <li>Viene creato un nuovo voto complessivo aperto</li>
+<p>  <li>Il campo "Codice voto complessivo" mostra il nuovo codice (sfondo bianco)</li>
+<p>  <li>La griglia si svuota (pronta per nuove microvalutazioni)</li>
+<p>  <li>Si possono iniziare ad aggiungere voticini</li>
+</ul>
+
+<strong>Blocco</strong>:
+<ul>
+<p>  <li>Se ci sono gi� microvalutazioni non chiuse, viene richiesto di chiudere prima il voto corrente</li>
+</ul>
+
+<h3>Pulsante "Chiudi voto"</h3>
+
+<strong>Funzione</strong>: chiude il voto complessivo salvando la media come valore definitivo.
+
+<strong>Quando usarlo</strong>:
+<ul>
+<p>  <li>Quando si � finito di interrogare lo studente</li>
+<p>  <li>Quando si ritiene la valutazione completa</li>
+<p>  <li>Prima di creare un nuovo voto</li>
+</ul>
+
+<strong>Procedura</strong>:
+<ol>
+<p>  <li>Verificare che la media sia soddisfacente</li>
+<p>  <li>Fare click su "Chiudi voto"</li>
+<p>  <li>Appare messaggio di conferma: "Assegnazione del voto indicato come nuovo voto complessivo"</li>
+<p>  <li>Confermare con "S�"</li>
+<p>  <li>Il voto viene chiuso con il valore della media ponderata</li>
+<p>  <li>La griglia si svuota (il voto � ora consultabile in altre finestre)</li>
+</ul>
+
+<strong>Validazioni</strong>:
+<ul>
+<p>  <li>Somma pesi deve essere > 0</li>
+<p>  <li>Media deve essere > 0</li>
+<p>  <li>Deve esistere un voto complessivo aperto</li>
+</ul>
+
+<strong>Effetto</strong>:
+<ul>
+<p>  <li>Il voto complessivo assume il valore della media</li>
+<p>  <li>Il voto viene "consolidato" e contribuisce alla media finale dello studente</li>
+<p>  <li>Non si possono pi� aggiungere microvalutazioni senza riaprire</li>
+</ul>
+
+<h3>Pulsante "Salva modifica voticino"</h3>
+
+<strong>Funzione</strong>: salva le modifiche a una microvalutazione esistente.
+
+<strong>Procedura</strong>:
+<ol>
+<p>  <li>Selezionare una microvalutazione dalla griglia (click singolo)</li>
+<p>  <li>I suoi dati appaiono nei campi di inserimento</li>
+<p>  <li>Modificare voto, peso o domanda</li>
+<p>  <li>Fare click su "Salva modifica voticino"</li>
+<p>  <li>La modifica viene salvata e la griglia si aggiorna</li>
+</ul>
+
+<strong>Uso</strong>: correggere errori di digitazione o rivalutazioni
+
+<h3>Pulsante "Cancella voticino"</h3>
+
+<strong>Funzione</strong>: elimina la microvalutazione selezionata.
+
+<strong>Procedura</strong>:
+<ol>
+<p>  <li>Selezionare una microvalutazione dalla griglia</li>
+<p>  <li>Fare click su "Cancella voticino"</li>
+<p>  <li>La microvalutazione viene eliminata</li>
+<p>  <li>La griglia, somma pesi e media si aggiornano automaticamente</li>
+</ul>
+
+<strong>Attenzione</strong>: operazione irreversibile, usare con cautela
+
+<h3>Pulsante "Azzera domanda"</h3>
+
+<strong>Funzione</strong>: rimuove l'associazione tra la microvalutazione corrente e la domanda.
+
+<strong>Quando usarlo</strong>:
+<ul>
+<p>  <li>Se si � scelta la domanda sbagliata</li>
+<p>  <li>Se si vuole cambiare domanda</li>
+<p>  <li>Per valutazioni generiche senza domanda specifica</li>
+</ul>
+
+<hr>
+<h2>Indicatore tempo lezione</h2>
+
+<p>In basso nella finestra, un'etichetta colorata <strong>"Tempo lezione"</strong> replica l'indicatore della finestra principale:</p>
+<ul>
+<p>  <li>Cambia colore dal verde al rosso man mano che la lezione procede</li>
+<p>  <li>Permette di monitorare il tempo rimanente anche durante la valutazione</li>
+<p>  <li>Attivo solo se l'orologio lezione � abilitato nella finestra principale</li>
+</ul>
+
+<hr>
+<h2>Flussi di lavoro tipici</h2>
+
+<h3>Scenario 1: Interrogazione orale standard</h3>
+
+<strong>Obiettivo</strong>: registrare un'interrogazione orale con 3-4 domande
+
+<ol>
+<p>  <li>La finestra si apre con studente, materia e tipo valutazione gi� impostati</li>
+<p>  <li><strong>Verificare</strong>: se campo "Codice voto complessivo" ha sfondo rosso:</li>
+<p>  <li>Fare click su <strong>"Nuovo voto"</strong></li>
+<p>  <li>Il campo diventa bianco con un codice</li>
+<p>  <li><strong>Prima domanda</strong>:</li>
+<p>  <li>Fare click su <strong>"Scelta domanda"</strong></li>
+<p>  <li>Cercare e selezionare la domanda</li>
+<p>  <li>La domanda appare nel campo testo</li>
+<p>  <li>Il peso si imposta automaticamente</li>
+<p>  <li>Valutare la risposta e inserire il voto (es. 7)</li>
+<p>  <li>Fare click su <strong>"Salva voticino"</strong></li>
+<p>  <li><strong>Seconda domanda</strong>: ripetere il punto 3</li>
+<p>  <li><strong>Terza domanda</strong>: ripetere il punto 3</li>
+<p>  <li><strong>Verifica</strong>: controllare la media ponderata</li>
+<p>  <li><strong>Chiusura</strong>: fare click su <strong>"Chiudi voto"</strong></li>
+<p>  <li><strong>Conferma</strong>: confermare nel messaggio</li>
+<p>  <li>La finestra pu� essere chiusa o si pu� interrogare un altro studente</li>
+</ul>
+
+<h3>Scenario 2: Valutazione rapida senza domande specifiche</h3>
+
+<strong>Obiettivo</strong>: registrare un voto veloce senza associare domande
+
+<ol>
+<p>  <li>Aprire finestra Valutazione per lo studente</li>
+<p>  <li>Se serve, creare "Nuovo voto"</li>
+<p>  <li><strong>Inserire direttamente</strong>:</li>
+<p>  <li>Voto: es. 7</li>
+<p>  <li>Peso: es. 2</li>
+<p>  <li><strong>NON scegliere una domanda</strong></li>
+<p>  <li>Fare click su <strong>"Salva voticino"</strong></li>
+<p>  <li>Ripetere per altre valutazioni rapide se necessario</li>
+<p>  <li>Fare click su <strong>"Chiudi voto"</strong> quando completato</li>
+</ul>
+
+<strong>Quando usare</strong>: valutazioni al volo, partecipazione, compiti brevi
+
+<h3>Scenario 3: Correzione di un voto gi� inserito</h3>
+
+<strong>Obiettivo</strong>: modificare una microvalutazione errata
+
+<ol>
+<p>  <li>Aprire finestra Valutazione (con voto complessivo aperto)</li>
+<p>  <li>Nella griglia, fare <strong>click singolo</strong> sulla microvalutazione da correggere</li>
+<p>  <li>I dati appaiono nei campi di inserimento</li>
+<p>  <li>Modificare il voto (es. da 7 a 7.5) o il peso</li>
+<p>  <li>Fare click su <strong>"Salva modifica voticino"</strong></li>
+<p>  <li>La griglia si aggiorna con il nuovo valore</li>
+<p>  <li>La media si ricalcola automaticamente</li>
+</ul>
+
+<strong>Nota</strong>: se il voto � gi� chiuso, bisogna riaprirlo prima
+
+<h3>Scenario 4: Interrogazione lunga con molte domande</h3>
+
+<strong>Obiettivo</strong>: interrogazione articolata con 6-8 domande
+
+<ol>
+<p>  <li>Creare "Nuovo voto" se necessario</li>
+<p>  <li><strong>Per ogni domanda</strong>:</li>
+<p>  <li>Scegliere la domanda</li>
+<p>  <li>Valutare e salvare voticino</li>
+<p>  <li>La griglia si popola progressivamente</li>
+<p>  <li><strong>Monitorare</strong> la somma pesi:</li>
+<p>  <li>Se supera 80-100, l'interrogazione � sufficientemente dettagliata</li>
+<p>  <li>Il colore di sfondo diventa giallo/verde</li>
+<p>  <li><strong>Valutare</strong> la media ponderata:</li>
+<p>  <li>Se soddisfacente, procedere con chiusura</li>
+<p>  <li>Se insoddisfacente ma equa, chiudere comunque (riflette prestazione reale)</li>
+<p>  <li>Fare click su <strong>"Chiudi voto"</strong></li>
+</ul>
+
+<strong>Suggerimento</strong>: per interrogazioni molto lunghe, considerare di spezzare in pi� voti complessivi
+
+<h3>Scenario 5: Riapertura voto chiuso per aggiungere domande</h3>
+
+<strong>Obiettivo</strong>: aggiungere microvalutazioni a un voto gi� chiuso
+
+<ol>
+<p>  <li>Aprire finestra Valutazione per lo studente</li>
+<p>  <li>Il voto complessivo visualizzato � chiuso (griglia vuota, media non modificabile)</li>
+<p>  <li>Tentare di salvare un nuovo voticino</li>
+<p>  <li>Appare messaggio: "La macrovalutazione indicata � chiusa. Vuoi riaprirla?"</li>
+<p>  <li>Rispondere <strong>S�</strong></li>
+<p>  <li>Il voto si riapre: le microvalutazioni riappaiono nella griglia</li>
+<p>  <li>Aggiungere le nuove microvalutazioni</li>
+<p>  <li>La media si ricalcola includendo le nuove</li>
+<p>  <li>Fare click su <strong>"Chiudi voto"</strong> per consolidare</li>
+</ul>
+
+<strong>Quando usare</strong>: recupero, interrogazioni suppletive, correzioni sostanziali
+
+<hr>
+<h2>Suggerimenti e best practices</h2>
+
+<h3>Pesare correttamente le domande</h3>
+
+<strong>Linee guida generali</strong>:
+<ul>
+<p>  <li><strong>Peso 1</strong>: domande di verifica, definizioni semplici, esempi</li>
+<p>  <li><strong>Peso 2</strong>: domande standard del curriculum, procedimenti</li>
+<p>  <li><strong>Peso 3</strong>: domande di ragionamento, applicazioni complesse</li>
+<p>  <li><strong>Peso 4-5</strong>: domande fondamentali, prerequisiti per proseguire</li>
+</ul>
+
+<strong>Esempi per materie</strong>:
+<ul>
+<p>  <li>Matematica: definizione (1), esercizio standard (2), problema (3), dimostrazione (4)</li>
+<p>  <li>Storia: data/fatto (1), spiegazione evento (2), cause/conseguenze (3), analisi critica (4)</li>
+<p>  <li>Lingue: traduzione frase (1), comprensione testo (2), produzione (3), analisi grammaticale avanzata (4)</li>
+</ul>
+
+<h3>Bilanciare numero e peso delle domande</h3>
+
+<strong>Regola empirica</strong>:
+<ul>
+<p>  <li>Somma pesi target: 60-100 per interrogazione completa</li>
+<p>  <li>Con peso medio 2: servono 30-50 domande (troppo!)</li>
+<p>  <li>Con peso medio 2-3: servono 20-35 domande (ragionevole)</li>
+<p>  <li>Con peso medio 3-4: servono 15-25 domande (ottimale)</li>
+</ul>
+
+<strong>Strategia</strong>: poche domande pesanti > molte domande leggere
+
+<h3>Scegliere se associare domande</h3>
+
+<strong>Associare domande quando</strong>:
+<ul>
+<p>  <li>Si vuole tracciabilit�: sapere esattamente cosa � stato chiesto</li>
+<p>  <li>Si usano domande complesse o ricorrenti</li>
+<p>  <li>Serve analisi statistica: quali domande/argomenti pi� difficili</li>
+</ul>
+
+<strong>Non associare domande quando</strong>:
+<ul>
+<p>  <li>Valutazione al volo, partecipazione</li>
+<p>  <li>Domande improvvisate non in database</li>
+<p>  <li>Valutazioni rapide/continue (es. esercizi alla lavagna)</li>
+</ul>
+
+<strong>Compromesso</strong>: usare domande "generiche" nel database (es. "Domanda orale generica matematica peso 2")
+
+<h3>Gestire voti aperti per periodi lunghi</h3>
+
+<strong>Voto aperto continuo</strong>:
+<ul>
+<p>  <li>Utile per valutazioni progressive su settimane/mesi</li>
+<p>  <li>Ogni lezione aggiunge microvalutazioni</li>
+<p>  <li>Chiudere solo a fine periodo (quadrimestre, unit� didattica)</li>
+</ul>
+
+<strong>Vantaggi</strong>:
+<ul>
+<p>  <li>Visione completa del percorso studente</li>
+<p>  <li>Media riflette tutte le prestazioni</li>
+<p>  <li>Equit� nel confronto tra studenti</li>
+</ul>
+
+<strong>Svantaggi</strong>:
+<ul>
+<p>  <li>Voto finale molto posticipato</li>
+<p>  <li>Difficile per studenti capire "come stanno andando"</li>
+</ul>
+
+<strong>Alternativa</strong>: voti complessivi pi� frequenti (ogni 2-3 lezioni)
+
+<h3>Interpretare colore somma pesi</h3>
+
+<ul>
+<p>  <li><strong>Verde brillante</strong> (>95): forse troppo, rischio "sovra-interrogazione"</li>
+<p>  <li><strong>Verde/Giallo</strong> (66-95): range ottimale, equo e rappresentativo</li>
+<p>  <li><strong>Arancione</strong> (46-65): accettabile ma sul limite inferiore</li>
+<p>  <li><strong>Bianco</strong> (<46): insufficiente, serve interrogare di pi�</li>
+</ul>
+
+<strong>Attenzione</strong>: confrontare somma pesi tra studenti della stessa classe per equit�
+
+<h3>Salvare frequentemente</h3>
+
+<p>Durante interrogazioni lunghe:</p>
+<ul>
+<p>  <li>Salvare voticino dopo ogni domanda (non aspettare la fine)</li>
+<p>  <li>Se crash/problema, i voticini gi� salvati restano</li>
+<p>  <li>Si pu� sempre correggere/modificare dopo</li>
+</ul>
+
+<hr>
+<h2>Troubleshooting</h2>
+
+<h3>Non riesco a salvare il voticino</h3>
+
+<strong>Problema</strong>: click su "Salva voticino" non funziona o da errore
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li><strong>Sfondo rosso "Codice voto complessivo"</strong>: creare prima "Nuovo voto"</li>
+<p>  <li><strong>Voto o peso vuoti</strong>: inserire valori validi (> 0)</li>
+<p>  <li><strong>Voto complessivo chiuso</strong>: appare messaggio, confermare riapertura</li>
+<p>  <li><strong>Nessuna domanda</strong>: se si vuole associare una domanda, sceglierla prima</li>
+</ul>
+
+<h3>La media sembra sbagliata</h3>
+
+<strong>Problema</strong>: la media ponderata non corrisponde alle aspettative
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Verificare i pesi di ogni microvalutazione nella griglia</li>
+<p>  <li>Ricalcolare manualmente: ?(voto � peso) / ?(peso)</li>
+<p>  <li>Controllare che tutte le microvalutazioni siano visibili nella griglia</li>
+<p>  <li>Verificare che non ci siano voti con peso 0 (non contano)</li>
+</ul>
+
+<h3>Il voto non si chiude</h3>
+
+<strong>Problema</strong>: click su "Chiudi voto" da errore o non fa nulla
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Verificare che somma pesi > 0 (almeno una microvalutazione)</li>
+<p>  <li>Verificare che media > 0</li>
+<p>  <li>Controllare che il codice voto complessivo sia valido (non "----")</li>
+<p>  <li>Se persistente, provare a riavviare il programma e ricaricare</li>
+</ul>
+
+<h3>Le microvalutazioni non appaiono nella griglia</h3>
+
+<strong>Problema</strong>: dopo salvataggio, la griglia resta vuota
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Verificare che il codice voto complessivo sia corretto</li>
+<p>  <li>Controllare che il voto non sia stato chiuso per errore</li>
+<p>  <li>Provare a chiudere e riaprire la finestra</li>
+<p>  <li>Verificare in "Riepilogo Voti Allievo" se i voti sono stati salvati</li>
+</ul>
+
+<h3>Non trovo la domanda giusta</h3>
+
+<strong>Problema</strong>: nella finestra "Scelta domanda" non si trova la domanda desiderata
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Usare i filtri (argomento, tipo, tag) per restringere</li>
+<p>  <li>Se la domanda non esiste, creare una nuova domanda dalla finestra "Scelta domanda"</li>
+<p>  <li>In alternativa, procedere senza associare domanda (valutazione generica)</li>
+</ul>
+
+<h3>Confusione tra pi� voti aperti</h3>
+
+<strong>Problema</strong>: non si capisce quale voto complessivo si sta modificando
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Il codice nel campo "Codice voto complessivo" identifica univocamente il voto</li>
+<p>  <li>Chiudere sempre i voti completati per evitare confusione</li>
+<p>  <li>Usare "Riepilogo Voti Allievo" per vedere tutti i voti dello studente</li>
+</ul>
+
+<hr>
+<h2>Integrazione con altre finestre</h2>
+
+<h3>Da finestra principale</h3>
+
+<p>Il pulsante <strong>"Valutaz."</strong> apre questa finestra con:</p>
+<ul>
+<p>  <li>Studente correntemente estratto/selezionato</li>
+<p>  <li>Materia correntemente selezionata</li>
+<p>  <li>Tipo valutazione correntemente selezionato</li>
+</ul>
+
+<strong>Doppia direzione</strong>: la domanda scelta in questa finestra si propaga alla finestra principale nel campo domanda corrente
+
+<h3>Verso finestra Scelta Domanda</h3>
+
+<p>Il pulsante <strong>"Scelta domanda"</strong> apre frmQuestionChoose:</p>
+<ul>
+<p>  <li>Filtrata per materia e classe correnti</li>
+<p>  <li>Se presente, anche per studente (evita domande gi� fatte)</li>
+<p>  <li>La domanda scelta torna a questa finestra</li>
+</ul>
+
+<h3>Verso finestra Domanda</h3>
+
+<strong>Doppio click</strong> sul campo testo domanda:
+<ul>
+<p>  <li>Apre frmQuestion per modificare la domanda associata</li>
+<p>  <li>Utile per correggere errori nel testo della domanda</li>
+<p>  <li>Le modifiche si riflettono immediatamente</li>
+</ul>
+
+<h3>Verso finestra Studente</h3>
+
+<strong>Doppio click</strong> sulla foto studente:
+<ul>
+<p>  <li>Apre frmStudent per visualizzare/modificare dati anagrafici</li>
+<p>  <li>Utile per verificare BES/DSA o altri flag rilevanti per la valutazione</li>
+</ul>
+
+<h3>Da finestra Riepilogo Voti Classe</h3>
+
+<p>Doppio click su uno studente in modalit� "Mancanti":</p>
+<ul>
+<p>  <li>Apre questa finestra per lo studente selezionato</li>
+<p>  <li>Permette inserimento immediato del voto mancante</li>
+<p>  <li>Contesto ottimale per equilibrare le valutazioni</li>
+</ul>
+
+<hr>
+<h2>Casi d'uso avanzati</h2>
+
+<h3>Interrogazioni differenziate (BES/DSA)</h3>
+
+<strong>Scenario</strong>: studente con BES/DSA necessita di interrogazione adattata
+
+<strong>Approccio</strong>:
+<ol>
+<p>  <li>Verificare che checkbox "BES/DSA" sia spuntato (visibile nella finestra)</li>
+<p>  <li>Scegliere domande appropriate (pi� semplici o con aiuti)</li>
+<p>  <li>Considerare di usare pesi pi� bassi se le domande sono facilitate</li>
+<p>  <li>Oppure: usare pesi standard ma domande meno numerose</li>
+<p>  <li>Documentare nelle annotazioni l'adattamento effettuato</li>
+</ul>
+
+<strong>Nota legale</strong>: le valutazioni devono comunque riflettere le competenze acquisite secondo PDP
+
+<h3>Valutazione continua con voto aperto tutto l'anno</h3>
+
+<strong>Scenario</strong>: tenere un voto complessivo aperto per tutto l'anno, aggiungendo microvalutazioni ad ogni lezione
+
+<strong>Procedura</strong>:
+<ol>
+<p>  <li>A inizio anno, creare "Nuovo voto" per ogni studente</li>
+<p>  <li>Ad ogni lezione/interrogazione, riaprire la finestra Valutazione per lo studente</li>
+<p>  <li>Aggiungere le nuove microvalutazioni al voto aperto</li>
+<p>  <li>NON chiudere il voto</li>
+<p>  <li>Monitorare costantemente somma pesi per equit� tra studenti</li>
+<p>  <li>A fine anno/quadrimestre, chiudere tutti i voti</li>
+</ul>
+
+<strong>Vantaggi</strong>:
+<ul>
+<p>  <li>Visione olistica del percorso annuale</li>
+<p>  <li>Media molto rappresentativa (decine di microvalutazioni)</li>
+<p>  <li>Equit� massima (tutti stessa "quantit�" di valutazioni)</li>
+</ul>
+
+<strong>Svantaggi</strong>:
+<ul>
+<p>  <li>Studenti non hanno voti intermedi visibili</li>
+<p>  <li>Gestione pi� complessa (voti aperti per mesi)</li>
+<p>  <li>Somma pesi pu� diventare molto alta (>200)</li>
+</ul>
+
+<h3>Interrogazioni di gruppo con valutazioni individuali</h3>
+
+<strong>Scenario</strong>: interrogazione di gruppo dove ogni studente risponde a domande specifiche
+
+<strong>Procedura</strong>:
+<ol>
+<p>  <li>Aprire finestra Valutazione per primo studente del gruppo</li>
+<p>  <li>Creare "Nuovo voto" se necessario</li>
+<p>  <li>Durante interrogazione, prendere appunti su chi risponde a cosa</li>
+<p>  <li>Salvare voticini per il primo studente (solo sue domande)</li>
+<p>  <li><strong>Chiudere finestra</strong>, riaprire per secondo studente</li>
+<p>  <li>Salvare voticini per il secondo studente</li>
+<p>  <li>Ripetere per tutti i membri del gruppo</li>
+<p>  <li>Ogni studente ha voticini solo sulle proprie domande</li>
+</ul>
+
+<strong>Alternativa</strong>: usare domande comuni ma voti diversi in base alla qualit� risposta
+
+<h3>Recupero debiti con integrazione voti</h3>
+
+<strong>Scenario</strong>: studente con debito deve recuperare con interrogazione integrativa
+
+<strong>Procedura</strong>:
+<ol>
+<p>  <li>Aprire "Riepilogo Voti Allievo" per vedere voto insufficiente</li>
+<p>  <li>Annotare IdGrade del voto da integrare</li>
+<p>  <li>Aprire finestra Valutazione per lo studente</li>
+<p>  <li>Il sistema potrebbe caricare automaticamente l'ultimo voto (verificare IdGrade)</li>
+<p>  <li>Se il voto � chiuso, riaprirlo quando richiesto</li>
+<p>  <li>Aggiungere nuove microvalutazioni (interrogazione di recupero)</li>
+<p>  <li>La media si ricalcola includendo le nuove</li>
+<p>  <li>Se media ora sufficiente, chiudere il voto</li>
+<p>  <li>Il voto originariamente insufficiente � ora sufficiente</li>
+</ul>
+
+<strong>Trasparenza</strong>: le microvalutazioni mostrano chiaramente quali erano insufficienti e quali di recupero
+
+<hr>
+<h2>Limitazioni e note tecniche</h2>
+
+<ul>
+<p>  <li><strong>Un solo voto aperto per volta</strong>: per studente/materia/tipo, normalmente c'� un solo voto aperto</li>
+<p>  <li><strong>Chiusura irreversibile (con riapertura)</strong>: chiudere un voto lo consolida, ma � possibile riaprirlo</li>
+<p>  <li><strong>Pesi massimi</strong>: tecnicamente illimitati, ma consigliabile restare sotto 10</li>
+<p>  <li><strong>Numero microvalutazioni</strong>: illimitato, ma oltre 50-60 per voto diventa difficile da gestire</li>
+<p>  <li><strong>Modifiche ai voti chiusi</strong>: possibile riaprire, ma attenzione alle medie gi� comunicate</li>
+<p>  <li><strong>Domande multiple</strong>: una microvalutazione pu� avere una sola domanda associata</li>
+</ul>
+
+<a href="Manuale-Utente-SchoolGrades.md">Pagina principale</a>
+<hr>
+<em>Questa documentazione fa parte del Manuale Utente di SchoolGrades</em>
+
+    
+    <div class="footer">
+        <p>Documentazione generata da SchoolGrades | .NET 10</p>
+        <p>File sorgente: <code>frmMicroAssessment-Valutazione.md</code></p>
+        <p>Data generazione: 24/12/2025 17:31</p>
+    </div>
+</body>
+</html>

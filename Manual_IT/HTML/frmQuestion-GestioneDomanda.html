@@ -1,0 +1,595 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Documentazione SchoolGrades - frmQuestion-GestioneDomanda">
+    <meta name="author" content="SchoolGrades">
+    <title>frmQuestion-GestioneDomanda - SchoolGrades</title>
+    <style>
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    max-width: 1000px; 
+    margin: 40px auto; 
+    padding: 20px 40px; 
+    line-height: 1.7;
+    background-color: #f8f9fa;
+    color: #212529;
+}
+h1 { 
+    color: #1a4d2e; 
+    border-bottom: 3px solid #4f772d; 
+    padding-bottom: 15px; 
+    margin-top: 40px;
+    font-size: 2.5em;
+}
+h2 { 
+    color: #2d5016; 
+    margin-top: 35px; 
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #90a955;
+    font-size: 1.8em;
+}
+h3 { 
+    color: #3d6628; 
+    margin-top: 25px;
+    font-size: 1.4em;
+}
+h4 {
+    color: #4a7c32;
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+code { 
+    background-color: #e9ecef; 
+    padding: 3px 8px; 
+    border-radius: 4px; 
+    font-family: 'Consolas', 'Monaco', monospace;
+    color: #d63384;
+    font-size: 0.9em;
+}
+pre { 
+    background-color: #2d2d2d; 
+    color: #f8f8f2;
+    padding: 20px; 
+    border-radius: 6px; 
+    overflow-x: auto;
+    border-left: 4px solid #4f772d;
+    margin: 20px 0;
+}
+pre code {
+    background-color: transparent;
+    color: #f8f8f2;
+    padding: 0;
+}
+a {
+    color: #4f772d;
+    text-decoration: none;
+    border-bottom: 1px dotted #4f772d;
+}
+a:hover {
+    color: #2d5016;
+    border-bottom: 1px solid #2d5016;
+}
+img { 
+    max-width: 100%; 
+    height: auto; 
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin: 20px 0;
+}
+table { 
+    border-collapse: collapse; 
+    width: 100%; 
+    margin: 25px 0;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+th, td { 
+    border: 1px solid #dee2e6; 
+    padding: 12px 15px; 
+    text-align: left; 
+}
+th { 
+    background-color: #4f772d; 
+    color: white;
+    font-weight: 600;
+}
+tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+tr:hover {
+    background-color: #e9ecef;
+}
+blockquote {
+    border-left: 4px solid #4f772d;
+    margin: 20px 0;
+    padding: 10px 20px;
+    background-color: #f1f8f4;
+    font-style: italic;
+}
+ul, ol {
+    margin: 15px 0;
+    padding-left: 30px;
+}
+li {
+    margin: 8px 0;
+}
+strong {
+    color: #1a4d2e;
+    font-weight: 600;
+}
+em {
+    color: #4a7c32;
+}
+hr {
+    border: none;
+    border-top: 2px solid #90a955;
+    margin: 40px 0;
+}
+.header-nav {
+    background-color: #4f772d;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+.footer {
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 2px solid #dee2e6;
+    text-align: center;
+    color: #6c757d;
+    font-size: 0.9em;
+}
+    </style>
+</head>
+<body>
+    <div class="header-nav">
+        <h3 style="margin: 0; color: white;">?? SchoolGrades - Documentazione</h3>
+    </div>
+    
+<h1>Finestra Gestione Domanda - Manuale Utente</h1>
+
+<h2>Introduzione</h2>
+
+<p>La finestra <strong>Gestione Domanda</strong> (frmQuestion) permette di creare, modificare e gestire le domande che verranno poi utilizzate durante le interrogazioni. Ogni domanda può avere risposte multiple, essere associata ad argomenti, tag e avere caratteristiche come difficoltà, durata e peso di default.</p>
+
+<p>**ATTENZIONE: QUESTO FILE E' PRELIMINARE E NON REVISIONATO.  </p>
+<p>POTREBBE CONTENERE INFORMAZIONI NON ESATTE**  </p>
+<p>Comunica con un ticket su GiHub eventuali errori riscontrati.</p>
+<p> </p>
+<h2>Accesso alla finestra</h2>
+
+<strong>Dalla finestra "Scelta domanda"</strong>:
+<ul>
+<p>  <li><strong>Doppio click su una domanda</strong>: apre in modalità modifica</li>
+<p>  <li><strong>Pulsante "Aggiungi domanda"</strong>: apre in modalità creazione</li>
+</ul>
+
+<strong>Da altre finestre</strong>:
+<ul>
+<p>  <li>Dalla finestra "Valutazione" con doppio click sul campo domanda</li>
+<p>  <li>Da contesti dove serve creare/modificare domande</li>
+</ul>
+
+<h2>Modalità di apertura</h2>
+
+<h3>Modalità "Modifica singola domanda"</h3>
+<ul>
+<p>  <li>Apre una domanda esistente per modificarla</li>
+<p>  <li>Pulsante <strong>"Salva e Esci"</strong>: salva e chiude</li>
+<p>  <li><strong>Non</strong> visibile pulsante "Nuova domanda"</li>
+</ul>
+
+<h3>Modalità "Creazione multiple domande"</h3>
+<ul>
+<p>  <li>Permette di creare molte domande in sequenza</li>
+<p>  <li>Pulsante <strong>"Salva"</strong>: salva ma lascia finestra aperta</li>
+<p>  <li>Pulsante <strong>"Nuova domanda"</strong>: svuota campi per crearne un'altra</li>
+<p>  <li>Pulsante <strong>"Salva e Scegli"</strong>: salva, chiude e restituisce la domanda</li>
+</ul>
+
+<hr>
+<h2>Interfaccia della finestra</h2>
+
+<h3>Sezione superiore: Dati principali domanda</h3>
+
+<h4>Codice domanda (IdQuestion)</h4>
+<ul>
+<p>  <li>Campo di testo (sola lettura) con identificativo univoco</li>
+<p>  <li><strong>Sfondo rosso</strong>: domanda non ancora salvata (Id = 0)</li>
+<p>  <li><strong>Sfondo bianco</strong>: domanda esistente nel database</li>
+</ul>
+
+<h4>Testo domanda</h4>
+<ul>
+<p>  <li>Campo di testo multi-riga per il testo completo della domanda</li>
+<p>  <li><strong>Cosa scrivere</strong>: la domanda esatta da porre allo studente</li>
+<p>  <li><strong>Lunghezza consigliata</strong>: 1-4 righe (max 500 caratteri)</li>
+<p>  <li>Questo testo apparirà durante le valutazioni</li>
+</ul>
+
+<strong>Suggerimenti</strong>:
+<ul>
+<p>  <li>Scrivere in forma interrogativa chiara</li>
+<p>  <li>Evitare ambiguità</li>
+<p>  <li>Includere dati necessari per risposta (es. "nella figura A")</li>
+</ul>
+
+<h4>Materia (cmbSchoolSubject)</h4>
+<p>Menu a tendina per selezionare la materia.</p>
+<ul>
+<p>  <li><strong>Obbligatorio</strong>: ogni domanda deve avere una materia</li>
+<p>  <li><strong>Effetto</strong>: cambia il colore di sfondo della finestra</li>
+<p>  <li>Permette poi di filtrare domande per materia</li>
+</ul>
+
+<h4>Tipo domanda (cmbQuestionType)</h4>
+<p>Menu a tendina per selezionare il tipo:</p>
+<ul>
+<p>  <li>Vero/Falso</li>
+<p>  <li>Scelta multipla</li>
+<p>  <li>Risposta aperta</li>
+<p>  <li>Esercizio</li>
+<p>  <li>Problema</li>
+<p>  <li>Altro (tipi personalizzati)</li>
+</ul>
+
+<strong>Uso</strong>: permette filtri e statistiche per tipo di domanda
+
+<h3>Sezione caratteristiche domanda</h3>
+
+<h4>Peso (Weight)</h4>
+<p>Campo numerico che indica l'importanza della domanda.</p>
+<ul>
+<p>  <li>Valori tipici: 1-5</li>
+<p>  <li>Default: 2</li>
+<p>  <li>Usato come peso predefinito nelle microvalutazioni</li>
+</ul>
+
+<h4>Durata (Duration)</h4>
+<p>Tempo previsto in minuti per rispondere.</p>
+<ul>
+<p>  <li>Valori tipici: 2-15 minuti</li>
+<p>  <li>Usato per timer durante interrogazione</li>
+<p>  <li>Aiuta a pianificare tempi</li>
+</ul>
+
+<h4>Difficoltà (Difficulty)</h4>
+<p>Livello di difficoltà su scala numerica.</p>
+<ul>
+<p>  <li>Valori tipici: 1-10 (1=facile, 10=molto difficile)</li>
+<p>  <li>Soggettivo ma utile per filtri</li>
+<p>  <li>Permette interrogazioni progressive per difficoltà</li>
+</ul>
+
+<h4>Immagine (QuestionImage)</h4>
+<p>Nome file di un'eventuale immagine associata alla domanda.</p>
+<ul>
+<p>  <li>Percorso relativo a cartella immagini</li>
+<p>  <li>Es. "geometria/triangolo_rettangolo.png"</li>
+<p>  <li>Visualizzata durante interrogazione</li>
+</ul>
+
+<strong>Pulsante "..." (cartella)</strong>: apre la cartella immagini per selezionare file
+
+<hr>
+<h3>Sezione argomento</h3>
+
+<h4>Campo testo argomento</h4>
+<p>Mostra il percorso completo dell'argomento associato (es. "Matematica > Algebra > Equazioni lineari").</p>
+
+<h4>Pulsante "Scegli argomento"</h4>
+<p>Apre la finestra Argomenti per selezionare l'argomento della domanda.</p>
+<ul>
+<p>  <li><strong>Importante</strong>: associare sempre un argomento per permettere filtri efficaci</li>
+</ul>
+
+<h4>Pulsante "Argomento per periodo"</h4>
+<p>Permette di scegliere un argomento tra quelli effettivamente svolti dalla classe in un periodo.</p>
+<ul>
+<p>  <li>Richiede classe di riferimento</li>
+<p>  <li>Utile per domande su argomenti recenti</li>
+</ul>
+
+<hr>
+<h3>Sezione tag</h3>
+
+<h4>Lista tag associati</h4>
+<p>Mostra i tag attualmente associati alla domanda.</p>
+
+<strong>Cosa sono i tag</strong>: etichette che categorizzano trasversalmente le domande.
+
+<strong>Esempi</strong>: "teoria", "esercizio", "fondamentale", "difficile", "prerequisito", "esame"
+
+<h4>Pulsante "Aggiungi tag"</h4>
+<p>Apre finestra per selezionare e aggiungere un tag.</p>
+<ul>
+<p>  <li>I tag aggiunti appaiono nella lista</li>
+<p>  <li>Si possono aggiungere più tag alla stessa domanda</li>
+</ul>
+
+<h4>Pulsante "Rimuovi tag"</h4>
+<p>Rimuove il tag selezionato nella lista.</p>
+
+<strong>Uso strategico tag</strong>: creare un sistema coerente di tag per filtrare domande efficacemente.
+
+<hr>
+<h3>Sezione risposte</h3>
+
+<h4>Griglia risposte (dgwAnswers)</h4>
+<p>Mostra le risposte associate alla domanda (per domande a scelta multipla o vero/falso).</p>
+
+<strong>Colonne</strong>:
+<ul>
+<p>  <li><strong>IdAnswer</strong>: codice risposta</li>
+<p>  <li><strong>Text</strong>: testo della risposta</li>
+<p>  <li><strong>IsCorrect</strong>: se la risposta è corretta (vero/falso)</li>
+</ul>
+
+<strong>Interazione</strong>:
+<ul>
+<p>  <li><strong>Doppio click su una risposta</strong>: apre finestra per modificarla</li>
+</ul>
+
+<h4>Pulsante "Aggiungi risposta"</h4>
+<p>Apre finestra per creare una nuova risposta per la domanda.</p>
+<ul>
+<p>  <li>Inserire testo risposta</li>
+<p>  <li>Spuntare se corretta o errata</li>
+<p>  <li>Salvare</li>
+</ul>
+
+<strong>Uso</strong>: per domande a scelta multipla, creare 4-5 risposte di cui 1 corretta. Per domande aperte, le risposte sono opzionali (possono essere risposte di esempio o parole chiave attese).
+
+<hr>
+<h2>Pulsanti di azione principali</h2>
+
+<h3>Pulsante "Salva" / "Salva e Esci"</h3>
+
+<strong>Funzione</strong>: salva tutti i dati della domanda nel database.
+
+<strong>Procedura</strong>:
+<ol>
+<p>  <li>Compilare tutti i campi obbligatori (testo, materia)</li>
+<p>  <li>Fare click su "Salva"</li>
+<p>  <li>Se IdQuestion era 0 (rosso), viene assegnato un Id univoco</li>
+<p>  <li>Tutti i campi vengono salvati</li>
+<p>  <li>Tag e risposte vengono associati</li>
+<p>  <li>In modalità "Salva e Esci", la finestra si chiude</li>
+</ul>
+
+<strong>Validazione</strong>: testo domanda non può essere vuoto
+
+<h3>Pulsante "Nuova domanda"</h3>
+
+<strong>Funzione</strong>: svuota i campi per creare una nuova domanda mantenendo alcuni valori.
+
+<strong>Procedura</strong>:
+<ol>
+<p>  <li>Fare click su "Nuova domanda"</li>
+<p>  <li>IdQuestion torna a 0 (sfondo rosso)</li>
+<p>  <li>Testo domanda si svuota (campo beige per indicare "nuovo")</li>
+<p>  <li>Peso, durata, difficoltà, tipo e materia rimangono (per domande simili)</li>
+<p>  <li>Tag rimangono (utile per serie di domande con stessi tag)</li>
+<p>  <li>Compilare nuova domanda e salvare</li>
+</ul>
+
+<strong>Uso</strong>: creare rapidamente molte domande simili senza ricompilare ogni volta materia, tipo, ecc.
+
+<h3>Pulsante "Salva e Scegli"</h3>
+
+<strong>Funzione</strong>: salva la domanda, chiude la finestra e restituisce la domanda alla finestra chiamante.
+
+<strong>Uso</strong>: quando serve creare una domanda al volo e usarla subito in una valutazione.
+
+<hr>
+<h2>Flussi di lavoro tipici</h2>
+
+<h3>Scenario 1: Creare una domanda singola</h3>
+
+<strong>Obiettivo</strong>: inserire una nuova domanda per interrogazioni
+
+<ol>
+<p>  <li>Dalla finestra "Scelta domanda", fare click su <strong>"Aggiungi domanda"</strong></li>
+<p>  <li>La finestra si apre in modalità creazione</li>
+<p>  <li><strong>Compilare</strong>:</li>
+<p>  <li>Testo: "Enuncia il teorema di Pitagora"</li>
+<p>  <li>Materia: Matematica</li>
+<p>  <li>Tipo: Risposta aperta</li>
+<p>  <li>Peso: 2</li>
+<p>  <li>Durata: 3</li>
+<p>  <li>Difficoltà: 3</li>
+<p>  <li>Fare click su <strong>"Scegli argomento"</strong> → selezionare "Matematica > Geometria > Teoremi > Pitagora"</li>
+<p>  <li>Fare click su <strong>"Aggiungi tag"</strong> → selezionare "teoria"</li>
+<p>  <li>Fare click su <strong>"Aggiungi tag"</strong> → selezionare "fondamentale"</li>
+<p>  <li>Fare click su <strong>"Salva e Esci"</strong></li>
+<p>  <li>La domanda è creata e disponibile</li>
+</ul>
+
+<h3>Scenario 2: Creare molte domande simili</h3>
+
+<strong>Obiettivo</strong>: inserire 10 domande di esercizi simili
+
+<ol>
+<p>  <li>Aprire finestra in modalità creazione</li>
+<p>  <li>Impostare:</li>
+<p>  <li>Materia: Matematica</li>
+<p>  <li>Tipo: Esercizio</li>
+<p>  <li>Peso: 1</li>
+<p>  <li>Durata: 5</li>
+<p>  <li>Difficoltà: 2</li>
+<p>  <li>Argomento: "Algebra > Equazioni lineari"</li>
+<p>  <li>Tag: "esercizio"</li>
+<p>  <li>Testo prima domanda: "Risolvi: 2x + 3 = 7"</li>
+<p>  <li>Fare click su <strong>"Salva"</strong></li>
+<p>  <li>Fare click su <strong>"Nuova domanda"</strong> (materia, tipo, peso, ecc. rimangono)</li>
+<p>  <li>Testo seconda domanda: "Risolvi: 5x - 2 = 13"</li>
+<p>  <li>Fare click su <strong>"Salva"</strong></li>
+<p>  <li>Ripetere per tutte le 10 domande</li>
+<p>  <li>Chiudere finestra al termine</li>
+</ul>
+
+<h3>Scenario 3: Modificare domanda esistente</h3>
+
+<strong>Obiettivo</strong>: correggere errore o aggiornare domanda
+
+<ol>
+<p>  <li>Dalla finestra "Scelta domanda", cercare la domanda</li>
+<p>  <li><strong>Doppio click</strong> sulla domanda</li>
+<p>  <li>Si apre in modalità modifica</li>
+<p>  <li>Correggere il testo o modificare caratteristiche</li>
+<p>  <li>Eventualmente aggiungere/rimuovere tag</li>
+<p>  <li>Fare click su <strong>"Salva e Esci"</strong></li>
+<p>  <li>Le modifiche sono applicate</li>
+</ul>
+
+<h3>Scenario 4: Creare domanda a scelta multipla</h3>
+
+<strong>Obiettivo</strong>: domanda con 4 risposte di cui 1 corretta
+
+<ol>
+<p>  <li>Creare domanda come al Scenario 1</li>
+<p>  <li>Tipo: Scelta multipla</li>
+<p>  <li>Fare click su <strong>"Aggiungi risposta"</strong></li>
+<p>  <li>Testo risposta: "Opzione A: ..."</li>
+<p>  <li>Spuntare "Corretta" se è quella giusta</li>
+<p>  <li>Salvare risposta</li>
+<p>  <li>Ripetere per le altre 3 opzioni (B, C, D)</li>
+<p>  <li>Solo una deve essere marcata "Corretta"</li>
+<p>  <li>Salvare la domanda</li>
+</ul>
+
+<hr>
+<h2>Suggerimenti e best practices</h2>
+
+<h3>Scrivere domande chiare</h3>
+<ul>
+<p>  <li>Evitare domande ambigue o a trabocchetto</li>
+<p>  <li>Includere tutti i dati necessari nel testo</li>
+<p>  <li>Usare linguaggio appropriato al livello studenti</li>
+</ul>
+
+<h3>Categorizzare sistematicamente</h3>
+<ul>
+<p>  <li>Associare sempre argomento specifico (non generico)</li>
+<p>  <li>Usare tag in modo coerente</li>
+<p>  <li>Mantenere classificazione omogenea tra domande simili</li>
+</ul>
+
+<h3>Pesare realisticamente</h3>
+<ul>
+<p>  <li>Peso 1: domande semplici di verifica</li>
+<p>  <li>Peso 2-3: domande standard del programma</li>
+<p>  <li>Peso 4-5: domande fondamentali o complesse</li>
+</ul>
+
+<h3>Stimare durate ragionevoli</h3>
+<ul>
+<p>  <li>2-3 minuti: definizioni, fatti</li>
+<p>  <li>4-6 minuti: spiegazioni, procedimenti</li>
+<p>  <li>7-10 minuti: problemi, ragionamenti articolati</li>
+<p>  <li>>10 minuti: domande complesse che meritano più microvalutazioni</li>
+</ul>
+
+<h3>Creare serie omogenee</h3>
+<ul>
+<p>  <li>Quando si creano molte domande simili (esercizi), usare "Nuova domanda" per mantenere caratteristiche comuni</li>
+<p>  <li>Numerare eventualmente (es. "Esercizio 1:", "Esercizio 2:")</li>
+</ul>
+
+<hr>
+<h2>Troubleshooting</h2>
+
+<h3>Non riesco a salvare la domanda</h3>
+
+<strong>Problema</strong>: click su "Salva" non funziona o da errore
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Verificare che testo domanda non sia vuoto</li>
+<p>  <li>Verificare che materia sia selezionata</li>
+<p>  <li>Controllare che i valori numerici siano validi (peso, durata, difficoltà)</li>
+</ul>
+
+<h3>L'argomento non si associa</h3>
+
+<strong>Problema</strong>: dopo aver scelto argomento, non appare nel campo
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Verificare di aver confermato scelta nella finestra Argomenti</li>
+<p>  <li>Controllare che l'argomento esista e sia selezionato</li>
+<p>  <li>Salvare la domanda per rendere persistente l'associazione</li>
+</ul>
+
+<h3>Le risposte non appaiono</h3>
+
+<strong>Problema</strong>: dopo aver aggiunto risposte, la griglia è vuota
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Salvare prima la domanda (serve IdQuestion valido)</li>
+<p>  <li>Poi aggiungere risposte</li>
+<p>  <li>Le risposte vengono associate all'IdQuestion</li>
+</ul>
+
+<h3>Il colore di sfondo cambia</h3>
+
+<strong>Nota</strong>: questo è normale! Il colore di sfondo cambia in base alla materia selezionata (come in altre finestre del programma).
+
+<hr>
+<h2>Integrazione con altre finestre</h2>
+
+<h3>Da finestra Scelta Domanda</h3>
+<ul>
+<p>  <li><strong>Doppio click</strong>: apre questa finestra in modalità modifica</li>
+<p>  <li><strong>Pulsante "Aggiungi domanda"</strong>: apre in modalità creazione</li>
+</ul>
+
+<h3>Da finestra Valutazione</h3>
+<ul>
+<p>  <li><strong>Doppio click su campo domanda</strong>: apre in modalità modifica la domanda associata</li>
+</ul>
+
+<h3>Verso finestra Argomenti</h3>
+<ul>
+<p>  <li><strong>Pulsante "Scegli argomento"</strong>: apre frmTopics per selezionare argomento</li>
+</ul>
+
+<h3>Verso finestra Tag</h3>
+<ul>
+<p>  <li><strong>Pulsante "Aggiungi tag"</strong>: apre frmTag per selezionare/creare tag</li>
+</ul>
+
+<h3>Verso finestra Risposta</h3>
+<ul>
+<p>  <li><strong>Pulsante "Aggiungi risposta"</strong>: apre frmAnswer per creare risposta</li>
+<p>  <li><strong>Doppio click su risposta</strong>: apre frmAnswer per modificarla</li>
+</ul>
+
+<hr>
+<h2>Limitazioni note</h2>
+
+<ul>
+<p>  <li><strong>Un argomento per domanda</strong>: non si possono associare più argomenti (ma si possono usare tag per categorizzazioni trasversali)</li>
+<p>  <li><strong>Immagini esterne</strong>: le immagini devono essere nella cartella configurata, non embedded</li>
+<p>  <li><strong>Modifica risposte</strong>: bisogna riaprire la finestra Answer per ogni risposta</li>
+<p>  <li><strong>Ordinamento risposte</strong>: non c'è controllo sull'ordine di visualizzazione delle risposte</li>
+</ul>
+
+<a href="Manuale-Utente-SchoolGrades.md">Pagina principale</a>
+<hr>
+<em>Questa documentazione fa parte del Manuale Utente di SchoolGrades</em>
+
+    
+    <div class="footer">
+        <p>Documentazione generata da SchoolGrades | .NET 10</p>
+        <p>File sorgente: <code>frmQuestion-GestioneDomanda.md</code></p>
+        <p>Data generazione: 24/12/2025 17:31</p>
+    </div>
+</body>
+</html>

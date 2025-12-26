@@ -1,0 +1,798 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Documentazione SchoolGrades - frmTopics-Argomenti">
+    <meta name="author" content="SchoolGrades">
+    <title>frmTopics-Argomenti - SchoolGrades</title>
+    <style>
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    max-width: 1000px; 
+    margin: 40px auto; 
+    padding: 20px 40px; 
+    line-height: 1.7;
+    background-color: #f8f9fa;
+    color: #212529;
+}
+h1 { 
+    color: #1a4d2e; 
+    border-bottom: 3px solid #4f772d; 
+    padding-bottom: 15px; 
+    margin-top: 40px;
+    font-size: 2.5em;
+}
+h2 { 
+    color: #2d5016; 
+    margin-top: 35px; 
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #90a955;
+    font-size: 1.8em;
+}
+h3 { 
+    color: #3d6628; 
+    margin-top: 25px;
+    font-size: 1.4em;
+}
+h4 {
+    color: #4a7c32;
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+code { 
+    background-color: #e9ecef; 
+    padding: 3px 8px; 
+    border-radius: 4px; 
+    font-family: 'Consolas', 'Monaco', monospace;
+    color: #d63384;
+    font-size: 0.9em;
+}
+pre { 
+    background-color: #2d2d2d; 
+    color: #f8f8f2;
+    padding: 20px; 
+    border-radius: 6px; 
+    overflow-x: auto;
+    border-left: 4px solid #4f772d;
+    margin: 20px 0;
+}
+pre code {
+    background-color: transparent;
+    color: #f8f8f2;
+    padding: 0;
+}
+a {
+    color: #4f772d;
+    text-decoration: none;
+    border-bottom: 1px dotted #4f772d;
+}
+a:hover {
+    color: #2d5016;
+    border-bottom: 1px solid #2d5016;
+}
+img { 
+    max-width: 100%; 
+    height: auto; 
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin: 20px 0;
+}
+table { 
+    border-collapse: collapse; 
+    width: 100%; 
+    margin: 25px 0;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+th, td { 
+    border: 1px solid #dee2e6; 
+    padding: 12px 15px; 
+    text-align: left; 
+}
+th { 
+    background-color: #4f772d; 
+    color: white;
+    font-weight: 600;
+}
+tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+tr:hover {
+    background-color: #e9ecef;
+}
+blockquote {
+    border-left: 4px solid #4f772d;
+    margin: 20px 0;
+    padding: 10px 20px;
+    background-color: #f1f8f4;
+    font-style: italic;
+}
+ul, ol {
+    margin: 15px 0;
+    padding-left: 30px;
+}
+li {
+    margin: 8px 0;
+}
+strong {
+    color: #1a4d2e;
+    font-weight: 600;
+}
+em {
+    color: #4a7c32;
+}
+hr {
+    border: none;
+    border-top: 2px solid #90a955;
+    margin: 40px 0;
+}
+.header-nav {
+    background-color: #4f772d;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+.footer {
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 2px solid #dee2e6;
+    text-align: center;
+    color: #6c757d;
+    font-size: 0.9em;
+}
+    </style>
+</head>
+<body>
+    <div class="header-nav">
+        <h3 style="margin: 0; color: white;">?? SchoolGrades - Documentazione</h3>
+    </div>
+    
+<h1>Finestra Argomenti - Manuale Utente</h1>
+
+<h2>Introduzione</h2>
+
+<p>La finestra <strong>Argomenti</strong> (frmTopics) permette di visualizzare, gestire e navigare la struttura gerarchica degli argomenti del programma didattico. Utilizza una struttura ad albero che rappresenta gli argomenti e i loro sottoargomenti, permettendo una visione chiara e organizzata del curriculum.</p>
+
+<p>**ATTENZIONE: QUESTO FILE E' PRELIMINARE E NON REVISIONATO.  </p>
+<p>POTREBBE CONTENERE INFORMAZIONI NON ESATTE**  </p>
+<p>Comunica con un ticket su GiHub eventuali errori riscontrati.</p>
+
+<hr>
+<h2>Accesso alla finestra</h2>
+
+<p>La finestra Argomenti può essere aperta in diverse modalità, ognuna con funzionalità specifiche:</p>
+
+<h3>Dalla finestra principale</h3>
+
+<p>Pulsante <strong>"Argom. fatti"</strong>: </p>
+<ul>
+<p>  <li>Apre la finestra in modalità visualizzazione degli argomenti già svolti</li>
+<p>  <li>Gli argomenti effettivamente spiegati alla classe sono evidenziati a colori</li>
+<p>  <li>Permette di vedere a colpo d'occhio cosa è stato fatto e cosa manca</li>
+</ul>
+
+<h3>Da altre finestre</h3>
+
+<strong>Dalla finestra "Scelta domanda"</strong>:
+<ul>
+<p>  <li>Pulsante <strong>"Scegli argomento"</strong>: apre in modalità selezione argomento</li>
+<p>  <li>Permette di scegliere un argomento per filtrare le domande</li>
+</ul>
+
+<strong>Dalla finestra di gestione domande</strong>:
+<ul>
+<p>  <li>Permette di associare un argomento ad una domanda</li>
+</ul>
+
+<hr>
+<h2>Modalità di apertura</h2>
+
+<p>La finestra può operare in diverse modalità:</p>
+
+<h3>1. Visualizzazione e gestione completa</h3>
+<ul>
+<p>  <li>Tutti i pulsanti attivi</li>
+<p>  <li>Permette di modificare la struttura degli argomenti</li>
+<p>  <li>Aggiungere, eliminare, spostare nodi</li>
+</ul>
+
+<h3>2. Evidenziazione argomenti fatti</h3>
+<ul>
+<p>  <li>Modalità di sola lettura</li>
+<p>  <li>Gli argomenti svolti dalla classe sono evidenziati (sfondo colorato)</li>
+<p>  <li>Utile per avere una visione d'insieme del programma svolto</li>
+<p>  <li>Pulsante <strong>"Domande"</strong> visibile per collegare argomenti e domande</li>
+</ul>
+
+<h3>3. Scelta argomento</h3>
+<ul>
+<p>  <li>Modalità di selezione</li>
+<p>  <li>Pulsante <strong>"Scegli"</strong> attivo per confermare la selezione</li>
+<p>  <li>Gli argomenti già svolti sono evidenziati per facilitare la scelta</li>
+<p>  <li>Si chiude automaticamente dopo la selezione</li>
+</ul>
+
+<h3>4. Ricerca argomenti</h3>
+<ul>
+<p>  <li>Modalità focalizzata su un argomento specifico</li>
+<p>  <li>L'argomento cercato viene automaticamente evidenziato e portato in vista</li>
+</ul>
+
+<h3>5. Importazione argomenti</h3>
+<ul>
+<p>  <li>Modalità speciale per importare una struttura completa da file</li>
+<p>  <li>Opzioni per cancellare o integrare con la struttura esistente</li>
+</ul>
+
+<hr>
+<h2>Interfaccia della finestra</h2>
+
+<h3>Albero degli argomenti (TreeView)</h3>
+
+<p>L'elemento principale è l'albero gerarchico che visualizza tutti gli argomenti.</p>
+
+<strong>Struttura</strong>:
+<ul>
+<p>  <li><strong>Nodo radice</strong>: rappresenta l'intero programma della materia</li>
+<p>  <li><strong>Nodi figli</strong>: argomenti principali (es. "Algebra", "Geometria")</li>
+<p>  <li><strong>Nodi nipoti</strong>: sottoargomenti (es. "Equazioni", "Disequazioni")</li>
+<p>  <li>La profondità può essere arbitraria</li>
+</ul>
+
+<strong>Interazione</strong>:
+<ul>
+<p>  <li><strong>Click singolo</strong>: seleziona un argomento e ne visualizza i dettagli</li>
+<p>  <li><strong>Doppio click</strong>: espande/contrae il nodo per vedere/nascondere i figli</li>
+<p>  <li><strong>Freccia a sinistra del nodo</strong>: espande/contrae i figli</li>
+<p>  <li><strong>Tasti ↑ e ↓</strong>: navigazione tra gli argomenti</li>
+<p>  <li><strong>Tasti ← e →</strong>: contrazione ed espansione nodi</li>
+</ul>
+
+<strong>Evidenziazione</strong>:
+<ul>
+<p>  <li><strong>Sfondo colorato</strong>: argomenti già svolti con la classe corrente</li>
+<p>  <li><strong>Sfondo bianco</strong>: argomenti non ancora svolti</li>
+<p>  <li><strong>Selezione (blu)</strong>: argomento attualmente selezionato</li>
+</ul>
+
+<h3>Pannello dettagli argomento</h3>
+
+<p>A destra dell'albero, tre campi mostrano e permettono di modificare i dettagli dell'argomento selezionato:</p>
+
+<strong>Nome argomento</strong>:
+<ul>
+<p>  <li>Titolo breve dell'argomento</li>
+<p>  <li><strong>Modificabile</strong>: digitare direttamente per cambiare il nome</li>
+<p>  <li>Le modifiche vengono salvate con il pulsante "Salva albero"</li>
+</ul>
+
+<strong>Descrizione</strong>:
+<ul>
+<p>  <li>Campo più ampio per descrizione estesa</li>
+<p>  <li>Può contenere:</li>
+<p>  <li>Dettagli sull'argomento</li>
+<p>  <li>Note per l'insegnante</li>
+<p>  <li>Collegamenti a risorse</li>
+<p>  <li>Prerequisiti</li>
+<p>  <li><strong>Modificabile</strong>: digitare direttamente</li>
+</ul>
+
+<strong>Codice argomento</strong>:
+<ul>
+<p>  <li>Numero identificativo univoco dell'argomento nel database</li>
+<p>  <li><strong>Non modificabile</strong>: assegnato automaticamente</li>
+<p>  <li>Utile per riferimenti tecnici</li>
+</ul>
+
+<hr>
+<h2>Pulsanti di gestione albero</h2>
+
+<h3>Pulsante "Aggiungi figlio" (F6)</h3>
+
+<strong>Funzione</strong>: aggiunge un nuovo argomento come figlio dell'argomento selezionato
+
+<strong>Procedura</strong>:
+<ol>
+<p>  <li>Selezionare l'argomento padre (es. "Algebra")</li>
+<p>  <li>Fare click su "Aggiungi figlio"</li>
+<p>  <li>Appare un nuovo nodo figlio con nome temporaneo "Nuovo argomento"</li>
+<p>  <li>Il cursore si posiziona automaticamente nel campo "Nome argomento"</li>
+<p>  <li>Digitare il nome del nuovo argomento (es. "Equazioni lineari")</li>
+<p>  <li>Compilare eventualmente la descrizione</li>
+<p>  <li>Il nuovo argomento sarà salvato facendo click su "Salva albero"</li>
+</ul>
+
+<strong>Scorciatoia</strong>: premere <strong>F6</strong> sulla tastiera
+
+<strong>Quando usarlo</strong>:
+<ul>
+<p>  <li>Per aggiungere sottoargomenti dettagliati</li>
+<p>  <li>Per raffinare la struttura gerarchica</li>
+<p>  <li>Per specializzare un argomento generale</li>
+</ul>
+
+<strong>Esempio</strong>:
+<p>``<code></p>
+<p>Matematica</p>
+<p>├── Algebra (← selezionato)</p>
+<p>    ├── [NUOVO] Equazioni lineari (← aggiunto come figlio)</p>
+</code>`<code>
+
+<h3>Pulsante "Aggiungi fratello" (F7)</h3>
+
+<strong>Funzione</strong>: aggiunge un nuovo argomento allo stesso livello dell'argomento selezionato
+
+<strong>Procedura</strong>:
+<ol>
+<p>  <li>Selezionare un argomento (es. "Algebra")</li>
+<p>  <li>Fare click su "Aggiungi fratello"</li>
+<p>  <li>Appare un nuovo nodo fratello dopo quello selezionato</li>
+<p>  <li>Digitare nome e descrizione come per "Aggiungi figlio"</li>
+<p>  <li>Salvare con "Salva albero"</li>
+</ul>
+
+<strong>Scorciatoia</strong>: premere <strong>F7</strong> sulla tastiera
+
+<strong>Quando usarlo</strong>:
+<ul>
+<p>  <li>Per aggiungere argomenti allo stesso livello di importanza</li>
+<p>  <li>Per completare una categoria con argomenti paralleli</li>
+<p>  <li>Per aggiungere nuovi capitoli del programma</li>
+</ul>
+
+<strong>Esempio</strong>:
+</code>`<code>
+<p>Matematica</p>
+<p>├── Algebra (← selezionato)</p>
+<p>├── [NUOVO] Geometria (← aggiunto come fratello)</p>
+</code>`<code>
+
+<h3>Pulsante "Elimina" (DEL)</h3>
+
+<strong>Funzione</strong>: elimina l'argomento selezionato e tutti i suoi figli
+
+<strong>Procedura</strong>:
+<ol>
+<p>  <li>Selezionare l'argomento da eliminare</li>
+<p>  <li>Fare click su "Elimina"</li>
+<p>  <li>Confermare l'eliminazione</li>
+<p>  <li>L'argomento scompare dall'albero</li>
+<p>  <li>Salvare con "Salva albero" per rendere permanente</li>
+</ul>
+
+<strong>Scorciatoia</strong>: premere <strong>DEL</strong> sulla tastiera
+
+<strong>ATTENZIONE</strong>:
+<ul>
+<p>  <li>L'eliminazione è ricorsiva: elimina anche tutti i sottoargomenti</li>
+<p>  <li>Le domande associate all'argomento NON vengono eliminate, ma rimangono senza argomento</li>
+<p>  <li>L'operazione può essere annullata chiudendo la finestra senza salvare</li>
+</ul>
+
+<strong>Quando usarlo</strong>:
+<ul>
+<p>  <li>Per rimuovere argomenti obsoleti</li>
+<p>  <li>Per semplificare una struttura troppo complessa</li>
+<p>  <li>Per correggere errori di inserimento</li>
+</ul>
+
+<h3>Pulsante "Salva albero" (F5)</h3>
+
+<strong>Funzione</strong>: salva tutte le modifiche apportate alla struttura degli argomenti
+
+<strong>Procedura</strong>:
+<ol>
+<p>  <li>Apportare tutte le modifiche desiderate (aggiunte, eliminazioni, modifiche nomi/descrizioni)</li>
+<p>  <li>Fare click su "Salva albero"</li>
+<p>  <li>Il programma salva la nuova struttura nel database</li>
+<p>  <li>Appare un messaggio di conferma "Salvataggio fatto"</li>
+</ul>
+
+<strong>Scorciatoia</strong>: premere <strong>F5</strong> sulla tastiera
+
+<strong>IMPORTANTE</strong>:
+<ul>
+<p>  <li><strong>NON salvare automaticamente</strong>: le modifiche sono temporanee finché non si preme questo pulsante</li>
+<p>  <li>Chiudendo la finestra senza salvare, tutte le modifiche vanno perse</li>
+<p>  <li>Il programma avvisa se ci sono modifiche non salvate solo se configurato</li>
+</ul>
+
+<strong>Quando usarlo</strong>:
+<ul>
+<p>  <li>Dopo aver completato una serie di modifiche</li>
+<p>  <li>Prima di chiudere la finestra se si vogliono mantenere i cambiamenti</li>
+<p>  <li>Periodicamente durante modifiche estese, per non perdere il lavoro</li>
+</ul>
+
+<hr>
+<h2>Funzioni di ricerca</h2>
+
+<h3>Ricerca testuale</h3>
+
+<strong>Campo "Cerca testo"</strong>: permette di cercare argomenti per nome o descrizione
+
+<strong>Opzioni di ricerca</strong> (checkbox):
+
+<strong>"Cerca nelle descrizioni"</strong>:
+<ul>
+<p>  <li>Se spuntato: cerca anche nel campo descrizione</li>
+<p>  <li>Se non spuntato: cerca solo nei nomi degli argomenti</li>
+</ul>
+
+<strong>"Tutte le parole"</strong>:
+<ul>
+<p>  <li>Se spuntato: trova solo argomenti che contengono TUTTE le parole cercate</li>
+<p>  <li>Se non spuntato: trova argomenti che contengono ALMENO UNA delle parole</li>
+</ul>
+
+<strong>"Testo verbatim"</strong>:
+<ul>
+<p>  <li>Se spuntato: cerca la frase esatta come digitata</li>
+<p>  <li>Se non spuntato: cerca le parole singolarmente</li>
+</ul>
+
+<strong>"Maiuscole/minuscole indifferenti"</strong>:
+<ul>
+<p>  <li>Se spuntato: ignora maiuscole/minuscole (consigliato)</li>
+<p>  <li>Se non spuntato: distinzione esatta</li>
+</ul>
+
+<strong>"Trova tutti"</strong>:
+<ul>
+<p>  <li>Se spuntato: evidenzia tutti gli argomenti che corrispondono</li>
+<p>  <li>Se non spuntato: evidenzia solo il primo trovato</li>
+</ul>
+
+<h3>Pulsanti di ricerca</h3>
+
+<strong>"Trova"</strong>:
+<ul>
+<p>  <li>Esegue la ricerca con le opzioni selezionate</li>
+<p>  <li>Evidenzia i risultati nell'albero</li>
+<p>  <li>Espande i nodi necessari per rendere visibili i risultati</li>
+</ul>
+
+<strong>Scorciatoia</strong>: premere <strong>F3</strong> per ripetere l'ultima ricerca
+
+<strong>"Trova sotto nodo"</strong>:
+<ul>
+<p>  <li>Come "Trova", ma cerca solo tra i figli dell'argomento selezionato</li>
+<p>  <li>Utile per ricerche mirate in una sezione del programma didattico</li>
+</ul>
+
+<strong>Procedura ricerca tipica</strong>:
+<ol>
+<p>  <li>Digitare il testo da cercare (es. "equazioni")</li>
+<p>  <li>Selezionare le opzioni desiderate</li>
+<p>  <li>Fare click su "Trova"</li>
+<p>  <li>I nodi contenenti "equazioni" vengono evidenziati</li>
+<p>  <li>Navigare tra i risultati per trovare quello desiderato</li>
+</ul>
+
+<hr>
+<h2>Integrazione con domande</h2>
+
+<h3>Pulsante "Domande"</h3>
+
+<strong>Funzione</strong>: apre la finestra "Scelta domanda" filtrata per l'argomento selezionato
+
+<strong>Quando è visibile</strong>: solo in modalità "Evidenziazione argomenti fatti"
+
+<strong>Procedura</strong>:
+<ol>
+<p>  <li>Navigare nell'albero e selezionare un argomento (es. "Equazioni di secondo grado")</li>
+<p>  <li>Fare click su "Domande"</li>
+<p>  <li>Si apre la finestra "Scelta domanda" con:</li>
+<p>  <li>Argomento preselezionato</li>
+<p>  <li>Griglia filtrata con domande su quell'argomento</li>
+<p>  <li>Selezionare una domanda e fare click su "Scegli"</li>
+<p>  <li>La domanda viene impostata come corrente nella finestra principale</li>
+</ul>
+
+<strong>Flusso completo argomento → domanda</strong>:
+</code>`<code>
+<ol>
+<p>  <li>Finestra principale → "Argom. fatti"</li>
+<p>  <li>Finestra Argomenti (evidenziati quelli svolti)</li>
+<p>  <li>Selezionare argomento → "Domande"</li>
+<p>  <li>Finestra Scelta domanda (filtrata per argomento)</li>
+<p>  <li>Scegliere domanda → chiusura automatica</li>
+<p>  <li>Finestra principale con domanda pronta</li>
+</ul>
+</code>`<code>
+
+<hr>
+<h2>Flusso di lavoro tipico</h2>
+
+<h3>Scenario 1: Consultare argomenti svolti</h3>
+
+<strong>Obiettivo</strong>: vedere cosa è stato spiegato alla classe
+
+<ol>
+<p>  <li>Dalla finestra principale, fare click su <strong>"Argom. fatti"</strong></li>
+<p>  <li>La finestra Argomenti si apre con argomenti svolti evidenziati</li>
+<p>  <li>Navigare nell'albero per vedere la copertura del programma</li>
+<p>  <li>Gli argomenti colorati sono quelli già spiegati nelle lezioni</li>
+<p>  <li>Gli argomenti bianchi sono da fare o in programma</li>
+</ul>
+
+<strong>Nota</strong>: l'evidenziazione si basa sulle lezioni registrate nel sistema. Un argomento è considerato "fatto" se è stato associato ad almeno una lezione della classe.
+
+<h3>Scenario 2: Aggiungere nuovi argomenti al programma</h3>
+
+<strong>Obiettivo</strong>: arricchire la struttura degli argomenti
+
+<ol>
+<p>  <li>Aprire la finestra Argomenti in modalità gestione</li>
+<p>  <li>Navigare fino al punto dove aggiungere (es. "Algebra")</li>
+<p>  <li>Decidere se aggiungere un figlio o un fratello</li>
+<p>  <li>Fare click su "Aggiungi figlio" o "Aggiungi fratello"</li>
+<p>  <li>Digitare il nome (es. "Logaritmi")</li>
+<p>  <li>Compilare la descrizione (es. "Definizione, proprietà e applicazioni dei logaritmi")</li>
+<p>  <li>Ripetere per altri argomenti se necessario</li>
+<p>  <li>Fare click su <strong>"Salva albero"</strong> (F5) per confermare</li>
+<p>  <li>Messaggio "Salvataggio fatto" conferma il successo</li>
+</ul>
+
+<strong>Suggerimento</strong>: pianificare la struttura su carta prima di iniziare ad aggiungere molti argomenti
+
+<h3>Scenario 3: Riorganizzare la struttura</h3>
+
+<strong>Obiettivo</strong>: modificare l'organizzazione degli argomenti (la loro posizione nell'albero)
+
+<p>SchoolGrades supporta il drag-and-drop degli argomenti sull'albero per cui esso si può riorganizzare trascinando un sottoalbero da un nodo padre ad un altro. </p>
+<p>Per farlo basta cliccare su un argomento, spostarlo  e rilascia</p>
+
+<strong>Suggerimento futuro</strong>: è prevista l'implementazione del drag-and-drop in versioni future del programma
+
+<h3>Scenario 4: Cercare un argomento specifico</h3>
+
+<strong>Obiettivo</strong>: trovare rapidamente un argomento per nome
+
+<ol>
+<p>  <li>Aprire la finestra Argomenti</li>
+<p>  <li>Nel campo "Cerca testo" digitare parole chiave (es. "limiti")</li>
+<p>  <li>Spuntare <strong>"Maiuscole/minuscole indifferenti"</strong></li>
+<p>  <li>Spuntare <strong>"Cerca nelle descrizioni"</strong> se la parola potrebbe essere nella descrizione</li>
+<p>  <li>Fare click su <strong>"Trova"</strong> (o premere F3)</li>
+<p>  <li>Il primo argomento corrispondente viene evidenziato e portato in vista</li>
+<p>  <li>Se serve, premere F3 ripetutamente per trovare altre occorrenze</li>
+</ul>
+
+<h3>Scenario 5: Associare argomento a domanda</h3>
+
+<strong>Obiettivo</strong>: collegare una domanda ad un argomento specifico
+
+<ol>
+<p>  <li>Aprire la finestra di modifica di una domanda (da "Scelta domanda" con doppio click)</li>
+<p>  <li>Nella finestra domanda, fare click sul pulsante di scelta argomento</li>
+<p>  <li>Si apre la finestra Argomenti in modalità selezione</li>
+<p>  <li>Navigare nell'albero e selezionare l'argomento appropriato (es. "Teorema di Pitagora")</li>
+<p>  <li>Fare click su <strong>"Scegli"</strong></li>
+<p>  <li>La finestra si chiude e la domanda ora è associata a quell'argomento</li>
+<p>  <li>Salvare la domanda</li>
+</ul>
+
+<hr>
+<h2>Suggerimenti e best practices</h2>
+
+<h3>Strutturare l'albero in modo logico</h3>
+
+<strong>Principi di organizzazione</strong>:
+<ul>
+<p>  <li><strong>Livelli chiari</strong>: usare 2-4 livelli di profondità, non di più</li>
+<p>  <li><strong>Granularità appropriata</strong>: non troppo dettagliato (difficile da navigare) né troppo generico (poco utile)</li>
+<p>  <li><strong>Nomi descrittivi</strong>: usare nomi chiari e inequivocabili</li>
+<p>  <li><strong>Parallelismo</strong>: mantenere strutture simili per capitoli analoghi</li>
+</ul>
+
+<strong>Esempio di buona struttura</strong>:
+</code>`<code>
+<p>Matematica (radice)</p>
+<p>├── Algebra</p>
+<p>│   ├── Equazioni</p>
+<p>│   │   ├── Lineari</p>
+<p>│   │   ├── Secondo grado</p>
+<p>│   │   └── Sistemi</p>
+<p>│   └── Disequazioni</p>
+<p>│       ├── Lineari</p>
+<p>│       └── Secondo grado</p>
+<p>├── Geometria</p>
+<p>│   ├── Piana</p>
+<p>│   │   ├── Triangoli</p>
+<p>│   │   └── Cerchi</p>
+<p>│   └── Solida</p>
+<p>│       ├── Poliedri</p>
+<p>│       └── Solidi di rotazione</p>
+<p>└── Analisi</p>
+<p>    ├── Limiti</p>
+<p>    ├── Derivate</p>
+<p>    └── Integrali</p>
+</code>``
+
+<h3>Usare le descrizioni in modo efficace</h3>
+
+<p>Il campo descrizione è prezioso per:</p>
+<ul>
+<p>  <li><strong>Prerequisiti</strong>: "Richiede conoscenza di equazioni lineari"</li>
+<p>  <li><strong>Obiettivi</strong>: "Lo studente deve saper calcolare limiti di funzioni razionali"</li>
+<p>  <li><strong>Collegamenti</strong>: "Vedi anche: derivate, teorema del valor medio"</li>
+<p>  <li><strong>Risorse</strong>: "Libro pagina 234-250, dispensa online: [URL]"</li>
+<p>  <li><strong>Note didattiche</strong>: "Argomento difficile, dedicare almeno 2 lezioni"</li>
+</ul>
+
+<h3>Sincronizzare con il registro lezioni</h3>
+
+<p>Quando si registra una lezione:</p>
+<ul>
+<p>  <li>Associare sempre gli argomenti trattati</li>
+<p>  <li>Questo crea il collegamento che evidenzia gli argomenti "fatti"</li>
+<p>  <li>Permette di avere una visione precisa del programma svolto</li>
+</ul>
+
+<h3>Evitare duplicati</h3>
+
+<p>Prima di aggiungere un nuovo argomento:</p>
+<ol>
+<p>  <li>Usare la funzione "Trova" per verificare che non esista già</li>
+<p>  <li>Controllare anche le descrizioni (potrebbero esserci sinonimi)</li>
+<p>  <li>Se esiste già, considerare se arricchirlo invece che duplicarlo</li>
+</ul>
+
+<h3>Salvare frequentemente</h3>
+
+<p>Quando si fanno molte modifiche:</p>
+<ul>
+<p>  <li>Salvare ogni 5-10 modifiche</li>
+<p>  <li>In caso di crash o errore, non si perde tutto il lavoro</li>
+<p>  <li>Fare backup del database prima di ristrutturazioni massive (c'è un bottone nella finestra dedi)</li>
+</ul>
+
+<h3>Pianificare prima di implementare</h3>
+
+<p>Per ristrutturazioni importanti:</p>
+<ol>
+<p>  <li>Disegnare la nuova struttura su carta o file di testo</li>
+<p>  <li>Identificare cosa spostare, eliminare, aggiungere</li>
+<p>  <li>Fare un backup del database</li>
+<p>  <li>Implementare la ristrutturazione</li>
+<p>  <li>Verificare che tutto sia come atteso prima di usare in produzione</li>
+</ul>
+
+<hr>
+<h2>Troubleshooting</h2>
+
+<h3>Non riesco a modificare i nomi degli argomenti</h3>
+
+<strong>Problema</strong>: cliccando sul campo nome, non posso digitare
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Verificare che la finestra non sia aperta in modalità sola lettura</li>
+<p>  <li>Controllare che sia selezionato un argomento valido (non la radice in alcuni casi)</li>
+<p>  <li>Assicurarsi che l'argomento esista realmente (non un nodo temporaneo)</li>
+</ul>
+
+<h3>I cambiamenti non vengono salvati</h3>
+
+<strong>Problema</strong>: dopo aver modificato e fatto click su "Salva albero", le modifiche non persistono
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Verificare di aver effettivamente premuto "Salva albero" (F5)</li>
+<p>  <li>Controllare che appaia il messaggio "Salvataggio fatto"</li>
+<p>  <li>Assicurarsi di avere permessi di scrittura sul database</li>
+<p>  <li>Controllare che il database non sia aperto da un'altra istanza del programma</li>
+<p>  <li>Verificare che non ci siano errori nel log (visualizzabili da Setup)</li>
+</ul>
+
+<h3>L'argomento eliminato riappare</h3>
+
+<strong>Problema</strong>: dopo aver eliminato un argomento e salvato, questo ricompare alla prossima apertura
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>L'argomento potrebbe essere ricreato automaticamente se associato a lezioni o domande</li>
+<p>  <li>Verificare che non ci siano domande o lezioni che lo referenziano prima di eliminarlo</li>
+<p>  <li>Se l'argomento è fondamentale, considerare di lasciarlo e semplicemente non usarlo</li>
+</ul>
+
+<h3>Gli argomenti svolti non sono evidenziati</h3>
+
+<strong>Problema</strong>: nonostante ci siano lezioni registrate, gli argomenti non risultano evidenziati
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Verificare che le lezioni abbiano effettivamente associati gli argomenti</li>
+<p>  <li>Controllare che la classe selezionata nella finestra principale sia quella corretta</li>
+<p>  <li>Assicurarsi che la materia sia quella giusta</li>
+<p>  <li>Gli argomenti devono essere associati alle lezioni tramite la finestra "Lezioni"</li>
+</ul>
+
+<h3>La ricerca non trova argomenti esistenti</h3>
+
+<strong>Problema</strong>: si sa che un argomento esiste, ma la ricerca non lo trova
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Controllare l'ortografia del termine cercato</li>
+<p>  <li>Provare con <strong>"Cerca nelle descrizioni"</strong> spuntato</li>
+<p>  <li>Usare <strong>"Maiuscole/minuscole indifferenti"</strong></li>
+<p>  <li>Provare con parole chiave più brevi o più generiche</li>
+<p>  <li>Verificare che l'argomento non sia sotto un nodo collassato</li>
+</ul>
+
+<h3>Albero troppo grande, difficile da navigare</h3>
+
+<strong>Problema</strong>: l'albero è diventato enorme e navigarlo è complesso
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Usare la funzione di ricerca invece di navigare manualmente</li>
+<p>  <li>Collassare i nodi principali e espandere solo quello di interesse</li>
+<p>  <li>Considerare di suddividere per materie se c'è un unico albero condiviso</li>
+<p>  <li>Valutare una ristrutturazione per ridurre la profondità o il numero di nodi per livello</li>
+</ul>
+
+<hr>
+<h2>Integrazione con il sistema</h2>
+
+<h3>Relazione con le lezioni</h3>
+
+<p>Gli argomenti sono il cuore del collegamento tra programma e attività:</p>
+<ul>
+<p>  <li>Ogni <strong>lezione</strong> può avere uno o più argomenti associati</li>
+<p>  <li>Quando si registra una lezione (finestra "Lezioni"), si selezionano gli argomenti trattati</li>
+<p>  <li>Questo crea lo storico: "quando è stato spiegato cosa"</li>
+<p>  <li>L'evidenziazione nella finestra Argomenti riflette questo storico</li>
+</ul>
+
+<h3>Relazione con le domande</h3>
+
+<p>Le domande possono essere associate a un argomento:</p>
+<ul>
+<p>  <li>Ogni <strong>domanda</strong> ha un campo "IdTopic" che contiene il codice dell'argomento</li>
+<p>  <li>Questo permette di filtrare domande per argomento nella finestra "Scelta domanda"</li>
+<p>  <li>Permette interrogazioni mirate su specifici argomenti</li>
+<p>  <li>Facilita la gestione di un ampio database di domande</li>
+</ul>
+
+<h3>Relazione con i voti</h3>
+
+<p>Indirettamente, gli argomenti sono collegati ai voti:</p>
+<ul>
+<p>  <li>Una <strong>valutazione</strong> può avere una domanda associata</li>
+<p>  <li>La domanda ha un argomento associato</li>
+<p>  <li>Quindi si può tracciare quali argomenti sono stati valutati e con quali risultati</li>
+<p>  <li>Questo permette analisi dettagliate: "su quali argomenti gli studenti sono più deboli?"</li>
+</ul>
+
+<hr>
+<h2>Funzionalità future</h2>
+
+<p>Possibili miglioramenti in sviluppo:</p>
+<ul>
+<p>  <li><strong>Drag-and-drop</strong>: spostare argomenti nell'albero trascinandoli</li>
+<p>  <li><strong>Import/export</strong>: esportare l'albero in formati standard (XML, JSON, Markdown)</li>
+<p>  <li><strong>Condivisione</strong>: importare alberi da altri insegnanti o fonti online</li>
+<p>  <li><strong>Visualizzazione alternativa</strong>: vista piatta (lista), vista mindmap</li>
+<p>  <li><strong>Collegamento a risorse esterne</strong>: link diretti a video, PDF, siti web per ogni argomento</li>
+<p>  <li><strong>Statistiche</strong>: vedere quante domande, lezioni, studenti per ogni argomento</li>
+</ul>
+
+<a href="Manuale-Utente-SchoolGrades.md">Pagina principale</a>
+<hr>
+<em>Questa documentazione fa parte del Manuale Utente di SchoolGrades</em>
+
+    
+    <div class="footer">
+        <p>Documentazione generata da SchoolGrades | .NET 10</p>
+        <p>File sorgente: <code>frmTopics-Argomenti.md</code></p>
+        <p>Data generazione: 24/12/2025 17:31</p>
+    </div>
+</body>
+</html>

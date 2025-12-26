@@ -1,0 +1,657 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Documentazione SchoolGrades - Manuale-Utente-SchoolGrades">
+    <meta name="author" content="SchoolGrades">
+    <title>Manuale-Utente-SchoolGrades - SchoolGrades</title>
+    <style>
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    max-width: 1000px; 
+    margin: 40px auto; 
+    padding: 20px 40px; 
+    line-height: 1.7;
+    background-color: #f8f9fa;
+    color: #212529;
+}
+h1 { 
+    color: #1a4d2e; 
+    border-bottom: 3px solid #4f772d; 
+    padding-bottom: 15px; 
+    margin-top: 40px;
+    font-size: 2.5em;
+}
+h2 { 
+    color: #2d5016; 
+    margin-top: 35px; 
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #90a955;
+    font-size: 1.8em;
+}
+h3 { 
+    color: #3d6628; 
+    margin-top: 25px;
+    font-size: 1.4em;
+}
+h4 {
+    color: #4a7c32;
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+code { 
+    background-color: #e9ecef; 
+    padding: 3px 8px; 
+    border-radius: 4px; 
+    font-family: 'Consolas', 'Monaco', monospace;
+    color: #d63384;
+    font-size: 0.9em;
+}
+pre { 
+    background-color: #2d2d2d; 
+    color: #f8f8f2;
+    padding: 20px; 
+    border-radius: 6px; 
+    overflow-x: auto;
+    border-left: 4px solid #4f772d;
+    margin: 20px 0;
+}
+pre code {
+    background-color: transparent;
+    color: #f8f8f2;
+    padding: 0;
+}
+a {
+    color: #4f772d;
+    text-decoration: none;
+    border-bottom: 1px dotted #4f772d;
+}
+a:hover {
+    color: #2d5016;
+    border-bottom: 1px solid #2d5016;
+}
+img { 
+    max-width: 100%; 
+    height: auto; 
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin: 20px 0;
+}
+table { 
+    border-collapse: collapse; 
+    width: 100%; 
+    margin: 25px 0;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+th, td { 
+    border: 1px solid #dee2e6; 
+    padding: 12px 15px; 
+    text-align: left; 
+}
+th { 
+    background-color: #4f772d; 
+    color: white;
+    font-weight: 600;
+}
+tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+tr:hover {
+    background-color: #e9ecef;
+}
+blockquote {
+    border-left: 4px solid #4f772d;
+    margin: 20px 0;
+    padding: 10px 20px;
+    background-color: #f1f8f4;
+    font-style: italic;
+}
+ul, ol {
+    margin: 15px 0;
+    padding-left: 30px;
+}
+li {
+    margin: 8px 0;
+}
+strong {
+    color: #1a4d2e;
+    font-weight: 600;
+}
+em {
+    color: #4a7c32;
+}
+hr {
+    border: none;
+    border-top: 2px solid #90a955;
+    margin: 40px 0;
+}
+.header-nav {
+    background-color: #4f772d;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+.footer {
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 2px solid #dee2e6;
+    text-align: center;
+    color: #6c757d;
+    font-size: 0.9em;
+}
+    </style>
+</head>
+<body>
+    <div class="header-nav">
+        <h3 style="margin: 0; color: white;">?? SchoolGrades - Documentazione</h3>
+    </div>
+    
+<h1>Manuale Utente - SchoolGrades</h1>
+
+<h2>Indice</h2>
+
+<ol>
+<p>  <li><a href="#introduzione">Introduzione</a></li>
+<p>  <li><a href="#avvio-e-configurazione-iniziale">Avvio e configurazione iniziale</a></li>
+<p>  <li><a href="#interfaccia-e-funzionalità-della-finestra-principale">Interfaccia e funzionalità della finestra principale</a></li>
+<p>  <li><a href="#gestione-classi-e-studenti">Gestione classi e studenti</a></li>
+<p>  <li><a href="#valutazioni-e-voti">Valutazioni e voti</a></li>
+<p>  <li><a href="#gestione-lezioni-e-argomenti">Gestione lezioni e argomenti</a></li>
+<p>  <li><a href="#suggerimenti-e-scorciatoie">Suggerimenti e scorciatoie</a></li>
+<p>  <li><a href="#documentazione-finestre-specifiche">Documentazione finestre specifiche</a></li>
+<p>  <li><a href="dati-demo.md">Dati demo</a></li>
+</ol>
+
+<hr>
+<h2>Introduzione</h2>
+
+<strong>SchoolGrades</strong> E' un'applicazione Windows Forms progettata per supportare gli insegnanti nella gestione quotidiana delle attività didattiche in classe. Il programma permette di:
+
+<ul>
+<p>  <li>Gestire classi e studenti</li>
+<p>  <li>Registrare valutazioni di diversi tipi (orali, scritti, pratici, ecc.)</li>
+<p>  <li>Tenere traccia degli argomenti svolti nelle lezioni</li>
+<p>  <li>Effettuare sorteggi e ordinamenti degli studenti secondo vari criteri</li>
+<p>  <li>Visualizzare riepiloghi di voti e statistiche</li>
+<p>  <li>Gestire annotazioni sugli studenti</li>
+<p>  <li>Utilizzare timer e strumenti per l'organizzazione della lezione</li>
+</ul>
+
+<h3>Importante: la potenza del doppio click</h3>
+
+<strong>SchoolGrades realizza molte funzionalità attraverso il doppio click su elementi dell'interfaccia utente.</strong>  
+<p>Queste funzionalità sono estremamente comode, ma solo se si sa che esistono. <strong>Vi incoraggiamo caldamente a sperimentare il doppio click</strong>, in particolare sulle <strong>griglie</strong> e sugli <strong>elenchi</strong>, per scoprire funzioni rapide e scorciatoie che renderanno l'uso del programma molto più efficiente.  </p>
+<p>Il singolo file click di solito provvede alla selezione di un elemento nella griglia o nella lista.</p>
+
+<hr>
+<h2>Avvio e configurazione iniziale</h2>
+
+<h3>Primo avvio</h3>
+
+<p>Al primo avvio, il programma richiede la sua configurazione, a tal scopo si aprirà la finestra Setup, nella quale bisogna scegliere il file di database.  </p>
+<p>Per cominciare ad usare il programma bisogna configurare:</p>
+
+<ol>
+<p>  <li><strong>Percorso del database</strong>: nella pagina "Setup" selezionare un database <strong>locale</strong> SQLite dove verranno memorizzati tutti i dati.  (nel codice attuale sono presenti classi e metodi che utilizzano SQL server, ma non è possibile usarli perché sono incompleti e non testati).  Attualmente il programma sceglie per default un database vuoto presente nel file zip di distribuzione, ma questa parte dovrebbe essere cambiata per rendere automatica la prima esecuzione con database vuoto.</li>
+</ul>
+
+<h3>Finestra Setup</h3>
+
+<p>Dal pulsante <strong>"Setup"</strong> nella schermata principale è possibile accedere alle opzioni di configurazione del programma, tra cui:</p>
+
+<ul>
+<p>  <li>Impostazioni di connessione al database</li>
+<p>  <li>Preferenze generali dell'interfaccia</li>
+<p>  <li>Configurazione dei tipi di valutazione</li>
+<p>  <li>Gestione delle materie insegnate</li>
+<p>  <li>Configurazione dei periodi scolastici</li>
+</ul>
+
+<p>Alla chiusura della finestra "Setup" il programma deve salvare un file di testo, nel quale scrive i dati di configurazione. Pertanto, dopo aver effettuato la prima configurazione ed anche dopo aver cambiato una configurazione, è necessario premere il bottone "Salva config.".</p>
+
+<hr>
+<h2>Interfaccia e funzionalità della finestra principale</h2>
+
+<p>L'interfaccia principale di SchoolGrades è divisa in diverse aree funzionali:</p>
+
+<h3>Area superiore sinistra</h3>
+
+<ul>
+<p>  <li><strong>Anno scolastico</strong>: menu a tendina per selezionare l'anno scolastico corrente</li>
+<p>  <li><strong>Elenco classi</strong>: lista delle classi dell'anno selezionato  </li>
+</ul>
+<p>  <em>Importante</em>: fare doppio click su una classe per aprire la finestra di gestione completa della classe</p>
+<ul>
+<p>  <li>Zona di definizione dei timer e della visualizzazione degli elementi sottostanti</li>
+<p>  <li>Pulsante "Gruppi", per la formazione di gruppi di studenti fra quelli attualmente selezionati</li>
+</ul>
+
+<h3>Area inferiore sinistra</h3>
+
+<ul>
+<p>  <li><strong>Nome e foto dello studente estratto/selezionato</strong>  </li>
+</ul>
+<p>oppure</p>
+<ul>
+<p>  <li><strong>Griglia studenti</strong>: visualizzazione tabulare degli studenti della classe corrente con segni di spunta per la selezione multipla.  </li>
+</ul>
+<p>  <em>Importante</em>: fare doppio click su uno studente per selezionarlo e per vederne la foto</p>
+
+<p>  Le due modalità di visualizzazione sono controllate anche dal segno di spunta "Lista visibile"</p>
+
+<h3>Bottoni e segni di spunta centrali</h3>
+<ul>
+<p>  <li><strong>Bottone "Setup"</strong>: lancia la finestra di configurazione del programma</li>
+<p>  <li><strong>Segno "lezioni"</strong>: prende fra le immagini delle lezioni fatte l'immagine da visualizzare a caso con il bottone "Immagine casuale"</li>
+<p>  <li><strong>Segno "cartella"</strong>: prende nella cartella indicata a sinistra l'immagine da visualizzare a caso con il bottone "Immagine casuale"</li>
+<p>  <li><strong>Bottone "Immagine casuale"</strong>: fa aprire un'immagine a caso fra quelle della cartella selezionata sopra</li>
+<p>  <li><strong>Bottone "Numero casuale"</strong>: fa aprire una finestra che permette si generare un numero casuale"</li>
+<p>  <li><strong>Bottone "Start Links"</strong>: fa aprire automaticamente un insieme di URL, cartelle o file che viene configurato nel database della classe, nella finestra "gestione classi" (vedere in seguito)</li>
+<p>  <li><strong>Bottone "Mosaico"</strong>: fa aprire una finestra con in una griglia di tutte le foto degli studenti della classe corrente</li>
+<p>  <li>Bottoni per la selezione massiva degli studenti (vedi in seguito)</li>
+</ul>
+
+<h3>Area a destra</h3>
+
+<ul>
+<p>  <li><strong>Criteri di sorteggio/ordinamento</strong>: gruppo di opzioni alternative per scegliere il criterio</li>
+<p>  <li><strong>Materia</strong>: menu a tendina per selezionare la materia di insegnamento della classe corrente</li>
+<p>  <li><strong>Tipo valutazione</strong>: menu a tendina per selezionare il tipo di voto (orale, scritto, pratico, ecc.)</li>
+<p>  <li><strong>Pulsanti di azione</strong>: numerosi pulsanti per le operazioni principali (vedi in seguito)</li>
+</ul>
+
+<hr>
+<h3>Gestione classi e studenti</h3>
+
+<h4>Selezione della classe</h4>
+
+<ol>
+<p>  <li>Selezionare l'anno scolastico dal menu a tendina in alto a sinistra</li>
+<p>  <li>Fare click su una classe nell'elenco per visualizzare gli studenti</li>
+<p>  <li><strong>Doppio click sulla classe</strong> per aprire la finestra di gestione completa</li>
+</ul>
+
+<h4>Visualizzazione studenti</h4>
+
+<p>Gli studenti della classe selezionata vengono visualizzati nella griglia centrale. E' possibile:</p>
+
+<ul>
+<p>  <li><strong>Selezionare uno o più studenti</strong> tramite checkbox</li>
+<p>  <li><strong>Ordinare per colonna</strong> cliccando sull'intestazione</li>
+<p>  <li><strong>Doppio click su uno studente</strong> per aprire la finestra di gestione classe dello studente</li>
+</ul>
+
+<h4>Gestione della visibilità</h4>
+
+<p>Tre checkbox permettono di controllare cosa visualizzare:</p>
+
+<ul>
+<p>  <li><strong>Nome visibile</strong>: mostra/nasconde il nome dello studente estratto</li>
+<p>  <li><strong>Foto visibile</strong>: mostra/nasconde la foto dello studente estratto</li>
+<p>  <li><strong>Lista visibile</strong>: mostra/nasconde la griglia degli studenti</li>
+</ul>
+
+<h4>Selezione studenti (checkbox)</h4>
+
+<p>Diversi pulsanti permettono di modificare rapidamente la selezione:</p>
+
+<ul>
+<p>  <li><strong>X tutti</strong>: seleziona tutti gli studenti</li>
+<p>  <li><strong>X nessuno</strong>: deseleziona tutti gli studenti</li>
+<p>  <li><strong>cambio X</strong>: inverte la selezione corrente</li>
+<p>  <li><strong>X no voti</strong>: seleziona solo gli studenti senza voti del tipo selezionato</li>
+<p>  <li><strong>X di vendetta</strong>: applica il fattore di vendetta agli studenti selezionati</li>
+</ul>
+
+<hr>
+<h3>Valutazioni e voti</h3>
+
+<h4>Tipi di valutazione</h4>
+
+<p>SchoolGrades supporta diversi tipi di valutazione selezionabili dal menu <strong>"Tipo valutazione"</strong>:</p>
+
+<ul>
+<p>  <li><strong>Voticini</strong>: piccole valutazioni formative</li>
+<p>  <li><strong>Orali</strong>: interrogazioni orali</li>
+<p>  <li><strong>Scritti</strong>: verifiche scritte</li>
+<p>  <li><strong>Pratici</strong>: prove pratiche</li>
+<p>  <li><strong>Scritto-grafici</strong>: elaborati grafici o tecnici</li>
+</ul>
+
+<p>E' possibile aggiungere tipi di valutazione con la gestione tabelle.</p>
+
+<h4>Inserimento voti</h4>
+
+<ol>
+<p>  <li>Selezionare l'allievo da valutare</li>
+<p>  <li>Selezionare la materia</li>
+<p>  <li>Selezionare il tipo di valutazione</li>
+<p>  <li>Fare click sul pulsante <strong>"Valutaz."</strong> per aprire la finestra di inserimento voti</li>
+</ul>
+
+<h4>Consultazione voti</h4>
+
+<ul>
+<p>  <li><strong>Voti allievo</strong>: visualizza tutti i voti dello studente corrente con possibilità di definire gli intervalli temporalo e di consultare anche le annotazioni</li>
+<p>  <li><strong>Voti classe</strong>: visualizza un riepilogo dei voti di tutta la classe per la materia e il tipo di valutazione selezionati</li>
+</ul>
+
+<h4>Fattore di vendetta</h4>
+
+<p>SchoolGrades include un conteggio di tracciamento di un certo numero di eventi che riguardano un allievo. Può essere usato come si vuole, ma siccome io lo usavo a scuola per segnarmi se un allievo non si era comportato bene (assenze alle valutazioni, "furbizie varie" ..) l'ho chiamata "fattore di vendetta":</p>
+
+<ul>
+<p>  <li><strong>FV++</strong>: aumenta il fattore di vendetta dello studente corrente</li>
+<p>  <li><strong>FV--</strong>: diminuisce il fattore di vendetta dello studente corrente</li>
+<p>  <li>Il fattore viene visualizzato nel campo <strong>F.V.</strong></li>
+</ul>
+
+<p>Il sorteggio di tipo "Tremenda vendetta" dà maggiore probabilità agli studenti con fattore di vendetta più alto (oppure sceglie solo fra quelli che hanno F.V. > 0, non ricordo e non ho voglia di guardare..).</p>
+
+<hr>
+<h3>Gestione lezioni e argomenti</h3>
+
+<h4>Registro lezioni</h4>
+
+<p>Il pulsante <strong>"Lezioni"</strong> apre la finestra di gestione delle lezioni per la materia selezionata, dove è possibile:</p>
+
+<ul>
+<p>  <li>Inserire nuove lezioni con data, durata e argomenti trattati</li>
+<p>  <li>Consultare lo storico delle lezioni</li>
+<p>  <li>Associare argomenti del programma alle lezioni, eventualmente introducendone di nuovi nell'albero degli argomenti</li>
+</ul>
+
+<h4>Argomenti svolti</h4>
+
+<ul>
+<p>  <li><strong>Argom. fatti</strong>: apre la pagina di ricerca degli argomenti già spiegati nel programma didattico</li>
+<p>  <li><strong>File arg. anno</strong>: crea un file di testo con tutti gli argomenti svolti nell'anno scolastico corrente (il formato è un po' confuso ma è complicato farlo meglio (se qualcuno ci riesce: PULL REQUEST!).</li>
+</ul>
+
+<h4>Timer e orologio lezione</h4>
+
+<p>Il programma include strumenti per gestire il tempo durante la lezione:</p>
+
+<strong>Orologio lezione</strong>:
+
+<p>Il programma gestisce una "sveglia" automatica che permette di sapere che si sta avvicinando la fine della lezione. Tale sveglia è abilitata dal checkbox "allarme fine lezione".  </p>
+
+<ul>
+<p>  <li><strong>Checkbox "Orologio lezione"</strong>: abilita/disabilita la colorazione automatica</li>
+</ul>
+
+<p>L'allarme di fine lezione si configura con le caselle che vengono spiegate di seguito:</p>
+<ul>
+<p>  <li>Imposta il minuto di inizio lezione</li>
+<p>  <li>Imposta i minuti di durata della lezione</li>
+<p>  <li>Imposta i minuti di anticipo per l'allarme di fine lezione</li>
+</ul>
+
+<p>Il pulsante <strong>"Inizio lezione"</strong> permette di far partire al minuto attuale una nuova lezione e cambia colore in base al tempo trascorso.</p>
+
+<p>Se l'allarme è abilitato, al numero di minuti di anticipo indicati, rispetto alla fine della lezione, si apre una finestra (BLOCCANTE!) che avverte che ci stiamo avvicinando alla fine della lezione. Volendo si può anche far partire una "sveglia" sonora in quell'istante, on il checkbox "Allarme fine lezione". L'allarme sonoro è la sveglia militare. </p>
+
+<ul>
+<p>  <li><strong>Checkbox "Allarme fine lezione"</strong>: abilita/disabilita l'allarme</li>
+</ul>
+
+
+<strong>Timer per risposte</strong>:
+
+<p>Il programma ha due tipi di timer, da usare in ogni momento in cui si debba misurare il trascorrere del tempo e renderlo visibile. C'è un timer a barra ed uno a finestra colorata, che cambia di colore in base al tempo trascorso.  </p>
+<p>Entrambi i timer vengono impostati alla loro partenza per usare l'intervallo di tempo indicato sopra la lista che sta vicino alla lista delle classi (05, 10, 15, ..).</p>
+
+<strong>Timer a barra</strong>:
+<ul>
+<p>  <li>La barra di progresso verde cambia di lunghezza con lo scorrere del tempo (della risposta)</li>
+<p>  <li>Il tempo scorre fino al completamento della barra</li>
+<p>  <li>Click su <strong>"T.barra"</strong> per avviare il cronometro (dopo aver scelto il tempo scrivendolo o cliccando su un valore della lista)</li>
+</ul>
+
+<strong>Timer a colori</strong>:
+<ul>
+<p>  <li>click su <strong>"T.colori"</strong>: apre la finestra del cronometro a colori, che cambia tonalità con il passare del tempo. Nella finestra sono presenti due intervalli di tempo, il primo è quello che è scritto nella casella sopra alla lista, parte quando la finestra viene fatta partire e viene eseguito una volta sola. Il secondo intervallo è l'intervallo dei periodi successivi al primo.  </li>
+</ul>
+<p>Quando inizia un intervallo la finestra è tutta verde, viene indicato il tempo rimanente e il colore della finestra cambia gradualmente dal verde al rosso intenso, colore che viene assunto alla fine del tempo dell'intervallo. Alla fine di ogni intervallo di tempo la finestra torna verde e si comincia a contare un successivo intervallo di tempo, che ha la durata dell'intervallo "seguente" ("Segu." nella finestra).  </p>
+<p>Quando manca il 10% del tempo viene fatto suonare un file musicale, quando il tempo è finito ne viene fatto suonare un altro.</p>
+
+<ul>
+<p>  <li><strong>Checkbox "Suoni"</strong>: abilita/disabilita i suoni nel timer a colori, ma anche nelle estrazioni casuali</li>
+<p>  <li><strong>Lista intervalli di tempo</strong>: si usa per selezionare rapidamente la durata del timer (5, 10, 15, 30, 45, 60 secondi)</li>
+</ul>
+
+<hr>
+<h4>Sorteggio e ordinamento studenti</h4>
+
+<strong>Modalità di sorteggio/ordinamento</strong>:
+
+<p>Selezionare tra le due opzioni principali:</p>
+<ul>
+<p>  <li><strong>Sorteggio</strong>: ordinamento casuale degli studenti in una lista, secondo quanto scelto in alto a destra</li>
+<p>  <li><strong>Ordinam.</strong>: ordinamento deterministico degli studenti nella lista</li>
+</ul>
+
+<strong>Criteri disponibili</strong>:
+
+<ul>
+<p>  <li><strong>Probabilità uguali</strong>: sorteggio equiprobabile fra tutti gli studenti selezionati</li>
+<p>  <li><strong>Peso totale dei voti</strong>: ordinamento secondo il peso totale del tipo di voto selezionato</li>
+<p>  <li><strong>Numero voti</strong>: ordinamento in base al numero di voti del tipo selezionato</li>
+<p>  <li><strong>Alfabetico</strong>: ordinamento alfabetico per cognome e nome</li>
+<p>  <li><strong>Prima voti bassi</strong>: ordinamento per voto crescente (dal più basso)</li>
+<p>  <li><strong>Prima voti vecchi</strong>: ordinamento con precedenza ai voti più datati</li>
+<p>  <li><strong>Tremenda vendetta</strong>: sorteggio con probabilità proporzionale al fattore di vendetta</li>
+</ul>
+
+<strong>Pulsanti di sorteggio/ordinamento</strong>:
+
+<ul>
+<p>  <li><strong>Sortegg. o ordin.</strong>: esegue il sorteggio o l'ordinamento secondo il criterio selezionato</li>
+<p>  <li><strong>Costretto</strong>: sceglie automaticamente il prossimo studente dell'elenco ordinato o casuale</li>
+<p>  <li><strong>Voto più vecchio</strong>: sceglie lo studente con il voto più vecchio del tipo selezionato</li>
+</ul>
+
+<strong>Checkbox "suspence"</strong>: attiva una pausa e una musica prima dell'estrazione, per aumentare la suspense
+
+<h4>Domande e test</h4>
+
+<ul>
+<p>  <li><strong>Scelta domanda</strong>: apre la finestra per selezionare una domanda da porre allo studente/i che verrà/anno selezionato/i in seguito</li>
+<p>  <li><strong>Campo domanda corrente</strong>: visualizza il testo della domanda selezionata (doppio click per cambiarla)</li>
+<p>  <li><strong>Checkbox "Domande pop up"</strong>: abilita la visualizzazione casuale di domande durante la lezione</li>
+<p>  <li><strong>Campo tempo pop up</strong>: imposta l'intervallo medio (in minuti) tra una domanda pop-up e l'altra</li>
+</ul>
+
+<em>Suggerimento</em>: doppio click per aprire la finestra di scelta domanda
+<p> </p>
+<h4>Immagini e foto</h4>
+
+<strong>Foto studenti</strong>:
+<ul>
+<p>  <li>Le foto degli studenti vengono visualizzate automaticamente quando estratti o selezionati</li>
+<p>  <li><strong>Doppio click sulla foto</strong> per aprire la finestra con i dati di quello studente</li>
+</ul>
+
+<strong>Immagini casuali</strong>:
+<ul>
+<p>  <li><strong>Sorgente immagini</strong>: scegliere tra "lezioni" (immagini mostrate durante le lezioni) o "cartella" (da una cartella specifica)</li>
+<p>  <li><strong>Campo cartella</strong>: percorso della cartella contenente le immagini  </li>
+</ul>
+<p>  <em>Suggerimento</em>: click per aprire un file nella cartella, doppio click per sfogliare</p>
+<ul>
+<p>  <li>Pulsante <strong>".."</strong>: seleziona una nuova cartella</li>
+<p>  <li><strong>Immagine casuale</strong>: visualizza un'immagine casuale dalla sorgente selezionata</li>
+</ul>
+
+<strong>Mosaico</strong>:
+<ul>
+<p>  <li>Il pulsante <strong>"Mosaico"</strong> visualizza tutte le foto della classe in una griglia</li>
+</ul>
+
+<p>Click su una foto per visualizzare il noime dell'allievo.</p>
+
+<h4>Gruppi</h4>
+
+<p>Il pulsante <strong>"Gruppi"</strong> apre la finestra per la formazione di gruppi di studenti secondo vari criteri (casuali, bilanciati per voti, ecc.).</p>
+
+<h4>Annotazioni</h4>
+
+<ul>
+<p>  <li><strong>Annotaz.</strong>: apre la finestra per assegnare annotazioni singole e di gruppo agli studenti selezionati</li>
+<p>  <li>Le annotazioni possono essere consultate anche dalla finestra "Voti allievo"</li>
+</ul>
+
+<h4>Collegamenti di esecuzione (Start links)</h4>
+
+<p>Il pulsante <strong>"Start links"</strong> permette di lanciare automaticamente programmi, siti web o file associati alla classe corrente. Ad esempio:</p>
+
+<ul>
+<p>  <li>Collegamenti a registri elettronici</li>
+<p>  <li>Materiali didattici online</li>
+<p>  <li>Risorse specifiche per la classe</li>
+</ul>
+
+<p>Per la configurazione di questa funzionalità c'è una pagina nella finestra "setup".</p>
+
+<h4>Numero casuale</h4>
+
+<p>Il pulsante <strong>"Numero casuale"</strong> fa aprire una finestra che estrae un numero casuale nell'intervallo specificato, utile per sorteggi rapidi o domande numerate.</p>
+
+<hr>
+<h2>Suggerimenti e scorciatoie</h2>
+
+<h3>Doppio click (da provare!)</h3>
+
+<p>Come menzionato all'inizio, <strong>il doppio click à la chiave per sbloccare molte funzioni rapide</strong>:</p>
+
+<ul>
+<p>  <li><strong>Griglia studenti</strong>: doppio click su uno studente apre la finestra di gestione classe</li>
+<p>  <li><strong>Lista classi</strong>: doppio click su una classe apre la gestione completa</li>
+<p>  <li><strong>Foto studente</strong>: doppio click apre la scheda per la gestione delle informazioni sullo studente</li>
+<p>  <li><strong>Campo domanda corrente</strong>: doppio click apre la finestra di scelta domanda</li>
+<p>  <li><strong>Campo cartella immagini</strong>: doppio click apre la finestra di selezione cartella</li>
+<p>  <li><strong>Lista intervalli tempo</strong>: doppio click imposta immediatamente l'intervallo selezionato</li>
+</ul>
+
+<h3>Tooltip informativi</h3>
+
+<p>Quasi tutti i controlli dell'interfaccia hanno dei suggerimenti contestuali ("<strong>tooltip</strong>") associati, che spiegano con buon dettaglio la loro funzione (se qualcuno manca, chiedo per favore di segnalarmelo).  </p>
+<strong>Posizionare il mouse sui controlli per qualche istante</strong> per visualizzare suggerimenti contestuali che descrivono la funzione del controllo.
+
+<h3>Salvataggio automatico in background</h3>
+
+<p>Un piccolo indicatore visivo (rettangolo grigio oppure rosso) in alto a sinistra diventa rosso quando il programma sta salvando dati in background. Non è necessario fare manualmente questo salvataggio; SchoolGrades lo gestisce automaticamente.</p>
+
+<h3>Personalizzazione</h3>
+
+<p>Alcune impostazioni di visualizzazione e comportamento possono essere personalizzate dalla finestra <strong>"Setup"</strong>. Esplorare le varie sezioni per adattare il programma alle proprie esigenze.</p>
+
+<h3>Campo Id allievo e Id classe</h3>
+
+<p>I campi <strong>"Id allievo"</strong> e <strong>"Id classe"</strong>, come tutti i campi Id delle altre finestre, sono visibili principalmente per scopi di debug e non è necessario interagire con essi. In alcuni casi possono essere d'aiuto, per esempio per vedere se i dati di un nuovo "record" sono stati effettivamente salvati (l'Id compere o cambia).</p>
+
+<h3>Pulsante "Test"</h3>
+
+<p>Il pulsante rosso <strong>"Test"</strong> viene utilizzato dagli sviluppatori per testare più rapidamente nuove funzionalità. Gli utenti finali non dovrebbero vederlo, perché è visibile solo in modalità debug e le versioni debug non vengono distribuite agli utenti finali).</p>
+
+<hr>
+<h2>Risoluzione problemi comuni</h2>
+
+<h3>Il database non si apre</h3>
+
+<p>Verificare che:</p>
+<ul>
+<p>  <li>Il file del database esista nel percorso specificato</li>
+<p>  <li>Si disponga dei permessi di lettura/scrittura sulla cartella contenente il database</li>
+<p>  <li>Il database non sia aperto da un'altra istanza del programma</li>
+</ul>
+
+<h3>Le foto degli studenti non vengono visualizzate</h3>
+
+<p>Controllare che:</p>
+<ul>
+<p>  <li>Il percorso della cartella immagini sia configurato correttamente in Setup</li>
+<p>  <li>I file immagine abbiano estensione riconosciuta (.jpg, .png, .bmp)</li>
+<p>  <li>Il nome del file immagine corrisponda al codice studente</li>
+</ul>
+
+<h3>L'orologio lezione non funziona</h3>
+
+<p>Assicurarsi che:</p>
+<ul>
+<p>  <li>La checkbox "Orologio lezione" sia attivata</li>
+<p>  <li>I valori di minuto inizio, durata e anticipo siano corretti</li>
+</ul>
+
+<hr>
+<h2>Documentazione finestre specifiche</h2>
+
+<p>Per informazioni dettagliate sulle finestre specifiche del programma, consultare i seguenti documenti:</p>
+
+<h3>Configurazione e amministrazione</h3>
+<ul>
+<p>  <li><strong><a href="frmSetup-Configurazione.md">Finestra Setup</a></strong> - Pannello di configurazione centrale e accesso a tutte le funzioni amministrative</li>
+<p>  <li><strong><a href="Finestre-Secondarie.md">Finestre Secondarie e Specializzate</a></strong> - Guida completa a tutte le finestre di supporto (gestione classi, materie, backup, annotazioni, tag, mosaico, timer, e molte altre)</li>
+</ul>
+
+<h3>Gestione studenti e gruppi</h3>
+<ul>
+<p>  <li><strong><a href="frmGroups-Gruppi.md">Finestra Gruppi</a></strong> - Formazione di gruppi di lavoro tra gli studenti presenti</li>
+<p>  <li><strong><a href="frmStudent-GestioneStudente.md">Finestra Gestione Studente</a></strong> - Anagrafica e dati completi degli studenti</li>
+</ul>
+
+<h3>Gestione domande e argomenti</h3>
+<ul>
+<p>  <li><strong><a href="frmQuestionChoose-SceltaDomanda.md">Finestra Scelta Domanda</a></strong> - Ricerca e selezione di domande da porre agli studenti</li>
+<p>  <li><strong><a href="frmQuestion-GestioneDomanda.md">Finestra Gestione Domanda</a></strong> - Creazione e modifica domande per interrogazioni</li>
+<p>  <li><strong><a href="frmTopics-Argomenti.md">Finestra Argomenti</a></strong> - Gestione della struttura gerarchica degli argomenti del programma didattico</li>
+</ul>
+
+<h3>Valutazioni e registro</h3>
+<ul>
+<p>  <li><strong><a href="frmMicroAssessment-Valutazione.md">Finestra Valutazione</a></strong> - Inserimento e gestione valutazioni dettagliate (microvalutazioni)</li>
+<p>  <li><strong><a href="frmLessons-Lezioni.md">Finestra Lezioni</a></strong> - Registro lezioni con argomenti, note e immagini</li>
+</ul>
+
+<h3>Visualizzazione e analisi voti</h3>
+<ul>
+<p>  <li><strong><a href="frmGradesClassSummary-RiepilogoVotiClasse.md">Finestra Riepilogo Voti Classe</a></strong> - Analisi delle valutazioni dell'intera classe</li>
+<p>  <li><strong><a href="frmGradesStudentsSummary-RiepilogoVotiAllievo.md">Finestra Riepilogo Voti Allievo</a></strong> - Analisi dettagliata delle valutazioni di un singolo studente</li>
+</ul>
+
+<h3>Nota sui documenti</h3>
+<p>Ogni documento fornisce:</p>
+<ul>
+<p>  <li>Guida completa all'uso della finestra</li>
+<p>  <li>Spiegazione dei controlli e delle funzionalità</li>
+<p>  <li>Flussi di lavoro tipici con esempi pratici</li>
+<p>  <li>Suggerimenti e best practices</li>
+<p>  <li>Risoluzione dei problemi comuni</li>
+<p>  <li>Integrazione con altre finestre del programma</li>
+</ul>
+
+<p>Il documento <strong>Finestre Secondarie e Specializzate</strong> raccoglie in modo organizzato la documentazione di oltre 20 finestre di supporto, catalogate per funzione (gestione dati, annotazioni, visualizzazione, utilità, manutenzione).</p>
+
+<hr>
+<h2>Supporto e contributi</h2>
+
+<p>SchoolGrades è un progetto open source. Per segnalare problemi, richiedere funzionalità o contribuire allo sviluppo, visitare il repository GitHub del progetto.</p>
+<p> </p>
+<p>Contributi alla documentazione, traduzioni e segnalazioni di errori sono sempre benvenuti!</p>
+
+<hr>
+<em>Manuale aggiornato per la versione .NET 10 di SchoolGrades</em>
+
+    
+    <div class="footer">
+        <p>Documentazione generata da SchoolGrades | .NET 10</p>
+        <p>File sorgente: <code>Manuale-Utente-SchoolGrades.md</code></p>
+        <p>Data generazione: 24/12/2025 17:31</p>
+    </div>
+</body>
+</html>

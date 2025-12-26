@@ -558,6 +558,7 @@ Dopo aver inserito un voto, si può subito controllare in "Voti allievo" che sia 
 
 **Attenzione privacy**: le annotazioni devono rispettare normative su dati sensibili
 
+[Pagina principale](Manuale-Utente-SchoolGrades.md)
 ---
 
 *Questa documentazione fa parte del Manuale Utente di SchoolGrades*

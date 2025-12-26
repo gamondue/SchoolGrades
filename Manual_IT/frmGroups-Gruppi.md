@@ -253,6 +253,7 @@ Dopo la generazione automatica:
 6. Il gruppo con voti più bassi riceverà attività di recupero
 7. I gruppi con voti medi e alti riceveranno attività di approfondimento
 
+[Pagina principale](Manuale-Utente-SchoolGrades.md)
 ---
 
 *Questa documentazione fa parte del Manuale Utente di SchoolGrades*

@@ -536,6 +536,7 @@ Il pulsante **"Voti classe"** apre questa finestra con parametri preimpostati:
 - Mostra tutti i dettagli: domanda, risposta, commenti, data, peso
 - Permette eventuale modifica (con creazione nuovo voto e azzeramento peso del vecchio)
 
+[Pagina principale](Manuale-Utente-SchoolGrades.md)
 ---
 
 *Questa documentazione fa parte del Manuale Utente di SchoolGrades*

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Resources;
@@ -84,14 +84,20 @@ namespace SchoolGrades.Localization
             try
             {
                 _currentCulture = new CultureInfo("it-IT");
-                _resourceManager = SchoolGrades.Resources.Strings.ResourceManager;
+                
+                _resourceManager = new ResourceManager(
+                    "SchoolGrades.Resources.Strings",
+                    typeof(SchoolGrades.Resources.Strings).Assembly);
+                
                 _isInitialized = true;
             }
-            catch
+            catch (Exception ex)
             {
                 // Absolute fallback - just set the culture
                 _currentCulture = CultureInfo.InvariantCulture;
                 _isInitialized = false;
+                
+                System.Diagnostics.Debug.WriteLine($"LocalizationManager: Critical fallback failed: {ex.Message}");
             }
         }
         
@@ -113,9 +119,13 @@ namespace SchoolGrades.Localization
                 
                 try
                 {
-                    // Use the generated Strings class directly - this is the most reliable approach
-                    _resourceManager = SchoolGrades.Resources.Strings.ResourceManager;
+                    // Create ResourceManager manually to ensure it works in Release builds
+                    _resourceManager = new ResourceManager(
+                        "SchoolGrades.Resources.Strings",
+                        typeof(SchoolGrades.Resources.Strings).Assembly);
+                    
                     _isInitialized = true;
+                    
                     System.Diagnostics.Debug.WriteLine($"LocalizationManager: Successfully initialized for culture '{cultureName}'");
                 }
                 catch (Exception ex)
@@ -152,7 +162,7 @@ namespace SchoolGrades.Localization
             // Check if resource manager was initialized successfully
             if (_resourceManager == null || !_isInitialized)
             {
-                System.Diagnostics.Debug.WriteLine($"LocalizationManager: ResourceManager not initialized, cannot get string for key '{key}'");
+                System.Diagnostics.Debug.WriteLine($"LocalizationManager: ResourceManager not initialized for key '{key}'");
                 return $"[{key}]";
             }
                 

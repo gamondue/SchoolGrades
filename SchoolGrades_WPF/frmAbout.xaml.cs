@@ -9,9 +9,9 @@ namespace SchoolGrades_WPF
     /// </summary>
     public partial class frmAbout : Window
     {
-        //public System.Windows.Forms.Label lblData;
+        //public System.Windows.Forms.Label lblDate;
         //public System.Windows.Forms.ToolTip ToolTip1;
-        //public System.Windows.Forms.Label lblVersione;
+        //public System.Windows.Forms.Label lblVersion;
         //public System.Windows.Forms.Timer Timer1;
         //public System.Windows.Forms.Label lblAssemblyTitle;
         //public System.Windows.Forms.Label lblAssemblyDescription;
@@ -55,7 +55,7 @@ namespace SchoolGrades_WPF
                     (System.Reflection.Assembly.GetExecutingAssembly().Location)
                     .Comments;
             string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            lblVersione.Text += version;
+            lblVersion.Text += version;
             lblData.Text = Commons.DateCompiled().ToString();
         }
         private void frmAbout_Activated(object sender, System.EventArgs e)

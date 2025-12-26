@@ -1,0 +1,602 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Documentazione SchoolGrades - frmSetup-Configurazione">
+    <meta name="author" content="SchoolGrades">
+    <title>frmSetup-Configurazione - SchoolGrades</title>
+    <style>
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    max-width: 1000px; 
+    margin: 40px auto; 
+    padding: 20px 40px; 
+    line-height: 1.7;
+    background-color: #f8f9fa;
+    color: #212529;
+}
+h1 { 
+    color: #1a4d2e; 
+    border-bottom: 3px solid #4f772d; 
+    padding-bottom: 15px; 
+    margin-top: 40px;
+    font-size: 2.5em;
+}
+h2 { 
+    color: #2d5016; 
+    margin-top: 35px; 
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #90a955;
+    font-size: 1.8em;
+}
+h3 { 
+    color: #3d6628; 
+    margin-top: 25px;
+    font-size: 1.4em;
+}
+h4 {
+    color: #4a7c32;
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+code { 
+    background-color: #e9ecef; 
+    padding: 3px 8px; 
+    border-radius: 4px; 
+    font-family: 'Consolas', 'Monaco', monospace;
+    color: #d63384;
+    font-size: 0.9em;
+}
+pre { 
+    background-color: #2d2d2d; 
+    color: #f8f8f2;
+    padding: 20px; 
+    border-radius: 6px; 
+    overflow-x: auto;
+    border-left: 4px solid #4f772d;
+    margin: 20px 0;
+}
+pre code {
+    background-color: transparent;
+    color: #f8f8f2;
+    padding: 0;
+}
+a {
+    color: #4f772d;
+    text-decoration: none;
+    border-bottom: 1px dotted #4f772d;
+}
+a:hover {
+    color: #2d5016;
+    border-bottom: 1px solid #2d5016;
+}
+img { 
+    max-width: 100%; 
+    height: auto; 
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin: 20px 0;
+}
+table { 
+    border-collapse: collapse; 
+    width: 100%; 
+    margin: 25px 0;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+th, td { 
+    border: 1px solid #dee2e6; 
+    padding: 12px 15px; 
+    text-align: left; 
+}
+th { 
+    background-color: #4f772d; 
+    color: white;
+    font-weight: 600;
+}
+tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+tr:hover {
+    background-color: #e9ecef;
+}
+blockquote {
+    border-left: 4px solid #4f772d;
+    margin: 20px 0;
+    padding: 10px 20px;
+    background-color: #f1f8f4;
+    font-style: italic;
+}
+ul, ol {
+    margin: 15px 0;
+    padding-left: 30px;
+}
+li {
+    margin: 8px 0;
+}
+strong {
+    color: #1a4d2e;
+    font-weight: 600;
+}
+em {
+    color: #4a7c32;
+}
+hr {
+    border: none;
+    border-top: 2px solid #90a955;
+    margin: 40px 0;
+}
+.header-nav {
+    background-color: #4f772d;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+.footer {
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 2px solid #dee2e6;
+    text-align: center;
+    color: #6c757d;
+    font-size: 0.9em;
+}
+    </style>
+</head>
+<body>
+    <div class="header-nav">
+        <h3 style="margin: 0; color: white;">?? SchoolGrades - Documentazione</h3>
+    </div>
+    
+<h1>Finestra Setup - Manuale Utente</h1>
+
+<h2>Introduzione</h2>
+
+<p>La finestra <strong>Setup</strong> è il pannello centrale di configurazione di SchoolGrades. Permette di configurare percorsi, gestire database, accedere a tutte le finestre di amministrazione e manutenzione del sistema.</p>
+
+<h2>Accesso</h2>
+
+<strong>Dalla finestra principale</strong>: pulsante <strong>"Setup"</strong>
+
+<strong>Quando usarla</strong>:
+<ul>
+<p>  <li>Primo avvio del programma</li>
+<p>  <li>Cambio database o percorsi</li>
+<p>  <li>Accesso a funzioni di amministrazione</li>
+<p>  <li>Gestione classi, materie, periodi</li>
+</ul>
+
+<hr>
+<h2>Sezione Percorsi (Paths)</h2>
+
+<h3>Percorso database (PathDatabase)</h3>
+<p>Cartella dove si trova il file database SQLite.</p>
+<ul>
+<p>  <li><strong>Campo testo</strong>: mostra percorso corrente</li>
+<p>  <li><strong>Pulsante ".."</strong>: apre browser cartelle per selezionarne una nuova</li>
+<p>  <li><strong>Doppio click</strong>: apre la cartella in Esplora risorse</li>
+</ul>
+
+<h3>File database (FileDatabase)</h3>
+<p>Nome del file database (es. "SchoolGrades.sqlite").</p>
+<ul>
+<p>  <li><strong>Campo testo</strong>: mostra nome file corrente</li>
+<p>  <li><strong>Pulsante ".."</strong>: apre dialog per selezionare file database diverso</li>
+<p>  <li><strong>Doppio click</strong>: apre il file con programma predefinito (es. Sqlite Studio)</li>
+</ul>
+
+<strong>Importante</strong>: cambiare file database permette di lavorare con database diversi (es. insegnanti o scuole diverse)
+
+<h3>Percorso immagini (PathImages)</h3>
+<p>Cartella dove sono memorizzate foto studenti, immagini lezioni, ecc.</p>
+<ul>
+<p>  <li><strong>Pulsante ".."</strong>: seleziona cartella</li>
+<p>  <li><strong>Doppio click</strong>: apre la cartella</li>
+</ul>
+
+<h3>Percorso documenti (PathDocuments)</h3>
+<p>Cartella per documenti generati (report, export, ecc.).</p>
+<ul>
+<p>  <li><strong>Pulsante ".."</strong>: seleziona cartella</li>
+<p>  <li><strong>Doppio click</strong>: apre la cartella</li>
+</ul>
+
+<p>Attualmente il programma non usa questa cartella.</p>
+
+<h3>Checkbox "Salva backup all'uscita"</h3>
+<p>Se spuntato, crea automaticamente copia backup del database quando si chiude il programma.</p>
+<ul>
+<p>  <li>File salvato in cartella logs con timestamp</li>
+<p>  <li>Utile per recupero in caso di problemi, abilitatelo quando provate nuove versioni</li>
+</ul>
+
+<hr>
+<h2>Pulsanti Gestione Dati</h2>
+
+<h3>Pulsante "Gestione classi"</h3>
+<p>Apre la finestra che permette di gestire le classi per:</p>
+<ul>
+<p>  <li>Creare/modificare/eliminare classi</li>
+<p>  <li>Gestire studenti delle classi e le loro foto</li>
+<p>  <li>Configurare proprietà classi (percorsi, collegamenti, ecc.)</li>
+</ul>
+
+<strong>Uso principale</strong>: organizzazione struttura scuola/classi
+
+<h3>Pulsante "Gestione materie"</h3>
+<p>Apre la finestra per la configurazione delle materie scolastiche:</p>
+<ul>
+<p>  <li>Aggiungere/modificare materie insegnate</li>
+<p>  <li>Impostare colori identificativi per materia</li>
+<p>  <li>Ordinare materie</li>
+</ul>
+
+<strong>ATTENZIONE</strong>: per poter usare efficemente il programma è necessario che ci siano delle materie configurate
+
+<h3>Pulsante "Gestione periodi"</h3>
+<p>Apre la finestra per:</p>
+<ul>
+<p>  <li>Definire periodi (quadrimestri, trimestri)</li>
+<p>  <li>Configurare date inizio/fine periodi</li>
+</ul>
+
+<strong>Uso</strong>: setup inizio anno scolastico
+
+<h3>Pulsante "Gestione tabelle"</h3>
+<p>Apre la finestra che permette di modificare le tabelle per i diversi tipi di dati "fissi" del programma, come:</p>
+<ul>
+<p>  <li>Tipi di valutazione (orali, scritti, ecc.)</li>
+<p>  <li>Tipi di domanda</li>
+<p>  <li>Altre tabelle di configurazione</li>
+</ul>
+
+<strong>Uso</strong>: personalizzare tipi di dati nel sistema
+
+<h3>Pulsante "Gestione studenti"</h3>
+<p>Apre la finestra di gestione degli studenti, in modalità ricerca/gestione per:</p>
+<ul>
+<p>  <li>Cercare studenti nel database</li>
+<p>  <li>Creare nuovi studenti</li>
+<p>  <li>Modificarne dati anagrafici (NON le foto, che sono relative ad ogni classe)</li>
+</ul>
+
+<strong>Uso</strong>: amministrazione anagrafica studenti
+
+<hr>
+<h2>Pulsanti Gestione Contenuti</h2>
+
+<h3>Pulsante "Gestione argomenti"</h3>
+<p>Apre una pagina con l'albero degli argomanti, in modalità completa per:</p>
+<ul>
+<p>  <li>Creare nuovi argomenti</li>
+<p>  <li>Modificare argomenti esistenti</li>
+<p>  <li>Creare struttura gerarchica argomenti</li>
+<p>  <li>Modificare albero di tutti gli argomenti trattati in ogno materia</li>
+<p>  <li>Importare/esportare argomenti</li>
+</ul>
+
+<strong>Uso</strong>: definire gli argomenti didattici delle varie materie
+
+<h3>Pulsante "Gestione tag"</h3>
+<p>Apre la finestra di gestione dei Tag da associare alle domande (?? ed agli argomenti ??):</p>
+<ul>
+<p>  <li>Creare nuovi tag</li>
+<p>  <li>Modificare tag esistenti</li>
+<p>  <li>Organizzare sistema di categorizzazione domande</li>
+</ul>
+
+<strong>ATTENZIONE</strong>: la funzionalità è implementata e dovrebbe funzionare, ma non è garantita, perchè sono molti anni che non la uso!
+
+<strong>Uso</strong>: creare vocabolario tag per domande (? e argomenti ?)
+
+<h3>Pulsante "Gestione domande"</h3>
+<p>Apre la finestra che gestisce le domande da fare agli allievi, per:</p>
+<ul>
+<p>  <li>Visualizzare tutte le domande</li>
+<p>  <li>Cercare/filtrare domande</li>
+<p>  <li>Creare/modificare domande</li>
+<p>  <li>Scegliere la domanda da fare (quando chiamata da una finestra che richiede una domanda)</li>
+</ul>
+
+<strong>Uso</strong>: gestione completa database domande
+
+<h3>Pulsante "Gestione test"</h3>
+<p>Apre la finestra di dei test (questionari, prove scritte ..), per:</p>
+<ul>
+<p>  <li>Creare verifiche scritte</li>
+<p>  <li>Gestire test strutturati</li>
+<p>  <li>Associare domande a test</li>
+</ul>
+
+<strong>ATTENZIONE</strong>: questa funzionalità è <strong>INCOMPLETA E MALFUNZIONANTE</strong> non c'è da fidarsi! Se qualcuno la vuole aggiustare lo faccia (poi PULL REQUEST!). Le idee ci sono ma non sono finite, se non si capisce cosa fare, chiedere a me.
+
+<strong>Uso</strong>: preparazione verifiche (funzionalità incompleta)
+
+<h3>Pulsante "Gestione collegamenti"</h3>
+<p>Apre la gestioen dei collegamenti "operativi" per:</p>
+<ul>
+<p>  <li>Configurare URL/file da aprire automaticamente</li>
+<p>  <li>Associare collegamenti a classi</li>
+</ul>
+
+<strong>Uso</strong>: automazione apertura risorse per lezioni, legare a ciascuna classe
+
+<hr>
+<h2>Pulsanti Manutenzione</h2>
+
+<h3>Pulsante "Backup e gen.file"</h3>
+<p>Apre per il backup :</p>
+<ul>
+<p>  <li>Creare backup manuale database (copia il file di database con un timestamp iniziale nel nome del file)</li>
+<p>  <li>Ripristinare backup precedenti</li>
+<p>  <li>Creare un database da distribuire ad una classe, nel quale vengono rimosse automaticamente tutte le informazioni che non pertengono strettamente a quella classe (studenti, voti, ecc.)</li>
+<p>  <li>Creare un database demo, con dati "farloccati" a partire da dati reali</li>
+</ul>
+
+<strong>Uso importante</strong>: fare backup prima di operazioni rischiose
+
+<strong>ATTENZIONE</strong>: alcune di queste funzionalità non sono usate da parecchio tempo (in particolare quelle nei bottoni in alto), per cui potrebbero essersi rotte; vanno usate con cautela.  
+<p>Provare i ripristini solo su database di prova, non sul database "di produzione"!</p>
+
+<h3>Pulsante "Recover argomenti" (Recupero argomenti)</h3>
+<p>Apre una finestra che contronta gli alberi degli argomenti contenuti in due file, per:</p>
+<ul>
+<p>  <li>Cercare e recuperare argomenti che sono in un albero, ma si sono persi in un altro</li>
+<p>  <li>Copiare argomenti da un albero ad un altro (PERICOLO)</li>
+<p>  <li>Visualizzare differenze tra alberi argomenti</li>
+</ul>
+
+<p>Le differenze sono mostrate con colori diversi dei nodi dei due alberi. I colori dovrebbero funzionare secondo la legenda che si vede nella finestra, ma bisognerebbe provare con il debugger..</p>
+
+<strong>Uso</strong>: recupero dati in caso di problemi
+
+<strong>ATTENZIONE</strong>: fare il backiup del database PRIMA di salvare in questa finestra!
+
+<strong>ATTENZIONE</strong>: questa funzionalità è assolutamente <strong>SPERIMENTALE</strong> e potrebbe non funzionare come previsto. Usatela con cautela e salvate solo dopo aver guardato il codice e capito che funziona!
+
+<h3>Pulsante "Resetta database"</h3>
+<strong>ATTENZIONE</strong>: elimina TUTTI i dati nel database!
+<ul>
+<p>  <li>Richiede conferma</li>
+<p>  <li>Irreversibile</li>
+<p>  <li>Usa solo per ricominciare da zero</li>
+</ul>
+
+<strong>Quando usare</strong>: solo per test o ripartire completamente dopo aver fatto molti errori all'inizio dell'uso del programma
+
+<h3>Pulsante "Cancella config."</h3>
+<p>Elimina i file di configurazione del programma e lo riavvia.</p>
+<ul>
+<p>  <li>Utile se la configurazione è corrotta</li>
+<p>  <li>Richiede riconfigurazione dopo il riavvio</li>
+</ul>
+
+<hr>
+<h2>Pulsante "Salva configurazione"</h2>
+
+<strong>Funzione principale</strong>: salva tutti i percorsi configurati nel file di configurazione. 
+
+<strong>Procedura</strong>:
+<ol>
+<p>  <li>Modificare percorsi desiderati</li>
+<p>  <li>Selezionare/deselezionare checkbox</li>
+<p>  <li>Fare click su <strong>"Salva configurazione"</strong></li>
+<p>  <li>Il programma:</li>
+<p>  <li>Salva le impostazioni</li>
+<p>  <li>Mostra messaggio "File di configurazione salvato"</li>
+<p>  <li><strong>Riavvia automaticamente</strong> per applicare modifiche in modo controllato</li>
+</ul>
+
+<strong>Importante</strong>: il riavvio è proferibile per caricare un nuovo database o nuovi percorsi, per cui viene forzato dal programma.
+
+<hr>
+<h2>Pulsante "Cartella config."</h2>
+
+<p>Apre la cartella dei dati di configurazione, dove sono memorizzati:</p>
+<ul>
+<p>  <li>nella cartella Config: file di configurazione (schgrd.cfg (SchoolGrades.configure))</li>
+<p>  <li>nella cartella Config: file di configurazione per debug (schgrd_DEBUG.cfg). Usata dal programma solo quando funziona in modalità debug. Gli utenti finali non sviluppatori non dovrebbero avere questa cartella.</li>
+<p>  <li>nella cartella Logs (che sta "sopra" a Config): file gamon-Errori.txt, il log degli errori del programma</li>
+<p>  <li>nella cartella Logs: file di tipo frm*_parameters.txt, che il programma usa per salvare i parametri usati nella finestra l'ultima volta che è stata chiusa</li>
+</ul>
+
+<strong>Uso</strong>: debug, verifica configurazione, recupero informazioni di errore
+
+<hr>
+<h2>Flussi di lavoro tipici</h2>
+
+<h3>Scenario 1: Primo avvio programma</h3>
+
+<strong>Obiettivo</strong>: configurare il programma per la prima volta
+
+<ol>
+<p>  <li>Il programma apre automaticamente Setup al primo avvio</li>
+<p>  <li><strong>Verificare/modificare</strong>:</li>
+<p>  <li>Percorso database (dove salvare dati)</li>
+<p>  <li>File database (nome, es. "SchoolGrades_2024.sqlite")</li>
+<p>  <li>Percorso immagini (dove salvare foto)</li>
+<p>  <li>Percorso documenti (dove salvare export)</li>
+<p>  <li>Fare click <strong>"Salva configurazione"</strong></li>
+<p>  <li>Il programma si riavvia</li>
+<p>  <li><strong>Configurare dati di base</strong>:</li>
+<p>  <li>"Gestione classi" ? creare classi, ma aanche anni scolatici (a partire dalle classi dell'anno precedente)</li>
+<p>  <li>"Gestione periodi" ? creare un periodo (es. primo quadrimestre)</li>
+<p>  <li>"Gestione materie" ? aggiungere materie insegnate</li>
+</ul>
+
+<ol>
+<p>  <li>Chiudere Setup, iniziare a usare il programma</li>
+</ul>
+
+<h3>Scenario 2: Cambiare database (es. nuovo anno o scuola)</h3>
+
+<strong>Obiettivo</strong>: usare database diverso per nuovo anno scolastico
+
+<ol>
+<p>  <li>Aprire Setup</li>
+<p>  <li>Fare click <strong>"Scegli file"</strong> per database</li>
+<p>  <li>Selezionare nuovo file (es. "SchoolGrades_2024-25.sqlite")</li>
+<p>  <li>Oppure: modificare <strong>Percorso database</strong> per cambiare cartella</li>
+<p>  <li>Fare click <strong>"Salva configurazione"</strong></li>
+<p>  <li>Il programma si riavvia con nuovo database</li>
+<p>  <li>Se database nuovo/vuoto, configurare come Scenario 1</li>
+</ul>
+
+<h3>Scenario 3: Backup prima di operazione rischiosa</h3>
+
+<strong>Obiettivo</strong>: creare copia sicurezza prima di modifiche importanti
+
+<ol>
+<p>  <li>Aprire Setup</li>
+<p>  <li>Fare click <strong>"Gestione backup"</strong></li>
+<p>  <li>Creare backup manuale con timestamp</li>
+<p>  <li>Chiudere gestione backup</li>
+<p>  <li>Procedere con operazione rischiosa</li>
+<p>  <li>In caso di problemi, usare "Gestione backup" per ripristinare</li>
+</ul>
+
+<h3>Scenario 4: Configurare nuova materia</h3>
+
+<strong>Obiettivo</strong>: aggiungere materia non presente
+
+<ol>
+<p>  <li>Aprire Setup</li>
+<p>  <li>Fare click <strong>"Gestione materie"</strong></li>
+<p>  <li>Aggiungere nuova materia (nome, colore)</li>
+<p>  <li>Chiudere gestione materie</li>
+<p>  <li>Fare click <strong>"Gestione argomenti"</strong></li>
+<p>  <li>Creare struttura argomenti per la nuova materia</li>
+<p>  <li>Chiudere Setup, materia disponibile</li>
+</ul>
+
+<hr>
+<h2>Suggerimenti e best practices</h2>
+
+<h3>Organizzazione percorsi</h3>
+<ul>
+<p>  <li><strong>Database</strong>: cartella dedicata, facile da trovare e backuppare</li>
+<p>  <li><strong>Immagini</strong>: cartella capiente (le foto occupano spazio)</li>
+<p>  <li><strong>Documenti</strong>: separata da database per gestione indipendente</li>
+</ul>
+
+<h3>Backup regolari</h3>
+<ul>
+<p>  <li>Abilitare "Salva backup all'uscita" per sicurezza automatica</li>
+<p>  <li>Fare backup manuale prima di:</li>
+<p>  <li>Aggiornamenti programma</li>
+<p>  <li>Modifiche massive (es. eliminazione classi)</li>
+<p>  <li>Fine anno scolastico</li>
+</ul>
+
+<h3>Gestione multi-anno</h3>
+<ul>
+<p>  <li><strong>Opzione A</strong>: database separato per anno (es. "SG<em>2023.sqlite", "SG</em>2024.sqlite")</li>
+<p>  <li>Pro: file più piccoli, meno confusione</li>
+<p>  <li>Contro: bisogna cambiare database, dati separati</li>
+<p>  <li><strong>Opzione B</strong>: un database per tutti gli anni</li>
+<p>  <li>Pro: storico completo, confronti facili</li>
+<p>  <li>Contro: file grande, più lento nel'esecuzione</li>
+</ul>
+
+<p>Personalmente, io uso l'opzione B.</p>
+
+<h3>Configurazione classi e materie</h3>
+<ul>
+<p>  <li>Configurare tutto prima di iniziare a usare il programma</li>
+<p>  <li>Modifiche successive possibili ma meno comode</li>
+</ul>
+
+<hr>
+<h2>Troubleshooting</h2>
+
+<h3>Il programma non si avvia dopo "Salva configurazione"</h3>
+
+<strong>Problema</strong>: dopo salvataggio, il programma non riparte
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Verificare che percorso database sia valido</li>
+<p>  <li>Controllare che file database esista nel percorso</li>
+<p>  <li>Se persistente, eliminare file configurazione manualmente e ripartire</li>
+</ul>
+
+<h3>Non trovo il file di configurazione</h3>
+
+<strong>Problema</strong>: serve modificare configurazione ma non si trova il file
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Fare click <strong>"Apri cartella configurazione"</strong> da Setup</li>
+<p>  <li>Cercare file .txt nella cartella</li>
+</ul>
+
+<h3>Doppio click su percorsi non apre cartelle</h3>
+
+<strong>Problema</strong>: doppio click su campi percorso non fa nulla
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Verificare che percorso sia valido (esista)</li>
+<p>  <li>Aprire manualmente da Esplora risorse</li>
+<p>  <li>Percorsi errati potrebbero causare errori</li>
+</ul>
+
+<h3>Gestione classi/materie bloccata</h3>
+
+<strong>Problema</strong>: non si riesce a modificare classi o materie
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Verificare permessi scrittura database</li>
+<p>  <li>Chiudere altre finestre che potrebbero bloccare</li>
+<p>  <li>Verificare che database non sia aperto da altro programma (es. DB Browser)</li>
+</ul>
+
+<hr>
+<h2>Sicurezza e best practices</h2>
+
+<h3>Percorsi sicuri</h3>
+<ul>
+<p>  <li><strong>Non</strong> usare percorsi di rete se non necessario (lentezza)</li>
+<p>  <li>Evitare cartelle sincronizzate (Dropbox, OneDrive) durante uso (conflitti)</li>
+<p>  <li>Permessi scrittura necessari su tutte le cartelle</li>
+</ul>
+
+<h3>Protezione dati</h3>
+<ul>
+<p>  <li>Database contiene dati sensibili (studenti)</li>
+<p>  <li>Backuppare regolarmente in luogo sicuro</li>
+<p>  <li>Non condividere database senza anonimizzare</li>
+</ul>
+
+<h3>Prestazioni</h3>
+<ul>
+<p>  <li>Database grandi (>100MB) possono rallentare</li>
+<p>  <li>Considerare divisione per anno se troppo grande</li>
+<p>  <li>Immagini: ottimizzare dimensioni (non serve alta risoluzione)</li>
+</ul>
+
+<hr>
+<h2>Limitazioni note</h2>
+
+<ul>
+<p>  <li><strong>Riavvio obbligatorio</strong>: ogni modifica configurazione richiede restart</li>
+<p>  <li><strong>Un database alla volta</strong>: non si possono usare contemporaneamente database diversi</li>
+<p>  <li><strong>Modifica percorsi</strong>: riavvio chiude tutte le finestre, salvare lavori in corso</li>
+</ul>
+
+<a href="Manuale-Utente-SchoolGrades.md">Pagina principale</a>
+<hr>
+<em>Questa documentazione fa parte del Manuale Utente di SchoolGrades</em>
+
+    
+    <div class="footer">
+        <p>Documentazione generata da SchoolGrades | .NET 10</p>
+        <p>File sorgente: <code>frmSetup-Configurazione.md</code></p>
+        <p>Data generazione: 24/12/2025 17:31</p>
+    </div>
+</body>
+</html>

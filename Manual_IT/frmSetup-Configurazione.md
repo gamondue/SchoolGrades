@@ -368,6 +368,7 @@ Personalmente, io uso l'opzione B.
 - **Un database alla volta**: non si possono usare contemporaneamente database diversi
 - **Modifica percorsi**: riavvio chiude tutte le finestre, salvare lavori in corso
 
+[Pagina principale](Manuale-Utente-SchoolGrades.md)
 ---
 
 *Questa documentazione fa parte del Manuale Utente di SchoolGrades*

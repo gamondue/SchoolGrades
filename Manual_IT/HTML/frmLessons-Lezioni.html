@@ -1,0 +1,666 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Documentazione SchoolGrades - frmLessons-Lezioni">
+    <meta name="author" content="SchoolGrades">
+    <title>frmLessons-Lezioni - SchoolGrades</title>
+    <style>
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    max-width: 1000px; 
+    margin: 40px auto; 
+    padding: 20px 40px; 
+    line-height: 1.7;
+    background-color: #f8f9fa;
+    color: #212529;
+}
+h1 { 
+    color: #1a4d2e; 
+    border-bottom: 3px solid #4f772d; 
+    padding-bottom: 15px; 
+    margin-top: 40px;
+    font-size: 2.5em;
+}
+h2 { 
+    color: #2d5016; 
+    margin-top: 35px; 
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #90a955;
+    font-size: 1.8em;
+}
+h3 { 
+    color: #3d6628; 
+    margin-top: 25px;
+    font-size: 1.4em;
+}
+h4 {
+    color: #4a7c32;
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+code { 
+    background-color: #e9ecef; 
+    padding: 3px 8px; 
+    border-radius: 4px; 
+    font-family: 'Consolas', 'Monaco', monospace;
+    color: #d63384;
+    font-size: 0.9em;
+}
+pre { 
+    background-color: #2d2d2d; 
+    color: #f8f8f2;
+    padding: 20px; 
+    border-radius: 6px; 
+    overflow-x: auto;
+    border-left: 4px solid #4f772d;
+    margin: 20px 0;
+}
+pre code {
+    background-color: transparent;
+    color: #f8f8f2;
+    padding: 0;
+}
+a {
+    color: #4f772d;
+    text-decoration: none;
+    border-bottom: 1px dotted #4f772d;
+}
+a:hover {
+    color: #2d5016;
+    border-bottom: 1px solid #2d5016;
+}
+img { 
+    max-width: 100%; 
+    height: auto; 
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin: 20px 0;
+}
+table { 
+    border-collapse: collapse; 
+    width: 100%; 
+    margin: 25px 0;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+th, td { 
+    border: 1px solid #dee2e6; 
+    padding: 12px 15px; 
+    text-align: left; 
+}
+th { 
+    background-color: #4f772d; 
+    color: white;
+    font-weight: 600;
+}
+tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+tr:hover {
+    background-color: #e9ecef;
+}
+blockquote {
+    border-left: 4px solid #4f772d;
+    margin: 20px 0;
+    padding: 10px 20px;
+    background-color: #f1f8f4;
+    font-style: italic;
+}
+ul, ol {
+    margin: 15px 0;
+    padding-left: 30px;
+}
+li {
+    margin: 8px 0;
+}
+strong {
+    color: #1a4d2e;
+    font-weight: 600;
+}
+em {
+    color: #4a7c32;
+}
+hr {
+    border: none;
+    border-top: 2px solid #90a955;
+    margin: 40px 0;
+}
+.header-nav {
+    background-color: #4f772d;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+.footer {
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 2px solid #dee2e6;
+    text-align: center;
+    color: #6c757d;
+    font-size: 0.9em;
+}
+    </style>
+</head>
+<body>
+    <div class="header-nav">
+        <h3 style="margin: 0; color: white;">?? SchoolGrades - Documentazione</h3>
+    </div>
+    
+<h1>Finestra Lezioni - Manuale Utente</h1>
+
+<h2>Introduzione</h2>
+
+<p>La finestra <strong>Lezioni</strong> (frmLessons) � il registro digitale dove vengono registrate le lezioni svolte con ogni classe. Permette di documentare data, argomenti trattati, note e immagini mostrate durante la lezione, creando uno storico completo dell'attivit� didattica.</p>
+
+<p>**ATTENZIONE: QUESTO FILE E' PRELIMINARE E NON REVISIONATO.  </p>
+<p>POTREBBE CONTENERE INFORMAZIONI NON ESATTE**  </p>
+<p>Comunica con un ticket su GiHub eventuali errori riscontrati.</p>
+
+<h2>Accesso alla finestra</h2>
+
+<strong>Dalla finestra principale</strong>:
+<ul>
+<p>  <li>Selezionare una classe</li>
+<p>  <li>Selezionare una materia</li>
+<p>  <li>Fare click sul pulsante <strong>"Lezioni"</strong></li>
+</ul>
+
+<strong>Contesto</strong>: la finestra si apre per la classe e materia selezionate.
+
+<strong>Modalit� sola lettura</strong>: se si aprono pi� finestre Lezioni contemporaneamente, quelle dopo la prima si aprono in sola lettura per evitare conflitti.
+
+<hr>
+<h2>Interfaccia della finestra</h2>
+
+<h3>Area superiore: Informazioni contesto</h3>
+
+<ul>
+<p>  <li><strong>Anno scolastico</strong>: visualizza l'anno della classe</li>
+<p>  <li><strong>Classe</strong>: sigla della classe (es. "4F")</li>
+<p>  <li><strong>Materia</strong>: nome della materia corrente (determina anche il colore di sfondo della finestra)</li>
+</ul>
+
+<h3>Sezione sinistra: Lezioni registrate</h3>
+
+<h4>Griglia tutte le lezioni (dgwAllLessons)</h4>
+
+<p>Mostra l'elenco completo di tutte le lezioni registrate per la classe e materia correnti.</p>
+
+<strong>Colonne visibili</strong>:
+<ul>
+<p>  <li><strong>Date</strong>: data della lezione</li>
+<p>  <li><strong>Note</strong>: descrizione/sommario della lezione</li>
+</ul>
+
+<strong>Colonne nascoste</strong>: IdLesson, IdClass, IdSchoolSubject, IdSchoolYear
+
+<strong>Interazione</strong>:
+<ul>
+<p>  <li><strong>Click su una riga</strong>: seleziona la lezione, i suoi dettagli appaiono a destra</li>
+<p>  <li><strong>Navigazione con frecce</strong>: spostarsi tra le lezioni</li>
+<p>  <li>La lezione selezionata viene caricata per modifica/visualizzazione</li>
+</ul>
+
+<h4>Griglia argomenti della lezione (dgwOneLesson)</h4>
+
+<p>Mostra gli argomenti specifici trattati nella lezione selezionata.</p>
+
+<strong>Colonne visibili</strong>:
+<ul>
+<p>  <li><strong>Name</strong>: nome dell'argomento</li>
+<p>  <li><strong>Description</strong>: descrizione dell'argomento</li>
+</ul>
+
+<strong>Interazione</strong>:
+<ul>
+<p>  <li><strong>Click su un argomento</strong>: il corrispondente nodo viene evidenziato nell'albero degli argomenti</li>
+</ul>
+
+<hr>
+<h3>Sezione centrale: Dettagli lezione corrente</h3>
+
+<h4>Codice lezione</h4>
+<p>Campo di testo che mostra l'IdLesson della lezione corrente.</p>
+<ul>
+<p>  <li>Utile per riferimenti tecnici</li>
+</ul>
+
+<h4>Data lezione</h4>
+<p>DateTimePicker per selezionare la data della lezione.</p>
+<ul>
+<p>  <li><strong>Predefinito</strong>: data odierna</li>
+<p>  <li><strong>Modificabile</strong>: per registrare lezioni passate</li>
+</ul>
+
+<h4>Note/Descrizione lezione (TxtLessonDesc)</h4>
+<p>Campo di testo multi-riga per descrivere la lezione.</p>
+
+<strong>Cosa scrivere</strong>:
+<ul>
+<p>  <li>Sommario degli argomenti trattati</li>
+<p>  <li>Attivit� svolte (esercizi, laboratorio, video)</li>
+<p>  <li>Eventuali compiti assegnati</li>
+<p>  <li>Note su assenze/eventi particolari</li>
+</ul>
+
+<strong>Suggerimento</strong>: questo campo pu� essere copiato per il registro elettronico
+
+<h3>Sezione destra: Albero argomenti</h3>
+
+<h4>TreeView argomenti</h4>
+
+<p>Struttura gerarchica degli argomenti del programma didattico.</p>
+
+<strong>Funzione principale</strong>: selezionare gli argomenti effettivamente trattati nella lezione spuntandoli.
+
+<strong>Interazione</strong>:
+<ul>
+<p>  <li><strong>Checkbox</strong>: spuntare gli argomenti trattati</li>
+<p>  <li><strong>Espansione nodi</strong>: click su freccia o doppio click per espandere/contrarre</li>
+<p>  <li><strong>Selezione</strong>: click singolo seleziona un argomento e ne mostra i dettagli</li>
+</ul>
+
+<strong>Evidenziazione</strong>:
+<ul>
+<p>  <li>Gli argomenti gi� svolti precedentemente possono essere evidenziati con colori</li>
+</ul>
+
+<h4>Dettagli argomento selezionato</h4>
+
+<p>Tre campi mostrano informazioni sull'argomento selezionato nell'albero:</p>
+<ul>
+<p>  <li><strong>Nome argomento</strong>: titolo breve</li>
+<p>  <li><strong>Descrizione</strong>: dettagli estesi</li>
+<p>  <li><strong>Codice</strong>: identificativo univoco</li>
+</ul>
+
+<strong>Modifica argomenti</strong>: possibile aggiungere, modificare, eliminare argomenti direttamente da questa finestra (se non in modalit� sola lettura)
+
+<h4>Campo "Riepilogo argomenti" (txtTopicsDigest)</h4>
+
+<p>Genera automaticamente un elenco testuale degli argomenti spuntati, utile per:</p>
+<ul>
+<p>  <li>Copia rapida nel registro elettronico</li>
+<p>  <li>Riepilogo visivo di cosa � stato fatto</li>
+<p>  <li>Ricerca testuale tra le lezioni</li>
+</ul>
+
+<hr>
+<h3>Sezione immagini (in basso a destra)</h3>
+
+<h4>PictureBox immagine</h4>
+<p>Mostra un'anteprima delle immagini associate alla lezione (foto della lavagna, slide, diagrammi).</p>
+
+<strong>Navigazione</strong>:
+<ul>
+<p>  <li><strong>Pulsante ">>" (Successiva)</strong>: mostra immagine successiva</li>
+<p>  <li><strong>Pulsante "<<" (Precedente)</strong>: mostra immagine precedente</li>
+<p>  <li><strong>Tasti freccia destra/sinistra</strong>: stessa funzione dei pulsanti</li>
+</ul>
+
+<strong>Interazione</strong>:
+<ul>
+<p>  <li><strong>Doppio click sull'immagine</strong>: apre il file immagine con il programma predefinito (visualizzazione full-screen)</li>
+</ul>
+
+<h4>Pulsante "Gestione immagini"</h4>
+<p>Apre la finestra dedicata per:</p>
+<ul>
+<p>  <li>Aggiungere nuove immagini alla lezione</li>
+<p>  <li>Rimuovere immagini</li>
+<p>  <li>Riordinare immagini</li>
+<p>  <li>Associare immagini esistenti</li>
+</ul>
+
+<h4>Pulsante "Cartella immagini"</h4>
+<p>Apre direttamente la cartella nel file system dove sono memorizzate le immagini della lezione.</p>
+<ul>
+<p>  <li>Utile per aggiungere file manualmente o verificare cosa c'�</li>
+</ul>
+
+<hr>
+<h2>Pulsanti di azione principali</h2>
+
+<h3>Pulsante "Nuova lezione"</h3>
+
+<strong>Funzione</strong>: crea una nuova lezione per la classe e materia correnti.
+
+<strong>Procedura</strong>:
+<ol>
+<p>  <li>Fare click su "Nuova lezione"</li>
+<p>  <li>Appare messaggio di conferma: "Creare una nuova lezione nella data di oggi (S�) \n Non salvare nulla (No)"</li>
+<p>  <li>Confermare con <strong>S�</strong></li>
+<p>  <li>Viene creata una nuova lezione con:</li>
+<p>  <li>Data: oggi (o data impostata nel DatePicker)</li>
+<p>  <li>Classe e materia correnti</li>
+<p>  <li>IdLesson univoco</li>
+<p>  <li>I campi si svuotano per l'inserimento</li>
+<p>  <li>Albero argomenti si deseleziona (nessun argomento spuntato)</li>
+</ul>
+
+<strong>Validazione</strong>: 
+<ul>
+<p>  <li>Non si possono creare due lezioni con la stessa data per la stessa classe/materia</li>
+<p>  <li>Se gi� esiste, appare avviso: "Il programma non registra due lezioni diverse nello stesso giorno"</li>
+</ul>
+
+<strong>Data diversa</strong>: se si cambia la data prima di fare click, viene chiesta conferma per creare in quella data
+
+<h3>Pulsante "Salva lezione"</h3>
+
+<strong>Funzione</strong>: salva tutti i dati della lezione corrente (descrizione, argomenti, immagini).
+
+<strong>Procedura</strong>:
+<ol>
+<p>  <li>Compilare descrizione lezione</li>
+<p>  <li>Spuntare gli argomenti trattati nell'albero</li>
+<p>  <li>Fare click su "Salva lezione"</li>
+<p>  <li>Se ci sono modifiche agli argomenti nell'albero, vengono salvate</li>
+<p>  <li>La descrizione viene salvata</li>
+<p>  <li>Gli argomenti spuntati vengono associati alla lezione</li>
+<p>  <li>Le griglie si aggiornano</li>
+</ul>
+
+<strong>Validazioni</strong>:
+<ul>
+<p>  <li>Deve esistere una lezione (campo "Codice lezione" non vuoto)</li>
+<p>  <li>Se la data non � oggi, viene chiesta conferma</li>
+<p>  <li>Se gli argomenti nell'albero sono stati modificati, viene chiesto se salvare</li>
+</ul>
+
+<strong>Effetto</strong>: la lezione � registrata e contribuisce allo storico; gli argomenti risulteranno "svolti"
+
+<h3>Pulsante "Cancella lezione"</h3>
+
+<strong>Funzione</strong>: elimina la lezione corrente dal database.
+
+<strong>Procedura</strong>:
+<ol>
+<p>  <li>Selezionare la lezione da eliminare dalla griglia</li>
+<p>  <li>Fare click su "Cancella lezione"</li>
+<p>  <li>Appare messaggio di conferma: "Vuole davvero eliminare la lezione: [codice], '[descrizione]'?"</li>
+<p>  <li>Confermare con <strong>S�</strong></li>
+<p>  <li>La lezione viene eliminata</li>
+<p>  <li>La griglia si aggiorna rimuovendo la riga</li>
+</ul>
+
+<strong>Attenzione</strong>: 
+<ul>
+<p>  <li>Operazione irreversibile</li>
+<p>  <li>Gli argomenti associati rimangono nel sistema</li>
+<p>  <li>Le immagini possono rimanere sul disco (opzione da implementare)</li>
+</ul>
+
+<hr>
+<h2>Pulsanti gestione argomenti</h2>
+
+<h3>Pulsante "Aggiungi figlio" (Ctrl+F6)</h3>
+<p>Aggiunge un nuovo argomento come figlio dell'argomento selezionato nell'albero.</p>
+<ul>
+<p>  <li>Stesso comportamento della finestra Argomenti standalone</li>
+</ul>
+
+<h3>Pulsante "Aggiungi fratello" (Ctrl+F7)</h3>
+<p>Aggiunge un nuovo argomento allo stesso livello dell'argomento selezionato.</p>
+
+<h3>Pulsante "Elimina" (DEL)</h3>
+<p>Elimina l'argomento selezionato e tutti i suoi figli.</p>
+
+<h3>Pulsante "Salva albero" (F5)</h3>
+<p>Salva le modifiche alla struttura degli argomenti.</p>
+
+<strong>Nota</strong>: modificare la struttura argomenti da questa finestra � possibile ma sconsigliato; usare preferibilmente la finestra Argomenti dedicata.
+
+<hr>
+<h2>Funzioni di ricerca argomenti</h2>
+
+<h3>Campo "Cerca testo"</h3>
+<p>Permette di cercare argomenti nell'albero per nome o descrizione.</p>
+
+<h3>Checkbox ricerca</h3>
+<ul>
+<p>  <li><strong>"Cerca nelle descrizioni"</strong>: estende la ricerca ai campi descrizione</li>
+<p>  <li><strong>"Testo verbatim"</strong>: cerca la frase esatta</li>
+<p>  <li><strong>"Tutte le parole"</strong>: trova solo se presenti tutte le parole</li>
+<p>  <li><strong>"Maiuscole/minuscole indifferenti"</strong>: ignora maiuscole/minuscole</li>
+<p>  <li><strong>"Trova tutti"</strong>: evidenzia tutti i risultati (invece del primo)</li>
+</ul>
+
+<h3>Pulsante "Trova" (F3)</h3>
+<p>Esegue la ricerca con le opzioni selezionate.</p>
+
+<h3>Pulsante "Trova sotto nodo"</h3>
+<p>Cerca solo tra i figli dell'argomento selezionato.</p>
+
+<hr>
+<h2>Pulsanti avanzati</h2>
+
+<h3>Pulsante "Argomenti fatti"</h3>
+<p>Evidenzia nell'albero gli argomenti che sono stati effettivamente svolti con la classe.</p>
+<ul>
+<p>  <li>Richiede di selezionare un argomento di partenza</li>
+<p>  <li>Evidenzia tutti gli argomenti sotto di esso gi� trattati</li>
+</ul>
+
+<h3>Pulsante "Argomenti NON fatti"</h3>
+<p>Opposto del precedente: evidenzia gli argomenti non ancora svolti.</p>
+<ul>
+<p>  <li>Utile per vedere cosa manca del programma</li>
+</ul>
+
+<h3>Pulsante "Start Links"</h3>
+<p>Apre automaticamente i collegamenti (URL, file, cartelle) associati alla classe.</p>
+<ul>
+<p>  <li>Utile per lezioni con materiali digitali ricorrenti</li>
+<p>  <li>Es. sito libro di testo, cartella cloud, applicazioni specifiche</li>
+</ul>
+
+<h3>Pulsante "Copia in clipboard"</h3>
+<p>Copia nel clipboard la concatenazione di:</p>
+<ul>
+<p>  <li>Descrizione lezione</li>
+<p>  <li>Riepilogo argomenti</li>
+</ul>
+
+<strong>Uso</strong>: incolla rapido nel registro elettronico
+
+<h3>Pulsante "Cerca tra lezioni"</h3>
+<p>Cerca il testo inserito nel campo "Riepilogo argomenti" nelle descrizioni di tutte le lezioni.</p>
+<ul>
+<p>  <li>Utile per trovare quando � stato trattato un certo argomento</li>
+</ul>
+
+<hr>
+<h2>Indicatore tempo lezione</h2>
+
+<p>Etichetta colorata in basso che replica l'indicatore della finestra principale.</p>
+<ul>
+<p>  <li>Cambia colore dal verde al rosso durante la lezione</li>
+<p>  <li>Attivo solo se orologio lezione abilitato</li>
+</ul>
+
+<hr>
+<h2>Flussi di lavoro tipici</h2>
+
+<h3>Scenario 1: Registrare lezione appena svolta</h3>
+
+<strong>Obiettivo</strong>: documentare la lezione odierna
+
+<ol>
+<p>  <li>Aprire finestra "Lezioni" per la classe</li>
+<p>  <li>Fare click su <strong>"Nuova lezione"</strong></li>
+<p>  <li>Confermare creazione per data odierna</li>
+<p>  <li>Nel campo <strong>Descrizione</strong>, scrivere: "Spiegazione teorema di Pitagora con dimostrazione. Esercizi guidati 1-5 pagina 120."</li>
+<p>  <li>Nell'albero argomenti, spuntare: "Geometria ? Triangoli ? Teorema di Pitagora"</li>
+<p>  <li>Se disponibili, aggiungere immagini: <strong>"Gestione immagini"</strong> ? foto della lavagna</li>
+<p>  <li>Fare click su <strong>"Salva lezione"</strong></li>
+<p>  <li>La lezione � registrata</li>
+</ul>
+
+<h3>Scenario 2: Registrare lezione passata</h3>
+
+<strong>Obiettivo</strong>: registrare una lezione fatta giorni fa ma dimenticata
+
+<ol>
+<p>  <li>Aprire finestra "Lezioni"</li>
+<p>  <li>Nel DatePicker, impostare la data passata (es. luned� scorso)</li>
+<p>  <li>Fare click su <strong>"Nuova lezione"</strong></li>
+<p>  <li>Confermare creazione per la data specificata</li>
+<p>  <li>Compilare descrizione e spuntare argomenti</li>
+<p>  <li>Salvare</li>
+</ul>
+
+<strong>Nota</strong>: utile per recuperare lezioni non registrate subito
+
+<h3>Scenario 3: Consultare storico lezioni</h3>
+
+<strong>Obiettivo</strong>: vedere cosa � stato fatto in un periodo
+
+<ol>
+<p>  <li>Aprire finestra "Lezioni"</li>
+<p>  <li>Scorrere la griglia "Tutte le lezioni" per data</li>
+<p>  <li>Click su lezioni specifiche per vederne dettagli</li>
+<p>  <li>La griglia "Argomenti della lezione" mostra cosa � stato trattato</li>
+<p>  <li>Eventualmente, usare "Cerca tra lezioni" per trovare argomento specifico</li>
+</ul>
+
+<h3>Scenario 4: Preparare lezione successiva</h3>
+
+<strong>Obiettivo</strong>: vedere argomenti fatti e pianificare i prossimi
+
+<ol>
+<p>  <li>Aprire finestra "Lezioni"</li>
+<p>  <li>Fare click su <strong>"Argomenti fatti"</strong> (selezionare radice albero)</li>
+<p>  <li>Gli argomenti evidenziati sono quelli svolti</li>
+<p>  <li>Gli argomenti bianchi sono da fare</li>
+<p>  <li>Pianificare lezioni successive su argomenti non fatti</li>
+</ul>
+
+<hr>
+<h2>Suggerimenti e best practices</h2>
+
+<h3>Registrare lezioni regolarmente</h3>
+<ul>
+<p>  <li>Idealmente subito dopo ogni lezione</li>
+<p>  <li>Massimo entro la giornata</li>
+<p>  <li>Se si accumulano ritardi, diventa difficile ricordare i dettagli</li>
+</ul>
+
+<h3>Descrizioni concise ma informative</h3>
+<ul>
+<p>  <li>Includere argomenti principali</li>
+<p>  <li>Tipo di attivit� (spiegazione, esercizi, laboratorio, verifica)</li>
+<p>  <li>Eventuali compiti o materiali</li>
+<p>  <li>Lunghezza ideale: 2-4 righe</li>
+</ul>
+
+<h3>Spuntare argomenti con precisione</h3>
+<ul>
+<p>  <li>Spuntare solo argomenti effettivamente trattati</li>
+<p>  <li>Se solo accennato, considerare di non spuntare</li>
+<p>  <li>Livello di dettaglio: spuntare il nodo pi� specifico possibile</li>
+</ul>
+
+<h3>Usare immagini strategicamente</h3>
+<ul>
+<p>  <li>Foto lavagna con schemi importanti</li>
+<p>  <li>Screenshot slide chiave</li>
+<p>  <li>Diagrammi usati per spiegazioni</li>
+<p>  <li>Non serve fotografare tutto, solo materiale di riferimento</li>
+</ul>
+
+<h3>Sincronizzare con registro elettronico</h3>
+<ul>
+<p>  <li>Usare "Copia in clipboard" per trasferimento rapido</li>
+<p>  <li>Adattare il testo alle convenzioni del registro</li>
+<p>  <li>Mantenere coerenza tra i due sistemi</li>
+</ul>
+
+<hr>
+<h2>Troubleshooting</h2>
+
+<h3>Non riesco a creare nuova lezione</h3>
+
+<strong>Problema</strong>: click su "Nuova lezione" da errore
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Verificare che non esista gi� lezione per quella data</li>
+<p>  <li>Cambiare data se necessario</li>
+<p>  <li>Verificare di non essere in modalit� sola lettura</li>
+</ul>
+
+<h3>Gli argomenti non si salvano</h3>
+
+<strong>Problema</strong>: argomenti spuntati non appaiono nella griglia dopo salvataggio
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Verificare di aver fatto click su "Salva lezione" (non solo "Salva albero")</li>
+<p>  <li>Controllare che la lezione sia stata creata (campo "Codice lezione" pieno)</li>
+<p>  <li>Riavviare finestra e verificare</li>
+</ul>
+
+<h3>Le immagini non si vedono</h3>
+
+<strong>Problema</strong>: dopo aver aggiunto immagini, la PictureBox rimane vuota
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Verificare che le immagini siano nel percorso corretto</li>
+<p>  <li>Provare "Cartella immagini" per vedere se i file esistono</li>
+<p>  <li>Formati supportati: .jpg, .png, .bmp, .gif</li>
+<p>  <li>Salvare la lezione dopo aver gestito le immagini</li>
+</ul>
+
+<h3>La finestra si apre in sola lettura</h3>
+
+<strong>Problema</strong>: tutti i pulsanti di modifica sono disabilitati
+
+<strong>Causa</strong>: � gi� aperta un'altra finestra Lezioni per la stessa classe/materia
+
+<strong>Soluzione</strong>:
+<ul>
+<p>  <li>Chiudere altre finestre Lezioni aperte</li>
+<p>  <li>Oppure usare quella esistente</li>
+</ul>
+
+<hr>
+<h2>Integrazione con altre finestre</h2>
+
+<h3>Da finestra principale</h3>
+<p>Pulsante <strong>"Lezioni"</strong> apre questa finestra per classe e materia selezionate.</p>
+
+<h3>Verso finestra Argomenti</h3>
+<p>Modifiche all'albero argomenti in questa finestra si riflettono nella finestra Argomenti standalone.</p>
+
+<h3>Verso finestra Immagini</h3>
+<p>Pulsante <strong>"Gestione immagini"</strong> apre frmImages per gestire in dettaglio le immagini della lezione.</p>
+
+<hr>
+<h2>Limitazioni note</h2>
+
+<ul>
+<p>  <li><strong>Una lezione per data</strong>: non si possono registrare pi� lezioni nello stesso giorno per stessa classe/materia</li>
+<p>  <li><strong>Modifiche argomenti</strong>: possibili ma scomode, meglio usare finestra dedicata</li>
+<p>  <li><strong>Immagini grandi</strong>: possono rallentare il caricamento</li>
+<p>  <li><strong>Sola lettura</strong>: necessaria se si aprono pi� finestre contemporaneamente</li>
+</ul>
+
+<a href="Manuale-Utente-SchoolGrades.md">Pagina principale</a>
+<hr>
+<em>Questa documentazione fa parte del Manuale Utente di SchoolGrades</em>
+
+    
+    <div class="footer">
+        <p>Documentazione generata da SchoolGrades | .NET 10</p>
+        <p>File sorgente: <code>frmLessons-Lezioni.md</code></p>
+        <p>Data generazione: 24/12/2025 17:31</p>
+    </div>
+</body>
+</html>

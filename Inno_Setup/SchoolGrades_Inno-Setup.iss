@@ -76,11 +76,16 @@ Source: "..\DemoData\*"; DestDir: "{userdocs}\SchoolGrades\"; Check: ShouldInsta
 
 ; If no demo, copy empty sqlite database into Documents\SchoolGrades\Data
 Source: "SchoolGrades_EMPTY.sqlite"; DestDir: "{userdocs}\SchoolGrades\Data"; DestName: "SchoolGrades.sqlite";Check: not ShouldInstallDemoData; Flags: ignoreversion recursesubdirs createallsubdirs
+
 ; schgrd.cfg selection: demo vs no-demo - always copy as schgrd.cfg in destination
 Source: "schgrd_DEMO.cfg"; DestDir: "{userdocs}\SchoolGrades\Config"; DestName: "schgrd.cfg"; Check: ShouldInstallDemoData; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "schgrd_NO_DEMO.cfg"; DestDir: "{userdocs}\SchoolGrades\Config"; DestName: "schgrd.cfg"; Check: not ShouldInstallDemoData; Flags: ignoreversion recursesubdirs createallsubdirs
+
 ; Copy application icon into installed Icons folder for shortcuts and uninstaller
 Source: "..\SchoolGrades\Icons\gamon LegoLogo decentrato trasparente 256x256.ico"; DestDir: "{app}\Icons"; Flags: ignoreversion
+
+; HTML Documentation - Copy all HTML files from Manual_IT\HTML to Documents\SchoolGrades\Manual_IT
+Source: "..\Manual_IT\HTML\*"; DestDir: "{userdocs}\SchoolGrades\Manual_IT"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 Name: "{group}\SchoolGrades"; Filename: "{app}\SchoolGrades.exe"; IconFilename: "{app}\Icons\gamon LegoLogo decentrato trasparente 256x256.ico"
@@ -88,10 +93,15 @@ Name: "{userdesktop}\SchoolGrades"; Filename: "{app}\SchoolGrades.exe"; IconFile
 Name: "{commonprograms}\SchoolGrades"; Filename: "{app}\SchoolGrades.exe"; IconFilename: "{app}\Icons\gamon LegoLogo decentrato trasparente 256x256.ico"; Tasks: allusers
 Name: "{commondesktop}\SchoolGrades"; Filename: "{app}\SchoolGrades.exe"; IconFilename: "{app}\Icons\gamon LegoLogo decentrato trasparente 256x256.ico"; Tasks: allusers
 
+; Create shortcut to HTML documentation in Start Menu
+Name: "{group}\Manuale Utente"; Filename: "{userdocs}\SchoolGrades\Manual_IT\index.html"
+Name: "{commonprograms}\SchoolGrades\Manuale Utente"; Filename: "{userdocs}\SchoolGrades\Manual_IT\index.html"; Tasks: allusers
+
 [Run]
 Filename: "{app}\SchoolGrades.exe"; Description: "Run SchoolGrades"; Flags: nowait postinstall skipifsilent
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{app}\Icons\gamon LegoLogo decentrato trasparente 256x256.ico"
 Type: filesandordirs; Name: "{userdocs}\SchoolGrades\Data"
+Type: filesandordirs; Name: "{userdocs}\SchoolGrades\Manual_IT"
 Type: filesandordirs; Name: "{userdocs}\SchoolGrades"

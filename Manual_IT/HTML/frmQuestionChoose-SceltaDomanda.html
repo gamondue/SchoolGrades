@@ -1,0 +1,648 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Documentazione SchoolGrades - frmQuestionChoose-SceltaDomanda">
+    <meta name="author" content="SchoolGrades">
+    <title>frmQuestionChoose-SceltaDomanda - SchoolGrades</title>
+    <style>
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    max-width: 1000px; 
+    margin: 40px auto; 
+    padding: 20px 40px; 
+    line-height: 1.7;
+    background-color: #f8f9fa;
+    color: #212529;
+}
+h1 { 
+    color: #1a4d2e; 
+    border-bottom: 3px solid #4f772d; 
+    padding-bottom: 15px; 
+    margin-top: 40px;
+    font-size: 2.5em;
+}
+h2 { 
+    color: #2d5016; 
+    margin-top: 35px; 
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #90a955;
+    font-size: 1.8em;
+}
+h3 { 
+    color: #3d6628; 
+    margin-top: 25px;
+    font-size: 1.4em;
+}
+h4 {
+    color: #4a7c32;
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+code { 
+    background-color: #e9ecef; 
+    padding: 3px 8px; 
+    border-radius: 4px; 
+    font-family: 'Consolas', 'Monaco', monospace;
+    color: #d63384;
+    font-size: 0.9em;
+}
+pre { 
+    background-color: #2d2d2d; 
+    color: #f8f8f2;
+    padding: 20px; 
+    border-radius: 6px; 
+    overflow-x: auto;
+    border-left: 4px solid #4f772d;
+    margin: 20px 0;
+}
+pre code {
+    background-color: transparent;
+    color: #f8f8f2;
+    padding: 0;
+}
+a {
+    color: #4f772d;
+    text-decoration: none;
+    border-bottom: 1px dotted #4f772d;
+}
+a:hover {
+    color: #2d5016;
+    border-bottom: 1px solid #2d5016;
+}
+img { 
+    max-width: 100%; 
+    height: auto; 
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin: 20px 0;
+}
+table { 
+    border-collapse: collapse; 
+    width: 100%; 
+    margin: 25px 0;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+th, td { 
+    border: 1px solid #dee2e6; 
+    padding: 12px 15px; 
+    text-align: left; 
+}
+th { 
+    background-color: #4f772d; 
+    color: white;
+    font-weight: 600;
+}
+tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+tr:hover {
+    background-color: #e9ecef;
+}
+blockquote {
+    border-left: 4px solid #4f772d;
+    margin: 20px 0;
+    padding: 10px 20px;
+    background-color: #f1f8f4;
+    font-style: italic;
+}
+ul, ol {
+    margin: 15px 0;
+    padding-left: 30px;
+}
+li {
+    margin: 8px 0;
+}
+strong {
+    color: #1a4d2e;
+    font-weight: 600;
+}
+em {
+    color: #4a7c32;
+}
+hr {
+    border: none;
+    border-top: 2px solid #90a955;
+    margin: 40px 0;
+}
+.header-nav {
+    background-color: #4f772d;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+.footer {
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 2px solid #dee2e6;
+    text-align: center;
+    color: #6c757d;
+    font-size: 0.9em;
+}
+    </style>
+</head>
+<body>
+    <div class="header-nav">
+        <h3 style="margin: 0; color: white;">?? SchoolGrades - Documentazione</h3>
+    </div>
+    
+<h1>Finestra Scelta Domanda - Manuale Utente</h1>
+
+<h2>Introduzione</h2>
+
+<p>La finestra <strong>Scelta Domanda</strong> (frmQuestionChoose) permette di cercare, filtrare e selezionare domande da porre agli studenti. Questa � una delle funzionalit� pi� potenti di SchoolGrades per la gestione delle interrogazioni e verifiche.</p>
+
+<p>**ATTENZIONE: QUESTO FILE E' PRELIMINARE E NON REVISIONATO.  </p>
+<p>POTREBBE CONTENERE INFORMAZIONI NON ESATTE**  </p>
+<p>Comunica con un ticket su GiHub eventuali errori riscontrati.</p>
+
+<h2>Accesso alla finestra</h2>
+
+<p>Per aprire la finestra Scelta Domanda:</p>
+
+<ol>
+<p>  <li>Dalla finestra principale, fare click sul pulsante <strong>"Scelta domanda"</strong></li>
+<p>  <li>Oppure fare <strong>doppio click</strong> sul campo di testo della domanda corrente nella finestra principale</li>
+</ol>
+
+<strong>Contesto</strong>: la finestra si apre nel contesto della materia e classe correntemente selezionate nella finestra principale.
+
+<hr>
+<h2>Interfaccia della finestra</h2>
+
+<h3>Area superiore: Filtri di ricerca</h3>
+
+<p>La parte superiore contiene diversi controlli per filtrare le domande:</p>
+
+<h4>Materia</h4>
+<p>Menu a tendina per selezionare la materia. </p>
+<ul>
+<p>  <li>Se gi� selezionata nella finestra principale, viene preimpostata</li>
+<p>  <li>Il colore di sfondo della finestra cambia in base alla materia selezionata (come nella finestra principale)</li>
+</ul>
+
+<h4>Tipo di domanda</h4>
+<p>Menu a tendina per filtrare per tipo:</p>
+<ul>
+<p>  <li>Vero/Falso</li>
+<p>  <li>Scelta multipla</li>
+<p>  <li>Risposta aperta</li>
+<p>  <li>Esercizi</li>
+<p>  <li>Altri tipi personalizzati</li>
+</ul>
+
+<strong>Lasciare vuoto per visualizzare tutti i tipi di domanda</strong>
+
+<h4>Ricerca testuale</h4>
+<p>Campo <strong>"Testo da cercare"</strong> permette di ricercare parole chiave nel testo delle domande.</p>
+
+<strong>Funzionamento</strong>:
+<ul>
+<p>  <li>Digitare almeno 4 caratteri per attivare la ricerca automatica</li>
+<p>  <li>La ricerca avviene mentre si digita (dopo il 4� carattere)</li>
+<p>  <li>Cercare nel testo della domanda</li>
+</ul>
+
+<strong>Suggerimento</strong>: usare parole chiave significative come "elettrone", "Rinascimento", "equazione", ecc.
+
+<h3>Area centrale: Argomenti</h3>
+
+<h4>Argomento corrente</h4>
+<p>Due campi visualizzano l'argomento selezionato:</p>
+<ul>
+<p>  <li><strong>Testo argomento</strong>: mostra il percorso completo nell'albero degli argomenti (es. "Matematica > Algebra > Equazioni lineari")</li>
+<p>  <li><strong>Codice argomento</strong>: mostra il codice numerico identificativo</li>
+</ul>
+
+<h4>Pulsanti di gestione argomenti</h4>
+
+<strong>"Scegli argomento"</strong>
+<ul>
+<p>  <li>Apre la finestra dell'albero degli argomenti per selezionarne uno</li>
+<p>  <li>Evidenzia gli argomenti gi� svolti con la classe</li>
+</ul>
+
+<strong>"Argomento per periodo"</strong>
+<ul>
+<p>  <li>Permette di scegliere un argomento tra quelli effettivamente svolti dalla classe in un dato periodo</li>
+<p>  <li>Utile per fare domande su argomenti recentemente spiegati</li>
+</ul>
+
+<strong>"Nessun argomento"</strong>
+<ul>
+<p>  <li>Rimuove il filtro per argomento</li>
+<p>  <li>Visualizza tutte le domande, anche quelle senza argomento associato</li>
+</ul>
+
+<h4>Opzioni argomenti</h4>
+
+<p>Due radio button permettono di scegliere l'ampiezza della ricerca:</p>
+
+<strong>"Un argomento"</strong>
+<ul>
+<p>  <li>Cerca domande associate esattamente all'argomento selezionato</li>
+<p>  <li>Ricerca ristretta</li>
+</ul>
+
+<strong>"Molti argomenti"</strong>
+<ul>
+<p>  <li>Cerca domande nell'argomento selezionato E in tutti i suoi sottoargomenti</li>
+<p>  <li>Ricerca pi� ampia, include tutta la ramificazione dell'albero</li>
+</ul>
+
+<strong>Esempio</strong>: selezionando "Algebra" con "Molti argomenti" si ottengono domande su algebra, equazioni, disequazioni, sistemi, ecc.
+
+<h3>Area Tag</h3>
+
+<h4>Lista tag selezionati</h4>
+<p>Mostra i tag attualmente applicati come filtro.</p>
+
+<strong>Cosa sono i tag</strong>: etichette che categorizzano le domande trasversalmente agli argomenti (es. "difficile", "teoria", "esercizio", "fondamentale", ecc.)
+
+<h4>Pulsanti tag</h4>
+
+<strong>"Aggiungi tag"</strong>
+<ul>
+<p>  <li>Apre la finestra di selezione tag</li>
+<p>  <li>Permette di aggiungere un tag alla lista dei filtri</li>
+<p>  <li>I tag si accumulano: pi� tag = ricerca pi� specifica</li>
+</ul>
+
+<strong>"Rimuovi tag"</strong>
+<ul>
+<p>  <li>Rimuove il tag selezionato dalla lista</li>
+<p>  <li>Riattiva le domande che erano filtrate da quel tag</li>
+</ul>
+
+<h4>Modalit� combinazione tag</h4>
+
+<p>Due radio button controllano come i tag vengono combinati:</p>
+
+<strong>"Or"</strong> (predefinito)
+<ul>
+<p>  <li>Mostra domande che hanno ALMENO UNO dei tag selezionati</li>
+<p>  <li>Ricerca pi� ampia</li>
+<p>  <li><strong>Esempio</strong>: con tag "teoria" OR "fondamentale" si ottengono tutte le domande teoriche PI� tutte quelle fondamentali</li>
+</ul>
+
+<strong>"And"</strong>
+<ul>
+<p>  <li>Mostra solo domande che hanno TUTTI i tag selezionati</li>
+<p>  <li>Ricerca pi� ristretta</li>
+<p>  <li><strong>Esempio</strong>: con tag "teoria" AND "fondamentale" si ottengono solo le domande che sono sia teoriche sia fondamentali</li>
+</ul>
+
+<h3>Area periodo temporale</h3>
+
+<h4>Periodo scolastico</h4>
+<p>Menu a tendina con periodi predefiniti:</p>
+<ul>
+<p>  <li>Quadrimestri (1�, 2�)</li>
+<p>  <li>Trimestri (1�, 2�, 3�)</li>
+<p>  <li>Ultimo mese</li>
+<p>  <li>Ultima settimana</li>
+<p>  <li>Anno intero</li>
+</ul>
+
+<strong>Funzione</strong>: filtra le domande in base a quando sono state fatte alla classe
+
+<h4>Date personalizzate</h4>
+<p>Due date picker permettono di specificare:</p>
+<ul>
+<p>  <li><strong>Data inizio periodo</strong></li>
+<p>  <li><strong>Data fine periodo</strong></li>
+</ul>
+
+<strong>Nota</strong>: selezionando un periodo dal menu, le date si aggiornano automaticamente. � possibile poi modificarle manualmente.
+
+<hr>
+<h2>Griglia delle domande</h2>
+
+<p>La parte centrale/inferiore mostra la griglia con le domande che soddisfano i criteri di filtro.</p>
+
+<h3>Colonne visualizzate</h3>
+
+<ul>
+<p>  <li><strong>IdQuestion</strong>: codice numerico della domanda</li>
+<p>  <li><strong>Text</strong>: testo della domanda</li>
+<p>  <li><strong>IdSchoolSubject</strong>: codice materia</li>
+<p>  <li><strong>IdQuestionType</strong>: tipo di domanda</li>
+<p>  <li><strong>Weight</strong>: peso della domanda (importanza)</li>
+<p>  <li><strong>Duration</strong>: durata prevista in minuti</li>
+<p>  <li><strong>Difficulty</strong>: difficolt� (scala numerica)</li>
+<p>  <li><strong>Image</strong>: nome eventuale immagine associata</li>
+<p>  <li><strong>IdTopic</strong>: codice argomento associato</li>
+</ul>
+
+<h3>Interazione con la griglia</h3>
+
+<strong>Click singolo</strong>: seleziona una riga
+
+<strong>Doppio click su una domanda</strong>: apre la finestra di modifica della domanda selezionata, permettendo di:
+<ul>
+<p>  <li>Visualizzare il testo completo</li>
+<p>  <li>Vedere l'argomento associato</li>
+<p>  <li>Modificare la domanda se necessario</li>
+<p>  <li>Gestire le risposte multiple se presenti</li>
+</ul>
+
+<strong>Nota</strong>: dopo la modifica, la griglia si aggiorna automaticamente
+
+<hr>
+<h2>Pulsanti di azione principali</h2>
+
+<h3>Pulsante "Scegli"</h3>
+<ul>
+<p>  <li>Seleziona la domanda attualmente evidenziata nella griglia</li>
+<p>  <li>Chiude la finestra</li>
+<p>  <li>La domanda scelta viene impostata come domanda corrente nella finestra principale</li>
+</ul>
+
+<strong>Scorciatoia</strong>: fare doppio click su una domanda per modificarla, oppure selezionarla e premere "Scegli"
+
+<h3>Pulsante "Casuale"</h3>
+<ul>
+<p>  <li>Estrae casualmente una domanda tra quelle visualizzate nella griglia</li>
+<p>  <li>Utile per interrogazioni imprevedibili</li>
+<p>  <li>La domanda estratta viene impostata come domanda corrente</li>
+<p>  <li>Il programma cerca di evitare domande gi� fatte nella stessa lezione</li>
+</ul>
+
+<strong>Algoritmo intelligente</strong>: se ci sono domande gi� poste agli studenti presenti, tenta di estrarne una diversa (con un limite di tentativi)
+
+<h3>Pulsante "Aggiungi domanda"</h3>
+<ul>
+<p>  <li>Apre la finestra per creare una nuova domanda</li>
+<p>  <li>La domanda viene precompilata con:</li>
+<p>  <li>Materia corrente</li>
+<p>  <li>Tipo di domanda selezionato nel filtro</li>
+<p>  <li>Argomento corrente (se selezionato)</li>
+<p>  <li>Dopo la creazione, la nuova domanda appare nella griglia</li>
+</ul>
+
+<h3>Pulsante "Copia domanda"</h3>
+<strong>Nota</strong>: Funzionalit� non ancora implementata completamente
+
+<h3>Pulsante "Cerca"</h3>
+<ul>
+<p>  <li>Ricarica manualmente la griglia applicando tutti i filtri correnti</li>
+<p>  <li>Normalmente non necessario (la ricerca � automatica), ma utile se si sospetta che la griglia non sia aggiornata</li>
+</ul>
+
+<h3>Pulsante "Domande fatte"</h3>
+<ul>
+<p>  <li>Cambia la visualizzazione per mostrare le domande GI� FATTE alla classe</li>
+<p>  <li>Opposto del comportamento normale (che mostra domande NON ancora fatte)</li>
+<p>  <li>Utile per:</li>
+<p>  <li>Verificare cosa � gi� stato chiesto</li>
+<p>  <li>Rivedere domande precedenti</li>
+<p>  <li>Evitare ripetizioni</li>
+</ul>
+
+<h3>Pulsante "Nodi al pettine"</h3>
+<ul>
+<p>  <li>Mostra le domande su cui lo studente corrente ha avuto difficolt� o voti bassi</li>
+<p>  <li>Permette di tornare su argomenti problematici</li>
+<p>  <li>Richiede che sia selezionato uno studente specifico</li>
+</ul>
+
+<strong>Quando usarlo</strong>: per interrogazioni mirate di recupero o per verificare se le lacune sono state colmate
+
+<hr>
+<h2>Indicatore tempo lezione</h2>
+
+<p>In basso a sinistra della finestra, una piccola area colorata <strong>"Tempo lezione"</strong> replica l'indicatore della finestra principale:</p>
+<ul>
+<p>  <li>Cambia colore dal verde al rosso man mano che la lezione procede</li>
+<p>  <li>Permette di tenere d'occhio il tempo anche quando si cerca una domanda</li>
+</ul>
+
+<strong>Nota</strong>: l'indicatore � attivo solo se l'orologio lezione � abilitato nella finestra principale
+
+<hr>
+<h2>Flusso di lavoro tipico</h2>
+
+<h3>Scenario 1: Interrogazione programmata su argomento specifico</h3>
+
+<ol>
+<p>  <li>Aprire la finestra "Scelta domanda"</li>
+<p>  <li>Verificare che la materia sia corretta</li>
+<p>  <li>Fare click su <strong>"Scegli argomento"</strong></li>
+<p>  <li>Navigare nell'albero e selezionare l'argomento (es. "Equazioni di secondo grado")</li>
+<p>  <li>Selezionare <strong>"Molti argomenti"</strong> per includere anche i sottotemi</li>
+<p>  <li>La griglia si popola con le domande pertinenti</li>
+<p>  <li>Scorrere la griglia e fare click su una domanda interessante</li>
+<p>  <li>Fare click su <strong>"Scegli"</strong> per confermare</li>
+<p>  <li>La finestra si chiude e la domanda � pronta per essere posta</li>
+</ul>
+
+<h3>Scenario 2: Interrogazione casuale sul programma recente</h3>
+
+<ol>
+<p>  <li>Aprire la finestra "Scelta domanda"</li>
+<p>  <li>Selezionare dal menu periodo <strong>"Ultimo mese"</strong></li>
+<p>  <li>Fare click su <strong>"Nessun argomento"</strong> (per non limitare ad un solo argomento)</li>
+<p>  <li>La griglia mostra tutte le domande sugli argomenti svolti nell'ultimo mese</li>
+<p>  <li>Fare click su <strong>"Casuale"</strong></li>
+<p>  <li>Il programma estrae una domanda a sorpresa</li>
+<p>  <li>La finestra si chiude con la domanda estratta</li>
+</ul>
+
+<h3>Scenario 3: Recupero su difficolt� dello studente</h3>
+
+<ol>
+<p>  <li>Selezionare uno studente dalla finestra principale</li>
+<p>  <li>Aprire la finestra "Scelta domanda"</li>
+<p>  <li>Fare click su <strong>"Nodi al pettine"</strong></li>
+<p>  <li>Il programma mostra domande su argomenti dove lo studente ha avuto problemi</li>
+<p>  <li>Selezionare una domanda per verificare il recupero</li>
+<p>  <li>Fare click su <strong>"Scegli"</strong></li>
+</ul>
+
+<h3>Scenario 4: Creare domanda al volo durante lezione</h3>
+
+<ol>
+<p>  <li>Aprire la finestra "Scelta domanda"</li>
+<p>  <li>Selezionare <strong>"Aggiungi domanda"</strong></li>
+<p>  <li>Compilare il testo della domanda nella finestra che si apre</li>
+<p>  <li>Selezionare tipo, difficolt�, durata</li>
+<p>  <li>Associare l'argomento se necessario</li>
+<p>  <li>Salvare</li>
+<p>  <li>La domanda appare nella griglia e pu� essere subito scelta</li>
+</ul>
+
+<hr>
+<h2>Suggerimenti e best practices</h2>
+
+<h3>Usare i filtri progressivamente</h3>
+
+<p>Non applicare troppi filtri contemporaneamente:</p>
+<ol>
+<p>  <li>Iniziare con la materia</li>
+<p>  <li>Aggiungere l'argomento</li>
+<p>  <li>Eventualmente raffinare con tag o tipo</li>
+<p>  <li>Se la griglia � vuota, rimuovere filtri uno alla volta</li>
+</ul>
+
+<h3>Sfruttare i tag in modo intelligente</h3>
+
+<p>Creare un sistema di tag coerente:</p>
+<ul>
+<p>  <li><strong>Difficolt�</strong>: "facile", "media", "difficile", "avanzata"</li>
+<p>  <li><strong>Tipo cognitivo</strong>: "conoscenza", "comprensione", "applicazione", "analisi"</li>
+<p>  <li><strong>Modalit�</strong>: "teoria", "esercizio", "problema"</li>
+<p>  <li><strong>Importanza</strong>: "fondamentale", "complementare", "approfondimento"</li>
+</ul>
+
+<h3>Aggiornare le domande</h3>
+
+<p>Quando si visualizzano le domande con doppio click:</p>
+<ul>
+<p>  <li>Correggere errori di battitura</li>
+<p>  <li>Aggiornare riferimenti obsoleti</li>
+<p>  <li>Aggiustare difficolt� o durata in base all'esperienza</li>
+<p>  <li>Aggiungere note o commenti</li>
+</ul>
+
+<h3>Bilanciare casualit� e controllo</h3>
+
+<ul>
+<p>  <li>Usare <strong>"Casuale"</strong> per variet� e imprevedibilit�</li>
+<p>  <li>Usare <strong>"Scegli"</strong> (selezione manuale) per controllo preciso</li>
+<p>  <li>Alternare le due modalit� per mantenere alta l'attenzione degli studenti</li>
+</ul>
+
+<h3>Evitare ripetizioni</h3>
+
+<ul>
+<p>  <li>Controllare periodicamente con <strong>"Domande fatte"</strong> quali domande sono state gi� poste</li>
+<p>  <li>Usare l'estrazione casuale che tenta automaticamente di evitare ripetizioni nella stessa lezione</li>
+<p>  <li>Creare nuove domande regolarmente per ampliare il database</li>
+</ul>
+
+<hr>
+<h2>Troubleshooting</h2>
+
+<h3>La griglia � vuota</h3>
+
+<strong>Problema</strong>: nessuna domanda appare nella griglia
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Verificare che esistano domande per la materia selezionata</li>
+<p>  <li>Rimuovere i filtri troppo restrittivi (argomento, tag, tipo)</li>
+<p>  <li>Fare click su <strong>"Nessun argomento"</strong> per vedere tutte le domande</li>
+<p>  <li>Controllare il periodo: se troppo ristretto, potrebbe escludere tutto</li>
+<p>  <li>Usare <strong>"Domande fatte"</strong> per vedere se le domande ci sono ma sono gi� state usate</li>
+</ul>
+
+<h3>Il pulsante "Casuale" non funziona</h3>
+
+<strong>Problema</strong>: cliccando "Casuale" non succede nulla o si sente solo un beep
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Verificare che la griglia contenga almeno una domanda</li>
+<p>  <li>Se la griglia ha domande ma sono tutte gi� state poste nella lezione corrente, il programma non trova domande "nuove" dopo vari tentativi</li>
+</ul>
+
+<h3>Le domande non sembrano filtrare correttamente per argomento</h3>
+
+<strong>Problema</strong>: selezionando un argomento appaiono domande che sembrano non pertinenti
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Verificare se si sta usando <strong>"Molti argomenti"</strong>: in tal caso sono inclusi tutti i sottoargomenti</li>
+<p>  <li>Controllare che le domande abbiano effettivamente l'argomento associato (alcune domande potrebbero non avere argomento)</li>
+<p>  <li>Alcune domande potrebbero essere trasversali a pi� argomenti</li>
+</ul>
+
+<h3>Modifiche alle domande non si salvano</h3>
+
+<strong>Problema</strong>: dopo aver modificato una domanda con doppio click, le modifiche non persistono
+
+<strong>Soluzioni</strong>:
+<ul>
+<p>  <li>Assicurarsi di aver premuto il pulsante "Salva" nella finestra di modifica domanda</li>
+<p>  <li>Verificare i permessi di scrittura sul database</li>
+<p>  <li>Controllare che il database non sia aperto in sola lettura</li>
+</ul>
+
+<hr>
+<h2>Integrazione con altre finestre</h2>
+
+<h3>Con finestra Argomenti</h3>
+
+<p>La finestra "Scelta domanda" si integra strettamente con la finestra <strong>"Argomenti"</strong>:</p>
+<ul>
+<p>  <li>Da "Scelta domanda", il pulsante <strong>"Scegli argomento"</strong> apre la finestra Argomenti in modalit� selezione</li>
+<p>  <li>Nella finestra Argomenti, si pu� usare il pulsante <strong>"Domande"</strong> per tornare a "Scelta domanda" con l'argomento preselezionato</li>
+</ul>
+
+<h3>Con finestra Valutazione</h3>
+
+<p>Dopo aver scelto una domanda:</p>
+<ul>
+<p>  <li>La domanda diventa la domanda corrente nella finestra principale</li>
+<p>  <li>Facendo click su <strong>"Valutaz."</strong> nella finestra principale, la finestra di valutazione si apre gi� con la domanda selezionata</li>
+<p>  <li>Lo studente estratto vede automaticamente la domanda scelta</li>
+</ul>
+
+<h3>Con finestra Nodi al pettine</h3>
+
+<p>Il pulsante <strong>"Nodi al pettine"</strong>:</p>
+<ul>
+<p>  <li>Apre una finestra specializzata che mostra domande problematiche per lo studente</li>
+<p>  <li>Dalla finestra "Nodi al pettine" si pu� scegliere una domanda che torna a "Scelta domanda"</li>
+<p>  <li>Permette interrogazioni mirate di recupero</li>
+</ul>
+
+<hr>
+<h2>Casi d'uso avanzati</h2>
+
+<h3>Interrogazione progressiva per difficolt�</h3>
+
+<ol>
+<p>  <li>Iniziare con domande facili: applicare tag "facile" o impostare difficolt� bassa</li>
+<p>  <li>Scegliere 2-3 domande facili per lo studente</li>
+<p>  <li>Se lo studente risponde bene, passare a difficolt� media: cambiare filtro</li>
+<p>  <li>Continuare ad aumentare la difficolt� finch� lo studente risponde correttamente</li>
+<p>  <li>Registrare il livello massimo raggiunto come indicatore di preparazione</li>
+</ul>
+
+<h3>Interrogazione tematica trasversale</h3>
+
+<ol>
+<p>  <li>Usare i tag invece degli argomenti per creare interrogazioni tematiche</li>
+<p>  <li><strong>Esempio</strong>: tag "Rinascimento" pu� includere domande su arte, letteratura, storia, filosofia</li>
+<p>  <li>Applicare il tag e selezionare "Or" se si vuole ampiezza</li>
+<p>  <li>Permette interrogazioni interdisciplinari senza vincoli di argomenti rigidi</li>
+</ul>
+
+<h3>Simulazione verifica orale</h3>
+
+<ol>
+<p>  <li>Estrarre 5-10 domande casuali filtrate per argomenti del periodo</li>
+<p>  <li>Copiarle in un documento (usando "Crea file" o copia-incolla dal database)</li>
+<p>  <li>Distribuire le domande agli studenti in anticipo come preparazione</li>
+<p>  <li>Durante le interrogazioni, scegliere da quelle 5-10 domande</li>
+<p>  <li>Gli studenti sanno l'ambito ma non la domanda specifica</li>
+</ul>
+
+<a href="Manuale-Utente-SchoolGrades.md">Pagina principale</a>
+<hr>
+<em>Questa documentazione fa parte del Manuale Utente di SchoolGrades</em>
+
+    
+    <div class="footer">
+        <p>Documentazione generata da SchoolGrades | .NET 10</p>
+        <p>File sorgente: <code>frmQuestionChoose-SceltaDomanda.md</code></p>
+        <p>Data generazione: 24/12/2025 17:31</p>
+    </div>
+</body>
+</html>

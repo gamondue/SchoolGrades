@@ -6,7 +6,16 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
 	<DefineConstants>SQLITE</DefineConstants>
-	<Version>0.0.0.0</Version>
+	<!-- Version configuration - change these numbers when you want to update the version -->
+	<VersionMajor>0</VersionMajor>
+	<VersionMinor>9</VersionMinor>
+	<!-- Calculate version with build date at compile time -->
+	<DaysSince2000>$([System.DateTime]::Now.Subtract($([System.DateTime]::new(2000,1,1))).Days)</DaysSince2000>
+	<SecondsSinceMidnight>$([System.Convert]::ToInt32($([MSBuild]::Divide($([System.DateTime]::Now.TimeOfDay.TotalSeconds), 2))))</SecondsSinceMidnight>
+	<Version>$(VersionMajor).$(VersionMinor).$(DaysSince2000).$(SecondsSinceMidnight)</Version>
+	<AssemblyVersion>$(Version)</AssemblyVersion>
+	<FileVersion>$(Version)</FileVersion>
+	<Deterministic>false</Deterministic>
 	<AssemblyName>SchoolGradesWpf</AssemblyName>
 	<ApplicationIcon>gamon LegoLogo decentrato trasparente 256x256.ico</ApplicationIcon>
 	<Authors>Ing. Gabriele Monti - Forlì - Italia</Authors>

@@ -360,6 +360,7 @@ Apre finestra per creare una nuova risposta per la domanda.
 - **Modifica risposte**: bisogna riaprire la finestra Answer per ogni risposta
 - **Ordinamento risposte**: non c'è controllo sull'ordine di visualizzazione delle risposte
 
+[Pagina principale](Manuale-Utente-SchoolGrades.md)
 ---
 
 *Questa documentazione fa parte del Manuale Utente di SchoolGrades*
