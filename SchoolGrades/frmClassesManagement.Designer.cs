@@ -56,13 +56,13 @@
             DgwStudents = new System.Windows.Forms.DataGridView();
             TxtFileOfStudentsImport = new System.Windows.Forms.TextBox();
             TxtImagesOriginFolder = new System.Windows.Forms.TextBox();
+            btnPeriodsManagement = new System.Windows.Forms.Button();
             TxtOfficialSchoolAbbreviation = new System.Windows.Forms.TextBox();
             label4 = new System.Windows.Forms.Label();
             folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             openFileDialog = new System.Windows.Forms.OpenFileDialog();
             label7 = new System.Windows.Forms.Label();
             CmbSchoolYear = new System.Windows.Forms.ComboBox();
-            btnNewYear = new System.Windows.Forms.Button();
             label1 = new System.Windows.Forms.Label();
             CmbClasses = new System.Windows.Forms.ComboBox();
             btnStudentNew = new System.Windows.Forms.Button();
@@ -188,7 +188,7 @@
             btnEndingPeriod.BackColor = System.Drawing.Color.Transparent;
             btnEndingPeriod.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
             btnEndingPeriod.ForeColor = System.Drawing.Color.DarkBlue;
-            btnEndingPeriod.Location = new System.Drawing.Point(926, 182);
+            btnEndingPeriod.Location = new System.Drawing.Point(912, 182);
             btnEndingPeriod.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             btnEndingPeriod.Name = "btnEndingPeriod";
             btnEndingPeriod.Size = new System.Drawing.Size(81, 62);
@@ -231,7 +231,7 @@
             btnImportStudentsOfOneClass.BackColor = System.Drawing.Color.Transparent;
             btnImportStudentsOfOneClass.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
             btnImportStudentsOfOneClass.ForeColor = System.Drawing.Color.DarkBlue;
-            btnImportStudentsOfOneClass.Location = new System.Drawing.Point(1008, 16);
+            btnImportStudentsOfOneClass.Location = new System.Drawing.Point(876, 16);
             btnImportStudentsOfOneClass.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             btnImportStudentsOfOneClass.Name = "btnImportStudentsOfOneClass";
             btnImportStudentsOfOneClass.Size = new System.Drawing.Size(81, 62);
@@ -262,7 +262,7 @@
             btnPutNumbers.BackColor = System.Drawing.Color.Transparent;
             btnPutNumbers.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnPutNumbers.ForeColor = System.Drawing.Color.DarkBlue;
-            btnPutNumbers.Location = new System.Drawing.Point(759, 182);
+            btnPutNumbers.Location = new System.Drawing.Point(748, 182);
             btnPutNumbers.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             btnPutNumbers.Name = "btnPutNumbers";
             btnPutNumbers.Size = new System.Drawing.Size(81, 62);
@@ -277,7 +277,7 @@
             btnClassErase.BackColor = System.Drawing.Color.Transparent;
             btnClassErase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             btnClassErase.ForeColor = System.Drawing.Color.DarkBlue;
-            btnClassErase.Location = new System.Drawing.Point(841, 182);
+            btnClassErase.Location = new System.Drawing.Point(830, 182);
             btnClassErase.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             btnClassErase.Name = "btnClassErase";
             btnClassErase.Size = new System.Drawing.Size(81, 62);
@@ -331,10 +331,10 @@
             btnImportStudentsOfSomeClasses.BackColor = System.Drawing.Color.Transparent;
             btnImportStudentsOfSomeClasses.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
             btnImportStudentsOfSomeClasses.ForeColor = System.Drawing.Color.DarkBlue;
-            btnImportStudentsOfSomeClasses.Location = new System.Drawing.Point(999, 27);
+            btnImportStudentsOfSomeClasses.Location = new System.Drawing.Point(998, 18);
             btnImportStudentsOfSomeClasses.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             btnImportStudentsOfSomeClasses.Name = "btnImportStudentsOfSomeClasses";
-            btnImportStudentsOfSomeClasses.Size = new System.Drawing.Size(81, 62);
+            btnImportStudentsOfSomeClasses.Size = new System.Drawing.Size(91, 62);
             btnImportStudentsOfSomeClasses.TabIndex = 99;
             btnImportStudentsOfSomeClasses.Text = "Importa diverse classi";
             toolTip1.SetToolTip(btnImportStudentsOfSomeClasses, "Importa nuova classe da file di testo, con il nome ora indicato  in \"Sigla classe\"");
@@ -347,13 +347,13 @@
             btnCreateNewClass.BackColor = System.Drawing.Color.Transparent;
             btnCreateNewClass.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             btnCreateNewClass.ForeColor = System.Drawing.Color.DarkBlue;
-            btnCreateNewClass.Location = new System.Drawing.Point(926, 16);
+            btnCreateNewClass.Location = new System.Drawing.Point(794, 16);
             btnCreateNewClass.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             btnCreateNewClass.Name = "btnCreateNewClass";
             btnCreateNewClass.Size = new System.Drawing.Size(81, 62);
             btnCreateNewClass.TabIndex = 163;
             btnCreateNewClass.Text = "Crea nuova classe";
-            toolTip1.SetToolTip(btnCreateNewClass, "Crea nuova classe senza studenti");
+            toolTip1.SetToolTip(btnCreateNewClass, "Crea nuova classe senza studenti in questo anno");
             btnCreateNewClass.UseVisualStyleBackColor = false;
             btnCreateNewClass.Click += btnCreateNewClass_Click;
             // 
@@ -460,6 +460,22 @@
             TxtImagesOriginFolder.TabIndex = 5;
             toolTip1.SetToolTip(TxtImagesOriginFolder, "Cartella dalla quale importare automaticamente le fotografie degli studenti. Nome del file come come da immagine di esempio.");
             // 
+            // btnPeriodsManagement
+            // 
+            btnPeriodsManagement.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnPeriodsManagement.BackColor = System.Drawing.Color.Transparent;
+            btnPeriodsManagement.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnPeriodsManagement.ForeColor = System.Drawing.Color.DarkBlue;
+            btnPeriodsManagement.Location = new System.Drawing.Point(989, 30);
+            btnPeriodsManagement.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            btnPeriodsManagement.Name = "btnPeriodsManagement";
+            btnPeriodsManagement.Size = new System.Drawing.Size(91, 62);
+            btnPeriodsManagement.TabIndex = 174;
+            btnPeriodsManagement.Text = "Gestisci anni scolastici";
+            toolTip1.SetToolTip(btnPeriodsManagement, "Gestisci i periodi scolastici dell'anno corrente");
+            btnPeriodsManagement.UseVisualStyleBackColor = false;
+            btnPeriodsManagement.Click += btnPeriodsManagement_Click;
+            // 
             // TxtOfficialSchoolAbbreviation
             // 
             TxtOfficialSchoolAbbreviation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
@@ -505,21 +521,6 @@
             CmbSchoolYear.Size = new System.Drawing.Size(89, 25);
             CmbSchoolYear.TabIndex = 1;
             CmbSchoolYear.SelectedIndexChanged += CmbSchoolYear_SelectedIndexChanged;
-            // 
-            // btnNewYear
-            // 
-            btnNewYear.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnNewYear.BackColor = System.Drawing.Color.Transparent;
-            btnNewYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            btnNewYear.ForeColor = System.Drawing.Color.DarkBlue;
-            btnNewYear.Location = new System.Drawing.Point(1008, 182);
-            btnNewYear.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            btnNewYear.Name = "btnNewYear";
-            btnNewYear.Size = new System.Drawing.Size(81, 62);
-            btnNewYear.TabIndex = 15;
-            btnNewYear.Text = "Nuovo anno";
-            btnNewYear.UseVisualStyleBackColor = false;
-            btnNewYear.Click += btnNewYear_Click;
             // 
             // label1
             // 
@@ -597,7 +598,7 @@
             // groupBox1
             // 
             groupBox1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            groupBox1.Controls.Add(btnImportStudentsOfSomeClasses);
+            groupBox1.Controls.Add(btnPeriodsManagement);
             groupBox1.Controls.Add(btnFileChoose);
             groupBox1.Controls.Add(rdbChooseStudentsPhotoWhileImporting);
             groupBox1.Controls.Add(TxtFileOfStudentsImport);
@@ -615,6 +616,7 @@
             groupBox1.TabIndex = 92;
             groupBox1.TabStop = false;
             groupBox1.Text = "Importazione classi da file ";
+            groupBox1.Enter += groupBox1_Enter;
             // 
             // btnFileChoose
             // 
@@ -697,7 +699,7 @@
             // picStudent
             // 
             picStudent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            picStudent.Location = new System.Drawing.Point(271, 182);
+            picStudent.Location = new System.Drawing.Point(272, 182);
             picStudent.Name = "picStudent";
             picStudent.Size = new System.Drawing.Size(62, 62);
             picStudent.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -768,6 +770,7 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.PowderBlue;
             ClientSize = new System.Drawing.Size(1096, 699);
+            Controls.Add(btnImportStudentsOfSomeClasses);
             Controls.Add(btnMosaic);
             Controls.Add(btnChoseAmogPastPhotos);
             Controls.Add(btnCreateNewClass);
@@ -801,7 +804,6 @@
             Controls.Add(DgwClass);
             Controls.Add(label7);
             Controls.Add(CmbSchoolYear);
-            Controls.Add(btnNewYear);
             Controls.Add(TxtOfficialSchoolAbbreviation);
             Controls.Add(label4);
             Controls.Add(label2);
@@ -836,7 +838,6 @@
         private System.Windows.Forms.Button btnFileChoose;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox CmbSchoolYear;
-        private System.Windows.Forms.Button btnNewYear;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView DgwClass;
         private System.Windows.Forms.DataGridView DgwStudents;
@@ -884,6 +885,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnChoseAmogPastPhotos;
         private System.Windows.Forms.Button btnMosaic;
+        private System.Windows.Forms.Button btnPeriodsManagement;
     }
 }
 

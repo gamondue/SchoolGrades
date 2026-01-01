@@ -21,9 +21,6 @@ namespace SchoolGrades
         private SchoolYear currentYear;
 
         bool initializingForm = true;
-        //bool firstTime = true;
-
-        Student currentStudent;
         Question currentQuestion;
         GradeType currentGradeType;
         Class currentClass;
@@ -31,11 +28,7 @@ namespace SchoolGrades
         Random random = new Random();
 
         System.Media.SoundPlayer suonatore = new System.Media.SoundPlayer();
-        public Student CurrentStudent
-        {
-            get => currentStudent;
-            set => currentStudent = value;
-        }
+        public Student CurrentStudent { get; set; }
 
         string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
@@ -881,11 +874,11 @@ namespace SchoolGrades
                 return;
             if (!Commons.CheckIfTypeOfAssessmentChosen(currentGradeType))
                 return;
-            if (!Commons.CheckIfStudentChosen(currentStudent))
+            if (!Commons.CheckIfStudentChosen(CurrentStudent))
                 return;
 
             // annotation applied to a single student
-            frmGradesStudentsSummary f = new frmGradesStudentsSummary(currentStudent, cmbSchoolYear.Text,
+            frmGradesStudentsSummary f = new frmGradesStudentsSummary(CurrentStudent, cmbSchoolYear.Text,
                 currentGradeType, (SchoolSubject)cmbSchoolSubject.SelectedItem);
             f.Show();
         }
@@ -987,7 +980,7 @@ namespace SchoolGrades
             if (!Commons.CheckIfSubjectChosen(currentSubject))
                 return;
             frmQuestionChoose scelta = new frmQuestionChoose(currentSubject,
-                currentClass, currentStudent, CurrentQuestion);
+                currentClass, CurrentStudent, CurrentQuestion);
             scelta.ShowDialog();
             if (scelta.ChosenQuestion != null && scelta.ChosenQuestion.IdQuestion != 0)
             {
@@ -1161,7 +1154,7 @@ namespace SchoolGrades
         }
         private void picStudent_DoubleClick(object sender, EventArgs e)
         {
-            frmStudent fs = new frmStudent(currentStudent, true);
+            frmStudent fs = new frmStudent(CurrentStudent, true);
             fs.ShowDialog();
         }
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -1369,9 +1362,9 @@ namespace SchoolGrades
         {
             double t = double.Parse(txtTimeInterval.Text);
             ColorTimer ft = new ColorTimer(t / 60, t / 60, SoundEffectsInTimer);
-            if (currentStudent != null)
+            if (CurrentStudent != null)
             {
-                ft.FormCaption = ft.FormCaption.Replace("gamon", currentStudent.LastName);
+                ft.FormCaption = ft.FormCaption.Replace("gamon", CurrentStudent.LastName);
             }
             ft.Show();
         }
@@ -1399,11 +1392,11 @@ namespace SchoolGrades
             // annotation can be applied to a single student or to a whole list, based on the 
             // lstNames being visible or not 
             List<Student> chosenStudents;
-            if (currentStudent != null && !dgwStudents.Visible)
+            if (CurrentStudent != null && !dgwStudents.Visible)
             {
                 // annotation applied to a single student
                 chosenStudents = new List<Student>();
-                chosenStudents.Add(currentStudent);
+                chosenStudents.Add(CurrentStudent);
             }
             else
             {
@@ -1523,9 +1516,9 @@ namespace SchoolGrades
                     return;
                 }
                 currentClass.CurrentStudent = currentStudentsList[e.RowIndex];
-                currentStudent = currentClass.CurrentStudent;
-                currentStudent.SchoolYear = currentClass.SchoolYear;
-                loadStudentsData(currentStudent);
+                CurrentStudent = currentClass.CurrentStudent;
+                CurrentStudent.SchoolYear = currentClass.SchoolYear;
+                loadStudentsData(CurrentStudent);
                 dgwStudents.Visible = false;
                 txtIdStudent.Visible = true;
                 lblIdStudent.Visible = true;
