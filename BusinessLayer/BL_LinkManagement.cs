@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using ImageBO = SchoolGrades.BusinessObjects.Image;
 
 namespace SchoolGrades
 {
@@ -40,10 +41,10 @@ namespace SchoolGrades
             throw new NotImplementedException();
         }
         internal void AddImageToLesson(string SourceImagePathAndFileName, string LessonImagesPath,
-            string LessonImagesRelativePath, Lesson Lesson, Class Class, Image Image, bool AutoRename, bool MantainOldFileName)
+            string LessonImagesRelativePath, Lesson Lesson, Class Class, ImageBO ImageBO, bool AutoRename, bool MantainOldFileName)
         {
-            // if the chosen file is already in the image path, the program
-            // will avoid copying it under the image path and will link to the 
+            // if the chosen file is already in the ImageBO path, the program
+            // will avoid copying it under the ImageBO path and will link to the 
             // existing file instead 
             //if (txtPathImportImage.Text.Contains(Commons.PathImages))
             if (Path.GetDirectoryName(SourceImagePathAndFileName).Contains(Commons.PathImages))
@@ -51,25 +52,25 @@ namespace SchoolGrades
                 // chosen file is inside the images path 
                 // does not copy and rename the file
                 // this spares HDD space on teachers' machine 
-                justLinkFileToLesson(SourceImagePathAndFileName, Lesson, Image.Caption);
+                justLinkFileToLesson(SourceImagePathAndFileName, Lesson, ImageBO.Caption);
             }
             else
             {
                 // chosen file is outside the common images path 
                 copyFileToImagesAndLinkToLessons(SourceImagePathAndFileName, LessonImagesPath,
-                    LessonImagesRelativePath, Lesson, Class, Image, AutoRename, MantainOldFileName);
+                    LessonImagesRelativePath, Lesson, Class, ImageBO, AutoRename, MantainOldFileName);
             }
         }
         private void justLinkFileToLesson(string PathAndFileName, Lesson Lesson, string ImageCaption)
         {
-            BusinessObjects.Image currentImage = Commons.bl.FindImageWithGivenFile(PathAndFileName);
-            // if the image that reference to the file isn't anymore in the database 
-            // create a new image that references to this file 
+            ImageBO currentImage = Commons.bl.FindImageWithGivenFile(PathAndFileName);
+            // if the ImageBO that reference to the file isn't anymore in the database 
+            // create a new ImageBO that references to this file 
             // (eg. if the lesson has been deleted from the database together with its images, but 
             // the file is (somehow) still there) 
             if (currentImage == null)
             {
-                currentImage = new BusinessObjects.Image();
+                currentImage = new ImageBO();
                 currentImage.IdImage = 0;
                 currentImage.RelativePathAndFilename = PathAndFileName.Remove(0, Commons.PathImages.Length + 1);
             }
@@ -79,7 +80,7 @@ namespace SchoolGrades
             Commons.bl.LinkOneImageToLesson(currentImage, Lesson);
         }
         private void copyFileToImagesAndLinkToLessons(string SourcePathAndFileName, string LessonImagesFullPath,
-            string LessonImagesRelativePath, Lesson Lesson, Class Class, Image Image, bool AutoRename, bool MantainOldFileName)
+            string LessonImagesRelativePath, Lesson Lesson, Class Class, ImageBO ImageBO, bool AutoRename, bool MantainOldFileName)
         {
             string ext = Path.GetExtension(SourcePathAndFileName);
             //LessonImagesPath = Class.SchoolYear +
@@ -116,7 +117,7 @@ namespace SchoolGrades
                         tempFileName.Replace("xggR", (i++).ToString("00")));
                 } while (File.Exists(destinationPathAndFileName));
                 destinationFileName = tempFileName.Replace("xggR", (--i).ToString("00"));
-                Image.RelativePathAndFilename = Path.Combine(LessonImagesRelativePath, destinationFileName);
+                ImageBO.RelativePathAndFilename = Path.Combine(LessonImagesRelativePath, destinationFileName);
             }
             else
             {
@@ -129,7 +130,7 @@ namespace SchoolGrades
                     //MessageBox.Show("Il file " + destinationPathAndFileName + " esiste già.");
                     return;
                 }
-                Image.RelativePathAndFilename = LessonImagesFullPath + destinationFileName;
+                ImageBO.RelativePathAndFilename = LessonImagesFullPath + destinationFileName;
             }
 
             if (!File.Exists(SourcePathAndFileName))
@@ -144,8 +145,8 @@ namespace SchoolGrades
                 Directory.CreateDirectory(Path.Combine(Commons.PathImages, LessonImagesFullPath));
             }
             File.Copy(SourcePathAndFileName, destinationPathAndFileName);
-            Image.IdImage = 0; // to force creation of a new record
-            Commons.bl.LinkOneImageToLesson(Image, Lesson);
+            ImageBO.IdImage = 0; // to force creation of a new record
+            Commons.bl.LinkOneImageToLesson(ImageBO, Lesson);
         }
         internal string GetNewestAmongFilesWithDateInName(string DatabasePath)
         {

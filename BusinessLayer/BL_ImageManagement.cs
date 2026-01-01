@@ -2,35 +2,38 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using ImageBO = SchoolGrades.BusinessObjects.Image;
+
+
 
 namespace SchoolGrades
 {
     internal partial class BusinessLayer
     {
-        internal Image FindImageWithGivenFile(string sourcePathAndFileName)
+        internal ImageBO FindImageWithGivenFile(string sourcePathAndFileName)
         {
             return dl.FindImageWithGivenFile(sourcePathAndFileName);
         }
-        internal void RemoveImageFromLesson(Lesson Lesson, Image Image, bool AlsoEraseFile)
+        internal void RemoveImageFromLesson(Lesson Lesson, ImageBO ImageBO, bool AlsoEraseFile)
         {
             if (AlsoEraseFile)
             {
                 try
                 {
                     // !!!! TODO: FIX: this gives error every time, so currently the program doesn't erase the pictures !!!!
-                    File.Delete(Path.Combine(Commons.PathImages, Image.RelativePathAndFilename));
+                    File.Delete(Path.Combine(Commons.PathImages, ImageBO.RelativePathAndFilename));
                 }
                 catch (Exception ex)
                 {
-                    string err = "DbLayer|RemoveImageFromLesson|" + Path.Combine(Commons.PathImages, Image.RelativePathAndFilename, ex.Message, ex.StackTrace);
+                    string err = "DbLayer|RemoveImageFromLesson| " + Commons.PathImages + ImageBO.RelativePathAndFilename + " , " + ex.Message + ", " + ex.StackTrace;
                     Commons.ErrorLog(err);
                     Console.Beep();
                     //////throw new Exception(err);
                 }
             }
-            dl.RemoveImageFromLesson(Lesson, Image, AlsoEraseFile);
+            dl.RemoveImageFromLesson(Lesson, ImageBO, AlsoEraseFile);
         }
-        internal void SaveImage(Image currentImage)
+        internal void SaveImage(ImageBO currentImage)
         {
             dl.SaveImage(currentImage);
         }
@@ -38,7 +41,7 @@ namespace SchoolGrades
         {
             dl.AddLinkToPreviousYearPhoto(IdStudent, IdPreviousSchoolYear, IdNextSchoolYear);
         }
-        internal List<Image> GetAllImagesShownToAClassDuringLessons(Class currentClass, SchoolSubject currentSubject, DateTime dateTime, DateTime now)
+        internal List<ImageBO> GetAllImagesShownToAClassDuringLessons(Class currentClass, SchoolSubject currentSubject, DateTime dateTime, DateTime now)
         {
             return dl.GetAllImagesShownToAClassDuringLessons(currentClass, currentSubject, dateTime, now);
         }

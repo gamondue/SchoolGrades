@@ -1,6 +1,7 @@
 ﻿using SchoolGrades.BusinessObjects;
 using System;
 using System.Collections.Generic;
+using ImageBO = SchoolGrades.BusinessObjects.Image;
 
 namespace SchoolGrades
 {
@@ -34,7 +35,7 @@ namespace SchoolGrades
         {
             dl.SaveTopicsOfLesson(idLesson, topicsOfTheLesson);
         }
-        internal List<Image> GetListLessonsImages(Lesson currentLesson)
+        internal List<ImageBO> GetListLessonsImages(Lesson currentLesson)
         {
             return dl.GetLessonsImagesList(currentLesson);
         }
@@ -46,7 +47,7 @@ namespace SchoolGrades
         {
             return dl.NewLesson(currentLesson);
         }
-        internal void LinkOneImageToLesson(Image currentImage, Lesson currentLesson)
+        internal void LinkOneImageToLesson(ImageBO currentImage, Lesson currentLesson)
         {
             dl.LinkOneImageToLesson(currentImage, currentLesson);
         }

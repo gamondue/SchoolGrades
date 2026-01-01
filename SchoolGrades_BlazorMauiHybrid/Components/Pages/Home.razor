@@ -1,0 +1,145 @@
+﻿@page "/"
+@using SchoolGrades
+@inject IJSRuntime JSRuntime
+
+<div class="page random-page">
+    <div class="input-section">
+        <div class="form-group">
+            <label for="from">Da:</label>
+            <input type="number" id="from" @bind="from" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="to">A:</label>
+            <input type="number" id="to" @bind="to" class="form-control" />
+        </div>
+        <button class="btn btn-primary" @onclick="DrawRandom">Estrai</button>
+    </div>
+
+    <div class="result-section">
+        <div class="result" style="background-color: @resultBackgroundColor">
+            @result
+        </div>
+    </div>
+</div>
+
+<style>
+    .random-page {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        min-height: 100vh;
+        background-color: white;
+    }
+
+    .input-section {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .form-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .form-group label {
+            margin: 0;
+            font-weight: bold;
+        }
+
+    .form-control {
+        width: 100px;
+        height: 38px;
+        padding: 6px 12px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+    }
+
+    .btn-primary {
+        min-width: 100px;
+        height: 38px;
+        background-color: #1b6ec2;
+        border-color: #1861ac;
+        color: white;
+        border-radius: 4px;
+    }
+
+    .result-section {
+        margin-top: 20px;
+    }
+
+    .result {
+        font-size: 32px;
+        padding: 20px 40px;
+        border-radius: 8px;
+        min-width: 150px;
+        text-align: center;
+        color: black;
+        font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+        .random-page {
+            padding: 15px;
+        }
+
+        .input-section {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group {
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .form-control {
+            width: 150px;
+        }
+
+        .btn-primary {
+            width: 100%;
+        }
+
+        .result {
+            font-size: 28px;
+            padding: 15px 30px;
+        }
+    }
+</style>
+
+@code {
+    private int from = 1;
+    private int to = 10;
+    private string result = "";
+    private string resultBackgroundColor = "goldenrod";
+
+    private async Task DrawRandom()
+    {
+        try
+        {
+            if (from <= to)
+            {
+                int randomNumber = Commons.bl.RandomNumber(from, to + 1);
+                result = randomNumber.ToString();
+
+                // Alternate background colors
+                resultBackgroundColor = resultBackgroundColor == "goldenrod" ? "yellowgreen" : "goldenrod";
+
+                // Copy to clipboard
+                await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", result);
+            }
+        }
+        catch (Exception ex)
+        {
+            result = "Errore!";
+            Console.WriteLine($"Errore nel generare il numero casuale: {ex.Message}");
+        }
+    }
+}

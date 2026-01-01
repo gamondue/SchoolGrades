@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Diagnostics;
+using ImageBO = SchoolGrades.BusinessObjects.Image;
 
 namespace SchoolGrades
 {
@@ -189,7 +190,7 @@ namespace SchoolGrades
             string IdGradeType, string IdSchoolSubject, DateTime DateFrom, DateTime DateTo);
 
         // ImageManagement
-        internal abstract List<Image> GetAllImagesShownToAClassDuringLessons(Class Class, SchoolSubject Subject,
+        internal abstract List<ImageBO> GetAllImagesShownToAClassDuringLessons(Class Class, SchoolSubject Subject,
             DateTime DateStart = default(DateTime), DateTime DateFinish = default(DateTime));
         internal abstract List<string> GetCaptionsOfThisImage(string FileName);
         internal abstract void EraseStudentsPhoto(int? IdStudent, string SchoolYear);
@@ -197,10 +198,10 @@ namespace SchoolGrades
         internal abstract void ChangeImagePath(Class Class, DbCommand cmd);
         internal abstract void SaveImagePath(int? id, string path);
         internal abstract int? SaveDemoStudentPhotoPath(string relativePath, DbCommand cmd);
-        internal abstract void RemoveImageFromLesson(Lesson Lesson, Image Image, bool AlsoEraseImageFile);
-        internal abstract void SaveImage(Image Image);
-        internal abstract Image FindImageWithGivenFile(string PathAndFileNameOfImage);
-        internal abstract int? LinkOneImage(Image Image, Lesson Lesson);
+        internal abstract void RemoveImageFromLesson(Lesson Lesson, ImageBO ImageBO, bool AlsoEraseImageFile);
+        internal abstract void SaveImage(ImageBO ImageBO);
+        internal abstract ImageBO FindImageWithGivenFile(string PathAndFileNameOfImage);
+        internal abstract int? LinkOneImage(ImageBO ImageBO, Lesson Lesson);
         // LessonManagement
         internal abstract Lesson GetLessonFromRow(DbDataReader dRead);
         internal abstract int NewLesson(Lesson Lesson);
@@ -215,15 +216,15 @@ namespace SchoolGrades
         internal abstract void EraseLesson(int? IdLesson, bool AlsoEraseImageFiles);
         internal abstract List<Topic> GetTopicsOfLesson(int? IdLesson);
         internal abstract void SaveTopicsOfLesson(int? IdLesson, List<Topic> topicsOfTheLesson);
-        internal abstract List<Image> GetLessonsImagesList(Lesson Lesson);
+        internal abstract List<ImageBO> GetLessonsImagesList(Lesson Lesson);
         /// <summary>
-        /// Creates a new Image in Images and links it to the lesson
-        /// If the image has an id != 0, it exists and is not created 
+        /// Creates a new ImageBO in Images and links it to the lesson
+        /// If the ImageBO has an id != 0, it exists and is not created 
         /// </summary>
-        /// <param name="Image"></param>
+        /// <param name="ImageBO"></param>
         /// <param name="Lesson"></param>
         /// <returns></returns>
-        internal abstract int? LinkOneImageToLesson(Image Image, Lesson Lesson);
+        internal abstract int? LinkOneImageToLesson(ImageBO ImageBO, Lesson Lesson);
         internal abstract List<Topic> GetTopicsDoneInClassInPeriod(Class Class,
             SchoolSubject Subject, DateTime? DateStart, DateTime? DateFinish);
 
